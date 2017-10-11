@@ -1,26 +1,13 @@
 ---
 layout: default
 permalink: /czym-wlasciwie-jest-programowanie/
-excerpt_separator: "<!--more-->"
-
 status: publish
 published: true
 title: Czym właściwie jest programowanie
-author:
-  display_name: Marcin Pietraszek
-  login: marcin
-  email: m.pietraszek@gmail.com
-  url: ''
-author_login: marcin
-author_email: m.pietraszek@gmail.com
-
-wordpress_id: 5
-wordpress_url: http://www.samouczekprogramisty.pl/?p=5
 date: '2015-10-07 16:03:15 +0200'
-date_gmt: '2015-10-07 16:03:15 +0200'
 categories:
 - Programowanie
-tags: []
+excerpt_separator: "<!--more-->"
 ---
 No to zaczynamy. Programowanie to nic innego jak ciekawe zajęcie. To ciągłe rozwiązywanie zagadek i problemów w kreatywny sposób. To też żmudna i pracochłonna praca wymagająca zaangażowania i ciągłej nauki. Mimo swoich wad zajmuję się tym od ładnych paru lat, moim zdaniem zalet jest znacznie więcej! W artykułach na tym blogu postaram się przeprowadzić Cię przez początki programowania, zarazić Cię tą pasją. Miejmy nadzieję, że mi się to uda :).
 
@@ -40,7 +27,7 @@ Mówi się, że programista powinien charakteryzować się analitycznym myśleni
 <li>ucz się języka angielskiego, na pewno przyda się nie tylko do programowania,</li>
 <li>nie bój się przedmiotów ścisłych,</li>
 <li>wkładaj dużo pracy w naukę programowania.</li><br />
-</ul></p>
+</ul>
 <h1><b>Rozmowa z komputerem</b></h1><br />
 Do porozumiewania się ze swoimi przyjaciółmi, znajomymi używamy dobrze znanych słów i zwrotów. Rozumiemy się nawzajem, jesteśmy w stanie przekazać sobie pewne informacje. Jeśli posługujemy się językami obcymi porozumiemy się swobodnie z większą grupą ludzi. Podobnie jest z komputerem. Jeśli chcesz się z nim porozumieć musisz mówić jego językiem. Nie chcę Cię tu zanudzać wpisem o zerach i jedynkach fruwających w pamięci komputera jednak pewne podstawy są tu potrzebne.</p>
 <p>Język programowania to nic innego jak język, który &bdquo;rozumieją&rdquo; programiści. Są w stanie się nim swobodnie posługiwać, który następnie &bdquo;tłumaczony&rdquo; jest do języka komputera. Słowa przetłumaczone są na ciąg zer i jedynek zrozumiały przez komputer. Ten etap tłumaczenia możemy nazwać kompilacją (ang. compile).</p>
