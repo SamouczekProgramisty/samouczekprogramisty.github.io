@@ -25,20 +25,20 @@ tags: []
 ---
 <p>Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad projektem. Pokazuje też finalny efekt tej pracy.</p>
 <p><a id="more"></a><a id="more-914"></a></p>
-<p>[idea]Jeśli chcesz przeczytać więcej na temat samego projektu i jego założeń zapraszam do przeczytania <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;projekty&#47;pogodynka&#47;">pozostałych artykułów opisujących projekt<&#47;a>.[&#47;idea]</p>
-<h1>Mistrz lutownicy ucieka<&#47;h1><br />
+<p>[idea]Jeśli chcesz przeczytać więcej na temat samego projektu i jego założeń zapraszam do przeczytania <a href="http://www.samouczekprogramisty.pl/projekty/pogodynka/">pozostałych artykułów opisujących projekt</a>.[/idea]</p>
+<h1>Mistrz lutownicy ucieka</h1><br />
 Aby mieć sensowne odczyty temperatury musiałem użyć czujnika zewnętrznego. Jest on odporny na wilgoć więc nie powinno być problemu z odczytem temperatury w trakcie deszczu. Mistrzem lutownicy na pewno nie jestem, ale finalny efekt nie wyszedł najgorzej.</p>
-<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;lutowanie.jpeg"><img class="aligncenter size-medium wp-image-915" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;lutowanie-300x225.jpeg" alt="Lutowanie czjunika" width="300" height="225" &#47;><&#47;a>Na zdjęciu możesz zobaczyć opornik przylutowany do czujnika temperatury.</p>
-<h1>Profile Spring w aplikacji Datavault<&#47;h1><br />
-Aplikacja webowa, która odpowiada za zapis i odczyt historycznych wskazań czujnika temperatury działa w kilku środowiskach. Pierwszym z nich jest środowisko developerskie. Kolejnym &ldquo;produkcyjne&rdquo;, w którym aplikacja jest <a href="http:&#47;&#47;pogodynka.pietraszek.pl" target="_blank" rel="noopener noreferrer">dostępna z internetu<&#47;a>.</p>
-<p>Oba te środowiska różnią się między sobą. Jedną z różnic jest konfiguracja bazy danych. W związku z tym użyłem <a href="https:&#47;&#47;docs.spring.io&#47;spring-boot&#47;docs&#47;current&#47;reference&#47;html&#47;boot-features-profiles.html" target="_blank" rel="noopener noreferrer">profili udostępnionych przez Springa<&#47;a>.</p>
+<p><a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/05/lutowanie.jpeg"><img class="aligncenter size-medium wp-image-915" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/05/lutowanie-300x225.jpeg" alt="Lutowanie czjunika" width="300" height="225" /></a>Na zdjęciu możesz zobaczyć opornik przylutowany do czujnika temperatury.</p>
+<h1>Profile Spring w aplikacji Datavault</h1><br />
+Aplikacja webowa, która odpowiada za zapis i odczyt historycznych wskazań czujnika temperatury działa w kilku środowiskach. Pierwszym z nich jest środowisko developerskie. Kolejnym &ldquo;produkcyjne&rdquo;, w którym aplikacja jest <a href="http://pogodynka.pietraszek.pl" target="_blank" rel="noopener noreferrer">dostępna z internetu</a>.</p>
+<p>Oba te środowiska różnią się między sobą. Jedną z różnic jest konfiguracja bazy danych. W związku z tym użyłem <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html" target="_blank" rel="noopener noreferrer">profili udostępnionych przez Springa</a>.</p>
 <p>Profil wybierany jest na podstawie jednego z parametrów przekazywanych podczas uruchomienia wirtualnej maszyny Javy. Dzięki temu bez zmieniania kodu aplikacji mogę użyć tego samego pliku war w różnych środowiskach.</p>
-<h1>Średnia dobowa temperatura<&#47;h1><br />
-Użytkownik, dla którego pisałem tę aplikację (mój ociec ;)), wspomniał o paru funkcjonalnościach, kt&oacute;re byłby przydatne.</p>
+<h1>Średnia dobowa temperatura</h1><br />
+Użytkownik, dla którego pisałem tę aplikację (mój ociec ;)), wspomniał o paru funkcjonalnościach, które byłby przydatne.</p>
 <p>Główną z nich jest możliwość udostępnienia średniej dobowej temperatury. W meteorologii temperatura ta jest średnią z odczytów z godzin 1, 7, 13 i 19.</p>
 <p>W przypadku Pogodynki malinka wysyła odczyty temperatury co godzinę. Oczywiście jest to pomiar z &ldquo;drobnym poślizgiem&rdquo;, na przykład z godziny 13:00:05 a nie 13:00:00. Średnią dobową obliczam na etapie pobierania danych z bazy danych używając następującego zapytania SQL:</p>
 <pre class="lang:default decode:true ">  SELECT day,<br />
-         SUM(temperature) &#47; COUNT(temperature) AS daily_average<br />
+         SUM(temperature) / COUNT(temperature) AS daily_average<br />
     FROM (SELECT DATE(when_measured) AS day,<br />
                  EXTRACT('hour' FROM when_measured) AS hour,<br />
                  temperature<br />
@@ -46,15 +46,15 @@ Użytkownik, dla którego pisałem tę aplikację (mój ociec ;)), wspomniał o 
            WHERE EXTRACT('hour' FROM when_measured) IN (1, 7, 13, 19)<br />
              AND EXTRACT('minute' FROM when_measured) < 2) AS daily_temps<br />
 GROUP BY day<br />
-ORDER BY day;<&#47;pre><br />
+ORDER BY day;</pre><br />
 Następnie wyniki tego zapytania udostępnione są w formie dokumentu JSON. Tak sformatowane dane są następnie wykorzystywane przez interfejs użytkownika.</p>
-<h1>Interfejs użytkownika<&#47;h1><br />
-Kilka ostatnich dni poświęciłem na pracę nad <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;frontend&#47;index.html" target="_blank" rel="noopener noreferrer">interfejsem użytkownika<&#47;a>. Całość sprowadzała się do eksperymentów z JavaScript i API biblioteki <a href="https:&#47;&#47;www.highcharts.com&#47;" target="_blank" rel="noopener noreferrer">Highcharts<&#47;a>. Właśnie tej biblioteki użyłem do pokazywania historycznych wykresów temperatury.</p>
+<h1>Interfejs użytkownika</h1><br />
+Kilka ostatnich dni poświęciłem na pracę nad <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/master/frontend/index.html" target="_blank" rel="noopener noreferrer">interfejsem użytkownika</a>. Całość sprowadzała się do eksperymentów z JavaScript i API biblioteki <a href="https://www.highcharts.com/" target="_blank" rel="noopener noreferrer">Highcharts</a>. Właśnie tej biblioteki użyłem do pokazywania historycznych wykresów temperatury.</p>
 <p>Finalny efekt pracy wygląda następująco:</p>
-<h1><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;wykres_temperatury.jpeg"><img class="aligncenter size-medium wp-image-916" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;wykres_temperatury-300x171.jpeg" alt="" width="300" height="171" &#47;><&#47;a>Podsumowanie projektu<&#47;h1><br />
-W trakcie pracy nad projektem udało mi się zrealizować większość początkowych założeń. Projekt udało mi się &ldquo;dowieźć&rdquo; w terminie. <a href="https:&#47;&#47;trello.com&#47;b&#47;yqZHTqSN&#47;pogodynka" target="_blank" rel="noopener noreferrer">Trello<&#47;a>, którego używałem do śledzenia zadań w projekcie pokazuje dokładnie w jakim etapie jestem etapie. Jest bardzo dobrze :).</p>
-<p>Chociaż całość mogę określić jako &ldquo;udany projekt&rdquo; mam świadomość pewnych niedociągnięć. Głównym z nich jest brak testów integracyjnych dla aplikacji Datavault. Podejrzewam, że znalazłbym kilka błęd&oacute;w po napisaniu odpowiedniego zestawu test&oacute;w&#47;</p>
+<h1><a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/05/wykres_temperatury.jpeg"><img class="aligncenter size-medium wp-image-916" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/05/wykres_temperatury-300x171.jpeg" alt="" width="300" height="171" /></a>Podsumowanie projektu</h1><br />
+W trakcie pracy nad projektem udało mi się zrealizować większość początkowych założeń. Projekt udało mi się &ldquo;dowieźć&rdquo; w terminie. <a href="https://trello.com/b/yqZHTqSN/pogodynka" target="_blank" rel="noopener noreferrer">Trello</a>, którego używałem do śledzenia zadań w projekcie pokazuje dokładnie w jakim etapie jestem etapie. Jest bardzo dobrze :).</p>
+<p>Chociaż całość mogę określić jako &ldquo;udany projekt&rdquo; mam świadomość pewnych niedociągnięć. Głównym z nich jest brak testów integracyjnych dla aplikacji Datavault. Podejrzewam, że znalazłbym kilka błędów po napisaniu odpowiedniego zestawu testów/</p>
 <p>Muszę też powiedzieć, że zdecydowanie nie doszacowałem części związanej z integracją i konfiguracją. Praca nad modułami puppeta zajęła mi sporo czasu.</p>
 <p>Podsumowując całość w jednym zdaniu. Bardzo się cieszę, że Pogodynka zakończyła się sukcesem :).</p>
 <p>W przyszłości planuję realizację innych projektów tego typu. Może chciałbyś zobaczyć konkretny projekt realizowany w ten sposób? Daj znać w komentarzac, razem na pewno uda się nam wybrać coś ciekawego :).</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;schermannski&#47;34492740872&#47;sizes&#47;l</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/schermannski/34492740872/sizes/l</p>

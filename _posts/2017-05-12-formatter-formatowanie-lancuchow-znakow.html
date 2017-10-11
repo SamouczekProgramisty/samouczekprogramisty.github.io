@@ -25,162 +25,162 @@ categories:
 tags: []
 comments: []
 ---
-<p>W trakcie pracy z łańcuchami znaków bardzo często musimy prezentować je odpowiednim formacie. Dzisiejszy artykuł poświęcony będzie właśnie formatowaniu łańcuchów znak&oacute;w. Dodatkowo dowiesz się czym jest lokalizacja i jaki ma wpływ na formatowanie. Całość będziesz m&oacute;gł przećwiczyć rozwiązując ćwiczenie związane z formatowaniem.</p>
+<p>W trakcie pracy z łańcuchami znaków bardzo często musimy prezentować je odpowiednim formacie. Dzisiejszy artykuł poświęcony będzie właśnie formatowaniu łańcuchów znaków. Dodatkowo dowiesz się czym jest lokalizacja i jaki ma wpływ na formatowanie. Całość będziesz mógł przećwiczyć rozwiązując ćwiczenie związane z formatowaniem.</p>
 <p><a id="more"></a><a id="more-895"></a></p>
-<h1>Formatowanie<&#47;h1><br />
+<h1>Formatowanie</h1><br />
 Wyobraź sobie, że chcesz pokazać użytkownikowi pewne zestawienie. Dane tego typu wygodnie jest prezentować w formie tabelarycznej. Tak dochodzimy do problemu formatowania. W jaki sposób można taki format uzyskać?</p>
-<p>Problem ten można rozwiązać posługując się klasą <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;Formatter.html" target="_blank" rel="noopener noreferrer"><code>Formatter<&#47;code><&#47;a>. Instancje właśnie tej klasy użyte są w wielu innych miejscach. Na przykład:</p>
+<p>Problem ten można rozwiązać posługując się klasą <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html" target="_blank" rel="noopener noreferrer"><code>Formatter</code></a>. Instancje właśnie tej klasy użyte są w wielu innych miejscach. Na przykład:</p>
 <ul>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;PrintWriter.html#format-java.lang.String-java.lang.Object...-" target="_blank" rel="noopener noreferrer"><code>PrintWriter.format<&#47;code><&#47;a> Wewnątrz tej metody użyty jest <code>Formatter<&#47;code>. <code>System.out<&#47;code> to instancja klasy <code>PrintWriter<&#47;code>. Dzięki temu w bardzo wygodny sposób możesz formatować tekst wypisując go na konsoli używając metody <code>System.out.format<&#47;code>,<&#47;li>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;String.html#format-java.lang.String-java.lang.Object...-" target="_blank" rel="noopener noreferrer"><code>String.format<&#47;code><&#47;a> statyczna metoda w klasie <code>String<&#47;code>, która pozwala na formatowanie łańcucha znaków. Jej implementacja także bazuje na klasie <code>Formatter<&#47;code>.<&#47;li><br />
-<&#47;ul></p>
-<h1>Zasada działania formattera<&#47;h1><br />
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/PrintWriter.html#format-java.lang.String-java.lang.Object...-" target="_blank" rel="noopener noreferrer"><code>PrintWriter.format</code></a> Wewnątrz tej metody użyty jest <code>Formatter</code>. <code>System.out</code> to instancja klasy <code>PrintWriter</code>. Dzięki temu w bardzo wygodny sposób możesz formatować tekst wypisując go na konsoli używając metody <code>System.out.format</code>,</li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#format-java.lang.String-java.lang.Object...-" target="_blank" rel="noopener noreferrer"><code>String.format</code></a> statyczna metoda w klasie <code>String</code>, która pozwala na formatowanie łańcucha znaków. Jej implementacja także bazuje na klasie <code>Formatter</code>.</li><br />
+</ul></p>
+<h1>Zasada działania formattera</h1><br />
 Formatter działa w oparciu o specjalny łańcuch znaków. Ten łańcuch opisuje sam format w jakim dane powinny być sformatowane. Może on wyglądać następująco:</p>
 <pre class="lang:default highlight:0 decode:true">%2$08.3f %3$(,08.3f %s<br />
-<&#47;pre><br />
-Nie przeraź się tym przykładem, po przeczytaniu tego artykułu będziesz dokładnie wiedział co ten magiczny wzorek oznacza. Jest on celowo skomplikowany, żeby pokazać Ci możliwości klasy <code>Formatter<&#47;code>.</p>
-<h1>Łańcuch formatujący<&#47;h1><br />
+</pre><br />
+Nie przeraź się tym przykładem, po przeczytaniu tego artykułu będziesz dokładnie wiedział co ten magiczny wzorek oznacza. Jest on celowo skomplikowany, żeby pokazać Ci możliwości klasy <code>Formatter</code>.</p>
+<h1>Łańcuch formatujący</h1><br />
 Zacznijmy od prostego przykładu:</p>
 <pre class="lang:default decode:true ">Formatter formatter = new Formatter();<br />
 formatter.format("Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.", 2015, "Marcin");<br />
 String formattedString = formatter.toString();<br />
-System.out.println(formattedString);<&#47;pre><br />
+System.out.println(formattedString);</pre><br />
 Po uruchomieniu tego fragmentu kodu na konsoli pokaże się:</p>
-<pre class="lang:default highlight:0 decode:true ">Samouczek Programisty istnieje od 2015. Wszystkie artykuły pisze Marcin.<&#47;pre><br />
-Powyższy fragment kodu to nic innego jak utworzenie nowej instancji klasy <code>Formatter<&#47;code>. Następnie na tej instancji wywołana jest metoda <code>format<&#47;code>. Jako pierwszy argument przyjmuje ona łańcuch formatujący. Następnie może przyjąć zmienną liczbę argumentów, które wykorzystywane są do uzupełniania formatu.<br />
+<pre class="lang:default highlight:0 decode:true ">Samouczek Programisty istnieje od 2015. Wszystkie artykuły pisze Marcin.</pre><br />
+Powyższy fragment kodu to nic innego jak utworzenie nowej instancji klasy <code>Formatter</code>. Następnie na tej instancji wywołana jest metoda <code>format</code>. Jako pierwszy argument przyjmuje ona łańcuch formatujący. Następnie może przyjąć zmienną liczbę argumentów, które wykorzystywane są do uzupełniania formatu.<br />
 a<br />
-W naszym przypadku łańcuchem formatującym jest <code>Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.<&#47;code>. Natomiast dwa parametry służące do uzupełniania formatu to literały <code>2015<&#47;code> i <code>Marcin<&#47;code>.</p>
-<p>Powyższy fragment można uprościć używając wcześniej wspomnianej metody <code>PrintWriter.format<&#47;code>:</p>
-<pre class="lang:default decode:true">System.out.format("Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.%n", 2015, "Marcin")<&#47;pre><br />
-W dalszej części artykułu posługiwał będę się tą uproszczoną wersją. Ważne jest żebyś miał jednak świadomość, że pod spodem używana jest instancji klasy <code>Formatter<&#47;code>.</p>
-<h1>Znaczniki konwersji<&#47;h1><br />
-Wcześniej użyty łańcuch formatujący to zwykły <code>String<&#47;code>, wewnątrz którego znajdują się sekwencje interpretowane w specjalny sposób. Sekwencje te zawsze mają format:</p>
-<pre class="lang:default highlight:0 decode:true">%[indeks argumentu$][flagi][szerokość][.precyzja]konwersja<&#47;pre><br />
-Wszystkie elementy otoczone nawiasami [] są opcjonalne więc w najprostszej wersji znacznik konwersji może mieć format <code>%konwersja<&#47;code>. Zwróć jeszcze raz uwagę na łańcuch formatujący</p>
-<pre class="lang:default highlight:0 decode:true ">Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.<&#47;pre><br />
-Jak widzisz znajdują się w nim dwa znaczniki konwersji. Są to <code>%d<&#47;code> i <code>%s<&#47;code>. Odnoszą się one do kolejnych argumentów metody <code>format<&#47;code>. W naszym przypadku są to literały <code>2015<&#47;code> i <code>Marcin<&#47;code>.</p>
-<p>Znaczniki konwersji informują instancję klasy <code>Formatter<&#47;code> w jaki sposób dodatkowe parametry powinny być sformatowane. Występuje wiele znaczników konwersji, te najczęściej używane podsumowane są w tabeli poniżej:</p>
+W naszym przypadku łańcuchem formatującym jest <code>Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.</code>. Natomiast dwa parametry służące do uzupełniania formatu to literały <code>2015</code> i <code>Marcin</code>.</p>
+<p>Powyższy fragment można uprościć używając wcześniej wspomnianej metody <code>PrintWriter.format</code>:</p>
+<pre class="lang:default decode:true">System.out.format("Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.%n", 2015, "Marcin")</pre><br />
+W dalszej części artykułu posługiwał będę się tą uproszczoną wersją. Ważne jest żebyś miał jednak świadomość, że pod spodem używana jest instancji klasy <code>Formatter</code>.</p>
+<h1>Znaczniki konwersji</h1><br />
+Wcześniej użyty łańcuch formatujący to zwykły <code>String</code>, wewnątrz którego znajdują się sekwencje interpretowane w specjalny sposób. Sekwencje te zawsze mają format:</p>
+<pre class="lang:default highlight:0 decode:true">%[indeks argumentu$][flagi][szerokość][.precyzja]konwersja</pre><br />
+Wszystkie elementy otoczone nawiasami [] są opcjonalne więc w najprostszej wersji znacznik konwersji może mieć format <code>%konwersja</code>. Zwróć jeszcze raz uwagę na łańcuch formatujący</p>
+<pre class="lang:default highlight:0 decode:true ">Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.</pre><br />
+Jak widzisz znajdują się w nim dwa znaczniki konwersji. Są to <code>%d</code> i <code>%s</code>. Odnoszą się one do kolejnych argumentów metody <code>format</code>. W naszym przypadku są to literały <code>2015</code> i <code>Marcin</code>.</p>
+<p>Znaczniki konwersji informują instancję klasy <code>Formatter</code> w jaki sposób dodatkowe parametry powinny być sformatowane. Występuje wiele znaczników konwersji, te najczęściej używane podsumowane są w tabeli poniżej:</p>
 <table>
 <thead>
 <tr>
-<th>Znacznik<&#47;th></p>
-<th>Typ argumentu<&#47;th></p>
-<th>Działanie<&#47;th><br />
-<&#47;tr><br />
-<&#47;thead></p>
+<th>Znacznik</th></p>
+<th>Typ argumentu</th></p>
+<th>Działanie</th><br />
+</tr><br />
+</thead></p>
 <tbody>
 <tr>
-<td><code>%b<&#47;code><&#47;td></p>
-<td>dowolny<&#47;td></p>
-<td>interpretuje argument jako wartość logiczną<&#47;td><br />
-<&#47;tr></p>
+<td><code>%b</code></td></p>
+<td>dowolny</td></p>
+<td>interpretuje argument jako wartość logiczną</td><br />
+</tr></p>
 <tr>
-<td><code>%s<&#47;code><&#47;td></p>
-<td>dowolny<&#47;td></p>
-<td>interpretuje argument jako łańcuch znaków<&#47;td><br />
-<&#47;tr></p>
+<td><code>%s</code></td></p>
+<td>dowolny</td></p>
+<td>interpretuje argument jako łańcuch znaków</td><br />
+</tr></p>
 <tr>
-<td><code>%d<&#47;code><&#47;td></p>
-<td>liczba całkowita<&#47;td></p>
-<td>interpretuje argument jako liczbę całkowitą<&#47;td><br />
-<&#47;tr></p>
+<td><code>%d</code></td></p>
+<td>liczba całkowita</td></p>
+<td>interpretuje argument jako liczbę całkowitą</td><br />
+</tr></p>
 <tr>
-<td><code>%o<&#47;code><&#47;td></p>
-<td>liczba całkowita<&#47;td></p>
-<td>interpretuje argument jako liczbę całkowitą zapisaną w systemie ósemkowym<&#47;td><br />
-<&#47;tr></p>
+<td><code>%o</code></td></p>
+<td>liczba całkowita</td></p>
+<td>interpretuje argument jako liczbę całkowitą zapisaną w systemie ósemkowym</td><br />
+</tr></p>
 <tr>
-<td><code>%x<&#47;code><&#47;td></p>
-<td>liczba całkowita<&#47;td></p>
-<td>interpretuje argument jako liczbę całkowitą zapisaną w systemie szesnastkowym<&#47;td><br />
-<&#47;tr></p>
+<td><code>%x</code></td></p>
+<td>liczba całkowita</td></p>
+<td>interpretuje argument jako liczbę całkowitą zapisaną w systemie szesnastkowym</td><br />
+</tr></p>
 <tr>
-<td><code>%f<&#47;code><&#47;td></p>
-<td>liczba zmiennoprzecinkowa<&#47;td></p>
-<td>interpretuje argument jako liczbę zmiennoprzecinkową<&#47;td><br />
-<&#47;tr></p>
+<td><code>%f</code></td></p>
+<td>liczba zmiennoprzecinkowa</td></p>
+<td>interpretuje argument jako liczbę zmiennoprzecinkową</td><br />
+</tr></p>
 <tr>
-<td><code>%%<&#47;code><&#47;td></p>
-<td>-<&#47;td></p>
-<td>nie potrzebuje argumentu, jest to sposób na umieszczenie znaku <code>%<&#47;code> wewnątrz sformatowanego łańcucha znaków<&#47;td><br />
-<&#47;tr></p>
+<td><code>%%</code></td></p>
+<td>-</td></p>
+<td>nie potrzebuje argumentu, jest to sposób na umieszczenie znaku <code>%</code> wewnątrz sformatowanego łańcucha znaków</td><br />
+</tr></p>
 <tr>
-<td><code>%n<&#47;code><&#47;td></p>
-<td>-<&#47;td></p>
-<td>nie potrzebuje argumentu, jest to sposób na umieszczenie znaku nowej linii wewnątrz sformatowanego łańcucha znaków<&#47;td><br />
-<&#47;tr><br />
-<&#47;tbody><br />
-<&#47;table></p>
-<h2>Indeks argumentu<&#47;h2><br />
-Metoda format przyjmuje łańcuch formatujący i parametry, które służą do wypełnienia znaczników formatujących. Jeśli chciałbyś użyć, kt&oacute;regoś obiektu wiele razy możesz użyć indeksu argumentu. Indeksy mają także zastosowanie jeśli chciałbyś użyć argument&oacute;w w innej kolejności. Numeracja argument&oacute;w zaczyna się od 1. Proszę sp&oacute;jrz na przykład poniżej:</p>
-<pre class="lang:default decode:true"> System.out.format("[%2$s] [%1$s] [%1$s]", "pierwszy argument", "drugi argument");<&#47;pre><br />
+<td><code>%n</code></td></p>
+<td>-</td></p>
+<td>nie potrzebuje argumentu, jest to sposób na umieszczenie znaku nowej linii wewnątrz sformatowanego łańcucha znaków</td><br />
+</tr><br />
+</tbody><br />
+</table></p>
+<h2>Indeks argumentu</h2><br />
+Metoda format przyjmuje łańcuch formatujący i parametry, które służą do wypełnienia znaczników formatujących. Jeśli chciałbyś użyć, któregoś obiektu wiele razy możesz użyć indeksu argumentu. Indeksy mają także zastosowanie jeśli chciałbyś użyć argumentów w innej kolejności. Numeracja argumentów zaczyna się od 1. Proszę spójrz na przykład poniżej:</p>
+<pre class="lang:default decode:true"> System.out.format("[%2$s] [%1$s] [%1$s]", "pierwszy argument", "drugi argument");</pre><br />
 Po uruchomieniu tego kodu na konsoli zostanie wyświetlony napis:</p>
-<pre class="lang:default highlight:0 decode:true">[drugi argument] [pierwszy argument] [pierwszy argument]<&#47;pre><br />
+<pre class="lang:default highlight:0 decode:true">[drugi argument] [pierwszy argument] [pierwszy argument]</pre><br />
 Argument z numerem 1 użyty jest dwa razy, argument 2. użyty jest jako pierwszy w łańcuchu formatującym.</p>
-<h2>Szerokość<&#47;h2><br />
+<h2>Szerokość</h2><br />
 Możesz także określić minimalną szerokość jaką powinien zająć argument. Domyślnie zostanie on wyrównany do prawej. Proszę spójrz na przykład poniżej:</p>
-<pre class="lang:default decode:true ">System.out.format("[%10s] [%3s]", "test", "test");<&#47;pre><br />
+<pre class="lang:default decode:true ">System.out.format("[%10s] [%3s]", "test", "test");</pre><br />
 Pierwszy fragment będzie uzupełniony sześcioma spacjami. Dzieje się tak ponieważ test ma cztery znaki a minimalna szerokość to 10. Zauważ, że w drugiej części gdzie minimalna szerokość to 3 żadne dodatkowe spacje nie zostały dodane.</p>
-<pre class="lang:default decode:true">[      test] [test]<&#47;pre></p>
-<h2>Precyzja<&#47;h2><br />
-Dodatkowo dla liczb zmiennoprzecinkowych możesz określić precyzję. Dodając ten modyfikator określasz ile liczb po przecinku powinno być wyświetlonych [2. Precyzję można także użyć na przykład wraz z <code>%s<&#47;code>, wtedy oznacza to maksymalną liczbę znaków do wyświetlenia.].</p>
+<pre class="lang:default decode:true">[      test] [test]</pre></p>
+<h2>Precyzja</h2><br />
+Dodatkowo dla liczb zmiennoprzecinkowych możesz określić precyzję. Dodając ten modyfikator określasz ile liczb po przecinku powinno być wyświetlonych [2. Precyzję można także użyć na przykład wraz z <code>%s</code>, wtedy oznacza to maksymalną liczbę znaków do wyświetlenia.].</p>
 <p>Jeśli precyzja zostanie pominięta użyta jest domyślna wartość - sześć miejsc po przecinku. Proszę spójrz na przykład poniżej:</p>
 <pre class="lang:default decode:true ">double x = 1.1234567890123;<br />
-System.out.format("[%.10f] [%.3f] [%f]", x, x, x);<&#47;pre><br />
+System.out.format("[%.10f] [%.3f] [%f]", x, x, x);</pre><br />
 Na konsoli pokażą się trzy liczby. Pierwsza z nich zawiera 10 liczb po przecinku, druga 3 a ostatnia domyślne 6:</p>
-<pre class="lang:default highlight:0 decode:true ">[1.1234567890] [1.123] [1.123457]<&#47;pre></p>
-<h2>Flagi<&#47;h2><br />
+<pre class="lang:default highlight:0 decode:true ">[1.1234567890] [1.123] [1.123457]</pre></p>
+<h2>Flagi</h2><br />
 Flagi modyfikują zachowanie znaczników konwersji. Poniżej opiszę kilka dostępnych flag:</p>
 <ul>
-<li><code>-<&#47;code> element będzie wyrównany do lewej strony,<&#47;li>
-<li><code>+<&#47;code> liczba zawsze będzie zawierała znak (nawet jeśli jest dodatnia),<&#47;li>
-<li><code>0<&#47;code> liczba będzie uzupełniona 0 do żądanej szerokości,<&#47;li>
-<li><code>(<&#47;code> liczby ujemne nie będą prezentowane ze znakiem,<&#47;li>
-<li><code>,<&#47;code> użyj separatora do grupowania liczb. Separator ten zależy jest od lokalizacji.<&#47;li><br />
-<&#47;ul><br />
+<li><code>-</code> element będzie wyrównany do lewej strony,</li>
+<li><code>+</code> liczba zawsze będzie zawierała znak (nawet jeśli jest dodatnia),</li>
+<li><code>0</code> liczba będzie uzupełniona 0 do żądanej szerokości,</li>
+<li><code>(</code> liczby ujemne nie będą prezentowane ze znakiem,</li>
+<li><code>,</code> użyj separatora do grupowania liczb. Separator ten zależy jest od lokalizacji.</li><br />
+</ul><br />
 Jeden znacznik może zawierać kilka flag. Dodatkowo wszystkie opisane wcześniej elementy mogą być połączone ze sobą.</p>
-<h1>Lokalizacja<&#47;h1><br />
-W uproszczeniu lokalizacja to zbiór reguł, które określają w jaki spos&oacute;b w należy prezentować dany łańcuch znak&oacute;w. Można powiedzieć, że jest to swego rodzaju tłumaczenie na reguły obowiązujące w danym kraju&#47;regionie. To lokalizacja ma wpływ na to jak na przykład wyświetlane są na daty czy liczby.</p>
-<p>Do tej pory w całym artykule używałem metod, które używały domyślnej lokalizacji, możesz ją uzyskać odwołując się do metody <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;Locale.html#getDefault-java.util.Locale.Category-" target="_blank" rel="noopener noreferrer"><code>Locale.getDefault<&#47;code><&#47;a>. <code>Formatter<&#47;code> pozwala także na formatowanie łańcucha znaków używając innych ustawień lokalizacji.</p>
-<p>Proszę spójrz na przykład poniżej. Ta sama liczba prezentowana jest używając trzech różnych ustawień lokalizacji. Zwr&oacute;ć uwagę na to, że w każdym przypadku otrzymujemy r&oacute;żne wyniki:</p>
+<h1>Lokalizacja</h1><br />
+W uproszczeniu lokalizacja to zbiór reguł, które określają w jaki sposób w należy prezentować dany łańcuch znaków. Można powiedzieć, że jest to swego rodzaju tłumaczenie na reguły obowiązujące w danym kraju/regionie. To lokalizacja ma wpływ na to jak na przykład wyświetlane są na daty czy liczby.</p>
+<p>Do tej pory w całym artykule używałem metod, które używały domyślnej lokalizacji, możesz ją uzyskać odwołując się do metody <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#getDefault-java.util.Locale.Category-" target="_blank" rel="noopener noreferrer"><code>Locale.getDefault</code></a>. <code>Formatter</code> pozwala także na formatowanie łańcucha znaków używając innych ustawień lokalizacji.</p>
+<p>Proszę spójrz na przykład poniżej. Ta sama liczba prezentowana jest używając trzech różnych ustawień lokalizacji. Zwróć uwagę na to, że w każdym przypadku otrzymujemy różne wyniki:</p>
 <pre class="lang:default decode:true ">double someNumber = 12345.12;<br />
 System.out.format(Locale.US, "%,.2f%n", someNumber);<br />
 System.out.format(Locale.GERMAN, "%,.2f%n", someNumber);<br />
-System.out.format(Locale.forLanguageTag("PL"), "%,.2f%n", someNumber);<&#47;pre></p>
+System.out.format(Locale.forLanguageTag("PL"), "%,.2f%n", someNumber);</pre></p>
 <pre class="lang:default highlight:0 decode:true">12,345.12<br />
 12.345,12<br />
-12 345,12<&#47;pre><br />
-Wyniki różnią się separatorem dziesiętnym (<code>.<&#47;code> lub <code>,<&#47;code>) i separatorem grup liczb (<code>,<&#47;code>, <code>.<&#47;code> lub <code> <&#47;code>).</p>
-<h1>Bardziej skomplikowany przykład<&#47;h1><br />
+12 345,12</pre><br />
+Wyniki różnią się separatorem dziesiętnym (<code>.</code> lub <code>,</code>) i separatorem grup liczb (<code>,</code>, <code>.</code> lub <code> </code>).</p>
+<h1>Bardziej skomplikowany przykład</h1><br />
 Teraz masz już wystarczająco dużo informacji aby zrozumieć pierwszy przykład użyty na początku artykułu. Dla przypomnienia:</p>
-<pre class="lang:default highlight:0 decode:true ">%2$08.3f %3$(,08.3f %s<&#47;pre><br />
+<pre class="lang:default highlight:0 decode:true ">%2$08.3f %3$(,08.3f %s</pre><br />
 Rozkładając ten łańcuch formatujący na części widzisz trzy znaczniki formatujące:</p>
 <ul>
-<li><code>%2$08.3f<&#47;code>,<&#47;li>
-<li><code>%3$(,08.3f<&#47;code>,<&#47;li>
-<li><code>%s<&#47;code>.<&#47;li><br />
-<&#47;ul><br />
-Rozkładając najbardziej skomplikowany z nich <code>%3$(,08.3f<&#47;code> na części pierwsze otrzymujemy:</p>
+<li><code>%2$08.3f</code>,</li>
+<li><code>%3$(,08.3f</code>,</li>
+<li><code>%s</code>.</li><br />
+</ul><br />
+Rozkładając najbardziej skomplikowany z nich <code>%3$(,08.3f</code> na części pierwsze otrzymujemy:</p>
 <ul>
-<li><code>%3$<&#47;code> odwołanie się do trzeciego argumentu,<&#47;li>
-<li><code>(<&#47;code> otoczenie liczb ujemnych nawiasami <code>()<&#47;code>,<&#47;li>
-<li><code>,<&#47;code> użycie separatora grup liczb,<&#47;li>
-<li><code>0<&#47;code> uzupełnienie liczby zerami,<&#47;li>
-<li><code>8<&#47;code> ustawienie minimalnej szerokości wyświetlanej liczby na osiem znaków,<&#47;li>
-<li><code>.3<&#47;code> wyświetlenie trzech miejsc dziesiętnych,<&#47;li>
-<li><code>f<&#47;code> konwersja liczby zmiennoprzecinkowej.<&#47;li><br />
-<&#47;ul></p>
-<h1>Ćwiczenie do wykonania<&#47;h1><br />
-Plik CSV zawiera trzy kolumny oddzielone znakiem <code>,<&#47;code>. Pierwsza kolumna zawiera imię, druga liczbę zmiennoprzecinkową trzecia dzień tygodnia. Twoim zadaniem jest wczytanie zawartości <a href="https:&#47;&#47;raw.githubusercontent.com&#47;SamouczekProgramisty&#47;KursJava&#47;master&#47;27_lancuchy_znakow_formatowanie&#47;src&#47;main&#47;resources&#47;test.csv" target="_blank" rel="noopener noreferrer">tego pliku<&#47;a> i wyświetlenie jej w formie tabeli. Efekt, który chcesz uzyskać wygląda następująco:</p>
+<li><code>%3$</code> odwołanie się do trzeciego argumentu,</li>
+<li><code>(</code> otoczenie liczb ujemnych nawiasami <code>()</code>,</li>
+<li><code>,</code> użycie separatora grup liczb,</li>
+<li><code>0</code> uzupełnienie liczby zerami,</li>
+<li><code>8</code> ustawienie minimalnej szerokości wyświetlanej liczby na osiem znaków,</li>
+<li><code>.3</code> wyświetlenie trzech miejsc dziesiętnych,</li>
+<li><code>f</code> konwersja liczby zmiennoprzecinkowej.</li><br />
+</ul></p>
+<h1>Ćwiczenie do wykonania</h1><br />
+Plik CSV zawiera trzy kolumny oddzielone znakiem <code>,</code>. Pierwsza kolumna zawiera imię, druga liczbę zmiennoprzecinkową trzecia dzień tygodnia. Twoim zadaniem jest wczytanie zawartości <a href="https://raw.githubusercontent.com/SamouczekProgramisty/KursJava/master/27_lancuchy_znakow_formatowanie/src/main/resources/test.csv" target="_blank" rel="noopener noreferrer">tego pliku</a> i wyświetlenie jej w formie tabeli. Efekt, który chcesz uzyskać wygląda następująco:</p>
 <pre class="lang:default highlight:0 decode:true">| Piotrek  |  123.12 | poniedziałek |<br />
 | Tomek    |  321.30 |       wtorek |<br />
 | Marcin   | -123.12 |        środa |<br />
-| Wojtek   |   -3.12 |     czwartek |<&#47;pre><br />
-Zachęcam Cię do rozwiązania zadania samodzielnie. Jeśli jednak będziesz miał problem z jego rozwiązaniem przygotowałem dla Ciebie <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;blob&#47;master&#47;27_lancuchy_znakow_formatowanie&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;strings&#47;formatting&#47;ExerciseSolution.java" target="_blank" rel="noopener noreferrer">przykładowe rozwiązanie<&#47;a>.</p>
-<h1>Dodatkowe materiały do nauki<&#47;h1><br />
-Artykuł ten to &ldquo;skrót&rdquo; dokumentacji dla klasy klasy <code>Formatter<&#47;code>. Jeśli chcesz dowiedzieć się czegoś więcej zachęcam do przeczytania <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;Formatter.html" target="_blank" rel="noopener noreferrer">dokumentacji tej klasy<&#47;a>. Dodatkowo możesz także przejrzeć <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;blob&#47;master&#47;27_lancuchy_znakow_formatowanie&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;strings&#47;formatting&#47;StringFormatting.java" target="_blank" rel="noopener noreferrer">kod źródłowy wszystkich przykład&oacute;w<&#47;a> użytych w tym artykule.</p>
-<h1>Podsumowanie<&#47;h1><br />
+| Wojtek   |   -3.12 |     czwartek |</pre><br />
+Zachęcam Cię do rozwiązania zadania samodzielnie. Jeśli jednak będziesz miał problem z jego rozwiązaniem przygotowałem dla Ciebie <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/27_lancuchy_znakow_formatowanie/src/main/java/pl/samouczekprogramisty/kursjava/strings/formatting/ExerciseSolution.java" target="_blank" rel="noopener noreferrer">przykładowe rozwiązanie</a>.</p>
+<h1>Dodatkowe materiały do nauki</h1><br />
+Artykuł ten to &ldquo;skrót&rdquo; dokumentacji dla klasy klasy <code>Formatter</code>. Jeśli chcesz dowiedzieć się czegoś więcej zachęcam do przeczytania <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html" target="_blank" rel="noopener noreferrer">dokumentacji tej klasy</a>. Dodatkowo możesz także przejrzeć <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/27_lancuchy_znakow_formatowanie/src/main/java/pl/samouczekprogramisty/kursjava/strings/formatting/StringFormatting.java" target="_blank" rel="noopener noreferrer">kod źródłowy wszystkich przykładów</a> użytych w tym artykule.</p>
+<h1>Podsumowanie</h1><br />
 W artykule przeczytałeś o formatowaniu łańcuchów znaków. Wiesz jak formatować liczby zmiennoprzecinkowe, poznałeś klasę Formatter wraz miejscami gdzie jest ona używana. Rozwiązując ćwiczenie wykorzystałeś całą wiedzę w praktyce.</p>
 <p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli masz jakieś pytania nie wahaj się zadać je w komentarzach. Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na facebooku i dopisz się do newslettera. Do następnego razu.</p>
 <p>[FM_form id="3"]</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;pvenegasd&#47;16584479775&#47;sizes&#47;l</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/pvenegasd/16584479775/sizes/l</p>

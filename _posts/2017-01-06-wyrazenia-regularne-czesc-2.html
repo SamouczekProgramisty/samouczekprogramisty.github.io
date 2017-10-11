@@ -27,68 +27,68 @@ comments: []
 ---
 <p>Czas na kolejną odsłonę artykułu o wyrażeniach regularnych. W tej części przeczytasz o grupach nazwanych, alternatywie, ponownym użyciu grup w wyrażeniu czy kotwicach. Dowiesz się dlaczego wyrażenia regularne są zachłanne i jak to zachowanie wyłączyć. Innymi słowy czeka na Ciebie kolejna solidna porcja wiedzy na temat wyrażeń regularnych. Na koniec jak zwykle całość będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań. Zapraszam!</p>
 <p><a id="more"></a><a id="more-731"></a></p>
-<p>[idea]To jest drugi artykuł na temat wyrażeń regularnych. Część zagadnień związanych z wyrażeniami regularnymi opisana jest w <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wyrazenia-regularne-w-jezyku-java&#47;">pierwszej części<&#47;a>:</p>
+<p>[idea]To jest drugi artykuł na temat wyrażeń regularnych. Część zagadnień związanych z wyrażeniami regularnymi opisana jest w <a href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/">pierwszej części</a>:</p>
 <ul>
-<li>czym są wyrażenia regularne,<&#47;li>
-<li>kiedy używamy wyrażeń regularnych, praktyczne wskazówki,<&#47;li>
-<li>API wyrażeń regularnych w języku Java,<&#47;li>
-<li>obsługa powtórzeń (<code>+<&#47;code>, <code>*<&#47;code>, <code>?<&#47;code>, <code>{}<&#47;code>),<&#47;li>
-<li>klasy znaków (<code>.<&#47;code>, <code>[]<&#47;code>, <code>\d<&#47;code>, <code>\w<&#47;code>, itd.),<&#47;li>
-<li>grupy (<code>()<&#47;code>),<&#47;li>
-<li>wsparcie IDE dla wyrażeń regularnych.<&#47;li><br />
-<&#47;ul><br />
-[&#47;idea]</p>
+<li>czym są wyrażenia regularne,</li>
+<li>kiedy używamy wyrażeń regularnych, praktyczne wskazówki,</li>
+<li>API wyrażeń regularnych w języku Java,</li>
+<li>obsługa powtórzeń (<code>+</code>, <code>*</code>, <code>?</code>, <code>{}</code>),</li>
+<li>klasy znaków (<code>.</code>, <code>[]</code>, <code>\d</code>, <code>\w</code>, itd.),</li>
+<li>grupy (<code>()</code>),</li>
+<li>wsparcie IDE dla wyrażeń regularnych.</li><br />
+</ul><br />
+[/idea]</p>
 <p>Zachęcam do przeczytania pierwszej części jeśli chciałbyś dowiedzieć się czegoś więcej o punktach wspomnianych powyżej. Tutaj bez zbędnego wstępu przejdę do konkretów. Na pierwszy ogień idzie zachłanność wyrażeń regularnych.</p>
-<h1>Zachłanność wyrażeń regularnych<&#47;h1><br />
+<h1>Zachłanność wyrażeń regularnych</h1><br />
 Wyrażenia regularne są zachłanne. Oznacza to tyle, że wyrażenie regularne dopasuje największą możliwą część łańcucha znaków, która pasuje do wzorca. Najłatwiej będzie to zobaczyć na przykładzie.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldBeGreedy() {<br />
     Pattern pattern = Pattern.compile("<(.+)>");<br />
-    Matcher matcher = pattern.matcher("<em>some emphasized text<&#47;em>");<br />
+    Matcher matcher = pattern.matcher("<em>some emphasized text</em>");<br />
     assertTrue(matcher.find());<br />
-    assertEquals("em>some emphasized text<&#47;em", matcher.group(1));<br />
-}<&#47;pre><br />
-Powyżej widzisz standardowy przykład wykorzystywany do pokazania tej właściwości wyrażeń regularnych. Tekst, który chcemy dopasować jest kodem HTML zawierającym znacznik <code><em><&#47;code>[1. Znacznik ten służy do wyróżnienia tekstu na stronie www.]. Zał&oacute;żmy, że chciałbyś wyciągnąć nazwę znacznika znajdującego się pomiędzy <code><<&#47;code> i <code>><&#47;code>.</p>
-<p>Okazuje się, że wyrażenie regularne użyte w przykładzie powyżej nie zadziała tak jakbyś tego chciał. Zgodnie z tym co opisałem wcześniej dopasuje najwięcej tekstu jak to tylko możliwe zatem w grupie <code>(.+)<&#47;code> znajdzie się <code>em>some emphasized text<&#47;em<&#47;code>.</p>
-<p>Istnieje standardowy sposób na obejście tego typu zachowania, możesz zastosować tutaj negację grupy znaków. Wyrażenie regularne <code><([^>]+)><&#47;code> dopasuje wszystko co znajduje się pomiędzy <code><<&#47;code> <code>><&#47;code> i nie jest znakiem <code>><&#47;code>.</p>
+    assertEquals("em>some emphasized text</em", matcher.group(1));<br />
+}</pre><br />
+Powyżej widzisz standardowy przykład wykorzystywany do pokazania tej właściwości wyrażeń regularnych. Tekst, który chcemy dopasować jest kodem HTML zawierającym znacznik <code><em></code>[1. Znacznik ten służy do wyróżnienia tekstu na stronie www.]. Załóżmy, że chciałbyś wyciągnąć nazwę znacznika znajdującego się pomiędzy <code><</code> i <code>></code>.</p>
+<p>Okazuje się, że wyrażenie regularne użyte w przykładzie powyżej nie zadziała tak jakbyś tego chciał. Zgodnie z tym co opisałem wcześniej dopasuje najwięcej tekstu jak to tylko możliwe zatem w grupie <code>(.+)</code> znajdzie się <code>em>some emphasized text</em</code>.</p>
+<p>Istnieje standardowy sposób na obejście tego typu zachowania, możesz zastosować tutaj negację grupy znaków. Wyrażenie regularne <code><([^>]+)></code> dopasuje wszystko co znajduje się pomiędzy <code><</code> <code>></code> i nie jest znakiem <code>></code>.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldBeAbleToCheatGreadiness() {<br />
     Pattern pattern = Pattern.compile("<([^>]+)>");<br />
-    Matcher matcher = pattern.matcher("<em>some emphasized text<&#47;em>");<br />
+    Matcher matcher = pattern.matcher("<em>some emphasized text</em>");<br />
     assertTrue(matcher.find());<br />
     assertEquals("em", matcher.group(1));<br />
-}<&#47;pre><br />
-Wyrażenia regularne działają w ten sposób, ponieważ mechanizm do obsługi powtórzeń jest zachłanny. Symbole powt&oacute;rzeń <code>{}<&#47;code>, <code>?<&#47;code>, <code>*<&#47;code> czy <code>+<&#47;code> dopasowują zawsze najwięcej jak tylko się da.</p>
-<p>Istnieje jednak przełącznik, który zmienia to zachowanie. Jest to znak <code>?<&#47;code>. Znów najlepiej będzie przeanalizować całość na przykładzie:</p>
+}</pre><br />
+Wyrażenia regularne działają w ten sposób, ponieważ mechanizm do obsługi powtórzeń jest zachłanny. Symbole powtórzeń <code>{}</code>, <code>?</code>, <code>*</code> czy <code>+</code> dopasowują zawsze najwięcej jak tylko się da.</p>
+<p>Istnieje jednak przełącznik, który zmienia to zachowanie. Jest to znak <code>?</code>. Znów najlepiej będzie przeanalizować całość na przykładzie:</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldTurnOffGreedinessForPlus() {<br />
     Pattern pattern = Pattern.compile("<(.+?)>");<br />
-    Matcher matcher = pattern.matcher("<em>some emphasized text<&#47;em>");<br />
+    Matcher matcher = pattern.matcher("<em>some emphasized text</em>");<br />
     assertTrue(matcher.find());<br />
     assertEquals("em", matcher.group(1));<br />
-}<&#47;pre><br />
-Jak widzisz, tym razem <code>.+<&#47;code> nie pochłonął nam prawie całego łańcucha. Grupa zawiera najmniej tekstu jak to możliwe. W posobny sposób <code>?<&#47;code> wyłącza zachłanność dla <code>*<&#47;code>:</p>
+}</pre><br />
+Jak widzisz, tym razem <code>.+</code> nie pochłonął nam prawie całego łańcucha. Grupa zawiera najmniej tekstu jak to możliwe. W posobny sposób <code>?</code> wyłącza zachłanność dla <code>*</code>:</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldTurnOffGreedinessForAsterix() {<br />
     Pattern pattern = Pattern.compile("<(.*?)>");<br />
-    Matcher matcher = pattern.matcher("<em>some emphasized text<&#47;em>");<br />
+    Matcher matcher = pattern.matcher("<em>some emphasized text</em>");<br />
     assertTrue(matcher.find());<br />
     assertEquals("em", matcher.group(1));<br />
-}<&#47;pre><br />
-Z kolei w przykładzie poniżej pokazałem jak <code>?<&#47;code> wpływa na <code>{}<&#47;code>. Chociaż wyrażenie mogłoby dopasować cały łańcuch znaków, w grupie znajdują się wyłącznie pierwsze trzy znaki (ponieważ <code>{}<&#47;code> nie jest tu zachłanny).</p>
+}</pre><br />
+Z kolei w przykładzie poniżej pokazałem jak <code>?</code> wpływa na <code>{}</code>. Chociaż wyrażenie mogłoby dopasować cały łańcuch znaków, w grupie znajdują się wyłącznie pierwsze trzy znaki (ponieważ <code>{}</code> nie jest tu zachłanny).</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldTurnOffGreadinessForCurlyBraces() {<br />
     Pattern pattern = Pattern.compile("(.{3,5}?)");<br />
     Matcher matcher = pattern.matcher("12345");<br />
     assertTrue(matcher.find());<br />
     assertEquals("123", matcher.group(1));<br />
-}<&#47;pre></p>
-<h1>Alternatywa<&#47;h1><br />
-Załóżmy, że program, który piszesz musi przetworzyć zestaw instrukcji dla samochodu, kt&oacute;rym kieruje. Niekt&oacute;re z instrukcji m&oacute;wią w kt&oacute;rą stronę należy skręcić</p>
+}</pre></p>
+<h1>Alternatywa</h1><br />
+Załóżmy, że program, który piszesz musi przetworzyć zestaw instrukcji dla samochodu, którym kieruje. Niektóre z instrukcji mówią w którą stronę należy skręcić</p>
 <ul>
-<li>skręć w prawo,<&#47;li>
-<li>skręć w lewo.<&#47;li><br />
-<&#47;ul><br />
+<li>skręć w prawo,</li>
+<li>skręć w lewo.</li><br />
+</ul><br />
 Aby przy pomocy jednego wyrażenia regularnego dopasować obie instrukcje możesz użyć alternatywy. Spójrz na przykład poniżej:</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldParseAlternative() {<br />
@@ -99,30 +99,30 @@ public void shouldParseAlternative() {<br />
 <p>    matcher = pattern.matcher("skręć w prawo");<br />
     assertTrue(matcher.find());<br />
     assertEquals("prawo", matcher.group(1));<br />
-}<&#47;pre><br />
-Jak widzisz, wewnątrz grupy użyłem tam znaku <code>|<&#47;code>. Znak ten jest jednym ze znaków specjalnych. Jeśli występuje wewnątrz wyrażenia regularnego oznacza, że łańcuch znaków pasuje do wyrażenia regularnego jeśli pasuje do części znajdującej się przed znakiem <code>|<&#47;code> lub do części znajdującej się po znaku <code>|<&#47;code>.</p>
-<p>Jeśli chcesz ograniczyć zakres alternatywy użyj nawiasów jak w przykładzie powyżej, w takim przypadku alternatywa dopasuje to co znajduje się po lewej stronie znaku <code>|<&#47;code> do <code>(<&#47;code>, lub po prawej stronie znaku <code>|<&#47;code> do <code>)<&#47;code>.</p>
-<p>Możesz też użyć alternatywy do dopasowania więcej niż dwóch elementów oddzielając każdy z nich znakiem <code>|<&#47;code> jak w przykładzie poniżej:</p>
+}</pre><br />
+Jak widzisz, wewnątrz grupy użyłem tam znaku <code>|</code>. Znak ten jest jednym ze znaków specjalnych. Jeśli występuje wewnątrz wyrażenia regularnego oznacza, że łańcuch znaków pasuje do wyrażenia regularnego jeśli pasuje do części znajdującej się przed znakiem <code>|</code> lub do części znajdującej się po znaku <code>|</code>.</p>
+<p>Jeśli chcesz ograniczyć zakres alternatywy użyj nawiasów jak w przykładzie powyżej, w takim przypadku alternatywa dopasuje to co znajduje się po lewej stronie znaku <code>|</code> do <code>(</code>, lub po prawej stronie znaku <code>|</code> do <code>)</code>.</p>
+<p>Możesz też użyć alternatywy do dopasowania więcej niż dwóch elementów oddzielając każdy z nich znakiem <code>|</code> jak w przykładzie poniżej:</p>
 <pre class="lang:default decode:true">@Test<br />
 public void shouldPickOneFromMultipleAlternatives() {<br />
     Pattern pattern = Pattern.compile("pies|kot|lew");<br />
     Matcher matcher = pattern.matcher("lew");<br />
     assertTrue(matcher.matches());<br />
     assertEquals("lew", matcher.group());<br />
-}<&#47;pre></p>
-<h1>Grupy nieprzechwytujące<&#47;h1><br />
-Mechanizm wyrażeń regularnych domyślnie zapamiętuje grupy, które zostały użyte w wyrażeniu regularnym. Tak zapamiętane grupy są później dostępne za pośrednictwem metody <code><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;regex&#47;Matcher.html#group-int" target="_blank">group<&#47;a><&#47;code>. W większości przypadk&oacute;w jest to pożądane zachowanie, jednak czasami to co wyląduje w grupie nie jest dla Ciebie interesujące.</p>
-<p>W takich przypadkach możesz użyć grupy, która nie zostanie zapamiętana. Grupa nie będzie przechwytująca jeśli pierwszymi znakami wewnątrz grupy będą <code>?:<&#47;code>. Proszę spójrz na przykład poniżej:</p>
+}</pre></p>
+<h1>Grupy nieprzechwytujące</h1><br />
+Mechanizm wyrażeń regularnych domyślnie zapamiętuje grupy, które zostały użyte w wyrażeniu regularnym. Tak zapamiętane grupy są później dostępne za pośrednictwem metody <code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Matcher.html#group-int" target="_blank">group</a></code>. W większości przypadków jest to pożądane zachowanie, jednak czasami to co wyląduje w grupie nie jest dla Ciebie interesujące.</p>
+<p>W takich przypadkach możesz użyć grupy, która nie zostanie zapamiętana. Grupa nie będzie przechwytująca jeśli pierwszymi znakami wewnątrz grupy będą <code>?:</code>. Proszę spójrz na przykład poniżej:</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldUseNonCapturingGroups() {<br />
     Pattern pattern = Pattern.compile("(?:Ala|Ola) ma (kota|psa)");<br />
     Matcher matcher = pattern.matcher("Ola ma psa");<br />
     assertTrue(matcher.matches());<br />
     assertEquals("psa", matcher.group(1));<br />
-}<&#47;pre><br />
+}</pre><br />
 W przykładzie tym nie interesuje nas właścicielka zwierzaka. Za to sam zwierzak jest ważny. W wyrażeniu tym użyte są dwie grupy, pierwsza nieprzechwytująca i druga, która zawiera zwierzaka.</p>
-<h1>Grupy nazwane<&#47;h1><br />
-Grupy, których użyjemy w wyrażeniu regularnym możemy też nazwać. W takim przypadku do zawartości takiej grupy możemy odwoływać się w standardowy sposób, czyli używając indeksu, kt&oacute;ry już znasz lub poprzez nazwę. Sp&oacute;jrz na przykład poniżej, w kt&oacute;rym poszczeg&oacute;lne elementy daty zapamiętane są w nazwanych grupach:</p>
+<h1>Grupy nazwane</h1><br />
+Grupy, których użyjemy w wyrażeniu regularnym możemy też nazwać. W takim przypadku do zawartości takiej grupy możemy odwoływać się w standardowy sposób, czyli używając indeksu, który już znasz lub poprzez nazwę. Spójrz na przykład poniżej, w którym poszczególne elementy daty zapamiętane są w nazwanych grupach:</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldUseNamedGroups() {<br />
     Pattern pattern = Pattern.compile("(?<day>\\d{2})\\.(?<month>\\d{2})\\.(?<year>\\d{4})");<br />
@@ -132,34 +132,34 @@ public void shouldUseNamedGroups() {<br />
     assertEquals("04", matcher.group(1));<br />
     assertEquals("2017", matcher.group("year"));<br />
     assertEquals("2017", matcher.group(3));<br />
-}<&#47;pre><br />
-Jak widziałeś w przykładzie grupy nazwane mają <code>?<nazwa><&#47;code> wewnątrz grupy. Następnie używając <code>nazwa<&#47;code> możemy dostać się do zawartości danej grupy używając metody <code><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;regex&#47;Matcher.html#group-java.lang.String-" target="_blank">group<&#47;a><&#47;code>.</p>
-<h1>Ponowne użycie grup w wyrażeniu<&#47;h1><br />
+}</pre><br />
+Jak widziałeś w przykładzie grupy nazwane mają <code>?<nazwa></code> wewnątrz grupy. Następnie używając <code>nazwa</code> możemy dostać się do zawartości danej grupy używając metody <code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Matcher.html#group-java.lang.String-" target="_blank">group</a></code>.</p>
+<h1>Ponowne użycie grup w wyrażeniu</h1><br />
 Tutaj ponownie posłużę się przykładem znaczników HTML. Załóżmy, że mamy następujący kod HTML <code>
-<p>Some paragraph <em>emphasized<&#47;em><&#47;p>
-<p>Other paragraph<&#47;p><&#47;code>. Jak mógłbyś wyciągnąć tekst znajdujący się wewnątrz pary znaczników? Na przykład to co znajduje się wewnątrz pierwszej pary <code>
-<p><&#47;code> i <code><&#47;p><&#47;code>?</p>
+<p>Some paragraph <em>emphasized</em></p>
+<p>Other paragraph</p></code>. Jak mógłbyś wyciągnąć tekst znajdujący się wewnątrz pary znaczników? Na przykład to co znajduje się wewnątrz pierwszej pary <code>
+<p></code> i <code></p></code>?</p>
 <p>Z pomocą przychodzi tu mechanizm ponownego użycia grup wewnątrz wyrażenia regularnego. Spójrz proszę na przykład:</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldReuseGroupsInsideRegexp() {<br />
-    Pattern pattern = Pattern.compile("<(.+?)>(.+?)<&#47;\\1>");<br />
+    Pattern pattern = Pattern.compile("<(.+?)>(.+?)</\\1>");<br />
     Matcher matcher = pattern.matcher("
-<p>Some paragraph <em>emphasized<&#47;em><&#47;p>
-<p>Other paragraph<&#47;p>");<br />
+<p>Some paragraph <em>emphasized</em></p>
+<p>Other paragraph</p>");<br />
     assertTrue(matcher.find());<br />
     assertEquals("p", matcher.group(1));<br />
-    assertEquals("Akapit tekstu <em>coś innego<&#47;em>", matcher.group(2));<br />
-}<&#47;pre><br />
+    assertEquals("Akapit tekstu <em>coś innego</em>", matcher.group(2));<br />
+}</pre><br />
 Jak widzisz, na samym końcu wyrażenia znajduje się \1. Jest to nic innego jak odwołanie się do pierwszej grupy, która została dopasowana. W naszym przypadku jest to p. Podobnie możesz używać kolejnych grup używając kolejnych indeksów.</p>
-<h1>Kotwice<&#47;h1><br />
+<h1>Kotwice</h1><br />
 Nadszedł czas na kotwice. Kotwice to znaki specjalne w wyrażeniach regularnych. Kotwice służą do przekazania informacji o tym gdzie chcemy szukać dopasowania w danym łańcuchu znaków.</p>
-<p>Na przykład do wyrażenia regularnego <code>c$<&#47;code> pasują łańcuchy znaków <code>abc<&#47;code> czy <code>bac<&#47;code> ale nie pasuje <code>cab<&#47;code>. Innymi słowy <code>c$<&#47;code> mówi, że &bdquo;<code>c<&#47;code> powinno wystąpić na końcu łańcucha znak&oacute;w&rdquo;. Istnieje kilka kotwic, poniżej pokażę Ci te dwie najczęściej używane:</p>
+<p>Na przykład do wyrażenia regularnego <code>c$</code> pasują łańcuchy znaków <code>abc</code> czy <code>bac</code> ale nie pasuje <code>cab</code>. Innymi słowy <code>c$</code> mówi, że &bdquo;<code>c</code> powinno wystąpić na końcu łańcucha znaków&rdquo;. Istnieje kilka kotwic, poniżej pokażę Ci te dwie najczęściej używane:</p>
 <ul>
-<li><code>^<&#47;code> oznacza początek łańcucha znaków,<&#47;li>
-<li><code>$<&#47;code> oznacza koniec łańcucha znaków.<&#47;li><br />
-<&#47;ul><br />
-Kotwice są bardzo często używane w przypadku walidacji danych wejściowych od użytkownika. Na przykład jeśli chcemy mieć pewność, że użytkownik wprowadził tylko liczby możemy użyć wyrażenia z <code>^<&#47;code> i <code>$<&#47;code>.</p>
-<p>Oczywiście można też wykorzystać metodę <code>matches<&#47;code> zamiast <code>find<&#47;code>. Różnicę pomiędzy zachowaniem tych metod wraz z użyciem kotwic pokazałem w przykładzie poniżej:</p>
+<li><code>^</code> oznacza początek łańcucha znaków,</li>
+<li><code>$</code> oznacza koniec łańcucha znaków.</li><br />
+</ul><br />
+Kotwice są bardzo często używane w przypadku walidacji danych wejściowych od użytkownika. Na przykład jeśli chcemy mieć pewność, że użytkownik wprowadził tylko liczby możemy użyć wyrażenia z <code>^</code> i <code>$</code>.</p>
+<p>Oczywiście można też wykorzystać metodę <code>matches</code> zamiast <code>find</code>. Różnicę pomiędzy zachowaniem tych metod wraz z użyciem kotwic pokazałem w przykładzie poniżej:</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldShowDifferenceBetweenFindAndMatches() {<br />
     Pattern pattern = Pattern.compile("\\d+");<br />
@@ -173,20 +173,20 @@ public void shouldShowDifferenceBetweenFindAndMatchesWithAncors() {<br />
     Matcher matcher = pattern.matcher("abc123def");<br />
     assertFalse(matcher.find());<br />
     assertFalse(matcher.matches());<br />
-}<&#47;pre></p>
-<h1>Zadanie do wykonania<&#47;h1><br />
+}</pre></p>
+<h1>Zadanie do wykonania</h1><br />
 W ramach zadania do wykonania aby przećwiczyć wyrażenia regularne w praktyce odeślę Cię do zadań z Advent of Code 2016. Poniżej jest lista zadań, w których możesz użyć wyrażeń regularnych. Są tam zadania o różnym poziomie trudności, na pewno znajdziesz coś dla siebie. Każde z tych zadań zawiera także przykładowe rozwiązanie:</p>
 <ul>
-<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-4&#47;">dzień 4<&#47;a>,<&#47;li>
-<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-8&#47;">dzień 8<&#47;a>,<&#47;li>
-<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-10&#47;">dzień 10<&#47;a>,<&#47;li>
-<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-12&#47;">dzień 12<&#47;a>,<&#47;li>
-<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-21&#47;">dzień 21<&#47;a>.<&#47;li><br />
-<&#47;ul></p>
-<h1>Dodatkowe materiały do nauki<&#47;h1><br />
-Zbiór linków z dodatkowymi materiałami do nauki zebrałem w <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wyrazenia-regularne-w-jezyku-java&#47;">pierwszej części artykułu<&#47;a>, jeśli chcesz dowiedzieć się więcej na temat wyrażeń regularnych zapraszam do tamtego zbioru. Jeśli chcesz, możesz także przeglądać kod źr&oacute;dłowy przykład&oacute;w z tego artykułu, wszystkie przykłady dostępne są na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;24_wyrazenia_regularne&#47;src&#47;test&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;regexp" target="_blank">githubie<&#47;a>.</p>
-<h1>Podsumowanie<&#47;h1><br />
+<li><a href="http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-4/">dzień 4</a>,</li>
+<li><a href="http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-8/">dzień 8</a>,</li>
+<li><a href="http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-10/">dzień 10</a>,</li>
+<li><a href="http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-12/">dzień 12</a>,</li>
+<li><a href="http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-21/">dzień 21</a>.</li><br />
+</ul></p>
+<h1>Dodatkowe materiały do nauki</h1><br />
+Zbiór linków z dodatkowymi materiałami do nauki zebrałem w <a href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/">pierwszej części artykułu</a>, jeśli chcesz dowiedzieć się więcej na temat wyrażeń regularnych zapraszam do tamtego zbioru. Jeśli chcesz, możesz także przeglądać kod źródłowy przykładów z tego artykułu, wszystkie przykłady dostępne są na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/24_wyrazenia_regularne/src/test/java/pl/samouczekprogramisty/kursjava/regexp" target="_blank">githubie</a>.</p>
+<h1>Podsumowanie</h1><br />
 Po obu artykułach na temat wyrażeń regularnych i rozwiązaniu zadań możesz śmiało powiedzieć, że używałeś wyrażeń regularnych w praktyce :). Poznałeś większość mechanizmów dostępnych w wyrażeniach regularnych. Jednak musisz wiedzieć, że to nadal nie wszystko. Znajomość wyrażeń regularnych na poziomie opisanym w obu artykułach w zupełności wystarczy Ci do codziennej pracy.</p>
-<p>Mam nadzieję, że ta dwuczęściowa seria przypadła Ci do gustu. Jeśli tak proszę podziel się artykułem ze znajomymi. Zależy mi na dotarciu do jak największej liczby czytelników, możesz mi w tym pomóc. Jeśli nie chcesz pominąć kolejnych artykuł&oacute;w zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<p>Mam nadzieję, że ta dwuczęściowa seria przypadła Ci do gustu. Jeśli tak proszę podziel się artykułem ze znajomymi. Zależy mi na dotarciu do jak największej liczby czytelników, możesz mi w tym pomóc. Jeśli nie chcesz pominąć kolejnych artykułów zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
 <p>[FM_form id="3"]</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;roel1943&#47;13961916635&#47;sizes&#47;l</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/roel1943/13961916635/sizes/l</p>

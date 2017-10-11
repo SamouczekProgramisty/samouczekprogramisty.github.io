@@ -25,142 +25,142 @@ tags: []
 ---
 <p>W tym artykule przeczytasz o adnotacjach w języku Java. Poznasz różne zastosowania dla adnotacji. Postaram się wymienić te najbardziej użyteczne, najczęściej używane z biblioteki standardowej. Po przeczytaniu artykułu będziesz w stanie stworzyć też swoje własne adnotacje. Napiszesz program, w którym w trakcie jego działania wyświetlisz informacje o adnotacjach. Zapraszam do lektury.</p>
 <p><a id="more"></a><a id="more-425"></a></p>
-<p>[idea]To jest jeden z artykułów w ramach <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kurs-programowania-java&#47;">darmowego kursu programowania w Javie<&#47;a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[&#47;idea]</p>
-<h1>Adnotacja<&#47;h1><br />
-Czasami mogłeś zobaczyć w kodzie dziwną konstrukcje z <code>@<&#47;code> np. <code>@Override<&#47;code> czy <code>@NotNull<&#47;code>. To właśnie były adnotacje.</p>
-<p>Adnotacje są konstrukcją, która pozwala na przekazywanie dodatkowych informacji na temat kodu. Informacje te mogą być wykorzystane później w kilku miejscach. Każde z tych zastosowań opiszę bardziej szczeg&oacute;łowo w kolejnych akapitach.</p>
+<p>[idea]To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]</p>
+<h1>Adnotacja</h1><br />
+Czasami mogłeś zobaczyć w kodzie dziwną konstrukcje z <code>@</code> np. <code>@Override</code> czy <code>@NotNull</code>. To właśnie były adnotacje.</p>
+<p>Adnotacje są konstrukcją, która pozwala na przekazywanie dodatkowych informacji na temat kodu. Informacje te mogą być wykorzystane później w kilku miejscach. Każde z tych zastosowań opiszę bardziej szczegółowo w kolejnych akapitach.</p>
 <p>Mówi się, że adnotacje służą do przekazywania metadanych. Innymi słowy przekazują one dane on &bdquo;danych&rdquo; - dane o kodzie źródłowym.</p>
 <p>"Pod spodem" adnotacja to nic innego jak specjalny rodzaj interfejsu.</p>
-<h2>Adnotacje a JavaDoc<&#47;h2><br />
-Chociaż w obu przypadkach możesz zauwaćyć znak <code>@<&#47;code> musisz wiedzieć, że adnotacje to coś zupełnie innego niż dyrektywy JavaDoc.</p>
-<p>JavaDoc to standardowy mechanizm do generowania dokumentacji, która zaszyta jest kodzie źródłowym. Na przykład we fragmencie kodu poniżej widzisz metodę wraz z dokumentacją. Zwr&oacute;ć proszę uwagę, że JavaDoc znajduje się wewnątrz specjalne sformatowanego kometarza wieloliniowego. kt&oacute;ry rozpoczyna się od <code>&#47;**<&#47;code>, każda linia wewnątrz komentarza rozpoczyna się od <code>*<&#47;code>. Wewnątrz komentarza znajdują się specjalne dyrektywy, takie jak <code>@param<&#47;code> czy <code>@return<&#47;code>. Opisują one odpowiednio parametr oraz wartość zwracaną metody.</p>
-<pre class="lang:default decode:true">&#47;**<br />
+<h2>Adnotacje a JavaDoc</h2><br />
+Chociaż w obu przypadkach możesz zauwaćyć znak <code>@</code> musisz wiedzieć, że adnotacje to coś zupełnie innego niż dyrektywy JavaDoc.</p>
+<p>JavaDoc to standardowy mechanizm do generowania dokumentacji, która zaszyta jest kodzie źródłowym. Na przykład we fragmencie kodu poniżej widzisz metodę wraz z dokumentacją. Zwróć proszę uwagę, że JavaDoc znajduje się wewnątrz specjalne sformatowanego kometarza wieloliniowego. który rozpoczyna się od <code>/**</code>, każda linia wewnątrz komentarza rozpoczyna się od <code>*</code>. Wewnątrz komentarza znajdują się specjalne dyrektywy, takie jak <code>@param</code> czy <code>@return</code>. Opisują one odpowiednio parametr oraz wartość zwracaną metody.</p>
+<pre class="lang:default decode:true">/**<br />
  * Multipies number by 2<br />
  * @param parameter number that should be multipied<br />
  * @return parameter multipied by 2<br />
- *&#47;<br />
+ */<br />
 public int timesTwo(int parameter) {<br />
     return parameter * 2;<br />
-}<&#47;pre><br />
-Mogą tam znajdować się również inne dyrektywy takie jak <code>@see<&#47;code>, <code>@author<&#47;code> czy <code>@version<&#47;code>. Na podstawie tak zapisanych informacji o kodzie generowana jest dokumentacja, na przykład dla klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;String.html" target="_blank"><code>String<&#47;code><&#47;a>.</p>
+}</pre><br />
+Mogą tam znajdować się również inne dyrektywy takie jak <code>@see</code>, <code>@author</code> czy <code>@version</code>. Na podstawie tak zapisanych informacji o kodzie generowana jest dokumentacja, na przykład dla klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html" target="_blank"><code>String</code></a>.</p>
 <p>Adnotacje, w odróżnieniu od dyrektyw JavaDoc, nie są umieszczane wewnątrz komentarzy a poza nimi.</p>
 <p>Taka ilość informacji w zupełności wystarczy Ci aby odróżnić adnotacje od dyrektyw JavaDoc, przejdźmy zatem do zastosowania adnotacji.</p>
-<h2>Zakres adnotacji &ndash; dozwolone miejsca gdzie możemy stosować adnotacje<&#47;h2><br />
+<h2>Zakres adnotacji &ndash; dozwolone miejsca gdzie możemy stosować adnotacje</h2><br />
 Każda adnotacja określa, w którym miejscu możemy ją stosować. Mamy kilka standardowych miejsc, gdzie możemy wstawić adnotację.</p>
 <ul>
-<li>metoda,<&#47;li>
-<li>klasa,<&#47;li>
-<li>atrybut klasy,<&#47;li>
-<li>parametr metody,<&#47;li>
-<li>zmienna lokalna,<&#47;li>
-<li>konstruktor,<&#47;li>
-<li>adnotacja typu (ang. <em>type annotations<&#47;em>).<&#47;li><br />
-<&#47;ul><br />
+<li>metoda,</li>
+<li>klasa,</li>
+<li>atrybut klasy,</li>
+<li>parametr metody,</li>
+<li>zmienna lokalna,</li>
+<li>konstruktor,</li>
+<li>adnotacja typu (ang. <em>type annotations</em>).</li><br />
+</ul><br />
 Adnotację umieszczamy zawsze przed kokretnym elementem, na przykład przed klasą.</p>
-<h1>Zastosowanie adnotacji<&#47;h1><br />
+<h1>Zastosowanie adnotacji</h1><br />
 Adnotacje mają trzy główne zastosowania. Poniższe sekcje dokładniej opisują każde z nich.</p>
-<h2>Dodatkowe informacje dla kompilatora<&#47;h2><br />
-Adnotacje mogą służyć jako dodatkowa informacja dla komplilatora. Za przykład może tu posłużyć adnotacja <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;Override.html" target="_blank"><code>@Override<&#47;code><&#47;a>. Jest to informacja dla kompilatora, że dana metoda przesłania metodę w nadklasie. Adnotacja <code>@Override<&#47;code> może też być używana do oznaczania metod interfejsu, które implementujemy.</p>
+<h2>Dodatkowe informacje dla kompilatora</h2><br />
+Adnotacje mogą służyć jako dodatkowa informacja dla komplilatora. Za przykład może tu posłużyć adnotacja <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Override.html" target="_blank"><code>@Override</code></a>. Jest to informacja dla kompilatora, że dana metoda przesłania metodę w nadklasie. Adnotacja <code>@Override</code> może też być używana do oznaczania metod interfejsu, które implementujemy.</p>
 <p>W przypadku tej adnotacji kompilator może wychwycić więcej błędów w trakcie kompilacji. Spójrz na przykład poniżej:</p>
 <pre class="lang:default decode:true ">public class EqualsOverride {<br />
     public boolean equal(Object obj) {<br />
         return true;<br />
     }<br />
-}<&#47;pre><br />
-Programista chciał nadpisać metodę <code>equals<&#47;code>. Brakujące <code>s<&#47;code> na końcu metody sprawia, że w momencie porównywania obiektów tej klasy używamy odziedziczonej metody <code>equals<&#47;code> z klasy <code>Object<&#47;code>, kt&oacute;ra ma zupełnie inną implementację.</p>
-<p>Jeśli dodalibyśmy adnotację <code>@Override<&#47;code> to tej metody kompilator już na etapie kompilacji znalazłby błąd. Kompilacja nie powiodłaby się ponieważ nasza metoda nie nadpisała żadnej metody z nadklasy. Poniżej przykład metody <code>equals<&#47;code> z adnotacją.</p>
+}</pre><br />
+Programista chciał nadpisać metodę <code>equals</code>. Brakujące <code>s</code> na końcu metody sprawia, że w momencie porównywania obiektów tej klasy używamy odziedziczonej metody <code>equals</code> z klasy <code>Object</code>, która ma zupełnie inną implementację.</p>
+<p>Jeśli dodalibyśmy adnotację <code>@Override</code> to tej metody kompilator już na etapie kompilacji znalazłby błąd. Kompilacja nie powiodłaby się ponieważ nasza metoda nie nadpisała żadnej metody z nadklasy. Poniżej przykład metody <code>equals</code> z adnotacją.</p>
 <pre class="lang:default decode:true">@Override<br />
 public boolean equals(Object obj) {<br />
     return true;<br />
-}<&#47;pre></p>
-<h2>Adnotacje przetwarzane w trakcie kompilacji<&#47;h2><br />
-W trakcie kompilacji także możemy przetwarzać adnotacj. Dzięki nim możemy na przykład automatycznie generować kod czy dać znać kompilatorowi aby zachowywał się trochę inaczej. Przykładem takiej adnotacji jest <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;SuppressWarnings.html" target="_blank"><code>@SuppressWarnings<&#47;code><&#47;a> z biblioteki standardowej. Adnotacja ta pozwala nam wstrzymać pewne ostrzeżenie kompilatora.</p>
+}</pre></p>
+<h2>Adnotacje przetwarzane w trakcie kompilacji</h2><br />
+W trakcie kompilacji także możemy przetwarzać adnotacj. Dzięki nim możemy na przykład automatycznie generować kod czy dać znać kompilatorowi aby zachowywał się trochę inaczej. Przykładem takiej adnotacji jest <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/SuppressWarnings.html" target="_blank"><code>@SuppressWarnings</code></a> z biblioteki standardowej. Adnotacja ta pozwala nam wstrzymać pewne ostrzeżenie kompilatora.</p>
 <p>Proszę spójrz na przykład kodu poniżej.</p>
 <pre class="lang:default decode:true ">public static void main(String[] args) {<br />
     List listOfUndefinedObjects = new ArrayList();<br />
     List<Integer> listOfIntegers = (List<Integer>) listOfUndefinedObjects;<br />
-}<&#47;pre><br />
-W metodzie <code>main<&#47;code> tworzymy zmienną lokalną <code>listOfUndefinedObjects<&#47;code>, która jest zwykłą listą. Nie używam tu typów generycznych. Linijkę niżej natomiast rzutuję tę zmienną na typ <code>List<Integer><&#47;code>.</p>
-<p>Jeśli w <code>listOfUndefinedObjects<&#47;code> mielibyśmy instancję klasy <code>String<&#47;code>, wówczas pobranie elementu z nowej <code>listOfIntegers<&#47;code> skończyłoby się rzuceniem wyjątku <code>ClassCastException<&#47;code> (nie możemy rzutować <code>String<&#47;code> na <code>Integer<&#47;code>).</p>
+}</pre><br />
+W metodzie <code>main</code> tworzymy zmienną lokalną <code>listOfUndefinedObjects</code>, która jest zwykłą listą. Nie używam tu typów generycznych. Linijkę niżej natomiast rzutuję tę zmienną na typ <code>List<Integer></code>.</p>
+<p>Jeśli w <code>listOfUndefinedObjects</code> mielibyśmy instancję klasy <code>String</code>, wówczas pobranie elementu z nowej <code>listOfIntegers</code> skończyłoby się rzuceniem wyjątku <code>ClassCastException</code> (nie możemy rzutować <code>String</code> na <code>Integer</code>).</p>
 <p>Kompilator ostrzega nas o takiej możliwości pokazując ostrzeżenie</p>
 <pre class="lang:default highlight:0 decode:true ">Warning:(10, 56) java: unchecked cast<br />
 required: java.util.List<java.lang.Integer><br />
-found:    java.util.List<&#47;pre><br />
-Jeśli jesteśmy pewni, że ta operacja jest poprawna (mamy pewność, że będą tam tylko instancje klasy <code>Integer<&#47;code>) i chcemy aby kompilator takich wyjątków nie pokazywał możemy użyć adnotacji <code>@SuppressWarnings<&#47;code></p>
+found:    java.util.List</pre><br />
+Jeśli jesteśmy pewni, że ta operacja jest poprawna (mamy pewność, że będą tam tylko instancje klasy <code>Integer</code>) i chcemy aby kompilator takich wyjątków nie pokazywał możemy użyć adnotacji <code>@SuppressWarnings</code></p>
 <p>Akurat tę adnotację możemy przypisać do typu, atrybutu, metody, parametru metody, konstruktora czy nawet zmiennej lokalnej, jak zrobiłem to w przykładzie poniżej.</p>
 <pre class="lang:default decode:true ">public static void main(String[] args) {<br />
     List listOfUndefinedObjects = new ArrayList();<br />
     @SuppressWarnings("uncecked")<br />
     List<Integer> listOfIntegers = (List<Integer>) listOfUndefinedObjects;<br />
-}<&#47;pre><br />
-<code>@SupressWarnings(&bdquo;unchecked&rdquo;)<&#47;code> mówi aby kompilator nie ostrzegał nas o potencjalnych zagrożeniach typu <code>unchecked<&#47;code> przy tej konkretnej zmiennej.</p>
-<h2>Adnotacje przetwarzane w trakcie uruchomienia programu<&#47;h2><br />
+}</pre><br />
+<code>@SupressWarnings(&bdquo;unchecked&rdquo;)</code> mówi aby kompilator nie ostrzegał nas o potencjalnych zagrożeniach typu <code>unchecked</code> przy tej konkretnej zmiennej.</p>
+<h2>Adnotacje przetwarzane w trakcie uruchomienia programu</h2><br />
 Adnotacje mogą być także używane w trakcie działania programu. Służy do tego mechanizm refleksji.</p>
 <p>Mechanizm refleksji opiszę w osobnym artykule. Na potrzeby tego artykułu wystarczy, że wiesz o jej istnieniu oraz o tym, że dzięki niej możemy w trakcie działania programu pobierać informacje o skompilowanym kodzie.</p>
-<p>Przykładem takiej adnotacji jest na przykład <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;javax&#47;annotation&#47;PostConstruct.html" target="_blank"><code>@PostConstruct<&#47;code><&#47;a>.</p>
-<h1>Składnia definiowania adnotacji<&#47;h1><br />
+<p>Przykładem takiej adnotacji jest na przykład <a href="https://docs.oracle.com/javase/8/docs/api/javax/annotation/PostConstruct.html" target="_blank"><code>@PostConstruct</code></a>.</p>
+<h1>Składnia definiowania adnotacji</h1><br />
 Java Language Specification definiuje adnotację jako specjalny rodzaj interfejsu. Szczerze mówiąc to porównanie nasuwa się samo jak zobaczysz przykładową definicję adnotacji.</p>
 <pre class="lang:default decode:true ">public @interface Override {<br />
-}<&#47;pre><br />
-Definicja powyżej to nic innego jak znana Ci już adnotacja <code>@Override<&#47;code>. Zauważ znak <code>@<&#47;code> przed słowem kluczowym <code>interface<&#47;code>.</p>
+}</pre><br />
+Definicja powyżej to nic innego jak znana Ci już adnotacja <code>@Override</code>. Zauważ znak <code>@</code> przed słowem kluczowym <code>interface</code>.</p>
 <p>Dodatkowo definicja adnotacji powinna także posiadać informację o tym do jakich elementów może być stosowana. Ponadto znajduje się tam także informacja o tym jak długo dane o adnotacji powinny być przetrzymywane &ndash; retencja. Czy tylko w trakcie kompilacji czy także w trakcie uruchomienia programu.</p>
-<p>Ta ostatnia cecha (ang. <em>retention<&#47;em>) jest bardzo istotna gdy chcesz wykorzystywać adnotację w trakcie uruchomienia programu. Pełna definicja adnotacji <code>@Override<&#47;code> wraz z tymi informacjami przedstawiona jest w przykładzie poniżej</p>
+<p>Ta ostatnia cecha (ang. <em>retention</em>) jest bardzo istotna gdy chcesz wykorzystywać adnotację w trakcie uruchomienia programu. Pełna definicja adnotacji <code>@Override</code> wraz z tymi informacjami przedstawiona jest w przykładzie poniżej</p>
 <pre class="lang:default decode:true ">@Target(ElementType.METHOD)<br />
 @Retention(RetentionPolicy.SOURCE)<br />
 public @interface Override {<br />
-}<&#47;pre></p>
-<h2>Dopuszczalny kontekst użycia adnotacji<&#47;h2><br />
-Do określenia gdzie możemy użyć adnotację służy inna &bdquo;meta-adnotacja&rdquo; <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;annotation&#47;Target.html" target="_blank"><code>@Target<&#47;code><&#47;a>. Jeśli ją pominiemy przy definiowaniu nowej adnotacji, możemy jej używać w każdym miejscu. Z jednym małym wyjątkiem &ndash; adnotacji typów.</p>
-<p>Miejsca gdzie możmy użyć adnotacji określone są przez wartości typu wyliczeniowego <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;annotation&#47;ElementType.html" target="_blank"><code>ElementType<&#47;code><&#47;a>. Spójrz na przykład poniżej.</p>
+}</pre></p>
+<h2>Dopuszczalny kontekst użycia adnotacji</h2><br />
+Do określenia gdzie możemy użyć adnotację służy inna &bdquo;meta-adnotacja&rdquo; <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Target.html" target="_blank"><code>@Target</code></a>. Jeśli ją pominiemy przy definiowaniu nowej adnotacji, możemy jej używać w każdym miejscu. Z jednym małym wyjątkiem &ndash; adnotacji typów.</p>
+<p>Miejsca gdzie możmy użyć adnotacji określone są przez wartości typu wyliczeniowego <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/ElementType.html" target="_blank"><code>ElementType</code></a>. Spójrz na przykład poniżej.</p>
 <pre class="lang:default decode:true ">@Target(ElementType.FIELD)<br />
 public @interface SampleFieldAnnotation {<br />
 String id();<br />
-}<&#47;pre><br />
-Nasza <code>@SampleFieldAnnotation<&#47;code> może być użyta wyłącznie przy atrybutach klasy, ponieważ przypisaliśmy do niej <code>ElementType.FIELD<&#47;code>.</p>
-<h2>Retencja adnotacji<&#47;h2><br />
-Adnotacje, które przypiszesz mają swój "cykl życia". W zależności od typu adnotacji informacja o tym, że była ona przypisana do jakiegoś elementu może (ale nie musi) być "wymazana" przez kompilator w trakcie kompilacji. Zachowanie takie ma sens ponieważ nie potrzebujemy informacji w trakcie uruchomienia programu o adnotacjach, kt&oacute;re są wykorzystywane wyłącznie podczas kompilacji. Takie "wymazywanie" adnotacji pozwala na stworzenie bajtkodu (skompilowanej klasy), kt&oacute;ry ma mniejszą objętość.</p>
-<p>Retencję (informacja o tym jak długo informacja o adnotacji powinna być przechowywana) także określamy przy pomocy adnotacji. Służy do tego &bdquo;meta-adnotacja&rdquo; <code>@Retention<&#47;code>. Informacje o adnotacji mogą być:</p>
+}</pre><br />
+Nasza <code>@SampleFieldAnnotation</code> może być użyta wyłącznie przy atrybutach klasy, ponieważ przypisaliśmy do niej <code>ElementType.FIELD</code>.</p>
+<h2>Retencja adnotacji</h2><br />
+Adnotacje, które przypiszesz mają swój "cykl życia". W zależności od typu adnotacji informacja o tym, że była ona przypisana do jakiegoś elementu może (ale nie musi) być "wymazana" przez kompilator w trakcie kompilacji. Zachowanie takie ma sens ponieważ nie potrzebujemy informacji w trakcie uruchomienia programu o adnotacjach, które są wykorzystywane wyłącznie podczas kompilacji. Takie "wymazywanie" adnotacji pozwala na stworzenie bajtkodu (skompilowanej klasy), który ma mniejszą objętość.</p>
+<p>Retencję (informacja o tym jak długo informacja o adnotacji powinna być przechowywana) także określamy przy pomocy adnotacji. Służy do tego &bdquo;meta-adnotacja&rdquo; <code>@Retention</code>. Informacje o adnotacji mogą być:</p>
 <ul>
-<li>usuwane przez kompilator w trakcie kompilacji,<&#47;li>
-<li>umieszczanie w skompilowanej klasie, ale nie dostępne w trakcie uruchomienia programu,<&#47;li>
-<li>dostępne w trakcie uruchomienia programu.<&#47;li><br />
-<&#47;ul><br />
-Wszystkie trzy sposoby określone są przez typ wyliczeniowy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;annotation&#47;RetentionPolicy.html" target="_blank"><code>RetentionPolicy<&#47;code><&#47;a>.</p>
-<p>Jeśli nie określimy retencji naszej własnej adnotacji (nie dodamy <code>@Retention<&#47;code>), wówczas przyjmie ona wartość domyślną <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;annotation&#47;RetentionPolicy.html#CLASS" target="_blank"><code>RetentionPolicy.CLASS<&#47;code><&#47;a>. Innymi słowy, jeśli nie określimy inaczej informacje o adnotacji są zapisywane w pliku class jednak nie są dostępne w trakcie uruchomienia programu.</p>
-<h2>Elementy adnotacji<&#47;h2><br />
-Zauważ, że niektóre adnotacje posiadają &bdquo;argumenty&rdquo;. W kontekście adnotacji argumenty te nazywamy elementami. Na przykład w przypadku adnotacji <code>@SuppressWarnings<&#47;code> przekazywaliśmy informację o tym jakiego typu ostrzeżenia kompilatora chcemy pomijać.</p>
+<li>usuwane przez kompilator w trakcie kompilacji,</li>
+<li>umieszczanie w skompilowanej klasie, ale nie dostępne w trakcie uruchomienia programu,</li>
+<li>dostępne w trakcie uruchomienia programu.</li><br />
+</ul><br />
+Wszystkie trzy sposoby określone są przez typ wyliczeniowy <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/RetentionPolicy.html" target="_blank"><code>RetentionPolicy</code></a>.</p>
+<p>Jeśli nie określimy retencji naszej własnej adnotacji (nie dodamy <code>@Retention</code>), wówczas przyjmie ona wartość domyślną <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/RetentionPolicy.html#CLASS" target="_blank"><code>RetentionPolicy.CLASS</code></a>. Innymi słowy, jeśli nie określimy inaczej informacje o adnotacji są zapisywane w pliku class jednak nie są dostępne w trakcie uruchomienia programu.</p>
+<h2>Elementy adnotacji</h2><br />
+Zauważ, że niektóre adnotacje posiadają &bdquo;argumenty&rdquo;. W kontekście adnotacji argumenty te nazywamy elementami. Na przykład w przypadku adnotacji <code>@SuppressWarnings</code> przekazywaliśmy informację o tym jakiego typu ostrzeżenia kompilatora chcemy pomijać.</p>
 <p>Każda adnotacja może mieć elementy, które możemy uzupełnić przy przypisywaniu adnotacji. Możemy je rozumieć jako &bdquo;parametry&rdquo; dla adnotacji. Pozwalają one na przekazanie dodatkowych informacji. Spójrz na przykład poniżej:</p>
 <pre class="lang:default decode:true ">public @interface Retention {<br />
     RetentionPolicy value();<br />
-}<&#47;pre><br />
-Jak widzisz, składnia definiująca elementy adnotacji używa nawiasów <code>()<&#47;code>, mogą przypominać one deklaracje metod, co po raz kolejny można skojarzyć z interfejsami.</p>
-<p>Adnotacja <code>@Retention<&#47;code> posiada jeden element o nazwie <code>value<&#47;code>. Nazwa <code>value<&#47;code> jest traktowana specjalnie. Jeżli jest jedyna, możemy ją pomijać gdy używamy danej adnotacji. W przykładzie poniżej oba użycia oznaczają dokładnie to samo.</p>
+}</pre><br />
+Jak widzisz, składnia definiująca elementy adnotacji używa nawiasów <code>()</code>, mogą przypominać one deklaracje metod, co po raz kolejny można skojarzyć z interfejsami.</p>
+<p>Adnotacja <code>@Retention</code> posiada jeden element o nazwie <code>value</code>. Nazwa <code>value</code> jest traktowana specjalnie. Jeżli jest jedyna, możemy ją pomijać gdy używamy danej adnotacji. W przykładzie poniżej oba użycia oznaczają dokładnie to samo.</p>
 <pre class="lang:default decode:true">@Retention(RetentionPolicy.SOURCE)<br />
-@Retention(value=RetentionPolicy.SOURCE)<&#47;pre></p>
-<h3>Elementy adnotacji będące tablicami<&#47;h3><br />
-Czasami może zdarzyć się tak, że do adnotacji chcesz przekazać kilka wartości dla danego elementu. Wówczas element adnotacji jest typu tablicowego. Dobrym przykładem tutaj jest adnotacja <code>@Target<&#47;code>, którą widziałeś już wyżej:</p>
+@Retention(value=RetentionPolicy.SOURCE)</pre></p>
+<h3>Elementy adnotacji będące tablicami</h3><br />
+Czasami może zdarzyć się tak, że do adnotacji chcesz przekazać kilka wartości dla danego elementu. Wówczas element adnotacji jest typu tablicowego. Dobrym przykładem tutaj jest adnotacja <code>@Target</code>, którą widziałeś już wyżej:</p>
 <pre class="lang:default decode:true ">public @interface Target {<br />
     ElementType[] value();<br />
-}<&#47;pre><br />
-Jak widzisz posiada ona element <code>value<&#47;code>, który jest tablicą. Podobnie jak w poprzednim przykładzie jedyny element o nazwie <code>value<&#47;code> może być pominięty. Przykład poniżej pokazuje cztery różne sposoby użycia adnotacji mające ten sam efekt. Nawiasy <code>{}<&#47;code> służą do określenia tablicy wartości, w tym przykładzie jest to tablica jednoelementowa.</p>
+}</pre><br />
+Jak widzisz posiada ona element <code>value</code>, który jest tablicą. Podobnie jak w poprzednim przykładzie jedyny element o nazwie <code>value</code> może być pominięty. Przykład poniżej pokazuje cztery różne sposoby użycia adnotacji mające ten sam efekt. Nawiasy <code>{}</code> służą do określenia tablicy wartości, w tym przykładzie jest to tablica jednoelementowa.</p>
 <pre class="lang:default decode:true ">@Target(ElementType.FIELD)<br />
 @Target(value=ElementType.FIELD)<br />
 @Target({ElementType.FIELD})<br />
-@Target(value={ElementType.FIELD})<&#47;pre></p>
-<h3>Wartości domyślne elementów adnotacji<&#47;h3><br />
-Istnieje możliwość tworzenia adnotacji, które mają wartości domyślne. Używamy do tego słowa kluczowego <code>default<&#47;code>. Spórz na przykład poniżej</p>
+@Target(value={ElementType.FIELD})</pre></p>
+<h3>Wartości domyślne elementów adnotacji</h3><br />
+Istnieje możliwość tworzenia adnotacji, które mają wartości domyślne. Używamy do tego słowa kluczowego <code>default</code>. Spórz na przykład poniżej</p>
 <pre class="lang:default decode:true ">@Retention(RetentionPolicy.RUNTIME)<br />
 @Target({ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.METHOD})<br />
 public @interface AnnotationWithDefaultValues {<br />
     String firstElement() default "someDefaultValue";<br />
     int [] secondElement() default {1, 2, 3};<br />
     float thirdElement();<br />
-}<&#47;pre><br />
-Nasza adnotacja <code>@AnnotationWithDefaultValues<&#47;code> posiada trzy elementy, dwa z nich mają wartości domyślne. Adnotację tę możemy stosować do atrybutów klasy, konstruktorów i metod. Informacja o tej adnotacji jest dostępna w trakcie wykonania programu.</p>
-<h1>Zadanie<&#47;h1><br />
-Na koniec mam dla Ciebie zadanie. Napisz adnotację <code>@MyDocumentation<&#47;code>, która będzie miała elementy <code>author<&#47;code> oraz <code>comment<&#47;code>. Informacja o tej adnotacji powinna być dostępna w trakcie uruchomienia programu.</p>
+}</pre><br />
+Nasza adnotacja <code>@AnnotationWithDefaultValues</code> posiada trzy elementy, dwa z nich mają wartości domyślne. Adnotację tę możemy stosować do atrybutów klasy, konstruktorów i metod. Informacja o tej adnotacji jest dostępna w trakcie wykonania programu.</p>
+<h1>Zadanie</h1><br />
+Na koniec mam dla Ciebie zadanie. Napisz adnotację <code>@MyDocumentation</code>, która będzie miała elementy <code>author</code> oraz <code>comment</code>. Informacja o tej adnotacji powinna być dostępna w trakcie uruchomienia programu.</p>
 <p>Napisałem krótki fragment, kodu używający mechanizmu refleksji, w którym możesz przetestować swoją adnotację. Wstaw adnotację w miejscu komentarza i uruchom program. Używa on mechanizmu refleksji (jej tłumaczenie możemy teraz pominąć).</p>
-<pre class="">&#47;&#47; TUTAJ DODAJ ADNOTACJE<br />
+<pre class="">// TUTAJ DODAJ ADNOTACJE<br />
 public class AnnotationProcessor {</p>
 <p>    private static List SKIP_METHODS = Arrays.asList("equals", "toString", "hashCode", "annotationType");</p>
 <p>    public static void main(String[] args) throws InvocationTargetException, IllegalAccessException {<br />
@@ -179,18 +179,18 @@ public class AnnotationProcessor {</p>
             System.out.println();<br />
         }<br />
     }<br />
-}<&#47;pre><br />
-Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania. W przypadku jakichkolwiek wątpliwości <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;20_adnotacje&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;annotations&#47;exercise" target="_blank">przykładowe rozwiązanie<&#47;a> umieściłem na githubie.</p>
-<h1>Dodatkowe materiały do nauki<&#47;h1><br />
+}</pre><br />
+Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania. W przypadku jakichkolwiek wątpliwości <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/20_adnotacje/src/main/java/pl/samouczekprogramisty/kursjava/annotations/exercise" target="_blank">przykładowe rozwiązanie</a> umieściłem na githubie.</p>
+<h1>Dodatkowe materiały do nauki</h1><br />
 Oczywiście Jak zwykle zachęcam do przejrzenia standardowej dokumentacji, jak zwykle znajdziesz tam mnóstwo wiedzy.</p>
 <ul>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-9.html#jls-9.7" target="_blank">https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-9.html#jls-9.7<&#47;a><&#47;li>
-<li><a href="http:&#47;&#47;tutorials.jenkov.com&#47;java&#47;annotations.html" target="_blank">http:&#47;&#47;tutorials.jenkov.com&#47;java&#47;annotations.html<&#47;a><&#47;li>
-<li><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;20_adnotacje&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;annotations" target="_blank">kod źródłowy użyty w artykule<&#47;a>.<&#47;li><br />
-<&#47;ul></p>
-<h1>Podsumowanie<&#47;h1><br />
+<li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.7" target="_blank">https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.7</a></li>
+<li><a href="http://tutorials.jenkov.com/java/annotations.html" target="_blank">http://tutorials.jenkov.com/java/annotations.html</a></li>
+<li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/20_adnotacje/src/main/java/pl/samouczekprogramisty/kursjava/annotations" target="_blank">kod źródłowy użyty w artykule</a>.</li><br />
+</ul></p>
+<h1>Podsumowanie</h1><br />
 W artykule przeczytałeś o adnotacjach, napisałeś swoją pierwszą adnotację i nawet udało Ci się ją wykryć w trakcie działania programu. Wiesz, kiedy i do czego używamy adnotacji. Dzięki temu artykułowi nie zgubisz się w gąszczu adnotacji Springa czy innych bibliotek :)</p>
 <p>Jak zwykle, jeśli masz jakiekolwiek pytania zadaj je w komentarzach, w miarę możliwości postaram się pomóc.</p>
-<p>Mam nadzieję, że artykuł Ci się podobał, na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników. Możesz mi w tym pomóc udostępniając link do bloga czy artykułu swoim znajomym :) Z g&oacute;ry dziękuję i do następnego razu!</p>
+<p>Mam nadzieję, że artykuł Ci się podobał, na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników. Możesz mi w tym pomóc udostępniając link do bloga czy artykułu swoim znajomym :) Z góry dziękuję i do następnego razu!</p>
 <p>[FM_form id="3"]</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;115327016@N06&#47;</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/115327016@N06/</p>

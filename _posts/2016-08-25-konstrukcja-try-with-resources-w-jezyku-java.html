@@ -26,11 +26,11 @@ comments: []
 ---
 <p>Artykuł opisuje konstrukcję try-with-resources występującą w języku Java. Na przykładowym programie będziesz mógł dowiedzieć się jak ona działa. W artykule przeczytasz też o tym czym jest &bdquo;cukier syntaktyczny&rdquo;. Całość zakończymy jak zwykle zadaniem, które pozwoli Ci przećwiczyć materiał opisany w artykule. Zapraszam!</p>
 <p><a id="more"></a><a id="more-347"></a></p>
-<p>[idea]To jest jeden z artykułów w ramach <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kurs-programowania-java&#47;">darmowego kursu programowania w Javie<&#47;a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[&#47;idea]</p>
-<h1>Try-with-resources<&#47;h1><br />
-Pamiętasz w jaki sposób musieliśmy <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;operacje-na-plikach-w-jezyku-java&#47;">obchodzić się ze strumieniami danych<&#47;a>? Trzeba było koniecznie pamiętać o ich zamknięciu. Generowało to sporą masę powtarzalnego kodu (ang. <em>boilerplate code<&#47;em>). Dobrą praktyką jest unikanie, powtórzeń &ndash; mniej kodu źr&oacute;dłowego, mniej miejsc do popełniania potencjalnego błędu :). Tutaj z pomocą przyszli tw&oacute;rcy Javy, wprowadzając konstrukcję &bdquo;try-with-resources&rdquo;.</p>
-<p>Tego typu konstrukcję możemy nazwać cukrem syntaktycznym (ang. <em>syntactic sugar<&#47;em>). Takie konstrukcje upraszczają kod, jednak nie są niezbędne dla języka programowania. Innymi słowy programista mógłby sobie bez takich konstrukcji poradzić, jednak ich obecność zmniejsza ilość kodu, która jest potrzebna do wykonania tego samego zadania.</p>
-<p>Najlepiej będzie jeśli zobaczymy to na przykładzie. Poniższy fragment kodu prezentuje odczytanie linijki z pliku tekstowego. W tym przykładzie także obsługujemy wyjątki, nie są one wspomniane w sygnaturze metody po klauzuli <code>throws<&#47;code> więc odpowiednie bloki <code>catch<&#47;code> muszą się znaleźć aby kompilator pozwolił nam ten kod skompilować (pamiętasz <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wyjatki-w-jezyku-java&#47;">wyjątki typu checked i unchecked<&#47;a>?)</p>
+<p>[idea]To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]</p>
+<h1>Try-with-resources</h1><br />
+Pamiętasz w jaki sposób musieliśmy <a href="http://www.samouczekprogramisty.pl/operacje-na-plikach-w-jezyku-java/">obchodzić się ze strumieniami danych</a>? Trzeba było koniecznie pamiętać o ich zamknięciu. Generowało to sporą masę powtarzalnego kodu (ang. <em>boilerplate code</em>). Dobrą praktyką jest unikanie, powtórzeń &ndash; mniej kodu źródłowego, mniej miejsc do popełniania potencjalnego błędu :). Tutaj z pomocą przyszli twórcy Javy, wprowadzając konstrukcję &bdquo;try-with-resources&rdquo;.</p>
+<p>Tego typu konstrukcję możemy nazwać cukrem syntaktycznym (ang. <em>syntactic sugar</em>). Takie konstrukcje upraszczają kod, jednak nie są niezbędne dla języka programowania. Innymi słowy programista mógłby sobie bez takich konstrukcji poradzić, jednak ich obecność zmniejsza ilość kodu, która jest potrzebna do wykonania tego samego zadania.</p>
+<p>Najlepiej będzie jeśli zobaczymy to na przykładzie. Poniższy fragment kodu prezentuje odczytanie linijki z pliku tekstowego. W tym przykładzie także obsługujemy wyjątki, nie są one wspomniane w sygnaturze metody po klauzuli <code>throws</code> więc odpowiednie bloki <code>catch</code> muszą się znaleźć aby kompilator pozwolił nam ten kod skompilować (pamiętasz <a href="http://www.samouczekprogramisty.pl/wyjatki-w-jezyku-java/">wyjątki typu checked i unchecked</a>?)</p>
 <pre class="lang:default decode:true">BufferedReader fileReader = null;<br />
 try {<br />
     fileReader = new BufferedReader(new FileReader(inputPath));<br />
@@ -47,7 +47,7 @@ try {<br />
             e.printStackTrace();<br />
         }<br />
     }<br />
-}<&#47;pre><br />
+}</pre><br />
 Prawda, że dużo tego? I tu z pomocą przychodzi konstrukcja try-with-resources, zobacz proszę jak ona wygląda:</p>
 <pre class="lang:default decode:true ">try(BufferedReader fileReader = new BufferedReader(new FileReader(inputPath))) {<br />
     fileReader.readLine();<br />
@@ -55,19 +55,19 @@ Prawda, że dużo tego? I tu z pomocą przychodzi konstrukcja try-with-resources
     e.printStackTrace();<br />
 } catch (IOException e) {<br />
     e.printStackTrace();<br />
-}<&#47;pre><br />
-Konstrukcja wygląda jak <code>try<&#47;code>&#47;<code>catch<&#47;code> z tym, że przez blokiem objętym <code>try<&#47;code> możemy zainicjalizować zmienne, które zostaną automatycznie zamknięte. Kompilator widząc konstrukcję try-with-resources wygeneruje za nas kod zbliżony do tego z pierwszego przykładu (w podobny sposób generuje np. domyślne konstruktory).</p>
-<p>Konstrukcję try-with-resources możemy nazwać także &bdquo;menadżerem kontekstu&rdquo;, automatycznie zarządza ona za nas kontekstem, w ramach którego dostępne są zmienne zdefiniowane wewnątrz nawiasów <code>()<&#47;code>. Co więcej, wewnątrz tych nawias&oacute;w możemy zainicjalizować więcej zmiennych, każda z nich zostanie poprawnie zamknięta (zostanie na nich wywołana metoda <code>close<&#47;code>). W przykładzie poniżej odczytujemy linijkę z pliku wejściowego i zapisujemy ją do pliku wyjściowego (tutaj pominąłem obsługę wyjątk&oacute;w):</p>
+}</pre><br />
+Konstrukcja wygląda jak <code>try</code>/<code>catch</code> z tym, że przez blokiem objętym <code>try</code> możemy zainicjalizować zmienne, które zostaną automatycznie zamknięte. Kompilator widząc konstrukcję try-with-resources wygeneruje za nas kod zbliżony do tego z pierwszego przykładu (w podobny sposób generuje np. domyślne konstruktory).</p>
+<p>Konstrukcję try-with-resources możemy nazwać także &bdquo;menadżerem kontekstu&rdquo;, automatycznie zarządza ona za nas kontekstem, w ramach którego dostępne są zmienne zdefiniowane wewnątrz nawiasów <code>()</code>. Co więcej, wewnątrz tych nawiasów możemy zainicjalizować więcej zmiennych, każda z nich zostanie poprawnie zamknięta (zostanie na nich wywołana metoda <code>close</code>). W przykładzie poniżej odczytujemy linijkę z pliku wejściowego i zapisujemy ją do pliku wyjściowego (tutaj pominąłem obsługę wyjątków):</p>
 <pre class="lang:default decode:true ">try(<br />
         BufferedReader fileReader = new BufferedReader(new FileReader(inputPath));<br />
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(outputPath))<br />
 ) {<br />
     String line = fileReader.readLine();<br />
     fileWriter.write(line);<br />
-}<&#47;pre><br />
-Taka struktura tłumaczona jest przez kompilator na sekwencję zagnieżdżonych bloków <code>try<&#47;code>&#47;<code>catch<&#47;code>&#47;<code>finally<&#47;code>. W każdym z tych zagnieżdżonych bloków zarządza kolejną zmienną. Zmienne zamykane są w odwrotnej kolejności niż są deklarowane, zatem w naszym przykładzie pierwszy zostanie zamknięty <code>fileWriter<&#47;code> po nim <code>fileReader<&#47;code>.</p>
-<h1>Własne menadżery kontekstu<&#47;h1><br />
-Całość działa, ponieważ klasy takie jak <code>BufferedFileWriter<&#47;code> czy <code>BufferedFileReader<&#47;code> implementują interfejs <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;AutoCloseable.html" target="_blank"><code>java.lang.AutoCloseable<&#47;code><&#47;a>. Właściwie to wszystkie znane mi klasy do obsługi strumieni wejściowych&#47;wyjściowych w standardowej bibliotece Javy implementują ten interfejs. To jest właśnie główne wymaganie, które musi być spełnione przez zmienne definiowane wewnątrz <code>()<&#47;code> gdy używamy konstrukcji try-with-resources.</p>
+}</pre><br />
+Taka struktura tłumaczona jest przez kompilator na sekwencję zagnieżdżonych bloków <code>try</code>/<code>catch</code>/<code>finally</code>. W każdym z tych zagnieżdżonych bloków zarządza kolejną zmienną. Zmienne zamykane są w odwrotnej kolejności niż są deklarowane, zatem w naszym przykładzie pierwszy zostanie zamknięty <code>fileWriter</code> po nim <code>fileReader</code>.</p>
+<h1>Własne menadżery kontekstu</h1><br />
+Całość działa, ponieważ klasy takie jak <code>BufferedFileWriter</code> czy <code>BufferedFileReader</code> implementują interfejs <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html" target="_blank"><code>java.lang.AutoCloseable</code></a>. Właściwie to wszystkie znane mi klasy do obsługi strumieni wejściowych/wyjściowych w standardowej bibliotece Javy implementują ten interfejs. To jest właśnie główne wymaganie, które musi być spełnione przez zmienne definiowane wewnątrz <code>()</code> gdy używamy konstrukcji try-with-resources.</p>
 <p>Nasunąć się zatem może pytanie, czy&nbsp; możemy stworzyć własną klasę, która będzie działała z tą konstrukcją? Oczywiście! :) Poniżej przykład:</p>
 <pre class="lang:default decode:true ">public class MyContextManager implements AutoCloseable {<br />
     public MyContextManager() {<br />
@@ -86,37 +86,37 @@ Całość działa, ponieważ klasy takie jak <code>BufferedFileWriter<&#47;code>
             manager.doSomething();<br />
         }<br />
     }<br />
-}<&#47;pre><br />
-<code>MyContextManager<&#47;code> implementuje interfejs <code>AutoCloseable<&#47;code> dzięki czemu możemy użyć go wewnątrz konstrukcji try-with-resources. Jeśli uruchomiłbyś metodę main z powyższego przykładu na konsoli pojawiłyby się następujące linijki:</p>
+}</pre><br />
+<code>MyContextManager</code> implementuje interfejs <code>AutoCloseable</code> dzięki czemu możemy użyć go wewnątrz konstrukcji try-with-resources. Jeśli uruchomiłbyś metodę main z powyższego przykładu na konsoli pojawiłyby się następujące linijki:</p>
 <pre class="lang:default highlight:0 decode:true ">Wlasnie sie tworze!<br />
 Wlasnie cos robie :)<br />
-Ktos mnie teraz zamyka!<&#47;pre><br />
-Widzisz? Metody <code>close<&#47;code> nie wywoływałem nigdzie a mimo to została automatycznie wykonana podczas działania programu. Stało się tak właśnie dzięki kompilatorowi, który przetłumaczył konstrukcję try-with-resources na kod, który poprawnie zamyka zmienne.</p>
-<h1>Zadanie<&#47;h1><br />
-Teraz nadszedł czas na zadanie dla Ciebie. Strony w internecie tworzone są przy pomocy <code>HTML<&#47;code>, jest to język znaczników, który jest&nbsp; interpretowany przez przeglądarki internetowe wyświetlające strony www. Przykładem znacznik&oacute;w jest para <code><em><&#47;em><&#47;code>, jak widzisz jest tu znacznik otwierający <code><em><&#47;code> oraz zamykający <code><&#47;em><&#47;code> (akurat ta para odpowiedzialna jest za wyr&oacute;żnianie tekstu). Wewnątrz znacznik&oacute;w znajduje się treść np. <code><em>tekst<&#47;em><&#47;code>. Istnieje wiele innych par znacznik&oacute;w np. <code>
-<pre><&#47;pre><&#47;code>, <code><code><&#47;code><&#47;code>, <code><b><&#47;b><&#47;code> itd.,</p>
-<p>Zaimplementuj klasę <code>HtmlTag<&#47;code>, która będzie menadżerem kontekstu. W konstruktorze powinna przyjmować nazwę znacznika np. <code>em<&#47;code>. Klasa powinna mieć metodę <code>body<&#47;code>, która przyjmie parametr typu <code>String<&#47;code> i wypisze go na konsoli. Uruchamiając kod</p>
+Ktos mnie teraz zamyka!</pre><br />
+Widzisz? Metody <code>close</code> nie wywoływałem nigdzie a mimo to została automatycznie wykonana podczas działania programu. Stało się tak właśnie dzięki kompilatorowi, który przetłumaczył konstrukcję try-with-resources na kod, który poprawnie zamyka zmienne.</p>
+<h1>Zadanie</h1><br />
+Teraz nadszedł czas na zadanie dla Ciebie. Strony w internecie tworzone są przy pomocy <code>HTML</code>, jest to język znaczników, który jest&nbsp; interpretowany przez przeglądarki internetowe wyświetlające strony www. Przykładem znaczników jest para <code><em></em></code>, jak widzisz jest tu znacznik otwierający <code><em></code> oraz zamykający <code></em></code> (akurat ta para odpowiedzialna jest za wyróżnianie tekstu). Wewnątrz znaczników znajduje się treść np. <code><em>tekst</em></code>. Istnieje wiele innych par znaczników np. <code>
+<pre></pre></code>, <code><code></code></code>, <code><b></b></code> itd.,</p>
+<p>Zaimplementuj klasę <code>HtmlTag</code>, która będzie menadżerem kontekstu. W konstruktorze powinna przyjmować nazwę znacznika np. <code>em</code>. Klasa powinna mieć metodę <code>body</code>, która przyjmie parametr typu <code>String</code> i wypisze go na konsoli. Uruchamiając kod</p>
 <pre class="lang:default decode:true ">try (<br />
         HtmlTag h1 = new HtmlTag("h1");<br />
         HtmlTag em = new HtmlTag("em")<br />
 ) {<br />
     em.body("moj tekst");<br />
-}<&#47;pre><br />
+}</pre><br />
 Na konsoli powinien znaleźć się tekst</p>
 <pre class="lang:default highlight:0 decode:true">
 <h1>
 <em><br />
 moj tekst<br />
-<&#47;em><br />
-<&#47;h1><&#47;pre><br />
-Jak zwykle zachęcam do samodzielnego rozwiązania zadania, jeśli jednak utknąłbyś przygotowałem <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;blob&#47;master&#47;17_manager_kontekstu&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;context&#47;exercise&#47;HtmlTag.java" target="_blank">przykładowe rozwiązanie<&#47;a>, które może Ci pomóc.</p>
-<h1>Materiały dodatkowe<&#47;h1></p>
+</em><br />
+</h1></pre><br />
+Jak zwykle zachęcam do samodzielnego rozwiązania zadania, jeśli jednak utknąłbyś przygotowałem <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/17_manager_kontekstu/src/main/java/pl/samouczekprogramisty/kursjava/context/exercise/HtmlTag.java" target="_blank">przykładowe rozwiązanie</a>, które może Ci pomóc.</p>
+<h1>Materiały dodatkowe</h1></p>
 <ul>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;AutoCloseable.html" target="_blank">dokumentacja interfejsu AutoCloseable<&#47;a><&#47;li>
-<li><a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-14.html#jls-14.20.3" target="_blank">sekcja z Java Language Specification opisująca konstrukcję try-with-resources<&#47;a><&#47;li>
-<li><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;17_manager_kontekstu&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;context" target="_blank">kod źródłowy przykładów i rozwiązanie zadania<&#47;a><&#47;li><br />
-<&#47;ul></p>
-<h1>Podsumowanie<&#47;h1><br />
-Po przeczytaniu artykułu wiesz już jak używać konstrukcji try-with-resources, wiesz czym jest cukier syntaktyczny. Mam nadzieję, że spędziłeś trochę czasu rozwiązując zadanie, które pozwoliło Ci przećwiczyć wiedzę w praktyce. Na koniec mam do Ciebie wielką prośbę, zależy mi na dotarciu do jak największej liczby czytelników, możesz mi w tym pom&oacute;c polecając bloga znajomym i udostępniając link na facebooku, z g&oacute;ry dziękuję i do następnego razu.</p>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html" target="_blank">dokumentacja interfejsu AutoCloseable</a></li>
+<li><a href="http://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.20.3" target="_blank">sekcja z Java Language Specification opisująca konstrukcję try-with-resources</a></li>
+<li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/17_manager_kontekstu/src/main/java/pl/samouczekprogramisty/kursjava/context" target="_blank">kod źródłowy przykładów i rozwiązanie zadania</a></li><br />
+</ul></p>
+<h1>Podsumowanie</h1><br />
+Po przeczytaniu artykułu wiesz już jak używać konstrukcji try-with-resources, wiesz czym jest cukier syntaktyczny. Mam nadzieję, że spędziłeś trochę czasu rozwiązując zadanie, które pozwoliło Ci przećwiczyć wiedzę w praktyce. Na koniec mam do Ciebie wielką prośbę, zależy mi na dotarciu do jak największej liczby czytelników, możesz mi w tym pomóc polecając bloga znajomym i udostępniając link na facebooku, z góry dziękuję i do następnego razu.</p>
 <p>[FM_form id="3"]</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;livinginmonrovia</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/livinginmonrovia</p>

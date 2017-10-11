@@ -25,16 +25,16 @@ categories:
 - Programista rzemieślnik
 tags: []
 ---
-<p>Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrót&oacute;w klawiaturowych IntliJ Idea pomocnych przy pisaniu test&oacute;w. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania test&oacute;w. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.</p>
+<p>Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.</p>
 <p><a id="more"></a><a id="more-478"></a></p>
-<h1>Po co testujemy oprogramowanie<&#47;h1><br />
-Oczywista odpowiedź jest prosta &ndash; żeby nie było błędów :). Błędy powodują frustrację użytkowników, a to jest coś czego chcemy uniknąć. Ile razy chciałeś rzucić myszką&#47;klawiaturą&#47;laptopem jak coś nie działało jak powinno? Brzmi znajomo? ;)</p>
+<h1>Po co testujemy oprogramowanie</h1><br />
+Oczywista odpowiedź jest prosta &ndash; żeby nie było błędów :). Błędy powodują frustrację użytkowników, a to jest coś czego chcemy uniknąć. Ile razy chciałeś rzucić myszką/klawiaturą/laptopem jak coś nie działało jak powinno? Brzmi znajomo? ;)</p>
 <p>Wszystkie powody testowania komercyjnego oprogramowania sprowadzają się do pieniędzy. Im wcześniej wykryjemy błąd, tym niższy jest koszt jego naprawienia. Pisanie testów jednostkowych pozwala wykryć błędy w najwcześniejszej możliwej fazie, w trakcie pisania kodu programu. Dlatego każdy porządny programista powinien testować kod, który napisze. Oddając kod do użytku powinien być pewny, że działa jak powinien.</p>
 <p>Pojawia się tu jednak pewien problem.&nbsp; Manualne testowanie to żmudna, czasochłonna i mozolna praca. Bardzo tu łatwo o drobne przeoczenie kończące się błędem w programie. Do tego w projektach IT wymagania zmieniają się bardzo często więc takie testy także muszą być bardzo często przeprowadzane.</p>
 <p>W związku z tym programiści testują swój kod pisząc testy jednostkowe.</p>
-<h1>Czym jest test jednostkowy<&#47;h1><br />
-Test jednostkowy (ang. <em>unit test<&#47;em>) to sposób testowania programu, w którym wydzielamy mniejszą jego część, jednostkę i testujemy ją w odosobnieniu. W naszym przypadku taką jednostką do testowania może być pojedyncza klasa czy metoda, kt&oacute;rą napiszemy.</p>
-<p>Testy jednostkowe można pisać bez bibliotek zewnętrznych jednak jest to uciążliwe. Dodatkowo warto używać istniejących bibliotek ponieważ IDE dobrze integrują się tymi bibliotekami. W tym artykule użyłem biblioteki <a href="http:&#47;&#47;junit.org" target="_blank">JUnit<&#47;a>.</p>
+<h1>Czym jest test jednostkowy</h1><br />
+Test jednostkowy (ang. <em>unit test</em>) to sposób testowania programu, w którym wydzielamy mniejszą jego część, jednostkę i testujemy ją w odosobnieniu. W naszym przypadku taką jednostką do testowania może być pojedyncza klasa czy metoda, którą napiszemy.</p>
+<p>Testy jednostkowe można pisać bez bibliotek zewnętrznych jednak jest to uciążliwe. Dodatkowo warto używać istniejących bibliotek ponieważ IDE dobrze integrują się tymi bibliotekami. W tym artykule użyłem biblioteki <a href="http://junit.org" target="_blank">JUnit</a>.</p>
 <p>Spójrz na fragment kodu poniżej. Klasa ta reprezentuje zakres liczb, ma ona jedną metodę, która sprawdza czy liczba przekazana jako argument należy do danego zakresu.</p>
 <pre class="lang:default decode:true ">public class Range {<br />
     private final long lowerBound;<br />
@@ -46,52 +46,52 @@ Test jednostkowy (ang. <em>unit test<&#47;em>) to sposób testowania programu, w
 <p>    public boolean isInRange(long number) {<br />
         return number >= lowerBound &amp;&amp; number <= upperBound;<br />
     }<br />
-}<&#47;pre><br />
+}</pre><br />
 Poniżej przykład prostego testu jednostkowego, który sprawdza czy, liczba 15 jest w zakresie liczb od 10 do 20.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void shouldSayThat15rIsInRange() {<br />
     Range range = new Range(10, 20);<br />
     Assert.assertTrue(range.isInRange(15));<br />
-}<&#47;pre><br />
-Test jednostkowy to metoda testująca naszą jednostkę, metodę w innej klasie z dodaną adnotacją <a href="http:&#47;&#47;junit.org&#47;junit4&#47;javadoc&#47;latest&#47;org&#47;junit&#47;Test.html" target="_blank"><code>@Test<&#47;code><&#47;a>. <code>shouldSayThat15IsInRange<&#47;code> jest testem, wewnątrz którego tworzę instancję klasy <code>Range<&#47;code> i wywołuję metodę sprawdzającą czy 15 jest wewnątrz zakresu.</p>
-<p>Wynik tej metody jest przekazywany do metody <a href="http:&#47;&#47;junit.org&#47;junit4&#47;javadoc&#47;latest&#47;org&#47;junit&#47;Assert.html#assertTrue(boolean)" target="_blank"><code>Asssert.assertTrue()<&#47;code><&#47;a>, jest to tak zwana asercja. Asercje to metody dostarczone przez bibliotekę JUnit, które pomagają przy testowaniu.</p>
-<p>W naszym przykładzie, jeśli metoda <code>isInRange<&#47;code> zwróci <code>false<&#47;code>, wówczas asercja <code>assertTrue<&#47;code> rzuci wyjątek, kt&oacute;ry przez IDE zostanie zinterpretowany jak test jednostkowy, kt&oacute;ry pokazuje błąd działania testowanego kodu. M&oacute;wimy w&oacute;wczas, że &bdquo;test nie przeszedł&rdquo;, &bdquo;wywalił się&rdquo; :).</p>
-<p>Testy jednostkowe łączymy w klasy z testami, bardzo często nazywamy je tak samo jak klasy, które testujemy dodając do nich <code>Test<&#47;code> na końcu. W naszym przypadku klasa z testami dla klasy <code>Range<&#47;code> nazywa się <code>RangeTest<&#47;code>.</p>
-<h2>Przykłady użycia asercji<&#47;h2><br />
-Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie test&oacute;w jednostkowych), kt&oacute;re ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;AssertionError.html" target="_blank"><code>AssertionError<&#47;code><&#47;a> [1. W języku Java istnieje także słowo kluczowe <code>assert<&#47;code>, po kt&oacute;rym musi wystąpić wartość logiczna, jeśli jest ona fałszem kończy się to rzuceniem wyjątku <code>AssertionError<&#47;code> &ndash; np. <code>assert false<&#47;code> rzuci wyjątek.].</p>
-<p>Asercje w bibliotece JUnit to nic innego jak metody statyczne w klasie <a href="http:&#47;&#47;junit.org&#47;junit4&#47;javadoc&#47;latest&#47;org&#47;junit&#47;Assert.html" target="_blank"><code>Assert<&#47;code><&#47;a>. Poniżej przedstawię Ci kilka najczęściej stosowanych asercji [2. Pominę tutaj metodę <code>assertThat<&#47;code>, którą omówię bardziej szczeg&oacute;łowo w kolejnych artykułach].</p>
+}</pre><br />
+Test jednostkowy to metoda testująca naszą jednostkę, metodę w innej klasie z dodaną adnotacją <a href="http://junit.org/junit4/javadoc/latest/org/junit/Test.html" target="_blank"><code>@Test</code></a>. <code>shouldSayThat15IsInRange</code> jest testem, wewnątrz którego tworzę instancję klasy <code>Range</code> i wywołuję metodę sprawdzającą czy 15 jest wewnątrz zakresu.</p>
+<p>Wynik tej metody jest przekazywany do metody <a href="http://junit.org/junit4/javadoc/latest/org/junit/Assert.html#assertTrue(boolean)" target="_blank"><code>Asssert.assertTrue()</code></a>, jest to tak zwana asercja. Asercje to metody dostarczone przez bibliotekę JUnit, które pomagają przy testowaniu.</p>
+<p>W naszym przykładzie, jeśli metoda <code>isInRange</code> zwróci <code>false</code>, wówczas asercja <code>assertTrue</code> rzuci wyjątek, który przez IDE zostanie zinterpretowany jak test jednostkowy, który pokazuje błąd działania testowanego kodu. Mówimy wówczas, że &bdquo;test nie przeszedł&rdquo;, &bdquo;wywalił się&rdquo; :).</p>
+<p>Testy jednostkowe łączymy w klasy z testami, bardzo często nazywamy je tak samo jak klasy, które testujemy dodając do nich <code>Test</code> na końcu. W naszym przypadku klasa z testami dla klasy <code>Range</code> nazywa się <code>RangeTest</code>.</p>
+<h2>Przykłady użycia asercji</h2><br />
+Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie testów jednostkowych), które ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AssertionError.html" target="_blank"><code>AssertionError</code></a> [1. W języku Java istnieje także słowo kluczowe <code>assert</code>, po którym musi wystąpić wartość logiczna, jeśli jest ona fałszem kończy się to rzuceniem wyjątku <code>AssertionError</code> &ndash; np. <code>assert false</code> rzuci wyjątek.].</p>
+<p>Asercje w bibliotece JUnit to nic innego jak metody statyczne w klasie <a href="http://junit.org/junit4/javadoc/latest/org/junit/Assert.html" target="_blank"><code>Assert</code></a>. Poniżej przedstawię Ci kilka najczęściej stosowanych asercji [2. Pominę tutaj metodę <code>assertThat</code>, którą omówię bardziej szczegółowo w kolejnych artykułach].</p>
 <ul>
-<li><code>assertTrue<&#47;code> sprawdza czy przekazany argument to <code>true<&#47;code>,<&#47;li>
-<li><code>assertFalse<&#47;code> sprawdza czy przekazany argument to <code>false<&#47;code>,<&#47;li>
-<li><code>assertNull<&#47;code> sprawdza czy przekazany argument to <code>null<&#47;code>,<&#47;li>
-<li><code>assertNotNull<&#47;code> sprawdza czy przekazany argument nie jest <code>null<&#47;code>em,<&#47;li>
-<li><code>assertEquals<&#47;code> przyjmuje dwa parametry wartość oczekiwaną i wartość rzeczywistą, jeśli są różne rzuca wyjątek,<&#47;li>
-<li><code>assertNotEquals<&#47;code> przyjmuje dwa parametry wartość oczekiwaną i wartość rzeczywistą, rzuci wyjątek jeśli są równe.<&#47;li><br />
-<&#47;ul></p>
-<h2>Importy statyczne<&#47;h2><br />
-Tutaj drobna dygresja, w języku Java musimy importować klasy z innych pakietów, które chcemy użyć w definicji naszej klasy. Poza standardową konstrukcją ze słowem kluczowym <code>import<&#47;code> istnieją także tak zwane importy statyczne.</p>
-<p>Import statyczny pozwala na zaimportowanie metody&#47;wszystkich metod statycznych znajdujących się w definicji jakiejś klasy. Proszę spójrz na przykład poniżej.</p>
+<li><code>assertTrue</code> sprawdza czy przekazany argument to <code>true</code>,</li>
+<li><code>assertFalse</code> sprawdza czy przekazany argument to <code>false</code>,</li>
+<li><code>assertNull</code> sprawdza czy przekazany argument to <code>null</code>,</li>
+<li><code>assertNotNull</code> sprawdza czy przekazany argument nie jest <code>null</code>em,</li>
+<li><code>assertEquals</code> przyjmuje dwa parametry wartość oczekiwaną i wartość rzeczywistą, jeśli są różne rzuca wyjątek,</li>
+<li><code>assertNotEquals</code> przyjmuje dwa parametry wartość oczekiwaną i wartość rzeczywistą, rzuci wyjątek jeśli są równe.</li><br />
+</ul></p>
+<h2>Importy statyczne</h2><br />
+Tutaj drobna dygresja, w języku Java musimy importować klasy z innych pakietów, które chcemy użyć w definicji naszej klasy. Poza standardową konstrukcją ze słowem kluczowym <code>import</code> istnieją także tak zwane importy statyczne.</p>
+<p>Import statyczny pozwala na zaimportowanie metody/wszystkich metod statycznych znajdujących się w definicji jakiejś klasy. Proszę spójrz na przykład poniżej.</p>
 <pre class="lang:default decode:true ">import static org.junit.Assert.assertFalse;<br />
-import static org.junit.Assert.*;<&#47;pre><br />
-W pierwszej linijce importujemy metodę <code>assertFalse<&#47;code> z klasy <code>Assert<&#47;code>, druga linijka to importowanie wszystkich metod statycznych z tej klasy. Dzięki takim importom później w definicji klasy nie musimy używać nazwy klasy używając danej metody statycznej:</p>
+import static org.junit.Assert.*;</pre><br />
+W pierwszej linijce importujemy metodę <code>assertFalse</code> z klasy <code>Assert</code>, druga linijka to importowanie wszystkich metod statycznych z tej klasy. Dzięki takim importom później w definicji klasy nie musimy używać nazwy klasy używając danej metody statycznej:</p>
 <pre class="lang:default decode:true">assertFalse(false);<br />
-assertTrue(true);<&#47;pre><br />
+assertTrue(true);</pre><br />
 Z racji tego, że dużo metod pomocniczych (na przykład asercje) w przypadku pisania testów to metody statyczne, bardzo często używamy tam importów statycznych.</p>
-<h2>Testowanie metod rzucających wyjątki<&#47;h2><br />
-Czasami zdarza się, że chcemy przetestować pewną sytuację wyjątkową. Na przykład nie powinniśmy móc utworzyć instancji klasy <code>Range<&#47;code> z niepoprawnymi argumentami.</p>
+<h2>Testowanie metod rzucających wyjątki</h2><br />
+Czasami zdarza się, że chcemy przetestować pewną sytuację wyjątkową. Na przykład nie powinniśmy móc utworzyć instancji klasy <code>Range</code> z niepoprawnymi argumentami.</p>
 <pre class="lang:default decode:true ">public Range(long lowerBound, long upperBound) {<br />
     if (lowerBound > upperBound) {<br />
         throw new IllegalArgumentException("lowerBound is bigger than upperBound!");<br />
     }<br />
     this.lowerBound = lowerBound;<br />
     this.upperBound = upperBound;<br />
-}<&#47;pre><br />
+}</pre><br />
 Wywołanie konstruktora w teście z niepoprawnymi argumentami kończyłoby się od razu rzuceniem wyjątku, czyli testem jednostkowym, który nie przeszedł.</p>
-<p>Z pomocą w takiej sytuacji przychodzi element <code>expected<&#47;code> adnotacji <code>@Test<&#47;code>. Przykład jego użycia widzisz poniżej:</p>
+<p>Z pomocą w takiej sytuacji przychodzi element <code>expected</code> adnotacji <code>@Test</code>. Przykład jego użycia widzisz poniżej:</p>
 <pre class="lang:default decode:true ">@Test(expected = IllegalArgumentException.class)<br />
 public void shouldThrownIllegalArgumentExceptionOnWrongParameters() {<br />
     new Range(20, 10);<br />
-}<&#47;pre><br />
+}</pre><br />
 Taki test jednostkowy nie przejdzie jeśli wyjątek nie zostanie rzucony. Mimo tego, że w teście nie ma żadnej asercji testuje on właśnie rzucenie wyjątku.</p>
 <p>Istnieje też inny sposób. Możesz go użyć jeśli chcesz mieć dostęp do instancji rzuconego wyjątku. Pokazałem go w przykładzie poniżej:</p>
 <pre class="lang:default decode:true">@Test<br />
@@ -103,10 +103,10 @@ public void shouldHaveProperErrorMessage() {<br />
     catch (IllegalArgumentException exception) {<br />
         assertEquals("lowerBound is bigger than upperBound!", exception.getMessage());<br />
     }<br />
-}<&#47;pre><br />
-Użyta tu statyczna metoda <code>Assert.fail()<&#47;code> powoduje zakończenie testu niepowodzeniem. Zostanie ona wywołąna wyłącznie jeśli wyjątek nie zostanie rzucony.</p>
-<h2>Przygotowanie testów i cykl życia testów<&#47;h2><br />
-Czasami zdarza się, że kilka testów jednostkowych wymaga pewnego &bdquo;przygotowania&rdquo;. Na przykład trzeba utworzyć instancję, którą będziemy p&oacute;źniej testowali. Tw&oacute;rcy biblioteki JUnit przyszli nam z pomocą. Istnieje adnotacja <code>@Before<&#47;code>, kt&oacute;rą możemy dodać do metody w klasie z testami. Metoda ta zostanie uruchomiona przed każdym testem jednostkowym. Proszę sp&oacute;jrz na przykład poniżej.</p>
+}</pre><br />
+Użyta tu statyczna metoda <code>Assert.fail()</code> powoduje zakończenie testu niepowodzeniem. Zostanie ona wywołąna wyłącznie jeśli wyjątek nie zostanie rzucony.</p>
+<h2>Przygotowanie testów i cykl życia testów</h2><br />
+Czasami zdarza się, że kilka testów jednostkowych wymaga pewnego &bdquo;przygotowania&rdquo;. Na przykład trzeba utworzyć instancję, którą będziemy później testowali. Twórcy biblioteki JUnit przyszli nam z pomocą. Istnieje adnotacja <code>@Before</code>, którą możemy dodać do metody w klasie z testami. Metoda ta zostanie uruchomiona przed każdym testem jednostkowym. Proszę spójrz na przykład poniżej.</p>
 <pre class="lang:default decode:true ">public class RangeTest {<br />
     private Range range;</p>
 <p>    @Before<br />
@@ -121,15 +121,15 @@ Czasami zdarza się, że kilka testów jednostkowych wymaga pewnego &bdquo;przyg
     public void shouldSayThat5IsntInRange() {<br />
         assertFalse(range.isInRange(5));<br />
     }<br />
-}<&#47;pre><br />
-W naszym przykładzie metoda <code>setUp<&#47;code> zostanie wywołana przed uruchomieniem każdego z testów. Dzięki temu nie musimy tworzyć instancji wewnątrz testu. Odpowiednie użycie tej adnotacji pomaga pisać krótsze testy jednostkowe.</p>
-<h3>Cykl życia klasy z testami jednostkowymi<&#47;h3><br />
-Adnotacja <code>@Before<&#47;code> jest jedną z czterech adnotacji, które pozwalają na wykonanie fragmentów kodu przed&#47;po testach. Pozostałe trzy to:</p>
+}</pre><br />
+W naszym przykładzie metoda <code>setUp</code> zostanie wywołana przed uruchomieniem każdego z testów. Dzięki temu nie musimy tworzyć instancji wewnątrz testu. Odpowiednie użycie tej adnotacji pomaga pisać krótsze testy jednostkowe.</p>
+<h3>Cykl życia klasy z testami jednostkowymi</h3><br />
+Adnotacja <code>@Before</code> jest jedną z czterech adnotacji, które pozwalają na wykonanie fragmentów kodu przed/po testach. Pozostałe trzy to:</p>
 <ul>
-<li><code>@After<&#47;code> &ndash; metoda z tą adnotacją uruchamiana po każdym teście jednostkowym, pozwala na &bdquo;posprzątanie&rdquo; po teście,<&#47;li>
-<li><code>@AfterClass<&#47;code> &ndash; metoda statyczna z tą adnotacją uruchamiana jest raz po uruchomieniu wszystkich testów z danej klasy,<&#47;li>
-<li><code>@BeforeClass<&#47;code> &ndash; metoda statyczna z tą adnotacją uruchamiana jest raz przed uruchomieniem pierwszego testu z danej klasy.<&#47;li><br />
-<&#47;ul><br />
+<li><code>@After</code> &ndash; metoda z tą adnotacją uruchamiana po każdym teście jednostkowym, pozwala na &bdquo;posprzątanie&rdquo; po teście,</li>
+<li><code>@AfterClass</code> &ndash; metoda statyczna z tą adnotacją uruchamiana jest raz po uruchomieniu wszystkich testów z danej klasy,</li>
+<li><code>@BeforeClass</code> &ndash; metoda statyczna z tą adnotacją uruchamiana jest raz przed uruchomieniem pierwszego testu z danej klasy.</li><br />
+</ul><br />
 Proszę spójrz na przykład poniżej:</p>
 <pre class="lang:default decode:true ">public class TestLifecycle {<br />
     @Before<br />
@@ -162,7 +162,7 @@ Proszę spójrz na przykład poniżej:</p>
         System.out.println("test 2");<br />
         System.out.flush();<br />
     }<br />
-}<&#47;pre><br />
+}</pre><br />
 Jeśli uruchomisz tę klasę na konsoli pojawi się:</p>
 <pre class="lang:default decode:true ">set up class<br />
 set up<br />
@@ -171,58 +171,58 @@ tear down<br />
 set up<br />
 test 2<br />
 tear down<br />
-tear down class<&#47;pre></p>
-<h1>Testy jednostkowe a testy automatyczne<&#47;h1><br />
+tear down class</pre></p>
+<h1>Testy jednostkowe a testy automatyczne</h1><br />
 Testy jednostkowe bardzo często są testami automatycznymi. Test automatyczny to taki, który możemy wykonywać automatycznie :) Zaletą takiego podejścia jest to, że w momencie zmiany kodu możemy raz napisany test uruchomić ponownie wiedząc od razu czy napisany wcześniej fragment działa poprawnie czy nie. Pomagają przy tym wcześniej omówione asercje.</p>
 <p>Bardzo często testy jednostkowe uruchamiane są automatycznie podczas pracy nad projektem. Służą do tego osobne środowiska, w których testy te są uruchamiane.</p>
 <p>Istnieją także mechanizmy, które w trakcie pracy programisty wykrywają zmiany w części klas i automatycznie uruchamiają dla tych klas testy jednostkowe informując programistę o wynikach. Dzięki temu bardzo szybko jesteśmy w stanie dowiedzieć się czy zmiany, które wprowadziliśmy nie popsuły wcześniejszej funkcjonalności.</p>
-<h1>Dobre praktyki przy pisaniu testów<&#47;h1><br />
+<h1>Dobre praktyki przy pisaniu testów</h1><br />
 Poniżej postaram się zebrać dla Ciebie kilka dobrych praktyk, do których warto się stosować w czasie pisania testów:</p>
 <ul>
-<li>Po pierwsze, pisz testy jednostkowe. Koniecznie. Zawsze.<&#47;li>
-<li>Staraj się pisać testy jednostkowe, które są małe i dotyczą małego wycinka funkcjonalności. Później o wiele łatwiej jest zrozumieć taki test.<&#47;li>
-<li>Nadawaj metodom z testem nazwy, które pomagają zrozumieć co dany test powinien sprawdzić.<&#47;li>
-<li>Kolejność testów jednostkowych w klasie nie powinna mieć znaczenia. Innymi słowy nie możemy polegać na tym, że jako pierwszy musi się uruchomić <code>test1<&#47;code> a po nim <code>test2<&#47;code>. Testy uruchomione w odwrotnej kolejności także powinny mieć dokładnie taki sam efekt.<&#47;li>
-<li>Pisz testy jednostkowe tak, żeby nie zależały na Twojej lokalnej konfiguracji. Na przykład test jednostkowy czytający plik z Twojego dysku z katalogu <code>C:\mój\katalog\domowy<&#47;code> (czy <code>&#47;home&#47;uzytkownik<&#47;code>) nie jest dobrym rozwiązaniem.<&#47;li>
-<li>Pisz testy jednostkowe niezależne od zewnętrznych systemów. Innymi słowy testuj tylko &bdquo;jednostkę&rdquo;, nic ponadto. Jeśli klasa, którą testujesz potrzebuje dostępu np. do bazy danych użyj mocka czy stuba do jej zastąpienia w trakcie test&oacute;w [3. O mockach czy stubach przeczytasz w kolejnych artykułach, jeśli jest to Twoja pierwsza styczność z testami możesz ten punkt pominąć.].<&#47;li>
-<li>Testuj warunki brzegowe i sytuacje wyjątkowe. Załóżmy, że masz metodę, która przyjmuje tablicę, kt&oacute;ra musi mieć maksymalnie trzy elementy. Napisz kilka test&oacute;w:
+<li>Po pierwsze, pisz testy jednostkowe. Koniecznie. Zawsze.</li>
+<li>Staraj się pisać testy jednostkowe, które są małe i dotyczą małego wycinka funkcjonalności. Później o wiele łatwiej jest zrozumieć taki test.</li>
+<li>Nadawaj metodom z testem nazwy, które pomagają zrozumieć co dany test powinien sprawdzić.</li>
+<li>Kolejność testów jednostkowych w klasie nie powinna mieć znaczenia. Innymi słowy nie możemy polegać na tym, że jako pierwszy musi się uruchomić <code>test1</code> a po nim <code>test2</code>. Testy uruchomione w odwrotnej kolejności także powinny mieć dokładnie taki sam efekt.</li>
+<li>Pisz testy jednostkowe tak, żeby nie zależały na Twojej lokalnej konfiguracji. Na przykład test jednostkowy czytający plik z Twojego dysku z katalogu <code>C:\mój\katalog\domowy</code> (czy <code>/home/uzytkownik</code>) nie jest dobrym rozwiązaniem.</li>
+<li>Pisz testy jednostkowe niezależne od zewnętrznych systemów. Innymi słowy testuj tylko &bdquo;jednostkę&rdquo;, nic ponadto. Jeśli klasa, którą testujesz potrzebuje dostępu np. do bazy danych użyj mocka czy stuba do jej zastąpienia w trakcie testów [3. O mockach czy stubach przeczytasz w kolejnych artykułach, jeśli jest to Twoja pierwsza styczność z testami możesz ten punkt pominąć.].</li>
+<li>Testuj warunki brzegowe i sytuacje wyjątkowe. Załóżmy, że masz metodę, która przyjmuje tablicę, która musi mieć maksymalnie trzy elementy. Napisz kilka testów:
 <ul>
-<li>przekazując <code>null<&#47;code> zamiast tablicy,<&#47;li>
-<li>przekazujac pustą tablicę,<&#47;li>
-<li>przekazujac tablicę z trzema elementami,<&#47;li>
-<li>przekazując tablicę z czterema elementami.<&#47;li><br />
-<&#47;ul><br />
-Dzięki takim testom będziesz pewien, jak zachowuje się Twoja metoda w sytuacjach wyjątkowych.<&#47;li></p>
-<li>Testowany kod nie powinien być w tym samym miejscu, w którym są testy. Sprowadza się to do tego, że kod umieszczamy w katalogu np. <code>src<&#47;code>, testy natomiast w katalogu <code>test<&#47;code>. Oba katalogi pod spodem mają odpowiednią strukturę odzwierciedlającą pakiety. Jest to ważne ponieważ później przy większych projektach testy nie &bdquo;mieszają się&rdquo; z kodem programu.<&#47;li>
-<li>Staraj się pisać testy, które są szybkie. Przy pierwszych programach nie jest to problemem, jednak przy większych projektach uruchamianie testów może być czasochłonne.<&#47;li>
-<li>Uruchamiaj testy jednostkowe możliwie często. Uwierz mi, to Ci się opłaci :). Punkt ten jest powiązany z punktem poprzednim &ndash; nie będziesz uruchamiał często testów, które trwają długo.<&#47;li>
-<li>Jeśli zauważysz, że część testów jednostkowych wymaga dokładnie takiego samego &bdquo;przygotowania&rdquo; wydziel je do osobnej klasy i użyć metod z adnotacją <code>@Before<&#47;code> lub <code>@BeforeClass<&#47;code>.<&#47;li><br />
-<&#47;ul></p>
-<h1>Testy jednostkowe w IntejiJ Idea<&#47;h1><br />
-Zacznijmy od utworzenia testu jednostkowego dla istniejącej klasy. Z pomocą przychodzi skrót klawiaturowy <code>Ctrl + Shift + T<&#47;code> &ndash; naciśnij tę kombinację na nazwie klasy dla której chcesz utworzyć test. Pokaże się w&oacute;wczas dialog&nbsp;pomagający utworzyć nową klasę testu.</p>
-<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;10&#47;nowy_test_dialog.png"><img class="aligncenter size-thumbnail wp-image-483" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;10&#47;nowy_test_dialog-150x150.png" alt="nowy_test_dialog" width="150" height="150" &#47;><&#47;a></p>
+<li>przekazując <code>null</code> zamiast tablicy,</li>
+<li>przekazujac pustą tablicę,</li>
+<li>przekazujac tablicę z trzema elementami,</li>
+<li>przekazując tablicę z czterema elementami.</li><br />
+</ul><br />
+Dzięki takim testom będziesz pewien, jak zachowuje się Twoja metoda w sytuacjach wyjątkowych.</li></p>
+<li>Testowany kod nie powinien być w tym samym miejscu, w którym są testy. Sprowadza się to do tego, że kod umieszczamy w katalogu np. <code>src</code>, testy natomiast w katalogu <code>test</code>. Oba katalogi pod spodem mają odpowiednią strukturę odzwierciedlającą pakiety. Jest to ważne ponieważ później przy większych projektach testy nie &bdquo;mieszają się&rdquo; z kodem programu.</li>
+<li>Staraj się pisać testy, które są szybkie. Przy pierwszych programach nie jest to problemem, jednak przy większych projektach uruchamianie testów może być czasochłonne.</li>
+<li>Uruchamiaj testy jednostkowe możliwie często. Uwierz mi, to Ci się opłaci :). Punkt ten jest powiązany z punktem poprzednim &ndash; nie będziesz uruchamiał często testów, które trwają długo.</li>
+<li>Jeśli zauważysz, że część testów jednostkowych wymaga dokładnie takiego samego &bdquo;przygotowania&rdquo; wydziel je do osobnej klasy i użyć metod z adnotacją <code>@Before</code> lub <code>@BeforeClass</code>.</li><br />
+</ul></p>
+<h1>Testy jednostkowe w IntejiJ Idea</h1><br />
+Zacznijmy od utworzenia testu jednostkowego dla istniejącej klasy. Z pomocą przychodzi skrót klawiaturowy <code>Ctrl + Shift + T</code> &ndash; naciśnij tę kombinację na nazwie klasy dla której chcesz utworzyć test. Pokaże się wówczas dialog&nbsp;pomagający utworzyć nową klasę testu.</p>
+<p><a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2016/10/nowy_test_dialog.png"><img class="aligncenter size-thumbnail wp-image-483" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2016/10/nowy_test_dialog-150x150.png" alt="nowy_test_dialog" width="150" height="150" /></a></p>
 <p>InteliJ jest na tyle mądry, że wykrywa brak biblioteki JUnit w projekcie. W oknie dialogowym widać wówczas przycisk &bdquo;Fix it&rdquo;, który automatycznie dodaję tę bibliotekę.</p>
-<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;10&#47;nowy_test_dialog2.png"><img class="aligncenter size-thumbnail wp-image-482" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;10&#47;nowy_test_dialog2-150x150.png" alt="nowy_test_dialog2" width="150" height="150" &#47;><&#47;a></p>
-<p>Kolejnym skrótem klawiaturowym, który może się przydać podczas pisania test&oacute;w jednostkowych jest <code>Alt + Insert<&#47;code>, naciśnięcie tego skr&oacute;tu wewnątrz klasy grupującej testy pozwala nam w łatwy spos&oacute;b stworzyć kolejny test.</p>
-<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;10&#47;test_generowanie_kodu.png"><img class="aligncenter size-thumbnail wp-image-480" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;10&#47;test_generowanie_kodu-150x150.png" alt="test_generowanie_kodu" width="150" height="150" &#47;><&#47;a></p>
-<p>W końcu kombinacja <code>Ctrl + Shift + F10<&#47;code> pozwala na uruchomienie testów jednostkowych wewnątrz IDE. W zależności od tego na czym znajduje się nasz kursor myszy, ten skrót klawiaturowy może uruchomić pojedynczą metodę z testem, klasę grupującą testy czy pakiet z kilkoma klasami testowymi.</p>
-<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;10&#47;testy_ok.png"><img class="aligncenter size-thumbnail wp-image-481" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;10&#47;testy_ok-150x150.png" alt="testy_ok" width="150" height="150" &#47;><&#47;a></p>
-<h1>Zadanie do rozwiązania<&#47;h1><br />
-Napisz program, który będzie reprezentował koszyk w sklepie internetowym. Do koszyka reprezentowanego przez klasę <code>Basket<&#47;code> możemy dodawać bądź usuwać kolejne przedmioty. Każdy przedmiot powien mieć nazwę i cenę jednostkową. Koszyk powinien także pozwalać na dodanie&#47;usunięcie od razu kilku egzemplarzy przedmiotu ze sklepu. Koszyk powinien także być w stanie policzyć sumaryczną wartość zamówienia oraz wyświetlić swoją zawartość. Pamiętaj o poprawnym obsłużeniu sytuacji wyjątkowych np. usunięcie element&oacute;w z pustego koszyka czy dodaniu ujemej liczby przedmiot&oacute;w.</p>
+<p><a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2016/10/nowy_test_dialog2.png"><img class="aligncenter size-thumbnail wp-image-482" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2016/10/nowy_test_dialog2-150x150.png" alt="nowy_test_dialog2" width="150" height="150" /></a></p>
+<p>Kolejnym skrótem klawiaturowym, który może się przydać podczas pisania testów jednostkowych jest <code>Alt + Insert</code>, naciśnięcie tego skrótu wewnątrz klasy grupującej testy pozwala nam w łatwy sposób stworzyć kolejny test.</p>
+<p><a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2016/10/test_generowanie_kodu.png"><img class="aligncenter size-thumbnail wp-image-480" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2016/10/test_generowanie_kodu-150x150.png" alt="test_generowanie_kodu" width="150" height="150" /></a></p>
+<p>W końcu kombinacja <code>Ctrl + Shift + F10</code> pozwala na uruchomienie testów jednostkowych wewnątrz IDE. W zależności od tego na czym znajduje się nasz kursor myszy, ten skrót klawiaturowy może uruchomić pojedynczą metodę z testem, klasę grupującą testy czy pakiet z kilkoma klasami testowymi.</p>
+<p><a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2016/10/testy_ok.png"><img class="aligncenter size-thumbnail wp-image-481" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2016/10/testy_ok-150x150.png" alt="testy_ok" width="150" height="150" /></a></p>
+<h1>Zadanie do rozwiązania</h1><br />
+Napisz program, który będzie reprezentował koszyk w sklepie internetowym. Do koszyka reprezentowanego przez klasę <code>Basket</code> możemy dodawać bądź usuwać kolejne przedmioty. Każdy przedmiot powien mieć nazwę i cenę jednostkową. Koszyk powinien także pozwalać na dodanie/usunięcie od razu kilku egzemplarzy przedmiotu ze sklepu. Koszyk powinien także być w stanie policzyć sumaryczną wartość zamówienia oraz wyświetlić swoją zawartość. Pamiętaj o poprawnym obsłużeniu sytuacji wyjątkowych np. usunięcie elementów z pustego koszyka czy dodaniu ujemej liczby przedmiotów.</p>
 <p>Napisz zestaw testów jednostkowych potwierdzających poprawne działanie Twojego koszyka z zakupami.</p>
 <p>Drobna podpowiedź z przykładowym zestawem klas, które mogą rozwiązać ten problem:</p>
 <ul>
-<li><code>Item<&#47;code>, która posiada dwa atrybuty <code>double price<&#47;code> [4. <code>double<&#47;code> nie jest dobrym typem do reprezentowania cen, na potrzeby tego przykładu jednak wystarczy. Dlaczego tak się dzieje przeczytasz w osobnym artykule.] oraz <code>String name<&#47;code>,<&#47;li>
-<li><code>Basket<&#47;code>, który posiada atrybut <code>Map<Item, Integer> orderedItems<&#47;code> reprezentujący zamówione towary wraz z ich ilością.<&#47;li><br />
-<&#47;ul><br />
-Przygotowałem też przykładowe rozwiązanie, znajduje się w <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;22_testy_jednostkowe&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;shop&#47;exercise" target="_blank">repozytorium na githubie<&#47;a> wraz z zestawem <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;22_testy_jednostkowe&#47;src&#47;test&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;shop&#47;exercise" target="_blank">testów jednostkowych<&#47;a>. Zachęcam jednak do samodzielnej próby rozwiązania zadania. Uwierz mi, że wtedy nauczysz się najwięcej :).</p>
-<h1>Dodatkowe materiały do nauki<&#47;h1><br />
-<a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Test_jednostkowy" target="_blank">Test jednostkowy na Wikipedii<&#47;a></p>
-<p><a href="http:&#47;&#47;junit.org" target="_blank">Strona biltioteki JUnit<&#47;a></p>
-<p><a href="http:&#47;&#47;junit.org&#47;junit4&#47;javadoc&#47;latest&#47;index.html" target="_blank">Dokumentacja biblioteki JUnit<&#47;a></p>
-<p><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;22_testy_jednostkowe" target="_blank">Kod źródłowy przykładów użytych w artykule<&#47;a></p>
-<h1>Podsumowanie<&#47;h1><br />
+<li><code>Item</code>, która posiada dwa atrybuty <code>double price</code> [4. <code>double</code> nie jest dobrym typem do reprezentowania cen, na potrzeby tego przykładu jednak wystarczy. Dlaczego tak się dzieje przeczytasz w osobnym artykule.] oraz <code>String name</code>,</li>
+<li><code>Basket</code>, który posiada atrybut <code>Map<Item, Integer> orderedItems</code> reprezentujący zamówione towary wraz z ich ilością.</li><br />
+</ul><br />
+Przygotowałem też przykładowe rozwiązanie, znajduje się w <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe/src/main/java/pl/samouczekprogramisty/kursjava/shop/exercise" target="_blank">repozytorium na githubie</a> wraz z zestawem <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe/src/test/java/pl/samouczekprogramisty/kursjava/shop/exercise" target="_blank">testów jednostkowych</a>. Zachęcam jednak do samodzielnej próby rozwiązania zadania. Uwierz mi, że wtedy nauczysz się najwięcej :).</p>
+<h1>Dodatkowe materiały do nauki</h1><br />
+<a href="https://pl.wikipedia.org/wiki/Test_jednostkowy" target="_blank">Test jednostkowy na Wikipedii</a></p>
+<p><a href="http://junit.org" target="_blank">Strona biltioteki JUnit</a></p>
+<p><a href="http://junit.org/junit4/javadoc/latest/index.html" target="_blank">Dokumentacja biblioteki JUnit</a></p>
+<p><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe" target="_blank">Kod źródłowy przykładów użytych w artykule</a></p>
+<h1>Podsumowanie</h1><br />
 W artykule przeczytałeś o testach jednostkowych. Poznałeś zestaw dobrych praktyk dotyczących pisania testów, nauczyłeś się podstaw biblioteki JUnit. Wiesz czym jest test automatyczny i dlaczego takie testy są istotne. Całość przećwiczyłeś w sposób praktyczny rozwiązując zadanie końcowe.</p>
 <p>Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników &ndash; proszę podziel się linkiem do artykułu ze znajomymi. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na facebooku ;). Do następnego razu!</p>
 <p>[FM_form id="3"]</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;andercismo&#47;2349098787&#47;sizes&#47;l</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/andercismo/2349098787/sizes/l</p>

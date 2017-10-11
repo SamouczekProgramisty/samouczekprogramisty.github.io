@@ -23,22 +23,22 @@ comments: []
 ---
 <p>Advent of Code 2016 dzień 13. Twoja pomoc potrzebna jest przy odnalezieniu drogi w labiryncie nowego budynku, dasz radę znaleźć najkrótszą możliwą drogę?</p>
 <p><a id="more"></a><a id="more-661"></a></p>
-<h1>Wprowadzenie<&#47;h1><br />
-[idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;13" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;13<&#47;a>[&#47;idea]</p>
-<p>Advent of Code to inicjatywa, w której codziennie publikowane są zadania algorytmiczne dla programistów. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
-<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, którą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
-<h1>Dzień 13 zadanie 1<&#47;h1><br />
-Dzięki Twojej pomocy przy <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-12&#47;">wczorajszych<&#47;a> instrukcjach assemblera udało się uruchomić kolejkę. Dotarłeś do pierwszego piętra nowego budynku. Niestety hall jest dużo mniej przyjazny niż świecące wnętrza w poprzednim budynku. Zamiast tego trafiłeś do plątaniny korytarzy i małych pomieszczeń.</p>
-<p>Każde pomieszczenie w tym rejonie może być zidentyfikowane przez parę nieujemnych liczb całkowitych <code>(x, y)<&#47;code>. Każda taka współrzędna odpowiada albo ścianie albo otwartej przestrzeni. Nie możesz poruszać się na ukos. Labirynt zaczyna się na współrzędnych <code>(0, 0)<&#47;code> i wydaje się dążyć do nieskończoności dodatnich wartości <code>x<&#47;code> i <code>y<&#47;code>. Ujemne wartości są niepoprawne, przedstawiają położenie poza budynkiem. Znajdujesz się w małej poczekalni, kt&oacute;ra znajduje się na wsp&oacute;łrzędnych <code>(1, 1)<&#47;code>.</p>
-<p>Wszystko wydaje się bardzo chaotyczne, jednak plakat znajdujący się na ścianie przekonuje Cię, że całość jest dość logiczna. Możesz stwierdzić czy dana pozycja <code>(x, y)<&#47;code> to ściana czy otwarta przestrzeń używając prostego systemu:binarną reprezentację</p>
+<h1>Wprowadzenie</h1><br />
+[idea]Oryginalna strona z zadaniami z <a href="http://adventofcode.com/2016" target="_blank">Advent of Code 2016</a>. Zadanie z artykułu dostępne jest pod adresem <a href="http://adventofcode.com/2016/day/13" target="_blank">http://adventofcode.com/2016/day/13</a>[/idea]</p>
+<p>Advent of Code to inicjatywa, w której codziennie publikowane są zadania algorytmiczne dla programistów. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programistów. W tej serii artykułów pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, którą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http://adventofcode.com/2016" target="_blank">http://adventofcode.com/2016</a> i dołącz wpisując kod <code>124245-88569bd0</code>.[/idea]</p>
+<h1>Dzień 13 zadanie 1</h1><br />
+Dzięki Twojej pomocy przy <a href="http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-12/">wczorajszych</a> instrukcjach assemblera udało się uruchomić kolejkę. Dotarłeś do pierwszego piętra nowego budynku. Niestety hall jest dużo mniej przyjazny niż świecące wnętrza w poprzednim budynku. Zamiast tego trafiłeś do plątaniny korytarzy i małych pomieszczeń.</p>
+<p>Każde pomieszczenie w tym rejonie może być zidentyfikowane przez parę nieujemnych liczb całkowitych <code>(x, y)</code>. Każda taka współrzędna odpowiada albo ścianie albo otwartej przestrzeni. Nie możesz poruszać się na ukos. Labirynt zaczyna się na współrzędnych <code>(0, 0)</code> i wydaje się dążyć do nieskończoności dodatnich wartości <code>x</code> i <code>y</code>. Ujemne wartości są niepoprawne, przedstawiają położenie poza budynkiem. Znajdujesz się w małej poczekalni, która znajduje się na współrzędnych <code>(1, 1)</code>.</p>
+<p>Wszystko wydaje się bardzo chaotyczne, jednak plakat znajdujący się na ścianie przekonuje Cię, że całość jest dość logiczna. Możesz stwierdzić czy dana pozycja <code>(x, y)</code> to ściana czy otwarta przestrzeń używając prostego systemu:binarną reprezentację</p>
 <ul>
-<li>Oblicz wartość równania <code>x*x + 3*x + 2*x*y + y + y*y<&#47;code>,<&#47;li>
-<li>dodaj ulubiony numer projektanta biura (wejście do programu),<&#47;li>
-<li>znajdź <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;system-dwojkowy&#47;">binarną reprezentację<&#47;a> tej sumy, policzyć ile bitów w tej reprezentacji to <code>1<&#47;code>,<&#47;li>
-<li>jeśli liczba bitów <code>1<&#47;code> jest parzysta <code>(x, y)<&#47;code> reprezentuje otwartą przestrzeń,<&#47;li>
-<li>jeśli liczba bitów <code>1<&#47;code> jest nieparzysta <code>(x, y)<&#47;code> reprezentuje ścianę.<&#47;li><br />
-<&#47;ul><br />
-Na przykład, jeśli ulubionym numerem projektanta biura jest <code>10<&#47;code>, poniżej widzisz układ biura gdzie ściany pokazane są jako <code>#<&#47;code> a otwarta przestrzeń jako <code>.<&#47;code>. Narożnik budynku wygląda tak:</p>
+<li>Oblicz wartość równania <code>x*x + 3*x + 2*x*y + y + y*y</code>,</li>
+<li>dodaj ulubiony numer projektanta biura (wejście do programu),</li>
+<li>znajdź <a href="http://www.samouczekprogramisty.pl/system-dwojkowy/">binarną reprezentację</a> tej sumy, policzyć ile bitów w tej reprezentacji to <code>1</code>,</li>
+<li>jeśli liczba bitów <code>1</code> jest parzysta <code>(x, y)</code> reprezentuje otwartą przestrzeń,</li>
+<li>jeśli liczba bitów <code>1</code> jest nieparzysta <code>(x, y)</code> reprezentuje ścianę.</li><br />
+</ul><br />
+Na przykład, jeśli ulubionym numerem projektanta biura jest <code>10</code>, poniżej widzisz układ biura gdzie ściany pokazane są jako <code>#</code> a otwarta przestrzeń jako <code>.</code>. Narożnik budynku wygląda tak:</p>
 <pre class="lang:default highlight:0 decode:true ">  0123456789<br />
 0 .#.####.##<br />
 1 ..#..#...#<br />
@@ -46,8 +46,8 @@ Na przykład, jeśli ulubionym numerem projektanta biura jest <code>10<&#47;code
 3 ###.#.###.<br />
 4 .##..#..#.<br />
 5 ..##....#.<br />
-6 #...##.###<&#47;pre><br />
-Załóżmy, że chciałbyś dotrzeć do pozycji <code>(7, 4)<&#47;code>. Najkrótsza droga, kt&oacute;rą m&oacute;głbyś obrać oznaczona jest <code>O<&#47;code>:</p>
+6 #...##.###</pre><br />
+Załóżmy, że chciałbyś dotrzeć do pozycji <code>(7, 4)</code>. Najkrótsza droga, którą mógłbyś obrać oznaczona jest <code>O</code>:</p>
 <pre class="lang:default highlight:0 decode:true ">  0123456789<br />
 0 .#.####.##<br />
 1 .O#..#...#<br />
@@ -55,11 +55,11 @@ Załóżmy, że chciałbyś dotrzeć do pozycji <code>(7, 4)<&#47;code>. Najkró
 3 ###O#.###.<br />
 4 .##OO#OO#.<br />
 5 ..##OOO.#.<br />
-6 #...##.###<&#47;pre><br />
-Więc dotarcie do punktu <code>(7, 4)<&#47;code> wymaga 11 kroków (zaczynając od pozycji <code>(1, 1)<&#47;code>).</p>
-<p>Zakładając, że ulubionym numerem projektanta biura jest <code>1362<&#47;code>, jaka jest minimalna liczba kroków potrzebna do dotarcia do punku <code>(31, 39)<&#47;code>?</p>
-<h1>Podsumowanie<&#47;h1><br />
-Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day13" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zrób to raczej w ostateczności.</p>
+6 #...##.###</pre><br />
+Więc dotarcie do punktu <code>(7, 4)</code> wymaga 11 kroków (zaczynając od pozycji <code>(1, 1)</code>).</p>
+<p>Zakładając, że ulubionym numerem projektanta biura jest <code>1362</code>, jaka jest minimalna liczba kroków potrzebna do dotarcia do punku <code>(31, 39)</code>?</p>
+<h1>Podsumowanie</h1><br />
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day13" target="_blank">przykładowego rozwiązania</a>, jednak zrób to raczej w ostateczności.</p>
 <p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
 <p>[FM_form id="3"]</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/derekl/sets/72157649148835567</p>

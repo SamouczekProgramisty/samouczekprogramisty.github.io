@@ -26,48 +26,48 @@ categories:
 tags: []
 comments: []
 ---
-<p>Raport z frontu Pogodynki. Ostatnie dwa dni minęły pod znakiem integracji. Spinałem w całość poszczególne elementy projektu. Pisania kodu było tu niewiele, raczej wyszukiwanie błędów i praca z zakresu &ldquo;dev-ops&rdquo;. Niemniej jednak prawie 30% zmian w repozytorium pojawiło się w przeciągu tych dw&oacute;ch dni.</p>
+<p>Raport z frontu Pogodynki. Ostatnie dwa dni minęły pod znakiem integracji. Spinałem w całość poszczególne elementy projektu. Pisania kodu było tu niewiele, raczej wyszukiwanie błędów i praca z zakresu &ldquo;dev-ops&rdquo;. Niemniej jednak prawie 30% zmian w repozytorium pojawiło się w przeciągu tych dwóch dni.</p>
 <p><a id="more"></a><a id="more-908"></a></p>
 <p>Jak wspomniałem wyżej większość zmian związanych było z konfiguracją i integracją poszczególnych komponentów. Zacznę od serwera HTTP.</p>
-<h1><a href="https:&#47;&#47;nginx.org&#47;en&#47;" target="_blank" rel="noopener noreferrer">nginx<&#47;a><&#47;h1><br />
-Jak wspomniałem w jednym z poprzednich raportów nie chcę rozdmuchiwać kosztów projektu. Nie chciałem też pisać warstwy widoku w oparciu o JSP. M&oacute;głbym statyczne strony HTML zawrzeć w pliku WAR, jednak nie podoba mi się to rozwiązanie.</p>
-<p>Moim zdaniem nie jest to podejście, w którym teraz tworzy się nowe strony WWW. Przy jednym pliku WAR miałbym monolityczną aplikację. Przy podejściu, które zastosowałem mam osobną warstwę z interfejsem użytkownika i osobną, kt&oacute;ra serwuje dane.</p>
-<p>Aby obsłużyć taką konfigurację i używać wyłącznie jednej instancji <a href="https:&#47;&#47;en.wikipedia.org&#47;wiki&#47;Virtual_private_server" target="_blank" rel="noopener noreferrer">VPS<&#47;a> (ang. <em>Virtual Private Server<&#47;em>) użyłem serwera nginx.</p>
+<h1><a href="https://nginx.org/en/" target="_blank" rel="noopener noreferrer">nginx</a></h1><br />
+Jak wspomniałem w jednym z poprzednich raportów nie chcę rozdmuchiwać kosztów projektu. Nie chciałem też pisać warstwy widoku w oparciu o JSP. Mógłbym statyczne strony HTML zawrzeć w pliku WAR, jednak nie podoba mi się to rozwiązanie.</p>
+<p>Moim zdaniem nie jest to podejście, w którym teraz tworzy się nowe strony WWW. Przy jednym pliku WAR miałbym monolityczną aplikację. Przy podejściu, które zastosowałem mam osobną warstwę z interfejsem użytkownika i osobną, która serwuje dane.</p>
+<p>Aby obsłużyć taką konfigurację i używać wyłącznie jednej instancji <a href="https://en.wikipedia.org/wiki/Virtual_private_server" target="_blank" rel="noopener noreferrer">VPS</a> (ang. <em>Virtual Private Server</em>) użyłem serwera nginx.</p>
 <p>Na tej samej instancji uruchomiony jest serwer Tomcat. W związku z konfiguracją firewall&rsquo;a na tej maszynie nie jest on jednak dostępny bezpośrednio. nginx skonfigurowałem jako &ldquo;reverse proxy&rdquo;. Sprowadza się to do tego, że część żądań przesyłana jest przez nginx to Tomcata. Pozostała część to serwowanie statycznych stron.</p>
 <p>W uproszczeniu konfiguracja ta podobna jest do tej pokazanej na diagramie poniżej:</p>
-<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;nginx_diagram.jpeg"><img class="aligncenter size-medium wp-image-910" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;nginx_diagram-300x104.jpeg" alt="nginx reverse proxy" width="300" height="104" &#47;><&#47;a></p>
+<p><a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/05/nginx_diagram.jpeg"><img class="aligncenter size-medium wp-image-910" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/05/nginx_diagram-300x104.jpeg" alt="nginx reverse proxy" width="300" height="104" /></a></p>
 <p>Interfejs użytkownika wykorzystywał będzie aplikację webową do pobrania informacji o dotychczasowych odczytach temperatury.</p>
-<h1><a href="https:&#47;&#47;www.postgresql.org&#47;" target="_blank" rel="noopener noreferrer">PostgreSQL<&#47;a><&#47;h1><br />
-Baza danych, którą skonfigurowałem do pracy z projektem nie nadaje się na produkcję. Mowa tu o <a href="http:&#47;&#47;hsqldb.org" target="_blank" rel="noopener noreferrer">HyperSQL<&#47;a>. Do produkcyjnego działania potrzebna jest baza z prawdziwego zdarzenia. I tak pojawił się PosgreSQL.</p>
-<p>Przy pomocy puppet&rsquo;a skonfigurowałem serwer bazy danych, utworzyłem bazę i dodałem odpowiednich użytkowników. Użytkownik, którego używam w aplikacji ma uprawnienia tylko do części element&oacute;w. Konfigurację możesz zobaczyć na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;puppet&#47;modules&#47;pogodynka&#47;manifests&#47;database.pp" target="_blank" rel="noopener noreferrer">githubie<&#47;a>.</p>
+<h1><a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">PostgreSQL</a></h1><br />
+Baza danych, którą skonfigurowałem do pracy z projektem nie nadaje się na produkcję. Mowa tu o <a href="http://hsqldb.org" target="_blank" rel="noopener noreferrer">HyperSQL</a>. Do produkcyjnego działania potrzebna jest baza z prawdziwego zdarzenia. I tak pojawił się PosgreSQL.</p>
+<p>Przy pomocy puppet&rsquo;a skonfigurowałem serwer bazy danych, utworzyłem bazę i dodałem odpowiednich użytkowników. Użytkownik, którego używam w aplikacji ma uprawnienia tylko do części elementów. Konfigurację możesz zobaczyć na <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/database.pp" target="_blank" rel="noopener noreferrer">githubie</a>.</p>
 <p>Dodatkowo sama baza danych zainstalowana jest na tym samym VPS co Tomcat. Dzięki temu nie ma potrzeby &ldquo;otwierać&rdquo; bazy danych na świat. Dostępna jest ona wyłącznie lokalnie. Zapewnia to sama konfiguracja PostgreSQL oraz reguł firewall&rsquo;a.</p>
-<h1>Raspberry PI<&#47;h1><br />
-Stwierdziłem, że skoro mam już Puppeta to wykorzystam go także po stronie Raspberry PI. Podzieliłem manifesty w ten sposób, że konfiguracja Malinki także jest jasno opisana. Całość znajduje się w pliku <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;puppet&#47;modules&#47;pogodynka&#47;manifests&#47;node_thermometer.pp" target="_blank" rel="noopener noreferrer">node_thermometer.pp<&#47;a>.</p>
-<p>Dzięki takiemu podejściu mam spójny sposób na konfigurację wszystkich &ldquo;serwer&oacute;w&rdquo; jakie używam. Dodatkowo nie muszę już manualnie zarządzać wpisami w crontab. Robi to za mnie <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;puppet&#47;modules&#47;pogodynka&#47;manifests&#47;node_thermometer.pp#L27" target="_blank" rel="noopener noreferrer">puppet<&#47;a>.</p>
-<h1>Konfiguracja serwera Tomcat<&#47;h1><br />
-Aplikacje <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;tree&#47;master&#47;datavault" target="_blank" rel="noopener noreferrer">Datavault<&#47;a> i <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;tree&#47;master&#47;thermometer" target="_blank" rel="noopener noreferrer">Thermometer<&#47;a> starałem się pisać w taki sposób aby móc udostępnić kod publicznie.</p>
-<p>Ma to pewne konsekwencje. Mianowicie pewne elementy takie jak hasła nie powinny być publicznie dostępne. Aby to obejść użyłem zmiennych środowiskowych. Używam takiej zmiennej&nbsp; na przykład aby pobrać <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;5c5334e0dc5878cb62d4c864a5035ca54c607373&#47;datavault&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;pogodynka&#47;datavault&#47;configuration&#47;JPAConfigration.java" target="_blank" rel="noopener noreferrer">hasło użytkownika bazy danych<&#47;a>.</p>
-<p>Zmienne te są ustawione na serwerze za pomocą <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;puppet&#47;modules&#47;pogodynka&#47;manifests&#47;tomcat.pp#L21" target="_blank" rel="noopener noreferrer">puppet&rsquo;a<&#47;a>. Ich wartość pobierana jest za pośrednictwem mechanizmu hiera (opisałem go w jednym z poprzednich <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;pogodynka-konfiguracja-bazy-danych&#47;">artykułów opisujących projekt Pogodynka<&#47;a>) więc nie są to dane dostępne publicznie.</p>
-<h1>Zmiany w kodzie<&#47;h1><br />
+<h1>Raspberry PI</h1><br />
+Stwierdziłem, że skoro mam już Puppeta to wykorzystam go także po stronie Raspberry PI. Podzieliłem manifesty w ten sposób, że konfiguracja Malinki także jest jasno opisana. Całość znajduje się w pliku <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/node_thermometer.pp" target="_blank" rel="noopener noreferrer">node_thermometer.pp</a>.</p>
+<p>Dzięki takiemu podejściu mam spójny sposób na konfigurację wszystkich &ldquo;serwerów&rdquo; jakie używam. Dodatkowo nie muszę już manualnie zarządzać wpisami w crontab. Robi to za mnie <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/node_thermometer.pp#L27" target="_blank" rel="noopener noreferrer">puppet</a>.</p>
+<h1>Konfiguracja serwera Tomcat</h1><br />
+Aplikacje <a href="https://github.com/SamouczekProgramisty/Pogodynka/tree/master/datavault" target="_blank" rel="noopener noreferrer">Datavault</a> i <a href="https://github.com/SamouczekProgramisty/Pogodynka/tree/master/thermometer" target="_blank" rel="noopener noreferrer">Thermometer</a> starałem się pisać w taki sposób aby móc udostępnić kod publicznie.</p>
+<p>Ma to pewne konsekwencje. Mianowicie pewne elementy takie jak hasła nie powinny być publicznie dostępne. Aby to obejść użyłem zmiennych środowiskowych. Używam takiej zmiennej&nbsp; na przykład aby pobrać <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/5c5334e0dc5878cb62d4c864a5035ca54c607373/datavault/src/main/java/pl/samouczekprogramisty/pogodynka/datavault/configuration/JPAConfigration.java" target="_blank" rel="noopener noreferrer">hasło użytkownika bazy danych</a>.</p>
+<p>Zmienne te są ustawione na serwerze za pomocą <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/tomcat.pp#L21" target="_blank" rel="noopener noreferrer">puppet&rsquo;a</a>. Ich wartość pobierana jest za pośrednictwem mechanizmu hiera (opisałem go w jednym z poprzednich <a href="http://www.samouczekprogramisty.pl/pogodynka-konfiguracja-bazy-danych/">artykułów opisujących projekt Pogodynka</a>) więc nie są to dane dostępne publicznie.</p>
+<h1>Zmiany w kodzie</h1><br />
 Jak wspomniałem zmian w kodzie Javy było niewiele. Można je podzielić na dwie części:</p>
 <ul>
-<li>wspólne interfejsy,<&#47;li>
-<li>uwierzytelnianie.<&#47;li><br />
-<&#47;ul></p>
-<h2>Wspólne interfejsy<&#47;h2><br />
+<li>wspólne interfejsy,</li>
+<li>uwierzytelnianie.</li><br />
+</ul></p>
+<h2>Wspólne interfejsy</h2><br />
 Pogodynka składa się z trzech modułów: Datavault, Thermometer i Frontend. Thermometer wysyła dane do Datavault używając zapytania HTTP. Zapytanie to zawiera dane w formacie JSON.</p>
 <p>W aplikacji Thermometer wysyłałem dane sformatowane w trochę inny sposób niż było to oczekiwane przez Datavault. Jako konsekwencja Datavault zwracał odpowiedzi ze statusem 400 na każde żądanie wysłane z Thermometer. Uwspólnienie formatu rozwiązało problem.</p>
-<h2>Uwierzytelnianie<&#47;h2><br />
-Chociaż dane z termometru są publicznie dostępne to powinny być dostępne wyłącznie do odczytu. Możesz to sprawdzić otwierając <a href="http:&#47;&#47;pogodynka.pietraszek.pl" target="_blank" rel="noopener noreferrer">stronę pogodynki<&#47;a>.</p>
+<h2>Uwierzytelnianie</h2><br />
+Chociaż dane z termometru są publicznie dostępne to powinny być dostępne wyłącznie do odczytu. Możesz to sprawdzić otwierając <a href="http://pogodynka.pietraszek.pl" target="_blank" rel="noopener noreferrer">stronę pogodynki</a>.</p>
 <p>Zależy mi na tym aby te dane były rzetelne. Sprowadza się to do tego, że tylko określeni użytkownicy powinni móc dodawać informacje o aktualnych odczytach.</p>
-<p>Nie chciałem zbytnio komplikować mechanizmu uwierzytelniania&#47;autoryzacji więc poszedłem po najmniejszej linii oporu. Mianowicie przy żądaniu wysyłającym nowy pomiar sprawdzana jest zawartość pewnego nagłówka. Jeśli zawartość ta jest błędna żadne dane nie są dodawane do bazy. W odpowiedzi wysyłany jest kod 403.</p>
+<p>Nie chciałem zbytnio komplikować mechanizmu uwierzytelniania/autoryzacji więc poszedłem po najmniejszej linii oporu. Mianowicie przy żądaniu wysyłającym nowy pomiar sprawdzana jest zawartość pewnego nagłówka. Jeśli zawartość ta jest błędna żadne dane nie są dodawane do bazy. W odpowiedzi wysyłany jest kod 403.</p>
 <p>Ta tajna wartość nagłówka również przechowywana jest w zmiennej środowiskowej.</p>
-<h1>Brakujące elementy<&#47;h1></p>
-<h2>Czujnik zewnętrzny<&#47;h2><br />
-Aktualnie całość działa w oparciu o czujnik wewnętrzny. Takie podejście raczej nie przejdzie próby deszczu ;). Kupiłem czujnik zewnętrzny, Mam nadzieję, że jutro już będzie uruchomiony.<a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;czujnik_wodoodporny.jpeg"><img class="aligncenter size-medium wp-image-909" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;czujnik_wodoodporny-300x225.jpeg" alt="wododporny czujnik temperatury" width="300" height="225" &#47;><&#47;a></p>
-<h2>Interfejs użytkownika<&#47;h2><br />
+<h1>Brakujące elementy</h1></p>
+<h2>Czujnik zewnętrzny</h2><br />
+Aktualnie całość działa w oparciu o czujnik wewnętrzny. Takie podejście raczej nie przejdzie próby deszczu ;). Kupiłem czujnik zewnętrzny, Mam nadzieję, że jutro już będzie uruchomiony.<a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/05/czujnik_wodoodporny.jpeg"><img class="aligncenter size-medium wp-image-909" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/05/czujnik_wodoodporny-300x225.jpeg" alt="wododporny czujnik temperatury" width="300" height="225" /></a></p>
+<h2>Interfejs użytkownika</h2><br />
 Chociaż szablon interfejsu użytkownika jest już dostępny, nie jest on prawidłowy. Aby miał on sens musi pobierać dane o temperaturach z Datavault. Właśnie na tej części skupię się w przeciągu najbliższych dni.</p>
-<h1>Podsumowanie<&#47;h1><br />
+<h1>Podsumowanie</h1><br />
 Integrację mogę uznać za ukończoną. Monitoring całości opisany w początkowych odcinkach także działa. Zostały ostatnie szlify. Myślę, że mam duże szanse ukończyć projekt w terminie. Konkurs &ldquo;Daj się poznać&rdquo; trwa do 31.05.2017 więc zostało jeszcze parę dni. Trzymajcie kciuki i do następnego razu!</p>
 <p>[FM_form id="3"]</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;85182154@N00&#47;296492538&#47;sizes&#47;l</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/85182154@N00/296492538/sizes/l</p>

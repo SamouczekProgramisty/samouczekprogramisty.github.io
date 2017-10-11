@@ -28,9 +28,9 @@ comments: []
 <p>Tylko ten nie popełnia błędów, kto nic nie robi. My dzisiaj będziemy popełniać błędy i będziemy starali się je poprawiać. Przekładając to co powiedział Napoleon na kontekst programowania w artykule przeczytasz o wyjątkach w języku Java i ich obsłudze.</p>
 <p>Dowiesz się czym jest wyjątek i jaką rolę pełni w programowaniu. Dowiesz się kiedy powinniśmy używać wyjątków. Postaram się też przekazać Ci kilka dobrych praktyk związanych z używaniem w wyjątków. Zaczynamy! :)</p>
 <p><a id="more"></a><a id="more-207"></a></p>
-<p>[idea]To jest jeden z artykułów w ramach <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kurs-programowania-java&#47;">darmowego kursu programowania w Javie<&#47;a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[&#47;idea]</p>
-<h1>Czym jest wyjątek?<&#47;h1><br />
-Wyjątek (ang. <em>exception<&#47;em>) jest specjalną klasą. Jest ona specyficzna ponieważ w swoim łańcuchu dziedziczenia ma klasę <code>java.lang.Throwable<&#47;code>. Instancje, które w swojej hierarchii dziedziczenia mają tą klasę mogą zostać &bdquo;rzucone&rdquo; (ang. <em>throw<&#47;em>) przerywając standardowe wykonanie programu.</p>
+<p>[idea]To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]</p>
+<h1>Czym jest wyjątek?</h1><br />
+Wyjątek (ang. <em>exception</em>) jest specjalną klasą. Jest ona specyficzna ponieważ w swoim łańcuchu dziedziczenia ma klasę <code>java.lang.Throwable</code>. Instancje, które w swojej hierarchii dziedziczenia mają tą klasę mogą zostać &bdquo;rzucone&rdquo; (ang. <em>throw</em>) przerywając standardowe wykonanie programu.</p>
 <p>Przykładem może być tutaj walidacja argumentów metody. Załóżmy, że nasza metoda jako argument przyjmuje liczbę godzin i zwraca liczbę sekund, odpowiadających przekazanemu argumentowi. Możemy założyć, że akceptujemy wyłącznie argumenty dodatnie lub 0.</p>
 <p>Innymi słowy jeśli metoda zostanie wywołana z argumentem mniejszym od 0 możemy uznać to za nieprawidłowe wywołanie i zasygnalizować taką sytuację rzucając wyjątek.</p>
 <pre class="lang:default decode:true ">public int getNumberOfSeconds(int hour) {<br />
@@ -38,9 +38,9 @@ Wyjątek (ang. <em>exception<&#47;em>) jest specjalną klasą. Jest ona specyfic
         throw new IllegalArgumentException("Hour must be >= 0: " + hour);<br />
     }<br />
     return hour * 60 * 60;<br />
-}<&#47;pre><br />
-W przykładzie powyżej użyliśmy wyjątku występującego w standardowej bibliotece języka Java: <code>java.lang.IllegalArgumentException<&#47;code>. Do rzucania wyjątku używamy słowa kluczowego <code>trow<&#47;code>.</p>
-<h2>Co się dzieje po rzuceniu wyjątku?<&#47;h2><br />
+}</pre><br />
+W przykładzie powyżej użyliśmy wyjątku występującego w standardowej bibliotece języka Java: <code>java.lang.IllegalArgumentException</code>. Do rzucania wyjątku używamy słowa kluczowego <code>trow</code>.</p>
+<h2>Co się dzieje po rzuceniu wyjątku?</h2><br />
 Wyobraź sobie kilka metod, które wywołują siebie nawzajem. Te kilka wywołań nazywamy stosem wywołań. Proszę zwróć uwagę na przykład poniżej:</p>
 <pre class="lang:default decode:true ">package pl.samouczekprogramisty.kursjava.exception; </p>
 <p>public class StackTraceExample {<br />
@@ -57,16 +57,16 @@ Wyobraź sobie kilka metod, które wywołują siebie nawzajem. Te kilka wywoła�
 <p>    public void method3() {<br />
         throw new RuntimeException("BUM! BUM! BUM!");<br />
     }<br />
-}<&#47;pre><br />
-W naszym przykładzie w metodzie <code>main<&#47;code> tworzymy instancję klasy <code>StackTraceExample<&#47;code> i na instancji wywołujemy metodę <code>method1<&#47;code>, metoda ta wywołuje z kolei metodę <code>method2<&#47;code>. <code>method2<&#47;code> wywołuje <code>method3<&#47;code>, która rzuca wyjątek <code>java.lang.RuntimeException<&#47;code> (kolejny wyjątek z biblioteki standardowej).</p>
+}</pre><br />
+W naszym przykładzie w metodzie <code>main</code> tworzymy instancję klasy <code>StackTraceExample</code> i na instancji wywołujemy metodę <code>method1</code>, metoda ta wywołuje z kolei metodę <code>method2</code>. <code>method2</code> wywołuje <code>method3</code>, która rzuca wyjątek <code>java.lang.RuntimeException</code> (kolejny wyjątek z biblioteki standardowej).</p>
 <p>Tą listę metod wywołujących siebie nawzajem nazywamy stosem wywołań. W naszym przypadku stos wygląda następująco:</p>
 <ol>
-<li><code>main<&#47;code><&#47;li>
-<li><code>method1<&#47;code><&#47;li>
-<li><code>method2<&#47;code><&#47;li>
-<li><code>method3<&#47;code><&#47;li><br />
-<&#47;ol><br />
-A co stanie się po uruchomieniu tego programu? Oczywiście zostanie rzucony wyjątek a programista zobaczy stos wywołań metod (ang. <em>stacktrace<&#47;em>), jak w przykładzie poniżej:</p>
+<li><code>main</code></li>
+<li><code>method1</code></li>
+<li><code>method2</code></li>
+<li><code>method3</code></li><br />
+</ol><br />
+A co stanie się po uruchomieniu tego programu? Oczywiście zostanie rzucony wyjątek a programista zobaczy stos wywołań metod (ang. <em>stacktrace</em>), jak w przykładzie poniżej:</p>
 <pre class="lang:default decode:true ">Exception in thread "main" java.lang.RuntimeException: BUM! BUM! BUM!<br />
 	at pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method3(StackTraceExample.java:18)<br />
 	at pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method2(StackTraceExample.java:14)<br />
@@ -76,15 +76,15 @@ A co stanie się po uruchomieniu tego programu? Oczywiście zostanie rzucony wyj
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br />
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br />
 	at java.lang.reflect.Method.invoke(Method.java:498)<br />
-	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:140)<&#47;pre><br />
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:140)</pre><br />
 W pracy programisty umiejętność czytania tego typu komunikatów jest bardzo istotna. Dzisiaj stacktrace widzisz pierwszy raz, zapewniam Cię, że zobaczysz go jeszcze dużo razy ;)</p>
-<h2>Zrozumieć <em>stacktrace<&#47;em><&#47;h2><br />
-Proszę zwróć uwagę na stos wywołań metod, który wspomniałem wyżej i por&oacute;wnaj go ze stacktrace'em. Widzisz pewną zależność? Dokładnie &ndash; stacktrace to nic innego jak odwr&oacute;cony stos wywołań metod od rozpoczęcia programu do miejsca w kt&oacute;rym został rzucony wyjątek.</p>
-<p>Pierwsza linijka mówi o tym jaki wyjątek został rzucony, kolejne linijki to metody, które były wywoływane. Każda linia składa się z nazwy klasy wraz z pakietem, w nawiasach znajduje się nazwa pliku oddzielona dwukropkiem od numeru linii w tym pliku. W naszym przypadku wyjątek <code>RuntimeException<&#47;code> został rzucony po wywołaniu metody&nbsp;<code>pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method3<&#47;code>, kt&oacute;ra znajduje się w 18 linijce pliku&nbsp;<code>StackTraceExample.java<&#47;code>.</p>
+<h2>Zrozumieć <em>stacktrace</em></h2><br />
+Proszę zwróć uwagę na stos wywołań metod, który wspomniałem wyżej i porównaj go ze stacktrace'em. Widzisz pewną zależność? Dokładnie &ndash; stacktrace to nic innego jak odwrócony stos wywołań metod od rozpoczęcia programu do miejsca w którym został rzucony wyjątek.</p>
+<p>Pierwsza linijka mówi o tym jaki wyjątek został rzucony, kolejne linijki to metody, które były wywoływane. Każda linia składa się z nazwy klasy wraz z pakietem, w nawiasach znajduje się nazwa pliku oddzielona dwukropkiem od numeru linii w tym pliku. W naszym przypadku wyjątek <code>RuntimeException</code> został rzucony po wywołaniu metody&nbsp;<code>pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method3</code>, która znajduje się w 18 linijce pliku&nbsp;<code>StackTraceExample.java</code>.</p>
 <p>Ostatnie linijki także pokazują na kod programu, jednak ten nie jest już napisany prze mnie. Program powyżej uruchamiałem z IDE i to właśnie przez InteliJ stacktrace zawiera te 5 dodatkowych linijek.</p>
-<h1>Obsługa wyjątków<&#47;h1><br />
+<h1>Obsługa wyjątków</h1><br />
 Już wiesz jak można rzucić wyjątek. Najwyższy czas zacząć je obsługiwać :) Mówimy, że wyjątek jest obsługiwany, jeśli reagujemy na jego wystąpienie i próbujemy "naprawić" program w trakcie jego działania. Możemy też powiedzieć, że łapiemy wyjątek.</p>
-<p>Do obsługi wyjątków służy blok <code>try<&#47;code>&#47;<code>catch<&#47;code>. Proszę spójrz na przykład poniżej:</p>
+<p>Do obsługi wyjątków służy blok <code>try</code>/<code>catch</code>. Proszę spójrz na przykład poniżej:</p>
 <pre class="lang:default decode:true ">int hours = -3;<br />
 int numberOfSeconds = 0;<br />
 try {<br />
@@ -93,38 +93,38 @@ try {<br />
 catch (IllegalArgumentException exception) {<br />
     numberOfSeconds = instance.getNumberOfSeconds(hours * -1);<br />
 }<br />
-System.out.println(numberOfSeconds);<&#47;pre><br />
-Znasz już metodę <code>getNumberOfSeconds<&#47;code>. Wiesz, że rzuca wyjątek <code>IllegalArgumentException<&#47;code> jeśli argument jest mniejszy od 0. W przykładzie powyżej otaczamy wywołanie metody blokiem <code>try {&hellip;} catch<&#47;code>. Jeśli kod wewnątrz nawiasów <code>{ }<&#47;code> rzuci wyjątek i blok <code>catch<&#47;code> będzie obsługiwał ten typ wyjątku wówczas zostanie wywołany kod w bloku <code>catch<&#47;code> i wyjątek nie przerwie działania programu.</p>
-<p>W przykładzie powyżej pierwsze wywołanie metody rzuci wyjątek ponieważ przekazaliśmy <code>-3<&#47;code> jako argument. Rzucony wyjątek jest obsługiwany przez klauzulę <code>catch<&#47;code> (klasa wyjątku "pasuje") więc zostaje wywołany kod wewnątrz bloku.</p>
-<p>Pod blokiem <code>try<&#47;code> może znajdować się wiele bloków <code>catch<&#47;code>. Pierwszy pasujący zostanie wykonany. Rzucony wyjątek może być obsłużony przez dany blok <code>catch<&#47;code> jeśli klasa wyjątku w <code>()<&#47;code> znajduje się w hierarchii dziedziczenia rzuconego wyjątku. Nie jest to skomplikowane, zdecydowanie łatwiej wygląda to na przykładzie</p>
+System.out.println(numberOfSeconds);</pre><br />
+Znasz już metodę <code>getNumberOfSeconds</code>. Wiesz, że rzuca wyjątek <code>IllegalArgumentException</code> jeśli argument jest mniejszy od 0. W przykładzie powyżej otaczamy wywołanie metody blokiem <code>try {&hellip;} catch</code>. Jeśli kod wewnątrz nawiasów <code>{ }</code> rzuci wyjątek i blok <code>catch</code> będzie obsługiwał ten typ wyjątku wówczas zostanie wywołany kod w bloku <code>catch</code> i wyjątek nie przerwie działania programu.</p>
+<p>W przykładzie powyżej pierwsze wywołanie metody rzuci wyjątek ponieważ przekazaliśmy <code>-3</code> jako argument. Rzucony wyjątek jest obsługiwany przez klauzulę <code>catch</code> (klasa wyjątku "pasuje") więc zostaje wywołany kod wewnątrz bloku.</p>
+<p>Pod blokiem <code>try</code> może znajdować się wiele bloków <code>catch</code>. Pierwszy pasujący zostanie wykonany. Rzucony wyjątek może być obsłużony przez dany blok <code>catch</code> jeśli klasa wyjątku w <code>()</code> znajduje się w hierarchii dziedziczenia rzuconego wyjątku. Nie jest to skomplikowane, zdecydowanie łatwiej wygląda to na przykładzie</p>
 <pre class="lang:default decode:true ">try {<br />
     throw new IllegalArgumentException();<br />
 }<br />
 catch (ArithmeticException exception) {<br />
-    &#47;&#47; 1<br />
+    // 1<br />
 }<br />
 catch (RuntimeException exception) {<br />
-    &#47;&#47; 2<br />
+    // 2<br />
 }<br />
 catch (Exception exception) {<br />
-    &#47;&#47; 3<br />
-}<&#47;pre><br />
-Blok <code>catch<&#47;code> 1 nie zostanie wykonany bo <code>ArithmeticException<&#47;code> nie znajduje się w hierarchii dziedziczenia wyjątku <code>IllegalArgumentException<&#47;code>. Blok <code>catch<&#47;code> 2 zostanie wykonany bo <code>IllegalArgumentException<&#47;code> dziedziczy po <code>RuntimeException<&#47;code>. Następny blok nie zostanie wykonany ponieważ w przypadku obsługi wyjątku pierwszy pasujący blok <code>catch<&#47;code> jest wykonywany jako jedyny.</p>
-<h2>Obsługa kilku rodzajów wyjątków w jednym bloku <code>catch<&#47;code><&#47;h2><br />
-Może zdarzyć się sytuacja, w której chciałbyś obsłużyć kilka wyjątków a nie mają one wsp&oacute;lnej klasy bazowej. W&oacute;wczas w nawiasach po <code>catch<&#47;code> możesz oddzielić klasy wyjątk&oacute;w symbolem <code>|<&#47;code> jak w przykładzie poniżej.</p>
+    // 3<br />
+}</pre><br />
+Blok <code>catch</code> 1 nie zostanie wykonany bo <code>ArithmeticException</code> nie znajduje się w hierarchii dziedziczenia wyjątku <code>IllegalArgumentException</code>. Blok <code>catch</code> 2 zostanie wykonany bo <code>IllegalArgumentException</code> dziedziczy po <code>RuntimeException</code>. Następny blok nie zostanie wykonany ponieważ w przypadku obsługi wyjątku pierwszy pasujący blok <code>catch</code> jest wykonywany jako jedyny.</p>
+<h2>Obsługa kilku rodzajów wyjątków w jednym bloku <code>catch</code></h2><br />
+Może zdarzyć się sytuacja, w której chciałbyś obsłużyć kilka wyjątków a nie mają one wspólnej klasy bazowej. Wówczas w nawiasach po <code>catch</code> możesz oddzielić klasy wyjątków symbolem <code>|</code> jak w przykładzie poniżej.</p>
 <pre class="lang:default decode:true ">try {<br />
     someMagicMethod();<br />
 }<br />
 catch (ArithmeticException | IllegalArgumentException exception) {<br />
-    &#47;&#47; handle exception<br />
-}<&#47;pre></p>
-<h1>Rodzaje wyjątków <em>checked<&#47;em> oraz <em>unchecked<&#47;em><&#47;h1><br />
-Każdy wyjątek w języku Java dziedziczy po klasie <code>Throwable<&#47;code>. Wyróżniamy dwa rodzaje wyjątków, tak zwane <em>"checked exceptions"<&#47;em> oraz <em>"unchecked exceptions"<&#47;em>.&nbsp; R&oacute;żnica między nimi sprowadza się do tego, że te pierwsze muszą być obsłużone przez programistę, wymaga tego kompilator. Przykładowym wyjątkiem typu unchecked jest <code>IllegalArgumentException<&#47;code>, natomiast <code>IOException<&#47;code> jest wyjątkiem typu checked.</p>
-<p>[caption id="attachment_208" align="aligncenter" width="187"]<img class="wp-image-208 size-full" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;01&#47;wyjatki.gif" alt="Hierarchia dziedziczenia wyjątków" width="187" height="443" &#47;> Hierarchia dziedziczenia wyjątków[&#47;caption]</p>
-<p>Reguła podziału wyjątków na te dwa rodzaje jest prosta. Jeśli wyjątek w swojej hierarchii dziedziczenia ma <code>Exception<&#47;code> i nie ma <code>RuntimeException<&#47;code> jest wyjątkiem typu checked. W każdym innym przypadku jest to wyjątek typu unchecked.</p>
+    // handle exception<br />
+}</pre></p>
+<h1>Rodzaje wyjątków <em>checked</em> oraz <em>unchecked</em></h1><br />
+Każdy wyjątek w języku Java dziedziczy po klasie <code>Throwable</code>. Wyróżniamy dwa rodzaje wyjątków, tak zwane <em>"checked exceptions"</em> oraz <em>"unchecked exceptions"</em>.&nbsp; Różnica między nimi sprowadza się do tego, że te pierwsze muszą być obsłużone przez programistę, wymaga tego kompilator. Przykładowym wyjątkiem typu unchecked jest <code>IllegalArgumentException</code>, natomiast <code>IOException</code> jest wyjątkiem typu checked.</p>
+<p>[caption id="attachment_208" align="aligncenter" width="187"]<img class="wp-image-208 size-full" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2016/01/wyjatki.gif" alt="Hierarchia dziedziczenia wyjątków" width="187" height="443" /> Hierarchia dziedziczenia wyjątków[/caption]</p>
+<p>Reguła podziału wyjątków na te dwa rodzaje jest prosta. Jeśli wyjątek w swojej hierarchii dziedziczenia ma <code>Exception</code> i nie ma <code>RuntimeException</code> jest wyjątkiem typu checked. W każdym innym przypadku jest to wyjątek typu unchecked.</p>
 <p>Kiedy zatem stosować wyjątki typu checked? Zalecenie jest proste, za każdym razem kiedy program ma możliwość "naprawienia" zaistniałej sytuacji wyjątkowej powinniśmy rzucić wyjątek typu checked. Reguła ta jednak jest bardzo często łamana ponieważ obsługa tego typu wyjątków wymaga trochę więcej kodu ;)</p>
-<h1>Klauzula <code>throws<&#47;code><&#47;h1><br />
-Wyjątek można obsłużyć na dwa sposoby. Jeden już znasz, to otoczenie fragmentu kodu blokami <code>try&#47;catch<&#47;code>. Drugi sprowadza się do "zepchnięcia" odpowiedzialności obsłużenia wyjątku o poziom niżej, do metody wywołującej. Służy do tego klauzula <code>throws<&#47;code>, którą dodajemy do deklaracji metody. Spójrz na przykład poniżej:</p>
+<h1>Klauzula <code>throws</code></h1><br />
+Wyjątek można obsłużyć na dwa sposoby. Jeden już znasz, to otoczenie fragmentu kodu blokami <code>try/catch</code>. Drugi sprowadza się do "zepchnięcia" odpowiedzialności obsłużenia wyjątku o poziom niżej, do metody wywołującej. Służy do tego klauzula <code>throws</code>, którą dodajemy do deklaracji metody. Spójrz na przykład poniżej:</p>
 <pre class="lang:default decode:true ">public class CheckedExceptions {<br />
     public static void main(String[] args) {<br />
         CheckedExceptions instance = new CheckedExceptions();<br />
@@ -138,37 +138,37 @@ Wyjątek można obsłużyć na dwa sposoby. Jeden już znasz, to otoczenie fragm
 <p>    private void methodWithCheckedException() throws IOException {<br />
         throw new IOException();<br />
     }<br />
-}<&#47;pre><br />
-Metoda <code>methodWithCheckedException<&#47;code> rzuca wyjątek <code>IOException<&#47;code>, który jest typu checked. Nie obsługuje go jednak wewnątrz ale informuje o tym, że może rzucić taki wyjątek dzięki <code>throws<&#47;code>. W metodzie <code>main<&#47;code> mamy standardowy blok <code>catch<&#47;code>, gdzie wyjątek jest obsłużony.</p>
-<h1>Klauzula <code>finally<&#47;code><&#47;h1><br />
-Blok <code>finally<&#47;code> możemy umieścić po <code>try<&#47;code>. Kod wewnątrz tego bloku zawsze zostanie wykonany[2. są pewne sytuacje kiedy to nie jest prawdą, np. jeśli wirtualna maszyna Javy zostanie wyłączona]. W rzeczywistości blok <code>try<&#47;code> nie musi mieć żadnej klauzuli <code>catch<&#47;code> jeśli ma blok <code>finally<&#47;code>.</p>
+}</pre><br />
+Metoda <code>methodWithCheckedException</code> rzuca wyjątek <code>IOException</code>, który jest typu checked. Nie obsługuje go jednak wewnątrz ale informuje o tym, że może rzucić taki wyjątek dzięki <code>throws</code>. W metodzie <code>main</code> mamy standardowy blok <code>catch</code>, gdzie wyjątek jest obsłużony.</p>
+<h1>Klauzula <code>finally</code></h1><br />
+Blok <code>finally</code> możemy umieścić po <code>try</code>. Kod wewnątrz tego bloku zawsze zostanie wykonany[2. są pewne sytuacje kiedy to nie jest prawdą, np. jeśli wirtualna maszyna Javy zostanie wyłączona]. W rzeczywistości blok <code>try</code> nie musi mieć żadnej klauzuli <code>catch</code> jeśli ma blok <code>finally</code>.</p>
 <pre class="lang:default decode:true">try {<br />
     throw new RuntimeException();<br />
 }<br />
 finally {<br />
     System.out.println("Surprise!");<br />
-}<&#47;pre><br />
-Może być także sytuacja w której mamy zarówno <code>try<&#47;code>, <code>catch<&#47;code> jak i <code>finally<&#47;code>. Jeśli wewnątrz try zostanie rzucony wyjątek, kt&oacute;ry jest obsługiwany przez blok <code>catch<&#47;code> to dodatkowo, jako ostatni, uruchomi się blok <code>finally<&#47;code>.</p>
-<h1>Dobre praktyki przy używaniu wyjątków<&#47;h1><br />
+}</pre><br />
+Może być także sytuacja w której mamy zarówno <code>try</code>, <code>catch</code> jak i <code>finally</code>. Jeśli wewnątrz try zostanie rzucony wyjątek, który jest obsługiwany przez blok <code>catch</code> to dodatkowo, jako ostatni, uruchomi się blok <code>finally</code>.</p>
+<h1>Dobre praktyki przy używaniu wyjątków</h1><br />
 Poniżej zebrałem dla Ciebie zestaw kilku dobrych praktyk przy pracy z wyjątkami:</p>
 <ul>
-<li>Pierwsza i najważniejsza zasada, blok <code>try<&#47;code> powinien być jak najmniejszy. Takie podejście bardzo ułatwia znajdowanie błędów w bardziej skomplikowanych programach. Dzięki małemu blokowi <code>try<&#47;code> także możemy napisać lepszy kod do obsługi wyjątku &ndash; wiemy dokładnie z którego miejsca wyjątek może zostać rzucony więc wiemy także jak najlepiej na niego zareagować.<&#47;li>
-<li>Blok <code>finally<&#47;code> bardzo często jest niezbędny. Szczególnie jeśli operujemy na instancjach, które wymagają "zamknięcia".<&#47;li>
-<li>Używaj klas wyjątków, które idealnie pasują do danej sytuacji. Jeśli nie ma takiego wyjątku w bibliotece standardowej utw&oacute;rz własną klasę wyjątku.<&#47;li>
-<li>Tworząc instancję wyjątków podawaj możliwie najdokładniejszy opis w treści wyjątku. Pozwala to na dużo łatwiejsze znajdowanie błędów w programie jeśli komunikat wyjątku jest szczeg&oacute;łowy.<&#47;li>
-<li>Nie zapominaj o używaniu wyjątków typu checked. Chociaż wymagają trochę więcej kodu i generują często irytujące błędy kompilacji ich używanie jest czasami wskazane.<&#47;li><br />
-<&#47;ul></p>
-<h1>Zadanie<&#47;h1><br />
-Napisz program, który pobierze od użytkownika liczbę i wyświetli jej pierwiastek. Do obliczenia pierwiastka możesz użyć istniejącej metody <code>java.lang.Math.sqrt()<&#47;code>. Jeśli użytkownik poda liczbę ujemną rzuć wyjątek <code>java.lang.IllegalArgumentException<&#47;code>.&nbsp; Obsłuż sytuację, w której użytkownik poda ciąg znak&oacute;w, kt&oacute;ry nie jest liczbą.</p>
-<p>Zachęcam do samodzielnego rozwiązania zadania, jeśli rozwiązujesz zadanie samodzielnie uczysz się najwięcej. Jeśli jednak chciałbyś zobaczyć przykładowe rozwiązanie, to umieściłem je na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;blob&#47;master&#47;09_wyjatki&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;exception&#47;exercise&#47;Exercise.java" target="_blank" rel="noopener">githubie<&#47;a>.</p>
-<h1>Dodatkowe materiały do nauki<&#47;h1></p>
+<li>Pierwsza i najważniejsza zasada, blok <code>try</code> powinien być jak najmniejszy. Takie podejście bardzo ułatwia znajdowanie błędów w bardziej skomplikowanych programach. Dzięki małemu blokowi <code>try</code> także możemy napisać lepszy kod do obsługi wyjątku &ndash; wiemy dokładnie z którego miejsca wyjątek może zostać rzucony więc wiemy także jak najlepiej na niego zareagować.</li>
+<li>Blok <code>finally</code> bardzo często jest niezbędny. Szczególnie jeśli operujemy na instancjach, które wymagają "zamknięcia".</li>
+<li>Używaj klas wyjątków, które idealnie pasują do danej sytuacji. Jeśli nie ma takiego wyjątku w bibliotece standardowej utwórz własną klasę wyjątku.</li>
+<li>Tworząc instancję wyjątków podawaj możliwie najdokładniejszy opis w treści wyjątku. Pozwala to na dużo łatwiejsze znajdowanie błędów w programie jeśli komunikat wyjątku jest szczegółowy.</li>
+<li>Nie zapominaj o używaniu wyjątków typu checked. Chociaż wymagają trochę więcej kodu i generują często irytujące błędy kompilacji ich używanie jest czasami wskazane.</li><br />
+</ul></p>
+<h1>Zadanie</h1><br />
+Napisz program, który pobierze od użytkownika liczbę i wyświetli jej pierwiastek. Do obliczenia pierwiastka możesz użyć istniejącej metody <code>java.lang.Math.sqrt()</code>. Jeśli użytkownik poda liczbę ujemną rzuć wyjątek <code>java.lang.IllegalArgumentException</code>.&nbsp; Obsłuż sytuację, w której użytkownik poda ciąg znaków, który nie jest liczbą.</p>
+<p>Zachęcam do samodzielnego rozwiązania zadania, jeśli rozwiązujesz zadanie samodzielnie uczysz się najwięcej. Jeśli jednak chciałbyś zobaczyć przykładowe rozwiązanie, to umieściłem je na <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/09_wyjatki/src/main/java/pl/samouczekprogramisty/kursjava/exception/exercise/Exercise.java" target="_blank" rel="noopener">githubie</a>.</p>
+<h1>Dodatkowe materiały do nauki</h1></p>
 <ul>
-<li><a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;essential&#47;exceptions&#47;index.html" target="_blank" rel="noopener">http:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;essential&#47;exceptions&#47;index.html<&#47;a><&#47;li>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-11.html" target="_blank" rel="noopener">https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-11.html<&#47;a><&#47;li>
-<li><a href="https:&#47;&#47;www.youtube.com&#47;watch?v=Nl16BzP6Fao" target="_blank" rel="noopener">https:&#47;&#47;www.youtube.com&#47;watch?v=Nl16BzP6Fao<&#47;a><&#47;li>
-<li><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;09_wyjatki&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;exception" target="_blank" rel="noopener">kod źródłowy przykładów użytych w artykule<&#47;a><&#47;li><br />
-<&#47;ul></p>
-<h1>Podsumowanie<&#47;h1><br />
-Bardzo się cieszę, że dobrnąłeś tak daleko. Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tym tematem. Niezmiennie zależy mi na tym, żeby dotrzeć do jak największej grupy czytelników :) Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w polub nasz profil na facebooku i dopisz się do newslettera.</p>
+<li><a href="http://docs.oracle.com/javase/tutorial/essential/exceptions/index.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/tutorial/essential/exceptions/index.html</a></li>
+<li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-11.html" target="_blank" rel="noopener">https://docs.oracle.com/javase/specs/jls/se8/html/jls-11.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=Nl16BzP6Fao" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Nl16BzP6Fao</a></li>
+<li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/09_wyjatki/src/main/java/pl/samouczekprogramisty/kursjava/exception" target="_blank" rel="noopener">kod źródłowy przykładów użytych w artykule</a></li><br />
+</ul></p>
+<h1>Podsumowanie</h1><br />
+Bardzo się cieszę, że dobrnąłeś tak daleko. Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tym tematem. Niezmiennie zależy mi na tym, żeby dotrzeć do jak największej grupy czytelników :) Jeśli nie chcesz ominąć kolejnych artykułów polub nasz profil na facebooku i dopisz się do newslettera.</p>
 <p>Do następnego razu i życzę Ci udanego dnia :)</p>
 <p>[FM_form id="3"]</p>

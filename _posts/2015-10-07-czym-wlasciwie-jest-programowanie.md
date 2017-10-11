@@ -37,27 +37,27 @@ Nie bez powodu piszę blog po polsku. Zależy mi na tym, żeby ludzie, którzy n
 Mówi się, że programista powinien charakteryzować się analitycznym myśleniem, rozumieć zagadnienia matematyczne. Oczywiście &bdquo;ścisły umysł&rdquo; to predyspozycja, która bardzo pomaga &ndash; sam znam architektów (tych od budownictwa) czy chemików, którzy samodzielnie nauczyli się programowania. Jednak mam wrażenie, że przy odpowiedniej ilości ciężkiej pracy i humanista też w programowaniu znajdzie coś dla siebie. Spróbuj, to na pewno nie zaszkodzi! :)</p>
 <p>Podsumowując:</p>
 <ul>
-<li>ucz się języka angielskiego, na pewno przyda się nie tylko do programowania,<&#47;li>
-<li>nie bój się przedmiotów ścisłych,<&#47;li>
-<li>wkładaj dużo pracy w naukę programowania.<&#47;li><br />
-<&#47;ul></p>
-<h1><b>Rozmowa z komputerem<&#47;b><&#47;h1><br />
+<li>ucz się języka angielskiego, na pewno przyda się nie tylko do programowania,</li>
+<li>nie bój się przedmiotów ścisłych,</li>
+<li>wkładaj dużo pracy w naukę programowania.</li><br />
+</ul></p>
+<h1><b>Rozmowa z komputerem</b></h1><br />
 Do porozumiewania się ze swoimi przyjaciółmi, znajomymi używamy dobrze znanych słów i zwrotów. Rozumiemy się nawzajem, jesteśmy w stanie przekazać sobie pewne informacje. Jeśli posługujemy się językami obcymi porozumiemy się swobodnie z większą grupą ludzi. Podobnie jest z komputerem. Jeśli chcesz się z nim porozumieć musisz mówić jego językiem. Nie chcę Cię tu zanudzać wpisem o zerach i jedynkach fruwających w pamięci komputera jednak pewne podstawy są tu potrzebne.</p>
 <p>Język programowania to nic innego jak język, który &bdquo;rozumieją&rdquo; programiści. Są w stanie się nim swobodnie posługiwać, który następnie &bdquo;tłumaczony&rdquo; jest do języka komputera. Słowa przetłumaczone są na ciąg zer i jedynek zrozumiały przez komputer. Ten etap tłumaczenia możemy nazwać kompilacją (ang. compile).</p>
 <p>Języki programowania możemy podzielić na języki niskopoziomowe i wysokopoziomowe. Te pierwsze są bardzo trudne do samodzielnego używania. Programy napisane przy ich pomocy mogą być uruchamiane tylko na konkretnych rodzajach komputerów. Na przykład program napisany w języku niskiego poziomu na Twój komputer nie może być uruchomiony na komputerze Twojego kolegi[1. Jest to duże uproszczenie, chodzi tu o tak zwaną architekturę procesora. Każda architektura ma swój specyficzny zestaw komend tzw. assembler, która czasami nie może być uruchamiana na różnych procesorach.].</p>
 <p>Tego typu ograniczenia sprawiają, że języków niskiego poziomu nie używa się powszechnie a jedynie do bardzo specyficznych zastosowań, które są bardzo odległe od &bdquo;podstaw i nauki programowania&rdquo; :) Dzięki tym samym ograniczeniom języki wysokiego poziomu zyskują na popularności.</p>
-<h1><b>Polski? Angielski? Niemiecki? Rosyjski? Francuski?<&#47;b><&#47;h1><br />
-F? Erlang? JavaScript? Java? Perl? Ruby? Podobnie jak istnieje wiele języków, którymi mówią ludzie istnieje także wiele języków programowania. Każdy z tych języków charakteryzuje się specyficzną składnią (ang. <em>sytax<&#47;em>). Każdy z nich ma również specyficzny zakres zastosowań. Po prostu jego właściwości sprawiają, że lepiej nadaje się np. do pisania gier komputerowych niż tworzenia interaktywnych stron internetowych.</p>
+<h1><b>Polski? Angielski? Niemiecki? Rosyjski? Francuski?</b></h1><br />
+F? Erlang? JavaScript? Java? Perl? Ruby? Podobnie jak istnieje wiele języków, którymi mówią ludzie istnieje także wiele języków programowania. Każdy z tych języków charakteryzuje się specyficzną składnią (ang. <em>sytax</em>). Każdy z nich ma również specyficzny zakres zastosowań. Po prostu jego właściwości sprawiają, że lepiej nadaje się np. do pisania gier komputerowych niż tworzenia interaktywnych stron internetowych.</p>
 <p>W ramach pierwszego kursu dostępnego na blogu skupimy się na języku Java. Wybór padł na ten język ponieważ google nadal raportuje spore zainteresowanie tym językiem, jak i jest on w miarę &bdquo;uniwersalny&rdquo; i bardzo powszechny. W następnym artykule skupimy się na omówieniu podstaw tego języka jednak zanim do tego dojdzie chciałbym Wam przybliżyć następujące pojęcia:</p>
 <ul>
-<li>język obiektowy (ang. <em>objective language<&#47;em>)<&#47;li>
-<li>maszyna wirtualna (ang. <em>virtual machine<&#47;em>)<&#47;li><br />
-<&#47;ul></p>
-<h1><b>Czym jest język obiektowy?<&#47;b><&#47;h1><br />
-Weźmy za przykład stół i jego projekt. Fabryka produkuje setki stołów, wszystkie według tego samego projektu. Podobne projekty istnieją w języku programowania. Stół możemy uznać za tak zwaną instancję (ang. <em>instance<&#47;em>) lub obiekt (ang. <em>object<&#47;em>) klasy stół.</p>
-<p>Innymi słowy projekt służy nam do tworzenia obiektów&#47;instancji. Odpowiednikiem projektu w języku programowania jest klasa (ang. <em>class<&#47;em>).</p>
+<li>język obiektowy (ang. <em>objective language</em>)</li>
+<li>maszyna wirtualna (ang. <em>virtual machine</em>)</li><br />
+</ul></p>
+<h1><b>Czym jest język obiektowy?</b></h1><br />
+Weźmy za przykład stół i jego projekt. Fabryka produkuje setki stołów, wszystkie według tego samego projektu. Podobne projekty istnieją w języku programowania. Stół możemy uznać za tak zwaną instancję (ang. <em>instance</em>) lub obiekt (ang. <em>object</em>) klasy stół.</p>
+<p>Innymi słowy projekt służy nam do tworzenia obiektów/instancji. Odpowiednikiem projektu w języku programowania jest klasa (ang. <em>class</em>).</p>
 <p>Język obiektowy jest językiem, który pozwala na tworzenie swoich własnych klas. Mając definicję klasy jesteśmy w stanie stworzyć jej instancję.</p>
-<h1><b>Czym jest maszyna wirtualna?<&#47;b><&#47;h1><br />
+<h1><b>Czym jest maszyna wirtualna?</b></h1><br />
 Maszyna wirtualna to program napisany w języku niższego poziomu. Program ten pozwala na pewną abstrakcję, upraszcza niektóre aspekty rozmowy z komputerem. Jako przykład podam tu maszynę wirtualną języka Java. Maszyna ta do pewnego stopnia zwalnia programistę z odpowiedzialności zarządzania pamięcią.</p>
 <p>Instancje klas, które tworzymy zajmują pamięć. Komputer musi dokładnie wiedzieć ile pamięci ma zarezerwować na daną instancję. Jeśli język korzysta z maszyny wirtualnej wspomagającej zarządzenie pamięcią programista nie musi się tym przejmować (oczywiście jest to pewne uproszczenie, ale na tym etapie zaawansowania w zupełności wystarczy).</p>
 <p>Na dzisiaj wystarczy. Dzisiaj było bardzo mocno teoretycznie, następnym razem zaczniemy bawić się programowaniem. Czy którykolwiek z elementów wydał się dla Ciebie niezbyt jasny? Proszę daj mi znać o tym w komentarzu. Jeśli uznasz wpis za ciekawy proszę podziel się nim ze swoimi znajomymi.</p>

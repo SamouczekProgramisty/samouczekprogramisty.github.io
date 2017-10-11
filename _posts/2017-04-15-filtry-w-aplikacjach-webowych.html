@@ -29,49 +29,49 @@ comments: []
 <p>Co musisz wiedzieć zanim zaczniesz</p>
 <p>Artykuł ten zakłada, że wiesz czym są serwlety i adnotacje. Pownieneś potrafić już napisać serwlet i używać adnotacji. Powinieneś wiedzieć czym są parametry URL i jak z nimi pracować. Jeśli chcesz uzupełnić wiedzę z tego zakresu zapraszam do artykułów:</p>
 <ul>
-<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;serwlety-w-aplikacjach-webowych&#47;" target="_blank">serwlety w aplikacjach internetowych<&#47;a>,<&#47;li>
-<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;naglowki-sesje-i-ciasteczka&#47;" target="_blank">parametry URL, ciasteczka, nagłówki i sesje<&#47;a>,<&#47;li>
-<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;adnotacje-w-jezyku-java&#47;" target="_blank">adnotacje w języku Java<&#47;a>.<&#47;li><br />
-<&#47;ul></p>
-<h1>Filtry w aplikacjach webowych<&#47;h1><br />
-Filtry to nic innego jak klasy, które są wywoływane przed uruchomieniem właściwego serwletu. Po wykonaniu serwletu odpowiedź wraca przez ten sam filtr do klienta, który wysłał żądanie. Przed serwletem może być wywołanych wiele filtr&oacute;w.</p>
+<li><a href="http://www.samouczekprogramisty.pl/serwlety-w-aplikacjach-webowych/" target="_blank">serwlety w aplikacjach internetowych</a>,</li>
+<li><a href="http://www.samouczekprogramisty.pl/naglowki-sesje-i-ciasteczka/" target="_blank">parametry URL, ciasteczka, nagłówki i sesje</a>,</li>
+<li><a href="http://www.samouczekprogramisty.pl/adnotacje-w-jezyku-java/" target="_blank">adnotacje w języku Java</a>.</li><br />
+</ul></p>
+<h1>Filtry w aplikacjach webowych</h1><br />
+Filtry to nic innego jak klasy, które są wywoływane przed uruchomieniem właściwego serwletu. Po wykonaniu serwletu odpowiedź wraca przez ten sam filtr do klienta, który wysłał żądanie. Przed serwletem może być wywołanych wiele filtrów.</p>
 <p>Poniższy rysunek pokazuje zapytanie od klienta, które przechodzi przez dwa filtry. Następnie uruchamiany jest serwlet. Przed przekazaniem odpowiedzi wracamy do tych samych filtrów w odwrotnej kolejności.</p>
-<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;04&#47;filter_chain.jpeg"><img class="aligncenter size-medium wp-image-847" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;04&#47;filter_chain-300x121.jpeg" alt="filter chain" width="300" height="121" &#47;><&#47;a>Filtrem jest klasa, która implementuje interfejs <a href="http:&#47;&#47;docs.oracle.com&#47;javaee&#47;7&#47;api&#47;javax&#47;servlet&#47;Filter.html" target="_blank"><code>Filter<&#47;code><&#47;a>.</p>
-<p>Filtry oznacza się adnotacją <a href="http:&#47;&#47;docs.oracle.com&#47;javaee&#47;7&#47;api&#47;javax&#47;servlet&#47;annotation&#47;WebFilter.html" target="_blank"><code>@WebFilter<&#47;code><&#47;a> [0. Do tej pory nie wspomniałem Ci jeszcze o pliku <code>web.xml<&#47;code>, w którym także można filtry konfigurować. Aby niepotrzebnie nie komplikować plik ten opiszę w osobnym artykule.]. Podobnie jak wszystkie inne elementy specyfikacji serwletów także filtry mają sw&oacute;j cykl życia.</p>
-<h1>Cykl życia filtrów<&#47;h1><br />
-Każdy z filtrów ma swój cykl życia. Podobnie jak w serwletach mamy tu metody <code>init<&#47;code> i <code>destroy<&#47;code>. Właściwa praca serwletu odbywa się wewnątrz metody <code>doFilter<&#47;code>.</p>
+<p><a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/04/filter_chain.jpeg"><img class="aligncenter size-medium wp-image-847" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2017/04/filter_chain-300x121.jpeg" alt="filter chain" width="300" height="121" /></a>Filtrem jest klasa, która implementuje interfejs <a href="http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html" target="_blank"><code>Filter</code></a>.</p>
+<p>Filtry oznacza się adnotacją <a href="http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/WebFilter.html" target="_blank"><code>@WebFilter</code></a> [0. Do tej pory nie wspomniałem Ci jeszcze o pliku <code>web.xml</code>, w którym także można filtry konfigurować. Aby niepotrzebnie nie komplikować plik ten opiszę w osobnym artykule.]. Podobnie jak wszystkie inne elementy specyfikacji serwletów także filtry mają swój cykl życia.</p>
+<h1>Cykl życia filtrów</h1><br />
+Każdy z filtrów ma swój cykl życia. Podobnie jak w serwletach mamy tu metody <code>init</code> i <code>destroy</code>. Właściwa praca serwletu odbywa się wewnątrz metody <code>doFilter</code>.</p>
 <ul>
-<li><a href="http:&#47;&#47;docs.oracle.com&#47;javaee&#47;7&#47;api&#47;javax&#47;servlet&#47;Filter.html#init-javax.servlet.FilterConfig-" target="_blank"><code>init<&#47;code><&#47;a> - metoda odpowiedzialna za inicjalizację serwletu. Musi się powieść aby kontener serwletów używał tego filtra,<&#47;li>
-<li><a href="http:&#47;&#47;docs.oracle.com&#47;javaee&#47;7&#47;api&#47;javax&#47;servlet&#47;Filter.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-javax.servlet.FilterChain-" target="_blank"><code>doFilter<&#47;code><&#47;a> - tu odbywa się właściwa praca filtra. Metoda ta wywołana jest przed przekazaniem żądania do klasy serwletu,<&#47;li>
-<li><a href="http:&#47;&#47;docs.oracle.com&#47;javaee&#47;7&#47;api&#47;javax&#47;servlet&#47;Filter.html#destroy--" target="_blank"><code>destroy<&#47;code><&#47;a> - metoda, w które filtr ma szansę &ldquo;posprzątać&rdquo; po sobie :)<&#47;li><br />
-<&#47;ul></p>
-<h1>Mapowanie filtrów<&#47;h1><br />
-Adnotacja <code>@WebFilter<&#47;code> posiada kilka elementów. Opiszę te, które pozwalają na przypisywanie filtr&oacute;w do poszczeg&oacute;lnych serwlet&oacute;w&#47;zasob&oacute;w:</p>
+<li><a href="http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#init-javax.servlet.FilterConfig-" target="_blank"><code>init</code></a> - metoda odpowiedzialna za inicjalizację serwletu. Musi się powieść aby kontener serwletów używał tego filtra,</li>
+<li><a href="http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-javax.servlet.FilterChain-" target="_blank"><code>doFilter</code></a> - tu odbywa się właściwa praca filtra. Metoda ta wywołana jest przed przekazaniem żądania do klasy serwletu,</li>
+<li><a href="http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#destroy--" target="_blank"><code>destroy</code></a> - metoda, w które filtr ma szansę &ldquo;posprzątać&rdquo; po sobie :)</li><br />
+</ul></p>
+<h1>Mapowanie filtrów</h1><br />
+Adnotacja <code>@WebFilter</code> posiada kilka elementów. Opiszę te, które pozwalają na przypisywanie filtrów do poszczególnych serwletów/zasobów:</p>
 <ul>
-<li><code>urlPatterns<&#47;code> - lista szablonów adresów URL do kt&oacute;rych filtr powinien być zaaplikowany,<&#47;li>
-<li><code>servletNames<&#47;code> - lista nazw serwletów. Każdy serwlet może mieć nazwę, którą możesz ustawić za pomocą elementu name adnotacji <code>@WebServlet<&#47;code>,<&#47;li>
-<li><code>value<&#47;code> - domyślny element, stosowany zamiennie z <code>urlPatterns<&#47;code>.<&#47;li><br />
-<&#47;ul><br />
-Szablony adresów URL pozwalają na mapowanie filtrów do adres&oacute;w URL. Wewnątrz tych szablon&oacute;w możesz używać znaku <code>*<&#47;code>, kt&oacute;ry pozwala na dopasowanie większej liczby adres&oacute;w URL. Sp&oacute;jrz na kilka przykład&oacute;w:</p>
+<li><code>urlPatterns</code> - lista szablonów adresów URL do których filtr powinien być zaaplikowany,</li>
+<li><code>servletNames</code> - lista nazw serwletów. Każdy serwlet może mieć nazwę, którą możesz ustawić za pomocą elementu name adnotacji <code>@WebServlet</code>,</li>
+<li><code>value</code> - domyślny element, stosowany zamiennie z <code>urlPatterns</code>.</li><br />
+</ul><br />
+Szablony adresów URL pozwalają na mapowanie filtrów do adresów URL. Wewnątrz tych szablonów możesz używać znaku <code>*</code>, który pozwala na dopasowanie większej liczby adresów URL. Spójrz na kilka przykładów:</p>
 <ul>
-<li><code>&#47;some&#47;url&#47;address<&#47;code> - szablon pasuje tylko do jednego adresu URL - <code>&#47;some&#47;url&#47;pattern<&#47;code>,<&#47;li>
-<li><code>&#47;some&#47;other&#47;resource.*<&#47;code> - szablon pasuje do wielu adresów URL różniących się rozszerzeniami. Na przykład <code>&#47;some&#47;other&#47;resource.html<&#47;code> czy <code>&#47;some&#47;other&#47;resource.jpeg<&#47;code>,<&#47;li>
-<li><code>&#47;some&#47;*&#47;address<&#47;code> - szablon pasuje do wielu adresów URL. Na przykład <code>&#47;some&#47;url&#47;address<&#47;code> czy <code>&#47;some&#47;picture&#47;addresss<&#47;code>,<&#47;li>
-<li><code>*<&#47;code> - szablon pasuje do wszystkich adresów URL. Jeśli stworzysz filtr, który będzie miał taki szablon będzie on aplikowany do wszystkich zapytań.<&#47;li><br />
-<&#47;ul><br />
+<li><code>/some/url/address</code> - szablon pasuje tylko do jednego adresu URL - <code>/some/url/pattern</code>,</li>
+<li><code>/some/other/resource.*</code> - szablon pasuje do wielu adresów URL różniących się rozszerzeniami. Na przykład <code>/some/other/resource.html</code> czy <code>/some/other/resource.jpeg</code>,</li>
+<li><code>/some/*/address</code> - szablon pasuje do wielu adresów URL. Na przykład <code>/some/url/address</code> czy <code>/some/picture/addresss</code>,</li>
+<li><code>*</code> - szablon pasuje do wszystkich adresów URL. Jeśli stworzysz filtr, który będzie miał taki szablon będzie on aplikowany do wszystkich zapytań.</li><br />
+</ul><br />
 Kilka przykładów z użyciem adnotacji:</p>
 <ul>
-<li><code>@WebFilter("&#47;chainingServlet")<&#47;code> - filtr będzie zaaplikowany wyłącznie do żądań dotyczących adresu <code>&#47;chainingServlet<&#47;code>,<&#47;li>
-<li><code>@WebFilter(urlPatterns = "&#47;chainingServlet", servletNames = "someRandomServletName")<&#47;code> - filtr będzie zaaplikowany do żądań dotyczących adresu <code>&#47;chainingServlet<&#47;code> i żądań obsługiwanych przez serwlet o nazwie someRandomServletName<&#47;li>
-<li><code>@WebFilter(urlPatterns = {"&#47;some&#47;*&#47;thing", "&#47;other&#47;*&#47;thing"})<&#47;code> - filtr będzie zaaplikowany do żądań dotyczących wielu adresów pasujących do jednego z wzorców.<&#47;li><br />
-<&#47;ul></p>
-<h1>Łańcuch filtrów<&#47;h1><br />
-Na diagramie pokazanym wyżej widziałeś dwa filtry. Filtrów uruchomionych przed właściwym serwletem może być wiele. Tworzą one tak zwany łańcuch filtrów (ang. <em>filter chain<&#47;em>). Łańcuch ten reprezentowany jest przez instancję klasy implementującej interfejs <a href="http:&#47;&#47;docs.oracle.com&#47;javaee&#47;7&#47;api&#47;javax&#47;servlet&#47;FilterChain.html" target="_blank"><code>FilterChain<&#47;code><&#47;a>. Instancja ta przekazana jest jako parametr do metody <code>doFilter<&#47;code> wewnątrz filtra.</p>
-<p>Interfejs ten zawiera wyłącznie jedną metodę <a href="http:&#47;&#47;docs.oracle.com&#47;javaee&#47;7&#47;api&#47;javax&#47;servlet&#47;FilterChain.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-" target="_blank"><code>doFilter<&#47;code><&#47;a>, która wykonuje kolejny filtr w łańcuchu. Jeśli filtr był ostatnim spowoduje to wywołanie właściwego serwletu.</p>
+<li><code>@WebFilter("/chainingServlet")</code> - filtr będzie zaaplikowany wyłącznie do żądań dotyczących adresu <code>/chainingServlet</code>,</li>
+<li><code>@WebFilter(urlPatterns = "/chainingServlet", servletNames = "someRandomServletName")</code> - filtr będzie zaaplikowany do żądań dotyczących adresu <code>/chainingServlet</code> i żądań obsługiwanych przez serwlet o nazwie someRandomServletName</li>
+<li><code>@WebFilter(urlPatterns = {"/some/*/thing", "/other/*/thing"})</code> - filtr będzie zaaplikowany do żądań dotyczących wielu adresów pasujących do jednego z wzorców.</li><br />
+</ul></p>
+<h1>Łańcuch filtrów</h1><br />
+Na diagramie pokazanym wyżej widziałeś dwa filtry. Filtrów uruchomionych przed właściwym serwletem może być wiele. Tworzą one tak zwany łańcuch filtrów (ang. <em>filter chain</em>). Łańcuch ten reprezentowany jest przez instancję klasy implementującej interfejs <a href="http://docs.oracle.com/javaee/7/api/javax/servlet/FilterChain.html" target="_blank"><code>FilterChain</code></a>. Instancja ta przekazana jest jako parametr do metody <code>doFilter</code> wewnątrz filtra.</p>
+<p>Interfejs ten zawiera wyłącznie jedną metodę <a href="http://docs.oracle.com/javaee/7/api/javax/servlet/FilterChain.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-" target="_blank"><code>doFilter</code></a>, która wykonuje kolejny filtr w łańcuchu. Jeśli filtr był ostatnim spowoduje to wywołanie właściwego serwletu.</p>
 <p>Pociąga to za sobą ważną konsekwencję. Jeśli wewnątrz filtra nie wywołasz tej metody właściwe żądanie nigdy nie dotrze do serwletu.</p>
-<h1>Przykłady użycia filtrów<&#47;h1><br />
+<h1>Przykłady użycia filtrów</h1><br />
 Zacznijmy od definicji prostego serwletu. Serwlet w odpowiedzi wyświetla wszystkie atrybuty żądania. Jeśli żaden atrybut nie jest ustawiony, w odpowiedzi wysłana zostanie pusta strona HTML.</p>
-<pre class="lang:default decode:true ">@WebServlet(urlPatterns = "&#47;simpleServlet", name = "simpleServletName")<br />
+<pre class="lang:default decode:true ">@WebServlet(urlPatterns = "/simpleServlet", name = "simpleServletName")<br />
 public class SimpleServlet extends HttpServlet {</p>
 <p>    @Override<br />
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {<br />
@@ -82,12 +82,12 @@ public class SimpleServlet extends HttpServlet {</p>
             String attributeName = attributeNames.nextElement();<br />
             Object attributeValue = req.getAttribute(attributeName);<br />
             responseWriter.write("
-<p>" + attributeName + ": " + attributeValue + "<&#47;p>");<br />
+<p>" + attributeName + ": " + attributeValue + "</p>");<br />
         }<br />
-        responseWriter.write("<&#47;html><&#47;body>");<br />
+        responseWriter.write("</html></body>");<br />
     }<br />
-}<&#47;pre><br />
-Następnie filtr, który dodaje jeden atrybut wewnątrz metody <code>doFilter<&#47;code>:</p>
+}</pre><br />
+Następnie filtr, który dodaje jeden atrybut wewnątrz metody <code>doFilter</code>:</p>
 <pre class="lang:default decode:true">@WebFilter(servletNames = "simpleServletName")<br />
 public class SimpleFilter implements Filter {</p>
 <p>    @Override<br />
@@ -103,46 +103,46 @@ public class SimpleFilter implements Filter {</p>
 <p>    @Override<br />
     public void destroy() {<br />
     }<br />
-}<&#47;pre><br />
-Po uruchomieniu takiej aplikacji i wysłaniu żądania na adres <code>&#47;simpleServlet<&#47;code> powinieneś zobaczyć jeden atrybut dodany prez filtr.</p>
-<h1>Kolejność wykonywania filtrów<&#47;h1><br />
-Wiesz już, że do jednego zasobu&#47;serwletu można aplikować wiele filtrów. Bardzo często kolejność ich wykonania jest bardzo istotna. Na przykład nie ma potrzeby kompresowania odpowiedzi jeśli użytkownik nie ma prawa do wykonania danego żądania. Równie ważne jest logowanie wszystkich żądań, niezależnie od tego czy użytkownik ma do nich prawo czy nie.</p>
+}</pre><br />
+Po uruchomieniu takiej aplikacji i wysłaniu żądania na adres <code>/simpleServlet</code> powinieneś zobaczyć jeden atrybut dodany prez filtr.</p>
+<h1>Kolejność wykonywania filtrów</h1><br />
+Wiesz już, że do jednego zasobu/serwletu można aplikować wiele filtrów. Bardzo często kolejność ich wykonania jest bardzo istotna. Na przykład nie ma potrzeby kompresowania odpowiedzi jeśli użytkownik nie ma prawa do wykonania danego żądania. Równie ważne jest logowanie wszystkich żądań, niezależnie od tego czy użytkownik ma do nich prawo czy nie.</p>
 <p>Mając zatem trzy filtry:</p>
 <ul>
-<li>loggingFilter - loguje podstawowe informacje o żądaniu,<&#47;li>
-<li>authenticationFilter - weryfikuje tożsamość użytkownika,<&#47;li>
-<li>compressionFilter - kompresuje odpowiedź.<&#47;li><br />
-<&#47;ul><br />
+<li>loggingFilter - loguje podstawowe informacje o żądaniu,</li>
+<li>authenticationFilter - weryfikuje tożsamość użytkownika,</li>
+<li>compressionFilter - kompresuje odpowiedź.</li><br />
+</ul><br />
 Muszą one być uruchomione w dokładnej tej kolejności: loggingFilter, authenticationFilter, compressionFilter, aby aplikacja działa poprawnie.</p>
-<p>Tutaj mam dla Ciebie smutną wiadomość. Używając adnotacji, bez pliku <code>web.xml<&#47;code> (nazywanego deskryptorem wdrożenia) nie mamy nad tym kontroli. Specyfikacja serwletów nie definiuje kolejności filtrów definiowanych wyłącznie przy pomocy adnotacji <code>@WebFilter<&#47;code>. Co za tym idzie kolejność ta może być r&oacute;żna w r&oacute;żnych implementacjach i nie powinieneś na niej polegać.</p>
-<p>Sprawa wygląda zupełnie inaczej w przypadku użycia pliku <code>web.xml<&#47;code>. W tym przypadku kolejność jest dobrze zedfiniowana:</p>
+<p>Tutaj mam dla Ciebie smutną wiadomość. Używając adnotacji, bez pliku <code>web.xml</code> (nazywanego deskryptorem wdrożenia) nie mamy nad tym kontroli. Specyfikacja serwletów nie definiuje kolejności filtrów definiowanych wyłącznie przy pomocy adnotacji <code>@WebFilter</code>. Co za tym idzie kolejność ta może być różna w różnych implementacjach i nie powinieneś na niej polegać.</p>
+<p>Sprawa wygląda zupełnie inaczej w przypadku użycia pliku <code>web.xml</code>. W tym przypadku kolejność jest dobrze zedfiniowana:</p>
 <ul>
-<li>wszystkie filtry pasujące do danego żądania używające <code>urlPattern<&#47;code> według kolejności w pliku <code>web.xml<&#47;code>,<&#47;li>
-<li>wszystkie filtry pasujące do danego żądania używające <code>servletName<&#47;code> według kolejności w pliku <code>web.xml<&#47;code>.<&#47;li><br />
-<&#47;ul><br />
-Na tym etapie ważne jest żebyś wiedział o tym ograniczaniu. Sam plik <code>web.xml<&#47;code> opiszę w osobnym artykule, wtedy też dowiesz się jak dokładnie określać kolejność wykonania filtrów.</p>
-<h1>Zastosowanie filtrów<&#47;h1><br />
+<li>wszystkie filtry pasujące do danego żądania używające <code>urlPattern</code> według kolejności w pliku <code>web.xml</code>,</li>
+<li>wszystkie filtry pasujące do danego żądania używające <code>servletName</code> według kolejności w pliku <code>web.xml</code>.</li><br />
+</ul><br />
+Na tym etapie ważne jest żebyś wiedział o tym ograniczaniu. Sam plik <code>web.xml</code> opiszę w osobnym artykule, wtedy też dowiesz się jak dokładnie określać kolejność wykonania filtrów.</p>
+<h1>Zastosowanie filtrów</h1><br />
 Teraz jak już wiesz jak wyglądają filtry musisz dowiedzieć się o ich zastosowaniu. Filtry pozwalają na uniknięcie duplikacji kodu. Najczęściej to właśnie dzięki filtrom realizowane są następujące funkcjonalności:</p>
 <ul>
-<li>uwierzytelnianie - sprawdzenie czy użytkownik ma prawo do uzyskania odpowiedzi na dane żądanie. Innymi słowy, sprawdzenie czy jest zalogowany,<&#47;li>
-<li>logowanie, audyt - tworzenie logów aplikacji webowej, część informacji (na przykład URL żądania) można logować już na etapie filtrów,<&#47;li>
-<li>kompresja - filtry kompresują odpowiedź. Dzięki zmniejszonej objętości przeglądarka szybciej dostaje odpowiedź,<&#47;li>
-<li>cache - czasami przez uruchomieniem serwletu można stwierdzić, że odpowiedź się nie zmieniła.<&#47;li><br />
-<&#47;ul><br />
-Poplularny Spring MVC także używa filtrów. Kilka z nich znajduje się w osobnym <a href="https:&#47;&#47;github.com&#47;spring-projects&#47;spring-framework&#47;tree&#47;master&#47;spring-web&#47;src&#47;main&#47;java&#47;org&#47;springframework&#47;web&#47;filter" target="_blank">pakiecie<&#47;a>. Na przykład:</p>
+<li>uwierzytelnianie - sprawdzenie czy użytkownik ma prawo do uzyskania odpowiedzi na dane żądanie. Innymi słowy, sprawdzenie czy jest zalogowany,</li>
+<li>logowanie, audyt - tworzenie logów aplikacji webowej, część informacji (na przykład URL żądania) można logować już na etapie filtrów,</li>
+<li>kompresja - filtry kompresują odpowiedź. Dzięki zmniejszonej objętości przeglądarka szybciej dostaje odpowiedź,</li>
+<li>cache - czasami przez uruchomieniem serwletu można stwierdzić, że odpowiedź się nie zmieniła.</li><br />
+</ul><br />
+Poplularny Spring MVC także używa filtrów. Kilka z nich znajduje się w osobnym <a href="https://github.com/spring-projects/spring-framework/tree/master/spring-web/src/main/java/org/springframework/web/filter" target="_blank">pakiecie</a>. Na przykład:</p>
 <ul>
-<li><a href="https:&#47;&#47;github.com&#47;spring-projects&#47;spring-framework&#47;blob&#47;master&#47;spring-web&#47;src&#47;main&#47;java&#47;org&#47;springframework&#47;web&#47;filter&#47;CharacterEncodingFilter.java" target="_blank"><code>CharacterEncodingFilter<&#47;code><&#47;a> ustawia kodowanie znaków użyte w żadaniu, odpowiedzi [1. Upraszczając, kodowanie znaków to spos&oacute;b w jaki reprezentujemy tekst. To dzięki niemu wiadomo jak interpretować polskie znaki. Jeśli używa się błędnego kodowania mogą pojawić się &ldquo;krzaki&rdquo;.],<&#47;li>
-<li><a href="https:&#47;&#47;github.com&#47;spring-projects&#47;spring-framework&#47;blob&#47;master&#47;spring-web&#47;src&#47;main&#47;java&#47;org&#47;springframework&#47;web&#47;filter&#47;CommonsRequestLoggingFilter.java" target="_blank"><code>CommonsRequestLoggingFilter<&#47;code><&#47;a> logowanie, filtr loguje informacje o przychodzących żądaniach.<&#47;li><br />
-<&#47;ul></p>
-<h1>Ćwiczenia<&#47;h1><br />
+<li><a href="https://github.com/spring-projects/spring-framework/blob/master/spring-web/src/main/java/org/springframework/web/filter/CharacterEncodingFilter.java" target="_blank"><code>CharacterEncodingFilter</code></a> ustawia kodowanie znaków użyte w żadaniu, odpowiedzi [1. Upraszczając, kodowanie znaków to sposób w jaki reprezentujemy tekst. To dzięki niemu wiadomo jak interpretować polskie znaki. Jeśli używa się błędnego kodowania mogą pojawić się &ldquo;krzaki&rdquo;.],</li>
+<li><a href="https://github.com/spring-projects/spring-framework/blob/master/spring-web/src/main/java/org/springframework/web/filter/CommonsRequestLoggingFilter.java" target="_blank"><code>CommonsRequestLoggingFilter</code></a> logowanie, filtr loguje informacje o przychodzących żądaniach.</li><br />
+</ul></p>
+<h1>Ćwiczenia</h1><br />
 Na koniec czekają na Ciebie dwa ćwiczenia, w których przećwiczysz wiedzę dotyczącą filtrów w praktyce.</p>
 <ol>
-<li>Napisz serwlet, który wyświetli wszystkie atrybuty żądania. Serwlet powinien być poprzedzony dwoma filtrami, każdy z nich powinien ustawić co najmniej jeden atrybut żądania,<&#47;li>
-<li>Napisz filtr, który zablokuje wykonanie serwletu jeśli w adresie URL występuje jakikolwiek parametr o wartości &ldquo;blokuj&rdquo;.<&#47;li><br />
-<&#47;ol><br />
-Jak zwykle, pytaj jeśli ukniesz na którymś etapie. W ostateczności możesz rzucić okiem na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursAplikacjeWebowe&#47;tree&#47;master&#47;03_filtry&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursaplikacjewebowe&#47;filters" target="_blank">przykładowe rozwiązanie<&#47;a>. Zachęcam jednak do samodzielnego rozwiązania ćwiczeń, wtedy nauczysz się najwięcej.</p>
-<h1>Podsumowanie<&#47;h1><br />
+<li>Napisz serwlet, który wyświetli wszystkie atrybuty żądania. Serwlet powinien być poprzedzony dwoma filtrami, każdy z nich powinien ustawić co najmniej jeden atrybut żądania,</li>
+<li>Napisz filtr, który zablokuje wykonanie serwletu jeśli w adresie URL występuje jakikolwiek parametr o wartości &ldquo;blokuj&rdquo;.</li><br />
+</ol><br />
+Jak zwykle, pytaj jeśli ukniesz na którymś etapie. W ostateczności możesz rzucić okiem na <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/03_filtry/src/main/java/pl/samouczekprogramisty/kursaplikacjewebowe/filters" target="_blank">przykładowe rozwiązanie</a>. Zachęcam jednak do samodzielnego rozwiązania ćwiczeń, wtedy nauczysz się najwięcej.</p>
+<h1>Podsumowanie</h1><br />
 Filtry w aplikacjach webowych pełnią bardzo ważną rolę. Dzisiaj udało Ci się tę rolę poznać. Wiesz czym jest filtr, wiesz także jak używać łańcuch filtrów. Poznałeś przykłady filtrów w Spring MVC. Przykładowe ćwiczenia pozwoliły Ci utrwalić materiał. Innymi słowy poznałeś kolejny klocek niezbędny do budowy aplikacji webowych. Gratulacje! Pochwal się o tym znajomym przesyłając im link do tego artykułu ;).</p>
 <p>Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub stronę na facebooku. Do następnego razu!</p>
 <p>[FM_form id="3"]</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;infobunny&#47;5458629578&#47;sizes&#47;l</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/infobunny/5458629578/sizes/l</p>

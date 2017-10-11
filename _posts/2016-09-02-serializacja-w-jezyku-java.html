@@ -11,9 +11,9 @@ author:
 author_login: marcin
 author_email: m.pietraszek@gmail.com
 excerpt: "W artykule tym dowiesz się czym jest serializacja obiektów w Javie.
-  Przeczytasz o klasach takich jak <code>ObjectInputStream<&#47;code> czy <code>ObjectOutputStream<&#47;code>
+  Przeczytasz o klasach takich jak <code>ObjectInputStream</code> czy <code>ObjectOutputStream</code>
   i dowiesz się czym różnią się od innych strumieni. Poznasz nowe słowo kluczowe
-  <code>transient<&#47;code>. Po przeczytaniu artykułu będziesz w stanie napisać swoją
+  <code>transient</code>. Po przeczytaniu artykułu będziesz w stanie napisać swoją
   mini bazę danych z użyciem mechanizmu serializacji. Zapraszam do lektury.\r\n\r\n"
 wordpress_id: 379
 wordpress_url: http://www.samouczekprogramisty.pl/?p=379
@@ -23,29 +23,29 @@ categories:
 - Kurs programowania Java
 tags: []
 ---
-<p>W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak <code>ObjectInputStream<&#47;code> czy <code>ObjectOutputStream<&#47;code> i dowiesz się czym różnią się od innych strumieni. Poznasz nowe słowo kluczowe <code>transient<&#47;code>. Po przeczytaniu artykułu będziesz w stanie napisać swoją mini bazę danych z użyciem mechanizmu serializacji. Zapraszam do lektury.</p>
+<p>W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak <code>ObjectInputStream</code> czy <code>ObjectOutputStream</code> i dowiesz się czym różnią się od innych strumieni. Poznasz nowe słowo kluczowe <code>transient</code>. Po przeczytaniu artykułu będziesz w stanie napisać swoją mini bazę danych z użyciem mechanizmu serializacji. Zapraszam do lektury.</p>
 <p><a id="more"></a><a id="more-379"></a></p>
-<p>[idea]To jest jeden z artykułów w ramach <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kurs-programowania-java&#47;">darmowego kursu programowania w Javie<&#47;a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[&#47;idea]</p>
-<h1>Czym jest serializacja<&#47;h1><br />
-W jednym z poprzednich artykułów przeczytałeś o <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;operacje-na-plikach-w-jezyku-java&#47;">strumieniach danych<&#47;a>, które pozwalały na zapisywanie oraz odczytywanie danych. Poznałeś w&oacute;wczas między innymi klasy <code>DataInputStream<&#47;code> oraz <code>DataOutputStream<&#47;code>. Klasy te pomagają zapisywać typy proste i łańcuchy znak&oacute;w.</p>
-<p>Serializacja to wbudowany mechanizm zapisywania obiektów, który pozwala na binarny zapis całego drzewa obiekt&oacute;w. Oznacza to tyle, że jeśli mamy obiekt X, kt&oacute;ry posiada referencję do obiektu Y to serializując X r&oacute;wnież Y zostanie automatycznie zapisany w strumieniu wyjściowym.</p>
+<p>[idea]To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]</p>
+<h1>Czym jest serializacja</h1><br />
+W jednym z poprzednich artykułów przeczytałeś o <a href="http://www.samouczekprogramisty.pl/operacje-na-plikach-w-jezyku-java/">strumieniach danych</a>, które pozwalały na zapisywanie oraz odczytywanie danych. Poznałeś wówczas między innymi klasy <code>DataInputStream</code> oraz <code>DataOutputStream</code>. Klasy te pomagają zapisywać typy proste i łańcuchy znaków.</p>
+<p>Serializacja to wbudowany mechanizm zapisywania obiektów, który pozwala na binarny zapis całego drzewa obiektów. Oznacza to tyle, że jeśli mamy obiekt X, który posiada referencję do obiektu Y to serializując X również Y zostanie automatycznie zapisany w strumieniu wyjściowym.</p>
 <p>Tak zapisany obiekt możesz później otworzyć przy kolejnym uruchomieniu programu. Jednak serializacja ma więcej zastosowań.</p>
 <p>Dzięki temu mechanizmowi można na przykład przesyłać obiekty przez sieć. Obiekt, który stworzyliśmy na jednym komputerze (wewnątrz pamięci jednej wirtualnej maszyny Java) może być zserializowany, przesłany przez sieć i zdeserializowany na drugim komputerze tworząc nową instancję obiektu (wewnątrz pamięci drugiej wirtualnej maszyny Javy). Na obu tych komputerach wirtualna maszyna Javy musi mieć dostęp do skompilowanej wersji klasy.</p>
-<h1>Warunki wymagane do serializacji<&#47;h1><br />
-Chociaż serializacja dostępna jest automatycznie dla większości obiektów z biblioteki standardowej to jeśli chcesz móc serializować instancje klas, kt&oacute;re sam napiszesz musisz spełnić kilka warunk&oacute;w.</p>
-<h2>Interfejs <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;Serializable.html" target="_blank"><code>java.io.Serializable<&#47;code><&#47;a><&#47;h2><br />
-Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serilizowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;NotSerializableException.html" target="_blank"><code>NotSerializableException<&#47;code><&#47;a>.</p>
-<h2>Konstruktor bezparametrowy<&#47;h2><br />
+<h1>Warunki wymagane do serializacji</h1><br />
+Chociaż serializacja dostępna jest automatycznie dla większości obiektów z biblioteki standardowej to jeśli chcesz móc serializować instancje klas, które sam napiszesz musisz spełnić kilka warunków.</p>
+<h2>Interfejs <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html" target="_blank"><code>java.io.Serializable</code></a></h2><br />
+Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serilizowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu <a href="https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html" target="_blank"><code>NotSerializableException</code></a>.</p>
+<h2>Konstruktor bezparametrowy</h2><br />
 Tutaj reguła niestety nie jest trywialna. Pierwsza klasa w hierarchii dziedziczenia, która nie jest serializowalna musi mieć dostępny konstruktor bezparametrowy. Łatwiej to będzie zrozumieć na przykładzie:</p>
 <pre class="lang:default decode:true">public class Fruit {}<br />
 public class Apple extends Fruit implements Serializable {}<br />
-public class Tomato implements Serializable {}<&#47;pre><br />
-W przykładzie powyżej klasa <code>Fruit<&#47;code> musi mieć konstruktor bezparametrowy abyśmy mogli poprawnie serializować instancje klasy <code>Apple<&#47;code>. Natomiast ani <code>Apple<&#47;code>, ani <code>Tomato<&#47;code> takiego konstruktora już nie wymagają (<code>Tomato<&#47;code> dziedziczy po <code>Object<&#47;code>, który taki konstruktor posiada).</p>
-<p>Dodatkowo istnieje interfejs <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;Externalizable.html" target="_blank"><code>java.io.Externalizable<&#47;code><&#47;a> (opiszę go dokładnie kilka akapitów niżej), który r&oacute;wnież zapewnia, że obiekty go implementujące są serializowalne. Jednak w tym przypadku obiekt taki musi także zapewnić konstruktor bezparametrowy, kt&oacute;ry jest wywoływany w trakcie deserializacji.</p>
-<h2>Określić pola, które nie są serializowalne<&#47;h2><br />
-Ten krok jest opcjonalny, jednak w bardziej zaawansowanych przypadkach niezbędny. Wyobraź sobie, że napisałeś klasę <code>Human<&#47;code>, która jako jeden z atrybutów posiada wiek zapisany w minutach od urodzenia. Zapisanie tego pola mogłoby prowadzić do odczytania niepoprawnego stanu (zapisujemy obiekt dzisiaj, odczytujemy jutro, wiek w minutach jest zupełnie inny).</p>
-<p>Tutaj dochodzimy do słowa kluczowego <code>transient<&#47;code>. Otóż słowo to może być stosowane przed atrybutami klasy. Oznacza ono, że dany atrybut nie jest serializowalny i zostanie pominięty przez mechanizm serializacji[1. Istnieje też inny, mniej popularny sposób ominięcia p&oacute;l podczas serializacjim&ndash; użycie pola <code>serialPersistentFields<&#47;code> (jest ono dokładniej opisane w <a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;platform&#47;serialization&#47;spec&#47;serial-arch.html#a6250" target="_blank">specyfikacji<&#47;a>).].</p>
-<h1>Przykład serializacji obiektu<&#47;h1><br />
+public class Tomato implements Serializable {}</pre><br />
+W przykładzie powyżej klasa <code>Fruit</code> musi mieć konstruktor bezparametrowy abyśmy mogli poprawnie serializować instancje klasy <code>Apple</code>. Natomiast ani <code>Apple</code>, ani <code>Tomato</code> takiego konstruktora już nie wymagają (<code>Tomato</code> dziedziczy po <code>Object</code>, który taki konstruktor posiada).</p>
+<p>Dodatkowo istnieje interfejs <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Externalizable.html" target="_blank"><code>java.io.Externalizable</code></a> (opiszę go dokładnie kilka akapitów niżej), który również zapewnia, że obiekty go implementujące są serializowalne. Jednak w tym przypadku obiekt taki musi także zapewnić konstruktor bezparametrowy, który jest wywoływany w trakcie deserializacji.</p>
+<h2>Określić pola, które nie są serializowalne</h2><br />
+Ten krok jest opcjonalny, jednak w bardziej zaawansowanych przypadkach niezbędny. Wyobraź sobie, że napisałeś klasę <code>Human</code>, która jako jeden z atrybutów posiada wiek zapisany w minutach od urodzenia. Zapisanie tego pola mogłoby prowadzić do odczytania niepoprawnego stanu (zapisujemy obiekt dzisiaj, odczytujemy jutro, wiek w minutach jest zupełnie inny).</p>
+<p>Tutaj dochodzimy do słowa kluczowego <code>transient</code>. Otóż słowo to może być stosowane przed atrybutami klasy. Oznacza ono, że dany atrybut nie jest serializowalny i zostanie pominięty przez mechanizm serializacji[1. Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacjim&ndash; użycie pola <code>serialPersistentFields</code> (jest ono dokładniej opisane w <a href="http://docs.oracle.com/javase/8/docs/platform/serialization/spec/serial-arch.html#a6250" target="_blank">specyfikacji</a>).].</p>
+<h1>Przykład serializacji obiektu</h1><br />
 Proszę zwróć uwagę na fragment kodu poniżej, który pokazuje jak mechanizm serializacji działa w praktyce.</p>
 <pre class="lang:default decode:true ">try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("objects.bin"))) {<br />
     outputStream.writeObject(Integer.valueOf(1));<br />
@@ -56,11 +56,11 @@ Proszę zwróć uwagę na fragment kodu poniżej, który pokazuje jak mechanizm 
     System.out.println(number);<br />
     number = (Integer) inputStream.readObject();<br />
     System.out.println(number);<br />
-}<&#47;pre><br />
-W pierwszym bloku <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;konstrukcja-try-with-resources-w-jezyku-java&#47;">try-with-resources<&#47;a> otwieramy strumień typu <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;ObjectOutputStream.html" target="_blank"><code>ObjectOutputStream<&#47;code><&#47;a>, na którym następnie wywołujemy metodę <code>writeObject<&#47;code> zapisując do strumienia dwie liczby.</p>
-<p>W kolejnym bloku dzięki instancji <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;ObjectInputStream.html"><code>ObjectInputStream<&#47;code><&#47;a> odczytujemy wcześniej zapisane obiekty. Obiekty odczytywane są w takiej samej kolejności w jakiej zostały zapisane, w naszym przypadku na konsoli zostaną wyświetlone liczby 1 a później 2.</p>
-<h1>Serializacja drzewa obiektów<&#47;h1><br />
-Wspomniałem już wcześniej, że mechanizm serializacji automatycznie obsługuje drzewa obiektów. W przykładzie poniżej pokazana jest właśnie taka sytuacja. Instancja klasy <code>Car<&#47;code> posiada atrybuty typów <code>Engine<&#47;code> oraz <code>Tyre[]<&#47;code>. Serializując a następnie deserializując instancję tej klasy wszystkie jej atrybuty zostały także zapisane.</p>
+}</pre><br />
+W pierwszym bloku <a href="http://www.samouczekprogramisty.pl/konstrukcja-try-with-resources-w-jezyku-java/">try-with-resources</a> otwieramy strumień typu <a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html" target="_blank"><code>ObjectOutputStream</code></a>, na którym następnie wywołujemy metodę <code>writeObject</code> zapisując do strumienia dwie liczby.</p>
+<p>W kolejnym bloku dzięki instancji <a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html"><code>ObjectInputStream</code></a> odczytujemy wcześniej zapisane obiekty. Obiekty odczytywane są w takiej samej kolejności w jakiej zostały zapisane, w naszym przypadku na konsoli zostaną wyświetlone liczby 1 a później 2.</p>
+<h1>Serializacja drzewa obiektów</h1><br />
+Wspomniałem już wcześniej, że mechanizm serializacji automatycznie obsługuje drzewa obiektów. W przykładzie poniżej pokazana jest właśnie taka sytuacja. Instancja klasy <code>Car</code> posiada atrybuty typów <code>Engine</code> oraz <code>Tyre[]</code>. Serializując a następnie deserializując instancję tej klasy wszystkie jej atrybuty zostały także zapisane.</p>
 <pre class="lang:default decode:true">Tyre[] tyres = new Tyre[] {new Tyre(16), new Tyre(16), new Tyre(16), new Tyre(16)};<br />
 Engine engine = new Engine("some model");<br />
 Car serializedCar = new Car(engine, tyres);<br />
@@ -73,16 +73,16 @@ try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("
     System.out.println(deserializedCar.getEngine().getModel());<br />
     System.out.println(deserializedCar.getTyres().length);<br />
 }</p>
-<p>System.out.println(serializedCar == deserializedCar);<&#47;pre><br />
-Zwróć proszę uwagę na ostatnią linię. W linijce tej porównywane są dwa adresy instancji klasy <code>Car<&#47;code> (pamiętasz <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java&#47;">r&oacute;żnicę między <code>==<&#47;code> a <code>equals<&#47;code><&#47;a>?). Oczywiście linijka ta wyświetli <code>false<&#47;code> na konsoli co dowodzi, że w procesie deserializacji został stworzony zupełnie nowy obiekt klasy <code>Engine<&#47;code>.</p>
-<h1>Deserializacja atrybutów <code>transient<&#47;code><&#47;h1><br />
+<p>System.out.println(serializedCar == deserializedCar);</pre><br />
+Zwróć proszę uwagę na ostatnią linię. W linijce tej porównywane są dwa adresy instancji klasy <code>Car</code> (pamiętasz <a href="http://www.samouczekprogramisty.pl/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/">różnicę między <code>==</code> a <code>equals</code></a>?). Oczywiście linijka ta wyświetli <code>false</code> na konsoli co dowodzi, że w procesie deserializacji został stworzony zupełnie nowy obiekt klasy <code>Engine</code>.</p>
+<h1>Deserializacja atrybutów <code>transient</code></h1><br />
 Zaraz, jak to? Przecież kilka akapitów wyżej napisałem, że atrybuty poprzedzone słowem kluczowym transient nie są serializowane. Tak to prawda, jednak podczas deserializacji atrybuty tego typu należy zainicjalizować pewną wartością. Otóż dla każdego typu mamy taką domyślną wartość:</p>
 <ul>
-<li><code>boolean<&#47;code> - <code>false<&#47;code>,<&#47;li>
-<li>liczby całkowite (<code>int<&#47;code>, <code>long<&#47;code>, itd.) - <code>0<&#47;code>,<&#47;li>
-<li>liczby ułamkowe (<code>float<&#47;code>, <code>duble<&#47;code>) - <code>0.0<&#47;code>,<&#47;li>
-<li>obiekty (<code>Integer<&#47;code>, <code>Float<&#47;code>, <code>String<&#47;code>, <code>CustomClass<&#47;code>, itd.) - <code>null<&#47;code><&#47;li><br />
-<&#47;ul></p>
+<li><code>boolean</code> - <code>false</code>,</li>
+<li>liczby całkowite (<code>int</code>, <code>long</code>, itd.) - <code>0</code>,</li>
+<li>liczby ułamkowe (<code>float</code>, <code>duble</code>) - <code>0.0</code>,</li>
+<li>obiekty (<code>Integer</code>, <code>Float</code>, <code>String</code>, <code>CustomClass</code>, itd.) - <code>null</code></li><br />
+</ul></p>
 <pre class="lang:default decode:true ">public class Human implements Serializable {<br />
     private static final long serialVersionUI<code>D = 1L;</p>
 <p>    private transient Integer age;<br />
@@ -108,28 +108,28 @@ Zaraz, jak to? Przecież kilka akapitów wyżej napisałem, że atrybuty poprzed
             System.out.println(readHuman.getAge());<br />
         }<br />
     }<br />
-}<&#47;code><&#47;pre><br />
-W przykładzie powyżej po deserializacji pole <code>age<&#47;code> będzie miało wartość <code>null<&#47;code> ponieważ jest to wartość domyślna dla atrybutów poprzedzonych słowem kluczowym <code>transient<&#47;code>, które są obiektami.</p>
-<h1>Pola statyczne a serializacja<&#47;h1><br />
+}</code></pre><br />
+W przykładzie powyżej po deserializacji pole <code>age</code> będzie miało wartość <code>null</code> ponieważ jest to wartość domyślna dla atrybutów poprzedzonych słowem kluczowym <code>transient</code>, które są obiektami.</p>
+<h1>Pola statyczne a serializacja</h1><br />
 Serializacja dotyczy instancji klasy, nie samej klasy. Zatem jeśli zmodyfikowałeś pole statyczne a następnie zdeserializowałeś taki obiekt wprowadzone zmiany zostaną pominięte. Proszę spójrz na przykład poniżej.</p>
 <pre class="lang:default decode:true ">StaticSerialization object = new StaticSerialization();<br />
 object.someField = 200;<br />
 System.out.println(object.someField);</p>
 <p>try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("static.bin"))) {<br />
     output.writeObject(object);<br />
-}<&#47;pre><br />
-W przykładzie tym modyfikujemy wartość pola statycznego <code>someField<&#47;code> a następnie serializujemy instancję klasy do pliku.</p>
+}</pre><br />
+W przykładzie tym modyfikujemy wartość pola statycznego <code>someField</code> a następnie serializujemy instancję klasy do pliku.</p>
 <pre class="lang:default decode:true">try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("static.bin"))) {<br />
     StaticSerialization otherObject = (StaticSerialization) input.readObject();<br />
     System.out.println(otherObject.someField);<br />
-}<&#47;pre><br />
-W drugim uruchomieniu programu (w którym nie zmodyfikowaliśmy wartości atrybutu statycznego <code>someField<&#47;code>) deserializujemy ten sam plik. W tym przypadku otrzymamy wartość 100 a nie 200, które miał obiekt zapisywany do pliku.</p>
-<p>To co trzeba zapamiętać to to, że pola statyczne nie są serializowane a są pobierane z <em>aktualnej<&#47;em> definicji klasy (nie z klasy z momentu serializacji).</p>
-<p>Możemy powiedzieć, że atrybuty <code>static<&#47;code> są też domyślnie <code>transient<&#47;code>. Jak zatem takie zmiany odzwierciedlić podczas deserializacji? Jest na to sposób :)</p>
-<h1>Specjalna obsługa serializacji&#47;deserializacji<&#47;h1><br />
+}</pre><br />
+W drugim uruchomieniu programu (w którym nie zmodyfikowaliśmy wartości atrybutu statycznego <code>someField</code>) deserializujemy ten sam plik. W tym przypadku otrzymamy wartość 100 a nie 200, które miał obiekt zapisywany do pliku.</p>
+<p>To co trzeba zapamiętać to to, że pola statyczne nie są serializowane a są pobierane z <em>aktualnej</em> definicji klasy (nie z klasy z momentu serializacji).</p>
+<p>Możemy powiedzieć, że atrybuty <code>static</code> są też domyślnie <code>transient</code>. Jak zatem takie zmiany odzwierciedlić podczas deserializacji? Jest na to sposób :)</p>
+<h1>Specjalna obsługa serializacji/deserializacji</h1><br />
 W specyficznych przypadkach masz możliwość zmodyfikowania domyślnego zachowania mechanizmu serializacji. Możesz to zrobić jeśli zaimplementujesz poniższe metody.</p>
 <pre class="lang:default decode:true">private void readObject(java.io.ObjectInputStream stream) throws IOException, ClassNotFoundException<br />
-private void writeObject(java.io.ObjectOutputStream stream) throws IOException<&#47;pre><br />
+private void writeObject(java.io.ObjectOutputStream stream) throws IOException</pre><br />
 Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu</p>
 <pre class="lang:default decode:true ">public class CustomSerialization implements Serializable {<br />
     private static final long serialVersionUID = 1L;</p>
@@ -158,12 +158,12 @@ Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu</p>
         stream.writeInt(someField);<br />
         stream.writeUTF(otherField + " SERIALIZED!");<br />
     }<br />
-}<&#47;pre><br />
-Jak widzisz obie metody są tu zaimplementowane. <code>writeObject<&#47;code> jako argument dostaje strumień, do którego powinniśmy zapisać nasz obiekt. W przykładzie zapisuję zarówno wartość pola z modyfikatorem <code>transient<&#47;code> jak i delikatnie zmienioną wartość atrybutu <code>otherField<&#47;code>.</p>
-<p>Metoda <code>readObject<&#47;code> jako jedyny argument przyjmuje strumień, z którego powinniśmy odczytać stan obiektu. Podobnie jak w przypadku samej serializacji, pola odczytujemy w tej samej kolejności w której je wcześniej zapisywaliśmy.</p>
-<p>Warto tutaj zwrócić uwagę na to, że klasa <code>ObjectInputStream<&#47;code> posiada metodę <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;ObjectInputStream.html#defaultReadObject&mdash;" target="_blank"><code>defaultReadObject<&#47;code><&#47;a>, która przeprowadza standardową deserializację, kt&oacute;rą możesz rozszerzyć. Podobnie wygląda to w przypadku klasy <code>ObjectOutputStream<&#47;code> i metody <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;ObjectOutputStream.html#defaultWriteObject--" target="_blank"><code>defaultWriteObject<&#47;code><&#47;a>. Metody te mogą być wywołane wyłącznie w trakcie (de)serializacji obiektu.</p>
-<h1>Serializacja a dziedziczenie<&#47;h1><br />
-W poprzednich przykładach użyliśmy klasy <code>Engine<&#47;code>, która implementuje interfejs <code>Serializable<&#47;code>. Załóżmy, że utworzyliśmy klasę <code>DieselEngine<&#47;code>, kt&oacute;ra dziedziczy po <code>Engine<&#47;code>. Automatycznie instancje klasy <code>DieselEngine<&#47;code> będą implementowały interfejs <code>Serializable<&#47;code> (dziedzicząc go z <code>Engine<&#47;code>). Co powinniśmy zrobić jeśli nie chcielibyśmy aby nasz <code>DieselEngine<&#47;code> był serializowalny? Należy użyć wspomnianego już wyjątku <code>NotSerializableException<&#47;code> jak w przykładzie poniżej:</p>
+}</pre><br />
+Jak widzisz obie metody są tu zaimplementowane. <code>writeObject</code> jako argument dostaje strumień, do którego powinniśmy zapisać nasz obiekt. W przykładzie zapisuję zarówno wartość pola z modyfikatorem <code>transient</code> jak i delikatnie zmienioną wartość atrybutu <code>otherField</code>.</p>
+<p>Metoda <code>readObject</code> jako jedyny argument przyjmuje strumień, z którego powinniśmy odczytać stan obiektu. Podobnie jak w przypadku samej serializacji, pola odczytujemy w tej samej kolejności w której je wcześniej zapisywaliśmy.</p>
+<p>Warto tutaj zwrócić uwagę na to, że klasa <code>ObjectInputStream</code> posiada metodę <a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html#defaultReadObject&mdash;" target="_blank"><code>defaultReadObject</code></a>, która przeprowadza standardową deserializację, którą możesz rozszerzyć. Podobnie wygląda to w przypadku klasy <code>ObjectOutputStream</code> i metody <a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html#defaultWriteObject--" target="_blank"><code>defaultWriteObject</code></a>. Metody te mogą być wywołane wyłącznie w trakcie (de)serializacji obiektu.</p>
+<h1>Serializacja a dziedziczenie</h1><br />
+W poprzednich przykładach użyliśmy klasy <code>Engine</code>, która implementuje interfejs <code>Serializable</code>. Załóżmy, że utworzyliśmy klasę <code>DieselEngine</code>, która dziedziczy po <code>Engine</code>. Automatycznie instancje klasy <code>DieselEngine</code> będą implementowały interfejs <code>Serializable</code> (dziedzicząc go z <code>Engine</code>). Co powinniśmy zrobić jeśli nie chcielibyśmy aby nasz <code>DieselEngine</code> był serializowalny? Należy użyć wspomnianego już wyjątku <code>NotSerializableException</code> jak w przykładzie poniżej:</p>
 <pre class="lang:default decode:true">public class DieselEngine extends Engine {<br />
     public DieselEngine() {<br />
         super("diesel");<br />
@@ -174,10 +174,10 @@ W poprzednich przykładach użyliśmy klasy <code>Engine<&#47;code>, która impl
 <p>    private void readObject(ObjectInputStream in) throws IOException {<br />
         throw new NotSerializableException("DieselEngine isn't serializable!");<br />
     }<br />
-}<&#47;pre></p>
-<h1>Pełny wpływ na mechanizm serializacji<&#47;h1><br />
-Istnieje jeszcze jeden, dużo mniej popularny sposób zapewnienia iż obiekt może być serializowany. Jest nim interfejs <code>Externalizable<&#47;code>. W tym przypadku interfejs ten zawiera dwie metody, które musimy zaimplementować. Dodatkowo takie klasy muszą mieć konstruktor bezparametrowy, reszta pozostaje bez zmian. W przypadku tego podejścia cały protok&oacute;ł serializacji, kolejność zapisanych p&oacute;l, format etc. leży po naszej stronie. Poniżej prosty przykład, w kt&oacute;rym używam właśnie takiego podejścia.</p>
-<p>W tym przypadku do utworzenia obiektu mechanizm serializacji używa standardowego konstruktora bezparametrowego. Po czym wywołuje na tej instancji metodę <code>readExternal<&#47;code>.</p>
+}</pre></p>
+<h1>Pełny wpływ na mechanizm serializacji</h1><br />
+Istnieje jeszcze jeden, dużo mniej popularny sposób zapewnienia iż obiekt może być serializowany. Jest nim interfejs <code>Externalizable</code>. W tym przypadku interfejs ten zawiera dwie metody, które musimy zaimplementować. Dodatkowo takie klasy muszą mieć konstruktor bezparametrowy, reszta pozostaje bez zmian. W przypadku tego podejścia cały protokół serializacji, kolejność zapisanych pól, format etc. leży po naszej stronie. Poniżej prosty przykład, w którym używam właśnie takiego podejścia.</p>
+<p>W tym przypadku do utworzenia obiektu mechanizm serializacji używa standardowego konstruktora bezparametrowego. Po czym wywołuje na tej instancji metodę <code>readExternal</code>.</p>
 <pre class="lang:default decode:true">public class CustomProtocolSerialization implements Externalizable {<br />
 &nbsp;&nbsp;&nbsp; private String field;</p>
 <p>&nbsp;&nbsp;&nbsp; public CustomProtocolSerialization() {<br />
@@ -202,32 +202,32 @@ Istnieje jeszcze jeden, dużo mniej popularny sposób zapewnienia iż obiekt mo�
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; field = in.readUTF();<br />
 &nbsp;&nbsp;&nbsp; }<br />
 }<br />
-<&#47;pre></p>
-<h1>Pole <code>serialVersionUID<&#47;code><&#47;h1><br />
-Dodatkowo musisz wiedzieć o statycznym polu w klasie o nazwie <code>serialVersionUID<&#47;code>. Jego pełna definicja wygląda następująco:<br />
-<span class="lang:default decode:true crayon-inline "> private static long serialVersionUID<&#47;span></p>
+</pre></p>
+<h1>Pole <code>serialVersionUID</code></h1><br />
+Dodatkowo musisz wiedzieć o statycznym polu w klasie o nazwie <code>serialVersionUID</code>. Jego pełna definicja wygląda następująco:<br />
+<span class="lang:default decode:true crayon-inline "> private static long serialVersionUID</span></p>
 <p>Pole to ma specyficzne zastosowanie. Mechanizm serializacji używa go do upewnienia się, że deserializowany obiekt &bdquo;pasuje&rdquo; do danych zapisanych w strumieniu. Wie o tym na podstawie wartości tego pola. Jeśli w zdeserializowanym obiekcie wartość tego pola jest taka sama jak aktualnej definicji klasy wówczas można bezpiecznie przeprowadzić deserializację.</p>
-<p>Kiedy taka sytuacja może wystąpić? Załóżmy, że dzisiaj napiszesz klasę <code>Human<&#47;code>, zdeserializujesz jej instancję i zapiszesz w pliku na dysku. Po jakimś czasie wprowadzisz zmiany w klasie i będziesz chciał odczytać starą wersję z pliku. W niektórych przypadkach taka operacja nie będzie dozwolona. Właśnie wtedy pole <code>serialVersionUID<&#47;code> może pom&oacute;c w wykryciu takiej sytuacji.</p>
+<p>Kiedy taka sytuacja może wystąpić? Załóżmy, że dzisiaj napiszesz klasę <code>Human</code>, zdeserializujesz jej instancję i zapiszesz w pliku na dysku. Po jakimś czasie wprowadzisz zmiany w klasie i będziesz chciał odczytać starą wersję z pliku. W niektórych przypadkach taka operacja nie będzie dozwolona. Właśnie wtedy pole <code>serialVersionUID</code> może pomóc w wykryciu takiej sytuacji.</p>
 <p>Pole to możesz ustawić samodzielnie, jeśli tego nie zrobisz kompilator wygeneruje tę wartość za Ciebie na podstawie definicji klasy.</p>
-<h1>Materiały dodatkowe<&#47;h1><br />
+<h1>Materiały dodatkowe</h1><br />
 Na początek zestaw dokumentacji do klas, związanych z tematem, jak zwykle znajdziesz tam ogrom informacji.</p>
 <ul>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;Serializable.html" target="_blank">Serializable<&#47;a><&#47;li>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;Externalizable.html">Externalizable<&#47;a><&#47;li>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;ObjectOutputStream.html" target="_blank">ObjectOutputStream<&#47;a><&#47;li>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;ObjectInputStream.html">ObjectInputStream<&#47;a><&#47;li>
-<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;NotSerializableException.html" target="_blank">NotSerializableException<&#47;a><&#47;li><br />
-<&#47;ul><br />
-Dodatkowo możesz zajrzeć do <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;platform&#47;serialization&#47;spec&#47;serialTOC.html" target="_blank">specyfikacja mechanizmu serializacji<&#47;a> albo <a href="http:&#47;&#47;www.oracle.com&#47;technetwork&#47;articles&#47;java&#47;javaserial-1536170.html" target="_blank">artykułu na stronie Oracle<&#47;a>. Znalazłem też inne opracowanie, które poruszą także zagadnienie <a href="http:&#47;&#47;wazniak.mimuw.edu.pl&#47;index.php?title=PO_Serializacja" target="_blank">serializacji, także do formatu XML<&#47;a>. Możesz też rzucić okiem na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;18_serializacja&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;serialization" target="_blank">przykłady użyte w tym artykule<&#47;a>.</p>
-<h1>Zadania<&#47;h1><br />
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html" target="_blank">Serializable</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/Externalizable.html">Externalizable</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html" target="_blank">ObjectOutputStream</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html">ObjectInputStream</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html" target="_blank">NotSerializableException</a></li><br />
+</ul><br />
+Dodatkowo możesz zajrzeć do <a href="https://docs.oracle.com/javase/8/docs/platform/serialization/spec/serialTOC.html" target="_blank">specyfikacja mechanizmu serializacji</a> albo <a href="http://www.oracle.com/technetwork/articles/java/javaserial-1536170.html" target="_blank">artykułu na stronie Oracle</a>. Znalazłem też inne opracowanie, które poruszą także zagadnienie <a href="http://wazniak.mimuw.edu.pl/index.php?title=PO_Serializacja" target="_blank">serializacji, także do formatu XML</a>. Możesz też rzucić okiem na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/18_serializacja/src/main/java/pl/samouczekprogramisty/kursjava/serialization" target="_blank">przykłady użyte w tym artykule</a>.</p>
+<h1>Zadania</h1><br />
 Na koniec jak zwykle zadania dla Ciebie do przećwiczenia materiału z tego artykułu.</p>
 <ul>
-<li>Napisz program, który poprosi użytkownika o wprowadzenie kilku imion, imiona te zapisz w liście a następnie zserializuj ją do pliku. Napisz metodę, która odczyta ten plik i wyświetli zawartość listy na konsoli. Wiesz, że właśnie napisałeś prostą bazę danych? ;)<&#47;li>
-<li>Napisz klasę <code>Human<&#47;code>, która będzie miała dwa atrybuty <code>name<&#47;code> typu <code>String<&#47;code> oraz <code>age<&#47;code> typu <code>int<&#47;code>. Jak należałoby serializować instancje tej klasy aby zawsze poprawnie deserializować wiek (z dokładnością do roku)? (Wskazówka, możesz użyć metody <code>Calendar.getInstance().get(Calendar.YEAR)<&#47;code>, kt&oacute;ra zwraca aktualny rok)<&#47;li><br />
-<&#47;ul><br />
-Przygotowałem też dla Ciebie <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;18_serializacja&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;serialization&#47;exercise" target="_blank">przykładowe rozwiązania<&#47;a> powyższych zadań, jednak traktuj je proszę jako ostatnią deskę ratunku :) Więcej nauczysz się próbując samemu rozwiązać powyższe zadania.</p>
-<h1>Podsumowanie<&#47;h1><br />
-Po przeczytaniu tego artykułu wiesz już czym są klasy <code>ObjectOutputStream<&#47;code> i <code>ObjectInputStream<&#47;code>. Znasz zasady serializacji, poznałeś słowo kluczowe <code>transient<&#47;code>. Teraz jesteś w stanie zapisać i odczytać każdą instancję klasy, którą stworzysz.</p>
+<li>Napisz program, który poprosi użytkownika o wprowadzenie kilku imion, imiona te zapisz w liście a następnie zserializuj ją do pliku. Napisz metodę, która odczyta ten plik i wyświetli zawartość listy na konsoli. Wiesz, że właśnie napisałeś prostą bazę danych? ;)</li>
+<li>Napisz klasę <code>Human</code>, która będzie miała dwa atrybuty <code>name</code> typu <code>String</code> oraz <code>age</code> typu <code>int</code>. Jak należałoby serializować instancje tej klasy aby zawsze poprawnie deserializować wiek (z dokładnością do roku)? (Wskazówka, możesz użyć metody <code>Calendar.getInstance().get(Calendar.YEAR)</code>, która zwraca aktualny rok)</li><br />
+</ul><br />
+Przygotowałem też dla Ciebie <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/18_serializacja/src/main/java/pl/samouczekprogramisty/kursjava/serialization/exercise" target="_blank">przykładowe rozwiązania</a> powyższych zadań, jednak traktuj je proszę jako ostatnią deskę ratunku :) Więcej nauczysz się próbując samemu rozwiązać powyższe zadania.</p>
+<h1>Podsumowanie</h1><br />
+Po przeczytaniu tego artykułu wiesz już czym są klasy <code>ObjectOutputStream</code> i <code>ObjectInputStream</code>. Znasz zasady serializacji, poznałeś słowo kluczowe <code>transient</code>. Teraz jesteś w stanie zapisać i odczytać każdą instancję klasy, którą stworzysz.</p>
 <p>Bardzo się cieszę, że przeczytałeś cały artykuł. Na koniec mam do Ciebie prośbę. Proszę przekaż adres bloga swoim znajomym, w grupie uczy się raźniej ;) Jeśli nie chcesz ominąć nowych artykułów dopisz się do newslettera i polub stronę Samouczka na facebooku. Miłego dnia i do następnego razu :)</p>
 <p>[FM_form id="3"]</p>
-<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;28653536@N07&#47;.</p>
+<p>Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/28653536@N07/.</p>
