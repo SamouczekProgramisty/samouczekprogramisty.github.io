@@ -1,0 +1,56 @@
+---
+layout: post
+status: publish
+published: true
+title: Advent of Code 2016 dzień 10
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Advent of Code 2016 dzień 10. Dzisiejsze zadanie to sterowanie robotami,
+  potrafisz zinterpretować instrukcje dla dron&oacute;w?\r\n\r\n"
+wordpress_id: 641
+wordpress_url: http://www.samouczekprogramisty.pl/?p=641
+date: '2016-12-12 19:31:29 +0100'
+date_gmt: '2016-12-12 18:31:29 +0100'
+categories:
+- Strefa zadaniowa
+tags: []
+comments: []
+---
+<p>Advent of Code 2016 dzień 10. Dzisiejsze zadanie to sterowanie robotami, potrafisz zinterpretować instrukcje dla dron&oacute;w?</p>
+<p><a id="more"></a><a id="more-641"></a></p>
+<h1>Wprowadzenie<&#47;h1><br />
+[idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;10" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;10<&#47;a>[&#47;idea]</p>
+<p>Advent of Code to inicjatywa, w kt&oacute;rej codziennie publikowane są zadania algorytmiczne dla programist&oacute;w. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, kt&oacute;rą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
+<h1>Dzień 10 zadanie 1<&#47;h1><br />
+Dzięki Twojej pomocy przy <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-9&#47;">wczorajszym<&#47;a> zadaniu udało się zdekompresować kilka interesujących plik&oacute;w.</p>
+<p>Doszedłeś do fabryki w kt&oacute;rej <a href="https:&#47;&#47;www.youtube.com&#47;watch?v=JnkMyfQ5YfY&amp;t=40" target="_blank">małe latające robociki<&#47;a> przekazują sobie mikrochipy. Po dokładniejszym przyjrzeniu się zauważyłeś, że każdy robot przekazuje cokolwiek dalej tylko jeśli ma dwa mikrochipy. Jeśli już je ma, przekazuje je innemu robotowi lub wrzuca je do jednego z koszy oznaczających "wyjście". Czasami roboty pobierają mikrochipy z koszy oznaczonych napisem "wejście".</p>
+<p>Patrząc na jeden z mikrochip&oacute;w wydaje się, że zawierają one pojedynczy, unikalny numer. Roboty używają pewnej logiki aby zdecydować co zrobić z każdym z chip&oacute;w. Dostałeś się do lokalnego komputera i udało Ci się ściągnąć instrukcje sterujące robotami (wejście do zadania).</p>
+<p>Niekt&oacute;re z instrukcji określają, że mikrochip o konkretnej wartości powinien być przekazany konkretnemu robotowi. Reszta instrukcji określa co każdy robot powinien zrobić z mikrochipami kt&oacute;re posiada. Instrukcja ta m&oacute;wi o tym co robot powinien zrobić z chipem o niższej i o wyższej wartości.</p>
+<p>Na przykład, biorąc pod uwagę poniższy zestaw instrukcji:</p>
+<pre class="lang:default highlight:0 decode:true ">value 5 goes to bot 2<br />
+bot 2 gives low to bot 1 and high to bot 0<br />
+value 3 goes to bot 1<br />
+bot 1 gives low to output 1 and high to bot 0<br />
+bot 0 gives low to output 2 and high to output 0<br />
+value 2 goes to bot 2<&#47;pre><br />
+Początkowo, robot 1 zaczyna z chipem o wartości 3 a robot 2 zaczyna z chipami o wartości 2 i 5. Ponieważ robot 2 ma dwa mikrochipy przekazuje ten o mniejszej wartości (2) do robota 1 a ten o większej wartości (5) do robota 0.</p>
+<p>Po tych instrukcjach robot 1 ma dwa chipy. Mikrochip o wartości 2 umieszcza w koszu wyjściowym o numerze 1 i przekazuje mikrochip o wartości 3 do robota 0. Jako ostatni robot 0 mający dwa mikrochipy przekazuje ten o mniejszej wartości (3) do wyjścia 2 a ten o większej wartości (5) do kosza 0.</p>
+<p>Na końcu:</p>
+<ul>
+<li>kosz wyjściowy 0 zawiera mikrochip o wartości 5,<&#47;li>
+<li>kosz wyjściowy 1 zawiera mikrochip o wartości 2<&#47;li>
+<li>kosz wyjściowy 2 zawiera mikrochip o wartości 3.<&#47;li><br />
+<&#47;ul><br />
+W tej konfiguracji robot numer 2 był odpowiedzialny za por&oacute;wnywanie wartości mikrochip&oacute;w o wartości 5 i 2.</p>
+<p>Bazując na instrukcjach dla robot&oacute;w umieszczonych w <a href="https:&#47;&#47;raw.githubusercontent.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;test&#47;resources&#47;day10_input.txt" target="_blank">tym pliku<&#47;a>, robot o kt&oacute;rym numerze odpowiedzialny jest za por&oacute;wnywanie mikrochip&oacute;w o wartościach 61 i 17?</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programist&oacute;w. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day10" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zr&oacute;b to raczej w ostateczności.</p>
+<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pom&oacute;c Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>

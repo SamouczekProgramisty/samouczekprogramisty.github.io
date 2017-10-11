@@ -1,0 +1,90 @@
+---
+layout: post
+status: publish
+published: true
+title: Pogodynka - naiwny termometr
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Pogodynka to projekt realizowany w ramach konkursu Daj Się Poznać 2017.
+  W ramach tej serii artykuł&oacute;w relacjonuję postęp prac nad projektem. Poza
+  relacją przeczytasz też o crontab, programie, kt&oacute;ry zamierzam użyć w projekcie.
+  Dowiesz się też coś o monitorowaniu i logowaniu. Zapraszam!\r\n\r\n"
+wordpress_id: 778
+wordpress_url: http://www.samouczekprogramisty.pl/?p=778
+date: '2017-03-11 14:37:26 +0100'
+date_gmt: '2017-03-11 13:37:26 +0100'
+categories:
+- DSP2017
+- Projekty
+- Pogodynka
+tags: []
+---
+<p>Pogodynka to projekt realizowany w ramach konkursu Daj Się Poznać 2017. W ramach tej serii artykuł&oacute;w relacjonuję postęp prac nad projektem. Poza relacją przeczytasz też o crontab, programie, kt&oacute;ry zamierzam użyć w projekcie. Dowiesz się też coś o monitorowaniu i logowaniu. Zapraszam!</p>
+<p><a id="more"></a><a id="more-778"></a></p>
+<h1>Malinka padła<&#47;h1><br />
+Niestety poprzedni tydzień minął pod znakiem kolejnych nieudanych pr&oacute;b wskrzeszenia mojej Malinki. Leżała ona już prawie 5 lat w szafie, przerzucana z miejsca na miejsce. Miała prawo &ldquo;wysiąść&rdquo;. Idę na łatwiznę - nie pr&oacute;buję jej teraz naprawić. Wczoraj kupiłem nowszą wersję płytki, tym razem jest to Rasperry Pi 3 B, więc jest to już dużo mocniejszy układ, niż poprzedni. Ta nowa wersja ma też więcej port&oacute;w USB, czego przyznam brakowało mi w wersji poprzedniej (jeszcze 5 lat temu jak płytka działała...). Używa też wbudowanego modułu do komunikacji WiFi co też jest sporym ułatwieniem.</p>
+<p>Przesyłka jest już w drodze, więc jeśli wszystko dobrze p&oacute;jdzie powinienem mieć nową malinkę w poniedziałek u siebie.</p>
+<h1>Termometr<&#47;h1><br />
+Pchnąłem do przodu moduł termometru. Kilka nowych linijek kodu się pojawiło, jednak &ldquo;serce&rdquo; czyli właściwe odczytywanie temperatury nie działa, z oczywistych względ&oacute;w. Aktualnie działa "naiwny" termometr, kt&oacute;ry zwraca aktualną godzinę jako wskazanie temperatury ;).</p>
+<p>Przy okazji tego wpisu przybliżę Ci trochę narzędzia, kt&oacute;re są niezbędne do realizacji tej części projektu. Zacznę od <code>crontab'a<&#47;code>.</p>
+<h1><code>crontab<&#47;code><&#47;h1><br />
+W systemach operacyjnych są programy, kt&oacute;re działają w tle. Programy tego typu nazywa się serwisami lub demonami. Jednym z takich demon&oacute;w w systemach z rodziny Linux jest cron. Jest to demon, kt&oacute;ry odpowiada za uruchamianie poleceń zdefiniowanych przez użytkownika z odpowiednią częstotliwością.</p>
+<p>Dzięki temu demonowi możesz na przykład sprawdzić aktualną temperaturę co pięć minut :). Idealne zastosowanie dla mojej pogodynki. <code>crontab<&#47;code> używa specyficznej składni, kt&oacute;ra pozwana na określenie kiedy dana komenda powinna być uruchamiana:</p>
+<pre class="lang:default highlight:0 decode:true ">┌───────────── minuta (0 - 59)<br />
+│ ┌───────────── godzina (0 - 23)<br />
+│ │ ┌───────────── dzień miesiąca (1 - 31)<br />
+│ │ │ ┌───────────── miesiąc (1 - 12)<br />
+│ │ │ │ ┌───────────── dzień tygodnia (0 - 6) (0 - niedziela, 6 - sobota)<br />
+│ │ │ │ │<br />
+│ │ │ │ │<br />
+│ │ │ │ │<br />
+* * * * *
+<polecenie do wykonania><&#47;pre><br />
+Kilka przykład&oacute;w, powinno pom&oacute;c Ci lepiej zrozumieć ustawienia crontab&rsquo;a:</p>
+<ul>
+<li><code>* * * * * <komenda><&#47;code> - uruchom komendę co minutę,<&#47;li>
+<li><code>* 0 * * * <komenda><&#47;code> - uruchom komendę co minutę w trakcie godziny 0,<&#47;li>
+<li><code>30 17 * * * <komenda><&#47;code> - uruchom komendę codziennie o 17:30,<&#47;li>
+<li><code>15 4 ? * 0 <komenda><&#47;code> - uruchom komendę co sobotę o 4:15,<&#47;li>
+<li><code>0-15 * * * * <komenda><&#47;code> - uruchom komendę co minutę w pierwszych 16 minutach każdej godziny,<&#47;li>
+<li><code>0,5,10 * * * * <komenda><&#47;code> - uruchom komendę w zerowej, piątek i dziesiątej minucie każdej godziny,<&#47;li>
+<li><code>*&#47;5 * * * * <komenda><&#47;code> - uruchom komendę co pięć minut,<&#47;li><br />
+<&#47;ul><br />
+Właśnie ta ostatnia linijka przyda się w przypadku pogodynki - co 5 minut będę chciał pobierać aktualne wskazanie temperatury.</p>
+<h1>Monitorowanie programu<&#47;h1><br />
+W związku z tym, że zadanie sprawdzania temperatury będzie się odbywało w regularnych odstępach i będzie działo się automatycznie potrzebuję mechanizmu do monitorowania żeby zapewnić poprawnie i ciągłe działanie termometru.</p>
+<p>Z doświadczenia wiem, że tego typu zadania dość często płatają figle i nie wykonują się poprawnie. Postanowiłem użyć serwisu <a href="https:&#47;&#47;healthchecks.io" target="_blank">https:&#47;&#47;healthchecks.io<&#47;a>. Jest to darmowy serwis, kt&oacute;ry umożliwia wysyłanie stanu programu[1. W sumie nie jest to stan, a jedynie "ping", co w zupełności spełnia wymagania.] na skonfigurowany adres URL. Serwis ten monitoruje czy takie zapytanie jest wysyłanie z odpowiednią częstotliwością.</p>
+<p>Jak widzisz na obrazku poniżej pokazuję przykładowe ustawienia healthchecks</p>
+<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;03&#47;healthchecks.jpg"><img class="aligncenter size-medium wp-image-779" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;03&#47;healthchecks-300x181.jpg" alt="interfejs healthchecks" width="300" height="181" &#47;><&#47;a></p>
+<p>Następnie healthchecks poinformuje mnie mailem o tym, że termometr nie mierzył temperatury z częstotliwością, kt&oacute;rą skonfigurowałem.</p>
+<h1>Logowanie<&#47;h1><br />
+Zał&oacute;żmy, ze coś poszło nie tak. Dostałem maila z informacją o tym, że temperatura nie jest mierzona. Co teraz? :) Z pomocą przychodzą logi. Logi, czyli informacje, kt&oacute;re zapisywane są do pliku w trakcie działania programu. W pliku z logami zapisuje się r&oacute;żne informacje, zaczynając od &ldquo;stanu programu&rdquo; na rzuconych wyjątkach kończąc. Właśnie na podstawie takich plik&oacute;w będzie można p&oacute;źniej dojść co poszło &ldquo;nie tak&rdquo;.</p>
+<p>W tym tygodniu zaimplementowałem właśnie logowanie, zapraszam do rzucenia okiem na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;tree&#47;master&#47;thermometer" target="_blank">kod źr&oacute;dłowy<&#47;a>. Do logowania używam standardowych bibliotek dosępnych dla Javy <a href="https:&#47;&#47;www.slf4j.org" target="_blank">SL4J<&#47;a> i <a href="https:&#47;&#47;logging.apache.org&#47;log4j&#47;2.x&#47;" target="_blank">LOG4J<&#47;a>.</p>
+<p>Logi będą generowane cały czas. Program w końcu ma uruchamiać się co 5 minut. Naturalne jest więc, że po pewnym czasie plik&oacute;w z logami będzie sporo. Mogą też one zajmować dużo miejsca. Z pomocą po raz kolejny przychodzi crontab. Raz dziennie będę usuwał logi, kt&oacute;re będą starsze niż tydzień.</p>
+<h1>Komenda do mierzenia temperatury<&#47;h1><br />
+Z artykułu, w kt&oacute;rym opisywałem <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;java-z-linii-polecen&#47;">Javę w linii poleceń<&#47;a> wiesz jak zbudować plik jar i jak uruchomić program z linii poleceń. Właśnie tę wiedzę potrzebujesz to wpisania programu uruchamianego cyklicznie do cron&rsquo;a. W moim przypadku będzie to polecenie</p>
+<p><span class="lang:default highlight:0 decode:true crayon-inline ">java -jar &#47;opt&#47;pogodynka&#47;thermometer-1.0-SNAPHSOT.jar<&#47;span></p>
+<p>Aby nie wypisywać długiej listy zależności i nie dodawać ich do classpath przy uruchomieniu programu użyłem tu pewnej sztuczki. Wszystkie zależności programu zostały zapakowane do jednego pliku jar. Tego typu zachowanie skonfigurowałem w pliku <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;thermometer&#47;thermometer.gradle" target="_blank">thermometer.gradle<&#47;a>. O podstawach Gradle przeczytasz w <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wstep-do-gradle&#47;">osobnym artykule<&#47;a>.</p>
+<h2>Przekazywanie parametr&oacute;w<&#47;h2><br />
+Aby nie musieć kompilować kodu za każdym razem istotne ustawienia przekazywane będą jako parametry linii poleceń. Użytkownik, jego hasło czy adres gdzie ma być wysłane aktualny odczyt temperatury przekazane będą jako argumenty. "Parsowaniem" tych argument&oacute;w zajmuje się osobna klasa <code>Arguments<&#47;code>.</p>
+<h2>Monitorowanie<&#47;h2><br />
+Dodatkowo &ldquo;zintegruję&rdquo; to z wcześniej opisanym serwisem healthchecks. Z pomocą przyjdzie operator <code>&amp;&amp;<&#47;code> w bashu, kt&oacute;ry wykonuje to co jest po prawej stronie jeśli kod zakończenia komendy po lewej stronie jest r&oacute;wny 0.</p>
+<p>Zatem finalnie komenda w crontab będzie wyglądała następująco:</p>
+<p><span class="lang:default highlight:0 decode:true crayon-inline ">java -jar &#47;opt&#47;pogodynka&#47;thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword http:&#47;&#47;www.samouczekprogramisty.pl&#47;getrealaddress &amp;&amp; curl -fsS --retry 3 https:&#47;&#47;hchk.io&#47;89941a75-5e1a-4b0b-a864-59d584e579a8<&#47;span></p>
+<p>Magiczna część po &amp;&amp; odpowiada za wysłanie zapytania do healtchecks. Całość opakowałem w <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;45e3004e55634debd6a6c69aa29d0549d5405456&#47;thermometer&#47;add_to_crontab.sh" target="_blank">drobny skrypt<&#47;a> w bash&rsquo;u, kt&oacute;ry automatyzuje dodanie wpisu do cron&rsquo;a. Skrypt dostępny jest na githubie.</p>
+<p>Tak oto wygląda crontab po uruchomieniu tego skryptu:</p>
+<pre class="lang:default highlight:0 decode:true ">$ crontab -l<br />
+*&#47;5 * * * * java -jar &#47;opt&#47;pogodynka&#47;thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword http:&#47;&#47;www.samouczekprogramisty.pl&#47;getrealaddress &amp;&amp; curl -fsS --retry 3 https:&#47;&#47;hchk.io&#47;89941a75-5e1a-4b0b-a864-59d584e579a8<br />
+1 0 * * * find &#47;var&#47;log&#47;pogodynka&#47;*.log -mtime +7 -exec rm {} \;<&#47;pre></p>
+<h1>Efekt &ldquo;finalny&rdquo;<&#47;h1><br />
+Aktualnie &ldquo;moduł&rdquo; termometru jest popchnięty najdalej jak tylko mogłem. Teraz czas na pozostałe elementy o czym przeczytasz za tydzień. W przyszłym tygodniu skupię się na kolejnym elemencie - aplikacji webowej, kt&oacute;ra będzie przyjmowała odczyt temperatury.</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zachęcam Cię do śledzenia zadań, kt&oacute;re wykonuję w ramach realizacji tego projektu. Możesz je zobaczyć na <a href="https:&#47;&#47;trello.com&#47;b&#47;yqZHTqSN&#47;pogodynka" target="_blank">trello<&#47;a>. Najnowszą wersję kodu źr&oacute;dłowego zawsze znajdziesz na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka" target="_blank">githubie<&#47;a>.</p>
+<p>Zapisz się do mojego newslettera i polub stronę na facebooku jeśli nie chcesz pominąć kolejnych artykuł&oacute;w. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;zedc&#47;9387184605&#47;sizes&#47;l</p>

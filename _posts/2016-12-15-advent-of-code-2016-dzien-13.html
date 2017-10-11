@@ -1,0 +1,65 @@
+---
+layout: post
+status: publish
+published: true
+title: Advent of Code 2016 dzień 13
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Advent of Code 2016 dzień 13. Twoja pomoc potrzebna jest przy odnalezieniu
+  drogi w labiryncie nowego budynku, dasz radę znaleźć najkr&oacute;tszą możliwą drogę?\r\n\r\n"
+wordpress_id: 661
+wordpress_url: http://www.samouczekprogramisty.pl/?p=661
+date: '2016-12-15 18:26:01 +0100'
+date_gmt: '2016-12-15 17:26:01 +0100'
+categories:
+- Strefa zadaniowa
+tags: []
+comments: []
+---
+<p>Advent of Code 2016 dzień 13. Twoja pomoc potrzebna jest przy odnalezieniu drogi w labiryncie nowego budynku, dasz radę znaleźć najkr&oacute;tszą możliwą drogę?</p>
+<p><a id="more"></a><a id="more-661"></a></p>
+<h1>Wprowadzenie<&#47;h1><br />
+[idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;13" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;13<&#47;a>[&#47;idea]</p>
+<p>Advent of Code to inicjatywa, w kt&oacute;rej codziennie publikowane są zadania algorytmiczne dla programist&oacute;w. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, kt&oacute;rą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
+<h1>Dzień 13 zadanie 1<&#47;h1><br />
+Dzięki Twojej pomocy przy <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-12&#47;">wczorajszych<&#47;a> instrukcjach assemblera udało się uruchomić kolejkę. Dotarłeś do pierwszego piętra nowego budynku. Niestety hall jest dużo mniej przyjazny niż świecące wnętrza w poprzednim budynku. Zamiast tego trafiłeś do plątaniny korytarzy i małych pomieszczeń.</p>
+<p>Każde pomieszczenie w tym rejonie może być zidentyfikowane przez parę nieujemnych liczb całkowitych <code>(x, y)<&#47;code>. Każda taka wsp&oacute;łrzędna odpowiada albo ścianie albo otwartej przestrzeni. Nie możesz poruszać się na ukos. Labirynt zaczyna się na wsp&oacute;łrzędnych <code>(0, 0)<&#47;code> i wydaje się dążyć do nieskończoności dodatnich wartości <code>x<&#47;code> i <code>y<&#47;code>. Ujemne wartości są niepoprawne, przedstawiają położenie poza budynkiem. Znajdujesz się w małej poczekalni, kt&oacute;ra znajduje się na wsp&oacute;łrzędnych <code>(1, 1)<&#47;code>.</p>
+<p>Wszystko wydaje się bardzo chaotyczne, jednak plakat znajdujący się na ścianie przekonuje Cię, że całość jest dość logiczna. Możesz stwierdzić czy dana pozycja <code>(x, y)<&#47;code> to ściana czy otwarta przestrzeń używając prostego systemu:binarną reprezentację</p>
+<ul>
+<li>Oblicz wartość r&oacute;wnania <code>x*x + 3*x + 2*x*y + y + y*y<&#47;code>,<&#47;li>
+<li>dodaj ulubiony numer projektanta biura (wejście do programu),<&#47;li>
+<li>znajdź <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;system-dwojkowy&#47;">binarną reprezentację<&#47;a> tej sumy, policzyć ile bit&oacute;w w tej reprezentacji to <code>1<&#47;code>,<&#47;li>
+<li>jeśli liczba bit&oacute;w <code>1<&#47;code> jest parzysta <code>(x, y)<&#47;code> reprezentuje otwartą przestrzeń,<&#47;li>
+<li>jeśli liczba bit&oacute;w <code>1<&#47;code> jest nieparzysta <code>(x, y)<&#47;code> reprezentuje ścianę.<&#47;li><br />
+<&#47;ul><br />
+Na przykład, jeśli ulubionym numerem projektanta biura jest <code>10<&#47;code>, poniżej widzisz układ biura gdzie ściany pokazane są jako <code>#<&#47;code> a otwarta przestrzeń jako <code>.<&#47;code>. Narożnik budynku wygląda tak:</p>
+<pre class="lang:default highlight:0 decode:true ">  0123456789<br />
+0 .#.####.##<br />
+1 ..#..#...#<br />
+2 #....##...<br />
+3 ###.#.###.<br />
+4 .##..#..#.<br />
+5 ..##....#.<br />
+6 #...##.###<&#47;pre><br />
+Zał&oacute;żmy, że chciałbyś dotrzeć do pozycji <code>(7, 4)<&#47;code>. Najkr&oacute;tsza droga, kt&oacute;rą m&oacute;głbyś obrać oznaczona jest <code>O<&#47;code>:</p>
+<pre class="lang:default highlight:0 decode:true ">  0123456789<br />
+0 .#.####.##<br />
+1 .O#..#...#<br />
+2 #OOO.##...<br />
+3 ###O#.###.<br />
+4 .##OO#OO#.<br />
+5 ..##OOO.#.<br />
+6 #...##.###<&#47;pre><br />
+Więc dotarcie do punktu <code>(7, 4)<&#47;code> wymaga 11 krok&oacute;w (zaczynając od pozycji <code>(1, 1)<&#47;code>).</p>
+<p>Zakładając, że ulubionym numerem projektanta biura jest <code>1362<&#47;code>, jaka jest minimalna liczba krok&oacute;w potrzebna do dotarcia do punku <code>(31, 39)<&#47;code>?</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programist&oacute;w. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day13" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zr&oacute;b to raczej w ostateczności.</p>
+<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pom&oacute;c Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>

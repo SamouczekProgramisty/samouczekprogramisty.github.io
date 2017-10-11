@@ -1,0 +1,107 @@
+---
+layout: post
+status: publish
+published: true
+title: Pogodynka - konfiguracja serwera
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "We wpisie tym podsumowuję postęp prac nad projektem Pogodynka. W tym tygodniu
+  wyłącznie devops. Pokr&oacute;tce opiszę Ci moje przygody z konfiguracją VPS przy
+  pomocy Puppet&rsquo;a.\r\n\r\n"
+wordpress_id: 881
+wordpress_url: http://www.samouczekprogramisty.pl/?p=881
+date: '2017-04-30 12:13:51 +0200'
+date_gmt: '2017-04-30 10:13:51 +0200'
+categories:
+- DSP2017
+- Projekty
+- Pogodynka
+tags: []
+comments: []
+---
+<p>We wpisie tym podsumowuję postęp prac nad projektem Pogodynka. W tym tygodniu wyłącznie devops. Pokr&oacute;tce opiszę Ci moje przygody z konfiguracją VPS przy pomocy Puppet&rsquo;a.</p>
+<p><a id="more"></a><a id="more-881"></a></p>
+<h1>Konfiguracja maszyny produkcyjnej<&#47;h1><br />
+Chociaż do konfiguracji produkcyjnej daleko, będę tutaj pisał o &ldquo;serwerze produkcyjnym&rdquo;. Mam tu na myśli VPS (ang. <em>Virtual Private Server<&#47;em>), na kt&oacute;rym uruchomiona będzie baza danych oraz Tomcat. To właśnie do tej maszyny Malinka wysyłała będzie informacje o odczytach temperatury. Ta sama maszyna posłuży do uruchomienia aplikacji webowej pokazującej interfejs użytkownika.</p>
+<h1>Namiastka produkcji<&#47;h1><br />
+Konfiguracja ta nijak nie przypomina &ldquo;produkcji z prawdziwego zdarzenia&rdquo;. Nie ma tu mowy o sensownym monitorowaniu czy zapewnieniu niezawodności. Mam świadomość tych niedociągnięć :). Jak na hobbystyczny projekt konfiguracja tego typu powinna być wystarczająco dobra. Oczywiście przy takiej konfiguracji nie zapewnię dostępności na poziomie <a href="https:&#47;&#47;en.wikipedia.org&#47;wiki&#47;High_availability" target="_blank" rel="noopener noreferrer">pięciu dziewiątek<&#47;a> (nawet, chyba dw&oacute;ch nie dałbym rady ;)).</p>
+<p>Aby poprawić tę konfigurację musiałbym poświęcić na nią więcej czasu i zapłacić więcej za utrzymanie finalnego środowiska. &ldquo;Budżetu&rdquo; na Pogodynkę, nie chciałbym powiększać, więc zostanę przy aktualnych ustawieniach. Akceptuję te niedociągnięcia z racji tego, że projekt ten nie jest krytyczny.</p>
+<h1>Zarządzanie konfiguracją<&#47;h1><br />
+M&oacute;głbym skonfigurować maszynę ręcznie. Na pewno byłoby to szybsze niż zabawa, kt&oacute;rą zaraz opiszę. Jednak tego typu podejście prowadzi do sytuacji, w kt&oacute;rej odtworzenie konfiguracji jest ciężkie. Chciałbym tego uniknąć.</p>
+<p>Konfiguracja maszyny produkcyjnej zarządzana jest przy pomocy <a href="https:&#47;&#47;docs.puppet.com&#47;puppet&#47;3.7&#47;index.html" target="_blank" rel="noopener noreferrer">Puppet&rsquo;a<&#47;a>. Całość trzymana jest w repozytorium razem z kodem. Dzięki takiemu podejściu wiem dokładnie co, jak i kiedy zostało zmienione. A co najważniejsze mogę tę konfigurację szybko odtworzyć.</p>
+<h2>Czym jest Puppet<&#47;h2><br />
+Puppet to narzędzie, kt&oacute;re pomaga zarządzać konfiguracją maszyn. Puppet używa tak zwanych manifest&oacute;w, kt&oacute;re określają konfigurację danej maszyny. Wewnątrz manifest&oacute;w używany jest DSL (ang. <em>Domain Specific Language<&#47;em>), kt&oacute;ry ułatwia tę konfigurację.</p>
+<p>Przy pomocy tego narzędzia i odpowiednich manifest&oacute;w możemy na przykład zainstalować bazę danych, odpowiednią wersję Javy czy Tomcat&rsquo;a.</p>
+<p>Manifesty z konfiguracją pakowane są w tak zwane moduły. W moim przypadku używam na przykład moduł&oacute;w do instalacji Tomcat&rsquo;a czy zarządzania regułami firewalla. Mogę śmiało powiedzieć, że konfiguracja większości standardowych rzeczy dostępna jest w odpowiednim module.</p>
+<h2>Kod odpowiedzialny za konfigurację<&#47;h2><br />
+Aby niepotrzebnie nie komplikować sprawy uruchamiam Puppeta w trybie &ldquo;samodzielnym&rdquo;. Nie ma tutaj standardowej maszyny, z kt&oacute;rej pobierana jest konfiguracja ("puppet mastera"). Jest to uproszczenie, kt&oacute;re w tym przypadku jest akceptowalne.</p>
+<p>Cały katalog moduł&oacute;w trzymam w repozytorium git. Zewnętrzne moduły puppeta dodałem do repozytorium jako <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;.gitmodules" target="_blank" rel="noopener noreferrer">submoduły git&rsquo;a<&#47;a>.</p>
+<pre class="lang:default highlight:0 decode:true">$ git submodule status<br />
+ 3f6863ac4c97f834bebc811852452b073d202682 puppet&#47;modules&#47;apt (2.4.0)<br />
+ 5c4a9141d08a7b23dcada029d23b82590632d0f4 puppet&#47;modules&#47;concat (2.2.1)<br />
+ 23016934d23c5c2f3f3edbc2ec8279f8faac2457 puppet&#47;modules&#47;firewall (1.8.2)<br />
+ 5b01b42e2228d9c979f7fcbdfac5b926f25f5dea puppet&#47;modules&#47;postgresql (4.9.0)<br />
+ ec1ce78c1ec0c82d440cb5d1b98a065c858d3c0e puppet&#47;modules&#47;staging (0.4.1)<br />
+ 1ae06c50acc89be4dea28b6e85b5a23f479f584e puppet&#47;modules&#47;stdlib (4.16.0)<br />
+ e545ac740122c9a873aec66b24148a43dd65f9ef puppet&#47;modules&#47;tomcat (1.6.1)<br />
+<&#47;pre><br />
+Dzięki takiemu podejściu zawsze (jak tylko github i repozytoria moduł&oacute;w są dostępne ;)) mam dostęp do całości konfiguracji.</p>
+<h1>Konfiguracja przy pomocy Puppet&rsquo;a<&#47;h1><br />
+Wykupiłem VPS w jednej z firm. Zainstalowałem tam obraz z Debianem Jessie. W tym miejscu zaczyna się zabawa ;).</p>
+<h2>Instalacja Javy<&#47;h2><br />
+Zacznijmy od Javy. Instalacja Javy 8 na Debianie 8 nie jest trywialna :). Chodzi mi tu o Javę od Oracle. OpenJDK można zainstalować z &ldquo;backports&rdquo;. Po zabawie z kluczami do apt udało mi się Javę zainstalować:</p>
+<pre class="lang:default highlight:0 decode:true ">class pogodynka::java {<br />
+  $package = "oracle-java8-installer"<br />
+  $responsefile = "&#47;var&#47;cache&#47;debconf&#47;${package}.preseed"</p>
+<p>  file {<br />
+    'java-apt-list':<br />
+      path    => '&#47;etc&#47;apt&#47;sources.list.d&#47;webupd8team-java.list',<br />
+      content => "deb http:&#47;&#47;ppa.launchpad.net&#47;webupd8team&#47;java&#47;ubuntu xenial main\ndeb-src http:&#47;&#47;ppa.launchpad.net&#47;webupd8team&#47;java&#47;ubuntu xenial main";</p>
+<p>    'java-apt-key':<br />
+      path   => '&#47;etc&#47;apt&#47;trusted.gpg.d&#47;webupd8.gpg',<br />
+      source => 'puppet:&#47;&#47;&#47;modules&#47;pogodynka&#47;webupd8.gpg';</p>
+<p>    $responsefile:<br />
+      ensure  => 'present',<br />
+      content => "${package} shared&#47;accepted-oracle-license-v1-1 select true";<br />
+  }   </p>
+<p>  package {<br />
+    'oracle-java8-installer':<br />
+      ensure       => 'latest',<br />
+      responsefile => $responsefile,<br />
+      require      => [File['java-apt-list'], File['java-apt-key'], Class['apt::update']];</p>
+<p>    'oracle-java8-set-default':<br />
+      ensure  => 'latest',<br />
+      require => Package['oracle-java8-installer'];<br />
+  }<br />
+}<&#47;pre></p>
+<h2>Tomcat<&#47;h2><br />
+Podobnie jak w przypadku firewalla użyłem <a href="https:&#47;&#47;forge.puppet.com&#47;puppetlabs&#47;tomcat" target="_blank" rel="noopener noreferrer">istniejącego modułu<&#47;a>.</p>
+<p>Cała konfiguracja sprowadza się do kilku linijek:</p>
+<pre class="lang:default highlight:0 decode:true ">$catalina_home = '&#47;opt&#47;tomcat8.5'<br />
+$catalina_base = "${catalina_home}&#47;production"</p>
+<p>tomcat::install {<br />
+  '&#47;opt&#47;tomcat8.5':<br />
+    source_url => 'http:&#47;&#47;mirror.23media.de&#47;apache&#47;tomcat&#47;tomcat-8&#47;v8.5.14&#47;bin&#47;apache-tomcat-8.5.14.tar.gz';<br />
+}</p>
+<p>tomcat::instance {<br />
+  'tomcat8.5-production':<br />
+    catalina_home => $catalina_home,<br />
+    catalina_base => $catalina_base;<br />
+}<&#47;pre><br />
+Sam Tomcat uruchamiany jest z poziomu użytkownika tomcat. Z tego powodu nie mogę uruchomić go tak aby nasłuchiwał na domyślnym porcie HTTP. Tomcat słucha na 8080.</p>
+<h2>Firewall<&#47;h2><br />
+Podobnie jak w przypadku Tomcat'a użyłem <a href="https:&#47;&#47;forge.puppet.com&#47;puppetlabs&#47;firewall" target="_blank" rel="noopener noreferrer">istniejącego modułu<&#47;a>. Oczywiście nie chcę otwierać na świat serwera produkcyjnego. Sytuacja, w kt&oacute;rej na przykład baza danych była dostępna z zewnątrz jest zła. Domyślnie chcę mieć otwarty mały podzbi&oacute;r port&oacute;w. Oczywiście standardowy port 80 dla HTTP i 22 dla SSH potrzebuję, resztę trzeba wyciąć.</p>
+<p>To się musiało stać, w trakcie zabawy z konfiguracją firewall odciąłem sobie dostęp po SSH. Skończyło się to reinstalacją Debiana na nowo. Całe szczęście cała konfiguracja trzymana jest w repozytorium więc odtworzenie poprzedniego stanu sprowadziło się do kilku komend:</p>
+<pre class="lang:default highlight:0 decode:true ">wget https:&#47;&#47;raw.githubusercontent.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;master&#47;puppet&#47;bootstrap.sh<br />
+chmod +x bootstrap.sh<br />
+.&#47;bootstrap.sh<&#47;pre><br />
+Poza wycięciem port&oacute;w za pomocą konfiguracji firewalla będę musiał zrobić przekierowanie ruchu z portu 80 na 8080. Ta część jeszcze przede mną ;).</p>
+<h1>Podsumowanie<&#47;h1><br />
+Konfiguracja jeszcze nie jest gotowa. Jeśli chcesz zobaczyć jej aktualną wersję możesz rzucić okiem na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;tree&#47;master&#47;puppet" target="_blank" rel="noopener noreferrer">samouczkowego githuba<&#47;a>. Jeszcze męczę się z dopięciem niekt&oacute;rych element&oacute;w. W każdym razie postęp, mały bo mały, jest. Do końca projektu zostały jeszcze trzy tygodnie. Trzymaj za mnie kciuki ;). Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;joseywales&#47;316407052&#47;sizes&#47;o&#47;</p>

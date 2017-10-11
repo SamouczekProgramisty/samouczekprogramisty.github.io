@@ -1,0 +1,171 @@
+---
+layout: post
+status: publish
+published: true
+title: Dziedziczenie w języku Java
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "W innych artykułach omawiałem pewne aspekty programowania obiektowego. Wiesz
+  już o interfejsach i dlaczego warto ich używać. Dzisiaj przeczytasz o dziedziczeniu.
+  Bez dziedziczenia nie można m&oacute;wić o programowaniu obiektowym w Javie. Dowiesz
+  się czym jest <code>Object<&#47;code>, dlaczego dziedziczenie jest ważne i kiedy
+  powinniśmy go używać. Przeczytasz o przeciążaniu i nadpisywaniu metod. Poznasz też
+  słowa kluczowe <code>abstract<&#47;code> i <code>final<&#47;code>. Do kodu!\r\n\r\n"
+wordpress_id: 200
+wordpress_url: http://www.samouczekprogramisty.pl/?p=200
+date: '2016-01-24 13:47:46 +0100'
+date_gmt: '2016-01-24 12:47:46 +0100'
+categories:
+- Kurs programowania Java
+tags: []
+---
+<p>W innych artykułach omawiałem pewne aspekty programowania obiektowego. Wiesz już o interfejsach i dlaczego warto ich używać. Dzisiaj przeczytasz o dziedziczeniu. Bez dziedziczenia nie można m&oacute;wić o programowaniu obiektowym w Javie. Dowiesz się czym jest <code>Object<&#47;code>, dlaczego dziedziczenie jest ważne i kiedy powinniśmy go używać. Przeczytasz o przeciążaniu i nadpisywaniu metod. Poznasz też słowa kluczowe <code>abstract<&#47;code> i <code>final<&#47;code>. Do kodu!</p>
+<p><a id="more"></a><a id="more-200"></a></p>
+<p>[idea]To jest jeden z artykuł&oacute;w w ramach <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kurs-programowania-java&#47;">darmowego kursu programowania w Javie<&#47;a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[&#47;idea]</p>
+<h1>Dziedziczenie<&#47;h1><br />
+Na początku postaram się wyjaśnić czym właściwie jest dziedziczenie. Nie jest to nic skomplikowanego.</p>
+<p>Niekt&oacute;re obiekty mogą mieć między sobą dużo wsp&oacute;lnego. Na przykład zar&oacute;wno samoch&oacute;d osobowy jak i samoch&oacute;d ciężarowy mają silnik, kierownicę, drzwi, światła itd. Co prawda każdy z tych element&oacute;w może być r&oacute;żny, jednak bez wątpienia oba te pojazdy mają wiele wsp&oacute;lnego. Oba są pojazdami. Możemy powiedzieć, że samoch&oacute;d ciężarowy rozszerza (ang. <em>extends<&#47;em>) funkcjonalność pojazdu.</p>
+<p>W naszym przykładzie pojazd możemy uznać, za tak zwaną klasę bazową (lub &bdquo;nadklasę&rdquo;). Natomiast samoch&oacute;d osobowy i samoch&oacute;d ciężarowy rozszerzają funkcjonalność pojazdu. Możemy też powiedzieć, że każda z nich jest klasą pochodną (lub &bdquo;podklasą&rdquo;). Proszę sp&oacute;jrz na przykład:</p>
+<pre class="lang:default decode:true ">public class Vehicle {<br />
+}</p>
+<p>public class Car extends Vehicle {<br />
+}</p>
+<p>public class Truck extends Vehicle {<br />
+}<&#47;pre><br />
+Dziedziczenie jest jedną z podstaw programowania obiektowego (nie tylko w języku Java). Dzięki dziedziczeniu możemy ograniczyć ilość zduplikowanego kodu poprzez definiowanie atrybut&oacute;w, konstruktor&oacute;w, metod w klasach bazowych.</p>
+<p>Dziedziczenie może być wielopoziomowe, jednak w języku Java zawsze bezpośrednio możemy dziedziczyć od jednej klasy.</p>
+<pre class="lang:default decode:true ">public class Vehicle {<br />
+}</p>
+<p>public class Car extends Vehicle {<br />
+}</p>
+<p>public class SUV extends Car {<br />
+}<&#47;pre><br />
+W przykładzie powyżej <code>SUV<&#47;code> dziedziczy po klasie <code>Car<&#47;code>. Klasa <code>Car<&#47;code> jest podklasą klasy <code>Vehicle<&#47;code>. Zatem pośrednio <code>SUV<&#47;code> także dziedziczy po klasie <code>Vehicle<&#47;code>.</p>
+<h1>Modyfikatory dostępu<&#47;h1><br />
+Dzięki dziedziczeniu możemy mieć dostęp do metod, atrybut&oacute;w, konstruktor&oacute;w klas po kt&oacute;rych dziedziczymy. Do określenia czy dany element może być dostępny w ramach podklasy służą modyfikatory dostępu.</p>
+<p>Do tej pory poznałeś modyfikatory dostępu takie jak:</p>
+<ul>
+<li><code>public<&#47;code> - element oznaczony tym modyfikatorem dostępny jest "z zewnątrz" obiektu, stanowi jego interfejs,<&#47;li>
+<li><code>private<&#47;code> - element oznaczony tym modyfikatorem jest dostępna wyłącznie wewnątrz obiektu, także klasy pochodne nie mają do niego dostępu.<&#47;li><br />
+<&#47;ul><br />
+W przypadku dziedziczenia znaczenie ma także modyfikator <code>protected<&#47;code>. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę kt&oacute;ra po niej dziedziczy[1. Istnieje też "brak modyfikatora dostępu" jednak na początek możemy tą sytuację pominąć. Opiszę to w osobnym artykule.]</p>
+<h1>Przesłonięcie metody<&#47;h1><br />
+Łatwo sobie wyobrazić sytuację, w kt&oacute;rej metoda o tej samej sygnaturze występuje zar&oacute;wno w klasie bazowej jak i klasie pochodnej. W tej sytuacji m&oacute;wimy o tym, że klasa pochodna przesłania metodę z klasy bazowej (ang. <em>override<&#47;em>). Proszę sp&oacute;jrz na przykład poniżej.</p>
+<pre class="lang:default decode:true ">public class Vehicle {<br />
+    public void startEngine() {<br />
+        System.out.println("Engine starts. Brum brum brum.");<br />
+    }<br />
+}</p>
+<p>public class Car extends Vehicle {<br />
+    public void startEngine() {<br />
+        System.out.println("Force driver to fasten seat belts.");<br />
+    }<br />
+}<&#47;pre><br />
+W naszym przykładzie wywołanie metody <code>startEngine<&#47;code> na obiekcie typu <code>Car<&#47;code> zmusi kierowcę do zapięcia pas&oacute;w (wyświetli się komunikat <code>Force driver to fasten seat belts<&#47;code>). Jeśli tą samą metodę wywołamy na instancji obiektu klasy Vehicle w&oacute;wczas pojawi się komunikat <code>Engine starts. Brum brum brum.<&#47;code>.</p>
+<p>Co jeśli chcielibyśmy nieznacznie zmodyfikować oryginalną metodę? Jest na to spos&oacute;b. Słowo kluczowe <code>super<&#47;code> pozwala na wywołanie nadpisanej metody z klasy bazowej. Rozszerzając przykład powyżej moglibyśmy napisać taki fragment kodu:</p>
+<pre class="lang:default decode:true ">public class Car extends Vehicle {<br />
+    public void startEngine() {<br />
+        super.startEngine();<br />
+        System.out.println("Force driver to fasten seat belts.");<br />
+    }<br />
+}<&#47;pre><br />
+W takim przypadku wywołanie metody <code>startEngine<&#47;code> na instancji obiektu <code>Car<&#47;code> na początku wywoła tą metodę z klasy bazowej (wyświetli się komunikat <code>Engine starts...<&#47;code>) następnie pokazany zostanie komunikat <code>Force driver...<&#47;code> (zachęcam do eksperymentowania z IDE).</p>
+<h1>Konstruktory a dziedziczenie<&#47;h1><br />
+Konstruktory w przypadku dziedziczenia zachowują się tak samo jak metody. Także możemy wywołać konstruktor z klasy bazowej wewnątrz klasy dziedziczącej używając słowa kluczowego <code>super<&#47;code> (jeśli pozwala na to modyfikator dostępu).</p>
+<p>Klasa pochodna musi mieć możliwość wywołania konstruktora klasy bazowej. Jeśli tego nie robi domyślnie wywoływany jest konstruktor bezparametrowy</p>
+<pre class="lang:default decode:true">public class Animal {<br />
+    public Animal() {<br />
+    }<br />
+}</p>
+<p>public class Dog extends Animal {<br />
+    public Dog() {<br />
+        super();<br />
+    }<br />
+}<&#47;pre><br />
+W powyższym przykładzie wewnątrz konstruktora klasy <code>Dog<&#47;code> wywołujemy konstruktor klasy <code>Animal<&#47;code> wywołując <code>super()<&#47;code>. Jak napisałem wyżej możemy pominąć to wywołanie, w&oacute;wczas kompilator zrobi to za nas. Ma to pewne konsekwencje. Jeśli w klasie bazowej zdefiniujemy konstruktor z parametrami w&oacute;wczas konstruktor bezparametrowy nie zostanie utworzony automatycznie.</p>
+<p>W takich przypadkach w konstruktorach klas pochodnych musimy wywołać konstruktor klasy bazowej. Pokazałem to w przykładzie poniżej:</p>
+<pre class="lang:default decode:true">public class Vehicle {<br />
+    private int numberOfWheels;<br />
+    private Engine engine;</p>
+<p>    public Vehicle(Engine engine, int numberOfWheels) {<br />
+        this.engine = engine;<br />
+        this.numberOfWheels = numberOfWheels;<br />
+    }<br />
+}</p>
+<p>public class Car extends Vehicle {<br />
+    private static final int NUMBER_OF_WHEELS = 4;</p>
+<p>    public Car(Engine engine) {<br />
+        super(engine, NUMBER_OF_WHEELS);<br />
+    }<br />
+}<&#47;pre><br />
+Jak widzisz w przykładzie powyżej klasa <code>Car<&#47;code> nie musi definiować konstruktora z taką samą liczbą parametr&oacute;w jak klasa bazowa, ale musi wywołać konstruktor klasy <code>Vehicle<&#47;code> i przekazać dwa parametry. Dzieje się tak, ponieważ w klasie <code>Vehicle<&#47;code> jest tylko konstruktor z dwoma parametrami.</p>
+<h1>Klasy abstrakcyjne<&#47;h1><br />
+Czasami może wystąpić sytuacja, w kt&oacute;rej klasa bazowa jest swego rodzaju uog&oacute;lnieniem, abstrakcją, kt&oacute;ra nie ma sensu bez konkretnych implementacji. W&oacute;wczas możemy m&oacute;wić o klasie abstrakcyjnej.</p>
+<p>Nie ma możliwości stworzenie instancji klasy abstrakcyjnej. W naszym przykładzie klasa Vehicle mogłaby być klasą abstrakcyjną. Klasy abstrakcyjne poprzedzamy słowem kluczowym abstract. Proszę sp&oacute;jrz na przykład poniżej.</p>
+<pre class="lang:default decode:true ">public abstract class Vehicle {<br />
+    private int numberOfWheels;<br />
+    private Engine engine;</p>
+<p>    public Vehicle(Engine engine, int numberOfWheels) {<br />
+        this.engine = engine;<br />
+        this.numberOfWheels = numberOfWheels;<br />
+    }<br />
+}</p>
+<p>public class Car extends Vehicle {<br />
+    private static final int NUMBER_OF_WHEELS = 4;</p>
+<p>    public Car(Engine engine) {<br />
+        super(engine, NUMBER_OF_WHEELS);<br />
+    }<br />
+}<&#47;pre><br />
+Jak widzisz klasa abstrakcyjna może mieć konstruktor, jednak służy on tylko do tego, żeby uniknąć duplikacji kodu w klasach pochodnych. Klasa <code>Car<&#47;code> używa konstruktora zdefiniowanego w abstrakcyjnej klasie <code>Vehicle<&#47;code>.</p>
+<h1>Klasy i metody finalne<&#47;h1><br />
+Możliwość dziedziczenia i nadpisywania metod daje bardzo duże możliwości. Wyobraź sobie następujący kod:</p>
+<pre class="lang:default decode:true ">public interface BankAccount {<br />
+    void deposit(BigDecimal amount);<br />
+    void withdraw(BigDecimal amount);<br />
+}</p>
+<p>public class Transfer {<br />
+    public void transferMoney(BankAccount source, BankAccount destination, BigDecimal amount) {<br />
+        source.withdraw(amount);<br />
+        destination.deposit(amount);<br />
+    }<br />
+}<&#47;pre><br />
+Co stanie się jeśli programista utworzy nową klasę jak w przykładzie poniżej?</p>
+<pre class="lang:default decode:true ">public class FraudTransfer extends Transfer{<br />
+    public void transferMoney(BankAccount source, BankAccount destination, BigDecimal amount) {<br />
+        destination.deposit(amount);<br />
+    }<br />
+}<&#47;pre><br />
+Przy takiej implementacji konto docelowe zostałoby zasilone dodatkową kwotą jednak ta kwota nie byłaby pobrana z konta źr&oacute;dłowego. Niedobrze.</p>
+<p>W takich przypadkach możemy użyć słowa kluczowego <code>final<&#47;code>. Słowo to umieszczone przed klasą oznacza, że nie możemy po danej klasie dziedziczyć. W przypadku metody oznacza, że metoda nie może zostać nadpisana.</p>
+<p>Dla przykładu klasy w pakiecie <code>java.lang<&#47;code> są finalne. Nie można nadpisać ich implementacji.</p>
+<h1>Klasa <code>java.lang.Object<&#47;code><&#47;h1><br />
+Teraz już wiesz czym jest dziedziczenie. A wiesz, że używałeś go od pierwszej lekcji nauki języka Java? :)</p>
+<p>Z jednego z poprzednich artykuł&oacute;w wiesz o tym, że kompilator dodaje automatycznie konstruktor bezparametrowy jeśli nie zdefiniujesz żadnego w swojej klasie. Podobnie jest z dziedziczeniem, każda klasa domyślnie dziedziczy po klasie <code>java.lang.Object<&#47;code> (chyba, że zdefiniujesz inną klasę po kt&oacute;rej dziedziczysz).</p>
+<p>Dzięki tej klasie masz dostęp do zestawu metod, kt&oacute;re zdefiniowane są w ciele klasy Object. Na przykład metoda <code>String toString()<&#47;code> ma swoją podstawową implementację w klasie <code>Object<&#47;code> [2. Domyślna implementacja pokazuje nazwę klasy wraz z pakietem oraz jej adres w pamięci np. <code>pl.samouczekprogramisty.kursjava.cars.X@14ae5a5<&#47;code>].</p>
+<h1>Dobre praktyki<&#47;h1><br />
+Dziedziczenie to bardzo pomocny mechanizm. Jak napisałem wcześniej pozwala nam na uniknięcie duplikowania kodu. Jednak ma też swoje wady. Hierarchie dziedziczenia, kt&oacute;re mają dużo poziom&oacute;w mogą stać się mało czytelne. Tak zagmatwany kod może stać się trudny w utrzymaniu. Powinniśmy unikać takiej sytuacji.</p>
+<p>Nie ma tu jasnej reguły, jednak w przypadku gdy w programie występuje wielopoziomowe dziedziczenie starałbym się uprościć taki kod. Bardzo często m&oacute;wi się o preferowaniu kompozycji nad dziedziczeniem. Kompozycja to nic innego jak zawarcie innego obiektu jako atrybut naszej klasy. Kompozycja w wielu przypadkach potrafi uprościć skomplikowane hierarchie dziedziczenia.</p>
+<h1>Zadanie<&#47;h1><br />
+Na koniec mam dla Ciebie zadanie do wykonania, przećwiczysz w nim zagadnienia om&oacute;wione w tym artykule.</p>
+<p>Napisz program, w kt&oacute;rym zasymulujesz hierarchię dziedziczenia zwierząt. Stw&oacute;rz abstrakcyjną klasę <code>Animal<&#47;code>, po kt&oacute;rej będą dziedziczyły klasy <code>Fish<&#47;code> i <code>Mammal<&#47;code>. Wszystkie te klasy powinny być abstrakcyjne. Następnie stw&oacute;rz konkretne klasy kt&oacute;re dziedziczą po <code>Fish<&#47;code> i <code>Mammal<&#47;code>. Będą to odpowiednio <code>Goldfish<&#47;code> i <code>Human<&#47;code>.</p>
+<p>Nadpisz metodę <code>toString<&#47;code> w każdej z tych klas. Stw&oacute;rz instancje obu tych klas i wyświetl je na konsoli.</p>
+<p>Jeśli miałbyś problemy z zadaniem możesz spojrzeć na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;08_dziedziczenie&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;inheritance&#47;exercise" target="_blank" rel="noopener noreferrer">przykładowe rozwiązanie<&#47;a>.</p>
+<h1>Dodatkowe materiały<&#47;h1><br />
+Poniżej przygotowałem dla Ciebie zestaw link&oacute;w z dodatkowymi materiałami, część z nich jest w języku angielskim.</p>
+<ul>
+<li><a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Dziedziczenie_%28programowanie%29" target="_blank" rel="noopener noreferrer">https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Dziedziczenie_%28programowanie%29<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-8.html#jls-8" target="_blank" rel="noopener noreferrer">https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-8.html#jls-8<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;java&#47;IandI&#47;subclasses.html" target="_blank" rel="noopener noreferrer">https:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;java&#47;IandI&#47;subclasses.html<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;java&#47;concepts&#47;inheritance.html" target="_blank" rel="noopener noreferrer">https:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;java&#47;concepts&#47;inheritance.html<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;08_dziedziczenie&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;inheritance" target="_blank" rel="noopener noreferrer">kod źr&oacute;dłowy przykład&oacute;w z tego artykułu<&#47;a><&#47;li><br />
+<&#47;ul></p>
+<h1>Podsumowanie<&#47;h1><br />
+Bardzo się cieszę, że przeczytałeś artykuł do końca. Dzisiaj dowiedziałeś się czegoś więcej o dziedziczeniu. Poznałeś słowa kluczowe <code>abstract<&#47;code> i <code>final<&#47;code>. Wiesz już czym jest nadpisywanie metod czy klasa bazowa. Innymi słowy poznałeś kolejny zestaw narzędzi niezbędnych dla każdego programisty. Tak trzymaj! :)</p>
+<p>Na koniec bardzo proszę Cię o podzielenie się artykułem ze swoimi znajomymi, kt&oacute;rzy są zainteresowani taką tematyką. Jak zwykle zależy mi na tym, żeby z blogiem i jego zawartością dotrzeć do jak największej liczby czytelnik&oacute;w takich jak Ty :) Jeśli jeszcze tego nie zrobiłeś prosiłbym o polubienie strony na facebooku.</p>
+<p>Do następnego razu!</p>
+<p>[FM_form id="3"]</p>

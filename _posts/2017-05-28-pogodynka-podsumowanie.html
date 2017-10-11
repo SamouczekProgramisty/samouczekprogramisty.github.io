@@ -1,0 +1,60 @@
+---
+layout: post
+status: publish
+published: true
+title: Pogodynka - podsumowanie
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Pogodynka to projekt, w ramach kt&oacute;rego od marca do maja pracowałem
+  nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część
+  prac nad projektem. Pokazuje też finalny efekt tej pracy.\r\n\r\n"
+wordpress_id: 914
+wordpress_url: http://www.samouczekprogramisty.pl/?p=914
+date: '2017-05-28 18:38:50 +0200'
+date_gmt: '2017-05-28 16:38:50 +0200'
+categories:
+- DSP2017
+- Projekty
+- Pogodynka
+tags: []
+---
+<p>Pogodynka to projekt, w ramach kt&oacute;rego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad projektem. Pokazuje też finalny efekt tej pracy.</p>
+<p><a id="more"></a><a id="more-914"></a></p>
+<p>[idea]Jeśli chcesz przeczytać więcej na temat samego projektu i jego założeń zapraszam do przeczytania <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;projekty&#47;pogodynka&#47;">pozostałych artykuł&oacute;w opisujących projekt<&#47;a>.[&#47;idea]</p>
+<h1>Mistrz lutownicy ucieka<&#47;h1><br />
+Aby mieć sensowne odczyty temperatury musiałem użyć czujnika zewnętrznego. Jest on odporny na wilgoć więc nie powinno być problemu z odczytem temperatury w trakcie deszczu. Mistrzem lutownicy na pewno nie jestem, ale finalny efekt nie wyszedł najgorzej.</p>
+<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;lutowanie.jpeg"><img class="aligncenter size-medium wp-image-915" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;lutowanie-300x225.jpeg" alt="Lutowanie czjunika" width="300" height="225" &#47;><&#47;a>Na zdjęciu możesz zobaczyć opornik przylutowany do czujnika temperatury.</p>
+<h1>Profile Spring w aplikacji Datavault<&#47;h1><br />
+Aplikacja webowa, kt&oacute;ra odpowiada za zapis i odczyt historycznych wskazań czujnika temperatury działa w kilku środowiskach. Pierwszym z nich jest środowisko developerskie. Kolejnym &ldquo;produkcyjne&rdquo;, w kt&oacute;rym aplikacja jest <a href="http:&#47;&#47;pogodynka.pietraszek.pl" target="_blank" rel="noopener noreferrer">dostępna z internetu<&#47;a>.</p>
+<p>Oba te środowiska r&oacute;żnią się między sobą. Jedną z r&oacute;żnic jest konfiguracja bazy danych. W związku z tym użyłem <a href="https:&#47;&#47;docs.spring.io&#47;spring-boot&#47;docs&#47;current&#47;reference&#47;html&#47;boot-features-profiles.html" target="_blank" rel="noopener noreferrer">profili udostępnionych przez Springa<&#47;a>.</p>
+<p>Profil wybierany jest na podstawie jednego z parametr&oacute;w przekazywanych podczas uruchomienia wirtualnej maszyny Javy. Dzięki temu bez zmieniania kodu aplikacji mogę użyć tego samego pliku war w r&oacute;żnych środowiskach.</p>
+<h1>Średnia dobowa temperatura<&#47;h1><br />
+Użytkownik, dla kt&oacute;rego pisałem tę aplikację (m&oacute;j ociec ;)), wspomniał o paru funkcjonalnościach, kt&oacute;re byłby przydatne.</p>
+<p>Gł&oacute;wną z nich jest możliwość udostępnienia średniej dobowej temperatury. W meteorologii temperatura ta jest średnią z odczyt&oacute;w z godzin 1, 7, 13 i 19.</p>
+<p>W przypadku Pogodynki malinka wysyła odczyty temperatury co godzinę. Oczywiście jest to pomiar z &ldquo;drobnym poślizgiem&rdquo;, na przykład z godziny 13:00:05 a nie 13:00:00. Średnią dobową obliczam na etapie pobierania danych z bazy danych używając następującego zapytania SQL:</p>
+<pre class="lang:default decode:true ">  SELECT day,<br />
+         SUM(temperature) &#47; COUNT(temperature) AS daily_average<br />
+    FROM (SELECT DATE(when_measured) AS day,<br />
+                 EXTRACT('hour' FROM when_measured) AS hour,<br />
+                 temperature<br />
+            FROM temperature_measurements<br />
+           WHERE EXTRACT('hour' FROM when_measured) IN (1, 7, 13, 19)<br />
+             AND EXTRACT('minute' FROM when_measured) < 2) AS daily_temps<br />
+GROUP BY day<br />
+ORDER BY day;<&#47;pre><br />
+Następnie wyniki tego zapytania udostępnione są w formie dokumentu JSON. Tak sformatowane dane są następnie wykorzystywane przez interfejs użytkownika.</p>
+<h1>Interfejs użytkownika<&#47;h1><br />
+Kilka ostatnich dni poświęciłem na pracę nad <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;frontend&#47;index.html" target="_blank" rel="noopener noreferrer">interfejsem użytkownika<&#47;a>. Całość sprowadzała się do eksperyment&oacute;w z JavaScript i API biblioteki <a href="https:&#47;&#47;www.highcharts.com&#47;" target="_blank" rel="noopener noreferrer">Highcharts<&#47;a>. Właśnie tej biblioteki użyłem do pokazywania historycznych wykres&oacute;w temperatury.</p>
+<p>Finalny efekt pracy wygląda następująco:</p>
+<h1><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;wykres_temperatury.jpeg"><img class="aligncenter size-medium wp-image-916" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;05&#47;wykres_temperatury-300x171.jpeg" alt="" width="300" height="171" &#47;><&#47;a>Podsumowanie projektu<&#47;h1><br />
+W trakcie pracy nad projektem udało mi się zrealizować większość początkowych założeń. Projekt udało mi się &ldquo;dowieźć&rdquo; w terminie. <a href="https:&#47;&#47;trello.com&#47;b&#47;yqZHTqSN&#47;pogodynka" target="_blank" rel="noopener noreferrer">Trello<&#47;a>, kt&oacute;rego używałem do śledzenia zadań w projekcie pokazuje dokładnie w jakim etapie jestem etapie. Jest bardzo dobrze :).</p>
+<p>Chociaż całość mogę określić jako &ldquo;udany projekt&rdquo; mam świadomość pewnych niedociągnięć. Gł&oacute;wnym z nich jest brak test&oacute;w integracyjnych dla aplikacji Datavault. Podejrzewam, że znalazłbym kilka błęd&oacute;w po napisaniu odpowiedniego zestawu test&oacute;w&#47;</p>
+<p>Muszę też powiedzieć, że zdecydowanie nie doszacowałem części związanej z integracją i konfiguracją. Praca nad modułami puppeta zajęła mi sporo czasu.</p>
+<p>Podsumowując całość w jednym zdaniu. Bardzo się cieszę, że Pogodynka zakończyła się sukcesem :).</p>
+<p>W przyszłości planuję realizację innych projekt&oacute;w tego typu. Może chciałbyś zobaczyć konkretny projekt realizowany w ten spos&oacute;b? Daj znać w komentarzac, razem na pewno uda się nam wybrać coś ciekawego :).</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;schermannski&#47;34492740872&#47;sizes&#47;l</p>

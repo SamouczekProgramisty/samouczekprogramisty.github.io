@@ -1,0 +1,173 @@
+---
+layout: post
+status: publish
+published: true
+title: Por&oacute;wnywanie obiekt&oacute;w, metody equals i hashCode w języku Java
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Cześć! W dzisiejszym artykule będziesz m&oacute;gł przeczytać o właściwym
+  sposobie por&oacute;wnywania obiekt&oacute;w i typ&oacute;w prostych w języku Java.
+  Dowiesz się do czego służą metody <code>equals<&#47;code> oraz <code>hashCode<&#47;code>
+  oraz przeczytasz o tak zwanym kontrakcie między tymi metodami. Na koniec będzie
+  na Ciebie czekało małe ćwiczenie do wykonania samodzielnie. Zapraszam do artykułu.\r\n<blockquote>"
+wordpress_id: 286
+wordpress_url: http://www.samouczekprogramisty.pl/?p=286
+date: '2016-04-17 12:23:22 +0200'
+date_gmt: '2016-04-17 10:23:22 +0200'
+categories:
+- Kurs programowania Java
+tags: []
+---
+<p>Cześć! W dzisiejszym artykule będziesz m&oacute;gł przeczytać o właściwym sposobie por&oacute;wnywania obiekt&oacute;w i typ&oacute;w prostych w języku Java. Dowiesz się do czego służą metody <code>equals<&#47;code> oraz <code>hashCode<&#47;code> oraz przeczytasz o tak zwanym kontrakcie między tymi metodami. Na koniec będzie na Ciebie czekało małe ćwiczenie do wykonania samodzielnie. Zapraszam do artykułu.</p>
+<blockquote><p><a id="more"></a><a id="more-286"></a><&#47;blockquote><br />
+[idea]To jest jeden z artykuł&oacute;w w ramach <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kurs-programowania-java&#47;">darmowego kursu programowania w Javie<&#47;a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[&#47;idea]</p>
+<h1>Por&oacute;wnywanie typ&oacute;w prostych<&#47;h1><br />
+Do sprawdzenia "r&oacute;wności" typ&oacute;w prostych służą operatory <code>==<&#47;code> oraz <code>!=<&#47;code>. Dzięki nim możemy por&oacute;wnać ze sobą każdą zmienną typu prostego. Wynikiem takiego por&oacute;wnania jest wartość typu <code>boolean<&#47;code> &ndash; <code>true<&#47;code> jeśli por&oacute;wnywane obiekty są r&oacute;wne i <code>false<&#47;code> w przeciwnym wypadku. Proszę sp&oacute;jrz na przykład poniżej:</p>
+<pre class="lang:default decode:true ">System.out.println("10 == 10: " + (10 == 10));<br />
+System.out.println("10 != 10: " + (10 != 10));<br />
+System.out.println("true == true: " + (true == true));<br />
+System.out.println("true != true: " + (true != true));<br />
+System.out.println("'a' == 'a': " + ('a' == 'a'));<br />
+System.out.println("'a' != 'a': " + ('a' != 'a'));<br />
+System.out.println("500L == 500L: " + (500L == 500L));<br />
+System.out.println("500L != 500L: " + (500L != 500L));<&#47;pre><br />
+Kolejne linijki por&oacute;wnują odpowiednio:</p>
+<ul>
+<li>liczby typu <code>int<&#47;code>,<&#47;li>
+<li>zmienne typu <code>boolean<&#47;code>,<&#47;li>
+<li>znaki typu <code>char<&#47;code>,<&#47;li>
+<li>liczby typu <code>long<&#47;code>.<&#47;li><br />
+<&#47;ul></p>
+<h2>Priorytety operator&oacute;w<&#47;h2><br />
+Drobna dygresja dotycząca priorytet&oacute;w operator&oacute;w. W języku Java wszystkie operatory mają tak zwany priorytet. Oznacza to tyle, że priorytet operator&oacute;w określa kolejność wykonywania działań. Proszę sp&oacute;jrz na przykład niżej</p>
+<pre class="lang:default decode:true ">10 == 4 + 6<br />
+4 + 6 == 10<br />
+3 * 5 + 2<&#47;pre><br />
+Operator <code>+<&#47;code> ma wyższy priorytet niż operator <code>==<&#47;code>. W związku z tym operacja dodawania wykonana zostanie jako pierwsza i por&oacute;wnanie zwr&oacute;ci true. Podobnie <code>*<&#47;code> ma wyższy priorytet niż <code>+<&#47;code>. Zatem na początku wykonana zostanie operacja mnożenia a na końcu dodawanie.</p>
+<p>Czasami jednak domyślny priorytet operator&oacute;w nie jest odpowiedni, chcielibyśmy wykonać operacje w innej kolejności. Z pomocą przychodzą nawiasy, kt&oacute;re pozwalają na modyfikację zachowania programu. Przykład poniżej pomaga zrozumieć jak to działa:</p>
+<pre class="lang:default decode:true ">3 * (5 + 2)<&#47;pre><br />
+Mimo tego, że operator <code>*<&#47;code> ma wyższy priorytet niż <code>+<&#47;code> operacja mnożenia zostanie wykonana jako druga. Pierwsze zostanie wykonane dodawanie ponieważ zostało otoczone parą nawias&oacute;w.</p>
+<p>Po tym wstępie mogę wyjaśnić dlaczego w przykładzie poniżej potrzebujemy nawias&oacute;w:</p>
+<pre class="lang:default decode:true">"10 == 10: " + 10 == 10 &#47;&#47; compilation error!<br />
+"10 == 10: " + (10 == 10)<&#47;pre><br />
+Bez dodatkowej pary nawias&oacute;w pierwszeństwo miałby operator <code>+<&#47;code>. <code>"10 == 10: " + 10 == 10<&#47;code> inaczej możemy zapisać jako <code>"10 == 10: 10"&nbsp; == 10<&#47;code> a taki zapis nie jest poprawny, ponieważ operatorem <code>==<&#47;code> nie możemy por&oacute;wnać instancji typu <code>String<&#47;code> i wartości typu <code>int<&#47;code>.</p>
+<h1>Por&oacute;wnywanie zmiennoprzecinkowych typ&oacute;w prostych<&#47;h1><br />
+O ile sprawdzanie r&oacute;wności wartości liczb całkowitych nie jest trudne to ta sama operacja dla typ&oacute;w zmiennoprzecinkowych jest trochę bardziej skomplikowana. W związku ze sposobem reprezentacji liczb zmiennoprzecinkowych typu <code>float<&#47;code> i <code>double<&#47;code> w pamięci komputera nie jest możliwe ich dokładne por&oacute;wnywanie. Operacja taka jest dopuszczalna ale może prowadzić do dziwnych rezultat&oacute;w (na przykład, liczby, kt&oacute;re teoretycznie powinny być r&oacute;wne według komputera nie są).</p>
+<p>W związku z tym liczby zmiennoprzecinkowe powinno się por&oacute;wnywać z pewną dokładnością.</p>
+<pre class="lang:default decode:true ">System.out.println("0.3 == 0.1 + 0.2: " + (0.3 == 0.1 + 0.2)); &#47;&#47; !!!<br />
+System.out.println("0.3 == 0.1 + 0.2: " + (Math.abs(0.3 - (0.1 + 0.2)) < 0.000001));<&#47;pre><br />
+W przykładzie powyżej została użyta metoda <code>Math.abs()<&#47;code>. Metoda ta zwraca <a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Warto%C5%9B%C4%87_bezwzgl%C4%99dna" target="_blank" rel="noopener">wartość bezwzględną<&#47;a> danej liczby. Następnie wartość tą por&oacute;wnujemy z bardzo małą liczbą. Liczba ta reprezentuje dokładność por&oacute;wnania. Jeśli r&oacute;żnica liczb jest mniejsza niż nasza założona dokładność uznajemy, że por&oacute;wnywane liczby są r&oacute;wne.</p>
+<h1>Por&oacute;wnanie obiekt&oacute;w<&#47;h1><br />
+Używając operatora <code>==<&#47;code> do por&oacute;wnywania obiekt&oacute;w uzyskamy błędne rezultaty. Do por&oacute;wnania tego typu powinniśmy używać metody equals.</p>
+<pre class="lang:default decode:true ">System.out.println("test == test: " + (new String("test") == new String("test")));<br />
+System.out.println("test equals test: " + new String("test").equals(new String("test")));<&#47;pre><br />
+Dlaczego tak się dzieje? Ot&oacute;ż w przypadku obiekt&oacute;w operator <code>==<&#47;code> por&oacute;wnuje referencje obiekt&oacute;w (adresy na stercie). Mając dwie r&oacute;żne instancje obiekt&oacute;w mają one dwa r&oacute;żne adresy w pamięci w związku z tym zawsze ich adresy są r&oacute;żne. Innymi słowy w przypadku obiekt&oacute;w przy pomocy operatora <code>==<&#47;code> możemy sprawdzić czy dwie referencje wskazują na ten sam obiekt.</p>
+<pre class="lang:default decode:true ">String reference1 = new String("something");<br />
+String reference2 = reference1;<br />
+System.out.println("reference1 == reference2: " + (reference1 == reference2));<&#47;pre></p>
+<h1>Metoda <code>equals<&#47;code><&#47;h1><br />
+Metoda <code>equals<&#47;code> jest jedną z metod dostępnych w klasie <code>Object<&#47;code>. W związku z tym, że każdy obiekt w języku Java ma tą klasę w swojej hierarchii dziedziczenia możemy tą metodą wywołać na każdym obiekcie.</p>
+<p>W większości przypadk&oacute;w domyślna implementacja metody <code>equals<&#47;code> nie jest odpowiednia[2. Domyślna implementacja zachowuje się jak operator <code>==<&#47;code>, por&oacute;wnuje adresy obiekt&oacute;w.] w związku z tym programista tworzący nowy obiekt musi tą metodę zaimplementować jeśli chce sprawdzać czy instancje tej klasy są r&oacute;wne.</p>
+<p>Istnieje zestaw wytycznych, kt&oacute;re metoda <code>equals<&#47;code> powinna spełniać aby była poprawnie zaimplementowana. Opiszę je po kolei:</p>
+<h3>Metoda <code>equals<&#47;code> powinna być <a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Relacja_zwrotna" target="_blank" rel="noopener">zwrotna<&#47;a><&#47;h3><br />
+Oznacza to tyle, że dla każdego obiektu operacja <code>object.equals(object)<&#47;code> powinna zwr&oacute;cić <code>true<&#47;code>.</p>
+<h3>Metoda <code>equals<&#47;code> powinna być <a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Relacja_symetryczna" target="_blank" rel="noopener">symetryczna<&#47;a><&#47;h3><br />
+Oznacza to tyle, że dla każdej pary obiekt&oacute;w <code>X<&#47;code> i <code>Y<&#47;code> powinna zachodzić właściwość jeśli <code>X.equals(Y) == true<&#47;code> w&oacute;wczas także <code>Y.equals(X) == true<&#47;code>.</p>
+<h3>Metoda equals powinna być <a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Relacja_przechodnia" target="_blank" rel="noopener">przechodnia<&#47;a><&#47;h3><br />
+Jeśli mamy trzy obiekty <code>X<&#47;code>, <code>Y<&#47;code> i <code>Z<&#47;code> oraz jeśli <code>X.equals(Y) == true<&#47;code> i <code>Y.equals(Z) == true<&#47;code> to także <code>X.equals(Z)<&#47;code> jest prawdą.</p>
+<h3>Metoda <code>equals<&#47;code> powinna być sp&oacute;jna<&#47;h3><br />
+Innymi słowy kilkukrotne wywołanie metody <code>equals<&#47;code> na tych samych obiektach zawsze powinno zwr&oacute;cić ten sam wynik (zakładając, że obiekty nie były modyfikowane pomiędzy wywołaniami).</p>
+<h3>Metoda <code>equals<&#47;code> powinna zwr&oacute;cić <code>false<&#47;code> przy por&oacute;waniu z <code>null<&#47;code><&#47;h3><br />
+Dla każdego obiektu <code>X<&#47;code>, kt&oacute;ry nie jest <code>null<&#47;code> por&oacute;wnanie typu <code>X.equals(null)<&#47;code> powinno zwr&oacute;cić <code>false<&#47;code>.<br />
+Przykład implementacji metody equals</p>
+<p>Zał&oacute;żmy, że mamy klasę <code>Chair<&#47;code>. Możemy powiedzieć, że krzesła są "r&oacute;wne" jeśli zostały wyprodukowane w tym samym roku, przez tego samego producenta oraz są tego samego modelu. Założenia te zostały zaimplementowane poniżej.</p>
+<pre class="lang:default decode:true">public class Chair {<br />
+    private String model;<br />
+    private String manufacturer;<br />
+    private int productionYear;</p>
+<p>    public Chair(String model, String manufacturer, int productionYear) {<br />
+        this.model = model;<br />
+        this.manufacturer = manufacturer;<br />
+        this.productionYear = productionYear;<br />
+    }   </p>
+<p>    public String getModel() {<br />
+        return model;<br />
+    }   </p>
+<p>    public String getManufacturer() {<br />
+        return manufacturer;<br />
+    }   </p>
+<p>    public int getProductionYear() {<br />
+        return productionYear;<br />
+    }</p>
+<p>    @Override<br />
+    public boolean equals(Object obj) {<br />
+        if (obj == null) {<br />
+            return false;<br />
+        }<br />
+        if (obj instanceof Chair) {<br />
+            Chair otherChair = (Chair) obj;<br />
+            return model.equals(otherChair.model) &amp;&amp;<br />
+                    manufacturer.equals(otherChair.manufacturer) &amp;&amp;<br />
+                    productionYear == otherChair.productionYear;<br />
+        }<br />
+        return false;<br />
+    }</p>
+<p>    @Override<br />
+    public int hashCode() {<br />
+        return 17 * model.hashCode() + 31 * manufacturer.hashCode() + 7 * productionYear;<br />
+    }<br />
+}</p>
+<p>Chair chair1 = new Chair("Adde", "IKEA", 2016);<br />
+Chair chair2 = new Chair("Janinge", "IKEA", 2016);<br />
+Chair chair3 = new Chair("Adde", "IKEA", 2015);<br />
+Chair chair4 = new Chair("Adde", "IKEA", 2016);</p>
+<p>System.out.println("chair1.equals(chair2): " + chair1.equals(chair2));<br />
+System.out.println("chair1.equals(chair3): " + chair1.equals(chair3));<br />
+System.out.println("chair1.equals(chair4): " + chair1.equals(chair4));<br />
+System.out.println("chair1.equals(null): " + chair1.equals(null));<&#47;pre><br />
+Zauważ, że w naszej implementacji metody <code>equals<&#47;code> używamy także metody <code>equals<&#47;code> z typu <code>String<&#47;code> aby sprawdzić czy model i producent są r&oacute;wni.</p>
+<p>Nowy może być także operator <code>instanceof<&#47;code>, służy on do sprawdzenia czy dana instancja jest typu <code>Chair<&#47;code>. Po tym sprawdzeniu możemy bezpiecznie rzutować obiekt <code>obj<&#47;code> i mamy pewność, że nie zostanie rzucony wyjątek <code>ClassCastException<&#47;code>.</p>
+<h1>Metoda <code>hashCode<&#47;code><&#47;h1><br />
+Podobnie jak w przypadku <code>equals<&#47;code> <code>hashCode<&#47;code> jest zaimplementowane w klasie <code>Object<&#47;code>. Zawsze kiedy programista implementuję metodę<code>hashCode<&#47;code>&nbsp;powinien też zaimplementować metodę<code>equals<&#47;code>.</p>
+<p>Metoda ta zwraca liczbę typu int, kt&oacute;ra służy do przyporządkowania danego obiektu do grupy. Dzięki metodzie <code>hashCode<&#47;code> jesteśmy w stanie podzielić wszystkie możliwe instancje danej klasy na rozdzielne grupy. Każda z tych grup reprezentowana jest przez liczbę zwracaną przez metodę <code>hashCode<&#47;code>.</p>
+<p>[caption id="attachment_288" align="aligncenter" width="758"]<img class="wp-image-288 size-full" title="hashCode zasada działania" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;04&#47;hashCode.jpg" alt="hashCode zasada działania" width="758" height="251" &#47;> hashCode zasada działania[&#47;caption]</p>
+<p>Obrazowe przyporządkowanie obiekt&oacute;w do grup zostało przedstawione na diagramie powyżej. Koła i tr&oacute;jkąt zostały przyporządkowane do tej samej grupy, rąb i pięciokąt do grupy Hash#2 natomiast trapez został przyporządkowany do grupy Hash#3.</p>
+<p>Metoda <code>hashCode<&#47;code> wykorzystywana jest przez niekt&oacute;re kolekcje (tablice na sterydach), o kt&oacute;rych przeczytasz <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kolekcje-w-jezyku-java&#47;">w jednym z kolejnych artykuł&oacute;w<&#47;a>. Implementacja metody <code>hashCode<&#47;code> sprowadza się do zwr&oacute;cenia odpowiedniej liczby, tak zwanego hasha. Przyporządkuje on dany obiekt do grupy używanej w niekt&oacute;rych kolekcjach. Najczęściej metodę <code>hashCode<&#47;code> implementuje się w oparciu o hashe atrybut&oacute;w danej instancji. Hashe atrybut&oacute;w zazwyczaj mnoży się przez liczby pierwsze i sumuje ze sobą. Użycie liczb pierwszych pomaga w uzyskaniu "dobrych hashy". Dobra implementacja <code>hashCode<&#47;code> pozwala na uzyskanie jak największej liczby grup (hashy), do kt&oacute;rych przyporządkowujemy obiekty.</p>
+<p>Posłużę sie tu klasą <code>Chair<&#47;code> wspomianą wyżej. Zakładając, że nasza klasa ma trzy atrybuty i żaden z nich nie może mieć wartości <code>null<&#47;code> przykładowa implemetacja może wyglądać następująco:</p>
+<div id="crayon-59adb4fc5fe18854268088-38" class="crayon-line crayon-striped-line">
+<pre class="lang:default decode:true">@Override<br />
+public int hashCode() {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;return 17 * model.hashCode() + 31 * manufacturer.hashCode() + 7 * productionYear;<br />
+}<&#47;pre><br />
+<&#47;div><br />
+W większości przypadk&oacute;w użycie metody&nbsp;<a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;Objects.html#hash-java.lang.Object...-" target="_blank" rel="noopener"><code>Objects.hash<&#47;code><&#47;a> przy implementacji metody <code>hashCode<&#47;code> jest dobrym pomysłem.</p>
+<h1>Kontrakt między metodami <code>equals<&#47;code> i <code>hashCode<&#47;code><&#47;h1><br />
+Metody <code>hashCode<&#47;code> i <code>equals<&#47;code> są ze sobą powiązane i ich implementacja powinna być sp&oacute;jna. Tą zależność określa się kontraktem między metodami <code>hashCode<&#47;code> i <code>equals<&#47;code>.</p>
+<p>* Jeśli <code>X.equals(Y) == true<&#47;code> w&oacute;wczas wymagane jest aby <code>X.hashCode() == Y.hashCode()<&#47;code>,<br />
+* Kilkukrotne wywołanie metody <code>hashCode<&#47;code> na tym samym obiekcie, kt&oacute;ry nie był modyfikowany pomiędzy wywołaniami musi zwr&oacute;cić tą samą wartość,<br />
+* Jeśli <code>X.hashCode() == Y.hashCode()<&#47;code> to nie jest wymagane aby <code>X.equals(Y) == true<&#47;code>.</p>
+<p>Trzeci przypadek jest ilustrowany na obrazku powyżej gdzie koła i tr&oacute;jkąt mają ten sam <code>hashCode<&#47;code> jednak koło i tr&oacute;jkąt nie są r&oacute;wne.</p>
+<h1>Generatory metod <code>hashCode<&#47;code> i <code>equals<&#47;code><&#47;h1><br />
+Implementacja tych metod w większości przypadk&oacute;w jest dość prosta. W większości z nich także nie jest to kod zbyt skomplikowany. Jednak za każdym razem pisanie tych metod jest uciążliwe. Z pomocą przychodzi IDE. Polecam generowanie tych metod przy jego pomocy. W przypadku InteliJ IDEA pomocny może okazać się skr&oacute;t klawiaturowy <code>Alt+Insert<&#47;code>. Po jego naciśnięciu pokaże się menu kontekstowe pozwalające na wygenerowanie tych metod.</p>
+<p>Dodatkowo warto przyjrzeć się klasie <code>Objects<&#47;code> i bibliotekom <a href="https:&#47;&#47;github.com&#47;google&#47;guava" target="_blank" rel="noopener">Guava<&#47;a> czy <a href="https:&#47;&#47;commons.apache.org&#47;proper&#47;commons-lang&#47;" target="_blank" rel="noopener">Apache commons-lang<&#47;a>. Zawierają one metody pomocnicze użyteczne podczas implementacji metod <code>hashCode<&#47;code> i <code>equals<&#47;code>.</p>
+<h1>Zadanie<&#47;h1><br />
+Na koniec kr&oacute;tkie zadanie dla Ciebie. Napisz klasę reprezentującą człowieka, zaimplementuj metody <code>hashCode<&#47;code> i <code>equals<&#47;code>. Zastan&oacute;w się czy to, że ktoś ma to samo imię i nazwisko sprawia, że jest to ta sama osoba? Jaki atrybut może posłużyć do sprawdzenia czy dwie instancje klasy <code>Human<&#47;code> reprezentują tę samą osobę?</p>
+<p>Jeśli będziesz miał problem z rozwiązaniem zadania <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;14_porownywanie_obiektow&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;equality" target="_blank" rel="noopener">przykładowe rozwiązanie<&#47;a> umieściłem na githubie. Jak zwykle zachęcam do samodzielnych pr&oacute;b, wtedy nauczysz się najwięcej.</p>
+<h1>Materiały dodatkowe<&#47;h1><br />
+Kod źr&oacute;dłowy wszystkich przykład&oacute;w użytych w artykule znajduje się na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;14_porownywanie_obiektow&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;equality" target="_blank" rel="noopener">githubie<&#47;a>. Jeśli chcesz poczytać więcej na temat metod <code>equals<&#47;code> i <code>hashCode<&#47;code> zapraszam do materiał&oacute;w dodatkowych:</p>
+<ul>
+<li><a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;Object.html#equals-java.lang.Object-" target="_blank" rel="noopener">http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;Object.html#equals-java.lang.Object-<&#47;a><&#47;li>
+<li><a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;Object.html#hashCode--" target="_blank" rel="noopener">http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;Object.html#hashCode--<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se7&#47;html&#47;jls-15.html#jls-15.21" target="_blank" rel="noopener">https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se7&#47;html&#47;jls-15.html#jls-15.21<&#47;a><&#47;li>
+<li><a href="http:&#47;&#47;kobietydokodu.pl&#47;niezbednik-juniora-kontrakt-hashcode-i-equals&#47;" target="_blank" rel="noopener">http:&#47;&#47;kobietydokodu.pl&#47;niezbednik-juniora-kontrakt-hashcode-i-equals<&#47;a><&#47;li><br />
+<&#47;ul></p>
+<h1>Podsumowanie<&#47;h1><br />
+Bardzo się cieszę, że dotarłeś do końca artykułu. Mam nadzieję, że był on dla Ciebie ciekawy i przydatny. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zależy mi na dotarciu do jak największej liczby czytelnik&oacute;w. Jeśli nie chcesz przegapić nowych artykuł&oacute;w polub nas na facebooku :) W przypadku jakichkolwiek pytań proszę zdaj je w komentarzach, postaram się odpowiedzieć.</p>
+<p>Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;badgreeb_records&#47;6453502559</p>

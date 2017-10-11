@@ -1,0 +1,69 @@
+---
+layout: post
+status: publish
+published: true
+title: Advent of Code 2016 dzień 8
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Advent of Code 2016 dzień 8. Twoja pomoc jest potrzebna w symulacji pracy
+  zniszczonego wyświetlacza. Dasz radę rozwiązać to zadanie?\r\n\r\n"
+wordpress_id: 625
+wordpress_url: http://www.samouczekprogramisty.pl/?p=625
+date: '2016-12-11 01:35:45 +0100'
+date_gmt: '2016-12-11 00:35:45 +0100'
+categories:
+- Strefa zadaniowa
+tags: []
+comments: []
+---
+<p>Advent of Code 2016 dzień 8. Twoja pomoc jest potrzebna w symulacji pracy zniszczonego wyświetlacza. Dasz radę rozwiązać to zadanie?</p>
+<p><a id="more"></a><a id="more-625"></a></p>
+<h1>Wprowadzenie<&#47;h1><br />
+[idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;8" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;8<&#47;a>[&#47;idea]</p>
+<p>Advent of Code to inicjatywa, w kt&oacute;rej codziennie publikowane są zadania algorytmiczne dla programist&oacute;w. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, kt&oacute;rą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
+<h1>Dzień 8 zadanie 1<&#47;h1><br />
+Dzięki Twoje pomocy <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-dzien-7&#47;">poprzednio<&#47;a> udało się znaleźć wszystkie adresy w Kwaterze Gł&oacute;wnej Kr&oacute;liczka Wielkanocnego wspierające TLS. Dzisiaj czeka na Ciebie inne zadanie.</p>
+<p>Trafiłeś na drzwi. Wydaje się, że drzwi implementują coś w rodzaju uwierzytelniania dwuskładnikowego. Aby przez nie&nbsp;przejść na początku musisz użyć karty magnetycznej (z tym nie ma problemu, jedną znalazłeś na pobliskim biurku). Następnie, na malutkim ekranie pokazywany jest kod, kt&oacute;ry musisz wklepać na klawiaturze przy drzwiach. P&oacute;źniej można tylko zakładać, że drzwi się otworzą.</p>
+<p>Niestety, wyświetlacz, na kt&oacute;rym pokazywany jest kod jest rozbity. Po kilku minutach i rozłożeniu wszystkiego na części dowiedziałeś się dokładnie jak on działa. Teraz nie zostało już nic innego jak tylko dojść do tego co pokazałby wyświetlacz.</p>
+<p>Pasek magnetyczny na karcie, kt&oacute;rej możesz użyć do otworzenia drzwi zawiera sekwencje instrukcji dla wyświetlacza. Te instrukcje są także wejściem do zadania, kt&oacute;re musisz rozwiązać. Ekran ma 50 pikseli szerokości i 6 pikseli wysokości. Wszystkie piksele na początku są wyłączone. Sam ekran jest w stanie wykonać trzy specyficzne polecenia:</p>
+<ul>
+<li><code>rect AxB<&#47;code> włącza wszystkie piksele w prostokącie w lewym g&oacute;rnym rogu ekranu. Prostokąt jest szeroki na <code>A<&#47;code> pikseli i wysoki na <code>B<&#47;code> pikseli,<&#47;li>
+<li><code>rotate row y=A by B<&#47;code> przesuwa wszystkie piksele w rzędzie <code>A<&#47;code> (gdzie 0 to pierwszy wiersz od g&oacute;ry) w prawo o <code>B<&#47;code> pikseli. Piksele, kt&oacute;re "wypadłyby" za ekran pokazują się po lewej stronie ekranu,<&#47;li>
+<li><code>rotate column x=A by B<&#47;code> przesuwa wszystkie piksele w kolumnie <code>A<&#47;code> (gdzie 0 to pierwsza kolumna od lewej strony) w d&oacute;ł o <code>B<&#47;code> pikseli. Pikseke, kt&oacute;re "wypadłyby za ekran pokazują się na g&oacute;rze kolumny.<&#47;li><br />
+<&#47;ul><br />
+Dla przykładu poniższa sekwencja pokazuje operacje dla mniejszego ekranu o wymiarach 7 na 3 pikseli:</p>
+<ul>
+<li><code>rect 3x2<&#47;code> tworzy mały prostokąt w lewym g&oacute;rnym rogu,
+<pre class="lang:default highlight:0 decode:true ">###....<br />
+###....<br />
+.......<&#47;pre><br />
+<&#47;li></p>
+<li><code>rotate column x=1 by 1<&#47;code> przesuwa kolumnę 1 w d&oacute;ł o 1 piksel,
+<pre class="lang:default highlight:0 decode:true ">#.#....<br />
+###....<br />
+.#.....<&#47;pre><br />
+<&#47;li></p>
+<li><code>rotate row y=0 by 4<&#47;code> przesuwa wiersz 0 w prawo o 4 piksele,
+<pre class="lang:default highlight:0 decode:true ">....#.#<br />
+###....<br />
+.#.....<&#47;pre><br />
+<&#47;li></p>
+<li><code>rotate column x=1 by 1<&#47;code> ponownie przesuwa kolumnę 1 w d&oacute;ł o 1 piksel. Tym razem piksel z ostatniego rzędu pojawia się w pierwszym rzędzie,
+<pre class="lang:default highlight:0 decode:true">.#..#.#<br />
+#.#....<br />
+.#.....<&#47;pre><br />
+<&#47;li><br />
+<&#47;ul><br />
+Jak widzisz, ta technologia obsługi ekran&oacute;w ma niesamowite możliwości i niedługo zdominuje rynek małych wyświetlaczy. Przynajmniej tak twierdzi naklejka reklamowa z tyłu wyświetlacza.</p>
+<p>Twoim zadaniem jest policzenie pikseli, kt&oacute;re będą świeciły się na ekranie po wprowadzeniu sekwencji komend z <a href="https:&#47;&#47;raw.githubusercontent.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;test&#47;resources&#47;day08_input.txt" target="_blank">pliku wejściowego<&#47;a>.</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programist&oacute;w. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day08" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zr&oacute;b to raczej w ostateczności.</p>
+<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pom&oacute;c Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>

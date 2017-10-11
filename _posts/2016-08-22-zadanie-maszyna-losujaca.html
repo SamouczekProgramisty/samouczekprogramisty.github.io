@@ -1,0 +1,60 @@
+---
+layout: post
+status: publish
+published: true
+title: Maszyna losująca
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Artykuł ten jest pierwszym z artykuł&oacute;w w Strefie Zadaniowej Samouka.
+  Programowania najlepiej jest się uczyć na przykładach, ten artykuł opisuje właśnie
+  jeden z takich przykład&oacute;w. Specyfikuje dokładnie spos&oacute;b zachowania
+  prostego programu i przedstawia jego przykładowe rozwiązanie. Zapraszam do lektury.\r\n\r\n"
+wordpress_id: 351
+wordpress_url: http://www.samouczekprogramisty.pl/?p=351
+date: '2016-08-22 16:32:48 +0200'
+date_gmt: '2016-08-22 14:32:48 +0200'
+categories:
+- Strefa zadaniowa
+tags: []
+---
+<p>Artykuł ten jest pierwszym z artykuł&oacute;w w Strefie Zadaniowej Samouka. Programowania najlepiej jest się uczyć na przykładach, ten artykuł opisuje właśnie jeden z takich przykład&oacute;w. Specyfikuje dokładnie spos&oacute;b zachowania prostego programu i przedstawia jego przykładowe rozwiązanie. Zapraszam do lektury.</p>
+<p><a id="more"></a><a id="more-351"></a></p>
+<h1>Opis zadania<&#47;h1><br />
+W dzisiejszej części napiszesz program, kt&oacute;ry użyłem do rozstrzygnięcia konkursu, w kt&oacute;rym Samouczek Programisty rozdawał książki. W konkursie należało wypełnić prostą ankietę, wśr&oacute;d uczestnik&oacute;w zostały rozlosowane dwie książki. Każdy, kto uzupełnił ankietę dostawał jeden los. Dodatkowo, jeśli osoba wskazała kogoś innego jako polecającego, polecający dostawał dodatkowy los w loterii.</p>
+<p>Ankieta została przeprowadzona przy pomocy narzędzia Google Forms, z kt&oacute;rego następnie wyniki zostały wyeksportowane do pliku CSV (ang. <em>comma separated values<&#47;em>). Plik CSV to jeden z format&oacute;w plik&oacute;w tekstowych, w kt&oacute;rym jedna linijka odpowiada jednemu rekordowi. Plik ten zawiera kilka kolumn, kt&oacute;rych zawartość oddzielona jest przecinkami. Plik zawiera też nagł&oacute;wek, opisujący nazwy kolumn.</p>
+<p>W przykładzie poniżej mamy dwa rekordy z takiego pliku. Irek dostaje dwa losy, Mateusz jeden. Dzieje się tak ponieważ Irek polecił Samouczka Mateuszowi.</p>
+<pre class="lang:default highlight:0 decode:true ">"Timestamp","Jak masz na imię?","Jaki jest Tw&oacute;j adres e-mail?","Temat artykułu","Kto polecił Ci stronę www.samouczekprogramisty.pl (podaj adres e-mail)?"<br />
+"2016&#47;08&#47;15 7:16:38 PM GMT+2","Irek","xxx@gmail.com","Scrum lub Agile",""<br />
+"2016&#47;08&#47;15 7:33:13 PM GMT+2","Mateusz","yyy@gmail.com","Algorytmika","xxx@gmail.com"<&#47;pre><br />
+Twoim zadaniem jest napisanie programu, kt&oacute;ry pobierze od użytkownika dwa argumenty:</p>
+<ul>
+<li>ścieżkę do pliku wejściowego w formacie CSV na dysku opisanym powyżej (możesz ściągnąć <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;08&#47;zadanie_maszyna_losujaca_input.csv">przykładowy plik<&#47;a>, kt&oacute;ry dla Ciebie przygotowałem),<&#47;li>
+<li>liczbę N >= 1 przedstawiającą liczbę wygrywających.<&#47;li><br />
+<&#47;ul><br />
+Program powinien wczytać zawartość pliku, wyłuskać adresy email a następnie wśr&oacute;d tych adres&oacute;w wylosować N wygranych. Dla uproszczenia zakładamy, że format pliku jest poprawny oraz, że uczestnicy konkursu nie oszukiwali (nie było podw&oacute;jnych los&oacute;w). Sytuacja w kt&oacute;rej jeden uczestnik wygrywa dwie książki jest dopuszczalna.</p>
+<h1>Wskaz&oacute;wki<&#47;h1><br />
+Dla uproszczenia pokażę Ci parę fragment&oacute;w kodu czy metod, kt&oacute;re mogą Ci się przydać w rozwiązaniu tego zadania.</p>
+<p>Aby podzielić rekord na poszczeg&oacute;lne pola możesz użyć metody <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;String.html#split-java.lang.String-" target="_blank"><code>String.split<&#47;code><&#47;a> jak w przykładzie poniżej</p>
+<pre class="lang:default decode:true ">String[] fields = line.split(",");<&#47;pre><br />
+Aby z pola otoczonego znakami <code>""<&#47;code> uzyskać wyłącznie jego zawartość możesz użyć wyrażeń regularnych. Na tym etapie proszę użyj przykładowego kodu, o tym czym są wyrażenia regularne przeczytasz w innym artykule.</p>
+<pre class="lang:default decode:true ">private final static Pattern FIELD_PATTERN = Pattern.compile("^\"(.+)\"$");</p>
+<p>private static String parseField(String field) {<br />
+    Matcher fieldMatcher = FIELD_PATTERN.matcher(field);<br />
+    if (fieldMatcher.matches()) {<br />
+        return fieldMatcher.group(1);<br />
+    }<br />
+    return null;<br />
+}<&#47;pre><br />
+Metoda ta jako argument przyjmuje wartość pola i zwraca to co znajduje się wewnątrz <code>""<&#47;code> bądź <code>null<&#47;code> jeśli pole nie było uzupełnione.</p>
+<p>Aby wybrać losowo X wartości musisz losowo rozłożyć adresy email z pliku. Pom&oacute;c Ci w tym może metoda <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;Collections.html#shuffle-java.util.List-" target="_blank"><code>Collections.shuffle<&#47;code><&#47;a>, kt&oacute;ra w losowy spos&oacute;b miesza elementy listy.</p>
+<p>Z tymi narzędziami jesteś przygotowany do napisania swojej pierwszej maszyny losującej :) Jeśli będziesz miał jakiekolwiek pytania możesz zasugerować się <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;01_lottery_machine&#47;src&#47;pl&#47;samouczekprogramisty&#47;szs" target="_blank">przykładowym rozwiązaniem<&#47;a>, kt&oacute;re dla Ciebie przygotowałem. Jak zwykle zachęcam jednak do samodzielnego rozwiązania zadania, w ten spos&oacute;b nauczysz się najwięcej.</p>
+<h1>Podsumowanie<&#47;h1><br />
+Jeśli tego typu spos&oacute;b nauki Ci się spodobał proszę daj znać ;) Rozwiązując zadania tego typu w praktyczny spos&oacute;b przećwiczysz wiedzę, kt&oacute;rą zdobyłeś do tej pory. Z biegiem czasu będziesz w stanie rozwiązać zadania o coraz większym poziomie trudności. Wszystko przed Tobą ;)</p>
+<p>Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największego grona czytelnik&oacute;w, proszę pom&oacute;ż mi w tym :) Udostępnij link do bloga na FB swoim znajomym, możesz także zapisać się do newslettera jeśli nie chcesz pominąć kolejnych artykuł&oacute;w. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;mikolski</p>

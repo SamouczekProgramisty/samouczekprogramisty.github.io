@@ -1,0 +1,76 @@
+---
+layout: post
+status: publish
+published: true
+title: Pogodynka - działający termometr
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Relacja z frontu projektu Pogodynka. Dzisiaj przeczytasz o tym czym jest
+  projekt modułowy w Gradle, zobaczysz jak wygląda podstawowy szablon aplikacji webowej.
+  Dowiesz się też jak odczytywać temperaturę z czujnika DS18B20, kt&oacute;ry podłączyłem
+  do Malinki. Zapraszam do lektury.\r\n\r\n"
+wordpress_id: 789
+wordpress_url: http://www.samouczekprogramisty.pl/?p=789
+date: '2017-03-19 19:16:29 +0100'
+date_gmt: '2017-03-19 18:16:29 +0100'
+categories:
+- DSP2017
+- Projekty
+- Pogodynka
+tags: []
+---
+<p>Relacja z frontu projektu Pogodynka. Dzisiaj przeczytasz o tym czym jest projekt modułowy w Gradle, zobaczysz jak wygląda podstawowy szablon aplikacji webowej. Dowiesz się też jak odczytywać temperaturę z czujnika DS18B20, kt&oacute;ry podłączyłem do Malinki. Zapraszam do lektury.</p>
+<p><a id="more"></a><a id="more-789"></a></p>
+<h1>Postęp w module Thermometer<&#47;h1><br />
+Mogę powiedzieć, że pierwszy moduł całej aplikacji jest &ldquo;gotowy&rdquo;. Podłączyłem czujnik temperatury do Malinki, udało mi się nawet odczytać wskazania temperatury. Klasa <code><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;thermometer&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;pogodynka&#47;thermometer&#47;FromFileThermometer.java" target="_blank">FromFileThermometer<&#47;a><&#47;code> jest w stanie przeczytać zawartość takiego pliku i odpowiednio ją zinterpretować, udowadnia to test jednostkowy <code><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;thermometer&#47;src&#47;test&#47;java&#47;pl&#47;samouczekprogramisty&#47;pogodynka&#47;thermometer&#47;FromFileThermometerTest.java" target="_blank">FromFileThermometerTest<&#47;a><&#47;code>.</p>
+<h2>Praca z czujnikiem DS18B20 na Malince<&#47;h2><br />
+Czujnik temperatury DS18B20 można połączyć bezpośrednio pod wyjścia GPIO (ang. <em>General Purpose Input Output<&#47;em>). Wystarczy do tego sam czujnik i opornik 4.7k. W moim przypadku na zdjęciu poniżej widać to połączenie:</p>
+<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;03&#47;raspberry_pi_polaczenie.jpg"><img class="aligncenter size-medium wp-image-791" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;03&#47;raspberry_pi_polaczenie-225x300.jpg" alt="podpięcie czujnika temperatury" width="225" height="300" &#47;><&#47;a></p>
+<p>U siebie zastosowałem opornik 4.6k (akurat taki udało mi się dostać w sklepie).</p>
+<p>Jeśli wszystko działa poprawnie Malinka wykryje czujnik i w katalogu <code>&#47;sys&#47;bus&#47;w1&#47;devices<&#47;code> znajdzie się katalog o nazwie <code>28-00000xxxxxx<&#47;code>. <code>xxxxxx<&#47;code> może być r&oacute;żne i jest unikalnym identyfikatorem danego czujnika. Wewnątrz tego katalogu znajduje się plik <code>w1_slave<&#47;code>, kt&oacute;ry zawiera aktualne wskazanie czujnika.</p>
+<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;03&#47;raspberry_pi_temperature.png"><img class="aligncenter size-medium wp-image-792" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;03&#47;raspberry_pi_temperature-300x180.png" alt="wskazanie czujnika temperatury" width="300" height="180" &#47;><&#47;a></p>
+<p>Odczytanie temperatury sprowadza się do poprawnego parsowania zawartości tego pliku. Przykład realizacji możesz znaleźć we wcześniej wspomnianej klasie <code><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;thermometer&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;pogodynka&#47;thermometer&#47;FromFileThermometer.java" target="_blank">FromFileThermometer<&#47;a><&#47;code>.</p>
+<h1>Zmiany w Gradle<&#47;h1><br />
+Sporo też zmieniło się w samej strukturze projektu. Od teraz pogodynka to projekt, kt&oacute;ry składa się z wielu moduł&oacute;w. Jest to możliwe dzięki dodaniu pliku <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;settings.gradle" target="_blank"><code>settings.gradle<&#47;code><&#47;a>, kt&oacute;ry opisuje strukturę takiego projektu.</p>
+<p>Jeden z moduł&oacute;w już znasz thermometer. Nowy, kt&oacute;ry się pojawił to datavault. Dla przypomnienia jest to moduł, kt&oacute;ry odpowiedzialny będzie za zapisywanie wskazań temperatury w bazie. Udostępniał też będzie usługi, kt&oacute;re używane będą przez interfejs użytkownika w przeglądarce internetowej.</p>
+<p>Całość na prostym diagramie wygląda następująco:</p>
+<p><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;03&#47;diagram_pogodynka.jpg"><img class="aligncenter size-medium wp-image-790" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2017&#47;03&#47;diagram_pogodynka-300x127.jpg" alt="pogodynka diagram" width="300" height="127" &#47;><&#47;a></p>
+<p>Jeśli chcesz poznać podstawy Gradle zapraszam do <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wstep-do-gradle&#47;">osobnego artykułu<&#47;a>.</p>
+<h1>Szablon aplikacji webowej<&#47;h1><br />
+Moduł datavault będzie aplikacją webową. Aplikacja ta nie będzie posiadała żadnego interfejsu graficznego. Wystawi jedynie usługi, kt&oacute;re będą realizowały całą funkcjonalność:</p>
+<ul>
+<li>zapis aktualnej temperatury,<&#47;li>
+<li>odczyt temperatur z N ostatnich dni.<&#47;li><br />
+<&#47;ul><br />
+Jeśli wcześniej nie miałeś do czynienia z aplikacjami tego typu zachęcam do przeczytania <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wprowadzenie-do-aplikacji-webowych&#47;">wprowadzenia do aplikacji webowych<&#47;a>.</p>
+<p>Aktualnie moduł datavault to pusty szablon aplikacji webowej. Całość sprowadza się do pliku datavault.gradle, kt&oacute;ry definiuje aplikację tego typu:</p>
+<pre class="lang:default highlight:0 decode:true ">apply plugin: 'war'<br />
+apply from: 'https:&#47;&#47;raw.github.com&#47;akhikhl&#47;gretty&#47;master&#47;pluginScripts&#47;gretty.plugin'</p>
+<p>dependencies {<br />
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'<br />
+}<&#47;pre><br />
+W pierwszej linijce dodaję rozszerzenie war, dzięki kt&oacute;remu Gradle wie, że jest to aplikacja webowa. Druga linijka dodaje rozszerzenie, kt&oacute;re pozwala na wygodne uruchamianie kontener&oacute;w aplikacji&#47;serwlet&oacute;w. Dzięki wtyczce gretty w prosty spos&oacute;b możemy uruchomić taki kontener.</p>
+<p>Zachęcam to tego żebyś pobrał kod z <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka" target="_blank">repozytorium<&#47;a> i sam spr&oacute;bował:</p>
+<pre class="lang:default highlight:0 decode:true ">$ .&#47;gradlew appRun<br />
+:datavault:prepareInplaceWebAppFolder UP-TO-DATE<br />
+:datavault:createInplaceWebAppFolder UP-TO-DATE<br />
+:datavault:compileJava NO-SOURCE<br />
+:datavault:processResources NO-SOURCE<br />
+:datavault:classes UP-TO-DATE<br />
+:datavault:prepareInplaceWebAppClasses UP-TO-DATE<br />
+:datavault:prepareInplaceWebApp UP-TO-DATE<br />
+:datavault:appRun<br />
+18:48:10 INFO Jetty 9.2.15.v20160210 started and listening on port 8080<br />
+18:48:10 INFO datavault runs at:<br />
+18:48:10 INFO http:&#47;&#47;localhost:8080&#47;datavault<br />
+Press any key to stop the server.<br />
+> Building 87% > :datavault:appRun<&#47;pre><br />
+Następnie otworzenie w przeglądarce adresu http:&#47;&#47;localhost:8080&#47;datavault powinno zadziałać :).</p>
+<h1>Podsumowanie<&#47;h1><br />
+Powoli, ale skutecznie idę do przodu :). Jeden z moduł&oacute;w jest gotowy, pozostałe dwa czekają na swoją kolej. Datavautl wezmę na tapetę w kolejnych tygodniach. Na dzisiaj to wszystko z frontu, do następnego razu! :)</p>
+<p>[FM_form id="3"]</p>

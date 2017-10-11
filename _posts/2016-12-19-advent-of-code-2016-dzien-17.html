@@ -1,0 +1,66 @@
+---
+layout: post
+status: publish
+published: true
+title: Advent of Code 2016 dzień 17
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Advent of Code 2016 dzień 17. Musisz dotrzeć do sejfu, kt&oacute;ry ukryty
+  jest za kilkoma drzwiami, problem polega na tym, że zamki drzwi otwierają się wyłącznie
+  w specyficznych momentach.\r\n\r\n"
+wordpress_id: 684
+wordpress_url: http://www.samouczekprogramisty.pl/?p=684
+date: '2016-12-19 20:52:47 +0100'
+date_gmt: '2016-12-19 19:52:47 +0100'
+categories:
+- Strefa zadaniowa
+tags: []
+comments: []
+---
+<p>Advent of Code 2016 dzień 17. Musisz dotrzeć do sejfu, kt&oacute;ry ukryty jest za kilkoma drzwiami, problem polega na tym, że zamki drzwi otwierają się wyłącznie w specyficznych momentach.</p>
+<p><a id="more"></a><a id="more-684"></a></p>
+<h1>Wprowadzenie<&#47;h1><br />
+[idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;17" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;17<&#47;a>[&#47;idea]</p>
+<p>Advent of Code to inicjatywa, w kt&oacute;rej codziennie publikowane są zadania algorytmiczne dla programist&oacute;w. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, kt&oacute;rą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
+<h1>Dzień 17 zadanie 1<&#47;h1><br />
+Wczoraj udało Ci się wygenerować <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-16&#47;">sumę kontrolną<&#47;a>, kt&oacute;ra pozwoliła oszukać system bezpieczeństwa. Dzisiaj pr&oacute;bujesz dostać się do sejfu, znajdującego się na końcu małego zbioru pokoi. Pokoje ułożone są w czterech rzędach i kolumnach. Pomiędzy pokojami znajdują się drzwi. Zaczynasz w pokoju w lewym g&oacute;rnym rogu (oznaczonym <code>S<&#47;code>), do sejfu możesz się dostać jeśli dojdziesz do pokoju, kt&oacute;ry znajduje się w prawym dolnym rogu (oznaczonym literą <code>V<&#47;code>).</p>
+<pre class="lang:default highlight:0 decode:true">#########<br />
+#S| | | #<br />
+#-#-#-#-#<br />
+# | | | #<br />
+#-#-#-#-#<br />
+# | | | #<br />
+#-#-#-#-#<br />
+# | | |V#<br />
+#########<&#47;pre><br />
+Mury przez kt&oacute;re nie możesz przejść oznaczone są <code>#<&#47;code>, drzwi natomiast <code>-<&#47;code> lub <code>|<&#47;code>.</p>
+<p>Drzwi w aktualnym pokoju są otwarte lub zamknięte. To w jakim są stanie zależy od heksadecymalnej sumy z hasła (wejście do programu) z dołączoną sekwencją wielkich liter reprezentujących ścieżkę, kt&oacute;rą obrałeś do tej pory:</p>
+<ul>
+<li><code>U<&#47;code> jeśli poszedłeś do g&oacute;ry,<&#47;li>
+<li><code>D<&#47;code> jeśli poszedłeś w d&oacute;ł,<&#47;li>
+<li><code>L<&#47;code> jeśli poszedłeś w lewo,<&#47;li>
+<li><code>R<&#47;code> jeśli poszedłeś w prawo.<&#47;li><br />
+<&#47;ul><br />
+Tylko pierwsze cztery znaki sumy kontrolnej są wykorzystywane. Przedstawiają one odpowiednio drzwi z g&oacute;ry, z dołu z lewej i z prawej strony względem Twojej aktualnej pozycji. Kt&oacute;rakolwiek z liter <code>b<&#47;code>, <code>c<&#47;code>, <code>d<&#47;code>, <code>e<&#47;code> czy <code>f<&#47;code> oznaczają, że odpowiadające im drzwi są otwarte. Każdy inny znak (numer czy <code>a<&#47;code>) znaczy, że drzwi są zamknięte i nie możesz ich otworzyć.</p>
+<p>Aby dotrzeć do sejfu, jedyne co musisz zrobić to dotrzeć do pokoju w prawym&nbsp;dolnym rogu. Dotarcie do tego pokoju otwiera sejf i wszystkie pozostałe drzwi w labiryncie.</p>
+<p>Dla przykładu zał&oacute;żmy, że hasło to <code>hijkl<&#47;code>. Początkowo, nie ruszyłeś się do żadnego pokoju więc aktualna ścieżka jest pusta. Po prostu znajdujesz sumę kontrolną MD5 z <code>hijkl<&#47;code>. Pierwsze cztery znaki tej sumy to <code>ced9<&#47;code>. Oznacza to, że g&oacute;ra jest otwarta (<code>c<&#47;code>), d&oacute;ł jest otwarty (<code>e<&#47;code>), lewa strona jest otwarta (<code>d<&#47;code>) i prawa strona jest zamknięta (<code>9<&#47;code>). Ponieważ zaczynasz w lewym g&oacute;rnym rogu nie ma drzwi u g&oacute;ry ani po lewej stronie więc możesz p&oacute;jść tylko w d&oacute;ł.</p>
+<p>Następnie po jednym kroku (w d&oacute;ł), znajdujesz sumę kontrolną dla <code>hijklD<&#47;code>. Otrzymujesz sumę kontrolną <code>f2bc<&#47;code>, co oznacza, że możesz p&oacute;jść z powrotem do g&oacute;ry, w lewo (tylko tam zn&oacute;w jest mur) lub w prawo. P&oacute;jście w prawo oznacza znajdowanie sumy z <code>hijklDR<&#47;code>, otrzymasz wtedy <code>5745<&#47;code> - wszystkie drzwi są zamknięte. Jednak gdy wr&oacute;cisz do g&oacute;ry sytuacja wygląda inaczej. Mimo tego, że już w tym pokoju byłeś, teraz Twoja ścieżka jest inna, suma kontrolna też będzie inna więc też i inne drzwi mogą zostać otwarte.</p>
+<p>Po udaniu się <code>DU<&#47;code> (i policzeniu sumy kontrolnej z <code>hijklDU<&#47;code> aby otrzymać <code>528e<&#47;code>), tylko prawe drzwi są otwarte. Po udaniu się w prawo i policzeniu sumy kontrolne wszystkie drzwi są zamknięte... Na szczęście Twoje hasło to nie <code>hijkl<&#47;code> :).</p>
+<p>Wszystkie kody użyte przez Ochronę Sejfu Kr&oacute;liczka Wielkanocnego pozwalają na dotarcie do sejfu jeśli znasz poprawną ścieżkę. Na przykład:</p>
+<ul>
+<li>jeśli hasło to <code>ihgpwlah<&#47;code> najkr&oacute;tsza ścieżka to <code>DDRRRD<&#47;code>,<&#47;li>
+<li>jeśli hasło to <code>kglvqrro<&#47;code> najkr&oacute;tsza ścieżka to <code>DDUDRLRRUDRD<&#47;code>,<&#47;li>
+<li>jeśli hasło to <code>ulqzkmiv<&#47;code> najkr&oacute;tsza ścieżka to <code>DRURDRUDDLLDLUURRDULRLDUUDDDRR<&#47;code>.<&#47;li><br />
+<&#47;ul><br />
+Zakładając, że Twoje hasło to <code>udskfozm<&#47;code> jaka jest najkr&oacute;tsza ścieżka, kt&oacute;ra pozwala dotrzeć do sejfu?</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programist&oacute;w. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day17" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zr&oacute;b to raczej w ostateczności.</p>
+<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pom&oacute;c Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>

@@ -1,0 +1,76 @@
+---
+layout: post
+status: publish
+published: true
+title: Advent of Code 2016 dzień 16
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Advent of Code 2016 dzień 16. Wiesz czym są fraktale? Okazuje się, że pewien
+  mechanizm do ich generowania wykorzystuje się w Kwaterze Gł&oacute;wnej. Dasz radę
+  przechytrzyć systemy bezpieczeństwa i wygenerować odpowiednią sumę kontrolną?\r\n\r\n"
+wordpress_id: 677
+wordpress_url: http://www.samouczekprogramisty.pl/?p=677
+date: '2016-12-18 13:23:48 +0100'
+date_gmt: '2016-12-18 12:23:48 +0100'
+categories:
+- Strefa zadaniowa
+tags: []
+comments: []
+---
+<p>Advent of Code 2016 dzień 16. Wiesz czym są fraktale? Okazuje się, że pewien mechanizm do ich generowania wykorzystuje się w Kwaterze Gł&oacute;wnej. Dasz radę przechytrzyć systemy bezpieczeństwa i wygenerować odpowiednią sumę kontrolną?</p>
+<p><a id="more"></a><a id="more-677"></a></p>
+<h1>Wprowadzenie<&#47;h1><br />
+[idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;16" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;16<&#47;a>[&#47;idea]</p>
+<p>Advent of Code to inicjatywa, w kt&oacute;rej codziennie publikowane są zadania algorytmiczne dla programist&oacute;w. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, kt&oacute;rą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
+<h1>Dzień 16 zadanie 1<&#47;h1><br />
+Wczoraj <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-15&#47;">wyciągnąłeś kapsułę z ruchomej rzeźby<&#47;a>, dzisiaj czeka na Ciebie zupełnie inne zadanie. Wr&oacute;ciłeś do skanowania sieci w Kwaterze Gł&oacute;wnej Kr&oacute;liczka Wielkanocnego, niestety tym razem zostawiłeś ślady, kt&oacute;re mogą Cię zdradzić. Musisz nadpisać część dysk&oacute;w z danymi, kt&oacute;re wyglądają jak losowe żeby zatrzeć ślady i zaktualizować lokalny system bezpieczeństwa sumą kontrolną tych danych.</p>
+<p>Aby te wygenerowane dane nie wyglądały podejrzanie muszą spełniać kilka warunk&oacute;w. Czysto losowe dane zostaną wykryte. Aby wygenerować odpowiednią sekwencję danych, kt&oacute;re oszukają mechanizmy wykrywania intruz&oacute;w musisz użyć zmodyfikowanego fraktala "<a href="https:&#47;&#47;en.wikipedia.org&#47;wiki&#47;Dragon_curve" target="_blank">smoka Heighwaya<&#47;a>".</p>
+<p>Zacznij od stanu początkowego (wejście do Twojego programu). Następnie, do momentu kiedy nie będziesz miał wystarczającej ilości danych do wypełnienia dysku powtarzaj następujące kroki:</p>
+<ul>
+<li>Nazwij dane, kt&oacute;re masz na tym etapie jako "a",<&#47;li>
+<li>zr&oacute;b kopię "a", nazywając ją "b",<&#47;li>
+<li>odwr&oacute;ć kolejność znak&oacute;w w "b",<&#47;li>
+<li>zamień wszystkie <code>0<&#47;code> na <code>1<&#47;code> i wszystkie <code>1<&#47;code> na <code>0<&#47;code>,<&#47;li>
+<li>połącz ze sobą "a" i "b" wstawiając <code>0<&#47;code> pomiędzy nimi.<&#47;li><br />
+<&#47;ul><br />
+Na przykład, po jednym kroku takiego algorytmu:</p>
+<ul>
+<li><code>1<&#47;code> zamienia się w <code>100<&#47;code>,<&#47;li>
+<li><code>0<&#47;code> zamienia się w <code>001<&#47;code>,<&#47;li>
+<li><code>11111<&#47;code> zamienia się w <code>11111000000<&#47;code>,<&#47;li>
+<li><code>111100001010<&#47;code> zamienia się w <code>1111000010100101011110000<&#47;code>.<&#47;li><br />
+<&#47;ul><br />
+Powtarzaj te kroki dop&oacute;ki nie będziesz miał wystarczającej ilości danych żeby wypełnić dysk.</p>
+<p>Kiedy już wygenerujesz dane, musisz także policzyć sumę kontrolną dla tych danych. Do liczenia sumy użyj wyłącznie tych danych, kt&oacute;re zmieszczą się na dysku, nawet jeśli w ostatnim kroku wygenerowałeś więcej danych.</p>
+<p>Suma kontrolna danych jest stworzona na podstawie każdej nie nakładającej się pary znak&oacute;w w danych. Jeśli oba znaki są takie same (<code>00<&#47;code> lub <code>11<&#47;code>), kolejny numer sumy kontrolnej to 1. Jeśli znaki są r&oacute;żne (<code>01<&#47;code> lub <code>10<&#47;code>), następny numer sumy kontrolnej to 0. Ten proces powinien stworzyć nowy łańcuch znak&oacute;w, kt&oacute;ry będzie kr&oacute;tszy dokładnie o połowę. Jeśli długość sumy kontrolnej jest parzysta powt&oacute;rz ten proces tak długo dop&oacute;ki nie otrzymasz sumy kontrolnej z nieparzystą liczbą znak&oacute;w.</p>
+<p>Na przykład, zał&oacute;żmy, że chcemy wypełnić dysk danymi o długości 12 znak&oacute;w. Po wygenerowaniu danych pierwsze 12 znak&oacute;w to <code>110010110100<&#47;code>. Aby wygenerować sumę kontrolną:</p>
+<ul>
+<li>Weź pod uwagę każdą parę: <code>11<&#47;code>, <code>00<&#47;code>, <code>10<&#47;code>, <code>11<&#47;code>, <code>01<&#47;code>, <code>00<&#47;code>,<&#47;li>
+<li>pary odpowiednio mają identyczne, identyczne, r&oacute;żne, identyczne, r&oacute;żne i identyczne numery, w wyniku czego uzyskujemy <code>110101<&#47;code>,<&#47;li>
+<li>suma ma długość parzystą więc powtarzamy proces,<&#47;li>
+<li>pary tym razem to <code>11<&#47;code> (identyczne), <code>01<&#47;code> (r&oacute;żne) i <code>01<&#47;code> (r&oacute;żne),<&#47;li>
+<li>tym razem suma kontrolna <code>100<&#47;code> ma nieparzystą długość co kończy proces.<&#47;li><br />
+<&#47;ul><br />
+Więc w naszym przypadku, suma kontrolna dla <code>110010110100<&#47;code> to <code>100<&#47;code>.</p>
+<p>Łącząc te wszystkie kroki ze sobą, zał&oacute;żmy, że chcesz wypełnić dysk o długości 20 znak&oacute;w używając danych wejściowych <code>10000<&#47;code>:</p>
+<ul>
+<li>ponieważ <code>10000<&#47;code> jest za kr&oacute;tkie, musimy wygenerować więcej danych,<&#47;li>
+<li>po pierwszej rundzie algorytmu uzyskujemy <code>10000011110<&#47;code> (11 znak&oacute;w), nadal za mało,<&#47;li>
+<li>po drugiej rundzie algorytmu uzyskujemy <code>10000011110010000111110<&#47;code> (23 znaki), wystarczy,<&#47;li>
+<li>ponieważ potrzebujemy 20 znak&oacute;w a wygenerowaliśmy 23 pozbywamy się trzech ostatnich uzyskując <code>10000011110010000111<&#47;code>,<&#47;li>
+<li>następnie liczymy sumę kontrolną, po pierwszej rundzie mamy <code>0111110101<&#47;code>, suma ma 10 znak&oacute;w więc kontynuujemy,<&#47;li>
+<li>po dw&oacute;ch rundach suma kontrolna to <code>01100<&#47;code>, ponieważ długość sumy kontrolnej jest nieparzysta przerywamy algorytm.<&#47;li><br />
+<&#47;ul><br />
+W tym przypadku poprawna suma kontrolna to <code>01100<&#47;code>.</p>
+<p>Zakładając, że dysk, kt&oacute;ry chcesz wypełnić ma 272 znaki i sekwencja początkowa to <code>10011111011011001<&#47;code> jaka jest poprawna suma kontrolna?</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programist&oacute;w. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day16" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zr&oacute;b to raczej w ostateczności.</p>
+<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pom&oacute;c Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>

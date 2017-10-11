@@ -1,0 +1,175 @@
+---
+layout: post
+status: publish
+published: true
+title: Operacje na plikach w języku Java
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: Artykuł ten opisuje podstawowy dostęp do plik&oacute;w. Poznasz zupełne podstawy
+  systemu plik&oacute;w. Dowiesz się czym jest plik binarny i czym r&oacute;żni się
+  od pliku tekstowego. Dowiesz się czegoś więcej o trybach dostępu do plik&oacute;w.
+  Na koniec napiszesz sw&oacute;j własny program, kt&oacute;ry będzie zapisywał dane
+  do pliku i wyświetlał jego zawartość. Innymi słowy artykuł, w kt&oacute;rym podstawy
+  systemu plik&oacute;w i programowanie poznasz od praktycznej strony :) Zapraszam!
+wordpress_id: 319
+wordpress_url: http://www.samouczekprogramisty.pl/?p=319
+date: '2016-08-17 18:14:32 +0200'
+date_gmt: '2016-08-17 16:14:32 +0200'
+categories:
+- Kurs programowania Java
+- Programowanie
+tags: []
+---
+<p>Artykuł ten opisuje podstawowy dostęp do plik&oacute;w. Poznasz zupełne podstawy systemu plik&oacute;w. Dowiesz się czym jest plik binarny i czym r&oacute;żni się od pliku tekstowego. Dowiesz się czegoś więcej o trybach dostępu do plik&oacute;w. Na koniec napiszesz sw&oacute;j własny program, kt&oacute;ry będzie zapisywał dane do pliku i wyświetlał jego zawartość. Innymi słowy artykuł, w kt&oacute;rym podstawy systemu plik&oacute;w i programowanie poznasz od praktycznej strony :) Zapraszam!<a id="more"></a><a id="more-319"></a></p>
+<p>[idea]To jest jeden z artykuł&oacute;w w ramach <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kurs-programowania-java&#47;">darmowego kursu programowania w Javie<&#47;a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[&#47;idea]</p>
+<h1>System plik&oacute;w<&#47;h1><br />
+Na początku winien Ci jestem drobne wprowadzenie do czegoś co nazywa się systemem plik&oacute;w. Ot&oacute;ż dysk komputera może pomieścić pewną ilość danych, wsp&oacute;łczesne dyski twarde mają pojemność z przedziału kilkuset gigabajt&oacute;w (GB) do kilku terabajt&oacute;w (TB).</p>
+<p>Jest to ogromna przestrzeń, 1 GB to 1&rsquo;000 MB, to z kolei przekłada się na 1&rsquo;000&rsquo;000&rsquo;000B (10<sup>9<&#47;sup> bajt&oacute;w). Każdy z tych bajt&oacute;w to 8 bit&oacute;w. Na zapisanie dowolnej liczby typu <code>int<&#47;code> w Javie potrzebujesz 32 bit&oacute;w (4 bajt&oacute;w). Czyli 1GB dysku w teorii może pomieścić 250&rsquo;000&rsquo;000 liczb zapisanych w tym formacie. Innymi słowy potrzeba około 3GB aby w tym formacie zapisać datę urodzenia każdego mieszkańca Europy (gdzie datę zapisujemy jako jedną liczbę) :)</p>
+<p>Aby komputer wiedział co znajduje się w kt&oacute;rym miejscu w tym gąszczu cyferek potrzebny jest system plik&oacute;w. Istnieje wiele rodzaj&oacute;w system&oacute;w plik&oacute;w, jednak ich rozr&oacute;żnienie nie jest nam w tym momencie potrzebne. Jeśli jesteś zainteresowany bardziej szczeg&oacute;łowymi informacjami zachęcam do przeczytania <a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;System_plik&oacute;w" target="_blank" rel="noopener">artykułu na wikipedii<&#47;a>.</p>
+<p>Najważniejsze jest abyś zapamiętał, że system plik&oacute;w organizuje dane na dysku i daje do nich dostęp poprzez znane Ci foldery czy pliki.</p>
+<h2>Pliki binarne a pliki tekstowe<&#47;h2><br />
+Wiesz już, że plik mapuje się na pewien obszar danych na dysku. Otwierając jakikolwiek plik czytasz te dane za pośrednictwem systemu plik&oacute;w. Dane te mogą być zapisane w trybie &bdquo;tekstowym&rdquo; bądź &bdquo;binarnym&rdquo; [1. Jest to swego rodzaju uproszczenie, w rzeczywistości pliki tekstowe zapisane są także jako ciąg danych binarnych, jednak programy takie jak notatnik wiedzą jak te dane interpretować i wyświetlają zwykły tekst.].</p>
+<p>Spos&oacute;b zapisu danych ma istotny wpływ na rozmiar pliku. Na przykład zapisanie liczby 1234567 binarnie jako <code>int<&#47;code> w Javie wymaga 4 bajt&oacute;w. Zapisanie tej samej liczby jako łańcuch znak&oacute;w w pliku tekstowym wymaga już 7 bajt&oacute;w. Innymi słowy zapis binarny w ogromnej większości przypadk&oacute;w wymaga mniej miejsca na dysku.</p>
+<p>Niestety wiąże się to z pewnymi ograniczeniami. Ot&oacute;ż pliki binarne nie są czytelne dla ludzi (ang. <em>human-readable<&#47;em>). Czy zdarzyło Ci się kiedyś otworzyć plik binarny w notatniku? Zobaczyłbyś wtedy przysłowiowe &bdquo;krzaki&rdquo;, ponieważ notatnik interpretował dane binarne jako tekst.</p>
+<h2>Ścieżka do pliku<&#47;h2><br />
+System plik&oacute;w organizuje dane na dysku w hierarchiczną strukturę katalog&oacute;w wewnątrz kt&oacute;rych znajdują się pliki. Każdy plik czy katalog ma ścieżkę, kt&oacute;ra jednoznacznie wskazuje jego miejsce w tej strukturze.</p>
+<p>Tutaj napotykamy na pewne r&oacute;żnice pomiędzy r&oacute;żnymi systemami operacyjnymi. Dyski mogą być podzielone na tak zwane partycje, systemy operacyjne z rodziny Windows przedstawiają te partycje jako osobne dyski np. dysk C czy dysk D. W związku z tym ścieżki nieznacznie r&oacute;żnią się pomiędzy r&oacute;żnymi systemami operacyjnymi. I tak ścieżka w systemie z rodziny Windows wygląda następująco:</p>
+<p><span class="lang:default highlight:0 decode:true crayon-inline ">C:\katalog\plik.txt<&#47;span></p>
+<p>Analogiczna ścieżka w systemach z rodziny Linux&#47;Unix wygląda trochę inaczej:</p>
+<p><span class="lang:default highlight:0 decode:true crayon-inline ">&#47;katalog&#47;plik.txt<&#47;span></p>
+<p>W kontekście języka Java taka r&oacute;żnica ma pewne konsekwencje. Ot&oacute;ż jeśli chcemy użyć literału <code>String<&#47;code> w&oacute;wczas znak <code>\<&#47;code> musimy poprzedzić kolejnym <code>\<&#47;code>. Dzieje się tak ponieważ symbol <code>\<&#47;code> jest wykorzystywany w specjalny spos&oacute;b. Zatem ścieżka <code>C:\katalog\plik.txt<&#47;code> zapisana w Javie jako <code>String<&#47;code> wygląda następująco <code>"C:\\katalog\\plik.txt"<&#47;code>.</p>
+<h2>Ścieżka absolutna i relatywna<&#47;h2><br />
+Do każdego folderu&#47;pliku możemy odnieść się poprzez ścieżkę absolutną bądź relatywną (możemy je także nazwać ścieżką bezwzględna i względną). Ścieżka absolutna jest ścieżką &bdquo;od początku&rdquo;, czyli przechodzi przez całą strukturę katalog&oacute;w aż do samego pliku.</p>
+<p>Zał&oacute;żmy, że dysk C ma strukturę jak przedstawiono poniżej:</p>
+<pre class="lang:default highlight:0 decode:true">C:\<br />
+ ├── folder_1<br />
+ │ └── plik_1.txt<br />
+ ├── folder_2<br />
+ │ ├── folder_2_a<br />
+ │ │ └── plik_2_a.txt<br />
+ │ └── plik_2.txt<br />
+ └── plik.txt<&#47;pre><br />
+Ścieżka absolutna do pliku plik_2_a.txt wygląda następująco <code>C:\folder_2\folder_2_a\plik_2_a.txt<&#47;code>.&nbsp;Możemy m&oacute;wić r&oacute;wnież o ścieżce relatywnej. M&oacute;wimy o niej relatywna ponieważ określa adres pliku&#47;katalogu relatywnie do miejsca, w kt&oacute;rym się aktualnie znajdujemy.</p>
+<p>Zakładając że znajdujemy się w katalogu <code>folder_2<&#47;code> w&oacute;wczas nasza relatywna ścieżka do pliku <code>plik_2_a.txt<&#47;code> jet następująca <code>folder_2_a\plik_2_a.txt<&#47;code>.</p>
+<h2>Tryb dostępu do pliku<&#47;h2><br />
+Musisz wiedzieć, że plik możemy otworzyć &bdquo;do odczytu&rdquo;, &bdquo;do zapisu&rdquo; czy &bdquo;w trybie dołączania&rdquo;. Tryb ten jest bardzo istotny, otworzenie do zapisu pliku, kt&oacute;ry już istnieje i zapisanie choćby jednego znaku kasuje całą dotychczasową zawartość. Podobnie otworzenie do zapisu pliku, kt&oacute;ry jeszcze nie istnieje powoduje jego utworzenie (jeśli katalog w kt&oacute;rym ma znaleźć się plik istnieje).</p>
+<p>Tryb &bdquo;dołączania&rdquo; nie kasuje zawartości istniejącego pliku a jedynie dopisuje na końcu nową treść.</p>
+<p>Otwierając jakikolwiek plik w języku Java otwieramy go w pewnym trybie. Tryb ten określamy wprost, bądź jest określony domyślnie w zależności od klasy, kt&oacute;rą użyjemy do tego celu. Klasy służące do pisania do pliku domyślnie otwierają go &bdquo;do zapisu&rdquo;.</p>
+<h1>Klasy do obsługi operacji na plikach<&#47;h1><br />
+Musisz wiedzieć, że klasy z biblioteki standardowej do obsługi plik&oacute;w wprowadzają pewne warstwy abstrakcji ułatwiające pracę z plikami. Wygląda to w ten spos&oacute;b, że mamy klasę X, kt&oacute;ra jest klasą podstawową udostępniającą bardzo ograniczony zakres operacji. Klasa Y używając interfejsu klasy X udostępnia interfejs wyższego poziomu, z kt&oacute;rym programiście łatwiej jest pracować. Takie podejście można por&oacute;wnać do swego rodzaju cebuli ;) gdzie każda kolejna warstwa bazuje na poprzedniej i udostępnia trochę inny interfejs.</p>
+<p>Przekładając to na konkretny przykład klas ze standardowej biblioteki Javy mamy klasę <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;File.html" target="_blank" rel="noopener"><code>java.io.File<&#47;code><&#47;a>, kt&oacute;ra oferuje podstawowe operacje na pliku.<br />
+Instancja <code>File<&#47;code> jest przyjmowana jako parametr&nbsp;do utworzenia instancji klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;FileReader.html" target="_blank" rel="noopener"><code>java.io.FileReader<&#47;code><&#47;a>, kt&oacute;ra pozwala programiście na tekstowy dostęp do pliku znak po znaku. Z racji tego, że taka forma może być uciążliwa mamy do dyspozycji kolejną klasę <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;BufferedReader.html" target="_blank" rel="noopener"><code>java.io.BufferedReader<&#47;code><&#47;a>, kt&oacute;ra pozwala na dostęp do pliku linijka po linijce.</p>
+<pre class="lang:default decode:true ">new BufferedReader(new FileReader(new File("&#47;path&#47;to&#47;text&#47;file.txt")));<&#47;pre><br />
+Z racji tego, że powyższy fragment jest dość długi i byłby uciążliwy do pisania za każdym razem tw&oacute;rcy biblioteki przygotowali zestaw konstruktor&oacute;w, kt&oacute;re umożliwiają skr&oacute;cenie tego zapisu. W przykładzie poniżej programista nie tworzy wprost instancji klasy <code>File<&#47;code>, podaje jedynie ścieżkę do pliku. Ta instancja tworzona jest za nas wewnątrz konstruktora klasy <code>FileReader<&#47;code>.</p>
+<pre class="lang:default decode:true ">new BufferedReader(new FileReader("&#47;path&#47;to&#47;text&#47;file.txt"));<&#47;pre><br />
+Po tym wstępie teoretycznym wiesz już na tyle dużo o systemie plik&oacute;w i plikach, że możemy przejść do ich zapisywania i odczytywania. Ścieżki użyte w przykładach są z system&oacute;w Linux&#47;Unix, jeśli pracujesz na Windows powinieneś używać ścieżek zgodnych z opisem powyżej.</p>
+<p>W artykule tym zajmowali będziemy się wyłącznie sekwencyjnym dostępem do plik&oacute;w. Oznacza to, że pisząc do pliku zawsze dopisujemy linijkę na koniec a czytając, czytamy od początku pliku. Oczywiście możemy też czytać z pliku&#47;pisać do pliku w spos&oacute;b losowy, wybierając dowolną lokalizację. Takie podejście często jest wykorzystywane w przypadku plik&oacute;w binarnych, kt&oacute;rych strukturę doskonale znamy i wiemy, że na przykład od bajtu 10 do bajtu 13 włącznie w pliku zawsze znajduje się liczba, kt&oacute;ra reprezentuje datę urodzenia.</p>
+<h1>Obsługa plik&oacute;w tekstowych<&#47;h1></p>
+<h2>Zapisywanie danych do pliku<&#47;h2><br />
+Zapis do pliku tekstowego przedstawiłem we fragmencie kodu poniżej.</p>
+<pre class="lang:default decode:true ">String filePath = "&#47;path&#47;to&#47;text&#47;file.txt"<br />
+int number = 1234567;<br />
+FileWriter fileWriter = null;</p>
+<p>try {<br />
+    fileWriter = new FileWriter(filePath);<br />
+    fileWriter.write(Integer.toString(number));<br />
+} finally {<br />
+    if (fileWriter != null) {<br />
+        fileWriter.close();<br />
+    }<br />
+}<&#47;pre><br />
+Przeanalizujmy co się dzieje w tym fragmencie kodu linijka po linijce. Pierwsze trzy linijki to nic innego jak inicjalizacja zmiennych, kt&oacute;rych będziemy używali p&oacute;źniej. Nowy tutaj dla Ciebie jest typ <code>FileWriter<&#47;code>, jest to klasa ze standardowej biblioteki języka Java odpowiedzialna za zapis do pliku tekstowego.</p>
+<p>Zachęcam do przejrzenia <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;FileWriter.html" target="_blank" rel="noopener">pełnej dokumentacji klasy FileWriter<&#47;a>. Klasa ta udostępnia wysokopoziomowy interfejs zapisu do pliku danych tekstowych. Polecam sprawdzenie hierarchii dziedziczenia klasy <code>FileWriter<&#47;code> w IDE (pamiętasz skr&oacute;t klawiaturowy z <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kolekcje-w-jezyku-java&#47;">poprzedniego artykułu<&#47;a>?).</p>
+<p>Następnie wewnątrz klauzuli <code>try<&#47;code> tworzymy nową instancję klasy <code>FileWriter<&#47;code> przekazując jej ścieżkę do pliku, do kt&oacute;rego chcemy pisać. Operacja ta otwiera plik, może się ona nie udać co będzie sygnalizowane odpowiednim wyjątkiem. Kolejna linijka to wywołanie metody <code>write<&#47;code>, kt&oacute;re zapisuje tekstową reprezentację liczby 1234567 do pliku. Ważne jest abyś pamiętał, że właściwy zapis wcale nie musi w tym miejscu nastąpić ze względu na buforowanie, o kt&oacute;rym przeczytasz w jednym z kolejnych akapit&oacute;w.</p>
+<p>Bardzo istotne jest ciało klauzuli <code>finally<&#47;code>. Wewnątrz sprawdzamy czy nasz <code>fileWriter<&#47;code> został zainicjalizowany. Jeśli nie udałoby się stworzyć jego instancji rzucony zostałby wyjątek ale klauzula <code>finally<&#47;code> i tak by się wykonała. Następnie wywołując metodę <code>close<&#47;code> zamykamy dostęp do pliku, jeśli ta operacja się powiedzie mamy pewność, że dane zostały zapisane w pliku na dysku.</p>
+<h2>Zamykanie dostępu do plik&oacute;w<&#47;h2><br />
+Proszę pamiętaj o zamknięciu strumienia danych. Dlaczego jest to ważne? Podstawowym powodem jest tutaj zarządzanie przez system operacyjny tak zwanymi uchwytami do otwartych plik&oacute;w. Ot&oacute;ż systemy operacyjne, kt&oacute;re znam mają limity, kt&oacute;re pozwalają na otwarcie np. 2048 plik&oacute;w jednocześnie przez każdy program. Liczba ta jest na tyle duża, że nie zauważasz tego ograniczenia w codziennym użytkowaniu. Jeśli jednak napiszesz program, kt&oacute;ry będzie otwierał pliki bez ich zamykania możesz z łatwością wyczerpać ten limit.</p>
+<p>Bardziej przyziemnym powodem jest tak zwane buforowanie. Zapis do pliku może być buforowany (i jest w części przypadk&oacute;w przez klasy ze standardowej biblioteki Javy). Oznacza to tyle, że wywołanie metody <code>write<&#47;code> tak naprawdę jeszcze niczego na dysku nie zapisuje. Zapisuje te dane w buforze, kt&oacute;ry zrzucany jest na dysk. Taki zabieg jest wykonywany aby przyspieszyć zapis danych. Jeśli nie zamkniesz pliku może do doprowadzić do sytuacji, w kt&oacute;rej w buforze zostaną dane, kt&oacute;re jeszcze nie zostały do pliku zrzucone. Zostaną one w&oacute;wczas utracone, a tego chcielibyśmy uniknąć :)</p>
+<h2>Odczytywanie danych z pliku<&#47;h2><br />
+Przykład kodu poniżej służy do czytania danych z pliku.</p>
+<pre class="lang:default decode:true ">String filePath = "&#47;path&#47;to&#47;text&#47;file.txt"<br />
+int number = 0;<br />
+BufferedReader fileReader = null;</p>
+<p>try {<br />
+    fileReader = new BufferedReader(new FileReader(filePath));<br />
+    String numberAsString = fileReader.readLine();<br />
+    number = Integer.parseInt(numberAsString);<br />
+} finally {<br />
+    if (fileReader != null) {<br />
+        fileReader.close();<br />
+    }<br />
+}<&#47;pre><br />
+Podobnie jak poprzednio przeanalizujemy go linijka po linijce. Pierwsze trzy linijki inicjalizują zmienne, kt&oacute;re będziemy używali. Wewnątrz klauzuli <code>try<&#47;code> znajduje się kod, kt&oacute;ry tworzy instancję klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;BufferedReader.html" target="_blank" rel="noopener"><code>BufferedReader<&#47;code><&#47;a> dzięki kt&oacute;rej możemy czytać z pliku linijka po linijce.</p>
+<p>Kolejne dwie linie to czytanie linijki z pliku, parsowanie łańcucha znak&oacute;w i zapisanie go jako liczby typu <code>int<&#47;code>. Metoda <code>readLine<&#47;code>, kt&oacute;ra została użyta zwr&oacute;ci <code>null<&#47;code> jeśli w pliku nie znajduje się już więcej danych.</p>
+<p>Podobnie jak w przypadku plik&oacute;w otwartych do odczytu tak i w tym przypadku musimy pamiętać o ich zamknięciu, zapewnia to wnętrze bloku <code>finally<&#47;code>.</p>
+<p>Musisz też wiedzieć, że klasy kt&oacute;re pozwalają Ci na czytanie pliku mają tak zwany &bdquo;wskaźnik&rdquo;, kt&oacute;ry zapamiętuje ostatnie miejsce z kt&oacute;rego coś przeczytaliśmy. Kolejna pr&oacute;ba odczytu przesuwa ten wskaźnik dalej.</p>
+<h1>Obsługa plik&oacute;w binarnych<&#47;h1><br />
+Skupimy się teraz na obsłudze plik&oacute;w binarnych. Pewne aspekty pracy z plikami tekstowymi i binarnymi są podobne. W obu przypadkach musimy pamiętać o zamykaniu &bdquo;strumieni&rdquo; do plik&oacute;w. W obu przypadkach także skupimy się na dostępie sekwencyjnym.</p>
+<h2>Zapisywanie danych do pliku<&#47;h2><br />
+Bez zbędnego wstępu proszę sp&oacute;jrz na przykład poniżej.</p>
+<pre class="lang:default decode:true ">String filePath = "&#47;path&#47;to&#47;binary&#47;file.txt"<br />
+int number = 1234567;<br />
+DataOutputStream outputStream = null;</p>
+<p>try {<br />
+    outputStream = new DataOutputStream(new FileOutputStream(filePath));<br />
+    outputStream.writeInt(number);<br />
+} finally {<br />
+    if (outputStream != null) {<br />
+        outputStream.close();<br />
+    }<br />
+}<&#47;pre><br />
+Pierwsze trzy i ostatnie pięć linii jest dla Ciebie znajoma. Bardzo podobny kod widziałeś w przykładach powyżej. Skupmy się nad tym co dzieje się w środku klauzuli <code>try<&#47;code>. Tworzymy tam instancję klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;FileOutputStream.html" target="_blank" rel="noopener"><code>FileOutputStream<&#47;code><&#47;a>, kt&oacute;ra zostaje przekazana do konstruktora klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;DataOutputStream.html" target="_blank" rel="noopener"><code>DataOutputStream<&#47;code><&#47;a>. <code>DataOutputStream<&#47;code> zapewnia interfejs pozwalający na binarny zapis typ&oacute;w prymitywnych w Javie podczas gdy <code>FileOutputStream<&#47;code> pozwala na zapis danych bajt po bajcie.</p>
+<p>Używanie <code>DataOutputStream<&#47;code> pozwala programiście zapomnieć o szczeg&oacute;łach w jaki liczby powinny być zapisane binarnie, tymi szczeg&oacute;łami zajmuje się właśnie ta klasa przez wywołanie metody <code>writeInt<&#47;code>. Pozwala ona w łatwy spos&oacute;b zapisać binarnie typy proste i łańcuchy znak&oacute;w (w jednym z kolejnych artykuł&oacute;w przeczytasz o serializacji pozwalającej na zapisanie binarnie dowolnych obiekt&oacute;w).</p>
+<p>Po uruchomieniu programu, kt&oacute;ry zapisuje liczbę do pliku spr&oacute;buj otworzyć ten plik w notatniku. Co widzisz? :) Prawda, że jest to mniej czytelne niż tekstowy format pliku?</p>
+<h2>Odczytywanie danych z pliku<&#47;h2></p>
+<pre class="lang:default decode:true ">String filePath = "&#47;path&#47;to&#47;binary&#47;file.txt"<br />
+int number = 0;<br />
+DataInputStream inputStream = null;</p>
+<p>try {<br />
+    inputStream = new DataInputStream(new FileInputStream(filePath));<br />
+    number = inputStream.readInt();<br />
+} finally {<br />
+  if (inputStream != null) {<br />
+      inputStream.close();<br />
+  }<br />
+}<&#47;pre><br />
+Podobnie jak poprzednio kod poza klauzulą <code>try<&#47;code> już znasz. Nowa tutaj dla Ciebie jest instancja klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;FileInputStream.html" target="_blank" rel="noopener"><code>FileInputStream<&#47;code><&#47;a>, kt&oacute;ra przekazana jest do konstruktora klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;DataInputStream.html" target="_blank" rel="noopener"><code>DataInputStream<&#47;code><&#47;a>. Widzisz tu pewną analogię do poprzedniego przykładu? Podobnie jak poprzednio <code>DataInputStream<&#47;code> pozwala na czytanie większych kawałk&oacute;w pliku zapisanego binarnie, dzięki tej klasie możemy przeczytać liczbę typu int zapisaną wcześniej w pliku. Podobnie jak poprzednio klasa ta pozwala na odczyt typ&oacute;w prostych i łańcuch&oacute;w znak&oacute;w zapisanych binarnie.</p>
+<h1>Zadania<&#47;h1><br />
+Na koniec kilka zadań dla Ciebie:</p>
+<ol>
+<li>Napisz program, kt&oacute;ry pobierze od użytkownika ścieżkę do pliku tekstowego oraz kilka linijek tekstu (dop&oacute;ki użytkownik nie wprowadzi &bdquo;-&rdquo; jako linijki) i zapisze je do pliku tekstowego. Do wykonania tego zadania może Ci się przydać metoda <a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;System.html#lineSeparator--" target="_blank" rel="noopener"><code>System.lineSeparator()<&#47;code><&#47;a> zwracająca znak nowej linii (jeśli chciałbyś oddzielić linie wprowadzone przez użytkownika).<&#47;li>
+<li>Napisz program, kt&oacute;ry pobierze od użytkownika ścieżkę do pliku i wyświetli zawartość pliku na ekranie wraz z informacją ile linii znajduje się w pliku.<&#47;li>
+<li>Napisz program, kt&oacute;ry poprosi użytkownika nazwę pliku wyjściowego oraz o podanie swojej daty urodzenia (osobno dzień, miesiąc i rok) a następnie zapisze te dane jako trzy osobne liczby binarnie.<&#47;li>
+<li>Napisz program, kt&oacute;ry pobierze od użytkownika ścieżkę do pliku binarnego z datą urodzenia a następnie wyświetli ją na ekranie.<&#47;li><br />
+<&#47;ol><br />
+Jak zwykle przykładowe rozwiązania zadań znajdują się na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;16_operacje_na_plikach&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;files" target="_blank" rel="noopener">githubie<&#47;a>, jednak zachęcam do samodzielnej pr&oacute;by rozwiązania zadań, wtedy nauczysz się najwięcej.</p>
+<h1>Dodatkowe materiały do nauki<&#47;h1><br />
+W każdym artykule zachęcam Cię do zapoznania się z dokumentacją, nie inaczej będzie i tym razem. Zapewniam Cię, że jest to najlepsze źr&oacute;dło z kompletną informacją na temat klas z biblioteki standardowej. Innymi słowy zestaw obowiązkowy to dokumentacja biblioteki standardowej, zawsze w przypadku wątpliwości tam znajdziesz dużo potrzebnych informacji:</p>
+<ul>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;File.html" target="_blank" rel="noopener">File<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;FileWriter.html" target="_blank" rel="noopener">FileWriter<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;FileReader.html" target="_blank" rel="noopener">FileReader<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;BufferedReader.html" target="_blank" rel="noopener">BufferedReader<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;FileOutputStream.html" target="_blank" rel="noopener">FileOutputStream<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;FileInputStream.html" target="_blank" rel="noopener">FileInputStream<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;DataOutputStream.html" target="_blank" rel="noopener">DataOutputStream<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;io&#47;DataInputStream.html" target="_blank" rel="noopener">DataInputStream<&#47;a><&#47;li><br />
+<&#47;ul><br />
+Dodatkowo parę wpis&oacute;w w innych miejscach w sieci:</p>
+<ul>
+<li><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;16_operacje_na_plikach&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;files" target="_blank" rel="noopener">kod źr&oacute;dłowy przykład&oacute;w i przykładowe rozwiązania zadań<&#47;a><&#47;li>
+<li><a href="http:&#47;&#47;naukajavy.pl&#47;kurs-jezyka-java&#47;114-zapis-tekstu-do-pliku" target="_blank" rel="noopener">http:&#47;&#47;naukajavy.pl&#47;kurs-jezyka-java&#47;114-zapis-tekstu-do-pliku<&#47;a><&#47;li>
+<li><a href="http:&#47;&#47;naukajavy.pl&#47;kurs-jezyka-java&#47;113-odczyt-tekstu-z-pliku" target="_blank" rel="noopener">http:&#47;&#47;naukajavy.pl&#47;kurs-jezyka-java&#47;113-odczyt-tekstu-z-pliku<&#47;a><&#47;li>
+<li><a href="http:&#47;&#47;wazniak.mimuw.edu.pl&#47;index.php?title=PO_Strumienie" target="_blank" rel="noopener">http:&#47;&#47;wazniak.mimuw.edu.pl&#47;index.php?title=PO_Strumienie<&#47;a><&#47;li><br />
+<&#47;ul></p>
+<h1>Podsumowanie<&#47;h1><br />
+Mam nadzieję, że artykuł się podobał. Dzisiaj nauczyłeś się całkiem sporo na temat pracy z plikami w Javie. Dowiedziałeś się czegoś więcej o systemie plik&oacute;w. Po wykonaniu zadań wiesz już jak odczytać&#47;zapisać plik zar&oacute;wno binarnie jak i w trybie tekstowym. Dużo tego :)</p>
+<p>Na koniec jak zwykle prośba do Ciebie, zależy mi na dotarciu do jak największego grona czytelnik&oacute;w. Proszę pom&oacute;ż mi przy tym poprzez polubienie strony na fb i udostępnienie linku do bloga :) Z g&oacute;ry dziękuję.</p>
+<p>Do następnego razu Samouku!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;micahd</p>

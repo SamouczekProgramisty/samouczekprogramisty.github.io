@@ -1,0 +1,129 @@
+---
+layout: post
+status: publish
+published: true
+title: XML dla początkujących
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "W artykule tym przeczytasz o tym czym jest format XML. Poznasz kilka bibliotek
+  czy specyfikacji używanych do przetwarzania tego formatu. Przeczytasz o wadach i
+  zaletach pracy z plikami XML, poznasz też przykłady praktycznego zastosowania takiego
+  formatu zapisu danych. Zapraszam do artykułu.\r\n\r\n"
+wordpress_id: 754
+wordpress_url: http://www.samouczekprogramisty.pl/?p=754
+date: '2017-03-02 23:37:42 +0100'
+date_gmt: '2017-03-02 22:37:42 +0100'
+categories:
+- Wiedza og&oacute;lna
+- DSP2017
+tags: []
+---
+<p>W artykule tym przeczytasz o tym czym jest format XML. Poznasz kilka bibliotek czy specyfikacji używanych do przetwarzania tego formatu. Przeczytasz o wadach i zaletach pracy z plikami XML, poznasz też przykłady praktycznego zastosowania takiego formatu zapisu danych. Zapraszam do artykułu.</p>
+<p><a id="more"></a><a id="more-754"></a></p>
+<h1>Czym jest XML<&#47;h1><br />
+XML (ang.<em> Extensible Markup Language<&#47;em>) to specyfikacja zapisu danych, kt&oacute;ra została opracowana w 1998 roku przez W3C (ang. <em>World Wide Web Consortium<&#47;em>). Jest to format tekstowy, kt&oacute;ry pozwana na zapisywanie danych w postaci, kt&oacute;ra jest łatwa do odczytu zar&oacute;wno przez maszyny jak i przez ludzi [1. Moim zdaniem skomplikowane pliki XML w cale nie są czytelne dla ludzi, ale to już temat na osobną dyskusję ;).].</p>
+<p>Aby dane w formacie XML uważano za poprawne muszą one mieć pewną strukturę, proszę sp&oacute;jrz na przykład poniżej, kt&oacute;ry pokazuje poprawne dane w formacie XML:</p>
+<pre class="lang:default decode:true"><?xml version="1.0" encoding="UTF-8"?><br />
+<kurs-java><br />
+    <artykul publikacja=&rdquo;2017-03-01&rdquo;><br />
+        <tytul>Wprowadzenie do XML w Javie<&#47;tytul><br />
+        <autor>Marcin Pietraszek<&#47;autor><br />
+    <&#47;artykul><br />
+    <artykul><br />
+        <!-- do uzupelnienia --><br />
+    <&#47;artykul><br />
+    <opis status=&rdquo;do uzupelnienia&rdquo;&#47;><br />
+    <wydawca:opis>Zestaw artykuł&oacute;w dotyczących programowania w języku Java<&#47;wydawca:opis><br />
+<&#47;kurs-java><&#47;pre><br />
+Przykładowy dokument powyżej może służyć do opisu kursu programowania Java znajdującego się na Samouczku. R&oacute;wnie dobrze możesz stworzyć plik, kt&oacute;ry zawierał będzie informacje na temat pogody, stopni w szkole czy jakiegokolwiek innego tematu.</p>
+<h1>Opis formatu XML<&#47;h1><br />
+Dokument XML składa się z zagnieżdżonych element&oacute;w. Są one zapisywane jako znaczniki w postaci <code><znacznik><&#47;znacznik><&#47;code>.</p>
+<p>[idea]Na początek drobna dygresja na temat węzł&oacute;w i element&oacute;w. Czytając inne źr&oacute;dła po polsku na temat XML natkniesz się na nazwę węzeł. Sam pr&oacute;bując znaleźć poprawny odpowiednik w języku polskim nie znalazłem zbyt wielu wzmianek o węzłach (ang. <em>node<&#47;em>) w <a href="https:&#47;&#47;www.w3.org&#47;TR&#47;2008&#47;REC-xml-20081126&#47;" target="_blank">specyfikacji<&#47;a>. Specyfikacja opisuje elementy (ang. <em>element<&#47;em>). Dlatego w tym artykule posługiwał będę się wyłącznie określeniem element. Z racji tego, że XML ma strukturę drzewiastą, a w &ldquo;pracy z drzewami&rdquo; m&oacute;wi się o węzłach często też ten termin używany jest w odniesieniu do element&oacute;w dokumentu XML.[&#47;idea]</p>
+<h2>Element gł&oacute;wny<&#47;h2><br />
+Każdy poprawny dokument XML musi mieć wyłącznie jeden element gł&oacute;wny (ang. <em>root element<&#47;em>). W przykładzie powyżej jest to element <code><kurs-java><&#47;code>.</p>
+<h2>Zawartość element&oacute;w<&#47;h2><br />
+Elementy wewnątrz mogą zawierać treść. Na przykład wewnątrz elementu <code><tytul><&#47;code> znajduje się treść <code>Wprowadzenie do XML w Javie<&#47;code>.</p>
+<p>Elementy wewnątrz mogą zawierać kolejne elementy. Na przykład element <code><artykul><&#47;code> zawiera wewnątrz elementy <code><tytul><&#47;code> i <code><autor><&#47;code>. Można to por&oacute;wnać do drzewa gdzie z jednego pnia (elementu gł&oacute;wnego) wyrasta kilka gałęzi (element&oacute;w zagnieżdżonych), zakończonych liśćmi. W praktyce m&oacute;wiąc o liściach dokumentu XML mamy na myśli właśnie te najbardziej zagnieżdżone elementy. W naszym przykładzie będą to na przykład <code><tytul><&#47;code> czy <code><autor><&#47;code>.</p>
+<h2>Atrybuty<&#47;h2><br />
+Elementy mogą posiadać dowolną liczbę atrybut&oacute;w. Za przykład mogą posłużyć tu element <code><artykul><&#47;code> zawierający atrybut <code>publikacja<&#47;code>. Zawartość atrybutu to zwykły tekst. W przeciwieństwie do element&oacute;w nie możemy stosować &ldquo;zagnieżdżania&rdquo; - wewnątrz atrybutu nie możemy umieścić niczego poza jego wartością.</p>
+<h2>Przestrzenie nazw<&#47;h2><br />
+Nazwy element&oacute;w element&oacute;w i atrybut&oacute;w mogą zawierać tak zwaną &ldquo;przestrzeń nazw&rdquo; (ang. <em>namespace<&#47;em>). Do oddzielenia nazwy elementu czy atrybutu od przestrzeni nazw używa się dwukropka. W przykładzie powyżej element <code><wydawca:opis><&#47;code> pochodzi z przestrzeni nazw <code>wydawca<&#47;code>.</p>
+<p>Przestrzenie nazw stosuje się aby m&oacute;c odr&oacute;żnić znaczenie element&oacute;w o tej samej nazwie. W przykładzie elementy <code><opis><&#47;code> i <code><wydawca:opis><&#47;code> mogą zawierać zupełnie r&oacute;żne dane - r&oacute;żne rodzaje opis&oacute;w.</p>
+<h2>Komentarze<&#47;h2><br />
+Wewnątrz dokumentu XML możesz umieszczać komentarze. W przykładzie powyżej komentarz to <code><!-- do uzupelnienia --><&#47;code>. Wszystko co znajduje się pomiędzy <code><!--<&#47;code> i <code>--><&#47;code> uważane jest jako komentarz.</p>
+<h2>Prolog<&#47;h2><br />
+Dokument XML powinien zawierać prolog. Częścią prologu jest deklaracja <code><?xml version="1.0" encoding="UTF-8"?><&#47;code> zawiera ona informację o wersji XML, kt&oacute;rej używamy. Może także wskazać kodowanie znak&oacute;w jakie zostało użyte w danym dokumencie. Wewnątrz prologu mogą znajdować się także deklaracje DTD (ang. <em>Document Type Declaration<&#47;em>) opisujące dany dokument. W opisie tym możemy na przykład określić, że element <code><artykul><&#47;code> powinien zawsze zawierac element <code><autor><&#47;code>.</p>
+<h2>Pozostałe wymagania dotyczące formatu<&#47;h2><br />
+Każdy element musi się poprawnie zamykać. Na przykład <code><autor>Marcin Pietraszek<&#47;autor><&#47;code>. Jeśli element nie ma treści, bądź innych zagnieżdżonych element&oacute;w zamyka się go w następujący spos&oacute;b <code><opis status=&rdquo;do uzupelnienia&rdquo;&#47;><&#47;code>.</p>
+<p>Elementy powinny być poprawnie zagnieżdżone. Łatwiej będzie mi to wytłumaczyć na przykładzie. Poniżej możesz zobaczyć niepoprawny fragment dokumentu XML:</p>
+<pre class="lang:default decode:true"><artykul><br />
+   <tytul><br />
+       <autor><br />
+   <&#47;tytul><br />
+       <&#47;autor><br />
+<&#47;artykul><&#47;pre><br />
+Zauważ, że element <code>tytul<&#47;code> zamknięty jest przed elementem <code>autor<&#47;code>. Jest to niepoprawny spos&oacute;b zagnieżdżania element&oacute;w. Możemy powiedzieć, że elementy, kt&oacute;re nie są poprawnie zagnieżdżone &ldquo;nachodzą&rdquo; na siebie.</p>
+<p>Białe znaki pomiędzy elementami są ignorowane. W praktyce często używa się znak&oacute;w tabulacji czy spacji do robienia "wcięć". Dzięki temu tak sformatowane dokumenty są bardziej czytelne.</p>
+<h1>Rodzice, dzieci i rodzeństwo a XML<&#47;h1><br />
+W przypadku poprawnie sformatowanych dokument&oacute;w XML możemy m&oacute;wić o pewnych relacjach pomiędzy elementami. Specyfikacja XML m&oacute;wi o rodzicach (ang. <em>parent<&#47;em>) i dzieciach (ang. <em>child<&#47;em>). W praktyce używa się także określenia rodzeństwo (ang. <em>sibling<&#47;em>).</p>
+<p>Element może mieć wiele dzieci, na przykład element <code><kurs-java><&#47;code> ma czworo dzieci - dwa elementy <code><artykul><&#47;code>, element <code><opis><&#47;code> i element <code><wydawca:opis><&#47;code>.</p>
+<p>Każdy element, poza elementem gł&oacute;wnym, posiada dokładne jednego rodzica. Na przykład element <code><tytul><&#47;code> ma rodzica <code><artykul><&#47;code>.</p>
+<p>Każdy element, poza elementem gł&oacute;wnym, może mieć rodzeństwo. Na przykład rodzeństwem dla elementu <code><artykul><&#47;code> jest kolejny element <code><artykul><&#47;code>, <code><opis><&#47;code> i <code><wydawca:opis><&#47;code>.</p>
+<h1>Walidacja dokument&oacute;w XML<&#47;h1><br />
+Jak widzisz w dokumencie XML możemy zawrzeć praktycznie wszystko. Liczba dostępnych format&oacute;w jest nieskończona. W związku z tym istnieją r&oacute;żne mechanizmy pozwalające na walidację poprawności dokument&oacute;w XML.</p>
+<p>Za przykład mogą tu posłużyć wspomniane wcześniej elementy DTD (ang. <em>Document Type Definition<&#47;em>) znajdujace się wewnątrz dokumentu XML.</p>
+<p>Innym sposobem na walidację poprawnej struktury dokumentu XML jest używanie XSD (ang. <em>XML Schema Definition<&#47;em>). Jest to zewnętrzny plik, kt&oacute;ry także jest w formacie XML. Wewnątrz tego pliku możemy dokładnie określić strukturę jaką powinien mieć inny dokument XML.</p>
+<p>Dzięki takiej walidacji możemy na przykład zastrzec, że zawsze wewnątrz elementu <code><artykul><&#47;code> musi znajdować się element <code><tytul><&#47;code> a element <code><autor><&#47;code> jest opcjonalny.</p>
+<h1>Wady i zalety formatu XML<&#47;h1><br />
+Gł&oacute;wną zaletą pracy z dokumentami XML jest to, że istnieje mn&oacute;stwo narzędzi pozwalających na ich przetwarzanie. Dokumenty te są w miarę czytelne dla człowieka. Z łatwością format ten może służyć do wymiany informacji pomiędzy r&oacute;żnymi programami.</p>
+<p>Niestety nie jest to format idealny. Przy pracy z dużymi plikami XML przekonasz się, że wcześniej wspomniana czytelność nie jest już tak oczywista. Ponadto pliki XML są dość &ldquo;rozwlekłe&rdquo;. Z racji konieczności zamykania każdego elementu, znacznik&oacute;w w dokumencie XML jest dużo i często to one znacząco zwiększają ostateczną wielkość dokumentu.</p>
+<p>Ponadto dokumenty bardziej czytelne dla człowieka automatycznie zajmują więcej miejsca. To człowiek potrzebuje wcięć w dokumencie XML, dla programu używającego plik&oacute;w XML takie wcięcia są zbędne.</p>
+<h1>Zastosowanie dokument&oacute;w w formacie XML<&#47;h1><br />
+Z racji swojej dobrze zdefiniowanej struktury i ogromnego zestawu narzędzi dokumenty w formacie XML są bardzo popularne. Dedykowane narzędzia do pracy z XML dostępne są w wielu językach programowania. Dokumenty w formacie XML świetnie nadają się do zapisywania wszelkiego rodzaju ustawień.</p>
+<p>Poniżej pokażę Ci kilka przykładowych zastosowań dokument&oacute;w w formacie XML:</p>
+<ul>
+<li>&ldquo;poprzednik&rdquo; <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wstep-do-gradle&#47;">opisanego przeze mnie Gradle&rsquo;a<&#47;a> - Maven używa XML w swoich plikach konfiguracyjnych - na przykład <code>settings.xml<&#47;code>, <code>profiles.xml<&#47;code> czy <code>plugin-registry.xml<&#47;code>. Gł&oacute;wny plik konfiguracyjny dla projektu to także dokument XML - <code>pom.xml<&#47;code>,<&#47;li>
+<li>w jednym z bank&oacute;w, w kt&oacute;rym pracowałem dokumenty XML wraz z XSLT służyły do generowania wszystkich drukowanych dokument&oacute;w,<&#47;li>
+<li>każda aplikacja na system Android używa plik&oacute;w XML. W uproszczeniu można powiedzieć, że opisują one wygląd ekranu aplikacji,<&#47;li>
+<li>dokumenty ODT (format używany na przykład przez Open Office), czy DOCX (format używany przez Microsoft Word) to tak na prawdę pliki zip, kt&oacute;re wewnątrz zawierają dokumenty XML opisujące zawartość pliku, rozpakuj je a sam się przekonasz :)<&#47;li><br />
+<&#47;ul></p>
+<h1>Na XML świat się nie kończy<&#47;h1><br />
+Oczywiście dokumenty XML nie są jedynym formatem, kt&oacute;ry może pom&oacute;c w wymianie danych. Poniżej wspominam o kilku innych formatach, kt&oacute;re mogą być także użyte w tym celu.</p>
+<ul>
+<li>CSV - (ang. <em>Comman Separated Values<&#47;em>) zwykły plik tekstowy, w kt&oacute;rym każdy wiersz zawiera dane oddzielone przecinkami [2. Istnieją też inne wersje gdzie przecinek zastąpiony jest średnikiem czy znakiem tabulacji]. Z racji tego, że jest to plik tekstowy można go z łatwością odczytać używając edytora tekstu.<&#47;li>
+<li><a href="http:&#47;&#47;www.yaml.org&#47;" target="_blank">YAML<&#47;a> - (ang. <em>Yet Another Markup Language<&#47;em> lub <em>YAML Ain&rsquo;t Markup Language<&#47;em>) tekstowy format, w kt&oacute;rym możemy zapisywać bardziej złożone struktury czy kolekcje.<&#47;li>
+<li><a href="http:&#47;&#47;www.json.org&#47;" target="_blank">JSON<&#47;a> - (ang. <em>JavaScript Object Notation<&#47;em>) podobnie jak YAML jest w stanie opisać listę element&oacute;w czy kolekcję par klucz-wartość. Format ten, jak jego nazwa wskazuje, powstał na potrzeby JavaScript, jednak obecne jest szeroko stosowany także w innych językach. Jest to format tekstowy.<&#47;li><br />
+<&#47;ul><br />
+Oczywiście poza formatami tekstowymi istnieją też formaty binarne:</p>
+<ul>
+<li><a href="https:&#47;&#47;developers.google.com&#47;protocol-buffers&#47;" target="_blank">ProtocolBuffers<&#47;a> - binarny format opracowany przez Google. Pozwala na zapisanie praktycznie dowolnych struktur. Z racji tego, że jest to format binarny jest bardziej &ldquo;zwięzły&rdquo; od wspomnianych powyżej. Oczywiście nie można odczytać tego formatu bez odpowiedniego &ldquo;dekodowania&rdquo; zawartości,<&#47;li>
+<li><a href="https:&#47;&#47;avro.apache.org&#47;" target="_blank">Avro<&#47;a> - binarny format serializacji danych, podobnie jak ProtoclBuffers zapewnia dużo bardziej zwięzłą reprezentację danych. Ma wbudowany mechanizm kompresji co pozwala na jeszcze większe zmniejszenie objętości dokument&oacute;w.<&#47;li><br />
+<&#47;ul><br />
+Bynajmniej nie są to wszystkie dostępne formaty wymiany danych. Wspomniałem o tych kilku aby pokazać Ci, że na XML świat się nie kończy :) Każdy z tych format&oacute;w dorobił się szerokiego wsparcia w r&oacute;żnych językach programowania.</p>
+<h1>Inne specyfikacje i narzędzia związane z XML<&#47;h1><br />
+XML jako dość dojrzały format zapisu danych &ldquo;dorobił się&rdquo; zestawu narzędzi i specyfikacji. Na początek ten zestaw może okazać się przytłaczający, ale spokojnie - nie wszystkich tych narzędzi używa się w każdym projekcie. W większości przypadk&oacute;w wystarczy wiedza o poprawnym formacie dokumentu XML i znajomość jednego z narzędzi do tworzenia&#47;czytania plik&oacute;w XML.</p>
+<p>Lista poniżej to specyfikacje&#47;narzędzia pozwalające na parsowanie i tworzenie plik&oacute;w w formacie XML:</p>
+<ul>
+<li><a href="https:&#47;&#47;www.w3.org&#47;DOM&#47;" target="_blank">DOM<&#47;a> (ang. <em>Document Object Model<&#47;em>),<&#47;li>
+<li><a href="http:&#47;&#47;www.saxproject.org&#47;" target="_blank">SAX<&#47;a> (ang. <em>Simple API for XML<&#47;em>),<&#47;li>
+<li>StAX (ang. <em>Streaming API for XML<&#47;em>),<&#47;li>
+<li><a href="https:&#47;&#47;jaxb.java.net&#47;" target="_blank">JAXB<&#47;a> (ang. <em>Java Architecture for XML Binding<&#47;em>).<&#47;li><br />
+<&#47;ul><br />
+W jednym z klejnych artykuł&oacute;w skupię się na praktycznym wykorzystaniu powyższych narzędzi.</p>
+<p>Dodatkowo możesz też zainteresować się następującymi specyfikacjami związanymi z XML. Przydają się one w bardziej zaawansowanej pracy z dokumentami XML:</p>
+<ul>
+<li><a href="https:&#47;&#47;www.w3.org&#47;TR&#47;xmlschema-1&#47;" target="_blank">XSD<&#47;a> (ang. <em>XML Schema Definition<&#47;em>) - wcześniej wspomniana specyfikacja pomagająca w walidacji poprawności dokument&oacute;w XML,<&#47;li>
+<li><a href="https:&#47;&#47;www.w3.org&#47;TR&#47;xpath&#47;" target="_blank">XPath<&#47;a> (ang <em>XML Path Language<&#47;em>) - język pozwalający na wskazywanie element&oacute;w czy atrybut&oacute;w w dokumencie XML, przy jego pomocy możesz na przykład określić "zwr&oacute;ć mi wszystkie elementy X, kt&oacute;re mają atrybut Y o wartości Z",<&#47;li>
+<li><a href="https:&#47;&#47;www.w3.org&#47;TR&#47;xslt" target="_blank">XSLT<&#47;a> (ang. <em><span class="_Tgc">Extensible Stylesheet Language Transformations<&#47;span><&#47;em>) - język służący do tranformowania dokument&oacute;w XML. Przy jego pomocy można przekształcić dokument XML do innych format&oacute;w, na przykład do pliku PDF.<&#47;li><br />
+<&#47;ul></p>
+<h1>Podsumowanie<&#47;h1><br />
+Po przeczytaniu artykułu wiesz już czym jest XML. Poznałeś część dozwolonych konstrukcji, wiesz czym są elementy i jak wygląda poprawnie sformatowany dokument XML. Potrafisz wskazać praktyczne zastosowania tego formatu, znasz też kilka jego zalet i wad. Przed Tobą użycie XML w praktyce, ale to już temat na kolejny artykuł :).</p>
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykuł&oacute;w dopisz się do mojego newslettera i polub Samouczka na facebooku.</p>
+<p>Na koniec mam do Ciebie standardową prośbę, podziel się linkiem do artykułu ze znajomymi, zależy mi na dotarciu do jak największej liczby samouk&oacute;w, kt&oacute;rzy chcą pogłębiać swoją wiedzę. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;stanzim&#47;27926733595&#47;sizes&#47;l</p>

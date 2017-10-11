@@ -1,0 +1,59 @@
+---
+layout: post
+status: publish
+published: true
+title: Advent of Code 2016 dzień 21
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Advent of Code 2016 dzień 21. Trzeba zaimplementować serię przekształceń
+  łańcucha znak&oacute;w aby otrzymać tajne hasło. Bez niego nie będziesz m&oacute;gł
+  dostać się do systemu operacyjnego.\r\n\r\n"
+wordpress_id: 704
+wordpress_url: http://www.samouczekprogramisty.pl/?p=704
+date: '2016-12-23 18:18:32 +0100'
+date_gmt: '2016-12-23 17:18:32 +0100'
+categories:
+- Strefa zadaniowa
+tags: []
+comments: []
+---
+<p>Advent of Code 2016 dzień 21. Trzeba zaimplementować serię przekształceń łańcucha znak&oacute;w aby otrzymać tajne hasło. Bez niego nie będziesz m&oacute;gł dostać się do systemu operacyjnego.</p>
+<p><a id="more"></a><a id="more-704"></a></p>
+<h1>Wprowadzenie<&#47;h1><br />
+[idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;21" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;21<&#47;a>[&#47;idea]</p>
+<p>Advent of Code to inicjatywa, w kt&oacute;rej codziennie publikowane są zadania algorytmiczne dla programist&oacute;w. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, kt&oacute;rą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
+<h1>Dzień 21 zadanie 1<&#47;h1><br />
+Wczoraj <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-20&#47;">znalazłeś adres IP komputera<&#47;a>, kt&oacute;ry nie jest blokowany przez firewall. Komputer, do kt&oacute;rego systemu pr&oacute;bujesz się włamać używa dziwnego mechanizmu mieszającego do przechowywania haseł. Mimo to, nie powinno nastręczyć Ci żadnych trudności utworzenie samemu takiego hasła, kt&oacute;re możesz dodać do systemu. Wystarczy, że zaimplementujesz odpowiednie przekształcenia.</p>
+<p>Operacja mieszająca składa się z serii operacji (dokładna ich lista jest wejściem do programu). Zaczynając od hasła, kt&oacute;re ma być pomieszane aplikujesz każdą operację kolejno. Pojedyncze operacje opisane są poniżej:</p>
+<ul>
+<li><code>swap position X with position Y<&#47;code> oznacza, że litery pod indeksami <code>X<&#47;code> i <code>Y<&#47;code> (zaczynając od <code>0<&#47;code>) powinny być zamienione,<&#47;li>
+<li><code>swap letter X with letter Y<&#47;code> oznacza, że litery <code>X<&#47;code> i <code>Y<&#47;code> powinny być zamienione (niezależnie na jakich pozycjach się znajdują),<&#47;li>
+<li><code>rotate left&#47;right X step(s)<&#47;code> oznacza, że cały łańcuch znak&oacute;w powinien być "przesunięty" w lewo lub prawo o <code>X<&#47;code> znak&oacute;w, na przykład przesunięcie łańcucha <code>abcd<&#47;code> o jedną literę w prawo da Ci <code>dabc<&#47;code>,<&#47;li>
+<li><code>rotate based on position of letter X<&#47;code> oznacza, że cały łańcuch znak&oacute;w powinien być "przesunięty" w prawo. To o ile powinien być przesunięty zależy od indeksu litery <code>X<&#47;code> zanim łańcuch będzie przesunięty. Jak poznasz indeks litery <code>X<&#47;code> przesuń łańcuch znak&oacute;w o jedną pozycję w prawo, dodatkowo przesuń łańcuch w prawo o indeks na kt&oacute;rym znajduje się litera <code>X<&#47;code>. Jeśli indeks był r&oacute;wny bądź większy <code>4<&#47;code> przesuń łańcuch o jeszcze jedną pozycję w prawo,<&#47;li>
+<li><code>reverse positions X through Y<&#47;code> oznacza, że zakres pomiędzy <code>X<&#47;code> i <code>Y<&#47;code> (włączając oba indeksy) powinien być odwr&oacute;cony,<&#47;li>
+<li><code>move position X to position Y<&#47;code> oznacza, że litera, kt&oacute;ra jest pod indeksem <code>X<&#47;code> powinna być usunięta z łańcucha i włożona pod indeks <code>Y<&#47;code>.<&#47;li><br />
+<&#47;ul><br />
+Na przykład, zakładając, że hasło początkowe to <code>abcde<&#47;code> i chcesz przeprowadzić następującą serię przekształceń:</p>
+<ul>
+<li><code>swap position 4 with position 0<&#47;code> zamienia pierwszą i ostatnią literę, otrzymujesz <code>ebcda<&#47;code>, wynik ten jest wejściem do kolejnego kroku,<&#47;li>
+<li><code>swap letter d with letter b<&#47;code> zamienia literę <code>d<&#47;code> z literą <code>b<&#47;code>, w wyniku czego otrzymasz <code>edcba<&#47;code>,<&#47;li>
+<li><code>reverse positions 0 through 4<&#47;code> sprawia, że cały łańcuch znak&oacute;w jest odwr&oacute;cony produkując <code>abcde<&#47;code>,<&#47;li>
+<li><code>rotate left 1 step<&#47;code> przesuwa w lewo cały łańcuch o jedną literę, w wyniku tego przekształcenia pierwsza litera ląduje na końcu <code>bcdea<&#47;code>,<&#47;li>
+<li><code>move position 1 to position 4<&#47;code> usuwa literę na pozycji <code>1<&#47;code> (<code>c<&#47;code>), wkładając ją na pozycję <code>4<&#47;code> (na koniec łańcucha): <code>bdeac<&#47;code>,<&#47;li>
+<li><code>move position 3 to position 0<&#47;code> usuwa literę z pozycji <code>3<&#47;code> (<code>a<&#47;code>), wkładając ją na pozycję <code>0<&#47;code> (początek łańcucha): <code>abdec<&#47;code>,<&#47;li>
+<li><code>rotate based on position of letter b<&#47;code> znajduje indeks litery <code>b<&#47;code> (<code>1<&#47;code>), p&oacute;źniej rotuje cały łańcuch o <code>1<&#47;code> plus indeks litery (<code>2<&#47;code>): <code>ecabd<&#47;code>,<&#47;li>
+<li><code>rotate based on position of letter d<&#47;code> znajduje indeks litery <code>d<&#47;code> (<code>4<&#47;code>), p&oacute;źniej rotuje cały łańcuch o <code>1<&#47;code> plus indeks litery (<code>4<&#47;code>), dodając dodatkową jedynkę ponieważ indeks był większy bądź r&oacute;wny <code>4<&#47;code>, finalnie rotuje łańcuch o <code>6<&#47;code> pozycji: <code>decab<&#47;code>.<&#47;li><br />
+<&#47;ul><br />
+Po tych wszystkich krokach, hasło to <code>decab<&#47;code>.</p>
+<p>Teraz Twoja kolej. Musisz wygenerować hasło, kt&oacute;rego użyjesz aby dostać się do systemu. Zakładając, że lista przekszałceń znajduje się w <a href="https:&#47;&#47;raw.githubusercontent.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;test&#47;resources&#47;day21_input.txt" target="_blank">tym pliku<&#47;a>, a hasło początkowe to <code>abcdefgh<&#47;code> jakie będzie hasło po przekształceniach?</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programist&oacute;w. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day21" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zr&oacute;b to raczej w ostateczności.</p>
+<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pom&oacute;c Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>

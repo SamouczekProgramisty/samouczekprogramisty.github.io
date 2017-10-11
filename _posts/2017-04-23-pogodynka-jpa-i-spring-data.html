@@ -1,0 +1,123 @@
+---
+layout: post
+status: publish
+published: true
+title: Pogodynka - JPA i Spring Data
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Raport z frontu Pogodynki część 6. Dzisiaj pokr&oacute;tce opisuję konfigurację
+  warstwy dostępu do bazy danych. Sama konfiguracja skończyła się na dodaniu kilku
+  zależności i magicznych adnotacji, kt&oacute;re postaram się wyjaśnić.\r\n\r\n"
+wordpress_id: 873
+wordpress_url: http://www.samouczekprogramisty.pl/?p=873
+date: '2017-04-23 20:45:31 +0200'
+date_gmt: '2017-04-23 18:45:31 +0200'
+categories:
+- DSP2017
+- Projekty
+- Pogodynka
+tags: []
+comments: []
+---
+<p>Raport z frontu Pogodynki część 6. Dzisiaj pokr&oacute;tce opisuję konfigurację warstwy dostępu do bazy danych. Sama konfiguracja skończyła się na dodaniu kilku zależności i magicznych adnotacji, kt&oacute;re postaram się wyjaśnić.</p>
+<p><a id="more"></a><a id="more-873"></a></p>
+<h1>Baza danych<&#47;h1><br />
+Dla cel&oacute;w testowych i na &ldquo;środowisku developerskim&rdquo; (czytaj moim własnym komputerze) używam prostej bazy danych. Mam tu na myśli <a href="http:&#47;&#47;hsqldb.org&#47;" target="_blank" rel="noopener noreferrer">HyperSQL<&#47;a>. Jest to baza danych, kt&oacute;rej zawartość może być trzymana wyłącznie w pamięci.</p>
+<p>Tego typu rozwiązanie idealnie nadaje się do pracy na środowisku programistycznym. Często też bazy danych tego typu używane są w trakcie test&oacute;w integracyjnych. W trakcie takich test&oacute;w możliwe jest testowanie właściwej integracji z bazą danych.</p>
+<p>Dostęp do tej bazy danych możliwy jest po dodaniu jednej linijki do konfiguracji Gradle</p>
+<p><span class="lang:default highlight:0 decode:true crayon-inline ">compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'<&#47;span></p>
+<p>Jeśli chcesz dowiedzieć się czegoś więcej o samym Gradle zachęcam do przeczytania <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wstep-do-gradle&#47;">wprowadzenia do Gradle<&#47;a>.</p>
+<h1>JPA i ORM<&#47;h1><br />
+I tu wchodzą nam dwie wielkie kobyły ;). JPA czyli <em>Java Persistence API<&#47;em> i ORM czyli <em>Object-Relational Mapping<&#47;em>. JPA to specyfikacja, kt&oacute;ra została włączona do specyfikacji EJB (ang. <em>Enterprise Java Beans<&#47;em>). Specyfikacja ta określa mechanizmy, kt&oacute;re pozwalają na "proste" zarządzanie zawartością bazy danych przez obiekty w Java.</p>
+<p>Innymi słowy instancje klas odpowiadają wierszom w bazie danych. Mapowanie zawartości bazy danych na obiekty Javy to &ldquo;mapowanie obiektowo-relacyjne&rdquo; - ORM. Najszerzej stosowaną implementacją JPA jest Hibernate. To właśnie tę implementację użyłem w Pogodynce. Aby uzyskać wsparcie Hibernate niezbędne są następujące zależności:</p>
+<pre class="lang:default highlight:0 decode:true">compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.10.Final'<br />
+compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'<&#47;pre></p>
+<h2>ORM<&#47;h2><br />
+Nie wchodząc w szczeg&oacute;ły samego JPA i Hibernate opiszę co udało mi się osiągnąć. Przy pomocy odpowiednich adnotacji w kodzie Javy mapuję obiekty klasy <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;datavault&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;pogodynka&#47;datavault&#47;model&#47;TemperatureMeasurement.java" target="_blank" rel="noopener noreferrer"><code>TemperatureMeasurement<&#47;code><&#47;a> na wiersze w tabeli <code>temperature_measurements<&#47;code>. Całość wymagała kilku adnotacji w kodzie oraz dodatkowej konfiguracji, kt&oacute;ra pozwoliła na mapowanie typu DateTime na odpowiedni typ w bazie danych.</p>
+<p>Jedyny obiekt modelu, kt&oacute;ry aktualnie jest dostępny wygląda następująco:</p>
+<pre class="lang:default decode:true">@Entity<br />
+@Table(name = "temperature_measurements",<br />
+       indexes = @Index(name = "idx_temperature_measurements_when_meaasured",<br />
+                        columnList = "when_measured"))<br />
+public class TemperatureMeasurement {</p>
+<p>    @Id<br />
+    @SequenceGenerator(name = "measurements_sequence", allocationSize = 5, sequenceName = "temperature_measurements_seq")<br />
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "measurements_sequence")<br />
+    private Long id;</p>
+<p>    private BigDecimal temperature;</p>
+<p>    @Column(name = "when_measured")<br />
+    private DateTime whenMeasured;</p>
+<p>    public TemperatureMeasurement() {<br />
+    }</p>
+<p>    public TemperatureMeasurement(BigDecimal temperature, DateTime whenMeasured) {<br />
+        this.temperature = temperature;<br />
+        this.whenMeasured = whenMeasured<br />
+    }</p>
+<p>    @NotNull<br />
+    public BigDecimal getTemperature() {<br />
+        return temperature;<br />
+    }</p>
+<p>    @NotNull<br />
+    public DateTime getWhenMeasured() {<br />
+        return whenMeasured;<br />
+    }<br />
+}<&#47;pre></p>
+<h2>Warstwa dostępu do danych<&#47;h2><br />
+Warstwa DAO (ang. <em>Data Access Object<&#47;em>) jest automatycznie generowana. Są to obiekty pośredniczące zarządzane przez Spring. Interfejs DAO, kt&oacute;rym posługuję się w aplikacji sprowadza się do kilku linijek:</p>
+<pre class="lang:default decode:true ">@Repository<br />
+public interface TemperatureMeasurementDAO extends CrudRepository<TemperatureMeasurement, Long> {<br />
+}<&#47;pre><br />
+Taka &ldquo;magia&rdquo; dostępna jest dzięki użyciu Spring Data:</p>
+<pre class="lang:default highlight:0 decode:true ">compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.11.3.RELEASE<&#47;pre></p>
+<h1>Magiczna konfiguracja Spring<&#47;h1><br />
+Całość konfiguracji to jeden nowy plik. Tworzy on odpowiednie obiekty, kt&oacute;re wymagane są przez specyfikację JPA</p>
+<pre class="lang:default decode:true ">@Configuration<br />
+@EnableTransactionManagement<br />
+@EnableJpaRepositories(basePackages = "pl.samouczekprogramisty.pogodynka.datavault.model")<br />
+public class JPAConfigration {</p>
+<p>    @Bean<br />
+    public DataSource getDataSource() {<br />
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();<br />
+        dataSource.setDriverClassName("org.hsqldb.jdbc.JDBCDriver");<br />
+        dataSource.setUrl("jdbc:hsqldb:mem:datavault_test");<br />
+        dataSource.setUsername("datavault_test");<br />
+        dataSource.setPassword("datavault_test");<br />
+        return dataSource;<br />
+    }</p>
+<p>    @Bean<br />
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {<br />
+        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();<br />
+        entityManager.setDataSource(getDataSource());<br />
+        entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());<br />
+        entityManager.setPackagesToScan("pl.samouczekprogramisty.pogodynka.datavault.model");</p>
+<p>        Properties jpaProperties = new Properties();<br />
+        jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");<br />
+        jpaProperties.setProperty("hibernate.show_sql", "true");<br />
+        jpaProperties.setProperty("hibernate.format_sql", "true");<br />
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");<br />
+        jpaProperties.setProperty("jadira.usertype.autoRegisterUserTypes", "true");</p>
+<p>        entityManager.setJpaProperties(jpaProperties);</p>
+<p>        return entityManager;<br />
+    }</p>
+<p>    @Bean<br />
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {<br />
+        JpaTransactionManager transactionManager = new JpaTransactionManager();<br />
+        transactionManager.setEntityManagerFactory(entityManagerFactory);</p>
+<p>        return transactionManager;<br />
+    }</p>
+<p>    @Bean<br />
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {<br />
+        return new PersistenceExceptionTranslationPostProcessor();<br />
+    }<br />
+}<&#47;pre></p>
+<h1>Podsumowanie<&#47;h1><br />
+Na dzień dzisiejszy mam &ldquo;gotową&rdquo; aplikację webową, kt&oacute;ra wystawia dwa adresy URL. Pozwalają one na utworzenie nowej instancji pomiaru temperatury i pobrania wszystkich istniejących pomiar&oacute;w. Kolejnym krokiem będzie zaimplementowanie &ldquo;logowania&rdquo; użytkownik&oacute;w i wystawienia takiej aplikacji na świat. Następnie będę m&oacute;gł zintegrować czujnik z tak działającą aplikacją.</p>
+<p>Po kilku dniach działania aplikacji będę miał wystarczająco dużo rzeczywistych pomiar&oacute;w temperatury, kt&oacute;re pozwolą mi na pracę nad interfejsem użytkownika.</p>
+<p>Jeśli chcesz zobaczyć aktualną wersję aplikacji możesz ją znaleźć na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;tree&#47;master&#47;datavault" target="_blank" rel="noopener noreferrer">samouczkowym githubie<&#47;a>. Trzymaj się i do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;rubysfeast&#47;7149704201&#47;sizes&#47;l</p>

@@ -1,0 +1,259 @@
+---
+layout: post
+status: publish
+published: true
+title: Typy generyczne w języku Java
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Dzień dobry! Nadszedł czas na poznanie typ&oacute;w generycznych. Dowiesz
+  się o \"szablonach\" w języku Java, kt&oacute;re pozwalają na tworzenie bardziej
+  uniwersalnych typ&oacute;w. Jest to wstęp, kt&oacute;ry pozwoli Ci dobrze zrozumieć
+  kluczowy aspekt standardowych kolekcji (\"tablic na sterydach\") w języku Java.
+  Każdy programista Javy musi znać typy generyczne :) Zapraszam do artykułu!\r\n\r\n"
+wordpress_id: 273
+wordpress_url: http://www.samouczekprogramisty.pl/?p=273
+date: '2016-03-26 21:27:50 +0100'
+date_gmt: '2016-03-26 20:27:50 +0100'
+categories:
+- Kurs programowania Java
+tags: []
+---
+<p>Dzień dobry! Nadszedł czas na poznanie typ&oacute;w generycznych. Dowiesz się o "szablonach" w języku Java, kt&oacute;re pozwalają na tworzenie bardziej uniwersalnych typ&oacute;w. Jest to wstęp, kt&oacute;ry pozwoli Ci dobrze zrozumieć kluczowy aspekt standardowych kolekcji ("tablic na sterydach") w języku Java. Każdy programista Javy musi znać typy generyczne :) Zapraszam do artykułu!</p>
+<p><a id="more"></a><a id="more-273"></a></p>
+<p>[idea]To jest jeden z artykuł&oacute;w w ramach <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kurs-programowania-java&#47;">darmowego kursu programowania w Javie<&#47;a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[&#47;idea]</p>
+<h1>Czym są typy generyczne<&#47;h1><br />
+W uproszczeniu można powiedzieć, że typy generyczne są "szablonami". Dzięki typom generycznym możemy uniknąć niepotrzebnego rzutowania. Ponadto przy ich pomocy kompilator jest w stanie sprawdzić poprawność typ&oacute;w na etapie kompilacji, oznacza to więcej błęd&oacute;w wykrytych w jej trakcie.</p>
+<blockquote><p>I tu mała dygresja. Każdy błąd w kodzie kosztuje. Ktoś w końcu płaci za pracę tester&oacute;w, programist&oacute;w, administrator&oacute;w. Im wcześniej wykryjemy błąd tym tańsze jest jego naprawienie. Poprawienie programu działającego na środowisku produkcyjnym może być bardzo drogie. Wykrywanie błęd&oacute;w w trakcie kompilacji, chociaż może być frustrujące dla programisty jest najtańszym rozwiązaniem :)<&#47;blockquote><br />
+Poza tym dzięki typom generycznym możemy konstruować bardziej złożone klasy, kt&oacute;re możemy używać w wielu kontekstach, łatwiej będzie Ci to zrozumieć na przykładzie.</p>
+<h1>Por&oacute;wnanie typ&oacute;w generycznych i standardowych<&#47;h1><br />
+Znasz już zwykłe klasy i interfejsy, zostały one om&oacute;wione we wcześniejszych artykułach. Klasy mają swoje atrybuty, kt&oacute;rych typy znasz pisząc program.</p>
+<pre class="lang:default decode:true ">public class Apple {<br />
+}</p>
+<p>public class AppleBox {<br />
+    private Apple apple;</p>
+<p>    public AppleBox(Apple apple) {<br />
+        this.apple = apple;<br />
+    }</p>
+<p>    public Apple getApple() {<br />
+        return apple;<br />
+    }<br />
+}<&#47;pre><br />
+W przykładzie powyżej klasa <code>AppleBox<&#47;code> "wie" jakiego typu obiekt może przechowywać, jest to obiekt typu <code>Apple<&#47;code>. A co jeśli chcielibyśmy zrobić analogiczną klasę dla owoc&oacute;w innego rodzaju? Oczywiście możemy stworzyć podobne pudełko jak w przykładzie poniżej:</p>
+<pre class="lang:default decode:true ">public class Orange {<br />
+}</p>
+<p>public class OrangeBox {<br />
+    private Orange orange;</p>
+<p>    public OrangeBox(Orange orange) {<br />
+        this.orange = orange;<br />
+    }</p>
+<p>    public Orange getOrange() {<br />
+        return orange;<br />
+    }<br />
+}<&#47;pre><br />
+Oba przykłady są jak najbardziej poprawne jednak występuje w nich duplikacja. Te same elementy, konstrukcje powielane są wielokrotnie. Duplikacja w kodzie generalnie jest złą praktyką, należy jej unikać. Możemy zatem stworzyć kolejną klasę:</p>
+<pre class="lang:default decode:true ">public class FruitBox {<br />
+    private Object fruit;</p>
+<p>    public FruitBox(Object fruit) {<br />
+        this.fruit = fruit;<br />
+    }</p>
+<p>    public Object getFruit() {<br />
+        return fruit;<br />
+    }<br />
+}</p>
+<p>public class Main {<br />
+    public static void main(String[] args) {<br />
+        FruitBox fruitBox = new FruitBox(new Orange());<br />
+        Orange fruit1 = (Orange) fruitBox.getFruit();<br />
+    }<br />
+}<&#47;pre><br />
+Z racji tego, że atrybut fruit jest typu Object możemy do niego przypisać zar&oacute;wno instancję klasy <code>Orange<&#47;code> jak i <code>Apple<&#47;code>. Pojawia się jednak pewien problem. Mianowicie jeśli chcemy pobrać atrybut <code>fruit<&#47;code> i przypisać go do zmiennej odpowiedniego typu musimy rzutować. Tego typu konstrukcja może powodować błędy podczas wykonania programu i warto jej unikać. Z pomocą przychodzą typy generyczne. Proszę sp&oacute;jrz na przykład poniżej.</p>
+<pre class="lang:default decode:true ">public class BoxOnSteroids<T> {<br />
+    public T fruit;</p>
+<p>    public BoxOnSteroids(T fruit) {<br />
+        this.fruit = fruit;<br />
+    }</p>
+<p>    public T getFruit() {<br />
+        return fruit;<br />
+    }<br />
+}</p>
+<p>public class Main {<br />
+    public static void main(String[] args) {<br />
+        BoxOnSteroids<Apple> appleBox = new BoxOnSteroids<Apple>(new Apple());<br />
+        BoxOnSteroids<Orange> orangeBox = new BoxOnSteroids<Orange>(new Orange());</p>
+<p>        Orange fruit = orangeBox.getFruit();<br />
+    }<br />
+}<&#47;pre><br />
+<code>public class BoxOnSteroids<T><&#47;code> to nic innego jak pierwsza linijka definicji klasy. Nowa tutaj jest konstrukcja z nawiasami. Oznacza ona właśnie typ generyczny, kt&oacute;ry możemy parametryzować innym typem. Typ ten dostaje "tymczasową nazwę", w tym przypadku <code>T<&#47;code>, kt&oacute;rej używamy dalej w ciele klasy.</p>
+<p>W trakcie tworzenia instancji obiektu <code>BoxOnSteroids<&#47;code> podajemy informację o typie, kt&oacute;ry chcielibyśmy wstawić w miejsce <code>T<&#47;code>. W naszym przykładzie są to klasy <code>Apple<&#47;code> lub <code>Orange<&#47;code>. Dzięki takiej konstrukcji kompilator dokładnie wie jakiego typu obiekt zostanie zwr&oacute;cony przez metodę <code>getFruit<&#47;code> w związku z tym rzutowanie nie jest konieczne [0. W praktyce rzutowanie tam występuje jednak jest wykonywane automatycznie przez kompilator generujący bytecode].</p>
+<h1>Definicja klasy generycznej<&#47;h1><br />
+Klasę generyczną definiujemy w następujący spos&oacute;b</p>
+<pre class="lang:default decode:true ">class Name<T1, T2, ..., Tn> { &#47;* body *&#47; }<&#47;pre><br />
+Zauważ, że w nawiasach <code><><&#47;code> możemy umieścić więcej niż jeden parametr. Chociaż zgodnie ze specyfikacją języka Java możesz użyć dowolnej nazwy kt&oacute;ra nadaje się na nazwę zmiennej istnieje konwencja nazewnicza sugerująca nazwy parametr&oacute;w. Zwyczajowo do tego celu używa się wielkich liter <code>T<&#47;code>, <code>K<&#47;code>, <code>U<&#47;code>, <code>V<&#47;code>, <code>E<&#47;code>.</p>
+<p>W miejsce parametr&oacute;w możemy wstawić dowolny obiekt, nie może to jednak być typ prosty. Innymi słowy <code>Integer<&#47;code> jest w porządku, <code>int<&#47;code> powoduje błąd.</p>
+<h1>Instancja klasy generycznej<&#47;h1><br />
+Skoro już wiemy jak zdefiniować klasę generyczną przydałoby się stworzyć jej instancję żeby w końcu jej użyć :) Linijka poniżej tworzy instancję klasy generycznej <code>BoxOnSteroids<&#47;code>, kt&oacute;ra parametryzowana jest typem <code>Orange<&#47;code>.</p>
+<pre class="lang:default decode:true ">BoxOnSteroids<Orange> orangeBox = new BoxOnSteroids<Orange>(new Orange());<&#47;pre><br />
+Zauważ, że i tutaj występuje pewna duplikacja. Zar&oacute;wno przy określaniu typu zmiennej jak i przy wywołaniu konstruktora powtarzamy klasę <code>Orange<&#47;code>. Nie jest to konieczne. Jeśli kompilator jest w stanie "wywnioskować" jaki typ powinien być użyty możemy go pominąć przy konstruktorze.</p>
+<pre class="lang:default decode:true ">BoxOnSteroids<Orange> orangeBox = new BoxOnSteroids<>(new Orange());<&#47;pre></p>
+<h1>Zagnieżdżone typy generyczne<&#47;h1><br />
+Możesz też tworzyć instancje typ&oacute;w generycznych, kt&oacute;re są bardziej skomplikowane. Przykład poniżej pokazuje klasę <code>Pair<&#47;code>, kt&oacute;ra parametryzowana jest dwoma innymi typami.</p>
+<pre class="lang:default decode:true ">public class Pair<T, S> {<br />
+    private T first;<br />
+    private S second;</p>
+<p>    public Pair(T first, S second) {<br />
+        this.first = first;<br />
+        this.second = second;<br />
+    }</p>
+<p>    public T getFirst() {<br />
+        return first;<br />
+    }</p>
+<p>    public S getSecond() {<br />
+        return second;<br />
+    }<br />
+}<&#47;pre><br />
+Java pozwala na to aby tworząc instancję typu generycznego parametryzować go innym typem generycznym. Brzmi to skomplikowanie, mam nadzieję, że przykład pomoże Ci to zrozumieć:</p>
+<pre class="lang:default decode:true ">Pair<BoxOnSteroids<Orange>, BoxOnSteroids<Apple>> pairOfBoxes =<br />
+        new Pair<>(<br />
+                new BoxOnSteroids<>(new Orange()),<br />
+                new BoxOnSteroids<>(new Apple())<br />
+        );<&#47;pre><br />
+W przykładzie tym tworzony jest obiekt klasy <code>Pair<&#47;code>, kt&oacute;ry parametryzowany jest klasami <code>BoxOnSteroids<Orange><&#47;code> i <code>BoxOnSteroids<Apple><&#47;code>.</p>
+<h1>Typy generyczne nie rozwiązują wszystkich problem&oacute;w<&#47;h1><br />
+Typy generyczne zostały wprowadzone w wersji Javy 1.5. Nie były dostępne od początku jej istnienia. Zatem istnieją sytuacje, w kt&oacute;rych nawet ich stosowanie może prowadzić do wystąpienia błęd&oacute;w w trakcie wykonywania programu. Proszę sp&oacute;jrz na przykład poniżej:</p>
+<pre class="lang:default decode:true ">BoxOnSteroids boxWithoutType = new BoxOnSteroids(new Apple());<br />
+BoxOnSteroids<Apple> boxWithApple = boxWithoutType;<br />
+BoxOnSteroids<Orange> boxWithOrange = boxWithoutType;<br />
+Apple apple = boxWithApple.getFruit();<br />
+Orange orange = boxWithOrange.getFruit(); &#47;&#47; ClassCastException<&#47;pre><br />
+W przykładzie tym tworzona jest instancja klasy generycznej <code>BoxOnSteroids<&#47;code> bez wyspecyfikowania klasy, kt&oacute;ra znajduje się "w środku". Następnie tą instancję przypisujemy do zmiennych typu <code>BoxOnSteroids<Apple><&#47;code> i <code>BoxOnSteroids<Orange><&#47;code>. O ile w pierwszym przypadku typ owocu trzymanego w środku się zgadza to ostatnia linia nie jest poprawna &ndash; generuje błąd typu <code>ClassCastException<&#47;code>. Obiekt typu <code>Apple<&#47;code> jest rzutowany przez kompilator do typu <code>Orange<&#47;code>[0. Tu właśnie objawia się to automatyczne rzutowanie generowane przez kompilator].</p>
+<h1>Słowo kluczowe <code>extends<&#47;code><&#47;h1><br />
+To słowo kluczowe ma zastosowanie także w przypadku typ&oacute;w generycznych. Dzięki niemu możemy ograniczyć zestaw klas kt&oacute;rymi możemy parametryzować nasz typ generyczny. Om&oacute;wmy to na przykładzie:</p>
+<pre class="lang:default decode:true ">public interface Figure {<br />
+    String getName();<br />
+}</p>
+<p>public class Circle implements Figure {<br />
+    public String getName() {<br />
+        return "circle";<br />
+    }<br />
+}</p>
+<p>public class BoxForFigures<T extends Figure> {<br />
+    private T element;</p>
+<p>    public BoxForFigures(T element) {<br />
+        this.element = element;<br />
+    }</p>
+<p>    public T getElement() {<br />
+        return element;<br />
+    }</p>
+<p>    public String getElementName() {<br />
+        return element.getName();<br />
+    }<br />
+}</p>
+<p>BoxForFigures<Circle> circleBox = new BoxForFigures<>(new Circle());<br />
+BoxForFigures<Apple> appleBox; &#47;&#47; complilation error<&#47;pre><br />
+Jak widzisz przykład definiuje prosty interfejs <code>Figure<&#47;code> i klasę <code>Circle<&#47;code>, kt&oacute;ra go implementuje. Następnie definiujemy klasę <code>BoxForFigures<&#47;code>, kt&oacute;ra jest generyczna i może być parametryzowana przez typy dziedziczące&#47;implementujące <code>Figure <T extends Figure><&#47;code>.</p>
+<p>Dzięki takiemu zapisowi kompilator pozwoli nam stworzyć instancję <code>circleBox<&#47;code> jednak zacznie się buntować przy <code>appleBox<&#47;code> (<code>Apple<&#47;code> nie implementuje interfejsu <code>Figure<&#47;code>).</p>
+<p>Kolejną zaletą używania tego słowa kluczowego jest możliwość wywoływania metod na obiekcie typu parametryzowanego. W przykładzie powyżej wiemy że <code>T<&#47;code> jest czymś co implementuje <code>Figure<&#47;code> więc musi mieć metody dostępne w tym interfejsie. Właśnie z tego powodu w metodzie <code>getElementName<&#47;code> możemy wywołać metodę <code>getName<&#47;code> z tego interfejsu.</p>
+<h1>Dziedziczenie typ&oacute;w generycznych<&#47;h1><br />
+Tutaj należy się dodatkowe zdanie wyjaśnienia poparte prostym przykładem. Proszę sp&oacute;jrz na początek na klasy <code>Rectangle<&#47;code> i <code>Square<&#47;code> poniżej:</p>
+<pre class="lang:default decode:true">public class Rectangle implements Figure {<br />
+    public String getName() {<br />
+        return "rectangle";<br />
+    }<br />
+}</p>
+<p>public class Square extends Rectangle {<br />
+    public String getName() {<br />
+        return "square";<br />
+    }<br />
+}<&#47;pre><br />
+Jak wiesz każda klasa w języku Java dziedziczy po klasie <code>Object<&#47;code> (bezpośrednio, bądź pośrednio). W naszym przykładzie bezpośrednio po klasie <code>Object<&#47;code> dziedziczą klasy <code>Rectangle<&#47;code>, <code>BoxForFigures<Rectangle><&#47;code> i <code>BoxForFigures<Square><&#47;code> [2. W rzeczywistości, po skompilowaniu powstanie jeden plik class z klasą <code>BoxForFigures<&#47;code>]. Natomiast <code>Square<&#47;code> dziedziczy po <code>Rectangle<&#47;code>.</p>
+<p><img class="aligncenter wp-image-277 size-full" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;03&#47;dziedziczenie_typow_generycznych_2.jpg" alt="dziedziczenie typow generycznych" width="774" height="320" &#47;></p>
+<p>Ma to swoje konsekwencje widoczne w przykładzie poniżej:</p>
+<pre class="lang:default decode:true ">Rectangle rectangle = new Square();<br />
+BoxForFigures<Rectangle> rectangleBox = new BoxForFigures<Square>(new Square()); &#47;&#47; compilation error<&#47;pre><br />
+Dzięki takiemu schematowi dziedziczenia do referencji typu <code>Rectangle<&#47;code> możemy przypisać obiekt <code>Square<&#47;code>. Jednak pr&oacute;ba przypisania obiektu <code>BoxForFigures<Square><&#47;code> do referencji <code>BoxForFigures<Rectangle><&#47;code> powoduje błąd kompilacji.</p>
+<p>Jednak podobnie jak w przypadku zwykłych klas, klasy generyczne także mogą dziedziczyć po innych klasach. W szczeg&oacute;lności mogą także dziedziczyć po klasach generycznych.</p>
+<pre class="lang:default decode:true ">class StandardBox<T> {<br />
+    public T object;</p>
+<p>    public StandardBox(T object) {<br />
+        this.object = object;<br />
+    }<br />
+}</p>
+<p>public class FancyBox<T> extends StandardBox<T> {<br />
+    public FancyBox(T object) {<br />
+        super(object);<br />
+    }<br />
+    public void saySomethingFancy() {<br />
+        System.out.println("our " + object + " is cool!");<br />
+    }<br />
+}</p>
+<p>public class Main {<br />
+    public static void main(String[] args) {<br />
+        FancyBox<String> box = new FancyBox<>("something");<br />
+        box.saySomethingFancy();<br />
+    }<br />
+}<&#47;pre><br />
+W naszym przykładzie klasa <code>FancyBox<&#47;code> dziedziczy po <code>StandardBox<&#47;code>, widoczne jest to na diagramie poniżej.</p>
+<p><img class="aligncenter wp-image-276 size-full" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;03&#47;dziedziczenie_typow_generycznych.jpg" alt="dziedziczenie typow generycznych" width="258" height="303" &#47;></p>
+<p>&nbsp;</p>
+<h1>Metody z generycznymi argumentami &ndash; wildcard<&#47;h1></p>
+<h2>FancyBox<?><&#47;h2><br />
+Pisząc metody, kt&oacute;re jako argumenty przyjmują typy generyczne nie zawsze chcesz dokładnie specyfikować typ. W takim wypadku z pomocą przychodzi znak <code>?<&#47;code>, kt&oacute;ry może akceptować r&oacute;żne typy.</p>
+<pre class="lang:default decode:true ">private static void method1(FancyBox<?> box) {<br />
+    Object object = box.object;<br />
+    System.out.println(object);<br />
+}</p>
+<p>private static void plainWildcard() {<br />
+    method1(new FancyBox<>(new Object()));<br />
+    method1(new FancyBox<>(new Square()));<br />
+    method1(new FancyBox<>(new Apple()));<br />
+}<&#47;pre><br />
+Jak widzisz w przykładzie powyżej metoda method1 może akceptować r&oacute;żne klasę <code>FancyBox<&#47;code> parametryzowaną dowolnym typem.</p>
+<h2>FancyBox<? extends Figure> "upper bound"<&#47;h2><br />
+Znak <code>?<&#47;code> może występować także w połączeniu ze sł&oacute;wkiem kluczowym <code>extends<&#47;code>. W takim przypadku możesz ograniczyć akceptowane typy "z g&oacute;ry". Na przykład w przykładzie poniżej metoda akceptuje jedynie klasy typy, kt&oacute;re dziedziczą po Figure.</p>
+<pre class="lang:default decode:true ">private static void method2(FancyBox<? extends Figure> box) {<br />
+    Figure figure = box.object;<br />
+    System.out.println(figure);<br />
+}</p>
+<p>private static void method3(FancyBox<Figure> box) {<br />
+    Figure figure = box.object;<br />
+    System.out.println(figure);<br />
+}</p>
+<p>private static void upperBoundWildcard() {<br />
+    method2(new FancyBox<>(new Square()));<br />
+    method2(new FancyBox<>(new Circle()));<br />
+    &#47;&#47;method3(new FancyBox<Square>(new Square())); &#47;&#47; compilation error<br />
+}<&#47;pre><br />
+W przykładzie tym możesz także zobaczyć, że typ <code>FancyBox<Figure><&#47;code> jest bardziej restrykcyjny niż <code>FancyBox<? extends Figure><&#47;code>. W konsekwencji pr&oacute;ba wywołania <code>method3<&#47;code> z argumentem innego typu niż <code>FancyBox<Figure&amp;gt<&#47;code>; skutkuje błędem kompilacji.</p>
+<h2>FancyBox<? super Rectangle> "lower bound"<&#47;h2><br />
+Poza ograniczeniem "z g&oacute;ry" możesz także ograniczyć akceptowalne typy "z dołu". W przykładzie poniżej metoda akceptuje wyłącznie argumenty typu <code>FancyBox<Object><&#47;code>, <code>FancyBox<Figure><&#47;code> i <code>FancyBox<Rectangle><&#47;code>.</p>
+<pre class="lang:default decode:true">private static void method4(FancyBox<? super Rectangle> box) {<br />
+    box.object = new Square();<br />
+    &#47;&#47;box.object = new Circle(); &#47;&#47; compilation error<br />
+}</p>
+<p>private static void lowerBoundWildcard() {<br />
+    method4(new FancyBox<>(new Rectangle()));<br />
+    method4(new FancyBox<Figure>(new Rectangle()));<br />
+    method4(new FancyBox<>(new Object()));<br />
+    &#47;&#47;method4(new FancyBox<Square>(new Square())); &#47;&#47; compilation error<br />
+}<&#47;pre></p>
+<blockquote><p>Zauważ, ze w niekt&oacute;rych miejscach nie ma potrzeby podawania typu generycznego. Samo <code><><&#47;code> wystarczy, kompilator jest w stanie wywnioskować jakiego typu może się tam spodziewać.<&#47;blockquote></p>
+<h1>Typy generyczne są skomplikowane<&#47;h1><br />
+Jeśli aktualnie masz mętlik w głowie nie przejmuj się. Typy generyczne są skomplikowane. Nie zostały one dodane do Javy od samego początku. W związku z tym, że tw&oacute;rcy chcieli zachować kompatybilność wstecz [1. Tw&oacute;rcom zależało na tym aby programy napisane w starej wersji Javy mogły być uruchamiane na najnowszych wersjach maszyny wirtualnej] istnieje wiele kruczk&oacute;w, kt&oacute;re nie są trywialne. Pominąłem w artykule np. "type erasure" czy generyczne metody, kt&oacute;re nie są istotne na początku. Jeśli jesteś nimi zainteresowany odsyłam do materiał&oacute;w dodatkowych.</p>
+<h1>Materiały dodatkowe<&#47;h1><br />
+Wszystkie przykłady użyte w tym artykule dostępne są na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;13_typy_generyczne&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;generics" target="_blank" rel="noopener">githubie<&#47;a>. Poniżej zebrałem dla Ciebie zestaw dodatkowy materiał&oacute;w, jeśli chciałbyś poszerzyć swoją wiedzę na temat typ&oacute;w generycznych w języku Java.</p>
+<ul>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;java&#47;generics&#47;index.html" target="_blank" rel="noopener">https:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;java&#47;generics&#47;index.html<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;extra&#47;generics&#47;index.html" target="_blank" rel="noopener">https:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;extra&#47;generics&#47;index.html<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-4.html#jls-4.5" target="_blank" rel="noopener">https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-4.html#jls-4.5<&#47;a><&#47;li>
+<li><a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Programowanie_uog%C3%B3lnione" target="_blank" rel="noopener">https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Programowanie_uog%C3%B3lnione<&#47;a><&#47;li><br />
+<&#47;ul></p>
+<h1>Podsumowanie<&#47;h1><br />
+Nie jest to oczywiście kompletny artykuł dotyczący typ&oacute;w generycznych w Javie. Pominięte zostały aspekty wymazywania typ&oacute;w czy bardziej szczeg&oacute;łowe informacje dotyczące użycia <code>?<&#47;code>. Jeśli kt&oacute;ryś fragment jest dla Ciebie nie do końca zrozumiały daj znać, postaram się rozszerzyć artykuł o dodatkowe przykłady i opisy.</p>
+<p>Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, kt&oacute;rzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelnik&oacute;w. Jeśli nie chcesz ominąć żadnego kolejnego artykułu polub nas na facebooku :) Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;huntingglee&#47;2222875354</p>

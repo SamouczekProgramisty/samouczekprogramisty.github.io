@@ -1,0 +1,185 @@
+---
+layout: post
+status: publish
+published: true
+title: String cache i StringBuilder w praktyce
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znak&oacute;w
+  jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych
+  z łańcuchami znak&oacute;w także się przydaje. Po lekturze tego artykułu będziesz
+  znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku
+  literał&oacute;w znakowych. Poznasz klasę <code>StringBuilder<&#47;code> i dowiesz
+  się dlaczego jest taka ważna. Zapraszam do lektury!\r\n\r\n"
+wordpress_id: 885
+wordpress_url: http://www.samouczekprogramisty.pl/?p=885
+date: '2017-05-06 23:46:34 +0200'
+date_gmt: '2017-05-06 21:46:34 +0200'
+categories:
+- Kurs programowania Java
+- DSP2017
+tags: []
+comments: []
+---
+<p>Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znak&oacute;w jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych z łańcuchami znak&oacute;w także się przydaje. Po lekturze tego artykułu będziesz znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku literał&oacute;w znakowych. Poznasz klasę <code>StringBuilder<&#47;code> i dowiesz się dlaczego jest taka ważna. Zapraszam do lektury!</p>
+<p><a id="more"></a><a id="more-885"></a></p>
+<h1>Literał znakowy<&#47;h1><br />
+Na początku powt&oacute;rka podstaw. Literał znakowy to ciąg znak&oacute;w otoczony cudzysłowami. Jest to instancja klasy <code>String<&#47;code>, jednak tworzona jest bez udziału sł&oacute;wka kluczowego <code>new<&#47;code>. Przykład poniżej pokazuje literał znakowy przypisany do zmiennej:</p>
+<pre class="lang:default decode:true ">String someLiteral = &ldquo;some constant value&rdquo;;<&#47;pre></p>
+<h1>Jak działa klasa <code>String<&#47;code><&#47;h1><br />
+Instancje klasy <code>String<&#47;code> reprezentują łańcuchy znak&oacute;w. Wewnętrznie znaki te przetrzymywane są w tablicy znak&oacute;w. Tablica ta ma typ <code>char[]<&#47;code>. Implementacja klasy <code>String<&#47;code> chowa przed programistą mechanizmy operowania na tej tablicy.</p>
+<p>Instancje klasy <code>String<&#47;code> są niemutowalne. Oznacza to tyle, że po stworzeniu instancji nie ma możliwości jej modyfikacji. Kilka metod wymienionych poniżej zwraca nowe instancje, pozostawiając tę na kt&oacute;rej zostały wywołane bez zmian:</p>
+<ul>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;String.html#replace-char-char" target="_blank" rel="noopener noreferrer"><code>replace<&#47;code><&#47;a> - podmienia znak w łańcuchu znak&oacute;w,<&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;String.html#substring-int-" target="_blank" rel="noopener noreferrer"><code>substring<&#47;code><&#47;a> - zwraca pewną część łańcucha znak&oacute;w określoną indeksami,<&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;String.html#toLowerCase--" target="_blank" rel="noopener noreferrer"><code>toLowerCase<&#47;code><&#47;a> - zamienia wielkie litery na małe w nowej instancji,<&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;String.html#toUpperCase--" target="_blank" rel="noopener noreferrer"><code>toUpperCase<&#47;code><&#47;a> - zamienia łańcuch znak&oacute;w na wielkie litery,<&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;String.html#trim--" target="_blank" rel="noopener noreferrer"><code>trim<&#47;code><&#47;a> - zwraca nową instancję bez początkowych i końcowych białych znak&oacute;w.<&#47;li><br />
+<&#47;ul></p>
+<h1>Co jeśli String nie ma metody, kt&oacute;rej potrzebuję?<&#47;h1><br />
+Chociaż klasa <code>String<&#47;code> zawiera spory zestaw metod, nie jest to lista kompletna. Jeśli trafisz na taki przypadek nie pr&oacute;buj wynaleźć koła na nowo. Lepiej rzuć okiem na istniejące biblioteki. Na przykład na <a href="https:&#47;&#47;commons.apache.org&#47;proper&#47;commons-lang&#47;" target="_blank" rel="noopener noreferrer">commons-lang<&#47;a> . Biblioteka ta zawiera klasę <a href="https:&#47;&#47;commons.apache.org&#47;proper&#47;commons-lang&#47;apidocs&#47;org&#47;apache&#47;commons&#47;lang3&#47;StringUtils.html" target="_blank" rel="noopener noreferrer"><code>StringUtils<&#47;code><&#47;a>, w kt&oacute;rej znajdziesz masę przydatnych metod operujących na łańcuchach znak&oacute;w.</p>
+<h1>Konkatenacja łańcuch&oacute;w znak&oacute;w<&#47;h1><br />
+Najprostszym sposobem otrzymania łańcucha znak&oacute;w jaki nas interesuje jest złożenie go z wielu części. Służy do tego operator <code>+<&#47;code>. Operacja ta nazywana jest konkatenacją.</p>
+<pre class="lang:default decode:true ">System.out.println("some" + " " + "string" + " " + "literal");<&#47;pre><br />
+W przypadku konkatenacji każdy z element&oacute;w konwertowany jest do typu <code>String<&#47;code> używając metody <code>toString<&#47;code> [0. Nie jest to do końca prawda, na przykład w przypadku typ&oacute;w prymitywnych stosowany jest inny mechanizm, zależny od typu zmiennej.]</p>
+<pre class="lang:default decode:true ">int x = 10;<br />
+Object y = new Object();<br />
+System.out.println("some" + " " + x + " " + "literal" + " " + y);<&#47;pre><br />
+Używanie operatora <code>+<&#47;code> może być bardzo wygodne jednak czasami może prowadzić do zaskakujących (na początku) rezultat&oacute;w. Proszę por&oacute;wnaj dwie poniższe linijki kodu:</p>
+<pre class="lang:default decode:true ">System.out.println(1 + 2 + "test"); &#47;&#47; 3test<br />
+System.out.println("test" + 1 + 2); &#47;&#47; test12<&#47;pre><br />
+Pierwsza z nich na początku doda dwie liczby uzyskując 3 a następnie dołączy do niej łańcuch znak&oacute;w. Druga do łańcucha znak&oacute;w dołączy dwie kolejne liczby. Dzieje się tak ponieważ operator <code>+<&#47;code> jest lewostronnie łączny. Oznacza to tyle, że w tym przypadku wyrażenie to wykonywane jest od lewej do prawej strony.</p>
+<p>W pierwszym przypadku do liczby 1 dodajemy liczbę 2, następnie "dodajemy" do niej łańcuch znak&oacute;w. W drugim przypadku do łańcucha znak&oacute;d dodajemy kolejno dwie liczby.</p>
+<p>Klasa <code>String<&#47;code> posiada także metodę <code>concat<&#47;code>, kt&oacute;ra działa w podobny spos&oacute;b do operatora <code>+<&#47;code>[1. Istnieją oczywiście drobne r&oacute;żnice, na przykład zachowanie w odniesieniu do zmiennych o wartości <code>null<&#47;code>.].</p>
+<h1>Wydajność a konkatenacja<&#47;h1><br />
+Wiesz już, że instancje klasy <code>String<&#47;code> są niemutowalne. Wszystkie metody znajdujące się w klasie <code>String<&#47;code>, modyfikują łańcuch znak&oacute;w tak na prawdę tworzą jego nową instancję.</p>
+<p>Nie inaczej jest z konkatenacją. Proszę sp&oacute;jrz na przykład poniżej:</p>
+<pre class="lang:default decode:true ">String some = "some";<br />
+String space = " ";<br />
+String random = "random";<br />
+String string = "string";</p>
+<p>String someString = some + space + random + space + string;<&#47;pre><br />
+Tak na prawdę, zanim powstałaby finalna instancja klasy <code>String<&#47;code> potrzebne byłoby aż trzy &ldquo;tymczasowe&rdquo; obiekty [2. Piszę &ldquo;potrzebne byłby&rdquo; ponieważ kompilator wprowadza tu pewne optymalizacje, o kt&oacute;rych przeczytasz niżej.]. Dopiero piąty obiekt byłby tym, kt&oacute;ry m&oacute;głby być przypisany do zmiennej <code>someString<&#47;code>. Dlaczego aż cztery? Wynika to z niemutowalności instancji klasy <code>String<&#47;code>. Nie możemy, posługując się wyłącznie instancjami klasy <code>String<&#47;code> od razu stworzyć finalnej wersji. Tworzone są obiekty &ldquo;pośrednie&rdquo;:</p>
+<ul>
+<li><code>&ldquo;some &ldquo;<&#47;code> (zwr&oacute;ć uwagę na spację na końcu),<&#47;li>
+<li><code>&ldquo;some random&rdquo;<&#47;code>,<&#47;li>
+<li><code>&ldquo;some random &ldquo;<&#47;code> (ponownie ze spacją).<&#47;li><br />
+<&#47;ul><br />
+Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobić lepiej. Z pomocą przychodzą klasy <code>StringBuilder<&#47;code> i <code>StringBuffer<&#47;code>.[3. Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instacji klasy <code>StringBuilder<&#47;code>. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;).]</p>
+<h2>Jak używać klasy <code>StringBuilder<&#47;code><&#47;h2><br />
+Klasa <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;7&#47;docs&#47;api&#47;java&#47;lang&#47;StringBuilder.html" target="_blank" rel="noopener noreferrer"><code>StringBuilder<&#47;code><&#47;a> podobnie jak <code>String<&#47;code> jest opakowaniem tablicy znak&oacute;w typu <code>char[]<&#47;code>. <code>StringBuilder<&#47;code> jednak jest typem mutowalnym. Instancje tego typu w można konwertować do typu <code>String<&#47;code> używając metody <code>toString<&#47;code>.</p>
+<p>Najprosztszym sposobem utworzenia instancji klasy <code>StringBuilder<&#47;code> jest użycie konstruktora bezparametrowego. Następnie możesz modyfikować ten obiekt używając dostępnych metod.</p>
+<p>Bardzo przydatną metodą z tej klasy jest przeciążona metoda <code>append<&#47;code>. Pozwala ona na wydajne łączenie łańcuch&oacute;w znak&oacute;w. Proszę sp&oacute;jrz na przykład poniżej pokazujący spos&oacute;b użycia klasy:</p>
+<pre class="lang:default decode:true ">public void compilerConcatenationFiddling() {<br />
+    String some = "some";<br />
+    String space = " ";<br />
+    String random = "random";<br />
+    String string = "string";</p>
+<p>    StringBuilder someSttringBuilder = new StringBuilder();<br />
+    someSttringBuilder.append(some);<br />
+    someSttringBuilder.append(space);<br />
+    someSttringBuilder.append(random);<br />
+    someSttringBuilder.append(space);<br />
+    someSttringBuilder.append(string);</p>
+<p>    String someString = someSttringBuilder.toString();<br />
+}<&#47;pre></p>
+<h2>R&oacute;żnica pomiędzy <code>StringBuilder<&#47;code> a <code>StringBufer<&#47;code><&#47;h2><br />
+Istnieje też inna implementacja tej samej funkcjonalności. Jest to klasa <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;StringBuffer.html" target="_blank" rel="noopener noreferrer"><code>StringBuffer<&#47;code><&#47;a>. Jeśli masz przed sobą rozmowę kwalifikacyjną dobrze jest znać r&oacute;żnicę między tymi klasami. Jest to jedno ze &ldquo;sztampowych&rdquo; pytań rekrutacyjnych ;).</p>
+<p>Gł&oacute;wną r&oacute;żnicą jest to, że instancję klasy <code>StringBuffer<&#47;code> można bezpiecznie używać nawet w aplikacjach wielowątkowych. Instancje klasy <code>StringBuilder<&#47;code> nie powinny być wsp&oacute;łdzielone pomiędzy wątkami. Cecha ta ma jedną ważną konsekwencję. Ze względu na brak synchronizacji instancje klasy <code>StringBuilder<&#47;code> są nieznacznie szybsze od <code>StringBuffer<&#47;code>.</p>
+<p>Dodatkowo możesz zapoznać się też z klasą <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;StringJoiner.html" target="_blank" rel="noopener noreferrer"><code>StringJoiner<&#47;code><&#47;a>, kt&oacute;ra oferuje podobną funkcjonalność. Jest ona wykorzystywana na przykład podczas łączenia strumieni.</p>
+<h1>Optymalizacja konkatenacji przez kompilator<&#47;h1><br />
+Mamy dwa elementy układanki. Klasę <code>StringBuilder<&#47;code>, kt&oacute;ra dużo lepiej się sprawdza przy pracy z łączeniem znak&oacute;w. Konkatenację, kt&oacute;ra nie jest wydajnym sposobem łączenia łańcuch&oacute;w znak&oacute;w.</p>
+<p>Mamy też metodę <code>append<&#47;code>, kt&oacute;rą już poznałeś. Jest ona odpowiednikiem <code>+<&#47;code> w konkatenacji. Nie można czegoś z tym zrobić?</p>
+<p>Oczywiście, że można! I to właśnie jest robione przez kompilator. Tak naprawdę, pisząc kod:</p>
+<pre class="lang:default decode:true ">String some = "some";<br />
+String space = " ";<br />
+String random = "random";<br />
+String string = "string";</p>
+<p>String someString = some + space + random + space + string;<&#47;pre><br />
+Kompilator kompiluje go do postaci, kt&oacute;ra wygląda podobnie do fragmentu niżej:</p>
+<pre class="lang:default decode:true ">String some = "some";<br />
+String space = " ";<br />
+String random = "random";<br />
+String string = "string";</p>
+<p>StringBuilder x = new StringBuilder();<br />
+x.append(some);<br />
+x.append(space);<br />
+x.append(random);<br />
+x.append(space);<br />
+x.append(string);</p>
+<p>String someString = x.toString();<&#47;pre><br />
+Innymi słowy kompilator optymalizuje za nas kod. Czy ta optymalizacja zawsze działa? Niestety nie, są przypadki kiedy nawet taka optymalizacja nie daje rady. Proszę sp&oacute;jrz na przykład poniżej. Jest to pętla, kt&oacute;ra dołącza aktualny stan licznika do łańcucha znak&oacute;w.</p>
+<pre class="lang:default decode:true ">String finalString = "";<br />
+for (int counter = 0; counter < 1000000; counter++) {<br />
+    finalString = finalString + " " + counter;<br />
+}<&#47;pre><br />
+Jak zoptymalizuje to kompilator? Będzie to kod podobny do tego:</p>
+<pre class="lang:default decode:true">String finalString = "";<br />
+for (int counter = 0; counter < 1000000; counter++) {<br />
+    StringBuilder x = new StringBuilder();<br />
+    x.append(finalString);<br />
+    x.append(" ");<br />
+    x.append(counter);<br />
+    finalString = x.toString();<br />
+}<&#47;pre><br />
+Niestety mimo optymalizacji wewnątrz pętli dalej musimy tworzyć blisko milion obiekt&oacute;w tymczasowych. To jest czasochłonne. Lepszym rozwiązaniem jest poniższy fragment kodu:</p>
+<pre class="lang:default decode:true">StringBuilder finalStringBuilder = new StringBuilder();<br />
+for (int counter = 0; counter < 1000000; counter++) {<br />
+    finalStringBuilder.append(" ");<br />
+    finalStringBuilder.append(counter);<br />
+}<br />
+String finalString = finalStringBuilder.toString();<&#47;pre><br />
+W tym przypadku sam tworzę instancję klasy <code>StringBuilder<&#47;code> i używam jej wewnątrz pętli.</p>
+<h1>Literały i cache<&#47;h1><br />
+Specyfikacja języka Java narzuca pewne wymagania związane z optymalizacją pracy z łańcuchami znak&oacute;w. Każdy łańcuch znak&oacute;w, kt&oacute;ry jest literałem umieszczany jest w cache&rsquo;u.</p>
+<p>[idea]Tutaj drobna dygresja. Cache to mechanizm, kt&oacute;ry pozwala na przetrzymywanie wartości jakiegoś typu. Przeważnie uzyskanie tej wartości jest czasochłonne. Założeniem tego mechanizmu jest pozwolenie na szybsze dotarcie do tych wartości w p&oacute;źniejszym czasie. Dodatkowo pozwala on na optymalizację zajmowanego miejsca. Elementy znajdujące się w cache&rsquo;u przeważnie się nie powtarzają. Cache może być zrealizowany na wiele sposob&oacute;w, najprostszą implementacją może być zwykła instancja <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;HashMap.html" target="_blank" rel="noopener noreferrer"><code>HashMap<&#47;code><&#47;a>. W bardziej zaawansowanych zastosowaniach używa się osobnych program&oacute;w&#47;baz danych, kt&oacute;re zapewniają tę funkcjonalność, na przykład <a href="https:&#47;&#47;memcached.org&#47;" target="_blank" rel="noopener noreferrer">memcached<&#47;a>.[&#47;idea]</p>
+<p>Oznacza to tyle, że poniższe dwie zmienne są referencjami na dokładnie ten sam obiekt na stercie. Dzieje się tak, ponieważ są one literałami o tej samej zawartości:</p>
+<p>[idea]Poniższe fragmenty kodu są testami jednostkowymi. Jeśli chcesz przeczytać więcej na ten temat zapraszam do arytkułu poświęconemu <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;testy-jednostkowe-z-junit&#47;">testom jednostkowym w Javie<&#47;a>. Możesz też przeczytać kolejny artykuł poświęcony <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;test-driven-development-na-przykladzie&#47;">Test Driven Development<&#47;a>.[&#47;idea]</p>
+<pre class="lang:default decode:true ">@Test<br />
+public void twoLiterals() {<br />
+    String someVariable = "samouczek programisty";<br />
+    String otherVariable = "samouczek programisty";</p>
+<p>    assertEquals(someVariable, otherVariable);<br />
+    assertSame(someVariable, otherVariable);<br />
+}<&#47;pre><br />
+Pierwsze por&oacute;wnanie, sprawdza &ldquo;zawartość&rdquo; łańcucha znak&oacute;w. Drugie por&oacute;wnuje adresy obiekt&oacute;w na stercie.</p>
+<p>W przypadku utworzenia nowej instancji przy pomocy wywołania konstruktora, zawsze tworzone są nowe obiekty. Proszę por&oacute;wnaj poprzedni fragment kodu z tym poniżej:</p>
+<pre class="lang:default decode:true ">@Test<br />
+public void twoNewObjects() {<br />
+    String someVariable = new String("samouczek programisty");<br />
+    String otherVariable = new String("samouczek programisty");</p>
+<p>    assertEquals(someVariable, otherVariable);<br />
+    assertNotSame(someVariable, otherVariable);<br />
+}<&#47;pre><br />
+W tym przypadku mamy do czynienia z dwoma osobnymi obiektami. W tym przypadku adresy obiekt&oacute;w są r&oacute;żne.</p>
+<h2>Metoda <code>String.intern<&#47;code><&#47;h2><br />
+Istnieje spos&oacute;b aby zachować wartość łańcucha znak&oacute;w w cache (lub pobrać go z cache). Dzięki tej metodzie w cache'u możemy zachować nawet instancje utworzone przy pomocy konstruktora. Służy do tego metoda <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;String.html#intern--" target="_blank" rel="noopener noreferrer"><code>intern<&#47;code><&#47;a>. Wywołanie tej metody zachowuje w cache'u dany łańcuch znak&oacute;w i zwraca instancję, kt&oacute;ra jest w cache'u zachowana. Jeśli ten literał istnieje już w cache'u, będzie tam zachowany wyłącznie raz.</p>
+<p>Proszę sp&oacute;jrz na przykład poniżej</p>
+<pre class="lang:default decode:true ">@Test<br />
+public void literalAndInternedObject() {<br />
+    String someVariable = "samouczek programisty";<br />
+    String otherVariable = new String("samouczek programisty").intern();</p>
+<p>    assertEquals(someVariable, otherVariable);<br />
+    assertSame(someVariable, otherVariable);<br />
+}<&#47;pre><br />
+W tym przypadku oba por&oacute;wnania zwr&oacute;cą wartość <code>true<&#47;code>.</p>
+<h1>Dodatkowe materiały do nauki<&#47;h1><br />
+Poniżej przygotowałem dla Ciebie zestaw odnośnik&oacute;w, kt&oacute;re mogą pom&oacute;c w rozwijaniu wiedzy związanej z pracą z łańcuchami znak&oacute;w:</p>
+<ul>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-15.html#jls-15.18.1" target="_blank" rel="noopener noreferrer">Java Language Specification o konkatenacji<&#47;a>,<&#47;li>
+<li>dokumentacja klasy <a href="https:&#47;&#47;github.com&#47;apache&#47;commons-lang&#47;blob&#47;master&#47;src&#47;main&#47;java&#47;org&#47;apache&#47;commons&#47;lang3&#47;StringUtils.java" target="_blank" rel="noopener noreferrer"><code>StringUtils<&#47;code><&#47;a>,<&#47;li>
+<li>dokumentacja klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;StringBuilder.html" target="_blank" rel="noopener noreferrer"><code>StringBuilder<&#47;code><&#47;a>,<&#47;li>
+<li>dokumentacja klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;StringBuffer.html" target="_blank" rel="noopener noreferrer"><code>StringBuffer<&#47;code><&#47;a>,<&#47;li>
+<li>dokumentacja klasy <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;StringJoiner.html" target="_blank" rel="noopener noreferrer"><code>StringJoiner<&#47;code><&#47;a>,<&#47;li>
+<li><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;26_lancuchy_znakow&#47;src" target="_blank" rel="noopener noreferrer">kod źr&oacute;dłowy przykład&oacute;w użytych w artykule<&#47;a>.<&#47;li><br />
+<&#47;ul></p>
+<h1>Podsumowanie<&#47;h1><br />
+Po lekturze tego artykułu sporo wiesz o pracy z łańcuchami znak&oacute;w. Poznałeś jedną z optymalizacji, kt&oacute;re wprowadza kompilator. Umiesz odpowiedzieć na jedno ze sztampowych pytań rekrutacyjnych ;). Znasz spos&oacute;b pracy z klasą <code>StringBuilder<&#47;code>. Dowiedziałeś się też o przydatnych metodach operujących na instancjach klasy <code>String<&#47;code> znajdujących się w bibliotece commons-lang.</p>
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć żadnego postu polub stronę na facebooku i dopisz się do samouczkowego newslettera. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;jasohill&#47;54816310&#47;sizes&#47;l</p>

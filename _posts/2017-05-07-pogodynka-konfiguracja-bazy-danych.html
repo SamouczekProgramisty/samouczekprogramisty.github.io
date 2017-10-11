@@ -1,0 +1,64 @@
+---
+layout: post
+status: publish
+published: true
+title: Pogodynka - konfiguracja bazy danych
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Zabawy z Pogodynką ciąg dalszy. Dzisiaj opiszę co udało mi się zrobić w
+  niedzielny wiecz&oacute;r w sprawie Pogodynki. Zapraszam do lektury.\r\n\r\n"
+wordpress_id: 892
+wordpress_url: http://www.samouczekprogramisty.pl/?p=892
+date: '2017-05-07 23:19:04 +0200'
+date_gmt: '2017-05-07 21:19:04 +0200'
+categories:
+- DSP2017
+- Projekty
+- Pogodynka
+tags: []
+comments: []
+---
+<p>Zabawy z Pogodynką ciąg dalszy. Dzisiaj opiszę co udało mi się zrobić w niedzielny wiecz&oacute;r w sprawie Pogodynki. Zapraszam do lektury.</p>
+<p><a id="more"></a><a id="more-892"></a></p>
+<p>Niestety moje plany kontynuacji konfiguracji od początku tygodnia spełzły na niczym. Założyłem, że to co zostało to już &ldquo;pikuś&rdquo; i powinno p&oacute;jść prosto... O tym, jak strasznie się myliłem przeczytasz poniżej ;).</p>
+<p>Na początku chciałbym zastrzec, że nie jestem administratorem, więc jeśli masz jakiekolwiek uwagi mogące poprawić ustawienie środowiska bardzo proszę o informację w komentarzu.</p>
+<h1>Baza danych<&#47;h1><br />
+Jako produkcyjną bazę danych wybrałem <a href="https:&#47;&#47;www.postgresql.org&#47;" target="_blank" rel="noopener noreferrer">PostgreSQL<&#47;a>. W przypadku tej aplikacji silnik bazy danych nie ma większego znaczenia. Nie będzie to &ldquo;hurtownia danych&rdquo; z olbrzymim zbiorem a raczej kilka (jedna?) prostych tabel.</p>
+<p>W poprzednim tygodniu znalazłem <a href="https:&#47;&#47;github.com&#47;puppetlabs&#47;puppetlabs-postgresql" target="_blank" rel="noopener noreferrer">moduł puppeta<&#47;a>, kt&oacute;ry pomaga w konfiguracji instancji postgresql na serwerze. Ujarzmienie tego modułu trochę mi zajęło.</p>
+<p>Okazało się, że serwer bazy danych nie m&oacute;gł poprawnie wystartować ponieważ w na serwerze, nie wszystkie informacje o lokalizacji były dostępne:</p>
+<pre class="lang:default highlight:0 decode:true ">root@debian:~# locale<br />
+LANG=en_US.UTF-8<br />
+LANGUAGE=<br />
+LC_CTYPE="en_US.UTF-8"<br />
+LC_NUMERIC=pl_PL.UTF-8<br />
+LC_TIME=pl_PL.UTF-8<br />
+LC_COLLATE="en_US.UTF-8"<br />
+LC_MONETARY=pl_PL.UTF-8<br />
+LC_MESSAGES="en_US.UTF-8"<br />
+LC_PAPER=pl_PL.UTF-8<br />
+LC_NAME=pl_PL.UTF-8<br />
+LC_ADDRESS=pl_PL.UTF-8<br />
+LC_TELEPHONE=pl_PL.UTF-8<br />
+LC_MEASUREMENT=pl_PL.UTF-8<br />
+LC_IDENTIFICATION=pl_PL.UTF-8<br />
+LC_ALL=<&#47;pre><br />
+Jak widać tutaj używane były dwie lokalizacje <code>en_US.UTF-8<&#47;code> i <code>pl_PL.UTF-8<&#47;code>. W pliku <code>&#47;etc&#47;locale.gen<&#47;code> dostępna byłą tylko jedna z nich. Dodanie obu lokalizacji do tego pliku pozwoliło utworzyć klaster i uruchomić serwer bazy danych. Po zmianie zawartości tego pliku konfiguracyjnego niezbędne jest uruchomienie polecenia <code>locale-gen<&#47;code>.</p>
+<pre class="lang:default highlight:0 decode:true "># grep -v '#' &#47;etc&#47;locale.gen<br />
+pl_PL.UTF-8 UTF-8<br />
+en_US.UTF-8 UTF-8<&#47;pre></p>
+<h1>Firewall<&#47;h1><br />
+W poprzednim odcinku wspominałem o konfiguracji firewalla, niestety dalej nie udało mi się zrobić poprawnego przekierowania ruchu z portu 80 na port 8080. Muszę jeszcze nad tym popracować. Pr&oacute;bowałem znaleźć odpowiedź na to <a href="http:&#47;&#47;stackoverflow.com&#47;questions&#47;43828853&#47;forwarding-traffic-from-80-to-8080" target="_blank" rel="noopener noreferrer">pytanie na StackOverflow<&#47;a>, niestety z marnym rezultatem :(.</p>
+<h1>Przechowywanie haseł<&#47;h1><br />
+Jednym z mechanizm&oacute;w dostępnych w Puppecie jest <a href="https:&#47;&#47;docs.puppet.com&#47;hiera&#47;" target="_blank" rel="noopener noreferrer">hiera<&#47;a>. Jest to swego rodzaju hierarchiczna konfiguracja dostępna dla manifest&oacute;w puppeta. W moim przypadku nie używam hierarchii plik&oacute;w a jedynie jednego pliku <code>passwords.yaml<&#47;code>.</p>
+<p>Plik ten zawiera wszystkie hasła, kt&oacute;re nie powinny być dostępne na gitubie ;). Na przykład zawarte jest tam hasło dla gł&oacute;wnego użytkownika bazy danych. Dzięki takiemu podejściu mogę dzielić się z Tobą konfiguracją, zachowując jednocześnie odpowiedni poziom bezpieczeństwa[0. Jak na moją wiedzę z tego zakresu ;)].</p>
+<p>Przykładowe użycie w manifeście wygląda następująco</p>
+<pre class="lang:default highlight:0 decode:true ">hiera(&lsquo;variable_name&rsquo;)<&#47;pre><br />
+W&oacute;wczas puppet wyszukuje wartości zmiennej variable_name i wstawia ją w odpowiednie miejsce w manifeście. Przykładowe użycie możesz znaleźć w <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;Pogodynka&#47;blob&#47;master&#47;puppet&#47;modules&#47;pogodynka&#47;manifests&#47;database.pp" target="_blank" rel="noopener noreferrer">konfiguracji bazy danych<&#47;a>. Same hasła są losowymi ciągami o długości 64 znak&oacute;w generowanymi przy pomocy komendy pwgen.</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zostało coraz mniej czasu, deadline coraz bliżej a tu końca nie widać ;). Mam nadzieję, że w przyszłym tygodniu uda mi się już rozwiązać definitywnie problemy z konfiguracją. Na dzisiaj to tyle, trzymaj się i do następnego razu! ;)</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;joseywales&#47;316407208&#47;sizes&#47;o&#47;</p>

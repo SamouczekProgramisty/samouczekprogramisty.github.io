@@ -1,0 +1,52 @@
+---
+layout: post
+status: publish
+published: true
+title: Advent of Code 2016 dzień 9
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Advent of Code 2016 dzień 9. Dzisiaj trzeba rozpracować algorytm dekompresji.
+  W jednym z plik&oacute;w mogą znajdować się dość ciekawe dane,\r\n\r\n"
+wordpress_id: 638
+wordpress_url: http://www.samouczekprogramisty.pl/?p=638
+date: '2016-12-11 20:21:23 +0100'
+date_gmt: '2016-12-11 19:21:23 +0100'
+categories:
+- Strefa zadaniowa
+tags: []
+comments: []
+---
+<p>Advent of Code 2016 dzień 9. Dzisiaj trzeba rozpracować algorytm dekompresji. W jednym z plik&oacute;w mogą znajdować się dość ciekawe dane,</p>
+<p><a id="more"></a><a id="more-638"></a></p>
+<h1>Wprowadzenie<&#47;h1><br />
+[idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;9" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;9<&#47;a>[&#47;idea]</p>
+<p>Advent of Code to inicjatywa, w kt&oacute;rej codziennie publikowane są zadania algorytmiczne dla programist&oacute;w. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, kt&oacute;rą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
+<h1>Dzień 9 zadanie 1<&#47;h1><br />
+<a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-8&#47;">Wczoraj<&#47;a>, dzięki Twojej pomocy udało odczytać to co powinno być wyświetlone na zniszczonym wyświetlaczu. Dzięki temu dostałeś się do chronionej części Kwatery Gł&oacute;wnej. Przechadzając się po korytarzach natknąłeś się na port, dzięki kt&oacute;remu możesz dostać się do pozostałej części sieci. Pobieżnie przeskanowałeś interesujące pliki, jeden z nich szczeg&oacute;lnie przykuł Twoją uwagę. Plik ten jest skompresowany w pewnym eksperymentalnym formacie. Na szczęście dokumentacja tego formatu znajdowała się niedaleko.</p>
+<p>Format kompresuje sekwencje znak&oacute;w. Białe znaki (spacje, znaki nowej linii itp.) są ignorowane. Aby zaznaczyć, że jakaś sekwencja powinna być powt&oacute;rzona, umieszcza się przed nią odpowiedni znacznik, na przykład (10x2). Aby zdekompresować następującą po nim sekwencję należy wziąć kolejne 10 znak&oacute;w i powt&oacute;rzyć je dwa razy. Następnie należy kontynuować czytanie skompresowanej zawartości po powt&oacute;rzonej sekwencji. Sam znacznik nie jest dołączany do zdekompresowanego wyjścia.</p>
+<p>Jeśli nawiasy, czy inne znaki wystąpią wewnątrz sekwencji, kt&oacute;ra powinna być powt&oacute;rzona - wszystko jest w porządku. Należy traktować je jak normalne dane, nie znacznik i kontynuować poszukiwanie znacznik&oacute;w po sekcji, kt&oacute;ra została powt&oacute;rzona.</p>
+<p>Dla przykładu:</p>
+<ul>
+<li><code>ADVENT<&#47;code> nie zawiera żadnych znacznik&oacute;w, więc po dekompresji otrzymamy <code>ADVENT<&#47;code> bez żadnych zmian, wynik po dekompresji ma długość 6,<&#47;li>
+<li><code>A(1x5)BC<&#47;code> powtarza tylko B pięć razy, finalnie otrzymujemy <code>ABBBBBC<&#47;code> o długości 7,<&#47;li>
+<li><code>(3x3)XYZ<&#47;code> po dekompresji otrzymujemy <code>XYZXYZXYZ<&#47;code> o długości 9,<&#47;li>
+<li><code>A(2x2)BCD(2x2)EFG<&#47;code>, powtarzamy znaki <code>BC<&#47;code> i <code>EF<&#47;code>, otrzymujemy <code>ABCBCDEFEFG<&#47;code> o długości 11 znak&oacute;w,<&#47;li>
+<li><code>(6xa)(1x3)A<&#47;code> po dekompresji otrzymujemy <code>(1x3)A<&#47;code>, chociaż <code>(1x3)<&#47;code> wygląda jak znacznik nie jest przetwarzany bo znajdował się wewnątrz zakresu obsługiwanego przez <code>(6x1)<&#47;code>, podobnie jak A nie jest traktowany specjalnie. Finalnie otrzymujemy łańcuch o długości 6,<&#47;li>
+<li><code>X(8x2)(3x3)ABCY<&#47;code> po dekompresji otrzymujemy <code>X(3x3)ABC(3x3)ABCY<&#47;code> o długości 18 znak&oacute;w.<&#47;li><br />
+<&#47;ul><br />
+Jaka jest długość zdekompresowanej sekwencji jeśli skompresowane dane zapisane są w <a href="https:&#47;&#47;raw.githubusercontent.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;test&#47;resources&#47;day09_input.txt" target="_blank">tym pliku<&#47;a>?</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programist&oacute;w. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day09" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zr&oacute;b to raczej w ostateczności.</p>
+<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pom&oacute;c Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

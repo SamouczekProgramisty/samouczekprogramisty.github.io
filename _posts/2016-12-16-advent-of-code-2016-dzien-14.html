@@ -1,0 +1,52 @@
+---
+layout: post
+status: publish
+published: true
+title: Advent of Code 2016 dzień 14
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Advent of Code 2016 dzień 14. Żeby skontaktować się ze Świętym Mikołajem
+  potrzebujesz zestawu haseł jednorazowych, pomożesz je wygenerować?\r\n\r\n"
+wordpress_id: 668
+wordpress_url: http://www.samouczekprogramisty.pl/?p=668
+date: '2016-12-16 21:08:40 +0100'
+date_gmt: '2016-12-16 20:08:40 +0100'
+categories:
+- Strefa zadaniowa
+tags: []
+comments: []
+---
+<p>Advent of Code 2016 dzień 14. Żeby skontaktować się ze Świętym Mikołajem potrzebujesz zestawu haseł jednorazowych, pomożesz je wygenerować?</p>
+<p><a id="more"></a><a id="more-668"></a></p>
+<h1>Wprowadzenie<&#47;h1><br />
+[idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;14" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;14<&#47;a>[&#47;idea]</p>
+<p>Advent of Code to inicjatywa, w kt&oacute;rej codziennie publikowane są zadania algorytmiczne dla programist&oacute;w. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, kt&oacute;rą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
+<h1>Dzień 14 zadanie 1<&#47;h1><br />
+Po udanej <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-13&#47;">przeprawie przez labirynt<&#47;a> chciałbyś przesłać wiadomość do Świętego Mikołaja. Żeby bezpiecznie połączyć się ze Świętym Mikołajem w trakcie misji używałeś haseł jednorazowych. Generowałeś je używając algorytmu, kt&oacute;ry został wcześniej zatwierdzony. Niestety hasła, kt&oacute;re miałeś wygenerowane już się skończyły. Musisz wygenerować kolejne.</p>
+<p>Do wygenerowania haseł potrzebujesz strumienia danych losowych. Strumień ten uzyskasz licząc sumę MD5 z odpowiednio przygotowanego łańcucha znak&oacute;w. Łańcuch ten składa się z dw&oacute;ch części. Pierwsza z nich jest stała (wejście do twojego programu), druga to zwiększająca się o 1 liczba całkowita zapisana dziesiętnie. Suma MD5 z takiego łańcucha powinna być przestawiona w postaci heksadecymalnej.</p>
+<p>Niestety, nie wszystkie takie sumy MD5 to hasła a Ty potrzebujesz kolejnych 64 do dalszej komunikacji z Mikołajem. Suma MD5 jest hasłem jeśli:</p>
+<ul>
+<li>Zawiera trzy takie same znaki pod rząd, na przykład <code>777<&#47;code>, weź pod uwagę wyłącznie pierwszą tr&oacute;jkę w sumie,<&#47;li>
+<li>w kolejnych 1000 sum ten sam znak powt&oacute;rzony jest pięć razy pod rząd, na przykład <code>77777<&#47;code>.<&#47;li><br />
+<&#47;ul><br />
+Jeśli jakaś suma zawiera pięć znak&oacute;w pod rząd także powinieneś ją traktować jako potencjalne hasło (mając pięć powt&oacute;rzonych znak&oacute;w, oczywiście suma ma też trzy powt&oacute;rzone znaki).</p>
+<p>Na przykład, jeśli wejściem do programu jest <code>abc<&#47;code>:</p>
+<ul>
+<li>Pierwszy indeks, w kt&oacute;rym suma MD5 zawiera potrojony znak to 18. Suma MD5 z <code>abc18<&#47;code> zawiera <code>...cc38887a5...<&#47;code>. Mimo to, indeks 18 nie liczy się jako poprawne hasło, ponieważ żadna z kolejnych 1000 sum (indeksy 19 do 1018 włącznie) nie zawiera <code>88888<&#47;code>,<&#47;li>
+<li>kolejny indeks, kt&oacute;ry zawiera potrojony znak to 39. Suma MD5 z <code>abc39<&#47;code> zawiera <code>eee<&#47;code>. Jest to także pierwsze poprawne hasło, ponieważ jedna z kolejnych 1000 sum (ta z indeksem 816) zawiera <code>eeeee<&#47;code>,<&#47;li>
+<li>żadna z kolejnych sześciu tr&oacute;jek występująca w kolejnych sumach nie jest hasłem, jednak kolejna już tak. Suma z indeksu 92 zawiera <code>999<&#47;code> a indeks 200 zawiera <code>99999<&#47;code>.<&#47;li>
+<li>w końcu indeks 22728 spełnia wszystkie wymagania i produkuje sześćdziesiąte czwarte hasło.<&#47;li><br />
+<&#47;ul><br />
+Więc w naszym przykładzie, jeśli wejściem do programu jest <code>abc<&#47;code>, indeks 22728 produkuje sześćdziesiąte czwarte hasło jednorazowe.</p>
+<p>Jeśli wejściem do Twojego programu jest <code>yjdafjpo<&#47;code> kt&oacute;ry indeks generuje sześćdziesiąte czwarte hasło?</p>
+<h1>Podsumowanie<&#47;h1><br />
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programist&oacute;w. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day14" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zr&oacute;b to raczej w ostateczności.</p>
+<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pom&oacute;c Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>

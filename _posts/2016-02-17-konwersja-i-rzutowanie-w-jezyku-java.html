@@ -1,0 +1,180 @@
+---
+layout: post
+status: publish
+published: true
+title: Konwersja i rzutowanie w języku Java
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku
+  Java. Przeczytasz o konwersji obiekt&oacute;w oraz typ&oacute;w prostych. Dowiesz
+  się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typ&oacute;w
+  do typu <code>String<&#47;code>. Poznasz mechanizm boxing'u oraz unboxing'u. Innymi
+  słowy, dziś kolejna porcja informacji na temat języka Java :)\r\n\r\n"
+wordpress_id: 242
+wordpress_url: http://www.samouczekprogramisty.pl/?p=242
+date: '2016-02-17 17:48:51 +0100'
+date_gmt: '2016-02-17 16:48:51 +0100'
+categories:
+- Kurs programowania Java
+tags: []
+comments: []
+---
+<p>Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku Java. Przeczytasz o konwersji obiekt&oacute;w oraz typ&oacute;w prostych. Dowiesz się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typ&oacute;w do typu <code>String<&#47;code>. Poznasz mechanizm boxing'u oraz unboxing'u. Innymi słowy, dziś kolejna porcja informacji na temat języka Java :)</p>
+<p><a id="more"></a><a id="more-242"></a></p>
+<p>[idea]To jest jeden z artykuł&oacute;w w ramach <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;kurs-programowania-java&#47;">darmowego kursu programowania w Javie<&#47;a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[&#47;idea]</p>
+<h1>Rzutowanie<&#47;h1><br />
+Zaczniemy od rzutowania (ang. <em>cast<&#47;em>). Jak już wiesz kompilator Javy ma pewną wiedzę na temat tego jaki rodzaj obiektu kryje się pod daną referencją w trakcie kompilacji. Wie to z typu zmiennej do kt&oacute;rej przypisany jest dany obiekt. Jednak możliwa jest sytuacja kiedy pod referencją typu X przypisany jest obiekt typu Y jak w przykładzie poniżej:</p>
+<pre class="lang:default decode:true ">public void differentTypes() {<br />
+    Object objectInstance = new Object();<br />
+    Object stringInstance = "string";<br />
+}<&#47;pre><br />
+Obie referencje są typu <code>Object<&#47;code> jednak druga z nich przechowuje zmienną typu <code>String<&#47;code>. Jest to w 100% poprawny kod. Jednak jeśli na zmiennej <code>stringInstance<&#47;code> chciałbyś wywołać metodę, kt&oacute;rą implementuje klasa <code>String<&#47;code> a nie ma jej w klasie <code>Object<&#47;code> skończy się to błędem kompilacji:</p>
+<pre class="lang:default decode:true">Error:(15, 23) java: cannot find symbol<br />
+  symbol: method length()<br />
+  location: variable stringInstance of type java.lang.Object<&#47;pre><br />
+Jak zatem wywołać taką metodę? Przecież jesteśmy pewni, że pod zmienną <code>stringInstance<&#47;code> kryje się obiekt typu <code>String<&#47;code>. Tutaj z pomocą przychodzi rzutowanie. Java pozwala rzutować typ A na typ B używając wyrażenia rzutowania, możesz je zobaczyć w przykładzie poniżej:</p>
+<pre class="lang:default decode:true ">public void differentTypes() {<br />
+    Object objectInstance = new Object();<br />
+    Object stringInstance = "string";</p>
+<p>    String realString = (String) stringInstance;<br />
+    realString.length();<br />
+}<&#47;pre><br />
+Oczywiście nie każde rzutowanie jest poprawne. W przykładzie poniżej możesz zobaczyć błędne rzutowanie z typu Object na typ <code>String<&#47;code>. Tego typu operacje kończą się wyjątkiem w trakcie wykonania programu:</p>
+<pre class="lang:default decode:true">public class RuntimeType {<br />
+    public static void main(String[] args) {<br />
+        Object[] someMysteriousObjects = new Object[] {"1234", new Object()};</p>
+<p>        String castedString = (String) someMysteriousObjects[0];<br />
+        String classCastException = (String) someMysteriousObjects[1];<br />
+    }<br />
+}<&#47;pre></p>
+<pre class="lang:default decode:true ">Exception in thread "main" java.lang.ClassCastException: java.lang.Object cannot be cast to java.lang.String<br />
+  at pl.samouczekprogramisty.kursjava.RuntimeType.main(RuntimeType.java:8)<&#47;pre><br />
+Wyjątek m&oacute;wi tyle, że obiektu typu <code>java.lang.Object<&#47;code> nie możemy rzutować do typu <code>java.lang.String<&#47;code>. Jakie rzutowanie jest w takim razie dozwolone? Możemy rzutować wyłącznie na typ, kt&oacute;ry znajduje się hierarchii dziedziczenia danego obiektu. Z tego właśnie powodu rzutowanie <code>String<&#47;code> na <code>Object<&#47;code> jest dopuszczalne ale odwrotna operacja kończy się błędem.</p>
+<p>W jednym z kolejnych artykuł&oacute;w przeczytasz o typach generycznych, kt&oacute;re pomagają rozwiązać część sytuacji, kiedy rzutowanie jest potrzebne. W codziennym programowaniu radziłbym unikać tego typu operacji. Z pewnością istnieje inny spos&oacute;b napisania programu, kt&oacute;ry pozwoli na uniknięcie rzutowania.</p>
+<h1>Konwersja<&#47;h1><br />
+Rzutowanie to specyficzny przypadek konwersji, jest to konwersja jawna, wymuszona przez programistę. W trakcie niekt&oacute;rych operacji może dochodzić do automatycznej konwersji, konwersji niejawnej. Konwersja niejawna może wystąpić np. podczas wywołania metod czy operacji arytmetycznych. Poniżej przykład konwersji automatycznej, kt&oacute;ra zachodzi w trakcie wywołania metody:</p>
+<pre class="lang:default decode:true">public class WideningConversion {<br />
+    public static void main(String[] args) {<br />
+        WideningConversion conversion = new WideningConversion();<br />
+        int intVariable = Integer.MAX_VALUE;<br />
+        long longVariable = Long.MAX_VALUE;</p>
+<p>        conversion.methodLongArgument(longVariable);<br />
+        conversion.methodLongArgument(intVariable); &#47;&#47; extending conversion<br />
+    }</p>
+<p>    public void methodLongArgument(long argument) {<br />
+        System.out.println(argument);<br />
+    }<br />
+}<&#47;pre><br />
+Dochodzi do konwersji ponieważ metoda <code>methodLongArgument<&#47;code> przyjmuje parametr typu <code>long<&#47;code> a jedno z wywołań przyjmuje zmienną typu <code>int<&#47;code>. Jest to tak zwana konwersja rozszerzająca. Może być wykonana niejawnie ponieważ podczas takiej konwersji nie zachodzi ryzyko utracenia informacji (o tym dalej). Kompilator robi to automatycznie za programistę. W przykładzie powyżej zmienna <code>intVariable<&#47;code> zostałą automatycznie rozszerzone do typu <code>long<&#47;code>. Nie utraciliśmy żadnych informacji ponieważ typ <code>long<&#47;code> zawsze może pomieścić liczby kt&oacute;re przechowuje <code>int<&#47;code>. W przykładzie używam zmiennych statycznych <code>MAX_VALUE<&#47;code>, kt&oacute;re są typu <code>int<&#47;code> lub <code>long<&#47;code> i trzymają największą liczbę możliwą do przechowywania przez dany typ.</p>
+<p>Konwersja w odwrotną stronę wymaga już jawnego rzutowania. Taka konwersja może prowadzić do utraty informacji. Proszę sp&oacute;jrz na przykład:</p>
+<pre class="lang:default decode:true">public class NarrowingConversion {<br />
+    public static void main(String[] args) {<br />
+        NarrowingConversion conversion = new NarrowingConversion();<br />
+        int intVariable = Integer.MAX_VALUE;<br />
+        long longVariable = Long.MAX_VALUE;<br />
+        long longVariableWithoutLoosingInformation = Integer.MAX_VALUE; &#47;&#47; automatic conversion from int to long</p>
+<p>        conversion.methodIntArgument(intVariable);<br />
+        conversion.methodIntArgument((int) longVariable);<br />
+        conversion.methodIntArgument((int) longVariableWithoutLoosingInformation);<br />
+    }</p>
+<p>    public void methodIntArgument(int argument) {<br />
+        System.out.println(argument);<br />
+    }<br />
+}<&#47;pre><br />
+Jak myślisz co zostanie wypisane na konsoli po uruchomieniu tego programu?</p>
+<pre class="lang:default decode:true ">2147483647<br />
+-1<br />
+2147483647<&#47;pre><br />
+Dziwne prawda? :) Środkowa linijka to nic innego jak właśnie "utrata informacji", kt&oacute;ra może zajść w trakcie jawnej konwersji [1. Wartość -1 wynika ze sposobu zapisywania liczb w Javie. Wiesz już o <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;system-dwojkowy&#47;">binarnym zapisie<&#47;a>, tutaj wykorzystywana jest jego specyficzna odmiana &ndash; uzupełnienia do dw&oacute;ch, jeżeli jesteś zainteresowany szczeg&oacute;łami daj znać w komentarzu, skrobnę o tym artykuł :)]. Ostatnia linijka pokazuje, że nie każda konwersja z <code>long<&#47;code> do <code>int<&#47;code> prowadzi do utraty informacji.</p>
+<h2>Konwersja typ&oacute;w zmiennoprzecinkowych do całkowitoliczbowych<&#47;h2><br />
+Innym przykładem konwersji w kt&oacute;rej dochodzi do utraty informacji jest konwersja z typ&oacute;w zmiennoprzecinkowych do typ&oacute;w całkowitoliczbowych:</p>
+<pre class="lang:default decode:true ">int intValue = (int) 123.123F;<br />
+long longValue = (long) 456.456;<&#47;pre><br />
+W obu przypadkach tracimy informację o ułamku, zostaje wyłącznie część całkowitoliczbowa.</p>
+<h2>Automatyczna konwersja podczas przypisania<&#47;h2><br />
+Podobnie rzecz się ma w przypadku przypisania wartości zmiennej, tutaj także dochodzi do automatycznej konwersji. Poniższy przykład pokazuje kilka możliwych przypadk&oacute;w:</p>
+<pre class="lang:default decode:true ">public class AssignmentConversion {<br />
+    public static void main(String[] args) {<br />
+        long longValue = 123;<br />
+        int intValue = (short) 123;<br />
+        float floatValue = 12.12F;<br />
+        double doubleValue = floatValue;</p>
+<p>        System.out.println(longValue);<br />
+        System.out.println(intValue);<br />
+        System.out.println(floatValue);<br />
+        System.out.println(doubleValue);<br />
+    }<br />
+}<&#47;pre><br />
+Pierwsza linijka metody <code>main<&#47;code> to niejawna konwersja z typu <code>int<&#47;code> na <code>long<&#47;code> (literały całkowitoliczbowe domyślnie są typu <code>int<&#47;code>), kolejna zawiera jawne rzutowanie 123 na typ <code>short<&#47;code>, kt&oacute;re następnie konwertowane jest niejawnie z powrotem na typ <code>int<&#47;code>. Ostatni przykład to konwersja z typu <code>float<&#47;code> do <code>double<&#47;code>.</p>
+<h1>Automatyczna konwersja podczas operacji arytmetycznych<&#47;h1><br />
+Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze specyfikacją języka Java (https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se7&#47;html&#47;jls-5.html#jls-5.6.2) możliwa jest konwersja (zachodzi pierwszy pasujący warunek):</p>
+<ol>
+<li>rozszerzająca do typu <code>double<&#47;code> jeśli kt&oacute;rykolwiek z element&oacute;w operacji arytmetycznej jest typu <code>double<&#47;code>,<&#47;li>
+<li>rozszerzająca do typu <code>float<&#47;code> jeśli kt&oacute;rykolwiek z element&oacute;w operacji jest typu <code>float<&#47;code>,<&#47;li>
+<li>rozszerzająca to typu <code>long<&#47;code> jeśli kt&oacute;rykolwiek z element&oacute;w operacji jest typu <code>long<&#47;code>,<&#47;li>
+<li>rozszerzająca do typu <code>int<&#47;code>.<&#47;li><br />
+<&#47;ol><br />
+Wszystkie cztery przypadki pokazane są w przykładzie poniżej:</p>
+<pre class="lang:default decode:true ">public class ArithmeticConversion {<br />
+    public static void main(String[] args) {<br />
+        short shortValue = 1;<br />
+        int intValue = 1;<br />
+        long longValue = 2;<br />
+        float floatValue = 3.1F;<br />
+        double doubleValue = 4.1;</p>
+<p>        System.out.println(intValue + doubleValue);<br />
+        System.out.println(intValue + floatValue);<br />
+        System.out.println(intValue + longValue);<br />
+        System.out.println(shortValue + shortValue);<br />
+    }<br />
+}<&#47;pre><br />
+Tutaj drobna dygresja, operator dzielenia (&#47;) wykonuje w języku Java dzielenie całkowitoliczbowe jeśli dzielna i dzielnik są całkowitoliczbowe. Jeśli chcemy otrzymać typ zmiennoprzecinkowy co najmniej jeden z element&oacute;w musi być typu zmiennoprzecinkowego:</p>
+<pre class="lang:default decode:true">5 &#47; 2 = 2<br />
+5.0 &#47; 2 = 2.5<br />
+5 &#47; 2.0 = 2.5<br />
+6 &#47; 2 = 3<br />
+6.0 &#47; 2 = 3.0<&#47;pre></p>
+<h1>Boxing i unboxing<&#47;h1><br />
+Jak wiesz w języku Java występują zar&oacute;wno typy proste jak i obiekty reprezentujące liczby np. <code>int<&#47;code> i <code>Integer<&#47;code>. Kompilator Java jest w stanie dokonać konwersji pomiędzy odpowiadającymi sobie typami prostymi i obiektami automatycznie. Proszę sp&oacute;jrz na przykład poniżej</p>
+<pre class="lang:default decode:true ">int primitiveInt = new Integer(123);<br />
+long primitiveLong = new Long(123L);<br />
+float primitiveFloat = new Float(123.123F);<br />
+double primitiveDouble = new Double(123.123);<br />
+boolean primitiveBoolean = new Boolean(true);<&#47;pre><br />
+Mamy tu do czynienia z tak zwanym "<em>unboxing<&#47;em>'iem", czyli automatycznym odpakowywaniem obiektu do odpowiadającego mu typu prostego.</p>
+<pre class="lang:default decode:true ">Integer objectInteger = 123;<br />
+Long objectLong = 123L;<br />
+Float objectFloat = 123.123F;<br />
+Double objectDouble = 123.123;<br />
+Boolean objectBoolean = true;<&#47;pre><br />
+Przykłady powyżej pokazują z kolei "<em>boxing<&#47;em>", czyli automatyczne tworzenie instancji obiekt&oacute;w na podstawie typ&oacute;w prostych.</p>
+<p>Podczas <em>boxingu<&#47;em>&#47;<em>unboxingu<&#47;em> może dość do rzucenia r&oacute;żnych wyjątk&oacute;w, na przykład gdy obiekt przypisywany do typu prostego jest nullem lub gdy do typu prostego pr&oacute;bujemy przypisać inny obiekt (np. <code>Long<&#47;code> do <code>int<&#47;code>).</p>
+<h1>Konwersja do typu <code>String<&#47;code><&#47;h1><br />
+Konwersja do typu <code>String<&#47;code> jest specyficznym rodzajem konwersji automatycznej. Jest ona specyficzna ponieważ bazuje na metodzie <code>toString<&#47;code>, kt&oacute;ra może być przedefiniowana przez programistę. Konwersja do typu <code>String<&#47;code> zachodzi przy operatorze dodawania + jeśli kt&oacute;ryś z dodawanych element&oacute;w jest typu <code>String<&#47;code>.</p>
+<p>Typy proste także są automatycznie konwertowane do typu <code>String<&#47;code>, odbywa się to dwuetapowo, na początku zachodzi boxing następne obiekt konwertowany jest do typu <code>String<&#47;code> (wywoływana jest metoda <code>toString<&#47;code>).</p>
+<pre class="lang:default decode:true ">String x = "123" + new Object();<br />
+String y = new Object() + "123";<br />
+String z = 1 + "123";<&#47;pre></p>
+<h1>Zadania<&#47;h1></p>
+<ol>
+<li>Napisz program przyjmujący od użytkownika liczbę całkowitą i wyświetl wynik mnożenia tej liczby oraz stałej pi (<code>Math.PI<&#47;code>). Wyświetl wynik w postaci liczby całkowitej i liczby zmiennoprzecinkowej.<&#47;li>
+<li>Napisz program pobierający od użytkownika dwie liczby całkowite. Wyświetl wynik ich dzielenia wraz z częścią ułamkową.<&#47;li>
+<li>Napisz program, kt&oacute;ry skończy się wyjątkiem spowodowanym błędem podczas boxingu&#47;unboxingu.<&#47;li>
+<li>Jak myślisz co otrzymasz przypisując zmienną typu <code>char<&#47;code> do zmiennej typu <code>int<&#47;code>? Znajdziesz ten numer w <a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;ASCII#Tabela" target="_blank" rel="noopener">tabeli ASCII<&#47;a>?<&#47;li><br />
+<&#47;ol><br />
+Przygotowałem też dla Ciebie zestaw <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;11_konwersja_rzutowanie&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;zadanie" target="_blank" rel="noopener">przykładowych rozwiązań zadań<&#47;a>, analizując je także możesz się czegoś nauczyć.</p>
+<h1>Dodatkowe materiały do nauki<&#47;h1></p>
+<ul>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se7&#47;html&#47;jls-15.html#jls-15.16" target="_blank" rel="noopener">https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se7&#47;html&#47;jls-15.html#jls-15.16<&#47;a> &ndash; "cast expression",<&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se7&#47;html&#47;jls-5.html" target="_blank" rel="noopener">https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se7&#47;html&#47;jls-5.html<&#47;a> &ndash; rzutowanie i konwersje,<&#47;li>
+<li><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;11_konwersja_rzutowanie" target="_blank" rel="noopener">https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;11_konwersja_rzutowanie<&#47;a> &ndash; kod źr&oacute;dłowy przykład&oacute;w użytych w artykule.<&#47;li><br />
+<&#47;ul></p>
+<h1>Podsumowanie<&#47;h1><br />
+Właśnie dowiedziałeś się o kilku kolejnych zakamarkach języka Java. Mam nadzieję, że Ci się podobało. Jak zwykle na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zleży mi na dotarciu do jak największego grona czytelnik&oacute;w. Jeśli nie chcesz pominąć żadnego postu polub Samouczka na facebooku. Do następnego razu! :)</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;parrhesiastes</p>

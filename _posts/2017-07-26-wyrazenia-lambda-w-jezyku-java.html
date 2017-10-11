@@ -1,0 +1,197 @@
+---
+layout: post
+status: publish
+published: true
+title: Wyrażenia lambda w języku Java
+author:
+  display_name: Marcin Pietraszek
+  login: marcin
+  email: m.pietraszek@gmail.com
+  url: ''
+author_login: marcin
+author_email: m.pietraszek@gmail.com
+excerpt: "W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak
+  ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator
+  <code>::<&#47;code>. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli
+  Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz m&oacute;gł
+  przećwiczyć rozwiązując kilka przykładowych zadań.\r\n\r\n"
+wordpress_id: 966
+wordpress_url: http://www.samouczekprogramisty.pl/?p=966
+date: '2017-07-26 21:28:10 +0200'
+date_gmt: '2017-07-26 19:28:10 +0200'
+categories:
+- Kurs programowania Java
+tags: []
+comments: []
+---
+<p>W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator <code>::<&#47;code>. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz m&oacute;gł przećwiczyć rozwiązując kilka przykładowych zadań.</p>
+<p><a id="more"></a><a id="more-966"></a></p>
+<p>[idea]Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby m&oacute;c w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami na temat:</p>
+<ul>
+<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;klasy-wewnetrzne-i-anonimowe-w-jezyku-java&#47;">klas anonimowych<&#47;a><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;typy-generyczne-w-jezyku-java&#47;">,<&#47;a><&#47;li>
+<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;typy-generyczne-w-jezyku-java&#47;">typ&oacute;w generycznych<&#47;a>,<&#47;li>
+<li><a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;adnotacje-w-jezyku-java&#47;">adnotacji<&#47;a>.[&#47;idea]<&#47;li><br />
+<&#47;ul></p>
+<h1>Czym jest wyrażenie lambda<&#47;h1><br />
+Dla uproszczenia można powiedzieć, że wyrażenie lambda jest metodą[1. Nie jest to do końca prawda, na przykład wyrażenie lambda nie wprowadza nowego zakresu zmiennych, ale takie uproszczenie pomoże zrozumieć działanie wyrażeń lambda.]. Metodą, kt&oacute;rą możesz przypisać do zmiennej. Możesz ją także wywołać czy przekazać jako argument do innej metody.</p>
+<p>Wyrażenia lambda możesz także por&oacute;wnać do klas anonimowych [2. Podobnie jak przy poprzednim por&oacute;wnaniu, są r&oacute;żnice pomiędzy wyrażeniami lambda i klasami anonimowymi. Jednak na potrzeby tego wprowadzenia możemy je pominąć.]. Mają one jednak dużo bardziej czytelną i zwięzłą składnię.</p>
+<p>Na przykład wyrażenie lambda, kt&oacute;re podnosi do kwadratu przekazaną liczbę wygląda następująco:</p>
+<pre class="lang:default decode:true ">x -> x * x<&#47;pre></p>
+<h2>Składnia wyrażeń lambda<&#47;h2><br />
+Wyrażenie lambda ma następującą składnię</p>
+<pre class="lang:default highlight:0 decode:true ">
+<lista parametr&oacute;w> -> <ciało wyrażenia lambda><&#47;pre></p>
+<h3>Lista parametr&oacute;w<&#47;h3><br />
+Lista parametr&oacute;w zawiera wszystkie parametry przekazane do &ldquo;ciała&rdquo; wyrażenia lambda. W szczeg&oacute;lności lista ta może być pusta. Wyrażenie lambda poniżej nie przyjmuje żadnych argument&oacute;w, zwraca natomiast instancję klasy <code>String<&#47;code>:</p>
+<pre class="lang:default decode:true ">() -> &ldquo;some return value&rdquo;<&#47;pre><br />
+Podawanie typ&oacute;w parametr&oacute;w jest opcjonalne. Kompilator jest w stanie poznać te parametry z kontekstu w kt&oacute;rym znajduje się dane wyrażenie lambda. Jeśli chcesz możesz je także podać:</p>
+<pre class="lang:default decode:true ">(Integer x, Long y) -> System.out.println(x * y)<&#47;pre><br />
+Nawiasy otaczające listę parametr&oacute;w są opcjonalne jeśli wyrażenie ma wyłącznie jeden parametr bez określonego typu [3. Oczywiście w trakcie kompilacji typ jest znany, ale nie jest jawnie podany w kodzie źr&oacute;dłowym.].</p>
+<h3>Ciało wyrażenia lambda<&#47;h3><br />
+W ogromnej większości przypadk&oacute;w wyrażenia lambda zawierają jedną linijkę kodu:</p>
+<pre class="lang:default decode:true ">x -> x * x<br />
+() -> &ldquo;some return value&rdquo;<br />
+(Integer x, Long y) -> System.out.println(x * y);<&#47;pre><br />
+Może się jednak zdarzyć, że Twoje wyrażenie lambda będzie zawierało więcej linii. W takim przypadku musisz otoczyć je nawiasami <code>{}<&#47;code> jak w przykładzie poniżej:</p>
+<pre class="lang:default decode:true ">x -> {<br />
+    if (x != null &amp;&amp; x % 2 == 0) {<br />
+        return (long) x * x;<br />
+    }<br />
+    else {<br />
+        return 123L;<br />
+    }<br />
+}<&#47;pre><br />
+Można sobie wyobrazić wyrażenie lambda, kt&oacute;re nie przyjmuje żadnych parametr&oacute;w i nie zwraca żadnych wartości. Najprostsza wersja takiego wyrażenia wygląda następująco:</p>
+<pre class="lang:default decode:true">() -> {}<&#47;pre></p>
+<h1>Od klasy anonimowej do wyrażenia lambda<&#47;h1><br />
+Wiesz już czym jest klasa anonimowa. Dla przypomnienia powiem, że jest to stworzenie jedynej instancji klasy w miejscu jej użycia. Wiesz już też jak wyglądają wyrażenia lambda. Teraz nadszedł czas na zamianę klasy anonimowej na wyrażenie lambda. Proszę sp&oacute;jrz na przykład poniżej:</p>
+<pre class="lang:default decode:true ">public interface Checker<T> {<br />
+    boolean check(T object);<br />
+}</p>
+<p>Checker<Integer> isOddAnonymous = new Checker<Integer>() {<br />
+    @Override<br />
+    public boolean check(Integer object) {<br />
+        return object % 2 != 0;<br />
+    }<br />
+};</p>
+<p>System.out.println(isOddAnonymous.check(123));<br />
+System.out.println(isOddAnonymous.check(124));<&#47;pre><br />
+W przykładzie tym zdefiniowałem interfejs <code>Checker<&#47;code>, kt&oacute;ry posiada jedną metodę <code>check<&#47;code>. Metoda ta zwraca wartość logiczną na podstawie przekazanego argumentu.</p>
+<p>Fragment kodu robiący to samo jednak przy użyciu składni wyrażeń lambda wygląda następująco:</p>
+<pre class="lang:default decode:true">Checker<Integer> isOddLambda = object -> object % 2 != 0;</p>
+<p>System.out.println(isOddLambda.check(123));<br />
+System.out.println(isOddLambda.check(124));<&#47;pre><br />
+Prawda, że ładniej :)?</p>
+<p>Dochodzimy teraz do momentu, w kt&oacute;rym muszę Ci powiedzieć o typach w wyrażeniach lambda. Każde wyrażenie lambda jest instancją dowolnego interfejsu funkcyjnego. Jest to bardzo ważne, dlatego też musisz dokładnie wiedzieć czym jest interfejs funkcyjny.</p>
+<h1>Interfejs funkcyjny<&#47;h1><br />
+Interfejs funkcyjny to interfejs, kt&oacute;ry ma jedną abstrakcyjną metodę[5. Efektywnie abstrakcyjną, czyli dodanie do interfejsu np. metody equals, kt&oacute;ra jest w klasie Object nadal spełnia to wymaganie.]. Wprowadzono adnotację <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;FunctionalInterface.html" target="_blank" rel="noopener"><code>@FunctionalInterface<&#47;code><&#47;a>, kt&oacute;rą możesz dodać do interfejs&oacute;w tego typu.</p>
+<p>Adnotacja ta zapewnia, że kompilator upewni się, że dany interfejs jest interfejsem funkcjonalnym. Jeśli nie, w&oacute;wczas kompilacja się nie powiedzie.</p>
+<p>Przykładem interfejsu funkcjonalnego może być zdefiniowany wcześniej interfejs Checker</p>
+<pre class="lang:default decode:true ">@FunctionalInterface<br />
+public interface Checker<T> {<br />
+    boolean check(T object);<br />
+}<&#47;pre><br />
+Zawiera on wyłącznie jedną metodę <code>check<&#47;code>.</p>
+<h2>Przykładowe interfejsy funkcyjne<&#47;h2><br />
+Tw&oacute;rcy języka Java przygotowali zestaw interfejs&oacute;w funkcyjnych, kt&oacute;re możesz implementować. W większości przypadk&oacute;w w zupełności wystarczy ich użycie. Część z nich znajduje się w pakiecie <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;function&#47;package-summary.html" target="_blank" rel="noopener"><code>java.util.function<&#47;code><&#47;a>. Najważniejsze z nich zebrałem poniżej:</p>
+<ul>
+<li><code><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;function&#47;Function.html" target="_blank" rel="noopener">Function<T, R><&#47;a><&#47;code> zawiera metodę <code>apply<&#47;code>, kt&oacute;ra przyjmuje instancję ,klasy <code>T<&#47;code> zwracając instancję klasy <code>R<&#47;code><code><&#47;code><&#47;li>
+<li><code><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;function&#47;Consumer.html" target="_blank" rel="noopener">Consumer<T><&#47;a><&#47;code> zawiera metodę <code>accept<&#47;code>, kt&oacute;ra przyjmuje instancję klasy <code>T<&#47;code><&#47;li>
+<li><code><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;function&#47;Predicate.html" target="_blank" rel="noopener">Predicate<T><&#47;a><&#47;code> zawiera metodę <code>test<&#47;code>, kt&oacute;ra przyjmuje instancję klasy T i zwraca flagę. Interfejs ten może posłużyć do zastąpienia interfejsu <code>Checker<&#47;code>.<&#47;li>
+<li><code><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;function&#47;Supplier.html" target="_blank" rel="noopener">Supplier<T><&#47;a><&#47;code> zawiera metodę <code>get<&#47;code>, kt&oacute;ra nie przyjmuje żadnych parametr&oacute;w i zwraca instancję klasy <code>T<&#47;code><&#47;li>
+<li><code><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;function&#47;UnaryOperator.html" target="_blank" rel="noopener">UnaryOperator<T><&#47;a><&#47;code> jest specyficznym przypadkiem interfejsu <code>Function<&#47;code>. W tym przypadku typ argumentu i typ zwracany są te same.<&#47;li><br />
+<&#47;ul><br />
+Wyrażenia lambda zdefiniowane na początku artykułu można przypisać do tych właśnie interfejs&oacute;w:</p>
+<pre class="lang:default decode:true ">UnaryOperator<Integer> square = x -> x * x;<br />
+Supplier<String> someString = () -> "some return value";<br />
+BiConsumer<Integer, Long> multiplier = (Integer x, Long y) -> System.out.println(x * y);<br />
+Function<Integer, Long> multiline = x -> {<br />
+    if (x != null &amp;&amp; x % 2 == 0) {<br />
+        return (long) x * x;<br />
+    }<br />
+    else {<br />
+        return 123L;<br />
+    }<br />
+};<&#47;pre></p>
+<h1>Zalety stosowania wyrażeń lambda<&#47;h1><br />
+Wyrażenia lambda są bardzo pomocne przy operacji na kolekcjach. Są niezastąpione także przy pracy ze strumieniami. Pozwalają także na pisanie w Javie w spos&oacute;b &ldquo;funkcyjny&rdquo;[4. Oczywiście Java nie jest językiem w pełni funkcyjnym, jednak taka namiastka jest przydatna.].</p>
+<p>Oczywistą zaletą wyrażeń lambda jest ich zwięzłość. Kod zajmuje o wiele mniej miejsca, staje się przez to bardziej czytelny.</p>
+<h1>Odwoływanie się do metod<&#47;h1><br />
+Wraz z wyrażeniami lambda Java została rozbudowana o składnię pozwalającą na odwoływanie się do metod. Służy do tego <code>::<&#47;code>. Dzięki temu wyrażeniu możemy przypisać metodę do zmiennej bez jej wywołania. Takie podejście pozwala na przekazanie tak wyłuskanej metody i wywołanie jej w zupełnie innym miejscu. Proszę sp&oacute;jrz na przykład poniżej:</p>
+<pre class="lang:default decode:true ">Object objectInstance = new Object();<br />
+IntSupplier equalsMethodOnObject = objectInstance::hashCode;<br />
+System.out.println(equalsMethodOnObject.getAsInt());<&#47;pre><br />
+W przykładzie tym tworzę nową instancję klasy <code>Object<&#47;code>. Następnie pobieram metodę <code>hashCode<&#47;code> z tego obiektu i przypisuję ją do typu <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;function&#47;IntSupplier.html" target="_blank" rel="noopener"><code>IntSupplier<&#47;code><&#47;a>. Jest to kolejny interfejs funkcyjny znajdujący się w standardowej bibliotece. Ostatnia linijka to wywołanie metody znajdującej się w tym interfejsie.</p>
+<p>Kod powyżej można por&oacute;wnać do:</p>
+<pre class="lang:default decode:true ">Object objectInstance = new Object();<br />
+System.out.println(objectInstance.hashCode());<&#47;pre><br />
+W obu przypadkach tworzę nowy obiekt klasy <code>Object<&#47;code> i wywołują na nim metodę <code>hashCode<&#47;code>.</p>
+<h1>Odwoływanie się do metod bez podania instancji<&#47;h1><br />
+Można także odwołać się do metody bez podania instancji, na kt&oacute;rej metoda powinna być wywołana. W&oacute;wczas ta instancja musi być przekazana jako pierwszy argument. Przykład poniżej powinien pom&oacute;c zrozumieć to zastosowanie:</p>
+<pre class="lang:default decode:true ">ToIntFunction<Object> equalsMethodOnClass = Object::hashCode;<br />
+Object objectInstance = new Object();<br />
+System.out.println(equalsMethodOnClass.applyAsInt(objectInstance));<&#47;pre><br />
+W odr&oacute;żnieniu do poprzedniego przykładu tutaj na początku pobieram metodę. Tym razem metoda nie jest przypisana do instancji. W związku z tym wyrażenie lambda jest już innego typu. W takim przypadku zawsze pierwszym argumentem jest instancja na kt&oacute;rej metoda powinna być wywołana. W kolejnej linijce tworzę instancję klasy <code>Object<&#47;code>. Ostatnia linijka to wywołanie metody na tej instancji.</p>
+<p>Kod bez użycia odwołania do metody robiący dokładnie to samo wygląda trochę mniej skomplikowanie:</p>
+<pre class="lang:default decode:true">Object objectInstance = new Object();<br />
+System.out.println(objectInstance.hashCode());<&#47;pre></p>
+<h1>Odwoływanie się do konstruktora<&#47;h1><br />
+Notacja z <code>::<&#47;code> może być także użyta do odwołania się do konstruktora. W tym przypadku należy użyć <code>::<&#47;code> wraz ze słowem kluczowym <code>new<&#47;code>. Proszę sp&oacute;jrz na przykład poniżej:</p>
+<pre class="lang:default decode:true ">Supplier<Object> objectCreator = Object::new;<br />
+System.out.println(objectCreator.get());<&#47;pre><br />
+W pierwszej linijce przykładu przypisuje konstruktor klasy <code>Object<&#47;code> do zmiennej <code>objectCreator<&#47;code>. Kolejna linijka to wywołanie konstruktora.</p>
+<p>To samo bez użycia referencji metody możesz uzyskać w dobrze Ci znany spos&oacute;b:</p>
+<pre class="lang:default decode:true ">System.out.println(new Object());<&#47;pre></p>
+<h1>Przykład zastosowania wyrażeń lambda i odwołania do metody<&#47;h1><br />
+Zał&oacute;żmy, że chcemy wypisać na konsoli liczby znajdujące się w kolekcji. Możemy to zrobić przy pomocy standardowej pętli, kt&oacute;rą już znasz:</p>
+<pre class="lang:default decode:true">List<Integer> numbers = Arrays.asList(1, 2, 3, 4);</p>
+<p>for (Integer number : numbers) {<br />
+    System.out.println(number);<br />
+}<&#47;pre><br />
+To samo zadanie można także zrobić przy pomocy wyrażeń lambda:</p>
+<pre class="lang:default decode:true ">List<Integer> numbers = Arrays.asList(1, 2, 3, 4);<br />
+Consumer<Integer> integerConsumer = n -> System.out.println(n);<br />
+numbers.forEach(integerConsumer);<&#47;pre><br />
+Pierwsza linijka to utworzenie listy z liczbami. Kolejna jest bardziej ciekawa, zawiera wyrażenie lambda, kt&oacute;re konsumuje liczbę wypisując ją na konsoli. Ostatnia to wywołanie metody <code><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;lang&#47;Iterable.html#forEach-java.util.function.Consumer-" target="_blank" rel="noopener">forEach<&#47;a><&#47;code> wraz z wyrażeniem lambda. Wyrażenie to zostanie wywołane dla każdego elementu.</p>
+<p>Kod ten można jeszcze bardziej skr&oacute;cić używając mechanizmu odwoływania się do metod:</p>
+<pre class="lang:default decode:true ">List<Integer> numbers = Arrays.asList(1, 2, 3, 4);<br />
+numbers.forEach(System.out::println);<&#47;pre><br />
+Efekt działania wszystkich trzech fragment&oacute;w jest dokładnie taki sam. R&oacute;żnią się między sobą sposobem rozwiązania danego problemu.</p>
+<h1>Zadania<&#47;h1><br />
+Na koniec mam dla Ciebie kilka zadań, kt&oacute;re pomogą przećwiczyć Ci wiedzę z tego artykułu.</p>
+<ol>
+<li>Napisz program, kt&oacute;ry pobierze o użytkownika cztery łańcuchy znak&oacute;w, kt&oacute;re umieścisz w liście. Następnie posortuj tę listę używając metody <a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;List.html#sort-java.util.Comparator-" target="_blank" rel="noopener"><code>sort<&#47;code><&#47;a>. Użyj wyrażenia lambda, kt&oacute;re posortuje łańcuchy znak&oacute;w malejąco po długości.<&#47;li>
+<li>Napisz program, kt&oacute;ry wywoła funkcję <code>hashCode<&#47;code> na instancji klasy <code>Object<&#47;code> używając mechanizmu odwoływania się do metody (przy pomocy <code>::<&#47;code>).<&#47;li>
+<li>Utw&oacute;rz instancję klasy <code>Human<&#47;code> przy pomocy mechanizmu odwoływania się do konstruktora (przy pomocy <code>::<&#47;code>).
+<pre class="lang:default decode:true">public class Human {</p>
+<p>    private int age;<br />
+    private String name;</p>
+<p>    public Human(int age, String name) {<br />
+        this.age = age;<br />
+        this.name = name;<br />
+    }</p>
+<p>    public int getAge() {<br />
+        return age;<br />
+    }</p>
+<p>    public String getName() {<br />
+        return name;<br />
+    }<br />
+}<&#47;pre><br />
+<&#47;li><br />
+<&#47;ol><br />
+Jeśli będziesz miał problem z rozwiązaniem zadań możesz rzucić okiem na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;28_wyrazenia_lambda&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;lambdaexpressions&#47;exercise" target="_blank" rel="noopener">przykładowe rozwiązania<&#47;a>, kt&oacute;re umieściłem na samouczkowym githubie.</p>
+<h1>Dodatkowe materiały do nauki<&#47;h1><br />
+Przygotowałem dla Ciebie zestaw kilku link&oacute;w z materiałami dodatkowymi:</p>
+<ul>
+<li><a href="http:&#47;&#47;www.oracle.com&#47;webfolder&#47;technetwork&#47;tutorials&#47;obe&#47;java&#47;Lambda-QuickStart&#47;index.html" target="_blank" rel="noopener">Wprowadzenie do wyrażeń lambda na stronie Oracle<&#47;a>,<&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;java&#47;javaOO&#47;lambdaexpressions.html" target="_blank" rel="noopener">Tutorial dotyczący wyrażeń lambda na stronie Oracle<&#47;a>,<&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-9.html#jls-9.8" target="_blank" rel="noopener">Opis interfejs&oacute;w funkcyjnych w JLS<&#47;a>,<&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-15.html#jls-15.13" target="_blank" rel="noopener">Referencja do metody w JLS<&#47;a>,<&#47;li>
+<li><a href="https:&#47;&#47;docs.oracle.com&#47;javase&#47;specs&#47;jls&#47;se8&#47;html&#47;jls-15.html#jls-15.27" target="_blank" rel="noopener">Wyrażenia lambda w JLS<&#47;a>.<&#47;li><br />
+<&#47;ul></p>
+<h1>Podsumowanie<&#47;h1><br />
+Wyrażenia lambda nie są proste. Mogą powodować sporo zakłopotania, szczeg&oacute;lnie na początku. Jeśli jednak się do nich przyzwyczaisz pisanie kodu z ich udziałem będzie sprawiało Ci sporo frajdy :). Po pewnym czasie docenisz też zwięzłość wyrażeń lambda.</p>
+<p>Po przeczytaniu artykułu wiesz czym są wyrażenia lambda i jak je stosować. Znasz też mechanizm odwoływania się do metod. Przećwiczyłeś te mechanizmy rozwiązując przykładowe zadania. Nie zapomnij pochwalić się w komentarzu gdzie ostatnio użyłeś wyrażeń lambda :).</p>
+<p>Na koniec mam do Ciebie prośbę. Jeśli uważasz, że artykuł ten był dla Ciebie pomocny proszę podziel się nim ze swoimi znajomymi. Zależy mi na dotarciu do jak największej grupy czytelnik&oacute;w a Ty możesz mi w tym pom&oacute;c. Jeśli nie chcesz pominąć żadnego nowego artykułu dopisz się do samouczkowego newslettera i polub samouczka na facebooku. Do następnego razu!</p>
+<p>[FM_form id="3"]</p>
+<p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;rofi&#47;2097239111&#47;sizes&#47;l</p>
