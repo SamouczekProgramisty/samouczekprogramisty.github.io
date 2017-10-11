@@ -1,8 +1,6 @@
 ---
 layout: default
 permalink: /czym-wlasciwie-jest-programowanie/
-status: publish
-published: true
 title: Czym właściwie jest programowanie
 date: '2015-10-07 16:03:15 +0200'
 categories:
