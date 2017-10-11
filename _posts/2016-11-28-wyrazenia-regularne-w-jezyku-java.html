@@ -12,10 +12,10 @@ author_login: marcin
 author_email: m.pietraszek@gmail.com
 excerpt: "Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym
   są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardowej
-  pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskaz&oacute;wki
+  pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskazówki
   kiedy można używać wyrażeń regularnych i jakie są ich wady. Nie obędzie się też
-  bez wskaz&oacute;wek do InteliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując
-  zadania, kt&oacute;re wymagały będą wykorzystania wyrażeń regularnych. Zapraszam
+  bez wskazówek do InteliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując
+  zadania, które wymagały będą wykorzystania wyrażeń regularnych. Zapraszam
   do lektury.\r\n\r\n"
 wordpress_id: 562
 wordpress_url: http://www.samouczekprogramisty.pl/?p=562
@@ -25,34 +25,34 @@ categories:
 - Kurs programowania Java
 tags: []
 ---
-<p>Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardowej pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskaz&oacute;wki kiedy można używać wyrażeń regularnych i jakie są ich wady. Nie obędzie się też bez wskaz&oacute;wek do InteliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując zadania, kt&oacute;re wymagały będą wykorzystania wyrażeń regularnych. Zapraszam do lektury.</p>
+<p>Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardowej pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskazówki kiedy można używać wyrażeń regularnych i jakie są ich wady. Nie obędzie się też bez wskazówek do InteliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując zadania, kt&oacute;re wymagały będą wykorzystania wyrażeń regularnych. Zapraszam do lektury.</p>
 <p><a id="more"></a><a id="more-562"></a></p>
 <h1>Czym są wyrażenia regularne<&#47;h1><br />
-Słowo wstępu zanim przejdziemy do teorii. W kilku poniższych akapitach pokażę kilka wyrażeń regularnych bez dokładnego ich omawiania. Posłużą one jako przykłady zastosowania wyrażeń. Proszę nie zrażaj się widząc kilka dziwnych znaczk&oacute;w, p&oacute;źniej dokładnie je opiszę :).</p>
-<p>Wyrażenie regularne (ang. <em>regular expression<&#47;em>) to &bdquo;wzorzec&rdquo;, kt&oacute;ry opisuje grupę łańcuch&oacute;w znak&oacute;w. Możemy powiedzieć, że łańcuch znak&oacute;w pasuje do wzorca jeśli dane wyrażenie regularne go opisuje. Na przykład wyrażenie regularne <code>\d{2}-\d{3}<&#47;code> opisuje zbi&oacute;r kod&oacute;w pocztowych w Polsce. Wyrażenia regularne składają się ze znak&oacute;w, część z nich w pewnych kontekstach ma specjalne znaczenie. Znaczenie to interpretowane jest przez tak zwany silnik wyrażeń regularnych.</p>
-<p>Istnieje wiele silnik&oacute;w wyrażeń regularnych, w związku z tym istnieją też pewne r&oacute;żnice pomiędzy wyrażeniami regularnymi rozumianymi przez te silniki. M&oacute;wimy w&oacute;wczas o dialekcie języka wyrażeń regularnych. Dialekty mogą r&oacute;żnić się między sobą pewnymi niuansami, jednak mają wsp&oacute;lną bazę, zrozumiałą dla pozostałych silnik&oacute;w wyrażeń regularnych.</p>
+Słowo wstępu zanim przejdziemy do teorii. W kilku poniższych akapitach pokażę kilka wyrażeń regularnych bez dokładnego ich omawiania. Posłużą one jako przykłady zastosowania wyrażeń. Proszę nie zrażaj się widząc kilka dziwnych znaczków, później dokładnie je opiszę :).</p>
+<p>Wyrażenie regularne (ang. <em>regular expression<&#47;em>) to &bdquo;wzorzec&rdquo;, który opisuje grupę łańcuchów znak&oacute;w. Możemy powiedzieć, że łańcuch znak&oacute;w pasuje do wzorca jeśli dane wyrażenie regularne go opisuje. Na przykład wyrażenie regularne <code>\d{2}-\d{3}<&#47;code> opisuje zbi&oacute;r kod&oacute;w pocztowych w Polsce. Wyrażenia regularne składają się ze znak&oacute;w, część z nich w pewnych kontekstach ma specjalne znaczenie. Znaczenie to interpretowane jest przez tak zwany silnik wyrażeń regularnych.</p>
+<p>Istnieje wiele silników wyrażeń regularnych, w związku z tym istnieją też pewne różnice pomiędzy wyrażeniami regularnymi rozumianymi przez te silniki. M&oacute;wimy w&oacute;wczas o dialekcie języka wyrażeń regularnych. Dialekty mogą r&oacute;żnić się między sobą pewnymi niuansami, jednak mają wsp&oacute;lną bazę, zrozumiałą dla pozostałych silnik&oacute;w wyrażeń regularnych.</p>
 <p>Wyrażenia regularne są mechanizmem uniwersalnym, dostępne są w wielu językach programowania. Ucząc się ich raz, poznajesz język wyrażeń regularnych dostępny także w innych językach programowania. Siłą rzeczy skupię się tutaj na dialekcie wyrażeń regularnych w języku Java.</p>
-<p>Wyrażenie regularne to tak zwany wzorzec, kt&oacute;ry następne jest kompilowany przez silnik wyrażeń regularnych do wewnętrznej postaci. Po tym etapie używana jest &bdquo;wewnętrzna reprezentacja&rdquo; wyrażenia regularnego. Jeśli spr&oacute;bujesz skompilować wzorzec, kt&oacute;ry nie jest poprawny zostaniesz o tym poinformowany odpowiednim wyjątkiem w trakcie działania programu.</p>
-<p>Sam etap kompilacji wyrażenia jest procesem relatywnie długim[1. M&oacute;wię to o długim w kontekście innych operacji takich jak dodawanie czy pobranie trzeciej litery z łańcucha znak&oacute;w.]. Z tego właśnie powodu zaleca się kompilowanie wyrażeń przed ich pierwszym użyciem. Podobnie sprawa ma się jeśli chodzi o tworzenie nowych instancji klasy wzorca. Im ich mniej tym lepiej. Ma to szczeg&oacute;lne znaczenie w sytuacji w kt&oacute;rej używamy wyrażenia wielokrotnie[2. Co prawda w języku Java każda instancja klasy <code>Pattern<&#47;code> kompilowana jest dokładnie raz jednak warto zapamiętać tę regułę w przypadku innych język&oacute;w programowania.].</p>
+<p>Wyrażenie regularne to tak zwany wzorzec, który następne jest kompilowany przez silnik wyrażeń regularnych do wewnętrznej postaci. Po tym etapie używana jest &bdquo;wewnętrzna reprezentacja&rdquo; wyrażenia regularnego. Jeśli spróbujesz skompilować wzorzec, kt&oacute;ry nie jest poprawny zostaniesz o tym poinformowany odpowiednim wyjątkiem w trakcie działania programu.</p>
+<p>Sam etap kompilacji wyrażenia jest procesem relatywnie długim[1. Mówię to o długim w kontekście innych operacji takich jak dodawanie czy pobranie trzeciej litery z łańcucha znaków.]. Z tego właśnie powodu zaleca się kompilowanie wyrażeń przed ich pierwszym użyciem. Podobnie sprawa ma się jeśli chodzi o tworzenie nowych instancji klasy wzorca. Im ich mniej tym lepiej. Ma to szczeg&oacute;lne znaczenie w sytuacji w kt&oacute;rej używamy wyrażenia wielokrotnie[2. Co prawda w języku Java każda instancja klasy <code>Pattern<&#47;code> kompilowana jest dokładnie raz jednak warto zapamiętać tę regułę w przypadku innych język&oacute;w programowania.].</p>
 <p>W wyrażeniach regularnych poza &bdquo;dziwnymi znaczkami&rdquo; używa się także zwyczajnych liter. Domyślnie w wyrażeniach regularnych wielkość liter ma znaczenie. Wyrażenie regularne <code>Kawa<&#47;code> to nie to samo co <code>kawa<&#47;code>.</p>
 <h1>Kiedy używamy wyrażeń regularnych<&#47;h1><br />
-No właśnie, do czego używamy wyrażeń regularnych? Og&oacute;lnie można powiedzieć, że wyrażeń regularnych używamy do pracy z łańcuchami znak&oacute;w. Wyszukiwanie, dzielenie, czy modyfikacja łańcuch&oacute;w znak&oacute;w, to wszystko można zrobić przy pomocy wyrażeń regularnych.</p>
-<p>W praktyce jednym z gł&oacute;wnych zastosowań jest weryfikacja czy dany łańcuch znak&oacute;w pasuje do wzorca. Wzorcem tym jest wyrażenie regularne.</p>
-<p>To czy łańcuch znak&oacute;w pasuje do wzorca wykorzystywane jest w trakcie walidacji danych wejściowych. Dzięki wyrażeniom regularnym możemy sprawdzić, czy dane pochodzące od użytkownika mają poprawny format. Na przykład następujące wyrażenie regularne pozwala sprawdzić czy użytkownik podał poprawne imię <code>[A-Z][a-z]+<&#47;code>, czy rzeczywiście adres email może być poprawny <code>.+@.+\.pl<&#47;code>[3. Oczywiście to wyrażenie regularne można "oszukać". Nawet jeśli łańcuch znak&oacute;w pasuje do wzorca nie musi być poprawnym adresem email.], czy format daty, kt&oacute;ry prowadził użytkownik jest w porządku <code>\d{4}-\d{2}-\d{2}<&#47;code>.</p>
-<p>Ponadto, wyrażeń regularnych możemy używać do &bdquo;parsowania&rdquo; łańcuch&oacute;w znak&oacute;w. Jeśli mamy większy łańcuch, z kt&oacute;rego chcemy wyciągnąć jakąś część wyrażenia regularne mogą nam w tym pom&oacute;c. Na przykład jeśli w telefonie zapisujemy znajomych jako "imię (pseudonim) nazwisko", wyrażenie regularne <code>\w+ \((\w+)\) \w+<&#47;code> pomoże nam wyciągnąć pseudonim.</p>
+No właśnie, do czego używamy wyrażeń regularnych? Ogólnie można powiedzieć, że wyrażeń regularnych używamy do pracy z łańcuchami znaków. Wyszukiwanie, dzielenie, czy modyfikacja łańcuch&oacute;w znak&oacute;w, to wszystko można zrobić przy pomocy wyrażeń regularnych.</p>
+<p>W praktyce jednym z głównych zastosowań jest weryfikacja czy dany łańcuch znaków pasuje do wzorca. Wzorcem tym jest wyrażenie regularne.</p>
+<p>To czy łańcuch znaków pasuje do wzorca wykorzystywane jest w trakcie walidacji danych wejściowych. Dzięki wyrażeniom regularnym możemy sprawdzić, czy dane pochodzące od użytkownika mają poprawny format. Na przykład następujące wyrażenie regularne pozwala sprawdzić czy użytkownik podał poprawne imię <code>[A-Z][a-z]+<&#47;code>, czy rzeczywiście adres email może być poprawny <code>.+@.+\.pl<&#47;code>[3. Oczywiście to wyrażenie regularne można "oszukać". Nawet jeśli łańcuch znaków pasuje do wzorca nie musi być poprawnym adresem email.], czy format daty, kt&oacute;ry prowadził użytkownik jest w porządku <code>\d{4}-\d{2}-\d{2}<&#47;code>.</p>
+<p>Ponadto, wyrażeń regularnych możemy używać do &bdquo;parsowania&rdquo; łańcuchów znaków. Jeśli mamy większy łańcuch, z kt&oacute;rego chcemy wyciągnąć jakąś część wyrażenia regularne mogą nam w tym pom&oacute;c. Na przykład jeśli w telefonie zapisujemy znajomych jako "imię (pseudonim) nazwisko", wyrażenie regularne <code>\w+ \((\w+)\) \w+<&#47;code> pomoże nam wyciągnąć pseudonim.</p>
 <h1>Wyrażenia regularne w języku Java<&#47;h1><br />
-W języku Java wyrażenia regularne obsługiwane są przez dwie klasy z biblioteki standardowej. Są to <a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;regex&#47;Pattern.html" target="_blank"><code>Pattern<&#47;code><&#47;a> i <a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;regex&#47;Matcher.html" target="_blank"><code>Matcher<&#47;code><&#47;a>. Sp&oacute;jrz na przykład poniżej:</p>
+W języku Java wyrażenia regularne obsługiwane są przez dwie klasy z biblioteki standardowej. Są to <a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;regex&#47;Pattern.html" target="_blank"><code>Pattern<&#47;code><&#47;a> i <a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;regex&#47;Matcher.html" target="_blank"><code>Matcher<&#47;code><&#47;a>. Spójrz na przykład poniżej:</p>
 <pre class="lang:default decode:true ">Pattern compiledPattern = Pattern.compile("Marcin");<br />
 Matcher matcher = compiledPattern.matcher("Nazywam sie Marcin Pietraszek");</p>
 <p>System.out.println(matcher.find());<br />
 System.out.println(matcher.matches());<&#47;pre><br />
-W przykładzie tym w pierwszej linijce kompiluję wyrażenie regularne <code>Marcin<&#47;code> uzyskując instancję klasy <code>Pattern<&#47;code>. W kolejnej linijce wywołując metodę <code>matcher<&#47;code> otrzymuję instancję klasy <code>Matcher<&#47;code>. Parametr przekazany w metodzie <code>matcher<&#47;code> to łańcuch znak&oacute;w, na kt&oacute;rym używamy wyrażenia regularnego.</p>
+W przykładzie tym w pierwszej linijce kompiluję wyrażenie regularne <code>Marcin<&#47;code> uzyskując instancję klasy <code>Pattern<&#47;code>. W kolejnej linijce wywołując metodę <code>matcher<&#47;code> otrzymuję instancję klasy <code>Matcher<&#47;code>. Parametr przekazany w metodzie <code>matcher<&#47;code> to łańcuch znaków, na którym używamy wyrażenia regularnego.</p>
 <p>Klasa <code>Matcher<&#47;code> posiada, między innymi, następujące metody:</p>
 <ul>
-<li><code>find()<&#47;code> - metoda zwraca <code>true<&#47;code> jeśli w łańcuchu znak&oacute;w znajduje się coś co pasuje do wyrażenia regularnego,<&#47;li>
-<li><code>matches()<&#47;code> - metoda zwraca <code>true<&#47;code> jeśli łańcuch znak&oacute;w pasuje w całości do wyrażenia regularnego.<&#47;li><br />
+<li><code>find()<&#47;code> - metoda zwraca <code>true<&#47;code> jeśli w łańcuchu znaków znajduje się coś co pasuje do wyrażenia regularnego,<&#47;li>
+<li><code>matches()<&#47;code> - metoda zwraca <code>true<&#47;code> jeśli łańcuch znaków pasuje w całości do wyrażenia regularnego.<&#47;li><br />
 <&#47;ul><br />
-Proszę sp&oacute;jrz na poniższą tabelkę. W nagł&oacute;wkach kolumn umieściłem łańcuchy znak&oacute;w, kt&oacute;re dopasowywane są do wyrażeń umieszczonych w pierwszej kolumnie.</p>
+Proszę spójrz na poniższą tabelkę. W nagłówkach kolumn umieściłem łańcuchy znak&oacute;w, kt&oacute;re dopasowywane są do wyrażeń umieszczonych w pierwszej kolumnie.</p>
 <table>
 <thead>
 <tr>
@@ -84,27 +84,27 @@ matches - false<&#47;code><&#47;td><br />
 <&#47;tr><br />
 <&#47;tbody><br />
 <&#47;table><br />
-Jak widzisz wyrażenia regularne mogą wyglądać jak &bdquo;normalne&rdquo; łańcuchy znak&oacute;w. Jednak takie raczej nie są ciekawe i zbytnio użyteczne. Prawdziwa siła wyrażeń regularnych tkwi w tych wszystkich magicznych znaczkach :). Postaram się je teraz om&oacute;wić.</p>
+Jak widzisz wyrażenia regularne mogą wyglądać jak &bdquo;normalne&rdquo; łańcuchy znaków. Jednak takie raczej nie są ciekawe i zbytnio użyteczne. Prawdziwa siła wyrażeń regularnych tkwi w tych wszystkich magicznych znaczkach :). Postaram się je teraz omówić.</p>
 <h1>Składnia wyrażeń regularnych<&#47;h1><br />
 Wszystkie przykłady kodu to poprawne testy jednostkowe (więcej o testach przeczytasz w <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;testy-jednostkowe-z-junit&#47;">osobnym artykule<&#47;a>). Zachęcam do ich skopiowania do IDE i samodzielnego kombinowania :).</p>
-<p>Jak już widziałeś w poprzednim przykładzie wyrażenia regularne mogą zawierać zwykłe literały znakowe, na przykład <code>kot czy pies<&#47;code> to poprawne wyrażenie regularne. Jednak są znaki, kt&oacute;re interpretowane są w specjalny spos&oacute;b. Wyrażenie takie jak <code>1 + 2 = 3<&#47;code> zawiera jeden ze znak&oacute;w specjalnych &ndash; znak <code>+<&#47;code>. W związku z tym, jeśli znak <code>+<&#47;code> chcemy interpretować dosłownie musimy poprzedzić go znakiem <code>\<&#47;code>, w&oacute;wczas pomijamy jego specjalne znaczenie. W takim przypadku otrzymasz wyrażenie regularne <code>1 \+ 2 = 3<&#47;code>.</p>
+<p>Jak już widziałeś w poprzednim przykładzie wyrażenia regularne mogą zawierać zwykłe literały znakowe, na przykład <code>kot czy pies<&#47;code> to poprawne wyrażenie regularne. Jednak są znaki, które interpretowane są w specjalny sposób. Wyrażenie takie jak <code>1 + 2 = 3<&#47;code> zawiera jeden ze znak&oacute;w specjalnych &ndash; znak <code>+<&#47;code>. W związku z tym, jeśli znak <code>+<&#47;code> chcemy interpretować dosłownie musimy poprzedzić go znakiem <code>\<&#47;code>, w&oacute;wczas pomijamy jego specjalne znaczenie. W takim przypadku otrzymasz wyrażenie regularne <code>1 \+ 2 = 3<&#47;code>.</p>
 <h2>Wyrażenia regularne a typ <code>String<&#47;code><&#47;h2><br />
-Jednak to nie koniec &bdquo;kłopot&oacute;w&rdquo;. W języku Java wyrażenia regularne zapisujemy używając typu <code>String<&#47;code>. Znak <code>\<&#47;code> jest w literałach znakowych traktowany specjalnie (podobnie jak w samych wyrażeniach regularnych). Na przykład literał znakowy <code>"\t"<&#47;code> oznacza znak tabulacji, więc przy zapisie <code>"1 \+ 2 = 3"<&#47;code> kompilator Javy doszukiwałby się specjalnego znaczenia dla <code>"\+"<&#47;code> (podobnie jak przy <code>"\t"<&#47;code>) a nie o to nam tutaj chodzi. Dlatego właśnie w języku Java w wyrażeniach regularnych musimy &bdquo;dublować&rdquo; każdy ukośnik.</p>
-<p>Biorąc pod uwagę powyższe wytłumaczenie nasze wyrażenie regularne, w kt&oacute;rym chcemy uciec od specjalnego znaczenia <code>+<&#47;code> musimy zapisać jako <code>"1 \\+ 2 = 3<&#47;code>.</p>
+Jednak to nie koniec &bdquo;kłopotów&rdquo;. W języku Java wyrażenia regularne zapisujemy używając typu <code>String<&#47;code>. Znak <code>\<&#47;code> jest w literałach znakowych traktowany specjalnie (podobnie jak w samych wyrażeniach regularnych). Na przykład literał znakowy <code>"\t"<&#47;code> oznacza znak tabulacji, więc przy zapisie <code>"1 \+ 2 = 3"<&#47;code> kompilator Javy doszukiwałby się specjalnego znaczenia dla <code>"\+"<&#47;code> (podobnie jak przy <code>"\t"<&#47;code>) a nie o to nam tutaj chodzi. Dlatego właśnie w języku Java w wyrażeniach regularnych musimy &bdquo;dublować&rdquo; każdy ukośnik.</p>
+<p>Biorąc pod uwagę powyższe wytłumaczenie nasze wyrażenie regularne, w którym chcemy uciec od specjalnego znaczenia <code>+<&#47;code> musimy zapisać jako <code>"1 \\+ 2 = 3<&#47;code>.</p>
 <p>Mi łatwiej jest to zrozumieć jeśli pomyślę o tym co dzieje się pod spodem:</p>
 <ul>
-<li>pierwszy etap interpretacji literału znakowego (<code>"1 \\+ 2 = 3"<&#47;code>) to etap w kt&oacute;rym kompilator tworzy reprezentację łańcucha znak&oacute;w zapisanego w definicji klasy, w trakcie tego etapu ukośniki interpretowane są przez kompilator,<&#47;li>
-<li>kolejny etap to etap interpretacji łańcucha znak&oacute;w z definicji klasy (<code>1 \+ 2 = 3<&#47;code>) przez silnik wyrażeń regularnych. W tym etapie silnik wyrażeń regularnych interpretuje łańcuch znak&oacute;w, kt&oacute;ry zapisał kompilator.<&#47;li><br />
+<li>pierwszy etap interpretacji literału znakowego (<code>"1 \\+ 2 = 3"<&#47;code>) to etap w którym kompilator tworzy reprezentację łańcucha znaków zapisanego w definicji klasy, w trakcie tego etapu ukośniki interpretowane są przez kompilator,<&#47;li>
+<li>kolejny etap to etap interpretacji łańcucha znaków z definicji klasy (<code>1 \+ 2 = 3<&#47;code>) przez silnik wyrażeń regularnych. W tym etapie silnik wyrażeń regularnych interpretuje łańcuch znaków, kt&oacute;ry zapisał kompilator.<&#47;li><br />
 <&#47;ul><br />
-W naszym przykładzie kompilator interpretując literał znakowy <code>"1 \\+ 2 = 3"<&#47;code> w pliku class zawierającym skompilowaną klasę zapisze <code>1 \+ 2 = 3<&#47;code>. Taka postać zostanie zinterpretowana przez silnik wyrażeń regularnych, kt&oacute;ry zobaczy, że ma pominąć specjalne znaczenie symbolu <code>+<&#47;code>.</p>
-<p>P&oacute;jdźmy o krok dalej. Ten przykład jest już zakręcony więc trzymaj się mocno ;). Co jeśli chcemy sprawdzić numer mieszkania. Zał&oacute;żmy, że numer mieszkania to kilka cyfr oddzielonych ukośnikiem od kolejnej grupy cyfr. Przykładowy numer pasujący do tego opisu może wyglądać tak 123\5.</p>
-<p>Jak już wiesz <code>+<&#47;code> dla silnika wyrażeń regularnych jest jednym z symboli specjalnych więc jego użycie trzeba poprzedzać <code>\<&#47;code>. W związku&nbsp; z tym sam symbol <code>\<&#47;code> także jest traktowany w specjalny spos&oacute;b więc i tu jego dosłowne użycie musi być poprzedzone <code>\<&#47;code>. Więc w tym przypadku nasze wyrażenie regularne wygląda następująco <code>123\\5<&#47;code>.</p>
+W naszym przykładzie kompilator interpretując literał znakowy <code>"1 \\+ 2 = 3"<&#47;code> w pliku class zawierającym skompilowaną klasę zapisze <code>1 \+ 2 = 3<&#47;code>. Taka postać zostanie zinterpretowana przez silnik wyrażeń regularnych, który zobaczy, że ma pominąć specjalne znaczenie symbolu <code>+<&#47;code>.</p>
+<p>Pójdźmy o krok dalej. Ten przykład jest już zakręcony więc trzymaj się mocno ;). Co jeśli chcemy sprawdzić numer mieszkania. Załóżmy, że numer mieszkania to kilka cyfr oddzielonych ukośnikiem od kolejnej grupy cyfr. Przykładowy numer pasujący do tego opisu może wyglądać tak 123\5.</p>
+<p>Jak już wiesz <code>+<&#47;code> dla silnika wyrażeń regularnych jest jednym z symboli specjalnych więc jego użycie trzeba poprzedzać <code>\<&#47;code>. W związku&nbsp; z tym sam symbol <code>\<&#47;code> także jest traktowany w specjalny sposób więc i tu jego dosłowne użycie musi być poprzedzone <code>\<&#47;code>. Więc w tym przypadku nasze wyrażenie regularne wygląda następująco <code>123\\5<&#47;code>.</p>
 <p>A jak takie wyrażenie zapisać jako literał znakowy? Tak, trzeba zdublować każdy ukośnik, więc wychodzi nam taki potworek <code>"123\\\\5"<&#47;code>.</p>
-<p>W dalszej części artykułu jeśli otoczę wyrażenie regularne <code>""<&#47;code> w&oacute;wczas będzie to poprawny literał (instancja <code>String<&#47;code>, z powt&oacute;rzonymi ukośnikami). Jeśli nie będzie tych znak&oacute;w, będzie to poprawne wyrażenie regularne (bez powt&oacute;rzonych ukośnik&oacute;w).</p>
-<h2>Obsługa powt&oacute;rzeń<&#47;h2><br />
-W wyrażeniach regularnych istnieje kilka mechanizm&oacute;w, kt&oacute;re pozwalają nam na obsługę powt&oacute;rzeń, poniżej opiszę wszystkie z nich.</p>
+<p>W dalszej części artykułu jeśli otoczę wyrażenie regularne <code>""<&#47;code> wówczas będzie to poprawny literał (instancja <code>String<&#47;code>, z powtórzonymi ukośnikami). Jeśli nie będzie tych znak&oacute;w, będzie to poprawne wyrażenie regularne (bez powt&oacute;rzonych ukośnik&oacute;w).</p>
+<h2>Obsługa powtórzeń<&#47;h2><br />
+W wyrażeniach regularnych istnieje kilka mechanizmów, które pozwalają nam na obsługę powt&oacute;rzeń, poniżej opiszę wszystkie z nich.</p>
 <h3>Znak <code>?<&#47;code><&#47;h3><br />
-Znak <code>?<&#47;code> oznacza &ndash; element znajdujący się wcześniej jest opcjonalny. Innymi słowy to co występuje przed <code>?<&#47;code> może wystąpić raz lub może zostać pominięte. Na przykład do wyrażenia regularnego <code>kr?at<&#47;code> pasują&nbsp; zar&oacute;wno <code>"krat"<&#47;code> jak i <code>"kat"<&#47;code> ale nie pasuje <code>"kot"<&#47;code> czy <code>"krrat"<&#47;code>.</p>
+Znak <code>?<&#47;code> oznacza &ndash; element znajdujący się wcześniej jest opcjonalny. Innymi słowy to co występuje przed <code>?<&#47;code> może wystąpić raz lub może zostać pominięte. Na przykład do wyrażenia regularnego <code>kr?at<&#47;code> pasują&nbsp; zarówno <code>"krat"<&#47;code> jak i <code>"kat"<&#47;code> ale nie pasuje <code>"kot"<&#47;code> czy <code>"krrat"<&#47;code>.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void testSymbolQuestionMark() {<br />
     Pattern pattern = Pattern.compile("kr?at");<br />
@@ -114,7 +114,7 @@ public void testSymbolQuestionMark() {<br />
     assertFalse(pattern.matcher("kot").matches());<br />
 }<&#47;pre></p>
 <h3>Znak <code>*<&#47;code><&#47;h3><br />
-Znak <code>*<&#47;code> oznacza &ndash; powt&oacute;rz dowolną liczbę razy element znajdujący się wcześniej. Dowolna liczba to powt&oacute;rzenie 0 lub więcej razy. Na przykład wyrażenie regularne <code>uwa*ga<&#47;code> jest w stanie dopasować następujące łańcuchy znak&oacute;w <code>"uwga"<&#47;code>, <code>"uwaga"<&#47;code>, <code>"uwaaaaaaga"<&#47;code> ale nie pasuje do <code>"uwagaaa"<&#47;code>.</p>
+Znak <code>*<&#47;code> oznacza &ndash; powtórz dowolną liczbę razy element znajdujący się wcześniej. Dowolna liczba to powtórzenie 0 lub więcej razy. Na przykład wyrażenie regularne <code>uwa*ga<&#47;code> jest w stanie dopasować następujące łańcuchy znak&oacute;w <code>"uwga"<&#47;code>, <code>"uwaga"<&#47;code>, <code>"uwaaaaaaga"<&#47;code> ale nie pasuje do <code>"uwagaaa"<&#47;code>.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void testSymbolAsterix() {<br />
     Pattern pattern = Pattern.compile("uwa*ga");<br />
@@ -124,7 +124,7 @@ public void testSymbolAsterix() {<br />
     assertFalse(pattern.matcher("uwagaaaa").matches());<br />
 }<&#47;pre></p>
 <h3>Znak <code>+<&#47;code><&#47;h3><br />
-Znak <code>+<&#47;code> jest podobny do <code>*<&#47;code>. Oznacza on, że występujący po nim element musi być powt&oacute;rzony 1 lub więcej razy. Na przykład wyrażenie regularne <code>trampo+lina<&#47;code> może dopasować następujące łańcuchy znak&oacute;w: <code>"trampolina"<&#47;code>, <code>"trampooolina"<&#47;code> ale nie pasuje do <code>"tramplina"<&#47;code>.</p>
+Znak <code>+<&#47;code> jest podobny do <code>*<&#47;code>. Oznacza on, że występujący po nim element musi być powtórzony 1 lub więcej razy. Na przykład wyrażenie regularne <code>trampo+lina<&#47;code> może dopasować następujące łańcuchy znaków: <code>"trampolina"<&#47;code>, <code>"trampooolina"<&#47;code> ale nie pasuje do <code>"tramplina"<&#47;code>.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void testSymbolPlus() {<br />
     Pattern pattern = Pattern.compile("trampo+lina");<br />
@@ -132,17 +132,17 @@ public void testSymbolPlus() {<br />
     assertTrue(pattern.matcher("trampoooolina").matches());<br />
     assertFalse(pattern.matcher("tramplina").matches());<br />
 }<&#47;pre></p>
-<h3>Powt&oacute;rzenia inaczej<&#47;h3><br />
-Poza znakami <code>?<&#47;code>, <code>+<&#47;code> i <code>*<&#47;code>, kt&oacute;re określają dopuszczalną liczbę powt&oacute;rzeń możesz też użyć <code>{}<&#47;code>. Jednak <code>{}<&#47;code> ma większe możliwości:</p>
+<h3>Powtórzenia inaczej<&#47;h3><br />
+Poza znakami <code>?<&#47;code>, <code>+<&#47;code> i <code>*<&#47;code>, które określają dopuszczalną liczbę powtórzeń możesz też użyć <code>{}<&#47;code>. Jednak <code>{}<&#47;code> ma większe możliwości:</p>
 <ul>
 <li><code>{x}<&#47;code> - oznacza że element poprzedzający musi wystąpić dokładnie x razy,<&#47;li>
 <li><code>{x,y}<&#47;code> - oznacza, że element poprzedzający musi wystąpić od x do y razy,<&#47;li>
 <li><code>{x,}<&#47;code> - oznacza, że element poprzedzający musi wystąpić co najmniej x razy,<&#47;li>
 <li><code>{,y}<&#47;code> - oznacza, że element poprzedzający musi wystąpić co najwyżej y razy.<&#47;li><br />
 <&#47;ul><br />
-Zauważ, że symbole <code>?<&#47;code>, <code>*<&#47;code> i <code>+<&#47;code> możemy zastąpić <code>{}<&#47;code>. Na przykład wyrażenia regularne <code>al*a<&#47;code> i <code>al{0,}a<&#47;code> czy <code>al+a<&#47;code> i <code>al{1,}a<&#47;code> są sobie r&oacute;wnoznaczne. Jednak zapis z <code>?<&#47;code>, <code>+<&#47;code> czy <code>*<&#47;code> jest kr&oacute;tszy przez co częściej stosowany.</p>
+Zauważ, że symbole <code>?<&#47;code>, <code>*<&#47;code> i <code>+<&#47;code> możemy zastąpić <code>{}<&#47;code>. Na przykład wyrażenia regularne <code>al*a<&#47;code> i <code>al{0,}a<&#47;code> czy <code>al+a<&#47;code> i <code>al{1,}a<&#47;code> są sobie równoznaczne. Jednak zapis z <code>?<&#47;code>, <code>+<&#47;code> czy <code>*<&#47;code> jest krótszy przez co częściej stosowany.</p>
 <h2>Znak <code>.<&#47;code><&#47;h2><br />
-Znak oznacza dowolny symbol (poza znakiem nowej linii). Innymi słowy do wyrażenia regularnego <code>ko.ek<&#47;code> pasują zar&oacute;wno <code>"kotek"<&#47;code> jak i <code>"korek"<&#47;code> ale nie pasuje <code>"koek"<&#47;code> czy <code>"ktek"<&#47;code>.</p>
+Znak oznacza dowolny symbol (poza znakiem nowej linii). Innymi słowy do wyrażenia regularnego <code>ko.ek<&#47;code> pasują zarówno <code>"kotek"<&#47;code> jak i <code>"korek"<&#47;code> ale nie pasuje <code>"koek"<&#47;code> czy <code>"ktek"<&#47;code>.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void testSymbolDot() {<br />
     Pattern pattern = Pattern.compile("ko.ek");<br />
@@ -151,14 +151,14 @@ public void testSymbolDot() {<br />
     assertFalse(pattern.matcher("koek").matches());<br />
     assertFalse(pattern.matcher("ktek").matches());<br />
 }<&#47;pre><br />
-Zauważ, że wszystkie dotychczas om&oacute;wione znaki możemy ze sobą połączyć uzyskując bardziej zaawansowane wyrażenie regularne. Na przykład <code>k+a.*ta<&#47;code>. Rozł&oacute;żmy to wyrażenie regularne na czynniki pierwsze:</p>
+Zauważ, że wszystkie dotychczas omówione znaki możemy ze sobą połączyć uzyskując bardziej zaawansowane wyrażenie regularne. Na przykład <code>k+a.*ta<&#47;code>. Rozłóżmy to wyrażenie regularne na czynniki pierwsze:</p>
 <ul>
-<li><code>k+<&#47;code> - oznacza literę k powt&oacute;rzoną co najmniej raz,<&#47;li>
+<li><code>k+<&#47;code> - oznacza literę k powtórzoną co najmniej raz,<&#47;li>
 <li><code>a<&#47;code> - litera a,<&#47;li>
-<li><code>.*<&#47;code> - oznacza dowolny znak (poza znakiem nowej linii) powt&oacute;rzony 0 lub więcej razy,<&#47;li>
+<li><code>.*<&#47;code> - oznacza dowolny znak (poza znakiem nowej linii) powtórzony 0 lub więcej razy,<&#47;li>
 <li><code>ta<&#47;code> - litery ta.<&#47;li><br />
 <&#47;ul><br />
-Do takiego wyrażenia regularnego pasują następujące łańcuchy znak&oacute;w <code>"kata"<&#47;code>, <code>"katapulta"<&#47;code>, <code>"karta"<&#47;code>, <code>"kasia ma kota"<&#47;code> czy <code>"kkkka#$*&amp;JHDFStatata<&#47;code> ale nie pasuje <code>"ata"<&#47;code> czy <code>"kta"<&#47;code>.</p>
+Do takiego wyrażenia regularnego pasują następujące łańcuchy znaków <code>"kata"<&#47;code>, <code>"katapulta"<&#47;code>, <code>"karta"<&#47;code>, <code>"kasia ma kota"<&#47;code> czy <code>"kkkka#$*&amp;JHDFStatata<&#47;code> ale nie pasuje <code>"ata"<&#47;code> czy <code>"kta"<&#47;code>.</p>
 <pre class="lang:default decode:true">@Test<br />
 public void testSymbolDotWithOthers() {<br />
     Pattern pattern = Pattern.compile("k+a.*ta");<br />
@@ -169,7 +169,7 @@ public void testSymbolDotWithOthers() {<br />
     assertFalse(pattern.matcher("ata").matches());<br />
     assertFalse(pattern.matcher("kta").matches());<br />
 }<&#47;pre><br />
-[idea]Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do kt&oacute;rego mogą pasować poprawne adresy email <code>.+@.+\.pl.<&#47;code> Rozkładając je na czynniki pierwsze mamy:</p>
+[idea]Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego mogą pasować poprawne adresy email <code>.+@.+\.pl.<&#47;code> Rozkładając je na czynniki pierwsze mamy:</p>
 <ul>
 <li><code>.+<&#47;code> - dowolny symbol użyty co najmniej raz,<&#47;li>
 <li><code>@<&#47;code> - małpka,<&#47;li>
@@ -178,7 +178,7 @@ public void testSymbolDotWithOthers() {<br />
 <li><code>pl<&#47;code> - następujące po sobie litery p i l.[&#47;idea]<&#47;li><br />
 <&#47;ul></p>
 <h2>Klasy<&#47;h2><br />
-W wyrażeniach regularnych też istnieją klasy, jednak nie są to klasy jak w języku Java :). W kontekście wyrażeń regularnych klasy oznaczają grupy symboli, klasy oznaczamy przy pomocy nawias&oacute;w <code>[<&#47;code> i <code>]<&#47;code>. Na przykład wyrażenie regularne <code>[rtmp]aca<&#47;code> opisuje łańcuchy znak&oacute;w <code>"raca"<&#47;code>, <code>"taca"<&#47;code>,&nbsp;<code>"maca"<&#47;code> czy <code>"paca"<&#47;code> ale już nie <code>"praca"<&#47;code> czy <code>"pacan&oacute;w"<&#47;code>.</p>
+W wyrażeniach regularnych też istnieją klasy, jednak nie są to klasy jak w języku Java :). W kontekście wyrażeń regularnych klasy oznaczają grupy symboli, klasy oznaczamy przy pomocy nawiasów <code>[<&#47;code> i <code>]<&#47;code>. Na przykład wyrażenie regularne <code>[rtmp]aca<&#47;code> opisuje łańcuchy znaków <code>"raca"<&#47;code>, <code>"taca"<&#47;code>,&nbsp;<code>"maca"<&#47;code> czy <code>"paca"<&#47;code> ale już nie <code>"praca"<&#47;code> czy <code>"pacan&oacute;w"<&#47;code>.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void testSimpleClasses() {<br />
     Pattern pattern = Pattern.compile("[rtmp]aca");<br />
@@ -189,8 +189,8 @@ public void testSimpleClasses() {<br />
     assertFalse(pattern.matcher("praca").matches());<br />
     assertFalse(pattern.matcher("pacanow").matches());<br />
 }<&#47;pre></p>
-<h3>Zakresy znak&oacute;w<&#47;h3><br />
-Aby ułatwić zapisywanie grup znak&oacute;w klasy pozwalają na definiowanie zakres&oacute;w. Można to zrobić przy pomocy <code>-<&#47;code>. Na przykład do wyrażenia regularnego <code>[a-d]uma<&#47;code> pasują łańcuchy znak&oacute;w <code>"auma"<&#47;code>, <code>"buma"<&#47;code>, <code>"cuma"<&#47;code> czy <code>"duma"<&#47;code> ale nie pasuje <code>"fuma"<&#47;code> czy <code>"abuma"<&#47;code>. W podobnym spos&oacute;b możemy podawać zakresy cyfr. Do wyrażenia regularnego <code>[0-7]xyz<&#47;code>&nbsp; pasują łańcucy znak&oacute;w <code>"0xyz"<&#47;code>, <code>"1xyz"<&#47;code> czy <code>"7xyz"<&#47;code> ale nie pasuje <code>"8xyz"<&#47;code> czy <code>"07xyz"<&#47;code>.</p>
+<h3>Zakresy znaków<&#47;h3><br />
+Aby ułatwić zapisywanie grup znaków klasy pozwalają na definiowanie zakresów. Można to zrobić przy pomocy <code>-<&#47;code>. Na przykład do wyrażenia regularnego <code>[a-d]uma<&#47;code> pasują łańcuchy znak&oacute;w <code>"auma"<&#47;code>, <code>"buma"<&#47;code>, <code>"cuma"<&#47;code> czy <code>"duma"<&#47;code> ale nie pasuje <code>"fuma"<&#47;code> czy <code>"abuma"<&#47;code>. W podobnym spos&oacute;b możemy podawać zakresy cyfr. Do wyrażenia regularnego <code>[0-7]xyz<&#47;code>&nbsp; pasują łańcucy znak&oacute;w <code>"0xyz"<&#47;code>, <code>"1xyz"<&#47;code> czy <code>"7xyz"<&#47;code> ale nie pasuje <code>"8xyz"<&#47;code> czy <code>"07xyz"<&#47;code>.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void testClassWithRangeNumber() {<br />
     Pattern pattern = Pattern.compile("[0-7]xyz");<br />
@@ -201,7 +201,7 @@ public void testClassWithRangeNumber() {<br />
     assertFalse(pattern.matcher("07xyz").matches());<br />
 }<&#47;pre><br />
 Jak widzisz znak <code>-<&#47;code> wewnątrz klasy ma specjalne znaczenie, jeśli chcesz aby był interpretowany dosłownie umieść go jako ostatni w klasie <code>[abc-]<&#47;code>.</p>
-<p>Zakresy w klasie znak&oacute;w można ze sobą łączyć. Na przykład do wyrażenia regularnego <code>[a-cA-C0-3]bum<&#47;code> pasują łańcucy znak&oacute;w <code>"abum"<&#47;code>, <code>"Bbum"<&#47;code> czy <code>"0bum"<&#47;code> ale nie pasują już <code>"dbum"<&#47;code> czy <code>"aA0bum"<&#47;code>.</p>
+<p>Zakresy w klasie znaków można ze sobą łączyć. Na przykład do wyrażenia regularnego <code>[a-cA-C0-3]bum<&#47;code> pasują łańcucy znaków <code>"abum"<&#47;code>, <code>"Bbum"<&#47;code> czy <code>"0bum"<&#47;code> ale nie pasują już <code>"dbum"<&#47;code> czy <code>"aA0bum"<&#47;code>.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void testClassWithMultipleRanges() {<br />
     Pattern pattern = Pattern.compile("[a-cA-C0-3]bum");<br />
@@ -212,7 +212,7 @@ public void testClassWithMultipleRanges() {<br />
     assertFalse(pattern.matcher("aA0bum").matches());<br />
 }<&#47;pre></p>
 <h3>Negacja klasy<&#47;h3><br />
-A co jeśli chcę dopasować wszystkie znaki pr&oacute;cz x, y i z? Klasy też na to pozwalają. Służy do tego znak <code>^<&#47;code> umieszczony jako pierwszy w klasie. Na przykład do wyrażenia regularnego <code>[^xyz]awa<&#47;code> pasują słowa <code>"kawa"<&#47;code>, <code>"pawa"<&#47;code> czy <code>"Wawa"<&#47;code> ale nie pasują <code>"zawa"<&#47;code> czy <code>"yawa"<&#47;code>.</p>
+A co jeśli chcę dopasować wszystkie znaki prócz x, y i z? Klasy też na to pozwalają. Służy do tego znak <code>^<&#47;code> umieszczony jako pierwszy w klasie. Na przykład do wyrażenia regularnego <code>[^xyz]awa<&#47;code> pasują słowa <code>"kawa"<&#47;code>, <code>"pawa"<&#47;code> czy <code>"Wawa"<&#47;code> ale nie pasują <code>"zawa"<&#47;code> czy <code>"yawa"<&#47;code>.</p>
 <pre class="lang:default decode:true ">@Test<br />
 public void testClassNegation() {<br />
     Pattern pattern = Pattern.compile("[^xyz]awa");<br />
@@ -223,23 +223,23 @@ public void testClassNegation() {<br />
     assertFalse(pattern.matcher("yawa").matches());<br />
 }<&#47;pre><br />
 Jeśli chcesz aby <code>^<&#47;code> był rozumiany dosłownie wewnątrz klasy nie umieszczaj go na pierwszy miejscu.</p>
-<p>[idea]Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do kt&oacute;rego pasują imiona: <code>[A-Z][a-z]+<&#47;code>. Rozł&oacute;żmy je na czynniki pierwszej</p>
+<p>[idea]Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego pasują imiona: <code>[A-Z][a-z]+<&#47;code>. Rozłóżmy je na czynniki pierwszej</p>
 <ul>
-<li><code>[A-Z]<&#47;code> - znak z tej klasy znak&oacute;w, wielka litera,<&#47;li>
+<li><code>[A-Z]<&#47;code> - znak z tej klasy znaków, wielka litera,<&#47;li>
 <li><code>[a-z]+<&#47;code> - mała litera użyta co najmniej raz.[&#47;idea]<&#47;li><br />
 <&#47;ul></p>
-<h2>Predefiniowane klasy znak&oacute;w<&#47;h2><br />
-Klasy poznałeś w poprzednich akapitach. Tak się składa, że mechanizm ten jest dość często wykorzystywany w wyrażeniach regularnych. Co więcej, bardzo często zdarzają się klasy, kt&oacute;re są częściej używane od innych. Na przykład wszystkie cyfry, czy wszystkie znaki użyte w słowach.</p>
+<h2>Predefiniowane klasy znaków<&#47;h2><br />
+Klasy poznałeś w poprzednich akapitach. Tak się składa, że mechanizm ten jest dość często wykorzystywany w wyrażeniach regularnych. Co więcej, bardzo często zdarzają się klasy, które są częściej używane od innych. Na przykład wszystkie cyfry, czy wszystkie znaki użyte w słowach.</p>
 <p>Takie często używane klasy zostały wbudowane w wyrażenia regularne pod postacią predefiniowanych klas. Wszystkie predefiniowane klasy prezentuje lista poniżej:</p>
 <ul>
 <li><code>\d<&#47;code> - jakakolwiek cyfra <code>[0-9]<&#47;code>,<&#47;li>
-<li><code>\D<&#47;code> - jakikolwiek znak, kt&oacute;ry nie jest cyfrą <code>[^0-9]<&#47;code>,<&#47;li>
+<li><code>\D<&#47;code> - jakikolwiek znak, który nie jest cyfrą <code>[^0-9]<&#47;code>,<&#47;li>
 <li><code>\w<&#47;code> - znak używany w słowach <code>[a-zA-Z0-9_]<&#47;code> (zauważ, że mamy tu znak <code>_<&#47;code>),<&#47;li>
-<li><code>\w<&#47;code> - jakikolwiek znak, kt&oacute;ry nie jest używany w słowach <code>[^a-zA-Z0-9_]<&#47;code>,<&#47;li>
-<li><code>\s<&#47;code> - tak zwane białe znaki czyli znak spacji czy tabulacji <code>[ \t\n\r\f\x0B]<&#47;code>. Możesz je opisać jako znaki, kt&oacute;re nie są widoczne podczas wydruku,<&#47;li>
+<li><code>\w<&#47;code> - jakikolwiek znak, który nie jest używany w słowach <code>[^a-zA-Z0-9_]<&#47;code>,<&#47;li>
+<li><code>\s<&#47;code> - tak zwane białe znaki czyli znak spacji czy tabulacji <code>[ \t\n\r\f\x0B]<&#47;code>. Możesz je opisać jako znaki, które nie są widoczne podczas wydruku,<&#47;li>
 <li><code>\S<&#47;code> - negacja grupy <code>\s<&#47;code> czyli <code>[^ \t\n\r\f\x0B]<&#47;code>.<&#47;li><br />
 <&#47;ul><br />
-Dla przykładu do wyrażenia regularnego <code>\d\w\d<&#47;code> pasują łąńcuchy znak&oacute;w <code>"0_0"<&#47;code> czy <code>"0X1"<&#47;code> ale nie pasują <code>"a0b"<&#47;code> czy <code>"0 0"<&#47;code>.</p>
+Dla przykładu do wyrażenia regularnego <code>\d\w\d<&#47;code> pasują łąńcuchy znaków <code>"0_0"<&#47;code> czy <code>"0X1"<&#47;code> ale nie pasują <code>"a0b"<&#47;code> czy <code>"0 0"<&#47;code>.</p>
 <pre class="lang:default decode:true">@Test<br />
 public void testPredefinedClases() {<br />
     Pattern pattern = Pattern.compile("\\d\\w\\d");<br />
@@ -249,7 +249,7 @@ public void testPredefinedClases() {<br />
     assertFalse(pattern.matcher("0 0").matches());<br />
 }<&#47;pre><br />
 [alert style="warning"]Pamiętasz o ukośniku? Wyrażenie regularne <code>\d<&#47;code> zapisane jako <code>String<&#47;code> w języku Java potrzebuje dodatkowego ukośnika, powstaje nam zatem <code>"\\d"<&#47;code>.[&#47;alert]</p>
-<p>[idea]Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku artykułu, do kt&oacute;rego pasują daty: \d{4}-\d{2}-\d{2}</p>
+<p>[idea]Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku artykułu, do którego pasują daty: \d{4}-\d{2}-\d{2}</p>
 <ul>
 <li><code>\d{4}<&#47;code> - cztery cyfry oznaczające rok,<&#47;li>
 <li><code>-<&#47;code> - minus oddzielający rok od miesiąca,<&#47;li>
@@ -259,10 +259,10 @@ public void testPredefinedClases() {<br />
 <&#47;ul><br />
 Dasz też sobie radę z <code>\d{2}-\d{3}<&#47;code> opisującym kody pocztowe.[&#47;idea]</p>
 <h2>Grupy<&#47;h2><br />
-Do tej pory poznałeś mechanizmy wyrażeń regularnych kt&oacute;re pozwalają na sprawdzenie czy dany łańcuch pasuje do danego wyrażenia regularnego. Teraz przejdziemy do mechanizmu grup, kt&oacute;ry pozwala na wyłuskanie z łańcucha znak&oacute;w pewnego fragmentu wewnątrz.</p>
-<p>Weźmy za przykład zdanie <code>"Ala ma kota. Kot ma na imię --Zygmunt--. Kot jest czarny."<&#47;code>. Zał&oacute;żmy, że chcielibyśmy wyciągnąć z tego zdania imię kota. Dla uproszczenia umieściłem je pomiędzy dwoma minusami. Następujące wyrażenie regularne może nam w tym pom&oacute;c: <code>[^-]*--(\w+)--.*<&#47;code>. Rozł&oacute;żmy je na czynniki pierwsze:</p>
+Do tej pory poznałeś mechanizmy wyrażeń regularnych które pozwalają na sprawdzenie czy dany łańcuch pasuje do danego wyrażenia regularnego. Teraz przejdziemy do mechanizmu grup, który pozwala na wyłuskanie z łańcucha znak&oacute;w pewnego fragmentu wewnątrz.</p>
+<p>Weźmy za przykład zdanie <code>"Ala ma kota. Kot ma na imię --Zygmunt--. Kot jest czarny."<&#47;code>. Załóżmy, że chcielibyśmy wyciągnąć z tego zdania imię kota. Dla uproszczenia umieściłem je pomiędzy dwoma minusami. Następujące wyrażenie regularne może nam w tym pomóc: <code>[^-]*--(\w+)--.*<&#47;code>. Rozł&oacute;żmy je na czynniki pierwsze:</p>
 <ul>
-<li><code>[^-]*<&#47;code> - Jakikolwiek znak tylko nie minus powt&oacute;rzony dowolną ilość razy,<&#47;li>
+<li><code>[^-]*<&#47;code> - Jakikolwiek znak tylko nie minus powtórzony dowolną ilość razy,<&#47;li>
 <li><code>--<&#47;code> - dwa minusy,<&#47;li>
 <li><code>(<&#47;code> - rozpoczęcie grupy,<&#47;li>
 <li><code>\w+<&#47;code> - znak użyty w słowach występujący co najmniej raz,<&#47;li>
@@ -270,9 +270,9 @@ Do tej pory poznałeś mechanizmy wyrażeń regularnych kt&oacute;re pozwalają 
 <li><code>--<&#47;code> - dwa minusy,<&#47;li>
 <li><code>.*<&#47;code> - dowolny znak występujący co najmniej raz.<&#47;li><br />
 <&#47;ul><br />
-W naszym przykładzie imię Zygmunt znajdujące się pomiędzy podw&oacute;jnymi minusami zostanie przypisane do grupy. Grupowanie oznaczamy nawiasami <code>()<&#47;code>. W wyrażeniu regularnym może być kilka grup, numerowane są one zawsze od jedynki.</p>
-<p>Jeśli dany łańcuch znak&oacute;w pasuje do wyrażenia regularnego w&oacute;wczas domyślnie ląduje on w grupie z numerem 0.</p>
-<p>Obiekt klasy <code>Matcher<&#47;code> posiada zestaw metod, kt&oacute;re operują na grupach. Skupimy się na dw&oacute;ch z nich:</p>
+W naszym przykładzie imię Zygmunt znajdujące się pomiędzy podwójnymi minusami zostanie przypisane do grupy. Grupowanie oznaczamy nawiasami <code>()<&#47;code>. W wyrażeniu regularnym może być kilka grup, numerowane są one zawsze od jedynki.</p>
+<p>Jeśli dany łańcuch znaków pasuje do wyrażenia regularnego wówczas domyślnie ląduje on w grupie z numerem 0.</p>
+<p>Obiekt klasy <code>Matcher<&#47;code> posiada zestaw metod, które operują na grupach. Skupimy się na dwóch z nich:</p>
 <ul>
 <li><code>groupCount()<&#47;code> - zwraca liczbę grup w wyrażeniu regularnym (pomijając tę domyślną z indeksem 0),<&#47;li>
 <li><code>group(int groupNumber)<&#47;code> - zwraca grupę pod konkretnym numerem.<&#47;li><br />
@@ -284,50 +284,50 @@ public void testBasicGroups() {<br />
     matcher.matches();<br />
     assertEquals("Zygmunt", matcher.group(1));<br />
 }<&#47;pre><br />
-W przykładzie powyżej widzisz, kod kt&oacute;ry używa grupowania do pobrania imienia kota ze zdania.</p>
+W przykładzie powyżej widzisz, kod który używa grupowania do pobrania imienia kota ze zdania.</p>
 <p>[idea]Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku artykułu, do odczytywania pseudonimu z książki adresowej <code>\w+ \((\w+)\) \w+<&#47;code>. Rozkładając wyrażenie na czynniki pierwsze otrzymujemy:</p>
 <ul>
 <li><code>\w+<&#47;code> - cyfry, litery lub podkreślnik użyte co najmniej raz,<&#47;li>
-<li><code>\(<&#47;code> - znak nawias&oacute;w użyty dosłownie,<&#47;li>
+<li><code>\(<&#47;code> - znak nawiasów użyty dosłownie,<&#47;li>
 <li><code>(\w+)<&#47;code> - ponownie cyfry, litery lub podkreślnik użyte co najmniej raz ale tym razem złapane w grupę,<&#47;li>
-<li><code>\)<&#47;code> - znak nawias&oacute;w użyty dosłownie,<&#47;li>
+<li><code>\)<&#47;code> - znak nawiasów użyty dosłownie,<&#47;li>
 <li><code>\w+<&#47;code> - po raz kolejny fragment pasujący tym razem do nazwiska.[&#47;idea]<&#47;li><br />
 <&#47;ul><br />
-Operatory powt&oacute;rzeń można stosować do grup zatem wyrażenie regularne <code>(\w+ ){3}<&#47;code> pasuje do trzech sł&oacute;w, kt&oacute;re mogą być oddzielone spacją.</p>
+Operatory powtórzeń można stosować do grup zatem wyrażenie regularne <code>(\w+ ){3}<&#47;code> pasuje do trzech słów, kt&oacute;re mogą być oddzielone spacją.</p>
 <h1>IDE pomaga<&#47;h1><br />
-InteliJ Idea ma dość przydatną funkcję, kt&oacute;ra pomaga przy pracy z wyrażeniami regularnymi. Naciskając <code><Alt + Enter><&#47;code> na wyrażeniu regularnym i klikając na &bdquo;Check RegExp&rdquo; pokaże się okienko, w kt&oacute;rym na żywo możesz sprawdzić działanie wyrażenia regularnego.</p>
+InteliJ Idea ma dość przydatną funkcję, która pomaga przy pracy z wyrażeniami regularnymi. Naciskając <code><Alt + Enter><&#47;code> na wyrażeniu regularnym i klikając na &bdquo;Check RegExp&rdquo; pokaże się okienko, w którym na żywo możesz sprawdzić działanie wyrażenia regularnego.</p>
 <p><img class="aligncenter size-full wp-image-567" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;11&#47;check_regexp_menu.jpg" alt="Check RegExp menu" width="502" height="240" &#47;></p>
 <p><img class="aligncenter size-full wp-image-566" src="http:&#47;&#47;www.samouczekprogramisty.pl&#47;wp-content&#47;uploads&#47;2016&#47;11&#47;check_regexp_dialog.jpg" alt="check_regexp_dialog" width="502" height="240" &#47;></p>
-<h1>Wady wyrażeń regularnych i praktyczne wskaz&oacute;wki<&#47;h1><br />
-Wyrażenia regularne to bardzo wszechstronne i skomplikowane narzędzie. Narzędzie, kt&oacute;re ma dużo możliwości. Jednak niestety ma też swoje wady.</p>
-<p>Używanie wyrażeń regularnych gdzie zwykła manipulacja łańcuchami znak&oacute;w jest możliwa nie zawsze jest dobrym rozwiązaniem. Jeśli można to zrobić prostymi metodami używaj ich zamiast wyrażeń regularnych.</p>
-<p>Wyrażenia regularne są wolne. Kompilacja wyrażenia i p&oacute;źniej ciężka praca silnika wyrażeń regularnych zajmuje więcej czasu niż zwykłe pobranie części łańcucha znak&oacute;w na przykład od trzeciego do dziesiątego znaku włącznie.</p>
-<p>Skomplikowane wyrażenie regularne są ciężkie w utrzymaniu i zrozumieniu. Nadziubać potworka każdy może, gorzej jest p&oacute;źniej ze zrozumieniem takiego fragmentu miesiąc czy trzy miesiące p&oacute;źniej. Jeśli to możliwe, lepiej upraszczać je maksymalnie jak się da.</p>
-<p>Wyrażenia regularne nie zawsze są w stanie sprawdzić wszystko. Bo jak na przykład napisać wyrażenie regularne, kt&oacute;re ze stuprocentową pewnością powie, że data jest poprawna? Podejmujesz się napisania takiego wyrażenia? :) Czy na przykład data 2015-02-29 jest poprawna? Na pierwszy rzut oka wszystko jest z nią w porządku prawda? Napisać wyrażenie regularne, kt&oacute;re &bdquo;udowodni&rdquo;, że jest ona błędna jest nie lada sztuką, ja bym się chyba takiego zadania nie podjął ;).</p>
-<p>Jeśli w Twoim wyrażeniu regularnym jest dużo <code>*<&#47;code> zastan&oacute;w się jeszcze raz czy aby na pewno <code>+<&#47;code> nie będzie w tym przypadku wystarczający. Rzadko kiedy zależy nam na &bdquo;zerowej liczbie znak&oacute;w&rdquo;.</p>
+<h1>Wady wyrażeń regularnych i praktyczne wskazówki<&#47;h1><br />
+Wyrażenia regularne to bardzo wszechstronne i skomplikowane narzędzie. Narzędzie, które ma dużo możliwości. Jednak niestety ma też swoje wady.</p>
+<p>Używanie wyrażeń regularnych gdzie zwykła manipulacja łańcuchami znaków jest możliwa nie zawsze jest dobrym rozwiązaniem. Jeśli można to zrobić prostymi metodami używaj ich zamiast wyrażeń regularnych.</p>
+<p>Wyrażenia regularne są wolne. Kompilacja wyrażenia i później ciężka praca silnika wyrażeń regularnych zajmuje więcej czasu niż zwykłe pobranie części łańcucha znaków na przykład od trzeciego do dziesiątego znaku włącznie.</p>
+<p>Skomplikowane wyrażenie regularne są ciężkie w utrzymaniu i zrozumieniu. Nadziubać potworka każdy może, gorzej jest później ze zrozumieniem takiego fragmentu miesiąc czy trzy miesiące później. Jeśli to możliwe, lepiej upraszczać je maksymalnie jak się da.</p>
+<p>Wyrażenia regularne nie zawsze są w stanie sprawdzić wszystko. Bo jak na przykład napisać wyrażenie regularne, które ze stuprocentową pewnością powie, że data jest poprawna? Podejmujesz się napisania takiego wyrażenia? :) Czy na przykład data 2015-02-29 jest poprawna? Na pierwszy rzut oka wszystko jest z nią w porządku prawda? Napisać wyrażenie regularne, które &bdquo;udowodni&rdquo;, że jest ona błędna jest nie lada sztuką, ja bym się chyba takiego zadania nie podjął ;).</p>
+<p>Jeśli w Twoim wyrażeniu regularnym jest dużo <code>*<&#47;code> zastanów się jeszcze raz czy aby na pewno <code>+<&#47;code> nie będzie w tym przypadku wystarczający. Rzadko kiedy zależy nam na &bdquo;zerowej liczbie znaków&rdquo;.</p>
 <h1>Zadanie do wykonania<&#47;h1><br />
-Twoim dzisiejszym zadaniem będzie napisanie kilku wyrażeń regularnych, kt&oacute;re będą potrafiły walidować przykładowe dane pochodzące od użytkownika. Napisz wyrażenie regulane, kt&oacute;re:</p>
+Twoim dzisiejszym zadaniem będzie napisanie kilku wyrażeń regularnych, które będą potrafiły walidować przykładowe dane pochodzące od użytkownika. Napisz wyrażenie regulane, które:</p>
 <ul>
 <li>Sprawdza czy liczba zmiennoprzecinkowa podana przez użytkownika ma poprawny format. Na przykład liczba 123,2341515132135 czy -10 są poprawne ale 18-12 czy 123, już nie,<&#47;li>
 <li>sprawdza czy numer domu jest w formacie numer\numer. Poprawnym numerem jest 123\2A, 24B\3 czy 12\5, ale już numer abc\cba nie,<&#47;li>
-<li>sprawdza czy użytkownik wprowadził poprawną nazwę miasta. Na przykład Wroclaw, Zielona Gora czy Bielsko-Biala jest ok, jednak Ptysiow123 już nie. Dla uproszczenia zał&oacute;żmy, że żadna nazwa miejscowości nie zwiera polskich znak&oacute;w.<&#47;li><br />
+<li>sprawdza czy użytkownik wprowadził poprawną nazwę miasta. Na przykład Wroclaw, Zielona Gora czy Bielsko-Biala jest ok, jednak Ptysiow123 już nie. Dla uproszczenia załóżmy, że żadna nazwa miejscowości nie zwiera polskich znaków.<&#47;li><br />
 <&#47;ul><br />
-Rozwiązania jak zwykle są na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;blob&#47;master&#47;23_wyrazenia_regularne&#47;src&#47;test&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;regexp&#47;exercise&#47;ExerciseTest.java" target="_blank">githubie<&#47;a> jednak zachęcam do samodzielnej pracy. Pr&oacute;bując rozwiązać zadania samodzielnie nauczysz się najwięcej.</p>
+Rozwiązania jak zwykle są na <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;blob&#47;master&#47;23_wyrazenia_regularne&#47;src&#47;test&#47;java&#47;pl&#47;samouczekprogramisty&#47;kursjava&#47;regexp&#47;exercise&#47;ExerciseTest.java" target="_blank">githubie<&#47;a> jednak zachęcam do samodzielnej pracy. Próbując rozwiązać zadania samodzielnie nauczysz się najwięcej.</p>
 <h1>Dodatkowe materiały do nauki<&#47;h1><br />
-Poniżej przygotowałem dla Ciebie kilka dodatkowych link&oacute;w, kt&oacute;re zawierają materiały związane z wyrażeniami regularnymi.</p>
+Poniżej przygotowałem dla Ciebie kilka dodatkowych linków, które zawierają materiały związane z wyrażeniami regularnymi.</p>
 <ul>
 <li><a href="http:&#47;&#47;rubular.com&#47;" target="_blank">Rubular<&#47;a> - narzędzie pozwalające na sprawdzenie wyrażenia regularnego. Co prawda dotyczy wyrażeń regularnych dla języka Ruby jednak w przypadku Javy też znajduje zastosowanie,<&#47;li>
 <li><a href="http:&#47;&#47;regexr.com" target="_blank">Regexr<&#47;a> - kolejne narzędzie pomagające w testowaniu wyrażeń regularnych.<&#47;li>
-<li><a href="http:&#47;&#47;www.regular-expressions.info" target="_blank">http:&#47;&#47;www.regular-expressions.info<&#47;a> - bezsprzecznie najlepszy materiał w sieci jaki znalazłem na temat wyrażeń regularnych. Zawiera szczeg&oacute;łowy opis zar&oacute;wno tych podstawowych jak i zaawansowanych technik. Sam bardzo często korzystam z tego źr&oacute;dła,<&#47;li>
+<li><a href="http:&#47;&#47;www.regular-expressions.info" target="_blank">http:&#47;&#47;www.regular-expressions.info<&#47;a> - bezsprzecznie najlepszy materiał w sieci jaki znalazłem na temat wyrażeń regularnych. Zawiera szczegółowy opis zarówno tych podstawowych jak i zaawansowanych technik. Sam bardzo często korzystam z tego źr&oacute;dła,<&#47;li>
 <li>artykuł na temat wyrażeń regularnych na <a href="https:&#47;&#47;pl.wikipedia.org&#47;wiki&#47;Wyra%C5%BCenie_regularne" target="_blank">wikipedii<&#47;a>,<&#47;li>
 <li><a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;regex&#47;Pattern.html" target="_blank">dokumentacja<&#47;a> dla klasy Pattern,<&#47;li>
 <li><a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;8&#47;docs&#47;api&#47;java&#47;util&#47;regex&#47;Matcher.html" target="_blank">dokumentacja<&#47;a> dla klasy Matcher,<&#47;li>
 <li><a href="http:&#47;&#47;docs.oracle.com&#47;javase&#47;tutorial&#47;essential&#47;regex&#47;index.html" target="_blank">tutorial<&#47;a> dotyczący wyrażeń regularnych na stronie Oracle,<&#47;li>
-<li><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;23_wyrazenia_regularne" target="_blank">kod źr&oacute;dłowy<&#47;a> przykład&oacute;w użytych w artykule.<&#47;li><br />
+<li><a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;KursJava&#47;tree&#47;master&#47;23_wyrazenia_regularne" target="_blank">kod źródłowy<&#47;a> przykładów użytych w artykule.<&#47;li><br />
 <&#47;ul></p>
 <h1>Podsumowanie<&#47;h1><br />
-Mimo, że artykuł zawiera dość sporą ilość informacji na temat wyrażeń regularnych nie m&oacute;wi o wszystkich możliwościach. Pominąłem tu celowo na przykład kwestie tak zwanego backtrackingu, zachłanności, alternatyw, nazwanych grup, ponownego użycia grup w wyrażeniu, flag, kotwic itd. Jeśli jesteś zainteresowany dodatkowym materiałem daj znać, nadziubię kolejny artykuł ;).</p>
-<p>Tymczasem dzięki za lekturę i na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze swoimi znajomymi, zależy mi na dotarciu do jak największej grupy czytelnik&oacute;w i możesz mi w tym pom&oacute;c.</p>
+Mimo, że artykuł zawiera dość sporą ilość informacji na temat wyrażeń regularnych nie mówi o wszystkich możliwościach. Pominąłem tu celowo na przykład kwestie tak zwanego backtrackingu, zachłanności, alternatyw, nazwanych grup, ponownego użycia grup w wyrażeniu, flag, kotwic itd. Jeśli jesteś zainteresowany dodatkowym materiałem daj znać, nadziubię kolejny artykuł ;).</p>
+<p>Tymczasem dzięki za lekturę i na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze swoimi znajomymi, zależy mi na dotarciu do jak największej grupy czytelników i możesz mi w tym pomóc.</p>
 <p>Jeśli nie chcesz pominąć żadnego kolejnego artykułu zapisz się do newslettera i polub moją stronę na facebooku. Do następnego razu!</p>
 <p>[FM_form id="3"]</p>
 <p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;thomashawk&#47;3191454610&#47;sizes&#47;l.</p>

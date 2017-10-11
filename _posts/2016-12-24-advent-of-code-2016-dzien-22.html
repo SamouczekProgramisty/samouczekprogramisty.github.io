@@ -12,7 +12,7 @@ author_login: marcin
 author_email: m.pietraszek@gmail.com
 excerpt: "Advent of Code 2016 dzień 22. Uzyskałeś dostęp do potężnego klastra, musisz
   zdobyć pewne dane znajdujące się na jednej z maszyn. Aby to zrobić musisz lepiej
-  poznać spos&oacute;b w jaki dane rozłożone są w klastrze.\r\n\r\n"
+  poznać sposób w jaki dane rozłożone są w klastrze.\r\n\r\n"
 wordpress_id: 707
 wordpress_url: http://www.samouczekprogramisty.pl/?p=707
 date: '2016-12-24 07:46:18 +0100'
@@ -22,22 +22,22 @@ categories:
 tags: []
 comments: []
 ---
-<p>Advent of Code 2016 dzień 22. Uzyskałeś dostęp do potężnego klastra, musisz zdobyć pewne dane znajdujące się na jednej z maszyn. Aby to zrobić musisz lepiej poznać spos&oacute;b w jaki dane rozłożone są w klastrze.</p>
+<p>Advent of Code 2016 dzień 22. Uzyskałeś dostęp do potężnego klastra, musisz zdobyć pewne dane znajdujące się na jednej z maszyn. Aby to zrobić musisz lepiej poznać sposób w jaki dane rozłożone są w klastrze.</p>
 <p><a id="more"></a><a id="more-707"></a></p>
 <h1>Wprowadzenie<&#47;h1><br />
 [idea]Oryginalna strona z zadaniami z <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">Advent of Code 2016<&#47;a>. Zadanie z artykułu dostępne jest pod adresem <a href="http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;22" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016&#47;day&#47;22<&#47;a>[&#47;idea]</p>
-<p>Advent of Code to inicjatywa, w kt&oacute;rej codziennie publikowane są zadania algorytmiczne dla programist&oacute;w. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
-<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, kt&oacute;rą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
+<p>Advent of Code to inicjatywa, w której codziennie publikowane są zadania algorytmiczne dla programistów. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programist&oacute;w. W tej serii artykuł&oacute;w pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.</p>
+<p>[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, którą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na <a href="http:&#47;&#47;adventofcode.com&#47;2016" target="_blank">http:&#47;&#47;adventofcode.com&#47;2016<&#47;a> i dołącz wpisując kod <code>124245-88569bd0<&#47;code>.[&#47;idea]</p>
 <h1>Dzień 22 zadanie 1<&#47;h1><br />
 Dzięki Twojej pomocy poprzednio udało się <a href="http:&#47;&#47;www.samouczekprogramisty.pl&#47;advent-of-code-2016-dzien-21&#47;">utworzyć odpowiednie hasło<&#47;a>. Hasło to pozwoliło Ci się dostać do potężnego klastra maszyn. Każdy komputer w tym klastrze połączony jest maksymalnie z czterema najbliższymi maszynami (trzema jeśli jest na krawędzi lub dwoma jeśli jest w rogu).</p>
 <p>Bezpośrednio możesz dostać się tylko do maszyny <code>&#47;dev&#47;grid&#47;node-x0-y0<&#47;code>, ale możesz także przeprowadzić pewne, ograniczone operacje na pozostałych maszynach w klastrze:</p>
 <ul>
 <li>możesz dostać informacje na temat zużycia dysku (dzięki <a href="https:&#47;&#47;en.wikipedia.org&#47;wiki&#47;Df_(Unix)#Example" target="_blank"><code>df<&#47;code><&#47;a>), wynik tego polecenia jest wejściem do programu,<&#47;li>
-<li>możesz poinstruować maszynę aby przeniosła całe dane na sąsiednią maszynę (oczywiście jeśli maszyna docelowa ma wystarczająco dużo miejsca do przyjęcia danych). Maszyna z kt&oacute;rej przenosisz dane zostaje pusta w wyniku takiej operacji.<&#47;li><br />
+<li>możesz poinstruować maszynę aby przeniosła całe dane na sąsiednią maszynę (oczywiście jeśli maszyna docelowa ma wystarczająco dużo miejsca do przyjęcia danych). Maszyna z której przenosisz dane zostaje pusta w wyniku takiej operacji.<&#47;li><br />
 <&#47;ul><br />
-Maszyny mają nazwy, kt&oacute;re pozwalają poznać ich położenie w klastrze. Na przykład maszyna o nazwie <code>node-x10-y10<&#47;code> sąsiaduje z maszynami <code>node-x9-y10<&#47;code>, <code>node-x11-y10<&#47;code>, <code>node-x10-y9<&#47;code> i <code>node-x10-y11<&#47;code>.</p>
-<p>Zanim zaczniesz kombinować z klastrem musisz zrozumieć ułożenie danych na maszynach w klastrze. Chociaż możesz tylko przenosić dane pomiędzy sąsiadującymi maszynami będziesz potrzebował przenieść sporo danych aby dostać się do tych, kt&oacute;re potrzebujesz. Aby to zrobić musisz dowiedzieć się jak możesz przenosić dane pomiędzy maszynami.</p>
-<p>Aby to zrobić, musisz poznać liczbę poprawnych par maszyn, między kt&oacute;rymi możesz kopiować dane. Poprawna para maszyn (A, B) niezależnie od tego czy są bezpośrednio połączone czy nie, to para, w kt&oacute;rej:</p>
+Maszyny mają nazwy, które pozwalają poznać ich położenie w klastrze. Na przykład maszyna o nazwie <code>node-x10-y10<&#47;code> sąsiaduje z maszynami <code>node-x9-y10<&#47;code>, <code>node-x11-y10<&#47;code>, <code>node-x10-y9<&#47;code> i <code>node-x10-y11<&#47;code>.</p>
+<p>Zanim zaczniesz kombinować z klastrem musisz zrozumieć ułożenie danych na maszynach w klastrze. Chociaż możesz tylko przenosić dane pomiędzy sąsiadującymi maszynami będziesz potrzebował przenieść sporo danych aby dostać się do tych, które potrzebujesz. Aby to zrobić musisz dowiedzieć się jak możesz przenosić dane pomiędzy maszynami.</p>
+<p>Aby to zrobić, musisz poznać liczbę poprawnych par maszyn, między którymi możesz kopiować dane. Poprawna para maszyn (A, B) niezależnie od tego czy są bezpośrednio połączone czy nie, to para, w której:</p>
 <ul>
 <li>maszyna A nie jest pusta (kolumna <code>Used<&#47;code> nie zawiera 0),<&#47;li>
 <li>maszyny A i B nie są tą samą maszyną,<&#47;li>
@@ -45,7 +45,7 @@ Maszyny mają nazwy, kt&oacute;re pozwalają poznać ich położenie w klastrze.
 <&#47;ul><br />
 Zakładając, że lista opisująca maszyny w klastrze znajduje się w <a href="https:&#47;&#47;raw.githubusercontent.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;test&#47;resources&#47;day22_input.txt" target="_blank">tym pliku<&#47;a>, ile poprawnych par maszyn jest w klastrze?</p>
 <h1>Podsumowanie<&#47;h1><br />
-Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programist&oacute;w. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day22" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zr&oacute;b to raczej w ostateczności.</p>
-<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pom&oacute;c Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykuł&oacute;w proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do <a href="https:&#47;&#47;github.com&#47;SamouczekProgramisty&#47;StrefaZadaniowaSamouka&#47;tree&#47;master&#47;05_aoc_2016&#47;src&#47;main&#47;java&#47;pl&#47;samouczekprogramisty&#47;szs&#47;aoc2016&#47;day22" target="_blank">przykładowego rozwiązania<&#47;a>, jednak zrób to raczej w ostateczności.</p>
+<p>Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
 <p>[FM_form id="3"]</p>
 <p>Zdjęcie dzięki uprzejmości https:&#47;&#47;www.flickr.com&#47;photos&#47;derekl&#47;sets&#47;72157649148835567</p>
