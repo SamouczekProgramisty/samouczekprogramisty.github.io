@@ -4,7 +4,7 @@ require 'yaml'
 
 ['dodatkowe-materialy-do-nauki', 'kurs-programowania-java', 'o-mnie', '_posts'].each do |dir|
   Dir.glob(dir + '/*.html') do |file_name|
-    p file_name
+    file_content = nil
     File.open(file_name) do |file|
       output = []
       magic_lines = 0
@@ -44,8 +44,12 @@ require 'yaml'
       header = YAML.dump(header) + "---\n"
 
       result = ReverseMarkdown.convert(html_to_convert.join())
-      print header
-      print result
+      file_content = header + result
+    end
+    md_file, _, _ = file_name.rpartition('.')
+    md_file = md_file + '.md'
+    File.open(md_file, 'w') do |file|
+      file.write(file_content)
     end
   end
 end
