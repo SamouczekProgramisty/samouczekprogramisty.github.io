@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Wstęp do Gradle
 date: '2017-01-19 21:21:55 +0100'
 categories:

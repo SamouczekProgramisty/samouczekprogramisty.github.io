@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Jak dostać pierwszą pracę jako programista
 date: '2017-07-17 19:17:59 +0200'
 categories:

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Konwersja i rzutowanie w języku Java
 date: '2016-02-17 17:48:51 +0100'
 categories:

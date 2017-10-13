@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: XML dla początkujących
 date: '2017-03-02 23:37:42 +0100'
 categories:

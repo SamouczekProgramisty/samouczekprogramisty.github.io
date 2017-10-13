@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Advent of Code 2016 dzień 21
 date: '2016-12-23 18:18:32 +0100'
 categories:

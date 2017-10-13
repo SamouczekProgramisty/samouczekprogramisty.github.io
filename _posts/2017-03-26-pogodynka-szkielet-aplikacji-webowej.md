@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Pogodynka - szkielet aplikacji webowej
 date: '2017-03-26 21:00:17 +0200'
 categories:

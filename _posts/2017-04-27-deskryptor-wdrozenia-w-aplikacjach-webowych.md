@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Deskryptor wdrożenia w aplikacjach webowych
 date: '2017-04-27 21:56:57 +0200'
 categories:

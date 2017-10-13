@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Filtry w aplikacjach webowych
 date: '2017-04-15 10:26:38 +0200'
 categories:

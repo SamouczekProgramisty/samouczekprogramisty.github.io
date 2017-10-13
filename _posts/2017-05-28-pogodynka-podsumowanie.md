@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Pogodynka - podsumowanie
 date: '2017-05-28 18:38:50 +0200'
 categories:

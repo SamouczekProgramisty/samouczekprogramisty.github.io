@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Advent of Code 2016 dzień 4
 date: '2016-12-06 18:01:18 +0100'
 categories:

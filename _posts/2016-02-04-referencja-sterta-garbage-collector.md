@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Referencja, sterta i garbage collector - obiektów w Javie ciąg dalszy
 date: '2016-02-04 21:13:16 +0100'
 categories:

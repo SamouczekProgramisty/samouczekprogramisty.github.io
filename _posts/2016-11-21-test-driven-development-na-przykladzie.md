@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Test Driven Development na przykładzie
 date: '2016-11-21 17:48:05 +0100'
 categories:

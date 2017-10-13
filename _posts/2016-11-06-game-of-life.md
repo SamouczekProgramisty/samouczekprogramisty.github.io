@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Game of Life
 date: '2016-11-06 14:01:08 +0100'
 categories:

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Testy jednostkowe z JUnit
 date: '2016-10-29 10:48:40 +0200'
 categories:

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Pętle i instrukcje warunkowe w języku Java
 date: '2015-11-18 23:46:40 +0100'
 categories:

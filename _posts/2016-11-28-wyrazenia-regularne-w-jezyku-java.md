@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Wyrażenia regularne w języku Java
 date: '2016-11-28 07:24:36 +0100'
 categories:

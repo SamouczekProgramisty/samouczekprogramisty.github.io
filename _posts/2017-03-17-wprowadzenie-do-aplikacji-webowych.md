@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Wprowadzenie do aplikacji webowych
 date: '2017-03-17 21:39:50 +0100'
 categories:

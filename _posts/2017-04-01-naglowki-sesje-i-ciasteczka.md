@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Nagłówki, sesje i ciasteczka
 date: '2017-04-01 15:57:24 +0200'
 categories:
