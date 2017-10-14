@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Serializacja w języku Java
 date: '2016-09-02 17:26:33 +0200'
 categories:

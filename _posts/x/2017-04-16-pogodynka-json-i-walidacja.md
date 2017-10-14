@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Pogodynka - JSON i walidacja
 date: '2017-04-16 21:07:18 +0200'
 categories:

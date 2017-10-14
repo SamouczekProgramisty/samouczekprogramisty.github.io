@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Serwlety w aplikacjach webowych
 date: '2017-03-25 12:11:07 +0100'
 categories:

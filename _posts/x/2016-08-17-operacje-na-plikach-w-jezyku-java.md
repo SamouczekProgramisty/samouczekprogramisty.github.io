@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Operacje na plikach w języku Java
 date: '2016-08-17 18:14:32 +0200'
 categories:

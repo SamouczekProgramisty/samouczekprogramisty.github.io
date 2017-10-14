@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Advent of Code dzień 7
 date: '2016-12-09 16:12:27 +0100'
 categories:

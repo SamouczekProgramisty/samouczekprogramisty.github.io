@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Pogodynka - działający termometr
 date: '2017-03-19 19:16:29 +0100'
 categories:

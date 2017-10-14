@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Maszyna losująca
 date: '2016-08-22 16:32:48 +0200'
 categories:

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Adnotacje w języku Java
 date: '2016-10-03 15:55:30 +0200'
 categories:

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 permalink: /czym-wlasciwie-jest-programowanie/
 title: Czym właściwie jest programowanie
 date: '2015-10-07 16:03:15 +0200'

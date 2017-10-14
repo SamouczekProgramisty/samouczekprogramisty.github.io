@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Konstrukcja try-with-resources w języku Java
 date: '2016-08-25 18:45:08 +0200'
 categories:

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Pogodynka - konfiguracja serwera
 date: '2017-04-30 12:13:51 +0200'
 categories:

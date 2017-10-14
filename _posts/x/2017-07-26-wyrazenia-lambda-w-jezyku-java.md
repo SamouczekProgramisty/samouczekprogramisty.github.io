@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Wyrażenia lambda w języku Java
 date: '2017-07-26 21:28:10 +0200'
 categories:
@@ -8,6 +8,8 @@ excerpt_separator: "<!--more-->"
 permalink: "/wyrazenia-lambda-w-jezyku-java/"
 ---
 W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator `::`. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.
+
+<!--more-->
 
 Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami.
 {: .notice--info}
@@ -102,9 +104,9 @@ Interfejs funkcyjny to interfejs, który ma jedną abstrakcyjną metodę[^efekty
 
 [^efektywnie_abstrakcyjna]: Efektywnie abstrakcyjną, czyli dodanie do interfejsu np. metody equals, która jest w klasie Object nadal spełnia to wymaganie.
 
-Adnotacja ta zapewnia, że kompilator upewni się, że dany interfejs jest interfejsem funkcjonalnym. Jeśli nie, wówczas kompilacja się nie powiedzie.
+Adnotacja ta zapewnia, że kompilator upewni się, że dany interfejs jest interfejsem funkcyjnym. Jeśli nie, wówczas kompilacja się nie powiedzie.
 
-Przykładem interfejsu funkcjonalnego może być zdefiniowany wcześniej interfejs Checker
+Przykładem interfejsu funkcyjnego może być zdefiniowany wcześniej interfejs `Checker`.
 
     @FunctionalInterfacepublic interface Checker { boolean check(T object);}
 
@@ -113,10 +115,10 @@ Zawiera on wyłącznie jedną metodę `check`.
 ## Przykładowe interfejsy funkcyjne
   
 Twórcy języka Java przygotowali zestaw interfejsów funkcyjnych, które możesz implementować. W większości przypadków w zupełności wystarczy ich użycie. Część z nich znajduje się w pakiecie [`java.util.function`](https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html). Najważniejsze z nich zebrałem poniżej:
-- `Function` zawiera metodę `apply`, która przyjmuje instancję ,klasy `T` zwracając instancję klasy `R```
-- `Consumer` zawiera metodę `accept`, która przyjmuje instancję klasy `T`
-- `Predicate` zawiera metodę `test`, która przyjmuje instancję klasy T i zwraca flagę. Interfejs ten może posłużyć do zastąpienia interfejsu `Checker`.
-- `Supplier` zawiera metodę `get`, która nie przyjmuje żadnych parametrów i zwraca instancję klasy `T`
+- `Function` zawiera metodę `apply`, która przyjmuje instancję klasy `T` zwracając instancję klasy `R`,
+- `Consumer` zawiera metodę `accept`, która przyjmuje instancję klasy `T`,
+- `Predicate` zawiera metodę `test`, która przyjmuje instancję klasy T i zwraca flagę. Interfejs ten może posłużyć do zastąpienia interfejsu `Checker`,
+- `Supplier` zawiera metodę `get`, która nie przyjmuje żadnych parametrów i zwraca instancję klasy `T`,
 - `UnaryOperator` jest specyficznym przypadkiem interfejsu `Function`. W tym przypadku typ argumentu i typ zwracany są te same.
   
   

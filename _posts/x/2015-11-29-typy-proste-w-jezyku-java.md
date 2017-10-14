@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Typy proste w języku Java
 date: '2015-11-29 14:34:32 +0100'
 categories:

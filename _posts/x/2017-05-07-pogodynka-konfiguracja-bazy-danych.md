@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Pogodynka - konfiguracja bazy danych
 date: '2017-05-07 23:19:04 +0200'
 categories:

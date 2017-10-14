@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Typ wyliczeniowy w języku Java
 date: '2016-09-09 15:30:32 +0200'
 categories:

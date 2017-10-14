@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Metody w języku Java
 date: '2015-10-22 23:38:44 +0200'
 categories:

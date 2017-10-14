@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Projekt Pogodynka - wprowadzenie
 date: '2017-03-04 13:42:38 +0100'
 categories:

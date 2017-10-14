@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Pierwszy program w Java
 date: '2015-11-08 16:39:14 +0100'
 categories:

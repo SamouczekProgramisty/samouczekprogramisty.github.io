@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: Advent of Code 2016 dzień 22
 date: '2016-12-24 07:46:18 +0100'
 categories:
