@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Advent of Code 2016 dzień 25
 date: '2016-12-27 08:00:22 +0100'
 categories:

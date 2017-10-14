@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Kontekst serwletu i obiekty nasłuchujące w aplikacjach webowych
 date: '2017-04-21 16:04:41 +0200'
 categories:

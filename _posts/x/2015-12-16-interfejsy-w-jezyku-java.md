@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Interfejsy w języku Java
 date: '2015-12-16 19:54:10 +0100'
 categories:

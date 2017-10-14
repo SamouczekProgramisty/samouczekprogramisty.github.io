@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Pogodynka - JPA i Spring Data
 date: '2017-04-23 20:45:31 +0200'
 categories:

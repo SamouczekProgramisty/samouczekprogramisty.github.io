@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Wyrażenia regularne część 2
 date: '2017-01-06 10:51:29 +0100'
 categories:

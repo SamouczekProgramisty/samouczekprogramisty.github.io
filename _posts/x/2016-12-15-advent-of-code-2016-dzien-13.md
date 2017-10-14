@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Advent of Code 2016 dzień 13
 date: '2016-12-15 18:26:01 +0100'
 categories:

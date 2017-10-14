@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Pogodynka - integracja
 date: '2017-05-23 12:58:09 +0200'
 categories:

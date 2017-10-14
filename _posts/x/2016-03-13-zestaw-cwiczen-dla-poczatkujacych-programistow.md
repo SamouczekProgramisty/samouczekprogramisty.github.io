@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Zestaw ćwiczeń dla początkujących programistów
 date: '2016-03-13 13:33:03 +0100'
 categories:

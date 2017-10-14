@@ -1,5 +1,4 @@
 ---
-layout: single
 title: System dwójkowy
 date: '2016-02-11 21:58:47 +0100'
 categories:

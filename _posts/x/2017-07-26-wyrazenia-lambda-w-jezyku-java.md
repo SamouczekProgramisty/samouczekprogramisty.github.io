@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Wyrażenia lambda w języku Java
 date: '2017-07-26 21:28:10 +0200'
 categories:

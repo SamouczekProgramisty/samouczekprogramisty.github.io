@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Obiekty w języku Java
 date: '2015-11-01 01:43:36 +0100'
 categories:

@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Dziedziczenie w języku Java
 date: '2016-01-24 13:47:46 +0100'
 categories:

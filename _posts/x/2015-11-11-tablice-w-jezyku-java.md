@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Tablice w języku Java
 date: '2015-11-11 08:39:54 +0100'
 categories:

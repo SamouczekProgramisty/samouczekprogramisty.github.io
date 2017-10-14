@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Advent of Code 2016 dzień 9
 date: '2016-12-11 20:21:23 +0100'
 categories:

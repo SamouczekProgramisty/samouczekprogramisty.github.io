@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Od zera do developera, czyli jak zostać programistą
 date: '2017-07-09 22:54:16 +0200'
 categories:

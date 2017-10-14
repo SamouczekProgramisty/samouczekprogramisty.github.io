@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Typy generyczne w języku Java
 date: '2016-03-26 21:27:50 +0100'
 categories:

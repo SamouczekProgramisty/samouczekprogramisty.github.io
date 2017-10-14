@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Advent of Code 2016 dzień 19
 date: '2016-12-21 18:48:37 +0100'
 categories:

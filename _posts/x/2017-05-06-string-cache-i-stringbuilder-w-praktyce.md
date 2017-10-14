@@ -1,5 +1,4 @@
 ---
-layout: single
 title: String cache i StringBuilder w praktyce
 date: '2017-05-06 23:46:34 +0200'
 categories:

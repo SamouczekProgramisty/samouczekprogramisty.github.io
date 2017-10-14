@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Pogodynka - naiwny termometr
 date: '2017-03-11 14:37:26 +0100'
 categories:

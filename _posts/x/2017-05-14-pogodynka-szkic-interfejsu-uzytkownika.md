@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Pogodynka - szkic interfejsu użytkownika
 date: '2017-05-14 22:56:07 +0200'
 categories:

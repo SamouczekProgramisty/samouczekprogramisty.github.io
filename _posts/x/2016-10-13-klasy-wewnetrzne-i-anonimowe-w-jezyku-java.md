@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Klasy wewnętrzne i anonimowe w języku Java
 date: '2016-10-13 21:42:15 +0200'
 categories:
