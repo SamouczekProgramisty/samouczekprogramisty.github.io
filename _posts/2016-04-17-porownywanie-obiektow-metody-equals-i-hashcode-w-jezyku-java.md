@@ -72,7 +72,9 @@ Dlaczego tak się dzieje? Otóż w przypadku obiektów operator `==` porównuje 
   
 Metoda `equals` jest jedną z metod dostępnych w klasie `Object`. W związku z tym, że każdy obiekt w języku Java ma tą klasę w swojej hierarchii dziedziczenia możemy tą metodą wywołać na każdym obiekcie.
 
-W większości przypadków domyślna implementacja metody `equals` nie jest odpowiednia[2. Domyślna implementacja zachowuje się jak operator `==`, porównuje adresy obiektów.] w związku z tym programista tworzący nowy obiekt musi tą metodę zaimplementować jeśli chce sprawdzać czy instancje tej klasy są równe.
+W większości przypadków domyślna implementacja metody `equals` nie jest odpowiednia[^porownanie] w związku z tym programista tworzący nowy obiekt musi tą metodę zaimplementować jeśli chce sprawdzać czy instancje tej klasy są równe.
+
+[^porownanie]: Domyślna implementacja zachowuje się jak operator `==`, porównuje adresy obiektów.
 
 Istnieje zestaw wytycznych, które metoda `equals` powinna spełniać aby była poprawnie zaimplementowana. Opiszę je po kolei:
 

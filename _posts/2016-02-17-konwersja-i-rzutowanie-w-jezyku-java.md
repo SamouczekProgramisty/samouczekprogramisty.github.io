@@ -58,15 +58,21 @@ Jak myślisz co zostanie wypisane na konsoli po uruchomieniu tego programu?
     2147483647-12147483647
 
   
-Dziwne prawda? :) Środkowa linijka to nic innego jak właśnie "utrata informacji", która może zajść w trakcie jawnej konwersji [1. Wartość -1 wynika ze sposobu zapisywania liczb w Javie. Wiesz już o [binarnym zapisie](http://www.samouczekprogramisty.pl/system-dwojkowy/), tutaj wykorzystywana jest jego specyficzna odmiana – uzupełnienia do dwóch, jeżeli jesteś zainteresowany szczegółami daj znać w komentarzu, skrobnę o tym artykuł :)]. Ostatnia linijka pokazuje, że nie każda konwersja z `long` do `int` prowadzi do utraty informacji.
+Dziwne prawda? :) Środkowa linijka to nic innego jak właśnie "utrata informacji", która może zajść w trakcie jawnej konwersji[^konwersja]. Ostatnia linijka pokazuje, że nie każda konwersja z `long` do `int` prowadzi do utraty informacji.
+
+[^konwersja]: Wartość -1 wynika ze sposobu zapisywania liczb w Javie. Wiesz już o [binarnym zapisie](http://www.samouczekprogramisty.pl/system-dwojkowy/), tutaj wykorzystywana jest jego specyficzna odmiana – uzupełnienia do dwóch, jeżeli jesteś zainteresowany szczegółami daj znać w komentarzu, skrobnę o tym artykuł :).
+
 ## Konwersja typów zmiennoprzecinkowych do całkowitoliczbowych
   
 Innym przykładem konwersji w której dochodzi do utraty informacji jest konwersja z typów zmiennoprzecinkowych do typów całkowitoliczbowych:
 
-    int intValue = (int) 123.123F;long longValue = (long) 456.456;
-
+```java
+int intValue = (int) 123.123F;
+long longValue = (long) 456.456;
+```
   
 W obu przypadkach tracimy informację o ułamku, zostaje wyłącznie część całkowitoliczbowa.
+
 ## Automatyczna konwersja podczas przypisania
   
 Podobnie rzecz się ma w przypadku przypisania wartości zmiennej, tutaj także dochodzi do automatycznej konwersji. Poniższy przykład pokazuje kilka możliwych przypadków:

@@ -17,14 +17,18 @@ Wyobraź sobie kuchenkę mikrofalową. Kuchenka ma zestaw przycisków, parę pok
 
 Pojęcie interfejsu można także przenieść do świata programowania. Mówimy wówczas o tak zwanym API (ang. _Application Programming Interface_).
 
-Interfejs w kontekście programowania w języku Java to zestaw metod bez ich implementacji (bez kodu definiującego zachowanie metody)[1. Wyjątkiem tutaj są tak zwane metody domyślne o których przeczytasz niżej.] . Właściwa implementacja metod danego interfejsu znajduje się w klasie implementującej dany interfejs.
+Interfejs w kontekście programowania w języku Java to zestaw metod bez ich implementacji (bez kodu definiującego zachowanie metody)[^domyslne]. Właściwa implementacja metod danego interfejsu znajduje się w klasie implementującej dany interfejs.
+
+[^domyslne]: Wyjątkiem tutaj są tak zwane metody domyślne o których przeczytasz niżej.
 
 W języku Java do definiowani interfejsów używamy słowa kluczowego `interface`. Interfejsy, podobnie jak klasy, definiujemy w osobnych plikach. Nazwa pliku musi odpowiadać nazwie interfejsu.
 
     public interface Clock { long secondsElapsedSince(Date date);}
 
   
-Powyżej mamy przykład interfejsu o nazwie `Clock`, który ma jedną metodę `secondsElapsedSince`, która przyjmuje argument typu `Date`[2. `java.util.Date` jest jednym z typów z bilblioteki standardowej służącym do przedstawiania czasu.] i zwraca wynik typu `long` mówiący o liczbie sekund, która minęła od czasu przekazanego w argumencie.
+Powyżej mamy przykład interfejsu o nazwie `Clock`, który ma jedną metodę `secondsElapsedSince`, która przyjmuje argument typu `Date`[^data] i zwraca wynik typu `long` mówiący o liczbie sekund, która minęła od czasu przekazanego w argumencie.
+
+[^data]: `java.util.Date` jest jednym z typów z bilblioteki standardowej służącym do przedstawiania czasu.
 
 Wszystkie metody zawarte w interfejsie zawsze są publiczne więc w tym przypadku można ominąć słowo kluczowe `public`, nie jest potrzebne.
 
@@ -76,7 +80,9 @@ Sam interfejs nie jest zbyt wiele warty bez jego implementacji. Poniżej możesz
   
 Klasa `BrokenClock` implementuje interfejs `Clock`. Zwróć uwagę na słowo kluczowe `implements`. Używamy go żeby pokazać że klasa `BrockenClock` implementuje interfejs `Clock`.
 
-W języku Java jedna klasa może implementować wiele interfejsów. W takim przypadku klasa implementująca musi definiować metody wszystkich interfejsów, które implementuje [3. Oczywiście jest od tego wyjątek, o klasach abstrakcyjnych przeczytasz w innym artykule.].
+W języku Java jedna klasa może implementować wiele interfejsów. W takim przypadku klasa implementująca musi definiować metody wszystkich interfejsów, które implementuje[^abstrakcyjne].
+
+[^abstrakcyjne]: Oczywiście jest od tego wyjątek, o klasach abstrakcyjnych przeczytasz w innym artykule.
 
 # Dziedziczenie interfejsów
   

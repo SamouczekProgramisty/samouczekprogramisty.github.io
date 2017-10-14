@@ -152,9 +152,10 @@ Dodatkowo możesz ustawić też inne atrybuty, takie jak czas życia ciasteczka.
 Przykładowy serwlet poniżej w odpowiedzi generuje stronę, która wyświetla wszystkie dostępne ciasteczka. Ustawia też jedno ciasteczko o nazwie custom-cookie, jego czas życia ustawiony jest na 10 sekund.
 
     @Overrideprotected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { PrintWriter responseWriter = resp.getWriter(); responseWriter.write(""); for (Cookie cookie : req.getCookies()) { responseWriter.write("" + cookie.getName() + " " + cookie.getValue() + ""); } Cookie cookie = new Cookie("custom-cookie", "bum bum cyk cyk"); cookie.setMaxAge(10); resp.addCookie(cookie); responseWriter.write("");}
-
   
-Przy drugim otworzeniu strony generowanej przez ten serwlet [1. jeśli zrobisz to szybciej niż 10 sekund po pierwszym wywołaniu] zobaczysz ciasteczko custom-cookie
+Przy drugim otworzeniu strony generowanej przez ten serwlet[^czas] zobaczysz ciasteczko custom-cookie
+
+[^czas]: Jeśli zrobisz to szybciej niż 10 sekund po pierwszym wywołaniu.
 
 Wcześniej opisane narzędzia developerskie dostępne w przeglądarkach internetowych pozwalają na podejrzenie zawartości ciasteczek.  
 [![narzędzia developerskie ciasteczka](http://www.samouczekprogramisty.pl/wp-content/uploads/2017/04/cookies-300x178.png)](http://www.samouczekprogramisty.pl/wp-content/uploads/2017/04/cookies.png)

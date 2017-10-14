@@ -12,7 +12,9 @@ W artykule przeczytasz o kolejnych podstawowych elementach, niezbędnych do budo
 
 # `ServletContext`
   
-Obiekt implementujący [`ServletContext`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html) tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej [0. Właściwie to, istnieje tylko jeden taki obiekt dla każdej wirtualnej maszyny Java. Jjeśli twoja aplikacja webowa jest rozproszona wówczas obiektów implementujących ten interfejs jest tyle, ile instancji JVM.]. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej.
+Obiekt implementujący [`ServletContext`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html) tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej[^kilka_jvm]. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej.
+
+[^kilka_jvm]: Właściwie to, istnieje tylko jeden taki obiekt dla każdej wirtualnej maszyny Java. Jeśli twoja aplikacja webowa jest rozproszona wówczas obiektów implementujących ten interfejs jest tyle, ile instancji JVM.
 
 Czytając poprzednie artykuły z serii:
 
@@ -77,7 +79,9 @@ Poniżej znajduje się lista kilka przykładowych interfejsów obiektów nasłuc
   
 Na przykład, obiekt implementujący interfejs `ServletContextAttributeListener` zostanie poinformowany o wszystkich operacjach na atrybutach kontekstu serwletu.
 
-Aby kontener serwletów wiedział o obiekcie nasłuchującym trzeba go odpowiednio skonfigurować. Każdy z obiektów nasłuchujących powinien być dekorowany wspomnianą adnotacją `@WebListener` [1. Może też być zdefiniowany w pliku `web.xml`, `web-fragment.xml` czy dodany dynamicznie przez metody dostępne w `ServletContext`, jednak te sposoby wykraczają poza zakres tego artykułu.].
+Aby kontener serwletów wiedział o obiekcie nasłuchującym trzeba go odpowiednio skonfigurować. Każdy z obiektów nasłuchujących powinien być dekorowany wspomnianą adnotacją `@WebListener`[^listener].
+
+[^listener]: Może też być zdefiniowany w pliku `web.xml`, `web-fragment.xml` czy dodany dynamicznie przez metody dostępne w `ServletContext`, jednak te sposoby wykraczają poza zakres tego artykułu.
 
 Poniżej znajduje się przykładowa implementacja interfejsu `ServletContextListener`, która dodaje dodatkowy atrybut w momencie utworzenia kontekstu serwletu:
 

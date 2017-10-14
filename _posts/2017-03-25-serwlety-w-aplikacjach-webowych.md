@@ -53,7 +53,9 @@ Do obsługi żądania klienta służy metoda [`service`](https://docs.oracle.com
 
 Szczerze mówiąc do tej pory ani razu nie napisałem klasy, która bezpośrednio implementuje ten interfejs. Używa się do tego klas, które upraszczają tworzenie serwletów. Są to klasy [`GenericServlet`](https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html) i [`HttpServlet`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html).
 
-Chociaż specyfikacja serwletów, nie wymaga użycia serwletów z protokołem HTTP w praktyce nie spotkałem się z innym zastosowaniem. Zatem z dwóch wyżej wspomnianych klas powinieneś zapamiętać [`HttpServlet`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html).[0. Prawda jest taka, że używając bibliotek pomagających tworzyć aplikacje webowe sam nie będziesz pisał serwletów. Będą to zwykłe klasy, które będą przez bibliotekę wywoływane. Biblioteka dostarczy “główny” serwlet, który będzie przekazywał żądania dalej.]
+Chociaż specyfikacja serwletów, nie wymaga użycia serwletów z protokołem HTTP w praktyce nie spotkałem się z innym zastosowaniem. Zatem z dwóch wyżej wspomnianych klas powinieneś zapamiętać [`HttpServlet`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html)[^serwlet].
+
+[^serwlet]: Prawda jest taka, że używając bibliotek pomagających tworzyć aplikacje webowe sam nie będziesz pisał serwletów. Będą to zwykłe klasy, które będą przez bibliotekę wywoływane. Biblioteka dostarczy “główny” serwlet, który będzie przekazywał żądania dalej.
 
 # Interfejs serwletów
   
@@ -66,7 +68,10 @@ W interfejsie serwletów znajdują się też metody, które są wykorzystywane w
 Każda instancja serwletu ma swój cykl życia. Jest to jasno zdefiniowana lista etapów, przez które przechodzi każdy serwelt. Lista ta wygląda następująco:
 ## Utworzenie instancji serwletu
   
-Kontener wyszukuje klas serwletów i następnie tworzy jedną instancję serwletu[1. Chodzi o zachowanie domyślne, kontener może utworzyć kilka instancji jeśli zaimplementujesz interfejs SingleThreadedModel. Takie podejście nie jest jednak polecane.].
+Kontener wyszukuje klas serwletów i następnie tworzy jedną instancję serwletu[^instancja].
+
+[^instancja]: Chodzi o zachowanie domyślne, kontener może utworzyć kilka instancji jeśli zaimplementujesz interfejs SingleThreadedModel. Takie podejście nie jest jednak polecane.
+
 ## Inicjalizacja serwletu
   
 Z racji tego, że to kontener serwletów odpowiedzialny jest za tworzenie instancji klasy serwletu nie ma możliwości przekazania odpowiednich parametrów do konstruktora. Do inicjalizacji stanu serwletu służy metoda [`init`](https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#init-javax.servlet.ServletConfig-) i jest ona wywoływana przez kontener przed rozpoczęciem obsługi żądań przez dany serwlet.

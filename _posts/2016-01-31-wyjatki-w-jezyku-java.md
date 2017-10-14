@@ -101,12 +101,21 @@ Wyjątek można obsłużyć na dwa sposoby. Jeden już znasz, to otoczenie fragm
 Metoda `methodWithCheckedException` rzuca wyjątek `IOException`, który jest typu checked. Nie obsługuje go jednak wewnątrz ale informuje o tym, że może rzucić taki wyjątek dzięki `throws`. W metodzie `main` mamy standardowy blok `catch`, gdzie wyjątek jest obsłużony.
 # Klauzula `finally`
   
-Blok `finally` możemy umieścić po `try`. Kod wewnątrz tego bloku zawsze zostanie wykonany[2. są pewne sytuacje kiedy to nie jest prawdą, np. jeśli wirtualna maszyna Javy zostanie wyłączona]. W rzeczywistości blok `try` nie musi mieć żadnej klauzuli `catch` jeśli ma blok `finally`.
+Blok `finally` możemy umieścić po `try`. Kod wewnątrz tego bloku zawsze zostanie wykonany[^wyjatek]. W rzeczywistości blok `try` nie musi mieć żadnej klauzuli `catch` jeśli ma blok `finally`.
 
-    try { throw new RuntimeException();}finally { System.out.println("Surprise!");}
+[^wyjatek]: Są pewne sytuacje kiedy to nie jest prawdą, np. jeśli wirtualna maszyna Javy zostanie wyłączona.
 
+```java
+try {
+    throw new RuntimeException();
+}
+finally {
+    System.out.println("Surprise!");
+}
+```
   
 Może być także sytuacja w której mamy zarówno `try`, `catch` jak i `finally`. Jeśli wewnątrz try zostanie rzucony wyjątek, który jest obsługiwany przez blok `catch` to dodatkowo, jako ostatni, uruchomi się blok `finally`.
+
 # Dobre praktyki przy używaniu wyjątków
   
 Poniżej zebrałem dla Ciebie zestaw kilku dobrych praktyk przy pracy z wyjątkami:

@@ -27,7 +27,9 @@ Poniższy rysunek pokazuje zapytanie od klienta, które przechodzi przez dwa fil
 
 [![filter chain](http://www.samouczekprogramisty.pl/wp-content/uploads/2017/04/filter_chain-300x121.jpeg)](http://www.samouczekprogramisty.pl/wp-content/uploads/2017/04/filter_chain.jpeg)Filtrem jest klasa, która implementuje interfejs [`Filter`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html).
 
-Filtry oznacza się adnotacją [`@WebFilter`](http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/WebFilter.html) [0. Do tej pory nie wspomniałem Ci jeszcze o pliku `web.xml`, w którym także można filtry konfigurować. Aby niepotrzebnie nie komplikować plik ten opiszę w osobnym artykule.]. Podobnie jak wszystkie inne elementy specyfikacji serwletów także filtry mają swój cykl życia.
+Filtry oznacza się adnotacją [`@WebFilter`](http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/WebFilter.html)[^webfilter]. Podobnie jak wszystkie inne elementy specyfikacji serwletów także filtry mają swój cykl życia.
+
+[^webfilter]: Do tej pory nie wspomniałem Ci jeszcze o pliku `web.xml`, w którym także można filtry konfigurować. Aby niepotrzebnie nie komplikować plik ten opiszę w osobnym artykule.
 
 # Cykl życia filtrów
   
@@ -101,6 +103,7 @@ Sprawa wygląda zupełnie inaczej w przypadku użycia pliku `web.xml`. W tym prz
   
   
 Na tym etapie ważne jest żebyś wiedział o tym ograniczaniu. Sam plik `web.xml` opiszę w osobnym artykule, wtedy też dowiesz się jak dokładnie określać kolejność wykonania filtrów.
+
 # Zastosowanie filtrów
   
 Teraz jak już wiesz jak wyglądają filtry musisz dowiedzieć się o ich zastosowaniu. Filtry pozwalają na uniknięcie duplikacji kodu. Najczęściej to właśnie dzięki filtrom realizowane są następujące funkcjonalności:
@@ -111,9 +114,10 @@ Teraz jak już wiesz jak wyglądają filtry musisz dowiedzieć się o ich zastos
   
   
 Poplularny Spring MVC także używa filtrów. Kilka z nich znajduje się w osobnym [pakiecie](https://github.com/spring-projects/spring-framework/tree/master/spring-web/src/main/java/org/springframework/web/filter). Na przykład:
-- [`CharacterEncodingFilter`](https://github.com/spring-projects/spring-framework/blob/master/spring-web/src/main/java/org/springframework/web/filter/CharacterEncodingFilter.java) ustawia kodowanie znaków użyte w żadaniu, odpowiedzi [1. Upraszczając, kodowanie znaków to sposób w jaki reprezentujemy tekst. To dzięki niemu wiadomo jak interpretować polskie znaki. Jeśli używa się błędnego kodowania mogą pojawić się “krzaki”.],
+- [`CharacterEncodingFilter`](https://github.com/spring-projects/spring-framework/blob/master/spring-web/src/main/java/org/springframework/web/filter/CharacterEncodingFilter.java) ustawia kodowanie znaków użyte w żadaniu, odpowiedzi[^kodowanie],
 - [`CommonsRequestLoggingFilter`](https://github.com/spring-projects/spring-framework/blob/master/spring-web/src/main/java/org/springframework/web/filter/CommonsRequestLoggingFilter.java) logowanie, filtr loguje informacje o przychodzących żądaniach.
-  
+
+[^kodowanie]: Upraszczając, kodowanie znaków to sposób w jaki reprezentujemy tekst. To dzięki niemu wiadomo jak interpretować polskie znaki. Jeśli używa się błędnego kodowania mogą pojawić się "krzaki".
 
 # Ćwiczenia
   

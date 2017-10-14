@@ -62,7 +62,10 @@ Teraz masz już wszystkie potrzebne składniki do uruchomienia programu. Możesz
 
 # Pracowity skrzat IDE
   
-Niby prosty program, a do jego uruchomienia trzeba użyć 2 magicznych programów, jak tak można? ;). Okazuje się, że właśnie podobne czynności robi za nas IDE. Za każdym razem[1. Jak zwykle są wyjątki, ale nie są one istotne w tym przypadku] gdy w InteliJ użyjesz klawiszy `Ctr+Schift+F10` (uruchom program) InteliJ Idea robi podobne rzeczy. Kompiluje kod używając do tego programu `javac` a następnie uruchamia w odpowiedni sposób JRE używając programu `java`.
+Niby prosty program, a do jego uruchomienia trzeba użyć 2 magicznych programów, jak tak można? ;). Okazuje się, że właśnie podobne czynności robi za nas IDE. Za każdym razem[^wyjatki] gdy w InteliJ użyjesz klawiszy `Ctr+Schift+F10` (uruchom program) InteliJ Idea robi podobne rzeczy. Kompiluje kod używając do tego programu `javac` a następnie uruchamia w odpowiedni sposób JRE używając programu `java`.
+
+[^wyjatki]: Jak zwykle są wyjątki, ale nie są one istotne w tym przypadku.
+
 # Pakiety
   
 A teraz zrób krok do przodu - utwórz tę samą klasę w pakiecie `pl.samouczekprogramisty.commandline` i skompiluj ją przy pomocy `javac`. Przykład poniżej pokazuje poprawna strukturę katalogów dla klasy w takim pakiecie
@@ -97,7 +100,9 @@ Jako ćwiczenie możesz spróbować przejść do innego katalogu i uruchomić to
   
 Jak widzisz w ostatniej linii program `java` wyświetlił błąd informujący, że nie może znaleźć klasy `pl.samouczekprogramisty.commandline.DisplayName` na aktualnej ścieżce przeszukiwania. Program szukał struktury pakietów pl/samouczekrogramisty/commandline, a w katalogu pl był jedynie katalog samouczekprogramisty, nie było katalogu pl.
 
-Ścieżka przeszukiwania to lista katalogów oddzielonych odpowiednim znakiem gdzie program `java` powinien szukać klas. Na tej ścieżce poza katalogami mogą znajdować się też pliki zip czy pliki jar[3. Tak na prawdę plik jar to plik zip z innym rozszerzeniem.]. Przykład poniżej pokazuje ścieżkę przeszukiwania na której znajdują się 3 elementy:
+Ścieżka przeszukiwania to lista katalogów oddzielonych odpowiednim znakiem gdzie program `java` powinien szukać klas. Na tej ścieżce poza katalogami mogą znajdować się też pliki zip czy pliki jar[^format]. Przykład poniżej pokazuje ścieżkę przeszukiwania na której znajdują się 3 elementy:
+
+[^format]: Tak na prawdę plik jar to plik zip z innym rozszerzeniem.
 
     some/path:.:other/path/file.jar
 
@@ -142,7 +147,9 @@ Teraz czas na Twoje eksperymenty. Co się stanie jeśli uruchomisz swój program
 
 # Pliki JAR
   
-No dobrze, a co jeśli chcemy w łatwy sposób przekazać komuś skompilowany kod? Bardzo dobrze do tego celu nadają się pliki JAR. JAR czyli Java Archive to nic innego jak plik zip, wewnątrz którego znajduje się zestaw plików class ze skompilowanymi klasami[4. Oczywiście pliki jar mogą zawierać także pliki innego rodzaju, jednak na tym etapie wystarczy wiedza o class i pliku tekstowym Manifest.].
+No dobrze, a co jeśli chcemy w łatwy sposób przekazać komuś skompilowany kod? Bardzo dobrze do tego celu nadają się pliki JAR. JAR czyli Java Archive to nic innego jak plik zip, wewnątrz którego znajduje się zestaw plików class ze skompilowanymi klasami[^zawartosc].
+
+[^zawartosc]: Oczywiście pliki jar mogą zawierać także pliki innego rodzaju, jednak na tym etapie wystarczy wiedza o class i pliku tekstowym Manifest.
 
 Klasy wewnątrz archiwum znajdują się w odpowiednich katalogach, które odzwierciedlają strukturę pakietów. Spróbujmy teraz przygotować Twój pierwszy jar z linii poleceń.
 

@@ -30,8 +30,9 @@ Wyrażenia regularne są zachłanne. Oznacza to tyle, że wyrażenie regularne d
 
     @Testpublic void shouldBeGreedy() { Pattern pattern = Pattern.compile(""); Matcher matcher = pattern.matcher("some emphasized text"); assertTrue(matcher.find()); assertEquals("em>some emphasized text}
 
-  
-Powyżej widzisz standardowy przykład wykorzystywany do pokazania tej właściwości wyrażeń regularnych. Tekst, który chcemy dopasować jest kodem HTML zawierającym znacznik ``[1. Znacznik ten służy do wyróżnienia tekstu na stronie www.]. Załóżmy, że chciałbyś wyciągnąć nazwę znacznika znajdującego się pomiędzy `<` i `>`.
+Powyżej widzisz standardowy przykład wykorzystywany do pokazania tej właściwości wyrażeń regularnych. Tekst, który chcemy dopasować jest kodem HTML zawierającym znacznik ``[^em]. Załóżmy, że chciałbyś wyciągnąć nazwę znacznika znajdującego się pomiędzy `<` i `>`.
+
+[^em]: Znacznik ten służy do wyróżnienia tekstu na stronie www.
 
 Okazuje się, że wyrażenie regularne użyte w przykładzie powyżej nie zadziała tak jakbyś tego chciał. Zgodnie z tym co opisałem wcześniej dopasuje najwięcej tekstu jak to tylko możliwe zatem w grupie `(.+)` znajdzie się `em>some emphasized text.`
 

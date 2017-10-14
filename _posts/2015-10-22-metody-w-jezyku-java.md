@@ -21,9 +21,10 @@ Więc jesteś już po przeczytaniu swojego pierwszego fragmentu kodu! Brawo! Pro
 
 Metoda to nic innego jak „worek” grupujący zestaw instrukcji. Kod grupujemy w ten sposób z kilku powodów. Wymienię dwa, które moim zdaniem są najważniejsze:
 
-- jeśli jakiś fragment kodu ma być wykonany w wielu miejscach zdecydowanie lepiej jest utworzyć metodę i ją uruchomić (wywołać), niż kopiować ten sam fragment kodu wielokrotnie. Jest to istotne ponieważ w przypadku błędu trzeba go poprawić w jednym miejscu a nie kilku\*[1. DRY (ang. _Don't Repeat Yourself)_ zasada kładąca nacisk na redukcję powtarzającego się kodu],
+- jeśli jakiś fragment kodu ma być wykonany w wielu miejscach zdecydowanie lepiej jest utworzyć metodę i ją uruchomić (wywołać), niż kopiować ten sam fragment kodu wielokrotnie. Jest to istotne ponieważ w przypadku błędu trzeba go poprawić w jednym miejscu a nie kilku[^dry],
 - programy są duże, bez odpowiedniego podziału opanowanie całego projektu/programu jest bardzo czasochłonne. Sensowny podział na metody pozwala szybciej zrozumieć kod.
-  
+
+[^dry]: DRY (ang. _Don't Repeat Yourself)_ zasada kładąca nacisk na redukcję powtarzającego się kodu.
 
 ## Deklaracja metody
 
@@ -68,8 +69,9 @@ Nie możemy użyć każdego ciągu znaków jako nazwy klasy/zmiennej/metody. Nie
 - `boolean` - jest to typ danych, nie możemy tak nazwać zmiennej
 - `class` - jest to słowo kluczowe użyte przy definicji klasy,
 - `return` - słowo kluczowe użyte w metodzie oznacza wartość zwracaną przez daną metodę,
-- #2someName! - nie wszystkie znaki są dopuszczalne. Dla uproszczenia możemy przyjąć, że możemy używać wyłącznie małych i wielkich liter od a do z bez polskich znaków[1.Reguły są oczywiście dużo bardziej rozbudowane, jednak dla naszych potrzeb takie uproszczenie w zupełności wystarczy.].
-  
+- #2someName! - nie wszystkie znaki są dopuszczalne. Dla uproszczenia możemy przyjąć, że możemy używać wyłącznie małych i wielkich liter od a do z bez polskich znaków[^polskie_znaki].
+
+[^polskie_znaki]: Reguły są oczywiście dużo bardziej rozbudowane, jednak dla naszych potrzeb takie uproszczenie w zupełności wystarczy.
 
 ## Argument metody
   

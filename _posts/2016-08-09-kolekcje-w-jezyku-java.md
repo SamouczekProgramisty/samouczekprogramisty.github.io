@@ -12,7 +12,9 @@ W tym artykule przeczytasz o kolekcjach w języku Java. Dowiesz się czym są ko
 
 {% include kurs-java-notice.md %}
   
-Java, podobnie jak wiele innych języków, w tak zwanej bibliotece standardowej[1. Biblioteka standardowa to zestaw klas, które może używać programista, dostarczonych wraz z językiem programowania.] zawiera zestaw kolekcji. Kolekcja to nic innego jak sposób grupowania obiektów. Kolekcją możemy także nazwać tablicę obiektów, którą już znasz. Jednak tego typu kolekcja na pewne ograniczenia, głównym z nich jest to, że rozmiar, który ustalimy na początku nie może być zmieniony.
+Java, podobnie jak wiele innych języków, w tak zwanej bibliotece standardowej[^std] zawiera zestaw kolekcji. Kolekcja to nic innego jak sposób grupowania obiektów. Kolekcją możemy także nazwać tablicę obiektów, którą już znasz. Jednak tego typu kolekcja na pewne ograniczenia, głównym z nich jest to, że rozmiar, który ustalimy na początku nie może być zmieniony.
+
+[^std]: Biblioteka standardowa to zestaw klas, które może używać programista, dostarczonych wraz z językiem programowania.
 
 Kolekcje możemy opisać jako „tablice na sterydach”. Pozwalają one na dużo więcej niż przechowywanie obiektów w kolejności określonej przez tablicę.
 
@@ -26,7 +28,9 @@ Kolekcje w standardowej bibliotece Javy implementują różne interfejsy, poniż
 
 # Lista
   
-Lista (ang. _list_) podobnie jak tablica, grupuje elementy. Jej główną przewagą nad tablicą jest to, że programista nie musi się przejmować rozmiarem listy[2. Oczywiście w granicach rozsądku, w skrajnych przypadkach utworzenie listy ze zbyt dużą liczbą elementów może prowadzić do wystąpienia błędu `OutOfMemoryError`.], jest ona automatycznie powiększana wraz z dodawaniem nowych elementów. Listy w języku Java reprezentowane są przez interfejs `java.util.List`. Listy z definicji są kolekcjami dla których kolejność elementów jest istotna, mogą przechowywać ten sam obiekt po kilka razy. Podstawowymi przykładami implementacji interfejsu `java.util.List` są klasy `java.util.LinkedList` oraz `java.util.ArrayList`.
+Lista (ang. _list_) podobnie jak tablica, grupuje elementy. Jej główną przewagą nad tablicą jest to, że programista nie musi się przejmować rozmiarem listy[^oom], jest ona automatycznie powiększana wraz z dodawaniem nowych elementów. Listy w języku Java reprezentowane są przez interfejs `java.util.List`. Listy z definicji są kolekcjami dla których kolejność elementów jest istotna, mogą przechowywać ten sam obiekt po kilka razy. Podstawowymi przykładami implementacji interfejsu `java.util.List` są klasy `java.util.LinkedList` oraz `java.util.ArrayList`.
+
+[^oom]: Oczywiście w granicach rozsądku, w skrajnych przypadkach utworzenie listy ze zbyt dużą liczbą elementów może prowadzić do wystąpienia błędu `OutOfMemoryError`.
 
 Bez wdawania się w zbędne szczegóły, proszę zapamiętaj, że `LinkedList` lepiej jest używać jeśli często usuwasz elementy z listy a `ArrayList` lepiej jest używać jeśli często chcesz mieć dostęp do losowych elementów w liście. Obiecuje, że dokładne wytłumaczenie&nbsp; dlaczego tak się dzieje znajdziesz w jednym z kolejnych artykułów.
 
@@ -78,7 +82,9 @@ Przykład użycia metod znajduje się we fragmencie kodu poniżej.
 
 # Mapa
   
-Mapa (ang. _map_) jest kolekcją, która pozwala przechować odwzorowanie zbioru kluczy na listę wartości. Innymi słowy w mapie możemy trzymać klucze, którym odpowiadają wartości. Klucze muszą być unikalne (dlatego pisałem o zbiorze kluczy), wartości natomiast mogą się powtarzać. Czyli pod kluczem A i pod kluczem B może być ta sama wartość X. Ale sytuacja odwrotna gdzie klucz X występuje dwa razy i jeden z nich wskazuje na element A a inny na element B nie jest możliwa[3. Tu znów dygresja, oczywiście istnieją implementacje, które pozwalają na takie zachowanie, jednak nie jest to „domyślne” zachowanie.].
+Mapa (ang. _map_) jest kolekcją, która pozwala przechować odwzorowanie zbioru kluczy na listę wartości. Innymi słowy w mapie możemy trzymać klucze, którym odpowiadają wartości. Klucze muszą być unikalne (dlatego pisałem o zbiorze kluczy), wartości natomiast mogą się powtarzać. Czyli pod kluczem A i pod kluczem B może być ta sama wartość X. Ale sytuacja odwrotna gdzie klucz X występuje dwa razy i jeden z nich wskazuje na element A a inny na element B nie jest możliwa[^implementaje].
+
+[^implementaje]: Tu znów dygresja, oczywiście istnieją implementacje, które pozwalają na takie zachowanie, jednak nie jest to „domyślne” zachowanie.
 
 Czytając inne źródła możesz natknąć się na inne nazwy. Słownik, tablica asocjacyjna, mapa – to pojęcia opisujące dokładnie tę samą strukturę danych.
 
@@ -124,7 +130,10 @@ Istnieją implementacje kolekcji, które pozwalają na używanie typów prymityw
 
 # Iterowanie po kolekcjach
   
-Z artykułu opisującego pętle dowiedziałeś się o różnych rodzajach pętli i to właśnie na nich tutaj się skupimy[3. Na początku pominiemy strumienie, którymi zajmiemy się w osobnym artykule.].
+Z artykułu opisującego pętle dowiedziałeś się o różnych rodzajach pętli i to właśnie na nich tutaj się skupimy[^strumienie].
+
+[^strumienie]: Na początku pominiemy strumienie, którymi zajmiemy się w osobnym artykule.
+
 ## Iterowanie po listach
   
 Najprostszym sposobem jest iterowanie przy użyciu pętli `foreach`. Zgodnie z definicją listy elementy będą zwracane w kolejności dodawania ich do listy.

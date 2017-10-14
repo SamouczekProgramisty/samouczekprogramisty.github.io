@@ -21,7 +21,9 @@ Advent of Code to inicjatywa, w której codziennie publikowane są zadania algor
   
 Dzięki [robocikowi sprzątającemu](http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-24/) udało Ci się obejść zabezpieczenia. Otwierasz drzwi prowadzące na dach, wielkie miasto ciągnie się aż po horyzont.
 
-Nie zostało dużo czasu, to już Boże Narodzenie[1. w oryginalnym Advent of Code to zadanie było opublikowane 25 grudnia.] a Ty bynajmniej nie jesteś blisko Mikołaja. Może olbrzymia antena na dachu pomoże Ci nawiązać łączność? Podłączasz swój [prototypowy komputer](http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-11/) do anteny i zaczynasz transmisję. Niestety nic się nie dzieje.
+Nie zostało dużo czasu, to już Boże Narodzenie[^data] a Ty bynajmniej nie jesteś blisko Mikołaja. Może olbrzymia antena na dachu pomoże Ci nawiązać łączność? Podłączasz swój [prototypowy komputer](http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-11/) do anteny i zaczynasz transmisję. Niestety nic się nie dzieje.
+
+ [^data]: w oryginalnym Advent of Code to zadanie było opublikowane 25 grudnia.
 
 Dzwonisz pod numer serwisanta znajdujący się z boku anteny i szybko opisujesz problem, mimo świąt serwisant odpowiada "nie jestem pewien jaki sprzęt podłączyłeś do tej anteny, ale potrzebuje on odpowiedniego sygnału zegara". Tak, tak odpowiadasz zegar dał już sygnał, to już najwyższy czas. W słuchawce słyszysz odpowiedź "nie o taki sygnał chodzi, potrzebny jest [sygnał zegara](https://en.wikipedia.org/wiki/Clock_signal) dla komputera anteny, taki który mówi kiedy powinien czytać dane, które chcesz wysłać. Nieskończony naprzemienny wzór z `0`, `1`, `0`, `1`, `0`, `1`, `0`, `1`...
 

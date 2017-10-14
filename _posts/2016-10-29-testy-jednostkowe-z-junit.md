@@ -45,9 +45,13 @@ Testy jednostkowe łączymy w klasy z testami, bardzo często nazywamy je tak sa
 
 ## Przykłady użycia asercji
   
-Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie testów jednostkowych), które ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek [`AssertionError`](https://docs.oracle.com/javase/8/docs/api/java/lang/AssertionError.html) [1. W języku Java istnieje także słowo kluczowe `assert`, po którym musi wystąpić wartość logiczna, jeśli jest ona fałszem kończy się to rzuceniem wyjątku `AssertionError` – np. `assert false` rzuci wyjątek.].
+Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie testów jednostkowych), które ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek [`AssertionError`](https://docs.oracle.com/javase/8/docs/api/java/lang/AssertionError.html)[^assert].
 
-Asercje w bibliotece JUnit to nic innego jak metody statyczne w klasie [`Assert`](http://junit.org/junit4/javadoc/latest/org/junit/Assert.html). Poniżej przedstawię Ci kilka najczęściej stosowanych asercji [2. Pominę tutaj metodę `assertThat`, którą omówię bardziej szczegółowo w kolejnych artykułach].
+[^assert]: W języku Java istnieje także słowo kluczowe `assert`, po którym musi wystąpić wartość logiczna, jeśli jest ona fałszem kończy się to rzuceniem wyjątku `AssertionError` – np. `assert false` rzuci wyjątek.
+
+Asercje w bibliotece JUnit to nic innego jak metody statyczne w klasie [`Assert`](http://junit.org/junit4/javadoc/latest/org/junit/Assert.html). Poniżej przedstawię Ci kilka najczęściej stosowanych asercji[^assert_that].
+
+[^assert_that]: Pominę tutaj metodę `assertThat`, którą omówię bardziej szczegółowo w kolejnych artykułach.
 
 - `assertTrue` sprawdza czy przekazany argument to `true`,
 - `assertFalse` sprawdza czy przekazany argument to `false`,
@@ -135,13 +139,14 @@ Poniżej postaram się zebrać dla Ciebie kilka dobrych praktyk, do których war
 - Nadawaj metodom z testem nazwy, które pomagają zrozumieć co dany test powinien sprawdzić.
 - Kolejność testów jednostkowych w klasie nie powinna mieć znaczenia. Innymi słowy nie możemy polegać na tym, że jako pierwszy musi się uruchomić `test1` a po nim `test2`. Testy uruchomione w odwrotnej kolejności także powinny mieć dokładnie taki sam efekt.
 - Pisz testy jednostkowe tak, żeby nie zależały na Twojej lokalnej konfiguracji. Na przykład test jednostkowy czytający plik z Twojego dysku z katalogu `C:\mój\katalog\domowy` (czy `/home/uzytkownik`) nie jest dobrym rozwiązaniem.
-- Pisz testy jednostkowe niezależne od zewnętrznych systemów. Innymi słowy testuj tylko „jednostkę”, nic ponadto. Jeśli klasa, którą testujesz potrzebuje dostępu np. do bazy danych użyj mocka czy stuba do jej zastąpienia w trakcie testów [3. O mockach czy stubach przeczytasz w kolejnych artykułach, jeśli jest to Twoja pierwsza styczność z testami możesz ten punkt pominąć.].
+- Pisz testy jednostkowe niezależne od zewnętrznych systemów. Innymi słowy testuj tylko „jednostkę”, nic ponadto. Jeśli klasa, którą testujesz potrzebuje dostępu np. do bazy danych użyj mocka czy stuba do jej zastąpienia w trakcie testów[^mock] .
 - Testuj warunki brzegowe i sytuacje wyjątkowe. Załóżmy, że masz metodę, która przyjmuje tablicę, która musi mieć maksymalnie trzy elementy. Napisz kilka testów:
   - przekazując `null` zamiast tablicy,
   - przekazujac pustą tablicę,
   - przekazujac tablicę z trzema elementami,
   - przekazując tablicę z czterema elementami.
-  
+
+[^mock]: O mockach czy stubach przeczytasz w kolejnych artykułach, jeśli jest to Twoja pierwsza styczność z testami możesz ten punkt pominąć.
   
 Dzięki takim testom będziesz pewien, jak zachowuje się Twoja metoda w sytuacjach wyjątkowych.
 - Testowany kod nie powinien być w tym samym miejscu, w którym są testy. Sprowadza się to do tego, że kod umieszczamy w katalogu np. `src`, testy natomiast w katalogu `test`. Oba katalogi pod spodem mają odpowiednią strukturę odzwierciedlającą pakiety. Jest to ważne ponieważ później przy większych projektach testy nie „mieszają się” z kodem programu.
@@ -176,9 +181,10 @@ Napisz zestaw testów jednostkowych potwierdzających poprawne działanie Twojeg
 
 Drobna podpowiedź z przykładowym zestawem klas, które mogą rozwiązać ten problem:
 
-- `Item`, która posiada dwa atrybuty `double price` [4. `double` nie jest dobrym typem do reprezentowania cen, na potrzeby tego przykładu jednak wystarczy. Dlaczego tak się dzieje przeczytasz w osobnym artykule.] oraz `String name`,
+- `Item`, która posiada dwa atrybuty `double price`[^double] oraz `String name`,
 - `Basket`, który posiada atrybut `Map orderedItems` reprezentujący zamówione towary wraz z ich ilością.
-  
+
+[^double]: `double` nie jest dobrym typem do reprezentowania cen, na potrzeby tego przykładu jednak wystarczy. Dlaczego tak się dzieje przeczytasz w osobnym artykule.
   
 Przygotowałem też przykładowe rozwiązanie, znajduje się w [repozytorium na githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe/src/main/java/pl/samouczekprogramisty/kursjava/shop/exercise) wraz z zestawem [testów jednostkowych](https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe/src/test/java/pl/samouczekprogramisty/kursjava/shop/exercise). Zachęcam jednak do samodzielnej próby rozwiązania zadania. Uwierz mi, że wtedy nauczysz się najwięcej :).
 # Dodatkowe materiały do nauki

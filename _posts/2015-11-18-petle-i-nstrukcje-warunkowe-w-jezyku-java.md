@@ -34,7 +34,9 @@ Proste operacje logiczne możesz ze sobą łączyć przy pomocy dodatkowych oper
 - `||` logiczne lub.
   
   
-Pomocna przy tym może być następująca tabelka. Pokazuje ona podstawowe operacje logiczne[2. Tzw. [algebrę Boole'a](https://pl.wikipedia.org/wiki/Algebra_Boole%E2%80%99a)]
+Pomocna przy tym może być następująca tabelka. Pokazuje ona podstawowe operacje logiczne[^algebra].
+
+[^algebra]: Tzw. [algebrę Boole'a](https://pl.wikipedia.org/wiki/Algebra_Boole%E2%80%99a)
 
 | Operacja | Wynik |
 | prawda i prawda | prawda |
@@ -46,20 +48,18 @@ Pomocna przy tym może być następująca tabelka. Pokazuje ona podstawowe opera
 | fałsz lub prawda | prawda |
 | fałsz lub fałsz | fałsz |
   
-  
-
-  
 Przekładając kilka powyższych linii na przykłady ze zmiennymi w Java wygląda to następująco:
 
     int x = 1;int y = 1;int z = 2;x == y && z > y; // true && true => truex <= y && z <= x; // true && false => falsex == y || z > y; // true || true => truex <= y || z <= x; // true || false => true
 
-  
 Operatory w języku Java mają swój priorytet. Dzięki temu mnożenie jest wykonywane przed dodawaniem. Podobnie jest tutaj, operatory `<`, `==`, `<` itp. mają wyższy priorytet niż `&&` czy `||`.
 # Instrukcje warunkowe
 
 ## Instrukcja `if`, `else if`, `else`
   
-Do tej pory każda linijka kodu, którą napisałeś w działającym programie została wykonana. W większych programach często musimy decydować co powinno być wykonane. Np. jeśli jest temperatura jest większa niż 37°C [1. Tutaj lepszym pomysłem byłyby liczby „z przecinkiem”, te omówimy w osobnym artykule.] oznacza to, że możesz być chory. Jeśli jest mniejsza niż 36°C możesz być osłabiony.
+Do tej pory każda linijka kodu, którą napisałeś w działającym programie została wykonana. W większych programach często musimy decydować co powinno być wykonane. Np. jeśli jest temperatura jest większa niż 37°C[^zmiennyprzecinek] oznacza to, że możesz być chory. Jeśli jest mniejsza niż 36°C możesz być osłabiony.
+
+ [^zmiennyprzecinek]: Tutaj lepszym pomysłem byłyby liczby "z przecinkiem", te omówimy w osobnym artykule.
 
 To jest najprostsza instrukcja warunkowa. Blok kodu zostanie wykonany jeśli wartość w nawiasie `()` będzie prawdą. W przykładzie sprawdzamy, czy temperatura jest mniejsza niż 36 stopni.
 

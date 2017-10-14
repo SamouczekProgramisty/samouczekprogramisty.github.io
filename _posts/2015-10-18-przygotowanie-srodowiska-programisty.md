@@ -50,7 +50,9 @@ W przypadku języka Java często będziesz miał styczność z terminami JRE ora
 
 JRE (ang. _Java Runtime Environment)_ – jest to maszyna wirtualna nie zawierająca dodatkowych narzędzi niezbędnych dla programisty. W uproszczeniu można powiedzieć że zawiera wyłącznie implementację wirtualnej maszyny – program java. Do uruchamiania programów napisanych w języku Java wystarczy JRE.
 
-JDK (ang. _Java SE Development Kit_) – jest to zestaw narzędzi dla programisty. Zestaw ten jest niezbędny do pisania programów w języku Java. Poza programem java zawiera wiele innych. Jednym z dodatkowych programów zawartych w zestawie jest javac – kompilator[1. Kompilator to narzędzie tłumaczące język wysokiego poziomu na instrukcje zrozumiałe przez komputer. W naszym przypadku javac jest kompilatorem tłumaczącym język Java na tak zwany bajtkod (ang. _bytecode_). Ten drugi jest interpretowany i wykonywany przez maszynę wirtualną] języka Java.
+JDK (ang. _Java SE Development Kit_) – jest to zestaw narzędzi dla programisty. Zestaw ten jest niezbędny do pisania programów w języku Java. Poza programem java zawiera wiele innych. Jednym z dodatkowych programów zawartych w zestawie jest javac – kompilator[^kompilator] języka Java.
+
+ [^kompilator]: Kompilator to narzędzie tłumaczące język wysokiego poziomu na instrukcje zrozumiałe przez komputer. W naszym przypadku javac jest kompilatorem tłumaczącym język Java na tak zwany bajtkod (ang. _bytecode_). Ten drugi jest interpretowany i wykonywany przez maszynę wirtualną.
 
 **Instalacja JDK**
 

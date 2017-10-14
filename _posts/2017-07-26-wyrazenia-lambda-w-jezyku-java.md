@@ -20,9 +20,13 @@ Szczególnie przydatne mogą być artykuły dotyczące:
 
 # Czym jest wyrażenie lambda
   
-Dla uproszczenia można powiedzieć, że wyrażenie lambda jest metodą[1. Nie jest to do końca prawda, na przykład wyrażenie lambda nie wprowadza nowego zakresu zmiennych, ale takie uproszczenie pomoże zrozumieć działanie wyrażeń lambda.]. Metodą, którą możesz przypisać do zmiennej. Możesz ją także wywołać czy przekazać jako argument do innej metody.
+Dla uproszczenia można powiedzieć, że wyrażenie lambda jest metodą[^roznice]. Metodą, którą możesz przypisać do zmiennej. Możesz ją także wywołać czy przekazać jako argument do innej metody.
 
-Wyrażenia lambda możesz także porównać do klas anonimowych [2. Podobnie jak przy poprzednim porównaniu, są różnice pomiędzy wyrażeniami lambda i klasami anonimowymi. Jednak na potrzeby tego wprowadzenia możemy je pominąć.]. Mają one jednak dużo bardziej czytelną i zwięzłą składnię.
+[^roznice]: Nie jest to do końca prawda, na przykład wyrażenie lambda nie wprowadza nowego zakresu zmiennych, ale takie uproszczenie pomoże zrozumieć działanie wyrażeń lambda.
+
+Wyrażenia lambda możesz także porównać do klas anonimowych[^roznice2]. Mają one jednak dużo bardziej czytelną i zwięzłą składnię.
+
+[^roznice2]: Podobnie jak przy poprzednim porównaniu, są różnice pomiędzy wyrażeniami lambda i klasami anonimowymi. Jednak na potrzeby tego wprowadzenia możemy je pominąć.
 
 Na przykład wyrażenie lambda, które podnosi do kwadratu przekazaną liczbę wygląda następująco:
 
@@ -50,13 +54,20 @@ Podawanie typów parametrów jest opcjonalne. Kompilator jest w stanie poznać t
     (Integer x, Long y) -> System.out.println(x * y)
 
   
-Nawiasy otaczające listę parametrów są opcjonalne jeśli wyrażenie ma wyłącznie jeden parametr bez określonego typu [3. Oczywiście w trakcie kompilacji typ jest znany, ale nie jest jawnie podany w kodzie źródłowym.].
+Nawiasy otaczające listę parametrów są opcjonalne jeśli wyrażenie ma wyłącznie jeden parametr bez określonego typu[^kompilacja].
+
+[^kompilacja]: Oczywiście w trakcie kompilacji typ jest znany, ale nie jest jawnie podany w kodzie źródłowym.
+
 ### Ciało wyrażenia lambda
   
 W ogromnej większości przypadków wyrażenia lambda zawierają jedną linijkę kodu:
 
-    x -> x * x() -> “some return value”(Integer x, Long y) -> System.out.println(x * y);
-
+```java
+x -> x * x() -> “some return value”
+```
+```java
+(Integer x, Long y) -> System.out.println(x * y);
+```
   
 Może się jednak zdarzyć, że Twoje wyrażenie lambda będzie zawierało więcej linii. W takim przypadku musisz otoczyć je nawiasami `{}` jak w przykładzie poniżej:
 
@@ -87,7 +98,9 @@ Dochodzimy teraz do momentu, w którym muszę Ci powiedzieć o typach w wyrażen
 
 # Interfejs funkcyjny
   
-Interfejs funkcyjny to interfejs, który ma jedną abstrakcyjną metodę[5. Efektywnie abstrakcyjną, czyli dodanie do interfejsu np. metody equals, która jest w klasie Object nadal spełnia to wymaganie.]. Wprowadzono adnotację [`@FunctionalInterface`](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html), którą możesz dodać do interfejsów tego typu.
+Interfejs funkcyjny to interfejs, który ma jedną abstrakcyjną metodę[^efektywnie_abstrakcyjna]. Wprowadzono adnotację [`@FunctionalInterface`](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html), którą możesz dodać do interfejsów tego typu.
+
+[^efektywnie_abstrakcyjna]: Efektywnie abstrakcyjną, czyli dodanie do interfejsu np. metody equals, która jest w klasie Object nadal spełnia to wymaganie.
 
 Adnotacja ta zapewnia, że kompilator upewni się, że dany interfejs jest interfejsem funkcjonalnym. Jeśli nie, wówczas kompilacja się nie powiedzie.
 
@@ -113,7 +126,9 @@ Wyrażenia lambda zdefiniowane na początku artykułu można przypisać do tych 
 
 # Zalety stosowania wyrażeń lambda
   
-Wyrażenia lambda są bardzo pomocne przy operacji na kolekcjach. Są niezastąpione także przy pracy ze strumieniami. Pozwalają także na pisanie w Javie w sposób “funkcyjny”[4. Oczywiście Java nie jest językiem w pełni funkcyjnym, jednak taka namiastka jest przydatna.].
+Wyrażenia lambda są bardzo pomocne przy operacji na kolekcjach. Są niezastąpione także przy pracy ze strumieniami. Pozwalają także na pisanie w Javie w sposób “funkcyjny”[^funkcyjny].
+
+[^funkcyjny]: Oczywiście Java nie jest językiem w pełni funkcyjnym, jednak taka namiastka jest przydatna.
 
 Oczywistą zaletą wyrażeń lambda jest ich zwięzłość. Kod zajmuje o wiele mniej miejsca, staje się przez to bardziej czytelny.
 

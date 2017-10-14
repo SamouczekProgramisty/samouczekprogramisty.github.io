@@ -24,7 +24,9 @@ Najważniejsze jest abyś zapamiętał, że system plików organizuje dane na dy
 
 ## Pliki binarne a pliki tekstowe
   
-Wiesz już, że plik mapuje się na pewien obszar danych na dysku. Otwierając jakikolwiek plik czytasz te dane za pośrednictwem systemu plików. Dane te mogą być zapisane w trybie „tekstowym” bądź „binarnym” [1. Jest to swego rodzaju uproszczenie, w rzeczywistości pliki tekstowe zapisane są także jako ciąg danych binarnych, jednak programy takie jak notatnik wiedzą jak te dane interpretować i wyświetlają zwykły tekst.].
+Wiesz już, że plik mapuje się na pewien obszar danych na dysku. Otwierając jakikolwiek plik czytasz te dane za pośrednictwem systemu plików. Dane te mogą być zapisane w trybie „tekstowym” bądź „binarnym”[^pliki].
+
+[^pliki]: Jest to swego rodzaju uproszczenie, w rzeczywistości pliki tekstowe zapisane są także jako ciąg danych binarnych, jednak programy takie jak notatnik wiedzą jak te dane interpretować i wyświetlają zwykły tekst.
 
 Sposób zapisu danych ma istotny wpływ na rozmiar pliku. Na przykład zapisanie liczby 1234567 binarnie jako `int` w Javie wymaga 4 bajtów. Zapisanie tej samej liczby jako łańcuch znaków w pliku tekstowym wymaga już 7 bajtów. Innymi słowy zapis binarny w ogromnej większości przypadków wymaga mniej miejsca na dysku.
 

@@ -43,7 +43,9 @@ Zupełne podstawy :) Więc teraz zapiszmy trochę inaczej naszą liczbę z przyk
 
 Innymi słowy każdą liczbę w systemie dziesiętnym możemy zapisać przy pomocy sumy iloczynów potęg liczby 10. Może się to wydawać trochę skomplikowane jednak to nic trudnego, po prostu słownie opisałem 1 \* 10<sup>3</sup> + 2 \* 10<sup>2</sup> + 3 \* 10<sup>1</sup> + 4 \* 10<sup>0</sup>.
 
-Jeśli 10 nazwiemy bazą systemu dziesiętnego to cyfry, które służą do zapisywania liczb w tym systemie są z zakresu 0 do 9. Zapamiętaj, że własność tą można uogólnić. Innymi słowy jeśli bazę systemu zapisu liczb zastąpimy X wówczas możemy powiedzieć, że liczbę w tym systemie można zapisać przy pomocy cyfr od 0 do X-1[1. oczywiście to jest umowne, równie dobrze można używać innych symboli. Np w systemie szesnastkowym stosujemy cyfry 0-9 oraz litery a-f].
+Jeśli 10 nazwiemy bazą systemu dziesiętnego to cyfry, które służą do zapisywania liczb w tym systemie są z zakresu 0 do 9. Zapamiętaj, że własność tą można uogólnić. Innymi słowy jeśli bazę systemu zapisu liczb zastąpimy X wówczas możemy powiedzieć, że liczbę w tym systemie można zapisać przy pomocy cyfr od 0 do X-1[^umowa].
+
+[^umowa]: Oczywiście to jest umowne, równie dobrze można używać innych symboli. Np w systemie szesnastkowym stosujemy cyfry 0-9 oraz litery a-f.
 
 A co stałoby się gdybyśmy potęgi 10 zamienili potęgami 2? Powstałby system binarny zapisywania liczb :).
 

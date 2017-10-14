@@ -30,7 +30,9 @@ Istnieje kilka zarezerwowanych nazw pakietów. Służą one do odróżnienia kla
 
 Pakiety służą do grupowania klas, interfejsów, typów wyliczeniowych czy adnotacji (Jeśli czytasz artykuły chronologicznie te terminy prawdopodobnie są dla Ciebie nowe. Nie przejmuj się, opiszę je dokładnie w jednym z kolejnych artykułów.).
 
-Jak zauważyłeś nazwa pakietów jest specyficzna. Przyjęło się, że za pakiet używa się odwróconej nazwy domeny. Takie podejście pozwala na łatwiejsze uniknięcie konfliktów. W przypadku naszego kursu użyłem `pl.samouczekprogramisty.kursjava`. Istotne jest&nbsp; tutaj odwzorowanie struktury katalogów. Każdy człon pakietu odpowiada katalogowi na dysku.[![kurs_java2_pakiety](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java2_pakiety-150x150.png)](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java2_pakiety.png)W pliku źródłowym może znajdować się wyłącznie jedna linia z pakietem. Musi znajdować się na początku pliku. Co prawda nie jest to linia obowiązkowa, jednak używanie domyślnego pakietu nie jest dobrą praktyką[1. Jeśli nie umieścisz żadnej deklaracji pakietu dany typ (klasa, interfejs etc.) zostanie umieszczony w domyślnym, pustym pakiecie.].
+Jak zauważyłeś nazwa pakietów jest specyficzna. Przyjęło się, że za pakiet używa się odwróconej nazwy domeny. Takie podejście pozwala na łatwiejsze uniknięcie konfliktów. W przypadku naszego kursu użyłem `pl.samouczekprogramisty.kursjava`. Istotne jest&nbsp; tutaj odwzorowanie struktury katalogów. Każdy człon pakietu odpowiada katalogowi na dysku.[![kurs_java2_pakiety](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java2_pakiety-150x150.png)](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java2_pakiety.png)W pliku źródłowym może znajdować się wyłącznie jedna linia z pakietem. Musi znajdować się na początku pliku. Co prawda nie jest to linia obowiązkowa, jednak używanie domyślnego pakietu nie jest dobrą praktyką[^pakiet].
+
+[^pakiet]: Jeśli nie umieścisz żadnej deklaracji pakietu dany typ (klasa, interfejs etc.) zostanie umieszczony w domyślnym, pustym pakiecie.
 
 Nazwy pakietów powinny odwzorowywać ich zawartość. Np pakiet `pl.samouczekprogramisty.animals` mógłby zawierać klasę `Dog`, ale już klasa `Owner` powinna znaleźć się prawdopodobnie w innym miejscu.
 
@@ -41,12 +43,28 @@ Klasy służą do grupowania atrybutów i metod, pakietów używamy do grupowani
   
 IDE czy zwykły edytor tekstu są narzędziami pracy programisty. Znajomość narzędzi pracy znacząco zwiększa wydajność pracy. Innymi słowy bardzo przydatne jest używanie skrótów klawiaturowych. Postaram się przybliżyć Wam kilka z nich.
 
-Po lewej stronie widzicie okno do przeglądania struktury projektu. To okienko możecie włączać/wyłączać używając skrótu ``\*[2. Taka notacja oznacza jednoczesne naciśnięcie dwóch klawiszy, w tym przypadku jest to `Alt` i `1`]. Po kliknięciu w obszar tego okienka przyda się skrót ``. W tym kontekście przyda się on do stworzenia nowego pakietu oraz pliku z naszą pierwszą klasą. Po naciśnięciu tego skrótu pokaże się Wam takie okienko.[![kurs_java_2_nowy_pakiet](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_nowy_pakiet-150x150.png) ![kurs_java_2.nowy_pakiet_dialog](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2.nowy_pakiet_dialog-150x145.png)](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2.nowy_pakiet_dialog.png)Gdy mamy już nasz pakiet używając tego samego skrótu możemy stworzyć klasę. W naszym przykładzie stworzyłem pakiet `pl.samouczekprogramisty.kursjava.engine` a w nim klasę `Cogwheel`.[![kurs_java_2_new_package](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_new_package-150x150.png)](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_new_package.png)
+Po lewej stronie widzicie okno do przeglądania struktury projektu. To okienko możecie włączać/wyłączać używając skrótu `<Alt + 1>`[^notacja]. Po kliknięciu w obszar tego okienka przyda się skrót `<Alt + Ins>`. W tym kontekście przyda się on do stworzenia nowego pakietu oraz pliku z naszą pierwszą klasą. Po naciśnięciu tego skrótu pokaże się Wam takie okienko.
 
-    package pl.samouczekprogramisty.kursjava.engine;/** * Created by on . */public class Cogwheel {}
+[^notacja]: Taka notacja oznacza jednoczesne naciśnięcie dwóch klawiszy, w tym przypadku jest to `Alt` i `1`.
 
+[![kurs_java_2_nowy_pakiet](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_nowy_pakiet-150x150.png) ![kurs_java_2.nowy_pakiet_dialog](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2.nowy_pakiet_dialog-150x145.png)](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2.nowy_pakiet_dialog.png)
+
+Gdy mamy już nasz pakiet używając tego samego skrótu możemy stworzyć klasę. W naszym przykładzie stworzyłem pakiet `pl.samouczekprogramisty.kursjava.engine` a w nim klasę `Cogwheel`.
+
+[![kurs_java_2_new_package](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_new_package-150x150.png)](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_new_package.png)
+
+```java
+package pl.samouczekprogramisty.kursjava.engine;
+
+/**
+ * Created by <uzytkownik> on <data>.
+ */
+public class Cogwheel {
+}
+```
   
 Podobnie jak poprzednio teraz linijka po linijce przeanalizujemy przykładowy kod klasy w języku Java. Pierwsza linijka nie jest już dla Was niczym nowym, ot zwykła deklaracja pakietu. Ciekawsze są kolejne linie.
+
 # Komentarze w kodzie
   
 Kolejne 3 linie to komentarz w kodzie. Komentarz w kodzie to dodatkowa wiadomość dla programisty. Czasami dodanie komentarza nad fragmentem bardziej skomplikowanego kodu pomaga w jego zrozumieniu. Komentarz jest pomijany w trakcie wykonywania programu.
@@ -55,10 +73,12 @@ W języku Java występują 2 typy komentarzy:
 
 - komentarze w kilku liniach - przykład widzicie powyżej, wszystko co znajduję się pomiędzy `/**` a `*/` traktowane jest jako komentarz.
 - komentarz jednoliniowy - wszystko co znajduje się za `//` do końca linii traktowane jest jako komentarz. Parę przykładów poniżej
-  
 
-    int count = 3; // number of already read books// flag indicating if book was readboolean wasRead = false;
-
+```java
+int count = 3; // number of already read books
+// flag indicating if book was read
+boolean wasRead = false;
+```
   
 Kolejne 2 linijki to już właściwa definicja klasy. Opiszmy każdy z elementów osobno:
 - `public` - modyfikator dostępu. Temat modyfikatorów dostępu opiszę dokładniej w osobnym artykule. Na tym etapie możemy założyć, że przed klasą stawiamy słowo kluczowe public i oznacza ono, że jest ona widoczna dla innych klas,
@@ -69,12 +89,27 @@ Kolejne 2 linijki to już właściwa definicja klasy. Opiszmy każdy z elementó
   
 Poniżej ta sama klasa ale już trochę bardziej rozbudowana
 
-    public class Cogwheel { private int size; private int numberOfCogs; public Cogwheel() { } public Cogwheel(int size, int noCogs) { this.size = size; numberOfCogs = noCogs; }}
+```java
+public class Cogwheel {
+    private int size;
+    private int numberOfCogs;
+    
+    public Cogwheel() { 
+    }
+    
+    public Cogwheel(int size, int noCogs) {
+        this.size = size;
+        numberOfCogs = noCogs; 
+    }
+}
+```
 
   
 Pierwszy nowy element to tak zwany atrybut klasy:
 
-    private int size;
+```java
+private int size;
+```
 
 - `private` - modyfikator dostępu. Tym razem jest to słowo kluczowe `private`. Oznacza tyle, że dany element (w tym przypadku atrybut) dostępny jest wyłącznie z wnętrza danej klasy,
 - `int` - znany już typ,
@@ -85,13 +120,17 @@ Kolejne dwie metody to tak zwane konstruktory. Zauważ, że ich definicje są sp
 
 Konstruktory wywołujemy dokładnie tak samo jak inne metody, dodatkowo używamy słowa kluczowego `new`:
 
-    cogwheel = new Cogwheel();cogwheel = new Cogwheel(1, 2);
-
+```java
+cogwheel = new Cogwheel();
+cogwheel = new Cogwheel(1, 2);
+```
   
 Pierwszy konstruktor to konstruktor bezparametrowy. Kolejny przyjmuje argument `size` i `noCogs` ale to dla Ciebie nic nowego, o argumentach wiesz wszystko z [artykułu o metodach w języku Java](http://www.samouczekprogramisty.pl/metody-w-jezyku-java/). Nowością tutaj jest ciało konstruktora.
 
-    this.size = size;numberOfCogs = noCogs;
-
+```java
+this.size = size;
+numberOfCogs = noCogs;
+```
   
 Obie linie przypisują wartość do atrybutu klasy. Pierwsza zawiera dodatkowe słowo kluczowe `this` aby odróżnić parametr `size` od atrybutu `size`. W następnej linii widzisz, że `this` nie jest wymagane jeśli jednoznacznie jesteśmy w stanie zidentyfikować atrybut.
 # Generowanie konstruktorów
@@ -110,12 +149,15 @@ Jeśli utworzysz jakikolwiek inny konstruktor przyjmujący parametry kompilator 
   
 Poniżej już troszkę bardziej skomplikowany przykład. Proszę przeczytaj poniższy fragment kodu.
 
-    package pl.samouczekprogramisty.kursjava;import pl.samouczekprogramisty.kursjava.engine.Cogwheel;public class Engine { private boolean started; private Cogwheel cogwheel; public Engine() { cogwheel = new Cogwheel(4, 450); started = true; } public Engine(Cogwheel cogwheel) { this.cogwheel = cogwheel; } public void start() { started = initiateStartingSequence(); } private boolean initiateStartingSequence() { return true; } public void stop() { started = false; } public boolean isStarted() { return started; } public void setStarted(boolean started) { this.started = started; }}
-
+ ```java
+ package pl.samouczekprogramisty.kursjava;import pl.samouczekprogramisty.kursjava.engine.Cogwheel;public class Engine { private boolean started; private Cogwheel cogwheel; public Engine() { cogwheel = new Cogwheel(4, 450); started = true; } public Engine(Cogwheel cogwheel) { this.cogwheel = cogwheel; } public void start() { started = initiateStartingSequence(); } private boolean initiateStartingSequence() { return true; } public void stop() { started = false; } public boolean isStarted() { return started; } public void setStarted(boolean started) { this.started = started; }}
+ ```
   
 Poza używaniem typów, które już znasz, możesz używać już istniejących klas. Właśnie w ten sposób klasa `Engine` ma atrybut typu `Cogwheel`. Zwróć uwagę, że klasa `Engine` znajduje się w innym pakiecie niż klasa `Cogwheel`. Kompilator musi wiedzieć gdzie szukać tej klasy, właśnie z tego powodu dodajemy linijkę importującą tą klasę:
 
-    import pl.samouczekprogramisty.kursjava.engine.Cogwheel;
+```java
+import pl.samouczekprogramisty.kursjava.engine.Cogwheel;
+```
 
 > Deklaracja importu to coś zupełnie innego niż deklaracja pakietu, importów w klasie może być wiele (możemy korzystać z wielu innych klas), natomiast nasza klasa może być wyłącznie w jednym pakiecie.
 > 
@@ -128,44 +170,79 @@ Tutaj przychodzi z pomocą IDE. Okazuje się, że programista używający IDE ni
   
 Zwróćmy jeszcze uwagę na metodę
 
-    public void start() { started = initiateStartingSequence();}
-
+```java
+public void start() {
+    started = initiateStartingSequence();
+}
+```
   
 Nowe dla Ciebie jest słowo kluczowe `void` w miejscu typu zwracanego. To słowo kluczowe informuje, że dana metoda nie zwraca żadnej wartości. W ciele tej metody do atrybutu started przypisujemy wartość zwróconą przez metodę `initiateStartingSequence`.
+
 ## Słowo kluczowe `this`
   
 Proszę zwróć uwagę na dwa poniższe fragmenty kodu:
 
-    public class Engine { private Cogwheel cogwheel; public Engine(Cogwheel cogwheel) { this.cogwheel = cogwheel; }}
+```java
+public class Engine {
+    private Cogwheel cogwheel;
+    
+    public Engine(Cogwheel cogwheel) {
+        this.cogwheel = cogwheel;
+    }
+}
+```
 
-    public class Engine { private Cogwheel cogwheel; public Engine(Cogwheel otherCogwheel) { cogwheel = otherCogwheel; }}
+```java
+public class Engine {
+    private Cogwheel cogwheel;
 
-  
+    public Engine(Cogwheel otherCogwheel) {
+        cogwheel = otherCogwheel; 
+    }
+}
+```
+
 W pierwszym przypadku w konstruktorze zostało użyte słowo kluczowe `this`. Było ono potrzebne aby kompilator był w stanie odróżnić parametr `cogwheel` od atrybutu klasy `cogwheel`. W drugim przypadku słowo to nie było konieczne ponieważ w tym kontekście od razu wiadomo czym jest `cogwheel` - jest atrybutem klasy. Oba konstruktory robią dokładnie to samo, przypisują wartość parametru to atrybutu nowej instancji.
 # Gettery i settery
   
 Znasz już 2 modyfikatory dostępu, `private` i `public`. Wiesz też, że atrybuty, metody które poprzedzone są modyfikatorem `private` są dostępne wyłącznie w danej klasie. Jak więc z zewnątrz można dowiedzieć się jaka jest wartość atrybutu `started` w instancji klasy `Engine`? Z pomocą przychodzą tak zwane "gettery" i "settery". Jest to nic innego jak specyficzne metody, których jedynym zadaniem jest odpowiednio pobranie bądź ustawienie wartości atrybutu. Poniżej przykłady:
 
-    engine = Engine(); // tworzymy instancje klasyengine.isStarted(); // zwraca wartość atrybutuengine.setStarted(true); // ustawia wartość atrybutu started w instancji engine
-
+```java
+engine = Engine(); // tworzymy instancje klasy
+engine.isStarted(); // zwraca wartość atrybutu
+engine.setStarted(true); // ustawia wartość atrybutu started w instancji engine
+```
   
 Gettery i settery to metody, których nazwy są określone przez specyfikację [Java Beans](http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html). W skrócie:
 - metody pobierające wartość atrybutu mają nazwę `get` typ zwracany odpowiada typowi atrybutu. Metoda nie przyjmuje żadnego parametru. Specyfikacja dopuszcza pewien wyjątek w nazwie jeśli atrybut jest typu `boolean`. W takim przypadku możemy użyć nazwy `is`, reszta pozostaje bez zmian.
   
-
-    public boolean isStarted() // zwraca wartość atrybutu startedpublic boolean getStarted() // zwraca wartość atrybutu startedpublic Cogwheel getCogwheel() // zwraca wartość atrybutu cogwheel
+```java
+public boolean isStarted() // zwraca wartość atrybutu started
+public boolean getStarted() // zwraca wartość atrybutu started
+public Cogwheel getCogwheel() // zwraca wartość atrybutu cogwheel
+```
 
 - metoda ustawiająca wartość atrybutu. Nową wartością jest parametr przekazany do tej metody. Nazwa metody musi pasować do wzorca `set`. Metoda musi przyjmować jeden parametr odpowiadający typowi atrybutu i nie może zwracać żadnej wartości.
   
 
-    public void setStarted(boolean started) // ustawia wartość atrybutu startedpublic void setCogwheel(Cogwheel cogwheel) // ustawia wartość atrybutu cogwheel
+```java
+public void setStarted(boolean started) // ustawia wartość atrybutu started
+public void setCogwheel(Cogwheel cogwheel) // ustawia wartość atrybutu cogwheel
+```
 
 # Generowanie getterów setterów
   
 Podobnie jak w przypadku generowania konstruktorów IDE pomaga w generowaniu getterów/setterów. W edytorze pomaga przy tym skrót `` naciśnięty gdy kursor znajduje się na nazwie atrybutu.
 ## [![kurs_java_2_parametry_konstruktora](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_parametry_konstruktora-150x150.png)](http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_parametry_konstruktora.png)
   
-Metody te można także wygenerować przy pomocy skrótu <alt insert> naciśniętego w edytorze i wybraniu opcji "Getter and Setter".<p><a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_getter_setter.png"><img class="aligncenter size-thumbnail wp-image-89" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_getter_setter-150x150.png" alt="kurs_java_2_getter_setter" width="150" height="150"></a></p>
-<h1>Ćwiczenie</h1>
-<br>Najwyższy czas na Twoje ćwiczenie. W ramach ćwiczenia utwórz nowy projekt, w nim utwórz 2 różne pakiety. W pakietach utwórz klasy odpowiadające kilku rodzajom zwierząt wraz z kilkoma atrybutami. Postaraj się używać przy tym poznanych dzisiaj skrótów. Jeśli chcesz, możesz spojrzeć na przykładowe rozwiązanie, które umieściłem na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/02_obiekty/src/main/java/pl/samouczekprogramisty/kursjava/objects/exercise" target="_blank" rel="noopener">githubie</a>.<h2>Podsumowanie</h2>
-<br>Bardzo się cieszę, że doczytałeś do tego miejsca! Jak poszło Ci z ćwiczeniem? Proszę daj znać w komentarzach. Jeśli podobają Ci się artykuły na blogu byłbym bardzo wdzięczny gdybyś polecił bloga swoim znajomym. Jak już powtarzałem - w grupie łatwiej się uczy :) Polub stronę na facebooku a nie przegapisz żadnego nowego artykułu. Do zobaczenia!<p>[FM_form id="3"]</p></alt>
+Metody te można także wygenerować przy pomocy skrótu <alt insert> naciśniętego w edytorze i wybraniu opcji "Getter and Setter".
+
+<a href="http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_getter_setter.png"><img class="aligncenter size-thumbnail wp-image-89" src="http://www.samouczekprogramisty.pl/wp-content/uploads/2015/11/kurs_java_2_getter_setter-150x150.png" alt="kurs_java_2_getter_setter" width="150" height="150"></a>
+
+# Ćwiczenie
+
+Najwyższy czas na Twoje ćwiczenie. W ramach ćwiczenia utwórz nowy projekt, w nim utwórz 2 różne pakiety. W pakietach utwórz klasy odpowiadające kilku rodzajom zwierząt wraz z kilkoma atrybutami. Postaraj się używać przy tym poznanych dzisiaj skrótów. Jeśli chcesz, możesz spojrzeć na przykładowe rozwiązanie, które umieściłem na [githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/02_obiekty/src/main/java/pl/samouczekprogramisty/kursjava/objects/exercise).
+
+## Podsumowanie
+
+Bardzo się cieszę, że doczytałeś do tego miejsca! Jak poszło Ci z ćwiczeniem? Proszę daj znać w komentarzach. Jeśli podobają Ci się artykuły na blogu byłbym bardzo wdzięczny gdybyś polecił bloga swoim znajomym. Jak już powtarzałem - w grupie łatwiej się uczy :) Polub stronę na facebooku a nie przegapisz żadnego nowego artykułu. Do zobaczenia!

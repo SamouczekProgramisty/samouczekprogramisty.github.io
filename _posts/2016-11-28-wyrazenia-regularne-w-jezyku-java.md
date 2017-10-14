@@ -21,7 +21,10 @@ Wyrażenia regularne są mechanizmem uniwersalnym, dostępne są w wielu języka
 
 Wyrażenie regularne to tak zwany wzorzec, który następne jest kompilowany przez silnik wyrażeń regularnych do wewnętrznej postaci. Po tym etapie używana jest „wewnętrzna reprezentacja” wyrażenia regularnego. Jeśli spróbujesz skompilować wzorzec, który nie jest poprawny zostaniesz o tym poinformowany odpowiednim wyjątkiem w trakcie działania programu.
 
-Sam etap kompilacji wyrażenia jest procesem relatywnie długim[1. Mówię to o długim w kontekście innych operacji takich jak dodawanie czy pobranie trzeciej litery z łańcucha znaków.]. Z tego właśnie powodu zaleca się kompilowanie wyrażeń przed ich pierwszym użyciem. Podobnie sprawa ma się jeśli chodzi o tworzenie nowych instancji klasy wzorca. Im ich mniej tym lepiej. Ma to szczególne znaczenie w sytuacji w której używamy wyrażenia wielokrotnie[2. Co prawda w języku Java każda instancja klasy `Pattern` kompilowana jest dokładnie raz jednak warto zapamiętać tę regułę w przypadku innych języków programowania.].
+Sam etap kompilacji wyrażenia jest procesem relatywnie długim[^dlugi]. Z tego właśnie powodu zaleca się kompilowanie wyrażeń przed ich pierwszym użyciem. Podobnie sprawa ma się jeśli chodzi o tworzenie nowych instancji klasy wzorca. Im ich mniej tym lepiej. Ma to szczególne znaczenie w sytuacji w której używamy wyrażenia wielokrotnie[^kompilacja].
+
+[^dlugi]: Mówię to o długim w kontekście innych operacji takich jak dodawanie czy pobranie trzeciej litery z łańcucha znaków.
+[^kompilacja]: Co prawda w języku Java każda instancja klasy `Pattern` kompilowana jest dokładnie raz jednak warto zapamiętać tę regułę w przypadku innych języków programowania.
 
 W wyrażeniach regularnych poza „dziwnymi znaczkami” używa się także zwyczajnych liter. Domyślnie w wyrażeniach regularnych wielkość liter ma znaczenie. Wyrażenie regularne `Kawa` to nie to samo co `kawa`.
 
@@ -31,7 +34,9 @@ No właśnie, do czego używamy wyrażeń regularnych? Ogólnie można powiedzie
 
 W praktyce jednym z głównych zastosowań jest weryfikacja czy dany łańcuch znaków pasuje do wzorca. Wzorcem tym jest wyrażenie regularne.
 
-To czy łańcuch znaków pasuje do wzorca wykorzystywane jest w trakcie walidacji danych wejściowych. Dzięki wyrażeniom regularnym możemy sprawdzić, czy dane pochodzące od użytkownika mają poprawny format. Na przykład następujące wyrażenie regularne pozwala sprawdzić czy użytkownik podał poprawne imię `[A-Z][a-z]+`, czy rzeczywiście adres email może być poprawny `.+@.+\.pl`[3. Oczywiście to wyrażenie regularne można "oszukać". Nawet jeśli łańcuch znaków pasuje do wzorca nie musi być poprawnym adresem email.], czy format daty, który prowadził użytkownik jest w porządku `\d{4}-\d{2}-\d{2}`.
+To czy łańcuch znaków pasuje do wzorca wykorzystywane jest w trakcie walidacji danych wejściowych. Dzięki wyrażeniom regularnym możemy sprawdzić, czy dane pochodzące od użytkownika mają poprawny format. Na przykład następujące wyrażenie regularne pozwala sprawdzić czy użytkownik podał poprawne imię `[A-Z][a-z]+`, czy rzeczywiście adres email może być poprawny `.+@.+\.pl`[^email], czy format daty, który prowadził użytkownik jest w porządku `\d{4}-\d{2}-\d{2}`.
+
+[^email]: Oczywiście to wyrażenie regularne można "oszukać". Nawet jeśli łańcuch znaków pasuje do wzorca nie musi być poprawnym adresem email.
 
 Ponadto, wyrażeń regularnych możemy używać do „parsowania” łańcuchów znaków. Jeśli mamy większy łańcuch, z którego chcemy wyciągnąć jakąś część wyrażenia regularne mogą nam w tym pomóc. Na przykład jeśli w telefonie zapisujemy znajomych jako "imię (pseudonim) nazwisko", wyrażenie regularne `\w+ \((\w+)\) \w+` pomoże nam wyciągnąć pseudonim.
 

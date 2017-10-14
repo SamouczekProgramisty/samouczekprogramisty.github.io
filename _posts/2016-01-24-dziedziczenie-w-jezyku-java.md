@@ -58,7 +58,10 @@ Do tej pory poznałeś modyfikatory dostępu takie jak:
 - `public` - element oznaczony tym modyfikatorem dostępny jest "z zewnątrz" obiektu, stanowi jego interfejs,
 - `private` - element oznaczony tym modyfikatorem jest dostępna wyłącznie wewnątrz obiektu, także klasy pochodne nie mają do niego dostępu.
   
-W przypadku dziedziczenia znaczenie ma także modyfikator `protected`. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę która po niej dziedziczy[1. Istnieje też "brak modyfikatora dostępu" jednak na początek możemy tą sytuację pominąć. Opiszę to w osobnym artykule.]
+W przypadku dziedziczenia znaczenie ma także modyfikator `protected`. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę która po niej dziedziczy[^dziedziczenie].
+
+[^dziedziczenie]:  Istnieje też "brak modyfikatora dostępu" jednak na początek możemy tą sytuację pominąć. Opiszę to w osobnym artykule.
+
 # Przesłonięcie metody
   
 Łatwo sobie wyobrazić sytuację, w której metoda o tej samej sygnaturze występuje zarówno w klasie bazowej jak i klasie pochodnej. W tej sytuacji mówimy o tym, że klasa pochodna przesłania metodę z klasy bazowej (ang. _override_). Proszę spójrz na przykład poniżej.
@@ -128,7 +131,9 @@ Teraz już wiesz czym jest dziedziczenie. A wiesz, że używałeś go od pierwsz
 
 Z jednego z poprzednich artykułów wiesz o tym, że kompilator dodaje automatycznie konstruktor bezparametrowy jeśli nie zdefiniujesz żadnego w swojej klasie. Podobnie jest z dziedziczeniem, każda klasa domyślnie dziedziczy po klasie `java.lang.Object` (chyba, że zdefiniujesz inną klasę po której dziedziczysz).
 
-Dzięki tej klasie masz dostęp do zestawu metod, które zdefiniowane są w ciele klasy Object. Na przykład metoda `String toString()` ma swoją podstawową implementację w klasie `Object` [2. Domyślna implementacja pokazuje nazwę klasy wraz z pakietem oraz jej adres w pamięci np. `pl.samouczekprogramisty.kursjava.cars.X@14ae5a5`].
+Dzięki tej klasie masz dostęp do zestawu metod, które zdefiniowane są w ciele klasy Object. Na przykład metoda `String toString()` ma swoją podstawową implementację w klasie `Object`[^tostring].
+
+[^tostring]: Domyślna implementacja pokazuje nazwę klasy wraz z pakietem oraz jej adres w pamięci np. `pl.samouczekprogramisty.kursjava.cars.X@14ae5a5`.
 
 # Dobre praktyki
   

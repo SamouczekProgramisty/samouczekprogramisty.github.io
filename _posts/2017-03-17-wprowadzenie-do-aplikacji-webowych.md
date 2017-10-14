@@ -12,7 +12,9 @@ W artykule tym przeczytasz o aplikacjach webowych. Dowiesz się czym są aplikac
 
 # Z przeglądarką czy bez?
   
-Używając przeglądarki czy programów z pakietu Office[1. Chodzi mi to o tę “instalowalną” część pakietu, a nie tę dostępną online ;).] używasz aplikacji zainstalowanych na komputerze. Potocznie o takich programach czy aplikacjach mówi się “aplikacje desktopowe”.
+Używając przeglądarki czy programów z pakietu Office[^office] używasz aplikacji zainstalowanych na komputerze. Potocznie o takich programach czy aplikacjach mówi się “aplikacje desktopowe”.
+
+[^office]: Chodzi mi to o tę "instalowalną" część pakietu, a nie tę dostępną online ;).
 
 Możesz je zainstalować pobierając odpowiednie pliki z internetu lub z innego nośnika jak na przykład płyta CD. Podczas takiej instalacji pliki niezbędne do działania aplikacji zapisywane są na dysku komputera.
 

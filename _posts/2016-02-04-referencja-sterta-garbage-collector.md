@@ -34,7 +34,9 @@ Poniżej pokazałem to co zostanie wypisane na konsoli po uruchomieniu powyższe
     java.lang.Object@7f31245ajava.lang.Object@7f31245ajava.lang.Object@6d6f6e28
 
   
-`java.lang.Object@7f31245a` to nic innego jak wynik domyślnej implementacji metody `toString` znajdującej się w klasie `Object`. Metoda ta zwraca nazwę klasy wraz z pakietem oraz adres obiektu na stercie. 7f31245a to adres obiektu (oczywiście w Twoim przypadku te numery mogą być różne – Java może przydzielić tym obiektom inny adres przy każdym uruchomieniu).[1. Właściwie to zależy od implementacji maszyny wirtualnej Javy, nie mamy gwarancji, że ten numerek będzie adresem.]
+`java.lang.Object@7f31245a` to nic innego jak wynik domyślnej implementacji metody `toString` znajdującej się w klasie `Object`. Metoda ta zwraca nazwę klasy wraz z pakietem oraz adres obiektu na stercie. 7f31245a to adres obiektu (oczywiście w Twoim przypadku te numery mogą być różne – Java może przydzielić tym obiektom inny adres przy każdym uruchomieniu)[^adres].
+
+[^adres]: Właściwie to zależy od implementacji maszyny wirtualnej Javy, nie mamy gwarancji, że ten numerek będzie adresem.
 
 Zauważyłeś, że dwie pierwsze linijki są takie same? To nic innego jak konsekwencja tego, że referencje są "sznurkami" wskazującymi na obiekty. Mamy dwie różne zmienne, które wskazują na ten sam adres na stercie. Jaka jest tego konsekwencja? Jeśli zmienimy zawartość obiektu pod tym adresem obie referencje będą pokazywały, nową, zmienioną wersję obiektu. Rzuć okiem na przykład.
 
@@ -58,7 +60,9 @@ Wiesz już, że obiekty zajmują obszar na stercie. Java stara się być trochę
 Dwie pierwsze linijki to dwie zmienne, dwie referencje i dwa różne obiekty (które mają w taką samą zawartość). Dwie ostatnie linijki to dwie zmienne, dwie referencje i jeden obiekt. Obie referencje pokazują na obiekt utworzony w 3 linijce. Innymi słowy konstruktor tworzy kopię przekazanego literału. Literał może czasami ograniczyć ilość zużytego miejsca na stercie.
 # Garbage Collector w wirtualenej maszynie Javy
   
-Zbieracz śmieci :) Gargage collector, inaczej GC, jest komponentem wirtualnej maszyny Javy odpowiedzialnym za czyszczenie sterty[1. Nie tylko sterty, wirtualna maszyna Javy alokuje też pamięć w innych celach, na przykład tak zwany "metaspace", który też jest czyszczony przez GC.]. Jeśli na stercie znajdą się obiekty, które już nie są używane zostają one usunięte aby zwolnić miejsce dla nowych obiektów.
+Zbieracz śmieci :) Gargage collector, inaczej GC, jest komponentem wirtualnej maszyny Javy odpowiedzialnym za czyszczenie sterty[^sterta]. Jeśli na stercie znajdą się obiekty, które już nie są używane zostają one usunięte aby zwolnić miejsce dla nowych obiektów.
+
+[^sterta]: Nie tylko sterty, wirtualna maszyna Javy alokuje też pamięć w innych celach, na przykład tak zwany "metaspace", który też jest czyszczony przez GC.
 
 Gdyby nie było tego mechanizmu pamięć nie byłaby zwalniana i po pewnym czasie program nie mógłby działać, nie miałby miejsca na alokację pamięci dla nowo tworzonych obiektów. GC używa różnych zaawansowanych algorytmów, które pozwalają zdecydować czy dany obiekt jest aktualnie wykorzystywany przez działający program.
 

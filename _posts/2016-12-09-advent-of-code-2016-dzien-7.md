@@ -19,7 +19,9 @@ Advent of Code to inicjatywa, w której codziennie publikowane są zadania algor
 
 # Dzień 7 zadanie 1
   
-[Wczoraj](http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-6/) odebrałeś tajny kod od Świętego Mikołaja. Dzisiaj nadszedł czas na inwigilację sieci w Kwaterze Głównej Króliczka Wielkanocnego. W trakcie podsłuchiwania ruchu zebrałeś listę [adresów IP](https://en.wikipedia.org/wiki/IP_address) (oczywiście są to adresy IPv7[1. IPv7 w tym momencie nie istnieje.] , [IPv6](https://en.wikipedia.org/wiki/IPv6) jest zbyt ograniczony...). Chciałbyś dowiedzieć się, które z tych adresów wspierają TLS.
+[Wczoraj](http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-6/) odebrałeś tajny kod od Świętego Mikołaja. Dzisiaj nadszedł czas na inwigilację sieci w Kwaterze Głównej Króliczka Wielkanocnego. W trakcie podsłuchiwania ruchu zebrałeś listę [adresów IP](https://en.wikipedia.org/wiki/IP_address) (oczywiście są to adresy IPv7[^ipv7] , [IPv6](https://en.wikipedia.org/wiki/IPv6) jest zbyt ograniczony...). Chciałbyś dowiedzieć się, które z tych adresów wspierają TLS.
+
+[^ipv7]: IPv7 w tym momencie nie istnieje.
 
 Adres IPv7 wspiera TLS jeśli zawiera sekwencję ABBA wewnątrz standardowych części adresu IP. Sekwencja ABBA to czteroznakowa sekwencja, które zawiera parę dwóch różnych znaków, po której znajduje się ta sama para ale odwrócona. Na przykład `xyyx` czy `abba`. Jednak aby adres IPv7 wspierał TLS, sekwencja ABBA nie może znajdować się w żadnej części "hypernet" adresu IP. Części "hypernet" znajdują się między nawiasami `[]`.
 

@@ -90,14 +90,18 @@ Kolejna nowa rzecz to typ przekazywanego argumentu. `String[]` oznacza tablicę 
     System.out.println(message);
 
   
-Ta konstrukcja jest trochę bardziej skomplikowana. Odwołujemy się tutaj do atrybutu `out` klasy `System`. `System.out` także jest obiektem, jest to obiekt klasy `java.io.PrintStream`. Klasa ta definiuje wiele metod, jedną z nich jest `println`, która wypisuje to co przekażemy jej jako parametr w osobnej linii[1. To jest spore uproszczenie, tutaj musielibyśmy mówić o strumieniach, plikach, IO itd. dzisiaj to pominiemy, skupimy się na tym w przyszłości].
+Ta konstrukcja jest trochę bardziej skomplikowana. Odwołujemy się tutaj do atrybutu `out` klasy `System`. `System.out` także jest obiektem, jest to obiekt klasy `java.io.PrintStream`. Klasa ta definiuje wiele metod, jedną z nich jest `println`, która wypisuje to co przekażemy jej jako parametr w osobnej linii[^uproszczenie].
+
+[^uproszczenie]: To jest spore uproszczenie, tutaj musielibyśmy mówić o strumieniach, plikach, IO itd. dzisiaj to pominiemy, skupimy się na tym w przyszłości.
+
 ## Klasa `String`
   
 W każdym języku programowania, który znam istnieje sposób na zapisanie łańcucha znaków w sposób zrozumiały dla komputera. W języku Java do tego celu używamy klasy `String`.
 
-    String someRandomWord = "słowo";
+```java
+String someRandomWord = "słowo";
+```
 
-  
 Jak widzisz w linijce tworzymy zmienną `someRandomWord` typu `String` i przypisujemy jej wartość `"słowo"`. Wszystko co jest otoczone `"` oznacza String. Jest to konstrukcja wbudowana w język Java. Do utworzenia instancji obiektu String nie potrzebujemy konstruktora, wystarczy otoczyć łańcuch znaków `""` jak w przykładzie wyżej.
 
 Jeśli wewnątrz łańcucha znaków chcesz umieścić `"` musisz go poprzedzić ukośnikiem `\` jak w przykładzie poniżej.

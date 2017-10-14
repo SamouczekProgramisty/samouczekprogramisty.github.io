@@ -96,8 +96,9 @@ Argument z numerem 1 użyty jest dwa razy, argument 2. użyty jest jako pierwszy
   
 Możesz także określić minimalną szerokość jaką powinien zająć argument. Domyślnie zostanie on wyrównany do prawej. Proszę spójrz na przykład poniżej:
 
-    System.out.format("[%10s] [%3s]", "test", "test");
-
+```java
+System.out.format("[%10s] [%3s]", "test", "test");
+```
   
 Pierwszy fragment będzie uzupełniony sześcioma spacjami. Dzieje się tak ponieważ test ma cztery znaki a minimalna szerokość to 10. Zauważ, że w drugiej części gdzie minimalna szerokość to 3 żadne dodatkowe spacje nie zostały dodane.
 
@@ -105,12 +106,16 @@ Pierwszy fragment będzie uzupełniony sześcioma spacjami. Dzieje się tak poni
 
 ## Precyzja
   
-Dodatkowo dla liczb zmiennoprzecinkowych możesz określić precyzję. Dodając ten modyfikator określasz ile liczb po przecinku powinno być wyświetlonych [2. Precyzję można także użyć na przykład wraz z `%s`, wtedy oznacza to maksymalną liczbę znaków do wyświetlenia.].
+Dodatkowo dla liczb zmiennoprzecinkowych możesz określić precyzję. Dodając ten modyfikator określasz ile liczb po przecinku powinno być wyświetlonych[^precyzja].
+
+[^precyzja]: Precyzję można także użyć na przykład wraz z `%s`, wtedy oznacza to maksymalną liczbę znaków do wyświetlenia.
 
 Jeśli precyzja zostanie pominięta użyta jest domyślna wartość - sześć miejsc po przecinku. Proszę spójrz na przykład poniżej:
 
-    double x = 1.1234567890123;System.out.format("[%.10f] [%.3f] [%f]", x, x, x);
-
+```java
+double x = 1.1234567890123;
+System.out.format("[%.10f] [%.3f] [%f]", x, x, x);
+```
   
 Na konsoli pokażą się trzy liczby. Pierwsza z nich zawiera 10 liczb po przecinku, druga 3 a ostatnia domyślne 6:
 

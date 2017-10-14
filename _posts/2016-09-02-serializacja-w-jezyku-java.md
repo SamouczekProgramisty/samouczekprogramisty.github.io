@@ -42,7 +42,9 @@ Dodatkowo istnieje interfejs [`java.io.Externalizable`](https://docs.oracle.com/
   
 Ten krok jest opcjonalny, jednak w bardziej zaawansowanych przypadkach niezbędny. Wyobraź sobie, że napisałeś klasę `Human`, która jako jeden z atrybutów posiada wiek zapisany w minutach od urodzenia. Zapisanie tego pola mogłoby prowadzić do odczytania niepoprawnego stanu (zapisujemy obiekt dzisiaj, odczytujemy jutro, wiek w minutach jest zupełnie inny).
 
-Tutaj dochodzimy do słowa kluczowego `transient`. Otóż słowo to może być stosowane przed atrybutami klasy. Oznacza ono, że dany atrybut nie jest serializowalny i zostanie pominięty przez mechanizm serializacji[1. Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacjim– użycie pola `serialPersistentFields` (jest ono dokładniej opisane w [specyfikacji](http://docs.oracle.com/javase/8/docs/platform/serialization/spec/serial-arch.html#a6250)).].
+Tutaj dochodzimy do słowa kluczowego `transient`. Otóż słowo to może być stosowane przed atrybutami klasy. Oznacza ono, że dany atrybut nie jest serializowalny i zostanie pominięty przez mechanizm serializacji[^serializacja].
+
+[^serializacja]: Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacjim– użycie pola `serialPersistentFields` (jest ono dokładniej opisane w [specyfikacji](http://docs.oracle.com/javase/8/docs/platform/serialization/spec/serial-arch.html#a6250)).
 
 # Przykład serializacji obiektu
   

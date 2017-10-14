@@ -12,7 +12,9 @@ W artykule tym przeczytasz o tym czym jest format XML. Poznasz kilka bibliotek c
 
 # Czym jest XML
   
-XML (ang. _Extensible Markup Language_) to specyfikacja zapisu danych, która została opracowana w 1998 roku przez W3C (ang. _World Wide Web Consortium_). Jest to format tekstowy, który pozwana na zapisywanie danych w postaci, która jest łatwa do odczytu zarówno przez maszyny jak i przez ludzi [1. Moim zdaniem skomplikowane pliki XML w cale nie są czytelne dla ludzi, ale to już temat na osobną dyskusję ;).].
+XML (ang. _Extensible Markup Language_) to specyfikacja zapisu danych, która została opracowana w 1998 roku przez W3C (ang. _World Wide Web Consortium_). Jest to format tekstowy, który pozwana na zapisywanie danych w postaci, która jest łatwa do odczytu zarówno przez maszyny jak i przez ludzi[^czytelnosc].
+
+[^czytelnosc]: Moim zdaniem skomplikowane pliki XML w cale nie są czytelne dla ludzi, ale to już temat na osobną dyskusję ;).
 
 Aby dane w formacie XML uważano za poprawne muszą one mieć pewną strukturę, proszę spójrz na przykład poniżej, który pokazuje poprawne dane w formacie XML:
 
@@ -107,15 +109,15 @@ Poniżej pokażę Ci kilka przykładowych zastosowań dokumentów w formacie XML
 # Na XML świat się nie kończy
   
 Oczywiście dokumenty XML nie są jedynym formatem, który może pomóc w wymianie danych. Poniżej wspominam o kilku innych formatach, które mogą być także użyte w tym celu.
-- CSV - (ang. _Comman Separated Values_) zwykły plik tekstowy, w którym każdy wiersz zawiera dane oddzielone przecinkami [2. Istnieją też inne wersje gdzie przecinek zastąpiony jest średnikiem czy znakiem tabulacji]. Z racji tego, że jest to plik tekstowy można go z łatwością odczytać używając edytora tekstu.
+- CSV - (ang. _Comman Separated Values_) zwykły plik tekstowy, w którym każdy wiersz zawiera dane oddzielone przecinkami[^csv]. Z racji tego, że jest to plik tekstowy można go z łatwością odczytać używając edytora tekstu.
 - [YAML](http://www.yaml.org/) - (ang. _Yet Another Markup Language_ lub _YAML Ain’t Markup Language_) tekstowy format, w którym możemy zapisywać bardziej złożone struktury czy kolekcje.
 - [JSON](http://www.json.org/) - (ang. _JavaScript Object Notation_) podobnie jak YAML jest w stanie opisać listę elementów czy kolekcję par klucz-wartość. Format ten, jak jego nazwa wskazuje, powstał na potrzeby JavaScript, jednak obecne jest szeroko stosowany także w innych językach. Jest to format tekstowy.
-  
+
+[^csv]: Istnieją też inne wersje gdzie przecinek zastąpiony jest średnikiem czy znakiem tabulacji.
   
 Oczywiście poza formatami tekstowymi istnieją też formaty binarne:
 - [ProtocolBuffers](https://developers.google.com/protocol-buffers/) - binarny format opracowany przez Google. Pozwala na zapisanie praktycznie dowolnych struktur. Z racji tego, że jest to format binarny jest bardziej “zwięzły” od wspomnianych powyżej. Oczywiście nie można odczytać tego formatu bez odpowiedniego “dekodowania” zawartości,
 - [Avro](https://avro.apache.org/) - binarny format serializacji danych, podobnie jak ProtoclBuffers zapewnia dużo bardziej zwięzłą reprezentację danych. Ma wbudowany mechanizm kompresji co pozwala na jeszcze większe zmniejszenie objętości dokumentów.
-  
   
 Bynajmniej nie są to wszystkie dostępne formaty wymiany danych. Wspomniałem o tych kilku aby pokazać Ci, że na XML świat się nie kończy :) Każdy z tych formatów dorobił się szerokiego wsparcia w różnych językach programowania.
 # Inne specyfikacje i narzędzia związane z XML

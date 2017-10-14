@@ -47,7 +47,9 @@ Właśnie ta ostatnia linijka przyda się w przypadku pogodynki - co 5 minut bę
   
 W związku z tym, że zadanie sprawdzania temperatury będzie się odbywało w regularnych odstępach i będzie działo się automatycznie potrzebuję mechanizmu do monitorowania żeby zapewnić poprawnie i ciągłe działanie termometru.
 
-Z doświadczenia wiem, że tego typu zadania dość często płatają figle i nie wykonują się poprawnie. Postanowiłem użyć serwisu [https://healthchecks.io](https://healthchecks.io). Jest to darmowy serwis, który umożliwia wysyłanie stanu programu[1. W sumie nie jest to stan, a jedynie "ping", co w zupełności spełnia wymagania.] na skonfigurowany adres URL. Serwis ten monitoruje czy takie zapytanie jest wysyłanie z odpowiednią częstotliwością.
+Z doświadczenia wiem, że tego typu zadania dość często płatają figle i nie wykonują się poprawnie. Postanowiłem użyć serwisu [https://healthchecks.io](https://healthchecks.io). Jest to darmowy serwis, który umożliwia wysyłanie stanu programu[^ping] na skonfigurowany adres URL. Serwis ten monitoruje czy takie zapytanie jest wysyłanie z odpowiednią częstotliwością.
+
+[^ping]: W sumie nie jest to stan, a jedynie "ping", co w zupełności spełnia wymagania.
 
 Jak widzisz na obrazku poniżej pokazuję przykładowe ustawienia healthchecks
 

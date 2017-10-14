@@ -39,7 +39,9 @@ Z racji tego, że atrybut fruit jest typu Object możemy do niego przypisać zar
   
 `public class BoxOnSteroids` to nic innego jak pierwsza linijka definicji klasy. Nowa tutaj jest konstrukcja z nawiasami. Oznacza ona właśnie typ generyczny, który możemy parametryzować innym typem. Typ ten dostaje "tymczasową nazwę", w tym przypadku `T`, której używamy dalej w ciele klasy.
 
-W trakcie tworzenia instancji obiektu `BoxOnSteroids` podajemy informację o typie, który chcielibyśmy wstawić w miejsce `T`. W naszym przykładzie są to klasy `Apple` lub `Orange`. Dzięki takiej konstrukcji kompilator dokładnie wie jakiego typu obiekt zostanie zwrócony przez metodę `getFruit` w związku z tym rzutowanie nie jest konieczne [0. W praktyce rzutowanie tam występuje jednak jest wykonywane automatycznie przez kompilator generujący bytecode].
+W trakcie tworzenia instancji obiektu `BoxOnSteroids` podajemy informację o typie, który chcielibyśmy wstawić w miejsce `T`. W naszym przykładzie są to klasy `Apple` lub `Orange`. Dzięki takiej konstrukcji kompilator dokładnie wie jakiego typu obiekt zostanie zwrócony przez metodę `getFruit` w związku z tym rzutowanie nie jest konieczne[^rzutowanie].
+
+[^rzutowanie]: W praktyce rzutowanie tam występuje jednak jest wykonywane automatycznie przez kompilator generujący bytecode.
 
 # Definicja klasy generycznej
   
@@ -83,7 +85,10 @@ Typy generyczne zostały wprowadzone w wersji Javy 1.5. Nie były dostępne od p
     BoxOnSteroids boxWithoutType = new BoxOnSteroids(new Apple());BoxOnSteroids boxWithApple = boxWithoutType;BoxOnSteroids boxWithOrange = boxWithoutType;Apple apple = boxWithApple.getFruit();Orange orange = boxWithOrange.getFruit(); // ClassCastException
 
   
-W przykładzie tym tworzona jest instancja klasy generycznej `BoxOnSteroids` bez wyspecyfikowania klasy, która znajduje się "w środku". Następnie tą instancję przypisujemy do zmiennych typu `BoxOnSteroids` i `BoxOnSteroids`. O ile w pierwszym przypadku typ owocu trzymanego w środku się zgadza to ostatnia linia nie jest poprawna – generuje błąd typu `ClassCastException`. Obiekt typu `Apple` jest rzutowany przez kompilator do typu `Orange`[0. Tu właśnie objawia się to automatyczne rzutowanie generowane przez kompilator].
+W przykładzie tym tworzona jest instancja klasy generycznej `BoxOnSteroids` bez wyspecyfikowania klasy, która znajduje się "w środku". Następnie tą instancję przypisujemy do zmiennych typu `BoxOnSteroids` i `BoxOnSteroids`. O ile w pierwszym przypadku typ owocu trzymanego w środku się zgadza to ostatnia linia nie jest poprawna – generuje błąd typu `ClassCastException`. Obiekt typu `Apple` jest rzutowany przez kompilator do typu `Orange`[^rzutowanie].
+
+[^rzutowanie]: Tu właśnie objawia się to automatyczne rzutowanie generowane przez kompilator
+
 # Słowo kluczowe `extends`
   
 To słowo kluczowe ma zastosowanie także w przypadku typów generycznych. Dzięki niemu możemy ograniczyć zestaw klas którymi możemy parametryzować nasz typ generyczny. Omówmy to na przykładzie:
@@ -103,8 +108,9 @@ Tutaj należy się dodatkowe zdanie wyjaśnienia poparte prostym przykładem. Pr
 
     public class Rectangle implements Figure { public String getName() { return "rectangle"; }}public class Square extends Rectangle { public String getName() { return "square"; }}
 
-  
-Jak wiesz każda klasa w języku Java dziedziczy po klasie `Object` (bezpośrednio, bądź pośrednio). W naszym przykładzie bezpośrednio po klasie `Object` dziedziczą klasy `Rectangle`, `BoxForFigures` i `BoxForFigures` [2. W rzeczywistości, po skompilowaniu powstanie jeden plik class z klasą `BoxForFigures`]. Natomiast `Square` dziedziczy po `Rectangle`.
+Jak wiesz każda klasa w języku Java dziedziczy po klasie `Object` (bezpośrednio, bądź pośrednio). W naszym przykładzie bezpośrednio po klasie `Object` dziedziczą klasy `Rectangle`, `BoxForFigures` i `BoxForFigures`[^plik_class]. Natomiast `Square` dziedziczy po `Rectangle`.
+
+[^plik_class]: W rzeczywistości, po skompilowaniu powstanie jeden plik class z klasą `BoxForFigures`.
 
 ![dziedziczenie typow generycznych](http://www.samouczekprogramisty.pl/wp-content/uploads/2016/03/dziedziczenie_typow_generycznych_2.jpg)
 
@@ -124,23 +130,79 @@ W naszym przykładzie klasa `FancyBox` dziedziczy po `StandardBox`, widoczne jes
 
 ![dziedziczenie typow generycznych](http://www.samouczekprogramisty.pl/wp-content/uploads/2016/03/dziedziczenie_typow_generycznych.jpg)
 
-&nbsp;
-
 # Metody z generycznymi argumentami – wildcard
 
-## FancyBox\>
+## `FancyBox<?>`
   
 Pisząc metody, które jako argumenty przyjmują typy generyczne nie zawsze chcesz dokładnie specyfikować typ. W takim wypadku z pomocą przychodzi znak `?`, który może akceptować różne typy.
 
     private static void method1(FancyBox> box) { Object object = box.object; System.out.println(object);}private static void plainWildcard() { method1(new FancyBox<>(new Object())); method1(new FancyBox<>(new Square())); method1(new FancyBox<>(new Apple()));}
 
-  
 Jak widzisz w przykładzie powyżej metoda method1 może akceptować różne klasę `FancyBox` parametryzowaną dowolnym typem.
-## FancyBox extends Figure\> "upper bound"
+
+## `FancyBox<? extends Figure>` "upper bound"
   
 Znak `?` może występować także w połączeniu ze słówkiem kluczowym `extends`. W takim przypadku możesz ograniczyć akceptowane typy "z góry". Na przykład w przykładzie poniżej metoda akceptuje jedynie klasy typy, które dziedziczą po Figure.
 
-    private static void method2(FancyBox extends Figure> box) { Figure figure = box.object; System.out.println(figure);}private static void method3(FancyBox box) { Figure figure = box.object; System.out.println(figure);}private static void upperBoundWildcard() { method2(new FancyBox<>(new Square())); method2(new FancyBox<>(new Circle())); //method3(new FancyBox(new Square())); // compilation error}
+```java
+private static void method2(FancyBox extends Figure> box) {
+    Figure figure = box.object;
+    System.out.println(figure);
+}
 
-  
-W przykładzie tym możesz także zobaczyć, że typ `FancyBox` jest bardziej restrykcyjny niż `FancyBox extends Figure>`. W konsekwencji próba wywołania `method3` z argumentem innego typu niż `FancyBox; skutkuje błędem kompilacji.FancyBox super Rectangle> "lower bound"Poza ograniczeniem "z góry" możesz także ograniczyć akceptowalne typy "z dołu". W przykładzie poniżej metoda akceptuje wyłącznie argumenty typu FancyBox, FancyBox i FancyBox.private static void method4(FancyBox super Rectangle> box) { box.object = new Square(); //box.object = new Circle(); // compilation error}private static void lowerBoundWildcard() { method4(new FancyBox<>(new Rectangle())); method4(new FancyBox(new Rectangle())); method4(new FancyBox<>(new Object())); //method4(new FancyBox(new Square())); // compilation error}Zauważ, ze w niektórych miejscach nie ma potrzeby podawania typu generycznego. Samo <> wystarczy, kompilator jest w stanie wywnioskować jakiego typu może się tam spodziewać.Typy generyczne są skomplikowaneJeśli aktualnie masz mętlik w głowie nie przejmuj się. Typy generyczne są skomplikowane. Nie zostały one dodane do Javy od samego początku. W związku z tym, że twórcy chcieli zachować kompatybilność wstecz [1. Twórcom zależało na tym aby programy napisane w starej wersji Javy mogły być uruchamiane na najnowszych wersjach maszyny wirtualnej] istnieje wiele kruczków, które nie są trywialne. Pominąłem w artykule np. "type erasure" czy generyczne metody, które nie są istotne na początku. Jeśli jesteś nimi zainteresowany odsyłam do materiałów dodatkowych.Materiały dodatkoweWszystkie przykłady użyte w tym artykule dostępne są na githubie. Poniżej zebrałem dla Ciebie zestaw dodatkowy materiałów, jeśli chciałbyś poszerzyć swoją wiedzę na temat typów generycznych w języku Java.https://docs.oracle.com/javase/tutorial/java/generics/index.htmlhttps://docs.oracle.com/javase/tutorial/extra/generics/index.htmlhttps://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.5https://pl.wikipedia.org/wiki/Programowanie_uog%C3%B3lnionePodsumowanieNie jest to oczywiście kompletny artykuł dotyczący typów generycznych w Javie. Pominięte zostały aspekty wymazywania typów czy bardziej szczegółowe informacje dotyczące użycia ?. Jeśli któryś fragment jest dla Ciebie nie do końca zrozumiały daj znać, postaram się rozszerzyć artykuł o dodatkowe przykłady i opisy.Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz ominąć żadnego kolejnego artykułu polub nas na facebooku :) Do następnego razu![FM_form id="3"]Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/huntingglee/2222875354`
+private static void method3(FancyBox box) {
+    Figure figure = box.object;
+    System.out.println(figure);
+}
+
+private static void upperBoundWildcard() {
+    method2(new FancyBox<>(new Square()));
+    method2(new FancyBox<>(new Circle()));
+    // method3(new FancyBox(new Square())); // compilation error
+}
+```
+
+W przykładzie tym możesz także zobaczyć, że typ `FancyBox` jest bardziej restrykcyjny niż `FancyBox extends Figure>`. W konsekwencji próba wywołania `method3` z argumentem innego typu niż `FancyBox; skutkuje błędem kompilacji.
+
+## `FancyBox<? super Rectangle>` "lower bound"
+
+Poza ograniczeniem "z góry" możesz także ograniczyć akceptowalne typy "z dołu". W przykładzie poniżej metoda akceptuje wyłącznie argumenty typu FancyBox, FancyBox i FancyBox.
+
+```java
+private static void method4(FancyBox super Rectangle> box) {
+    box.object = new Square();
+    // box.object = new Circle(); // compilation error
+}
+    
+private static void lowerBoundWildcard() {
+    method4(new FancyBox<>(new Rectangle()));
+    method4(new FancyBox(new Rectangle()));
+    method4(new FancyBox<>(new Object()));
+    // method4(new FancyBox(new Square())); // compilation error
+}
+```
+
+Zauważ, ze w niektórych miejscach nie ma potrzeby podawania typu generycznego. Samo `<>` wystarczy, kompilator jest w stanie wywnioskować jakiego typu może się tam spodziewać.Typy generyczne są skomplikowaneJeśli aktualnie masz mętlik w głowie nie przejmuj się.
+
+# Typy generyczne są skomplikowane
+
+Nie zostały one dodane do Javy od samego początku. W związku z tym, że twórcy chcieli zachować kompatybilność wstecz[^compatibility] istnieje wiele kruczków, które nie są trywialne. Pominąłem w artykule np. "type erasure" czy generyczne metody, które nie są istotne na początku. Jeśli jesteś nimi zainteresowany odsyłam do materiałów dodatkowych.
+
+[^compatibility]: Twórcom zależało na tym aby programy napisane w starej wersji Javy mogły być uruchamiane na najnowszych wersjach maszyny wirtualnej.
+
+# Materiały dodatkowe
+
+Wszystkie przykłady użyte w tym artykule dostępne są na githubie. Poniżej zebrałem dla Ciebie zestaw dodatkowy materiałów, jeśli chciałbyś poszerzyć swoją wiedzę na temat typów generycznych w języku Java.
+
+- <https://docs.oracle.com/javase/tutorial/java/generics/index.html>
+- <https://docs.oracle.com/javase/tutorial/extra/generics/index.html>
+- <https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.5>
+- <https://pl.wikipedia.org/wiki/Programowanie_uog%C3%B3lnione>
+
+# Podsumowanie
+
+Nie jest to oczywiście kompletny artykuł dotyczący typów generycznych w Javie. Pominięte zostały aspekty wymazywania typów czy bardziej szczegółowe informacje dotyczące użycia ?. Jeśli któryś fragment jest dla Ciebie nie do końca zrozumiały daj znać, postaram się rozszerzyć artykuł o dodatkowe przykłady i opisy.
+
+Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz ominąć żadnego kolejnego artykułu polub nas na facebooku :) Do następnego razu!
+
+Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/huntingglee/2222875354

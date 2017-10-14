@@ -11,7 +11,9 @@ W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych
 
 # Czym jest Gradle
   
-Starając się opisać Gradle jednym zdaniem powiedziałbym, że Gradle jest narzędziem służącym do budowania projektów[1. Oczywiście z racji swoje elastyczności Gradle może być użyte także w wielu innych przypadkach, jednak to budowanie projektów jest tym „standardowym”.]. Pozwala ono na zautomatyzowanie tego procesu. Używa się do tego tak zwanego języka domenowego - DSL (ang. _Domain Specific Language_), który ułatwia wykonywanie standardowych zadań związanych z budowaniem projektu.
+Starając się opisać Gradle jednym zdaniem powiedziałbym, że Gradle jest narzędziem służącym do budowania projektów[^gradle]. Pozwala ono na zautomatyzowanie tego procesu. Używa się do tego tak zwanego języka domenowego - DSL (ang. _Domain Specific Language_), który ułatwia wykonywanie standardowych zadań związanych z budowaniem projektu.
+
+[^gradle]: Oczywiście z racji swoje elastyczności Gradle może być użyte także w wielu innych przypadkach, jednak to budowanie projektów jest tym "standardowym".
 
 Jeśli do tej pory miałeś styczność wyłącznie z niezbyt dużymi projektami, nad którymi pracowałeś samodzielnie prawdopodobnie nie odczuwałeś potrzeby używania narzędzi tego typu. Jednak przy większych projektach narzędzie, które pozwala na zautomatyzowanie tego procesu jest bardzo pomocne.
 
@@ -33,7 +35,9 @@ Po takim zestawie ustawień i ponownym uruchomieniu terminala powinieneś móc w
 
 # W czym może pomóc Gradle
   
-Jak wspomniałem wcześniej Gradle służy do budowania projektów. Pod pojęciem „budowania projektów” tak naprawdę kryje się cała masa drobnych czynności. Zaczynając od najbardziej podstawowych, takich jak kompilowanie kodu źródłowego czy tworzenie pliku ze skompilowanymi klasami, na przykład pliku JAR (ang. _Java Archive_)[1. Programy, które napiszemy pakowane są w paczki, tego typu paczki używane są do uruchamiania programów w środowisku produkcyjnym.].
+Jak wspomniałem wcześniej Gradle służy do budowania projektów. Pod pojęciem „budowania projektów” tak naprawdę kryje się cała masa drobnych czynności. Zaczynając od najbardziej podstawowych, takich jak kompilowanie kodu źródłowego czy tworzenie pliku ze skompilowanymi klasami, na przykład pliku JAR (ang. _Java Archive_)[^jar].
+
+[^jar]: Programy, które napiszemy pakowane są w paczki, tego typu paczki używane są do uruchamiania programów w środowisku produkcyjnym.
 
 Jednak to nie koniec, dobrze byłoby uruchomić wszystkie testy, które sprawdzają poprawność działania kodu przed utworzeniem pliku JAR. W tym także pomoże Ci Gradle. Gradle pomoże też przy zarządzaniu zależnościami projektu.
 

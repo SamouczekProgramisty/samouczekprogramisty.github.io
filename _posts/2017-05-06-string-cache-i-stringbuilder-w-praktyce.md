@@ -39,10 +39,15 @@ Najprostszym sposobem otrzymania łańcucha znaków jaki nas interesuje jest zł
     System.out.println("some" + " " + "string" + " " + "literal");
 
   
-W przypadku konkatenacji każdy z elementów konwertowany jest do typu `String` używając metody `toString` [0. Nie jest to do końca prawda, na przykład w przypadku typów prymitywnych stosowany jest inny mechanizm, zależny od typu zmiennej.]
+W przypadku konkatenacji każdy z elementów konwertowany jest do typu `String` używając metody `toString`[^tostring]:
 
-    int x = 10;Object y = new Object();System.out.println("some" + " " + x + " " + "literal" + " " + y);
+[^tostring]:  Nie jest to do końca prawda, na przykład w przypadku typów prymitywnych stosowany jest inny mechanizm, zależny od typu zmiennej.
 
+```java
+int x = 10;
+Object y = new Object();
+System.out.println("some" + " " + x + " " + "literal" + " " + y);
+```
   
 Używanie operatora `+` może być bardzo wygodne jednak czasami może prowadzić do zaskakujących (na początku) rezultatów. Proszę porównaj dwie poniższe linijki kodu:
 
@@ -53,7 +58,9 @@ Pierwsza z nich na początku doda dwie liczby uzyskując 3 a następnie dołącz
 
 W pierwszym przypadku do liczby 1 dodajemy liczbę 2, następnie "dodajemy" do niej łańcuch znaków. W drugim przypadku do łańcucha znakód dodajemy kolejno dwie liczby.
 
-Klasa `String` posiada także metodę `concat`, która działa w podobny sposób do operatora `+`[1. Istnieją oczywiście drobne różnice, na przykład zachowanie w odniesieniu do zmiennych o wartości `null`.].
+Klasa `String` posiada także metodę `concat`, która działa w podobny sposób do operatora `+`[^operator].
+
+[^operator]: Istnieją oczywiście drobne różnice, na przykład zachowanie w odniesieniu do zmiennych o wartości `null`.
 
 # Wydajność a konkatenacja
   
@@ -64,13 +71,19 @@ Nie inaczej jest z konkatenacją. Proszę spójrz na przykład poniżej:
     String some = "some";String space = " ";String random = "random";String string = "string";String someString = some + space + random + space + string;
 
   
-Tak na prawdę, zanim powstałaby finalna instancja klasy `String` potrzebne byłoby aż trzy “tymczasowe” obiekty [2. Piszę “potrzebne byłby” ponieważ kompilator wprowadza tu pewne optymalizacje, o których przeczytasz niżej.]. Dopiero piąty obiekt byłby tym, który mógłby być przypisany do zmiennej `someString`. Dlaczego aż cztery? Wynika to z niemutowalności instancji klasy `String`. Nie możemy, posługując się wyłącznie instancjami klasy `String` od razu stworzyć finalnej wersji. Tworzone są obiekty “pośrednie”:
+Tak na prawdę, zanim powstałaby finalna instancja klasy `String` potrzebne byłoby aż trzy “tymczasowe” obiekty[^optymalizacje]. Dopiero piąty obiekt byłby tym, który mógłby być przypisany do zmiennej `someString`. Dlaczego aż cztery? Wynika to z niemutowalności instancji klasy `String`. Nie możemy, posługując się wyłącznie instancjami klasy `String` od razu stworzyć finalnej wersji. Tworzone są obiekty “pośrednie”:
+
+[^optymalizacje]: Piszę “potrzebne byłby” ponieważ kompilator wprowadza tu pewne optymalizacje, o których przeczytasz niżej.
+
 - `“some “` (zwróć uwagę na spację na końcu),
 - `“some random”`,
 - `“some random “` (ponownie ze spacją).
   
   
-Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobić lepiej. Z pomocą przychodzą klasy `StringBuilder` i `StringBuffer`.[3. Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instacji klasy `StringBuilder`. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;).]
+Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobić lepiej. Z pomocą przychodzą klasy `StringBuilder` i `StringBuffer`[^kompilator].
+
+[^kompilator]: Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instacji klasy `StringBuilder`. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;).
+
 ## Jak używać klasy `StringBuilder`
   
 Klasa [`StringBuilder`](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html) podobnie jak `String` jest opakowaniem tablicy znaków typu `char[]`. `StringBuilder` jednak jest typem mutowalnym. Instancje tego typu w można konwertować do typu `String` używając metody `toString`.
