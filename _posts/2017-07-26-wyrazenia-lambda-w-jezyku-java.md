@@ -9,12 +9,14 @@ permalink: "/wyrazenia-lambda-w-jezyku-java/"
 ---
 W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator `::`. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.
 
-[idea]Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami na temat:
+Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami.
+{: .notice--info}
+
+Szczególnie przydatne mogą być artykuły dotyczące:
 
 - [klas anonimowych](http://www.samouczekprogramisty.pl/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/)[,](http://www.samouczekprogramisty.pl/typy-generyczne-w-jezyku-java/)
 - [typów generycznych](http://www.samouczekprogramisty.pl/typy-generyczne-w-jezyku-java/),
-- [adnotacji](http://www.samouczekprogramisty.pl/adnotacje-w-jezyku-java/).[/idea]
-  
+- [adnotacji](http://www.samouczekprogramisty.pl/adnotacje-w-jezyku-java/)
 
 # Czym jest wyrażenie lambda
   
@@ -24,13 +26,17 @@ Wyrażenia lambda możesz także porównać do klas anonimowych [2. Podobnie jak
 
 Na przykład wyrażenie lambda, które podnosi do kwadratu przekazaną liczbę wygląda następująco:
 
-    x -> x * x
+```java
+x -> x * x
+```
 
 ## Składnia wyrażeń lambda
   
 Wyrażenie lambda ma następującą składnię
 
-    ->
+```java
+<lista parametrów> -> <ciało wyrażenia>
+```
 
 ### Lista parametrów
   

@@ -9,7 +9,7 @@ permalink: "/interfejsy-w-jezyku-java/"
 ---
 W artykule przeczytasz o interfejsach. Poznasz interfejs ze standardowej biblioteki Java. Dowiesz się czym różni się interfejs od jego implementacji. Przeczytasz też o tym dlaczego używanie interfejsów uważane jest w większości przypadków za dobrą praktykę. Jak zwykle na koniec będziesz miał także proste zadanie do wykonania. Do kodu! :)
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # Interfejs
   

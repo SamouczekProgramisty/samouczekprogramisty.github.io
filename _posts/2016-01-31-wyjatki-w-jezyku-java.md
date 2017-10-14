@@ -11,7 +11,7 @@ Tylko ten nie popełnia błędów, kto nic nie robi. My dzisiaj będziemy popeł
 
 Dowiesz się czym jest wyjątek i jaką rolę pełni w programowaniu. Dowiesz się kiedy powinniśmy używać wyjątków. Postaram się też przekazać Ci kilka dobrych praktyk związanych z używaniem w wyjątków. Zaczynamy! :)
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # Czym jest wyjątek?
   
@@ -136,6 +136,3 @@ Zachęcam do samodzielnego rozwiązania zadania, jeśli rozwiązujesz zadanie sa
 Bardzo się cieszę, że dobrnąłeś tak daleko. Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tym tematem. Niezmiennie zależy mi na tym, żeby dotrzeć do jak największej grupy czytelników :) Jeśli nie chcesz ominąć kolejnych artykułów polub nasz profil na facebooku i dopisz się do newslettera.
 
 Do następnego razu i życzę Ci udanego dnia :)
-
-[FM\_form id="3"]
-

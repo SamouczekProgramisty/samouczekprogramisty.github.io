@@ -9,7 +9,7 @@ permalink: "/zestaw-cwiczen-dla-poczatkujacych-programistow/"
 ---
 Cześć! Dzisiaj będzie nietypowo. Nie będę miał dla Was nowej partii teorii a zestaw dodatkowych zadań, które możesz wykonać aby praktycznie przećwiczyć dotychczas zdobytą wiedzę. Nie ma lepszego sposobu nauki niż przez przykłady. Każde z zadań ma także gotowe rozwiązanie więc jeśli będziesz miał problem z którymkolwiek z nich pokażę Ci jego rozwiązanie. Zapraszam do klawiatury!
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 Do rozwiązania zadań niezbędna będzie wiedza, którą możesz zdobyć czytając dotychczasowe artykuły. Jednak znajdą się też zadania, które będą wymagały dodatkowej lektury dokumentacji standardowej biblioteki Javy czy stron na Wikipedii. Aby wykonać te zadania musisz mieć wiedzę opisaną w artykułach w serii [kurs programowania java](http://www.samouczekprogramisty.pl/kurs-programowania-java/) do artukułu o interfejsach włącznie.
 

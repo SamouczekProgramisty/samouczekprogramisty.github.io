@@ -9,7 +9,7 @@ permalink: "/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/"
 ---
 W artykule tym przeczytasz o klasach wewnętrznych i klasach anonimowych w Javie. Dowiesz się jak wyglądają, jakie mają ograniczenia oraz kiedy możemy ich używać. Na końcu, jak zwykle, czeka na Ciebie zestaw zadań, w których przećwiczysz materiał z tego artykułu.
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 Na początku pewne zastrzeżenie. W całym artykule posługuję się określeniem „klasy wewnętrzne”. Ważne jest żebyś zdawał sobie sprawę z tego, że równie dobrze możemy mieć do czynienia z wewnętrznym typem wyliczeniowym czy wewnętrznym interfejsem. Poznając klasy wewnętrzne, poznajesz także „interfejsy wewnętrzne” czy „wewnętrzne typy wyliczeniowe”.
 

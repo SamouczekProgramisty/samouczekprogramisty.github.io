@@ -9,7 +9,7 @@ permalink: "/adnotacje-w-jezyku-java/"
 ---
 W tym artykule przeczytasz o adnotacjach w języku Java. Poznasz różne zastosowania dla adnotacji. Postaram się wymienić te najbardziej użyteczne, najczęściej używane z biblioteki standardowej. Po przeczytaniu artykułu będziesz w stanie stworzyć też swoje własne adnotacje. Napiszesz program, w którym w trakcie jego działania wyświetlisz informacje o adnotacjach. Zapraszam do lektury.
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # Adnotacja
   

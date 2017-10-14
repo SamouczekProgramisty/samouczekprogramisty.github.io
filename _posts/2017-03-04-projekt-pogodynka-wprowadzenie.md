@@ -40,7 +40,8 @@ Składając te klocki w całość projekt można pokazać na takim uproszczonym 
 
 Wymyśliłem taką architekturę, ponieważ nie mam publicznego IP i nie mógłbym aplikacji webowej "wystawić na świat" jeśli uruchomiona byłaby na Malince.
 
-[idea]Tutaj drobna dygresja dla początkujących. Każda strona internetowa, na przykład [www.samouczekprogramisty.pl](http://www.samouczekprogramisty.pl) utrzymywana jest na serwerze. Serwer ten ma tak zwany adres IP. Upraszczając możemy powiedzieć, że jest to jakaś liczba. Istnieje mechanizm, który pozwala na "tłumaczenie" adresu strony internetowej na adres IP, nazywa się on DNS (ang. _Domain Name System_). Dzięki temu nie musimy zapamiętywać liczb żeby zobaczyć stronę internetową. Wystarczy, że pamiętamy jej adres. Publiczny adres IP to nic innego jak taki numer, który jest stały. Dzięki temu, że adres IP się nie zmienia mapowanie adresu strony na adres IP zawsze jest poprawne.[/idea]
+Tutaj drobna dygresja dla początkujących. Każda strona internetowa, na przykład [www.samouczekprogramisty.pl](http://www.samouczekprogramisty.pl) utrzymywana jest na serwerze. Serwer ten ma tak zwany adres IP. Upraszczając możemy powiedzieć, że jest to jakaś liczba. Istnieje mechanizm, który pozwala na "tłumaczenie" adresu strony internetowej na adres IP, nazywa się on DNS (ang. _Domain Name System_). Dzięki temu nie musimy zapamiętywać liczb żeby zobaczyć stronę internetową. Wystarczy, że pamiętamy jej adres. Publiczny adres IP to nic innego jak taki numer, który jest stały. Dzięki temu, że adres IP się nie zmienia mapowanie adresu strony na adres IP zawsze jest poprawne.
+{: .notice--info}
 
 # Baza danych
   

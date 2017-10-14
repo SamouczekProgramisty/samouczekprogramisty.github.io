@@ -11,7 +11,7 @@ permalink: "/pogodynka-podsumowanie/"
 ---
 Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad projektem. Pokazuje też finalny efekt tej pracy.
 
-[idea]Jeśli chcesz przeczytać więcej na temat samego projektu i jego założeń zapraszam do przeczytania [pozostałych artykułów opisujących projekt](http://www.samouczekprogramisty.pl/projekty/pogodynka/).[/idea]
+Jeśli chcesz przeczytać więcej na temat samego projektu i jego założeń zapraszam do przeczytania [pozostałych artykułów opisujących projekt](http://www.samouczekprogramisty.pl/projekty/pogodynka/).{: .notice--info}
 
 # Mistrz lutownicy ucieka
   

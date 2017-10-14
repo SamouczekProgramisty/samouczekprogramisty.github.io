@@ -10,7 +10,7 @@ permalink: "/metody-w-jezyku-java/"
 ---
 Artykułem tym rozpoczynamy serię artykułów - kurs programowania w języku Java. Po przeczytaniu tego artykułu będziesz wiedział czym jest typ danych, dowiesz się czym jest metoda. Poznasz kilka podstawowych rodzajów danych (typów). Postaram się też przekazać Ci kilka dobrych praktyk. Zaczynamy!
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # Metoda
 

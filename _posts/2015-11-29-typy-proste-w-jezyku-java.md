@@ -9,7 +9,7 @@ permalink: "/typy-proste-w-jezyku-java/"
 ---
 Dzisiaj poznasz kilka nowych typów prostych oraz klas z biblioteki standardowej. Dowiesz się czym jest literał. Poznasz kilka przykładów literałów w języku Java. Przeczytasz też o sposobie pobierania danych od użytkownika. Z tych klocków poskładamy program do obliczania średniej temperatury dla ostatniego tygodnia. Do dzieła :)
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # Typ prosty
   

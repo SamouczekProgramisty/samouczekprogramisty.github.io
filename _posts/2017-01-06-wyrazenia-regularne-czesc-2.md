@@ -9,18 +9,18 @@ permalink: "/wyrazenia-regularne-czesc-2/"
 ---
 Czas na kolejną odsłonę artykułu o wyrażeniach regularnych. W tej części przeczytasz o grupach nazwanych, alternatywie, ponownym użyciu grup w wyrażeniu czy kotwicach. Dowiesz się dlaczego wyrażenia regularne są zachłanne i jak to zachowanie wyłączyć. Innymi słowy czeka na Ciebie kolejna solidna porcja wiedzy na temat wyrażeń regularnych. Na koniec jak zwykle całość będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań. Zapraszam!
 
-[idea]To jest drugi artykuł na temat wyrażeń regularnych. Część zagadnień związanych z wyrażeniami regularnymi opisana jest w [pierwszej części](http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/):
+To jest drugi artykuł na temat wyrażeń regularnych. Część zagadnień związanych z wyrażeniami regularnymi opisana jest w [pierwszej części](http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/).
+{: .notice--info}
 
-- czym są wyrażenia regularne,
-- kiedy używamy wyrażeń regularnych, praktyczne wskazówki,
-- API wyrażeń regularnych w języku Java,
-- obsługa powtórzeń (`+`, `*`, `?`, `{}`),
-- klasy znaków (`.`, `[]`, `\d`, `\w`, itd.),
-- grupy (`()`),
-- wsparcie IDE dla wyrażeń regularnych.
-  
-  
-[/idea]
+Pierwsza część omawia następujące zagadnienia:
+
+ - czym są wyrażenia regularne,
+ - kiedy używamy wyrażeń regularnych, praktyczne wskazówki,
+ - API wyrażeń regularnych w języku Java,
+ - obsługa powtórzeń (`+`, `*`, `?`, `{}`),
+ - klasy znaków (`.`, `[]`, `\d`, `\w`, itd.),
+ - grupy (`()`),
+ - wsparcie IDE dla wyrażeń regularnych.
 
 Zachęcam do przeczytania pierwszej części jeśli chciałbyś dowiedzieć się czegoś więcej o punktach wspomnianych powyżej. Tutaj bez zbędnego wstępu przejdę do konkretów. Na pierwszy ogień idzie zachłanność wyrażeń regularnych.
 
@@ -142,4 +142,3 @@ Mam nadzieję, że ta dwuczęściowa seria przypadła Ci do gustu. Jeśli tak pr
 [FM\_form id="3"]
 
 Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/roel1943/13961916635/sizes/l
-

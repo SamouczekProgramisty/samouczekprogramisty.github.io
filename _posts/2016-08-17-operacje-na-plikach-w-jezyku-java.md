@@ -10,7 +10,7 @@ permalink: "/operacje-na-plikach-w-jezyku-java/"
 ---
 Artykuł ten opisuje podstawowy dostęp do plików. Poznasz zupełne podstawy systemu plików. Dowiesz się czym jest plik binarny i czym różni się od pliku tekstowego. Dowiesz się czegoś więcej o trybach dostępu do plików. Na koniec napiszesz swój własny program, który będzie zapisywał dane do pliku i wyświetlał jego zawartość. Innymi słowy artykuł, w którym podstawy systemu plików i programowanie poznasz od praktycznej strony :) Zapraszam!
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # System plików
   

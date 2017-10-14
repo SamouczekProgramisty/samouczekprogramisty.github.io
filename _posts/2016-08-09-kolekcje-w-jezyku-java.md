@@ -10,10 +10,7 @@ permalink: "/kolekcje-w-jezyku-java/"
 ---
 W tym artykule przeczytasz o kolekcjach w języku Java. Dowiesz się czym są kolekcje, kiedy można ich używać. Poznasz podstawowe kolekcje takie jak mapa, zbiór czy lista. Jak zwykle na koniec czekały będą na Ciebie zadania, przy których przećwiczysz materiał opisany w tym artykule. Zwrócę też uwagę na parę skrótów klawiaturowych, które mogą Ci się przydać podczas pracy z kodem. Zapraszam do lektury!
 
-# 
-  
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
-# Czym są kolekcje
+{% include kurs-java-notice.md %}
   
 Java, podobnie jak wiele innych języków, w tak zwanej bibliotece standardowej[1. Biblioteka standardowa to zestaw klas, które może używać programista, dostarczonych wraz z językiem programowania.] zawiera zestaw kolekcji. Kolekcja to nic innego jak sposób grupowania obiektów. Kolekcją możemy także nazwać tablicę obiektów, którą już znasz. Jednak tego typu kolekcja na pewne ograniczenia, głównym z nich jest to, że rozmiar, który ustalimy na początku nie może być zmieniony.
 
@@ -192,6 +189,3 @@ No i zestaw pozostałych materiałów :)
 Cieszę się, że dotrwałeś do końca. Musisz wiedzieć, że bez kolekcji nie ma programowania, ten artykuł jest naprawdę ważny :). Na koniec mam do Ciebie prośbę, proszę pomóż mi dotrzeć do kolejnych samouków, podziel się z nimi adresem tego bloga, polub stronkę na fb, z góry wielkie dzięki!
 
 Do następnego razu!
-
-[FM\_form id="3"]
-

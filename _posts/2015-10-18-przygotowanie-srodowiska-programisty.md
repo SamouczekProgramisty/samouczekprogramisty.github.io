@@ -10,7 +10,7 @@ permalink: "/przygotowanie-srodowiska-programisty/"
 ---
 Cześć! Dzisiaj zajmiemy się instalacją środowiska programistycznego, które będzie niezbędne do rozpoczęcia naszej przygody z programowaniem. Poznasz różnicę między JDK i JRE. Dowiesz się czym jest IDE i do czego może się przydać. Wyjaśnię też parę dodatkowych zagadnień związanych z rozwojem oprogramowania jak wersjonowanie.
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 W [poprzednim artykule](http://www.samouczekprogramisty.pl/czym-wlasciwie-jest-programowanie/) pobieżnie opisałem czym właściwie jest programowanie. Do rozpoczęcia nauki niezbędne będzie zainstalowanie paru dodatkowych narzędzi niezbędnych dla programisty. Zanim do tego przejdziemy postaram się wytłumaczyć czym właściwie jest wersjonowanie oprogramowania.
 

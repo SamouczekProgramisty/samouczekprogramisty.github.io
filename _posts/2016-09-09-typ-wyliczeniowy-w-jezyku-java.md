@@ -9,7 +9,7 @@ permalink: "/typ-wyliczeniowy-w-jezyku-java/"
 ---
 W artykule tym przeczytasz o typie wyliczeniowym. Poznasz słowo kluczowe `enum`. Na koniec czeka na Ciebie zestaw zadań, w którym przećwiczysz wiedzę z tego artykułu. Dowiesz się kiedy używamy typu enum. Napiszesz też prosty kalkulator w oparciu o Twój typ wyliczeniowy. Zapraszam do lektury.
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # Enum, typ wyliczeniowy
   

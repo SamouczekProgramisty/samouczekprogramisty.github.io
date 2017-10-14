@@ -125,14 +125,15 @@ W tym przypadku sam tworzę instancję klasy `StringBuilder` i używam jej wewn�
   
 Specyfikacja języka Java narzuca pewne wymagania związane z optymalizacją pracy z łańcuchami znaków. Każdy łańcuch znaków, który jest literałem umieszczany jest w cache’u.
 
-[idea]Tutaj drobna dygresja. Cache to mechanizm, który pozwala na przetrzymywanie wartości jakiegoś typu. Przeważnie uzyskanie tej wartości jest czasochłonne. Założeniem tego mechanizmu jest pozwolenie na szybsze dotarcie do tych wartości w późniejszym czasie. Dodatkowo pozwala on na optymalizację zajmowanego miejsca. Elementy znajdujące się w cache’u przeważnie się nie powtarzają. Cache może być zrealizowany na wiele sposobów, najprostszą implementacją może być zwykła instancja [`HashMap`](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html). W bardziej zaawansowanych zastosowaniach używa się osobnych programów/baz danych, które zapewniają tę funkcjonalność, na przykład [memcached](https://memcached.org/).[/idea]
+Tutaj drobna dygresja. Cache to mechanizm, który pozwala na przetrzymywanie wartości jakiegoś typu. Przeważnie uzyskanie tej wartości jest czasochłonne. Założeniem tego mechanizmu jest pozwolenie na szybsze dotarcie do tych wartości w późniejszym czasie. Dodatkowo pozwala on na optymalizację zajmowanego miejsca. Elementy znajdujące się w cache’u przeważnie się nie powtarzają. Cache może być zrealizowany na wiele sposobów, najprostszą implementacją może być zwykła instancja [`HashMap`](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html). W bardziej zaawansowanych zastosowaniach używa się osobnych programów/baz danych, które zapewniają tę funkcjonalność, na przykład [memcached](https://memcached.org/).
+{: .notice--info}
 
 Oznacza to tyle, że poniższe dwie zmienne są referencjami na dokładnie ten sam obiekt na stercie. Dzieje się tak, ponieważ są one literałami o tej samej zawartości:
 
-[idea]Poniższe fragmenty kodu są testami jednostkowymi. Jeśli chcesz przeczytać więcej na ten temat zapraszam do arytkułu poświęconemu [testom jednostkowym w Javie](http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit/). Możesz też przeczytać kolejny artykuł poświęcony [Test Driven Development](http://www.samouczekprogramisty.pl/test-driven-development-na-przykladzie/).[/idea]
+Poniższe fragmenty kodu są testami jednostkowymi. Jeśli chcesz przeczytać więcej na ten temat zapraszam do arytkułu poświęconemu [testom jednostkowym w Javie](http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit/). Możesz też przeczytać kolejny artykuł poświęcony [Test Driven Development](http://www.samouczekprogramisty.pl/test-driven-development-na-przykladzie/).
+{: .notice--info}
 
     @Testpublic void twoLiterals() { String someVariable = "samouczek programisty"; String otherVariable = "samouczek programisty"; assertEquals(someVariable, otherVariable); assertSame(someVariable, otherVariable);}
-
   
 Pierwsze porównanie, sprawdza “zawartość” łańcucha znaków. Drugie porównuje adresy obiektów na stercie.
 

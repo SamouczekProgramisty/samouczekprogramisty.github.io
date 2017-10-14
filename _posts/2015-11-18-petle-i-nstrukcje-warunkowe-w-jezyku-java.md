@@ -9,7 +9,7 @@ permalink: "/petle-i-instrukcje-warunkowe-w-jezyku-java/"
 ---
 W tej części kursu Javy poznasz pętle i instrukcje warunkowe. Dowiesz się kiedy ich używać. Poznasz parę trików IDE wraz z dobrymi praktykami. Całość zakończysz zestawem zadań, które wykonasz samodzielnie :). Pamiętaj, że bez pętli i instrukcji warunkowych nie napiszesz żadnego "poważniejszego" programu. Do kodu!
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # Operatory logiczne
   

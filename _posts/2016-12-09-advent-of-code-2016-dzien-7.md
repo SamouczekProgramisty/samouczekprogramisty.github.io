@@ -5,17 +5,17 @@ date: '2016-12-09 16:12:27 +0100'
 categories:
 - Strefa zadaniowa
 excerpt_separator: "<!--more-->"
-permalink: "/advent-of-code-dzien-7/"
+permalink: "/advent-of-code-2016-dzien-7/"
 ---
 Advent of Code 2016 dzień 7. Tym razem próbujesz podsłuchać ruch sieciowy w Kwaterze Głównej Króliczka Wielkanocnego. Problem w tym, że używa się tam IPv7...
 
 # Wprowadzenie
   
-[idea]Oryginalna strona z zadaniami z [Advent of Code 2016](http://adventofcode.com/2016). Zadanie z artykułu dostępne jest pod adresem [http://adventofcode.com/2016/day/7](http://adventofcode.com/2016/day/7)[/idea]
+{% include aoc-2016-link.md day="7" %}
 
 Advent of Code to inicjatywa, w której codziennie publikowane są zadania algorytmiczne dla programistów. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programistów. W tej serii artykułów pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.
 
-[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, którą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na [http://adventofcode.com/2016](http://adventofcode.com/2016) i dołącz wpisując kod `124245-88569bd0`.[/idea]
+{% include aoc-2016-leaderboard.md %}
 
 # Dzień 7 zadanie 1
   

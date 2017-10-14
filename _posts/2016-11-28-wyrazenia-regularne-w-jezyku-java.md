@@ -139,13 +139,13 @@ Do takiego wyrażenia regularnego pasują następujące łańcuchy znaków `"kat
     @Testpublic void testSymbolDotWithOthers() { Pattern pattern = Pattern.compile("k+a.*ta"); assertTrue(pattern.matcher("katapulta").matches()); assertTrue(pattern.matcher("karta").matches()); assertTrue(pattern.matcher("kasia ma kota").matches()); assertTrue(pattern.matcher("kkkka#$*&JHDFSta").matches()); assertFalse(pattern.matcher("ata").matches()); assertFalse(pattern.matcher("kta").matches());}
 
   
-[idea]Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego mogą pasować poprawne adresy email `.+@.+\.pl.` Rozkładając je na czynniki pierwsze mamy:
+Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego mogą pasować poprawne adresy email `.+@.+\.pl.` Rozkładając je na czynniki pierwsze mamy:
+
 - `.+` - dowolny symbol użyty co najmniej raz,
 - `@` - małpka,
 - `.+` - ponownie dowolny symbol użyty co najmniej raz,
 - `\.` - kropka rozumiana dosłownie (nie jako specjalny znak wyrażenia regularnego),
-- `pl` - następujące po sobie litery p i l.[/idea]
-  
+- `pl` - następujące po sobie litery p i l.
 
 ## Klasy
   
@@ -175,10 +175,10 @@ A co jeśli chcę dopasować wszystkie znaki prócz x, y i z? Klasy też na to p
   
 Jeśli chcesz aby `^` był rozumiany dosłownie wewnątrz klasy nie umieszczaj go na pierwszy miejscu.
 
-[idea]Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego pasują imiona: `[A-Z][a-z]+`. Rozłóżmy je na czynniki pierwszej
+Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego pasują imiona: `[A-Z][a-z]+`. Rozłóżmy je na czynniki pierwszej
 
 - `[A-Z]` - znak z tej klasy znaków, wielka litera,
-- `[a-z]+` - mała litera użyta co najmniej raz.[/idea]
+- `[a-z]+` - mała litera użyta co najmniej raz.
   
 
 ## Predefiniowane klasy znaków
@@ -200,9 +200,10 @@ Dla przykładu do wyrażenia regularnego `\d\w\d` pasują łąńcuchy znaków `"
     @Testpublic void testPredefinedClases() { Pattern pattern = Pattern.compile("\\d\\w\\d"); assertTrue(pattern.matcher("0_0").matches()); assertTrue(pattern.matcher("0X1").matches()); assertFalse(pattern.matcher("a0b").matches()); assertFalse(pattern.matcher("0 0").matches());}
 
   
-[alert style="warning"]Pamiętasz o ukośniku? Wyrażenie regularne `\d` zapisane jako `String` w języku Java potrzebuje dodatkowego ukośnika, powstaje nam zatem `"\\d"`.[/alert]
+Pamiętasz o ukośniku? Wyrażenie regularne `\d` zapisane jako `String` w języku Java potrzebuje dodatkowego ukośnika, powstaje nam zatem `"\\d"`.
+{: .notice--warning}
 
-[idea]Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku artykułu, do którego pasują daty: \d{4}-\d{2}-\d{2}
+Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku artykułu, do którego pasują daty: \d{4}-\d{2}-\d{2}
 
 - `\d{4}` - cztery cyfry oznaczające rok,
 - `-` - minus oddzielający rok od miesiąca,
@@ -210,8 +211,8 @@ Dla przykładu do wyrażenia regularnego `\d\w\d` pasują łąńcuchy znaków `"
 - `-` - minus oddzielający miesiąc od dnia,
 - `\d{2}` - dwie cyfry oznaczające dzień.
   
-  
-Dasz też sobie radę z `\d{2}-\d{3}` opisującym kody pocztowe.[/idea]
+Dasz też sobie radę z `\d{2}-\d{3}` opisującym kody pocztowe.
+
 ## Grupy
   
 Do tej pory poznałeś mechanizmy wyrażeń regularnych które pozwalają na sprawdzenie czy dany łańcuch pasuje do danego wyrażenia regularnego. Teraz przejdziemy do mechanizmu grup, który pozwala na wyłuskanie z łańcucha znaków pewnego fragmentu wewnątrz.
@@ -242,16 +243,16 @@ Obiekt klasy `Matcher` posiada zestaw metod, które operują na grupach. Skupimy
   
 W przykładzie powyżej widzisz, kod który używa grupowania do pobrania imienia kota ze zdania.
 
-[idea]Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku artykułu, do odczytywania pseudonimu z książki adresowej `\w+ \((\w+)\) \w+`. Rozkładając wyrażenie na czynniki pierwsze otrzymujemy:
+Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku artykułu, do odczytywania pseudonimu z książki adresowej `\w+ \((\w+)\) \w+`. Rozkładając wyrażenie na czynniki pierwsze otrzymujemy:
 
 - `\w+` - cyfry, litery lub podkreślnik użyte co najmniej raz,
 - `\(` - znak nawiasów użyty dosłownie,
 - `(\w+)` - ponownie cyfry, litery lub podkreślnik użyte co najmniej raz ale tym razem złapane w grupę,
 - `\)` - znak nawiasów użyty dosłownie,
-- `\w+` - po raz kolejny fragment pasujący tym razem do nazwiska.[/idea]
-  
+- `\w+` - po raz kolejny fragment pasujący tym razem do nazwiska.
   
 Operatory powtórzeń można stosować do grup zatem wyrażenie regularne `(\w+ ){3}` pasuje do trzech słów, które mogą być oddzielone spacją.
+
 # IDE pomaga
   
 InteliJ Idea ma dość przydatną funkcję, która pomaga przy pracy z wyrażeniami regularnymi. Naciskając `` na wyrażeniu regularnym i klikając na „Check RegExp” pokaże się okienko, w którym na żywo możesz sprawdzić działanie wyrażenia regularnego.

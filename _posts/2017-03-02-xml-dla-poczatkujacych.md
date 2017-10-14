@@ -24,7 +24,8 @@ Przykładowy dokument powyżej może służyć do opisu kursu programowania Java
   
 Dokument XML składa się z zagnieżdżonych elementów. Są one zapisywane jako znaczniki w postaci ``.
 
-[idea]Na początek drobna dygresja na temat węzłów i elementów. Czytając inne źródła po polsku na temat XML natkniesz się na nazwę węzeł. Sam próbując znaleźć poprawny odpowiednik w języku polskim nie znalazłem zbyt wielu wzmianek o węzłach (ang. _node_) w [specyfikacji](https://www.w3.org/TR/2008/REC-xml-20081126/). Specyfikacja opisuje elementy (ang. _element_). Dlatego w tym artykule posługiwał będę się wyłącznie określeniem element. Z racji tego, że XML ma strukturę drzewiastą, a w “pracy z drzewami” mówi się o węzłach często też ten termin używany jest w odniesieniu do elementów dokumentu XML.[/idea]
+Na początek drobna dygresja na temat węzłów i elementów. Czytając inne źródła po polsku na temat XML natkniesz się na nazwę węzeł. Sam próbując znaleźć poprawny odpowiednik w języku polskim nie znalazłem zbyt wielu wzmianek o węzłach (ang. _node_) w [specyfikacji](https://www.w3.org/TR/2008/REC-xml-20081126/). Specyfikacja opisuje elementy (ang. _element_). Dlatego w tym artykule posługiwał będę się wyłącznie określeniem element. Z racji tego, że XML ma strukturę drzewiastą, a w “pracy z drzewami” mówi się o węzłach często też ten termin używany jest w odniesieniu do elementów dokumentu XML.
+{: .notice--info}
 
 ## Element główny
   

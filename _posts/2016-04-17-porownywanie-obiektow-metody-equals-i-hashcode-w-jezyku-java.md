@@ -5,12 +5,12 @@ date: '2016-04-17 12:23:22 +0200'
 categories:
 - Kurs programowania Java
 excerpt_separator: "<!--more-->"
-permalink: "/porownywanie-obiektow,-metody-equals-i-hashcode-w-jezyku-java/"
+permalink: "/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/"
 ---
 Cześć! W dzisiejszym artykule będziesz mógł przeczytać o właściwym sposobie porównywania obiektów i typów prostych w języku Java. Dowiesz się do czego służą metody `equals` oraz `hashCode` oraz przeczytasz o tak zwanym kontrakcie między tymi metodami. Na koniec będzie na Ciebie czekało małe ćwiczenie do wykonania samodzielnie. Zapraszam do artykułu.
 
->   
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
+
 # Porównywanie typów prostych
   
 Do sprawdzenia "równości" typów prostych służą operatory `==` oraz `!=`. Dzięki nim możemy porównać ze sobą każdą zmienną typu prostego. Wynikiem takiego porównania jest wartość typu `boolean` – `true` jeśli porównywane obiekty są równe i `false` w przeciwnym wypadku. Proszę spójrz na przykład poniżej:

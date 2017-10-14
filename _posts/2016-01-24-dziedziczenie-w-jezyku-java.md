@@ -9,7 +9,9 @@ permalink: "/dziedziczenie-w-jezyku-java/"
 ---
 W innych artykułach omawiałem pewne aspekty programowania obiektowego. Wiesz już o interfejsach i dlaczego warto ich używać. Dzisiaj przeczytasz o dziedziczeniu. Bez dziedziczenia nie można mówić o programowaniu obiektowym w Javie. Dowiesz się czym jest `Object`, dlaczego dziedziczenie jest ważne i kiedy powinniśmy go używać. Przeczytasz o przeciążaniu i nadpisywaniu metod. Poznasz też słowa kluczowe `abstract` i `final`. Do kodu!
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+<!--more-->
+
+{% include kurs-java-notice.md %}
 
 # Dziedziczenie
   
@@ -19,17 +21,34 @@ Niektóre obiekty mogą mieć między sobą dużo wspólnego. Na przykład zaró
 
 W naszym przykładzie pojazd możemy uznać, za tak zwaną klasę bazową (lub „nadklasę”). Natomiast samochód osobowy i samochód ciężarowy rozszerzają funkcjonalność pojazdu. Możemy też powiedzieć, że każda z nich jest klasą pochodną (lub „podklasą”). Proszę spójrz na przykład:
 
-    public class Vehicle {}public class Car extends Vehicle {}public class Truck extends Vehicle {}
+```java
+public class Vehicle {
+}
 
+public class Car extends Vehicle {
+}
+
+public class Truck extends Vehicle {
+}
+```
   
 Dziedziczenie jest jedną z podstaw programowania obiektowego (nie tylko w języku Java). Dzięki dziedziczeniu możemy ograniczyć ilość zduplikowanego kodu poprzez definiowanie atrybutów, konstruktorów, metod w klasach bazowych.
 
 Dziedziczenie może być wielopoziomowe, jednak w języku Java zawsze bezpośrednio możemy dziedziczyć od jednej klasy.
 
-    public class Vehicle {}public class Car extends Vehicle {}public class SUV extends Car {}
+```java
+public class Vehicle {
+}
 
+public class Car extends Vehicle {
+}
+
+public class SUV extends Car {
+}
+```
   
 W przykładzie powyżej `SUV` dziedziczy po klasie `Car`. Klasa `Car` jest podklasą klasy `Vehicle`. Zatem pośrednio `SUV` także dziedziczy po klasie `Vehicle`.
+
 # Modyfikatory dostępu
   
 Dzięki dziedziczeniu możemy mieć dostęp do metod, atrybutów, konstruktorów klas po których dziedziczymy. Do określenia czy dany element może być dostępny w ramach podklasy służą modyfikatory dostępu.
@@ -39,21 +58,22 @@ Do tej pory poznałeś modyfikatory dostępu takie jak:
 - `public` - element oznaczony tym modyfikatorem dostępny jest "z zewnątrz" obiektu, stanowi jego interfejs,
 - `private` - element oznaczony tym modyfikatorem jest dostępna wyłącznie wewnątrz obiektu, także klasy pochodne nie mają do niego dostępu.
   
-  
 W przypadku dziedziczenia znaczenie ma także modyfikator `protected`. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę która po niej dziedziczy[1. Istnieje też "brak modyfikatora dostępu" jednak na początek możemy tą sytuację pominąć. Opiszę to w osobnym artykule.]
 # Przesłonięcie metody
   
 Łatwo sobie wyobrazić sytuację, w której metoda o tej samej sygnaturze występuje zarówno w klasie bazowej jak i klasie pochodnej. W tej sytuacji mówimy o tym, że klasa pochodna przesłania metodę z klasy bazowej (ang. _override_). Proszę spójrz na przykład poniżej.
 
-    public class Vehicle { public void startEngine() { System.out.println("Engine starts. Brum brum brum."); }}public class Car extends Vehicle { public void startEngine() { System.out.println("Force driver to fasten seat belts."); }}
-
+ ```java
+ public class Vehicle { public void startEngine() { System.out.println("Engine starts. Brum brum brum."); }}public class Car extends Vehicle { public void startEngine() { System.out.println("Force driver to fasten seat belts."); }}
+ ```
   
 W naszym przykładzie wywołanie metody `startEngine` na obiekcie typu `Car` zmusi kierowcę do zapięcia pasów (wyświetli się komunikat `Force driver to fasten seat belts`). Jeśli tą samą metodę wywołamy na instancji obiektu klasy Vehicle wówczas pojawi się komunikat `Engine starts. Brum brum brum.`.
 
 Co jeśli chcielibyśmy nieznacznie zmodyfikować oryginalną metodę? Jest na to sposób. Słowo kluczowe `super` pozwala na wywołanie nadpisanej metody z klasy bazowej. Rozszerzając przykład powyżej moglibyśmy napisać taki fragment kodu:
 
-    public class Car extends Vehicle { public void startEngine() { super.startEngine(); System.out.println("Force driver to fasten seat belts."); }}
-
+```java
+public class Car extends Vehicle { public void startEngine() { super.startEngine(); System.out.println("Force driver to fasten seat belts."); }}
+```
   
 W takim przypadku wywołanie metody `startEngine` na instancji obiektu `Car` na początku wywoła tą metodę z klasy bazowej (wyświetli się komunikat `Engine starts...`) następnie pokazany zostanie komunikat `Force driver...` (zachęcam do eksperymentowania z IDE).
 # Konstruktory a dziedziczenie
@@ -62,8 +82,9 @@ Konstruktory w przypadku dziedziczenia zachowują się tak samo jak metody. Tak�
 
 Klasa pochodna musi mieć możliwość wywołania konstruktora klasy bazowej. Jeśli tego nie robi domyślnie wywoływany jest konstruktor bezparametrowy
 
-    public class Animal { public Animal() { }}public class Dog extends Animal { public Dog() { super(); }}
-
+```java
+public class Animal { public Animal() { }}public class Dog extends Animal { public Dog() { super(); }}
+```
   
 W powyższym przykładzie wewnątrz konstruktora klasy `Dog` wywołujemy konstruktor klasy `Animal` wywołując `super()`. Jak napisałem wyżej możemy pominąć to wywołanie, wówczas kompilator zrobi to za nas. Ma to pewne konsekwencje. Jeśli w klasie bazowej zdefiniujemy konstruktor z parametrami wówczas konstruktor bezparametrowy nie zostanie utworzony automatycznie.
 
@@ -142,6 +163,3 @@ Bardzo się cieszę, że przeczytałeś artykuł do końca. Dzisiaj dowiedziałe
 Na koniec bardzo proszę Cię o podzielenie się artykułem ze swoimi znajomymi, którzy są zainteresowani taką tematyką. Jak zwykle zależy mi na tym, żeby z blogiem i jego zawartością dotrzeć do jak największej liczby czytelników takich jak Ty :) Jeśli jeszcze tego nie zrobiłeś prosiłbym o polubienie strony na facebooku.
 
 Do następnego razu!
-
-[FM\_form id="3"]
-

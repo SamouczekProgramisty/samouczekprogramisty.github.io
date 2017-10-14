@@ -17,7 +17,9 @@ Chociaż artykuł ten pisany jest z myślą o początkujących do jego pełnego 
 - [Java z linii poleceń](http://www.samouczekprogramisty.pl/java-z-linii-polecen/)
   
   
-[idea]Artykuł ten bazuje na specyfikacji serwletów w wersji 3.1, która jest częścią specyfikacji Java Enterprise Edition 7. Planowany termin wydania specyfikacji Java Enterprise Edition 8 to koniec 2017 roku, w ramach tej specyfikacji wydana ma być także nowa specyfikacja serwletów w wersji 4.0.[/idea]
+Artykuł ten bazuje na specyfikacji serwletów w wersji 3.1, która jest częścią specyfikacji Java Enterprise Edition 7. Planowany termin wydania specyfikacji Java Enterprise Edition 8 to koniec 2017 roku, w ramach tej specyfikacji wydana ma być także nowa specyfikacja serwletów w wersji 4.0.
+{: .notice--info}
+
 # Wprowadzenie do protokołu HTTP
   
 Aby zacząć poważnie myśleć o tworzeniu aplikacji webowych niezbędna jest wiedza dotycząca protokołu HTTP (ang. Hypertext Transfer Protocol). Poniżej znajdziesz kilka podstawowych informacji, które będą Ci potrzebne w pracy z aplikacją webową.

@@ -9,7 +9,7 @@ permalink: "/pierwszy-program-w-java/"
 ---
 Dzisiaj napiszesz i uruchomisz swój pierwszy program. Przy okazji dowiesz się czym jest biblioteka standardowa i co się w niej znajduje. Poznasz klasę String z biblioteki standardowej. Dowiesz się też o paru nowych funkcjach IDE. Jak zwykle wszystko zakończymy przykładowym zadaniem do wykonania. Do dzieła!
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 Zaczynamy z grubej rury, bez patyczkowania się:
 

@@ -10,7 +10,7 @@ permalink: "/obiekty-w-jezyku-java/"
 ---
 Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle ćwiczenie dla Was. Do dzieła!
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # Pakiet
   

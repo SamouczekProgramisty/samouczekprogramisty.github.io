@@ -9,7 +9,7 @@ permalink: "/referencja,-sterta-i-garbage-collector-obiektow-w-javie-ciag-dalszy
 ---
 W dzisiejszej części kolejna porcja wiedzy na temat obiektów i programowania obiektowego w języku Java. Dowiesz się czym jest referencja i czym różni się od obiektu. Przeczytasz o magicznym "garbage collectorze" i dowiesz się do czego on służy. Poznasz różnicę między literałem `"tekst"` i `new String("tekst")` i dlaczego ma ona znaczenie. Poznasz typ `null` oraz `NullPointerException`. Innymi słowy, kolejna część niezbędnika każdego programisty Java. Zapraszam do lektury :)
 
-[idea]To jest jeden z artykułów w ramach [darmowego kursu programowania w Javie](http://www.samouczekprogramisty.pl/kurs-programowania-java/). Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.[/idea]
+{% include kurs-java-notice.md %}
 
 # Sterta i stos w wirtualnej maszynie Java
   

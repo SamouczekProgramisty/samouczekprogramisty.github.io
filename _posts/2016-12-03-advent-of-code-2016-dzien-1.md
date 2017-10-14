@@ -9,7 +9,7 @@ permalink: "/advent-of-code-2016-dzien-1/"
 ---
 Advent of Code 2016 czas zacząć. Jest to pierwszy z serii artykułów, które poświęcone będą zadaniom z AoC20016. Dzisiaj pomagamy Mikołajowi dotrzeć do Kwatery Głównej Króliczka Wielkanocnego.
 
-[idea]Oryginalna strona z zadaniami z [Advent of Code 2016](http://adventofcode.com/2016).[/idea]
+{% include aoc-2016-link.md day="1" %}
 
 Zadania celowo publikuję z opóźnieniem, aby rozwiązania nie miały wpływu na zabawę innych. Dodatkowo każdego dnia na stronie Advent of Code publikowane są dwa zadania. Drugie dostępne jest po rozwiązaniu pierwszego. Przykładowe rozwiązanie zawiera oba rozwiązania jednak prezentuję treść tylko pierwszego z nich.
 
@@ -17,7 +17,7 @@ Mam nadzieję, że uda mi się rozwiązać wszystkie zadania, chociaż kto wie. 
 
 Oryginalna treść zadania dostępna jest pod adresem [http://adventofcode.com/2016/day/1](http://adventofcode.com/2016/day/1).
 
-[idea]Jeśli masz ochotę na odrobinę rywalizacji możesz dołączyć do klasyfikacji, którą założyłem na oryginalnej stronie. Aby dołączyć do tej klasyfikacji zaloguj się na [http://adventofcode.com/2016](http://adventofcode.com/2016) i dołącz wpisując kod `124245-88569bd0`.[/idea]
+{% include aoc-2016-leaderboard.md %}
 
 # Wprowadzenie
   
