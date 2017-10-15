@@ -4,15 +4,14 @@ date: '2015-10-18 22:33:58 +0200'
 categories:
 - Kurs programowania Java
 - Programowanie
-permalink: "/przygotowanie-srodowiska-programisty/"
+permalink: /przygotowanie-srodowiska-programisty/
 header:
-    teaser: "/assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg"
-    overlay_image: "/assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg"
+    teaser: /assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg
+    overlay_image: /assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg
+excerpt: Dzisiaj zajmiemy się instalacją środowiska programistycznego, które będzie niezbędne do rozpoczęcia naszej przygody z programowaniem. Poznasz różnicę między JDK i JRE. Dowiesz się czym jest IDE i do czego może się przydać. Wyjaśnię też parę dodatkowych zagadnień związanych z rozwojem oprogramowania jak wersjonowanie.
 ---
 
 {% include toc %}
-
-Cześć! Dzisiaj zajmiemy się instalacją środowiska programistycznego, które będzie niezbędne do rozpoczęcia naszej przygody z programowaniem. Poznasz różnicę między JDK i JRE. Dowiesz się czym jest IDE i do czego może się przydać. Wyjaśnię też parę dodatkowych zagadnień związanych z rozwojem oprogramowania jak wersjonowanie.
 
 {% include kurs-java-notice.md %}
 

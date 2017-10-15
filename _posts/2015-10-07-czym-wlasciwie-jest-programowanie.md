@@ -7,11 +7,10 @@ categories:
 header: 
     teaser: "/assets/images/2015/10/07_czym_jest_programowanie.jpg"
     overlay_image: "/assets/images/2015/10/07_czym_jest_programowanie.jpg"
+excerpt: No to zaczynamy. Programowanie to nic innego jak ciekawe zajęcie. To ciągłe rozwiązywanie zagadek i problemów w kreatywny sposób. To też żmudna i pracochłonna praca wymagająca zaangażowania i ciągłej nauki. Mimo swoich wad zajmuję się tym od ładnych paru lat, moim zdaniem zalet jest znacznie więcej! W artykułach na tym blogu postaram się przeprowadzić Cię przez początki programowania, zarazić Cię tą pasją. Miejmy nadzieję, że mi się to uda :).
 ---
 
 {% include toc %}
-
-No to zaczynamy. Programowanie to nic innego jak ciekawe zajęcie. To ciągłe rozwiązywanie zagadek i problemów w kreatywny sposób. To też żmudna i pracochłonna praca wymagająca zaangażowania i ciągłej nauki. Mimo swoich wad zajmuję się tym od ładnych paru lat, moim zdaniem zalet jest znacznie więcej! W artykułach na tym blogu postaram się przeprowadzić Cię przez początki programowania, zarazić Cię tą pasją. Miejmy nadzieję, że mi się to uda :).
 
 ## Kto może zostać programistą
 

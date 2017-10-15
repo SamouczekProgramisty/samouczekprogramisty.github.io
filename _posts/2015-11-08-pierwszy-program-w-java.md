@@ -3,17 +3,18 @@ title: Pierwszy program w Java
 date: '2015-11-08 16:39:14 +0100'
 categories:
 - Kurs programowania Java
-permalink: "/pierwszy-program-w-java/"
+permalink: /pierwszy-program-w-java/
 header:
-    teaser: "/assets/images/2015/11/08_pierwszy_program_w_java.png"
-    overlay_image: "/assets/images/2015/11/08_pierwszy_program_w_java.png"
+    teaser: /assets/images/2015/11/08_pierwszy_program_w_java.png
+    overlay_image: /assets/images/2015/11/08_pierwszy_program_w_java.png
+excerpt: Dzisiaj napiszesz i uruchomisz swój pierwszy program. Przy okazji dowiesz się czym jest biblioteka standardowa i co się w niej znajduje. Poznasz klasę String z biblioteki standardowej. Dowiesz się też o paru nowych funkcjach IDE. Jak zwykle wszystko zakończymy przykładowym zadaniem do wykonania. Do dzieła!
 ---
 
 {% include toc %}
 
-Dzisiaj napiszesz i uruchomisz swój pierwszy program. Przy okazji dowiesz się czym jest biblioteka standardowa i co się w niej znajduje. Poznasz klasę String z biblioteki standardowej. Dowiesz się też o paru nowych funkcjach IDE. Jak zwykle wszystko zakończymy przykładowym zadaniem do wykonania. Do dzieła!
-
 {% include kurs-java-notice.md %}
+
+## Zaczynamy!
 
 Zaczynamy z grubej rury, bez patyczkowania się:
 

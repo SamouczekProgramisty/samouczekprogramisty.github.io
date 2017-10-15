@@ -3,15 +3,14 @@ title: Pętle i instrukcje warunkowe w języku Java
 date: '2015-11-18 23:46:40 +0100'
 categories:
 - Kurs programowania Java
-permalink: "/petle-i-instrukcje-warunkowe-w-jezyku-java/"
+permalink: /petle-i-instrukcje-warunkowe-w-jezyku-java/
 header:
-    teaser: "/assets/images/2015/11/08_pierwszy_program_w_java.png"
-    overlay_image: "/assets/images/2015/11/08_pierwszy_program_w_java.png"
+    teaser: /assets/images/2015/11/08_pierwszy_program_w_java.png
+    overlay_image: /assets/images/2015/11/08_pierwszy_program_w_java.png
+excerpt: W tej części kursu Javy poznasz pętle i instrukcje warunkowe. Dowiesz się kiedy ich używać. Poznasz parę trików IDE wraz z dobrymi praktykami. Całość zakończysz zestawem zadań, które wykonasz samodzielnie :). Pamiętaj, że bez pętli i instrukcji warunkowych nie napiszesz żadnego "poważniejszego" programu. Do kodu!
 ---
 
 {% include toc %}
-
-W tej części kursu Javy poznasz pętle i instrukcje warunkowe. Dowiesz się kiedy ich używać. Poznasz parę trików IDE wraz z dobrymi praktykami. Całość zakończysz zestawem zadań, które wykonasz samodzielnie :). Pamiętaj, że bez pętli i instrukcji warunkowych nie napiszesz żadnego "poważniejszego" programu. Do kodu!
 
 {% include kurs-java-notice.md %}
 

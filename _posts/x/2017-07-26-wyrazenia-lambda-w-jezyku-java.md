@@ -3,21 +3,26 @@ title: Wyrażenia lambda w języku Java
 date: '2017-07-26 21:28:10 +0200'
 categories:
 - Kurs programowania Java
-excerpt_separator: "<!--more-->"
 permalink: "/wyrazenia-lambda-w-jezyku-java/"
+header:
+    teaser: "/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+    overlay_image: "/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+excerpt: W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator `::`. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.
 ---
-W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator `::`. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.
 
-<!--more-->
+{% include toc %}
 
-Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami.
-{: .notice--info}
-
-Szczególnie przydatne mogą być artykuły dotyczące:
+{% capture notice-text %}
+Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami:
 
 - [klas anonimowych](http://www.samouczekprogramisty.pl/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/)[,](http://www.samouczekprogramisty.pl/typy-generyczne-w-jezyku-java/)
 - [typów generycznych](http://www.samouczekprogramisty.pl/typy-generyczne-w-jezyku-java/),
 - [adnotacji](http://www.samouczekprogramisty.pl/adnotacje-w-jezyku-java/)
+{% endcapture %}
+
+<div class="notice--info">
+  {{ notice-text | markdownify }}
+</div>
 
 # Czym jest wyrażenie lambda
   

@@ -3,15 +3,14 @@ title: Typy proste w języku Java
 date: '2015-11-29 14:34:32 +0100'
 categories:
 - Kurs programowania Java
-permalink: "/typy-proste-w-jezyku-java/"
+permalink: /typy-proste-w-jezyku-java/
 header:
-    teaser: "/assets/images/2015/11/29_typy_proste_w_jezyku_java.jpg"
-    overlay_image: "/assets/images/2015/11/29_typy_proste_w_jezyku_java.jpg"
+    teaser: /assets/images/2015/11/29_typy_proste_w_jezyku_java.jpg
+    overlay_image: /assets/images/2015/11/29_typy_proste_w_jezyku_java.jpg
+excerpt: Dzisiaj poznasz kilka nowych typów prostych oraz klas z biblioteki standardowej. Dowiesz się czym jest literał. Poznasz kilka przykładów literałów w języku Java. Przeczytasz też o sposobie pobierania danych od użytkownika. Z tych klocków poskładamy program do obliczania średniej temperatury dla ostatniego tygodnia. Do dzieła :)
 ---
 
 {% include toc %}
-
-Dzisiaj poznasz kilka nowych typów prostych oraz klas z biblioteki standardowej. Dowiesz się czym jest literał. Poznasz kilka przykładów literałów w języku Java. Przeczytasz też o sposobie pobierania danych od użytkownika. Z tych klocków poskładamy program do obliczania średniej temperatury dla ostatniego tygodnia. Do dzieła :)
 
 {% include kurs-java-notice.md %}
 

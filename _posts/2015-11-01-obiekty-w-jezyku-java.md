@@ -4,15 +4,14 @@ date: '2015-11-01 01:43:36 +0100'
 categories:
 - Kurs programowania Java
 - Programowanie
-permalink: "/obiekty-w-jezyku-java/"
+permalink: /obiekty-w-jezyku-java/
 header:
-    teaser: "/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
-    overlay_image: "/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
+    teaser: /assets/images/2015/11/01_obiekty_w_jezyku_java.jpg
+    overlay_image: /assets/images/2015/11/01_obiekty_w_jezyku_java.jpg
+excerpt: "Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle ćwiczenie dla Was. Do dzieła!"
 ---
 
 {% include toc %}
-
-Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle ćwiczenie dla Was. Do dzieła!
 
 {% include kurs-java-notice.md %}
 

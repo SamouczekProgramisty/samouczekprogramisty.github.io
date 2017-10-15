@@ -3,15 +3,15 @@ title: Tablice w języku Java
 date: '2015-11-11 08:39:54 +0100'
 categories:
 - Kurs programowania Java
-permalink: "/tablice-w-jezyku-java/"
+permalink: /tablice-w-jezyku-java/
 header:
-    teaser: "/assets/images/2015/11/11_tablice_w_jezyku_java.png"
-    overlay_image: "/assets/images/2015/11/11_tablice_w_jezyku_java.png"
+    teaser: /assets/images/2015/11/11_tablice_w_jezyku_java.png
+    overlay_image: /assets/images/2015/11/11_tablice_w_jezyku_java.png
+excerpt: Dzisiaj dowiesz się czegoś więcej o tablicach w języku Java. Przeczytasz czym są „Magic Numbers” i dlaczego są złe. Poznasz też metody o zmiennej liczbie argumentów. Na koniec czeka na Ciebie zestaw zadań do wykonania wraz z przykładowymi rozwiązaniami.
 ---
 
 {% include toc %}
 
-Dzisiaj dowiesz się czegoś więcej o tablicach w języku Java. Przeczytasz czym są „Magic Numbers” i dlaczego są złe. Poznasz też metody o zmiennej liczbie argumentów. Na koniec czeka na Ciebie zestaw zadań do wykonania wraz z przykładowymi rozwiązaniami.
 
 {% include kurs-java-notice.md %}
 
