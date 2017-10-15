@@ -3,10 +3,12 @@ title: Advent of Code 2016 dzień 1
 date: '2016-12-03 11:54:39 +0100'
 categories:
 - Strefa zadaniowa
-excerpt_separator: "<!--more-->"
-permalink: "/advent-of-code-2016-dzien-1/"
+permalink: /advent-of-code-2016-dzien-1/
+header:
+    teaser: /assets/images/2016/12/advent_of_code_2016_01_artykul.jpg
+    overlay_image: /assets/images/2016/12/advent_of_code_2016_01_artykul.jpg
+excerpt: Advent of Code 2016 czas zacząć. Jest to pierwszy z serii artykułów, które poświęcone będą zadaniom z AoC20016. Dzisiaj pomagamy Mikołajowi dotrzeć do Kwatery Głównej Króliczka Wielkanocnego.
 ---
-Advent of Code 2016 czas zacząć. Jest to pierwszy z serii artykułów, które poświęcone będą zadaniom z AoC20016. Dzisiaj pomagamy Mikołajowi dotrzeć do Kwatery Głównej Króliczka Wielkanocnego.
 
 {% include aoc-2016-link.md day="1" %}
 
@@ -14,17 +16,15 @@ Zadania celowo publikuję z opóźnieniem, aby rozwiązania nie miały wpływu n
 
 Mam nadzieję, że uda mi się rozwiązać wszystkie zadania, chociaż kto wie. Może jak pojawią się trudniejsze problemy algorytmiczne będę potrzebował pomocy? Zobaczymy :).
 
-Oryginalna treść zadania dostępna jest pod adresem [http://adventofcode.com/2016/day/1](http://adventofcode.com/2016/day/1).
-
 {% include aoc-2016-leaderboard.md %}
 
-# Wprowadzenie
+## Wprowadzenie
   
 Sanie Świętego Mikołaja potrzebują zegara o bardzo wysokiej dokładności do wskazywania kierunku, oscylator zegara regulowany jest przez gwiazdy. Niestety, gwiazdy zostały ukradzione przez Króliczka Wielkanocnego. Aby ocalić Święta Wielki Mikołaj musi odzyskać wszystkie 50 gwiazdek do 25 grudnia.
 
 Zbieraj gwiazdki rozwiązując zadania, każdego dnia udostępnione będą dwa zadania w kalendarzu adwentowym, drugie zadanie jest dostępne po ukończeniu pierwszego. Za rozwiązanie zadania otrzymujesz gwiazdkę. Powodzenia!
 
-# Dzień 1 zadanie 1
+## Dzień 1 zadanie 1
   
 Wylądowałeś niedaleko Kwatery Głównej Króliczka Wielkanocnego. Niestety „niedaleko”, nie oznacza w Kwaterze Głównej. Instrukcje na Dokumentach Rekrutacyjnych Króliczka Wielkanocnego pomagające w dotarcku do Kwater rozpracowały Elfy. Zaczynają się one od miejsca zrzutu, nikt nie miał czasu rozpracować ich do końca aby uzyskać dokładny adres Kwatery.
 
@@ -40,13 +40,11 @@ Na przykład:
   
   
 Jak daleko od pozycji lądowania znajduje się Kwatera Główna Króliczka Wielkanocnego?
-# Podsumowanie
+
+## Podsumowanie
   
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day01), jednak zrób to raczej w ostateczności.
 
-Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajow ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
-
-[FM\_form id="3"]
+Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
 
 Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/theslugandlettuce101/8422854662/sizes/l.
-
