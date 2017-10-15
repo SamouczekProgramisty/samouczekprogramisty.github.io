@@ -4,9 +4,9 @@ title: Czym właściwie jest programowanie
 date: '2015-10-07 16:03:15 +0200'
 categories:
 - Programowanie
-image: 
-    feature: "2015/10/07_czym_jest_programowanie.jpg"
-    thumb: "2015/10/07_czym_jest_programowanie.jpg"
+header: 
+    teaser: "/assets/images/2015/10/07_czym_jest_programowanie.jpg"
+    overlay_image: "/assets/images/2015/10/07_czym_jest_programowanie.jpg"
 ---
 
 {% include toc %}

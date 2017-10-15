@@ -7,7 +7,7 @@ categories:
 permalink: "/metody-w-jezyku-java/"
 header:
     teaser: "/assets/images/2015/10/22_metody_w_jezyku_java.png"
-    image: "/assets/images/2015/10/22_metody_w_jezyku_java.png"
+    overlay_image: "/assets/images/2015/10/22_metody_w_jezyku_java.png"
 ---
 
 {% include toc %}

@@ -7,7 +7,7 @@ categories:
 permalink: "/przygotowanie-srodowiska-programisty/"
 header:
     teaser: "/assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg"
-    image: "/assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg"
+    overlay_image: "/assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg"
 ---
 
 {% include toc %}
@@ -73,17 +73,17 @@ Proszę pamiętaj o tym, żeby ściągnąć wersję odpowiednią dla Twojego sys
 
 Aby móc ściągnąć jeden z plików musisz przeczytać i zaakceptować warunki licencji.
 
-{% include img.md img="/assets/images/2015/10/18_download_0.jpg" opis="Pobierz JDK." %}
+{% include figure image_path="/assets/images/2015/10/18_download_0.jpg" caption="Pobierz JDK." %}
 
 Po ściągnięciu pliku uruchom go i postępuj zgodnie z instrukcją instalacji. Poniżej prezentuję kolejne ekrany widoczne podczas instalacji JDK.
 
-{% include img.md img="/assets/images/2015/10/18_jdk_install_0.jpg" opis="Instalacja JDK krok I" %}
+{% include figure image_path="/assets/images/2015/10/18_jdk_install_0.jpg" caption="Instalacja JDK krok I" %}
 
-{% include img.md img="/assets/images/2015/10/18_jdk_install_1.jpg" opis="Instalacja JDK krok II" %}
+{% include figure image_path="/assets/images/2015/10/18_jdk_install_1.jpg" caption="Instalacja JDK krok II" %}
 
-{% include img.md img="/assets/images/2015/10/18_jdk_install_2.jpg" opis="Instalacja JDK krok III" %}
+{% include figure image_path="/assets/images/2015/10/18_jdk_install_2.jpg" caption="Instalacja JDK krok III" %}
 
-{% include img.md img="/assets/images/2015/10/18_jdk_install_3.jpg" opis="Instalacja JDK krok IV" %}
+{% include figure image_path="/assets/images/2015/10/18_jdk_install_3.jpg" caption="Instalacja JDK krok IV" %}
 
 ### Czego używają programiści do pisania kodu
 
@@ -97,35 +97,35 @@ Nie ma jednego, słusznego IDE, którego programista powinien używać. Sam swoj
 
 Podobnie jak w przypadku instalacji JDK używałem maszyny z systemem Windows 7. Aby ściągnąć InteliJ Idea musisz na stronie <https://www.jetbrains.com/idea/download> nacisnąć przycisk z napisem „Download Community”.
 
-{% include img.md img="/assets/images/2015/10/18_download_2.jpg" opis="Pobierz InteliJ Idea." %}
+{% include figure image_path="/assets/images/2015/10/18_download_2.jpg" caption="Pobierz InteliJ Idea." %}
 
 Instalacja InteliJ nie zawiera tak wiele ekranów jak instalacja JDK :) Jednak to nie wszystko. Teraz, gdy mamy już działające IDE należy je skonfigurować. Na pierwszym ekranie masz możliwość wyboru zestawu kolorów. Ja wybrałem ciemny, oczywiście możesz to później zmienić.
 
-{% include img.md img="/assets/images/2015/10/18_install_1.jpg" opis="Instalacja krok I" %}
+{% include figure image_path="/assets/images/2015/10/18_install_1.jpg" caption="Instalacja krok I" %}
 
 ### Tworzenie pierwszego projektu w InteliJ Idea
   
 Świeżo po instalacji InteliJ Idea niestety nie wie, którego JDK ma użyć (tak, możesz mieć kilka zainstalowanych JDK na jednym komputerze). Dlatego przy tworzeniu pierwszego projektu należy wskazać odpowiednią ścieżkę gdzie poprzednio zainstalowaliśmy JDK.
 
-{% include img.md img="/assets/images/2015/10/18_install_2.jpg" opis="Instalacja krok II" %}
+{% include figure image_path="/assets/images/2015/10/18_install_2.jpg" caption="Instalacja krok II" %}
 
-{% include img.md img="/assets/images/2015/10/18_project_1.jpg" opis="Tworzenie projektu krok I" %}
+{% include figure image_path="/assets/images/2015/10/18_project_1.jpg" caption="Tworzenie projektu krok I" %}
 
 Następnie wybieramy ścieżkę gdzie zainstalowaliśmy JDK.
 
-{% include img.md img="/assets/images/2015/10/18_project_2.jpg" opis="Tworzenie projektu krok II" %}
+{% include figure image_path="/assets/images/2015/10/18_project_2.jpg" caption="Tworzenie projektu krok II" %}
 
 Po dodaniu JDK możemy je wybrać w menu rozwijanym. Na kolejnym ekranie nie wybieramy żadnego szablonu. Ostatni ekran to wybór nazwy projektu – ja wybrałem test.
 
-{% include img.md img="/assets/images/2015/10/18_project_3.jpg" opis="Tworzenie projektu krok III" %}
+{% include figure image_path="/assets/images/2015/10/18_project_3.jpg" caption="Tworzenie projektu krok III" %}
 
-{% include img.md img="/assets/images/2015/10/18_project_4.jpg" opis="Tworzenie projektu krok IV" %}
+{% include figure image_path="/assets/images/2015/10/18_project_4.jpg" caption="Tworzenie projektu krok IV" %}
 
-{% include img.md img="/assets/images/2015/10/18_project_5.jpg" opis="Tworzenie projektu krok V" %}
+{% include figure image_path="/assets/images/2015/10/18_project_5.jpg" caption="Tworzenie projektu krok V" %}
 
 I tak utworzyliśmy swój pierwszy projekt w InteliJ! :) Co prawda nie ma w nim jeszcze ani linijki kodu ale tym szczegółem zajmiemy się następnym razem.
 
-{% include img.md img="/assets/images/2015/10/18_project_6.jpg" opis="Tworzenie projektu krok VI" %}
+{% include figure image_path="/assets/images/2015/10/18_project_6.jpg" caption="Tworzenie projektu krok VI" %}
 
 ## Podsumowanie
 

@@ -7,7 +7,7 @@ categories:
 permalink: "/obiekty-w-jezyku-java/"
 header:
     teaser: "/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
-    image: "/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
+    overlay_image: "/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
 ---
 
 {% include toc %}
@@ -36,7 +36,7 @@ Pakiety służą do grupowania klas, interfejsów, typów wyliczeniowych czy adn
 
 Jak zauważyłeś nazwa pakietów jest specyficzna. Przyjęło się, że za pakiet używa się odwróconej nazwy domeny. Takie podejście pozwala na łatwiejsze uniknięcie konfliktów. W przypadku naszego kursu użyłem `pl.samouczekprogramisty.kursjava`. Istotne jest&nbsp; tutaj odwzorowanie struktury katalogów. Każdy człon pakietu odpowiada katalogowi na dysku.
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java2_pakiety.png" opis="Pakiety w języku Java" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java2_pakiety.png" caption="Pakiety w języku Java" %}
 
 W pliku źródłowym może znajdować się wyłącznie jedna linia z pakietem. Musi znajdować się na początku pliku. Co prawda nie jest to linia obowiązkowa, jednak używanie domyślnego pakietu nie jest dobrą praktyką[^pakiet].
 
@@ -56,17 +56,17 @@ Po lewej stronie widzicie okno do przeglądania struktury projektu. To okienko m
 
 [^notacja]: Taka notacja oznacza jednoczesne naciśnięcie dwóch klawiszy, w tym przypadku jest to `Alt` i `1`.
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java_2_nowy_pakiet.png" opis="Tworzenie pakietu" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java_2_nowy_pakiet.png" caption="Tworzenie pakietu" %}
 
 Gdy mamy już nasz pakiet używając tego samego skrótu możemy stworzyć klasę. W naszym przykładzie stworzyłem pakiet `pl.samouczekprogramisty.kursjava.engine` a w nim klasę `Cogwheel`.
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java_2_new_package.png" opis="Tworzenie klasy" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java_2_new_package.png" caption="Tworzenie klasy" %}
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java_2.nowy_pakiet_dialog.png" opis="Tworzenie pakietu, dialog" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java_2.nowy_pakiet_dialog.png" caption="Tworzenie pakietu, dialog" %}
 
 Gdy mamy już nasz pakiet używając tego samego skrótu możemy stworzyć klasę. W naszym przykładzie stworzyłem pakiet `pl.samouczekprogramisty.kursjava.engine` a w nim klasę `Cogwheel`.
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java_2_new_package.png" opis="Tworzenie pakietu" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java_2_new_package.png" caption="Tworzenie pakietu" %}
 
 ```java
 package pl.samouczekprogramisty.kursjava.engine;
@@ -150,11 +150,11 @@ Obie linie przypisują wartość do atrybutu klasy. Pierwsza zawiera dodatkowe s
 
 IDE może nam pomóc przy pisaniu konstruktorów. Po naciśnięciu znanego już skrótu `<Alt + Insert>` w edytorze klasy pokaże się takie okienko.
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java_2_konstruktor.png" opis="Tworzenie konstruktora" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java_2_konstruktor.png" caption="Tworzenie konstruktora" %}
 
 W kolejnym można wybrać atrybuty klasy, które mają być przekazywane jako parametry.
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java_2_parametry_konstruktora.png" opis="Wybieranie parametrów konstruktora" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java_2_parametry_konstruktora.png" caption="Wybieranie parametrów konstruktora" %}
 
 Zauważ, że w poprzednim przykładzie klasy `Cogwheel` nie umieściłem definicji żadnego konstruktora. Kilka akapitów wcześniej napisałem, że każda klasa musi mieć konstruktor. Więc jak to właściwie jest z tym konstruktorem? Otóż kompilator tworzy domyślny konstruktor automatycznie jeśli nie zdefiniujemy żadnego innego konstruktora.
 
@@ -210,7 +210,7 @@ import pl.samouczekprogramisty.kursjava.engine.Cogwheel;
 > Jeśli importujemy wiele klas z jednego pakietu zamiast wypisywać je wszystkie możemy użyć `*` np `import pl.samouczekprogramisty.kursjava.engine.*;`
 Tutaj przychodzi z pomocą IDE. Okazuje się, że programista używający IDE nie musi pisać tych linii, IDE dodaje te linijki automatycznie. IDE także pomaga przy pisaniu samego kodu. W trakcie pisania zobaczysz menu kontekstowe podpowiadające programiście fragmenty kodu. Skrótami klawiaturowymi, które jeszcze mogą przy tym pomóc są `<Ctrl + Space>` i `<Ctrl + Shift + Space>`. Oba z nich pomagają programiście, drugi jest bardziej „inteligenty” podpowiadając wyłącznie kod, który jest poprawny w danym kontekście.
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java_2_podpowiadanie.png" opis="Pomoc IDE" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java_2_podpowiadanie.png" caption="Pomoc IDE" %}
 
 ### Metody nie zwracające żadnej wartości
 
@@ -280,11 +280,11 @@ public void setCogwheel(Cogwheel cogwheel) // ustawia wartość atrybutu cogwhee
 
 Podobnie jak w przypadku generowania konstruktorów IDE pomaga w generowaniu getterów/setterów. W edytorze pomaga przy tym skrót `` naciśnięty gdy kursor znajduje się na nazwie atrybutu.
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java_2_wybieranie_parametrow_konstruktora.png" opis="Wybieranie parametrów konstruktora" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java_2_wybieranie_parametrow_konstruktora.png" caption="Wybieranie parametrów konstruktora" %}
 
 Metody te można także wygenerować przy pomocy skrótu `<Alt + Insert>` naciśniętego w edytorze i wybraniu opcji "Getter and Setter".
 
-{% include img.md img="/assets/images/2015/11/01_kurs_java_2_getter_setter.png" opis="Tworzenie getterów i setterów" %}
+{% include figure image_path="/assets/images/2015/11/01_kurs_java_2_getter_setter.png" caption="Tworzenie getterów i setterów" %}
 
 ## Ćwiczenie
 
