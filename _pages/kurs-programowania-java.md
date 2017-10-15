@@ -6,7 +6,7 @@ permalink: "/kurs-programowania-java/"
 ---
 Do tej pory w ramach kursu programowania w języku Java ukazały się następujące artykuły:
 
-1. [Przy­go­to­wa­nie środowiska programisty](http://www.samouczekprogramisty.pl/przygotowanie-srodowiska-programisty/)
+1. [Przygotowanie środowiska programisty](http://www.samouczekprogramisty.pl/przygotowanie-srodowiska-programisty/)
 2. [Metody](http://www.samouczekprogramisty.pl/metody-w-jezyku-java/)
 3. [Obiekty i pakiety](http://www.samouczekprogramisty.pl/obiekty-w-jezyku-java/)
 4. [Twój pierw­szy program](http://www.samouczekprogramisty.pl/pierwszy-program-w-java/)
@@ -29,6 +29,5 @@ Do tej pory w ramach kursu programowania w języku Java ukazały się następuj�
 21. [Adnotacje](http://www.samouczekprogramisty.pl/adnotacje-w-jezyku-java/)
 22. [Klasy wewnętrzne i anonimowe](http://www.samouczekprogramisty.pl/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/)
 23. [Wyrażenia lambda](http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/)
-  
-  
+
 Jeśli jakikolwiek temat nie jest dla Ciebie wystarczająco jasno opisany proszę daj znać, postaram się go rozwinąć w kolejnym artykule. Polecam też [dodatkowe materiały do nauki](http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/), które pomogą spojrzeć Ci na dany temat z innej perspektywy.
