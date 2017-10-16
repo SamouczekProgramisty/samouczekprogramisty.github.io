@@ -5,8 +5,8 @@ categories:
 - Kurs programowania Java
 permalink: /serializacja-w-jezyku-java/
 header:
-    teaser: /assets/images/2016/08/02_serializacja_artykul.jpg
-    overlay_image: /assets/images/2016/08/02_serializacja_artykul.jpg
+    teaser: /assets/images/2016/09/02_serializacja_artykul.jpg
+    overlay_image: /assets/images/2016/09/02_serializacja_artykul.jpg
 excerpt: W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak `ObjectInputStream` czy `ObjectOutputStream` i dowiesz się czym różnią się od innych strumieni. Poznasz nowe słowo kluczowe `transient`. Po przeczytaniu artykułu będziesz w stanie napisać swoją mini bazę danych z użyciem mechanizmu serializacji. Zapraszam do lektury.
 ---
 
