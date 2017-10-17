@@ -10,6 +10,8 @@ header:
 excerpt: Kolejny artykuł z serii „Strefy zadaniowej Samouczka”. Programowania najlepiej uczyć się rozwiązując konkretne problemy. Artykuł ten stawia przed Tobą właśnie taki problem. Dzisiejszym zadaniem będzie „Gra w życie” :). W każdym momencie możesz też spojrzeć do przykładowego rozwiązania, które dla Ciebie przygotowałem.
 ---
 
+{% include toc %}
+
 ## Convey’s Game of Life
 
 Gra w życie zakłada, że mamy planszę o nieskończonych wymiarach. Plansza ta podzielona jest na pola, w podobny sposób jak kartka w kratkę. Każda kratka reprezentuje pole. Każde pole ma dokładnie 8 sąsiadów, osiem kratek wokół.

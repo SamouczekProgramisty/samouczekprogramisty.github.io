@@ -11,6 +11,8 @@ header:
 excerpt: W tym artykule dowiesz się czym jest TDD (ang. _Test-Driven Development_). Poznasz wady i zalety takiego podejścia. Poznasz cykl „red – green – refactor” , który jest w centrum TDD. Ponadto pokażę parę przydatnych skrótów klawiaturowych, które ułatwią pisanie testów. Wszystko to pokażę na przykładzie prostego programu, symulującego dzienniczek ucznia. Będzie to także zadanie dla Ciebie, w którym przećwiczysz TDD w praktyce.
 ---
 
+{% include toc %}
+
 Jeśli tematyka testów, jest dla Ciebie nowa zachęcam Cię do przeczytania poprzedniego artykułu. W artykule tym od postaw opisuję zagadnienie [testów jednostkowych]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}).
 {: .notice--info}
 
