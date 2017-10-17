@@ -3,7 +3,7 @@ title: Game of Life
 date: '2016-11-06 14:01:08 +0100'
 categories:
 - Strefa zadaniowa
-permalink: "/game-of-life/"
+permalink: /game-of-life/
 header:
     teaser: /assets/images/2016/11/06_zadanie_game_of_life_artykul.jpg
     overlay_image: /assets/images/2016/11/06_zadanie_game_of_life_artykul.jpg
