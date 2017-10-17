@@ -3,22 +3,20 @@ title: Advent of Code 2016 dzień 11
 date: '2016-12-13 18:35:03 +0100'
 categories:
 - Strefa zadaniowa
-excerpt_separator: "<!--more-->"
-permalink: "/advent-of-code-2016-dzien-11/"
+permalink: /advent-of-code-2016-dzien-11/
+header:
+    teaser: /assets/images/2016/12/aoc_2016_dzien_11_artykul.jpg
+    overlay_image: /assets/images/2016/12/aoc_2016_dzien_11_artykul.jpg
+excerpt: Advent of Code 2016 dzień 11. Dzisiaj trzeba przetransportować windą mikrochipy i generatory na ostatnie piętro. Ostrzegam, nie jest to proste zadanie! Dasz radę to zrobić?
 ---
-Advent of Code 2016 dzień 11. Dzisiaj trzeba przetransportować windą mikrochipy i generatory na ostatnie piętro. Ostrzegam, nie jest to proste zadanie! Dasz radę to zrobić?
 
-# Wprowadzenie
-  
+## Wprowadzenie
+
 {% include aoc-2016-link.md day="11" %}
 
-Advent of Code to inicjatywa, w której codziennie publikowane są zadania algorytmiczne dla programistów. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programistów. W tej serii artykułów pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.
+## Dzień 11 zadanie 1
 
-{% include aoc-2016-leaderboard.md %}
-
-# Dzień 11 zadanie 1
-  
-[Wczoraj](http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-8/), dzięki Twojej pomocy udało się poprawnie sterować dronami, dziś czeka na Ciebie duuużo trudniejsze zadanie. Nie zrażaj się jeśli coś nie będzie szło po Twojej myśli, nie jest to trywialny problem :).
+[Wczoraj]({% post_url 2016-12-12-advent-of-code-2016-dzien-10 %}), dzięki Twojej pomocy udało się poprawnie sterować dronami, dziś czeka na Ciebie duuużo trudniejsze zadanie. Nie zrażaj się jeśli coś nie będzie szło po Twojej myśli, nie jest to trywialny problem :).
 
 Dzisiaj doszedłeś do miejsca gdzie cztery piętra, poza małym korytarzem, zostały zupełnie odseparowane od reszty budynku. Przechodząc przez niego widzisz znaki ostrzegające o promieniowaniu i wielki znak na którym widnieje napis "Dział Badania Cząstek Radioaktywnych".
 
@@ -42,82 +40,124 @@ Dla przykłady, załóżmy, że komponenty w odizolowanej strefie rozłożone s�
 - drugie piętro zawiera generator hydrogen,
 - trzecie piętro zawiera generator lithium,
 - czwarte piętro jest puste.
-  
-  
+
 Początkowy układ możemy zapisać jako (F# oznacza numer piętra, E windę (ang. _elevator_), H&nbsp; hydrogen, L lithium, M mikrochip i G generator)
 
-    F4 . . . . .F3 . . . LG .F2 . HG . . .F1 E . HM . LM
+```
+F4 .  .  .  .  .
+F3 .  .  .  LG .
+F2 .  HG .  .  .
+F1 E  .  HM .  LM
+```
 
-  
 Aby przewieźć wszystko na górę do maszyny składającej na 4 piętrze możesz postępować według następujących kroków:
 - Zabrać mikrochip hydrogen na drugie piętro (jest to bezpieczne ponieważ znajduje się tam odpowiadający generator),
 
-    F4 . . . . .F3 . . . LG .F2 E HG HM . .F1 . . . . LM
+```
+F4 .  .  .  .  .
+F3 .  .  .  LG .
+F2 E  HG HM .  .
+F1 .  .  .  .  LM
+```
 
-  
 - zabrać mikrochip hydrogen razem z odpowiadającym generatorem na trzecie piętro (jest to bezpiecznie ponieważ HM ma HG),
 
-    F4 . . . . .F3 E HG HM LG .F2 . . . . .F1 . . . . LM
+```
+F4 .  .  .  .  .
+F3 E  HG HM LG .
+F2 .  .  .  .  .
+F1 .  .  .  .  LM
+```
 
-  
 - zostawić generator hydrogen na trzecim piętrze i zjechać z mikrochipem hydrogen na drugie piętro (musisz mieć coś ze sobą, żeby winda ruszyła),
 
-    F4 . . . . .F3 . HG . LG .F2 E . HM . .F1 . . . . LM
+```
+F4 .  .  .  .  .
+F3 .  HG .  LG .
+F2 E  .  HM .  .
+F1 .  .  .  .  LM
+```
 
-  
 - zjechać na pierwsze piętro (jest to bezpieczne, mikrochipy nie oddziałują na siebie),
 
-    F4 . . . . .F3 . HG . LG .F2 . . . . .F1 E . HM . LM
+```
+F4 .  .  .  .  .
+F3 .  HG .  LG .
+F2 .  .  .  .  .
+F1 E  .  HM .  LM
+```
 
-  
 - zabrać oba mikrochipy na drugie piętro (ponownie, nie ma tu żadnego generatora, który by je usmażył),
 
-    F4 . . . . .F3 . HG . LG .F2 E . HM . LMF1 . . . . .
+```
+F4 .  .  .  .  .
+F3 .  HG .  LG .
+F2 E  .  HM .  LM
+F1 .  .  .  .  .
+```
 
-  
 - ponownie zabrać oba mikrochipy wyżej, na trzecie piętro (tym razem każdy z nich ma odpowiadający generator, który chroni je od usmażenia),
 
-    F4 . . . . .F3 E HG HM LG LMF2 . . . . .F1 . . . . .
+```
+F4 .  .  .  .  .
+F3 E HG HM LG LM
+F2 .  .  .  .  .
+F1 .  .  .  .  .
+```
 
-  
 - zabrać oba mikrochipy na czwarte piętro,
 
-    F4 E . HM . LMF3 . HG . LG .F2 . . . . .F1 . . . . .
+```
+F4 E  .  HM .  LM
+F3 .  HG .  LG .
+F2 .  .  .  .  .
+F1 .  .  .  .  .
+```
 
-  
 - zostawić mikrochip lithium na czwartym piętrze i zabrać mikrochip hydrogen na trzecie piętro (musisz coś zabrać, żeby winda działa, na trzecim piętrze będziesz bezpieczny, chociaż jest tam generator lithium, jest też generator hydrogen, który chroni odpowiadający mu mikrochip),
 
-    F4 . . . . LMF3 E HG HM LG .F2 . . . . .F1 . . . . .
+```
+F4 .  .  .  .  LM
+F3 E  HG HM LG .
+F2 .  .  .  .  .
+F1 .  .  .  .  .
+```
 
-  
 - zabrać oba generatory na czwarte piętro (jest to bezpieczne bo mikrochip lithium będzie chroniony przez generator lithium),
 
-    F4 E HG . LG LMF3 . . HM . .F2 . . . . .F1 . . . . .
+```
+F4 E  HG .  LG LM
+F3 .  .  HM .  .
+F2 .  .  .  .  .
+F1 .  .  .  .  .
+```
 
-  
 - zjechać w dół z mikrochipem lithium (musisz coś zabrać, żeby winda działała),
 
-    F4 . HG . LG .F3 E . HM . LMF2 . . . . .F1 . . . . .
+```
+F4 .  HG .  LG .
+F3 E  .  HM .  LM
+F2 .  .  .  .  .
+F1 .  .  .  .  .
+```
 
-  
 - zabrać na górę generator i mikrochip lithium
 
-    F4 E HG HM LG LMF3 . . . . .F2 . . . . .F1 . . . . .
+```
+F4 E HG HM LG LM
+F3 .  .  .  .  .
+F2 .  .  .  .  .
+F1 .  .  .  .  .
+```
 
-  
-  
-  
 Przy takim podejściu potrzeba 11 kroków aby zebrać wszystkie elementy na czwartym piętrze aby móc je złożyć w jedną całość. Każde zatrzymanie się windy liczone jest jako jeden krok, nawet jeśli nic nie jest dodane czy usunięte z windy.
 
 Jaka jest minimalna liczba kroków potrzebna do przeniesienia wszystkich elementów jeśli ich układ opisany jest w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day11_input.txt)?
 
-# Podsumowanie
-  
+## Podsumowanie
+
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day11), jednak zrób to raczej w ostateczności.
 
 Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
 
-[FM\_form id="3"]
-
 Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/derekl/sets/72157649148835567
-
