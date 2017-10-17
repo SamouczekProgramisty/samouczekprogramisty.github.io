@@ -5,8 +5,8 @@ categories:
 - Kurs programowania Java
 permalink: /wyrazenia-regularne-w-jezyku-java/
 header:
-    teaser: /assets/images/2016/10/28_wyrazenia_regularne_artykul.jpg
-    overlay_image: /assets/images/2016/10/28_wyrazenia_regularne_artykul.jpg
+    teaser: /assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg
+    overlay_image: /assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg
 excerpt: Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardowej pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskazówki kiedy można używać wyrażeń regularnych i jakie są ich wady. Nie obędzie się też bez wskazówek do InteliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując zadania, które wymagały będą wykorzystania wyrażeń regularnych. Zapraszam do lektury.
 ---
 
