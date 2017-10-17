@@ -3,22 +3,20 @@ title: Advent of Code 2016 dzień 3
 date: '2016-12-05 17:20:41 +0100'
 categories:
 - Strefa zadaniowa
-excerpt_separator: "<!--more-->"
-permalink: "/advent-of-code-2016-dzien-3/"
+permalink: /advent-of-code-2016-dzien-3/
+header:
+    teaser: /assets/images/2016/12/aoc_2016_dzien_03_artykul.jpg
+    overlay_image: /assets/images/2016/12/aoc_2016_dzien_03_artykul.jpg
+excerpt: Advent of Code 2016 dzień 3. Mikołaj trafił do departamentu graficznego i potrzebuje Twojej pomocy ze sprawdzeniem specyfikacji trójkątów ;). Pomożesz?
 ---
-Advent of Code 2016 dzień 3. Mikołaj trafił do departamentu graficznego i potrzebuje Twojej pomocy ze sprawdzeniem specyfikacji trójkątów ;). Pomożesz?
 
-# Wprowadzenie
+## Wprowadzenie
   
 {% include aoc-2016-link.md day="3" %}
 
-Advent of Code to inicjatywa, w której codziennie publikowane są zadania algorytmiczne dla programistów. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programistów. W tej serii artykułów pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.
-
-{% include aoc-2016-leaderboard.md %}
-
-# Dzień 3 zadanie 1
+## Dzień 3 zadanie 1
   
-Po przygodach z [wczorajszego dnia](http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-2/) w końcu możesz się skupić i czysto myśleć. Zagłębiłeś się w labirynt korytarzy i boksów biurowych, które wypełniają tę część Kwatery Głównej Króliczka Wielkanocnego. To musi być dział projektantów graficznych, ściany pokryte są specyfikacjami dla trójkątów.
+Po przygodach z [wczorajszego dnia]({% post_url 2016-12-04-advent-of-code-2016-dzien-2 %}) w końcu możesz się skupić i czysto myśleć. Zagłębiłeś się w labirynt korytarzy i boksów biurowych, które wypełniają tę część Kwatery Głównej Króliczka Wielkanocnego. To musi być dział projektantów graficznych, ściany pokryte są specyfikacjami dla trójkątów.
 
 Hmm, czy aby na pewno?
 
@@ -34,7 +32,4 @@ Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stro
 
 Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
 
-[FM\_form id="3"]
-
 Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/derekl/sets/72157649148835567
-

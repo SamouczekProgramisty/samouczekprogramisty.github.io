@@ -10,13 +10,15 @@ header:
 excerpt: Advent of Code 2016 czas zacząć. Jest to pierwszy z serii artykułów, które poświęcone będą zadaniom z AoC20016. Dzisiaj pomagamy Mikołajowi dotrzeć do Kwatery Głównej Króliczka Wielkanocnego.
 ---
 
+## Wprowadzenie
+
 {% include aoc-2016-link.md day="1" %}
 
 Zadania celowo publikuję z opóźnieniem, aby rozwiązania nie miały wpływu na zabawę innych. Dodatkowo każdego dnia na stronie Advent of Code publikowane są dwa zadania. Drugie dostępne jest po rozwiązaniu pierwszego. Przykładowe rozwiązanie zawiera oba rozwiązania jednak prezentuję treść tylko pierwszego z nich.
 
 Mam nadzieję, że uda mi się rozwiązać wszystkie zadania, chociaż kto wie. Może jak pojawią się trudniejsze problemy algorytmiczne będę potrzebował pomocy? Zobaczymy :).
 
-## Wprowadzenie
+## Zarys historii
 
 Sanie Świętego Mikołaja potrzebują zegara o bardzo wysokiej dokładności do wskazywania kierunku, oscylator zegara regulowany jest przez gwiazdy. Niestety, gwiazdy zostały ukradzione przez Króliczka Wielkanocnego. Aby ocalić Święta Wielki Mikołaj musi odzyskać wszystkie 50 gwiazdek do 25 grudnia.
 

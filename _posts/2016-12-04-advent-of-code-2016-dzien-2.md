@@ -10,6 +10,8 @@ header:
 excerpt: Advent of Code 2016 dzień 2. Dzisiaj pomagamy Mikołajowi skorzystać z toalety w Kwaterze Głównej Króliczka Wielkanocnego. Dasz radę znaleźć prawdziwy kod?
 ---
 
+## Wprowadzenie
+
 {% include aoc-2016-link.md day="2" %}
 
 ## Dzień 2 zadanie 1
