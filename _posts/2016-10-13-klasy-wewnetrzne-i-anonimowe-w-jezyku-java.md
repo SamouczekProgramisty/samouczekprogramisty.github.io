@@ -7,6 +7,8 @@ permalink: /klasy-wewnetrzne-i-anonimowe-w-jezyku-java/
 header:
     teaser: /assets/images/2016/10/13_klasy_wewnetrzne_anonimowe_artykul.jpg
     overlay_image: /assets/images/2016/10/13_klasy_wewnetrzne_anonimowe_artykul.jpg
+    caption: "[&copy; alfmelin](https://www.flickr.com/photos/andercismo/2349098787/sizes/l)"
+Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/alfmelin/
 excerpt: W artykule tym przeczytasz o klasach wewnętrznych i klasach anonimowych w Javie. Dowiesz się jak wyglądają, jakie mają ograniczenia oraz kiedy możemy ich używać. Na końcu, jak zwykle, czeka na Ciebie zestaw zadań, w których przećwiczysz materiał z tego artykułu.
 ---
 
@@ -271,5 +273,3 @@ Przygotowałem też dla Ciebie zestaw materiałów dodatkowych zawierających in
 Bardzo się cieszę, że przeczytałeś artykuł do końca. Po lekturze artykułu wiesz czym są klasy wewnętrzne. Wiesz też jakie rodzaje klas wewnętrznych występują. Znasz także klasy anonimowe i wiesz kiedy ich używać. Rozwiązując zadanie przećwiczyłeś całość w praktyce. Innymi słowy kawał solidnej wiedzy :)
 
 Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze znajomymi i polub moją stronę na facebooku. Zależy mi na dotarciu do jak największej liczby osób, które chcą uczyć się programowania. Z góry dziękuję i do następnego razu.
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/alfmelin/

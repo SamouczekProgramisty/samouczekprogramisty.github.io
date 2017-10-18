@@ -7,6 +7,7 @@ permalink: /testy-jednostkowe-z-junit/
 header:
     teaser: /assets/images/2016/10/29_testy_jednostkowe_junit_artykul.jpg
     overlay_image: /assets/images/2016/10/29_testy_jednostkowe_junit_artykul.jpg
+    caption: "[&copy; andercismo](https://www.flickr.com/photos/andercismo/2349098787/sizes/l)"
 excerpt: Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.
 ---
 
@@ -309,5 +310,3 @@ Przygotowałem też przykładowe rozwiązanie, znajduje się w [repozytorium na 
 W artykule przeczytałeś o testach jednostkowych. Poznałeś zestaw dobrych praktyk dotyczących pisania testów, nauczyłeś się podstaw biblioteki JUnit. Wiesz czym jest test automatyczny i dlaczego takie testy są istotne. Całość przećwiczyłeś w sposób praktyczny rozwiązując zadanie końcowe.
 
 Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na facebooku ;). Do następnego razu!
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/andercismo/2349098787/sizes/l

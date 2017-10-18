@@ -7,6 +7,7 @@ permalink: /adnotacje-w-jezyku-java/
 header:
     teaser: /assets/images/2016/10/03_adnotacje_artykul.jpg
     overlay_image: /assets/images/2016/10/03_adnotacje_artykul.jpg
+    caption: "[&copy; 115327016@N06](https://www.flickr.com/photos/115327016@N06/)"
 excerpt: W tym artykule przeczytasz o adnotacjach w języku Java. Poznasz różne zastosowania dla adnotacji. Postaram się wymienić te najbardziej użyteczne, najczęściej używane z biblioteki standardowej. Po przeczytaniu artykułu będziesz w stanie stworzyć też swoje własne adnotacje. Napiszesz program, w którym w trakcie jego działania wyświetlisz informacje o adnotacjach. Zapraszam do lektury.
 ---
 
@@ -289,5 +290,3 @@ W artykule przeczytałeś o adnotacjach, napisałeś swoją pierwszą adnotację
 Jak zwykle, jeśli masz jakiekolwiek pytania zadaj je w komentarzach, w miarę możliwości postaram się pomóc.
 
 Mam nadzieję, że artykuł Ci się podobał, na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników. Możesz mi w tym pomóc udostępniając link do bloga czy artykułu swoim znajomym :) Z góry dziękuję i do następnego razu!
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/115327016@N06/
