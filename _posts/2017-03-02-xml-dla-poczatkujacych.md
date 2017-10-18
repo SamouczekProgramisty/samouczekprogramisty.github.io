@@ -9,7 +9,6 @@ header:
     teaser: /assets/images/2017/03/02_xml_dla_poczatkujacych_artykul.jpg
     overlay_image: /assets/images/2017/03/02_xml_dla_poczatkujacych_artykul.jpg
     caption: "[&copy; stanzim](https://www.flickr.com/photos/stanzim/27926733595/sizes/l)"
-
 excerpt: W artykule tym przeczytasz o tym czym jest format XML. Poznasz kilka bibliotek czy specyfikacji używanych do przetwarzania tego formatu. Przeczytasz o wadach i zaletach pracy z plikami XML, poznasz też przykłady praktycznego zastosowania takiego formatu zapisu danych. Zapraszam do artykułu.
 ---
 

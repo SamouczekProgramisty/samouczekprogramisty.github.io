@@ -7,7 +7,7 @@ permalink: /advent-of-code-2016-dzien-21/
 header:
     teaser: /assets/images/2016/12/aoc_2016_dzien_21_artykul.jpg
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_21_artykul.jpg
-    caption: "[derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
+    caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 21. Trzeba zaimplementować serię przekształceń łańcucha znaków aby otrzymać tajne hasło. Bez niego nie będziesz mógł dostać się do systemu operacyjnego.
 ---
 

@@ -8,6 +8,7 @@ permalink: /test-driven-development-na-przykladzie/
 header:
     teaser: /assets/images/2016/11/21_test_driven_development_artykul.jpg
     overlay_image: /assets/images/2016/11/21_test_driven_development_artykul.jpg
+    caption: "[&copy; dieter\_henkel](https://www.flickr.com/photos/dieter\_henkel/9219097456/sizes/l)"
 excerpt: W tym artykule dowiesz się czym jest TDD (ang. _Test-Driven Development_). Poznasz wady i zalety takiego podejścia. Poznasz cykl „red – green – refactor” , który jest w centrum TDD. Ponadto pokażę parę przydatnych skrótów klawiaturowych, które ułatwią pisanie testów. Wszystko to pokażę na przykładzie prostego programu, symulującego dzienniczek ucznia. Będzie to także zadanie dla Ciebie, w którym przećwiczysz TDD w praktyce.
 ---
 
@@ -114,5 +115,3 @@ Wiesz czym jest TDD. Jesteś praktykiem TDD, rozwiązałeś zadanie przy użyciu
 Dodam po raz kolejny. Testowanie kodu jest bardzo istotnie, nie zapominaj o nim.t
 
 Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi, może ktoś z nich chce poznać TDD od praktycznej strony?. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na facebooku i zapisać się do mojego newslettera ;). Do następnego razu!
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/dieter\_henkel/9219097456/sizes/l.

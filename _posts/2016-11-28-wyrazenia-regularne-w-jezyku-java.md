@@ -7,6 +7,7 @@ permalink: /wyrazenia-regularne-w-jezyku-java/
 header:
     teaser: /assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg
     overlay_image: /assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg
+    caption: "[&copy; thomashawk](https://www.flickr.com/photos/thomashawk/3191454610/sizes/l)"
 excerpt: Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardowej pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskazówki kiedy można używać wyrażeń regularnych i jakie są ich wady. Nie obędzie się też bez wskazówek do InteliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując zadania, które wymagały będą wykorzystania wyrażeń regularnych. Zapraszam do lektury.
 ---
 
@@ -430,5 +431,3 @@ Mimo, że artykuł zawiera dość sporą ilość informacji na temat wyrażeń r
 Tymczasem dzięki za lekturę i na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze swoimi znajomymi, zależy mi na dotarciu do jak największej grupy czytelników i możesz mi w tym pomóc.
 
 Jeśli nie chcesz pominąć żadnego kolejnego artykułu zapisz się do newslettera i polub moją stronę na facebooku. Do następnego razu!
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/thomashawk/3191454610/sizes/l.

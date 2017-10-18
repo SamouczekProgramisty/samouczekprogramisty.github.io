@@ -7,6 +7,7 @@ permalink: /game-of-life/
 header:
     teaser: /assets/images/2016/11/06_zadanie_game_of_life_artykul.jpg
     overlay_image: /assets/images/2016/11/06_zadanie_game_of_life_artykul.jpg
+    caption: "[&copy; evaekeblad](https://www.flickr.com/photos/evaekeblad/916121748/sizes/l)"
 excerpt: Kolejny artykuł z serii „Strefy zadaniowej Samouczka”. Programowania najlepiej uczyć się rozwiązując konkretne problemy. Artykuł ten stawia przed Tobą właśnie taki problem. Dzisiejszym zadaniem będzie „Gra w życie” :). W każdym momencie możesz też spojrzeć do przykładowego rozwiązania, które dla Ciebie przygotowałem.
 ---
 
@@ -114,5 +115,3 @@ Przygotowałem też dla Ciebie [przykładowe rozwiązanie](https://github.com/Sa
 Mam nadzieję, że udało Ci się napisać grę w życie. Nie jest to duży projekt jednak rozbudowany na tyle, że musisz przećwiczyć podstawowe zagadnienia programowania obiektowego. Niby prosty zestaw zasad, a jaki ciekawy efekt można uzyskać :). Jeśli chciałbyś dostawać informacje o kolejnych artykułach prosto na Twoją skrzynkę zapisz się na mojego newslettera.
 
 Na koniec proszę Cię, żebyś podzielił się informacją o Samouczku ze swoimi znajomymi, którzy też są zainteresowani programowaniem – zależy mi na dotarciu do jak największej liczby czytelników.
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/evaekeblad/916121748/sizes/l

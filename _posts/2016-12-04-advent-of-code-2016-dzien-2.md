@@ -7,6 +7,7 @@ permalink: /advent-of-code-2016-dzien-2/
 header:
     teaser: /assets/images/2016/12/aoc_2016_dzien_02_artykul.jpg
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_02_artykul.jpg
+    caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 2. Dzisiaj pomagamy Mikołajowi skorzystać z toalety w Kwaterze Głównej Króliczka Wielkanocnego. Dasz radę znaleźć prawdziwy kod?
 ---
 
@@ -51,5 +52,3 @@ W tym przypadku kod do toalety to 1985.&nbsp; Jaki jest kod do toalety jeśli in
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day02), jednak zrób to raczej w ostateczności.
 
 Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/derekl/sets/72157649148835567

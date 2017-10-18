@@ -7,7 +7,7 @@ permalink: /wyrazenia-regularne-czesc-2/
 header:
     teaser: /assets/images/2017/01/06_wyrazenia_regularne_2_artykul.jpg
     overlay_image: /assets/images/2017/01/06_wyrazenia_regularne_2_artykul.jpg
-    caption: "[roel1943](https://www.flickr.com/photos/roel1943/13961916635/sizes/l)"
+    caption: "[&copy; roel1943](https://www.flickr.com/photos/roel1943/13961916635/sizes/l)"
 excerpt: Czas na kolejną odsłonę artykułu o wyrażeniach regularnych. W tej części przeczytasz o grupach nazwanych, alternatywie, ponownym użyciu grup w wyrażeniu czy kotwicach. Dowiesz się dlaczego wyrażenia regularne są zachłanne i jak to zachowanie wyłączyć. Innymi słowy czeka na Ciebie kolejna solidna porcja wiedzy na temat wyrażeń regularnych. Na koniec jak zwykle całość będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań. Zapraszam!
 ---
 
