@@ -10,9 +10,10 @@ header:
     teaser: /assets/images/2017/03/04_pogodynka_01_artykul.jpeg
     overlay_image: /assets/images/2017/03/04_pogodynka_01_artykul.jpeg
     caption: "[&copy; Marcin Pietraszek ;)](http://marcin.pietraszek.pl)"
-
 excerpt: W artykule tym przeczytasz o “architekturze” Pogodynki. Projektu, w którym chcę udostępnić odczyty temperatury na żywo.
 ---
+
+{% include toc %}
 
 ## Opis architektury
 
