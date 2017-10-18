@@ -3,22 +3,21 @@ title: Advent of Code 2016 dzień 21
 date: '2016-12-23 18:18:32 +0100'
 categories:
 - Strefa zadaniowa
-excerpt_separator: "<!--more-->"
-permalink: "/advent-of-code-2016-dzien-21/"
+permalink: /advent-of-code-2016-dzien-21/
+header:
+    teaser: /assets/images/2016/12/aoc_2016_dzien_21_artykul.jpg
+    overlay_image: /assets/images/2016/12/aoc_2016_dzien_21_artykul.jpg
+    caption: "[derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
+excerpt: Advent of Code 2016 dzień 21. Trzeba zaimplementować serię przekształceń łańcucha znaków aby otrzymać tajne hasło. Bez niego nie będziesz mógł dostać się do systemu operacyjnego.
 ---
-Advent of Code 2016 dzień 21. Trzeba zaimplementować serię przekształceń łańcucha znaków aby otrzymać tajne hasło. Bez niego nie będziesz mógł dostać się do systemu operacyjnego.
 
-# Wprowadzenie
+## Wprowadzenie
   
 {% include aoc-2016-link.md day="21" %}
 
-Advent of Code to inicjatywa, w której codziennie publikowane są zadania algorytmiczne dla programistów. Ich rozwiązywanie pomaga rozwijać umiejętności nie tyko początkujących programistów. W tej serii artykułów pokazuję zadanie opublikowane w ramach Advent of Code 2016 wraz z przykładowym rozwiązaniem.
-
-{% include aoc-2016-leaderboard.md %}
-
-# Dzień 21 zadanie 1
+## Dzień 21 zadanie 1
   
-Wczoraj [znalazłeś adres IP komputera](http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-20/), który nie jest blokowany przez firewall. Komputer, do którego systemu próbujesz się włamać używa dziwnego mechanizmu mieszającego do przechowywania haseł. Mimo to, nie powinno nastręczyć Ci żadnych trudności utworzenie samemu takiego hasła, które możesz dodać do systemu. Wystarczy, że zaimplementujesz odpowiednie przekształcenia.
+Wczoraj [znalazłeś adres IP komputera]({% post_url 2016-12-22-advent-of-code-2016-dzien-20 %}), który nie jest blokowany przez firewall. Komputer, do którego systemu próbujesz się włamać używa dziwnego mechanizmu mieszającego do przechowywania haseł. Mimo to, nie powinno nastręczyć Ci żadnych trudności utworzenie samemu takiego hasła, które możesz dodać do systemu. Wystarczy, że zaimplementujesz odpowiednie przekształcenia.
 
 Operacja mieszająca składa się z serii operacji (dokładna ich lista jest wejściem do programu). Zaczynając od hasła, które ma być pomieszane aplikujesz każdą operację kolejno. Pojedyncze operacje opisane są poniżej:
 
@@ -45,13 +44,8 @@ Po tych wszystkich krokach, hasło to `decab`.
 
 Teraz Twoja kolej. Musisz wygenerować hasło, którego użyjesz aby dostać się do systemu. Zakładając, że lista przekszałceń znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day21_input.txt), a hasło początkowe to `abcdefgh` jakie będzie hasło po przekształceniach?
 
-# Podsumowanie
+## Podsumowanie
   
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day21), jednak zrób to raczej w ostateczności.
 
 Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
-
-[FM\_form id="3"]
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/derekl/sets/72157649148835567
-
