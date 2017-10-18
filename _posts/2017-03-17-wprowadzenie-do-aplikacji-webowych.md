@@ -49,7 +49,7 @@ Protokół ten używany jest w komunikacji pomiędzy klientem a serwerem. W tym 
 ## Język, który rozumie przeglądarka
 
 W dużym uproszczeniu przeglądarka internetowa to program, który wyświetla strony internetowe. Strony internetowe składają się z plików. Pliki te tworzone są przy pomocy różnych “języków”:
-- HTML (ang. _Hypertext Markup Language_) - język znaczników, można powiedzieć, że jest podzbiorem języka XML ([wprowadzenie do XML]({% 2017-03-02-xml-dla-poczatkujacych %})). Znaczniki te opisują strukturę strony, to z jakich elementów się składa,
+- HTML (ang. _Hypertext Markup Language_) - język znaczników, można powiedzieć, że jest podzbiorem języka XML ([wprowadzenie do XML]({% post_url 2017-03-02-xml-dla-poczatkujacych %})). Znaczniki te opisują strukturę strony, to z jakich elementów się składa,
 - CSS (ang. Cascading Style Sheets) - język stylów, który pozwala na opisanie wyglądu strony internetowej. W połączeniu z HTML pozwala na tworzenie stron internetowych “przyjaznych dla oka”,
 - JavaScript - język programowania. Kod JavaScript jest interpretowany przez przeglądarkę. Pozwala na uruchamianie skryptów po stronie przeglądarki. Bardzo często animacje widoczne na stronach to właśnie wynik działania skryptów JavaScript.
 
