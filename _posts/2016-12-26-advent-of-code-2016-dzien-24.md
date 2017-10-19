@@ -5,8 +5,8 @@ categories:
 - Strefa zadaniowa
 permalink: /advent-of-code-2016-dzien-24/
 header:
-    teaser: /assets/images/2016/12/aoc_2016_dzien_23_artykul.jpg
-    overlay_image: /assets/images/2016/12/aoc_2016_dzien_23_artykul.jpg
+    teaser: /assets/images/2016/12/aoc_2016_dzien_24_artykul.jpg
+    overlay_image: /assets/images/2016/12/aoc_2016_dzien_24_artykul.jpg
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 24. Musisz znaleźć najkrótszą drogę dla robota czyszczącego kanały wentylacyjne. Robot musi odwiedzić kilka miejsc w plątaninie kanałów.
 ---
