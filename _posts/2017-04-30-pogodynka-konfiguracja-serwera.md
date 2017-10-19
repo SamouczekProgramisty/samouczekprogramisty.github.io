@@ -5,7 +5,7 @@ categories:
 - DSP2017
 - Projekty
 - Pogodynka
-permalink: "/pogodynka-konfiguracja-serwera/"
+permalink: /pogodynka-konfiguracja-serwera/
 header:
     teaser: /assets/images/2017/04/30_konfiguracja_puppet_artykul.jpeg
     overlay_image: /assets/images/2017/04/30_konfiguracja_puppet_artykul.jpeg
