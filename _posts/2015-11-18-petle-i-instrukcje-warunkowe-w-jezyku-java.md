@@ -15,7 +15,7 @@ excerpt: W tej części kursu Javy poznasz pętle i instrukcje warunkowe. Dowies
 {% include kurs-java-notice.md %}
 
 ## Operatory logiczne
-  
+
 Zanim przejdę do opisania instrukcji warunkowych przeczytasz coś więcej na temat operatorów logicznych.
 
 `<` jest operatorem logicznym, który znasz z poprzednich artykułów. W Javie istnieje kilka operatorów logicznych:
@@ -25,8 +25,7 @@ Zanim przejdę do opisania instrukcji warunkowych przeczytasz coś więcej na te
 - `<=` mniejsze bądź równe,
 - `>` większe,
 - `>=` większe bądź równe
-  
-  
+
 Ich działanie możesz zobaczyć na kilku przykładach poniżej:
 
 ```java

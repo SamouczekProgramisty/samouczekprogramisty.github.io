@@ -12,11 +12,10 @@ excerpt: Dzisiaj dowiesz się czegoś więcej o tablicach w języku Java. Przecz
 
 {% include toc %}
 
-
 {% include kurs-java-notice.md %}
 
 ## Czym jest tablica
-  
+
 Tydzień ma siedem dni. Załóżmy, że pierwszy dzień tygodnia to poniedziałek. Wtorek jest drugi, środa jest następna itd. Dni możemy ułożyć w swego rodzaju ponumerowany szereg.
 
 Tablica jednowymiarowa to nic innego jak właśnie taki ponumerowany szereg. W Javie elementy w tablicy numerujemy od 0. Więc w naszym przypadku poniedziałek ma numer 0, wtorek 1 itd. Numer identyfikujący każdy element tablicy to indeks.

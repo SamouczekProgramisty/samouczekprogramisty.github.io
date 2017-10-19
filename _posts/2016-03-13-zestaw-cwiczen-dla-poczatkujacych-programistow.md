@@ -7,6 +7,7 @@ permalink: "/zestaw-cwiczen-dla-poczatkujacych-programistow/"
 header:
     teaser: /assets/images/2016/03/13_dodatkowe_zadania_artykul.jpg
     overlay_image: /assets/images/2016/03/13_dodatkowe_zadania_artykul.jpg
+    caption: "[&copy; hades2k](https://www.flickr.com/photos/hades2k/)"
 excerpt: Cześć! Dzisiaj będzie nietypowo. Nie będę miał dla Was nowej partii teorii a zestaw dodatkowych zadań, które możesz wykonać aby praktycznie przećwiczyć dotychczas zdobytą wiedzę. Nie ma lepszego sposobu nauki niż przez przykłady. Każde z zadań ma także gotowe rozwiązanie więc jeśli będziesz miał problem z którymkolwiek z nich pokażę Ci jego rozwiązanie. Zapraszam do klawiatury!
 ---
 
@@ -123,5 +124,3 @@ Rozwiązania, które dostarczyłem nie są jedynymi możliwymi rozwiązaniami, T
 Mam nadzieję, że zestaw zadań Ci się spodobał. Raz jeszcze prosiłbym Cię, żebyś rozwiązał je samodzielnie, wtedy nauczysz się najwięcej. Jeśli chciałbyś abym napisał kolejny artykuł tego typu daj znać ;) Jeśli będziesz miał problem z którymkolwiek z nich możesz rzucić okiem do gotowych rozwiązań.
 
 Jeśli nie chcesz pominąć żadnego z kolejnych artykułów proszę polub naszą stronę na facebooku. Proszę Cię też abyś udostępnił ten artykuł innym Twoim znajomym, którzy mogą być zainteresowani – niezmiennie zależy mi na dotarciu do jak największej liczby czytelników. Do następnego razu! :)
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/hades2k/

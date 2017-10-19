@@ -7,6 +7,7 @@ permalink: /typy-generyczne-w-jezyku-java/
 header:
     teaser: /assets/images/2016/03/23_java_typy_generyczne_artykul.jpg
     overlay_image: /assets/images/2016/03/23_java_typy_generyczne_artykul.jpg
+    caption: "[&copy; huntingglee](https://www.flickr.com/photos/huntingglee/2222875354)"
 excerpt: Dzień dobry! Nadszedł czas na poznanie typów generycznych. Dowiesz się o "szablonach" w języku Java, które pozwalają na tworzenie bardziej uniwersalnych typów. Jest to wstęp, który pozwoli Ci dobrze zrozumieć kluczowy aspekt standardowych kolekcji ("tablic na sterydach") w języku Java. Każdy programista Javy musi znać typy generyczne :) Zapraszam do artykułu!
 ---
 
@@ -378,5 +379,3 @@ Wszystkie przykłady użyte w tym artykule dostępne są na githubie. Poniżej z
 Nie jest to oczywiście kompletny artykuł dotyczący typów generycznych w Javie. Pominięte zostały aspekty wymazywania typów czy bardziej szczegółowe informacje dotyczące użycia ?. Jeśli któryś fragment jest dla Ciebie nie do końca zrozumiały daj znać, postaram się rozszerzyć artykuł o dodatkowe przykłady i opisy.
 
 Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz ominąć żadnego kolejnego artykułu polub nas na facebooku :) Do następnego razu!
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/huntingglee/2222875354

@@ -7,6 +7,7 @@ permalink: /porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/
 header:
     teaser: /assets/images/2016/04/17_equals_hashcode_w_jezyku_java_artykul.jpg
     overlay_image: /assets/images/2016/04/17_equals_hashcode_w_jezyku_java_artykul.jpg
+    caption: "[&copy; badgreeb\_records](https://www.flickr.com/photos/badgreeb\_records/6453502559)"
 excerpt: W dzisiejszym artykule będziesz mógł przeczytać o właściwym sposobie porównywania obiektów i typów prostych w języku Java. Dowiesz się do czego służą metody `equals` oraz `hashCode` oraz przeczytasz o tak zwanym kontrakcie między tymi metodami. Na koniec będzie na Ciebie czekało małe ćwiczenie do wykonania samodzielnie. Zapraszam do artykułu.
 ---
 
@@ -243,5 +244,3 @@ Kod źródłowy wszystkich przykładów użytych w artykule znajduje się na [gi
 Bardzo się cieszę, że dotarłeś do końca artykułu. Mam nadzieję, że był on dla Ciebie ciekawy i przydatny. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz przegapić nowych artykułów polub nas na facebooku :) W przypadku jakichkolwiek pytań proszę zdaj je w komentarzach, postaram się odpowiedzieć.
 
 Do następnego razu!
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/badgreeb\_records/6453502559

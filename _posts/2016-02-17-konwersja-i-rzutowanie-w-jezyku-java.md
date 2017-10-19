@@ -7,6 +7,7 @@ permalink: /konwersja-i-rzutowanie-w-jezyku-java/
 header:
     teaser: /assets/images/2016/02/17_konwersja_i_rzutowanie_artykul.jpeg
     overlay_image: /assets/images/2016/02/17_konwersja_i_rzutowanie_artykul.jpeg
+    caption: "[&copy; parrhesiastes](https://www.flickr.com/photos/parrhesiastes)"
 excerpt: Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku Java. Przeczytasz o konwersji obiektów oraz typów prostych. Dowiesz się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typów do typu `String`. Poznasz mechanizm boxing'u oraz unboxing'u. Innymi słowy, dziś kolejna porcja informacji na temat języka Java :)
 ---
 
@@ -241,5 +242,3 @@ Przygotowałem też dla Ciebie zestaw [przykładowych rozwiązań zadań](https:
 ## Podsumowanie
 
 Właśnie dowiedziałeś się o kilku kolejnych zakamarkach języka Java. Mam nadzieję, że Ci się podobało. Jak zwykle na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zleży mi na dotarciu do jak największego grona czytelników. Jeśli nie chcesz pominąć żadnego postu polub Samouczka na facebooku. Do następnego razu! :)
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/parrhesiastes

@@ -7,6 +7,7 @@ permalink: /dziedziczenie-w-jezyku-java/
 header:
     teaser: /assets/images/2016/01/24_dziedziczenie_w_jezyku_java_artykul.jpeg
     overlay_image: /assets/images/2016/01/24_dziedziczenie_w_jezyku_java_artykul.jpeg
+    caption: "[&copy; Marcin Pietraszek ;)](http://marcin.pietraszek.pl)"
 excerpt: W innych artykułach omawiałem pewne aspekty programowania obiektowego. Wiesz już o interfejsach i dlaczego warto ich używać. Dzisiaj przeczytasz o dziedziczeniu. Bez dziedziczenia nie można mówić o programowaniu obiektowym w Javie. Dowiesz się czym jest `Object`, dlaczego dziedziczenie jest ważne i kiedy powinniśmy go używać. Przeczytasz o przeciążaniu i nadpisywaniu metod. Poznasz też słowa kluczowe `abstract` i `final`. Do kodu!
 ---
 

@@ -7,6 +7,7 @@ permalink: /wyjatki-w-jezyku-java/
 header:
     teaser: /assets/images/2016/01/31_wyjatki_w_jezyku_java_artykul.jpeg
     overlay_image: /assets/images/2016/01/31_wyjatki_w_jezyku_java_artykul.jpeg
+    caption: "[&copy; Marcin Pietraszek ;)](http://marcin.pietraszek.pl)"
 excerpt: "Tylko ten nie popełnia błędów, kto nic nie robi. My dzisiaj będziemy popełniać błędy i będziemy starali się je poprawiać. Przekładając to co powiedział Napoleon na kontekst programowania w artykule przeczytasz o wyjątkach w języku Java i ich obsłudze.
 
 Dowiesz się czym jest wyjątek i jaką rolę pełni w programowaniu. Dowiesz się kiedy powinniśmy używać wyjątków. Postaram się też przekazać Ci kilka dobrych praktyk związanych z używaniem w wyjątków. Zaczynamy! :)"

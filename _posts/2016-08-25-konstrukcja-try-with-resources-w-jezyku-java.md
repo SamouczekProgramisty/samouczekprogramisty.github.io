@@ -7,6 +7,7 @@ permalink: /konstrukcja-try-with-resources-w-jezyku-java/
 header:
     teaser: /assets/images/2016/08/25_try-with-resources_artykul.jpg
     overlay_image: /assets/images/2016/08/25_try-with-resources_artykul.jpg
+    caption: "[&copy; livinginmonrovia](https://www.flickr.com/photos/livinginmonrovia)"
 excerpt: Artykuł opisuje konstrukcję try-with-resources występującą w języku Java. Na przykładowym programie będziesz mógł dowiedzieć się jak ona działa. W artykule przeczytasz też o tym czym jest „cukier syntaktyczny”. Całość zakończymy jak zwykle zadaniem, które pozwoli Ci przećwiczyć materiał opisany w artykule. Zapraszam!
 ---
 
@@ -142,5 +143,3 @@ Jak zwykle zachęcam do samodzielnego rozwiązania zadania, jeśli jednak utkną
 ## Podsumowanie
 
 Po przeczytaniu artykułu wiesz już jak używać konstrukcji try-with-resources, wiesz czym jest cukier syntaktyczny. Mam nadzieję, że spędziłeś trochę czasu rozwiązując zadanie, które pozwoliło Ci przećwiczyć wiedzę w praktyce. Na koniec mam do Ciebie wielką prośbę, zależy mi na dotarciu do jak największej liczby czytelników, możesz mi w tym pomóc polecając bloga znajomym i udostępniając link na facebooku, z góry dziękuję i do następnego razu.
-
-Zdjęcie dzięki uprzejmości https://www.flickr.com/photos/livinginmonrovia
