@@ -27,7 +27,7 @@ Kolekcje to implementacje tak zwanych struktur danych. O przykładowych implemen
 
 ## Hierarchia dziedziczenia
 
-Kolekcje w standardowej bibliotece Javy implementują różne interfejsy, poniższy diagram pokazuje hierarchię dziedziczenia dla podstawowych typów kolekcji dostępnych w Javie. Każdy z tych interfejsów ma kilka implementacji, których używa się w różnych sytuacjach.
+Kolekcje w standardowej bibliotece Javy implementują różne interfejsy, poniższy diagram pokazuje hierarchię dziedziczenia interfejsów dla podstawowych typów kolekcji dostępnych w Javie. Każdy z tych interfejsów ma kilka implementacji, których używa się w różnych sytuacjach.
 
 {% include figure image_path="/assets/images/2016/08/09_kolekcje_dziedziczenie.jpg" caption="Dziedziczenie kolekcji w języku Java." %}
 
