@@ -3,7 +3,7 @@ title: Advent of Code 2016 dzień 22
 date: '2016-12-24 07:46:18 +0100'
 categories:
 - Strefa zadaniowa
-permalink: "/advent-of-code-2016-dzien-22/"
+permalink: /advent-of-code-2016-dzien-22/
 header:
     teaser: /assets/images/2016/12/aoc_2016_dzien_22_artykul.jpg
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_22_artykul.jpg

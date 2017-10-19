@@ -3,7 +3,7 @@ title: Advent of Code 2016 dzień 23
 date: '2016-12-25 08:37:39 +0100'
 categories:
 - Strefa zadaniowa
-permalink: "/advent-of-code-2016-dzien-23/"
+permalink: /advent-of-code-2016-dzien-23/
 header:
     teaser: /assets/images/2016/12/aoc_2016_dzien_23_artykul.jpg
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_23_artykul.jpg
