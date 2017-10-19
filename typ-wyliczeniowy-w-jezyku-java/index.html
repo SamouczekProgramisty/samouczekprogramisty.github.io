@@ -1,0 +1,799 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Typ wyliczeniowy w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o typie wyliczeniowym. Poznasz słowo kluczowe enum. Na koniec czeka na Ciebie zestaw zadań, w którym przećwiczysz wiedzę z tego artykułu. Dowiesz się kiedy używamy typu enum. Napiszesz też prosty kalkulator w oparciu o Twój typ wyliczeniowy. Zapraszam do lektury.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Typ wyliczeniowy w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/typ-wyliczeniowy-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/typ-wyliczeniowy-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o typie wyliczeniowym. Poznasz słowo kluczowe enum. Na koniec czeka na Ciebie zestaw zadań, w którym przećwiczysz wiedzę z tego artykułu. Dowiesz się kiedy używamy typu enum. Napiszesz też prosty kalkulator w oparciu o Twój typ wyliczeniowy. Zapraszam do lektury.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2016/09/09_typ_wyliczeniowy_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-09-09T15:30:32+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2016/09/09_typ_wyliczeniowy_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Typ wyliczeniowy w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o typie wyliczeniowym. Poznasz słowo kluczowe <code class="highlighter-rouge">enum</code>. Na koniec czeka na Ciebie zestaw zadań, w którym przećwiczysz wiedzę z tego artykułu. Dowiesz się kiedy używamy typu enum. Napiszesz też prosty kalkulator w oparciu o Twój typ wyliczeniowy. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Typ wyliczeniowy w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Typ wyliczeniowy w języku Java">
+    <meta itemprop="description" content="W artykule tym przeczytasz o typie wyliczeniowym. Poznasz słowo kluczowe enum. Na koniec czeka na Ciebie zestaw zadań, w którym przećwiczysz wiedzę z tego artykułu. Dowiesz się kiedy używamy typu enum. Napiszesz też prosty kalkulator w oparciu o Twój typ wyliczeniowy. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="September 09, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#enum-typ-wyliczeniowy" id="markdown-toc-enum-typ-wyliczeniowy">Enum, typ wyliczeniowy</a>    <ul>
+      <li><a href="#typ-wyliczeniowy-a-blok-switch" id="markdown-toc-typ-wyliczeniowy-a-blok-switch">Typ wyliczeniowy a blok <code class="highlighter-rouge">switch</code></a></li>
+      <li><a href="#typ-wyliczeniowy-to-też-klasa" id="markdown-toc-typ-wyliczeniowy-to-też-klasa">Typ wyliczeniowy to też klasa</a></li>
+      <li><a href="#słów-kilka-o-konstruktorze-enuma" id="markdown-toc-słów-kilka-o-konstruktorze-enuma">Słów kilka o konstruktorze enuma</a></li>
+      <li><a href="#porównywanie-typów-wyliczeniowych" id="markdown-toc-porównywanie-typów-wyliczeniowych">Porównywanie typów wyliczeniowych</a></li>
+      <li><a href="#metody-dostępne-w-każdym-typie-wyliczeniowym" id="markdown-toc-metody-dostępne-w-każdym-typie-wyliczeniowym">Metody dostępne w każdym typie wyliczeniowym</a></li>
+    </ul>
+  </li>
+  <li><a href="#kiedy-i-po-co-używać-typów-wyliczeniowych" id="markdown-toc-kiedy-i-po-co-używać-typów-wyliczeniowych">Kiedy i po co używać typów wyliczeniowych</a></li>
+  <li><a href="#metody-abstrakcyjne-w-typie-wyliczeniowym" id="markdown-toc-metody-abstrakcyjne-w-typie-wyliczeniowym">Metody abstrakcyjne w typie wyliczeniowym</a></li>
+  <li><a href="#materiały-dodatkowe" id="markdown-toc-materiały-dodatkowe">Materiały dodatkowe</a></li>
+  <li><a href="#zadania" id="markdown-toc-zadania">Zadania</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h2 id="enum-typ-wyliczeniowy">Enum, typ wyliczeniowy</h2>
+
+<p>Wyobraź sobie, że mamy klasę <code class="highlighter-rouge">Tshirt</code>, która posiada kilka atrybutów takich jak kolor, rozmiar czy producent. O ile producentów koszulek, podobnie jak ich kolorów jest dość dużo to rozmiary są już bardzo często wspólne dla różnych producentów. Rozmiary możemy wyliczyć: S, M, L czy XL. I właśnie do przechowywania danych tego typu Java ma specjalny typ. Jest to enum zwany także typem wyliczeniowym. Przejdźmy od razu do przykładu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="n">SimpleSize</span> <span class="o">{</span>
+    <span class="n">S</span><span class="o">,</span>
+    <span class="n">M</span><span class="o">,</span>
+    <span class="n">L</span><span class="o">,</span>
+    <span class="n">XL</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Fragment kodu powyżej pokazuje typ wyliczeniowy <code class="highlighter-rouge">TshirtSize</code>, który może mieć jedną z czterech wartości <code class="highlighter-rouge">S</code>, <code class="highlighter-rouge">M</code>, <code class="highlighter-rouge">L</code> lub <code class="highlighter-rouge">XL</code>. Kolejne wartości typu wyliczeniowego oddzielamy przecinkiem.</p>
+
+<p>Konwencja nadawania nazw zaleca aby wartości dla typu enum pisane były drukowanymi literami. Zatem <code class="highlighter-rouge">TshirtSize.S</code> jest w porządku, podczas gdy <code class="highlighter-rouge">TshirtSize.s</code> już nie.</p>
+
+<p>Proszę spójrz na przykład użycia:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tshirt</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">TshirtSize</span> <span class="n">size</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">manufacturer</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Tshirt</span><span class="o">(</span><span class="n">TshirtSize</span> <span class="n">size</span><span class="o">,</span> <span class="n">String</span> <span class="n">manufacturer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="n">size</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">manufacturer</span> <span class="o">=</span> <span class="n">manufacturer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Tshirt</span> <span class="n">tshirt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tshirt</span><span class="o">(</span><span class="n">TshirtSize</span><span class="o">.</span><span class="na">L</span><span class="o">,</span> <span class="s">"Polex"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">tshirt</span><span class="o">.</span><span class="na">size</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz w przykładzie wyżej mamy klasę <code class="highlighter-rouge">Tshirt</code>, reprezentującą koszulkę, która jako jeden z atrybutów ma właśnie rozmiar, który jest typu <code class="highlighter-rouge">TshirtSize</code>.</p>
+
+<p>Do wartości typu wyliczeniowego odnosimy się jak do pól statycznych klasy, zatem w naszym przypadku do rozmiaru L możemy odwołać się jako <code class="highlighter-rouge">TshirtSize.L</code>. Dzieję się tak ponieważ w rzeczywistości wartości typu wyliczeniowego mają automatycznie dodane modyfikatory <code class="highlighter-rouge">public static final</code>.</p>
+
+<h3 id="typ-wyliczeniowy-a-blok-switch">Typ wyliczeniowy a blok <code class="highlighter-rouge">switch</code></h3>
+
+<p>W jednym z <a href="/petle-i-instrukcje-warunkowe-w-jezyku-java/">poprzednich artykułów</a> poznałeś konstrukcję <code class="highlighter-rouge">switch</code>. W tamtej części wspomniałem, o tym, że wewnątrz tej konstrukcji możemy używać liczb całkowitych czy łańcuchów znaków. Pominąłem wówczas jedną z dodatkowych wartości konstrukcji <code class="highlighter-rouge">switch</code>. Otóż wewnątrz możemy użyć także typu wyliczeniowego jak w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span> <span class="o">(</span><span class="n">tshirt</span><span class="o">.</span><span class="na">size</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nl">S:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Kupiles koszulke w rozmiarze small"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">M:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Kupiles koszulke w rozmiarze medium"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">L:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Kupiles koszulke w rozmiarze large"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">XL:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Kupiles koszulke w rozmiarze extra large"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W takim przypadku w zależności od wartości zmiennej size zostanie wywołana odpowiedni blok konstrukcji <code class="highlighter-rouge">switch</code>. Proszę zauważ, że w tym przypadku kompilator dokładnie wie jakiego typu są wartości <code class="highlighter-rouge">L</code>, <code class="highlighter-rouge">M</code>, <code class="highlighter-rouge">S</code> czy <code class="highlighter-rouge">XL</code> i nie możemy się do nich odwoływać poprzez pełną nazwę <code class="highlighter-rouge">TshirtSize.M</code>.</p>
+
+<h3 id="typ-wyliczeniowy-to-też-klasa">Typ wyliczeniowy to też klasa</h3>
+
+<p>Podobnie jak w przypadku normalnych klas tak i w przypadku typów wyliczeniowych może on posiadać atrybuty czy metody. Możesz także stworzyć klasę wyliczeniową, która będzie miała swój własny konstruktor inny od domyślnego. Spójrz na przykład poniżej</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="n">TshirtSize</span> <span class="o">{</span>
+    <span class="n">S</span><span class="o">(</span><span class="mi">48</span><span class="o">,</span> <span class="mi">71</span><span class="o">,</span> <span class="mi">36</span><span class="o">),</span>
+    <span class="n">M</span><span class="o">(</span><span class="mi">52</span><span class="o">,</span> <span class="mi">74</span><span class="o">,</span> <span class="mi">38</span><span class="o">),</span>
+    <span class="n">L</span><span class="o">(</span><span class="mi">56</span><span class="o">,</span> <span class="mi">76</span><span class="o">,</span> <span class="mi">41</span><span class="o">),</span>
+    <span class="n">XL</span><span class="o">(</span><span class="mi">61</span><span class="o">,</span> <span class="mi">79</span><span class="o">,</span> <span class="mi">41</span><span class="o">);</span>
+ 
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">chestWidth</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">shirtLength</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">sleeveLength</span><span class="o">;</span>
+ 
+    <span class="n">TshirtSize</span><span class="o">(</span><span class="kt">int</span> <span class="n">chestWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">shirtLength</span><span class="o">,</span> <span class="kt">int</span> <span class="n">sleeveLength</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">chestWidth</span> <span class="o">=</span> <span class="n">chestWidth</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">shirtLength</span> <span class="o">=</span> <span class="n">shirtLength</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">sleeveLength</span> <span class="o">=</span> <span class="n">sleeveLength</span><span class="o">;</span>
+    <span class="o">}</span>   
+ 
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getChestWidth</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">chestWidth</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getShirtLength</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">shirtLength</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSleeveLength</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">sleeveLength</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W przykładzie nasz enum został rozszerzony o trzy atrybuty: szerokość klatki piersiowej, długość koszulki i długość rękawa. Dzięki dodaniu atrybutów do typu wyliczeniowego wszystkie potrzebne dane związane z jednym rozmiarem mamy zgrupowane w jednym miejscu.</p>
+
+<p>Każdy typ wyliczeniowy, który napiszesz domyślnie tworzony jest jako typ <code class="highlighter-rouge">final</code>. Ograniczone są także modyfikatory dostępu, które możesz użyć, w przypadków enumów dopuszczalny jest wyłącznie modyfikator <code class="highlighter-rouge">public</code> lub brak jakiegokolwiek modyfikatora dostępu.</p>
+
+<p>Typ wyliczeniowy nie może określić żadnej nadklasy po której dziedziczy. Dzieje się tak ponieważ każdy enum domyślnie dziedziczy po <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html"><code class="highlighter-rouge">java.lang.Enum</code></a>. Dzięki tej nadklasie wszystkie typy wyliczeniowe zyskują kilka dodatkowych metod opisanych w kolejnych akapitach.</p>
+
+<p>Jeśli nasz enum ma także metody czy konstruktory to lista jego wartości musi znajdować się na początku.</p>
+
+<h3 id="słów-kilka-o-konstruktorze-enuma">Słów kilka o konstruktorze enuma</h3>
+
+<p>Mimo tego, że jesteś w stanie utworzyć swój konstruktor dla typu wyliczeniowego to nie możesz go wywołać poza definicją enuma. Każde inne użycie powoduje błąd kompilacji. To ile wartości ma typ wyliczeniowy określasz w kodzie, nie możesz tworzyć nowych instancji w trakcie działania programu. Konstruktor domyślne ma przypisane słowo kluczowe private „dodawane przez kompilator”.</p>
+
+<h3 id="porównywanie-typów-wyliczeniowych">Porównywanie typów wyliczeniowych</h3>
+
+<p>Poza konstrukcją <code class="highlighter-rouge">switch</code> typy wyliczeniowe możemy także stosować w blokach <code class="highlighter-rouge">if</code>. Możemy porównywać ich wartości przy pomocy operatora <code class="highlighter-rouge">==</code>. Oczywiście metoda <code class="highlighter-rouge">equals</code> też będzie działała jak się tego spodziewasz. W rzeczywistości wewnątrz metody <code class="highlighter-rouge">equals</code> w typie wyliczeniowym do porównania użyty jest właśnie operator <code class="highlighter-rouge">==</code>.</p>
+
+<h3 id="metody-dostępne-w-każdym-typie-wyliczeniowym">Metody dostępne w każdym typie wyliczeniowym</h3>
+
+<p>Dzięki nadklasie <code class="highlighter-rouge">Enum</code>, o której wspomniałem w jednym z poprzednich akapitów mamy dostęp do kilku dodatkowych metod.</p>
+
+<p><code class="highlighter-rouge">ordinal</code>, metoda zwraca indeks aktualnej wartości typu wyliczeniowego. Indeks pierwszego elementu to zawsze 0. W związku z tym kolejność definiowania wartości typu wyliczeniowego jest istotna.</p>
+
+<p>Przydatna jest także metoda <code class="highlighter-rouge">name</code>, która zwraca nazwę wartości typu wyliczeniowego. W naszym przypadku <code class="highlighter-rouge">TshirtSize.L.name()</code> zwróci <code class="highlighter-rouge">"L"</code>.</p>
+
+<p>Wszystkie typy wyliczeniowe mają także przydatne metody statyczne. Jedną z nich jest metoda <code class="highlighter-rouge">values</code>. Pozwala ona na iterowanie po wartościach typu wyliczeniowego. Zwraca tablicę wartości typu wyliczeniowego</p>
+
+<p>Dostępna jest także metoda <code class="highlighter-rouge">valueOf</code>, która przyjmuje łańcuch znaków i zwraca wartość typu wyliczeniowego. W naszym przypadku <code class="highlighter-rouge">TshirtSize.valueOf("L")</code> zwróci <code class="highlighter-rouge">TshirtSize.L</code>.</p>
+
+<h2 id="kiedy-i-po-co-używać-typów-wyliczeniowych">Kiedy i po co używać typów wyliczeniowych</h2>
+
+<p>Typów wyliczeniowych/enumów używamy w momencie jeśli jakiś atrybut/zmienna może mieć określoną, ograniczoną listę wartości. Zastosowanie typu wyliczeniowego może pomóc ograniczyć liczbę błędów, na przykład w miejscu gdzie normalnie używalibyśmy łańcucha znaków reprezentującego rozmiar używamy dokładnie zdefiniowanego typu wyliczeniowego.</p>
+
+<p>Dzięki typom wyliczeniowym możemy w jednym miejscu zgrupować wszystkie dopuszczalne wartości. Pozwala to także na łatwe rozszerzanie tej listy.</p>
+
+<h2 id="metody-abstrakcyjne-w-typie-wyliczeniowym">Metody abstrakcyjne w typie wyliczeniowym</h2>
+
+<p>Poza zwykłymi metodami, konstruktorami czy atrybutami enumy mogą posiadać metody abstrakcyjne. Tylko gdzie mielibyśmy je zaimplementować jeśli jedyne instancje typu wyliczeniowego musimy zdefiniować w klasie? Proszę spójrz na przykład poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Formatter</span> <span class="o">{</span>
+    <span class="n">CALM</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">format</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="s">"Here is your message: "</span> <span class="o">+</span> <span class="n">message</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">},</span>
+    <span class="n">NERVOUS</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">format</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="s">"ARGH! STOP BOTHERING ME WITH YOUR MESSAGE! "</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">" I'M NOT GOING TO ACCEPT ANYTHING MORE!"</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+ 
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">format</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Konstrukcja taka jak na przykładzie powyżej to nic innego jak zdefiniowanie ciała metody <code class="highlighter-rouge">format</code> wewnątrz poszczególnych wartości. Dzięki takiemu podejściu metody <code class="highlighter-rouge">Formatter.CALM.format()</code> i <code class="highlighter-rouge">Formatter.NERVOUS.format()</code> mogą mieć różną implementację.</p>
+
+<h2 id="materiały-dodatkowe">Materiały dodatkowe</h2>
+
+<p>Przygotowałem dla Ciebie zestaw materiałów dodatkowych jeśli chciałbyś poczytać na temat typów wyliczeniowch w innych miejscach.</p>
+<ul>
+  <li><a href="https://rpodhajny.wordpress.com/2009/02/17/typ-enum">https://rpodhajny.wordpress.com/2009/02/17/typ-enum</a></li>
+  <li><a href="https://www.youtube.com/watch?v=IHcTGxFQSm8">https://www.youtube.com/watch?v=IHcTGxFQSm8</a></li>
+  <li><a href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html">https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html">https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html</a></li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.9">https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.9</a></li>
+  <li><a href="http://tutorials.jenkov.com/java/enums.html">http://tutorials.jenkov.com/java/enums.html</a></li>
+</ul>
+
+<p>Kod źródłowy dla wszystkich przykładów użytych w artykule znajduje się na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/19_typ_wyliczeniowy/src/main/java/pl/samouczekprogramisty/kursjava/enums">githubie</a>.</p>
+
+<h2 id="zadania">Zadania</h2>
+
+<ol>
+  <li>Napisz klasę <code class="highlighter-rouge">Human</code>, która będzie reprezentowała człowieka. Niech klasa ta posiada atrybuty takie jak imię, wiek, kolor oczu, kolor włosów. Niech te dwa ostatnie atrybuty będą typami wyliczeniowymi. Stwórz instancję takiej klasy.</li>
+  <li>Napisz typ wyliczeniowy <code class="highlighter-rouge">Computation</code>, który będzie reprezentował prosty kalkulator. Niech typ ten posiada następujące wartości <code class="highlighter-rouge">MULTIPY</code>, <code class="highlighter-rouge">DIVIDE</code>, <code class="highlighter-rouge">ADD</code>, <code class="highlighter-rouge">SUBTRACT</code>. Niech typ ten posiada metodę <code class="highlighter-rouge">public double perform(double x, double y)</code>, która zwróci wynik odpowiedniej operacji. Na przykład <code class="highlighter-rouge">Computation.ADD.perform(1, -5)</code> powinno zwrócić -4.</li>
+</ol>
+
+<p>Przygotowałem dla Ciebie przykładowe rozwiązania. Proszę jednak abyś spróbował rozwiązać zadania samodzielnie, wówczas najwięcej się nauczysz. Kod rozwiązań znajdziesz w <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/19_typ_wyliczeniowy/src/main/java/pl/samouczekprogramisty/kursjava/enums/exercise">repozytorium na githubie</a>.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu artykułu i zrobieniu zadań wiesz już wszystko na temat typów wyliczeniowych w Javie. Żadne zakamarki enumów nie są Ci obce :) Na koniec mam do Ciebie prośbę, proszę podziel się informacją o blogu ze swoimi znajomymi, udostępnienie linka do artykułu na facebooku naprawdę pomaga mi dotrzeć do jak największej liczby czytelników a na tym właśnie mi zależy. Jeśli masz jakiekolwiek pytania zadaj je w komentarzach, postaram się pomóc.</p>
+
+<p>A.. zapomniałbym, jeśli chcesz być jako pierwszy informowany o nowościach na stronie zapisz się do mojego newslettera :)</p>
+
+<p>Do następnego razu!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2016-09-09T15:30:32+02:00">September 09, 2016</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Ftyp-wyliczeniowy-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Ftyp-wyliczeniowy-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/serializacja-w-jezyku-java/" class="pagination--pager" title="Serializacja w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/adnotacje-w-jezyku-java/" class="pagination--pager" title="Adnotacje w języku Java
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/typ-wyliczeniowy-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/typ-wyliczeniowy-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

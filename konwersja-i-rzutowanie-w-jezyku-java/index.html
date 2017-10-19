@@ -1,0 +1,852 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Konwersja i rzutowanie w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku Java. Przeczytasz o konwersji obiektów oraz typów prostych. Dowiesz się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typów do typu String. Poznasz mechanizm boxing’u oraz unboxing’u. Innymi słowy, dziś kolejna porcja informacji na temat języka Java :)">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Konwersja i rzutowanie w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/konwersja-i-rzutowanie-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/konwersja-i-rzutowanie-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku Java. Przeczytasz o konwersji obiektów oraz typów prostych. Dowiesz się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typów do typu String. Poznasz mechanizm boxing’u oraz unboxing’u. Innymi słowy, dziś kolejna porcja informacji na temat języka Java :)">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2016/02/17_konwersja_i_rzutowanie_artykul.jpeg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-02-17T17:48:51+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2016/02/17_konwersja_i_rzutowanie_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Konwersja i rzutowanie w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku Java. Przeczytasz o konwersji obiektów oraz typów prostych. Dowiesz się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typów do typu <code class="highlighter-rouge">String</code>. Poznasz mechanizm boxing’u oraz unboxing’u. Innymi słowy, dziś kolejna porcja informacji na temat języka Java :)
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/parrhesiastes">© parrhesiastes</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Konwersja i rzutowanie w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Konwersja i rzutowanie w języku Java">
+    <meta itemprop="description" content="Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku Java. Przeczytasz o konwersji obiektów oraz typów prostych. Dowiesz się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typów do typu String. Poznasz mechanizm boxing’u oraz unboxing’u. Innymi słowy, dziś kolejna porcja informacji na temat języka Java :)">
+    <meta itemprop="datePublished" content="February 17, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#rzutowanie" id="markdown-toc-rzutowanie">Rzutowanie</a></li>
+  <li><a href="#konwersja" id="markdown-toc-konwersja">Konwersja</a>    <ul>
+      <li><a href="#konwersja-typów-zmiennoprzecinkowych-do-całkowitoliczbowych" id="markdown-toc-konwersja-typów-zmiennoprzecinkowych-do-całkowitoliczbowych">Konwersja typów zmiennoprzecinkowych do całkowitoliczbowych</a></li>
+      <li><a href="#automatyczna-konwersja-podczas-przypisania" id="markdown-toc-automatyczna-konwersja-podczas-przypisania">Automatyczna konwersja podczas przypisania</a></li>
+    </ul>
+  </li>
+  <li><a href="#automatyczna-konwersja-podczas-operacji-arytmetycznych" id="markdown-toc-automatyczna-konwersja-podczas-operacji-arytmetycznych">Automatyczna konwersja podczas operacji arytmetycznych</a></li>
+  <li><a href="#boxing-i-unboxing" id="markdown-toc-boxing-i-unboxing">Boxing i unboxing</a></li>
+  <li><a href="#konwersja-do-typu-string" id="markdown-toc-konwersja-do-typu-string">Konwersja do typu <code class="highlighter-rouge">String</code></a></li>
+  <li><a href="#zadania" id="markdown-toc-zadania">Zadania</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h2 id="rzutowanie">Rzutowanie</h2>
+
+<p>Zaczniemy od rzutowania (ang. <em>cast</em>). Jak już wiesz kompilator Javy ma pewną wiedzę na temat tego jaki rodzaj obiektu kryje się pod daną referencją w trakcie kompilacji. Wie to z typu zmiennej do której przypisany jest dany obiekt. Jednak możliwa jest sytuacja kiedy pod referencją typu X przypisany jest obiekt typu Y jak w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">differentTypes</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">objectInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+    <span class="n">Object</span> <span class="n">stringInstance</span> <span class="o">=</span> <span class="s">"string"</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Obie referencje są typu <code class="highlighter-rouge">Object</code> jednak druga z nich przechowuje zmienną typu <code class="highlighter-rouge">String</code>. Jest to w 100% poprawny kod. Jednak jeśli na zmiennej <code class="highlighter-rouge">stringInstance</code> chciałbyś wywołać metodę, którą implementuje klasa <code class="highlighter-rouge">String</code> a nie ma jej w klasie <code class="highlighter-rouge">Object</code> skończy się to błędem kompilacji:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error:(15, 23) java: cannot find symbol
+  symbol: method length()
+  location: variable stringInstance of type java.lang.Object
+</code></pre></div></div>
+
+<p>Jak zatem wywołać taką metodę? Przecież jesteśmy pewni, że pod zmienną <code class="highlighter-rouge">stringInstance</code> kryje się obiekt typu <code class="highlighter-rouge">String</code>. Tutaj z pomocą przychodzi rzutowanie. Java pozwala rzutować typ A na typ B używając wyrażenia rzutowania, możesz je zobaczyć w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">differentTypes</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">objectInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+    <span class="n">Object</span> <span class="n">stringInstance</span> <span class="o">=</span> <span class="s">"string"</span><span class="o">;</span>
+
+    <span class="n">String</span> <span class="n">realString</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">stringInstance</span><span class="o">;</span>
+    <span class="n">realString</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Oczywiście nie każde rzutowanie jest poprawne. W przykładzie poniżej możesz zobaczyć błędne rzutowanie z typu Object na typ <code class="highlighter-rouge">String</code>. Tego typu operacje kończą się wyjątkiem w trakcie wykonania programu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RuntimeType</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Object</span><span class="o">[]</span> <span class="n">someMysteriousObjects</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span><span class="s">"1234"</span><span class="o">,</span> <span class="k">new</span> <span class="n">Object</span><span class="o">()};</span>
+
+        <span class="n">String</span> <span class="n">castedString</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">someMysteriousObjects</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="n">String</span> <span class="n">classCastException</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">someMysteriousObjects</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Exception in thread "main" java.lang.ClassCastException: java.lang.Object cannot be cast to java.lang.String
+  at pl.samouczekprogramisty.kursjava.RuntimeType.main(RuntimeType.java:8)
+</code></pre></div></div>
+
+<p>Wyjątek mówi tyle, że obiektu typu <code class="highlighter-rouge">java.lang.Object</code> nie możemy rzutować do typu <code class="highlighter-rouge">java.lang.String</code>. Jakie rzutowanie jest w takim razie dozwolone? Możemy rzutować wyłącznie na typ, który znajduje się hierarchii dziedziczenia danego obiektu. Z tego właśnie powodu rzutowanie <code class="highlighter-rouge">String</code> na <code class="highlighter-rouge">Object</code> jest dopuszczalne ale odwrotna operacja kończy się błędem.</p>
+
+<p>W jednym z kolejnych artykułów przeczytasz o typach generycznych, które pomagają rozwiązać część sytuacji, kiedy rzutowanie jest potrzebne. W codziennym programowaniu radziłbym unikać tego typu operacji. Z pewnością istnieje inny sposób napisania programu, który pozwoli na uniknięcie rzutowania.</p>
+
+<h2 id="konwersja">Konwersja</h2>
+
+<p>Rzutowanie to specyficzny przypadek konwersji, jest to konwersja jawna, wymuszona przez programistę. W trakcie niektórych operacji może dochodzić do automatycznej konwersji, konwersji niejawnej. Konwersja niejawna może wystąpić np. podczas wywołania metod czy operacji arytmetycznych. Poniżej przykład konwersji automatycznej, która zachodzi w trakcie wywołania metody:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WideningConversion</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">WideningConversion</span> <span class="n">conversion</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WideningConversion</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">intVariable</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+        <span class="kt">long</span> <span class="n">longVariable</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+
+        <span class="n">conversion</span><span class="o">.</span><span class="na">methodLongArgument</span><span class="o">(</span><span class="n">longVariable</span><span class="o">);</span>
+        <span class="n">conversion</span><span class="o">.</span><span class="na">methodLongArgument</span><span class="o">(</span><span class="n">intVariable</span><span class="o">);</span> <span class="c1">// extending conversion</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodLongArgument</span><span class="o">(</span><span class="kt">long</span> <span class="n">argument</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">argument</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Dochodzi do konwersji ponieważ metoda <code class="highlighter-rouge">methodLongArgument</code> przyjmuje parametr typu <code class="highlighter-rouge">long</code> a jedno z wywołań przyjmuje zmienną typu <code class="highlighter-rouge">int</code>. Jest to tak zwana konwersja rozszerzająca. Może być wykonana niejawnie ponieważ podczas takiej konwersji nie zachodzi ryzyko utracenia informacji (o tym dalej). Kompilator robi to automatycznie za programistę. W przykładzie powyżej zmienna <code class="highlighter-rouge">intVariable</code> zostałą automatycznie rozszerzone do typu <code class="highlighter-rouge">long</code>. Nie utraciliśmy żadnych informacji ponieważ typ <code class="highlighter-rouge">long</code> zawsze może pomieścić liczby które przechowuje <code class="highlighter-rouge">int</code>. W przykładzie używam zmiennych statycznych <code class="highlighter-rouge">MAX_VALUE</code>, które są typu <code class="highlighter-rouge">int</code> lub <code class="highlighter-rouge">long</code> i trzymają największą liczbę możliwą do przechowywania przez dany typ.</p>
+
+<p>Konwersja w odwrotną stronę wymaga już jawnego rzutowania. Taka konwersja może prowadzić do utraty informacji. Proszę spójrz na przykład:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NarrowingConversion</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">NarrowingConversion</span> <span class="n">conversion</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NarrowingConversion</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">intVariable</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+        <span class="kt">long</span> <span class="n">longVariable</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+        <span class="kt">long</span> <span class="n">longVariableWithoutLoosingInformation</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span> <span class="c1">// automatic conversion from int to long</span>
+
+        <span class="n">conversion</span><span class="o">.</span><span class="na">methodIntArgument</span><span class="o">(</span><span class="n">intVariable</span><span class="o">);</span>
+        <span class="n">conversion</span><span class="o">.</span><span class="na">methodIntArgument</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">longVariable</span><span class="o">);</span>
+        <span class="n">conversion</span><span class="o">.</span><span class="na">methodIntArgument</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">longVariableWithoutLoosingInformation</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodIntArgument</span><span class="o">(</span><span class="kt">int</span> <span class="n">argument</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">argument</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak myślisz co zostanie wypisane na konsoli po uruchomieniu tego programu?</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2147483647
+-1
+2147483647
+</code></pre></div></div>
+
+<p>Dziwne prawda? :) Środkowa linijka to nic innego jak właśnie “utrata informacji”, która może zajść w trakcie jawnej konwersji<sup id="fnref:konwersja"><a href="#fn:konwersja" class="footnote">1</a></sup>. Ostatnia linijka pokazuje, że nie każda konwersja z <code class="highlighter-rouge">long</code> do <code class="highlighter-rouge">int</code> prowadzi do utraty informacji.</p>
+
+<h3 id="konwersja-typów-zmiennoprzecinkowych-do-całkowitoliczbowych">Konwersja typów zmiennoprzecinkowych do całkowitoliczbowych</h3>
+
+<p>Innym przykładem konwersji w której dochodzi do utraty informacji jest konwersja z typów zmiennoprzecinkowych do typów całkowitoliczbowych:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">intValue</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="mf">123.123</span><span class="n">F</span><span class="o">;</span>
+<span class="kt">long</span> <span class="n">longValue</span> <span class="o">=</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span> <span class="mf">456.456</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>W obu przypadkach tracimy informację o ułamku, zostaje wyłącznie część całkowitoliczbowa.</p>
+
+<h3 id="automatyczna-konwersja-podczas-przypisania">Automatyczna konwersja podczas przypisania</h3>
+
+<p>Podobnie rzecz się ma w przypadku przypisania wartości zmiennej, tutaj także dochodzi do automatycznej konwersji. Poniższy przykład pokazuje kilka możliwych przypadków:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AssignmentConversion</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">longValue</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">intValue</span> <span class="o">=</span> <span class="o">(</span><span class="kt">short</span><span class="o">)</span> <span class="mi">123</span><span class="o">;</span>
+        <span class="kt">float</span> <span class="n">floatValue</span> <span class="o">=</span> <span class="mf">12.12</span><span class="n">F</span><span class="o">;</span>
+        <span class="kt">double</span> <span class="n">doubleValue</span> <span class="o">=</span> <span class="n">floatValue</span><span class="o">;</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">longValue</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">intValue</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">floatValue</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">doubleValue</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pierwsza linijka metody <code class="highlighter-rouge">main</code> to niejawna konwersja z typu <code class="highlighter-rouge">int</code> na <code class="highlighter-rouge">long</code> (literały całkowitoliczbowe domyślnie są typu <code class="highlighter-rouge">int</code>), kolejna zawiera jawne rzutowanie 123 na typ <code class="highlighter-rouge">short</code>, które następnie konwertowane jest niejawnie z powrotem na typ <code class="highlighter-rouge">int</code>. Ostatni przykład to konwersja z typu <code class="highlighter-rouge">float</code> do <code class="highlighter-rouge">double</code>.</p>
+
+<h2 id="automatyczna-konwersja-podczas-operacji-arytmetycznych">Automatyczna konwersja podczas operacji arytmetycznych</h2>
+
+<p>Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze specyfikacją języka Java (https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html#jls-5.6.2) możliwa jest konwersja (zachodzi pierwszy pasujący warunek):</p>
+<ol>
+  <li>rozszerzająca do typu <code class="highlighter-rouge">double</code> jeśli którykolwiek z elementów operacji arytmetycznej jest typu <code class="highlighter-rouge">double</code>,</li>
+  <li>rozszerzająca do typu <code class="highlighter-rouge">float</code> jeśli którykolwiek z elementów operacji jest typu <code class="highlighter-rouge">float</code>,</li>
+  <li>rozszerzająca to typu <code class="highlighter-rouge">long</code> jeśli którykolwiek z elementów operacji jest typu <code class="highlighter-rouge">long</code>,</li>
+  <li>rozszerzająca do typu <code class="highlighter-rouge">int</code>.</li>
+</ol>
+
+<p>Wszystkie cztery przypadki pokazane są w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArithmeticConversion</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">short</span> <span class="n">shortValue</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">intValue</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kt">long</span> <span class="n">longValue</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="kt">float</span> <span class="n">floatValue</span> <span class="o">=</span> <span class="mf">3.1</span><span class="n">F</span><span class="o">;</span>
+        <span class="kt">double</span> <span class="n">doubleValue</span> <span class="o">=</span> <span class="mf">4.1</span><span class="o">;</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">intValue</span> <span class="o">+</span> <span class="n">doubleValue</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">intValue</span> <span class="o">+</span> <span class="n">floatValue</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">intValue</span> <span class="o">+</span> <span class="n">longValue</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">shortValue</span> <span class="o">+</span> <span class="n">shortValue</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Tutaj drobna dygresja, operator dzielenia (/) wykonuje w języku Java dzielenie całkowitoliczbowe jeśli dzielna i dzielnik są całkowitoliczbowe. Jeśli chcemy otrzymać typ zmiennoprzecinkowy co najmniej jeden z elementów musi być typu zmiennoprzecinkowego:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5 / 2 = 2
+5.0 / 2 = 2.5
+5 / 2.0 = 2.5
+6 / 2 = 3
+6.0 / 2 = 3.0
+</code></pre></div></div>
+
+<h2 id="boxing-i-unboxing">Boxing i unboxing</h2>
+
+<p>Jak wiesz w języku Java występują zarówno typy proste jak i obiekty reprezentujące liczby np. <code class="highlighter-rouge">int</code> i <code class="highlighter-rouge">Integer</code>. Kompilator Java jest w stanie dokonać konwersji pomiędzy odpowiadającymi sobie typami prostymi i obiektami automatycznie. Proszę spójrz na przykład poniżej</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">primitiveInt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">123</span><span class="o">);</span>
+<span class="kt">long</span> <span class="n">primitiveLong</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Long</span><span class="o">(</span><span class="mi">123L</span><span class="o">);</span>
+<span class="kt">float</span> <span class="n">primitiveFloat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Float</span><span class="o">(</span><span class="mf">123.123</span><span class="n">F</span><span class="o">);</span>
+<span class="kt">double</span> <span class="n">primitiveDouble</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Double</span><span class="o">(</span><span class="mf">123.123</span><span class="o">);</span>
+<span class="kt">boolean</span> <span class="n">primitiveBoolean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Boolean</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Mamy tu do czynienia z tak zwanym “<em>unboxing</em>‘iem”, czyli automatycznym odpakowywaniem obiektu do odpowiadającego mu typu prostego.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Integer</span> <span class="n">objectInteger</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
+<span class="n">Long</span> <span class="n">objectLong</span> <span class="o">=</span> <span class="mi">123L</span><span class="o">;</span>
+<span class="n">Float</span> <span class="n">objectFloat</span> <span class="o">=</span> <span class="mf">123.123</span><span class="n">F</span><span class="o">;</span>
+<span class="n">Double</span> <span class="n">objectDouble</span> <span class="o">=</span> <span class="mf">123.123</span><span class="o">;</span>
+<span class="n">Boolean</span> <span class="n">objectBoolean</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Przykłady powyżej pokazują z kolei “<em>boxing</em>”, czyli automatyczne tworzenie instancji obiektów na podstawie typów prostych.</p>
+
+<p>Podczas <em>boxingu</em>/<em>unboxingu</em> może dość do rzucenia różnych wyjątków, na przykład gdy obiekt przypisywany do typu prostego jest nullem lub gdy do typu prostego próbujemy przypisać inny obiekt (np. <code class="highlighter-rouge">Long</code> do <code class="highlighter-rouge">int</code>).</p>
+
+<h2 id="konwersja-do-typu-string">Konwersja do typu <code class="highlighter-rouge">String</code></h2>
+
+<p>Konwersja do typu <code class="highlighter-rouge">String</code> jest specyficznym rodzajem konwersji automatycznej. Jest ona specyficzna ponieważ bazuje na metodzie <code class="highlighter-rouge">toString</code>, która może być przedefiniowana przez programistę. Konwersja do typu <code class="highlighter-rouge">String</code> zachodzi przy operatorze dodawania + jeśli któryś z dodawanych elementów jest typu <code class="highlighter-rouge">String</code>.</p>
+
+<p>Typy proste także są automatycznie konwertowane do typu <code class="highlighter-rouge">String</code>, odbywa się to dwuetapowo, na początku zachodzi boxing następne obiekt konwertowany jest do typu <code class="highlighter-rouge">String</code> (wywoływana jest metoda <code class="highlighter-rouge">toString</code>).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"123"</span> <span class="o">+</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">()</span> <span class="o">+</span> <span class="s">"123"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="s">"123"</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h2 id="zadania">Zadania</h2>
+
+<ol>
+  <li>Napisz program przyjmujący od użytkownika liczbę całkowitą i wyświetl wynik mnożenia tej liczby oraz stałej pi (<code class="highlighter-rouge">Math.PI</code>). Wyświetl wynik w postaci liczby całkowitej i liczby zmiennoprzecinkowej.</li>
+  <li>Napisz program pobierający od użytkownika dwie liczby całkowite. Wyświetl wynik ich dzielenia wraz z częścią ułamkową.</li>
+  <li>Napisz program, który skończy się wyjątkiem spowodowanym błędem podczas boxingu/unboxingu.</li>
+  <li>Jak myślisz co otrzymasz przypisując zmienną typu <code class="highlighter-rouge">char</code> do zmiennej typu <code class="highlighter-rouge">int</code>? Znajdziesz ten numer w <a href="https://pl.wikipedia.org/wiki/ASCII#Tabela">tabeli ASCII</a>?</li>
+</ol>
+
+<p>Przygotowałem też dla Ciebie zestaw <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/11_konwersja_rzutowanie/src/main/java/pl/samouczekprogramisty/kursjava/zadanie">przykładowych rozwiązań zadań</a>, analizując je także możesz się czegoś nauczyć.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<ul>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.16">https://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.16</a> – “cast expression”,</li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html">https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html</a> – rzutowanie i konwersje,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/11_konwersja_rzutowanie">https://github.com/SamouczekProgramisty/KursJava/tree/master/11_konwersja_rzutowanie</a> – kod źródłowy przykładów użytych w artykule.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Właśnie dowiedziałeś się o kilku kolejnych zakamarkach języka Java. Mam nadzieję, że Ci się podobało. Jak zwykle na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zleży mi na dotarciu do jak największego grona czytelników. Jeśli nie chcesz pominąć żadnego postu polub Samouczka na facebooku. Do następnego razu! :)</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:konwersja">
+      <p>Wartość -1 wynika ze sposobu zapisywania liczb w Javie. Wiesz już o <a href="http://www.samouczekprogramisty.pl/system-dwojkowy/">binarnym zapisie</a>, tutaj wykorzystywana jest jego specyficzna odmiana – uzupełnienia do dwóch, jeżeli jesteś zainteresowany szczegółami daj znać w komentarzu, skrobnę o tym artykuł :). <a href="#fnref:konwersja" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2016-02-17T17:48:51+01:00">February 17, 2016</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fkonwersja-i-rzutowanie-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fkonwersja-i-rzutowanie-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/system-dwojkowy/" class="pagination--pager" title="System dwójkowy
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/zestaw-cwiczen-dla-poczatkujacych-programistow/" class="pagination--pager" title="Zestaw ćwiczeń dla początkujących programistów
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/konwersja-i-rzutowanie-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/konwersja-i-rzutowanie-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

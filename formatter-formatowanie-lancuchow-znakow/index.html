@@ -1,0 +1,864 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Formatter - formatowanie łańcuchów znaków - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W trakcie pracy z łańcuchami znaków bardzo często musimy prezentować je odpowiednim formacie. Dzisiejszy artykuł poświęcony będzie właśnie formatowaniu łańcuchów znaków. Dodatkowo dowiesz się czym jest lokalizacja i jaki ma wpływ na formatowanie. Całość będziesz mógł przećwiczyć rozwiązując ćwiczenie związane z formatowaniem.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Formatter - formatowanie łańcuchów znaków">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/formatter-formatowanie-lancuchow-znakow/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/formatter-formatowanie-lancuchow-znakow/">
+
+
+
+  <meta property="og:description" content="W trakcie pracy z łańcuchami znaków bardzo często musimy prezentować je odpowiednim formacie. Dzisiejszy artykuł poświęcony będzie właśnie formatowaniu łańcuchów znaków. Dodatkowo dowiesz się czym jest lokalizacja i jaki ma wpływ na formatowanie. Całość będziesz mógł przećwiczyć rozwiązując ćwiczenie związane z formatowaniem.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/05/12_formwatowanie_lancuchow_znakow_artykul.jpeg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-05-12T23:25:55+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/05/12_formwatowanie_lancuchow_znakow_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Formatter - formatowanie łańcuchów znaków
+
+        
+      </h1>
+      
+        <p class="page__lead">W trakcie pracy z łańcuchami znaków bardzo często musimy prezentować je odpowiednim formacie. Dzisiejszy artykuł poświęcony będzie właśnie formatowaniu łańcuchów znaków. Dodatkowo dowiesz się czym jest lokalizacja i jaki ma wpływ na formatowanie. Całość będziesz mógł przećwiczyć rozwiązując ćwiczenie związane z formatowaniem.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/pvenegasd/16584479775/sizes/l">© pvenegasd</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Formatter - formatowanie łańcuchów znaków</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Formatter - formatowanie łańcuchów znaków">
+    <meta itemprop="description" content="W trakcie pracy z łańcuchami znaków bardzo często musimy prezentować je odpowiednim formacie. Dzisiejszy artykuł poświęcony będzie właśnie formatowaniu łańcuchów znaków. Dodatkowo dowiesz się czym jest lokalizacja i jaki ma wpływ na formatowanie. Całość będziesz mógł przećwiczyć rozwiązując ćwiczenie związane z formatowaniem.">
+    <meta itemprop="datePublished" content="May 12, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#formatowanie" id="markdown-toc-formatowanie">Formatowanie</a></li>
+  <li><a href="#zasada-działania-formattera" id="markdown-toc-zasada-działania-formattera">Zasada działania formattera</a></li>
+  <li><a href="#Łańcuch-formatujący" id="markdown-toc-Łańcuch-formatujący">Łańcuch formatujący</a></li>
+  <li><a href="#znaczniki-konwersji" id="markdown-toc-znaczniki-konwersji">Znaczniki konwersji</a>    <ul>
+      <li><a href="#indeks-argumentu" id="markdown-toc-indeks-argumentu">Indeks argumentu</a></li>
+      <li><a href="#szerokość" id="markdown-toc-szerokość">Szerokość</a></li>
+      <li><a href="#precyzja" id="markdown-toc-precyzja">Precyzja</a></li>
+      <li><a href="#flagi" id="markdown-toc-flagi">Flagi</a></li>
+    </ul>
+  </li>
+  <li><a href="#lokalizacja" id="markdown-toc-lokalizacja">Lokalizacja</a></li>
+  <li><a href="#bardziej-skomplikowany-przykład" id="markdown-toc-bardziej-skomplikowany-przykład">Bardziej skomplikowany przykład</a></li>
+  <li><a href="#Ćwiczenie-do-wykonania" id="markdown-toc-Ćwiczenie-do-wykonania">Ćwiczenie do wykonania</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="formatowanie">Formatowanie</h2>
+
+<p>Wyobraź sobie, że chcesz pokazać użytkownikowi pewne zestawienie. Dane tego typu wygodnie jest prezentować w formie tabelarycznej. Tak dochodzimy do problemu formatowania. W jaki sposób można taki format uzyskać?</p>
+
+<p>Problem ten można rozwiązać posługując się klasą <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html"><code class="highlighter-rouge">Formatter</code></a>. Instancje właśnie tej klasy użyte są w wielu innych miejscach. Na przykład:</p>
+
+<ul>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/PrintWriter.html#format-java.lang.String-java.lang.Object...-"><code class="highlighter-rouge">PrintWriter.format</code></a> Wewnątrz tej metody użyty jest <code class="highlighter-rouge">Formatter</code>. <code class="highlighter-rouge">System.out</code> to instancja klasy <code class="highlighter-rouge">PrintWriter</code>. Dzięki temu w bardzo wygodny sposób możesz formatować tekst wypisując go na konsoli używając metody <code class="highlighter-rouge">System.out.format</code>,</li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#format-java.lang.String-java.lang.Object...-"><code class="highlighter-rouge">String.format</code></a> statyczna metoda w klasie <code class="highlighter-rouge">String</code>, która pozwala na formatowanie łańcucha znaków. Jej implementacja także bazuje na klasie <code class="highlighter-rouge">Formatter</code>.</li>
+</ul>
+
+<h2 id="zasada-działania-formattera">Zasada działania formattera</h2>
+
+<p>Formatter działa w oparciu o specjalny łańcuch znaków. Ten łańcuch opisuje sam format w jakim dane powinny być sformatowane. Może on wyglądać następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%2$08.3f %3$(,08.3f %s
+</code></pre></div></div>
+
+<p>Nie przeraź się tym przykładem, po przeczytaniu tego artykułu będziesz dokładnie wiedział co ten magiczny wzorek oznacza. Jest on celowo skomplikowany, żeby pokazać Ci możliwości klasy <code class="highlighter-rouge">Formatter</code>.</p>
+
+<h2 id="Łańcuch-formatujący">Łańcuch formatujący</h2>
+
+<p>Zacznijmy od prostego przykładu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Formatter</span> <span class="n">formatter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Formatter</span><span class="o">();</span>
+<span class="n">formatter</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s."</span><span class="o">,</span> <span class="mi">2015</span><span class="o">,</span> <span class="s">"Marcin"</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">formattedString</span> <span class="o">=</span> <span class="n">formatter</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">formattedString</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Po uruchomieniu tego fragmentu kodu na konsoli pokaże się:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Samouczek Programisty istnieje od 2015. Wszystkie artykuły pisze Marcin.
+</code></pre></div></div>
+
+<p>Powyższy fragment kodu to nic innego jak utworzenie nowej instancji klasy <code class="highlighter-rouge">Formatter</code>. Następnie na tej instancji wywołana jest metoda <code class="highlighter-rouge">format</code>. Jako pierwszy argument przyjmuje ona łańcuch formatujący. Następnie może przyjąć zmienną liczbę argumentów, które wykorzystywane są do uzupełniania formatu.</p>
+
+<p>W naszym przypadku łańcuchem formatującym jest <code class="highlighter-rouge">Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.</code>. Natomiast dwa parametry służące do uzupełniania formatu to literały <code class="highlighter-rouge">2015</code> i <code class="highlighter-rouge">Marcin</code>.</p>
+
+<p>Powyższy fragment można uprościć używając wcześniej wspomnianej metody <code class="highlighter-rouge">PrintWriter.format</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.%n"</span><span class="o">,</span> <span class="mi">2015</span><span class="o">,</span> <span class="s">"Marcin"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>W dalszej części artykułu posługiwał będę się tą uproszczoną wersją. Ważne jest żebyś miał jednak świadomość, że pod spodem używana jest instancji klasy <code class="highlighter-rouge">Formatter</code>.</p>
+
+<h2 id="znaczniki-konwersji">Znaczniki konwersji</h2>
+
+<p>Wcześniej użyty łańcuch formatujący to zwykły <code class="highlighter-rouge">String</code>, wewnątrz którego znajdują się sekwencje interpretowane w specjalny sposób. Sekwencje te zawsze mają format:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%[indeks argumentu$][flagi][szerokość][.precyzja]konwersja
+</code></pre></div></div>
+
+<p>Wszystkie elementy otoczone nawiasami [] są opcjonalne więc w najprostszej wersji znacznik konwersji może mieć format <code class="highlighter-rouge">%konwersja</code>. Zwróć jeszcze raz uwagę na łańcuch formatujący</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.
+</code></pre></div></div>
+
+<p>Jak widzisz znajdują się w nim dwa znaczniki konwersji. Są to <code class="highlighter-rouge">%d</code> i <code class="highlighter-rouge">%s</code>. Odnoszą się one do kolejnych argumentów metody <code class="highlighter-rouge">format</code>. W naszym przypadku są to literały <code class="highlighter-rouge">2015</code> i <code class="highlighter-rouge">Marcin</code>.</p>
+
+<p>Znaczniki konwersji informują instancję klasy <code class="highlighter-rouge">Formatter</code> w jaki sposób dodatkowe parametry powinny być sformatowane. Występuje wiele znaczników konwersji, te najczęściej używane podsumowane są w tabeli poniżej:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Znacznik</td>
+      <td>Typ argumentu</td>
+      <td>Działanie</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">%b</code></td>
+      <td>dowolny</td>
+      <td>interpretuje argument jako wartość logiczną</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">%s</code></td>
+      <td>dowolny</td>
+      <td>interpretuje argument jako łańcuch znaków</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">%d</code></td>
+      <td>liczba całkowita</td>
+      <td>interpretuje argument jako liczbę całkowitą</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">%o</code></td>
+      <td>liczba całkowita</td>
+      <td>interpretuje argument jako liczbę całkowitą zapisaną w systemie ósemkowym</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">%x</code></td>
+      <td>liczba całkowita</td>
+      <td>interpretuje argument jako liczbę całkowitą zapisaną w systemie szesnastkowym</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">%f</code></td>
+      <td>liczba zmiennoprzecinkowa</td>
+      <td>interpretuje argument jako liczbę zmiennoprzecinkową</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">%%</code></td>
+      <td>-</td>
+      <td>nie potrzebuje argumentu, jest to sposób na umieszczenie znaku <code class="highlighter-rouge">%</code> wewnątrz sformatowanego łańcucha znaków</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">%n</code></td>
+      <td>-</td>
+      <td>nie potrzebuje argumentu, jest to sposób na umieszczenie znaku nowej linii wewnątrz sformatowanego łańcucha znaków</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="indeks-argumentu">Indeks argumentu</h3>
+
+<p>Metoda format przyjmuje łańcuch formatujący i parametry, które służą do wypełnienia znaczników formatujących. Jeśli chciałbyś użyć, któregoś obiektu wiele razy możesz użyć indeksu argumentu. Indeksy mają także zastosowanie jeśli chciałbyś użyć argumentów w innej kolejności. Numeracja argumentów zaczyna się od 1. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"[%2$s] [%1$s] [%1$s]"</span><span class="o">,</span> <span class="s">"pierwszy argument"</span><span class="o">,</span> <span class="s">"drugi argument"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Po uruchomieniu tego kodu na konsoli zostanie wyświetlony napis:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[drugi argument] [pierwszy argument] [pierwszy argument]
+</code></pre></div></div>
+
+<p>Argument z numerem 1 użyty jest dwa razy, argument 2. użyty jest jako pierwszy w łańcuchu formatującym.</p>
+<h3 id="szerokość">Szerokość</h3>
+
+<p>Możesz także określić minimalną szerokość jaką powinien zająć argument. Domyślnie zostanie on wyrównany do prawej. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"[%10s] [%3s]"</span><span class="o">,</span> <span class="s">"test"</span><span class="o">,</span> <span class="s">"test"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Pierwszy fragment będzie uzupełniony sześcioma spacjami. Dzieje się tak ponieważ test ma cztery znaki a minimalna szerokość to 10. Zauważ, że w drugiej części gdzie minimalna szerokość to 3 żadne dodatkowe spacje nie zostały dodane.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[      test] [test]
+</code></pre></div></div>
+
+<h3 id="precyzja">Precyzja</h3>
+
+<p>Dodatkowo dla liczb zmiennoprzecinkowych możesz określić precyzję. Dodając ten modyfikator określasz ile liczb po przecinku powinno być wyświetlonych<sup id="fnref:precyzja"><a href="#fn:precyzja" class="footnote">1</a></sup>.</p>
+
+<p>Jeśli precyzja zostanie pominięta użyta jest domyślna wartość - sześć miejsc po przecinku. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">1.1234567890123</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"[%.10f] [%.3f] [%f]"</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Na konsoli pokażą się trzy liczby. Pierwsza z nich zawiera 10 liczb po przecinku, druga 3 a ostatnia domyślne 6:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1.1234567890] [1.123] [1.123457]
+</code></pre></div></div>
+
+<h3 id="flagi">Flagi</h3>
+
+<p>Flagi modyfikują zachowanie znaczników konwersji. Poniżej opiszę kilka dostępnych flag:</p>
+<ul>
+  <li><code class="highlighter-rouge">-</code> element będzie wyrównany do lewej strony,</li>
+  <li><code class="highlighter-rouge">+</code> liczba zawsze będzie zawierała znak (nawet jeśli jest dodatnia),</li>
+  <li><code class="highlighter-rouge">0</code> liczba będzie uzupełniona 0 do żądanej szerokości,</li>
+  <li><code class="highlighter-rouge">(</code> liczby ujemne nie będą prezentowane ze znakiem,</li>
+  <li><code class="highlighter-rouge">,</code> użyj separatora do grupowania liczb. Separator ten zależy jest od lokalizacji.</li>
+</ul>
+
+<p>Jeden znacznik może zawierać kilka flag. Dodatkowo wszystkie opisane wcześniej elementy mogą być połączone ze sobą.</p>
+
+<h2 id="lokalizacja">Lokalizacja</h2>
+
+<p>W uproszczeniu lokalizacja to zbiór reguł, które określają w jaki sposób w należy prezentować dany łańcuch znaków. Można powiedzieć, że jest to swego rodzaju tłumaczenie na reguły obowiązujące w danym kraju/regionie. To lokalizacja ma wpływ na to jak na przykład wyświetlane są na daty czy liczby.</p>
+
+<p>Do tej pory w całym artykule używałem metod, które używały domyślnej lokalizacji, możesz ją uzyskać odwołując się do metody <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#getDefault-java.util.Locale.Category-"><code class="highlighter-rouge">Locale.getDefault</code></a>. <code class="highlighter-rouge">Formatter</code> pozwala także na formatowanie łańcucha znaków używając innych ustawień lokalizacji.</p>
+
+<p>Proszę spójrz na przykład poniżej. Ta sama liczba prezentowana jest używając trzech różnych ustawień lokalizacji. Zwróć uwagę na to, że w każdym przypadku otrzymujemy różne wyniki:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">someNumber</span> <span class="o">=</span> <span class="mf">12345.12</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">US</span><span class="o">,</span> <span class="s">"%,.2f%n"</span><span class="o">,</span> <span class="n">someNumber</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">GERMAN</span><span class="o">,</span> <span class="s">"%,.2f%n"</span><span class="o">,</span> <span class="n">someNumber</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">forLanguageTag</span><span class="o">(</span><span class="s">"PL"</span><span class="o">),</span> <span class="s">"%,.2f%n"</span><span class="o">,</span> <span class="n">someNumber</span><span class="o">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>12,345.12
+12.345,12
+12 345,12
+</code></pre></div></div>
+
+<p>Wyniki różnią się separatorem dziesiętnym (<code class="highlighter-rouge">.</code> lub <code class="highlighter-rouge">,</code>) i separatorem grup liczb (<code class="highlighter-rouge">,</code>, <code class="highlighter-rouge">.</code> lub ` `).</p>
+<h2 id="bardziej-skomplikowany-przykład">Bardziej skomplikowany przykład</h2>
+
+<p>Teraz masz już wystarczająco dużo informacji aby zrozumieć pierwszy przykład użyty na początku artykułu. Dla przypomnienia:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%2$08.3f %3$(,08.3f %s
+</code></pre></div></div>
+
+<p>Rozkładając ten łańcuch formatujący na części widzisz trzy znaczniki formatujące:</p>
+<ul>
+  <li><code class="highlighter-rouge">%2$08.3f</code>,</li>
+  <li><code class="highlighter-rouge">%3$(,08.3f</code>,</li>
+  <li><code class="highlighter-rouge">%s</code>.</li>
+</ul>
+
+<p>Rozkładając najbardziej skomplikowany z nich <code class="highlighter-rouge">%3$(,08.3f</code> na części pierwsze otrzymujemy:</p>
+<ul>
+  <li><code class="highlighter-rouge">%3$</code> odwołanie się do trzeciego argumentu,</li>
+  <li><code class="highlighter-rouge">(</code> otoczenie liczb ujemnych nawiasami <code class="highlighter-rouge">()</code>,</li>
+  <li><code class="highlighter-rouge">,</code> użycie separatora grup liczb,</li>
+  <li><code class="highlighter-rouge">0</code> uzupełnienie liczby zerami,</li>
+  <li><code class="highlighter-rouge">8</code> ustawienie minimalnej szerokości wyświetlanej liczby na osiem znaków,</li>
+  <li><code class="highlighter-rouge">.3</code> wyświetlenie trzech miejsc dziesiętnych,</li>
+  <li><code class="highlighter-rouge">f</code> konwersja liczby zmiennoprzecinkowej.</li>
+</ul>
+
+<h2 id="Ćwiczenie-do-wykonania">Ćwiczenie do wykonania</h2>
+
+<p>Plik CSV zawiera trzy kolumny oddzielone znakiem <code class="highlighter-rouge">,</code>. Pierwsza kolumna zawiera imię, druga liczbę zmiennoprzecinkową trzecia dzień tygodnia. Twoim zadaniem jest wczytanie zawartości <a href="https://raw.githubusercontent.com/SamouczekProgramisty/KursJava/master/27_lancuchy_znakow_formatowanie/src/main/resources/test.csv">tego pliku</a> i wyświetlenie jej w formie tabeli. Efekt, który chcesz uzyskać wygląda następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| Piotrek | 123.12  | poniedziałek |
+| Tomek   | 321.30  | wtorek       |
+| Marcin  | -123.12 | środa        |
+| Wojtek  | -3.12   | czwartek     |
+</code></pre></div></div>
+
+<p>Zachęcam Cię do rozwiązania zadania samodzielnie. Jeśli jednak będziesz miał problem z jego rozwiązaniem przygotowałem dla Ciebie <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/27_lancuchy_znakow_formatowanie/src/main/java/pl/samouczekprogramisty/kursjava/strings/formatting/ExerciseSolution.java">przykładowe rozwiązanie</a>.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Artykuł ten to “skrót” dokumentacji dla klasy klasy <code class="highlighter-rouge">Formatter</code>. Jeśli chcesz dowiedzieć się czegoś więcej zachęcam do przeczytania <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html">dokumentacji tej klasy</a>. Dodatkowo możesz także przejrzeć <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/27_lancuchy_znakow_formatowanie/src/main/java/pl/samouczekprogramisty/kursjava/strings/formatting/StringFormatting.java">kod źródłowy wszystkich przykładów</a> użytych w tym artykule.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>W artykule przeczytałeś o formatowaniu łańcuchów znaków. Wiesz jak formatować liczby zmiennoprzecinkowe, poznałeś klasę Formatter wraz miejscami gdzie jest ona używana. Rozwiązując ćwiczenie wykorzystałeś całą wiedzę w praktyce.</p>
+
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli masz jakieś pytania nie wahaj się zadać je w komentarzach. Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na facebooku i dopisz się do newslettera. Do następnego razu.</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:precyzja">
+      <p>Precyzję można także użyć na przykład wraz z <code class="highlighter-rouge">%s</code>, wtedy oznacza to maksymalną liczbę znaków do wyświetlenia. <a href="#fnref:precyzja" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#dsp2017" class="page__taxonomy-item" rel="tag">DSP2017</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-05-12T23:25:55+02:00">May 12, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fformatter-formatowanie-lancuchow-znakow%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fformatter-formatowanie-lancuchow-znakow%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/pogodynka-konfiguracja-bazy-danych/" class="pagination--pager" title="Pogodynka - konfiguracja bazy danych
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/pogodynka-szkic-interfejsu-uzytkownika/" class="pagination--pager" title="Pogodynka - szkic interfejsu użytkownika
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/formatter-formatowanie-lancuchow-znakow/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/formatter-formatowanie-lancuchow-znakow"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

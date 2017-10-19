@@ -1,0 +1,880 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Klasy wewnętrzne i anonimowe w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o klasach wewnętrznych i klasach anonimowych w Javie. Dowiesz się jak wyglądają, jakie mają ograniczenia oraz kiedy możemy ich używać. Na końcu, jak zwykle, czeka na Ciebie zestaw zadań, w których przećwiczysz materiał z tego artykułu.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Klasy wewnętrzne i anonimowe w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o klasach wewnętrznych i klasach anonimowych w Javie. Dowiesz się jak wyglądają, jakie mają ograniczenia oraz kiedy możemy ich używać. Na końcu, jak zwykle, czeka na Ciebie zestaw zadań, w których przećwiczysz materiał z tego artykułu.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2016/10/13_klasy_wewnetrzne_anonimowe_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-10-13T21:42:15+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2016/10/13_klasy_wewnetrzne_anonimowe_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Klasy wewnętrzne i anonimowe w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o klasach wewnętrznych i klasach anonimowych w Javie. Dowiesz się jak wyglądają, jakie mają ograniczenia oraz kiedy możemy ich używać. Na końcu, jak zwykle, czeka na Ciebie zestaw zadań, w których przećwiczysz materiał z tego artykułu.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/andercismo/2349098787/sizes/l">© alfmelin</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Klasy wewnętrzne i anonimowe w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Klasy wewnętrzne i anonimowe w języku Java">
+    <meta itemprop="description" content="W artykule tym przeczytasz o klasach wewnętrznych i klasach anonimowych w Javie. Dowiesz się jak wyglądają, jakie mają ograniczenia oraz kiedy możemy ich używać. Na końcu, jak zwykle, czeka na Ciebie zestaw zadań, w których przećwiczysz materiał z tego artykułu.">
+    <meta itemprop="datePublished" content="October 13, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#klas-wewnętrznych-jest-wiele" id="markdown-toc-klas-wewnętrznych-jest-wiele">Klas wewnętrznych jest wiele…</a></li>
+  <li><a href="#klasy-wewnętrzne" id="markdown-toc-klasy-wewnętrzne">Klasy wewnętrzne</a>    <ul>
+      <li><a href="#tworzenie-instancji-klasy-wewnętrznej" id="markdown-toc-tworzenie-instancji-klasy-wewnętrznej">Tworzenie instancji klasy wewnętrznej</a></li>
+    </ul>
+  </li>
+  <li><a href="#statyczne-klasy-wewnętrzne" id="markdown-toc-statyczne-klasy-wewnętrzne">Statyczne klasy wewnętrzne</a>    <ul>
+      <li><a href="#tworzenie-instancji-statycznej-klasy-wewnętrznej" id="markdown-toc-tworzenie-instancji-statycznej-klasy-wewnętrznej">Tworzenie instancji statycznej klasy wewnętrznej</a></li>
+    </ul>
+  </li>
+  <li><a href="#lokalne-klasy-wewnętrzne" id="markdown-toc-lokalne-klasy-wewnętrzne">Lokalne klasy wewnętrzne</a></li>
+  <li><a href="#kiedy-używać-klas-wewnętrznych" id="markdown-toc-kiedy-używać-klas-wewnętrznych">Kiedy używać klas wewnętrznych</a></li>
+  <li><a href="#klasy-anonimowe" id="markdown-toc-klasy-anonimowe">Klasy anonimowe</a></li>
+  <li><a href="#używanie-zmiennych-z-klas-zewnętrznych" id="markdown-toc-używanie-zmiennych-z-klas-zewnętrznych">Używanie zmiennych z klas zewnętrznych</a></li>
+  <li><a href="#zadania" id="markdown-toc-zadania">Zadania</a></li>
+  <li><a href="#materiały-dodatkowe" id="markdown-toc-materiały-dodatkowe">Materiały dodatkowe</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h2 id="klas-wewnętrznych-jest-wiele">Klas wewnętrznych jest wiele…</h2>
+
+<p>Na początku pewne zastrzeżenie. W całym artykule posługuję się określeniem „klasy wewnętrzne”. Ważne jest żebyś zdawał sobie sprawę z tego, że równie dobrze możemy mieć do czynienia z wewnętrznym typem wyliczeniowym czy wewnętrznym interfejsem. Poznając klasy wewnętrzne, poznajesz także „interfejsy wewnętrzne” czy „wewnętrzne typy wyliczeniowe”.</p>
+
+<p>Istnieje kilka typów klas wewnętrznych:</p>
+
+<ul>
+  <li>(standardowe) klasy wewnętrzne,</li>
+  <li>statyczne klasy wewnętrzne,</li>
+  <li>lokalne klasy wewnętrzne,</li>
+  <li>anonimowe klasy wewnętrzne.</li>
+</ul>
+
+<p>Często mówimy po prostu o klasie wewnętrznej odwołując się do którejkolwiek z powyższych. W kolejnych akapitach postaram się pokazać różnice pomiędzy tymi typami klas.</p>
+
+<h2 id="klasy-wewnętrzne">Klasy wewnętrzne</h2>
+
+<p>Standardowe klasy już znasz. Ot zwykłe <code class="highlighter-rouge">public class Example {}</code> i już mamy klasę. A czym jest klasa wewnętrzna? Zacznijmy od przykładu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OuterClass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">InnerClass</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">InnerClass</span> <span class="nf">intantiate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">InnerClass</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W naszym przykładzie widzisz dwie klasy. Standardowa klasa <code class="highlighter-rouge">OuterClass</code> i klasa wewnętrzna <code class="highlighter-rouge">InnerClass</code>.</p>
+
+<p>Podobnie jak w przypadku atrybutów czy metod, klasy wewnętrzne mogą mieć standardowe modyfikatory dostępu <code class="highlighter-rouge">public</code>, <code class="highlighter-rouge">protected</code> czy <code class="highlighter-rouge">private</code>. Brak modyfikatora dostępu także i tutaj jest poprawny.</p>
+
+<p>Modyfikatory dostępu użyte przed definicją klasy wewnętrznej działają identycznie jak w przypadku atrybutów, metod czy konstruktorów. Jeśli chcesz przeczytać o nich więcej osobny akapit na ich temat znajdziesz w <a href="%{ post_url 2016-01-24-dziedziczenie-w-jezyku-java %}">artykule o dziedziczeniu</a>.</p>
+
+<p>Ważne jest także to, że klasa wewnętrzna ma dostęp do wszystkich atrybutów czy metod klasy zewnętrznej, w której została zdefiniowana.</p>
+
+<h3 id="tworzenie-instancji-klasy-wewnętrznej">Tworzenie instancji klasy wewnętrznej</h3>
+
+<p>Do stworzenia instancji klasy wewnętrznej potrzebujemy instancji klasy zewnętrznej. Proszę spójrz na przykład poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">innerClassInstantiation</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">OuterClass</span> <span class="n">outerClass</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OuterClass</span><span class="o">();</span>
+    <span class="n">OuterClass</span><span class="o">.</span><span class="na">InnerClass</span> <span class="n">instance1</span> <span class="o">=</span> <span class="n">outerClass</span><span class="o">.</span><span class="na">intantiate</span><span class="o">();</span>
+    <span class="n">OuterClass</span><span class="o">.</span><span class="na">InnerClass</span> <span class="n">instance2</span> <span class="o">=</span> <span class="n">outerClass</span><span class="o">.</span><span class="na">new</span> <span class="nf">InnerClass</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Widzisz tam typ <code class="highlighter-rouge">OuterClass.InnerClass</code>, to nic innego jak odwołanie się do typu wewnętrznego. W tym fragmencie kodu tworzymy dwie instancje. Pierwsza z nich powstaje w wyniku wywołania metody <code class="highlighter-rouge">instantiate</code> z klasy <code class="highlighter-rouge">OuterClass</code>. Ciało tej metody możesz zobaczyć w poprzednim fragmencie kodu.</p>
+
+<p>Proszę zwróć uwagę, że wewnątrz metody <code class="highlighter-rouge">instantiate</code> nie musimy podawać pełnej nazwy klasy, samo <code class="highlighter-rouge">new InnerClass()</code> wystarczy (jest to odpowiednik <code class="highlighter-rouge">this.new InnerClass()</code>).</p>
+
+<p><code class="highlighter-rouge">instance2</code> tworzymy posługując się instancją klasy <code class="highlighter-rouge">OuterClass</code>. Taka konstrukcja jest niezbędna w przypadku standardowych klas wewnętrznych.</p>
+
+<h2 id="statyczne-klasy-wewnętrzne">Statyczne klasy wewnętrzne</h2>
+
+<p>W języku Java istnieją także statyczne klasy wewnętrzne. Są to klasy wewnętrzne poprzedzone modyfikatorem <code class="highlighter-rouge">static</code>. Proszę spójrz na przykład poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OuterClass2</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">InnerClass2</span> <span class="o">{</span>
+    <span class="o">}</span>   
+ 
+    <span class="kd">private</span> <span class="n">InnerClass2</span> <span class="nf">instantiate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">InnerClass2</span><span class="o">();</span>
+    <span class="o">}</span>   
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz przykład ten jest bardzo podobny do pierwszego z tego artykułu. Nowością tutaj jest modyfikator <code class="highlighter-rouge">static</code>, reszta pozostaje bez zmian.</p>
+
+<p>Ważna jest natomiast różnica przy tworzeniu instancji statycznej klasy wewnętrznej.</p>
+
+<p>Domyślnie, wszystkie wewnętrzne interfejsy i typy wyliczeniowe są statyczne, modyfikator <code class="highlighter-rouge">static</code> jest przed nimi zbędny (możesz spróbować go dodać, IDE powinno zwrócić Ci na to uwagę).</p>
+
+<h3 id="tworzenie-instancji-statycznej-klasy-wewnętrznej">Tworzenie instancji statycznej klasy wewnętrznej</h3>
+
+<p>W odróżnieniu od standardowych klas wewnętrznych, nie potrzebujemy instancji klasy zewnętrznej do stworzenia instancji statycznej klasy wewnętrznej. Może się to wydać trochę skomplikowane jednak całość na pewno będzie bardziej zrozumiała gdy popatrzysz na przykład.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">staticInnerClassInstantiation</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">OuterClass2</span> <span class="n">outerClass</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OuterClass2</span><span class="o">();</span>
+    <span class="n">OuterClass2</span><span class="o">.</span><span class="na">InnerClass2</span> <span class="n">instance1</span> <span class="o">=</span> <span class="n">outerClass</span><span class="o">.</span><span class="na">instantiate</span><span class="o">();</span>
+    <span class="n">OuterClass2</span><span class="o">.</span><span class="na">InnerClass2</span> <span class="n">instance2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OuterClass2</span><span class="o">.</span><span class="na">InnerClass2</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Różnica jest taka, że wystarczy nam po prostu pełne odwołanie się do typu klasy wewnętrznej aby stworzyć jej instancję. W naszym przypadku jest to <code class="highlighter-rouge">new OuterClass2.InnerClass2()</code>.</p>
+
+<h2 id="lokalne-klasy-wewnętrzne">Lokalne klasy wewnętrzne</h2>
+
+<p>Jako ostatni typ klas wewnętrznych zostały nam lokalne klasy wewnętrzne. I wiesz co? W sumie poza tym, że możemy je zdefiniować wewnątrz bloku (wewnątrz metody, bloku <code class="highlighter-rouge">if</code> itp.) i nie poprzedzają ich modyfikatory dostępu (<code class="highlighter-rouge">public</code>, <code class="highlighter-rouge">private</code>, <code class="highlighter-rouge">protected</code>) niczym szczególnym nie różnią się od pozostałych klas wewnętrznych. Proszę spójrz na przykład:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">localClassInstantiation</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">class</span> <span class="nc">LocalClass</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="s">"Argumenty metody: "</span> <span class="o">+</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>   
+    <span class="n">LocalClass</span> <span class="n">localClassInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LocalClass</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">localClassInstance</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Tutaj wewnątrz metody tworzymy naszą lokalną klasę wewnętrzną <code class="highlighter-rouge">LocalClass</code>. Linijkę później tworzymy jej instancję i wywołujemy na niej metodę.</p>
+
+<p>Głównym ograniczeniem/zaletą klas lokalnych jest ich zasięg. Podobnie jak w przypadku zmiennych lokalnych, dostęp do klas lokalnych jest wyłącznie w bloku, w którym zostały zdefiniowane.</p>
+
+<h2 id="kiedy-używać-klas-wewnętrznych">Kiedy używać klas wewnętrznych</h2>
+
+<p>Właśnie, po co w ogóle są nam one potrzebne? Mam nadzieję, że przykład ze standardowej biblioteki Javy pomoże Ci to zrozumieć.</p>
+
+<p>W artykule o <a href="/kolekcje-w-jezyku-java/">kolekcjach</a> opisałem mapę i sposób w jaki możemy po niej iterować.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">dayInMonths</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">dayInMonths</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"styczen"</span><span class="o">,</span> <span class="mi">31</span><span class="o">);</span>
+<span class="n">dayInMonths</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"luty"</span><span class="o">,</span> <span class="mi">28</span><span class="o">);</span>
+<span class="n">dayInMonths</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"marzec"</span><span class="o">,</span> <span class="mi">31</span><span class="o">);</span>
+ 
+<span class="k">for</span><span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">dayInMonths</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">" ma "</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">()</span> <span class="o">+</span> <span class="s">" dni."</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W naszej mapie trzymamy nazwę miesiąca i odpowiadającą mu liczbę dni. Każda instancja obiektu implementującego interfejs <code class="highlighter-rouge">Map</code> posiada metodę <code class="highlighter-rouge">entrySet</code>, która zwraca typ <code class="highlighter-rouge">Set&lt;Map.Entry&lt;K, V&gt;&gt;</code>.</p>
+
+<p>Rozłóżmy ten typ na części pierwsze. <code class="highlighter-rouge">K</code> to nasz klucz (ang. key), <code class="highlighter-rouge">V</code> to wartość (ang. value) przechowywana w mapie. <code class="highlighter-rouge">Map.Entry&lt;K, V&gt;</code> to typ generyczny który parametryzowany jest typem klucza i wartości. <code class="highlighter-rouge">Set&lt;Map.Entry&lt;K, V&gt;&gt;</code> to zbiór elementów mapy. Każdy element ma klucz i wartość. A czym jest <code class="highlighter-rouge">Map.Entry</code>? To nic innego jak interfejs wewnętrzny :) Jest to interfejs <code class="highlighter-rouge">Entry</code> zdefiniowany wewnątrz interfejsu <code class="highlighter-rouge">Map</code>.</p>
+
+<p>Więc po co używać klas wewnętrznych? Powodów jest kilka. Jak w przykładzie z <code class="highlighter-rouge">Map.Entry</code> dobrym pomysłem użycia klas wewnętrznych jest sytuacja, w której klasa wewnętrzna nie ma sensu bez klasy zewnętrznej i jest z nią ściśle związana.</p>
+
+<p>Kolejnym powodem może być lepsza enkapsulacja kodu (ukrywanie szczegółów działania klasy wewnątrz). Dzięki temu, że klasy wewnętrzne mają dostęp nawet do prywatnych zasobów klas otaczających, te drugie możemy bardziej „opakować”. Ukryć więcej szczegółów wewnątrz.</p>
+
+<h2 id="klasy-anonimowe">Klasy anonimowe</h2>
+
+<p>Zacznijmy od prostej definicji. Klasy anonimowe to klasy definiowane w kodzie, które mają dokładnie jedną instancję. Definicja klasy anonimowej połączona jest z tworzeniem jej jedynej instancji. Klasy anonimowe zawsze są klasami wewnętrznymi.</p>
+
+<p>Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">GreetingModule</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">();</span>
+<span class="o">}</span>
+ 
+<span class="k">new</span> <span class="nf">GreetingModule</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"good morning"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Na początku definicja interfejsu z jedną metodą sayHello. Ciekawsze są jednak ostatnie cztery linijki. To właśnie definicja klasy anonimowej.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>new TYP([ARGUMENTY]) {
+    CIAŁO KLASY
+}
+</code></pre></div></div>
+
+<p>Konstrukcja ta pozwala nam na stworzenie instancji klasy anonimowej. W naszym przykładzie tworzymy nową klasę, która implementuje interfejs <code class="highlighter-rouge">GreetingModule</code> oraz tworzymy jej nową instancję przy pomocy słowa kluczowego <code class="highlighter-rouge">new</code>.</p>
+
+<p>Wewnątrz definicji klasy anonimowej możemy definiować atrybuty czy metody. W praktyce sprowadza się to przeważnie do zaimplementowania metod interfejsu dla którego tworzymy klasę anonimową.</p>
+
+<p>W większym fragmencie kodu użycie klas anonimowych może wyglądać następująco.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnonymousClasses</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Robot</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="n">GreetingModule</span> <span class="n">greetingModule</span><span class="o">;</span>
+ 
+        <span class="kd">public</span> <span class="nf">Robot</span><span class="o">(</span><span class="n">GreetingModule</span> <span class="n">greetingModule</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">greetingModule</span> <span class="o">=</span> <span class="n">greetingModule</span><span class="o">;</span>
+        <span class="o">}</span>
+ 
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">saySomething</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">greetingModule</span><span class="o">.</span><span class="na">sayHello</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">GreetingModule</span> <span class="o">{</span>
+        <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Robot</span> <span class="n">jan</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Robot</span><span class="o">(</span><span class="k">new</span> <span class="n">GreetingModule</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"dzien dobry"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">Robot</span> <span class="n">john</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Robot</span><span class="o">(</span><span class="k">new</span> <span class="n">GreetingModule</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"good morning"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+ 
+        <span class="n">jan</span><span class="o">.</span><span class="na">saySomething</span><span class="o">();</span>
+        <span class="n">john</span><span class="o">.</span><span class="na">saySomething</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W naszym przykładzie tworzymy dwie instancje robotów <code class="highlighter-rouge">jan</code> i <code class="highlighter-rouge">john</code>, które używają innych „modułów powitań”. Każdy z nich jest instancją anonimowej klasy wewnętrznej.</p>
+
+<p>Niektóre z klas anonimowych można zastąpić wyrażeniami lambda, o których przeczytasz w jednym z kolejnych artykułów.</p>
+
+<h2 id="używanie-zmiennych-z-klas-zewnętrznych">Używanie zmiennych z klas zewnętrznych</h2>
+
+<p>Wewnątrz definicji klas wewnętrznych (także klas anonimowych) możemy używać zmiennych z otaczającego je kontekstu. Spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someMethod</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">String</span> <span class="n">finalVariable</span> <span class="o">=</span> <span class="s">"final variable"</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">effectivelyFinalVariable</span> <span class="o">=</span> <span class="s">"effectively final variable"</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">nonFinalVariable</span> <span class="o">=</span> <span class="s">"non final variable"</span><span class="o">;</span>
+ 
+    <span class="kd">class</span> <span class="nc">InnerClass</span> <span class="o">{</span>         
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">saySomething</span><span class="o">()</span> <span class="o">{</span>        
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">finalVariable</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">effectivelyFinalVariable</span><span class="o">);</span>
+        <span class="o">}</span>   
+    <span class="o">}</span>   
+ 
+    <span class="n">InnerClass</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InnerClass</span><span class="o">();</span>
+    <span class="n">instance</span><span class="o">.</span><span class="na">saySomething</span><span class="o">();</span>            
+ 
+    <span class="n">nonFinalVariable</span> <span class="o">=</span> <span class="s">"new value"</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W metodzie <code class="highlighter-rouge">saySomething</code> używamy dwóch zmiennych z klasy otaczającej <code class="highlighter-rouge">finalVariable</code> i <code class="highlighter-rouge">effectivelyFinalVariable</code>. Jest jednak jedno ograniczenie. Zmienna z „zewnątrz” użyta w klasie wewnętrznej musi być finalna albo „właściwie finalna”.</p>
+
+<p>Zmienna jest finalna jeśli poprzedza ją słowo kluczowe <code class="highlighter-rouge">final</code>. Kiedy jest „właściwie finalna”? Kiedy nie zmieniamy jej wartości i kompilator za nas wstawia brakujące słowo final ;).</p>
+
+<p>W związku z tym użycie zmiennej <code class="highlighter-rouge">nonFinalVariable</code> nie jest dozwolone ponieważ jej wartość jest zmieniana.</p>
+
+<h2 id="zadania">Zadania</h2>
+
+<p>Na koniec czekają na Ciebie dwa zadania, w których przećwiczysz zagadnienia omówione w artykule. Przygotowałem też zestaw przykładowych rozwiązań i umieściłem je na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/21_klasy_wewnetrzne/src/main/java/pl/samouczekprogramisty/kursjava/inner/exercise">githubie</a>. Jak zwykle zachęcam do samodzielnego rozwiązywania zadań, wtedy nauczysz się najwięcej. Samo przeczytanie artykułu nie wystarczy, do dzieła!</p>
+<ol>
+  <li>Rozszerz przykład z robotami z akapitu o klasach anonimowych o robota witającego się w innym języku np. niemieckim.</li>
+  <li>Zadanie to będzie wymagało dodatkowej lektury na temat interfejsu <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html"><code class="highlighter-rouge">Comparator</code></a> ze standardowej biblioteki Javy. Pobierz od użytkownika 5 wyrazów, zapisz je w <code class="highlighter-rouge">List</code>. Użyj metody <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#sort-java.util.List-java.util.Comparator-"><code class="highlighter-rouge">Collections.sort</code></a>, przekazując jako argumenty listę oraz klasę anonimową, która posortuje ją na podstawie długości wyrazów (najkrótsze wyrazy powinny być pierwsze). Do sprawdzenia długości słowa możesz użyć metody <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html#length--"><code class="highlighter-rouge">String.length</code></a>. Wyświetl zawartość listy przed i po sortowaniu.</li>
+</ol>
+
+<h2 id="materiały-dodatkowe">Materiały dodatkowe</h2>
+
+<p>Przygotowałem też dla Ciebie zestaw materiałów dodatkowych zawierających informacje na temat klas wewnętrznych i anonimowych. Dodatkowo wszystkie przykłady kodu użyte w tym artykule możesz znaleźć na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/21_klasy_wewnetrzne/src/main/java/pl/samouczekprogramisty/kursjava/inner">samouczkowym githubie</a>.</p>
+<ul>
+  <li><a href="https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html">Tutorial na stronie Oracle dotyczący klas wewnętrznych i anonimowych</a>,</li>
+  <li><a href="http://docstore.mik.ua/orelly/java-ent/jnut/ch03_12.htm">Fragment książki opisujący klasy wewnętrzne</a>,</li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.1.3">Rozdział w JLS na temat klas wewnętrznych</a>,</li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.9.5">Rozdział w JLS na temat klas anonimowych</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Bardzo się cieszę, że przeczytałeś artykuł do końca. Po lekturze artykułu wiesz czym są klasy wewnętrzne. Wiesz też jakie rodzaje klas wewnętrznych występują. Znasz także klasy anonimowe i wiesz kiedy ich używać. Rozwiązując zadanie przećwiczyłeś całość w praktyce. Innymi słowy kawał solidnej wiedzy :)</p>
+
+<p>Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze znajomymi i polub moją stronę na facebooku. Zależy mi na dotarciu do jak największej liczby osób, które chcą uczyć się programowania. Z góry dziękuję i do następnego razu.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2016-10-13T21:42:15+02:00">October 13, 2016</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fklasy-wewnetrzne-i-anonimowe-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fklasy-wewnetrzne-i-anonimowe-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/adnotacje-w-jezyku-java/" class="pagination--pager" title="Adnotacje w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit/" class="pagination--pager" title="Testy jednostkowe z JUnit
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/klasy-wewnetrzne-i-anonimowe-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

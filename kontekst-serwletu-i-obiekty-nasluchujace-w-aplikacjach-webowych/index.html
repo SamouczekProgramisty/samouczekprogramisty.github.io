@@ -1,0 +1,778 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Kontekst serwletu i obiekty nasłuchujące w aplikacjach webowych - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule przeczytasz o kolejnych podstawowych elementach, niezbędnych do budowania aplikacji webowych w Javie. Dowiedz się czym jest kontekst serwletu (ang. servlet context) i jak możesz go używać. Poznasz cykl życia aplikacji webowej i dowiesz się o zdarzeniach (ang. events), na które możesz reagować. Całość przećwiczysz rozwiązując zadanie znajdujące się na końcu artykułu.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Kontekst serwletu i obiekty nasłuchujące w aplikacjach webowych">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/kontekst-serwletu-i-obiekty-nasluchujace-w-aplikacjach-webowych/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/kontekst-serwletu-i-obiekty-nasluchujace-w-aplikacjach-webowych/">
+
+
+
+  <meta property="og:description" content="W artykule przeczytasz o kolejnych podstawowych elementach, niezbędnych do budowania aplikacji webowych w Javie. Dowiedz się czym jest kontekst serwletu (ang. servlet context) i jak możesz go używać. Poznasz cykl życia aplikacji webowej i dowiesz się o zdarzeniach (ang. events), na które możesz reagować. Całość przećwiczysz rozwiązując zadanie znajdujące się na końcu artykułu.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/04/21_listener_kontekst_servlet_context_artykul.jpeg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-04-21T16:04:41+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/04/21_listener_kontekst_servlet_context_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Kontekst serwletu i obiekty nasłuchujące w aplikacjach webowych
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule przeczytasz o kolejnych podstawowych elementach, niezbędnych do budowania aplikacji webowych w Javie. Dowiedz się czym jest kontekst serwletu (ang. <em>servlet context</em>) i jak możesz go używać. Poznasz cykl życia aplikacji webowej i dowiesz się o zdarzeniach (ang. <em>events</em>), na które możesz reagować. Całość przećwiczysz rozwiązując zadanie znajdujące się na końcu artykułu.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/fkhuckel/33244430220/sizes/l">© fkhucke</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Kontekst serwletu i obiekty nasłuchujące w aplikacjach webowych</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Kontekst serwletu i obiekty nasłuchujące w aplikacjach webowych">
+    <meta itemprop="description" content="W artykule przeczytasz o kolejnych podstawowych elementach, niezbędnych do budowania aplikacji webowych w Javie. Dowiedz się czym jest kontekst serwletu (ang. servlet context) i jak możesz go używać. Poznasz cykl życia aplikacji webowej i dowiesz się o zdarzeniach (ang. events), na które możesz reagować. Całość przećwiczysz rozwiązując zadanie znajdujące się na końcu artykułu.">
+    <meta itemprop="datePublished" content="April 21, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#servletcontext" id="markdown-toc-servletcontext"><code class="highlighter-rouge">ServletContext</code></a>    <ul>
+      <li><a href="#atrybuty-kontekstu" id="markdown-toc-atrybuty-kontekstu">Atrybuty kontekstu</a></li>
+      <li><a href="#dynamiczna-konfiguracja" id="markdown-toc-dynamiczna-konfiguracja">Dynamiczna konfiguracja</a></li>
+    </ul>
+  </li>
+  <li><a href="#obiekty-nasłuchujące" id="markdown-toc-obiekty-nasłuchujące">Obiekty nasłuchujące</a>    <ul>
+      <li><a href="#praktyczne-wykorzystanie" id="markdown-toc-praktyczne-wykorzystanie">Praktyczne wykorzystanie</a></li>
+    </ul>
+  </li>
+  <li><a href="#Ćwiczenie-do-wykonania" id="markdown-toc-Ćwiczenie-do-wykonania">Ćwiczenie do wykonania</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="servletcontext"><code class="highlighter-rouge">ServletContext</code></h2>
+
+<p>Obiekt implementujący <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html"><code class="highlighter-rouge">ServletContext</code></a> tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej<sup id="fnref:kilka_jvm"><a href="#fn:kilka_jvm" class="footnote">1</a></sup>. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej.</p>
+
+<p>Czytając poprzednie artykuły z serii:</p>
+
+<ul>
+  <li><a href="/serwlety-w-aplikacjach-webowych/">serwlety w aplikacjach webowych</a>,</li>
+  <li><a href="/naglowki-sesje-i-ciasteczka/">nagłówki, sesje i ciasteczka w aplikacjach webowych</a>,</li>
+  <li><a href="/filtry-w-aplikacjach-webowych/">filtry w aplikacjach webowych</a>,</li>
+</ul>
+
+<p>poznałeś inne konteksty/zakresy. Na przykład kontekst zapytania i kontekst sesji HTTP. W każdym z tych kontekstów mogłeś ustawić zestaw atrybutów. Atrybuty te “żyły” tak długo, jak aktywny był dany kontekst.</p>
+
+<p>Podobnie jest tutaj. Z tym, że kontekst serwletu jest tylko jeden i aktywny jest przez cały czas “życia” aplikacji webowej. Podobnie jak w poprzednich przypadkach możesz w nim ustawiać atrybuty.</p>
+
+<h3 id="atrybuty-kontekstu">Atrybuty kontekstu</h3>
+
+<p>Podobnie jak <code class="highlighter-rouge">Servlet</code> czy <code class="highlighter-rouge">HttpRequest</code> mają atrybuty, tak samo jest z <code class="highlighter-rouge">ServletContext</code>. Możesz ustawiać dowolne atrybuty w kontekście. Dzięki temu, że istnieje jeden kontekst dla całej aplikacji możesz w ten sposób przekazywać informacje pomiędzy serwletami.</p>
+
+<p>Do pracy z atrybutami przechowywanymi w obiekcie implementującym <code class="highlighter-rouge">ServletContext</code> służą metody:</p>
+
+<ul>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#setAttribute-java.lang.String-java.lang.Object-"><code class="highlighter-rouge">setAttribute</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#getAttribute-java.lang.String-"><code class="highlighter-rouge">getAttribute</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#getAttributeNames--"><code class="highlighter-rouge">getAttributeNames</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#removeAttribute-java.lang.String-"><code class="highlighter-rouge">removeAttribute</code></a>.</li>
+</ul>
+
+<p>Instancję implementującą ten interfejs możemy uzyskać wywołując metodę <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getServletContext--"><code class="highlighter-rouge">getServletContext</code></a> znajdującą się w interfejsie <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html"><code class="highlighter-rouge">ServletRequest</code></a>.</p>
+
+<p>Dzięki dostępowi do kontekstu serwletów możesz przekazywać atrybuty pomiędzy poszczególnymi serwletami. Przykładowy serwlet poniżej wyświetla wszystkie atrybuty kontekstu ustawiając wcześniej wartość jednego z nich.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="s">"/servlet1"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Servlet1</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">PrintWriter</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;html&gt;&lt;body&gt;"</span><span class="o">);</span>
+
+        <span class="n">ServletContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">();</span>
+        <span class="n">context</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">"pl.samouczekprogramisty.servlet1"</span><span class="o">,</span> <span class="s">"servlet1 attribute"</span><span class="o">);</span>
+
+        <span class="n">Enumeration</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">attributeNames</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getAttributeNames</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">attributeNames</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">attributeName</span> <span class="o">=</span> <span class="n">attributeNames</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
+            <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;p&gt;"</span> <span class="o">+</span> <span class="n">attributeName</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> <span class="n">context</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">attributeName</span><span class="o">)</span> <span class="o">+</span> <span class="s">"&lt;p&gt;"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;/body&gt;&lt;/html&gt;"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Spróbuj uruchomić aplikację, która ma taki serwlet. Wpisując adres serwletu w przeglądarce zobaczysz wszystkie atrybuty kontekstu. Poza atrybutem ustawionym przez serwlet zobaczysz także inne, część z nich jest ustawiona przez sam kontener serwletów.</p>
+
+<p>Dokumentacja zaleca aby nazwy atrybutów były zapisane w podobnej konwencji jak pakiety. Innymi słowy nazwy powinny wyglądać jak “odwrócone adresy www”, na przykład <code class="highlighter-rouge">pl.samouczekprogramisty.servelet1</code>.</p>
+
+<h3 id="dynamiczna-konfiguracja">Dynamiczna konfiguracja</h3>
+
+<p>Ponadto twórcy bibliotek dzięki dostępowi do obiektu <code class="highlighter-rouge">ServletContext</code> mogą dynamicznie tworzyć serwlety, filtry czy obiekty nasłuchujące zdarzenia (ang. <em>listener</em>). Funkcjonalność ta raczej nie jest wykorzystywana w innych przypadkach.</p>
+
+<h2 id="obiekty-nasłuchujące">Obiekty nasłuchujące</h2>
+
+<p>Szczerze mówiąc miałem tu problem z tłumaczeniem :). Chodzi tu o obiekty, które potocznie nazywamy “listenerami”. Obiekty nasłuchujące nie są specyficzne dla aplikacji webowych. Koncept tego typu używany jest także w innych miejscach. Jest to jeden z szeroko znanych wzorców projektowych. Wzorzec ten nazywany jest obserwatorem (ang. <em>observer</em>).</p>
+
+<p>Kontener serwletów ma informację o wystąpieniu pewnych zdarzeń. Ty jako programista możesz chcieć być informowany o tych zdarzeniach. Na przykład chcesz dostać informację kiedy obiekt <code class="highlighter-rouge">ServletContext</code> zostanie utworzony. Aby to zrobić tworzysz własną instancję obiektu nasłuchującego, który implementuje interfejs <a href="http://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html"><code class="highlighter-rouge">ServletContextListener</code></a>. Dodatkowo tę implementację oznaczasz adnotacją <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/annotation/WebListener.html"><code class="highlighter-rouge">@WebListener</code></a>. Dzięki temu kontener serwletów wie o twojej klasie. Wie, że musi ją powiadomić o takim zdarzeniu.</p>
+
+<p>Poniższy diagram pokazuje jak te komponenty układają się w całość:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/04/21_wzorzec_observer.jpeg" alt="" />
+  
+    <figcaption>Wzorzec obserwator.
+</figcaption>
+  
+</figure>
+
+<p>Kontener przechowuje listę obiektów implementujących interfejs <code class="highlighter-rouge">ServletContextListener</code>. Jedną z implementacji może być klasa <code class="highlighter-rouge">MyOwnImplementation</code> pokazana na diagramie. Następnie w każdym momencie kiedy wystąpi zdarzenie, którym interesuje się nasza implementacja kontener uruchamia odpowiednie metody. Metody te są zdefiniowane w iterfejsie <code class="highlighter-rouge">ServletContextListener</code>.</p>
+
+<p>Zdarzenia dotyczące kontekstu nie są jedynymi. W trakcie działania aplikacji webowej występuje wiele zdarzeń. Zdarzenia te związane są z cyklem życia poszczególnych elementów aplikacji. Na przykład możesz być poinformowany o tym, że została utworzona sesja HTTP, albo o tym, że jakieś zapytanie zostało wysłane do aplikacji.</p>
+
+<p>Poniżej znajduje się lista kilka przykładowych interfejsów obiektów nasłuchujących:</p>
+
+<ul>
+  <li><a href="http://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html"><code class="highlighter-rouge">ServletContextListener</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextAttributeListener.html"><code class="highlighter-rouge">ServletContextAttributeListener</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequestListener.html"><code class="highlighter-rouge">ServletRequestListener</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequestAttributeListener.html"><code class="highlighter-rouge">ServletRequestAttributeListener</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSessionListener.html"><code class="highlighter-rouge">HttpSessionListener</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSessionAttributeListener.html"><code class="highlighter-rouge">HttpSessionAttributeListener</code></a>.</li>
+</ul>
+
+<p>Na przykład, obiekt implementujący interfejs <code class="highlighter-rouge">ServletContextAttributeListener</code> zostanie poinformowany o wszystkich operacjach na atrybutach kontekstu serwletu.</p>
+
+<p>Aby kontener serwletów wiedział o obiekcie nasłuchującym trzeba go odpowiednio skonfigurować. Każdy z obiektów nasłuchujących powinien być dekorowany wspomnianą adnotacją <code class="highlighter-rouge">@WebListener</code><sup id="fnref:listener"><a href="#fn:listener" class="footnote">2</a></sup>.</p>
+
+<p>Poniżej znajduje się przykładowa implementacja interfejsu <code class="highlighter-rouge">ServletContextListener</code>, która dodaje dodatkowy atrybut w momencie utworzenia kontekstu serwletu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebListener</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyServletContextListener</span> <span class="kd">implements</span> <span class="n">ServletContextListener</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextInitialized</span><span class="o">(</span><span class="n">ServletContextEvent</span> <span class="n">sce</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">sce</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">"pl.samouczekprogramisty.listener"</span><span class="o">,</span> <span class="s">"listener value"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextDestroyed</span><span class="o">(</span><span class="n">ServletContextEvent</span> <span class="n">sce</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// do nothing</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="praktyczne-wykorzystanie">Praktyczne wykorzystanie</h3>
+
+<p>W poprzednich artykułach opisujących elementy specyfikacji serwletów odwoływałem się do Spring MVC. Nie inaczej będzie i tym razem. Przykładowym obiektem nasłuchującym zaimplementowanym w Spring MVC może być <a href="https://github.com/spring-projects/spring-framework/blob/v4.3.8.RELEASE/spring-web/src/main/java/org/springframework/web/util/WebAppRootListener.java"><code class="highlighter-rouge">WebAppRootListener</code></a>. Obiekt ten reaguje na utworzenie/zniszczenie kontekstu serwletów. Zachęcam Cię do przeszukania kodu źródłowego Spring MVC pod kątem innych obiektów, które reagują na zdarzenia w aplikacji webowej.</p>
+
+<p>Implementacja odpowiednich interfejsów, które pozwalają reagować na zdarzenia umożliwia konfigurację Spring MVC. W praktyce “magiczny Spring” nie robi nic innego jak wykorzystuje elementy specyfikacji serwletów.</p>
+
+<h2 id="Ćwiczenie-do-wykonania">Ćwiczenie do wykonania</h2>
+
+<p>Napisz serwlet, który wyświetli wszystkie atrybuty kontekstu. Dodatkowo niech serwlet ten dodaje parametry przekazane w adresie URL jako atrybuty kontekstu. Na przykład żądanie na adres <code class="highlighter-rouge">.../serwlet?pl.parametr=xxx</code> powinno utworzyć atrybut kontekstu o nazwie <code class="highlighter-rouge">pl.parametr</code> z wartością <code class="highlighter-rouge">xxx</code>.</p>
+
+<p>Uzupełnij tę aplikację o implementację interfejsu <code class="highlighter-rouge">ServletContextAttributeListener</code>. Niech twój słuchacz w momencie dodawania nowego atrybuty kontekstu doda kolejny atrybut z datą jego dodania. Na przykład jeśli dodamy atrybut o nazwie <code class="highlighter-rouge">pl.parametr</code> to automatycznie powinien zostać dodany atrybut <code class="highlighter-rouge">pl.parametr.when</code>. Wartością nowego atrybutu powinna być data dodania atrybutu.</p>
+
+<p>Pamiętaj żeby zabepieczyć się przed “nieskończoną pętlą” - twój obiekt zostanie także powiadomiony o dodaniu atrybutu <code class="highlighter-rouge">pl.parametr.when</code> i wtedy spróbuje dodać kolejny <code class="highlighter-rouge">pl.pamrater.when.when</code>, o którym także byłby powiadomiony.</p>
+
+<p>Jeśli będziesz miał problem z rozwiązaniem zadania możesz rzucić okiem na <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/04_kontekst/src/main/java/pl/samouczekprogramisty/kursaplikacjewebowe/exercise">przykładowe rozwiązanie</a>. Jak zwykle jednak zachęcam do samodzielego rozwiązania zadania. Wtedy nauczysz się najwięcej.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<ul>
+  <li><a href="http://download.oracle.com/otndocs/jcp/servlet-3_1-fr-eval-spec/index.html">Specyfikacja serwletów</a>,</li>
+  <li><a href="https://en.wikipedia.org/wiki/Observer_pattern">Artykuł na wikipedii nt. wzorca projektowego observer</a>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/04_kontekst/src/main/java/pl/samouczekprogramisty/kursaplikacjewebowe">Kod źródłowy przykładów użytych w artykule</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Wiesz już czym jest <code class="highlighter-rouge">ServletContext</code> i do czego może być używany. Poznałeś przykłady obiektów nasłuchujących zdarzeń w aplikacjach webowych. Znasz przykłady praktycznego ich wykorzystania. Po wykonaniu ćwiczenia potrafisz zastosować tę wiedzę w praktyce. Innymi słowy poznałeś mechanizmy, pozwalające na działanie aplikacji webowych :).</p>
+
+<p>Mam nadzieję, ze artykuł Ci się podobał. Jeśli nie chcesz pominąć kolejnych zapisz się do samouczkowego newslettera i polub stronę na facebooku.</p>
+
+<p>Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największego grona czytelników. Możesz mi w tym pomóc przekazując link do artykułu swoim znajomym. Z góry dziękuję i do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:kilka_jvm">
+      <p>Właściwie to, istnieje tylko jeden taki obiekt dla każdej wirtualnej maszyny Java. Jeśli twoja aplikacja webowa jest rozproszona wówczas obiektów implementujących ten interfejs jest tyle, ile instancji JVM. <a href="#fnref:kilka_jvm" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:listener">
+      <p>Może też być zdefiniowany w pliku <code class="highlighter-rouge">web.xml</code>, <code class="highlighter-rouge">web-fragment.xml</code> czy dodany dynamicznie przez metody dostępne w <code class="highlighter-rouge">ServletContext</code>, jednak te sposoby wykraczają poza zakres tego artykułu. <a href="#fnref:listener" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#dsp2017" class="page__taxonomy-item" rel="tag">DSP2017</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-aplikacji-webowych" class="page__taxonomy-item" rel="tag">Kurs aplikacji webowych</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-04-21T16:04:41+02:00">April 21, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fkontekst-serwletu-i-obiekty-nasluchujace-w-aplikacjach-webowych%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fkontekst-serwletu-i-obiekty-nasluchujace-w-aplikacjach-webowych%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/pogodynka-json-i-walidacja/" class="pagination--pager" title="Pogodynka - JSON i walidacja
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/pogodynka-jpa-i-spring-data/" class="pagination--pager" title="Pogodynka - JPA i Spring Data
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/kontekst-serwletu-i-obiekty-nasluchujace-w-aplikacjach-webowych/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/kontekst-serwletu-i-obiekty-nasluchujace-w-aplikacjach-webowych"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

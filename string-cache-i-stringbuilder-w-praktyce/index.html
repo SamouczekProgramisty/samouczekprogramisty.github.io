@@ -1,0 +1,892 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>String cache i StringBuilder w praktyce - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znaków jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych z łańcuchami znaków także się przydaje. Po lekturze tego artykułu będziesz znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku literałów znakowych. Poznasz klasę StringBuilder i dowiesz się dlaczego jest taka ważna. Zapraszam do lektury!">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="String cache i StringBuilder w praktyce">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/string-cache-i-stringbuilder-w-praktyce/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/string-cache-i-stringbuilder-w-praktyce/">
+
+
+
+  <meta property="og:description" content="Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znaków jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych z łańcuchami znaków także się przydaje. Po lekturze tego artykułu będziesz znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku literałów znakowych. Poznasz klasę StringBuilder i dowiesz się dlaczego jest taka ważna. Zapraszam do lektury!">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/05/06_string_cache_string_builder_artykul.jpeg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-05-06T23:46:34+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/05/06_string_cache_string_builder_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          <code class="highlighter-rouge">String</code> cache i <code class="highlighter-rouge">StringBuilder</code> w praktyce
+
+        
+      </h1>
+      
+        <p class="page__lead">Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znaków jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych z łańcuchami znaków także się przydaje. Po lekturze tego artykułu będziesz znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku literałów znakowych. Poznasz klasę <code class="highlighter-rouge">StringBuilder</code> i dowiesz się dlaczego jest taka ważna. Zapraszam do lektury!
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/jasohill/54816310/sizes/l">© jasohill</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">`String` cache i `StringBuilder` w praktyce</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="String cache i StringBuilder w praktyce">
+    <meta itemprop="description" content="Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znaków jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych z łańcuchami znaków także się przydaje. Po lekturze tego artykułu będziesz znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku literałów znakowych. Poznasz klasę StringBuilder i dowiesz się dlaczego jest taka ważna. Zapraszam do lektury!">
+    <meta itemprop="datePublished" content="May 06, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#literał-znakowy" id="markdown-toc-literał-znakowy">Literał znakowy</a></li>
+  <li><a href="#jak-działa-klasa-string" id="markdown-toc-jak-działa-klasa-string">Jak działa klasa <code class="highlighter-rouge">String</code></a></li>
+  <li><a href="#co-jeśli-string-nie-ma-metody-której-potrzebuję" id="markdown-toc-co-jeśli-string-nie-ma-metody-której-potrzebuję">Co jeśli String nie ma metody, której potrzebuję?</a></li>
+  <li><a href="#konkatenacja-łańcuchów-znaków" id="markdown-toc-konkatenacja-łańcuchów-znaków">Konkatenacja łańcuchów znaków</a></li>
+  <li><a href="#wydajność-a-konkatenacja" id="markdown-toc-wydajność-a-konkatenacja">Wydajność a konkatenacja</a>    <ul>
+      <li><a href="#jak-używać-klasy-stringbuilder" id="markdown-toc-jak-używać-klasy-stringbuilder">Jak używać klasy <code class="highlighter-rouge">StringBuilder</code></a></li>
+      <li><a href="#różnica-pomiędzy-stringbuilder-a-stringbuffer" id="markdown-toc-różnica-pomiędzy-stringbuilder-a-stringbuffer">Różnica pomiędzy <code class="highlighter-rouge">StringBuilder</code> a <code class="highlighter-rouge">StringBuffer</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#optymalizacja-konkatenacji-przez-kompilator" id="markdown-toc-optymalizacja-konkatenacji-przez-kompilator">Optymalizacja konkatenacji przez kompilator</a></li>
+  <li><a href="#literały-i-cache" id="markdown-toc-literały-i-cache">Literały i cache</a>    <ul>
+      <li><a href="#metoda-stringintern" id="markdown-toc-metoda-stringintern">Metoda <code class="highlighter-rouge">String.intern</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="literał-znakowy">Literał znakowy</h2>
+
+<p>Na początku powtórka podstaw. Literał znakowy to ciąg znaków otoczony cudzysłowami. Jest to instancja klasy <code class="highlighter-rouge">String</code>, jednak tworzona jest bez udziału słówka kluczowego <code class="highlighter-rouge">new</code>. Przykład poniżej pokazuje literał znakowy przypisany do zmiennej:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String someLiteral = “some constant value”;
+</code></pre></div></div>
+
+<h2 id="jak-działa-klasa-string">Jak działa klasa <code class="highlighter-rouge">String</code></h2>
+
+<p>Instancje klasy <code class="highlighter-rouge">String</code> reprezentują łańcuchy znaków. Wewnętrznie znaki te przetrzymywane są w tablicy znaków. Tablica ta ma typ <code class="highlighter-rouge">char[]</code>. Implementacja klasy <code class="highlighter-rouge">String</code> chowa przed programistą mechanizmy operowania na tej tablicy.</p>
+
+<p>Instancje klasy <code class="highlighter-rouge">String</code> są niemutowalne. Oznacza to tyle, że po stworzeniu instancji nie ma możliwości jej modyfikacji. Kilka metod wymienionych poniżej zwraca nowe instancje, pozostawiając tę na której zostały wywołane bez zmian:</p>
+
+<ul>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#replace-char-char"><code class="highlighter-rouge">replace</code></a> - podmienia znak w łańcuchu znaków,</li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#substring-int-"><code class="highlighter-rouge">substring</code></a> - zwraca pewną część łańcucha znaków określoną indeksami,</li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toLowerCase--"><code class="highlighter-rouge">toLowerCase</code></a> - zamienia wielkie litery na małe w nowej instancji,</li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--"><code class="highlighter-rouge">toUpperCase</code></a> - zamienia łańcuch znaków na wielkie litery,</li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#trim--"><code class="highlighter-rouge">trim</code></a> - zwraca nową instancję bez początkowych i końcowych białych znaków.</li>
+</ul>
+
+<h2 id="co-jeśli-string-nie-ma-metody-której-potrzebuję">Co jeśli String nie ma metody, której potrzebuję?</h2>
+
+<p>Chociaż klasa <code class="highlighter-rouge">String</code> zawiera spory zestaw metod, nie jest to lista kompletna. Jeśli trafisz na taki przypadek nie próbuj wynaleźć koła na nowo. Lepiej rzuć okiem na istniejące biblioteki. Na przykład na <a href="https://commons.apache.org/proper/commons-lang/">commons-lang</a> . Biblioteka ta zawiera klasę <a href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html"><code class="highlighter-rouge">StringUtils</code></a>, w której znajdziesz masę przydatnych metod operujących na łańcuchach znaków.</p>
+<h2 id="konkatenacja-łańcuchów-znaków">Konkatenacja łańcuchów znaków</h2>
+
+<p>Najprostszym sposobem otrzymania łańcucha znaków jaki nas interesuje jest złożenie go z wielu części. Służy do tego operator <code class="highlighter-rouge">+</code>. Operacja ta nazywana jest konkatenacją.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"some"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">"string"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">"literal"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>W przypadku konkatenacji każdy z elementów konwertowany jest do typu <code class="highlighter-rouge">String</code> używając metody <code class="highlighter-rouge">toString</code><sup id="fnref:tostring"><a href="#fn:tostring" class="footnote">1</a></sup>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<span class="n">Object</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"some"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">"literal"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">y</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Używanie operatora <code class="highlighter-rouge">+</code> może być bardzo wygodne jednak czasami może prowadzić do zaskakujących (na początku) rezultatów. Proszę porównaj dwie poniższe linijki kodu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="s">"test"</span><span class="o">);</span> <span class="c1">// 3test</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"test"</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">);</span> <span class="c1">// test12</span>
+</code></pre></div></div>
+
+<p>Pierwsza z nich na początku doda dwie liczby uzyskując 3 a następnie dołączy do niej łańcuch znaków. Druga do łańcucha znaków dołączy dwie kolejne liczby. Dzieje się tak ponieważ operator <code class="highlighter-rouge">+</code> jest lewostronnie łączny. Oznacza to tyle, że w tym przypadku wyrażenie to wykonywane jest od lewej do prawej strony.</p>
+
+<p>W pierwszym przypadku do liczby 1 dodajemy liczbę 2, następnie “dodajemy” do niej łańcuch znaków. W drugim przypadku do łańcucha znakód dodajemy kolejno dwie liczby.</p>
+
+<p>Klasa <code class="highlighter-rouge">String</code> posiada także metodę <code class="highlighter-rouge">concat</code>, która działa w podobny sposób do operatora <code class="highlighter-rouge">+</code><sup id="fnref:operator"><a href="#fn:operator" class="footnote">2</a></sup>.</p>
+
+<h2 id="wydajność-a-konkatenacja">Wydajność a konkatenacja</h2>
+
+<p>Wiesz już, że instancje klasy <code class="highlighter-rouge">String</code> są niemutowalne. Wszystkie metody znajdujące się w klasie <code class="highlighter-rouge">String</code>, modyfikują łańcuch znaków tak na prawdę tworzą jego nową instancję.</p>
+
+<p>Nie inaczej jest z konkatenacją. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">some</span> <span class="o">=</span> <span class="s">"some"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">space</span> <span class="o">=</span> <span class="s">" "</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">random</span> <span class="o">=</span> <span class="s">"random"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">string</span> <span class="o">=</span> <span class="s">"string"</span><span class="o">;</span>
+ 
+<span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">some</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="n">random</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="n">string</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Tak na prawdę, zanim powstałaby finalna instancja klasy <code class="highlighter-rouge">String</code> potrzebne byłoby aż trzy “tymczasowe” obiekty<sup id="fnref:optymalizacje"><a href="#fn:optymalizacje" class="footnote">3</a></sup>. Dopiero piąty obiekt byłby tym, który mógłby być przypisany do zmiennej <code class="highlighter-rouge">someString</code>. Dlaczego aż cztery? Wynika to z niemutowalności instancji klasy <code class="highlighter-rouge">String</code>. Nie możemy, posługując się wyłącznie instancjami klasy <code class="highlighter-rouge">String</code> od razu stworzyć finalnej wersji. Tworzone są obiekty “pośrednie”:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">“some “</code> (zwróć uwagę na spację na końcu),</li>
+  <li><code class="highlighter-rouge">“some random”</code>,</li>
+  <li><code class="highlighter-rouge">“some random “</code> (ponownie ze spacją).</li>
+</ul>
+
+<p>Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobić lepiej. Z pomocą przychodzą klasy <code class="highlighter-rouge">StringBuilder</code> i <code class="highlighter-rouge">StringBuffer</code><sup id="fnref:kompilator"><a href="#fn:kompilator" class="footnote">4</a></sup>.</p>
+
+<h3 id="jak-używać-klasy-stringbuilder">Jak używać klasy <code class="highlighter-rouge">StringBuilder</code></h3>
+
+<p>Klasa <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html"><code class="highlighter-rouge">StringBuilder</code></a> podobnie jak <code class="highlighter-rouge">String</code> jest opakowaniem tablicy znaków typu <code class="highlighter-rouge">char[]</code>. <code class="highlighter-rouge">StringBuilder</code> jednak jest typem mutowalnym. Instancje tego typu w można konwertować do typu <code class="highlighter-rouge">String</code> używając metody <code class="highlighter-rouge">toString</code>.</p>
+
+<p>Najprosztszym sposobem utworzenia instancji klasy <code class="highlighter-rouge">StringBuilder</code> jest użycie konstruktora bezparametrowego. Następnie możesz modyfikować ten obiekt używając dostępnych metod.</p>
+
+<p>Bardzo przydatną metodą z tej klasy jest przeciążona metoda <code class="highlighter-rouge">append</code>. Pozwala ona na wydajne łączenie łańcuchów znaków. Proszę spójrz na przykład poniżej pokazujący sposób użycia klasy:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">compilerConcatenationFiddling</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">some</span> <span class="o">=</span> <span class="s">"some"</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">space</span> <span class="o">=</span> <span class="s">" "</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">random</span> <span class="o">=</span> <span class="s">"random"</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">string</span> <span class="o">=</span> <span class="s">"string"</span><span class="o">;</span>
+ 
+    <span class="n">StringBuilder</span> <span class="n">someSttringBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+    <span class="n">someSttringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">some</span><span class="o">);</span>
+    <span class="n">someSttringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">space</span><span class="o">);</span>
+    <span class="n">someSttringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">random</span><span class="o">);</span>
+    <span class="n">someSttringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">space</span><span class="o">);</span>
+    <span class="n">someSttringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">string</span><span class="o">);</span>
+ 
+    <span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">someSttringBuilder</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="różnica-pomiędzy-stringbuilder-a-stringbuffer">Różnica pomiędzy <code class="highlighter-rouge">StringBuilder</code> a <code class="highlighter-rouge">StringBuffer</code></h3>
+
+<p>Istnieje też inna implementacja tej samej funkcjonalności. Jest to klasa <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuffer.html"><code class="highlighter-rouge">StringBuffer</code></a>. Jeśli masz przed sobą rozmowę kwalifikacyjną dobrze jest znać różnicę między tymi klasami. Jest to jedno ze “sztampowych” pytań rekrutacyjnych ;).</p>
+
+<p>Główną różnicą jest to, że instancję klasy <code class="highlighter-rouge">StringBuffer</code> można bezpiecznie używać nawet w aplikacjach wielowątkowych. Instancje klasy <code class="highlighter-rouge">StringBuilder</code> nie powinny być współdzielone pomiędzy wątkami. Cecha ta ma jedną ważną konsekwencję. Ze względu na brak synchronizacji instancje klasy <code class="highlighter-rouge">StringBuilder</code> są nieznacznie szybsze od <code class="highlighter-rouge">StringBuffer</code>.</p>
+
+<p>Dodatkowo możesz zapoznać się też z klasą <a href="https://docs.oracle.com/javase/8/docs/api/java/util/StringJoiner.html"><code class="highlighter-rouge">StringJoiner</code></a>, która oferuje podobną funkcjonalność. Jest ona wykorzystywana na przykład podczas łączenia strumieni.</p>
+
+<h2 id="optymalizacja-konkatenacji-przez-kompilator">Optymalizacja konkatenacji przez kompilator</h2>
+
+<p>Mamy dwa elementy układanki. Klasę <code class="highlighter-rouge">StringBuilder</code>, która dużo lepiej się sprawdza przy pracy z łączeniem znaków. Konkatenację, która nie jest wydajnym sposobem łączenia łańcuchów znaków.</p>
+
+<p>Mamy też metodę <code class="highlighter-rouge">append</code>, którą już poznałeś. Jest ona odpowiednikiem <code class="highlighter-rouge">+</code> w konkatenacji. Nie można czegoś z tym zrobić?</p>
+
+<p>Oczywiście, że można! I to właśnie jest robione przez kompilator. Tak naprawdę, pisząc kod:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">some</span> <span class="o">=</span> <span class="s">"some"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">space</span> <span class="o">=</span> <span class="s">" "</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">random</span> <span class="o">=</span> <span class="s">"random"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">string</span> <span class="o">=</span> <span class="s">"string"</span><span class="o">;</span>
+ 
+<span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">some</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="n">random</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="n">string</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Kompilator kompiluje go do postaci, która wygląda podobnie do fragmentu niżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">some</span> <span class="o">=</span> <span class="s">"some"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">space</span> <span class="o">=</span> <span class="s">" "</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">random</span> <span class="o">=</span> <span class="s">"random"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">string</span> <span class="o">=</span> <span class="s">"string"</span><span class="o">;</span>
+ 
+<span class="n">StringBuilder</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+<span class="n">x</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">some</span><span class="o">);</span>
+<span class="n">x</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">space</span><span class="o">);</span>
+<span class="n">x</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">random</span><span class="o">);</span>
+<span class="n">x</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">space</span><span class="o">);</span>
+<span class="n">x</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">string</span><span class="o">);</span>
+ 
+<span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Innymi słowy kompilator optymalizuje za nas kod. Czy ta optymalizacja zawsze działa? Niestety nie, są przypadki kiedy nawet taka optymalizacja nie daje rady. Proszę spójrz na przykład poniżej. Jest to pętla, która dołącza aktualny stan licznika do łańcucha znaków.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">finalString</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="mi">1000000</span><span class="o">;</span> <span class="n">counter</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">finalString</span> <span class="o">=</span> <span class="n">finalString</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">counter</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak zoptymalizuje to kompilator? Będzie to kod podobny do tego:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">finalString</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="mi">1000000</span><span class="o">;</span> <span class="n">counter</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">StringBuilder</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+    <span class="n">x</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">finalString</span><span class="o">);</span>
+    <span class="n">x</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+    <span class="n">x</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">counter</span><span class="o">);</span>
+    <span class="n">finalString</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Niestety mimo optymalizacji wewnątrz pętli dalej musimy tworzyć blisko milion obiektów tymczasowych. To jest czasochłonne. Lepszym rozwiązaniem jest poniższy fragment kodu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">StringBuilder</span> <span class="n">finalStringBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="mi">1000000</span><span class="o">;</span> <span class="n">counter</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">finalStringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+    <span class="n">finalStringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">counter</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">String</span> <span class="n">finalString</span> <span class="o">=</span> <span class="n">finalStringBuilder</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>W tym przypadku sam tworzę instancję klasy <code class="highlighter-rouge">StringBuilder</code> i używam jej wewnątrz pętli.</p>
+
+<h2 id="literały-i-cache">Literały i cache</h2>
+
+<p>Specyfikacja języka Java narzuca pewne wymagania związane z optymalizacją pracy z łańcuchami znaków. Każdy łańcuch znaków, który jest literałem umieszczany jest w cache’u.</p>
+
+<div class="notice--info">
+
+<p>Tutaj drobna dygresja. Cache to mechanizm, który pozwala na przetrzymywanie wartości jakiegoś typu. Przeważnie uzyskanie tej wartości jest czasochłonne. Założeniem tego mechanizmu jest pozwolenie na szybsze dotarcie do tych wartości w późniejszym czasie. Dodatkowo pozwala on na optymalizację zajmowanego miejsca. Elementy znajdujące się w cache’u przeważnie się nie powtarzają.</p>
+
+<p>Cache może być zrealizowany na wiele sposobów, najprostszą implementacją może być zwykła instancja <a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html"><code class="highlighter-rouge">HashMap</code></a>. W bardziej zaawansowanych zastosowaniach używa się osobnych programów/baz danych, które zapewniają tę funkcjonalność, na przykład <a href="https://memcached.org/">memcached</a>.</p>
+
+</div>
+
+<p>Oznacza to tyle, że poniższe dwie zmienne są referencjami na dokładnie ten sam obiekt na stercie. Dzieje się tak, ponieważ są one literałami o tej samej zawartości:</p>
+
+<p class="notice--info">Poniższe fragmenty kodu są testami jednostkowymi. Jeśli chcesz przeczytać więcej na ten temat zapraszam do arytkułu poświęconemu <a href="/testy-jednostkowe-z-junit/">testom jednostkowym w Javie</a>. Możesz też przeczytać kolejny artykuł poświęcony <a href="/test-driven-development-na-przykladzie/">Test Driven Development</a>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">twoLiterals</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">someVariable</span> <span class="o">=</span> <span class="s">"samouczek programisty"</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">otherVariable</span> <span class="o">=</span> <span class="s">"samouczek programisty"</span><span class="o">;</span>
+ 
+    <span class="n">assertEquals</span><span class="o">(</span><span class="n">someVariable</span><span class="o">,</span> <span class="n">otherVariable</span><span class="o">);</span>
+    <span class="n">assertSame</span><span class="o">(</span><span class="n">someVariable</span><span class="o">,</span> <span class="n">otherVariable</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pierwsze porównanie, sprawdza “zawartość” łańcucha znaków. Drugie porównuje adresy obiektów na stercie.</p>
+
+<p>W przypadku utworzenia nowej instancji przy pomocy wywołania konstruktora, zawsze tworzone są nowe obiekty. Proszę porównaj poprzedni fragment kodu z tym poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">twoNewObjects</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">someVariable</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">"samouczek programisty"</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">otherVariable</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">"samouczek programisty"</span><span class="o">);</span>
+
+    <span class="n">assertEquals</span><span class="o">(</span><span class="n">someVariable</span><span class="o">,</span> <span class="n">otherVariable</span><span class="o">);</span>
+    <span class="n">assertNotSame</span><span class="o">(</span><span class="n">someVariable</span><span class="o">,</span> <span class="n">otherVariable</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku mamy do czynienia z dwoma osobnymi obiektami. W tym przypadku adresy obiektów są różne.</p>
+
+<h3 id="metoda-stringintern">Metoda <code class="highlighter-rouge">String.intern</code></h3>
+
+<p>Istnieje sposób aby zachować wartość łańcucha znaków w cache (lub pobrać go z cache). Dzięki tej metodzie w cache’u możemy zachować nawet instancje utworzone przy pomocy konstruktora. Służy do tego metoda <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#intern--"><code class="highlighter-rouge">intern</code></a>. Wywołanie tej metody zachowuje w cache’u dany łańcuch znaków i zwraca instancję, która jest w cache’u zachowana. Jeśli ten literał istnieje już w cache’u, będzie tam zachowany wyłącznie raz.</p>
+
+<p>Proszę spójrz na przykład poniżej</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">literalAndInternedObject</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">someVariable</span> <span class="o">=</span> <span class="s">"samouczek programisty"</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">otherVariable</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">"samouczek programisty"</span><span class="o">).</span><span class="na">intern</span><span class="o">();</span>
+ 
+    <span class="n">assertEquals</span><span class="o">(</span><span class="n">someVariable</span><span class="o">,</span> <span class="n">otherVariable</span><span class="o">);</span>
+    <span class="n">assertSame</span><span class="o">(</span><span class="n">someVariable</span><span class="o">,</span> <span class="n">otherVariable</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku oba porównania zwrócą wartość <code class="highlighter-rouge">true</code>.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Poniżej przygotowałem dla Ciebie zestaw odnośników, które mogą pomóc w rozwijaniu wiedzy związanej z pracą z łańcuchami znaków:</p>
+<ul>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.18.1">Java Language Specification o konkatenacji</a>,</li>
+  <li>dokumentacja klasy <a href="https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/StringUtils.java"><code class="highlighter-rouge">StringUtils</code></a>,</li>
+  <li>dokumentacja klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html"><code class="highlighter-rouge">StringBuilder</code></a>,</li>
+  <li>dokumentacja klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuffer.html"><code class="highlighter-rouge">StringBuffer</code></a>,</li>
+  <li>dokumentacja klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/util/StringJoiner.html"><code class="highlighter-rouge">StringJoiner</code></a>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/26_lancuchy_znakow/src">kod źródłowy przykładów użytych w artykule</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po lekturze tego artykułu sporo wiesz o pracy z łańcuchami znaków. Poznałeś jedną z optymalizacji, które wprowadza kompilator. Umiesz odpowiedzieć na jedno ze sztampowych pytań rekrutacyjnych ;). Znasz sposób pracy z klasą <code class="highlighter-rouge">StringBuilder</code>. Dowiedziałeś się też o przydatnych metodach operujących na instancjach klasy <code class="highlighter-rouge">String</code> znajdujących się w bibliotece commons-lang.</p>
+
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć żadnego postu polub stronę na facebooku i dopisz się do samouczkowego newslettera. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:tostring">
+      <p>Nie jest to do końca prawda, na przykład w przypadku typów prymitywnych stosowany jest inny mechanizm, zależny od typu zmiennej. <a href="#fnref:tostring" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:operator">
+      <p>Istnieją oczywiście drobne różnice, na przykład zachowanie w odniesieniu do zmiennych o wartości <code class="highlighter-rouge">null</code>. <a href="#fnref:operator" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:optymalizacje">
+      <p>Piszę “potrzebne byłby” ponieważ kompilator wprowadza tu pewne optymalizacje, o których przeczytasz niżej. <a href="#fnref:optymalizacje" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:kompilator">
+      <p>Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instacji klasy <code class="highlighter-rouge">StringBuilder</code>. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;). <a href="#fnref:kompilator" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#dsp2017" class="page__taxonomy-item" rel="tag">DSP2017</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-05-06T23:46:34+02:00">May 06, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fstring-cache-i-stringbuilder-w-praktyce%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fstring-cache-i-stringbuilder-w-praktyce%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/pogodynka-konfiguracja-serwera/" class="pagination--pager" title="Pogodynka - konfiguracja serwera
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/pogodynka-konfiguracja-bazy-danych/" class="pagination--pager" title="Pogodynka - konfiguracja bazy danych
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/string-cache-i-stringbuilder-w-praktyce/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/string-cache-i-stringbuilder-w-praktyce"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

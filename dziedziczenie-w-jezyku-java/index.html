@@ -1,0 +1,852 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Dziedziczenie w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W innych artykułach omawiałem pewne aspekty programowania obiektowego. Wiesz już o interfejsach i dlaczego warto ich używać. Dzisiaj przeczytasz o dziedziczeniu. Bez dziedziczenia nie można mówić o programowaniu obiektowym w Javie. Dowiesz się czym jest Object, dlaczego dziedziczenie jest ważne i kiedy powinniśmy go używać. Przeczytasz o przeciążaniu i nadpisywaniu metod. Poznasz też słowa kluczowe abstract i final. Do kodu!">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Dziedziczenie w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/dziedziczenie-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/dziedziczenie-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="W innych artykułach omawiałem pewne aspekty programowania obiektowego. Wiesz już o interfejsach i dlaczego warto ich używać. Dzisiaj przeczytasz o dziedziczeniu. Bez dziedziczenia nie można mówić o programowaniu obiektowym w Javie. Dowiesz się czym jest Object, dlaczego dziedziczenie jest ważne i kiedy powinniśmy go używać. Przeczytasz o przeciążaniu i nadpisywaniu metod. Poznasz też słowa kluczowe abstract i final. Do kodu!">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2016/01/24_dziedziczenie_w_jezyku_java_artykul.jpeg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-01-24T13:47:46+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2016/01/24_dziedziczenie_w_jezyku_java_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Dziedziczenie w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">W innych artykułach omawiałem pewne aspekty programowania obiektowego. Wiesz już o interfejsach i dlaczego warto ich używać. Dzisiaj przeczytasz o dziedziczeniu. Bez dziedziczenia nie można mówić o programowaniu obiektowym w Javie. Dowiesz się czym jest <code class="highlighter-rouge">Object</code>, dlaczego dziedziczenie jest ważne i kiedy powinniśmy go używać. Przeczytasz o przeciążaniu i nadpisywaniu metod. Poznasz też słowa kluczowe <code class="highlighter-rouge">abstract</code> i <code class="highlighter-rouge">final</code>. Do kodu!
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="http://marcin.pietraszek.pl">© Marcin Pietraszek ;)</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Dziedziczenie w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Dziedziczenie w języku Java">
+    <meta itemprop="description" content="W innych artykułach omawiałem pewne aspekty programowania obiektowego. Wiesz już o interfejsach i dlaczego warto ich używać. Dzisiaj przeczytasz o dziedziczeniu. Bez dziedziczenia nie można mówić o programowaniu obiektowym w Javie. Dowiesz się czym jest Object, dlaczego dziedziczenie jest ważne i kiedy powinniśmy go używać. Przeczytasz o przeciążaniu i nadpisywaniu metod. Poznasz też słowa kluczowe abstract i final. Do kodu!">
+    <meta itemprop="datePublished" content="January 24, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#dziedziczenie" id="markdown-toc-dziedziczenie">Dziedziczenie</a></li>
+  <li><a href="#modyfikatory-dostępu" id="markdown-toc-modyfikatory-dostępu">Modyfikatory dostępu</a></li>
+  <li><a href="#przesłonięcie-metody" id="markdown-toc-przesłonięcie-metody">Przesłonięcie metody</a></li>
+  <li><a href="#konstruktory-a-dziedziczenie" id="markdown-toc-konstruktory-a-dziedziczenie">Konstruktory a dziedziczenie</a></li>
+  <li><a href="#klasy-abstrakcyjne" id="markdown-toc-klasy-abstrakcyjne">Klasy abstrakcyjne</a></li>
+  <li><a href="#klasy-i-metody-finalne" id="markdown-toc-klasy-i-metody-finalne">Klasy i metody finalne</a></li>
+  <li><a href="#klasa-javalangobject" id="markdown-toc-klasa-javalangobject">Klasa <code class="highlighter-rouge">java.lang.Object</code></a></li>
+  <li><a href="#dobre-praktyki" id="markdown-toc-dobre-praktyki">Dobre praktyki</a></li>
+  <li><a href="#zadanie" id="markdown-toc-zadanie">Zadanie</a></li>
+  <li><a href="#dodatkowe-materiały" id="markdown-toc-dodatkowe-materiały">Dodatkowe materiały</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h2 id="dziedziczenie">Dziedziczenie</h2>
+
+<p>Na początku postaram się wyjaśnić czym właściwie jest dziedziczenie. Nie jest to nic skomplikowanego.</p>
+
+<p>Niektóre obiekty mogą mieć między sobą dużo wspólnego. Na przykład zarówno samochód osobowy jak i samochód ciężarowy mają silnik, kierownicę, drzwi, światła itd. Co prawda każdy z tych elementów może być różny, jednak bez wątpienia oba te pojazdy mają wiele wspólnego. Oba są pojazdami. Możemy powiedzieć, że samochód ciężarowy rozszerza (ang. <em>extends</em>) funkcjonalność pojazdu.</p>
+
+<p>W naszym przykładzie pojazd możemy uznać, za tak zwaną klasę bazową (lub „nadklasę”). Natomiast samochód osobowy i samochód ciężarowy rozszerzają funkcjonalność pojazdu. Możemy też powiedzieć, że każda z nich jest klasą pochodną (lub „podklasą”). Proszę spójrz na przykład:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vehicle</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Truck</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Dziedziczenie jest jedną z podstaw programowania obiektowego (nie tylko w języku Java). Dzięki dziedziczeniu możemy ograniczyć ilość zduplikowanego kodu poprzez definiowanie atrybutów, konstruktorów, metod w klasach bazowych.</p>
+
+<p>Dziedziczenie może być wielopoziomowe, jednak w języku Java zawsze bezpośrednio możemy dziedziczyć od jednej klasy.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vehicle</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SUV</span> <span class="kd">extends</span> <span class="n">Car</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W przykładzie powyżej <code class="highlighter-rouge">SUV</code> dziedziczy po klasie <code class="highlighter-rouge">Car</code>. Klasa <code class="highlighter-rouge">Car</code> jest podklasą klasy <code class="highlighter-rouge">Vehicle</code>. Zatem pośrednio <code class="highlighter-rouge">SUV</code> także dziedziczy po klasie <code class="highlighter-rouge">Vehicle</code>.</p>
+
+<h2 id="modyfikatory-dostępu">Modyfikatory dostępu</h2>
+
+<p>Dzięki dziedziczeniu możemy mieć dostęp do metod, atrybutów, konstruktorów klas po których dziedziczymy. Do określenia czy dany element może być dostępny w ramach podklasy służą modyfikatory dostępu.</p>
+
+<p>Do tej pory poznałeś modyfikatory dostępu takie jak:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">public</code> - element oznaczony tym modyfikatorem dostępny jest “z zewnątrz” obiektu, stanowi jego interfejs,</li>
+  <li><code class="highlighter-rouge">private</code> - element oznaczony tym modyfikatorem jest dostępna wyłącznie wewnątrz obiektu, także klasy pochodne nie mają do niego dostępu.</li>
+</ul>
+
+<p>W przypadku dziedziczenia znaczenie ma także modyfikator <code class="highlighter-rouge">protected</code>. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę która po niej dziedziczy<sup id="fnref:dziedziczenie"><a href="#fn:dziedziczenie" class="footnote">1</a></sup>.</p>
+
+<h2 id="przesłonięcie-metody">Przesłonięcie metody</h2>
+
+<p>Łatwo sobie wyobrazić sytuację, w której metoda o tej samej sygnaturze występuje zarówno w klasie bazowej jak i klasie pochodnej. W tej sytuacji mówimy o tym, że klasa pochodna przesłania metodę z klasy bazowej (ang. <em>override</em>). Proszę spójrz na przykład poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vehicle</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">startEngine</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Engine starts. Brum brum brum."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+ 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">startEngine</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Force driver to fasten seat belts."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W naszym przykładzie wywołanie metody <code class="highlighter-rouge">startEngine</code> na obiekcie typu <code class="highlighter-rouge">Car</code> zmusi kierowcę do zapięcia pasów (wyświetli się komunikat <code class="highlighter-rouge">Force driver to fasten seat belts</code>). Jeśli tą samą metodę wywołamy na instancji obiektu klasy Vehicle wówczas pojawi się komunikat <code class="highlighter-rouge">Engine starts. Brum brum brum.</code>.</p>
+
+<p>Co jeśli chcielibyśmy nieznacznie zmodyfikować oryginalną metodę? Jest na to sposób. Słowo kluczowe <code class="highlighter-rouge">super</code> pozwala na wywołanie nadpisanej metody z klasy bazowej. Rozszerzając przykład powyżej moglibyśmy napisać taki fragment kodu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">startEngine</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">startEngine</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Force driver to fasten seat belts."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W takim przypadku wywołanie metody <code class="highlighter-rouge">startEngine</code> na instancji obiektu <code class="highlighter-rouge">Car</code> na początku wywoła tą metodę z klasy bazowej (wyświetli się komunikat <code class="highlighter-rouge">Engine starts...</code>) następnie pokazany zostanie komunikat <code class="highlighter-rouge">Force driver...</code> (zachęcam do eksperymentowania z IDE).</p>
+
+<h2 id="konstruktory-a-dziedziczenie">Konstruktory a dziedziczenie</h2>
+
+<p>Konstruktory w przypadku dziedziczenia zachowują się tak samo jak metody. Także możemy wywołać konstruktor z klasy bazowej wewnątrz klasy dziedziczącej używając słowa kluczowego <code class="highlighter-rouge">super</code> (jeśli pozwala na to modyfikator dostępu).</p>
+
+<p>Klasa pochodna musi mieć możliwość wywołania konstruktora klasy bazowej. Jeśli tego nie robi domyślnie wywoływany jest konstruktor bezparametrowy</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Animal</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+ 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Dog</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W powyższym przykładzie wewnątrz konstruktora klasy <code class="highlighter-rouge">Dog</code> wywołujemy konstruktor klasy <code class="highlighter-rouge">Animal</code> wywołując <code class="highlighter-rouge">super()</code>. Jak napisałem wyżej możemy pominąć to wywołanie, wówczas kompilator zrobi to za nas. Ma to pewne konsekwencje. Jeśli w klasie bazowej zdefiniujemy konstruktor z parametrami wówczas konstruktor bezparametrowy nie zostanie utworzony automatycznie.</p>
+
+<p>W takich przypadkach w konstruktorach klas pochodnych musimy wywołać konstruktor klasy bazowej. Pokazałem to w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vehicle</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numberOfWheels</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Engine</span> <span class="n">engine</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">Vehicle</span><span class="o">(</span><span class="n">Engine</span> <span class="n">engine</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numberOfWheels</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">engine</span> <span class="o">=</span> <span class="n">engine</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">numberOfWheels</span> <span class="o">=</span> <span class="n">numberOfWheels</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+ 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">NUMBER_OF_WHEELS</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">Car</span><span class="o">(</span><span class="n">Engine</span> <span class="n">engine</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">engine</span><span class="o">,</span> <span class="n">NUMBER_OF_WHEELS</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz w przykładzie powyżej klasa <code class="highlighter-rouge">Car</code> nie musi definiować konstruktora z taką samą liczbą parametrów jak klasa bazowa, ale musi wywołać konstruktor klasy <code class="highlighter-rouge">Vehicle</code> i przekazać dwa parametry. Dzieje się tak, ponieważ w klasie <code class="highlighter-rouge">Vehicle</code> jest tylko konstruktor z dwoma parametrami.</p>
+
+<h2 id="klasy-abstrakcyjne">Klasy abstrakcyjne</h2>
+
+<p>Czasami może wystąpić sytuacja, w której klasa bazowa jest swego rodzaju uogólnieniem, abstrakcją, która nie ma sensu bez konkretnych implementacji. Wówczas możemy mówić o klasie abstrakcyjnej.</p>
+
+<p>Nie ma możliwości stworzenie instancji klasy abstrakcyjnej. W naszym przykładzie klasa Vehicle mogłaby być klasą abstrakcyjną. Klasy abstrakcyjne poprzedzamy słowem kluczowym abstract. Proszę spójrz na przykład poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Vehicle</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numberOfWheels</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Engine</span> <span class="n">engine</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">Vehicle</span><span class="o">(</span><span class="n">Engine</span> <span class="n">engine</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numberOfWheels</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">engine</span> <span class="o">=</span> <span class="n">engine</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">numberOfWheels</span> <span class="o">=</span> <span class="n">numberOfWheels</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+ 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">NUMBER_OF_WHEELS</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">Car</span><span class="o">(</span><span class="n">Engine</span> <span class="n">engine</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">engine</span><span class="o">,</span> <span class="n">NUMBER_OF_WHEELS</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz klasa abstrakcyjna może mieć konstruktor, jednak służy on tylko do tego, żeby uniknąć duplikacji kodu w klasach pochodnych. Klasa <code class="highlighter-rouge">Car</code> używa konstruktora zdefiniowanego w abstrakcyjnej klasie <code class="highlighter-rouge">Vehicle</code>.</p>
+
+<h2 id="klasy-i-metody-finalne">Klasy i metody finalne</h2>
+
+<p>Możliwość dziedziczenia i nadpisywania metod daje bardzo duże możliwości. Wyobraź sobie następujący kod:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="n">BigDecimal</span> <span class="n">amount</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="n">BigDecimal</span> <span class="n">amount</span><span class="o">);</span>
+<span class="o">}</span>
+ 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Transfer</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transferMoney</span><span class="o">(</span><span class="n">BankAccount</span> <span class="n">source</span><span class="o">,</span> <span class="n">BankAccount</span> <span class="n">destination</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">source</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+        <span class="n">destination</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Co stanie się jeśli programista utworzy nową klasę jak w przykładzie poniżej?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FraudTransfer</span> <span class="kd">extends</span> <span class="n">Transfer</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transferMoney</span><span class="o">(</span><span class="n">BankAccount</span> <span class="n">source</span><span class="o">,</span> <span class="n">BankAccount</span> <span class="n">destination</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">destination</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Przy takiej implementacji konto docelowe zostałoby zasilone dodatkową kwotą jednak ta kwota nie byłaby pobrana z konta źródłowego. Niedobrze.</p>
+
+<p>W takich przypadkach możemy użyć słowa kluczowego <code class="highlighter-rouge">final</code>. Słowo to umieszczone przed klasą oznacza, że nie możemy po danej klasie dziedziczyć. W przypadku metody oznacza, że metoda nie może zostać nadpisana.</p>
+
+<p>Dla przykładu klasy w pakiecie <code class="highlighter-rouge">java.lang</code> są finalne. Nie można nadpisać ich implementacji.</p>
+
+<h2 id="klasa-javalangobject">Klasa <code class="highlighter-rouge">java.lang.Object</code></h2>
+
+<p>Teraz już wiesz czym jest dziedziczenie. A wiesz, że używałeś go od pierwszej lekcji nauki języka Java? :)</p>
+
+<p>Z jednego z poprzednich artykułów wiesz o tym, że kompilator dodaje automatycznie konstruktor bezparametrowy jeśli nie zdefiniujesz żadnego w swojej klasie. Podobnie jest z dziedziczeniem, każda klasa domyślnie dziedziczy po klasie <code class="highlighter-rouge">java.lang.Object</code> (chyba, że zdefiniujesz inną klasę po której dziedziczysz).</p>
+
+<p>Dzięki tej klasie masz dostęp do zestawu metod, które zdefiniowane są w ciele klasy Object. Na przykład metoda <code class="highlighter-rouge">String toString()</code> ma swoją podstawową implementację w klasie <code class="highlighter-rouge">Object</code><sup id="fnref:tostring"><a href="#fn:tostring" class="footnote">2</a></sup>.</p>
+
+<h2 id="dobre-praktyki">Dobre praktyki</h2>
+
+<p>Dziedziczenie to bardzo pomocny mechanizm. Jak napisałem wcześniej pozwala nam na uniknięcie duplikowania kodu. Jednak ma też swoje wady. Hierarchie dziedziczenia, które mają dużo poziomów mogą stać się mało czytelne. Tak zagmatwany kod może stać się trudny w utrzymaniu. Powinniśmy unikać takiej sytuacji.</p>
+
+<p>Nie ma tu jasnej reguły, jednak w przypadku gdy w programie występuje wielopoziomowe dziedziczenie starałbym się uprościć taki kod. Bardzo często mówi się o preferowaniu kompozycji nad dziedziczeniem. Kompozycja to nic innego jak zawarcie innego obiektu jako atrybut naszej klasy. Kompozycja w wielu przypadkach potrafi uprościć skomplikowane hierarchie dziedziczenia.</p>
+
+<h2 id="zadanie">Zadanie</h2>
+
+<p>Na koniec mam dla Ciebie zadanie do wykonania, przećwiczysz w nim zagadnienia omówione w tym artykule.</p>
+
+<p>Napisz program, w którym zasymulujesz hierarchię dziedziczenia zwierząt. Stwórz abstrakcyjną klasę <code class="highlighter-rouge">Animal</code>, po której będą dziedziczyły klasy <code class="highlighter-rouge">Fish</code> i <code class="highlighter-rouge">Mammal</code>. Wszystkie te klasy powinny być abstrakcyjne. Następnie stwórz konkretne klasy które dziedziczą po <code class="highlighter-rouge">Fish</code> i <code class="highlighter-rouge">Mammal</code>. Będą to odpowiednio <code class="highlighter-rouge">Goldfish</code> i <code class="highlighter-rouge">Human</code>.</p>
+
+<p>Nadpisz metodę <code class="highlighter-rouge">toString</code> w każdej z tych klas. Stwórz instancje obu tych klas i wyświetl je na konsoli.</p>
+
+<p>Jeśli miałbyś problemy z zadaniem możesz spojrzeć na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/08_dziedziczenie/src/main/java/pl/samouczekprogramisty/kursjava/inheritance/exercise">przykładowe rozwiązanie</a>.</p>
+
+<h2 id="dodatkowe-materiały">Dodatkowe materiały</h2>
+
+<p>Poniżej przygotowałem dla Ciebie zestaw linków z dodatkowymi materiałami, część z nich jest w języku angielskim.</p>
+<ul>
+  <li><a href="https://pl.wikipedia.org/wiki/Dziedziczenie_%28programowanie%29">https://pl.wikipedia.org/wiki/Dziedziczenie_%28programowanie%29</a></li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8">https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8</a></li>
+  <li><a href="https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html">https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html</a></li>
+  <li><a href="https://docs.oracle.com/javase/tutorial/java/concepts/inheritance.html">https://docs.oracle.com/javase/tutorial/java/concepts/inheritance.html</a></li>
+  <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/08_dziedziczenie/src/main/java/pl/samouczekprogramisty/kursjava/inheritance">kod źródłowy przykładów z tego artykułu</a></li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Bardzo się cieszę, że przeczytałeś artykuł do końca. Dzisiaj dowiedziałeś się czegoś więcej o dziedziczeniu. Poznałeś słowa kluczowe <code class="highlighter-rouge">abstract</code> i <code class="highlighter-rouge">final</code>. Wiesz już czym jest nadpisywanie metod czy klasa bazowa. Innymi słowy poznałeś kolejny zestaw narzędzi niezbędnych dla każdego programisty. Tak trzymaj! :)</p>
+
+<p>Na koniec bardzo proszę Cię o podzielenie się artykułem ze swoimi znajomymi, którzy są zainteresowani taką tematyką. Jak zwykle zależy mi na tym, żeby z blogiem i jego zawartością dotrzeć do jak największej liczby czytelników takich jak Ty :) Jeśli jeszcze tego nie zrobiłeś prosiłbym o polubienie strony na facebooku.</p>
+
+<p>Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:dziedziczenie">
+      <p>Istnieje też “brak modyfikatora dostępu” jednak na początek możemy tą sytuację pominąć. Opiszę to w osobnym artykule. <a href="#fnref:dziedziczenie" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:tostring">
+      <p>Domyślna implementacja pokazuje nazwę klasy wraz z pakietem oraz jej adres w pamięci np. <code class="highlighter-rouge">pl.samouczekprogramisty.kursjava.cars.X@14ae5a5</code>. <a href="#fnref:tostring" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2016-01-24T13:47:46+01:00">January 24, 2016</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fdziedziczenie-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fdziedziczenie-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/choinka/" class="pagination--pager" title="Choinka
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/wyjatki-w-jezyku-java/" class="pagination--pager" title="Wyjątki w języku Java
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/dziedziczenie-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/dziedziczenie-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

@@ -1,0 +1,939 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Serializacja w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak ObjectInputStream czy ObjectOutputStream i dowiesz się czym różnią się od innych strumieni. Poznasz nowe słowo kluczowe transient. Po przeczytaniu artykułu będziesz w stanie napisać swoją mini bazę danych z użyciem mechanizmu serializacji. Zapraszam do lektury.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Serializacja w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/serializacja-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/serializacja-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak ObjectInputStream czy ObjectOutputStream i dowiesz się czym różnią się od innych strumieni. Poznasz nowe słowo kluczowe transient. Po przeczytaniu artykułu będziesz w stanie napisać swoją mini bazę danych z użyciem mechanizmu serializacji. Zapraszam do lektury.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2016/09/02_serializacja_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-09-02T17:26:33+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2016/09/02_serializacja_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Serializacja w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak <code class="highlighter-rouge">ObjectInputStream</code> czy <code class="highlighter-rouge">ObjectOutputStream</code> i dowiesz się czym różnią się od innych strumieni. Poznasz nowe słowo kluczowe <code class="highlighter-rouge">transient</code>. Po przeczytaniu artykułu będziesz w stanie napisać swoją mini bazę danych z użyciem mechanizmu serializacji. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/28653536@N07/">© 28653536@N07</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Serializacja w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Serializacja w języku Java">
+    <meta itemprop="description" content="W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak ObjectInputStream czy ObjectOutputStream i dowiesz się czym różnią się od innych strumieni. Poznasz nowe słowo kluczowe transient. Po przeczytaniu artykułu będziesz w stanie napisać swoją mini bazę danych z użyciem mechanizmu serializacji. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="September 02, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#czym-jest-serializacja" id="markdown-toc-czym-jest-serializacja">Czym jest serializacja</a></li>
+  <li><a href="#warunki-wymagane-do-serializacji" id="markdown-toc-warunki-wymagane-do-serializacji">Warunki wymagane do serializacji</a>    <ul>
+      <li><a href="#interfejs-javaioserializable" id="markdown-toc-interfejs-javaioserializable">Interfejs <code class="highlighter-rouge">java.io.Serializable</code></a></li>
+      <li><a href="#konstruktor-bezparametrowy" id="markdown-toc-konstruktor-bezparametrowy">Konstruktor bezparametrowy</a></li>
+      <li><a href="#określić-pola-które-nie-są-serializowalne" id="markdown-toc-określić-pola-które-nie-są-serializowalne">Określić pola, które nie są serializowalne</a></li>
+    </ul>
+  </li>
+  <li><a href="#przykład-serializacji-obiektu" id="markdown-toc-przykład-serializacji-obiektu">Przykład serializacji obiektu</a></li>
+  <li><a href="#serializacja-drzewa-obiektów" id="markdown-toc-serializacja-drzewa-obiektów">Serializacja drzewa obiektów</a></li>
+  <li><a href="#deserializacja-atrybutów-transient" id="markdown-toc-deserializacja-atrybutów-transient">Deserializacja atrybutów <code class="highlighter-rouge">transient</code></a></li>
+  <li><a href="#pola-statyczne-a-serializacja" id="markdown-toc-pola-statyczne-a-serializacja">Pola statyczne a serializacja</a></li>
+  <li><a href="#specjalna-obsługa-serializacjideserializacji" id="markdown-toc-specjalna-obsługa-serializacjideserializacji">Specjalna obsługa serializacji/deserializacji</a></li>
+  <li><a href="#serializacja-a-dziedziczenie" id="markdown-toc-serializacja-a-dziedziczenie">Serializacja a dziedziczenie</a></li>
+  <li><a href="#pełny-wpływ-na-mechanizm-serializacji" id="markdown-toc-pełny-wpływ-na-mechanizm-serializacji">Pełny wpływ na mechanizm serializacji</a></li>
+  <li><a href="#pole-serialversionuid" id="markdown-toc-pole-serialversionuid">Pole <code class="highlighter-rouge">serialVersionUID</code></a></li>
+  <li><a href="#materiały-dodatkowe" id="markdown-toc-materiały-dodatkowe">Materiały dodatkowe</a></li>
+  <li><a href="#zadania" id="markdown-toc-zadania">Zadania</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h2 id="czym-jest-serializacja">Czym jest serializacja</h2>
+
+<p>W jednym z poprzednich artykułów przeczytałeś o <a href="/operacje-na-plikach-w-jezyku-java/">strumieniach danych</a>, które pozwalały na zapisywanie oraz odczytywanie danych. Poznałeś wówczas między innymi klasy <code class="highlighter-rouge">DataInputStream</code> oraz <code class="highlighter-rouge">DataOutputStream</code>. Klasy te pomagają zapisywać typy proste i łańcuchy znaków.</p>
+
+<p>Serializacja to wbudowany mechanizm zapisywania obiektów, który pozwala na binarny zapis całego drzewa obiektów. Oznacza to tyle, że jeśli mamy obiekt X, który posiada referencję do obiektu Y to serializując X również Y zostanie automatycznie zapisany w strumieniu wyjściowym.</p>
+
+<p>Tak zapisany obiekt możesz później otworzyć przy kolejnym uruchomieniu programu. Jednak serializacja ma więcej zastosowań.</p>
+
+<p>Dzięki temu mechanizmowi można na przykład przesyłać obiekty przez sieć. Obiekt, który stworzyliśmy na jednym komputerze (wewnątrz pamięci jednej wirtualnej maszyny Java) może być zserializowany, przesłany przez sieć i zdeserializowany na drugim komputerze tworząc nową instancję obiektu (wewnątrz pamięci drugiej wirtualnej maszyny Javy). Na obu tych komputerach wirtualna maszyna Javy musi mieć dostęp do skompilowanej wersji klasy.</p>
+
+<h2 id="warunki-wymagane-do-serializacji">Warunki wymagane do serializacji</h2>
+
+<p>Chociaż serializacja dostępna jest automatycznie dla większości obiektów z biblioteki standardowej to jeśli chcesz móc serializować instancje klas, które sam napiszesz musisz spełnić kilka warunków.</p>
+
+<h3 id="interfejs-javaioserializable">Interfejs <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html"><code class="highlighter-rouge">java.io.Serializable</code></a></h3>
+
+<p>Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serilizowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu <a href="https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html"><code class="highlighter-rouge">NotSerializableException</code></a>.</p>
+<h3 id="konstruktor-bezparametrowy">Konstruktor bezparametrowy</h3>
+
+<p>Tutaj reguła niestety nie jest trywialna. Pierwsza klasa w hierarchii dziedziczenia, która nie jest serializowalna musi mieć dostępny konstruktor bezparametrowy. Łatwiej to będzie zrozumieć na przykładzie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Fruit</span> <span class="o">{}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Apple</span> <span class="kd">extends</span> <span class="n">Fruit</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tomato</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{}</span>
+</code></pre></div></div>
+
+<p>W przykładzie powyżej klasa <code class="highlighter-rouge">Fruit</code> musi mieć konstruktor bezparametrowy abyśmy mogli poprawnie serializować instancje klasy <code class="highlighter-rouge">Apple</code>. Natomiast ani <code class="highlighter-rouge">Apple</code>, ani <code class="highlighter-rouge">Tomato</code> takiego konstruktora już nie wymagają (<code class="highlighter-rouge">Tomato</code> dziedziczy po <code class="highlighter-rouge">Object</code>, który taki konstruktor posiada).</p>
+
+<p>Dodatkowo istnieje interfejs <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Externalizable.html"><code class="highlighter-rouge">java.io.Externalizable</code></a> (opiszę go dokładnie kilka akapitów niżej), który również zapewnia, że obiekty go implementujące są serializowalne. Jednak w tym przypadku obiekt taki musi także zapewnić konstruktor bezparametrowy, który jest wywoływany w trakcie deserializacji.</p>
+
+<h3 id="określić-pola-które-nie-są-serializowalne">Określić pola, które nie są serializowalne</h3>
+
+<p>Ten krok jest opcjonalny, jednak w bardziej zaawansowanych przypadkach niezbędny. Wyobraź sobie, że napisałeś klasę <code class="highlighter-rouge">Human</code>, która jako jeden z atrybutów posiada wiek zapisany w minutach od urodzenia. Zapisanie tego pola mogłoby prowadzić do odczytania niepoprawnego stanu (zapisujemy obiekt dzisiaj, odczytujemy jutro, wiek w minutach jest zupełnie inny).</p>
+
+<p>Tutaj dochodzimy do słowa kluczowego <code class="highlighter-rouge">transient</code>. Otóż słowo to może być stosowane przed atrybutami klasy. Oznacza ono, że dany atrybut nie jest serializowalny i zostanie pominięty przez mechanizm serializacji<sup id="fnref:serializacja"><a href="#fn:serializacja" class="footnote">1</a></sup>.</p>
+
+<h2 id="przykład-serializacji-obiektu">Przykład serializacji obiektu</h2>
+
+<p>Proszę zwróć uwagę na fragment kodu poniżej, który pokazuje jak mechanizm serializacji działa w praktyce.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"objects.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+    <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span>
+<span class="o">}</span>
+
+<span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"objects.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="n">Integer</span> <span class="n">number</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W pierwszym bloku <a href="/konstrukcja-try-with-resources-w-jezyku-java/">try-with-resources</a> otwieramy strumień typu <a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html"><code class="highlighter-rouge">ObjectOutputStream</code></a>, na którym następnie wywołujemy metodę <code class="highlighter-rouge">writeObject</code> zapisując do strumienia dwie liczby.</p>
+
+<p>W kolejnym bloku dzięki instancji <a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html"><code class="highlighter-rouge">ObjectInputStream</code></a> odczytujemy wcześniej zapisane obiekty. Obiekty odczytywane są w takiej samej kolejności w jakiej zostały zapisane, w naszym przypadku na konsoli zostaną wyświetlone liczby 1 a później 2.</p>
+
+<h2 id="serializacja-drzewa-obiektów">Serializacja drzewa obiektów</h2>
+
+<p>Wspomniałem już wcześniej, że mechanizm serializacji automatycznie obsługuje drzewa obiektów. W przykładzie poniżej pokazana jest właśnie taka sytuacja. Instancja klasy <code class="highlighter-rouge">Car</code> posiada atrybuty typów <code class="highlighter-rouge">Engine</code> oraz <code class="highlighter-rouge">Tyre[]</code>. Serializując a następnie deserializując instancję tej klasy wszystkie jej atrybuty zostały także zapisane.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Tyre</span><span class="o">[]</span> <span class="n">tyres</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tyre</span><span class="o">[]</span> <span class="o">{</span><span class="k">new</span> <span class="n">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">),</span> <span class="k">new</span> <span class="n">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">),</span> <span class="k">new</span> <span class="n">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">),</span> <span class="k">new</span> <span class="n">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">)};</span>
+<span class="n">Engine</span> <span class="n">engine</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Engine</span><span class="o">(</span><span class="s">"some model"</span><span class="o">);</span>
+<span class="n">Car</span> <span class="n">serializedCar</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Car</span><span class="o">(</span><span class="n">engine</span><span class="o">,</span> <span class="n">tyres</span><span class="o">);</span>
+<span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"object-graph.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">serializedCar</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="n">Car</span> <span class="n">deserializedCar</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"object-graph.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="n">deserializedCar</span> <span class="o">=</span> <span class="o">(</span><span class="n">Car</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">deserializedCar</span><span class="o">.</span><span class="na">getEngine</span><span class="o">().</span><span class="na">getModel</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">deserializedCar</span><span class="o">.</span><span class="na">getTyres</span><span class="o">().</span><span class="na">length</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">serializedCar</span> <span class="o">==</span> <span class="n">deserializedCar</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Zwróć proszę uwagę na ostatnią linię. W linijce tej porównywane są dwa adresy instancji klasy <code class="highlighter-rouge">Car</code> (pamiętasz <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/">różnicę między <code class="highlighter-rouge">==</code> a <code class="highlighter-rouge">equals</code></a>?). Oczywiście linijka ta wyświetli <code class="highlighter-rouge">false</code> na konsoli co dowodzi, że w procesie deserializacji został stworzony zupełnie nowy obiekt klasy <code class="highlighter-rouge">Engine</code>.</p>
+
+<h2 id="deserializacja-atrybutów-transient">Deserializacja atrybutów <code class="highlighter-rouge">transient</code></h2>
+
+<p>Zaraz, jak to? Przecież kilka akapitów wyżej napisałem, że atrybuty poprzedzone słowem kluczowym transient nie są serializowane. Tak to prawda, jednak podczas deserializacji atrybuty tego typu należy zainicjalizować pewną wartością. Otóż dla każdego typu mamy taką domyślną wartość:</p>
+<ul>
+  <li><code class="highlighter-rouge">boolean</code> - <code class="highlighter-rouge">false</code>,</li>
+  <li>liczby całkowite (<code class="highlighter-rouge">int</code>, <code class="highlighter-rouge">long</code>, itd.) - <code class="highlighter-rouge">0</code>,</li>
+  <li>liczby ułamkowe (<code class="highlighter-rouge">float</code>, <code class="highlighter-rouge">duble</code>) - <code class="highlighter-rouge">0.0</code>,</li>
+  <li>obiekty (<code class="highlighter-rouge">Integer</code>, <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">String</code>, <code class="highlighter-rouge">CustomClass</code>, itd.) - <code class="highlighter-rouge">null</code></li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Human</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUI</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">D</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">transient</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Human</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">Human</span> <span class="n">human</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Human</span><span class="o">(</span><span class="s">"Krzysiek"</span><span class="o">,</span> <span class="mi">21</span><span class="o">);</span>
+
+        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"human.bin"</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">human</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"human.bin"</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">Human</span> <span class="n">readHuman</span> <span class="o">=</span> <span class="o">(</span><span class="n">Human</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readHuman</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readHuman</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W przykładzie powyżej po deserializacji pole <code class="highlighter-rouge">age</code> będzie miało wartość <code class="highlighter-rouge">null</code> ponieważ jest to wartość domyślna dla atrybutów poprzedzonych słowem kluczowym <code class="highlighter-rouge">transient</code>, które są obiektami.</p>
+<h2 id="pola-statyczne-a-serializacja">Pola statyczne a serializacja</h2>
+
+<p>Serializacja dotyczy instancji klasy, nie samej klasy. Zatem jeśli zmodyfikowałeś pole statyczne a następnie zdeserializowałeś taki obiekt wprowadzone zmiany zostaną pominięte. Proszę spójrz na przykład poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">StaticSerialization</span> <span class="n">object</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StaticSerialization</span><span class="o">();</span>
+<span class="n">object</span><span class="o">.</span><span class="na">someField</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">object</span><span class="o">.</span><span class="na">someField</span><span class="o">);</span>
+
+<span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"static.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W przykładzie tym modyfikujemy wartość pola statycznego <code class="highlighter-rouge">someField</code> a następnie serializujemy instancję klasy do pliku.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"static.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="n">StaticSerialization</span> <span class="n">otherObject</span> <span class="o">=</span> <span class="o">(</span><span class="n">StaticSerialization</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">otherObject</span><span class="o">.</span><span class="na">someField</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W drugim uruchomieniu programu (w którym nie zmodyfikowaliśmy wartości atrybutu statycznego <code class="highlighter-rouge">someField</code>) deserializujemy ten sam plik. W tym przypadku otrzymamy wartość 100 a nie 200, które miał obiekt zapisywany do pliku.</p>
+
+<p>To co trzeba zapamiętać to to, że pola statyczne nie są serializowane a są pobierane z <em>aktualnej</em> definicji klasy (nie z klasy z momentu serializacji).</p>
+
+<p>Możemy powiedzieć, że atrybuty <code class="highlighter-rouge">static</code> są też domyślnie <code class="highlighter-rouge">transient</code>. Jak zatem takie zmiany odzwierciedlić podczas deserializacji? Jest na to sposób :)</p>
+
+<h2 id="specjalna-obsługa-serializacjideserializacji">Specjalna obsługa serializacji/deserializacji</h2>
+
+<p>W specyficznych przypadkach masz możliwość zmodyfikowania domyślnego zachowania mechanizmu serializacji. Możesz to zrobić jeśli zaimplementujesz poniższe metody.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectInputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectOutputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span>
+</code></pre></div></div>
+
+<p>Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomSerialization</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
+ 
+    <span class="kd">private</span> <span class="kd">transient</span> <span class="kt">int</span> <span class="n">someField</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">otherField</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">CustomSerialization</span><span class="o">(</span><span class="kt">int</span> <span class="n">someField</span><span class="o">,</span> <span class="n">String</span> <span class="n">otherField</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">someField</span> <span class="o">=</span> <span class="n">someField</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">otherField</span> <span class="o">=</span> <span class="n">otherField</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">CustomSerialization</span> <span class="n">writtenObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CustomSerialization</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="s">"something"</span><span class="o">);</span>
+ 
+        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"custom-serialization.bin"</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">writtenObject</span><span class="o">);</span>
+        <span class="o">}</span>
+ 
+        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"custom-serialization.bin"</span>   <span class="o">)))</span> <span class="o">{</span>
+            <span class="n">CustomSerialization</span> <span class="n">readObject</span> <span class="o">=</span> <span class="o">(</span><span class="n">CustomSerialization</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readObject</span><span class="o">.</span><span class="na">someField</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readObject</span><span class="o">.</span><span class="na">otherField</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">someField</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span>
+        <span class="n">otherField</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="na">readUTF</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">stream</span><span class="o">.</span><span class="na">writeInt</span><span class="o">(</span><span class="n">someField</span><span class="o">);</span>
+        <span class="n">stream</span><span class="o">.</span><span class="na">writeUTF</span><span class="o">(</span><span class="n">otherField</span> <span class="o">+</span> <span class="s">" SERIALIZED!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz obie metody są tu zaimplementowane. <code class="highlighter-rouge">writeObject</code> jako argument dostaje strumień, do którego powinniśmy zapisać nasz obiekt. W przykładzie zapisuję zarówno wartość pola z modyfikatorem <code class="highlighter-rouge">transient</code> jak i delikatnie zmienioną wartość atrybutu <code class="highlighter-rouge">otherField</code>.</p>
+
+<p>Metoda <code class="highlighter-rouge">readObject</code> jako jedyny argument przyjmuje strumień, z którego powinniśmy odczytać stan obiektu. Podobnie jak w przypadku samej serializacji, pola odczytujemy w tej samej kolejności w której je wcześniej zapisywaliśmy.</p>
+
+<p>Warto tutaj zwrócić uwagę na to, że klasa <code class="highlighter-rouge">ObjectInputStream</code> posiada metodę <a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html#defaultReadObject—"><code class="highlighter-rouge">defaultReadObject</code></a>, która przeprowadza standardową deserializację, którą możesz rozszerzyć. Podobnie wygląda to w przypadku klasy <code class="highlighter-rouge">ObjectOutputStream</code> i metody <a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html#defaultWriteObject--"><code class="highlighter-rouge">defaultWriteObject</code></a>. Metody te mogą być wywołane wyłącznie w trakcie (de)serializacji obiektu.</p>
+
+<h2 id="serializacja-a-dziedziczenie">Serializacja a dziedziczenie</h2>
+
+<p>W poprzednich przykładach użyliśmy klasy <code class="highlighter-rouge">Engine</code>, która implementuje interfejs <code class="highlighter-rouge">Serializable</code>. Załóżmy, że utworzyliśmy klasę <code class="highlighter-rouge">DieselEngine</code>, która dziedziczy po <code class="highlighter-rouge">Engine</code>. Automatycznie instancje klasy <code class="highlighter-rouge">DieselEngine</code> będą implementowały interfejs <code class="highlighter-rouge">Serializable</code> (dziedzicząc go z <code class="highlighter-rouge">Engine</code>). Co powinniśmy zrobić jeśli nie chcielibyśmy aby nasz <code class="highlighter-rouge">DieselEngine</code> był serializowalny? Należy użyć wspomnianego już wyjątku <code class="highlighter-rouge">NotSerializableException</code> jak w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DieselEngine</span> <span class="kd">extends</span> <span class="n">Engine</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">DieselEngine</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="s">"diesel"</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotSerializableException</span><span class="o">(</span><span class="s">"DieselEngine isn't serializable!"</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotSerializableException</span><span class="o">(</span><span class="s">"DieselEngine isn't serializable!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="pełny-wpływ-na-mechanizm-serializacji">Pełny wpływ na mechanizm serializacji</h2>
+
+<p>Istnieje jeszcze jeden, dużo mniej popularny sposób zapewnienia iż obiekt może być serializowany. Jest nim interfejs <code class="highlighter-rouge">Externalizable</code>. W tym przypadku interfejs ten zawiera dwie metody, które musimy zaimplementować. Dodatkowo takie klasy muszą mieć konstruktor bezparametrowy, reszta pozostaje bez zmian. W przypadku tego podejścia cały protokół serializacji, kolejność zapisanych pól, format etc. leży po naszej stronie. Poniżej prosty przykład, w którym używam właśnie takiego podejścia.</p>
+
+<p>W tym przypadku do utworzenia obiektu mechanizm serializacji używa standardowego konstruktora bezparametrowego. Po czym wywołuje na tej instancji metodę <code class="highlighter-rouge">readExternal</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomProtocolSerialization</span> <span class="kd">implements</span> <span class="n">Externalizable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">field</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">CustomProtocolSerialization</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="nf">CustomProtocolSerialization</span><span class="o">(</span><span class="n">String</span> <span class="n">field</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">field</span> <span class="o">=</span> <span class="n">field</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">CustomProtocolSerialization</span> <span class="n">object</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CustomProtocolSerialization</span><span class="o">(</span><span class="s">"field value"</span><span class="o">);</span>
+ 
+        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"externalizable.bin"</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
+        <span class="o">}</span>
+ 
+        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"externalizable.bin"</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">CustomProtocolSerialization</span> <span class="n">readObject</span> <span class="o">=</span> <span class="o">(</span><span class="n">CustomProtocolSerialization</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readObject</span><span class="o">.</span><span class="na">field</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeExternal</span><span class="o">(</span><span class="n">ObjectOutput</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">writeUTF</span><span class="o">(</span><span class="n">field</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">readExternal</span><span class="o">(</span><span class="n">ObjectInput</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readUTF</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="pole-serialversionuid">Pole <code class="highlighter-rouge">serialVersionUID</code></h2>
+
+<p>Dodatkowo musisz wiedzieć o statycznym polu w klasie o nazwie <code class="highlighter-rouge">serialVersionUID</code>. Jego pełna definicja wygląda następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">serialVersionUID</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Pole to ma specyficzne zastosowanie. Mechanizm serializacji używa go do upewnienia się, że deserializowany obiekt „pasuje” do danych zapisanych w strumieniu. Wie o tym na podstawie wartości tego pola. Jeśli w zdeserializowanym obiekcie wartość tego pola jest taka sama jak aktualnej definicji klasy wówczas można bezpiecznie przeprowadzić deserializację.</p>
+
+<p>Kiedy taka sytuacja może wystąpić? Załóżmy, że dzisiaj napiszesz klasę <code class="highlighter-rouge">Human</code>, zdeserializujesz jej instancję i zapiszesz w pliku na dysku. Po jakimś czasie wprowadzisz zmiany w klasie i będziesz chciał odczytać starą wersję z pliku. W niektórych przypadkach taka operacja nie będzie dozwolona. Właśnie wtedy pole <code class="highlighter-rouge">serialVersionUID</code> może pomóc w wykryciu takiej sytuacji.</p>
+
+<p>Pole to możesz ustawić samodzielnie, jeśli tego nie zrobisz kompilator wygeneruje tę wartość za Ciebie na podstawie definicji klasy.</p>
+
+<h2 id="materiały-dodatkowe">Materiały dodatkowe</h2>
+
+<p>Na początek zestaw dokumentacji do klas, związanych z tematem, jak zwykle znajdziesz tam ogrom informacji.</p>
+<ul>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html">Serializable</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/Externalizable.html">Externalizable</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html">ObjectOutputStream</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html">ObjectInputStream</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html">NotSerializableException</a></li>
+</ul>
+
+<p>Dodatkowo możesz zajrzeć do <a href="https://docs.oracle.com/javase/8/docs/platform/serialization/spec/serialTOC.html">specyfikacja mechanizmu serializacji</a> albo <a href="http://www.oracle.com/technetwork/articles/java/javaserial-1536170.html">artykułu na stronie Oracle</a>. Znalazłem też inne opracowanie, które poruszą także zagadnienie <a href="http://wazniak.mimuw.edu.pl/index.php?title=PO_Serializacja">serializacji, także do formatu XML</a>. Możesz też rzucić okiem na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/18_serializacja/src/main/java/pl/samouczekprogramisty/kursjava/serialization">przykłady użyte w tym artykule</a>.</p>
+
+<h2 id="zadania">Zadania</h2>
+
+<p>Na koniec jak zwykle zadania dla Ciebie do przećwiczenia materiału z tego artykułu.</p>
+<ul>
+  <li>Napisz program, który poprosi użytkownika o wprowadzenie kilku imion, imiona te zapisz w liście a następnie zserializuj ją do pliku. Napisz metodę, która odczyta ten plik i wyświetli zawartość listy na konsoli. Wiesz, że właśnie napisałeś prostą bazę danych? ;)</li>
+  <li>Napisz klasę <code class="highlighter-rouge">Human</code>, która będzie miała dwa atrybuty <code class="highlighter-rouge">name</code> typu <code class="highlighter-rouge">String</code> oraz <code class="highlighter-rouge">age</code> typu <code class="highlighter-rouge">int</code>. Jak należałoby serializować instancje tej klasy aby zawsze poprawnie deserializować wiek (z dokładnością do roku)? (Wskazówka, możesz użyć metody <code class="highlighter-rouge">Calendar.getInstance().get(Calendar.YEAR)</code>, która zwraca aktualny rok)</li>
+</ul>
+
+<p>Przygotowałem też dla Ciebie <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/18_serializacja/src/main/java/pl/samouczekprogramisty/kursjava/serialization/exercise">przykładowe rozwiązania</a> powyższych zadań, jednak traktuj je proszę jako ostatnią deskę ratunku :) Więcej nauczysz się próbując samemu rozwiązać powyższe zadania.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu tego artykułu wiesz już czym są klasy <code class="highlighter-rouge">ObjectOutputStream</code> i <code class="highlighter-rouge">ObjectInputStream</code>. Znasz zasady serializacji, poznałeś słowo kluczowe <code class="highlighter-rouge">transient</code>. Teraz jesteś w stanie zapisać i odczytać każdą instancję klasy, którą stworzysz.</p>
+
+<p>Bardzo się cieszę, że przeczytałeś cały artykuł. Na koniec mam do Ciebie prośbę. Proszę przekaż adres bloga swoim znajomym, w grupie uczy się raźniej ;) Jeśli nie chcesz ominąć nowych artykułów dopisz się do newslettera i polub stronę Samouczka na facebooku. Miłego dnia i do następnego razu :)</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:serializacja">
+      <p>Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacjim– użycie pola <code class="highlighter-rouge">serialPersistentFields</code> (jest ono dokładniej opisane w <a href="http://docs.oracle.com/javase/8/docs/platform/serialization/spec/serial-arch.html#a6250">specyfikacji</a>). <a href="#fnref:serializacja" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2016-09-02T17:26:33+02:00">September 02, 2016</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fserializacja-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fserializacja-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/konstrukcja-try-with-resources-w-jezyku-java/" class="pagination--pager" title="Konstrukcja try-with-resources w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/typ-wyliczeniowy-w-jezyku-java/" class="pagination--pager" title="Typ wyliczeniowy w języku Java
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/serializacja-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/serializacja-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

@@ -1,0 +1,959 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Testy jednostkowe z JUnit - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Testy jednostkowe z JUnit">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit/">
+
+
+
+  <meta property="og:description" content="Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2016/10/29_testy_jednostkowe_junit_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-10-29T10:48:40+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2016/10/29_testy_jednostkowe_junit_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Testy jednostkowe z JUnit
+
+        
+      </h1>
+      
+        <p class="page__lead">Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/andercismo/2349098787/sizes/l">© andercismo</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Testy jednostkowe z JUnit</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Testy jednostkowe z JUnit">
+    <meta itemprop="description" content="Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.">
+    <meta itemprop="datePublished" content="October 29, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#po-co-testujemy-oprogramowanie" id="markdown-toc-po-co-testujemy-oprogramowanie">Po co testujemy oprogramowanie</a></li>
+  <li><a href="#czym-jest-test-jednostkowy" id="markdown-toc-czym-jest-test-jednostkowy">Czym jest test jednostkowy</a>    <ul>
+      <li><a href="#przykłady-użycia-asercji" id="markdown-toc-przykłady-użycia-asercji">Przykłady użycia asercji</a></li>
+      <li><a href="#importy-statyczne" id="markdown-toc-importy-statyczne">Importy statyczne</a></li>
+      <li><a href="#testowanie-metod-rzucających-wyjątki" id="markdown-toc-testowanie-metod-rzucających-wyjątki">Testowanie metod rzucających wyjątki</a></li>
+      <li><a href="#przygotowanie-testów-i-cykl-życia-testów" id="markdown-toc-przygotowanie-testów-i-cykl-życia-testów">Przygotowanie testów i cykl życia testów</a>        <ul>
+          <li><a href="#cykl-życia-klasy-z-testami-jednostkowymi" id="markdown-toc-cykl-życia-klasy-z-testami-jednostkowymi">Cykl życia klasy z testami jednostkowymi</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#testy-jednostkowe-a-testy-automatyczne" id="markdown-toc-testy-jednostkowe-a-testy-automatyczne">Testy jednostkowe a testy automatyczne</a></li>
+  <li><a href="#dobre-praktyki-przy-pisaniu-testów" id="markdown-toc-dobre-praktyki-przy-pisaniu-testów">Dobre praktyki przy pisaniu testów</a></li>
+  <li><a href="#testy-jednostkowe-w-intejij-idea" id="markdown-toc-testy-jednostkowe-w-intejij-idea">Testy jednostkowe w IntejiJ Idea</a></li>
+  <li><a href="#zadanie-do-rozwiązania" id="markdown-toc-zadanie-do-rozwiązania">Zadanie do rozwiązania</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="po-co-testujemy-oprogramowanie">Po co testujemy oprogramowanie</h2>
+
+<p>Oczywista odpowiedź jest prosta – żeby nie było błędów :). Błędy powodują frustrację użytkowników, a to jest coś czego chcemy uniknąć. Ile razy chciałeś rzucić myszką/klawiaturą/laptopem jak coś nie działało jak powinno? Brzmi znajomo? ;)</p>
+
+<p>Wszystkie powody testowania komercyjnego oprogramowania sprowadzają się do pieniędzy. Im wcześniej wykryjemy błąd, tym niższy jest koszt jego naprawienia. Pisanie testów jednostkowych pozwala wykryć błędy w najwcześniejszej możliwej fazie, w trakcie pisania kodu programu. Dlatego każdy porządny programista powinien testować kod, który napisze. Oddając kod do użytku powinien być pewny, że działa jak powinien.</p>
+
+<p>Pojawia się tu jednak pewien problem.  Manualne testowanie to żmudna, czasochłonna i mozolna praca. Bardzo tu łatwo o drobne przeoczenie kończące się błędem w programie. Do tego w projektach IT wymagania zmieniają się bardzo często więc takie testy także muszą być bardzo często przeprowadzane.</p>
+
+<p>W związku z tym programiści testują swój kod pisząc testy jednostkowe.</p>
+
+<h2 id="czym-jest-test-jednostkowy">Czym jest test jednostkowy</h2>
+
+<p>Test jednostkowy (ang. <em>unit test</em>) to sposób testowania programu, w którym wydzielamy mniejszą jego część, jednostkę i testujemy ją w odosobnieniu. W naszym przypadku taką jednostką do testowania może być pojedyncza klasa czy metoda, którą napiszemy.</p>
+
+<p>Testy jednostkowe można pisać bez bibliotek zewnętrznych jednak jest to uciążliwe. Dodatkowo warto używać istniejących bibliotek ponieważ IDE dobrze integrują się tymi bibliotekami. W tym artykule użyłem biblioteki <a href="http://junit.org">JUnit</a>.</p>
+
+<p>Spójrz na fragment kodu poniżej. Klasa ta reprezentuje zakres liczb, ma ona jedną metodę, która sprawdza czy liczba przekazana jako argument należy do danego zakresu.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Range</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">lowerBound</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">upperBound</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Range</span><span class="o">(</span><span class="kt">long</span> <span class="n">lowerBound</span><span class="o">,</span> <span class="kt">long</span> <span class="n">upperBound</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lowerBound</span> <span class="o">=</span> <span class="n">lowerBound</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">upperBound</span> <span class="o">=</span> <span class="n">upperBound</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isInRange</span><span class="o">(</span><span class="kt">long</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">number</span> <span class="o">&gt;=</span> <span class="n">lowerBound</span> <span class="o">&amp;&amp;</span> <span class="n">number</span> <span class="o">&lt;=</span> <span class="n">upperBound</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Poniżej przykład prostego testu jednostkowego, który sprawdza czy, liczba 15 jest w zakresie liczb od 10 do 20.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldSayThat15rIsInRange</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Range</span> <span class="n">range</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Range</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">20</span><span class="o">);</span>
+    <span class="n">Assert</span><span class="o">.</span><span class="na">assertTrue</span><span class="o">(</span><span class="n">range</span><span class="o">.</span><span class="na">isInRange</span><span class="o">(</span><span class="mi">15</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Test jednostkowy to metoda testująca naszą jednostkę, metodę w innej klasie z dodaną adnotacją <a href="http://junit.org/junit4/javadoc/latest/org/junit/Test.html"><code class="highlighter-rouge">@Test</code></a>. <code class="highlighter-rouge">shouldSayThat15IsInRange</code> jest testem, wewnątrz którego tworzę instancję klasy <code class="highlighter-rouge">Range</code> i wywołuję metodę sprawdzającą czy 15 jest wewnątrz zakresu.</p>
+
+<p>Wynik tej metody jest przekazywany do metody <a href="http://junit.org/junit4/javadoc/latest/org/junit/Assert.html#assertTrue(boolean)"><code class="highlighter-rouge">Asssert.assertTrue()</code></a>, jest to tak zwana asercja. Asercje to metody dostarczone przez bibliotekę JUnit, które pomagają przy testowaniu.</p>
+
+<p>W naszym przykładzie, jeśli metoda <code class="highlighter-rouge">isInRange</code> zwróci <code class="highlighter-rouge">false</code>, wówczas asercja <code class="highlighter-rouge">assertTrue</code> rzuci wyjątek, który przez IDE zostanie zinterpretowany jak test jednostkowy, który pokazuje błąd działania testowanego kodu. Mówimy wówczas, że „test nie przeszedł”, „wywalił się” :).</p>
+
+<p>Testy jednostkowe łączymy w klasy z testami, bardzo często nazywamy je tak samo jak klasy, które testujemy dodając do nich <code class="highlighter-rouge">Test</code> na końcu. W naszym przypadku klasa z testami dla klasy <code class="highlighter-rouge">Range</code> nazywa się <code class="highlighter-rouge">RangeTest</code>.</p>
+
+<h3 id="przykłady-użycia-asercji">Przykłady użycia asercji</h3>
+
+<p>Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie testów jednostkowych), które ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AssertionError.html"><code class="highlighter-rouge">AssertionError</code></a><sup id="fnref:assert"><a href="#fn:assert" class="footnote">1</a></sup>.</p>
+
+<p>Asercje w bibliotece JUnit to nic innego jak metody statyczne w klasie <a href="http://junit.org/junit4/javadoc/latest/org/junit/Assert.html"><code class="highlighter-rouge">Assert</code></a>. Poniżej przedstawię Ci kilka najczęściej stosowanych asercji<sup id="fnref:assert_that"><a href="#fn:assert_that" class="footnote">2</a></sup>.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">assertTrue</code> sprawdza czy przekazany argument to <code class="highlighter-rouge">true</code>,</li>
+  <li><code class="highlighter-rouge">assertFalse</code> sprawdza czy przekazany argument to <code class="highlighter-rouge">false</code>,</li>
+  <li><code class="highlighter-rouge">assertNull</code> sprawdza czy przekazany argument to <code class="highlighter-rouge">null</code>,</li>
+  <li><code class="highlighter-rouge">assertNotNull</code> sprawdza czy przekazany argument nie jest <code class="highlighter-rouge">null</code>em,</li>
+  <li><code class="highlighter-rouge">assertEquals</code> przyjmuje dwa parametry wartość oczekiwaną i wartość rzeczywistą, jeśli są różne rzuca wyjątek,</li>
+  <li><code class="highlighter-rouge">assertNotEquals</code> przyjmuje dwa parametry wartość oczekiwaną i wartość rzeczywistą, rzuci wyjątek jeśli są równe.</li>
+</ul>
+
+<h3 id="importy-statyczne">Importy statyczne</h3>
+
+<p>Tutaj drobna dygresja, w języku Java musimy importować klasy z innych pakietów, które chcemy użyć w definicji naszej klasy. Poza standardową konstrukcją ze słowem kluczowym <code class="highlighter-rouge">import</code> istnieją także tak zwane importy statyczne.</p>
+
+<p>Import statyczny pozwala na zaimportowanie metody/wszystkich metod statycznych znajdujących się w definicji jakiejś klasy. Proszę spójrz na przykład poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">Assert</span><span class="o">.</span><span class="na">assertFalse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">Assert</span><span class="o">.*;</span>
+</code></pre></div></div>
+
+<p>W pierwszej linijce importujemy metodę <code class="highlighter-rouge">assertFalse</code> z klasy <code class="highlighter-rouge">Assert</code>, druga linijka to importowanie wszystkich metod statycznych z tej klasy. Dzięki takim importom później w definicji klasy nie musimy używać nazwy klasy używając danej metody statycznej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertFalse</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+<span class="n">assertTrue</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Z racji tego, że dużo metod pomocniczych (na przykład asercje) w przypadku pisania testów to metody statyczne, bardzo często używamy tam importów statycznych.</p>
+
+<h3 id="testowanie-metod-rzucających-wyjątki">Testowanie metod rzucających wyjątki</h3>
+
+<p>Czasami zdarza się, że chcemy przetestować pewną sytuację wyjątkową. Na przykład nie powinniśmy móc utworzyć instancji klasy <code class="highlighter-rouge">Range</code> z niepoprawnymi argumentami.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">Range</span><span class="o">(</span><span class="kt">long</span> <span class="n">lowerBound</span><span class="o">,</span> <span class="kt">long</span> <span class="n">upperBound</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">lowerBound</span> <span class="o">&gt;</span> <span class="n">upperBound</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"lowerBound is bigger than upperBound!"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">lowerBound</span> <span class="o">=</span> <span class="n">lowerBound</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">upperBound</span> <span class="o">=</span> <span class="n">upperBound</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Wywołanie konstruktora w teście z niepoprawnymi argumentami kończyłoby się od razu rzuceniem wyjątku, czyli testem jednostkowym, który nie przeszedł.</p>
+
+<p>Z pomocą w takiej sytuacji przychodzi element <code class="highlighter-rouge">expected</code> adnotacji <code class="highlighter-rouge">@Test</code>. Przykład jego użycia widzisz poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span><span class="o">(</span><span class="n">expected</span> <span class="o">=</span> <span class="n">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldThrownIllegalArgumentExceptionOnWrongParameters</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">new</span> <span class="nf">Range</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Taki test jednostkowy nie przejdzie jeśli wyjątek nie zostanie rzucony. Mimo tego, że w teście nie ma żadnej asercji testuje on właśnie rzucenie wyjątku.</p>
+
+<p>Istnieje też inny sposób. Możesz go użyć jeśli chcesz mieć dostęp do instancji rzuconego wyjątku. Pokazałem go w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldHaveProperErrorMessage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="nf">Range</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+        <span class="n">fail</span><span class="o">(</span><span class="s">"Exception wasn't thrown!"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalArgumentException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="s">"lowerBound is bigger than upperBound!"</span><span class="o">,</span> <span class="n">exception</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Użyta tu statyczna metoda <code class="highlighter-rouge">Assert.fail()</code> powoduje zakończenie testu niepowodzeniem. Zostanie ona wywołąna wyłącznie jeśli wyjątek nie zostanie rzucony.</p>
+
+<h3 id="przygotowanie-testów-i-cykl-życia-testów">Przygotowanie testów i cykl życia testów</h3>
+
+<p>Czasami zdarza się, że kilka testów jednostkowych wymaga pewnego „przygotowania”. Na przykład trzeba utworzyć instancję, którą będziemy później testowali. Twórcy biblioteki JUnit przyszli nam z pomocą. Istnieje adnotacja <code class="highlighter-rouge">@Before</code>, którą możemy dodać do metody w klasie z testami. Metoda ta zostanie uruchomiona przed każdym testem jednostkowym. Proszę spójrz na przykład poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RangeTest</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Range</span> <span class="n">range</span><span class="o">;</span>
+ 
+    <span class="nd">@Before</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">range</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Range</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">20</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldSayThat15rIsInRange</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">assertTrue</span><span class="o">(</span><span class="n">range</span><span class="o">.</span><span class="na">isInRange</span><span class="o">(</span><span class="mi">15</span><span class="o">));</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldSayThat5IsntInRange</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">assertFalse</span><span class="o">(</span><span class="n">range</span><span class="o">.</span><span class="na">isInRange</span><span class="o">(</span><span class="mi">5</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W naszym przykładzie metoda <code class="highlighter-rouge">setUp</code> zostanie wywołana przed uruchomieniem każdego z testów. Dzięki temu nie musimy tworzyć instancji wewnątrz testu. Odpowiednie użycie tej adnotacji pomaga pisać krótsze testy jednostkowe.</p>
+
+<h4 id="cykl-życia-klasy-z-testami-jednostkowymi">Cykl życia klasy z testami jednostkowymi</h4>
+
+<p>Adnotacja <code class="highlighter-rouge">@Before</code> jest jedną z czterech adnotacji, które pozwalają na wykonanie fragmentów kodu przed/po testach. Pozostałe trzy to:</p>
+<ul>
+  <li><code class="highlighter-rouge">@After</code> – metoda z tą adnotacją uruchamiana po każdym teście jednostkowym, pozwala na „posprzątanie” po teście,</li>
+  <li><code class="highlighter-rouge">@AfterClass</code> – metoda statyczna z tą adnotacją uruchamiana jest raz po uruchomieniu wszystkich testów z danej klasy,</li>
+  <li><code class="highlighter-rouge">@BeforeClass</code> – metoda statyczna z tą adnotacją uruchamiana jest raz przed uruchomieniem pierwszego testu z danej klasy.</li>
+</ul>
+
+<p>Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestLifecycle</span> <span class="o">{</span>
+    <span class="nd">@Before</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"set up"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@After</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">tearDown</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"tear down"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@BeforeClass</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setUpClass</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"set up class"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@AfterClass</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">tearDownClass</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"tear down class"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"test 1"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"test 2"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jeśli uruchomisz tę klasę na konsoli pojawi się:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set up class
+set up
+test 1
+tear down
+set up
+test 2
+tear down
+tear down class
+</code></pre></div></div>
+
+<h2 id="testy-jednostkowe-a-testy-automatyczne">Testy jednostkowe a testy automatyczne</h2>
+
+<p>Testy jednostkowe bardzo często są testami automatycznymi. Test automatyczny to taki, który możemy wykonywać automatycznie :) Zaletą takiego podejścia jest to, że w momencie zmiany kodu możemy raz napisany test uruchomić ponownie wiedząc od razu czy napisany wcześniej fragment działa poprawnie czy nie. Pomagają przy tym wcześniej omówione asercje.</p>
+
+<p>Bardzo często testy jednostkowe uruchamiane są automatycznie podczas pracy nad projektem. Służą do tego osobne środowiska, w których testy te są uruchamiane.</p>
+
+<p>Istnieją także mechanizmy, które w trakcie pracy programisty wykrywają zmiany w części klas i automatycznie uruchamiają dla tych klas testy jednostkowe informując programistę o wynikach. Dzięki temu bardzo szybko jesteśmy w stanie dowiedzieć się czy zmiany, które wprowadziliśmy nie popsuły wcześniejszej funkcjonalności.</p>
+
+<h2 id="dobre-praktyki-przy-pisaniu-testów">Dobre praktyki przy pisaniu testów</h2>
+
+<p>Poniżej postaram się zebrać dla Ciebie kilka dobrych praktyk, do których warto się stosować w czasie pisania testów:</p>
+<ul>
+  <li>Po pierwsze, pisz testy jednostkowe. Koniecznie. Zawsze.</li>
+  <li>Staraj się pisać testy jednostkowe, które są małe i dotyczą małego wycinka funkcjonalności. Później o wiele łatwiej jest zrozumieć taki test.</li>
+  <li>Nadawaj metodom z testem nazwy, które pomagają zrozumieć co dany test powinien sprawdzić.</li>
+  <li>Kolejność testów jednostkowych w klasie nie powinna mieć znaczenia. Innymi słowy nie możemy polegać na tym, że jako pierwszy musi się uruchomić <code class="highlighter-rouge">test1</code> a po nim <code class="highlighter-rouge">test2</code>. Testy uruchomione w odwrotnej kolejności także powinny mieć dokładnie taki sam efekt.</li>
+  <li>Pisz testy jednostkowe tak, żeby nie zależały na Twojej lokalnej konfiguracji. Na przykład test jednostkowy czytający plik z Twojego dysku z katalogu <code class="highlighter-rouge">C:\mój\katalog\domowy</code> (czy <code class="highlighter-rouge">/home/uzytkownik</code>) nie jest dobrym rozwiązaniem.</li>
+  <li>Pisz testy jednostkowe niezależne od zewnętrznych systemów. Innymi słowy testuj tylko „jednostkę”, nic ponadto. Jeśli klasa, którą testujesz potrzebuje dostępu np. do bazy danych użyj mocka czy stuba do jej zastąpienia w trakcie testów<sup id="fnref:mock"><a href="#fn:mock" class="footnote">3</a></sup> .</li>
+  <li>Testuj warunki brzegowe i sytuacje wyjątkowe. Załóżmy, że masz metodę, która przyjmuje tablicę, która musi mieć maksymalnie trzy elementy. Napisz kilka testów:
+    <ul>
+      <li>przekazując <code class="highlighter-rouge">null</code> zamiast tablicy,</li>
+      <li>przekazujac pustą tablicę,</li>
+      <li>przekazujac tablicę z trzema elementami,</li>
+      <li>przekazując tablicę z czterema elementami.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Dzięki takim testom będziesz pewien, jak zachowuje się Twoja metoda w sytuacjach wyjątkowych.</p>
+<ul>
+  <li>Testowany kod nie powinien być w tym samym miejscu, w którym są testy. Sprowadza się to do tego, że kod umieszczamy w katalogu np. <code class="highlighter-rouge">src</code>, testy natomiast w katalogu <code class="highlighter-rouge">test</code>. Oba katalogi pod spodem mają odpowiednią strukturę odzwierciedlającą pakiety. Jest to ważne ponieważ później przy większych projektach testy nie „mieszają się” z kodem programu.</li>
+  <li>Staraj się pisać testy, które są szybkie. Przy pierwszych programach nie jest to problemem, jednak przy większych projektach uruchamianie testów może być czasochłonne.</li>
+  <li>Uruchamiaj testy jednostkowe możliwie często. Uwierz mi, to Ci się opłaci :). Punkt ten jest powiązany z punktem poprzednim – nie będziesz uruchamiał często testów, które trwają długo.</li>
+  <li>Jeśli zauważysz, że część testów jednostkowych wymaga dokładnie takiego samego „przygotowania” wydziel je do osobnej klasy i użyć metod z adnotacją <code class="highlighter-rouge">@Before</code> lub <code class="highlighter-rouge">@BeforeClass</code>.</li>
+</ul>
+
+<h2 id="testy-jednostkowe-w-intejij-idea">Testy jednostkowe w IntejiJ Idea</h2>
+
+<p>Zacznijmy od utworzenia testu jednostkowego dla istniejącej klasy. Z pomocą przychodzi skrót klawiaturowy <code class="highlighter-rouge">&lt;Ctrl + Shift + T&gt;</code> – naciśnij tę kombinację na nazwie klasy dla której chcesz utworzyć test. Pokaże się wówczas dialog pomagający utworzyć nową klasę testu.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/10/29_nowy_test_dialog.png" alt="" />
+  
+    <figcaption>Tworzenie nowego testu.
+</figcaption>
+  
+</figure>
+
+<p>InteliJ jest na tyle mądry, że wykrywa brak biblioteki JUnit w projekcie. W oknie dialogowym widać wówczas przycisk „Fix it”, który automatycznie dodaję tę bibliotekę.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/10/29_nowy_test_dialog2.png" alt="" />
+  
+    <figcaption>Tworzenie nowego testu.
+</figcaption>
+  
+</figure>
+
+<p>Kolejnym skrótem klawiaturowym, który może się przydać podczas pisania testów jednostkowych jest <code class="highlighter-rouge">&lt;Alt + Insert&gt;</code>, naciśnięcie tego skrótu wewnątrz klasy grupującej testy pozwala nam w łatwy sposób stworzyć kolejny test.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/10/29_test_generowanie_kodu.png" alt="" />
+  
+    <figcaption>Generowanie kodu w testach.
+</figcaption>
+  
+</figure>
+
+<p>W końcu kombinacja <code class="highlighter-rouge">&lt;Ctrl + Shift + F10&gt;</code> pozwala na uruchomienie testów jednostkowych wewnątrz IDE. W zależności od tego na czym znajduje się nasz kursor myszy, ten skrót klawiaturowy może uruchomić pojedynczą metodę z testem, klasę grupującą testy czy pakiet z kilkoma klasami testowymi.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/10/29_testy_ok.png" alt="" />
+  
+    <figcaption>Testy bez błędów.
+</figcaption>
+  
+</figure>
+
+<h2 id="zadanie-do-rozwiązania">Zadanie do rozwiązania</h2>
+
+<p>Napisz program, który będzie reprezentował koszyk w sklepie internetowym. Do koszyka reprezentowanego przez klasę <code class="highlighter-rouge">Basket</code> możemy dodawać bądź usuwać kolejne przedmioty. Każdy przedmiot powien mieć nazwę i cenę jednostkową. Koszyk powinien także pozwalać na dodanie/usunięcie od razu kilku egzemplarzy przedmiotu ze sklepu. Koszyk powinien także być w stanie policzyć sumaryczną wartość zamówienia oraz wyświetlić swoją zawartość. Pamiętaj o poprawnym obsłużeniu sytuacji wyjątkowych np. usunięcie elementów z pustego koszyka czy dodaniu ujemej liczby przedmiotów.</p>
+
+<p>Napisz zestaw testów jednostkowych potwierdzających poprawne działanie Twojego koszyka z zakupami.</p>
+
+<p>Drobna podpowiedź z przykładowym zestawem klas, które mogą rozwiązać ten problem:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Item</code>, która posiada dwa atrybuty <code class="highlighter-rouge">double price</code><sup id="fnref:double"><a href="#fn:double" class="footnote">4</a></sup> oraz <code class="highlighter-rouge">String name</code>,</li>
+  <li><code class="highlighter-rouge">Basket</code>, który posiada atrybut <code class="highlighter-rouge">Map orderedItems</code> reprezentujący zamówione towary wraz z ich ilością.</li>
+</ul>
+
+<p>Przygotowałem też przykładowe rozwiązanie, znajduje się w <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe/src/main/java/pl/samouczekprogramisty/kursjava/shop/exercise">repozytorium na githubie</a> wraz z zestawem <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe/src/test/java/pl/samouczekprogramisty/kursjava/shop/exercise">testów jednostkowych</a>. Zachęcam jednak do samodzielnej próby rozwiązania zadania. Uwierz mi, że wtedy nauczysz się najwięcej :).</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<ul>
+  <li><a href="https://pl.wikipedia.org/wiki/Test_jednostkowy">Test jednostkowy na Wikipedii</a></li>
+  <li><a href="http://junit.org">Strona biltioteki JUnit</a></li>
+  <li><a href="http://junit.org/junit4/javadoc/latest/index.html">Dokumentacja biblioteki JUnit</a></li>
+  <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe">Kod źródłowy przykładów użytych w artykule</a></li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>W artykule przeczytałeś o testach jednostkowych. Poznałeś zestaw dobrych praktyk dotyczących pisania testów, nauczyłeś się podstaw biblioteki JUnit. Wiesz czym jest test automatyczny i dlaczego takie testy są istotne. Całość przećwiczyłeś w sposób praktyczny rozwiązując zadanie końcowe.</p>
+
+<p>Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na facebooku ;). Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:assert">
+      <p>W języku Java istnieje także słowo kluczowe <code class="highlighter-rouge">assert</code>, po którym musi wystąpić wartość logiczna, jeśli jest ona fałszem kończy się to rzuceniem wyjątku <code class="highlighter-rouge">AssertionError</code> – np. <code class="highlighter-rouge">assert false</code> rzuci wyjątek. <a href="#fnref:assert" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:assert_that">
+      <p>Pominę tutaj metodę <code class="highlighter-rouge">assertThat</code>, którą omówię bardziej szczegółowo w kolejnych artykułach. <a href="#fnref:assert_that" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:mock">
+      <p>O mockach czy stubach przeczytasz w kolejnych artykułach, jeśli jest to Twoja pierwsza styczność z testami możesz ten punkt pominąć. <a href="#fnref:mock" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:double">
+      <p><code class="highlighter-rouge">double</code> nie jest dobrym typem do reprezentowania cen, na potrzeby tego przykładu jednak wystarczy. Dlaczego tak się dzieje przeczytasz w osobnym artykule. <a href="#fnref:double" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#programista-rzemie%C5%9Blnik" class="page__taxonomy-item" rel="tag">Programista rzemieślnik</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2016-10-29T10:48:40+02:00">October 29, 2016</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Ftesty-jednostkowe-z-junit%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Ftesty-jednostkowe-z-junit%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/" class="pagination--pager" title="Klasy wewnętrzne i anonimowe w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/game-of-life/" class="pagination--pager" title="Game of Life
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/testy-jednostkowe-z-junit"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

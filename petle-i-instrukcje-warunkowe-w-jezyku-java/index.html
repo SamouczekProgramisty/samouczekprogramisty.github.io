@@ -1,0 +1,947 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Pętle i instrukcje warunkowe w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W tej części kursu Javy poznasz pętle i instrukcje warunkowe. Dowiesz się kiedy ich używać. Poznasz parę trików IDE wraz z dobrymi praktykami. Całość zakończysz zestawem zadań, które wykonasz samodzielnie :). Pamiętaj, że bez pętli i instrukcji warunkowych nie napiszesz żadnego “poważniejszego” programu. Do kodu!">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Pętle i instrukcje warunkowe w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/petle-i-instrukcje-warunkowe-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/petle-i-instrukcje-warunkowe-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="W tej części kursu Javy poznasz pętle i instrukcje warunkowe. Dowiesz się kiedy ich używać. Poznasz parę trików IDE wraz z dobrymi praktykami. Całość zakończysz zestawem zadań, które wykonasz samodzielnie :). Pamiętaj, że bez pętli i instrukcji warunkowych nie napiszesz żadnego “poważniejszego” programu. Do kodu!">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2015/11/08_pierwszy_program_w_java.png">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-11-18T23:46:40+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2015/11/08_pierwszy_program_w_java.png');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Pętle i instrukcje warunkowe w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">W tej części kursu Javy poznasz pętle i instrukcje warunkowe. Dowiesz się kiedy ich używać. Poznasz parę trików IDE wraz z dobrymi praktykami. Całość zakończysz zestawem zadań, które wykonasz samodzielnie :). Pamiętaj, że bez pętli i instrukcji warunkowych nie napiszesz żadnego “poważniejszego” programu. Do kodu!
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Pętle i instrukcje warunkowe w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Pętle i instrukcje warunkowe w języku Java">
+    <meta itemprop="description" content="W tej części kursu Javy poznasz pętle i instrukcje warunkowe. Dowiesz się kiedy ich używać. Poznasz parę trików IDE wraz z dobrymi praktykami. Całość zakończysz zestawem zadań, które wykonasz samodzielnie :). Pamiętaj, że bez pętli i instrukcji warunkowych nie napiszesz żadnego “poważniejszego” programu. Do kodu!">
+    <meta itemprop="datePublished" content="November 18, 2015">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#operatory-logiczne" id="markdown-toc-operatory-logiczne">Operatory logiczne</a></li>
+  <li><a href="#instrukcje-warunkowe" id="markdown-toc-instrukcje-warunkowe">Instrukcje warunkowe</a>    <ul>
+      <li><a href="#instrukcja-if-else-if-else" id="markdown-toc-instrukcja-if-else-if-else">Instrukcja <code class="highlighter-rouge">if</code>, <code class="highlighter-rouge">else if</code>, <code class="highlighter-rouge">else</code></a></li>
+      <li><a href="#instrukcja-switch" id="markdown-toc-instrukcja-switch">Instrukcja <code class="highlighter-rouge">switch</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#pętle-w-języku-java" id="markdown-toc-pętle-w-języku-java">Pętle w języku Java</a>    <ul>
+      <li><a href="#pętla-for" id="markdown-toc-pętla-for">Pętla <code class="highlighter-rouge">for</code></a>        <ul>
+          <li><a href="#live-templates" id="markdown-toc-live-templates">Live templates</a></li>
+        </ul>
+      </li>
+      <li><a href="#pętla-while" id="markdown-toc-pętla-while">Pętla while</a></li>
+      <li><a href="#nieskończona-pętla" id="markdown-toc-nieskończona-pętla">Nieskończona pętla</a></li>
+    </ul>
+  </li>
+  <li><a href="#zadania" id="markdown-toc-zadania">Zadania</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h2 id="operatory-logiczne">Operatory logiczne</h2>
+
+<p>Zanim przejdę do opisania instrukcji warunkowych przeczytasz coś więcej na temat operatorów logicznych.</p>
+
+<p><code class="highlighter-rouge">&lt;</code> jest operatorem logicznym, który znasz z poprzednich artykułów. W Javie istnieje kilka operatorów logicznych:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">==</code> równe,</li>
+  <li><code class="highlighter-rouge">&lt;</code> mniejsze,</li>
+  <li><code class="highlighter-rouge">&lt;=</code> mniejsze bądź równe,</li>
+  <li><code class="highlighter-rouge">&gt;</code> większe,</li>
+  <li><code class="highlighter-rouge">&gt;=</code> większe bądź równe</li>
+</ul>
+
+<p>Ich działanie możesz zobaczyć na kilku przykładach poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+ 
+<span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="o">;</span> <span class="c1">// true</span>
+<span class="n">x</span> <span class="o">==</span> <span class="n">z</span><span class="o">;</span> <span class="c1">// false</span>
+<span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">;</span> <span class="c1">// false</span>
+<span class="n">x</span> <span class="o">&lt;</span> <span class="n">z</span><span class="o">;</span> <span class="c1">// true</span>
+<span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span><span class="o">;</span> <span class="c1">// true</span>
+<span class="c1">// itd.</span>
+</code></pre></div></div>
+
+<p>Proste operacje logiczne możesz ze sobą łączyć przy pomocy dodatkowych operatorów:</p>
+<ul>
+  <li><code class="highlighter-rouge">&amp;&amp;</code> logiczne i,</li>
+  <li><code class="highlighter-rouge">||</code> logiczne lub.</li>
+</ul>
+
+<p>Pomocna przy tym może być następująca tabelka. Pokazuje ona podstawowe operacje logiczne<sup id="fnref:algebra"><a href="#fn:algebra" class="footnote">1</a></sup>.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>Operacja</td>
+      <td> </td>
+      <td>Wynik</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>prawda i prawda</td>
+      <td>prawda</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>prawda i fałsz</td>
+      <td>fałsz</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>fałsz i prawda</td>
+      <td>fałsz</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>fałsz i fałsz</td>
+      <td>fałsz</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>prawda lub prawda</td>
+      <td>prawda</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>prawda lub fałsz</td>
+      <td>prawda</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>fałsz lub prawda</td>
+      <td>prawda</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>fałsz lub fałsz</td>
+      <td>fałsz</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Przekładając kilka powyższych linii na przykłady ze zmiennymi w Java wygląda to następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="n">x</span> <span class="o">==</span> <span class="n">y</span> <span class="o">&amp;&amp;</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="n">y</span><span class="o">;</span> <span class="c1">// true &amp;&amp; true =&gt; true</span>
+<span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&amp;&amp;</span> <span class="n">z</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="o">;</span> <span class="c1">// true &amp;&amp; false =&gt; false</span>
+<span class="n">x</span> <span class="o">==</span> <span class="n">y</span> <span class="o">||</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="n">y</span><span class="o">;</span> <span class="c1">// true || true =&gt; true</span>
+<span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">||</span> <span class="n">z</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="o">;</span> <span class="c1">// true || false =&gt; true</span>
+</code></pre></div></div>
+
+<p>Operatory w języku Java mają swój priorytet. Dzięki temu mnożenie jest wykonywane przed dodawaniem. Podobnie jest tutaj, operatory <code class="highlighter-rouge">&lt;</code>, <code class="highlighter-rouge">==</code>, <code class="highlighter-rouge">&lt;</code> itp. mają wyższy priorytet niż <code class="highlighter-rouge">&amp;&amp;</code> czy <code class="highlighter-rouge">||</code>.</p>
+
+<h2 id="instrukcje-warunkowe">Instrukcje warunkowe</h2>
+
+<h3 id="instrukcja-if-else-if-else">Instrukcja <code class="highlighter-rouge">if</code>, <code class="highlighter-rouge">else if</code>, <code class="highlighter-rouge">else</code></h3>
+
+<p>Do tej pory każda linijka kodu, którą napisałeś w działającym programie została wykonana. W większych programach często musimy decydować co powinno być wykonane. Np. jeśli jest temperatura jest większa niż 37°C<sup id="fnref:zmiennyprzecinek"><a href="#fn:zmiennyprzecinek" class="footnote">2</a></sup> oznacza to, że możesz być chory. Jeśli jest mniejsza niż 36°C możesz być osłabiony.</p>
+
+<p>To jest najprostsza instrukcja warunkowa. Blok kodu zostanie wykonany jeśli wartość w nawiasie <code class="highlighter-rouge">()</code> będzie prawdą. W przykładzie sprawdzamy, czy temperatura jest mniejsza niż 36 stopni.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">36</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jesteś osłabiony?"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">else</code>, podobnie jak <code class="highlighter-rouge">if</code>, jest słowem kluczowym. Jeśli warunek przy instrukcji <code class="highlighter-rouge">if</code> nie zostanie spełniony wywołany zostanie zestaw instrukcji w bloku <code class="highlighter-rouge">else</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">36</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jesteś osłabiony?"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Masz 36 lub więcej stopni."</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W języku Java możesz także połączyć <code class="highlighter-rouge">else</code> z <code class="highlighter-rouge">if</code> jak w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mi">38</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">36</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jesteś osłabiony?"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">37</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wszystko w normie!"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">38</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jesteś przeziębiony?"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Masz co najmniej 38 stopni! Biegiem do lekarza!"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Kod ten na początku sprawdza czy temperatura jest mniejsza niż 36°C. Jeśli ten warunek nie jest spełniony sprawdzamy czy temperatura jest mniejsza niż 37°C. Podobnie działa kolejny warunek. Jeśli żaden z nich nie jest spełniony zostaje wykonany kod w bloku po <code class="highlighter-rouge">else</code>.</p>
+
+<h3 id="instrukcja-switch">Instrukcja <code class="highlighter-rouge">switch</code></h3>
+
+<p>Jeśli mamy kilka warunków <code class="highlighter-rouge">if</code> następujących po sobie możemy zamienić je na inną konstrukcję - <code class="highlighter-rouge">switch</code>. Przejdźmy od razu do przykładu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mi">37</span><span class="o">;</span>
+<span class="k">switch</span> <span class="o">(</span><span class="n">temperature</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="mi">35</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jesteś osłabiony?"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">36</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wszystko w normie!"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">37</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jesteś przeziębiony?"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">38</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Chyba jesteś chory."</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Nie wiem jak się czujesz :("</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">switch</code> w przykładzie powyżej sprawdza wartość zmiennej <code class="highlighter-rouge">temperature</code> i w zależności od jej wartości wykonuje odpowiedni kod zdefiniowany w <code class="highlighter-rouge">case</code> poniżej. W naszym przypadku na ekranie zostanie wypisane <code class="highlighter-rouge">Jesteś przeziębiony?</code>.</p>
+
+<p>Proszę zwróć uwagę na nowe słowo kluczowe <code class="highlighter-rouge">break</code>. <code class="highlighter-rouge">switch</code> dopasowuje <code class="highlighter-rouge">case</code> do wartość zmiennej, i wykonuje kod od pierwszego pasującego warunku do słowa kluczowego <code class="highlighter-rouge">break</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mi">35</span><span class="o">;</span>
+<span class="k">switch</span> <span class="o">(</span><span class="n">temperature</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="mi">35</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jesteś osłabiony?"</span><span class="o">);</span>
+    <span class="k">case</span> <span class="mi">36</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wszystko w normie!"</span><span class="o">);</span>
+    <span class="k">case</span> <span class="mi">37</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Jesteś przeziębiony?"</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">38</span><span class="o">:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Chyba jesteś chory."</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W przykładzie powyżej <code class="highlighter-rouge">break</code> zostało pominięte przy <code class="highlighter-rouge">case 35</code> oraz <code class="highlighter-rouge">case 36</code>. Wartość zmiennej pasuje do <code class="highlighter-rouge">case 35</code>. Przez pominięcie słowa kluczowego <code class="highlighter-rouge">break</code> na ekranie zostaną wypisane 3 linijki. Dzieje się tak dlatego, że słowo kluczowe <code class="highlighter-rouge">break</code> zostało wypisane dopiero przy case 37.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Jesteś osłabiony?
+Wszystko w normie!
+Jesteś przeziębiony?
+</code></pre></div></div>
+
+<p>Warunek <code class="highlighter-rouge">default</code> zostaje wykonany jeśli żadna gałąź <code class="highlighter-rouge">case</code> nie pasuje do wartości zmiennej. Zachęcam Cię do eksperymentowania :).</p>
+
+<p>Instrukcja <code class="highlighter-rouge">switch</code> jest trochę ograniczona. Sprawdzana zmienna może być zmienną kilku typów np. <code class="highlighter-rouge">int</code> czy <code class="highlighter-rouge">String</code>.</p>
+
+<h2 id="pętle-w-języku-java">Pętle w języku Java</h2>
+
+<h3 id="pętla-for">Pętla <code class="highlighter-rouge">for</code></h3>
+
+<p>Pętla pozwala na wykonanie fragmentu kodu wielokrotnie. Na przykład jeśli chcemy wypisać wszystkie liczby od 0 do 10 możemy to zrobić przy pomocy pętli</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">number</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">number</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pierwsza linijka to nic innego jak właśnie definicja pętli <code class="highlighter-rouge">for</code>. Kod wewnątrz nawiasu <code class="highlighter-rouge">()</code> możemy podzielić na trzy części:</p>
+<ol>
+  <li>inicjalizacja zmiennych,</li>
+  <li>sprawdzenie warunku,</li>
+  <li>zmiana wartości zmiennych.</li>
+</ol>
+
+<p>W części inicjalizującej zmienne robimy coś co już znasz, tworzymy zmienną <code class="highlighter-rouge">number</code> i przypisujemy jej wartość <code class="highlighter-rouge">0</code>. Kolejna część to sprawdzenie czy wartość zmiennej jest mniejsza bądź równa <code class="highlighter-rouge">10</code>. Nowa dla Ciebie jest trzecia część a właściwie operator <code class="highlighter-rouge">++</code>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+<span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="n">counter</span><span class="o">++;</span>
+</code></pre></div></div>
+
+<p>Każda z trzech ostatnich linii zwiększa o jeden wartość zmiennej <code class="highlighter-rouge">counter</code>. Ostatnia wersja jest najkrótsza dlatego jest najczęściej spotykana w tego typu pętlach.</p>
+
+<p>Kolejnym przykładem użycia pętli może być wyświetlenie każdego elementu tablicy</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">primeNumbers</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]</span> <span class="o">{</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">7</span><span class="o">};</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">primeNumbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">index</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">primeNumbers</span><span class="o">[</span><span class="n">index</span><span class="o">]);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W pierwszej linijce definiujemy tablicę z kilkoma liczbami pierwszymi (jeśli nie wiesz czym są liczby pierwsze możesz przeczytać o nich w <a href="https://pl.wikipedia.org/wiki/Liczba_pierwsza">artykule na wikipedii</a>). Następnie w pętli wyświetlamy każdy element tej tablicy.</p>
+
+<p>Istnieje też uproszczona wersja pętli <code class="highlighter-rouge">for</code>. Jeśli nie musisz mieć dostępu do zmiennej reprezentującej np. indeks tablicy możesz użyć poniżej wersji pętli.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">primeNumber</span> <span class="o">:</span> <span class="n">primeNumbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">primeNumber</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Tutaj w pierwszej linijce do zmiennej <code class="highlighter-rouge">primeNumber</code> przypisujemy kolejne elementy tablicy <code class="highlighter-rouge">primenNumbers</code>, które następnie wyświetlamy na ekranie.</p>
+
+<h4 id="live-templates">Live templates</h4>
+
+<p>Obie wersje pętli for możesz utworzyć dużo łatwiej. Z jednego z poprzednich artykułów wiesz już o istnieniu live templates. Okazuje się, że IDE pomaga nam także w tworzeniu pętli. Wystarczy, że wpiszesz <code class="highlighter-rouge">fori</code> i naciśniesz <code class="highlighter-rouge">Enter</code>, IDE wstawi szablon pętli za Ciebie. Jeśli w ten sam sposób chcesz wstawić szablon uproszczonej pętli for możesz wpisać <code class="highlighter-rouge">I</code> i nacisnąć <code class="highlighter-rouge">Enter</code>.</p>
+
+<h3 id="pętla-while">Pętla while</h3>
+
+<p>W języku Java istnieją także inne konstrukcje pętli. Kolejnym przykładem jest pętla <code class="highlighter-rouge">while</code>. Tym razem przejdziemy od razu do przykładu</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">number</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+    <span class="n">number</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pętla <code class="highlighter-rouge">while</code> wykonuje swoje ciało (kod wewnątrz <code class="highlighter-rouge">{}</code>) tak długo jak spełniony jest warunek zapisany pomiędzy <code class="highlighter-rouge">()</code> (lub pętla nie zostanie przez nas przerwana). Podobnie jak w poprzenich przykładach pętla wyświetla zestaw liczb, tym razem liczby od 0 do 9.</p>
+
+<p>Poniżej kolejny przykład pętli <code class="highlighter-rouge">while</code>. Tym razem warunek zakończenia pętli sprawdzany jest w jej ciele. Użyliśmy do tego celu instrukcji warunkowej <code class="highlighter-rouge">if</code>. Słowo kluczowe <code class="highlighter-rouge">break</code> napotkane wewnątrz pętli natychmiast przerywa jej wykonanie (dotyczy to także pętli <code class="highlighter-rouge">for</code>).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+    <span class="n">number</span><span class="o">++;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">==</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="nieskończona-pętla">Nieskończona pętla</h3>
+
+<p>Pętle mają to do siebie, że przy źle zdefiniowanych warunkach mogą wykonywać kod wewnątrz swojego ciała w nieskończoność. Jest to dość częsty błąd, szczególnie spotykany na początku przygody z programowaniem. Dlatego należy uważnie sprawdzać warunki zakończenia pętli, żeby uniknąć tego błędu.</p>
+
+<p>Poniżej przykład pętli wyświetlającej <code class="highlighter-rouge">1</code> w nieskończoność.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="zadania">Zadania</h2>
+
+<ol>
+  <li>Poza poznanym dzisiaj operatorem <code class="highlighter-rouge">++</code> istnieje też jego odpowiednik zmniejszający wartość zmiennej o 1. Jest nim <code class="highlighter-rouge">--</code>. Napisz program, który wypisze na ekranie malejąco wszystkie liczby od 20 do 10.</li>
+  <li>Napisz pętlę while, która wypisze na ekranie wszystkie liczby od 10 do 20 włącznie.</li>
+  <li>Napisz pętlę for, która wypisze na ekranie wszystkie liczby nieparzyste od -10 do 40.</li>
+  <li>Przerób pętlę z zadania trzeciego na pętlę while.</li>
+</ol>
+
+<p>Przygotowałem też <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/05_petle/src/main/java/pl/samouczekprogramisty/kursjava/loops/exercise">zestaw przykładowych rozwiązań</a> powyższych zadań. Zachęcam jednak do ich samodzielnego rozwiązania, wtedy nauczysz się najwięcej.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Dzisiaj znów nauczyłeś się paru nowych rzeczy dotyczących Javy. Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak będę wdzięczny jeśli podzielisz się nim ze swoimi znajomymi. Proszę polub stronę na facebooku jeśli nie chcesz pominąć żadnego nowego artykułu. Na dzisiaj już starczy wiedzy :) Miłego dnia i do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:algebra">
+      <p>Tzw. <a href="https://pl.wikipedia.org/wiki/Algebra_Boole%E2%80%99a">algebrę Boole’a</a> <a href="#fnref:algebra" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:zmiennyprzecinek">
+      <p>Tutaj lepszym pomysłem byłyby liczby “z przecinkiem”, te omówimy w osobnym artykule. <a href="#fnref:zmiennyprzecinek" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2015-11-18T23:46:40+01:00">November 18, 2015</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpetle-i-instrukcje-warunkowe-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpetle-i-instrukcje-warunkowe-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/tablice-w-jezyku-java/" class="pagination--pager" title="Tablice w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/typy-proste-w-jezyku-java/" class="pagination--pager" title="Typy proste w języku Java
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/petle-i-instrukcje-warunkowe-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/petle-i-instrukcje-warunkowe-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

@@ -1,0 +1,828 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Przygotowanie środowiska programisty - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Dzisiaj zajmiemy się instalacją środowiska programistycznego, które będzie niezbędne do rozpoczęcia naszej przygody z programowaniem. Poznasz różnicę między JDK i JRE. Dowiesz się czym jest IDE i do czego może się przydać. Wyjaśnię też parę dodatkowych zagadnień związanych z rozwojem oprogramowania jak wersjonowanie.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Przygotowanie środowiska programisty">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/przygotowanie-srodowiska-programisty/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/przygotowanie-srodowiska-programisty/">
+
+
+
+  <meta property="og:description" content="Dzisiaj zajmiemy się instalacją środowiska programistycznego, które będzie niezbędne do rozpoczęcia naszej przygody z programowaniem. Poznasz różnicę między JDK i JRE. Dowiesz się czym jest IDE i do czego może się przydać. Wyjaśnię też parę dodatkowych zagadnień związanych z rozwojem oprogramowania jak wersjonowanie.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-10-18T22:33:58+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Przygotowanie środowiska programisty
+
+        
+      </h1>
+      
+        <p class="page__lead">Dzisiaj zajmiemy się instalacją środowiska programistycznego, które będzie niezbędne do rozpoczęcia naszej przygody z programowaniem. Poznasz różnicę między JDK i JRE. Dowiesz się czym jest IDE i do czego może się przydać. Wyjaśnię też parę dodatkowych zagadnień związanych z rozwojem oprogramowania jak wersjonowanie.
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Przygotowanie środowiska programisty</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Przygotowanie środowiska programisty">
+    <meta itemprop="description" content="Dzisiaj zajmiemy się instalacją środowiska programistycznego, które będzie niezbędne do rozpoczęcia naszej przygody z programowaniem. Poznasz różnicę między JDK i JRE. Dowiesz się czym jest IDE i do czego może się przydać. Wyjaśnię też parę dodatkowych zagadnień związanych z rozwojem oprogramowania jak wersjonowanie.">
+    <meta itemprop="datePublished" content="October 18, 2015">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#wersjonowanie-oprogramowania" id="markdown-toc-wersjonowanie-oprogramowania">Wersjonowanie oprogramowania</a>    <ul>
+      <li><a href="#wersjonowanie-oprogramowania-xyz" id="markdown-toc-wersjonowanie-oprogramowania-xyz">Wersjonowanie oprogramowania X.Y.Z</a></li>
+    </ul>
+  </li>
+  <li><a href="#instalacja-niezbędnych-narzędzi" id="markdown-toc-instalacja-niezbędnych-narzędzi">Instalacja niezbędnych narzędzi</a>    <ul>
+      <li><a href="#czym-różni-się-jdk-od-jre" id="markdown-toc-czym-różni-się-jdk-od-jre">Czym różni się JDK od JRE?</a></li>
+      <li><a href="#instalacja-jdk" id="markdown-toc-instalacja-jdk">Instalacja JDK</a></li>
+      <li><a href="#czego-używają-programiści-do-pisania-kodu" id="markdown-toc-czego-używają-programiści-do-pisania-kodu">Czego używają programiści do pisania kodu</a></li>
+      <li><a href="#instalacja-intelij-idea" id="markdown-toc-instalacja-intelij-idea">Instalacja InteliJ Idea</a></li>
+      <li><a href="#tworzenie-pierwszego-projektu-w-intelij-idea" id="markdown-toc-tworzenie-pierwszego-projektu-w-intelij-idea">Tworzenie pierwszego projektu w InteliJ Idea</a></li>
+    </ul>
+  </li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<p>W <a href="/czym-wlasciwie-jest-programowanie/">poprzednim artykule</a> pobieżnie opisałem czym właściwie jest programowanie. Do rozpoczęcia nauki niezbędne będzie zainstalowanie paru dodatkowych narzędzi niezbędnych dla programisty. Zanim do tego przejdziemy postaram się wytłumaczyć czym właściwie jest wersjonowanie oprogramowania.</p>
+
+<h2 id="wersjonowanie-oprogramowania">Wersjonowanie oprogramowania</h2>
+
+<p>Czy widziałeś czasami dziwne numerki dołączone do nazwy programu, którego aktualnie używasz? Np. 1.0.7, 0.7, 1.2-rc1, 3.14? To nic innego jak wersja oprogramowania, którego używasz.</p>
+
+<p>Nowsze wersje oprogramowania przeważnie zawierają zestaw nowych funkcjonalności niedostępnych w poprzednich wersjach. Poprawiają błędy znalezione przez użytkowników. Rozwiązują problemy związane z bezpieczeństwem.</p>
+
+<p>Jeśli program jest w stanie współpracować z innym programem mówimy wówczas, że jest on kompatybilny (ang. <em>compatible</em>). Czasami zdarza się, że nowsza wersja nie jest kompatybilna wstecz ze starą wersja oprogramowania. Oznacza to, że programy używające innego programu w wersji 1 nie będą mogły używać go w wersji 2.</p>
+
+<p>Poniżej przedstawię Ci przykładowy opis jednego z możliwych standardów wersjonowania programów. Nie jest to standard jedyny, jednak jest dość popularny.</p>
+
+<h3 id="wersjonowanie-oprogramowania-xyz">Wersjonowanie oprogramowania X.Y.Z</h3>
+
+<p>Standardowo na wersję oprogramowania składają się trzy osobne liczby. Mówiąc o wersji oprogramowania możemy mieć na myśli np. wersję 2.7.0. Wersja ta składa się z 3 członów:</p>
+<ul>
+  <li>2 – (ang. <em>major</em>) każdy nowy numer oznacza nową wersję, która nie jest kompatybilna wstecz,</li>
+  <li>7 – (ang. <em>minor</em>) każda nowa wersja oznacza wprowadzenie nowych funkcjonalności kompatybilnych wstecz,</li>
+  <li>0 – (and. <em>patch</em>) kolejny numer wersji w tym członie symbolizuje zbiór łatek.</li>
+</ul>
+
+<p>Jako łatkę (ang. <em>patch</em>) możemy traktować fragment kodu poprawiający błędy (ang. <em>bugs</em>) znalezione w starszej wersji oprogramowania. Zbiór łatek przeważnie grupowany jest w osobne wersje. Np. wersja 2.7.1 zawierająca kila łatek poprawia błędy znalezione w wersji 2.7.0.</p>
+
+<p>A teraz kilka przykładów:</p>
+
+<ul>
+  <li>Wersja 2.0.0 wprowadza zmiany, które nie są kompatybilne z wersją 1.8.0,</li>
+  <li>Wersja 1.8.0 wprowadza nową funkcjonalność kompatybilną z 1.7.5,</li>
+  <li>Wersja 1.7.5 wprowadza poprawki funkcjonalności względem wersji 1.7.4.</li>
+</ul>
+
+<h2 id="instalacja-niezbędnych-narzędzi">Instalacja niezbędnych narzędzi</h2>
+
+<p>Naszą naukę zaczniemy od języka Java. Jest to język obiektowy, wymagający wirtualnej maszyny (oba pojęcia wyjaśniłem poprzednio - zachęcam do powtórki w razie wątpliwości). Istnieje wiele implementacji wirtualnej maszyny Javy. Mówiąc o wielu implementacjach mam tu na myśli różne firmy dostarczające JVM (ang. <em>Java Virtual Machine</em>). Najbardziej popularną z nich jest maszyna wirtualna firmy Oracle. Zanim jednak przejdziemy przez proces instalacji chciałbym wyjaśnić Ci jedną ważną kwestię..</p>
+
+<h3 id="czym-różni-się-jdk-od-jre">Czym różni się JDK od JRE?</h3>
+
+<p>W przypadku języka Java często będziesz miał styczność z terminami JRE oraz JDK. Bardzo istotne jest zrozumienie różnicy pomiędzy nimi.</p>
+
+<p>JRE (ang. <em>Java Runtime Environment)</em> – jest to maszyna wirtualna nie zawierająca dodatkowych narzędzi niezbędnych dla programisty. W uproszczeniu można powiedzieć że zawiera wyłącznie implementację wirtualnej maszyny – program java. Do uruchamiania programów napisanych w języku Java wystarczy JRE.</p>
+
+<p>JDK (ang. <em>Java SE Development Kit</em>) – jest to zestaw narzędzi dla programisty. Zestaw ten jest niezbędny do pisania programów w języku Java. Poza programem java zawiera wiele innych. Jednym z dodatkowych programów zawartych w zestawie jest javac – kompilator<sup id="fnref:kompilator"><a href="#fn:kompilator" class="footnote">1</a></sup> języka Java.</p>
+
+<h3 id="instalacja-jdk">Instalacja JDK</h3>
+
+<p>Proces instalacji jest różny na różnych systemach operacyjnych. Sam używam jednej<br />
+z dystrybucji systemu Linux jednak na potrzeby tego wpisu pożyczyłem komputer<br />
+z systemem Windows 7. Cały proces zaczynamy od ściągnięcia odpowiedniej wersji maszyny wirtualnej.</p>
+
+<p>Ważne jest żeby była to wersja 1.8 bądź nowsza (poniżej zobaczysz proces instalacji dla wersji 1.8u60).</p>
+
+<p>Krok pierwszy polega na ściągnięciu odpowiedniej wersji JDK ze <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">strony Oracle</a>.</p>
+
+<p>Proszę pamiętaj o tym, żeby ściągnąć wersję odpowiednią dla Twojego systemu. Jeśli masz system 32-bitowy ściągnij plik jdk-8u60-windows-i586.exe. W przypadku systemu 64-bitowego ściągnij plik jdk-8u60-windows-x64.exe. Instrukcja opisująca to jak dowiedzieć się jaki masz system dostępna jest na <a href="http://windows.microsoft.com/pl-pl/windows/32-bit-and-64-bit-window">stronie pomocy systemu Windows.</a></p>
+
+<p>Aby móc ściągnąć jeden z plików musisz przeczytać i zaakceptować warunki licencji.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_download_0.jpg" alt="" />
+  
+    <figcaption>Pobierz JDK.
+</figcaption>
+  
+</figure>
+
+<p>Po ściągnięciu pliku uruchom go i postępuj zgodnie z instrukcją instalacji. Poniżej prezentuję kolejne ekrany widoczne podczas instalacji JDK.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_jdk_install_0.jpg" alt="" />
+  
+    <figcaption>Instalacja JDK krok I
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_jdk_install_1.jpg" alt="" />
+  
+    <figcaption>Instalacja JDK krok II
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_jdk_install_2.jpg" alt="" />
+  
+    <figcaption>Instalacja JDK krok III
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_jdk_install_3.jpg" alt="" />
+  
+    <figcaption>Instalacja JDK krok IV
+</figcaption>
+  
+</figure>
+
+<h3 id="czego-używają-programiści-do-pisania-kodu">Czego używają programiści do pisania kodu</h3>
+
+<p>W najprostszym przypadku wystarczy zwykły edytor tekstu. W systemie operacyjnym Windows funkcję tą spełnia Notatnik. Większość języków programowania nie wymaga innego narzędzia do pisania kodu.</p>
+
+<p>Chociaż takie narzędzie w zupełności wystarczy do efektywnej pracy przydają się bardziej zaawansowane narzędzia. Jednym z nich jest „zintegrowane środowisko programistyczne” – IDE (ang. Integrated Development Environment). IDE poza bardziej zaawansowanym edytorem zawiera zestaw dodatkowych narzędzi przydatnych programiście. Np. „profiler”, „debuger”, zestaw narzędzi do refaktoryzacji itp. Jeśli jesteś zainteresowany, którymkolwiek z tych zagadnień daj znać, na pewno napiszę artykuł na jego temat ;)</p>
+
+<p>Nie ma jednego, słusznego IDE, którego programista powinien używać. Sam swoją przygodę zaczynałem z Eclipse i NetBeans. Jednak po pierwszych doświadczeniach z InteliJ Idea i opinii wśród innych programistów wydaję mi się, że powinieneś zacząć właśnie od tego IDE. Postaram się przeprowadzić Cię przez cały proces instalacji.</p>
+
+<h3 id="instalacja-intelij-idea">Instalacja InteliJ Idea</h3>
+
+<p>Podobnie jak w przypadku instalacji JDK używałem maszyny z systemem Windows 7. Aby ściągnąć InteliJ Idea musisz na stronie <a href="https://www.jetbrains.com/idea/download">https://www.jetbrains.com/idea/download</a> nacisnąć przycisk z napisem „Download Community”.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_download_2.jpg" alt="" />
+  
+    <figcaption>Pobierz InteliJ Idea.
+</figcaption>
+  
+</figure>
+
+<p>Instalacja InteliJ nie zawiera tak wiele ekranów jak instalacja JDK :) Jednak to nie wszystko. Teraz, gdy mamy już działające IDE należy je skonfigurować. Na pierwszym ekranie masz możliwość wyboru zestawu kolorów. Ja wybrałem ciemny, oczywiście możesz to później zmienić.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_install_1.jpg" alt="" />
+  
+    <figcaption>Instalacja krok I
+</figcaption>
+  
+</figure>
+
+<h3 id="tworzenie-pierwszego-projektu-w-intelij-idea">Tworzenie pierwszego projektu w InteliJ Idea</h3>
+
+<p>Świeżo po instalacji InteliJ Idea niestety nie wie, którego JDK ma użyć (tak, możesz mieć kilka zainstalowanych JDK na jednym komputerze). Dlatego przy tworzeniu pierwszego projektu należy wskazać odpowiednią ścieżkę gdzie poprzednio zainstalowaliśmy JDK.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_install_2.jpg" alt="" />
+  
+    <figcaption>Instalacja krok II
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_project_1.jpg" alt="" />
+  
+    <figcaption>Tworzenie projektu krok I
+</figcaption>
+  
+</figure>
+
+<p>Następnie wybieramy ścieżkę gdzie zainstalowaliśmy JDK.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_project_2.jpg" alt="" />
+  
+    <figcaption>Tworzenie projektu krok II
+</figcaption>
+  
+</figure>
+
+<p>Po dodaniu JDK możemy je wybrać w menu rozwijanym. Na kolejnym ekranie nie wybieramy żadnego szablonu. Ostatni ekran to wybór nazwy projektu – ja wybrałem test.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_project_3.jpg" alt="" />
+  
+    <figcaption>Tworzenie projektu krok III
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_project_4.jpg" alt="" />
+  
+    <figcaption>Tworzenie projektu krok IV
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_project_5.jpg" alt="" />
+  
+    <figcaption>Tworzenie projektu krok V
+</figcaption>
+  
+</figure>
+
+<p>I tak utworzyliśmy swój pierwszy projekt w InteliJ! :) Co prawda nie ma w nim jeszcze ani linijki kodu ale tym szczegółem zajmiemy się następnym razem.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/10/18_project_6.jpg" alt="" />
+  
+    <figcaption>Tworzenie projektu krok VI
+</figcaption>
+  
+</figure>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>I tak dobrnęliśmy do końca przygotowania podstawowego środowiska dla programisty. Jeśli masz pytania dotyczące któregokolwiek z tematów proszę zadaj je w komentarzach. Proszę także podziel się tym artykułem ze swoimi znajomymi jeśli uznasz go za interesujący.</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:kompilator">
+      <p>Kompilator to narzędzie tłumaczące język wysokiego poziomu na instrukcje zrozumiałe przez komputer. W naszym przypadku javac jest kompilatorem tłumaczącym język Java na tak zwany bajtkod (ang. <em>bytecode</em>). Ten drugi jest interpretowany i wykonywany przez maszynę wirtualną. <a href="#fnref:kompilator" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#programowanie" class="page__taxonomy-item" rel="tag">Programowanie</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2015-10-18T22:33:58+02:00">October 18, 2015</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fprzygotowanie-srodowiska-programisty%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fprzygotowanie-srodowiska-programisty%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/czym-wlasciwie-jest-programowanie/" class="pagination--pager" title="Czym właściwie jest programowanie
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/metody-w-jezyku-java/" class="pagination--pager" title="Metody w języku Java
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/przygotowanie-srodowiska-programisty/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/przygotowanie-srodowiska-programisty"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

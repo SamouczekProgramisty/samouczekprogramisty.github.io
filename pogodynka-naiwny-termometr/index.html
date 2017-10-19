@@ -1,0 +1,722 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Pogodynka - naiwny termometr - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Pogodynka to projekt realizowany w ramach konkursu Daj Się Poznać 2017. W ramach tej serii artykułów relacjonuję postęp prac nad projektem. Poza relacją przeczytasz też o crontab, programie, który zamierzam użyć w projekcie. Dowiesz się też coś o monitorowaniu i logowaniu. Zapraszam!">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Pogodynka - naiwny termometr">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/pogodynka-naiwny-termometr/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/pogodynka-naiwny-termometr/">
+
+
+
+  <meta property="og:description" content="Pogodynka to projekt realizowany w ramach konkursu Daj Się Poznać 2017. W ramach tej serii artykułów relacjonuję postęp prac nad projektem. Poza relacją przeczytasz też o crontab, programie, który zamierzam użyć w projekcie. Dowiesz się też coś o monitorowaniu i logowaniu. Zapraszam!">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/03/11_pogodynka_02_artykul.jpeg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-03-11T14:37:26+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/03/11_pogodynka_02_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Pogodynka - naiwny termometr
+
+        
+      </h1>
+      
+        <p class="page__lead">Pogodynka to projekt realizowany w ramach konkursu Daj Się Poznać 2017. W ramach tej serii artykułów relacjonuję postęp prac nad projektem. Poza relacją przeczytasz też o crontab, programie, który zamierzam użyć w projekcie. Dowiesz się też coś o monitorowaniu i logowaniu. Zapraszam!
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/zedc/9387184605/sizes/l">© zedc</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Pogodynka - naiwny termometr</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Pogodynka - naiwny termometr">
+    <meta itemprop="description" content="Pogodynka to projekt realizowany w ramach konkursu Daj Się Poznać 2017. W ramach tej serii artykułów relacjonuję postęp prac nad projektem. Poza relacją przeczytasz też o crontab, programie, który zamierzam użyć w projekcie. Dowiesz się też coś o monitorowaniu i logowaniu. Zapraszam!">
+    <meta itemprop="datePublished" content="March 11, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <h2 id="malinka-padła">Malinka padła</h2>
+
+<p>Niestety poprzedni tydzień minął pod znakiem kolejnych nieudanych prób wskrzeszenia mojej Malinki. Leżała ona już prawie 5 lat w szafie, przerzucana z miejsca na miejsce. Miała prawo “wysiąść”. Idę na łatwiznę - nie próbuję jej teraz naprawić. Wczoraj kupiłem nowszą wersję płytki, tym razem jest to Rasperry Pi 3 B, więc jest to już dużo mocniejszy układ, niż poprzedni. Ta nowa wersja ma też więcej portów USB, czego przyznam brakowało mi w wersji poprzedniej (jeszcze 5 lat temu jak płytka działała…). Używa też wbudowanego modułu do komunikacji WiFi co też jest sporym ułatwieniem.</p>
+
+<p>Przesyłka jest już w drodze, więc jeśli wszystko dobrze pójdzie powinienem mieć nową malinkę w poniedziałek u siebie.</p>
+
+<h2 id="termometr">Termometr</h2>
+
+<p>Pchnąłem do przodu moduł termometru. Kilka nowych linijek kodu się pojawiło, jednak “serce” czyli właściwe odczytywanie temperatury nie działa, z oczywistych względów. Aktualnie działa “naiwny” termometr, który zwraca aktualną godzinę jako wskazanie temperatury ;).</p>
+
+<p>Przy okazji tego wpisu przybliżę Ci trochę narzędzia, które są niezbędne do realizacji tej części projektu. Zacznę od <code class="highlighter-rouge">crontab'a</code>.</p>
+
+<h2 id="crontab"><code class="highlighter-rouge">crontab</code></h2>
+
+<p>W systemach operacyjnych są programy, które działają w tle. Programy tego typu nazywa się serwisami lub demonami. Jednym z takich demonów w systemach z rodziny Linux jest cron. Jest to demon, który odpowiada za uruchamianie poleceń zdefiniowanych przez użytkownika z odpowiednią częstotliwością.</p>
+
+<p>Dzięki temu demonowi możesz na przykład sprawdzić aktualną temperaturę co pięć minut :). Idealne zastosowanie dla mojej pogodynki. <code class="highlighter-rouge">crontab</code> używa specyficznej składni, która pozwana na określenie kiedy dana komenda powinna być uruchamiana:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌───────────── minuta (0 - 59)
+│ ┌───────────── godzina (0 - 23)
+│ │ ┌───────────── dzień miesiąca (1 - 31)
+│ │ │ ┌───────────── miesiąc (1 - 12)
+│ │ │ │ ┌───────────── dzień tygodnia (0 - 6) (0 - niedziela, 6 - sobota)
+│ │ │ │ │
+│ │ │ │ │
+│ │ │ │ │
+* * * * * &lt;polecenie do wykonania&gt;
+</code></pre></div></div>
+
+<p>Kilka przykładów, powinno pomóc Ci lepiej zrozumieć ustawienia crontab’a:</p>
+<ul>
+  <li><code class="highlighter-rouge">* * * * * &lt;komenda&gt;</code> - uruchom komendę co minutę,</li>
+  <li><code class="highlighter-rouge">* 0 * * * &lt;komenda&gt;</code> - uruchom komendę co minutę w trakcie godziny 0,</li>
+  <li><code class="highlighter-rouge">30 17 * * * &lt;komenda&gt;</code> - uruchom komendę codziennie o 17:30,</li>
+  <li><code class="highlighter-rouge">15 4 ? * 0 &lt;komenda&gt;</code> - uruchom komendę co sobotę o 4:15,</li>
+  <li><code class="highlighter-rouge">0-15 * * * * &lt;komenda&gt;</code> - uruchom komendę co minutę w pierwszych 16 minutach każdej godziny,</li>
+  <li><code class="highlighter-rouge">0,5,10 * * * * &lt;komenda&gt;</code> - uruchom komendę w zerowej, piątek i dziesiątej minucie każdej godziny,</li>
+  <li><code class="highlighter-rouge">*/5 * * * * &lt;komenda&gt;</code> - uruchom komendę co pięć minut,</li>
+</ul>
+
+<p>Właśnie ta ostatnia linijka przyda się w przypadku pogodynki - co 5 minut będę chciał pobierać aktualne wskazanie temperatury.</p>
+
+<h2 id="monitorowanie-programu">Monitorowanie programu</h2>
+
+<p>W związku z tym, że zadanie sprawdzania temperatury będzie się odbywało w regularnych odstępach i będzie działo się automatycznie potrzebuję mechanizmu do monitorowania żeby zapewnić poprawnie i ciągłe działanie termometru.</p>
+
+<p>Z doświadczenia wiem, że tego typu zadania dość często płatają figle i nie wykonują się poprawnie. Postanowiłem użyć serwisu <a href="https://healthchecks.io">https://healthchecks.io</a>. Jest to darmowy serwis, który umożliwia wysyłanie stanu programu<sup id="fnref:ping"><a href="#fn:ping" class="footnote">1</a></sup> na skonfigurowany adres URL. Serwis ten monitoruje czy takie zapytanie jest wysyłanie z odpowiednią częstotliwością.</p>
+
+<p>Jak widzisz na obrazku poniżej pokazuję przykładowe ustawienia healthchecks</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/03/11_healthchecks.jpg" alt="" />
+  
+    <figcaption>Interfejs healthchecks
+</figcaption>
+  
+</figure>
+
+<p>Następnie healthchecks poinformuje mnie mailem o tym, że termometr nie mierzył temperatury z częstotliwością, którą skonfigurowałem.</p>
+
+<h2 id="logowanie">Logowanie</h2>
+
+<p>Załóżmy, ze coś poszło nie tak. Dostałem maila z informacją o tym, że temperatura nie jest mierzona. Co teraz? :) Z pomocą przychodzą logi. Logi, czyli informacje, które zapisywane są do pliku w trakcie działania programu. W pliku z logami zapisuje się różne informacje, zaczynając od “stanu programu” na rzuconych wyjątkach kończąc. Właśnie na podstawie takich plików będzie można później dojść co poszło “nie tak”.</p>
+
+<p>W tym tygodniu zaimplementowałem właśnie logowanie, zapraszam do rzucenia okiem na <a href="https://github.com/SamouczekProgramisty/Pogodynka/tree/master/thermometer">kod źródłowy</a>. Do logowania używam standardowych bibliotek dosępnych dla Javy <a href="https://www.slf4j.org">SL4J</a> i <a href="https://logging.apache.org/log4j/2.x/">LOG4J</a>.</p>
+
+<p>Logi będą generowane cały czas. Program w końcu ma uruchamiać się co 5 minut. Naturalne jest więc, że po pewnym czasie plików z logami będzie sporo. Mogą też one zajmować dużo miejsca. Z pomocą po raz kolejny przychodzi crontab. Raz dziennie będę usuwał logi, które będą starsze niż tydzień.</p>
+
+<h2 id="komenda-do-mierzenia-temperatury">Komenda do mierzenia temperatury</h2>
+
+<p>Z artykułu, w którym opisywałem <a href="/java-z-linii-polecen/">Javę w linii poleceń</a> wiesz jak zbudować plik jar i jak uruchomić program z linii poleceń. Właśnie tę wiedzę potrzebujesz to wpisania programu uruchamianego cyklicznie do cron’a. W moim przypadku będzie to polecenie</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar /opt/pogodynka/thermometer-1.0-SNAPHSOT.jar
+</code></pre></div></div>
+
+<p>Aby nie wypisywać długiej listy zależności i nie dodawać ich do classpath przy uruchomieniu programu użyłem tu pewnej sztuczki. Wszystkie zależności programu zostały zapakowane do jednego pliku jar. Tego typu zachowanie skonfigurowałem w pliku <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/master/thermometer/thermometer.gradle">thermometer.gradle</a>. O podstawach Gradle przeczytasz w <a href="/wstep-do-gradle/">osobnym artykule</a>.</p>
+
+<h3 id="przekazywanie-parametrów">Przekazywanie parametrów</h3>
+
+<p>Aby nie musieć kompilować kodu za każdym razem istotne ustawienia przekazywane będą jako parametry linii poleceń. Użytkownik, jego hasło czy adres gdzie ma być wysłane aktualny odczyt temperatury przekazane będą jako argumenty. “Parsowaniem” tych argumentów zajmuje się osobna klasa <code class="highlighter-rouge">Arguments</code>.</p>
+
+<h3 id="monitorowanie">Monitorowanie</h3>
+
+<p>Dodatkowo “zintegruję” to z wcześniej opisanym serwisem healthchecks. Z pomocą przyjdzie operator <code class="highlighter-rouge">&amp;&amp;</code> w bashu, który wykonuje to co jest po prawej stronie jeśli kod zakończenia komendy po lewej stronie jest równy 0.</p>
+
+<p>Zatem finalnie komenda w crontab będzie wyglądała następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar /opt/pogodynka/thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword \
+http://www.samouczekprogramisty.pl/getrealaddress &amp;&amp; \
+curl -fsS --retry 3 https://hchk.io/89941a75-5e1a-4b0b-a864-59d584e579a8
+</code></pre></div></div>
+
+<p>Magiczna część po &amp;&amp; odpowiada za wysłanie zapytania do healtchecks. Całość opakowałem w <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/45e3004e55634debd6a6c69aa29d0549d5405456/thermometer/add_to_crontab.sh">drobny skrypt</a> w bash’u, który automatyzuje dodanie wpisu do cron’a. Skrypt dostępny jest na githubie.
+Tak oto wygląda crontab po uruchomieniu tego skryptu:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ crontab -l
+*/5 * * * * java -jar /opt/pogodynka/thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword http://www.samouczekprogramisty.pl/getrealaddress &amp;&amp; curl -fsS --retry 3 https://hchk.io/89941a75-5e1a-4b0b-a864-59d584e579a8
+1 0 * * * find /var/log/pogodynka/*.log -mtime +7 -exec rm {} \;
+</code></pre></div></div>
+
+<h2 id="efekt-finalny">Efekt finalny</h2>
+
+<p>Aktualnie moduł termometru jest popchnięty najdalej jak tylko mogłem. Teraz czas na pozostałe elementy o czym przeczytasz za tydzień. W przyszłym tygodniu skupię się na kolejnym elemencie - aplikacji webowej, która będzie przyjmowała odczyt temperatury.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Zachęcam Cię do śledzenia zadań, które wykonuję w ramach realizacji tego projektu. Możesz je zobaczyć na <a href="https://trello.com/b/yqZHTqSN/pogodynka">trello</a>. Najnowszą wersję kodu źródłowego zawsze znajdziesz na <a href="https://github.com/SamouczekProgramisty/Pogodynka">githubie</a>.</p>
+
+<p>Zapisz się do mojego newslettera i polub stronę na facebooku jeśli nie chcesz pominąć kolejnych artykułów. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:ping">
+      <p>W sumie nie jest to stan, a jedynie “ping”, co w zupełności spełnia wymagania. <a href="#fnref:ping" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#dsp2017" class="page__taxonomy-item" rel="tag">DSP2017</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#pogodynka" class="page__taxonomy-item" rel="tag">Pogodynka</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#projekty" class="page__taxonomy-item" rel="tag">Projekty</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-03-11T14:37:26+01:00">March 11, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpogodynka-naiwny-termometr%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpogodynka-naiwny-termometr%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/java-z-linii-polecen/" class="pagination--pager" title="Java z linii poleceń
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/wprowadzenie-do-aplikacji-webowych/" class="pagination--pager" title="Wprowadzenie do aplikacji webowych
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/pogodynka-naiwny-termometr/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/pogodynka-naiwny-termometr"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

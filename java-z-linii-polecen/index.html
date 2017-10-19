@@ -1,0 +1,922 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Java z linii poleceń - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W tym artykule przeczytasz o narzędziach dostarczonych wraz z JDK. Dowiesz się jak używać kompilatora javac. Stworzysz swój pierwszy plik JAR. Po przeczytaniu tego artykułu zrozumiesz działanie podstawowych narzędzi dołączonych do JDK i docenisz kawał pracy jaką odwala za nas IDE :). Dowiesz się czym jest classpath i dlaczego ścieżka ta jest niezmiernie ważna. Zapraszam do lektury.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Java z linii poleceń">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/java-z-linii-polecen/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/java-z-linii-polecen/">
+
+
+
+  <meta property="og:description" content="W tym artykule przeczytasz o narzędziach dostarczonych wraz z JDK. Dowiesz się jak używać kompilatora javac. Stworzysz swój pierwszy plik JAR. Po przeczytaniu tego artykułu zrozumiesz działanie podstawowych narzędzi dołączonych do JDK i docenisz kawał pracy jaką odwala za nas IDE :). Dowiesz się czym jest classpath i dlaczego ścieżka ta jest niezmiernie ważna. Zapraszam do lektury.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/03/08_java_z_linii_polecen_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-03-08T20:35:45+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/03/08_java_z_linii_polecen_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Java z linii poleceń
+
+        
+      </h1>
+      
+        <p class="page__lead">W tym artykule przeczytasz o narzędziach dostarczonych wraz z JDK. Dowiesz się jak używać kompilatora <code class="highlighter-rouge">javac</code>. Stworzysz swój pierwszy plik JAR. Po przeczytaniu tego artykułu zrozumiesz działanie podstawowych narzędzi dołączonych do JDK i docenisz kawał pracy jaką odwala za nas IDE :). Dowiesz się czym jest classpath i dlaczego ścieżka ta jest niezmiernie ważna. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/wwward0/9176827666/sizes/l">© wwward0</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Java z linii poleceń</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Java z linii poleceń">
+    <meta itemprop="description" content="W tym artykule przeczytasz o narzędziach dostarczonych wraz z JDK. Dowiesz się jak używać kompilatora javac. Stworzysz swój pierwszy plik JAR. Po przeczytaniu tego artykułu zrozumiesz działanie podstawowych narzędzi dołączonych do JDK i docenisz kawał pracy jaką odwala za nas IDE :). Dowiesz się czym jest classpath i dlaczego ścieżka ta jest niezmiernie ważna. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="March 08, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#java-z-poziomu-linii-poleceń" id="markdown-toc-java-z-poziomu-linii-poleceń">Java z poziomu linii poleceń</a></li>
+  <li><a href="#narzędzia-dostępne-w-jdk" id="markdown-toc-narzędzia-dostępne-w-jdk">Narzędzia dostępne w JDK</a></li>
+  <li><a href="#pierwsza-klasa-w-notatniku" id="markdown-toc-pierwsza-klasa-w-notatniku">Pierwsza klasa w notatniku</a></li>
+  <li><a href="#javac---skompiluj-swoją-klasę" id="markdown-toc-javac---skompiluj-swoją-klasę"><code class="highlighter-rouge">javac</code> - skompiluj swoją klasę</a></li>
+  <li><a href="#java---uruchom-swoją-klasę" id="markdown-toc-java---uruchom-swoją-klasę"><code class="highlighter-rouge">java</code> - uruchom swoją klasę</a></li>
+  <li><a href="#pracowity-skrzat-ide" id="markdown-toc-pracowity-skrzat-ide">Pracowity skrzat, IDE</a></li>
+  <li><a href="#pakiety" id="markdown-toc-pakiety">Pakiety</a></li>
+  <li><a href="#czym-jest-classpath" id="markdown-toc-czym-jest-classpath">Czym jest classpath</a></li>
+  <li><a href="#jak-ustawić-classpath" id="markdown-toc-jak-ustawić-classpath">Jak ustawić classpath</a></li>
+  <li><a href="#classpath-w-trakcie-kompilacji" id="markdown-toc-classpath-w-trakcie-kompilacji">Classpath w trakcie kompilacji</a></li>
+  <li><a href="#pliki-jar" id="markdown-toc-pliki-jar">Pliki JAR</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="java-z-poziomu-linii-poleceń">Java z poziomu linii poleceń</h2>
+
+<p>Dzisiaj na przekór moim wszystkim radom, proszę Cie nie korzystaj z IDE. Wyłącz InteliJ Idea czy Eclipsa. Przejdź przez cały artykuł używając wyłącznie podstawowego edytora tekstu. Moim celem jest przeprowadzenie Cię przez cały proces pisania kodu w Javie używając podstawowych narzędzi.</p>
+
+<p>Moim zdaniem takie podejście pozwoli Ci zrozumieć te podstawy, na których opiera się cała reszta. Osobiście dużo łatwiej jest mi pojąć bardziej skomplikowane rzeczy jeśli dokładnie wiem jak działają podstawowe klocki, których używa się do budowania tych bardziej skomplikowanych elementów.</p>
+
+<p>Dzisiaj używał będę programu <a href="https://wiki.gnome.org/Apps/Gedit">gedit</a>, pracując w systemie Windows możesz użyć standardowego systemowego notatnika. Istotne jest to, aby program ten był w stanie utworzyć zwykły plik tekstowy, któremu nadasz rozszerzenie java.</p>
+
+<h2 id="narzędzia-dostępne-w-jdk">Narzędzia dostępne w JDK</h2>
+
+<p>O tym czym jest JDK i czym różni się od JRE pisałem w jednym z pierwszych artykułów na blogu - o <a href="/przygotowanie-srodowiska-programisty/">przygotowaniu środowiska programisty</a>. Dowiesz się też tam jak zainstalować JDK. Dzisiaj będą dla Ciebie istotne trzy programy. <code class="highlighter-rouge">java</code> dostarczana jest wraz z JRE, <code class="highlighter-rouge">javac</code> i <code class="highlighter-rouge">jar</code> dostępne są wyłącznie w JDK:</p>
+<ul>
+  <li><code class="highlighter-rouge">java</code> uruchamia maszynę wirtualną, wywołując metodę <code class="highlighter-rouge">main</code> w odpowiedniej klasie,</li>
+  <li><code class="highlighter-rouge">javac</code> to kompilator, który jest w stanie utworzyć plik class z pliku java,</li>
+  <li><code class="highlighter-rouge">jar</code> to narzędzie, które jest w stanie tworzyć pliki jar.</li>
+</ul>
+
+<h2 id="pierwsza-klasa-w-notatniku">Pierwsza klasa w notatniku</h2>
+
+<p>Zacznijmy od początku, od programu wyświetlającego Twoje imię na konsoli. Będzie to zwykła klasa o nazwie <code class="highlighter-rouge">DisplayName</code> w pakiecie domyślnym, która będzie miała metodę <code class="highlighter-rouge">public static void main(String ... args)</code>. Wewnątrz tej metody wpisz instrukcję, która wypisze Twoje imię. Spróbuj napisać ten program bez IDE i zapisz go w pliku z rozszerzeniem java.</p>
+
+<p>Dla mnie takie ćwiczenia na początku były dość trudne, pokazywały jak ważne i pomocne jest IDE w codziennej pracy. Mam nadzieję, że Tobie też pomoże to uświadomić.</p>
+
+<p>Po tym wszystkim powinieneś mieć plik <code class="highlighter-rouge">DisplayName.java</code>, który będzie wyglądał podobnie do przykładu poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DisplayName</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="err">“</span><span class="n">Marcin</span><span class="err">”</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="javac---skompiluj-swoją-klasę"><code class="highlighter-rouge">javac</code> - skompiluj swoją klasę</h2>
+
+<p>I teraz dochodzimy do sedna sprawy, jak uruchomić taki program? Otóż trzeba go na początku skompilować. Do tego celu służy jedno z podstawowych i najczęściej używanych narzędzi dostarczonych wraz z JDK - kompilator języka Java. Jest to program <code class="highlighter-rouge">javac</code>. Wpisując w konsoli polecenie <code class="highlighter-rouge">javac -help</code> pokaże Ci się taka lista opcji (tutaj pokazałem wyłącznie kilka pierwszych linijek):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ javac -help
+Usage: javac &lt;options&gt; &lt;source files&gt;
+where possible options include:
+  -g                         Generate all debugging info
+  -g:none                    Generate no debugging info
+  -g:{lines,vars,source}     Generate only some debugging info
+  -nowarn                    Generate no warnings
+  -verbose                   Output messages about what the compiler is doing
+  -deprecation               Output source locations where deprecated APIs are used
+  -classpath &lt;path&gt;          Specify where to find user class files and annotation processors
+  -cp &lt;path&gt;                 Specify where to find user class files and annotation processors
+...
+</code></pre></div></div>
+
+<p>Więc skompilujmy tę pierwszą klasę :). Aby to zrobić należy uruchomić komendę <code class="highlighter-rouge">javac DisplayName.java</code>. Po jej uruchomieniu kompilator powinien utworzyć plik binarny z rozszerzeniem class - <code class="highlighter-rouge">DisplayName.class</code>. Plik ten zawiera instrukcje, które są zrozumiałe dla wirtualnej maszyny Javy.</p>
+
+<p>A oto jak wygląda katalog, w którym aktualnie znajduje się kod źródłowy razem ze skompilowaną klasą:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tree .
+.
+├── DisplayName.class
+└── DisplayName.java
+
+0 directories, 2 files
+</code></pre></div></div>
+
+<h2 id="java---uruchom-swoją-klasę"><code class="highlighter-rouge">java</code> - uruchom swoją klasę</h2>
+
+<p>Skoro mamy już kod, mamy też skompilowaną klasę przydałoby się ją jakoś uruchomić :). Z pomocą przychodzi kolejny bardzo ważny program - <code class="highlighter-rouge">java</code>. Program ten uruchamia wirtualną maszynę Javy. Wpisując w konsoli <code class="highlighter-rouge">java -help</code> ponownie pokażą się dostępne opcje (skróciłem je także tutaj):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ java -help
+Usage: java [-options] class [args...]
+           (to execute a class)
+   or  java [-options] -jar jarfile [args...]
+           (to execute a jar file)
+where options include:
+    ...
+    -server      to select the "server" VM
+                  The default VM is server,
+                  because you are running on a server-class machine.
+    -cp &lt;class search path of directories and zip/jar files&gt;
+    -classpath &lt;class search path of directories and zip/jar files&gt;
+                  A : separated list of directories, JAR archives,
+                  and ZIP archives to search for class files.
+    ...
+</code></pre></div></div>
+
+<p>Teraz masz już wszystkie potrzebne składniki do uruchomienia programu. Możesz to zrobić wpisując <code class="highlighter-rouge">java DisplayName</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ java DisplayName
+Marcin
+</code></pre></div></div>
+
+<h2 id="pracowity-skrzat-ide">Pracowity skrzat, IDE</h2>
+
+<p>Niby prosty program, a do jego uruchomienia trzeba użyć 2 magicznych programów, jak tak można? ;). Okazuje się, że właśnie podobne czynności robi za nas IDE. Za każdym razem<sup id="fnref:wyjatki"><a href="#fn:wyjatki" class="footnote">1</a></sup> gdy w InteliJ użyjesz klawiszy <code class="highlighter-rouge">Ctr+Schift+F10</code> (uruchom program) InteliJ Idea robi podobne rzeczy. Kompiluje kod używając do tego programu <code class="highlighter-rouge">javac</code> a następnie uruchamia w odpowiedni sposób JRE używając programu <code class="highlighter-rouge">java</code>.</p>
+
+<h2 id="pakiety">Pakiety</h2>
+
+<p>A teraz zrób krok do przodu - utwórz tę samą klasę w pakiecie <code class="highlighter-rouge">pl.samouczekprogramisty.commandline</code> i skompiluj ją przy pomocy <code class="highlighter-rouge">javac</code>. Przykład poniżej pokazuje poprawna strukturę katalogów dla klasy w takim pakiecie</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tree .
+.
+└── pl
+    └── samouczekprogramisty
+        └── commandline
+            └── DisplayName.java
+
+3 directories, 2 files
+</code></pre></div></div>
+
+<p>Aby to zrobić musisz utworzyć plik ze źródłem w odpowiednim folderze, oczywiście wtedy deklaracja <code class="highlighter-rouge">package</code> na początku pliku powinna odzwierciedlać tę ścieżkę. W moim przypadku plik wygląda następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">commandline</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DisplayName</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Marcin pakiet"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Następinie używając programów <code class="highlighter-rouge">javac</code> i <code class="highlighter-rouge">java</code> mogę skompilować i uruchomić odpowiednią klasę używając poleceń:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac pl/samouczekprogramisty/commandline/DisplayName.java
+java pl.samouczekprogramisty.commandline.DisplayName
+</code></pre></div></div>
+
+<p>Jak widzisz <code class="highlighter-rouge">javac</code> przyjmuje jako parametr ścieżkę do pliku, który chcesz skompilować. Program <code class="highlighter-rouge">java</code> natomiast przyjmuje pełną nazwę klasy (wraz z pakietem) wewnątrz której znajduje się metoda <code class="highlighter-rouge">main</code>. Dochodzimy tutaj do pewnej istotnej rzeczy, gdzie program <code class="highlighter-rouge">java</code> ma “szukać” tej klasy? Odpowiedzią na to pytanie jest <code class="highlighter-rouge">classpath</code>. Po polsku będę to nazywał ścieżką przeszukiwania.</p>
+
+<p>W przypadku systemów z rodziny Windows katalogi w ścieżce do klasy, którą kompilujesz oddzielone są znakiem <code class="highlighter-rouge">\</code> a nie <code class="highlighter-rouge">/</code> jak w przykładzie.</p>
+
+<h2 id="czym-jest-classpath">Czym jest classpath</h2>
+
+<p>No właśnie, czym jest classpath, magiczna ścieżka przeszukiwania? Wyjaśniając to pojęcie w jednym zdaniu - classpath to ścieżka, gdzie program <code class="highlighter-rouge">java</code> szuka klas, które potrzebne są w trakcie uruchomienia programu.</p>
+
+<p>Możesz zatem zapytać “dlaczego poprzednio <code class="highlighter-rouge">java DisplayName</code> działało?” Działało, ponieważ jeśli nie ustawisz żadnej wartości, ścieżka przeszukiwania przyjmuje wartość domyślną - <code class="highlighter-rouge">.</code>. Ta kropka oznacza katalog, w którym aktualnie się znajdujesz.</p>
+
+<p>Jako ćwiczenie możesz spróbować przejść do innego katalogu i uruchomić to samo polecenie, przykład poniżej pokazuje zachowanie jakie możesz uzyskać:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tree .
+.
+└── pl
+    └── samouczekprogramisty
+        └── commandline
+            ├── DisplayName.class
+            └── DisplayName.java
+ 
+3 directories, 2 files
+~$ java pl.samouczekprogramisty.commandline.DisplayName
+Marcin pakiet
+~$ cd pl
+~/pl$ java pl.samouczekprogramisty.commandline.DisplayName
+Error: Could not find or load main class pl.samouczekprogramisty.commandline.DisplayName
+</code></pre></div></div>
+
+<p>Jak widzisz w ostatniej linii program <code class="highlighter-rouge">java</code> wyświetlił błąd informujący, że nie może znaleźć klasy <code class="highlighter-rouge">pl.samouczekprogramisty.commandline.DisplayName</code> na aktualnej ścieżce przeszukiwania. Program szukał struktury pakietów pl/samouczekrogramisty/commandline, a w katalogu pl był jedynie katalog samouczekprogramisty, nie było katalogu pl.</p>
+
+<p>Ścieżka przeszukiwania to lista katalogów oddzielonych odpowiednim znakiem gdzie program <code class="highlighter-rouge">java</code> powinien szukać klas. Na tej ścieżce poza katalogami mogą znajdować się też pliki zip czy pliki jar<sup id="fnref:format"><a href="#fn:format" class="footnote">2</a></sup>. Przykład poniżej pokazuje ścieżkę przeszukiwania na której znajdują się 3 elementy:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>some/path:.:other/path/file.jar
+</code></pre></div></div>
+
+<p>Pierwszy z nich to katalog some/path. Drugi z nich to katalog bieżący oznaczony znakiem <code class="highlighter-rouge">.</code>. Ostatni to ścieżka do pliku jar, wewnątrz którego znajdują się skompilowane klasy.</p>
+
+<p>W przypadku sytemów z rodziny Windows do rozdzielenia elementów na ścieżce przeszukiwania używa się znaku <code class="highlighter-rouge">;</code>. W pozostałych znanych mi systemach jest to znak <code class="highlighter-rouge">:</code> jak widzisz w przykładzie powyżej.</p>
+
+<h2 id="jak-ustawić-classpath">Jak ustawić classpath</h2>
+
+<p>Ścieżka przeszukiwania może być ustalona na dwa sposoby. Pierwszym z nich jest użycie argumentu linii poleceń <code class="highlighter-rouge">-cp</code> lub <code class="highlighter-rouge">-classpath</code>. Drugim jest ustawienie zmiennej środowiskowej <code class="highlighter-rouge">CLASSPATH</code>.</p>
+
+<p>Jeśli nie użyjesz żadnej z tych metod, ścieżka przeszukiwania przyjmie wspomnianą już domyślną wartość.</p>
+
+<h2 id="classpath-w-trakcie-kompilacji">Classpath w trakcie kompilacji</h2>
+
+<p>Nie tylko program <code class="highlighter-rouge">java</code> używa ścieżki przeszukiwania. Jest ona także używana w trakcie kompilacji. Wyobraź sobie swoją klasę, która zależy od innych klas. Na przykład używasz biblioteki <a href="https://github.com/apache/commons-lang">Apache Commons Lang</a> i klasy <a href="https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/StringUtils.java"><code class="highlighter-rouge">StringUtils</code></a>.</p>
+
+<p>Załóżmy, że chcesz użyć metody <a href="https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/StringUtils.java#L1929"><code class="highlighter-rouge">StringUtils.containsIgnoreCase</code></a>. Spróbuj napisać kod w notatniku, bez pomocy IDE, który pobierze od użytkownika łańcuch znaków. Następnie sprawdzi (ignorując wielkość liter), czy w tym łańcuchu znajduje się Twoje imię.</p>
+
+<p>Zdaję sobie sprawę, że jest to trudne ćwiczenie, jednak spróbuj wykonać je samodzielnie. Do wykonania tego ćwiczenia możesz użyć klasy <code class="highlighter-rouge">java.util.Scanner</code> i wspomnianej klasy <code class="highlighter-rouge">StringUtils</code>. Nie zapomnij o odpowiednich deklaracjach <code class="highlighter-rouge">import</code>. Prawdopodobnie bez dostępu do IDE nie zrobisz tego zadania bezbłędnie za pierwszym razem. Nie przejmuj się, to właśnie przy poprawianiu błędów nauczysz się najwięcej.</p>
+
+<p>Plik JAR z tą biblioteką możesz pobrać z <a href="http://central.maven.org/maven2/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar">repozytorium Mavena</a> (jeśli nie wiesz czym jest takie repozytorium odsyłam Cię do artykułu <a href="/wstep-do-gradle/">Wstęp do Gradle</a>).</p>
+
+<p>Kod, który napisałeś mógłby wyglądać jak w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">commandline</span><span class="o">;</span>
+ 
+<span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.lang3.StringUtils</span><span class="o">;</span>
+ 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CheckName</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Podaj zdanie"</span><span class="o">);</span>
+        <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">sentence</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+ 
+        <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">containsIgnoreCase</span><span class="o">(</span><span class="n">sentence</span><span class="o">,</span> <span class="s">"Marcin"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"To zdanie zawiera moje imie!"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"To zdanie nie zawiera mojego imienia!"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz, użyłem tu klasy wcześniej wspomnianej klasy <code class="highlighter-rouge">Scanner</code> i <code class="highlighter-rouge">StringUtils</code>. Pierwsza z nich znajduje się w bibliotece standardowej Javy. Jest ona domyślnie dostępna w trakcie uruchomienia i kompilacji. Jednak w przypadku klasy <code class="highlighter-rouge">StringUtils</code> jest inaczej.</p>
+
+<p>Jest to klasa zewnętrza więc musi być dostarczona zarówno w trakcie kompilacji jak i uruchomienia programu. Spójrz proszę na komendy użyte do kompilacji i uruchomienia programu:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac -cp commons-lang3-3.5.jar pl/samouczekprogramisty/commandline/CheckName.java
+java -cp .:commons-lang3-3.5.jar pl.samouczekprogramisty.commandline.CheckName
+</code></pre></div></div>
+
+<p>W pierwszej linii jako ścieżkę przeszukiwania ustawiamy plik jar zawierający klasę <code class="highlighter-rouge">StringUtils</code>. To wywołanie kompiluje klasę <code class="highlighter-rouge">CheckName</code>. Dzięki temu uzyskamy plik <code class="highlighter-rouge">CheckName.class</code>, który chcemy uruchomić.</p>
+
+<p>Kolejna linijka to właśnie to uruchomienie. Zauważ, że w tym przypadku ścieżka przeszukiwania zawiera zarówno aktualny katalog jak i plik jar. Aktualny katalog jest niezbędny żeby znaleźć klasę <code class="highlighter-rouge">CheckName</code>. Plik jar natomiast jest wymagany do odnalezienia klasy <code class="highlighter-rouge">StringUtils</code>.</p>
+
+<p>Teraz czas na Twoje eksperymenty. Co się stanie jeśli uruchomisz swój program bez z <code class="highlighter-rouge">-cp</code>? :)</p>
+
+<h2 id="pliki-jar">Pliki JAR</h2>
+
+<p>No dobrze, a co jeśli chcemy w łatwy sposób przekazać komuś skompilowany kod? Bardzo dobrze do tego celu nadają się pliki JAR. JAR czyli Java Archive to nic innego jak plik zip, wewnątrz którego znajduje się zestaw plików class ze skompilowanymi klasami<sup id="fnref:zawartosc"><a href="#fn:zawartosc" class="footnote">3</a></sup>.</p>
+
+<p>Klasy wewnątrz archiwum znajdują się w odpowiednich katalogach, które odzwierciedlają strukturę pakietów. Spróbujmy teraz przygotować Twój pierwszy jar z linii poleceń.</p>
+
+<p>Program <code class="highlighter-rouge">jar</code> ma także inne zastosowania. Na przykład przy jego pomocy możesz wyświetlić zawartość istniejącego pliku JAR. Służy do tego komenda pokazana poniżej:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jar tf commons-lang3-3.5.jar
+</code></pre></div></div>
+
+<p>Tworzenie pliku JAR jest dość proste. Wystarczy podać odpowiedni zestaw parametrów jak w przykładzie poniżej:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jar cf &lt;nazwa pliku wyjściowego&gt; &lt;lista katalogów, klas do umieszczenia w pliku JAR&gt;
+</code></pre></div></div>
+
+<p>W przypadku przykładu używanego poprzednio cały zestaw komend wyglądałby następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tree .
+.
+└── pl
+    └── samouczekprogramisty
+        └── commandline
+            ├── CheckName.class
+            ├── CheckName.java
+            ├── DisplayName.class
+            └── DisplayName.java
+ 
+3 directories, 4 files
+$ jar cf JavaCommandline.jar .
+$ jar tf JavaCommandline.jar
+META-INF/
+META-INF/MANIFEST.MF
+pl/
+pl/samouczekprogramisty/
+pl/samouczekprogramisty/commandline/
+pl/samouczekprogramisty/commandline/DisplayName.java
+pl/samouczekprogramisty/commandline/DisplayName.class
+pl/samouczekprogramisty/commandline/CheckName.class
+pl/samouczekprogramisty/commandline/CheckName.java
+</code></pre></div></div>
+
+<p>Jak widzisz, pliki znajdujące się w katalogu zostały dodane do pliku JAR. Program tutaj nie przeprowadził żadnego filtrowania - umieścił w archiwum także pliki java. Dlatego właśnie bardzo często pliki class umieszczamy w zupełnie innym katalogu niż pliki źródłowe.</p>
+
+<p>Dodatkowo wewnątrz pliku JAR znajduje się też plik MANIFEST.MF, który zawiera metadane na temat tego archiwum. Wewnątrz tego pliku możemy skonfigurować na przykład domyślną klasę, która powinna być uruchamiana podczas wykonania polecenia</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ java -jar &lt;ścieżka do pliku JAR&gt;
+</code></pre></div></div>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Artykuł ten był wybitnie praktyczny. Zależało mi na tym abyś krok po kroku realizował poszczególne etapy. Jeśli tego nie zrobiłeś, bardzo proszę spróbuj. Jeśli chciałbyś dowiedzieć się więcej o narzędziach, które opisałem w artykule mam dla Ciebie zestaw kilku dodatkowych dokumentów:</p>
+<ul>
+  <li><a href="http://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html">dokumentacja programu <code class="highlighter-rouge">java</code></a>,</li>
+  <li><a href="http://docs.oracle.com/javase/8/docs/technotes/tools/unix/javac.html">dokumentacja programu <code class="highlighter-rouge">javac</code></a>,</li>
+  <li><a href="http://docs.oracle.com/javase/8/docs/technotes/tools/unix/jar.html">dokumentacja programu <code class="highlighter-rouge">jar</code></a>,</li>
+  <li><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/jar/jar.html">specyfikacja plików jar</a>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/25_linia_polecen/src/main/java/pl/samouczekprogramisty/commandline">kod źródłowy przykładów użytych w artykule</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Mam nadzieję, że taki praktyczny przewodnik krok po krodu po podstawowych narzędziach dostepnych z JRE i JDK przypadł Ci do gustu. Daj znać w komentarzach jak Ci poszło z przerobieniem ćwiczeń z treści artykułu :).</p>
+
+<p>Po przeczytaniu tekstu znasz podstawowe narzędzia używane przy programowaniu w języku Java. Jesteś w stanie stworzyć swój plik jar i uruchomić klasy, które skmpilujesz podstawowymi narzędziami. Dzięki temu lepiej rozumiesz “magię”, którą na codzień robi IDE. Wiesz jak bardzo upraszcza ono Twoją pracę z kodem.</p>
+
+<p>Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do mojego newslettera i polub Samouczka na facebooku.</p>
+
+<p>Na koniec mam do Ciebie standardową prośbę, podziel się linkiem do artykułu ze znajomymi, zależy mi na dotarciu do jak największej liczby samouków, którzy chcą pogłębiać swoją wiedzę. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:wyjatki">
+      <p>Jak zwykle są wyjątki, ale nie są one istotne w tym przypadku. <a href="#fnref:wyjatki" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:format">
+      <p>Tak na prawdę plik jar to plik zip z innym rozszerzeniem. <a href="#fnref:format" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:zawartosc">
+      <p>Oczywiście pliki jar mogą zawierać także pliki innego rodzaju, jednak na tym etapie wystarczy wiedza o class i pliku tekstowym Manifest. <a href="#fnref:zawartosc" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#dsp2017" class="page__taxonomy-item" rel="tag">DSP2017</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-03-08T20:35:45+01:00">March 08, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fjava-z-linii-polecen%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fjava-z-linii-polecen%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/projekt-pogodynka-wprowadzenie/" class="pagination--pager" title="Projekt Pogodynka - wprowadzenie
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/pogodynka-naiwny-termometr/" class="pagination--pager" title="Pogodynka - naiwny termometr
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/java-z-linii-polecen/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/java-z-linii-polecen"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

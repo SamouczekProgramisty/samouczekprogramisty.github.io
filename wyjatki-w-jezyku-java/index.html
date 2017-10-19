@@ -1,0 +1,847 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Wyjątki w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Tylko ten nie popełnia błędów, kto nic nie robi. My dzisiaj będziemy popełniać błędy i będziemy starali się je poprawiać. Przekładając to co powiedział Napoleon na kontekst programowania w artykule przeczytasz o wyjątkach w języku Java i ich obsłudze.Dowiesz się czym jest wyjątek i jaką rolę pełni w programowaniu. Dowiesz się kiedy powinniśmy używać wyjątków. Postaram się też przekazać Ci kilka dobrych praktyk związanych z używaniem w wyjątków. Zaczynamy! :)">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wyjątki w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/wyjatki-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/wyjatki-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="Tylko ten nie popełnia błędów, kto nic nie robi. My dzisiaj będziemy popełniać błędy i będziemy starali się je poprawiać. Przekładając to co powiedział Napoleon na kontekst programowania w artykule przeczytasz o wyjątkach w języku Java i ich obsłudze.Dowiesz się czym jest wyjątek i jaką rolę pełni w programowaniu. Dowiesz się kiedy powinniśmy używać wyjątków. Postaram się też przekazać Ci kilka dobrych praktyk związanych z używaniem w wyjątków. Zaczynamy! :)">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2016/01/31_wyjatki_w_jezyku_java_artykul.jpeg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-01-31T12:02:17+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2016/01/31_wyjatki_w_jezyku_java_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Wyjątki w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">Tylko ten nie popełnia błędów, kto nic nie robi. My dzisiaj będziemy popełniać błędy i będziemy starali się je poprawiać. Przekładając to co powiedział Napoleon na kontekst programowania w artykule przeczytasz o wyjątkach w języku Java i ich obsłudze.
+Dowiesz się czym jest wyjątek i jaką rolę pełni w programowaniu. Dowiesz się kiedy powinniśmy używać wyjątków. Postaram się też przekazać Ci kilka dobrych praktyk związanych z używaniem w wyjątków. Zaczynamy! :)
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="http://marcin.pietraszek.pl">© Marcin Pietraszek ;)</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wyjątki w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wyjątki w języku Java">
+    <meta itemprop="description" content="Tylko ten nie popełnia błędów, kto nic nie robi. My dzisiaj będziemy popełniać błędy i będziemy starali się je poprawiać. Przekładając to co powiedział Napoleon na kontekst programowania w artykule przeczytasz o wyjątkach w języku Java i ich obsłudze.Dowiesz się czym jest wyjątek i jaką rolę pełni w programowaniu. Dowiesz się kiedy powinniśmy używać wyjątków. Postaram się też przekazać Ci kilka dobrych praktyk związanych z używaniem w wyjątków. Zaczynamy! :)">
+    <meta itemprop="datePublished" content="January 31, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#czym-jest-wyjątek" id="markdown-toc-czym-jest-wyjątek">Czym jest wyjątek?</a>    <ul>
+      <li><a href="#co-się-dzieje-po-rzuceniu-wyjątku" id="markdown-toc-co-się-dzieje-po-rzuceniu-wyjątku">Co się dzieje po rzuceniu wyjątku?</a></li>
+      <li><a href="#zrozumieć-stacktrace" id="markdown-toc-zrozumieć-stacktrace">Zrozumieć <em>stacktrace</em></a></li>
+    </ul>
+  </li>
+  <li><a href="#obsługa-wyjątków" id="markdown-toc-obsługa-wyjątków">Obsługa wyjątków</a>    <ul>
+      <li><a href="#obsługa-kilku-rodzajów-wyjątków-w-jednym-bloku-catch" id="markdown-toc-obsługa-kilku-rodzajów-wyjątków-w-jednym-bloku-catch">Obsługa kilku rodzajów wyjątków w jednym bloku <code class="highlighter-rouge">catch</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#rodzaje-wyjątków-checked-oraz-unchecked" id="markdown-toc-rodzaje-wyjątków-checked-oraz-unchecked">Rodzaje wyjątków <em>checked</em> oraz <em>unchecked</em></a></li>
+  <li><a href="#klauzula-throws" id="markdown-toc-klauzula-throws">Klauzula <code class="highlighter-rouge">throws</code></a></li>
+  <li><a href="#klauzula-finally" id="markdown-toc-klauzula-finally">Klauzula <code class="highlighter-rouge">finally</code></a></li>
+  <li><a href="#dobre-praktyki-przy-używaniu-wyjątków" id="markdown-toc-dobre-praktyki-przy-używaniu-wyjątków">Dobre praktyki przy używaniu wyjątków</a></li>
+  <li><a href="#zadanie" id="markdown-toc-zadanie">Zadanie</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h2 id="czym-jest-wyjątek">Czym jest wyjątek?</h2>
+
+<p>Wyjątek (ang. <em>exception</em>) jest specjalną klasą. Jest ona specyficzna ponieważ w swoim łańcuchu dziedziczenia ma klasę <code class="highlighter-rouge">java.lang.Throwable</code>. Instancje, które w swojej hierarchii dziedziczenia mają tą klasę mogą zostać „rzucone” (ang. <em>throw</em>) przerywając standardowe wykonanie programu.</p>
+
+<p>Przykładem może być tutaj walidacja argumentów metody. Załóżmy, że nasza metoda jako argument przyjmuje liczbę godzin i zwraca liczbę sekund, odpowiadających przekazanemu argumentowi. Możemy założyć, że akceptujemy wyłącznie argumenty dodatnie lub 0.</p>
+
+<p>Innymi słowy jeśli metoda zostanie wywołana z argumentem mniejszym od 0 możemy uznać to za nieprawidłowe wywołanie i zasygnalizować taką sytuację rzucając wyjątek.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNumberOfSeconds</span><span class="o">(</span><span class="kt">int</span> <span class="n">hour</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Hour must be &gt;= 0: "</span> <span class="o">+</span> <span class="n">hour</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">hour</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W przykładzie powyżej użyliśmy wyjątku występującego w standardowej bibliotece języka Java: <code class="highlighter-rouge">java.lang.IllegalArgumentException</code>. Do rzucania wyjątku używamy słowa kluczowego <code class="highlighter-rouge">trow</code>.</p>
+
+<h3 id="co-się-dzieje-po-rzuceniu-wyjątku">Co się dzieje po rzuceniu wyjątku?</h3>
+
+<p>Wyobraź sobie kilka metod, które wywołują siebie nawzajem. Te kilka wywołań nazywamy stosem wywołań. Proszę zwróć uwagę na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">exception</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StackTraceExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">StackTraceExample</span> <span class="n">example</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StackTraceExample</span><span class="o">();</span>
+        <span class="n">example</span><span class="o">.</span><span class="na">method1</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">method2</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">method3</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method3</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"BUM! BUM! BUM!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W naszym przykładzie w metodzie <code class="highlighter-rouge">main</code> tworzymy instancję klasy <code class="highlighter-rouge">StackTraceExample</code> i na instancji wywołujemy metodę <code class="highlighter-rouge">method1</code>, metoda ta wywołuje z kolei metodę <code class="highlighter-rouge">method2</code>. <code class="highlighter-rouge">method2</code> wywołuje <code class="highlighter-rouge">method3</code>, która rzuca wyjątek <code class="highlighter-rouge">java.lang.RuntimeException</code> (kolejny wyjątek z biblioteki standardowej).</p>
+
+<p>Tą listę metod wywołujących siebie nawzajem nazywamy stosem wywołań. W naszym przypadku stos wygląda następująco:</p>
+
+<ol>
+  <li><code class="highlighter-rouge">main</code></li>
+  <li><code class="highlighter-rouge">method1</code></li>
+  <li><code class="highlighter-rouge">method2</code></li>
+  <li><code class="highlighter-rouge">method3</code></li>
+</ol>
+
+<p>A co stanie się po uruchomieniu tego programu? Oczywiście zostanie rzucony wyjątek a programista zobaczy stos wywołań metod (ang. <em>stacktrace</em>), jak w przykładzie poniżej:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Exception in thread "main" java.lang.RuntimeException: BUM! BUM! BUM!
+    at pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method3(StackTraceExample.java:18)
+    at pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method2(StackTraceExample.java:14)
+    at pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method1(StackTraceExample.java:10)
+    at pl.samouczekprogramisty.kursjava.exception.StackTraceExample.main(StackTraceExample.java:6)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+    at com.intellij.rt.execution.application.AppMain.main(AppMain.java:140)
+</code></pre></div></div>
+
+<p>W pracy programisty umiejętność czytania tego typu komunikatów jest bardzo istotna. Dzisiaj stacktrace widzisz pierwszy raz, zapewniam Cię, że zobaczysz go jeszcze dużo razy ;)</p>
+
+<h3 id="zrozumieć-stacktrace">Zrozumieć <em>stacktrace</em></h3>
+
+<p>Proszę zwróć uwagę na stos wywołań metod, który wspomniałem wyżej i porównaj go ze stacktrace’em. Widzisz pewną zależność? Dokładnie – stacktrace to nic innego jak odwrócony stos wywołań metod od rozpoczęcia programu do miejsca w którym został rzucony wyjątek.</p>
+
+<p>Pierwsza linijka mówi o tym jaki wyjątek został rzucony, kolejne linijki to metody, które były wywoływane. Każda linia składa się z nazwy klasy wraz z pakietem, w nawiasach znajduje się nazwa pliku oddzielona dwukropkiem od numeru linii w tym pliku. W naszym przypadku wyjątek <code class="highlighter-rouge">RuntimeException</code> został rzucony po wywołaniu metody <code class="highlighter-rouge">pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method3</code>, która znajduje się w 18 linijce pliku <code class="highlighter-rouge">StackTraceExample.java</code>.</p>
+
+<p>Ostatnie linijki także pokazują na kod programu, jednak ten nie jest już napisany prze mnie. Program powyżej uruchamiałem z IDE i to właśnie przez InteliJ stacktrace zawiera te 5 dodatkowych linijek.</p>
+
+<h2 id="obsługa-wyjątków">Obsługa wyjątków</h2>
+
+<p>Już wiesz jak można rzucić wyjątek. Najwyższy czas zacząć je obsługiwać :) Mówimy, że wyjątek jest obsługiwany, jeśli reagujemy na jego wystąpienie i próbujemy “naprawić” program w trakcie jego działania. Możemy też powiedzieć, że łapiemy wyjątek.</p>
+
+<p>Do obsługi wyjątków służy blok <code class="highlighter-rouge">try</code>/<code class="highlighter-rouge">catch</code>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">hours</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">numberOfSeconds</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">numberOfSeconds</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="na">getNumberOfSeconds</span><span class="o">(</span><span class="n">hours</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="n">IllegalArgumentException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">numberOfSeconds</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="na">getNumberOfSeconds</span><span class="o">(</span><span class="n">hours</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">numberOfSeconds</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Znasz już metodę <code class="highlighter-rouge">getNumberOfSeconds</code>. Wiesz, że rzuca wyjątek <code class="highlighter-rouge">IllegalArgumentException</code> jeśli argument jest mniejszy od 0. W przykładzie powyżej otaczamy wywołanie metody blokiem <code class="highlighter-rouge">try {…} catch</code>. Jeśli kod wewnątrz nawiasów <code class="highlighter-rouge">{ }</code> rzuci wyjątek i blok <code class="highlighter-rouge">catch</code> będzie obsługiwał ten typ wyjątku wówczas zostanie wywołany kod w bloku <code class="highlighter-rouge">catch</code> i wyjątek nie przerwie działania programu.</p>
+
+<p>W przykładzie powyżej pierwsze wywołanie metody rzuci wyjątek ponieważ przekazaliśmy <code class="highlighter-rouge">-3</code> jako argument. Rzucony wyjątek jest obsługiwany przez klauzulę <code class="highlighter-rouge">catch</code> (klasa wyjątku “pasuje”) więc zostaje wywołany kod wewnątrz bloku.</p>
+
+<p>Pod blokiem <code class="highlighter-rouge">try</code> może znajdować się wiele bloków <code class="highlighter-rouge">catch</code>. Pierwszy pasujący zostanie wykonany. Rzucony wyjątek może być obsłużony przez dany blok <code class="highlighter-rouge">catch</code> jeśli klasa wyjątku w <code class="highlighter-rouge">()</code> znajduje się w hierarchii dziedziczenia rzuconego wyjątku. Nie jest to skomplikowane, zdecydowanie łatwiej wygląda to na przykładzie</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="n">ArithmeticException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 1</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="n">RuntimeException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 2</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 3</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Blok <code class="highlighter-rouge">catch</code> 1 nie zostanie wykonany bo <code class="highlighter-rouge">ArithmeticException</code> nie znajduje się w hierarchii dziedziczenia wyjątku <code class="highlighter-rouge">IllegalArgumentException</code>. Blok <code class="highlighter-rouge">catch</code> 2 zostanie wykonany bo <code class="highlighter-rouge">IllegalArgumentException</code> dziedziczy po <code class="highlighter-rouge">RuntimeException</code>. Następny blok nie zostanie wykonany ponieważ w przypadku obsługi wyjątku pierwszy pasujący blok <code class="highlighter-rouge">catch</code> jest wykonywany jako jedyny.</p>
+
+<h3 id="obsługa-kilku-rodzajów-wyjątków-w-jednym-bloku-catch">Obsługa kilku rodzajów wyjątków w jednym bloku <code class="highlighter-rouge">catch</code></h3>
+
+<p>Może zdarzyć się sytuacja, w której chciałbyś obsłużyć kilka wyjątków a nie mają one wspólnej klasy bazowej. Wówczas w nawiasach po <code class="highlighter-rouge">catch</code> możesz oddzielić klasy wyjątków symbolem <code class="highlighter-rouge">|</code> jak w przykładzie poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="n">someMagicMethod</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="n">ArithmeticException</span> <span class="o">|</span> <span class="n">IllegalArgumentException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span> 
+    <span class="c1">// handle exception</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="rodzaje-wyjątków-checked-oraz-unchecked">Rodzaje wyjątków <em>checked</em> oraz <em>unchecked</em></h2>
+
+<p>Każdy wyjątek w języku Java dziedziczy po klasie <code class="highlighter-rouge">Throwable</code>. Wyróżniamy dwa rodzaje wyjątków, tak zwane <em>“checked exceptions”</em> oraz <em>“unchecked exceptions”</em>.  Różnica między nimi sprowadza się do tego, że te pierwsze muszą być obsłużone przez programistę, wymaga tego kompilator. Przykładowym wyjątkiem typu unchecked jest <code class="highlighter-rouge">IllegalArgumentException</code>, natomiast <code class="highlighter-rouge">IOException</code> jest wyjątkiem typu checked.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/01/31_wyjatki.gif" alt="" />
+  
+    <figcaption>Hierarchia dziedziczenia wyjątków
+</figcaption>
+  
+</figure>
+
+<p>Reguła podziału wyjątków na te dwa rodzaje jest prosta. Jeśli wyjątek w swojej hierarchii dziedziczenia ma <code class="highlighter-rouge">Exception</code> i nie ma <code class="highlighter-rouge">RuntimeException</code> jest wyjątkiem typu checked. W każdym innym przypadku jest to wyjątek typu unchecked.</p>
+
+<p>Kiedy zatem stosować wyjątki typu checked? Zalecenie jest proste, za każdym razem kiedy program ma możliwość “naprawienia” zaistniałej sytuacji wyjątkowej powinniśmy rzucić wyjątek typu checked. Reguła ta jednak jest bardzo często łamana ponieważ obsługa tego typu wyjątków wymaga trochę więcej kodu ;)</p>
+
+<h2 id="klauzula-throws">Klauzula <code class="highlighter-rouge">throws</code></h2>
+
+<p>Wyjątek można obsłużyć na dwa sposoby. Jeden już znasz, to otoczenie fragmentu kodu blokami <code class="highlighter-rouge">try/catch</code>. Drugi sprowadza się do “zepchnięcia” odpowiedzialności obsłużenia wyjątku o poziom niżej, do metody wywołującej. Służy do tego klauzula <code class="highlighter-rouge">throws</code>, którą dodajemy do deklaracji metody. Spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CheckedExceptions</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">CheckedExceptions</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CheckedExceptions</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">instance</span><span class="o">.</span><span class="na">methodWithCheckedException</span><span class="o">();</span>
+        <span class="o">}</span> 
+        <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">methodWithCheckedException</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IOException</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Metoda <code class="highlighter-rouge">methodWithCheckedException</code> rzuca wyjątek <code class="highlighter-rouge">IOException</code>, który jest typu checked. Nie obsługuje go jednak wewnątrz ale informuje o tym, że może rzucić taki wyjątek dzięki <code class="highlighter-rouge">throws</code>. W metodzie <code class="highlighter-rouge">main</code> mamy standardowy blok <code class="highlighter-rouge">catch</code>, gdzie wyjątek jest obsłużony.</p>
+
+<h2 id="klauzula-finally">Klauzula <code class="highlighter-rouge">finally</code></h2>
+
+<p>Blok <code class="highlighter-rouge">finally</code> możemy umieścić po <code class="highlighter-rouge">try</code>. Kod wewnątrz tego bloku zawsze zostanie wykonany<sup id="fnref:wyjatek"><a href="#fn:wyjatek" class="footnote">1</a></sup>. W rzeczywistości blok <code class="highlighter-rouge">try</code> nie musi mieć żadnej klauzuli <code class="highlighter-rouge">catch</code> jeśli ma blok <code class="highlighter-rouge">finally</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="k">finally</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Surprise!"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Może być także sytuacja w której mamy zarówno <code class="highlighter-rouge">try</code>, <code class="highlighter-rouge">catch</code> jak i <code class="highlighter-rouge">finally</code>. Jeśli wewnątrz try zostanie rzucony wyjątek, który jest obsługiwany przez blok <code class="highlighter-rouge">catch</code> to dodatkowo, jako ostatni, uruchomi się blok <code class="highlighter-rouge">finally</code>.</p>
+
+<h2 id="dobre-praktyki-przy-używaniu-wyjątków">Dobre praktyki przy używaniu wyjątków</h2>
+
+<p>Poniżej zebrałem dla Ciebie zestaw kilku dobrych praktyk przy pracy z wyjątkami:</p>
+<ul>
+  <li>Pierwsza i najważniejsza zasada, blok <code class="highlighter-rouge">try</code> powinien być jak najmniejszy. Takie podejście bardzo ułatwia znajdowanie błędów w bardziej skomplikowanych programach. Dzięki małemu blokowi <code class="highlighter-rouge">try</code> także możemy napisać lepszy kod do obsługi wyjątku – wiemy dokładnie z którego miejsca wyjątek może zostać rzucony więc wiemy także jak najlepiej na niego zareagować.</li>
+  <li>Blok <code class="highlighter-rouge">finally</code> bardzo często jest niezbędny. Szczególnie jeśli operujemy na instancjach, które wymagają “zamknięcia”.</li>
+  <li>Używaj klas wyjątków, które idealnie pasują do danej sytuacji. Jeśli nie ma takiego wyjątku w bibliotece standardowej utwórz własną klasę wyjątku.</li>
+  <li>Tworząc instancję wyjątków podawaj możliwie najdokładniejszy opis w treści wyjątku. Pozwala to na dużo łatwiejsze znajdowanie błędów w programie jeśli komunikat wyjątku jest szczegółowy.</li>
+  <li>Nie zapominaj o używaniu wyjątków typu checked. Chociaż wymagają trochę więcej kodu i generują często irytujące błędy kompilacji ich używanie jest czasami wskazane.</li>
+</ul>
+
+<h2 id="zadanie">Zadanie</h2>
+
+<p>Napisz program, który pobierze od użytkownika liczbę i wyświetli jej pierwiastek. Do obliczenia pierwiastka możesz użyć istniejącej metody <code class="highlighter-rouge">java.lang.Math.sqrt()</code>. Jeśli użytkownik poda liczbę ujemną rzuć wyjątek <code class="highlighter-rouge">java.lang.IllegalArgumentException</code>.  Obsłuż sytuację, w której użytkownik poda ciąg znaków, który nie jest liczbą.</p>
+
+<p>Zachęcam do samodzielnego rozwiązania zadania, jeśli rozwiązujesz zadanie samodzielnie uczysz się najwięcej. Jeśli jednak chciałbyś zobaczyć przykładowe rozwiązanie, to umieściłem je na <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/09_wyjatki/src/main/java/pl/samouczekprogramisty/kursjava/exception/exercise/Exercise.java">githubie</a>.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<ul>
+  <li><a href="http://docs.oracle.com/javase/tutorial/essential/exceptions/index.html">http://docs.oracle.com/javase/tutorial/essential/exceptions/index.html</a></li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-11.html">https://docs.oracle.com/javase/specs/jls/se8/html/jls-11.html</a></li>
+  <li><a href="https://www.youtube.com/watch?v=Nl16BzP6Fao">https://www.youtube.com/watch?v=Nl16BzP6Fao</a></li>
+  <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/09_wyjatki/src/main/java/pl/samouczekprogramisty/kursjava/exception">kod źródłowy przykładów użytych w artykule</a></li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Bardzo się cieszę, że dobrnąłeś tak daleko. Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tym tematem. Niezmiennie zależy mi na tym, żeby dotrzeć do jak największej grupy czytelników :) Jeśli nie chcesz ominąć kolejnych artykułów polub nasz profil na facebooku i dopisz się do newslettera.</p>
+
+<p>Do następnego razu i życzę Ci udanego dnia :)</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:wyjatek">
+      <p>Są pewne sytuacje kiedy to nie jest prawdą, np. jeśli wirtualna maszyna Javy zostanie wyłączona. <a href="#fnref:wyjatek" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2016-01-31T12:02:17+01:00">January 31, 2016</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwyjatki-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwyjatki-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/dziedziczenie-w-jezyku-java/" class="pagination--pager" title="Dziedziczenie w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/referencja-sterta-garbage-collector/" class="pagination--pager" title="Referencja, sterta i garbage collector - obiektów w Javie ciąg dalszy
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/wyjatki-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/wyjatki-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

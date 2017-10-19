@@ -1,0 +1,970 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Obiekty w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle ćwiczenie dla Was. Do dzieła!">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Obiekty w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/obiekty-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/obiekty-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle ćwiczenie dla Was. Do dzieła!">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-11-01T01:43:36+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Obiekty w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle ćwiczenie dla Was. Do dzieła!
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Obiekty w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Obiekty w języku Java">
+    <meta itemprop="description" content="Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle ćwiczenie dla Was. Do dzieła!">
+    <meta itemprop="datePublished" content="November 01, 2015">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#pakiet" id="markdown-toc-pakiet">Pakiet</a></li>
+  <li><a href="#klasa" id="markdown-toc-klasa">Klasa</a>    <ul>
+      <li><a href="#skróty-klawiaturowe" id="markdown-toc-skróty-klawiaturowe">Skróty klawiaturowe</a></li>
+    </ul>
+  </li>
+  <li><a href="#komentarze-w-kodzie" id="markdown-toc-komentarze-w-kodzie">Komentarze w kodzie</a></li>
+  <li><a href="#generowanie-konstruktorów" id="markdown-toc-generowanie-konstruktorów">Generowanie konstruktorów</a></li>
+  <li><a href="#kolejny-przykład-klasy" id="markdown-toc-kolejny-przykład-klasy">Kolejny przykład klasy</a>    <ul>
+      <li><a href="#metody-nie-zwracające-żadnej-wartości" id="markdown-toc-metody-nie-zwracające-żadnej-wartości">Metody nie zwracające żadnej wartości</a></li>
+      <li><a href="#słowo-kluczowe-this" id="markdown-toc-słowo-kluczowe-this">Słowo kluczowe <code class="highlighter-rouge">this</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#gettery-i-settery" id="markdown-toc-gettery-i-settery">Gettery i settery</a>    <ul>
+      <li><a href="#generowanie-getterów-setterów" id="markdown-toc-generowanie-getterów-setterów">Generowanie getterów setterów</a></li>
+    </ul>
+  </li>
+  <li><a href="#Ćwiczenie" id="markdown-toc-Ćwiczenie">Ćwiczenie</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h2 id="pakiet">Pakiet</h2>
+
+<p>Programy komputerowe składają się z wielu plików. Przy dużym projekcie składającym się z kilkuset, kilku tysięcy plików kluczowe staje się odpowiednie zarządzanie plikami z kodem źródłowym programu. Bez takiego zarządzania wydajność programisty mocno spada.</p>
+
+<p>Więc czym jest pakiet? Pakiet wraz z nazwą klasy tworzy swego rodzaju “unikalny adres”. Podobnie jak ludzie mają swoje adresy tak klasy mają swoje pakiety, które pomagają zlokalizować klasy w trakcie działania programu.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Rozbijmy tą linię kodu na części pierwsze:</p>
+<ul>
+  <li><code class="highlighter-rouge">package</code> - to słowo kluczowe podobnie jak <code class="highlighter-rouge">class</code> czy <code class="highlighter-rouge">if</code>, informuje kompilator o tym w jakim pakiecie znajduje się plik,</li>
+  <li><code class="highlighter-rouge">pl.samouczekprogramisty.kursjava</code> - właściwa nazwa pakietu. Podobnie jak w przypadku omówionego w poprzednim artykule nazewnictwa metod tutaj obowiązują podobne zasady. Dla uproszczenia możemy powiedzieć, że dozwolone są małe litery oraz znak kropki.</li>
+</ul>
+
+<p>Istnieje kilka zarezerwowanych nazw pakietów. Służą one do odróżnienia klas dostarczonych wraz z wirtualną maszyną Javy od klas tworzonych przez programistów. Innymi słowy pakiety tworzone przez Ciebie nie mogą zaczynać się od <code class="highlighter-rouge">java.</code> ani od <code class="highlighter-rouge">javax.</code>.</p>
+
+<p>Pakiety służą do grupowania klas, interfejsów, typów wyliczeniowych czy adnotacji (Jeśli czytasz artykuły chronologicznie te terminy prawdopodobnie są dla Ciebie nowe. Nie przejmuj się, opiszę je dokładnie w jednym z kolejnych artykułów.).</p>
+
+<p>Jak zauważyłeś nazwa pakietów jest specyficzna. Przyjęło się, że za pakiet używa się odwróconej nazwy domeny. Takie podejście pozwala na łatwiejsze uniknięcie konfliktów. W przypadku naszego kursu użyłem <code class="highlighter-rouge">pl.samouczekprogramisty.kursjava</code>. Istotne jest  tutaj odwzorowanie struktury katalogów. Każdy człon pakietu odpowiada katalogowi na dysku.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java2_pakiety.png" alt="" />
+  
+    <figcaption>Pakiety w języku Java
+</figcaption>
+  
+</figure>
+
+<p>W pliku źródłowym może znajdować się wyłącznie jedna linia z pakietem. Musi znajdować się na początku pliku. Co prawda nie jest to linia obowiązkowa, jednak używanie domyślnego pakietu nie jest dobrą praktyką<sup id="fnref:pakiet"><a href="#fn:pakiet" class="footnote">1</a></sup>.</p>
+
+<p>Nazwy pakietów powinny odwzorowywać ich zawartość. Np pakiet <code class="highlighter-rouge">pl.samouczekprogramisty.animals</code> mógłby zawierać klasę <code class="highlighter-rouge">Dog</code>, ale już klasa <code class="highlighter-rouge">Owner</code> powinna znaleźć się prawdopodobnie w innym miejscu.</p>
+
+<h2 id="klasa">Klasa</h2>
+
+<p>Klasy służą do grupowania atrybutów i metod, pakietów używamy do grupowania klas. Zanim pokażę Wam przykład kodu przejdziemy przez parę funkcji IDE, które na pewno przydadzą się w przyszłości.</p>
+
+<h3 id="skróty-klawiaturowe">Skróty klawiaturowe</h3>
+
+<p>IDE czy zwykły edytor tekstu są narzędziami pracy programisty. Znajomość narzędzi pracy znacząco zwiększa wydajność pracy. Innymi słowy bardzo przydatne jest używanie skrótów klawiaturowych. Postaram się przybliżyć Wam kilka z nich.</p>
+
+<p>Po lewej stronie widzicie okno do przeglądania struktury projektu. To okienko możecie włączać/wyłączać używając skrótu <code class="highlighter-rouge">&lt;Alt + 1&gt;</code><sup id="fnref:notacja"><a href="#fn:notacja" class="footnote">2</a></sup>. Po kliknięciu w obszar tego okienka przyda się skrót <code class="highlighter-rouge">&lt;Alt + Ins&gt;</code>. W tym kontekście przyda się on do stworzenia nowego pakietu oraz pliku z naszą pierwszą klasą. Po naciśnięciu tego skrótu pokaże się Wam takie okienko.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java_2_nowy_pakiet.png" alt="" />
+  
+    <figcaption>Tworzenie pakietu
+</figcaption>
+  
+</figure>
+
+<p>Gdy mamy już nasz pakiet używając tego samego skrótu możemy stworzyć klasę. W naszym przykładzie stworzyłem pakiet <code class="highlighter-rouge">pl.samouczekprogramisty.kursjava.engine</code> a w nim klasę <code class="highlighter-rouge">Cogwheel</code>.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java_2_new_package.png" alt="" />
+  
+    <figcaption>Tworzenie klasy
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java_2.nowy_pakiet_dialog.png" alt="" />
+  
+    <figcaption>Tworzenie pakietu, dialog
+</figcaption>
+  
+</figure>
+
+<p>Gdy mamy już nasz pakiet używając tego samego skrótu możemy stworzyć klasę. W naszym przykładzie stworzyłem pakiet <code class="highlighter-rouge">pl.samouczekprogramisty.kursjava.engine</code> a w nim klasę <code class="highlighter-rouge">Cogwheel</code>.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java_2_new_package.png" alt="" />
+  
+    <figcaption>Tworzenie pakietu
+</figcaption>
+  
+</figure>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">engine</span><span class="o">;</span>
+
+<span class="cm">/**
+ * Created by &lt;uzytkownik&gt; on &lt;data&gt;.
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cogwheel</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Podobnie jak poprzednio teraz linijka po linijce przeanalizujemy przykładowy kod klasy w języku Java. Pierwsza linijka nie jest już dla Was niczym nowym, ot zwykła deklaracja pakietu. Ciekawsze są kolejne linie.</p>
+
+<h2 id="komentarze-w-kodzie">Komentarze w kodzie</h2>
+
+<p>Kolejne 3 linie to komentarz w kodzie. Komentarz w kodzie to dodatkowa wiadomość dla programisty. Czasami dodanie komentarza nad fragmentem bardziej skomplikowanego kodu pomaga w jego zrozumieniu. Komentarz jest pomijany w trakcie wykonywania programu.</p>
+
+<p>W języku Java występują 2 typy komentarzy:</p>
+
+<ul>
+  <li>komentarze w kilku liniach - przykład widzicie powyżej, wszystko co znajduję się pomiędzy <code class="highlighter-rouge">/**</code> a <code class="highlighter-rouge">*/</code> traktowane jest jako komentarz.</li>
+  <li>komentarz jednoliniowy - wszystko co znajduje się za <code class="highlighter-rouge">//</code> do końca linii traktowane jest jako komentarz. Parę przykładów poniżej</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span> <span class="c1">// number of already read books</span>
+<span class="c1">// flag indicating if book was read</span>
+<span class="kt">boolean</span> <span class="n">wasRead</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Kolejne 2 linijki to już właściwa definicja klasy. Opiszmy każdy z elementów osobno:</p>
+<ul>
+  <li><code class="highlighter-rouge">public</code> - modyfikator dostępu. Temat modyfikatorów dostępu opiszę dokładniej w osobnym artykule. Na tym etapie możemy założyć, że przed klasą stawiamy słowo kluczowe public i oznacza ono, że jest ona widoczna dla innych klas,</li>
+  <li><code class="highlighter-rouge">class</code> - słowo kluczowe informujące kompilator o tym, że mamy do czynienia z definicją klasy,</li>
+  <li><code class="highlighter-rouge">Cogwheel</code> - nazwa klasy. Przyjęło się, że nazwę klasy zaczynamy wielką literą. Podobnie jak w przypadku pakietów nie możemy używać wszystkich znaków. Dla uproszczenia możemy założyć, że nazwa klasy musi zaczynać się wielką literą, później możemy używać wielkich/mały liter bądź cyfr,</li>
+  <li><code class="highlighter-rouge">{}</code> - para nawiasów określająca tak zwany blok, podobnie ja w metodzie grupuje on kilka instrukcji. Wszystkie linie kodu znajdujące się między nawiasami klamrowymi składają się na pełną definicję klasy.</li>
+</ul>
+
+<p>Poniżej ta sama klasa ale już trochę bardziej rozbudowana</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Cogwheel</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numberOfCogs</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Cogwheel</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Cogwheel</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">,</span> <span class="kt">int</span> <span class="n">noCogs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="n">size</span><span class="o">;</span>
+        <span class="n">numberOfCogs</span> <span class="o">=</span> <span class="n">noCogs</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pierwszy nowy element to tak zwany atrybut klasy:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">private</code> - modyfikator dostępu. Tym razem jest to słowo kluczowe <code class="highlighter-rouge">private</code>. Oznacza tyle, że dany element (w tym przypadku atrybut) dostępny jest wyłącznie z wnętrza danej klasy,</li>
+  <li><code class="highlighter-rouge">int</code> - znany już typ,</li>
+  <li><code class="highlighter-rouge">size</code> - nazwa atrybutu. Konwencja nazewnicza zakłada, że nazwy atrybutów piszemy małą literą. Podobnie jak poprzednio w nazwach możemy używać małych liter, wielkich liter i cyfr.</li>
+</ul>
+
+<p>Kolejne dwie metody to tak zwane konstruktory. Zauważ, że ich definicje są specjalne - nie mają typu zwracanego. Konstruktor służy, jak sama nazwa wskazuje, do tworzenia nowych instancji klasy. Każda klasa musi mieć konstruktor. Konstruktory to specjalne metody, które inicjalizują instancje klas.</p>
+
+<p>Konstruktory wywołujemy dokładnie tak samo jak inne metody, dodatkowo używamy słowa kluczowego <code class="highlighter-rouge">new</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cogwheel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cogwheel</span><span class="o">();</span>
+<span class="n">cogwheel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cogwheel</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Pierwszy konstruktor to konstruktor bezparametrowy. Kolejny przyjmuje argument <code class="highlighter-rouge">size</code> i <code class="highlighter-rouge">noCogs</code> ale to dla Ciebie nic nowego, o argumentach wiesz wszystko z <a href="/metody-w-jezyku-java/">artykułu o metodach w języku Java</a>. Nowością tutaj jest ciało konstruktora.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="n">size</span><span class="o">;</span>
+<span class="n">numberOfCogs</span> <span class="o">=</span> <span class="n">noCogs</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Obie linie przypisują wartość do atrybutu klasy. Pierwsza zawiera dodatkowe słowo kluczowe <code class="highlighter-rouge">this</code> aby odróżnić parametr <code class="highlighter-rouge">size</code> od atrybutu <code class="highlighter-rouge">size</code>. W następnej linii widzisz, że <code class="highlighter-rouge">this</code> nie jest wymagane jeśli jednoznacznie jesteśmy w stanie zidentyfikować atrybut.</p>
+
+<h2 id="generowanie-konstruktorów">Generowanie konstruktorów</h2>
+
+<p>IDE może nam pomóc przy pisaniu konstruktorów. Po naciśnięciu znanego już skrótu <code class="highlighter-rouge">&lt;Alt + Insert&gt;</code> w edytorze klasy pokaże się takie okienko.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java_2_konstruktor.png" alt="" />
+  
+    <figcaption>Tworzenie konstruktora
+</figcaption>
+  
+</figure>
+
+<p>W kolejnym można wybrać atrybuty klasy, które mają być przekazywane jako parametry.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java_2_parametry_konstruktora.png" alt="" />
+  
+    <figcaption>Wybieranie parametrów konstruktora
+</figcaption>
+  
+</figure>
+
+<p>Zauważ, że w poprzednim przykładzie klasy <code class="highlighter-rouge">Cogwheel</code> nie umieściłem definicji żadnego konstruktora. Kilka akapitów wcześniej napisałem, że każda klasa musi mieć konstruktor. Więc jak to właściwie jest z tym konstruktorem? Otóż kompilator tworzy domyślny konstruktor automatycznie jeśli nie zdefiniujemy żadnego innego konstruktora.</p>
+
+<p>Jeśli utworzysz jakikolwiek inny konstruktor przyjmujący parametry kompilator nie doda domyślnego, bezparametrowego konstruktora.</p>
+
+<h2 id="kolejny-przykład-klasy">Kolejny przykład klasy</h2>
+
+<p>Poniżej już troszkę bardziej skomplikowany przykład. Proszę przeczytaj poniższy fragment kodu.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">;</span>
+ 
+<span class="kn">import</span> <span class="nn">pl.samouczekprogramisty.kursjava.engine.Cogwheel</span><span class="o">;</span>
+ 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Engine</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">started</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Cogwheel</span> <span class="n">cogwheel</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">Engine</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">cogwheel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cogwheel</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="mi">450</span><span class="o">);</span>
+        <span class="n">started</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">Engine</span><span class="o">(</span><span class="n">Cogwheel</span> <span class="n">cogwheel</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">cogwheel</span> <span class="o">=</span> <span class="n">cogwheel</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">started</span> <span class="o">=</span> <span class="n">initiateStartingSequence</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">initiateStartingSequence</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">stop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">started</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isStarted</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">started</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setStarted</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">started</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">started</span> <span class="o">=</span> <span class="n">started</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Poza używaniem typów, które już znasz, możesz używać już istniejących klas. Właśnie w ten sposób klasa <code class="highlighter-rouge">Engine</code> ma atrybut typu <code class="highlighter-rouge">Cogwheel</code>. Zwróć uwagę, że klasa <code class="highlighter-rouge">Engine</code> znajduje się w innym pakiecie niż klasa <code class="highlighter-rouge">Cogwheel</code>. Kompilator musi wiedzieć gdzie szukać tej klasy, właśnie z tego powodu dodajemy linijkę importującą tą klasę:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pl.samouczekprogramisty.kursjava.engine.Cogwheel</span><span class="o">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Deklaracja importu to coś zupełnie innego niż deklaracja pakietu, importów w klasie może być wiele (możemy korzystać z wielu innych klas), natomiast nasza klasa może być wyłącznie w jednym pakiecie.</p>
+
+  <p>Jeśli importujemy wiele klas z jednego pakietu zamiast wypisywać je wszystkie możemy użyć <code class="highlighter-rouge">*</code> np <code class="highlighter-rouge">import pl.samouczekprogramisty.kursjava.engine.*;</code>
+Tutaj przychodzi z pomocą IDE. Okazuje się, że programista używający IDE nie musi pisać tych linii, IDE dodaje te linijki automatycznie. IDE także pomaga przy pisaniu samego kodu. W trakcie pisania zobaczysz menu kontekstowe podpowiadające programiście fragmenty kodu. Skrótami klawiaturowymi, które jeszcze mogą przy tym pomóc są <code class="highlighter-rouge">&lt;Ctrl + Space&gt;</code> i <code class="highlighter-rouge">&lt;Ctrl + Shift + Space&gt;</code>. Oba z nich pomagają programiście, drugi jest bardziej „inteligenty” podpowiadając wyłącznie kod, który jest poprawny w danym kontekście.</p>
+</blockquote>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java_2_podpowiadanie.png" alt="" />
+  
+    <figcaption>Pomoc IDE
+</figcaption>
+  
+</figure>
+
+<h3 id="metody-nie-zwracające-żadnej-wartości">Metody nie zwracające żadnej wartości</h3>
+
+<p>Zwróćmy jeszcze uwagę na metodę</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">started</span> <span class="o">=</span> <span class="n">initiateStartingSequence</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Nowe dla Ciebie jest słowo kluczowe <code class="highlighter-rouge">void</code> w miejscu typu zwracanego. To słowo kluczowe informuje, że dana metoda nie zwraca żadnej wartości. W ciele tej metody do atrybutu started przypisujemy wartość zwróconą przez metodę <code class="highlighter-rouge">initiateStartingSequence</code>.</p>
+
+<h3 id="słowo-kluczowe-this">Słowo kluczowe <code class="highlighter-rouge">this</code></h3>
+
+<p>Proszę zwróć uwagę na dwa poniższe fragmenty kodu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Engine</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Cogwheel</span> <span class="n">cogwheel</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Engine</span><span class="o">(</span><span class="n">Cogwheel</span> <span class="n">cogwheel</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">cogwheel</span> <span class="o">=</span> <span class="n">cogwheel</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Engine</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Cogwheel</span> <span class="n">cogwheel</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Engine</span><span class="o">(</span><span class="n">Cogwheel</span> <span class="n">otherCogwheel</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">cogwheel</span> <span class="o">=</span> <span class="n">otherCogwheel</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W pierwszym przypadku w konstruktorze zostało użyte słowo kluczowe <code class="highlighter-rouge">this</code>. Było ono potrzebne aby kompilator był w stanie odróżnić parametr <code class="highlighter-rouge">cogwheel</code> od atrybutu klasy <code class="highlighter-rouge">cogwheel</code>. W drugim przypadku słowo to nie było konieczne ponieważ w tym kontekście od razu wiadomo czym jest <code class="highlighter-rouge">cogwheel</code> - jest atrybutem klasy. Oba konstruktory robią dokładnie to samo, przypisują wartość parametru to atrybutu nowej instancji.</p>
+
+<h2 id="gettery-i-settery">Gettery i settery</h2>
+
+<p>Znasz już 2 modyfikatory dostępu, <code class="highlighter-rouge">private</code> i <code class="highlighter-rouge">public</code>. Wiesz też, że atrybuty, metody które poprzedzone są modyfikatorem <code class="highlighter-rouge">private</code> są dostępne wyłącznie w danej klasie. Jak więc z zewnątrz można dowiedzieć się jaka jest wartość atrybutu <code class="highlighter-rouge">started</code> w instancji klasy <code class="highlighter-rouge">Engine</code>? Z pomocą przychodzą tak zwane “gettery” i “settery”. Jest to nic innego jak specyficzne metody, których jedynym zadaniem jest odpowiednio pobranie bądź ustawienie wartości atrybutu. Poniżej przykłady:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">engine</span> <span class="o">=</span> <span class="n">Engine</span><span class="o">();</span> <span class="c1">// tworzymy instancje klasy</span>
+<span class="n">engine</span><span class="o">.</span><span class="na">isStarted</span><span class="o">();</span> <span class="c1">// zwraca wartość atrybutu</span>
+<span class="n">engine</span><span class="o">.</span><span class="na">setStarted</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="c1">// ustawia wartość atrybutu started w instancji engine</span>
+</code></pre></div></div>
+
+<p>Gettery i settery to metody, których nazwy są określone przez specyfikację <a href="http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html">Java Beans</a>. W skrócie:</p>
+<ul>
+  <li>metody pobierające wartość atrybutu mają nazwę <code class="highlighter-rouge">get</code> typ zwracany odpowiada typowi atrybutu. Metoda nie przyjmuje żadnego parametru. Specyfikacja dopuszcza pewien wyjątek w nazwie jeśli atrybut jest typu <code class="highlighter-rouge">boolean</code>. W takim przypadku możemy użyć nazwy <code class="highlighter-rouge">is</code>, reszta pozostaje bez zmian.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isStarted</span><span class="o">()</span> <span class="c1">// zwraca wartość atrybutu started</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">getStarted</span><span class="o">()</span> <span class="c1">// zwraca wartość atrybutu started</span>
+<span class="kd">public</span> <span class="n">Cogwheel</span> <span class="nf">getCogwheel</span><span class="o">()</span> <span class="c1">// zwraca wartość atrybutu cogwheel</span>
+</code></pre></div></div>
+
+<ul>
+  <li>metoda ustawiająca wartość atrybutu. Nową wartością jest parametr przekazany do tej metody. Nazwa metody musi pasować do wzorca <code class="highlighter-rouge">set</code>. Metoda musi przyjmować jeden parametr odpowiadający typowi atrybutu i nie może zwracać żadnej wartości.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setStarted</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">started</span><span class="o">)</span> <span class="c1">// ustawia wartość atrybutu started</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCogwheel</span><span class="o">(</span><span class="n">Cogwheel</span> <span class="n">cogwheel</span><span class="o">)</span> <span class="c1">// ustawia wartość atrybutu cogwheel</span>
+</code></pre></div></div>
+
+<h3 id="generowanie-getterów-setterów">Generowanie getterów setterów</h3>
+
+<p>Podobnie jak w przypadku generowania konstruktorów IDE pomaga w generowaniu getterów/setterów. W edytorze pomaga przy tym skrót `` naciśnięty gdy kursor znajduje się na nazwie atrybutu.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java_2_wybieranie_parametrow_konstruktora.png" alt="" />
+  
+    <figcaption>Wybieranie parametrów konstruktora
+</figcaption>
+  
+</figure>
+
+<p>Metody te można także wygenerować przy pomocy skrótu <code class="highlighter-rouge">&lt;Alt + Insert&gt;</code> naciśniętego w edytorze i wybraniu opcji “Getter and Setter”.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2015/11/01_kurs_java_2_getter_setter.png" alt="" />
+  
+    <figcaption>Tworzenie getterów i setterów
+</figcaption>
+  
+</figure>
+
+<h2 id="Ćwiczenie">Ćwiczenie</h2>
+
+<p>Najwyższy czas na Twoje ćwiczenie. W ramach ćwiczenia utwórz nowy projekt, w nim utwórz 2 różne pakiety. W pakietach utwórz klasy odpowiadające kilku rodzajom zwierząt wraz z kilkoma atrybutami. Postaraj się używać przy tym poznanych dzisiaj skrótów. Jeśli chcesz, możesz spojrzeć na przykładowe rozwiązanie, które umieściłem na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/02_obiekty/src/main/java/pl/samouczekprogramisty/kursjava/objects/exercise">githubie</a>.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Bardzo się cieszę, że doczytałeś do tego miejsca! Jak poszło Ci z ćwiczeniem? Proszę daj znać w komentarzach. Jeśli podobają Ci się artykuły na blogu byłbym bardzo wdzięczny gdybyś polecił bloga swoim znajomym. Jak już powtarzałem - w grupie łatwiej się uczy :) Polub stronę na facebooku a nie przegapisz żadnego nowego artykułu. Do zobaczenia!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:pakiet">
+      <p>Jeśli nie umieścisz żadnej deklaracji pakietu dany typ (klasa, interfejs etc.) zostanie umieszczony w domyślnym, pustym pakiecie. <a href="#fnref:pakiet" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:notacja">
+      <p>Taka notacja oznacza jednoczesne naciśnięcie dwóch klawiszy, w tym przypadku jest to <code class="highlighter-rouge">Alt</code> i <code class="highlighter-rouge">1</code>. <a href="#fnref:notacja" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#programowanie" class="page__taxonomy-item" rel="tag">Programowanie</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2015-11-01T01:43:36+01:00">November 01, 2015</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fobiekty-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fobiekty-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/metody-w-jezyku-java/" class="pagination--pager" title="Metody w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/pierwszy-program-w-java/" class="pagination--pager" title="Pierwszy program w Java
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/obiekty-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/obiekty-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

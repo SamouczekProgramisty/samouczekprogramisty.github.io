@@ -1,0 +1,952 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Wstęp do Gradle - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używanego w pliku build.gradle. Utworzysz też swój pierwszy projekt z gradle w InteliJ IDEA. Zapraszam do lektury.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wstęp do Gradle">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/wstep-do-gradle/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/wstep-do-gradle/">
+
+
+
+  <meta property="og:description" content="W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używanego w pliku build.gradle. Utworzysz też swój pierwszy projekt z gradle w InteliJ IDEA. Zapraszam do lektury.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/01/19_wstep_do_gradle_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-01-19T21:21:55+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/01/19_wstep_do_gradle_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Wstęp do Gradle
+
+        
+      </h1>
+      
+        <p class="page__lead">W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używanego w pliku build.gradle. Utworzysz też swój pierwszy projekt z gradle w InteliJ IDEA. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/antsnaps/6163066070/sizes/l">© antsnaps</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wstęp do Gradle</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wstęp do Gradle">
+    <meta itemprop="description" content="W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używanego w pliku build.gradle. Utworzysz też swój pierwszy projekt z gradle w InteliJ IDEA. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="January 19, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#czym-jest-gradle" id="markdown-toc-czym-jest-gradle">Czym jest Gradle</a></li>
+  <li><a href="#inne-narzędzia-do-budowania-projektów" id="markdown-toc-inne-narzędzia-do-budowania-projektów">Inne narzędzia do budowania projektów</a></li>
+  <li><a href="#instalacja-gradle" id="markdown-toc-instalacja-gradle">Instalacja gradle</a></li>
+  <li><a href="#w-czym-może-pomóc-gradle" id="markdown-toc-w-czym-może-pomóc-gradle">W czym może pomóc Gradle</a>    <ul>
+      <li><a href="#zarządzanie-zależnościami" id="markdown-toc-zarządzanie-zależnościami">Zarządzanie zależnościami</a></li>
+      <li><a href="#konwencje" id="markdown-toc-konwencje">Konwencje</a></li>
+      <li><a href="#struktura-projektu" id="markdown-toc-struktura-projektu">Struktura projektu</a></li>
+      <li><a href="#unikalna-identyfikacja-projektu" id="markdown-toc-unikalna-identyfikacja-projektu">Unikalna identyfikacja projektu</a></li>
+    </ul>
+  </li>
+  <li><a href="#podstawy-gradle-dsl" id="markdown-toc-podstawy-gradle-dsl">Podstawy Gradle DSL</a>    <ul>
+      <li><a href="#zadania" id="markdown-toc-zadania">Zadania</a></li>
+      <li><a href="#zależności-między-zadaniami" id="markdown-toc-zależności-między-zadaniami">Zależności między zadaniami</a>        <ul>
+          <li><a href="#program-gradle" id="markdown-toc-program-gradle">Program gradle</a></li>
+        </ul>
+      </li>
+      <li><a href="#wtyczki" id="markdown-toc-wtyczki">Wtyczki</a></li>
+      <li><a href="#zależności" id="markdown-toc-zależności">Zależności</a></li>
+      <li><a href="#wiesz-że-poznałeś-właśnie-nowy-język" id="markdown-toc-wiesz-że-poznałeś-właśnie-nowy-język">Wiesz, że poznałeś właśnie nowy język?</a></li>
+    </ul>
+  </li>
+  <li><a href="#projekty-gradle-w-intelij-idea" id="markdown-toc-projekty-gradle-w-intelij-idea">Projekty Gradle w InteliJ Idea</a>    <ul>
+      <li><a href="#plik-buildgradle-utworzony-przez-intlij-idea" id="markdown-toc-plik-buildgradle-utworzony-przez-intlij-idea">Plik <code class="highlighter-rouge">build.gradle</code> utworzony przez IntliJ IDEA</a></li>
+    </ul>
+  </li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="czym-jest-gradle">Czym jest Gradle</h2>
+
+<p>Starając się opisać Gradle jednym zdaniem powiedziałbym, że Gradle jest narzędziem służącym do budowania projektów<sup id="fnref:gradle"><a href="#fn:gradle" class="footnote">1</a></sup>. Pozwala ono na zautomatyzowanie tego procesu. Używa się do tego tak zwanego języka domenowego - DSL (ang. <em>Domain Specific Language</em>), który ułatwia wykonywanie standardowych zadań związanych z budowaniem projektu.</p>
+
+<p>Jeśli do tej pory miałeś styczność wyłącznie z niezbyt dużymi projektami, nad którymi pracowałeś samodzielnie prawdopodobnie nie odczuwałeś potrzeby używania narzędzi tego typu. Jednak przy większych projektach narzędzie, które pozwala na zautomatyzowanie tego procesu jest bardzo pomocne.</p>
+
+<h2 id="inne-narzędzia-do-budowania-projektów">Inne narzędzia do budowania projektów</h2>
+
+<p>Oczywiście Gradle nie jest jedynym narzędziem, które pomaga przy budowaniu projektów. Wymienić tu trzeba byłoby kilka innych jak <a href="http://ant.apache.org/">Ant</a>, <a href="https://maven.apache.org/">Maven</a>, <a href="http://ant.apache.org/ivy/">Ivy</a>, <a href="https://www.gnu.org/software/make/">Make</a> czy <a href="https://buildr.apache.org/">Buildr</a>. Oczywiście nie jest to kompletna lista.</p>
+
+<p>Dodatkowo „problem budowania” projektu występuje w każdym języku programowania, więc analogiczne narzędzia występują także dla innych języków.</p>
+
+<h2 id="instalacja-gradle">Instalacja gradle</h2>
+
+<p>Gradle sam w sobie jest programem, abyś mógł go używać musisz „zainstalować” go na swoim komputerze. Najnowszą wersję Gradle możesz ściągnąć z <a href="https://gradle.org/gradle-download/">tej strony</a>. Następnie rozpakuj ściągnięty plik, ustaw zmienną środowiskową <code class="highlighter-rouge">GRALE_HOME</code>, która będzie wskazywała na katalog, w którym rozpakowałeś wcześniej ściągniętą paczkę.</p>
+
+<p>Następnie zmodyfikuj zmienną <code class="highlighter-rouge">PATH</code> (linux/macos) lub <code class="highlighter-rouge">Path</code> (windows), tak żeby zawierała katalog <code class="highlighter-rouge">bin</code> znajdujący się wewnątrz wcześniej ustawionego <code class="highlighter-rouge">GRADLE_HOME</code>.</p>
+
+<p><a href="https://www.youtube.com/watch?v=QtmuSBVF8Nw">Tutaj</a> znajdziesz krótki filmik, pokazujący jak zmodyfikować zmienną <code class="highlighter-rouge">Path</code> w systemie Windows, w podobny sposób możesz dodać zmienną <code class="highlighter-rouge">GRADLE_HOME</code>.</p>
+
+<p>Po takim zestawie ustawień i ponownym uruchomieniu terminala powinieneś móc wywołać polecenie <code class="highlighter-rouge">gradle --version</code>, które wypisze na konsolę informacje o Twojej wersji Gradle.</p>
+
+<h2 id="w-czym-może-pomóc-gradle">W czym może pomóc Gradle</h2>
+
+<p>Jak wspomniałem wcześniej Gradle służy do budowania projektów. Pod pojęciem „budowania projektów” tak naprawdę kryje się cała masa drobnych czynności. Zaczynając od najbardziej podstawowych, takich jak kompilowanie kodu źródłowego czy tworzenie pliku ze skompilowanymi klasami, na przykład pliku JAR (ang. <em>Java Archive</em>)<sup id="fnref:jar"><a href="#fn:jar" class="footnote">2</a></sup>.</p>
+
+<p>Jednak to nie koniec, dobrze byłoby uruchomić wszystkie testy, które sprawdzają poprawność działania kodu przed utworzeniem pliku JAR. W tym także pomoże Ci Gradle. Gradle pomoże też przy zarządzaniu zależnościami projektu.</p>
+
+<h3 id="zarządzanie-zależnościami">Zarządzanie zależnościami</h3>
+
+<p>Większe projekty bazują na zewnętrznych bibliotekach. Przykładem takich zewnętrznych bibliotek jest na przykład Hibernate, Spring czy Guava.</p>
+
+<p>Zewnętrzne biblioteki dostępne są jako skompilowane klasy spakowane w pliki JAR. Można je ściągnąć z tak zwanych repozytoriów. Jednym z najczęściej używanych repozytoriów jest <a href="https://search.maven.org/">centralne repozytorium Maven’a</a>.</p>
+
+<p>Tak samo jak Twój projekt może zależeć od innych bibliotek, podobnie może być z tymi bibliotekami, też mogą mieć swoje zależności. Innymi słowy Twój projekt może mieć tak zwane zależności pośrednie/przechodnie. Jeśli Twój projekt wymaga wielu dodatkowych bibliotek, zarządzanie wszystkimi zależnościami (pośrednimi i bezpośrednimi) nie jest takim łatwym zadaniem.</p>
+
+<p>Gradle pobiera zależności, które wskażesz (w odpowiedni sposób), zajmując się także zależnościami pośrednimi.</p>
+
+<h3 id="konwencje">Konwencje</h3>
+
+<p>Programując w Javie (i nie tylko) dobrze jest stosować do pewnych przyjętych konwencji, które możemy spotkać w wielu projektach. Takie podejście pomaga w pracy nad różnymi projektami, wprowadza swego rodzaju „porządek”. Gradle także używa takich konwencji, poniżej opiszę dwie z nich, strukturę katalogów w projekcie i sposób identyfikowania projektu. Pomogą one w zrozumieniu podstaw DSL, które znajdą się w kolejnych akapitach.</p>
+
+<h3 id="struktura-projektu">Struktura projektu</h3>
+
+<p>Przy prostych projektach, nie ma potrzeby używania specjalnej struktury dla projektu. Jednak przy tych bardziej zaawansowanych pewna konwencja ułatwia zrozumienie tego „co w danym projekcie się dzieje”. Gdzie szukać plików z testami, w którym miejscu mogą znajdować się pliki z kodem źródłowym, gdzie może znajdować się plik JAR, który powstał po zbudowaniu projektu. To wszystko można osiągnąć, dzięki pewnej konwencji, która jest powszechnie stosowana w świecie projektów Java.</p>
+
+<p>Proszę spójrz na przykład poniżej, pokazuje on strukturę katalogów w projekcie <code class="highlighter-rouge">01_witaj_swiecie</code>, który stworzyłem na potrzeby tego artykułu (użyłem tu programu <a href="https://linux.die.net/man/1/tree"><code class="highlighter-rouge">tree</code></a>) do pokazania struktury katalogów):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tree .
+.
+├── build.gradle
+└── src
+├── main
+│   ├── java
+│   │   └── pl
+│   │   └── samouczekprogramisty
+│   │   └── Hello.java
+│   └── resources
+│   └── log4j.ini
+└── test
+├── java
+│   └── pl
+│   └── samouczekprogramisty
+│   └── HelloTest.java
+└── resources
+└── log4j.ini
+</code></pre></div></div>
+
+<p>Projekt ten zawiera jedną klasę <code class="highlighter-rouge">Hello</code>, znajdującą się w pakiecie <code class="highlighter-rouge">pl.samouczekprogramisty</code> i odpowiadający jest test znajdujący się w pliku <code class="highlighter-rouge">HelloTest.java</code>. Proszę zauważ, że oba te pliki znajdują się w zupełnie różnych katalogach, odpowiednio <code class="highlighter-rouge">src/main/java</code> i <code class="highlighter-rouge">src/test/java</code>. Tego typu podejście pozwala na oddzielenie kodu aplikacji od testów.</p>
+
+<p>Na produkcyjnym środowisku nie potrzebujemy testów, potrzebne są wyłącznie klasy, które zapewniają poprawne działanie aplikacji. Taki podział pozwala osiągnąć ten cel w bardzo prosty sposób.</p>
+
+<p>Dodatkowo w tej strukturze znajdują się także katalogi <code class="highlighter-rouge">src/main/resources</code> i <code class="highlighter-rouge">src/test/resources</code>, zawierają one odpowiednio konfigurację dla właściwej aplikacji i konfigurację dla testów.</p>
+
+<p>Bezpośrednio w katalogu projektu znajduje się plik <code class="highlighter-rouge">build.gradle</code>, który zawiera informacje jak budować taki projekt.</p>
+
+<h3 id="unikalna-identyfikacja-projektu">Unikalna identyfikacja projektu</h3>
+
+<p>Przed powstaniem Gradle do budowania projektu używałem między innymi Maven’a. Wraz z Maven’em używanym na szerszą skalę rozpowszechniło się pewne standardowe nazewnictwo, które pozwala jednoznacznie zidentyfikować projekt. Służy do tego trójka:</p>
+<ul>
+  <li><code class="highlighter-rouge">groupId</code>,</li>
+  <li><code class="highlighter-rouge">artifactId</code>,</li>
+  <li><code class="highlighter-rouge">version</code>.</li>
+</ul>
+
+<p>Gradle także używa tej trójki, jednak pod troszkę innymi nazwami, są to odpowiednio <code class="highlighter-rouge">group</code>, <code class="highlighter-rouge">name</code> i <code class="highlighter-rouge">version</code>.</p>
+
+<p><code class="highlighter-rouge">group</code> to pierwszy identyfikator. Konwencja zakłada, że zaczynał się on będzie od odwróconej domeny, podobnie jak <code class="highlighter-rouge">package</code> w klasach. Do odwróconej domeny można dołączyć dodatkowe człony, które dokładniej specyfikują „grupę” projektu. W przypadku samouczka może to być <code class="highlighter-rouge">pl.samouczekprogramisty</code> czy <code class="highlighter-rouge">pl.samouczekprogramisty.kursjava</code>.</p>
+
+<p><code class="highlighter-rouge">name</code> to drugi identyfikator, jest on częścią finalnej nazwy pliku JAR ze skompilowanymi klasami. W przypadku projektu, z przykładami do kursu Java na Samouczku <code class="highlighter-rouge">name</code> może mieć wartość <code class="highlighter-rouge">examples</code> czy <code class="highlighter-rouge">code-samples</code>.</p>
+
+<p><code class="highlighter-rouge">version</code> określa wersję projektu. Standardowo wersję określa się przez trójkę liczb oddzielonych kropkami na przykład <code class="highlighter-rouge">1.0.0</code> czy <code class="highlighter-rouge">5.0.12</code>. Dodatkowo jeśli jest to wersja „deweloperska” można do niej dołączyć <code class="highlighter-rouge">-SNAPSHOT</code> uzyskując <code class="highlighter-rouge">1.0.0-SNAPSHOT</code>.</p>
+
+<p>Finalnie nazwa pliku JAR ze skompilowanymi klasami będzie składała się z <code class="highlighter-rouge">name</code> i <code class="highlighter-rouge">version</code> oddzielonych minusem, na przykład <code class="highlighter-rouge">code-samples-1.0.0-SNAPSHOT.jar</code>, czy <code class="highlighter-rouge">examples-5.0.12.jar</code>.</p>
+
+<h2 id="podstawy-gradle-dsl">Podstawy Gradle DSL</h2>
+
+<p>Gradle do działania potrzebuje konfiguracji. Domyślnie konfigurację umieszcza się w pliku <code class="highlighter-rouge">build.gradle</code>. Wewnątrz tego pliku możemy umieszczać komendy, które następnie zostaną wykonane przez <code class="highlighter-rouge">gradle</code>. Poniżej pokażę kilka podstawowych konstrukcji dostępnych w DSL dostarczonym przez Gradle.</p>
+
+<h3 id="zadania">Zadania</h3>
+
+<p>Gradle działa w oparciu o zadania. Wewnątrz nich definiujemy co tak naprawdę gradle powinien zrobić. Na przykład zadaniem może być utworzenie pliku JAR czy uruchomienie testów. Zadania te definiujemy wewnątrz pliku build.gradle. Poniższy przykład pokazuje prosty plik, który zawiera wyłącznie jedno zadanie <code class="highlighter-rouge">buildJar</code>, wypisujące na konsolę odpowiedni komunikat:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>task buildJar &lt;&lt; {
+    println 'now I am building JAR file, in theory'
+}
+</code></pre></div></div>
+
+<p>Jeśli następnie uruchomisz <code class="highlighter-rouge">gradle</code> poleceniem <code class="highlighter-rouge">gradle -q buildJar</code> na konsoli pokaże się napis <code class="highlighter-rouge">now I am building JAR file, in theory</code>. Gratuluję, właśnie uruchomiłeś swój pierwszy plik konfigurujący budowanie projektu, co prawda niewiele on jeszcze robi, ale od czegoś trzeba zacząć :).</p>
+
+<h3 id="zależności-między-zadaniami">Zależności między zadaniami</h3>
+
+<p>Gradle pozwala także na wprowadzanie zależności pomiędzy zadaniami. Dzięki temu mechanizmowi możemy określić kolejność, w której zadania powinny być uruchamiane. Na przykład przed zbudowaniem pliku JAR uruchom testy jednostkowe.</p>
+
+<p>Proszę spójrz na przykład poniżej, który rozbudowuje poprzedni fragment:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>task runAllTests &lt;&lt; {
+    println 'now I am checking if all tests are passing, in theory'
+}
+ 
+task buildJar(dependsOn: runAllTests) &lt;&lt; {
+    println 'now I am building JAR file, in theory'
+}
+</code></pre></div></div>
+
+<p>Uruchamiając <code class="highlighter-rouge">gradle</code> poleceniem <code class="highlighter-rouge">gradle -q buildJar</code> na konsoli pokaże się</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>now I am checking if all tests are passing, in theory
+now I am building JAR file, in theory
+</code></pre></div></div>
+
+<h4 id="program-gradle">Program gradle</h4>
+
+<p>Teraz trochę wyjaśnień, <code class="highlighter-rouge">gradle -q buildJar</code>, uruchamia zadanie <code class="highlighter-rouge">buildJar</code> zdefiniowane w pliku <code class="highlighter-rouge">build.gradle</code>. Przełącznik <code class="highlighter-rouge">-q</code> (lub <code class="highlighter-rouge">--quiet</code>) wyłącza część informacji wypisywanych na konsolę. Teraz przeanalizuję wyjście komendy bez tego przełącznika:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gradle buildJar
+:runAllTests
+now I am checking if all tests are passing, in theory
+:buildJar
+now I am building JAR file, in theory
+
+BUILD SUCCESSFUL
+
+Total time: 2.276 secs
+</code></pre></div></div>
+
+<p>Jak widzisz, pierwsza linijka zawiera <code class="highlighter-rouge">:runAllTests</code>, tak <code class="highlighter-rouge">gradle</code> informuje Cię o uruchomieniu tego właśnie zadania. Następna linijka zawiera odpowiedni komunikat, który wypisywane jest w trakcie uruchomienia zadania <code class="highlighter-rouge">runAllTests</code>, kolejnym zadaniem jest <code class="highlighter-rouge">buildJar</code>, także wypisujące komunikat. Zauważ, że Gradle uwzględnił zależności pomiędzy zadaniami – uruchomił <code class="highlighter-rouge">runAllTests</code> przed <code class="highlighter-rouge">buildJar</code>, tak jak było to zdefiniowane w <code class="highlighter-rouge">build.gradle</code>. Ostatnie linijki informują o tym, że proces budowania się powiódł i ile trwał.</p>
+
+<h3 id="wtyczki">Wtyczki</h3>
+
+<p>Gradle wspiera tak zwane wtyczki. Zawierają one zestaw gotowych zadań, które możesz uruchamiać. Przykładem takiej wtyczki jest <code class="highlighter-rouge">java</code>, która zawiera zestaw zadań przydatnych przy projektach. Wtyczki dodajemy w pliku <code class="highlighter-rouge">build.gradle</code> w następujący sposób:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apply plugin: ‘java’
+</code></pre></div></div>
+
+<p>Załóżmy, że plik <code class="highlighter-rouge">build.gradle</code> zawiera wyłącznie tę linijkę. Zobacz co zostanie wypisane na konsolę po uruchmieniu <code class="highlighter-rouge">gradle build</code> (<code class="highlighter-rouge">build</code> jest jednym z zadań udostępnionych przez wtyczkę):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gradle build
+:compileJava
+:processResources
+:classes
+:jar
+:assemble
+:compileTestJava
+:processTestResources
+:testClasses
+:test UP-TO-DATE
+:check UP-TO-DATE
+:build
+ 
+BUILD SUCCESSFUL
+ 
+Total time: 2.917 secs
+</code></pre></div></div>
+
+<p>Widzisz jakie zadania zostały uruchomione? Cała masa ;). Na przykład kompilowanie kodu (<code class="highlighter-rouge">:compileJava</code>), kompilowania testów (<code class="highlighter-rouge">:compileTestJava</code>), uruchomienia testów (<code class="highlighter-rouge">:test</code>) czy budowanie pliku JAR (<code class="highlighter-rouge">:jar</code>).</p>
+
+<p>Także w tym przypadku widać jak Gradle rozstrzyga zależności pomiędzy zadaniami zdefiniowanymi przez wtyczkę. Mimo tego, że uruchomiłem zadanie <code class="highlighter-rouge">build</code>, wcześniej uruchomiona została seria zadań, od których zależy <code class="highlighter-rouge">build</code>.</p>
+
+<h3 id="zależności">Zależności</h3>
+
+<p>Wspomniałem o tym, że Gradle pomaga w zarządzaniu zależnościami – tym razem chodzi o zależności od innych projektów. Tutaj także z pomocą przychodzi wtyczka <code class="highlighter-rouge">java</code>.</p>
+
+<p>Pozwala ona na określenie repozytoriów z których powinny być ściągane zależności. Na przykład poniższy fragment poinstruuje gradle aby użył domyślnego repozytorium Maven’a</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>repositories {
+    mavenCentral()
+}
+</code></pre></div></div>
+
+<p>Następnie możemy już opisywać zależności jak w przykładzie poniżej.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '21.0'
+}
+</code></pre></div></div>
+
+<p>Powyższa sekcja mówi, że nasz kod potrzebuje w trakcie kompilacji innej biblioteki. W tym przypadku jest to biblioteka guava w wersji 21.0. Gradle pozwala też na troszkę krótszy zapis. Poniższy przykład da dokładnie ten sam efekt co poprzedni:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dependencies {
+    compile 'com.google.guava:guava:21.0'
+}
+</code></pre></div></div>
+
+<p>Słówko <code class="highlighter-rouge">compile</code> w powyższych przykładach mówi o tym, w jakiej sytuacji będziemy potrzebowali tej zależności. Mówimy w tym przypadku o „obszarze” (ang. scope) gdzie dana zależność będzie używana. Na początku wystarczy abyś wiedział, że istnieje wiele takich obszarów, najczęściej używane z nich to <code class="highlighter-rouge">compile</code> i <code class="highlighter-rouge">testCompile</code>. Ten drugi określa zależności używane i dostępne wyłącznie w trakcie testów. W bardziej zaawansowanych przypadkach gradle pozwala na tworzenie swoich własnych „obszarów”.</p>
+
+<p>Poniższy przykład pokazuje jak może wyglądać przykładowy plik build.gradle z wieloma zależnościami:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apply plugin: 'java'
+ 
+repositories {
+    mavenCentral()
+}
+ 
+dependencies {
+    compile 'com.google.guava:guava:21.0'
+    testCompile 'junit:junit:4.11'
+}
+</code></pre></div></div>
+
+<p>Program gradle pozwala na wypisane wszystkich zależności możesz to zrobić uruchamiając <code class="highlighter-rouge">gradle dependencies</code>.</p>
+
+<h3 id="wiesz-że-poznałeś-właśnie-nowy-język">Wiesz, że poznałeś właśnie nowy język?</h3>
+
+<p>Tak naprawdę, Gradle w pliku konfiguracyjnym do projektu używa języka skryptowego <a href="http://www.groovy-lang.org/">Groovy</a>. Język domenowy, którego używa się w pliku <code class="highlighter-rouge">build.gradle</code> jest na tyle rozbudowany, że w większości przypadków nie będzie potrzeby używania języka Groovy, jednak pamiętaj o tym, kiedy będziesz chciał zrobić coś nietypowego (na przykład wysłać smsa do siebie jeśli testy nie będą przechodziły, chociaż jak znam życie, ktoś już napisał wtyczkę, która to robi i możesz jej użyć bazując wyłącznie na DSL udostępnionym przez tę wtyczkę). W rzeczywistości sam DSL także jest poprawnym kodem Groovy ;).</p>
+<h2 id="projekty-gradle-w-intelij-idea">Projekty Gradle w InteliJ Idea</h2>
+
+<p>IntliJ IDEA domyślnie wspiera projekty budowane przy pomocy Gradle. Poniżej pokazuję sposób w jaki możesz założyć przykładowy projekt. Aby to zrobić wybierz z menu File, New i następnie Project. Pokaże Ci się się następujące okienko.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/01/19_0_new_project.png" alt="" />
+  
+    <figcaption>Gradle nowy projekt InteliJ
+</figcaption>
+  
+</figure>
+
+<p>Zaznaczasz gradle i klikasz next. Kolejne okienko, to nic innego jak uzupełnienie wcześniej omówionych groupId, artifactId i version, które będą identyfikowały Twój projekt:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/01/19_1_project_identifiers.png" alt="" />
+  
+    <figcaption>Gradle nowy projekt InteliJ
+</figcaption>
+  
+</figure>
+
+<p>Kolejne okienko daje InteliJ informacje jak ma się zachować w przypadku tworzenia projektu, na przykład tutaj podajesz informację, gdzie zainstalowany jest Gradle na Twoim komputerze. Istotne jest abyś zaznaczył drugą opcję, która spowoduje utworzenie struktury projektu zgodnie z opisaną wcześniej konwencją.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/01/19_3_project_settings.png" alt="" />
+  
+    <figcaption>Gradle nowy projekt InteliJ
+</figcaption>
+  
+</figure>
+
+<p>Kolejny ekran to informacja dla InteliJ jak powinien nazywać się projekt, domyślnie uzupełnia to pole wartością artifactId oraz gdzie na dysku projekt, powinien być utworzony.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/01/19_4_project_location.png" alt="" />
+  
+    <figcaption>Gradle nowy projekt InteliJ
+</figcaption>
+  
+</figure>
+
+<p>Po przejściu przez tę serię kroków InteliJ utworzy pusty projekt wraz z plikiem build.gradle. Warto jest rzucić okiem na to co się w nim znajduje.</p>
+
+<h3 id="plik-buildgradle-utworzony-przez-intlij-idea">Plik <code class="highlighter-rouge">build.gradle</code> utworzony przez IntliJ IDEA</h3>
+
+<p>Poniżej znajduje się plik <code class="highlighter-rouge">build.gradle</code>, który utworzył za mnie InteliJ.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>group 'pl.samouczekprogramisty'
+version '1.0-SNAPSHOT'
+ 
+apply plugin: 'java'
+ 
+sourceCompatibility = 1.5
+ 
+repositories {
+    mavenCentral()
+}
+ 
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+</code></pre></div></div>
+
+<p>Pierwsze dwie linijki informują o grupie i wersji – dwóch komponentach pozwalających na unikalną identyfikację projektu. Atrybut name został pominięty, przyjmuje on wartość domyślną czyli nazwę katalogu, w którym znajduje się projekt.</p>
+
+<p>Kolejna linijka jest Ci znana, włączamy wtyczkę do obsługi Javy.</p>
+
+<p>Ta linijka wymaga trochę szerszego omówienia. Java ewoluowała, na przestrzeni lat pojawiały się kolejne wersje. Wersje te wprowadzały pewne konstrukcje językowe, które nie były dostępne wcześniej. <code class="highlighter-rouge">sourceCompatibility</code> informuje kompilator <code class="highlighter-rouge">javac</code> (poprzez przełącznik <code class="highlighter-rouge">-source</code>) jakiej wersji Javy trzeba użyć do kompilowania klas z kodem.</p>
+
+<p>Kolejny blok mówi o repozytoriach, z których powinny być ściągane zależności. Jak widzisz InteliJ domyślnie zakłada, że korzystali będziemy z centralnego repozytorium Maven’a.</p>
+
+<p>Kolejny blok specyfikuje zależności, domyślnie występuje tylko jedna zależność dostępna w trakcie kompilowania testów (<code class="highlighter-rouge">testCompile</code>), jest to bilblioteka JUnit w wersji 4.11.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu artykułu dowiedziałeś się podstaw o Gradle. Wiesz już czym są zadania, jak łączyć je między sobą. Utworzyłeś swój pierwszy projekt w Gradle w InteliJ IDEA. Przeczytałeś o konwencjach stosowanych w większych projektach programistycznych.</p>
+
+<p>Temat bynajmniej nie jest wyczerpany. W kolejnych artykułach, bez wstępu, któremu poświęcony jest ten artykuł skupię się na omawianiu bardziej zaawansowanych możliwości Gradle.</p>
+
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do mojego newslettera i polub Samouczka na facebooku.</p>
+
+<p>Na koniec mam do Ciebie standardową prośbę, podziel się linkiem do artykułu ze znajomymi, zależy mi na dotarciu do jak największej liczby zapaleńców chcących uczyć się i doskonalić w programowaniu :). Do następnego razu!</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:gradle">
+      <p>Oczywiście z racji swoje elastyczności Gradle może być użyte także w wielu innych przypadkach, jednak to budowanie projektów jest tym “standardowym”. <a href="#fnref:gradle" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:jar">
+      <p>Programy, które napiszemy pakowane są w paczki, tego typu paczki używane są do uruchamiania programów w środowisku produkcyjnym. <a href="#fnref:jar" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#programista-rzemie%C5%9Blnik" class="page__taxonomy-item" rel="tag">Programista rzemieślnik</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-01-19T21:21:55+01:00">January 19, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwstep-do-gradle%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwstep-do-gradle%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-czesc-2/" class="pagination--pager" title="Wyrażenia regularne część 2
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/xml-dla-poczatkujacych/" class="pagination--pager" title="XML dla początkujących
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/wstep-do-gradle/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/wstep-do-gradle"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

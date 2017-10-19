@@ -1,0 +1,801 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>XML dla początkujących - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o tym czym jest format XML. Poznasz kilka bibliotek czy specyfikacji używanych do przetwarzania tego formatu. Przeczytasz o wadach i zaletach pracy z plikami XML, poznasz też przykłady praktycznego zastosowania takiego formatu zapisu danych. Zapraszam do artykułu.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="XML dla początkujących">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/xml-dla-poczatkujacych/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/xml-dla-poczatkujacych/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o tym czym jest format XML. Poznasz kilka bibliotek czy specyfikacji używanych do przetwarzania tego formatu. Przeczytasz o wadach i zaletach pracy z plikami XML, poznasz też przykłady praktycznego zastosowania takiego formatu zapisu danych. Zapraszam do artykułu.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/03/02_xml_dla_poczatkujacych_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-03-02T23:37:42+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/03/02_xml_dla_poczatkujacych_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          XML dla początkujących
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o tym czym jest format XML. Poznasz kilka bibliotek czy specyfikacji używanych do przetwarzania tego formatu. Przeczytasz o wadach i zaletach pracy z plikami XML, poznasz też przykłady praktycznego zastosowania takiego formatu zapisu danych. Zapraszam do artykułu.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/stanzim/27926733595/sizes/l">© stanzim</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">XML dla początkujących</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="XML dla początkujących">
+    <meta itemprop="description" content="W artykule tym przeczytasz o tym czym jest format XML. Poznasz kilka bibliotek czy specyfikacji używanych do przetwarzania tego formatu. Przeczytasz o wadach i zaletach pracy z plikami XML, poznasz też przykłady praktycznego zastosowania takiego formatu zapisu danych. Zapraszam do artykułu.">
+    <meta itemprop="datePublished" content="March 02, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#czym-jest-xml" id="markdown-toc-czym-jest-xml">Czym jest XML</a></li>
+  <li><a href="#opis-formatu-xml" id="markdown-toc-opis-formatu-xml">Opis formatu XML</a>    <ul>
+      <li><a href="#element-główny" id="markdown-toc-element-główny">Element główny</a></li>
+      <li><a href="#zawartość-elementów" id="markdown-toc-zawartość-elementów">Zawartość elementów</a></li>
+      <li><a href="#atrybuty" id="markdown-toc-atrybuty">Atrybuty</a></li>
+      <li><a href="#przestrzenie-nazw" id="markdown-toc-przestrzenie-nazw">Przestrzenie nazw</a></li>
+      <li><a href="#komentarze" id="markdown-toc-komentarze">Komentarze</a></li>
+      <li><a href="#prolog" id="markdown-toc-prolog">Prolog</a></li>
+      <li><a href="#pozostałe-wymagania-dotyczące-formatu" id="markdown-toc-pozostałe-wymagania-dotyczące-formatu">Pozostałe wymagania dotyczące formatu</a></li>
+    </ul>
+  </li>
+  <li><a href="#rodzice-dzieci-i-rodzeństwo-a-xml" id="markdown-toc-rodzice-dzieci-i-rodzeństwo-a-xml">Rodzice, dzieci i rodzeństwo a XML</a></li>
+  <li><a href="#walidacja-dokumentów-xml" id="markdown-toc-walidacja-dokumentów-xml">Walidacja dokumentów XML</a></li>
+  <li><a href="#wady-i-zalety-formatu-xml" id="markdown-toc-wady-i-zalety-formatu-xml">Wady i zalety formatu XML</a></li>
+  <li><a href="#zastosowanie-dokumentów-w-formacie-xml" id="markdown-toc-zastosowanie-dokumentów-w-formacie-xml">Zastosowanie dokumentów w formacie XML</a></li>
+  <li><a href="#na-xml-świat-się-nie-kończy" id="markdown-toc-na-xml-świat-się-nie-kończy">Na XML świat się nie kończy</a></li>
+  <li><a href="#inne-specyfikacje-i-narzędzia-związane-z-xml" id="markdown-toc-inne-specyfikacje-i-narzędzia-związane-z-xml">Inne specyfikacje i narzędzia związane z XML</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="czym-jest-xml">Czym jest XML</h2>
+
+<p>XML (ang. <em>Extensible Markup Language</em>) to specyfikacja zapisu danych, która została opracowana w 1998 roku przez W3C (ang. <em>World Wide Web Consortium</em>). Jest to format tekstowy, który pozwana na zapisywanie danych w postaci, która jest łatwa do odczytu zarówno przez maszyny jak i przez ludzi<sup id="fnref:czytelnosc"><a href="#fn:czytelnosc" class="footnote">1</a></sup>.</p>
+
+<p>Aby dane w formacie XML uważano za poprawne muszą one mieć pewną strukturę, proszę spójrz na przykład poniżej, który pokazuje poprawne dane w formacie XML:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;kurs-java&gt;</span>
+    <span class="nt">&lt;artykul</span> <span class="na">publikacja=</span><span class="s">”2017-03-01”</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;tytul&gt;</span>Wprowadzenie do XML w Javie<span class="nt">&lt;/tytul&gt;</span>
+        <span class="nt">&lt;autor&gt;</span>Marcin Pietraszek<span class="nt">&lt;/autor&gt;</span> 
+    <span class="nt">&lt;/artykul&gt;</span> 
+    <span class="nt">&lt;artykul&gt;</span> 
+        <span class="c">&lt;!-- do uzupelnienia --&gt;</span> 
+    <span class="nt">&lt;/artykul&gt;</span>
+    <span class="nt">&lt;opis</span> <span class="na">status=</span><span class="s">”do</span> <span class="err">uzupelnienia”</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;wydawca:opis&gt;</span>Zestaw artykułów dotyczących programowania w języku Java<span class="nt">&lt;/wydawca:opis&gt;</span>
+<span class="nt">&lt;/kurs-java&gt;</span>
+</code></pre></div></div>
+
+<p>Przykładowy dokument powyżej może służyć do opisu kursu programowania Java znajdującego się na Samouczku. Równie dobrze możesz stworzyć plik, który zawierał będzie informacje na temat pogody, stopni w szkole czy jakiegokolwiek innego tematu.</p>
+
+<h2 id="opis-formatu-xml">Opis formatu XML</h2>
+
+<p>Dokument XML składa się z zagnieżdżonych elementów. Są one zapisywane jako znaczniki w postaci <code class="highlighter-rouge">&lt;znacznik&gt;&lt;/znacznik&gt;</code>.</p>
+
+<p class="notice--info">Na początek drobna dygresja na temat węzłów i elementów. Czytając inne źródła po polsku na temat XML natkniesz się na nazwę węzeł. Sam próbując znaleźć poprawny odpowiednik w języku polskim nie znalazłem zbyt wielu wzmianek o węzłach (ang. <em>node</em>) w <a href="https://www.w3.org/TR/2008/REC-xml-20081126/">specyfikacji</a>. Specyfikacja opisuje elementy (ang. <em>element</em>). Dlatego w tym artykule posługiwał będę się wyłącznie określeniem element. Z racji tego, że XML ma strukturę drzewiastą, a w “pracy z drzewami” mówi się o węzłach często też ten termin używany jest w odniesieniu do elementów dokumentu XML.</p>
+
+<h3 id="element-główny">Element główny</h3>
+
+<p>Każdy poprawny dokument XML musi mieć wyłącznie jeden element główny (ang. <em>root element</em>). W przykładzie powyżej jest to element <code class="highlighter-rouge">&lt;kurs-java&gt;</code>.</p>
+
+<h3 id="zawartość-elementów">Zawartość elementów</h3>
+
+<p>Elementy wewnątrz mogą zawierać treść. Na przykład wewnątrz elementu <code class="highlighter-rouge">&lt;tytul&gt;</code> znajduje się treść <code class="highlighter-rouge">Wprowadzenie do XML w Javie</code>.</p>
+
+<p>Elementy wewnątrz mogą zawierać kolejne elementy. Na przykład element <code class="highlighter-rouge">&lt;artykul&gt;</code> zawiera wewnątrz elementy <code class="highlighter-rouge">&lt;tytul&gt;</code> i <code class="highlighter-rouge">&lt;autor&gt;</code>. Można to porównać do drzewa gdzie z jednego pnia (elementu głównego) wyrasta kilka gałęzi (elementów zagnieżdżonych), zakończonych liśćmi. W praktyce mówiąc o liściach dokumentu XML mamy na myśli właśnie te najbardziej zagnieżdżone elementy. W naszym przykładzie będą to na przykład <code class="highlighter-rouge">&lt;tytul&gt;</code> czy <code class="highlighter-rouge">&lt;autor&gt;</code>.</p>
+
+<h3 id="atrybuty">Atrybuty</h3>
+
+<p>Elementy mogą posiadać dowolną liczbę atrybutów. Za przykład mogą posłużyć tu element <code class="highlighter-rouge">&lt;artykul&gt;</code> zawierający atrybut <code class="highlighter-rouge">publikacja</code>. Zawartość atrybutu to zwykły tekst. W przeciwieństwie do elementów nie możemy stosować “zagnieżdżania” - wewnątrz atrybutu nie możemy umieścić niczego poza jego wartością.</p>
+
+<h3 id="przestrzenie-nazw">Przestrzenie nazw</h3>
+
+<p>Nazwy elementów elementów i atrybutów mogą zawierać tak zwaną “przestrzeń nazw” (ang. <em>namespace</em>). Do oddzielenia nazwy elementu czy atrybutu od przestrzeni nazw używa się dwukropka. W przykładzie powyżej element <code class="highlighter-rouge">&lt;wydawca:opis&gt;</code> pochodzi z przestrzeni nazw <code class="highlighter-rouge">wydawca</code>.</p>
+
+<p>Przestrzenie nazw stosuje się aby móc odróżnić znaczenie elementów o tej samej nazwie. W przykładzie elementy <code class="highlighter-rouge">&lt;opis&gt;</code> i <code class="highlighter-rouge">&lt;wydawca:opis&gt;</code> mogą zawierać zupełnie różne dane - różne rodzaje opisów.</p>
+
+<h3 id="komentarze">Komentarze</h3>
+
+<p>Wewnątrz dokumentu XML możesz umieszczać komentarze. W przykładzie powyżej komentarz to <code class="highlighter-rouge">&lt;!-- do uzupelnienia --&gt;</code>. Wszystko co znajduje się pomiędzy <code class="highlighter-rouge">&lt;!--</code> i <code class="highlighter-rouge">--&gt;</code> uważane jest jako komentarz.</p>
+
+<h3 id="prolog">Prolog</h3>
+
+<p>Dokument XML powinien zawierać prolog. Częścią prologu jest deklaracja <code class="highlighter-rouge"><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></code> zawiera ona informację o wersji XML, której używamy. Może także wskazać kodowanie znaków jakie zostało użyte w danym dokumencie. Wewnątrz prologu mogą znajdować się także deklaracje DTD (ang. <em>Document Type Declaration</em>) opisujące dany dokument. W opisie tym możemy na przykład określić, że element <code class="highlighter-rouge">&lt;artykul&gt;</code> powinien zawsze zawierac element <code class="highlighter-rouge">&lt;autor&gt;</code>.</p>
+
+<h3 id="pozostałe-wymagania-dotyczące-formatu">Pozostałe wymagania dotyczące formatu</h3>
+
+<p>Każdy element musi się poprawnie zamykać. Na przykład <code class="highlighter-rouge">&lt;autor&gt;Marcin Pietraszek&lt;/autor&gt;</code>. Jeśli element nie ma treści, bądź innych zagnieżdżonych elementów zamyka się go w następujący sposób <code class="highlighter-rouge">&lt;opis status="do uzupelnienia"/&gt;</code>.</p>
+
+<p>Elementy powinny być poprawnie zagnieżdżone. Łatwiej będzie mi to wytłumaczyć na przykładzie. Poniżej możesz zobaczyć niepoprawny fragment dokumentu XML:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;artykul&gt;</span>
+   <span class="nt">&lt;tytul&gt;</span>
+       <span class="nt">&lt;autor&gt;</span>
+   <span class="nt">&lt;/tytul&gt;</span>
+       <span class="nt">&lt;/autor&gt;</span>
+<span class="nt">&lt;/artykul&gt;</span>
+</code></pre></div></div>
+
+<p>Zauważ, że element <code class="highlighter-rouge">tytul</code> zamknięty jest przed elementem <code class="highlighter-rouge">autor</code>. Jest to niepoprawny sposób zagnieżdżania elementów. Możemy powiedzieć, że elementy, które nie są poprawnie zagnieżdżone “nachodzą” na siebie.</p>
+
+<p>Białe znaki pomiędzy elementami są ignorowane. W praktyce często używa się znaków tabulacji czy spacji do robienia “wcięć”. Dzięki temu tak sformatowane dokumenty są bardziej czytelne.</p>
+
+<h2 id="rodzice-dzieci-i-rodzeństwo-a-xml">Rodzice, dzieci i rodzeństwo a XML</h2>
+
+<p>W przypadku poprawnie sformatowanych dokumentów XML możemy mówić o pewnych relacjach pomiędzy elementami. Specyfikacja XML mówi o rodzicach (ang. <em>parent</em>) i dzieciach (ang. <em>child</em>). W praktyce używa się także określenia rodzeństwo (ang. <em>sibling</em>).</p>
+
+<p>Element może mieć wiele dzieci, na przykład element <code class="highlighter-rouge">&lt;kurs-java&gt;</code> ma czworo dzieci - dwa elementy <code class="highlighter-rouge">&lt;artykul&gt;</code>, element <code class="highlighter-rouge">&lt;opis&gt;</code> i element <code class="highlighter-rouge">&lt;wydawca:opis&gt;</code>.</p>
+
+<p>Każdy element, poza elementem głównym, posiada dokładne jednego rodzica. Na przykład element <code class="highlighter-rouge">&lt;tytul&gt;</code> ma rodzica <code class="highlighter-rouge">&lt;artykul&gt;</code>.</p>
+
+<p>Każdy element, poza elementem głównym, może mieć rodzeństwo. Na przykład rodzeństwem dla elementu <code class="highlighter-rouge">&lt;artykul&gt;</code> jest kolejny element <code class="highlighter-rouge">&lt;artykul&gt;</code>, <code class="highlighter-rouge">&lt;opis&gt;</code> i <code class="highlighter-rouge">&lt;wydawca:opis&gt;</code>.</p>
+
+<h2 id="walidacja-dokumentów-xml">Walidacja dokumentów XML</h2>
+
+<p>Jak widzisz w dokumencie XML możemy zawrzeć praktycznie wszystko. Liczba dostępnych formatów jest nieskończona. W związku z tym istnieją różne mechanizmy pozwalające na walidację poprawności dokumentów XML.</p>
+
+<p>Za przykład mogą tu posłużyć wspomniane wcześniej elementy DTD (ang. <em>Document Type Definition</em>) znajdujace się wewnątrz dokumentu XML.</p>
+
+<p>Innym sposobem na walidację poprawnej struktury dokumentu XML jest używanie XSD (ang. <em>XML Schema Definition</em>). Jest to zewnętrzny plik, który także jest w formacie XML. Wewnątrz tego pliku możemy dokładnie określić strukturę jaką powinien mieć inny dokument XML.</p>
+
+<p>Dzięki takiej walidacji możemy na przykład zastrzec, że zawsze wewnątrz elementu <code class="highlighter-rouge">&lt;artykul&gt;</code> musi znajdować się element <code class="highlighter-rouge">&lt;tytul&gt;</code> a element <code class="highlighter-rouge">&lt;autor&gt;</code> jest opcjonalny.</p>
+
+<h2 id="wady-i-zalety-formatu-xml">Wady i zalety formatu XML</h2>
+
+<p>Główną zaletą pracy z dokumentami XML jest to, że istnieje mnóstwo narzędzi pozwalających na ich przetwarzanie. Dokumenty te są w miarę czytelne dla człowieka. Z łatwością format ten może służyć do wymiany informacji pomiędzy różnymi programami.</p>
+
+<p>Niestety nie jest to format idealny. Przy pracy z dużymi plikami XML przekonasz się, że wcześniej wspomniana czytelność nie jest już tak oczywista. Ponadto pliki XML są dość “rozwlekłe”. Z racji konieczności zamykania każdego elementu, znaczników w dokumencie XML jest dużo i często to one znacząco zwiększają ostateczną wielkość dokumentu.</p>
+
+<p>Ponadto dokumenty bardziej czytelne dla człowieka automatycznie zajmują więcej miejsca. To człowiek potrzebuje wcięć w dokumencie XML, dla programu używającego plików XML takie wcięcia są zbędne.</p>
+
+<h2 id="zastosowanie-dokumentów-w-formacie-xml">Zastosowanie dokumentów w formacie XML</h2>
+
+<p>Z racji swojej dobrze zdefiniowanej struktury i ogromnego zestawu narzędzi dokumenty w formacie XML są bardzo popularne. Dedykowane narzędzia do pracy z XML dostępne są w wielu językach programowania. Dokumenty w formacie XML świetnie nadają się do zapisywania wszelkiego rodzaju ustawień.</p>
+
+<p>Poniżej pokażę Ci kilka przykładowych zastosowań dokumentów w formacie XML:</p>
+
+<ul>
+  <li>“poprzednik” <a href="/wstep-do-gradle/">opisanego przeze mnie Gradle’a</a> - Maven używa XML w swoich plikach konfiguracyjnych - na przykład <code class="highlighter-rouge">settings.xml</code>, <code class="highlighter-rouge">profiles.xml</code> czy <code class="highlighter-rouge">plugin-registry.xml</code>. Główny plik konfiguracyjny dla projektu to także dokument XML - <code class="highlighter-rouge">pom.xml</code>,</li>
+  <li>w jednym z banków, w którym pracowałem dokumenty XML wraz z XSLT służyły do generowania wszystkich drukowanych dokumentów,</li>
+  <li>każda aplikacja na system Android używa plików XML. W uproszczeniu można powiedzieć, że opisują one wygląd ekranu aplikacji,</li>
+  <li>dokumenty ODT (format używany na przykład przez Open Office), czy DOCX (format używany przez Microsoft Word) to tak na prawdę pliki zip, które wewnątrz zawierają dokumenty XML opisujące zawartość pliku, rozpakuj je a sam się przekonasz :)</li>
+</ul>
+
+<h2 id="na-xml-świat-się-nie-kończy">Na XML świat się nie kończy</h2>
+
+<p>Oczywiście dokumenty XML nie są jedynym formatem, który może pomóc w wymianie danych. Poniżej wspominam o kilku innych formatach, które mogą być także użyte w tym celu.</p>
+<ul>
+  <li>CSV - (ang. <em>Comman Separated Values</em>) zwykły plik tekstowy, w którym każdy wiersz zawiera dane oddzielone przecinkami<sup id="fnref:csv"><a href="#fn:csv" class="footnote">2</a></sup>. Z racji tego, że jest to plik tekstowy można go z łatwością odczytać używając edytora tekstu.</li>
+  <li><a href="http://www.yaml.org/">YAML</a> - (ang. <em>Yet Another Markup Language</em> lub <em>YAML Ain’t Markup Language</em>) tekstowy format, w którym możemy zapisywać bardziej złożone struktury czy kolekcje.</li>
+  <li><a href="http://www.json.org/">JSON</a> - (ang. <em>JavaScript Object Notation</em>) podobnie jak YAML jest w stanie opisać listę elementów czy kolekcję par klucz-wartość. Format ten, jak jego nazwa wskazuje, powstał na potrzeby JavaScript, jednak obecne jest szeroko stosowany także w innych językach. Jest to format tekstowy.</li>
+</ul>
+
+<p>Oczywiście poza formatami tekstowymi istnieją też formaty binarne:</p>
+<ul>
+  <li><a href="https://developers.google.com/protocol-buffers/">ProtocolBuffers</a> - binarny format opracowany przez Google. Pozwala na zapisanie praktycznie dowolnych struktur. Z racji tego, że jest to format binarny jest bardziej “zwięzły” od wspomnianych powyżej. Oczywiście nie można odczytać tego formatu bez odpowiedniego “dekodowania” zawartości,</li>
+  <li><a href="https://avro.apache.org/">Avro</a> - binarny format serializacji danych, podobnie jak ProtoclBuffers zapewnia dużo bardziej zwięzłą reprezentację danych. Ma wbudowany mechanizm kompresji co pozwala na jeszcze większe zmniejszenie objętości dokumentów.</li>
+</ul>
+
+<p>Bynajmniej nie są to wszystkie dostępne formaty wymiany danych. Wspomniałem o tych kilku aby pokazać Ci, że na XML świat się nie kończy :) Każdy z tych formatów dorobił się szerokiego wsparcia w różnych językach programowania.</p>
+
+<h2 id="inne-specyfikacje-i-narzędzia-związane-z-xml">Inne specyfikacje i narzędzia związane z XML</h2>
+
+<p>XML jako dość dojrzały format zapisu danych “dorobił się” zestawu narzędzi i specyfikacji. Na początek ten zestaw może okazać się przytłaczający, ale spokojnie - nie wszystkich tych narzędzi używa się w każdym projekcie. W większości przypadków wystarczy wiedza o poprawnym formacie dokumentu XML i znajomość jednego z narzędzi do tworzenia/czytania plików XML.</p>
+
+<p>Lista poniżej to specyfikacje/narzędzia pozwalające na parsowanie i tworzenie plików w formacie XML:</p>
+
+<ul>
+  <li><a href="https://www.w3.org/DOM/">DOM</a> (ang. <em>Document Object Model</em>),</li>
+  <li><a href="http://www.saxproject.org/">SAX</a> (ang. <em>Simple API for XML</em>),</li>
+  <li>StAX (ang. <em>Streaming API for XML</em>),</li>
+  <li><a href="https://jaxb.java.net/">JAXB</a> (ang. <em>Java Architecture for XML Binding</em>).</li>
+</ul>
+
+<p>W jednym z klejnych artykułów skupię się na praktycznym wykorzystaniu powyższych narzędzi.</p>
+
+<p>Dodatkowo możesz też zainteresować się następującymi specyfikacjami związanymi z XML. Przydają się one w bardziej zaawansowanej pracy z dokumentami XML:</p>
+
+<ul>
+  <li><a href="https://www.w3.org/TR/xmlschema-1/">XSD</a> (ang. <em>XML Schema Definition</em>) - wcześniej wspomniana specyfikacja pomagająca w walidacji poprawności dokumentów XML,</li>
+  <li><a href="https://www.w3.org/TR/xpath/">XPath</a> (ang <em>XML Path Language</em>) - język pozwalający na wskazywanie elementów czy atrybutów w dokumencie XML, przy jego pomocy możesz na przykład określić “zwróć mi wszystkie elementy X, które mają atrybut Y o wartości Z”,</li>
+  <li><a href="https://www.w3.org/TR/xslt">XSLT</a> (ang. <em>Extensible Stylesheet Language Transformations</em>) - język służący do tranformowania dokumentów XML. Przy jego pomocy można przekształcić dokument XML do innych formatów, na przykład do pliku PDF.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu artykułu wiesz już czym jest XML. Poznałeś część dozwolonych konstrukcji, wiesz czym są elementy i jak wygląda poprawnie sformatowany dokument XML. Potrafisz wskazać praktyczne zastosowania tego formatu, znasz też kilka jego zalet i wad. Przed Tobą użycie XML w praktyce, ale to już temat na kolejny artykuł :).</p>
+
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do mojego newslettera i polub Samouczka na facebooku.</p>
+
+<p>Na koniec mam do Ciebie standardową prośbę, podziel się linkiem do artykułu ze znajomymi, zależy mi na dotarciu do jak największej liczby samouków, którzy chcą pogłębiać swoją wiedzę. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:czytelnosc">
+      <p>Moim zdaniem skomplikowane pliki XML w cale nie są czytelne dla ludzi, ale to już temat na osobną dyskusję ;). <a href="#fnref:czytelnosc" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:csv">
+      <p>Istnieją też inne wersje gdzie przecinek zastąpiony jest średnikiem czy znakiem tabulacji. <a href="#fnref:csv" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#dsp2017" class="page__taxonomy-item" rel="tag">DSP2017</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#wiedza-og%C3%B3lna" class="page__taxonomy-item" rel="tag">Wiedza ogólna</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-03-02T23:37:42+01:00">March 02, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fxml-dla-poczatkujacych%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fxml-dla-poczatkujacych%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/wstep-do-gradle/" class="pagination--pager" title="Wstęp do Gradle
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/projekt-pogodynka-wprowadzenie/" class="pagination--pager" title="Projekt Pogodynka - wprowadzenie
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/xml-dla-poczatkujacych/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/xml-dla-poczatkujacych"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

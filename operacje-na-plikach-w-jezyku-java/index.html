@@ -1,0 +1,871 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Operacje na plikach w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Artykuł ten opisuje podstawowy dostęp do plików. Poznasz zupełne podstawy systemu plików. Dowiesz się czym jest plik binarny i czym różni się od pliku tekstowego. Dowiesz się czegoś więcej o trybach dostępu do plików. Na koniec napiszesz swój własny program, który będzie zapisywał dane do pliku i wyświetlał jego zawartość. Innymi słowy artykuł, w którym podstawy systemu plików i programowanie poznasz od praktycznej strony :) Zapraszam!">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Operacje na plikach w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/operacje-na-plikach-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/operacje-na-plikach-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="Artykuł ten opisuje podstawowy dostęp do plików. Poznasz zupełne podstawy systemu plików. Dowiesz się czym jest plik binarny i czym różni się od pliku tekstowego. Dowiesz się czegoś więcej o trybach dostępu do plików. Na koniec napiszesz swój własny program, który będzie zapisywał dane do pliku i wyświetlał jego zawartość. Innymi słowy artykuł, w którym podstawy systemu plików i programowanie poznasz od praktycznej strony :) Zapraszam!">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2016/08/17_operacje_na_plikach_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-08-17T18:14:32+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2016/08/17_operacje_na_plikach_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Operacje na plikach w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">Artykuł ten opisuje podstawowy dostęp do plików. Poznasz zupełne podstawy systemu plików. Dowiesz się czym jest plik binarny i czym różni się od pliku tekstowego. Dowiesz się czegoś więcej o trybach dostępu do plików. Na koniec napiszesz swój własny program, który będzie zapisywał dane do pliku i wyświetlał jego zawartość. Innymi słowy artykuł, w którym podstawy systemu plików i programowanie poznasz od praktycznej strony :) Zapraszam!
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/micahd">© micahd</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Operacje na plikach w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Operacje na plikach w języku Java">
+    <meta itemprop="description" content="Artykuł ten opisuje podstawowy dostęp do plików. Poznasz zupełne podstawy systemu plików. Dowiesz się czym jest plik binarny i czym różni się od pliku tekstowego. Dowiesz się czegoś więcej o trybach dostępu do plików. Na koniec napiszesz swój własny program, który będzie zapisywał dane do pliku i wyświetlał jego zawartość. Innymi słowy artykuł, w którym podstawy systemu plików i programowanie poznasz od praktycznej strony :) Zapraszam!">
+    <meta itemprop="datePublished" content="August 17, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#system-plików" id="markdown-toc-system-plików">System plików</a>    <ul>
+      <li><a href="#pliki-binarne-a-pliki-tekstowe" id="markdown-toc-pliki-binarne-a-pliki-tekstowe">Pliki binarne a pliki tekstowe</a></li>
+      <li><a href="#Ścieżka-do-pliku" id="markdown-toc-Ścieżka-do-pliku">Ścieżka do pliku</a></li>
+      <li><a href="#Ścieżka-absolutna-i-relatywna" id="markdown-toc-Ścieżka-absolutna-i-relatywna">Ścieżka absolutna i relatywna</a></li>
+      <li><a href="#tryb-dostępu-do-pliku" id="markdown-toc-tryb-dostępu-do-pliku">Tryb dostępu do pliku</a></li>
+    </ul>
+  </li>
+  <li><a href="#klasy-do-obsługi-operacji-na-plikach" id="markdown-toc-klasy-do-obsługi-operacji-na-plikach">Klasy do obsługi operacji na plikach</a></li>
+  <li><a href="#obsługa-plików-tekstowych" id="markdown-toc-obsługa-plików-tekstowych">Obsługa plików tekstowych</a>    <ul>
+      <li><a href="#zapisywanie-danych-do-pliku" id="markdown-toc-zapisywanie-danych-do-pliku">Zapisywanie danych do pliku</a></li>
+      <li><a href="#zamykanie-dostępu-do-plików" id="markdown-toc-zamykanie-dostępu-do-plików">Zamykanie dostępu do plików</a></li>
+      <li><a href="#odczytywanie-danych-z-pliku" id="markdown-toc-odczytywanie-danych-z-pliku">Odczytywanie danych z pliku</a></li>
+    </ul>
+  </li>
+  <li><a href="#obsługa-plików-binarnych" id="markdown-toc-obsługa-plików-binarnych">Obsługa plików binarnych</a>    <ul>
+      <li><a href="#zapisywanie-danych-do-pliku-1" id="markdown-toc-zapisywanie-danych-do-pliku-1">Zapisywanie danych do pliku</a></li>
+      <li><a href="#odczytywanie-danych-z-pliku-1" id="markdown-toc-odczytywanie-danych-z-pliku-1">Odczytywanie danych z pliku</a></li>
+    </ul>
+  </li>
+  <li><a href="#zadania" id="markdown-toc-zadania">Zadania</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">darmowego kursu programowania w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h2 id="system-plików">System plików</h2>
+
+<p>Na początku winien Ci jestem drobne wprowadzenie do czegoś co nazywa się systemem plików. Otóż dysk komputera może pomieścić pewną ilość danych, współczesne dyski twarde mają pojemność z przedziału kilkuset gigabajtów (GB) do kilku terabajtów (TB).</p>
+
+<p>Jest to ogromna przestrzeń, 1 GB to 1’000 MB, to z kolei przekłada się na 1’000’000’000B (10<sup>9</sup> bajtów). Każdy z tych bajtów to 8 bitów. Na zapisanie dowolnej liczby typu <code class="highlighter-rouge">int</code> w Javie potrzebujesz 32 bitów (4 bajtów). Czyli 1GB dysku w teorii może pomieścić 250’000’000 liczb zapisanych w tym formacie. Innymi słowy potrzeba około 3GB aby w tym formacie zapisać datę urodzenia każdego mieszkańca Europy (gdzie datę zapisujemy jako jedną liczbę) :)</p>
+
+<p>Aby komputer wiedział co znajduje się w którym miejscu w tym gąszczu cyferek potrzebny jest system plików. Istnieje wiele rodzajów systemów plików, jednak ich rozróżnienie nie jest nam w tym momencie potrzebne. Jeśli jesteś zainteresowany bardziej szczegółowymi informacjami zachęcam do przeczytania <a href="https://pl.wikipedia.org/wiki/System_plików">artykułu na wikipedii</a>.</p>
+
+<p>Najważniejsze jest abyś zapamiętał, że system plików organizuje dane na dysku i daje do nich dostęp poprzez znane Ci foldery czy pliki.</p>
+
+<h3 id="pliki-binarne-a-pliki-tekstowe">Pliki binarne a pliki tekstowe</h3>
+
+<p>Wiesz już, że plik mapuje się na pewien obszar danych na dysku. Otwierając jakikolwiek plik czytasz te dane za pośrednictwem systemu plików. Dane te mogą być zapisane w trybie „tekstowym” bądź „binarnym”<sup id="fnref:pliki"><a href="#fn:pliki" class="footnote">1</a></sup>.</p>
+
+<p>Sposób zapisu danych ma istotny wpływ na rozmiar pliku. Na przykład zapisanie liczby 1234567 binarnie jako <code class="highlighter-rouge">int</code> w Javie wymaga 4 bajtów. Zapisanie tej samej liczby jako łańcuch znaków w pliku tekstowym wymaga już 7 bajtów. Innymi słowy zapis binarny w ogromnej większości przypadków wymaga mniej miejsca na dysku.</p>
+
+<p>Niestety wiąże się to z pewnymi ograniczeniami. Otóż pliki binarne nie są czytelne dla ludzi (ang. <em>human-readable</em>). Czy zdarzyło Ci się kiedyś otworzyć plik binarny w notatniku? Zobaczyłbyś wtedy przysłowiowe „krzaki”, ponieważ notatnik interpretował dane binarne jako tekst.</p>
+
+<h3 id="Ścieżka-do-pliku">Ścieżka do pliku</h3>
+
+<p>System plików organizuje dane na dysku w hierarchiczną strukturę katalogów wewnątrz których znajdują się pliki. Każdy plik czy katalog ma ścieżkę, która jednoznacznie wskazuje jego miejsce w tej strukturze.</p>
+
+<p>Tutaj napotykamy na pewne różnice pomiędzy różnymi systemami operacyjnymi. Dyski mogą być podzielone na tak zwane partycje, systemy operacyjne z rodziny Windows przedstawiają te partycje jako osobne dyski np. dysk C czy dysk D. W związku z tym ścieżki nieznacznie różnią się pomiędzy różnymi systemami operacyjnymi. I tak ścieżka w systemie z rodziny Windows wygląda następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\katalog\plik.txt
+</code></pre></div></div>
+
+<p>Analogiczna ścieżka w systemach z rodziny Linux/Unix wygląda trochę inaczej:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/katalog/plik.txt
+</code></pre></div></div>
+
+<p>W kontekście języka Java taka różnica ma pewne konsekwencje. Otóż jeśli chcemy użyć literału <code class="highlighter-rouge">String</code> wówczas znak <code class="highlighter-rouge">\</code> musimy poprzedzić kolejnym <code class="highlighter-rouge">\</code>. Dzieje się tak ponieważ symbol <code class="highlighter-rouge">\</code> jest wykorzystywany w specjalny sposób. Zatem ścieżka <code class="highlighter-rouge">C:\katalog\plik.txt</code> zapisana w Javie jako <code class="highlighter-rouge">String</code> wygląda następująco <code class="highlighter-rouge">"C:\\katalog\\plik.txt"</code>.</p>
+
+<h3 id="Ścieżka-absolutna-i-relatywna">Ścieżka absolutna i relatywna</h3>
+
+<p>Do każdego folderu/pliku możemy odnieść się poprzez ścieżkę absolutną bądź relatywną (możemy je także nazwać ścieżką bezwzględna i względną). Ścieżka absolutna jest ścieżką „od początku”, czyli przechodzi przez całą strukturę katalogów aż do samego pliku.</p>
+
+<p>Załóżmy, że dysk C ma strukturę jak przedstawiono poniżej:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\
+ ├── folder_1
+ │ └── plik_1.txt
+ ├── folder_2
+ │ ├── folder_2_a
+ │ │ └── plik_2_a.txt
+ │ └── plik_2.txt
+ └── plik.txt
+</code></pre></div></div>
+
+<p>Ścieżka absolutna do pliku plik_2_a.txt wygląda następująco <code class="highlighter-rouge">C:\folder_2\folder_2_a\plik_2_a.txt</code>. Możemy mówić również o ścieżce relatywnej. Mówimy o niej relatywna ponieważ określa adres pliku/katalogu relatywnie do miejsca, w którym się aktualnie znajdujemy.</p>
+
+<p>Zakładając że znajdujemy się w katalogu <code class="highlighter-rouge">folder_2</code> wówczas nasza relatywna ścieżka do pliku <code class="highlighter-rouge">plik_2_a.txt</code> jet następująca <code class="highlighter-rouge">folder_2_a\plik_2_a.txt</code>.</p>
+
+<h3 id="tryb-dostępu-do-pliku">Tryb dostępu do pliku</h3>
+
+<p>Musisz wiedzieć, że plik możemy otworzyć „do odczytu”, „do zapisu” czy „w trybie dołączania”. Tryb ten jest bardzo istotny, otworzenie do zapisu pliku, który już istnieje i zapisanie choćby jednego znaku kasuje całą dotychczasową zawartość. Podobnie otworzenie do zapisu pliku, który jeszcze nie istnieje powoduje jego utworzenie (jeśli katalog w którym ma znaleźć się plik istnieje).</p>
+
+<p>Tryb „dołączania” nie kasuje zawartości istniejącego pliku a jedynie dopisuje na końcu nową treść.</p>
+
+<p>Otwierając jakikolwiek plik w języku Java otwieramy go w pewnym trybie. Tryb ten określamy wprost, bądź jest określony domyślnie w zależności od klasy, którą użyjemy do tego celu. Klasy służące do pisania do pliku domyślnie otwierają go „do zapisu”.</p>
+
+<h2 id="klasy-do-obsługi-operacji-na-plikach">Klasy do obsługi operacji na plikach</h2>
+
+<p>Musisz wiedzieć, że klasy z biblioteki standardowej do obsługi plików wprowadzają pewne warstwy abstrakcji ułatwiające pracę z plikami. Wygląda to w ten sposób, że mamy klasę X, która jest klasą podstawową udostępniającą bardzo ograniczony zakres operacji. Klasa Y używając interfejsu klasy X udostępnia interfejs wyższego poziomu, z którym programiście łatwiej jest pracować. Takie podejście można porównać do swego rodzaju cebuli ;) gdzie każda kolejna warstwa bazuje na poprzedniej i udostępnia trochę inny interfejs.</p>
+
+<p>Przekładając to na konkretny przykład klas ze standardowej biblioteki Javy mamy klasę <a href="https://docs.oracle.com/javase/8/docs/api/java/io/File.html"><code class="highlighter-rouge">java.io.File</code></a>, która oferuje podstawowe operacje na pliku.
+Instancja <code class="highlighter-rouge">File</code> jest przyjmowana jako parametr do utworzenia instancji klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileReader.html"><code class="highlighter-rouge">java.io.FileReader</code></a>, która pozwala programiście na tekstowy dostęp do pliku znak po znaku. Z racji tego, że taka forma może być uciążliwa mamy do dyspozycji kolejną klasę <a href="https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html"><code class="highlighter-rouge">java.io.BufferedReader</code></a>, która pozwala na dostęp do pliku linijka po linijce.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">"/path/to/text/file.txt"</span><span class="o">)));</span>
+</code></pre></div></div>
+
+<p>Z racji tego, że powyższy fragment jest dość długi i byłby uciążliwy do pisania za każdym razem twórcy biblioteki przygotowali zestaw konstruktorów, które umożliwiają skrócenie tego zapisu. W przykładzie poniżej programista nie tworzy wprost instancji klasy <code class="highlighter-rouge">File</code>, podaje jedynie ścieżkę do pliku. Ta instancja tworzona jest za nas wewnątrz konstruktora klasy <code class="highlighter-rouge">FileReader</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="s">"/path/to/text/file.txt"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>Po tym wstępie teoretycznym wiesz już na tyle dużo o systemie plików i plikach, że możemy przejść do ich zapisywania i odczytywania. Ścieżki użyte w przykładach są z systemów Linux/Unix, jeśli pracujesz na Windows powinieneś używać ścieżek zgodnych z opisem powyżej.</p>
+
+<p>W artykule tym zajmowali będziemy się wyłącznie sekwencyjnym dostępem do plików. Oznacza to, że pisząc do pliku zawsze dopisujemy linijkę na koniec a czytając, czytamy od początku pliku. Oczywiście możemy też czytać z pliku/pisać do pliku w sposób losowy, wybierając dowolną lokalizację. Takie podejście często jest wykorzystywane w przypadku plików binarnych, których strukturę doskonale znamy i wiemy, że na przykład od bajtu 10 do bajtu 13 włącznie w pliku zawsze znajduje się liczba, która reprezentuje datę urodzenia.</p>
+
+<h2 id="obsługa-plików-tekstowych">Obsługa plików tekstowych</h2>
+
+<h3 id="zapisywanie-danych-do-pliku">Zapisywanie danych do pliku</h3>
+
+<p>Zapis do pliku tekstowego przedstawiłem we fragmencie kodu poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">"/path/to/text/file.txt"</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">1234567</span><span class="o">;</span>
+<span class="n">FileWriter</span> <span class="n">fileWriter</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">fileWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">filePath</span><span class="o">);</span>
+    <span class="n">fileWriter</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">number</span><span class="o">));</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">fileWriter</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">fileWriter</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Przeanalizujmy co się dzieje w tym fragmencie kodu linijka po linijce. Pierwsze trzy linijki to nic innego jak inicjalizacja zmiennych, których będziemy używali później. Nowy tutaj dla Ciebie jest typ <code class="highlighter-rouge">FileWriter</code>, jest to klasa ze standardowej biblioteki języka Java odpowiedzialna za zapis do pliku tekstowego.</p>
+
+<p>Zachęcam do przejrzenia <a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileWriter.html">pełnej dokumentacji klasy FileWriter</a>. Klasa ta udostępnia wysokopoziomowy interfejs zapisu do pliku danych tekstowych. Polecam sprawdzenie hierarchii dziedziczenia klasy <code class="highlighter-rouge">FileWriter</code> w IDE (pamiętasz skrót klawiaturowy z <a href="/kolekcje-w-jezyku-java/">poprzedniego artykułu</a>?).</p>
+
+<p>Następnie wewnątrz klauzuli <code class="highlighter-rouge">try</code> tworzymy nową instancję klasy <code class="highlighter-rouge">FileWriter</code> przekazując jej ścieżkę do pliku, do którego chcemy pisać. Operacja ta otwiera plik, może się ona nie udać co będzie sygnalizowane odpowiednim wyjątkiem. Kolejna linijka to wywołanie metody <code class="highlighter-rouge">write</code>, które zapisuje tekstową reprezentację liczby 1234567 do pliku. Ważne jest abyś pamiętał, że właściwy zapis wcale nie musi w tym miejscu nastąpić ze względu na buforowanie, o którym przeczytasz w jednym z kolejnych akapitów.</p>
+
+<p>Bardzo istotne jest ciało klauzuli <code class="highlighter-rouge">finally</code>. Wewnątrz sprawdzamy czy nasz <code class="highlighter-rouge">fileWriter</code> został zainicjalizowany. Jeśli nie udałoby się stworzyć jego instancji rzucony zostałby wyjątek ale klauzula <code class="highlighter-rouge">finally</code> i tak by się wykonała. Następnie wywołując metodę <code class="highlighter-rouge">close</code> zamykamy dostęp do pliku, jeśli ta operacja się powiedzie mamy pewność, że dane zostały zapisane w pliku na dysku.</p>
+
+<h3 id="zamykanie-dostępu-do-plików">Zamykanie dostępu do plików</h3>
+
+<p>Proszę pamiętaj o zamknięciu strumienia danych. Dlaczego jest to ważne? Podstawowym powodem jest tutaj zarządzanie przez system operacyjny tak zwanymi uchwytami do otwartych plików. Otóż systemy operacyjne, które znam mają limity, które pozwalają na otwarcie np. 2048 plików jednocześnie przez każdy program. Liczba ta jest na tyle duża, że nie zauważasz tego ograniczenia w codziennym użytkowaniu. Jeśli jednak napiszesz program, który będzie otwierał pliki bez ich zamykania możesz z łatwością wyczerpać ten limit.</p>
+
+<p>Bardziej przyziemnym powodem jest tak zwane buforowanie. Zapis do pliku może być buforowany (i jest w części przypadków przez klasy ze standardowej biblioteki Javy). Oznacza to tyle, że wywołanie metody <code class="highlighter-rouge">write</code> tak naprawdę jeszcze niczego na dysku nie zapisuje. Zapisuje te dane w buforze, który zrzucany jest na dysk. Taki zabieg jest wykonywany aby przyspieszyć zapis danych. Jeśli nie zamkniesz pliku może do doprowadzić do sytuacji, w której w buforze zostaną dane, które jeszcze nie zostały do pliku zrzucone. Zostaną one wówczas utracone, a tego chcielibyśmy uniknąć :)</p>
+
+<h3 id="odczytywanie-danych-z-pliku">Odczytywanie danych z pliku</h3>
+
+<p>Przykład kodu poniżej służy do czytania danych z pliku.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">"/path/to/text/file.txt"</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="n">BufferedReader</span> <span class="n">fileReader</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">fileReader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">filePath</span><span class="o">));</span>
+    <span class="n">String</span> <span class="n">numberAsString</span> <span class="o">=</span> <span class="n">fileReader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">numberAsString</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">fileReader</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">fileReader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Podobnie jak poprzednio przeanalizujemy go linijka po linijce. Pierwsze trzy linijki inicjalizują zmienne, które będziemy używali. Wewnątrz klauzuli <code class="highlighter-rouge">try</code> znajduje się kod, który tworzy instancję klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html"><code class="highlighter-rouge">BufferedReader</code></a> dzięki której możemy czytać z pliku linijka po linijce.</p>
+
+<p>Kolejne dwie linie to czytanie linijki z pliku, parsowanie łańcucha znaków i zapisanie go jako liczby typu <code class="highlighter-rouge">int</code>. Metoda <code class="highlighter-rouge">readLine</code>, która została użyta zwróci <code class="highlighter-rouge">null</code> jeśli w pliku nie znajduje się już więcej danych.</p>
+
+<p>Podobnie jak w przypadku plików otwartych do odczytu tak i w tym przypadku musimy pamiętać o ich zamknięciu, zapewnia to wnętrze bloku <code class="highlighter-rouge">finally</code>.</p>
+
+<p>Musisz też wiedzieć, że klasy które pozwalają Ci na czytanie pliku mają tak zwany „wskaźnik”, który zapamiętuje ostatnie miejsce z którego coś przeczytaliśmy. Kolejna próba odczytu przesuwa ten wskaźnik dalej.</p>
+
+<h2 id="obsługa-plików-binarnych">Obsługa plików binarnych</h2>
+
+<p>Skupimy się teraz na obsłudze plików binarnych. Pewne aspekty pracy z plikami tekstowymi i binarnymi są podobne. W obu przypadkach musimy pamiętać o zamykaniu „strumieni” do plików. W obu przypadkach także skupimy się na dostępie sekwencyjnym.</p>
+
+<h3 id="zapisywanie-danych-do-pliku-1">Zapisywanie danych do pliku</h3>
+
+<p>Bez zbędnego wstępu proszę spójrz na przykład poniżej.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">"/path/to/binary/file.txt"</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">1234567</span><span class="o">;</span>
+<span class="n">DataOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">));</span>
+    <span class="n">outputStream</span><span class="o">.</span><span class="na">writeInt</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">outputStream</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">outputStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pierwsze trzy i ostatnie pięć linii jest dla Ciebie znajoma. Bardzo podobny kod widziałeś w przykładach powyżej. Skupmy się nad tym co dzieje się w środku klauzuli <code class="highlighter-rouge">try</code>. Tworzymy tam instancję klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileOutputStream.html"><code class="highlighter-rouge">FileOutputStream</code></a>, która zostaje przekazana do konstruktora klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/io/DataOutputStream.html"><code class="highlighter-rouge">DataOutputStream</code></a>. <code class="highlighter-rouge">DataOutputStream</code> zapewnia interfejs pozwalający na binarny zapis typów prymitywnych w Javie podczas gdy <code class="highlighter-rouge">FileOutputStream</code> pozwala na zapis danych bajt po bajcie.</p>
+
+<p>Używanie <code class="highlighter-rouge">DataOutputStream</code> pozwala programiście zapomnieć o szczegółach w jaki liczby powinny być zapisane binarnie, tymi szczegółami zajmuje się właśnie ta klasa przez wywołanie metody <code class="highlighter-rouge">writeInt</code>. Pozwala ona w łatwy sposób zapisać binarnie typy proste i łańcuchy znaków (w jednym z kolejnych artykułów przeczytasz o serializacji pozwalającej na zapisanie binarnie dowolnych obiektów).</p>
+
+<p>Po uruchomieniu programu, który zapisuje liczbę do pliku spróbuj otworzyć ten plik w notatniku. Co widzisz? :) Prawda, że jest to mniej czytelne niż tekstowy format pliku?</p>
+
+<h3 id="odczytywanie-danych-z-pliku-1">Odczytywanie danych z pliku</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">"/path/to/binary/file.txt"</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="n">DataInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+ 
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">));</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">inputStream</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">inputStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Podobnie jak poprzednio kod poza klauzulą <code class="highlighter-rouge">try</code> już znasz. Nowa tutaj dla Ciebie jest instancja klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileInputStream.html"><code class="highlighter-rouge">FileInputStream</code></a>, która przekazana jest do konstruktora klasy <a href="https://docs.oracle.com/javase/8/docs/api/java/io/DataInputStream.html"><code class="highlighter-rouge">DataInputStream</code></a>. Widzisz tu pewną analogię do poprzedniego przykładu? Podobnie jak poprzednio <code class="highlighter-rouge">DataInputStream</code> pozwala na czytanie większych kawałków pliku zapisanego binarnie, dzięki tej klasie możemy przeczytać liczbę typu int zapisaną wcześniej w pliku. Podobnie jak poprzednio klasa ta pozwala na odczyt typów prostych i łańcuchów znaków zapisanych binarnie.</p>
+
+<h2 id="zadania">Zadania</h2>
+
+<p>Na koniec kilka zadań dla Ciebie:</p>
+<ol>
+  <li>Napisz program, który pobierze od użytkownika ścieżkę do pliku tekstowego oraz kilka linijek tekstu (dopóki użytkownik nie wprowadzi „-” jako linijki) i zapisze je do pliku tekstowego. Do wykonania tego zadania może Ci się przydać metoda <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/System.html#lineSeparator--"><code class="highlighter-rouge">System.lineSeparator()</code></a> zwracająca znak nowej linii (jeśli chciałbyś oddzielić linie wprowadzone przez użytkownika).</li>
+  <li>Napisz program, który pobierze od użytkownika ścieżkę do pliku i wyświetli zawartość pliku na ekranie wraz z informacją ile linii znajduje się w pliku.</li>
+  <li>Napisz program, który poprosi użytkownika nazwę pliku wyjściowego oraz o podanie swojej daty urodzenia (osobno dzień, miesiąc i rok) a następnie zapisze te dane jako trzy osobne liczby binarnie.</li>
+  <li>Napisz program, który pobierze od użytkownika ścieżkę do pliku binarnego z datą urodzenia a następnie wyświetli ją na ekranie.</li>
+</ol>
+
+<p>Jak zwykle przykładowe rozwiązania zadań znajdują się na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/16_operacje_na_plikach/src/main/java/pl/samouczekprogramisty/kursjava/files">githubie</a>, jednak zachęcam do samodzielnej próby rozwiązania zadań, wtedy nauczysz się najwięcej.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>W każdym artykule zachęcam Cię do zapoznania się z dokumentacją, nie inaczej będzie i tym razem. Zapewniam Cię, że jest to najlepsze źródło z kompletną informacją na temat klas z biblioteki standardowej. Innymi słowy zestaw obowiązkowy to dokumentacja biblioteki standardowej, zawsze w przypadku wątpliwości tam znajdziesz dużo potrzebnych informacji:</p>
+<ul>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/File.html">File</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileWriter.html">FileWriter</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileReader.html">FileReader</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html">BufferedReader</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileOutputStream.html">FileOutputStream</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileInputStream.html">FileInputStream</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/DataOutputStream.html">DataOutputStream</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/io/DataInputStream.html">DataInputStream</a></li>
+</ul>
+
+<p>Dodatkowo parę wpisów w innych miejscach w sieci:</p>
+<ul>
+  <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/16_operacje_na_plikach/src/main/java/pl/samouczekprogramisty/kursjava/files">kod źródłowy przykładów i przykładowe rozwiązania zadań</a></li>
+  <li><a href="http://naukajavy.pl/kurs-jezyka-java/114-zapis-tekstu-do-pliku">http://naukajavy.pl/kurs-jezyka-java/114-zapis-tekstu-do-pliku</a></li>
+  <li><a href="http://naukajavy.pl/kurs-jezyka-java/113-odczyt-tekstu-z-pliku">http://naukajavy.pl/kurs-jezyka-java/113-odczyt-tekstu-z-pliku</a></li>
+  <li><a href="http://wazniak.mimuw.edu.pl/index.php?title=PO_Strumienie">http://wazniak.mimuw.edu.pl/index.php?title=PO_Strumienie</a></li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Mam nadzieję, że artykuł się podobał. Dzisiaj nauczyłeś się całkiem sporo na temat pracy z plikami w Javie. Dowiedziałeś się czegoś więcej o systemie plików. Po wykonaniu zadań wiesz już jak odczytać/zapisać plik zarówno binarnie jak i w trybie tekstowym. Dużo tego :)</p>
+
+<p>Na koniec jak zwykle prośba do Ciebie, zależy mi na dotarciu do jak największego grona czytelników. Proszę pomóż mi przy tym poprzez polubienie strony na fb i udostępnienie linku do bloga :) Z góry dziękuję.</p>
+
+<p>Do następnego razu Samouku!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:pliki">
+      <p>Jest to swego rodzaju uproszczenie, w rzeczywistości pliki tekstowe zapisane są także jako ciąg danych binarnych, jednak programy takie jak notatnik wiedzą jak te dane interpretować i wyświetlają zwykły tekst. <a href="#fnref:pliki" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#programowanie" class="page__taxonomy-item" rel="tag">Programowanie</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2016-08-17T18:14:32+02:00">August 17, 2016</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Foperacje-na-plikach-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Foperacje-na-plikach-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/kolekcje-w-jezyku-java/" class="pagination--pager" title="Kolekcje w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/zadanie-maszyna-losujaca/" class="pagination--pager" title="Maszyna losująca
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/operacje-na-plikach-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/operacje-na-plikach-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

@@ -1,0 +1,930 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Wyrażenia lambda w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator ::. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wyrażenia lambda w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator ::. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-07-26T21:28:10+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Wyrażenia lambda w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator <code class="highlighter-rouge">::</code>. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/rofi/2097239111/sizes/l">© rofi</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wyrażenia lambda w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wyrażenia lambda w języku Java">
+    <meta itemprop="description" content="W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator ::. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.">
+    <meta itemprop="datePublished" content="July 26, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#czym-jest-wyrażenie-lambda" id="markdown-toc-czym-jest-wyrażenie-lambda">Czym jest wyrażenie lambda</a>    <ul>
+      <li><a href="#składnia-wyrażeń-lambda" id="markdown-toc-składnia-wyrażeń-lambda">Składnia wyrażeń lambda</a>        <ul>
+          <li><a href="#lista-parametrów" id="markdown-toc-lista-parametrów">Lista parametrów</a></li>
+          <li><a href="#ciało-wyrażenia-lambda" id="markdown-toc-ciało-wyrażenia-lambda">Ciało wyrażenia lambda</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#od-klasy-anonimowej-do-wyrażenia-lambda" id="markdown-toc-od-klasy-anonimowej-do-wyrażenia-lambda">Od klasy anonimowej do wyrażenia lambda</a></li>
+  <li><a href="#interfejs-funkcyjny" id="markdown-toc-interfejs-funkcyjny">Interfejs funkcyjny</a>    <ul>
+      <li><a href="#przykładowe-interfejsy-funkcyjne" id="markdown-toc-przykładowe-interfejsy-funkcyjne">Przykładowe interfejsy funkcyjne</a></li>
+    </ul>
+  </li>
+  <li><a href="#zalety-stosowania-wyrażeń-lambda" id="markdown-toc-zalety-stosowania-wyrażeń-lambda">Zalety stosowania wyrażeń lambda</a></li>
+  <li><a href="#odwoływanie-się-do-metod" id="markdown-toc-odwoływanie-się-do-metod">Odwoływanie się do metod</a></li>
+  <li><a href="#odwoływanie-się-do-metod-bez-podania-instancji" id="markdown-toc-odwoływanie-się-do-metod-bez-podania-instancji">Odwoływanie się do metod bez podania instancji</a></li>
+  <li><a href="#odwoływanie-się-do-konstruktora" id="markdown-toc-odwoływanie-się-do-konstruktora">Odwoływanie się do konstruktora</a></li>
+  <li><a href="#przykład-zastosowania-wyrażeń-lambda-i-odwołania-do-metody" id="markdown-toc-przykład-zastosowania-wyrażeń-lambda-i-odwołania-do-metody">Przykład zastosowania wyrażeń lambda i odwołania do metody</a></li>
+  <li><a href="#zadania" id="markdown-toc-zadania">Zadania</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<div class="notice--info">
+  
+<p>Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami, które dotyczą:</p>
+
+<ul>
+  <li><a href="/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/">klas anonimowych</a>,</li>
+  <li><a href="/typy-generyczne-w-jezyku-java/">typów generycznych</a>,</li>
+  <li><a href="/adnotacje-w-jezyku-java/">adnotacji</a>.</li>
+</ul>
+
+</div>
+
+<h2 id="czym-jest-wyrażenie-lambda">Czym jest wyrażenie lambda</h2>
+
+<p>Dla uproszczenia można powiedzieć, że wyrażenie lambda jest metodą<sup id="fnref:roznice"><a href="#fn:roznice" class="footnote">1</a></sup>. Metodą, którą możesz przypisać do zmiennej. Możesz ją także wywołać czy przekazać jako argument do innej metody.</p>
+
+<p>Wyrażenia lambda możesz także porównać do klas anonimowych<sup id="fnref:roznice2"><a href="#fn:roznice2" class="footnote">2</a></sup>. Mają one jednak dużo bardziej czytelną i zwięzłą składnię.</p>
+
+<p>Na przykład wyrażenie lambda, które podnosi do kwadratu przekazaną liczbę wygląda następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<h3 id="składnia-wyrażeń-lambda">Składnia wyrażeń lambda</h3>
+
+<p>Wyrażenie lambda ma następującą składnię</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;lista parametrów&gt; -&gt; &lt;ciało wyrażenia&gt;
+</code></pre></div></div>
+
+<h4 id="lista-parametrów">Lista parametrów</h4>
+
+<p>Lista parametrów zawiera wszystkie parametry przekazane do “ciała” wyrażenia lambda. W szczególności lista ta może być pusta. Wyrażenie lambda poniżej nie przyjmuje żadnych argumentów, zwraca natomiast instancję klasy <code class="highlighter-rouge">String</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">()</span> <span class="o">-&gt;</span> <span class="err">“</span><span class="n">some</span> <span class="k">return</span> <span class="n">value</span><span class="err">”</span>
+</code></pre></div></div>
+
+<p>Podawanie typów parametrów jest opcjonalne. Kompilator jest w stanie poznać te parametry z kontekstu w którym znajduje się dane wyrażenie lambda. Jeśli chcesz możesz je także podać:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="n">Integer</span> <span class="n">x</span><span class="o">,</span> <span class="n">Long</span> <span class="n">y</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Nawiasy otaczające listę parametrów są opcjonalne jeśli wyrażenie ma wyłącznie jeden parametr bez określonego typu<sup id="fnref:kompilacja"><a href="#fn:kompilacja" class="footnote">3</a></sup>.</p>
+
+<h4 id="ciało-wyrażenia-lambda">Ciało wyrażenia lambda</h4>
+
+<p>W ogromnej większości przypadków wyrażenia lambda zawierają jedną linijkę kodu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">()</span> <span class="o">-&gt;</span> <span class="err">“</span><span class="n">some</span> <span class="k">return</span> <span class="n">value</span><span class="err">”</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="n">Integer</span> <span class="n">x</span><span class="o">,</span> <span class="n">Long</span> <span class="n">y</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Może się jednak zdarzyć, że Twoje wyrażenie lambda będzie zawierało więcej linii. W takim przypadku musisz otoczyć je nawiasami <code class="highlighter-rouge">{}</code> jak w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">123L</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Można sobie wyobrazić wyrażenie lambda, które nie przyjmuje żadnych parametrów i nie zwraca żadnych wartości. Najprostsza wersja takiego wyrażenia wygląda następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{}</span>
+</code></pre></div></div>
+
+<h2 id="od-klasy-anonimowej-do-wyrażenia-lambda">Od klasy anonimowej do wyrażenia lambda</h2>
+
+<p>Wiesz już czym jest klasa anonimowa. Dla przypomnienia powiem, że jest to stworzenie jedynej instancji klasy w miejscu jej użycia. Wiesz już też jak wyglądają wyrażenia lambda. Teraz nadszedł czas na zamianę klasy anonimowej na wyrażenie lambda. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Checker</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="nf">check</span><span class="o">(</span><span class="n">T</span> <span class="n">object</span><span class="o">);</span>
+<span class="o">}</span>
+ 
+<span class="n">Checker</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">isOddAnonymous</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Checker</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">check</span><span class="o">(</span><span class="n">Integer</span> <span class="n">object</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">object</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+ 
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">isOddAnonymous</span><span class="o">.</span><span class="na">check</span><span class="o">(</span><span class="mi">123</span><span class="o">));</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">isOddAnonymous</span><span class="o">.</span><span class="na">check</span><span class="o">(</span><span class="mi">124</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>W przykładzie tym zdefiniowałem interfejs <code class="highlighter-rouge">Checker</code>, który posiada jedną metodę <code class="highlighter-rouge">check</code>. Metoda ta zwraca wartość logiczną na podstawie przekazanego argumentu.</p>
+
+<p>Fragment kodu robiący to samo jednak przy użyciu składni wyrażeń lambda wygląda następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Checker</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">isOddLambda</span> <span class="o">=</span> <span class="n">object</span> <span class="o">-&gt;</span> <span class="n">object</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">;</span>
+ 
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">isOddLambda</span><span class="o">.</span><span class="na">check</span><span class="o">(</span><span class="mi">123</span><span class="o">));</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">isOddLambda</span><span class="o">.</span><span class="na">check</span><span class="o">(</span><span class="mi">124</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>Prawda, że ładniej :)?</p>
+
+<p>Dochodzimy teraz do momentu, w którym muszę Ci powiedzieć o typach w wyrażeniach lambda. Każde wyrażenie lambda jest instancją dowolnego interfejsu funkcyjnego. Jest to bardzo ważne, dlatego też musisz dokładnie wiedzieć czym jest interfejs funkcyjny.</p>
+
+<h2 id="interfejs-funkcyjny">Interfejs funkcyjny</h2>
+
+<p>Interfejs funkcyjny to interfejs, który ma jedną abstrakcyjną metodę<sup id="fnref:efektywnie_abstrakcyjna"><a href="#fn:efektywnie_abstrakcyjna" class="footnote">4</a></sup>. Wprowadzono adnotację <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html"><code class="highlighter-rouge">@FunctionalInterface</code></a>, którą możesz dodać do interfejsów tego typu.</p>
+
+<p>Adnotacja ta zapewnia, że kompilator upewni się, że dany interfejs jest interfejsem funkcyjnym. Jeśli nie, wówczas kompilacja się nie powiedzie.</p>
+
+<p>Przykładem interfejsu funkcyjnego może być zdefiniowany wcześniej interfejs <code class="highlighter-rouge">Checker</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@FunctionalInterface</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Checker</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="nf">check</span><span class="o">(</span><span class="n">T</span> <span class="n">object</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Zawiera on wyłącznie jedną metodę <code class="highlighter-rouge">check</code>.</p>
+
+<h3 id="przykładowe-interfejsy-funkcyjne">Przykładowe interfejsy funkcyjne</h3>
+
+<p>Twórcy języka Java przygotowali zestaw interfejsów funkcyjnych, które możesz implementować. W większości przypadków w zupełności wystarczy ich użycie. Część z nich znajduje się w pakiecie <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html"><code class="highlighter-rouge">java.util.function</code></a>. Najważniejsze z nich zebrałem poniżej:</p>
+<ul>
+  <li><code class="highlighter-rouge">Function&lt;T, R&gt;</code> zawiera metodę <code class="highlighter-rouge">apply</code>, która przyjmuje instancję klasy <code class="highlighter-rouge">T</code> zwracając instancję klasy <code class="highlighter-rouge">R</code>,</li>
+  <li><code class="highlighter-rouge">Consumer&lt;T&gt;</code> zawiera metodę <code class="highlighter-rouge">accept</code>, która przyjmuje instancję klasy <code class="highlighter-rouge">T</code>,</li>
+  <li><code class="highlighter-rouge">Predicate&lt;T&gt;</code> zawiera metodę <code class="highlighter-rouge">test</code>, która przyjmuje instancję klasy T i zwraca flagę. Interfejs ten może posłużyć do zastąpienia interfejsu <code class="highlighter-rouge">Checker</code>,</li>
+  <li><code class="highlighter-rouge">Supplier&lt;T&gt;</code> zawiera metodę <code class="highlighter-rouge">get</code>, która nie przyjmuje żadnych parametrów i zwraca instancję klasy <code class="highlighter-rouge">T</code>,</li>
+  <li><code class="highlighter-rouge">UnaryOperator&lt;T&gt;</code> jest specyficznym przypadkiem interfejsu <code class="highlighter-rouge">Function</code>. W tym przypadku typ argumentu i typ zwracany są te same.</li>
+</ul>
+
+<p>Wyrażenia lambda zdefiniowane na początku artykułu można przypisać do tych właśnie interfejsów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UnaryOperator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">square</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="o">;</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">someString</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="s">"some return value"</span><span class="o">;</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BiConsumer</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="n">multiplier</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span> <span class="n">x</span><span class="o">,</span> <span class="n">Long</span> <span class="n">y</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="o">);</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Function</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="n">multiline</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">123L</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+</code></pre></div></div>
+
+<h2 id="zalety-stosowania-wyrażeń-lambda">Zalety stosowania wyrażeń lambda</h2>
+
+<p>Wyrażenia lambda są bardzo pomocne przy operacji na kolekcjach. Są niezastąpione także przy pracy ze strumieniami. Pozwalają także na pisanie w Javie w sposób “funkcyjny”<sup id="fnref:funkcyjny"><a href="#fn:funkcyjny" class="footnote">5</a></sup>.</p>
+
+<p>Oczywistą zaletą wyrażeń lambda jest ich zwięzłość. Kod zajmuje o wiele mniej miejsca, staje się przez to bardziej czytelny.</p>
+
+<h2 id="odwoływanie-się-do-metod">Odwoływanie się do metod</h2>
+
+<p>Wraz z wyrażeniami lambda Java została rozbudowana o składnię pozwalającą na odwoływanie się do metod. Służy do tego <code class="highlighter-rouge">::</code>. Dzięki temu wyrażeniu możemy przypisać metodę do zmiennej bez jej wywołania. Takie podejście pozwala na przekazanie tak wyłuskanej metody i wywołanie jej w zupełnie innym miejscu. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Object</span> <span class="n">objectInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+<span class="n">IntSupplier</span> <span class="n">equalsMethodOnObject</span> <span class="o">=</span> <span class="nl">objectInstance:</span><span class="o">:</span><span class="n">hashCode</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">equalsMethodOnObject</span><span class="o">.</span><span class="na">getAsInt</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>W przykładzie tym tworzę nową instancję klasy <code class="highlighter-rouge">Object</code>. Następnie pobieram metodę <code class="highlighter-rouge">hashCode</code> z tego obiektu i przypisuję ją do typu <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/IntSupplier.html"><code class="highlighter-rouge">IntSupplier</code></a>. Jest to kolejny interfejs funkcyjny znajdujący się w standardowej bibliotece. Ostatnia linijka to wywołanie metody znajdującej się w tym interfejsie.</p>
+
+<p>Kod powyżej można porównać do:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Object</span> <span class="n">objectInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">objectInstance</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>W obu przypadkach tworzę nowy obiekt klasy <code class="highlighter-rouge">Object</code> i wywołują na nim metodę <code class="highlighter-rouge">hashCode</code>.</p>
+
+<h2 id="odwoływanie-się-do-metod-bez-podania-instancji">Odwoływanie się do metod bez podania instancji</h2>
+
+<p>Można także odwołać się do metody bez podania instancji, na której metoda powinna być wywołana. Wówczas ta instancja musi być przekazana jako pierwszy argument. Przykład poniżej powinien pomóc zrozumieć to zastosowanie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ToIntFunction</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">hashCodeMethodOnClass</span> <span class="o">=</span> <span class="nl">Object:</span><span class="o">:</span><span class="n">hashCode</span><span class="o">;</span>
+<span class="n">Object</span> <span class="n">objectInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">hashCodeMethodOnClass</span><span class="o">.</span><span class="na">applyAsInt</span><span class="o">(</span><span class="n">objectInstance</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>W odróżnieniu do poprzedniego przykładu tutaj na początku pobieram metodę. Tym razem metoda nie jest przypisana do instancji. W związku z tym wyrażenie lambda jest już innego typu. W takim przypadku zawsze pierwszym argumentem jest instancja na której metoda powinna być wywołana. W kolejnej linijce tworzę instancję klasy <code class="highlighter-rouge">Object</code>. Ostatnia linijka to wywołanie metody na tej instancji.</p>
+
+<p>Kod bez użycia odwołania do metody robiący dokładnie to samo wygląda trochę mniej skomplikowanie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Object</span> <span class="n">objectInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">objectInstance</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h2 id="odwoływanie-się-do-konstruktora">Odwoływanie się do konstruktora</h2>
+
+<p>Notacja z <code class="highlighter-rouge">::</code> może być także użyta do odwołania się do konstruktora. W tym przypadku należy użyć <code class="highlighter-rouge">::</code> wraz ze słowem kluczowym <code class="highlighter-rouge">new</code>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Supplier</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">objectCreator</span> <span class="o">=</span> <span class="nl">Object:</span><span class="o">:</span><span class="k">new</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">objectCreator</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>W pierwszej linijce przykładu przypisuje konstruktor klasy <code class="highlighter-rouge">Object</code> do zmiennej <code class="highlighter-rouge">objectCreator</code>. Kolejna linijka to wywołanie konstruktora.</p>
+
+<p>To samo bez użycia referencji metody możesz uzyskać w dobrze Ci znany sposób:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h2 id="przykład-zastosowania-wyrażeń-lambda-i-odwołania-do-metody">Przykład zastosowania wyrażeń lambda i odwołania do metody</h2>
+
+<p>Załóżmy, że chcemy wypisać na konsoli liczby znajdujące się w kolekcji. Możemy to zrobić przy pomocy standardowej pętli, którą już znasz:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+ 
+<span class="k">for</span> <span class="o">(</span><span class="n">Integer</span> <span class="n">number</span> <span class="o">:</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>To samo zadanie można także zrobić przy pomocy wyrażeń lambda:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+<span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">integerConsumer</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+<span class="n">numbers</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">integerConsumer</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Pierwsza linijka to utworzenie listy z liczbami. Kolejna jest bardziej ciekawa, zawiera wyrażenie lambda, które konsumuje liczbę wypisując ją na konsoli. Ostatnia to wywołanie metody <code class="highlighter-rouge">forEach</code> wraz z wyrażeniem lambda. Wyrażenie to zostanie wywołane dla każdego elementu.</p>
+
+<p>Kod ten można jeszcze bardziej skrócić używając mechanizmu odwoływania się do metod:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+<span class="n">numbers</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Efekt działania wszystkich trzech fragmentów jest dokładnie taki sam. Różnią się między sobą sposobem rozwiązania danego problemu.</p>
+
+<h2 id="zadania">Zadania</h2>
+
+<p>Na koniec mam dla Ciebie kilka zadań, które pomogą przećwiczyć Ci wiedzę z tego artykułu.</p>
+<ol>
+  <li>Napisz program, który pobierze o użytkownika cztery łańcuchy znaków, które umieścisz w liście. Następnie posortuj tę listę używając metody <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html#sort-java.util.Comparator-"><code class="highlighter-rouge">sort</code></a>. Użyj wyrażenia lambda, które posortuje łańcuchy znaków malejąco po długości.</li>
+  <li>Napisz program, który wywoła funkcję <code class="highlighter-rouge">hashCode</code> na instancji klasy <code class="highlighter-rouge">Object</code> używając mechanizmu odwoływania się do metody (przy pomocy <code class="highlighter-rouge">::</code>).</li>
+  <li>Utwórz instancję klasy <code class="highlighter-rouge">Human</code> przy pomocy mechanizmu odwoływania się do konstruktora (przy pomocy <code class="highlighter-rouge">::</code>).</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Human</span> <span class="o">{</span>
+ 
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">Human</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jeśli będziesz miał problem z rozwiązaniem zadań możesz rzucić okiem na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/28_wyrazenia_lambda/src/main/java/pl/samouczekprogramisty/kursjava/lambdaexpressions/exercise">przykładowe rozwiązania</a>, które umieściłem na samouczkowym githubie.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Przygotowałem dla Ciebie zestaw kilku linków z materiałami dodatkowymi:</p>
+<ul>
+  <li><a href="http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/index.html">Wprowadzenie do wyrażeń lambda na stronie Oracle</a>,</li>
+  <li><a href="https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">Tutorial dotyczący wyrażeń lambda na stronie Oracle</a>,</li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.8">Opis interfejsów funkcyjnych w JLS</a>,</li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.13">Referencja do metody w JLS</a>,</li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.27">Wyrażenia lambda w JLS</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Wyrażenia lambda nie są proste. Mogą powodować sporo zakłopotania, szczególnie na początku. Jeśli jednak się do nich przyzwyczaisz pisanie kodu z ich udziałem będzie sprawiało Ci sporo frajdy :). Po pewnym czasie docenisz też zwięzłość wyrażeń lambda.</p>
+
+<p>Po przeczytaniu artykułu wiesz czym są wyrażenia lambda i jak je stosować. Znasz też mechanizm odwoływania się do metod. Przećwiczyłeś te mechanizmy rozwiązując przykładowe zadania. Nie zapomnij pochwalić się w komentarzu gdzie ostatnio użyłeś wyrażeń lambda :).</p>
+
+<p>Na koniec mam do Ciebie prośbę. Jeśli uważasz, że artykuł ten był dla Ciebie pomocny proszę podziel się nim ze swoimi znajomymi. Zależy mi na dotarciu do jak największej grupy czytelników a Ty możesz mi w tym pomóc. Jeśli nie chcesz pominąć żadnego nowego artykułu dopisz się do samouczkowego newslettera i polub samouczka na facebooku. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:roznice">
+      <p>Nie jest to do końca prawda, na przykład wyrażenie lambda nie wprowadza nowego zakresu zmiennych, ale takie uproszczenie pomoże zrozumieć działanie wyrażeń lambda. <a href="#fnref:roznice" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:roznice2">
+      <p>Podobnie jak przy poprzednim porównaniu, są różnice pomiędzy wyrażeniami lambda i klasami anonimowymi. Jednak na potrzeby tego wprowadzenia możemy je pominąć. <a href="#fnref:roznice2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:kompilacja">
+      <p>Oczywiście w trakcie kompilacji typ jest znany, ale nie jest jawnie podany w kodzie źródłowym. <a href="#fnref:kompilacja" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:efektywnie_abstrakcyjna">
+      <p>Efektywnie abstrakcyjną, czyli dodanie do interfejsu np. metody equals, która jest w klasie Object nadal spełnia to wymaganie. <a href="#fnref:efektywnie_abstrakcyjna" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:funkcyjny">
+      <p>Oczywiście Java nie jest językiem w pełni funkcyjnym, jednak taka namiastka jest przydatna. <a href="#fnref:funkcyjny" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-07-26T21:28:10+02:00">July 26, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwyrazenia-lambda-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwyrazenia-lambda-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" class="pagination--pager" title="Jak dostać pierwszą pracę jako programista
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/23_pogodynka_integracja_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-integracja/" rel="permalink">Pogodynka - integracja
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Raport z frontu Pogodynki. Ostatnie dwa dni minęły pod znakiem integracji. Spinałem w całość poszczególne elementy projektu. Pisania kodu było tu niewiele, r...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/wyrazenia-lambda-w-jezyku-java"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

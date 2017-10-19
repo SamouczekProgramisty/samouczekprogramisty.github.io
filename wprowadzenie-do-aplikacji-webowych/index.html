@@ -1,0 +1,721 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Wprowadzenie do aplikacji webowych - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o aplikacjach webowych. Dowiesz się czym są aplikacje webowe i jak działają. Dowiesz się czym jest serwer, sewlet czy kontener serwletów. Poznasz podstawy mechanizmu działania aplikacji webowych. Przeczytasz też o modelu aplikacji klient serwer. Poznasz różnicę pomiędzy aplikacjami “desktopowymi” a aplikacjami “webowymi”. Dowiesz się o tym czym jest HTML, CSS czy JavaScript. Innymi słowy czeka Cię spora dawka wiedzy wprowadzająca w świat aplikacji webowych i Java Enterprise Edition. Zapraszam do lektury.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wprowadzenie do aplikacji webowych">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/wprowadzenie-do-aplikacji-webowych/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/wprowadzenie-do-aplikacji-webowych/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o aplikacjach webowych. Dowiesz się czym są aplikacje webowe i jak działają. Dowiesz się czym jest serwer, sewlet czy kontener serwletów. Poznasz podstawy mechanizmu działania aplikacji webowych. Przeczytasz też o modelu aplikacji klient serwer. Poznasz różnicę pomiędzy aplikacjami “desktopowymi” a aplikacjami “webowymi”. Dowiesz się o tym czym jest HTML, CSS czy JavaScript. Innymi słowy czeka Cię spora dawka wiedzy wprowadzająca w świat aplikacji webowych i Java Enterprise Edition. Zapraszam do lektury.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/03/17_wprowadzenie_do_aplikacji_webowych_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-03-17T21:39:50+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/03/17_wprowadzenie_do_aplikacji_webowych_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Wprowadzenie do aplikacji webowych
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o aplikacjach webowych. Dowiesz się czym są aplikacje webowe i jak działają. Dowiesz się czym jest serwer, sewlet czy kontener serwletów. Poznasz podstawy mechanizmu działania aplikacji webowych. Przeczytasz też o modelu aplikacji klient serwer. Poznasz różnicę pomiędzy aplikacjami “desktopowymi” a aplikacjami “webowymi”. Dowiesz się o tym czym jest HTML, CSS czy JavaScript. Innymi słowy czeka Cię spora dawka wiedzy wprowadzająca w świat aplikacji webowych i Java Enterprise Edition. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/redbuckley/5885481290/sizes/l">© redbuckley</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wprowadzenie do aplikacji webowych</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wprowadzenie do aplikacji webowych">
+    <meta itemprop="description" content="W artykule tym przeczytasz o aplikacjach webowych. Dowiesz się czym są aplikacje webowe i jak działają. Dowiesz się czym jest serwer, sewlet czy kontener serwletów. Poznasz podstawy mechanizmu działania aplikacji webowych. Przeczytasz też o modelu aplikacji klient serwer. Poznasz różnicę pomiędzy aplikacjami “desktopowymi” a aplikacjami “webowymi”. Dowiesz się o tym czym jest HTML, CSS czy JavaScript. Innymi słowy czeka Cię spora dawka wiedzy wprowadzająca w świat aplikacji webowych i Java Enterprise Edition. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="March 17, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#z-przeglądarką-czy-bez" id="markdown-toc-z-przeglądarką-czy-bez">Z przeglądarką czy bez?</a></li>
+  <li><a href="#czym-jest-serwer" id="markdown-toc-czym-jest-serwer">Czym jest serwer</a></li>
+  <li><a href="#język-aplikacji-webowej" id="markdown-toc-język-aplikacji-webowej">Język aplikacji webowej</a></li>
+  <li><a href="#język-który-rozumie-przeglądarka" id="markdown-toc-język-który-rozumie-przeglądarka">Język, który rozumie przeglądarka</a></li>
+  <li><a href="#aplikacje-webowe-w-javie" id="markdown-toc-aplikacje-webowe-w-javie">Aplikacje webowe w Javie</a></li>
+  <li><a href="#serwlety-w-aplikacjach-webowych" id="markdown-toc-serwlety-w-aplikacjach-webowych">Serwlety w aplikacjach webowych</a></li>
+  <li><a href="#zalety-aplikacji-webowych" id="markdown-toc-zalety-aplikacji-webowych">Zalety aplikacji webowych</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="z-przeglądarką-czy-bez">Z przeglądarką czy bez?</h2>
+
+<p>Używając przeglądarki czy programów z pakietu Office<sup id="fnref:office"><a href="#fn:office" class="footnote">1</a></sup> używasz aplikacji zainstalowanych na komputerze. Potocznie o takich programach czy aplikacjach mówi się “aplikacje desktopowe”.</p>
+
+<p>Możesz je zainstalować pobierając odpowiednie pliki z internetu lub z innego nośnika jak na przykład płyta CD. Podczas takiej instalacji pliki niezbędne do działania aplikacji zapisywane są na dysku komputera.</p>
+
+<p>Aplikacje webowe, to zupełnie oddzielna grupa aplikacji. Nie są one instalowane na Twoim komputerze. Można powiedzieć, że są zainstalowane na serwerze, a Ty dostajesz się do nich za pośrednictwem internetu. Otwierając przeglądarkę internetową i wchodząc na stronę dostajesz się do aplikacji webowej. Jak już wspomniałem do działania takiej aplikacji potrzebny jest ów “magiczny” serwer.</p>
+
+<h2 id="czym-jest-serwer">Czym jest serwer</h2>
+
+<p>Słowo serwer ma wiele znaczeń. Jednym ze znaczeń tego słowa jest określenie maszyny, komputera. Serwerem możemy także nazywać aplikację, która jest na takim komputerze zainstalowana. Przykładem takich serwerów są <a href="https://httpd.apache.org/">Apache HTTP Server</a> czy <a href="https://nginx.org/en/">nginx</a>.</p>
+
+<p>Wymienione wyżej serwery to serwery HTTP (ang. <em>Hypertext Transfer Protocol</em>), ich zadaniem jest serwowanie stron internetowych.</p>
+
+<p>Wpisując adres <a href="http://www.samouczekprogramisty.pl">www.samouczekprogramisty.pl</a> w okienku przeglądarki wysyłasz zapytanie HTTP do serwera firmy, w której wykupiłem taką usługę. Serwer ten widząc twoje zapytanie odpowiada treścią, która jest zrozumiała dla przeglądarki. Przeglądarka wyświetla następnie tę treść w formie strony internetowej.</p>
+
+<p>W najprostszym przykładzie jakim jest serwer HTTP, serwer (aplikacja) w odpowiedzi wysyła zawartość plików znajdujących się na dysku serwera (komputera). W takim przypadku możemy mówić o serwowaniu plików statycznych.</p>
+
+<p>Aplikacje webowe pokazują zawartość, która jest zmienna. Nie można jej uzyskać wyłącznie z plików statycznych znajdujących się na dysku serwera. Przykładem takiej aplikacji może być ten blog - masz wpływ na zawartość strony na przykład przez dodawanie komentarzy.</p>
+
+<h2 id="język-aplikacji-webowej">Język aplikacji webowej</h2>
+
+<p>Aplikacje webowe mogą być napisane w wielu językach. Może to być Ruby, Python, PHP czy Java. Bynajmniej nie jest to kompletna lista :). Języków jest bardzo dużo, jednak mechanizm działania jest zawsze ten sam.</p>
+
+<p>Aplikacja webowa napisana w języku X interpretuje żądanie wysłane przez przeglądarkę użytkownika do serwera i odpowiada na nie generując odpowiednią zawartość. Zawartość to plik generowany dynamicznie, który jest zrozumiały przez przeglądarkę internetową.</p>
+
+<p>Zauważ, że taki sposób komunikacji pozwala na zastosowanie praktycznie dowolnego języka. W takiej sytuacji mówimy o protokole komunikacji. Protokole czyli zbiorze reguł, których przestrzeganie pozwoli się “dogadać” :).</p>
+
+<p>Protokół ten używany jest w komunikacji pomiędzy klientem a serwerem. W tym przypadku klientem jest przeglądarka internetowa a serwerem jest aplikacja, która przetwarza żądanie wysłane przez klienta. W takim przypadku często też mówimy o aplikacjach typu klient-serwer.</p>
+
+<h2 id="język-który-rozumie-przeglądarka">Język, który rozumie przeglądarka</h2>
+
+<p>W dużym uproszczeniu przeglądarka internetowa to program, który wyświetla strony internetowe. Strony internetowe składają się z plików. Pliki te tworzone są przy pomocy różnych “języków”:</p>
+<ul>
+  <li>HTML (ang. <em>Hypertext Markup Language</em>) - język znaczników, można powiedzieć, że jest podzbiorem języka XML (<a href="/xml-dla-poczatkujacych/">wprowadzenie do XML</a>). Znaczniki te opisują strukturę strony, to z jakich elementów się składa,</li>
+  <li>CSS (ang. Cascading Style Sheets) - język stylów, który pozwala na opisanie wyglądu strony internetowej. W połączeniu z HTML pozwala na tworzenie stron internetowych “przyjaznych dla oka”,</li>
+  <li>JavaScript - język programowania. Kod JavaScript jest interpretowany przez przeglądarkę. Pozwala na uruchamianie skryptów po stronie przeglądarki. Bardzo często animacje widoczne na stronach to właśnie wynik działania skryptów JavaScript.</li>
+</ul>
+
+<h2 id="aplikacje-webowe-w-javie">Aplikacje webowe w Javie</h2>
+
+<p>Aplikacje webowe w języku Java można tworzyć dzięki specyfikacji JEE (ang. <em>Java Enterprise Edition</em>). Jest to właściwie zbiór innych specyfikacji opisujących różne mechanizmy wykorzystywane przy budowaniu aplikacji webowych.</p>
+
+<p>Podobnie jak w przypadku innych języków tak i w Javie potrzebny jest odpowiedni serwer. W przypadku Javy możemy mówić o serwerze aplikacji jeśli implementuje on funkcjonalności opisane w specyfikacji JEE. Z racji tego, że specyfikacja ta jest rozległa dostępne są “prostsze serwery”. W takim przypadku mówimy o kontenerze serwletów. Jest to “uproszczony serwer aplikacji”, który implementuje jedynie część specyfikacji JEE.</p>
+
+<p>Częścią specyfikacji JEE jest specyfikacja serwletów.</p>
+
+<h2 id="serwlety-w-aplikacjach-webowych">Serwlety w aplikacjach webowych</h2>
+
+<p>Serlwet to serce aplikacji webowych napisanych w Javie. Serwlet to klasa, która wie w jaki sposób obsłużyć zapytanie wysłane do serwera. Potrafi też odpowiedzieć na to zapytanie.</p>
+
+<p>W artykule opisującym <a href="/java-z-linii-polecen/">Javę z linii poleceń</a> mogłeś przeczytać o plikach JAR. W przypadku aplikacji webowych wprowadzono dodatkowy plik, plik WAR (ang. <em>Web Archive</em>). Wewnątrz tego pliku znajduje się kod (skompilowane klasy) potrzebny do uruchomienia aplikacji webowej. Między innymi są to serwlety. Dodatkowo wewnątrz pliku WAR znajdować się mogą pliki JAR zawierające zależności niezbędne do działania aplikacji webowej.</p>
+
+<p>Plik war instaluje się w kontenerze serwletów (ang. <em>deploy</em>). Kontener serwletów pośredniczy w obsłudze zapytań. Jak to wygląda w praktyce pokaże Ci profesjonalny diagram poniżej :), pokazuje on w dużym uproszczeniu obsługę żądań do aplikacji webowej:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/03/17_diagram_web.jpeg" alt="" />
+  
+    <figcaption>Obsługa żądania w aplikacji webowej
+</figcaption>
+  
+</figure>
+
+<ol>
+  <li>wysłanie żądania z przeglądarki do serwera (maszyny)</li>
+  <li>przekazanie żądania do kontenera serwletów/serwera aplikacji</li>
+  <li>przetworzenie żądania przez serwlet/aplikację webową</li>
+  <li>przekazanie odpowiedzi z kontenera serwletów do serwera</li>
+  <li>wysłanie odpowiedzi do klienta (przeglądarki internetowej)</li>
+</ol>
+
+<p>Istnieje wiele serwerów aplikacji i kontenerów serwletów. Te najpopularniejsze z nich znajdziesz poniżej:</p>
+<ul>
+  <li><a href="http://tomcat.apache.org">Tomcat</a></li>
+  <li><a href="http://www.eclipse.org/jetty/">Jetty</a></li>
+  <li><a href="https://glassfish.java.net/">Glassfish</a></li>
+  <li><a href="http://wildfly.org/">WildFly</a></li>
+  <li><a href="http://www.oracle.com/technetwork/middleware/weblogic/overview/index-085209.html">Weblogic</a></li>
+</ul>
+
+<h2 id="zalety-aplikacji-webowych">Zalety aplikacji webowych</h2>
+
+<p>Główną zaletą aplikacji webowych jest to, że nie trzeba instalować ich na komputerze użytkownika. Aby korzystać z takiej aplikacji wystarczy przeglądarka z dostępem do internetu. Dzięki temu użytkownik może korzystać z takiej aplikacji praktycznie na dowolnym komputerze.</p>
+
+<p>Nie bez znaczenie jest też dostępność aplikacji webowej na różnych typach urządzeń. Część aplikacji webowych można używać zarówno na komputerze, tablecie czy telefonie.</p>
+
+<p>Równie istotna jest łatwość poprawiania błędów. W aplikacjach desktopowych jest to utrudnione, ponieważ w jakiś sposób aktualizacja musi być dostarczona do użytkownika. W przypadku aplikacji webowych taka aktualizacja może być dla użytkownika niewidoczna. Dzięki temu poprawki błędów czy nowe funkcjonalności są szybciej dostępne dla użytkowników.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Aplikacje webowe to coś dzięki czemu moim zdaniem Java zyskała tak dużą popularność. Ogromna większość ofert pracy na rynku związana z technologią Java dotyczy aplikacji webowych. Artykuł ten jedynie musnął ich tematykę. Mam nadzieję, że po jego lekturze będzie Ci łatwiej zrozumieć zasadę działania tego typu aplikacji.</p>
+
+<p>Zapisz się do mojego newslettera i polub stronę na facebooku jeśli nie chcesz pominąć kolejnych artykułów. Jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzu :).</p>
+
+<p>Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:office">
+      <p>Chodzi mi to o tę “instalowalną” część pakietu, a nie tę dostępną online ;). <a href="#fnref:office" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#dsp2017" class="page__taxonomy-item" rel="tag">DSP2017</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-03-17T21:39:50+01:00">March 17, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwprowadzenie-do-aplikacji-webowych%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwprowadzenie-do-aplikacji-webowych%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/pogodynka-naiwny-termometr/" class="pagination--pager" title="Pogodynka - naiwny termometr
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/pogodynka-dzialajacy-termometr/" class="pagination--pager" title="Pogodynka - działający termometr
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/wprowadzenie-do-aplikacji-webowych/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/wprowadzenie-do-aplikacji-webowych"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

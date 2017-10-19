@@ -1,0 +1,701 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Projekt Pogodynka - wprowadzenie - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o “architekturze” Pogodynki. Projektu, w którym chcę udostępnić odczyty temperatury na żywo.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Projekt Pogodynka - wprowadzenie">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/projekt-pogodynka-wprowadzenie/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/projekt-pogodynka-wprowadzenie/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o “architekturze” Pogodynki. Projektu, w którym chcę udostępnić odczyty temperatury na żywo.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/03/04_pogodynka_01_artykul.jpeg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-03-04T13:42:38+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/03/04_pogodynka_01_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Projekt Pogodynka - wprowadzenie
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o “architekturze” Pogodynki. Projektu, w którym chcę udostępnić odczyty temperatury na żywo.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="http://marcin.pietraszek.pl">© Marcin Pietraszek ;)</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Projekt Pogodynka - wprowadzenie</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Projekt Pogodynka - wprowadzenie">
+    <meta itemprop="description" content="W artykule tym przeczytasz o “architekturze” Pogodynki. Projektu, w którym chcę udostępnić odczyty temperatury na żywo.">
+    <meta itemprop="datePublished" content="March 04, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#opis-architektury" id="markdown-toc-opis-architektury">Opis architektury</a>    <ul>
+      <li><a href="#hardware" id="markdown-toc-hardware">Hardware</a></li>
+      <li><a href="#software" id="markdown-toc-software">Software</a></li>
+    </ul>
+  </li>
+  <li><a href="#baza-danych" id="markdown-toc-baza-danych">Baza danych</a></li>
+  <li><a href="#postęp-prac" id="markdown-toc-postęp-prac">Postęp prac</a>    <ul>
+      <li><a href="#testy" id="markdown-toc-testy">Testy</a></li>
+    </ul>
+  </li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="opis-architektury">Opis architektury</h2>
+
+<p>Więc pracę nad Pogodynką czas zacząć. Zacznę od tego, że przybliżę Ci moje plany dotyczące zakresu projektu.</p>
+
+<h3 id="hardware">Hardware</h3>
+
+<p>Stare Raspberry PI (nazwijmy je Malinką ;)) wygrzebane gdzieś z szafy ma posłużyć jako “mini komputer”, do którego podłączę czujnik temperatury. Czujnik ten będę musiał sam oprogramować - kupiłem go jakiś czas temu w sklepie dla elektroników.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/03/04_hardware03_web.jpeg" alt="" />
+  
+    <figcaption>Pogodynka - Raspberry Pi
+</figcaption>
+  
+</figure>
+
+<p>Jak widzisz czujnik jest całkiem drobny.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/03/04_hardware02_web.jpeg" alt="" />
+  
+    <figcaption>Czujnik temperatury
+</figcaption>
+  
+</figure>
+
+<p>Całość na początku połączę kabelkami, może jak starczy czasu pobawię sę w lutowanie a może nawet w wytrwawienie swojej płytki. Czas pokaże :)</p>
+
+<h3 id="software">Software</h3>
+
+<p>Kolejnym krokiem będzie napisanie prostego programu, który będzie odpalany na Malince. Nazwijmy go Termometrem. Zadaniem programu będzie pobieranie odczytu czujnika - odczytanie aktualnego poziomu temperatury. Następnie to wskazanie chcę wysłać do aplikacji webowej, która doda dany odczyt do bazy.</p>
+
+<p>Ta sama aplikacja webowa odpowiedzialna będzie za udostępnienie dodatkowego interfejsu. Interfejs ten będzie udostępniał historię wskazań temperatury.Więc na tym etapie mamy dwie osobne aplikacje. Pierwsza z nich to Termometr uruchamiany z linii poleceń, bez żadnego interfejsu graficznego. Druga z nich to aplikacja webowa, która udostępni interfejs dodawania wskazania temperatury oraz pobrania historii odczytów. Tu także nie będzie żadnego interfejsu graficznego.</p>
+
+<p>Ostatnim etapem będzie interfejs użytkownika, który będzie prezentował historyczne odczyty w formie grafów. Tu też pojawią się trudności - ten etap to aplikacja napisana w JavaScript, za którym niestety nie przepadam ;)</p>
+
+<p>Składając te klocki w całość projekt można pokazać na takim uproszczonym diagramie.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/03/04_pogodynka-diagram.png" alt="" />
+  
+    <figcaption>Pogodynka - diagram architektury
+</figcaption>
+  
+</figure>
+
+<p>Wymyśliłem taką architekturę, ponieważ nie mam publicznego IP i nie mógłbym aplikacji webowej “wystawić na świat” jeśli uruchomiona byłaby na Malince.</p>
+
+<p class="notice--info">Tutaj drobna dygresja dla początkujących. Każda strona internetowa, na przykład <a href="http://www.samouczekprogramisty.pl">www.samouczekprogramisty.pl</a> utrzymywana jest na serwerze. Serwer ten ma tak zwany adres IP. Upraszczając możemy powiedzieć, że jest to jakaś liczba. Istnieje mechanizm, który pozwala na “tłumaczenie” adresu strony internetowej na adres IP, nazywa się on DNS (ang. <em>Domain Name System</em>). Dzięki temu nie musimy zapamiętywać liczb żeby zobaczyć stronę internetową. Wystarczy, że pamiętamy jej adres. Publiczny adres IP to nic innego jak taki numer, który jest stały. Dzięki temu, że adres IP się nie zmienia mapowanie adresu strony na adres IP zawsze jest poprawne.</p>
+
+<h2 id="baza-danych">Baza danych</h2>
+
+<p>Nasze dane to nic innego jak standardowe szeregi czasowe (ang. <em>time series</em>). Istnieją dedykowane bazy danych, które bardzo dobrze dają sobie radę z danymi tego typu. Jednak żeby niepotrzebnie nie komplikować samej aplikacji dane będą zapisywane w najzwyklejszej relacyjnej bazie danych. Zdaję sobie sprawę, że z czasem danych może być sporo - jednak baza relacyjna powinna dać sobie z taką ilością bez problemu radę.</p>
+
+<p>Zakładając odczyty temperatury co 5 minut dopiero po prawie dziesięciu latach dojdziemy do miliona rekordów ;). Oczywiście interfejs zwracający historię, będzie musiał dokonywać pewnego rodzaju agregacji, ale o tym będę decydował później.</p>
+
+<h2 id="postęp-prac">Postęp prac</h2>
+
+<p>Cały postęp prac nad projektem wraz z zadaniami, które będę realizował możesz śledzić w Trello: <a href="https://trello.com/b/yqZHTqSN/pogodynka">https://trello.com/b/yqZHTqSN/pogodynka</a>. Jest to proste narzędzie pomagające w śledzeniu zadań. W “prawdziwych” projektach programistycznych też używa się takich narzędzi, czasami dużo bardziej rozbudowanych.</p>
+
+<p>Zacząłem od tego, że pół nocy spędziłem na próbie zmuszenia Malinki do współpracy, oczywiście się to nie udało ;). Więc żeby pchnąć całość do przodu zacząłem od innego komponentu - Termometru.</p>
+
+<p>Jeśli jesteś zainteresowany postępem prac nad kodem zachęcam do zajrzenia do repozytorium: <a href="https://github.com/SamouczekProgramisty/Pogodynka">https://github.com/SamouczekProgramisty/Pogodynka</a>. Aktualnie znajduje się tam zestaw kilku obiektów, które reprezentują pomiar temperatury. Pomiar ten jest transformowany do formatu JSON i wysyłany jako żądanie HTTP.</p>
+
+<h3 id="testy">Testy</h3>
+
+<p>Do testowania całego rozwiązania, poza testami jednostkowymi, użyłem usługi <a href="http://requestb.in">http://requestb.in</a>, która pozwala na sprawdzanie wysyłanych żądań. Wygląda na to, że całość działa. Brakuje tu oczywiście warstwy uwierzytelniania. Nie chcę, żeby każdy mógł wysłać żądanie na adres, który będzie akceptował odczyty temperatury.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Na koniec możesz zadać sobie pytanie. Do czego jest MI to potrzebne? Po co mam czytać tę serię artykułów? Pytania są jak najbardziej zasadne. Wydaje mi się, że mam też na te pytania dobrą odpowiedź ;). Moim zdaniem nie ma lepszego sposobu nauki programowania, niż na rzeczywistych problemach, które pojawiają się właśnie w takich projektach. Poza tym każdy programista w swoim życiu więcej kodu czyta niż pisze :).</p>
+
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do mojego newslettera i polub Samouczka na facebooku.</p>
+
+<p>Na koniec mam do Ciebie standardową prośbę, podziel się linkiem do artykułu ze znajomymi, zależy mi na dotarciu do jak największej liczby samouków, którzy chcą pogłębiać swoją wiedzę. Do następnego razu!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#dsp2017" class="page__taxonomy-item" rel="tag">DSP2017</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#pogodynka" class="page__taxonomy-item" rel="tag">Pogodynka</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#projekty" class="page__taxonomy-item" rel="tag">Projekty</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-03-04T13:42:38+01:00">March 04, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fprojekt-pogodynka-wprowadzenie%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fprojekt-pogodynka-wprowadzenie%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/xml-dla-poczatkujacych/" class="pagination--pager" title="XML dla początkujących
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/java-z-linii-polecen/" class="pagination--pager" title="Java z linii poleceń
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/projekt-pogodynka-wprowadzenie/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/projekt-pogodynka-wprowadzenie"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

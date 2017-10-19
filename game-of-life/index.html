@@ -1,0 +1,771 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Game of Life - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Kolejny artykuł z serii „Strefy zadaniowej Samouczka”. Programowania najlepiej uczyć się rozwiązując konkretne problemy. Artykuł ten stawia przed Tobą właśnie taki problem. Dzisiejszym zadaniem będzie „Gra w życie” :). W każdym momencie możesz też spojrzeć do przykładowego rozwiązania, które dla Ciebie przygotowałem.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Game of Life">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/game-of-life/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/game-of-life/">
+
+
+
+  <meta property="og:description" content="Kolejny artykuł z serii „Strefy zadaniowej Samouczka”. Programowania najlepiej uczyć się rozwiązując konkretne problemy. Artykuł ten stawia przed Tobą właśnie taki problem. Dzisiejszym zadaniem będzie „Gra w życie” :). W każdym momencie możesz też spojrzeć do przykładowego rozwiązania, które dla Ciebie przygotowałem.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2016/11/06_zadanie_game_of_life_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-11-06T14:01:08+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2016/11/06_zadanie_game_of_life_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Game of Life
+
+        
+      </h1>
+      
+        <p class="page__lead">Kolejny artykuł z serii „Strefy zadaniowej Samouczka”. Programowania najlepiej uczyć się rozwiązując konkretne problemy. Artykuł ten stawia przed Tobą właśnie taki problem. Dzisiejszym zadaniem będzie „Gra w życie” :). W każdym momencie możesz też spojrzeć do przykładowego rozwiązania, które dla Ciebie przygotowałem.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/evaekeblad/916121748/sizes/l">© evaekeblad</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Game of Life</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Game of Life">
+    <meta itemprop="description" content="Kolejny artykuł z serii „Strefy zadaniowej Samouczka”. Programowania najlepiej uczyć się rozwiązując konkretne problemy. Artykuł ten stawia przed Tobą właśnie taki problem. Dzisiejszym zadaniem będzie „Gra w życie” :). W każdym momencie możesz też spojrzeć do przykładowego rozwiązania, które dla Ciebie przygotowałem.">
+    <meta itemprop="datePublished" content="November 06, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#conveys-game-of-life" id="markdown-toc-conveys-game-of-life">Convey’s Game of Life</a>    <ul>
+      <li><a href="#przykład-1" id="markdown-toc-przykład-1">Przykład 1.</a></li>
+      <li><a href="#przykład-2" id="markdown-toc-przykład-2">Przykład 2.</a></li>
+      <li><a href="#kolejne-przykłady" id="markdown-toc-kolejne-przykłady">Kolejne przykłady</a></li>
+    </ul>
+  </li>
+  <li><a href="#zadanie-do-wykonania" id="markdown-toc-zadanie-do-wykonania">Zadanie do wykonania</a></li>
+  <li><a href="#materiały-dodatkowe" id="markdown-toc-materiały-dodatkowe">Materiały dodatkowe</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="conveys-game-of-life">Convey’s Game of Life</h2>
+
+<p>Gra w życie zakłada, że mamy planszę o nieskończonych wymiarach. Plansza ta podzielona jest na pola, w podobny sposób jak kartka w kratkę. Każda kratka reprezentuje pole. Każde pole ma dokładnie 8 sąsiadów, osiem kratek wokół.</p>
+
+<p>Każde z pól może być w dwóch stanach. Może być żywe bądź martwe.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/11/06_zywa13.gif" alt="" />
+  
+    <figcaption>Żywa komórka (1, 3)
+</figcaption>
+  
+</figure>
+
+<p>W przykładzie powyżej widzisz wycinek planszy na którym mamy żywą komórkę o współrzędnych (1, 3). Oznaczona jest ona czarnym kwadratem.</p>
+
+<p>Gra sprowadza się do przygotowania kolejnych generacji planszy na podstawie jej aktualnego stanu. Kolejna generacja powstaje na podstawie czterech zasad:</p>
+
+<ul>
+  <li>Każda żywa komórka z mniej niż dwoma żywymi sąsiadami umiera w kolejnej generacji z powodu wyludnienia,</li>
+  <li>każda żywa komórka z dwoma lub trzema żywymi sąsiadami jest w stanie przetrwać do następnej generacji,</li>
+  <li>każda żywa komórka z więcej niż trzema żywymi sąsiadami umiera w kolejnej genracji z powodu przeludnienia,</li>
+  <li>każda martwa komórka z dokładnie trzema żywymi sąsiadami staje się żywa w kolejnej generacji.</li>
+</ul>
+
+<p>Zobacz jak te zasady wyglądają na kilku przykładach.</p>
+
+<h3 id="przykład-1">Przykład 1.</h3>
+
+<p>W tym przykładzie pierwsza generacja planszy zawiera wyłącznie żywą komórkę na pozycji (1, 3). W kolejnej generacji komórka ta ginie ponieważ nie ma dwóch żywych sąsiadów.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/11/06_zywa13.gif" alt="" />
+  
+    <figcaption>Żywa komórka (1, 3)
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/11/06_pusta.gif" alt="" />
+  
+    <figcaption>Pusta plansza
+</figcaption>
+  
+</figure>
+
+<h3 id="przykład-2">Przykład 2.</h3>
+
+<p>W tym przykładzie, w pierwszej generacji mamy trzy żywe komórki na pozycjach (1, 2), (2, 2) i (3, 2). W kolejnej generacji dzieje się już trochę więcej:</p>
+<ul>
+  <li>Komórka (1, 2) i (3, 2) giną ponieważ mają tylko jednego żywego sąsiada,</li>
+  <li>komórka (2, 2) przeżywa ponieważ ma dokładnie dwóch żywych sąsiadów,</li>
+  <li>komórki (2, 1) i (2, 3) ożywają ponieważ mają trzech żywych sąsiadów,</li>
+  <li>pozostałe komórki pozostają martwe.</li>
+</ul>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/11/06_plansza_okres2_poziom.gif" alt="" />
+  
+    <figcaption>Figura okresowa
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/11/06_plansza_okres2_pion.gif" alt="" />
+  
+    <figcaption>Figura okresowa
+</figcaption>
+  
+</figure>
+
+<p>Zauważ, że kolejna generacja prowadzi do kształtu podobnego do poprzedniej. W przypadku tego kształtu i kolejnych generacji okazuje się, że zawsze jakieś żywe komórki powstaną na planszy. Kolejne generacje można pokazać przy pomocy animacji:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/11/06_plansza_okres2_animacja.gif" alt="" />
+  
+    <figcaption>Figura okresowa
+</figcaption>
+  
+</figure>
+
+<h3 id="kolejne-przykłady">Kolejne przykłady</h3>
+
+<p>Bardziej skomplikowane kształty możesz zobaczyć na filmiku poniżej:</p>
+
+<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/C2vgICfQawE?controls=1&amp;showinfo=1&amp;t=1m11s" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>Twoim zadaniem jest napisanie gry w życie.</p>
+
+<p>Aby trochę ułatwić wizualizację, nie będziemy implementowali nieskończonej planszy. Zodyfikujemy wymagania dotyczące planszy. W naszym przypadku planszę ograniczymy do kwadratu o boku N, gdzie N będzie parametrem konstruktora planszy. Nie będzie ona nieskończona, a będzie się „zawijała”. Co to oznacza?</p>
+
+<p>Na poniższym obrazku zaznaczyłem sąsiedztwo dla pola (1, 0). Jak widzisz, „zawija się” ono w taki sposób, że obejmuje także ostatni rząd planszy.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/11/06_plansza_sasiedztwo_10.gif" alt="" />
+  
+    <figcaption>Sąsiednie pola dla (1, 0)
+</figcaption>
+  
+</figure>
+
+<p>Podobnie ma się sytuacja dla narożników. Poniższy obrazek pokazuje sąsiedztwo dla narożnika (0, 0).</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2016/11/06_plansza_sasiedztwo_00.gif" alt="" />
+  
+    <figcaption>Sąsiednie pola dla (0, 0)
+</figcaption>
+  
+</figure>
+
+<p>Napisz program, który będzie w stanie wygenerować kolejną generację planszy w „grze w życie”. Nie zapominaj o testach jednostkowych dla swojego programu.</p>
+
+<p>Dla przykładu poniżej umieściłem jeden z testów z przykładowego rozwiązania.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldBeAbleToProvideNextGenerationWithPeriod</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">boardVisualisation</span> <span class="o">=</span> <span class="s">"+----+"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                                <span class="s">"|    |"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                                <span class="s">"| o  |"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                                <span class="s">"| o  |"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                                <span class="s">"| o  |"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                                <span class="s">"+----+"</span><span class="o">;</span>
+    <span class="n">Board</span> <span class="n">board</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Board</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="n">Cell</span><span class="o">.</span><span class="na">live</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">),</span> <span class="n">Cell</span><span class="o">.</span><span class="na">live</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="n">Cell</span><span class="o">.</span><span class="na">live</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">));</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="n">boardVisualisation</span><span class="o">,</span> <span class="n">board</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+ 
+    <span class="n">String</span> <span class="n">expected</span> <span class="o">=</span> <span class="s">"+----+"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                      <span class="s">"|    |"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                      <span class="s">"|    |"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                      <span class="s">"|ooo |"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                      <span class="s">"|    |"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span>
+                      <span class="s">"+----+"</span><span class="o">;</span>
+    <span class="n">Board</span> <span class="n">boardNextGeneration</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="na">nextGeneration</span><span class="o">();</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="n">expected</span><span class="o">,</span> <span class="n">boardNextGeneration</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Przygotowałem też dla Ciebie <a href="https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/03_game_of_life">przykładowe rozwiązanie</a> wraz z testami jednostkowymi. Możesz zajrzeć na samouczkowego githuba.</p>
+
+<h2 id="materiały-dodatkowe">Materiały dodatkowe</h2>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Artykuł na wikipedii na temat gry w życie</a>,</li>
+  <li><a href="https://www.youtube.com/watch?v=R9Plq-D1gEk">wywiad z autorem Game of Life</a> – John H. Convey opowiada o Grze w Życie :)</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Mam nadzieję, że udało Ci się napisać grę w życie. Nie jest to duży projekt jednak rozbudowany na tyle, że musisz przećwiczyć podstawowe zagadnienia programowania obiektowego. Niby prosty zestaw zasad, a jaki ciekawy efekt można uzyskać :). Jeśli chciałbyś dostawać informacje o kolejnych artykułach prosto na Twoją skrzynkę zapisz się na mojego newslettera.</p>
+
+<p>Na koniec proszę Cię, żebyś podzielił się informacją o Samouczku ze swoimi znajomymi, którzy też są zainteresowani programowaniem – zależy mi na dotarciu do jak największej liczby czytelników.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#strefa-zadaniowa" class="page__taxonomy-item" rel="tag">Strefa zadaniowa</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2016-11-06T14:01:08+01:00">November 06, 2016</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fgame-of-life%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fgame-of-life%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit/" class="pagination--pager" title="Testy jednostkowe z JUnit
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/test-driven-development-na-przykladzie/" class="pagination--pager" title="Test Driven Development na przykładzie
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/game-of-life/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/game-of-life"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

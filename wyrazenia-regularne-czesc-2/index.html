@@ -1,0 +1,847 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Wyrażenia regularne część 2 - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Czas na kolejną odsłonę artykułu o wyrażeniach regularnych. W tej części przeczytasz o grupach nazwanych, alternatywie, ponownym użyciu grup w wyrażeniu czy kotwicach. Dowiesz się dlaczego wyrażenia regularne są zachłanne i jak to zachowanie wyłączyć. Innymi słowy czeka na Ciebie kolejna solidna porcja wiedzy na temat wyrażeń regularnych. Na koniec jak zwykle całość będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań. Zapraszam!">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wyrażenia regularne część 2">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-czesc-2/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/wyrazenia-regularne-czesc-2/">
+
+
+
+  <meta property="og:description" content="Czas na kolejną odsłonę artykułu o wyrażeniach regularnych. W tej części przeczytasz o grupach nazwanych, alternatywie, ponownym użyciu grup w wyrażeniu czy kotwicach. Dowiesz się dlaczego wyrażenia regularne są zachłanne i jak to zachowanie wyłączyć. Innymi słowy czeka na Ciebie kolejna solidna porcja wiedzy na temat wyrażeń regularnych. Na koniec jak zwykle całość będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań. Zapraszam!">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/01/06_wyrazenia_regularne_2_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-01-06T10:51:29+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/01/06_wyrazenia_regularne_2_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Wyrażenia regularne część 2
+
+        
+      </h1>
+      
+        <p class="page__lead">Czas na kolejną odsłonę artykułu o wyrażeniach regularnych. W tej części przeczytasz o grupach nazwanych, alternatywie, ponownym użyciu grup w wyrażeniu czy kotwicach. Dowiesz się dlaczego wyrażenia regularne są zachłanne i jak to zachowanie wyłączyć. Innymi słowy czeka na Ciebie kolejna solidna porcja wiedzy na temat wyrażeń regularnych. Na koniec jak zwykle całość będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań. Zapraszam!
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/roel1943/13961916635/sizes/l">© roel1943</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wyrażenia regularne część 2</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wyrażenia regularne część 2">
+    <meta itemprop="description" content="Czas na kolejną odsłonę artykułu o wyrażeniach regularnych. W tej części przeczytasz o grupach nazwanych, alternatywie, ponownym użyciu grup w wyrażeniu czy kotwicach. Dowiesz się dlaczego wyrażenia regularne są zachłanne i jak to zachowanie wyłączyć. Innymi słowy czeka na Ciebie kolejna solidna porcja wiedzy na temat wyrażeń regularnych. Na koniec jak zwykle całość będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań. Zapraszam!">
+    <meta itemprop="datePublished" content="January 06, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#zachłanność-wyrażeń-regularnych" id="markdown-toc-zachłanność-wyrażeń-regularnych">Zachłanność wyrażeń regularnych</a></li>
+  <li><a href="#alternatywa" id="markdown-toc-alternatywa">Alternatywa</a></li>
+  <li><a href="#grupy-nieprzechwytujące" id="markdown-toc-grupy-nieprzechwytujące">Grupy nieprzechwytujące</a></li>
+  <li><a href="#grupy-nazwane" id="markdown-toc-grupy-nazwane">Grupy nazwane</a></li>
+  <li><a href="#ponowne-użycie-grup-w-wyrażeniu" id="markdown-toc-ponowne-użycie-grup-w-wyrażeniu">Ponowne użycie grup w wyrażeniu</a></li>
+  <li><a href="#kotwice" id="markdown-toc-kotwice">Kotwice</a></li>
+  <li><a href="#zadanie-do-wykonania" id="markdown-toc-zadanie-do-wykonania">Zadanie do wykonania</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<div class="notice--info">
+  
+<p>To jest drugi artykuł na temat wyrażeń regularnych. Część zagadnień związanych z wyrażeniami regularnymi opisana jest w <a href="/wyrazenia-regularne-w-jezyku-java/">pierwszej części</a>:</p>
+
+<ul>
+  <li>czym są wyrażenia regularne,</li>
+  <li>kiedy używamy wyrażeń regularnych, praktyczne wskazówki,</li>
+  <li>API wyrażeń regularnych w języku Java,</li>
+  <li>obsługa powtórzeń (<code class="highlighter-rouge">+</code>, <code class="highlighter-rouge">*</code>, <code class="highlighter-rouge">?</code>, <code class="highlighter-rouge">{}</code>),</li>
+  <li>klasy znaków (<code class="highlighter-rouge">.</code>, <code class="highlighter-rouge">[]</code>, <code class="highlighter-rouge">\d</code>, <code class="highlighter-rouge">\w</code>, itd.),</li>
+  <li>grupy (<code class="highlighter-rouge">()</code>),</li>
+  <li>wsparcie IDE dla wyrażeń regularnych.</li>
+</ul>
+
+<p>Zachęcam do przeczytania pierwszej części jeśli chciałbyś dowiedzieć się czegoś więcej o punktach wspomnianych powyżej. Tutaj bez zbędnego wstępu przejdę do konkretów. Na pierwszy ogień idzie zachłanność wyrażeń regularnych.</p>
+
+</div>
+
+<h2 id="zachłanność-wyrażeń-regularnych">Zachłanność wyrażeń regularnych</h2>
+
+<p>Wyrażenia regularne są zachłanne. Oznacza to tyle, że wyrażenie regularne dopasuje największą możliwą część łańcucha znaków, która pasuje do wzorca. Najłatwiej będzie to zobaczyć na przykładzie.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldBeGreedy</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"&lt;(.+)&gt;"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"&lt;em&gt;some emphasized text&lt;/em&gt;"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"em&gt;some emphasized text&lt;/em"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Powyżej widzisz standardowy przykład wykorzystywany do pokazania tej właściwości wyrażeń regularnych. Tekst, który chcemy dopasować jest kodem HTML zawierającym znacznik <code class="highlighter-rouge">&lt;em&gt;</code><sup id="fnref:em"><a href="#fn:em" class="footnote">1</a></sup>. Załóżmy, że chciałbyś wyciągnąć nazwę znacznika znajdującego się pomiędzy <code class="highlighter-rouge">&lt;</code> i <code class="highlighter-rouge">&gt;</code>.</p>
+
+<p>Okazuje się, że wyrażenie regularne użyte w przykładzie powyżej nie zadziała tak jakbyś tego chciał. Zgodnie z tym co opisałem wcześniej dopasuje najwięcej tekstu jak to tylko możliwe zatem w grupie <code class="highlighter-rouge">(.+)</code> znajdzie się <code class="highlighter-rouge">em&gt;some emphasized text&lt;/em</code>.</p>
+
+<p>Istnieje standardowy sposób na obejście tego typu zachowania, możesz zastosować tutaj negację grupy znaków. Wyrażenie regularne <code class="highlighter-rouge">&lt;([^&gt;]+)&gt;</code> dopasuje wszystko co znajduje się pomiędzy <code class="highlighter-rouge">&lt;</code> <code class="highlighter-rouge">&gt;</code> i nie jest znakiem <code class="highlighter-rouge">&gt;</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldBeAbleToCheatGreadiness</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"&lt;([^&gt;]+)&gt;"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"&lt;em&gt;some emphasized text&lt;/em&gt;"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"em"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Wyrażenia regularne działają w ten sposób, ponieważ mechanizm do obsługi powtórzeń jest zachłanny. Symbole powtórzeń <code class="highlighter-rouge">{}</code>, <code class="highlighter-rouge">?</code>, <code class="highlighter-rouge">*</code> czy <code class="highlighter-rouge">+</code> dopasowują zawsze najwięcej jak tylko się da.</p>
+
+<p>Istnieje jednak przełącznik, który zmienia to zachowanie. Jest to znak <code class="highlighter-rouge">?</code>. Znów najlepiej będzie przeanalizować całość na przykładzie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldTurnOffGreedinessForPlus</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"&lt;(.+?)&gt;"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"&lt;em&gt;some emphasized text&lt;/em&gt;"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"em"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz, tym razem <code class="highlighter-rouge">.+</code> nie pochłonął nam prawie całego łańcucha. Grupa zawiera najmniej tekstu jak to możliwe. W posobny sposób <code class="highlighter-rouge">?</code> wyłącza zachłanność dla <code class="highlighter-rouge">*</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldTurnOffGreedinessForAsterix</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"&lt;(.*?)&gt;"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"&lt;em&gt;some emphasized text&lt;/em&gt;"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"em"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Z kolei w przykładzie poniżej pokazałem jak <code class="highlighter-rouge">?</code> wpływa na <code class="highlighter-rouge">{}</code>. Chociaż wyrażenie mogłoby dopasować cały łańcuch znaków, w grupie znajdują się wyłącznie pierwsze trzy znaki (ponieważ <code class="highlighter-rouge">{}</code> nie jest tu zachłanny).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldTurnOffGreadinessForCurlyBraces</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"(.{3,5}?)"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"12345"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"123"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="alternatywa">Alternatywa</h2>
+
+<p>Załóżmy, że program, który piszesz musi przetworzyć zestaw instrukcji dla samochodu, którym kieruje. Niektóre z instrukcji mówią w którą stronę należy skręcić</p>
+<ul>
+  <li>skręć w prawo,</li>
+  <li>skręć w lewo.</li>
+</ul>
+
+<p>Aby przy pomocy jednego wyrażenia regularnego dopasować obie instrukcje możesz użyć alternatywy. Spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldParseAlternative</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"skręć w (prawo|lewo)"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"skręć w lewo"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"lewo"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+
+    <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"skręć w prawo"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"prawo"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz, wewnątrz grupy użyłem tam znaku <code class="highlighter-rouge">|</code>. Znak ten jest jednym ze znaków specjalnych. Jeśli występuje wewnątrz wyrażenia regularnego oznacza, że łańcuch znaków pasuje do wyrażenia regularnego jeśli pasuje do części znajdującej się przed znakiem <code class="highlighter-rouge">|</code> lub do części znajdującej się po znaku <code class="highlighter-rouge">|</code>.</p>
+
+<p>Jeśli chcesz ograniczyć zakres alternatywy użyj nawiasów jak w przykładzie powyżej, w takim przypadku alternatywa dopasuje to co znajduje się po lewej stronie znaku <code class="highlighter-rouge">|</code> do <code class="highlighter-rouge">(</code>, lub po prawej stronie znaku <code class="highlighter-rouge">|</code> do <code class="highlighter-rouge">)</code>.</p>
+
+<p>Możesz też użyć alternatywy do dopasowania więcej niż dwóch elementów oddzielając każdy z nich znakiem <code class="highlighter-rouge">|</code> jak w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldPickOneFromMultipleAlternatives</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"pies|kot|lew"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"lew"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">matches</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"lew"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="grupy-nieprzechwytujące">Grupy nieprzechwytujące</h2>
+
+<p>Mechanizm wyrażeń regularnych domyślnie zapamiętuje grupy, które zostały użyte w wyrażeniu regularnym. Tak zapamiętane grupy są później dostępne za pośrednictwem metody <code class="highlighter-rouge">group</code>. W większości przypadków jest to pożądane zachowanie, jednak czasami to co wyląduje w grupie nie jest dla Ciebie interesujące.</p>
+
+<p>W takich przypadkach możesz użyć grupy, która nie zostanie zapamiętana. Grupa nie będzie przechwytująca jeśli pierwszymi znakami wewnątrz grupy będą <code class="highlighter-rouge">?:</code>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldUseNonCapturingGroups</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"(?:Ala|Ola) ma (kota|psa)"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"Ola ma psa"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">matches</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"psa"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W przykładzie tym nie interesuje nas właścicielka zwierzaka. Za to sam zwierzak jest ważny. W wyrażeniu tym użyte są dwie grupy, pierwsza nieprzechwytująca i druga, która zawiera zwierzaka.</p>
+
+<h2 id="grupy-nazwane">Grupy nazwane</h2>
+
+<p>Grupy, których użyjemy w wyrażeniu regularnym możemy też nazwać. W takim przypadku do zawartości takiej grupy możemy odwoływać się w standardowy sposób, czyli używając indeksu, który już znasz lub poprzez nazwę. Spójrz na przykład poniżej, w którym poszczególne elementy daty zapamiętane są w nazwanych grupach:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldUseNamedGroups</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"(?&lt;day&gt;\\d{2})\\.(?&lt;month&gt;\\d{2})\\.(?&lt;year&gt;\\d{4})"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"04.01.2017"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">matches</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"04"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="s">"day"</span><span class="o">));</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"04"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"2017"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="s">"year"</span><span class="o">));</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"2017"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">3</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widziałeś w przykładzie grupy nazwane mają <code class="highlighter-rouge">?&lt;nazwa&gt;</code> wewnątrz grupy. Następnie używając <code class="highlighter-rouge">nazwa</code> możemy dostać się do zawartości danej grupy używając metody <code class="highlighter-rouge">group</code>.</p>
+
+<h2 id="ponowne-użycie-grup-w-wyrażeniu">Ponowne użycie grup w wyrażeniu</h2>
+
+<p>Tutaj ponownie posłużę się przykładem znaczników HTML. Załóżmy, że mamy następujący kod HTML <code class="highlighter-rouge">&lt;p&gt;Some paragraph &lt;em&gt;emphasized&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Other paragraph&lt;/p&gt;</code>. Jak mógłbyś wyciągnąć tekst znajdujący się wewnątrz pary znaczników? Na przykład to co znajduje się wewnątrz pierwszej pary <code class="highlighter-rouge">&lt;p&gt;</code> i <code class="highlighter-rouge">&lt;/p&gt;</code>?</p>
+
+<p>Z pomocą przychodzi tu mechanizm ponownego użycia grup wewnątrz wyrażenia regularnego. Spójrz proszę na przykład:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldReuseGroupsInsideRegexp</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"&lt;(.+?)&gt;(.+?)&lt;/\\1&gt;"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"&lt;p&gt;Some paragraph &lt;em&gt;emphasized&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Other paragraph&lt;/p&gt;"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"p"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"Akapit tekstu &lt;em&gt;coś innego&lt;/em&gt;"</span><span class="o">,</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz, na samym końcu wyrażenia znajduje się \1. Jest to nic innego jak odwołanie się do pierwszej grupy, która została dopasowana. W naszym przypadku jest to p. Podobnie możesz używać kolejnych grup używając kolejnych indeksów.</p>
+
+<h2 id="kotwice">Kotwice</h2>
+
+<p>Nadszedł czas na kotwice. Kotwice to znaki specjalne w wyrażeniach regularnych. Kotwice służą do przekazania informacji o tym gdzie chcemy szukać dopasowania w danym łańcuchu znaków.</p>
+
+<p>Na przykład do wyrażenia regularnego <code class="highlighter-rouge">c$</code> pasują łańcuchy znaków <code class="highlighter-rouge">abc</code> czy <code class="highlighter-rouge">bac</code> ale nie pasuje <code class="highlighter-rouge">cab</code>. Innymi słowy <code class="highlighter-rouge">c$</code> mówi, że „<code class="highlighter-rouge">c</code> powinno wystąpić na końcu łańcucha znaków”. Istnieje kilka kotwic, poniżej pokażę Ci te dwie najczęściej używane:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">^</code> oznacza początek łańcucha znaków,</li>
+  <li><code class="highlighter-rouge">$</code> oznacza koniec łańcucha znaków.</li>
+</ul>
+
+<p>Kotwice są bardzo często używane w przypadku walidacji danych wejściowych od użytkownika. Na przykład jeśli chcemy mieć pewność, że użytkownik wprowadził tylko liczby możemy użyć wyrażenia z <code class="highlighter-rouge">^</code> i <code class="highlighter-rouge">$</code>.</p>
+
+<p>Oczywiście można też wykorzystać metodę <code class="highlighter-rouge">matches</code> zamiast <code class="highlighter-rouge">find</code>. Różnicę pomiędzy zachowaniem tych metod wraz z użyciem kotwic pokazałem w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldShowDifferenceBetweenFindAndMatches</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"\\d+"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"abc123def"</span><span class="o">);</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertFalse</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">matches</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldShowDifferenceBetweenFindAndMatchesWithAncors</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"^\\d+$"</span><span class="o">);</span>
+    <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="s">"abc123def"</span><span class="o">);</span>
+    <span class="n">assertFalse</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+    <span class="n">assertFalse</span><span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">matches</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>W ramach zadania do wykonania aby przećwiczyć wyrażenia regularne w praktyce odeślę Cię do zadań z Advent of Code 2016. Poniżej jest lista zadań, w których możesz użyć wyrażeń regularnych. Są tam zadania o różnym poziomie trudności, na pewno znajdziesz coś dla siebie. Każde z tych zadań zawiera także przykładowe rozwiązanie:</p>
+<ul>
+  <li><a href="/advent-of-code-2016-dzien-4/">dzień 4</a>,</li>
+  <li><a href="/advent-of-code-2016-dzien-8/">dzień 8</a>,</li>
+  <li><a href="/advent-of-code-2016-dzien-10/">dzień 10</a>,</li>
+  <li><a href="/advent-of-code-2016-dzien-12/">dzień 12</a>,</li>
+  <li><a href="/advent-of-code-2016-dzien-21/">dzień 21</a>.</li>
+</ul>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Zbiór linków z dodatkowymi materiałami do nauki zebrałem w <a href="/wyrazenia-regularne-w-jezyku-java/">pierwszej części artykułu</a>, jeśli chcesz dowiedzieć się więcej na temat wyrażeń regularnych zapraszam do tamtego zbioru. Jeśli chcesz, możesz także przeglądać kod źródłowy przykładów z tego artykułu, wszystkie przykłady dostępne są na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/24_wyrazenia_regularne/src/test/java/pl/samouczekprogramisty/kursjava/regexp">githubie</a>.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po obu artykułach na temat wyrażeń regularnych i rozwiązaniu zadań możesz śmiało powiedzieć, że używałeś wyrażeń regularnych w praktyce :). Poznałeś większość mechanizmów dostępnych w wyrażeniach regularnych. Jednak musisz wiedzieć, że to nadal nie wszystko. Znajomość wyrażeń regularnych na poziomie opisanym w obu artykułach w zupełności wystarczy Ci do codziennej pracy.</p>
+
+<p>Mam nadzieję, że ta dwuczęściowa seria przypadła Ci do gustu. Jeśli tak proszę podziel się artykułem ze znajomymi. Zależy mi na dotarciu do jak największej liczby czytelników, możesz mi w tym pomóc. Jeśli nie chcesz pominąć kolejnych artykułów zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:em">
+      <p>Znacznik ten służy do wyróżnienia tekstu na stronie www. <a href="#fnref:em" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-01-06T10:51:29+01:00">January 06, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwyrazenia-regularne-czesc-2%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwyrazenia-regularne-czesc-2%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/advent-of-code-2016-dzien-25/" class="pagination--pager" title="Advent of Code 2016 dzień 25
+">Poprzednia</a>
+    
+    
+      <a href="http://www.samouczekprogramisty.pl/wstep-do-gradle/" class="pagination--pager" title="Wstęp do Gradle
+">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/wyrazenia-regularne-czesc-2/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/wyrazenia-regularne-czesc-2"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
