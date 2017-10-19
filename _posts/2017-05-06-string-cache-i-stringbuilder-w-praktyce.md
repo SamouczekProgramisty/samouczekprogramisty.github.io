@@ -276,7 +276,6 @@ Poniżej przygotowałem dla Ciebie zestaw odnośników, które mogą pomóc w ro
 - dokumentacja klasy [`StringJoiner`](https://docs.oracle.com/javase/8/docs/api/java/util/StringJoiner.html),
 - [kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/26_lancuchy_znakow/src).
 
-
 ## Podsumowanie
 
 Po lekturze tego artykułu sporo wiesz o pracy z łańcuchami znaków. Poznałeś jedną z optymalizacji, które wprowadza kompilator. Umiesz odpowiedzieć na jedno ze sztampowych pytań rekrutacyjnych ;). Znasz sposób pracy z klasą `StringBuilder`. Dowiedziałeś się też o przydatnych metodach operujących na instancjach klasy `String` znajdujących się w bibliotece commons-lang.
