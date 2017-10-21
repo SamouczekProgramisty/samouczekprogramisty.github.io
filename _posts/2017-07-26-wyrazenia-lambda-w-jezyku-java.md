@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg
     caption: "[&copy; rofi](https://www.flickr.com/photos/rofi/2097239111/sizes/l)"
 excerpt: W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator `::`. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.
+disqus_page_identifier: 966 http://www.samouczekprogramisty.pl/?p=966
 ---
 
 {% include toc %}

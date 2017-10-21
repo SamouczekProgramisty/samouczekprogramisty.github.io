@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg
     caption: "[&copy; goddess-arts](https://www.flickr.com/photos/goddess-arts/4442889445/sizes/o)"
 excerpt: Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale się im nie dziwię. Postaram się wypunktować kroki, które moim zdaniem powinieneś przejść aby zostać programistą. W ogłoszeniach profil tego typu określany jest jako “Full stack Java developer”. Zapraszam do lektury.
+disqus_page_identifier: 926 http://www.samouczekprogramisty.pl/?p=926
 ---
 
 {% include toc %}

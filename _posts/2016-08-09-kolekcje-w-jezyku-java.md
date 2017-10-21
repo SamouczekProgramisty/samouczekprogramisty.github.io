@@ -9,6 +9,7 @@ header:
     teaser: /assets/images/2016/08/09_kolekcje_w_jezyku_java_artykul.jpg
     overlay_image: /assets/images/2016/08/09_kolekcje_w_jezyku_java_artykul.jpg
 excerpt: W tym artykule przeczytasz o kolekcjach w języku Java. Dowiesz się czym są kolekcje, kiedy można ich używać. Poznasz podstawowe kolekcje takie jak mapa, zbiór czy lista. Jak zwykle na koniec czekały będą na Ciebie zadania, przy których przećwiczysz materiał opisany w tym artykule. Zwrócę też uwagę na parę skrótów klawiaturowych, które mogą Ci się przydać podczas pracy z kodem. Zapraszam do lektury!
+disqus_page_identifier: 115 http://www.samouczekprogramisty.pl/?p=115
 ---
 
 {% include toc %}

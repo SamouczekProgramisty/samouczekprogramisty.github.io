@@ -11,6 +11,7 @@ header:
     overlay_image: /assets/images/2017/05/23_pogodynka_integracja_artykul.jpeg
     caption: "[&copy; 85182154@N00](https://www.flickr.com/photos/85182154@N00/296492538/sizes/l)"
 excerpt: Raport z frontu Pogodynki. Ostatnie dwa dni minęły pod znakiem integracji. Spinałem w całość poszczególne elementy projektu. Pisania kodu było tu niewiele, raczej wyszukiwanie błędów i praca z zakresu “dev-ops”. Niemniej jednak prawie 30% zmian w repozytorium pojawiło się w przeciągu tych dwóch dni.
+disqus_page_identifier: 908 http://www.samouczekprogramisty.pl/?p=908
 ---
 
 Jak wspomniałem wyżej większość zmian związanych było z konfiguracją i integracją poszczególnych komponentów. Zacznę od serwera HTTP.

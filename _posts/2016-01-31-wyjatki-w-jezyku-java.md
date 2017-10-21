@@ -11,6 +11,7 @@ header:
 excerpt: "Tylko ten nie popełnia błędów, kto nic nie robi. My dzisiaj będziemy popełniać błędy i będziemy starali się je poprawiać. Przekładając to co powiedział Napoleon na kontekst programowania w artykule przeczytasz o wyjątkach w języku Java i ich obsłudze.
 
 Dowiesz się czym jest wyjątek i jaką rolę pełni w programowaniu. Dowiesz się kiedy powinniśmy używać wyjątków. Postaram się też przekazać Ci kilka dobrych praktyk związanych z używaniem w wyjątków. Zaczynamy! :)"
+disqus_page_identifier: 207 http://www.samouczekprogramisty.pl/?p=207
 ---
 
 {% include toc %}

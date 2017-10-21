@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/03/08_java_z_linii_polecen_artykul.jpg
     caption: "[&copy; wwward0](https://www.flickr.com/photos/wwward0/9176827666/sizes/l)"
 excerpt: W tym artykule przeczytasz o narzędziach dostarczonych wraz z JDK. Dowiesz się jak używać kompilatora `javac`. Stworzysz swój pierwszy plik JAR. Po przeczytaniu tego artykułu zrozumiesz działanie podstawowych narzędzi dołączonych do JDK i docenisz kawał pracy jaką odwala za nas IDE :). Dowiesz się czym jest classpath i dlaczego ścieżka ta jest niezmiernie ważna. Zapraszam do lektury.
+disqus_page_identifier: 770 http://www.samouczekprogramisty.pl/?p=770
 ---
 
 {% include toc %}

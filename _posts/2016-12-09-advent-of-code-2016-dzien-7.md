@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_07_artykul.jpg
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 7. Tym razem próbujesz podsłuchać ruch sieciowy w Kwaterze Głównej Króliczka Wielkanocnego. Problem w tym, że używa się tam IPv7...
+disqus_page_identifier: 622 http://www.samouczekprogramisty.pl/?p=622
 ---
 
 ## Wprowadzenie

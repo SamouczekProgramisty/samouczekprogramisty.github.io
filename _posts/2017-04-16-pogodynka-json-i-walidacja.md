@@ -11,6 +11,7 @@ header:
     overlay_image: /assets/images/2017/04/16_pogodynka_05_artykul.jpg
     caption: "[&copy; littlekoshka](https://www.flickr.com/photos/littlekoshka/4647737233/sizes/l)"
 excerpt: Kolejny raport z frontu Pogodynki. Tym razem krótko, w kilku żołnierskich słowach opiszę o postępy w Pogodynce.
+disqus_page_identifier: 856 http://www.samouczekprogramisty.pl/?p=856
 ---
 
 ## Zabawa z JSONem

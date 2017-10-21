@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/03/26_pogodynka_04_artykul.jpg
     caption: "[&copy; marksuth](https://www.flickr.com/photos/marksuth/8768228386/sizes/l)"
 excerpt: Kolejna informacja dotycząca postępu prac nad projektem Pogodynka. Dzisiaj trochę o Spring MVC i przykładowej konfiguracji, zapraszam do lektury.
+disqus_page_identifier: 804 http://www.samouczekprogramisty.pl/?p=804
 ---
 
 W tym tygodniu przygotowałem dla Was dość obszerny wpis dotyczący [serwletów w aplikacjach Java]({% post_url 2017-03-25-serwlety-w-aplikacjach-webowych %}). Jego przygotowanie zajęło mi sporo czasu więc automatycznie zostało go mniej na samą Pogodynkę.

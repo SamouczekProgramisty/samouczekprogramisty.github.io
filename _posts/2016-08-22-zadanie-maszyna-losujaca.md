@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/08/22_zadanie_maszyna_losujaca_artykul.jpg
     caption: "[&copy; mikolski](https://www.flickr.com/photos/mikolski)"
 excerpt: Artykuł ten jest pierwszym z artykułów w Strefie Zadaniowej Samouka. Programowania najlepiej jest się uczyć na przykładach, ten artykuł opisuje właśnie jeden z takich przykładów. Specyfikuje dokładnie sposób zachowania prostego programu i przedstawia jego przykładowe rozwiązanie. Zapraszam do lektury.
+disqus_page_identifier: 351 http://www.samouczekprogramisty.pl/?p=351
 ---
 
 ## Opis zadania

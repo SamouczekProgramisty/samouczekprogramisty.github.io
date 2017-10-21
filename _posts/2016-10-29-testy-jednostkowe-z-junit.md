@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/10/29_testy_jednostkowe_junit_artykul.jpg
     caption: "[&copy; andercismo](https://www.flickr.com/photos/andercismo/2349098787/sizes/l)"
 excerpt: Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.
+disqus_page_identifier: 478 http://www.samouczekprogramisty.pl/?p=478
 ---
 
 {% include toc %}

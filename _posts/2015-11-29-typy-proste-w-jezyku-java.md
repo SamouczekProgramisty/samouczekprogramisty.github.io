@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2015/11/29_typy_proste_w_jezyku_java.jpg
     caption: "[&copy; Marcin Pietraszek ;)](http://marcin.pietraszek.pl)"
 excerpt: Dzisiaj poznasz kilka nowych typów prostych oraz klas z biblioteki standardowej. Dowiesz się czym jest literał. Poznasz kilka przykładów literałów w języku Java. Przeczytasz też o sposobie pobierania danych od użytkownika. Z tych klocków poskładamy program do obliczania średniej temperatury dla ostatniego tygodnia. Do dzieła :)
+disqus_page_identifier: 182 http://www.samouczekprogramisty.pl/?p=182
 ---
 
 {% include toc %}

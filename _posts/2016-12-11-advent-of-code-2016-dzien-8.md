@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_08_artykul.jpg
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 8. Twoja pomoc jest potrzebna w symulacji pracy zniszczonego wyświetlacza. Dasz radę rozwiązać to zadanie?
+disqus_page_identifier: 625 http://www.samouczekprogramisty.pl/?p=625
 ---
 
 ## Wprowadzenie

@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/08/25_try-with-resources_artykul.jpg
     caption: "[&copy; livinginmonrovia](https://www.flickr.com/photos/livinginmonrovia)"
 excerpt: Artykuł opisuje konstrukcję try-with-resources występującą w języku Java. Na przykładowym programie będziesz mógł dowiedzieć się jak ona działa. W artykule przeczytasz też o tym czym jest „cukier syntaktyczny”. Całość zakończymy jak zwykle zadaniem, które pozwoli Ci przećwiczyć materiał opisany w artykule. Zapraszam!
+disqus_page_identifier: 347 http://www.samouczekprogramisty.pl/?p=347
 ---
 
 {% include toc %}

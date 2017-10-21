@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/09/02_serializacja_artykul.jpg
     caption: "[&copy; 28653536@N07](https://www.flickr.com/photos/28653536@N07/)"
 excerpt: W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak `ObjectInputStream` czy `ObjectOutputStream` i dowiesz się czym różnią się od innych strumieni. Poznasz nowe słowo kluczowe `transient`. Po przeczytaniu artykułu będziesz w stanie napisać swoją mini bazę danych z użyciem mechanizmu serializacji. Zapraszam do lektury.
+disqus_page_identifier: 379 http://www.samouczekprogramisty.pl/?p=379
 ---
 
 {% include toc %}

@@ -9,6 +9,7 @@ header:
     teaser: /assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg
     overlay_image: /assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg
 excerpt: Dzisiaj zajmiemy się instalacją środowiska programistycznego, które będzie niezbędne do rozpoczęcia naszej przygody z programowaniem. Poznasz różnicę między JDK i JRE. Dowiesz się czym jest IDE i do czego może się przydać. Wyjaśnię też parę dodatkowych zagadnień związanych z rozwojem oprogramowania jak wersjonowanie.
+disqus_page_identifier: 28 http://www.samouczekprogramisty.pl/?p=28
 ---
 
 {% include toc %}

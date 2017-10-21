@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2015/12/16_interfejsy_w_jezyku_java_artykul.jpg
     caption: "[&copy; Piotr Lewandowski](http://www.freeimages.com/photographer/ywel-35445)"
 excerpt: W artykule przeczytasz o interfejsach. Poznasz interfejs ze standardowej biblioteki Java. Dowiesz się czym różni się interfejs od jego implementacji. Przeczytasz też o tym dlaczego używanie interfejsów uważane jest w większości przypadków za dobrą praktykę. Jak zwykle na koniec będziesz miał także proste zadanie do wykonania..
+disqus_page_identifier: 186 http://www.samouczekprogramisty.pl/?p=186
 ---
 
 {% include toc %}

@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/05/12_formwatowanie_lancuchow_znakow_artykul.jpeg
     caption: "[&copy; pvenegasd](https://www.flickr.com/photos/pvenegasd/16584479775/sizes/l)"
 excerpt: W trakcie pracy z łańcuchami znaków bardzo często musimy prezentować je odpowiednim formacie. Dzisiejszy artykuł poświęcony będzie właśnie formatowaniu łańcuchów znaków. Dodatkowo dowiesz się czym jest lokalizacja i jaki ma wpływ na formatowanie. Całość będziesz mógł przećwiczyć rozwiązując ćwiczenie związane z formatowaniem.
+disqus_page_identifier: 895 http://www.samouczekprogramisty.pl/?p=895
 ---
 
 {% include toc %}

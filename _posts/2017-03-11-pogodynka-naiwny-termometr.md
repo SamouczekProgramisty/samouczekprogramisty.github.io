@@ -11,6 +11,7 @@ header:
     overlay_image: /assets/images/2017/03/11_pogodynka_02_artykul.jpeg
     caption: "[&copy; zedc](https://www.flickr.com/photos/zedc/9387184605/sizes/l)"
 excerpt: Pogodynka to projekt realizowany w ramach konkursu Daj Się Poznać 2017. W ramach tej serii artykułów relacjonuję postęp prac nad projektem. Poza relacją przeczytasz też o crontab, programie, który zamierzam użyć w projekcie. Dowiesz się też coś o monitorowaniu i logowaniu. Zapraszam!
+disqus_page_identifier: 778 http://www.samouczekprogramisty.pl/?p=778
 ---
 
 ## Malinka padła

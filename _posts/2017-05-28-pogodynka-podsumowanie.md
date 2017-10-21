@@ -11,6 +11,7 @@ header:
     overlay_image: /assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg
     caption: "[&copy; schermannski](https://www.flickr.com/photos/schermannski/34492740872/sizes/l)"
 excerpt: Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad projektem. Pokazuje też finalny efekt tej pracy.
+disqus_page_identifier: 914 http://www.samouczekprogramisty.pl/?p=914
 ---
 
 Jeśli chcesz przeczytać więcej na temat samego projektu i jego założeń zapraszam do przeczytania [pozostałych artykułów opisujących projekt]({{ "/projekty/pogodynka/" | absolute_url }}).

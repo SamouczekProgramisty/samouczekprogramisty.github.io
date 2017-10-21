@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg
     caption: "[&copy; thomashawk](https://www.flickr.com/photos/thomashawk/3191454610/sizes/l)"
 excerpt: Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardowej pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskazówki kiedy można używać wyrażeń regularnych i jakie są ich wady. Nie obędzie się też bez wskazówek do InteliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując zadania, które wymagały będą wykorzystania wyrażeń regularnych. Zapraszam do lektury.
+disqus_page_identifier: 562 http://www.samouczekprogramisty.pl/?p=562
 ---
 
 {% include toc %}

@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2016/11/21_test_driven_development_artykul.jpg
     caption: "[&copy; dieter\_henkel](https://www.flickr.com/photos/dieter\_henkel/9219097456/sizes/l)"
 excerpt: W tym artykule dowiesz się czym jest TDD (ang. _Test-Driven Development_). Poznasz wady i zalety takiego podejścia. Poznasz cykl „red – green – refactor” , który jest w centrum TDD. Ponadto pokażę parę przydatnych skrótów klawiaturowych, które ułatwią pisanie testów. Wszystko to pokażę na przykładzie prostego programu, symulującego dzienniczek ucznia. Będzie to także zadanie dla Ciebie, w którym przećwiczysz TDD w praktyce.
+disqus_page_identifier: 550 http://www.samouczekprogramisty.pl/?p=550
 ---
 
 {% include toc %}

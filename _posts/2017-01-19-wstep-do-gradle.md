@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2017/01/19_wstep_do_gradle_artykul.jpg
     caption: "[&copy; antsnaps](https://www.flickr.com/photos/antsnaps/6163066070/sizes/l)"
 excerpt: W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używanego w pliku build.gradle. Utworzysz też swój pierwszy projekt z gradle w InteliJ IDEA. Zapraszam do lektury.
+disqus_page_identifier: 738 http://www.samouczekprogramisty.pl/?p=738
 ---
 
 {% include toc %}

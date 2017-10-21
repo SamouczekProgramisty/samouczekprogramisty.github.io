@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/03/25_serwlety_w_aplikacjach_webowych_artykul.jpeg
     caption: "[&copy; rafa2010](https://www.flickr.com/photos/rafa2010/15353313381/sizes/l)"
 excerpt: W artykule tym przeczytasz o serwletach. Poznasz podstawy protokołu HTTP. Dowiesz się czym są serwlety i jak je pisać. Dowiesz się także czym jest plik war i przeczytasz o jego strukturze. Po lekturze tego artykułu zrozumiesz co kryje się pod spodem Spring MVC. Napiszesz też swoją aplikację webową, używającą serwletów. Zapraszam do lektury.
+disqus_page_identifier: 799 http://www.samouczekprogramisty.pl/?p=799
 ---
 
 {% include toc %}

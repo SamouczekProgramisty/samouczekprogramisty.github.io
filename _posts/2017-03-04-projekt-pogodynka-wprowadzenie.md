@@ -11,6 +11,7 @@ header:
     overlay_image: /assets/images/2017/03/04_pogodynka_01_artykul.jpeg
     caption: "[&copy; Marcin Pietraszek ;)](http://marcin.pietraszek.pl)"
 excerpt: W artykule tym przeczytasz o “architekturze” Pogodynki. Projektu, w którym chcę udostępnić odczyty temperatury na żywo.
+disqus_page_identifier: 761 http://www.samouczekprogramisty.pl/?p=761
 ---
 
 {% include toc %}

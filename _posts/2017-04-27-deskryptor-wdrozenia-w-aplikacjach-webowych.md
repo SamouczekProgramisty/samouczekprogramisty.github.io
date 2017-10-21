@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/04/27_deskryptor_wdrozenia_artykul.jpeg
     caption: "[&copy; photos\_by\_clark](https://www.flickr.com/photos/photos\_by\_clark/26137047996/sizes/l)"
 excerpt: Do tej pory w konfigurowaniu wszystkich elementów aplikacji webowej posługiwałem się adnotacjami. Nadszedł czas abyś poznał inny sposób konfiguracji aplikacji webowych. Konfiguracja przy pomocy pliku `web.xml` nazywanego deskryptorem wdrożenia.
+disqus_page_identifier: 876 http://www.samouczekprogramisty.pl/?p=876
 ---
 
 {% include toc %}

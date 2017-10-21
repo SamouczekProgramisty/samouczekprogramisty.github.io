@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/04/15_filtry_artykul.jpeg
     caption: "[&copy; infobunny](https://www.flickr.com/photos/infobunny/5458629578/sizes/l)"
 excerpt: W artykule przeczytasz o komponentach używanych w praktycznie każdej aplikacji webowej. Mowa tu o filtrach. Wysokopoziomowe biblioteki pomagające tworzyć aplikacje webowe (takie jest Spring MVC) bazują na tych podstawowych mechanizmach. Dowiesz się czym jest filtr i do czego jest używany. Na końcu będziesz mógł wykorzystać zdobytą wiedzę wykonując proste ćwiczenia. Zapraszam do lektury.
+disqus_page_identifier: 841 http://www.samouczekprogramisty.pl/?p=841
 ---
 
 {% include toc %}

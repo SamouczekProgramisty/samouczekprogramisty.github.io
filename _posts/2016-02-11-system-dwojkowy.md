@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2016/02/11_system_dwojkowy_artykul.png
     caption: "[&copy; koniu_87](https://www.flickr.com/photos/koniu_87/)"
 excerpt: Nawet nie wiecie jak się cieszę :) W życiu nie powiedziałbym, że w tak krótkim czasie uda się zebrać 10000000 polubień na facebooku! Świętujemy z fanfarami :) Z okazji okrągłej liczby króciutki artykuł o innej notacji zapisywania liczb. Dzisiaj dowiemy się czym&nbsp; jest system dwójkowy. Po przeczytaniu artykułu zrozumiecie dlaczego 1024 to okrągła liczba dla programistów ;)
+disqus_page_identifier: 118 http://www.samouczekprogramisty.pl/?p=118
 ---
 
 {% include toc %}

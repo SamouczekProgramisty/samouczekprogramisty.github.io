@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_18_artykul.jpg
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 18. Trafiłeś do pokoju, w którym w podłodze ukrytych jest sporo pułapek. Znasz algorytm według, którego układane były pułapki. Które kafle są bezpieczne?
+disqus_page_identifier: 689 http://www.samouczekprogramisty.pl/?p=689
 ---
 
 ## Wprowadzenie

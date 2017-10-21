@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/05/06_string_cache_string_builder_artykul.jpeg
     caption: "[&copy; jasohill](https://www.flickr.com/photos/jasohill/54816310/sizes/l)"
 excerpt: Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znaków jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych z łańcuchami znaków także się przydaje. Po lekturze tego artykułu będziesz znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku literałów znakowych. Poznasz klasę `StringBuilder` i dowiesz się dlaczego jest taka ważna. Zapraszam do lektury!
+disqus_page_identifier: 885 http://www.samouczekprogramisty.pl/?p=885
 ---
 
 {% include toc %}

@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_02_artykul.jpg
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 2. Dzisiaj pomagamy Mikołajowi skorzystać z toalety w Kwaterze Głównej Króliczka Wielkanocnego. Dasz radę znaleźć prawdziwy kod?
+disqus_page_identifier: 588 http://www.samouczekprogramisty.pl/?p=588
 ---
 
 ## Wprowadzenie

@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/10/13_klasy_wewnetrzne_anonimowe_artykul.jpg
     caption: "[&copy; alfmelin](https://www.flickr.com/photos/andercismo/2349098787/sizes/l)"
 excerpt: W artykule tym przeczytasz o klasach wewnętrznych i klasach anonimowych w Javie. Dowiesz się jak wyglądają, jakie mają ograniczenia oraz kiedy możemy ich używać. Na końcu, jak zwykle, czeka na Ciebie zestaw zadań, w których przećwiczysz materiał z tego artykułu.
+disqus_page_identifier: 465 http://www.samouczekprogramisty.pl/?p=465
 ---
 
 {% include toc %}

@@ -8,6 +8,7 @@ header:
     teaser: /assets/images/2015/11/11_tablice_w_jezyku_java.png
     overlay_image: /assets/images/2015/11/11_tablice_w_jezyku_java.png
 excerpt: Dzisiaj dowiesz się czegoś więcej o tablicach w języku Java. Przeczytasz czym są „Magic Numbers” i dlaczego są złe. Poznasz też metody o zmiennej liczbie argumentów. Na koniec czeka na Ciebie zestaw zadań do wykonania wraz z przykładowymi rozwiązaniami.
+disqus_page_identifier: 155 http://www.samouczekprogramisty.pl/?p=155
 ---
 
 {% include toc %}

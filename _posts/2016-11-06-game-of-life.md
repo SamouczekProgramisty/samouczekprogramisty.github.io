@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/11/06_zadanie_game_of_life_artykul.jpg
     caption: "[&copy; evaekeblad](https://www.flickr.com/photos/evaekeblad/916121748/sizes/l)"
 excerpt: Kolejny artykuł z serii „Strefy zadaniowej Samouczka”. Programowania najlepiej uczyć się rozwiązując konkretne problemy. Artykuł ten stawia przed Tobą właśnie taki problem. Dzisiejszym zadaniem będzie „Gra w życie” :). W każdym momencie możesz też spojrzeć do przykładowego rozwiązania, które dla Ciebie przygotowałem.
+disqus_page_identifier: 523 http://www.samouczekprogramisty.pl/?p=523
 ---
 
 {% include toc %}

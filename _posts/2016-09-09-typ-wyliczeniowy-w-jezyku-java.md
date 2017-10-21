@@ -8,6 +8,7 @@ header:
     teaser: /assets/images/2016/09/09_typ_wyliczeniowy_artykul.jpg
     overlay_image: /assets/images/2016/09/09_typ_wyliczeniowy_artykul.jpg
 excerpt: W artykule tym przeczytasz o typie wyliczeniowym. Poznasz słowo kluczowe `enum`. Na koniec czeka na Ciebie zestaw zadań, w którym przećwiczysz wiedzę z tego artykułu. Dowiesz się kiedy używamy typu enum. Napiszesz też prosty kalkulator w oparciu o Twój typ wyliczeniowy. Zapraszam do lektury.
+disqus_page_identifier: 400 http://www.samouczekprogramisty.pl/?p=400
 ---
 
 {% include toc %}

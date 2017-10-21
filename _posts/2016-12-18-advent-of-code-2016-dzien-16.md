@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_16_artykul.jpg
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 16. Wiesz czym są fraktale? Okazuje się, że pewien mechanizm do ich generowania wykorzystuje się w Kwaterze Głównej. Dasz radę przechytrzyć systemy bezpieczeństwa i wygenerować odpowiednią sumę kontrolną?
+disqus_page_identifier: 677 http://www.samouczekprogramisty.pl/?p=677
 ---
 
 ## Wprowadzenie

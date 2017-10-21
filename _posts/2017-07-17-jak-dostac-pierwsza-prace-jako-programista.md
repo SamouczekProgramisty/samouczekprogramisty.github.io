@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg
     caption: "[&copy; brizzlebornandbred](https://www.flickr.com/photos/brizzlebornandbred/15492280951/sizes/l)"
 excerpt: CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym nad czym warto popracować przeczytasz w tym artykule. Po tej lekturze będziesz wiedział na co zwracają uwagę ludzie rekrutujący młodszych programistów.
+disqus_page_identifier: 937 http://www.samouczekprogramisty.pl/?p=937
 ---
 
 {% include toc %}

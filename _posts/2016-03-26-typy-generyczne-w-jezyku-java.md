@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/03/23_java_typy_generyczne_artykul.jpg
     caption: "[&copy; huntingglee](https://www.flickr.com/photos/huntingglee/2222875354)"
 excerpt: Dzień dobry! Nadszedł czas na poznanie typów generycznych. Dowiesz się o "szablonach" w języku Java, które pozwalają na tworzenie bardziej uniwersalnych typów. Jest to wstęp, który pozwoli Ci dobrze zrozumieć kluczowy aspekt standardowych kolekcji ("tablic na sterydach") w języku Java. Każdy programista Javy musi znać typy generyczne :) Zapraszam do artykułu!
+disqus_page_identifier: 273 http://www.samouczekprogramisty.pl/?p=273
 ---
 
 {% include toc %}

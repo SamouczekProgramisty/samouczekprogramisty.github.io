@@ -9,6 +9,7 @@ header:
     teaser: /assets/images/2015/11/01_obiekty_w_jezyku_java.jpg
     overlay_image: /assets/images/2015/11/01_obiekty_w_jezyku_java.jpg
 excerpt: "Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle ćwiczenie dla Was. Do dzieła!"
+disqus_page_identifier: 75 http://www.samouczekprogramisty.pl/?p=75
 ---
 
 {% include toc %}

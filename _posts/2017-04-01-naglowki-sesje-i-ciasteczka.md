@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/04/01_naglowki_ciasteczka_sesje_artykul.jpeg
     caption: "[&copy; nitot](https://www.flickr.com/photos/nitot/6124595416/sizes/l)"
 excerpt: W pierwszej części artykułu opisującej serwlety dowiedziałeś się podstaw dotyczących serwletów. W tym artykule będziesz mógł poszerzyć tę wiedzę. Dowiesz się jakie możliwości dają klasy `HttpServletRequest` i `HttpServletResponse`. Wyjaśnię Ci czym jest sesja i jak pracować z `HttpSession`. Przeczytasz także o nagłówkach i ciasteczkach, nauczysz się tworzyć je samodzielnie. Na końcu czeka także ćwiczenie, w którym zastosujesz wiedzę w praktyce. Zapraszam do lektury.
+disqus_page_identifier: 817 http://www.samouczekprogramisty.pl/?p=817
 ---
 
 {% include toc %}

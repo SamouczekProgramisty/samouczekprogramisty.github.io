@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/04/21_listener_kontekst_servlet_context_artykul.jpeg
     caption: "[&copy; fkhucke](https://www.flickr.com/photos/fkhuckel/33244430220/sizes/l)"
 excerpt: W artykule przeczytasz o kolejnych podstawowych elementach, niezbędnych do budowania aplikacji webowych w Javie. Dowiedz się czym jest kontekst serwletu (ang. _servlet context_) i jak możesz go używać. Poznasz cykl życia aplikacji webowej i dowiesz się o zdarzeniach (ang. _events_), na które możesz reagować. Całość przećwiczysz rozwiązując zadanie znajdujące się na końcu artykułu.
+disqus_page_identifier: 863 http://www.samouczekprogramisty.pl/?p=863
 ---
 
 {% include toc %}

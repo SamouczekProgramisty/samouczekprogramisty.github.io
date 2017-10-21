@@ -10,6 +10,7 @@ header:
     overlay_image: /assets/images/2017/03/17_wprowadzenie_do_aplikacji_webowych_artykul.jpg
     caption: "[&copy; redbuckley](https://www.flickr.com/photos/redbuckley/5885481290/sizes/l)"
 excerpt: W artykule tym przeczytasz o aplikacjach webowych. Dowiesz się czym są aplikacje webowe i jak działają. Dowiesz się czym jest serwer, sewlet czy kontener serwletów. Poznasz podstawy mechanizmu działania aplikacji webowych. Przeczytasz też o modelu aplikacji klient serwer. Poznasz różnicę pomiędzy aplikacjami “desktopowymi” a aplikacjami “webowymi”. Dowiesz się o tym czym jest HTML, CSS czy JavaScript. Innymi słowy czeka Cię spora dawka wiedzy wprowadzająca w świat aplikacji webowych i Java Enterprise Edition. Zapraszam do lektury.
+disqus_page_identifier: 783 http://www.samouczekprogramisty.pl/?p=783
 ---
 
 {% include toc %}

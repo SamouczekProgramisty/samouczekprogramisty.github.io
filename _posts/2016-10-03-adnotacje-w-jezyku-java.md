@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/10/03_adnotacje_artykul.jpg
     caption: "[&copy; 115327016@N06](https://www.flickr.com/photos/115327016@N06/)"
 excerpt: W tym artykule przeczytasz o adnotacjach w języku Java. Poznasz różne zastosowania dla adnotacji. Postaram się wymienić te najbardziej użyteczne, najczęściej używane z biblioteki standardowej. Po przeczytaniu artykułu będziesz w stanie stworzyć też swoje własne adnotacje. Napiszesz program, w którym w trakcie jego działania wyświetlisz informacje o adnotacjach. Zapraszam do lektury.
+disqus_page_identifier: 425 http://www.samouczekprogramisty.pl/?p=425
 ---
 
 {% include toc %}

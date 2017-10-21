@@ -11,6 +11,7 @@ header:
     overlay_image: /assets/images/2017/04/23_pogodynka_06_artykul.jpeg
     caption: "[&copy; rubysfeast](https://www.flickr.com/photos/rubysfeast/7149704201/sizes/l)"
 excerpt: Raport z frontu Pogodynki część 6. Dzisiaj pokrótce opisuję konfigurację warstwy dostępu do bazy danych. Sama konfiguracja skończyła się na dodaniu kilku zależności i magicznych adnotacji, które postaram się wyjaśnić.
+disqus_page_identifier: 873 http://www.samouczekprogramisty.pl/?p=873
 ---
 
 ## Baza danych

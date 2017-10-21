@@ -11,6 +11,7 @@ header:
     overlay_image: /assets/images/2017/04/30_konfiguracja_puppet_artykul.jpeg
     caption: "[&copy; joseywales](https://www.flickr.com/photos/joseywales/316407052/sizes/o/)"
 excerpt: We wpisie tym podsumowuję postęp prac nad projektem Pogodynka. W tym tygodniu wyłącznie devops. Pokrótce opiszę Ci moje przygody z konfiguracją VPS przy pomocy Puppet’a.
+disqus_page_identifier: 881 http://www.samouczekprogramisty.pl/?p=881
 ---
 
 {% include toc %}

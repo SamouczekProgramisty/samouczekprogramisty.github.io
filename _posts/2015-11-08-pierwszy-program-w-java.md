@@ -8,6 +8,7 @@ header:
     teaser: /assets/images/2015/11/08_pierwszy_program_w_java.png
     overlay_image: /assets/images/2015/11/08_pierwszy_program_w_java.png
 excerpt: Dzisiaj napiszesz i uruchomisz swój pierwszy program. Przy okazji dowiesz się czym jest biblioteka standardowa i co się w niej znajduje. Poznasz klasę String z biblioteki standardowej. Dowiesz się też o paru nowych funkcjach IDE. Jak zwykle wszystko zakończymy przykładowym zadaniem do wykonania. Do dzieła!
+disqus_page_identifier: 138 http://www.samouczekprogramisty.pl/?p=138
 ---
 
 {% include toc %}

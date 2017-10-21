@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_25_artykul.jpg
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 25. Musisz nawiązać łączność z Mikołajem używając anteny na dachu budynku. Potrzebna jest do tego dodatkowa instrukcja assembunny.
+disqus_page_identifier: 722 http://www.samouczekprogramisty.pl/?p=722
 ---
 
 ## Wprowadzenie

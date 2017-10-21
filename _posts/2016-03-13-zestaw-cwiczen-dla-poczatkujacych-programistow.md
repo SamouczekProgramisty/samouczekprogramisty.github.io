@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/03/13_dodatkowe_zadania_artykul.jpg
     caption: "[&copy; hades2k](https://www.flickr.com/photos/hades2k/)"
 excerpt: Cześć! Dzisiaj będzie nietypowo. Nie będę miał dla Was nowej partii teorii a zestaw dodatkowych zadań, które możesz wykonać aby praktycznie przećwiczyć dotychczas zdobytą wiedzę. Nie ma lepszego sposobu nauki niż przez przykłady. Każde z zadań ma także gotowe rozwiązanie więc jeśli będziesz miał problem z którymkolwiek z nich pokażę Ci jego rozwiązanie. Zapraszam do klawiatury!
+disqus_page_identifier: 263 http://www.samouczekprogramisty.pl/?p=263
 ---
 
 {% include toc %}

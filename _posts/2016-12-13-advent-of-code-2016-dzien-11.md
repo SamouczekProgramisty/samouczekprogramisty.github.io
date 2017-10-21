@@ -9,6 +9,7 @@ header:
     overlay_image: /assets/images/2016/12/aoc_2016_dzien_11_artykul.jpg
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 11. Dzisiaj trzeba przetransportować windą mikrochipy i generatory na ostatnie piętro. Ostrzegam, nie jest to proste zadanie! Dasz radę to zrobić?
+disqus_page_identifier: 648 http://www.samouczekprogramisty.pl/?p=648
 ---
 
 ## Wprowadzenie
