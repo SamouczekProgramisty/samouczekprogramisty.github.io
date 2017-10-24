@@ -112,7 +112,7 @@ Widzisz? Metody `close` nie wywoływałem nigdzie a mimo to została automatyczn
 
 ## Zadanie
 
-Teraz nadszedł czas na zadanie dla Ciebie. Strony w internecie tworzone są przy pomocy `HTML`, jest to język znaczników, który jest&nbsp; interpretowany przez przeglądarki internetowe wyświetlające strony www. Przykładem znaczników jest para ``, jak widzisz jest tu znacznik otwierający `` oraz zamykający `` (akurat ta para odpowiedzialna jest za wyróżnianie tekstu). Wewnątrz znaczników znajduje się treść np. `tekst`. Istnieje wiele innych par znaczników np. ``, ``, `` itd.,
+Teraz nadszedł czas na zadanie dla Ciebie. Strony w internecie tworzone są przy pomocy `HTML`, jest to język znaczników, który jest&nbsp; interpretowany przez przeglądarki internetowe wyświetlające strony www. Przykładem znaczników jest para `<em>tekst</em>`, jak widzisz jest tu znacznik otwierający `<em>` oraz zamykający `</em>` (akurat ta para odpowiedzialna jest za wyróżnianie tekstu). Wewnątrz znaczników znajduje się treść np. `tekst`. Istnieje wiele innych par znaczników np. `<h1></h1>`, `<p></p>`, `<ul></ul>` itd.,
 
 Zaimplementuj klasę `HtmlTag`, która będzie menadżerem kontekstu. W konstruktorze powinna przyjmować nazwę znacznika np. `em`. Klasa powinna mieć metodę `body`, która przyjmie parametr typu `String` i wypisze go na konsoli. Uruchamiając kod
 
