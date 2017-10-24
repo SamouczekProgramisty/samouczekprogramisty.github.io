@@ -5,7 +5,7 @@ date: '2017-10-20 01:08:07 +0200'
 permalink: /kurs-aplikacji-webowych/
 ---
 
-{% assign posts = site.categories["Kurs aplikacji webowych"] %}
+{% assign posts = site.categories["Kurs aplikacji webowych"] | reverse %}
 
 {% capture content %}
 
