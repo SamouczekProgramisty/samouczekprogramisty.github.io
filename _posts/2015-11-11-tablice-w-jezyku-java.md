@@ -146,7 +146,7 @@ Inny przykład metody z wieloma argumentami to metoda sumująca wszystkie przeka
 int sum(int ... numbers);
 ```
   
-Magiczny wielokropek to nic innego jak uproszczenie składni (ang. _syntactic sugar_). Nasza metoda z przykładu może przyjąć dowolną liczbę argumentów. W szczególności może też nie przyjąć żadnego.
+Magiczny wielokropek to coś w rodzaju wzbogacenia składni (ang. _syntactic sugar_). Nasza metoda z przykładu może przyjąć dowolną liczbę argumentów. W szczególności może też nie przyjąć żadnego.
 
 ```java
 sum();
@@ -155,7 +155,7 @@ sum(1, 2, 3);
   
 Metody mogą przyjmować wiele argumentów. Jednak argument z wielokropkiem może być tylko jeden i musi występować jako ostatni.
 
-Jak wspomniałem wielokropek to nic innego jak uproszczenie składni. W rzeczywistości metody są tożsame
+Jak wspomniałem wielokropek to wzbogacenie składni. W rzeczywistości metody są tożsame:
 
 ```java
 int sum(int ... numbers);
@@ -167,7 +167,7 @@ int sum(int[] numbers);
 1. Napisz metodę pobierającą dwuelementową tablicę liczb i zwracający ich sumę.
 2. Napisz program pobierający trójelementową tablicę liczb i zwracający największą liczbę.
 3. Jak przechowałbyś stan sudoku? Napisz program, który stworzy instancje tablicy służących do przechowywania [sudoku](https://pl.wikipedia.org/wiki/Sudoku) i uzupełnij ją [przykładową planszą](https://pl.wikipedia.org/wiki/Sudoku#/media/File:Sudoku_przyklad.png).
-4. Jak przechowałbyś stan gry w szachy? Napisz program, który stworzy instancje tablic służące do przechowywania stanu gry w szachy. Potrafiłbyś zachować w nim ostatni stan partii [Kasparowa z Deegtp Blue](https://en.wikipedia.org/wiki/Deep_Blue_versus_Garry_Kasparov#Game_5_2)?
+4. Jak przechowałbyś stan gry w szachy? Napisz program, który stworzy instancje tablic służące do przechowywania stanu gry w szachy. Potrafiłbyś zachować w nim ostatni stan partii [Kasparowa z Deep Blue](https://en.wikipedia.org/wiki/Deep_Blue_versus_Garry_Kasparov#Game_5_2)?
   
 Zachęcam Cię, do samodzielnego rozwiązania zadań, jeśli jednak miałbyś jakikolwiek problem możesz rzucić okiem na [przykładowe rozwiązania](https://github.com/SamouczekProgramisty/KursJava/tree/master/04_tablice/src/main/java/pl/samouczekprogramisty/kursjava/arrays/exercise). Pamiętaj, że rozwiązując zadania samodzielnie nauczysz się najwięcej.
 
