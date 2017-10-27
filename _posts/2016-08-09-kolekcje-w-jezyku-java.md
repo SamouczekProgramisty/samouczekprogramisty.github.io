@@ -262,10 +262,11 @@ for(Map.Entry<String, String> entry : sampleMap.entrySet()) {
 
 Na koniec dla ułatwienia przygotowałem dla Ciebie tabelkę, która grupuje właściwości poszczególnych kolekcji w jednym miejscu wraz z przykładem użycia.
 
-| | **Lista** | **Zbiór** | **Mapa** |
-| Zachowuje kolejność elementów | Tak | Nie | Nie |
-| Pozwala na przechowywanie kliku takich samych elementów/kluczy | Tak | Nie | Nie |
-| Przykład użycia (podróżowałeś przez Europę pociągiem) | Miasta, które odwiedziłeś (cała trasa z drogą powrotną, niektóre miasta odwiedziłeś także przy powrocie) | Zbiór miast, które odwiedziłeś (bez duplikatów). | Nazwy państw, które odwiedziłeś wraz z odpowiadającymi im stolicami. |
+|                                                                | Lista                                                          | Zbiór | Mapa |
+|                                                                | -----                                                          | ----- | ---- |
+| Zachowuje kolejność elementów                                  | Tak                                                            | Nie   | Nie  |
+| Pozwala na przechowywanie kliku takich samych elementów/kluczy | Tak                                                            | Nie   | Nie  |
+| Przykład użycia (podróżowałeś przez Europę pociągiem)          | Miasta, które odwiedziłeś (cała trasa z drogą powrotną, niektóre miasta odwiedziłeś także przy powrocie) | Zbiór miast, które odwiedziłeś (bez duplikatów). | Nazwy państw, które odwiedziłeś wraz z odpowiadającymi im stolicami. |
 
 ## Zadania
 

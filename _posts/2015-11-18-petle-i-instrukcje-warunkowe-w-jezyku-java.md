@@ -50,15 +50,16 @@ Pomocna przy tym może być następująca tabelka. Pokazuje ona podstawowe opera
 
 [^algebra]: Tzw. [algebrę Boole'a](https://pl.wikipedia.org/wiki/Algebra_Boole%E2%80%99a)
 
-|| Operacja || Wynik ||
-| prawda i prawda | prawda |
-| prawda i fałsz | fałsz |
-| fałsz i prawda | fałsz |
-| fałsz i fałsz | fałsz |
+| Operacja          | Wynik  |
+| :------:          | :---:  |
+| prawda i prawda   | prawda |
+| prawda i fałsz    | fałsz  |
+| fałsz i prawda    | fałsz  |
+| fałsz i fałsz     | fałsz  |
 | prawda lub prawda | prawda |
-| prawda lub fałsz | prawda |
-| fałsz lub prawda | prawda |
-| fałsz lub fałsz | fałsz |
+| prawda lub fałsz  | prawda |
+| fałsz lub prawda  | prawda |
+| fałsz lub fałsz   | fałsz  |
   
 Przekładając kilka powyższych linii na przykłady ze zmiennymi w Java wygląda to następująco:
 

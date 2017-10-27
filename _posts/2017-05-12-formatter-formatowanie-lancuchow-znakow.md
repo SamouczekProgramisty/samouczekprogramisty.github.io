@@ -74,6 +74,7 @@ Jak widzisz znajdują się w nim dwa znaczniki konwersji. Są to `%d` i `%s`. Od
 Znaczniki konwersji informują instancję klasy `Formatter` w jaki sposób dodatkowe parametry powinny być sformatowane. Występuje wiele znaczników konwersji, te najczęściej używane podsumowane są w tabeli poniżej:
 
 | Znacznik | Typ argumentu             | Działanie                                                                                                          |
+| :------: | -------------             | ---------                                                                                                          |
 | `%b`     | dowolny                   | interpretuje argument jako wartość logiczną                                                                        |
 | `%s`     | dowolny                   | interpretuje argument jako łańcuch znaków                                                                          |
 | `%d`     | liczba całkowita          | interpretuje argument jako liczbę całkowitą                                                                        |

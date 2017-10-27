@@ -67,6 +67,7 @@ Klasa `Matcher` posiada, między innymi, następujące metody:
 Proszę spójrz na poniższą tabelkę. W nagłówkach kolumn umieściłem łańcuchy znaków, które dopasowywane są do wyrażeń umieszczonych w pierwszej kolumnie.
 
 |              | Mam na imię Marcin                    | Marcinkowski                         | Marcin                                |
+| ---:         | :----------------:                    | :----------:                         | :----:                                |
 | Marcin       | `find - true`<br />`matches - false`  | `find - true`<br />`matches - false` | `find - true`<br />`matches - true`   |
 | Marcinkowski | `find - false`<br />`matches - false` | `find - true`<br />`matches - true`  | `find - false`<br />`matches - false` |
 
