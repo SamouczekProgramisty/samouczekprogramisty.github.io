@@ -1,0 +1,1017 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Modyfikatory dostępu w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory public, protected i private. Poznasz też zastosowanie czwartego modyfikatora dostępu - braku każdego z poprzednich. Zobaczysz różnice pomiędzy modyfikatorami na przykładowych fragmentach kodu. Na koniec będzie czekało na Ciebie zadanie do rozwiązania, w którym przećwiczysz wiedzę zdobytą po przeczytaniu.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Modyfikatory dostępu w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/modyfikatory-dostepu-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/modyfikatory-dostepu-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory public, protected i private. Poznasz też zastosowanie czwartego modyfikatora dostępu - braku każdego z poprzednich. Zobaczysz różnice pomiędzy modyfikatorami na przykładowych fragmentach kodu. Na koniec będzie czekało na Ciebie zadanie do rozwiązania, w którym przećwiczysz wiedzę zdobytą po przeczytaniu.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/10/29_modyfikatory_dostepu_w_jezyku_java_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-10-29T00:00:00+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/10/29_modyfikatory_dostepu_w_jezyku_java_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Modyfikatory dostępu w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory <code class="highlighter-rouge">public</code>, <code class="highlighter-rouge">protected</code> i <code class="highlighter-rouge">private</code>. Poznasz też zastosowanie czwartego modyfikatora dostępu - braku każdego z poprzednich. Zobaczysz różnice pomiędzy modyfikatorami na przykładowych fragmentach kodu. Na koniec będzie czekało na Ciebie zadanie do rozwiązania, w którym przećwiczysz wiedzę zdobytą po przeczytaniu.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/photophilde/6778009240/sizes/o/">© photophilde</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Modyfikatory dostępu w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://www.samouczekprogramisty.pl/assets/images/marcin_pietraszek.jpg" class="author__avatar" alt="Marcin Pietraszek" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Marcin Pietraszek</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Śledź</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Modyfikatory dostępu w języku Java">
+    <meta itemprop="description" content="W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory public, protected i private. Poznasz też zastosowanie czwartego modyfikatora dostępu - braku każdego z poprzednich. Zobaczysz różnice pomiędzy modyfikatorami na przykładowych fragmentach kodu. Na koniec będzie czekało na Ciebie zadanie do rozwiązania, w którym przećwiczysz wiedzę zdobytą po przeczytaniu.">
+    <meta itemprop="datePublished" content="October 29, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#czym-są-modyfikatory-dostępu" id="markdown-toc-czym-są-modyfikatory-dostępu">Czym są modyfikatory dostępu</a></li>
+  <li><a href="#rodzaje-modyfikatorów-dostępu" id="markdown-toc-rodzaje-modyfikatorów-dostępu">Rodzaje modyfikatorów dostępu</a>    <ul>
+      <li><a href="#modyfikator-public" id="markdown-toc-modyfikator-public">Modyfikator <code class="highlighter-rouge">public</code></a></li>
+      <li><a href="#modyfikator-protected" id="markdown-toc-modyfikator-protected">Modyfikator <code class="highlighter-rouge">protected</code></a></li>
+      <li><a href="#brak-modyfikatora-dostępu" id="markdown-toc-brak-modyfikatora-dostępu">Brak modyfikatora dostępu</a></li>
+      <li><a href="#modyfikator-private" id="markdown-toc-modyfikator-private">Modyfikator <code class="highlighter-rouge">private</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#porównanie-modyfikatorów-dostępu" id="markdown-toc-porównanie-modyfikatorów-dostępu">Porównanie modyfikatorów dostępu</a></li>
+  <li><a href="#enkapsulacja-czyli-kiedy-używać-modyfikatorów-dostępu" id="markdown-toc-enkapsulacja-czyli-kiedy-używać-modyfikatorów-dostępu">Enkapsulacja, czyli kiedy używać modyfikatorów dostępu</a></li>
+  <li><a href="#dodatkowe-informacje" id="markdown-toc-dodatkowe-informacje">Dodatkowe informacje</a></li>
+  <li><a href="#modyfikatory-dostępu-a-interfejsy-i-typy-wyliczeniowe" id="markdown-toc-modyfikatory-dostępu-a-interfejsy-i-typy-wyliczeniowe">Modyfikatory dostępu a interfejsy i typy wyliczeniowe</a>    <ul>
+      <li><a href="#modyfikatory-dostępu-a-dziedziczenie" id="markdown-toc-modyfikatory-dostępu-a-dziedziczenie">Modyfikatory dostępu a dziedziczenie</a></li>
+      <li><a href="#modyfikatory-dostępu-a-mechanizm-refleksji" id="markdown-toc-modyfikatory-dostępu-a-mechanizm-refleksji">Modyfikatory dostępu a mechanizm refleksji</a></li>
+    </ul>
+  </li>
+  <li><a href="#zadanie" id="markdown-toc-zadanie">Zadanie</a></li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<div class="notice--info">
+    
+<p>Artykuł ten wymaga podstawowej wiedzy na temat języka Java. Z tego powodu, aby móc w pełni z niego skorzystać, warto zapoznać się z wcześniejszymi artykułami:</p>
+
+<ul>
+  <li><a href="/obiekty-w-jezyku-java/">obiekty, klasy i pakiety w języku Java</a>,</li>
+  <li><a href="/dziedziczenie-w-jezyku-java/">dziedziczenie w języku Java</a>.</li>
+</ul>
+
+</div>
+
+<div class="notice--warning">
+    
+<p><strong>UWAGA</strong></p>
+
+<p>Artykuł ten nie zawiera informacji na temat modułów. Moduły zostały wprowadzone do języka Java wraz z wersją 9. Moduły, podobnie jak modyfikatory dostępu także mają wpływ na widoczność. Operują one na pakietach. W artykule tym zakładam, że każdy z pakietów jest eksportowany przez moduł, w którym się znajduje.</p>
+
+<p>Więcej na temat modułów przeczytasz w osobnym artykule.</p>
+
+</div>
+
+<h2 id="czym-są-modyfikatory-dostępu">Czym są modyfikatory dostępu</h2>
+
+<p>Modyfikatory dostępu to słowa kluczowe, które mają wpływ na widoczność elementu który poprzedzają. Są to słowa kluczowe <code class="highlighter-rouge">public</code>, <code class="highlighter-rouge">protected</code> i <code class="highlighter-rouge">private</code>. Brak jakiegokolwiek ze wspomnianych słów kluczowych także ma wpływ na dostępność danego elementu. Czasami brak modyfikatora dostępu określa się jako dostęp typu “package”.
+Modyfikatory dostępu mogą być stosowane na przykład przed definicją klasy, czy interfejsu. Możemy ich także używać przed polami klasy, metodami czy <a href="/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/">typami wewnętrznymi</a>.</p>
+
+<h2 id="rodzaje-modyfikatorów-dostępu">Rodzaje modyfikatorów dostępu</h2>
+
+<h3 id="modyfikator-public">Modyfikator <code class="highlighter-rouge">public</code></h3>
+
+<p>Słowo kluczowe <code class="highlighter-rouge">public</code> jest modyfikatorem dostępu, który pozwala na najbardziej swobodny dostęp do elementu, który poprzedza. <code class="highlighter-rouge">public</code> może być używane przed definicjami klas, pól w klasach, metod czy typów wewnętrznych. Zakładając, że klasa poprzedzona jest <code class="highlighter-rouge">public</code> i element w tej klasie jest także <code class="highlighter-rouge">public</code>, jest on dostępny dla wszystkich<sup id="fnref:moduly"><a href="#fn:moduly" class="footnote">1</a></sup>.</p>
+
+<p>Poniższy fragment kodu pokazuje kasę <code class="highlighter-rouge">PublicVisitCounter</code>. Klasa ta implementuje licznik odwiedzin. Założenie jest takie, że każdy użytkownik wywoła metodę <code class="highlighter-rouge">increment</code>. Dzięki takiej klasie można w łatwy sposób zliczyć liczbę wizyt na stronie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">accessmodifiers</span><span class="o">.</span><span class="na">public_keyword</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PublicVisitCounter</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">userCount</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">userCount</span><span class="o">++;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Klasa dostępna jest dla wszystkich, ze względu na modyfikator <code class="highlighter-rouge">public</code>. Zawiera jedno pole <code class="highlighter-rouge">userCount</code>, metodę <code class="highlighter-rouge">increment</code> i domyślny konstruktor. Każdy z tych elementów ma dostęp typu <code class="highlighter-rouge">public</code>. Oznacza to tyle, że jest dostępny dla wszystkich.</p>
+
+<p>Ma to swoje konsekwencje. Wyobraźmy sobie klasę <code class="highlighter-rouge">MaliciousUser</code>, która informuje <code class="highlighter-rouge">PublicVisitCounter</code> o swojej wizycie na stronie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">accessmodifiers</span><span class="o">.</span><span class="na">public_keyword</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MaliciousUser</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">countMyVisit</span><span class="o">(</span><span class="n">PublicVisitCounter</span> <span class="n">counter</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">counter</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+        <span class="n">counter</span><span class="o">.</span><span class="na">userCount</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz, dzięki modyfikatorowi <code class="highlighter-rouge">public</code> przed polem <code class="highlighter-rouge">userCount</code> instancja <code class="highlighter-rouge">MaliciousUser</code> ma dostęp do pola <code class="highlighter-rouge">userCount</code>. W takim przypadku możemy mówić o tym, że obiekt <code class="highlighter-rouge">PublicVisitCounter</code> udostępnia swój stan na zewnątrz. Nie jest to dobrą praktyką.</p>
+
+<h3 id="modyfikator-protected">Modyfikator <code class="highlighter-rouge">protected</code></h3>
+
+<p>Modyfikator <code class="highlighter-rouge">protected</code> ma znaczenie w przypadku dziedziczenia. Elementy poprzedzone tym modyfikatorem dostępu są udostępnione dla danej klasy i jej podklas. Dodatkowo elementy oznaczone modyfikatorem <code class="highlighter-rouge">protected</code> dostępne są dla innych klas w tym samym pakiecie. Modyfikatora <code class="highlighter-rouge">protected</code> nie można stosować przed klasami<sup id="fnref:wewnetrzne"><a href="#fn:wewnetrzne" class="footnote">2</a></sup>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">accessmodifiers</span><span class="o">.</span><span class="na">protected_keyword</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pen</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="n">String</span> <span class="n">color</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Pen</span><span class="o">(</span><span class="n">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">accessmodifiers</span><span class="o">.</span><span class="na">protected_keyword</span><span class="o">.</span><span class="na">different_package</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BallPen</span> <span class="kd">extends</span> <span class="n">Pen</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="n">String</span> <span class="n">manufacturer</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">BallPen</span><span class="o">(</span><span class="n">String</span> <span class="n">color</span><span class="o">,</span> <span class="n">String</span> <span class="n">manufacturer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">color</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">manufacturer</span> <span class="o">=</span> <span class="n">manufacturer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">manufacturer</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">color</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Klasa <code class="highlighter-rouge">Pen</code> posiada pole <code class="highlighter-rouge">color</code>, które poprzedzone jest słowem <code class="highlighter-rouge">protected</code>. Dzięki temu klasa <code class="highlighter-rouge">BallPen</code> ma dostęp do tego pola. Używa go w implementacji metody <code class="highlighter-rouge">toString</code>. Proszę zwróć uwagę na to, że obie klasy znajdują się w różnych pakietach. Mimo to słowo kluczowe <code class="highlighter-rouge">protected</code> pozwala na dostęp do pola <code class="highlighter-rouge">color</code>.</p>
+
+<p>Jak wspomniałem wcześniej ten modyfikator dostępu pozwala także na dostęp dla klas z tego samego pakietu. Ten przypadek pokazuje klasa poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">accessmodifiers</span><span class="o">.</span><span class="na">protected_keyword</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PenOwner</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Pen</span> <span class="n">pen</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PenOwner</span><span class="o">(</span><span class="n">Pen</span> <span class="n">pen</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">pen</span> <span class="o">=</span> <span class="n">pen</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"Mam pioro w kolorze "</span> <span class="o">+</span> <span class="n">pen</span><span class="o">.</span><span class="na">color</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku <code class="highlighter-rouge">PenOwner</code> ma dostęp do pola <code class="highlighter-rouge">color</code> ponieważ obie klasy znajdują się w tym samym pakiecie <code class="highlighter-rouge">pl.samouczekprogramisty.kursjava.accessmodifiers.protected_keyword</code>.</p>
+
+<h3 id="brak-modyfikatora-dostępu">Brak modyfikatora dostępu</h3>
+
+<p>Brak modyfikatora dostępu również ma znaczenie. W przypadku gdy pominiemy modyfikator dostępu wówczas dana klasa czy element jest dostępna wyłącznie wewnątrz tego samego pakietu. Jest to podzbiór uprawnień, które nadaje modyfikator <code class="highlighter-rouge">protected</code>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">accessmodifiers</span><span class="o">.</span><span class="na">missing_keyword</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">FUEL_TANK_CAPACITY</span> <span class="o">=</span> <span class="mf">50.0</span><span class="o">;</span>
+
+    <span class="kt">double</span> <span class="n">fuelLevel</span> <span class="o">=</span> <span class="mf">12.5</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">accessmodifiers</span><span class="o">.</span><span class="na">missing_keyword</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FuelStation</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fillUp</span><span class="o">(</span><span class="n">Car</span> <span class="n">car</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">double</span> <span class="n">toFill</span> <span class="o">=</span> <span class="n">Car</span><span class="o">.</span><span class="na">FUEL_TANK_CAPACITY</span> <span class="o">-</span> <span class="n">car</span><span class="o">.</span><span class="na">fuelLevel</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Tankuje "</span> <span class="o">+</span> <span class="n">toFill</span> <span class="o">+</span> <span class="s">" litrow."</span><span class="o">);</span>
+        <span class="n">car</span><span class="o">.</span><span class="na">fuelLevel</span> <span class="o">=</span> <span class="n">Car</span><span class="o">.</span><span class="na">FUEL_TANK_CAPACITY</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="modyfikator-private">Modyfikator <code class="highlighter-rouge">private</code></h3>
+
+<p>Słowo kluczowe <code class="highlighter-rouge">private</code> jest najbardziej restrykcyjnym modyfikatorem dostępu. Może być stosowane wyłącznie przed elementami klasy, w tym przed klasami wewnętrznymi. Oznacza on tyle, że dany element (klasa, metoda, czy pole) widoczny jest tylko i wyłącznie wewnątrz klasy. Proszę spójrz na zmodyfikowaną klasę licznika:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">accessmodifiers</span><span class="o">.</span><span class="na">encapsulated</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EncapsulatedVisitCounter</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">userCount</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">userCount</span><span class="o">++;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getUserCount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userCount</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku pole <code class="highlighter-rouge">userCount</code> poprzedzone jest słowem kluczowym <code class="highlighter-rouge">private</code>. Dzięki niemu stan wewnętrzny klasy nie jest dostępny na zewnątrz. Tylko elementy wewnątrz definicji klasy mają dostęp do tego pola.</p>
+
+<h2 id="porównanie-modyfikatorów-dostępu">Porównanie modyfikatorów dostępu</h2>
+
+<p>Informacje na temat działania modyfikatorów dostępu można zebrać je w następującej tabeli:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Modyfikator</th>
+      <th style="text-align: center">Klasa</th>
+      <th style="text-align: center">Pakiet</th>
+      <th style="text-align: center">Podklasa</th>
+      <th style="text-align: center">Inni</th>
+      <th style="text-align: center">Poprawny dla klas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">public</code></td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">tak</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">protected</code></td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">nie</td>
+      <td style="text-align: center">nie</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">brak modyfikatora</td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">nie</td>
+      <td style="text-align: center">nie</td>
+      <td style="text-align: center">tak</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">private</code></td>
+      <td style="text-align: center">tak</td>
+      <td style="text-align: center">nie</td>
+      <td style="text-align: center">nie</td>
+      <td style="text-align: center">nie</td>
+      <td style="text-align: center">nie</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="enkapsulacja-czyli-kiedy-używać-modyfikatorów-dostępu">Enkapsulacja, czyli kiedy używać modyfikatorów dostępu</h2>
+
+<p>Enkapsulacja (ang. <em>encapsulation</em>), czy inaczej hermetyzacja to sposób na ukrycie szczegółów implementacji klasy. Enkapsulacja to bardzo ważny element programowania obiektowego. Pozwala to na pełną kontrolę nad zachowaniem i stanem danego obiektu.</p>
+
+<p>Dobrą praktyką jest stosowanie najbardziej restrykcyjnych modyfikatorów dostępu. Sprowadza się to do użycia <code class="highlighter-rouge">private</code> dla wszystkich pól i metod, które powinny być używane “wewnątrz”. Pozostałe elementy, które stanowią interfejs komunikacji oznaczamy słowem kluczowym <code class="highlighter-rouge">public</code>. Brak modyfikatora dostępu czy <code class="highlighter-rouge">protected</code> mają znaczenie w przypadku bardziej złożonych relacji pomiędzy obiektami.</p>
+
+<p>Fragment kodu poniżej pokazuje licznik, który poprawnie ukrywa swój stan. Pozwala on na modyfikację czy dostęp do <code class="highlighter-rouge">userCount</code> wyłącznie poprzez publiczny interfejs - metody <code class="highlighter-rouge">increment</code> i <code class="highlighter-rouge">getUserCount</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">accessmodifiers</span><span class="o">.</span><span class="na">encapsulated</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EncapsulatedVisitCounter</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">userCount</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">userCount</span><span class="o">++;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getUserCount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userCount</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="dodatkowe-informacje">Dodatkowe informacje</h2>
+
+<h2 id="modyfikatory-dostępu-a-interfejsy-i-typy-wyliczeniowe">Modyfikatory dostępu a interfejsy i typy wyliczeniowe</h2>
+
+<p>Chciałbym Cię uczulić na przypadek interfejsów. Brak modyfikatora dostępu w definicji interfejsu oznacza, że dana metoda ma modyfikator <code class="highlighter-rouge">public</code>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@FunctionalInterface</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Supplier</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="n">T</span> <span class="nf">get</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jest to interfejs <a href="https://docs.oracle.com/javase/9/docs/api/java/util/function/Supplier.html"><code class="highlighter-rouge">Supplier</code></a> dostępny w standardowej bibliotece języka Java. Jak widzisz przed metodą <code class="highlighter-rouge">get</code> nie ma żadnego modyfikatora. W przypadku interfejsów oznacza to, że dana funkcja jest dostępna publicznie.</p>
+
+<p>Innym przykładem są wartości typu wyliczeniowego. Poniższy przykład to typ wyliczeniowy <a href="https://docs.oracle.com/javase/9/docs/api/java/nio/file/AccessMode.html"><code class="highlighter-rouge">AccessMode</code></a> ze standardowej biblioteki. Jego wartości <code class="highlighter-rouge">READ</code>, <code class="highlighter-rouge">WRITE</code> i <code class="highlighter-rouge">EXECUTE</code> są dostępne publicznie mimo braku jakiegokolwiek modyfikatora dostępu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="n">AccessMode</span> <span class="o">{</span>
+    <span class="n">READ</span><span class="o">,</span>
+    <span class="n">WRITE</span><span class="o">,</span>
+    <span class="n">EXECUTE</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="notice--info">
+  
+<p>Interfejs <code class="highlighter-rouge">Supplier</code> jest generyczny, często jest wykorzystywany wraz z wyrażeniami lambda. Jeśli chcesz przeczytać więcej na ten temat zapraszam do oddzielnych artykułów:</p>
+
+<ul>
+  <li><a href="/typy-generyczne-w-jezyku-java/">typy generyczne w języku Java</a>,</li>
+  <li><a href="/wyrazenia-lambda-w-jezyku-java/">wyrażenia lambda w języku Java</a>,</li>
+  <li><a href="/typ-wyliczeniowy-w-jezyku-java/">typ wyliczeniowe w języku Java</a>.</li>
+</ul>
+
+</div>
+
+<h3 id="modyfikatory-dostępu-a-dziedziczenie">Modyfikatory dostępu a dziedziczenie</h3>
+
+<p>Dzięki mechanizmowi nadpisywania metod mamy możliwość nadpisywania modyfikatorów dostępu. Jest to możliwe w przypadku <a href="/dziedziczenie-w-jezyku-java/">dziedziczenia</a>. Jeśli dziedziczymy po innej klasie mamy możliwość rozszerzenia dostępu do danej metody. W praktyce mamy dwie metody, jedną w klasie bazowej i kolejną w klasie potomnej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tree</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">12</span><span class="o">;</span>
+
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">prune</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">height</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">height</span> <span class="o">-=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">height</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Oak</span> <span class="kd">extends</span> <span class="n">Tree</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">prune</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">prune</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Aby uniemożliwić przedefiniowanie metody należy umieścić przed nią słowo kluczowe <code class="highlighter-rouge">final</code>.</p>
+
+<h3 id="modyfikatory-dostępu-a-mechanizm-refleksji">Modyfikatory dostępu a mechanizm refleksji</h3>
+
+<p>Tylko i wyłącznie dla pełnego obrazu napiszę Ci o mechanizmie refleksji. W większości produkcyjnego kodu nie jest on używany. Pozwala on na dostęp do dowolnego elementu klasy pomijając modyfikator dostępu. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Thief</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">NoSuchFieldException</span><span class="o">,</span> <span class="n">IllegalAccessException</span> <span class="o">{</span>
+        <span class="n">BankAccount</span> <span class="n">account</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BankAccount</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Stan konta: "</span> <span class="o">+</span> <span class="n">account</span><span class="o">.</span><span class="na">getBalance</span><span class="o">());</span>
+
+        <span class="n">Field</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">"balance"</span><span class="o">);</span>
+        <span class="n">balance</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">balance</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">account</span><span class="o">,</span> <span class="o">-</span><span class="mi">5000</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Stan konta: "</span> <span class="o">+</span> <span class="n">account</span><span class="o">.</span><span class="na">getBalance</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Dzięki mechanizmowi refleksji zmieniłem wartość pola prywatnego. Po uruchomieniu takiego programu na konsoli wyświetlą się dwie linijki:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Stan konta: 100
+Stan konta: -5000
+</code></pre></div></div>
+
+<p class="notice--warning">Ogólna reguła brzmi - nie używaj mechanizmu refleksji w produkcyjnym kodzie. Chyba, że wiesz co robisz i rzeczywiście jest to potrzebne ;).</p>
+
+<h2 id="zadanie">Zadanie</h2>
+
+<p>Napisz program, który będzie symulował działanie banku. Zaimplementuj następujące interfejsy:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Account</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BankTransfer</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">transfer</span><span class="o">(</span><span class="n">BankAccount</span> <span class="n">from</span><span class="o">,</span> <span class="n">BankAccount</span> <span class="n">to</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Bank przeprowadzający operację przesyłu środków pobiera stałą opłatę 1zł od nadawcy przelewu. Jakich modyfikatorów dostępu użyjesz? Dlaczego akurat tych?</p>
+
+<p>Pamiętaj, że nie ma jednego rozwiązania tego zadania. Jest ich nieskończenie wiele, jedno z przykładowych rozwiązań znajdziesz na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/29_modyfikatory_dostepu/src/main/java/pl/samouczekprogramisty/kursjava/accessmodifiers/exercise/bank">samouczkowym githubie</a>.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Przygotowałem dla Ciebie zestaw kilku linków z materiałami dodatkowymi:</p>
+<ul>
+  <li><a href="https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html">fragment kursu na stronie Oracle opisujący modyfikatory dostępu</a>,</li>
+  <li><a href="https://pl.wikipedia.org/wiki/Hermetyzacja_(informatyka)">artykuł na Wikipedii na temat hermetyzacji</a>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/29_modyfikatory_dostepu/src/main/java/pl/samouczekprogramisty/kursjava/accessmodifiers">przykłady kodu użyte w artykule</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Modyfikatory dostępu w Javie są bardzo ważne. Po przeczytaniu artykułu wiesz czym do czego służą i jak ich używać. Wiesz czym jest hermetyzacja i dlaczego jest istotna. Dowiedziałeś się czegoś więcej mechanizmie refleksji i wiesz, że nie powinieneś go używać ;). Po rozwiązaniu zadania przećwiczyłeś wiedzę z artykułu w praktyce.</p>
+
+<p>Mam nadzieję, że artykuł był dla Ciebie pomocny. Jeśli tak to proszę podziel się z nim ze swoimi znajomymi. Jeśli nie chcesz pominąć żadnego artykułu w przyszłości proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:moduly">
+      <p>Jak wspomniałem we wstępie pomijam tutaj moduły, które mogą ograniczyć dostęp do elementów poprzedzonych słowem kluczowym <code class="highlighter-rouge">public</code>. <a href="#fnref:moduly" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:wewnetrzne">
+      <p>Chyba, że są to klasy wewnętrzne. W takim przypadku modyfikator <code class="highlighter-rouge">protected</code> jest dozwolony. <a href="#fnref:wewnetrzne" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-10-29T00:00:00+02:00">October 29, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fmodyfikatory-dostepu-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fmodyfikatory-dostepu-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" class="pagination--pager" title="Wyrażenia lambda w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/05/28_pogodynka_podsumowanie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/" rel="permalink">Pogodynka - podsumowanie
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/modyfikatory-dostepu-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
