@@ -48,7 +48,7 @@ Metoda ta jako argument przyjmuje wartość pola i zwraca to co znajduje się we
 
 Aby wybrać losowo X wartości musisz losowo rozłożyć adresy email z pliku. Pomóc Ci w tym może metoda [`Collections.shuffle`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#shuffle-java.util.List-), która w losowy sposób miesza elementy listy.
 
-Z tymi narzędziami jesteś przygotowany do napisania swojej pierwszej maszyny losującej :) Jeśli będziesz miał jakiekolwiek pytania możesz zasugerować się [przykładowym rozwiązaniem](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/01_lottery_machine/src/pl/samouczekprogramisty/szs), które dla Ciebie przygotowałem. Jak zwykle zachęcam jednak do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej.
+Z tymi narzędziami jesteś przygotowany do napisania swojej pierwszej maszyny losującej :) Jeśli będziesz miał jakiekolwiek pytania możesz zasugerować się [przykładowym rozwiązaniem](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/01_lottery_machine/src/main/java/pl/samouczekprogramisty/szs/LotteryMachine.java), które dla Ciebie przygotowałem. Jak zwykle zachęcam jednak do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej.
 
 ## Podsumowanie
 

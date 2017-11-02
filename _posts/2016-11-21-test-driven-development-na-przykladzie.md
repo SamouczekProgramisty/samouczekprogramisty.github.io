@@ -113,6 +113,6 @@ Przykładowe rozwiązanie nie sprawdza niektórych przypadków brzegowych. Czy T
 
 Wiesz czym jest TDD. Jesteś praktykiem TDD, rozwiązałeś zadanie przy użyciu tego sposobu pisania kodu. Wiesz jakie są cykle TDD (i wiesz, że nie wolno zapominać o refaktoryzacji). Skróty klawiaturowe pomagające w pisaniu testów masz w jednym paluszku ;).
 
-Dodam po raz kolejny. Testowanie kodu jest bardzo istotnie, nie zapominaj o nim.t
+Dodam po raz kolejny. Testowanie kodu jest bardzo istotnie, nie zapominaj o nim.
 
 Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi, może ktoś z nich chce poznać TDD od praktycznej strony?. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na facebooku i zapisać się do mojego newslettera ;). Do następnego razu!
