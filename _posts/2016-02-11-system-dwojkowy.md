@@ -9,7 +9,7 @@ header:
     teaser: /assets/images/2016/02/11_system_dwojkowy_artykul.png
     overlay_image: /assets/images/2016/02/11_system_dwojkowy_artykul.png
     caption: "[&copy; koniu_87](https://www.flickr.com/photos/koniu_87/)"
-excerpt: Nawet nie wiecie jak się cieszę :) W życiu nie powiedziałbym, że w tak krótkim czasie uda się zebrać 10000000 polubień na facebooku! Świętujemy z fanfarami :) Z okazji okrągłej liczby króciutki artykuł o innej notacji zapisywania liczb. Dzisiaj dowiemy się czym&nbsp; jest system dwójkowy. Po przeczytaniu artykułu zrozumiecie dlaczego 1024 to okrągła liczba dla programistów ;)
+excerpt: Nawet nie wiecie jak się cieszę :) W życiu nie powiedziałbym, że w tak krótkim czasie uda się zebrać 10000000 polubień na Facebooku! Świętujemy z fanfarami :) Z okazji okrągłej liczby króciutki artykuł o innej notacji zapisywania liczb. Dzisiaj dowiemy się czym jest system dwójkowy. Po przeczytaniu artykułu zrozumiecie dlaczego 1024 to okrągła liczba dla programistów ;)
 disqus_page_identifier: 118 http://www.samouczekprogramisty.pl/?p=118
 ---
 
@@ -96,6 +96,30 @@ Więc spróbujmy teraz zapisać naszą przykładową liczbę 1234 w systemie bin
 
 Mając już zapis liczby jako sumę iloczynów kolejnych potęg możemy spisać kolejne mnożne: 1, 0, 0, 1, 1, 0, 1, 0, 0, 1 i 0. Łącząc je w całość powstaje nam 10011010010 czyli nic innego jak 1234 zapisane w systemie binarnym.
 
+## Przekształcanie liczby do postaci binarnej
+
+Wiesz już czym jest postać binarna. Nadszedł czas na algorytm, który pozwoli Ci przekształcić liczbę dziesiętną w binarną. Zanim do niego przejdziemy musisz wiedzieć czym jest dzielenie całkowitoliczbowe. Wynikiem całkowitoliczbowego dzielenia 5 / 2  jest 2, resztą z tego dzielenia jest 1. Wynikiem całkowitoliczbowego dzielenia 4 / 2 jest 2, reszta z tego dzielenia wynosi 0.
+
+Algorytm przekształcenia liczby w postaci dziesiętnej na binarną:
+
+1. Podzieli liczbę całkowitoliczbowo przez 2. Zapisz resztę z dzielenia jako pierwszą cyfrę w postaci binarnej. Przypisz do liczby wynik z dzielenia,
+2. Jeśli wynik dzielenia jest większy od zera przejdź do pierwszego kroku.
+
+Poniżej przekształcenie liczby 21 na postać binarną:
+
+1. Liczba to 21. 21 / 2 = 10 reszty 1, aktualna postać binarna `1`,
+2. 10 > 0, idziemy dalej,
+3. Liczba to 10. 10 / 2 = 5 reszty 0, aktualna postać binarna `01`,
+4. 5 > 0, idziemy dalej,
+5. Liczba to 5. 5 / 2 = 2 reszty 1, aktualna postać binarna `101`,
+6. 2 > 0, idziemy dalej,
+7. Liczba to 2. 2 / 2 = 1 reszty 0, aktualna postać binarna `0101`,
+8. 1 > 0, idziemy dalej,
+9. Liczba to 1. 1 / 2 = 0 reszty 1, aktualna postać binarna `10101`,
+10. 0 > 0 nie jest spełnione. Koniec algorytmu. Postać binarna liczby 21 to `10101`
+
+Spróbuj napisać program, który realizuje ten algorytm. Możesz sprawdzić poprawność wyniku używając metody [`Integer.toBinaryString`](https://docs.oracle.com/javase/9/docs/api/java/lang/Integer.html#toBinaryString-int-). Polecam napisanie kilku [testów jednostkowych]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}), które sprawdzą poprawność Twojego rozwiązania.
+
 ## Dodatkowe materiały do nauki
 
 > W komentarzu InfW4 wspomniał o ciekawych źródłach, dzięki za wskazówkę ;)
@@ -104,11 +128,11 @@ Podobnie jak komentujący miałem przyjemność uczęszczać na kursy prof. Janu
 
 ## Podsumowanie
 
-Teraz, wiedząc już jak działa system binarny wiesz już skąd wzięła się ta ogromna liczba polubień.&nbsp; 10000000 w systemie binarnym to 2<sup>7</sup> \* 1 czyli 128 :) Jak zwykle mam dla Ciebie ćwiczenia na koniec. Spróbuj zapisać liczby 321 i 2048 w systemie binarnym.
+Teraz, wiedząc już jak działa system binarny wiesz już skąd wzięła się ta ogromna liczba polubień. 10000000 w systemie binarnym to 2<sup>7</sup> \* 1 czyli 128 :) Jak zwykle mam dla Ciebie ćwiczenia na koniec. Spróbuj zapisać liczby 321 i 2048 w systemie binarnym.
 
 Jeśli chcesz wyższego poziomu trudności zapisz liczby 1024 i 321 w systemie ósemkowym (w systemie, którego podstawą jest 8).
 
-I jak? Trudne? Jeśli masz pytania zadaj je w komentarzach, postaram się pomóc. Bardzo dziękuję Ci za przeczytanie artykułu, jeśli chcesz wiedzieć o najnowszych wpisach polub stronę na facebooku.
+I jak? Trudne? Jeśli masz pytania zadaj je w komentarzach, postaram się pomóc. Bardzo dziękuję Ci za przeczytanie artykułu, jeśli chcesz wiedzieć o najnowszych wpisach polub stronę na Facebooku.
 
 Na koniec mam do Ciebie jeszcze jedną prośbę. Zależy mi na tym, żeby dotrzeć do jak największej liczby czytelników więc jeśli mógłbyś polecić bloga swoim znajomym byłbym wdzięczny. Z góry dziękuję i do następnego razu!
 
