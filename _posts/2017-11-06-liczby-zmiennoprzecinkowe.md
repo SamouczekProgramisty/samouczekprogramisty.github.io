@@ -5,10 +5,10 @@ categories:
 - Wiedza ogólna
 permalink: /liczby-zmiennoprzecinkowe/
 header:
-    teaser: /assets/images/2017/11/05_liczby_zmiennoprzecinkowe_artykul.jpg
-    overlay_image: /assets/images/2017/11/05_liczby_zmiennoprzecinkowe_artykul.jpg
+    teaser: /assets/images/2017/11/06_liczby_zmiennoprzecinkowe_artykul.jpg
+    overlay_image: /assets/images/2017/11/06_liczby_zmiennoprzecinkowe_artykul.jpg
     caption: "[&copy; russellstreet](https://www.flickr.com/photos/russellstreet/9724283620/sizes/l)"
-excerpt: Po lekturze tego artykułu będziesz wiedział dlaczego `0,1 + 0,2 != 0,3`. Dowiesz się w jaki sposób zapisywane są liczby wymierne w pamięci komputera. Poznasz część standardu IEEE754 i zrozumiesz dlaczego część typów nie nadaje się do przechowywania dokładnej reprezentacji liczb wymiernych. Krótkie zadanie do rozwiązania pomoże Ci utrwalić wiedzę z artykułu.
+excerpt: Po lekturze tego artykułu będziesz wiedział dlaczego 0,1 + 0,2 != 0,3. Dowiesz się w jaki sposób zapisywane są liczby wymierne w pamięci komputera. Poznasz część standardu IEEE754 i zrozumiesz dlaczego część typów nie nadaje się do przechowywania dokładnej reprezentacji liczb wymiernych. Zadania do rozwiązania pomogą Ci utrwalić wiedzę z artykułu.
 ---
 
 <script type="text/javascript"
@@ -119,7 +119,7 @@ Każdą liczbę zmiennoprzecinkową zapisujemy w pamięci przy pomocy trzech sk�
 * wykładnika,
 * mantysy.
 
-{% include figure image_path="/assets/images/2017/11/07_IEEE_754_pojedyncza_precyzja.png" caption="Liczba zmiennoprzecinkowa pojedynczej precyzji &copy; Wikipedia" %}
+{% include figure image_path="/assets/images/2017/11/06_IEEE_754_pojedyncza_precyzja.png" caption="Liczba zmiennoprzecinkowa pojedynczej precyzji &copy; Wikipedia" %}
 
 
 Wartość liczby zmiennoprzecinkowej zależy od wartości poszczególnych pól. Można ją zapisać przy pomocy wzoru:
