@@ -1,0 +1,822 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Liczby zmiennoprzecinkowe - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Po lekturze tego artykułu będziesz wiedział dlaczego 0,1 + 0,2 != 0,3. Dowiesz się w jaki sposób zapisywane są liczby wymierne w pamięci komputera. Poznasz część standardu IEEE754 i zrozumiesz dlaczego część typów nie nadaje się do przechowywania dokładnej reprezentacji liczb wymiernych. Zadania do rozwiązania pomogą Ci utrwalić wiedzę z artykułu.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Liczby zmiennoprzecinkowe">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe/">
+
+
+
+  <meta property="og:description" content="Po lekturze tego artykułu będziesz wiedział dlaczego 0,1 + 0,2 != 0,3. Dowiesz się w jaki sposób zapisywane są liczby wymierne w pamięci komputera. Poznasz część standardu IEEE754 i zrozumiesz dlaczego część typów nie nadaje się do przechowywania dokładnej reprezentacji liczb wymiernych. Zadania do rozwiązania pomogą Ci utrwalić wiedzę z artykułu.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/11/06_liczby_zmiennoprzecinkowe_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-11-06T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/11/06_liczby_zmiennoprzecinkowe_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Liczby zmiennoprzecinkowe
+
+        
+      </h1>
+      
+        <p class="page__lead">Po lekturze tego artykułu będziesz wiedział dlaczego 0,1 + 0,2 != 0,3. Dowiesz się w jaki sposób zapisywane są liczby wymierne w pamięci komputera. Poznasz część standardu IEEE754 i zrozumiesz dlaczego część typów nie nadaje się do przechowywania dokładnej reprezentacji liczb wymiernych. Zadania do rozwiązania pomogą Ci utrwalić wiedzę z artykułu.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/russellstreet/9724283620/sizes/l">© russellstreet</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Liczby zmiennoprzecinkowe</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Liczby zmiennoprzecinkowe">
+    <meta itemprop="description" content="Po lekturze tego artykułu będziesz wiedział dlaczego 0,1 + 0,2 != 0,3. Dowiesz się w jaki sposób zapisywane są liczby wymierne w pamięci komputera. Poznasz część standardu IEEE754 i zrozumiesz dlaczego część typów nie nadaje się do przechowywania dokładnej reprezentacji liczb wymiernych. Zadania do rozwiązania pomogą Ci utrwalić wiedzę z artykułu.">
+    <meta itemprop="datePublished" content="November 06, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fa fa-file-text"></i> Spis treści</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#niezbędne-podstawy" id="markdown-toc-niezbędne-podstawy">Niezbędne podstawy</a>    <ul>
+      <li><a href="#odrobina-matematyki" id="markdown-toc-odrobina-matematyki">Odrobina matematyki</a></li>
+      <li><a href="#liczby-wymierne-zapisywane-binarnie" id="markdown-toc-liczby-wymierne-zapisywane-binarnie">Liczby wymierne zapisywane binarnie</a></li>
+      <li><a href="#notacja-naukowa-a-liczby-wymierne" id="markdown-toc-notacja-naukowa-a-liczby-wymierne">Notacja naukowa a liczby wymierne</a></li>
+    </ul>
+  </li>
+  <li><a href="#czym-jest-standard-ieee754" id="markdown-toc-czym-jest-standard-ieee754">Czym jest standard IEEE754</a></li>
+  <li><a href="#liczba-zmiennoprzecinkowa" id="markdown-toc-liczba-zmiennoprzecinkowa">Liczba zmiennoprzecinkowa</a>    <ul>
+      <li><a href="#części-składowe-liczby-zmiennoprzecinkowej" id="markdown-toc-części-składowe-liczby-zmiennoprzecinkowej">Części składowe liczby zmiennoprzecinkowej</a></li>
+      <li><a href="#znak" id="markdown-toc-znak">Znak</a></li>
+      <li><a href="#wykładnik" id="markdown-toc-wykładnik">Wykładnik</a></li>
+      <li><a href="#mantysa" id="markdown-toc-mantysa">Mantysa</a></li>
+    </ul>
+  </li>
+  <li><a href="#zapis-liczby-zmiennoprzecinkowej" id="markdown-toc-zapis-liczby-zmiennoprzecinkowej">Zapis liczby zmiennoprzecinkowej</a></li>
+  <li><a href="#dlaczego-01--02--03" id="markdown-toc-dlaczego-01--02--03">Dlaczego <code class="highlighter-rouge">0,1 + 0,2 != 0,3</code></a>    <ul>
+      <li><a href="#rady-praktyczne" id="markdown-toc-rady-praktyczne">Rady praktyczne</a></li>
+    </ul>
+  </li>
+  <li><a href="#dodatkowe-materiały-do-nauki" id="markdown-toc-dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+  <li><a href="#zadania-do-wykonania" id="markdown-toc-zadania-do-wykonania">Zadania do wykonania</a></li>
+  <li><a href="#podsumowanie" id="markdown-toc-podsumowanie">Podsumowanie</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p class="notice--info">Artykuł ten wymaga znajomości notacji binarnej. Jeśli jeszcze jej nie znasz koniecznie zapoznaj się z <a href="/system-dwojkowy/">artykułem opisującym system binarny</a>.</p>
+
+<div class="notice--warning">
+  
+<p>Artykuł ten ma Cię jedynie wprowadzić w tematykę związaną ze standardem IEEE754. Nie poruszam w nim kwestii związanych z arytmetyką, zaokrąglaniem czy wartościami specjalnymi.</p>
+
+<p>Celem tego artykułu jest wytłumaczenie dlaczego operacje na liczbach zmiennoprzecinkowych nie są dokładne. Jeśli szukasz bardziej szczegółowych informacji odsyłam do punktu “Dodatkowe materiały do nauki”.</p>
+
+</div>
+
+<h2 id="niezbędne-podstawy">Niezbędne podstawy</h2>
+
+<h3 id="odrobina-matematyki">Odrobina matematyki</h3>
+
+<p>Żeby móc mówić o liczbach zmiennoprzecinkowych należy zrozumieć czym są liczby wymierne. Liczba wymierna to liczba, którą można przedstawić w postaci ułamka zwykłego. Dla przypomnienia to ten ułamek z kreską poziomą, który ma licznik i mianownik. Przykładem ułamka zwykłego jest ½.</p>
+
+<p>Ułamki mają jeszcze postać dziesiętną. Przykładem ułamka dziesiętnego jest <code class="highlighter-rouge">0,5</code>.</p>
+
+<p>Niektóre ułamki zwykłe nie mają skończonej reprezentacji jako ułamek dziesiętny. Na przykład ułamek ⅓ zapisany dziesiętnie ma postać <code class="highlighter-rouge">0,(3)</code>. Taka notacja oznacza, że ułamek dziesiętny ma rozwinięcie okresowe. Zawartość nawiasu powtarzana jest w nieskończoność <code class="highlighter-rouge">0,33333...</code>. Okres ułamka może mieć kilka cyfr, na przykład <code class="highlighter-rouge">0,38(12)</code>. Taki okres rozwija się do ułamka <code class="highlighter-rouge">0,3812121212...</code>.</p>
+
+<h3 id="liczby-wymierne-zapisywane-binarnie">Liczby wymierne zapisywane binarnie</h3>
+
+<p>Liczby wymierne można zapisać także binarnie. Algorytm na zamianę liczb całkowitych z postaci dziesiętnej na postać binarną opisałem w artykule na temat <a href="/system-dwojkowy/">systemu binarnego</a>. Do zamiany zostaje część po przecinku. Weźmy na przykład liczbę 0,25. Aby zapisać ją binarnie należy postępować zgodnie z algorytmem:</p>
+
+<ol>
+  <li>Zapisz <code class="highlighter-rouge">0,</code>,</li>
+  <li>Pomnóż ułamek przez 2, jeśli wynik jest większy bądź równy 1 należy dopisać <code class="highlighter-rouge">1</code> w reprezentacji binarnej. W przeciwnym wypadku należy dopisać <code class="highlighter-rouge">0</code>.</li>
+  <li>Jeśli wynik jest równy 1 jest to koniec algorytmu. Jeśli wynik jest mniejszy od 1 należy przejść do punktu drugiego. Jeśli wynik jest większy od 1 należy odjąć od niego 1 i przejść do punktu drugiego.</li>
+</ol>
+
+<p>Mam nadzieję, że przykład pozwoli Ci lepiej zrozumieć zasadę działania algorytmu. Zacznijmy od liczby 0,75.</p>
+
+<ol>
+  <li>Postać binarna <code class="highlighter-rouge">0,</code>,</li>
+  <li>0,75 * 2 = 1,5. Wynik jest większy od 1 więc dopisuję <code class="highlighter-rouge">1</code>. Postać binarna <code class="highlighter-rouge">0,1</code>. Wynik jest większy od 1 więc odejmuję jedynkę: 1,5 - 1 = 0,5,</li>
+  <li>0,5 * 2 = 1. Wynik jest równy 1 więc dopisuję <code class="highlighter-rouge">1</code>. Postać binarna <code class="highlighter-rouge">0,11</code>. Wynik jest równy 1 więc to koniec algorytmu,</li>
+  <li>0,75 zapisane jako ułamek binarny to <code class="highlighter-rouge">0,11</code>.</li>
+</ol>
+
+<p>Inny przykład, tym razem ułamek dziesiętny to 0,125:</p>
+
+<ol>
+  <li>Postać binarna <code class="highlighter-rouge">0,</code>,</li>
+  <li>0,125 * 2 = 0,25. 0,25 &lt; 1 więc dopisuję <code class="highlighter-rouge">0</code>. Postać binarna to <code class="highlighter-rouge">0,0</code>,</li>
+  <li>0,25 * 2 = 0,5. 0,5 &lt; 1 więc dopisuję <code class="highlighter-rouge">0</code>. Postać binarna to <code class="highlighter-rouge">0,00</code>,</li>
+  <li>0,5 * 2 = 1. 1 == 1 więc dopisuję <code class="highlighter-rouge">1</code>. Postać binarna to <code class="highlighter-rouge">0,001</code>, koniec algorytmu,</li>
+  <li>0,125 zapisane jako ułamek binarny to <code class="highlighter-rouge">0,001</code>.</li>
+</ol>
+
+<p>Nie wszystkie ułamki, które mają skończone rozwinięcie dziesiętne są skończone w postaci binarnej. Spójrz jak wygląda to w przypadku ułamka 0,1:</p>
+
+<ol>
+  <li>Postać binarna <code class="highlighter-rouge">0,</code>,</li>
+  <li>0,1 * 2 = 0,2. 0,2 &lt; 1 więc dopisuję <code class="highlighter-rouge">0</code>. Postać binarna to <code class="highlighter-rouge">0,0</code>,</li>
+  <li>0,2 * 2 = 0,4. 0,4 &lt; 1 więc dopisuję <code class="highlighter-rouge">0</code>. Postać binarna to <code class="highlighter-rouge">0,00</code>,</li>
+  <li>0,4 * 2 = 0,8. 0,8 &lt; 1 więc dopisuję <code class="highlighter-rouge">0</code>. Postać binarna to <code class="highlighter-rouge">0,000</code>,</li>
+  <li>0,8 * 2 = 1,6. 1,6 &gt; 1 więc dopisuję <code class="highlighter-rouge">1</code> i odejmuję 1 od wyniku. Postać binarna to <code class="highlighter-rouge">0,0001</code>,</li>
+  <li>0,6 * 2 = 1,2. 1,2 &gt; 1 więc dopisuję <code class="highlighter-rouge">1</code> i odejmuję 1 od wyniku. Postać binarna to <code class="highlighter-rouge">0,00011</code>,</li>
+  <li>Ułamek 0,2 występował już w kroku 3. Jeśli liczba się powtarza mamy do czynienia z ułamkiem, który ma nieskończone rozwinięcie binarne. Postać binarna to <code class="highlighter-rouge">0,0(0011)</code>.</li>
+</ol>
+
+<p>Aby zapisać liczbę wymierną, która ma zarówno część całkowitą i ułamkową należy połączyć zapis części całkowitej i ułamkowej. Na przykład liczba 20,1 zapisana binarnie to <code class="highlighter-rouge">10100,0(0011)</code>. Jest to tak zwana stałoprzecinkowa reprezentacja liczby wymiernej.</p>
+
+<h3 id="notacja-naukowa-a-liczby-wymierne">Notacja naukowa a liczby wymierne</h3>
+
+<p>W matematyce poza standardowym zapisem liczb, który już znasz 10, 123,15 czy 0,00000827194 istnieje tak zwana notacja naukowa. Jest ona pomocna przy zapisywaniu bardzo dużych/małych liczb w stosunkowo zwięzłej formie. Na przykład liczbę 0,00000827194 można zapisać jako \(8,27194 * 10^{-6}\). Inna postać tej liczby to 8,27194e-6.</p>
+
+<p>W języku Java możesz zobaczyć jak dana liczba wygląda w postaci naukowej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%e"</span><span class="o">,</span> <span class="mf">123.456</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>Po uruchomieniu powyższego kodu na konsoli pokaże się:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.234560e+02
+</code></pre></div></div>
+
+<h2 id="czym-jest-standard-ieee754">Czym jest standard IEEE754</h2>
+
+<p>Standard IEEE754 jest standardem opisującym arytmetykę zmiennoprzecinkową. W dużym uproszczeniu można powiedzieć, że opisuje on sposób zapisywania liczby wymiernej w pamięci komputera. Standard ten może być implementowany już na poziomie sprzętowym. Oznacza to tyle, że procesor może mieć specjalną jednostkę odpowiedzialną za obliczenia zmiennoprzecinkowe.</p>
+
+<p>Standard ten opisuje kilka formatów zapisu liczb. Jednym z nich jest zapis <em>pojedynczej precyzji</em> gdzie do zapisania liczby używa się 32 bitów. Występuje też wersja z <em>podwójną precyzją</em>, gdzie używa się 64 bitów do zapisania liczby.</p>
+
+<p>W języku Java liczby typu <code class="highlighter-rouge">float</code> są liczbami zmiennoprzecinkowymi formacie pojedynczej precyzji. Liczby typu <code class="highlighter-rouge">double</code> to liczby zmiennoprzecinkowe zapisane na 64 bitach w formacie podwójnej precyzji.</p>
+
+<p class="notice--info">W dalszej części artykułu skupię się wyłącznie na liczbach zmiennoprzecinkowych zapisanych w formacie pojedynczej precyzji.</p>
+
+<h2 id="liczba-zmiennoprzecinkowa">Liczba zmiennoprzecinkowa</h2>
+
+<p>Liczba zmiennoprzecinkowa to liczba wymierna zapisana w formacie IEEE754. Nazwa zmiennoprzecinkowa wynika z tego, że miejsce przecinka w liczbie zmienia swoje położenie. Spójrz na przykład poniżej:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1234,567
+1,234567e-3
+</code></pre></div></div>
+
+<p>Obie te liczby są równe, jednak przecinek w drugiej z nich znajduje się w innym miejscu. Druga liczba zapisana jest w notacji naukowej.</p>
+
+<h3 id="części-składowe-liczby-zmiennoprzecinkowej">Części składowe liczby zmiennoprzecinkowej</h3>
+
+<p>Każdą liczbę zmiennoprzecinkową zapisujemy w pamięci przy pomocy trzech składowych:</p>
+
+<ul>
+  <li>znaku,</li>
+  <li>wykładnika,</li>
+  <li>mantysy.</li>
+</ul>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/11/06_IEEE_754_pojedyncza_precyzja.png" alt="" />
+  
+    <figcaption>Liczba zmiennoprzecinkowa pojedynczej precyzji © Wikipedia
+</figcaption>
+  
+</figure>
+
+<p>Wartość liczby zmiennoprzecinkowej zależy od wartości poszczególnych pól. Można ją zapisać przy pomocy wzoru:</p>
+
+<script type="math/tex; mode=display">-1^{znak} * 2^{wykładnik} * mantysa</script>
+
+<p>Wzór ten przypomina notację naukową.</p>
+
+<h3 id="znak">Znak</h3>
+
+<p>Liczby mogą być dodanie, ujemne lub 0. Znak służy do określenia czy dana liczba jest dodania czy ujemna. Jeśli liczba jest dodatnia bit znaku zawiera <code class="highlighter-rouge">0</code>.</p>
+
+<h3 id="wykładnik">Wykładnik</h3>
+
+<p>Wykładnik to liczba zapisana na ośmiu bitach. Używa się tu tak zwanego kodowania z nadmiarem. W tym przypadku nadmiar wynosi -127. Oznacza to, że od zakodowanej liczby należy odjąć liczbę 127 aby uzyskać zakodowaną wartość. Standardowo na ośmiu bitach możemy zapisać liczbę \(2^8 -1 == 255\). Używając kodowania z nadmiarem -127 na ośmiu bitach możemy zakodować liczby z zakresu [-127, 128].</p>
+
+<p>Innymi słowy wykładnik w liczbie zmiennoprzecinkowej może być z zakresu -127 do 128<sup id="fnref:precyzja"><a href="#fn:precyzja" class="footnote">1</a></sup>.</p>
+
+<h3 id="mantysa">Mantysa</h3>
+
+<p>Mantysa zapisana jest na 23 bitach. Zawiera ona właściwą liczbę, która zostanie pomnożona przez wykładnik zgodnie ze wzorem podanym wyżej.</p>
+
+<p>Mantysa w większości przypadków ma postać znormalizowaną. Najłatwiej będzie mi to wytłumaczyć na przykładzie. Załóżmy, że mamy liczbę zapisaną binarnie <code class="highlighter-rouge">1011,1101</code>. Znormalizowana postać tej liczby to \(1,0111101 * 2^3\). Jak widzisz przecinek przesunięty jest do pierwszej jedynki.</p>
+
+<p>Inny przykład to <code class="highlighter-rouge">0,0001010110001</code>, która po normalizacji wygląda następująco \(1,010110001 * 2^{-4}\).</p>
+
+<p>W znormalizowanej mantysie pierwszą cyfrą jest zawsze 1. W związku z tym jest pomijana. Zatem mając liczbę <code class="highlighter-rouge">1,010110001</code> mantysa będzie miała wartość (spacje dla czytelności):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0101 1000 1000 0000 0000 000
+</code></pre></div></div>
+
+<p>Część ułamkowa <code class="highlighter-rouge">010110001</code> została uzupełniona zerami aby zapełnić wszystkie 23 bity przeznaczone na mantysę.</p>
+
+<h2 id="zapis-liczby-zmiennoprzecinkowej">Zapis liczby zmiennoprzecinkowej</h2>
+
+<p>Teraz masz już wszystkie informacje potrzebne do zapisania liczby zmiennoprzecinkowej. Zacznijmy od liczby 270,125. Liczba ta zapisana binarnie to <code class="highlighter-rouge">100001110,001</code>. Po znormalizowaniu otrzymujemy</p>
+
+<script type="math/tex; mode=display">1,00001110001 * 2^{8}</script>
+
+<p>W naszym przypadku po przecinku mamy 11 cyfr. Mantysę zapisujemy na 23. Brakujące miejsca uzupełniamy zerami. Więc mantysa będzie miała następującą postać (spacje dla czytelności):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0000 1110 0010 0000 0000 000
+</code></pre></div></div>
+
+<p>Nasz wykładnik to 8. Wynika on z przesunięcia w związku z normalizacją mantysy. Pamiętając o sposobie kodowania wykładnika dodaję do niego 127. Kodując 135 binarnie uzyskuję (spacja dla czytelności):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1000 0111
+</code></pre></div></div>
+
+<p>Nasza liczba jest dodania, więc bit znaku ma wartość <code class="highlighter-rouge">0</code>.</p>
+
+<p>Zbierając te informacje razem mogę zapisać liczbę 270,125 w standardzie IEEE754. Zapis ten wygląda następująco (spacje dla czytelności):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0  1000 0111  0000 1110 0010 0000 0000 000
+</code></pre></div></div>
+
+<h2 id="dlaczego-01--02--03">Dlaczego <code class="highlighter-rouge">0,1 + 0,2 != 0,3</code></h2>
+
+<p>Standard IEEE754 bardzo ułatwił pracę z liczbami wymiernymi. Niestety ma on swoje wady. Jedną z nich jest to, że w pewnych przypadkach zapis liczby w tym formacie prowadzi do utracenia informacji. Dzieje się tak na przykład w przypadku gdy ułamek zapisany binarnie ma rozwinięcie okresowe. Przykładem takich ułamków są 0,1 czy 0,2.</p>
+
+<p>Proszę spójrz na przykłady poniżej. Używam tu kodu Javy, jednak właściwość ta jest prawdziwa także w innych językach programowania:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.17f"</span> <span class="o">,</span> <span class="mf">0.1</span><span class="n">F</span><span class="o">));</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.17f"</span> <span class="o">,</span> <span class="mf">0.2</span><span class="n">F</span><span class="o">));</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.17f"</span> <span class="o">,</span> <span class="mf">0.3</span><span class="n">F</span><span class="o">));</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.10000000149011612
+0.20000000298023224
+0.30000001192092896
+</code></pre></div></div>
+
+<p class="notice--info">Jeśli chcesz wiedzieć czym jest magiczne <code class="highlighter-rouge">"%.17f"</code> zachęcam Cię do przeczytania artykułu na temat <a href="/formatter-formatowanie-lancuchow-znakow/">formatowania łańcuchów znaków w języku Java</a>.</p>
+
+<p>Jak widzisz wprowadzone 0,1 trochę różni się od właściwej wartości zapisanej w pamięci komputera. Chociaż <code class="highlighter-rouge">0,1 + 0,2 == 0,3</code> to w pamięci komputera wygląda to trochę inaczej:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.10000000149011612 + 0.20000000298023224 != 0.30000001192092896
+</code></pre></div></div>
+
+<h3 id="rady-praktyczne">Rady praktyczne</h3>
+
+<p>W związku z opisanymi problemami typy <code class="highlighter-rouge">double</code> czy <code class="highlighter-rouge">float</code> nie zawsze są dobrym wyborem. Na przykład pisząc aplikację do banku, która oblicza ratę kredytu na pewno nie powinieneś używać tych typów. Z pomocą przychodzi klasa <code class="highlighter-rouge">BigDecimal</code>. Jeśli zależy Ci na dokładnych obliczeniach w większości przypadków będzie to dobry wybór:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">"0.1"</span><span class="o">));</span>
+</code></pre></div></div>
+<p>Wyświetli oczekiwane</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.1
+</code></pre></div></div>
+
+<p>Proszę zwróć uwagę na sposób tworzenia instancji <code class="highlighter-rouge">BigDecimal</code>. Używam tutaj konstruktora, który przyjmuje liczbę jako łańcuch znaków. Użycie klasy <code class="highlighter-rouge">BigDecimal</code> utworzonej na podstawie instancji <code class="highlighter-rouge">float</code> powtórzy błąd:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="mf">0.1</span><span class="n">F</span><span class="o">));</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.100000001490116119384765625
+</code></pre></div></div>
+
+<p>Innym sposobem na pracę z liczbami wymiernymi jest użycie typów całkowitoliczbowych. Jest to możliwe w przypadku gdy wiesz ile miejsc po przecinku jest dla Ciebie ważne. Na przykład operacje pieniężne w większości przypadków potrzebują dwóch miejsc po przecinku. Zatem kwotę 125 złotych 68 groszy możemy zapisać jako 12568 i przechowywać w polu o typu <code class="highlighter-rouge">int</code> czy <code class="highlighter-rouge">long</code>. Przy pomocy dzielenia możemy uzyskać część całkowitoliczbową i część ułamkową:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">money</span> <span class="o">=</span> <span class="mi">12568</span><span class="o">;</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"zlotych: "</span> <span class="o">+</span> <span class="n">money</span> <span class="o">/</span> <span class="mi">100</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"groszy: "</span> <span class="o">+</span> <span class="n">money</span> <span class="o">%</span> <span class="mi">100</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Jeśli chcesz spojrzeć na temat liczb zmiennoprzecinkowych z innej perspektywy możesz rzucić okiem na poniższe materiały:</p>
+
+<ul>
+  <li><a href="https://pl.wikipedia.org/wiki/Liczba_zmiennoprzecinkowa">artykuł na Wikipedii na temat liczb zmiennoprzecinkowych</a>,</li>
+  <li><a href="https://en.wikipedia.org/wiki/IEEE_754">artykuł na Wikipedii na temat standardu IEEE754</a>,</li>
+  <li><a href="http://eduinf.waw.pl/inf/alg/006_bin/0022.php">artykuł opisujący standard IEEE754</a>,</li>
+  <li><a href="http://ieeexplore.ieee.org/document/4610935/">treść najnowszej wersji standardu IEEE754</a> (wymaga wykupienia dostępu).</li>
+</ul>
+
+<h2 id="zadania-do-wykonania">Zadania do wykonania</h2>
+
+<p>Do wykonania zadań mogą Ci się przydać następujące funkcje:</p>
+
+<ul>
+  <li><a href="https://docs.oracle.com/javase/9/docs/api/java/lang/Integer.html#toBinaryString-int-"><code class="highlighter-rouge">Integer.toBinaryString</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javase/9/docs/api/java/lang/Long.html#toBinaryString-long-"><code class="highlighter-rouge">Long.toBinaryString</code></a>,</li>
+  <li><a href="https://docs.oracle.com/javase/9/docs/api/java/lang/Float.html#floatToRawIntBits-float-"><code class="highlighter-rouge">Float.floatToRawIntBits</code></a>.</li>
+  <li><a href="https://docs.oracle.com/javase/9/docs/api/java/lang/Double.html#doubleToRawLongBits-double-"><code class="highlighter-rouge">Double.doubleToRawLongBits</code></a>,</li>
+</ul>
+
+<p>Zadania do wykonania:</p>
+
+<ol>
+  <li>Napisz program, który pobierze od użytkownika liczbę wymierną. Następnie wypisze tę liczbę w postaci binarnej pokazując osobno znak, wykładnik i mantysę.</li>
+  <li>Uzupełnij program z punktu 1. w ten sposób, aby pokazywał błąd wynikający z zapisu liczb. Na przykład jeśli użytkownik wprowadzi liczbę 0,1 wówczas program powinien wyświetlić binarną reprezentację i błąd powstały w wyniku zapisu liczby w tym formacie,</li>
+  <li>Spróbuj rozszerzyć program w ten sposób aby wspierał liczby zmiennoprzecinkowe zapisane w formacie podwójnej precyzji (1 bit znaku, 11 bitów wykładnika i 52 bity mantysy).</li>
+</ol>
+
+<p>Zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Jeśli jednak będziesz potrzebował pomocy możesz rzucić okiem na <a href="https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/06_floating_point_numbers/src/main/java/pl/samouczekprogramisty/szs/floatingpoint">przykładowe rozwiązanie na githubie</a>.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu artykułu wiesz już czym są liczby zmiennoprzecinkowe. Znasz podstawy standardu IEEE754. Wiesz dlaczego niektóre operacje na liczbach zmiennoprzecinkowych nie są dokładne. Wiesz także jak wykonywać dokładne operacje na liczbach wymiernych. Innymi słowy kawał wiedzy! :).</p>
+
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Proszę podziel się nim ze swoimi znajomymi, którzy mogą być nim zainteresowani. Jeśli nie chcesz pominąć nowych artykułów polub Samouczka na Facebooku i dopisz się do samouczkowego newslettera.</p>
+
+<p>Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:precyzja">
+      <p>Jak już wspomniałem wcześniej dotyczy to liczb zapisanych w formacie pojedynczej precyzji. <a href="#fnref:precyzja" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#programowanie" class="page__taxonomy-item" rel="tag">Programowanie</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#wiedza-og%C3%B3lna" class="page__taxonomy-item" rel="tag">Wiedza ogólna</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-11-06T00:00:00+01:00">November 06, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fliczby-zmiennoprzecinkowe%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fliczby-zmiennoprzecinkowe%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/modyfikatory-dostepu-w-jezyku-java/" class="pagination--pager" title="Modyfikatory dostępu w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/10/29_modyfikatory_dostepu_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/modyfikatory-dostepu-w-jezyku-java/" rel="permalink">Modyfikatory dostępu w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory public, protected i private. Poznasz ...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/09_od_zera_do_developera_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/od-zera-do-developera-czyli-jak-zostac-programista/" rel="permalink">Od zera do developera, czyli jak zostać programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza związana z programowaniem jest bardzo rozległa. Początkujący mogą czuć się zagubieni. Wcale...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
