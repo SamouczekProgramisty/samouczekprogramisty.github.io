@@ -22,7 +22,8 @@ Warunkiem, który spełniają wszystkie strony poniżej jest darmowy dostęp. Ka
 
 - [https://www.codecademy.com](https://www.codecademy.com/) – zestaw interaktywnych kursów pozwalających poznać podstawy wielu języków programowania. Korzystanie z tych materiałów pozwala zacząć przygodę z programowaniem w przeglądarce, bez konieczności konfigurowania środowiska,
 - [https://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html](https://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html) - świetny zestaw materiałów zarówno dla początkujących jak i bardziej zaawansowanych programistów. Poza artykułami opisującymi podstawy języka Java znajdziesz też tutaj materłay poświęcone bardziej zaawansowanym zagadnienom jak JMX czy RMI.
-- [http://tutorials.jenkov.com](http://tutorials.jenkov.com) - zestaw kursów dotyczących nie tylko języka programowania Java. Znajdziesz tutaj także materiały dla bardziej zaawansowanych programistów.
+- [http://tutorials.jenkov.com](http://tutorials.jenkov.com) - zestaw kursów dotyczących nie tylko języka programowania Java. Znajdziesz tutaj także materiały dla bardziej zaawansowanych programistów,
+- [https://www.ibm.com/support/knowledgecenter](https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.0/com.ibm.websphere.base.doc/ae/welc6topdeveloping.html) - strona, która zawiera sporo dobrych jakościowo materiałów na temat JEE.
 {% endcapture %}
 
 <div id="main" role="main">
