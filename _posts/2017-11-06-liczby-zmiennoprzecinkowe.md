@@ -87,7 +87,6 @@ Po uruchomieniu powyższego kodu na konsoli pokaże się:
 
     1.234560e+02
 
-
 ## Czym jest standard IEEE754
 
 Standard IEEE754 jest standardem opisującym arytmetykę zmiennoprzecinkową. W dużym uproszczeniu można powiedzieć, że opisuje on sposób zapisywania liczby wymiernej w pamięci komputera. Standard ten może być implementowany już na poziomie sprzętowym. Oznacza to tyle, że procesor może mieć specjalną jednostkę odpowiedzialną za obliczenia zmiennoprzecinkowe.
@@ -109,7 +108,6 @@ Liczba zmiennoprzecinkowa to liczba wymierna zapisana w formacie IEEE754. Nazwa 
 Obie te liczby są równe, jednak przecinek w drugiej z nich znajduje się w innym miejscu. Druga liczba zapisana jest w notacji naukowej. 
 
 ### Części składowe liczby zmiennoprzecinkowej
-
 
 Każdą liczbę zmiennoprzecinkową zapisujemy w pamięci przy pomocy trzech składowych:
 
