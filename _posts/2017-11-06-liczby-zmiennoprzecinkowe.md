@@ -249,7 +249,7 @@ Zadania do wykonania:
 2. Uzupełnij program z punktu 1. w ten sposób, aby pokazywał błąd wynikający z zapisu liczb. Na przykład jeśli użytkownik wprowadzi liczbę 0,1 wówczas program powinien wyświetlić binarną reprezentację i błąd powstały w wyniku zapisu liczby w tym formacie,
 3. Spróbuj rozszerzyć program w ten sposób aby wspierał liczby zmiennoprzecinkowe zapisane w formacie podwójnej precyzji (1 bit znaku, 11 bitów wykładnika i 52 bity mantysy).
 
-Zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Jeśli jednak będziesz potrzebował pomocy możesz rzucić okiem na [przykładowe rozwiązanie na githubie](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/06_floating_point_numbers/src/main/java/pl/samouczekprogramisty/szs/floatingpoint).
+Zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Jeśli jednak będziesz potrzebował pomocy możesz rzucić okiem na [przykładowe rozwiązanie na githubie](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/01_floating_point_numbers/src/main/java/pl/samouczekprogramisty/misc/floatingpoint).
 
 ## Podsumowanie
 
