@@ -13,8 +13,6 @@ excerpt: W artykule przeczytasz o komponentach używanych w praktycznie każdej 
 disqus_page_identifier: 841 http://www.samouczekprogramisty.pl/?p=841
 ---
 
-{% include toc %}
-
 {% capture notice %}
 Artykuł ten zakłada, że wiesz czym są serwlety i adnotacje. Pownieneś potrafić już napisać serwlet i używać adnotacji. Powinieneś wiedzieć czym są parametry URL i jak z nimi pracować. Jeśli chcesz uzupełnić wiedzę z tego zakresu zapraszam do artykułów:
 

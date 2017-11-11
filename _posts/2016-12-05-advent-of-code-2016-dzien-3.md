@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 3. Mikołaj trafił do departamentu graficznego i potrzebuje Twojej pomocy ze sprawdzeniem specyfikacji trójkątów ;). Pomożesz?
 disqus_page_identifier: 595 http://www.samouczekprogramisty.pl/?p=595
+toc: false
 ---
 
 ## Wprowadzenie

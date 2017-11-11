@@ -14,8 +14,6 @@ excerpt: We wpisie tym podsumowuję postęp prac nad projektem Pogodynka. W tym 
 disqus_page_identifier: 881 http://www.samouczekprogramisty.pl/?p=881
 ---
 
-{% include toc %}
-
 ## Konfiguracja maszyny produkcyjnej
 
 Chociaż do konfiguracji produkcyjnej daleko, będę tutaj pisał o “serwerze produkcyjnym”. Mam tu na myśli VPS (ang. _Virtual Private Server_), na którym uruchomiona będzie baza danych oraz Tomcat. To właśnie do tej maszyny Malinka wysyłała będzie informacje o odczytach temperatury. Ta sama maszyna posłuży do uruchomienia aplikacji webowej pokazującej interfejs użytkownika.

@@ -13,8 +13,6 @@ excerpt: Nawet nie wiecie jak się cieszę :) W życiu nie powiedziałbym, że w
 disqus_page_identifier: 118 http://www.samouczekprogramisty.pl/?p=118
 ---
 
-{% include toc %}
-
 ## Czym różni się cyfra od liczby?
 
 Cyfra i liczba to dwie różne rzeczy. Cyfra to reprezentacja graficzna liczby np. znak 9. Cyfra to znak graficzny podobnie jak litera. Liczba to wartość, która może składać się z wielu cyfr. Wyjaśniłem tą różnicę na początku ponieważ przyda się ona do zrozumienia pozostałej części artykułu.

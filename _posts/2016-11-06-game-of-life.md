@@ -12,8 +12,6 @@ excerpt: Kolejny artykuł z serii „Strefy zadaniowej Samouczka”. Programowan
 disqus_page_identifier: 523 http://www.samouczekprogramisty.pl/?p=523
 ---
 
-{% include toc %}
-
 ## Convey’s Game of Life
 
 Gra w życie zakłada, że mamy planszę o nieskończonych wymiarach. Plansza ta podzielona jest na pola, w podobny sposób jak kartka w kratkę. Każda kratka reprezentuje pole. Każde pole ma dokładnie 8 sąsiadów, osiem kratek wokół.

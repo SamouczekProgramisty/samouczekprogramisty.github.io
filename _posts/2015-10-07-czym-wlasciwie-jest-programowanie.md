@@ -11,8 +11,6 @@ excerpt: No to zaczynamy. Programowanie to nic innego jak ciekawe zajęcie. To c
 disqus_page_identifier: 5 http://www.samouczekprogramisty.pl/?p=5
 ---
 
-{% include toc %}
-
 ## Kto może zostać programistą
 
 Programowanie to zajęcie, które wymaga znajomości wielu zagadnień. To wiedza, którą zdobywa się przez kilka ładnych lat. Nie znam żadnego programisty, który nauczył się wszystkiego w jeden wieczór. To jest po prostu niemożliwe. Tak i na tym blogu będziemy razem przechodzili przez serię artykułów, które pomogą Ci zgłębić podstawowe zagadnienia. Pokażę Ci dalszą drogę, która pomoże Ci zostać programistą.

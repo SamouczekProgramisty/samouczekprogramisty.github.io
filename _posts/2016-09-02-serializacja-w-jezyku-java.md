@@ -12,8 +12,6 @@ excerpt: W artykule tym dowiesz się czym jest serializacja obiektów w Javie. P
 disqus_page_identifier: 379 http://www.samouczekprogramisty.pl/?p=379
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Czym jest serializacja

@@ -12,8 +12,6 @@ excerpt: "Czas na kolejny etap kursu programowania języka Java. W dzisiejszym o
 disqus_page_identifier: 75 http://www.samouczekprogramisty.pl/?p=75
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Pakiet

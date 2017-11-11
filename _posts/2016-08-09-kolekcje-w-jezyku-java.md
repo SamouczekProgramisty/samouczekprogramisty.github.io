@@ -12,8 +12,6 @@ excerpt: W tym artykule przeczytasz o kolekcjach w języku Java. Dowiesz się cz
 disqus_page_identifier: 115 http://www.samouczekprogramisty.pl/?p=115
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Biblioteka standardowa

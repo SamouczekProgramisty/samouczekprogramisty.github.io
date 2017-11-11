@@ -13,8 +13,6 @@ excerpt: W pierwszej części artykułu opisującej serwlety dowiedziałeś się
 disqus_page_identifier: 817 http://www.samouczekprogramisty.pl/?p=817
 ---
 
-{% include toc %}
-
 ## Wprowadzenie
 
 Zacznijmy od żądań i odpowiedzi. Wiesz już, o hierarchii dziedziczenia serwletów `Servlet`, `GenericServlet` i `HttpServlet`. W przypadku klasy opakowującej żądanie i odpowiedź sytuacja wygląda podobnie. Istnieją bazowe interfejsy [`ServeltRequest`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html) i [`ServletResponse`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html).

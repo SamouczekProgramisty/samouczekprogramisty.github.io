@@ -12,8 +12,6 @@ excerpt: Dzisiaj zajmiemy się instalacją środowiska programistycznego, które
 disqus_page_identifier: 28 http://www.samouczekprogramisty.pl/?p=28
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 W [poprzednim artykule]({% post_url 2015-10-07-czym-wlasciwie-jest-programowanie %}) pobieżnie opisałem czym właściwie jest programowanie. Do rozpoczęcia nauki niezbędne będzie zainstalowanie paru dodatkowych narzędzi niezbędnych dla programisty. Zanim do tego przejdziemy postaram się wytłumaczyć czym właściwie jest wersjonowanie oprogramowania.

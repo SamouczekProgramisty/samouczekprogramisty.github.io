@@ -13,8 +13,6 @@ excerpt: W artykule tym przeczytasz o tym czym jest format XML. Poznasz kilka bi
 disqus_page_identifier: 754 http://www.samouczekprogramisty.pl/?p=754
 ---
 
-{% include toc %}
-
 ## Czym jest XML
 
 XML (ang. _Extensible Markup Language_) to specyfikacja zapisu danych, która została opracowana w 1998 roku przez W3C (ang. _World Wide Web Consortium_). Jest to format tekstowy, który pozwana na zapisywanie danych w postaci, która jest łatwa do odczytu zarówno przez maszyny jak i przez ludzi[^czytelnosc].

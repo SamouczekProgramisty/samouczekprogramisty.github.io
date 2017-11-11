@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 6. Dzisiaj próbujemy skontaktować się ze Świętym Mikołajem. Kod z powtórzeniami może pomóc odszyfrować zakłóconą transmisję.
 disqus_page_identifier: 611 http://www.samouczekprogramisty.pl/?p=611
+toc: false
 ---
 
 ## Wprowadzenie

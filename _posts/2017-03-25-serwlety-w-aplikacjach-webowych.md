@@ -13,8 +13,6 @@ excerpt: W artykule tym przeczytasz o serwletach. Poznasz podstawy protokołu HT
 disqus_page_identifier: 799 http://www.samouczekprogramisty.pl/?p=799
 ---
 
-{% include toc %}
-
 {% capture notice-info %}
 Chociaż artykuł ten pisany jest z myślą o początkujących do jego pełnego zrozumienia przyda się wiedza, którą zawarłem w kliku innych artykułach. Zachęcam do zapoznania się z nimi przed podejściem do tego artykułu:
 

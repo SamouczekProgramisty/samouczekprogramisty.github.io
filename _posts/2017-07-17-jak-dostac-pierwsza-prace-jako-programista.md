@@ -12,8 +12,6 @@ excerpt: CV kandydata na młodszego programistę nie musi być puste, wręcz prz
 disqus_page_identifier: 937 http://www.samouczekprogramisty.pl/?p=937
 ---
 
-{% include toc %}
-
 Na początku chciałbym zaznaczyć, że nie jestem profesjonalnym rekruterem. Mimo tego miałem przyjemność brać udział w wielu rekrutacjach weryfikując umiejętności kandydatów. Przed napisaniem tego artykułu rozmawiałem też z kilkoma kolegami, którzy także takie rozmowy przeprowadzali. Udało mi się też dotrzeć do kilku rekruterów z firm pośredniczących w zatrudnianiu programistów. Opinie przedstawione w tym artykule pochodzą z tych właśnie rozmów.
 {: .notice--info}
 

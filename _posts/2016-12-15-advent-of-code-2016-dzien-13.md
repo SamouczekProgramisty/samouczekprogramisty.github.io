@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 13. Twoja pomoc potrzebna jest przy odnalezieniu drogi w labiryncie nowego budynku, dasz radę znaleźć najkrótszą możliwą drogę?
 disqus_page_identifier: 661 http://www.samouczekprogramisty.pl/?p=661
+toc: false
 ---
 
 ## Wprowadzenie

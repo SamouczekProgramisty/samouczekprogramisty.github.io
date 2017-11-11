@@ -12,6 +12,7 @@ header:
     caption: "[&copy; nullprozent](https://www.flickr.com/photos/nullprozent/4667861083/sizes/l)"
 excerpt: Pogodynka to projekt, w ramach którego przy pomocy Raspberry Pi i czujnika temperatury udostępnię aktualne odczyty temperatury na stronie www. Ten krótki wpis podsumowuje dzisiejszy postęp prac nad projektem.
 disqus_page_identifier: 902 http://www.samouczekprogramisty.pl/?p=902
+toc: false
 ---
 
 ## Interfejs użytkownika

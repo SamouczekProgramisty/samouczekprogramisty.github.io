@@ -11,8 +11,6 @@ excerpt: Dzisiaj dowiesz się czegoś więcej o tablicach w języku Java. Przecz
 disqus_page_identifier: 155 http://www.samouczekprogramisty.pl/?p=155
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Czym jest tablica

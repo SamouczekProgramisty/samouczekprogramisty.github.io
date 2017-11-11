@@ -13,8 +13,6 @@ excerpt: Zdecydowanie pytania tego typu dostaję od Was najczęściej. Wiedza zw
 disqus_page_identifier: 926 http://www.samouczekprogramisty.pl/?p=926
 ---
 
-{% include toc %}
-
 ## Nie ma dróg na skróty
 
 Napiszę to w pierwszym akapicie. Moim zdaniem jest to bardzo ważny punkt, który wielu pomija. Programowanie nie jest łatwe. Nauka programowania tym bardziej nie jest łatwa. Wymaga od Ciebie zaangażowania, często również sporo poświęcenia. Jeśli aktualnie pracujesz i chcesz zmienić swój profil jesteś w jeszcze cięższej sytuacji.

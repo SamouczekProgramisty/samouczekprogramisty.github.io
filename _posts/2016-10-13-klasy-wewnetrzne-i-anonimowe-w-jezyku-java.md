@@ -12,8 +12,6 @@ excerpt: W artykule tym przeczytasz o klasach wewnętrznych i klasach anonimowyc
 disqus_page_identifier: 465 http://www.samouczekprogramisty.pl/?p=465
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Klas wewnętrznych jest wiele...

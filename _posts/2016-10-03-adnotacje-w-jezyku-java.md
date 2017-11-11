@@ -12,8 +12,6 @@ excerpt: W tym artykule przeczytasz o adnotacjach w języku Java. Poznasz różn
 disqus_page_identifier: 425 http://www.samouczekprogramisty.pl/?p=425
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Adnotacja

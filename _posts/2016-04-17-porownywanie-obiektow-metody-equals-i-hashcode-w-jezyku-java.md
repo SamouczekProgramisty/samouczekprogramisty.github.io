@@ -12,8 +12,6 @@ excerpt: W dzisiejszym artykule będziesz mógł przeczytać o właściwym sposo
 disqus_page_identifier: 286 http://www.samouczekprogramisty.pl/?p=286
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Porównywanie typów prostych

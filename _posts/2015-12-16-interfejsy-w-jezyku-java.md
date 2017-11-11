@@ -12,8 +12,6 @@ excerpt: W artykule przeczytasz o interfejsach. Poznasz interfejs ze standardowe
 disqus_page_identifier: 186 http://www.samouczekprogramisty.pl/?p=186
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Interfejs

@@ -12,6 +12,7 @@ header:
     caption: "[&copy; rubysfeast](https://www.flickr.com/photos/rubysfeast/7149704201/sizes/l)"
 excerpt: Raport z frontu Pogodynki część 6. Dzisiaj pokrótce opisuję konfigurację warstwy dostępu do bazy danych. Sama konfiguracja skończyła się na dodaniu kilku zależności i magicznych adnotacji, które postaram się wyjaśnić.
 disqus_page_identifier: 873 http://www.samouczekprogramisty.pl/?p=873
+toc: false
 ---
 
 ## Baza danych

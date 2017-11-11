@@ -11,8 +11,6 @@ excerpt: W artykule tym przeczytasz o typie wyliczeniowym. Poznasz słowo kluczo
 disqus_page_identifier: 400 http://www.samouczekprogramisty.pl/?p=400
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Enum, typ wyliczeniowy

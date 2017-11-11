@@ -12,8 +12,6 @@ excerpt: Dzisiaj poznasz kilka nowych typów prostych oraz klas z biblioteki sta
 disqus_page_identifier: 182 http://www.samouczekprogramisty.pl/?p=182
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Typ prosty

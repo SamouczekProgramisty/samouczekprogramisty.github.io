@@ -12,6 +12,7 @@ header:
     caption: "[&copy; joseywales](https://www.flickr.com/photos/joseywales/316407208/sizes/o/)"
 excerpt: Zabawy z Pogodynką ciąg dalszy. Dzisiaj opiszę co udało mi się zrobić w niedzielny wieczór w sprawie Pogodynki. Zapraszam do lektury.
 disqus_page_identifier: 892 http://www.samouczekprogramisty.pl/?p=892
+toc: false
 ---
 
 Niestety moje plany kontynuacji konfiguracji od początku tygodnia spełzły na niczym. Założyłem, że to co zostało to już “pikuś” i powinno pójść prosto... O tym, jak strasznie się myliłem przeczytasz poniżej ;).

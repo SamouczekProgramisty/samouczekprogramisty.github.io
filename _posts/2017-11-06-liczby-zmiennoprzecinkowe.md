@@ -15,8 +15,6 @@ excerpt: Po lekturze tego artykułu będziesz wiedział dlaczego 0,1 + 0,2 != 0,
     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-{% include toc %}
-
 Artykuł ten wymaga znajomości notacji binarnej. Jeśli jeszcze jej nie znasz koniecznie zapoznaj się z [artykułem opisującym system binarny]({% post_url 2016-02-11-system-dwojkowy %}).
 {: .notice--info}
 

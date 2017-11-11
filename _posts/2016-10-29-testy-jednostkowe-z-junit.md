@@ -12,8 +12,6 @@ excerpt: Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego 
 disqus_page_identifier: 478 http://www.samouczekprogramisty.pl/?p=478
 ---
 
-{% include toc %}
-
 ## Po co testujemy oprogramowanie
 
 Oczywista odpowiedź jest prosta – żeby nie było błędów :). Błędy powodują frustrację użytkowników, a to jest coś czego chcemy uniknąć. Ile razy chciałeś rzucić myszką/klawiaturą/laptopem jak coś nie działało jak powinno? Brzmi znajomo? ;)

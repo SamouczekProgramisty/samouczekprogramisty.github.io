@@ -12,8 +12,6 @@ excerpt: Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w 
 disqus_page_identifier: 242 http://www.samouczekprogramisty.pl/?p=242
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Rzutowanie

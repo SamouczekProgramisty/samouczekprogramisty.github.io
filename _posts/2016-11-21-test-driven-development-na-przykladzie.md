@@ -13,8 +13,6 @@ excerpt: W tym artykule dowiesz się czym jest TDD (ang. _Test-Driven Developmen
 disqus_page_identifier: 550 http://www.samouczekprogramisty.pl/?p=550
 ---
 
-{% include toc %}
-
 Jeśli tematyka testów, jest dla Ciebie nowa zachęcam Cię do przeczytania poprzedniego artykułu. W artykule tym od postaw opisuję zagadnienie [testów jednostkowych]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}).
 {: .notice--info}
 

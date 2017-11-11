@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 19. Elfy podbierają prezenty sobie nawzajem dasz radę odnaleźć tego, który zostanie z wszystkimi prezemtami?
 disqus_page_identifier: 694 http://www.samouczekprogramisty.pl/?p=694
+toc: false
 ---
 
 ## Wprowadzenie

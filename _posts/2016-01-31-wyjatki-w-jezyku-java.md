@@ -14,8 +14,6 @@ Dowiesz się czym jest wyjątek i jaką rolę pełni w programowaniu. Dowiesz si
 disqus_page_identifier: 207 http://www.samouczekprogramisty.pl/?p=207
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Czym jest wyjątek?

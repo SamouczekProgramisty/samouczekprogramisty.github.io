@@ -13,8 +13,6 @@ excerpt: Artykuł ten opisuje podstawowy dostęp do plików. Poznasz zupełne po
 disqus_page_identifier: 319 http://www.samouczekprogramisty.pl/?p=319
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## System plików

@@ -12,8 +12,6 @@ excerpt: W innych artykułach omawiałem pewne aspekty programowania obiektowego
 disqus_page_identifier: 200 http://www.samouczekprogramisty.pl/?p=200
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Dziedziczenie

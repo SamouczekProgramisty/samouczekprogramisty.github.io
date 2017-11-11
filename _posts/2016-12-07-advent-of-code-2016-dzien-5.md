@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 5. Tym razem trzeba znaleźć hasło do drzwi. Tu poznasz czym jest bruteforce ;)...
 disqus_page_identifier: 606 http://www.samouczekprogramisty.pl/?p=606
+toc: false
 ---
 
 ## Wprowadzenie

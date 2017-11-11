@@ -13,8 +13,6 @@ excerpt: W artykule tym przeczytasz o aplikacjach webowych. Dowiesz się czym s�
 disqus_page_identifier: 783 http://www.samouczekprogramisty.pl/?p=783
 ---
 
-{% include toc %}
-
 ## Z przeglądarką czy bez?
 
 Używając przeglądarki czy programów z pakietu Office[^office] używasz aplikacji zainstalowanych na komputerze. Potocznie o takich programach czy aplikacjach mówi się “aplikacje desktopowe”.

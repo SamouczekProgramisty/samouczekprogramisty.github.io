@@ -13,8 +13,6 @@ excerpt: W artykule przeczytasz o kolejnych podstawowych elementach, niezbędnyc
 disqus_page_identifier: 863 http://www.samouczekprogramisty.pl/?p=863
 ---
 
-{% include toc %}
-
 ## `ServletContext`
 
 Obiekt implementujący [`ServletContext`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html) tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej[^kilka_jvm]. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej.

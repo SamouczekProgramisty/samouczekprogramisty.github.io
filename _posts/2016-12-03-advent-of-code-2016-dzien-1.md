@@ -10,6 +10,7 @@ header:
     caption: "[&copy; theslugandlettuce101](https://www.flickr.com/photos/theslugandlettuce101/8422854662/sizes/l)"
 excerpt: Advent of Code 2016 czas zacząć. Jest to pierwszy z serii artykułów, które poświęcone będą zadaniom z AoC20016. Dzisiaj pomagamy Mikołajowi dotrzeć do Kwatery Głównej Króliczka Wielkanocnego.
 disqus_page_identifier: 578 http://www.samouczekprogramisty.pl/?p=578
+toc: false
 ---
 
 ## Wprowadzenie

@@ -13,8 +13,6 @@ excerpt: Do tej pory w konfigurowaniu wszystkich elementów aplikacji webowej po
 disqus_page_identifier: 876 http://www.samouczekprogramisty.pl/?p=876
 ---
 
-{% include toc %}
-
 ## Deskryptor wdrożenia
 
 Plik `web.xml` nazywany jest deskryptorem wdrożenia. W starszych wersjach specyfikacji serwletów tylko przy jego pomocy można było konfigurować aplikacje webowe.

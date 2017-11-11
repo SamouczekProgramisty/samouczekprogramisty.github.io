@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 20. Potrzebna jest Twoja pomoc przy odnalezieniu pierwszego adresu IP, który nie jest zablokowany przez firewall. Pomożesz?
 disqus_page_identifier: 698 http://www.samouczekprogramisty.pl/?p=698
+toc: false
 ---
 
 ## Wprowadzenie

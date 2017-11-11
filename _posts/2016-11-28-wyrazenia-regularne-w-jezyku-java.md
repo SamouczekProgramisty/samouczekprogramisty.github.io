@@ -12,8 +12,6 @@ excerpt: Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w n
 disqus_page_identifier: 562 http://www.samouczekprogramisty.pl/?p=562
 ---
 
-{% include toc %}
-
 ## Czym są wyrażenia regularne
 
 Słowo wstępu zanim przejdziemy do teorii. W kilku poniższych akapitach pokażę kilka wyrażeń regularnych bez dokładnego ich omawiania. Posłużą one jako przykłady zastosowania wyrażeń. Proszę nie zrażaj się widząc kilka dziwnych znaczków, później dokładnie je opiszę :).

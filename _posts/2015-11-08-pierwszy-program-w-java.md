@@ -11,8 +11,6 @@ excerpt: Dzisiaj napiszesz i uruchomisz swój pierwszy program. Przy okazji dowi
 disqus_page_identifier: 138 http://www.samouczekprogramisty.pl/?p=138
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Zaczynamy!

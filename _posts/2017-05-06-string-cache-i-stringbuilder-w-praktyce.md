@@ -13,8 +13,6 @@ excerpt: Znajomość biblioteki standardowej w zakresie pracy z łańcuchami zna
 disqus_page_identifier: 885 http://www.samouczekprogramisty.pl/?p=885
 ---
 
-{% include toc %}
-
 ## Literał znakowy
 
 Na początku powtórka podstaw. Literał znakowy to ciąg znaków otoczony cudzysłowami. Jest to instancja klasy `String`, jednak tworzona jest bez udziału słówka kluczowego `new`. Przykład poniżej pokazuje literał znakowy przypisany do zmiennej:

@@ -12,8 +12,6 @@ excerpt: Czas na kolejną odsłonę artykułu o wyrażeniach regularnych. W tej 
 disqus_page_identifier: 731 http://www.samouczekprogramisty.pl/?p=731
 ---
 
-{% include toc %}
-
 {% capture notice-text %}
 To jest drugi artykuł na temat wyrażeń regularnych. Część zagadnień związanych z wyrażeniami regularnymi opisana jest w [pierwszej części]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}):
 

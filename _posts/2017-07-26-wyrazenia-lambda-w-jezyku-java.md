@@ -12,8 +12,6 @@ excerpt: W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz si
 disqus_page_identifier: 966 http://www.samouczekprogramisty.pl/?p=966
 ---
 
-{% include toc %}
-
 {% capture notice-text %}
 Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami, które dotyczą:
 

@@ -12,8 +12,6 @@ excerpt: W dzisiejszym artykule kolejna porcja wiedzy na temat obiektów i progr
 disqus_page_identifier: 217 http://www.samouczekprogramisty.pl/?p=217
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Sterta i stos w wirtualnej maszynie Java

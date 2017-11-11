@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 21. Trzeba zaimplementować serię przekształceń łańcucha znaków aby otrzymać tajne hasło. Bez niego nie będziesz mógł dostać się do systemu operacyjnego.
 disqus_page_identifier: 704 http://www.samouczekprogramisty.pl/?p=704
+toc: false
 ---
 
 ## Wprowadzenie

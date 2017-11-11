@@ -11,8 +11,6 @@ excerpt: W tej części kursu Javy poznasz pętle i instrukcje warunkowe. Dowies
 disqus_page_identifier: 113 http://www.samouczekprogramisty.pl/?p=113
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Operatory logiczne

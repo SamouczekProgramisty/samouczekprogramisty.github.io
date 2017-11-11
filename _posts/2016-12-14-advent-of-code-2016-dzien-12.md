@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 12. Dzisiejsze zadanie to emulator języka assembunny. Napiszesz program, który rozumie assembler używany w Kwaterze Głównej Króliczka Wielkanocnego.
 disqus_page_identifier: 656 http://www.samouczekprogramisty.pl/?p=656
+toc: false
 ---
 
 ## Wprowadzenie

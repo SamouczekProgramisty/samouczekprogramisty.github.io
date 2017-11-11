@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 15. Znalazłeś ciekawą ruchomą rzeźbę. W jej środku poruszają się dziwne kapsuły, chciałbyś jedną z nich wyciągnąć. Dasz radę przechytrzyć mechanizm rzeźby?
 disqus_page_identifier: 673 http://www.samouczekprogramisty.pl/?p=673
+toc: false
 ---
 
 ## Wprowadzenie

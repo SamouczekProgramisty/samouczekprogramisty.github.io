@@ -12,8 +12,6 @@ excerpt: Artykuł opisuje konstrukcję try-with-resources występującą w języ
 disqus_page_identifier: 347 http://www.samouczekprogramisty.pl/?p=347
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Try-with-resources

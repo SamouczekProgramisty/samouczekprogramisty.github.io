@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 9. Dzisiaj trzeba rozpracować algorytm dekompresji. W jednym z plików mogą znajdować się dość ciekawe dane,
 disqus_page_identifier: 638 http://www.samouczekprogramisty.pl/?p=638
+toc: false
 ---
 
 ## Wprowadzenie

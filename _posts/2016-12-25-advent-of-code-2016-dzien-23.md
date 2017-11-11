@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 23. Okazuje się, że język assembunny, dla którego emulator potrzebny był w dniu 12 jest bardziej rozbudowany. Musisz rozszerzyć swój emulator o dodatkową instrukcję.
 disqus_page_identifier: 712 http://www.samouczekprogramisty.pl/?p=712
+toc: false
 ---
 
 ## Wprowadzenie

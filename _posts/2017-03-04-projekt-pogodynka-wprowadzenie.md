@@ -14,8 +14,6 @@ excerpt: W artykule tym przeczytasz o “architekturze” Pogodynki. Projektu, w
 disqus_page_identifier: 761 http://www.samouczekprogramisty.pl/?p=761
 ---
 
-{% include toc %}
-
 ## Opis architektury
 
 Więc pracę nad Pogodynką czas zacząć. Zacznę od tego, że przybliżę Ci moje plany dotyczące zakresu projektu.

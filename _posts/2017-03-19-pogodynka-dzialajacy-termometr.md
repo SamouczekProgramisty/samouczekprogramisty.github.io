@@ -12,6 +12,7 @@ header:
     caption: "[&copy; Marcin Pietraszek ;)](http://marcin.pietraszek.pl)"
 excerpt: Relacja z frontu projektu Pogodynka. Dzisiaj przeczytasz o tym czym jest projekt modułowy w Gradle, zobaczysz jak wygląda podstawowy szablon aplikacji webowej. Dowiesz się też jak odczytywać temperaturę z czujnika DS18B20, który podłączyłem do Malinki. Zapraszam do lektury.
 disqus_page_identifier: 789 http://www.samouczekprogramisty.pl/?p=789
+toc: false
 ---
 
 ## Postęp w module Thermometer

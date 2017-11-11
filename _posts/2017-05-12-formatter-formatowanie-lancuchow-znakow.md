@@ -13,8 +13,6 @@ excerpt: W trakcie pracy z łańcuchami znaków bardzo często musimy prezentowa
 disqus_page_identifier: 895 http://www.samouczekprogramisty.pl/?p=895
 ---
 
-{% include toc %}
-
 ## Formatowanie
 
 Wyobraź sobie, że chcesz pokazać użytkownikowi pewne zestawienie. Dane tego typu wygodnie jest prezentować w formie tabelarycznej. Tak dochodzimy do problemu formatowania. W jaki sposób można taki format uzyskać?

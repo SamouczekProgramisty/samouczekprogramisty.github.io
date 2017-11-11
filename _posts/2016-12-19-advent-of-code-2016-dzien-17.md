@@ -10,6 +10,7 @@ header:
     caption: "[&copy; derekl](https://www.flickr.com/photos/derekl/sets/72157649148835567)"
 excerpt: Advent of Code 2016 dzień 17. Musisz dotrzeć do sejfu, który ukryty jest za kilkoma drzwiami, problem polega na tym, że zamki drzwi otwierają się wyłącznie w specyficznych momentach.
 disqus_page_identifier: 684 http://www.samouczekprogramisty.pl/?p=684
+toc: false
 ---
 
 ## Wprowadzenie

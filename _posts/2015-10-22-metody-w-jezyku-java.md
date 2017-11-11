@@ -12,8 +12,6 @@ excerpt: Artykułem tym rozpoczynam serię artykułów - kurs programowania w j�
 disqus_page_identifier: 63 http://www.samouczekprogramisty.pl/?p=63
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 # Metoda

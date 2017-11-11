@@ -12,8 +12,6 @@ excerpt: Dzień dobry! Nadszedł czas na poznanie typów generycznych. Dowiesz s
 disqus_page_identifier: 273 http://www.samouczekprogramisty.pl/?p=273
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 ## Czym są typy generyczne

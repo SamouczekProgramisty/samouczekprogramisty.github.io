@@ -10,8 +10,6 @@ header:
 excerpt: W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory `public`, `protected` i `private`. Poznasz też zastosowanie czwartego modyfikatora dostępu - braku każdego z poprzednich. Zobaczysz różnice pomiędzy modyfikatorami na przykładowych fragmentach kodu. Na koniec będzie czekało na Ciebie zadanie do rozwiązania, w którym przećwiczysz wiedzę zdobytą po przeczytaniu.
 ---
 
-{% include toc %}
-
 {% capture wymagania %}
 Artykuł ten wymaga podstawowej wiedzy na temat języka Java. Z tego powodu, aby móc w pełni z niego skorzystać, warto zapoznać się z wcześniejszymi artykułami:
 

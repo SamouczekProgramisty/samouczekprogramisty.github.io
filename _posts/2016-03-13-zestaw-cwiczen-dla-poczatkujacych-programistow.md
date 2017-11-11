@@ -12,8 +12,6 @@ excerpt: Cześć! Dzisiaj będzie nietypowo. Nie będę miał dla Was nowej part
 disqus_page_identifier: 263 http://www.samouczekprogramisty.pl/?p=263
 ---
 
-{% include toc %}
-
 {% include kurs-java-notice.md %}
 
 Do rozwiązania zadań niezbędna będzie wiedza, którą możesz zdobyć czytając dotychczasowe artykuły. Jednak znajdą się też zadania, które będą wymagały dodatkowej lektury dokumentacji standardowej biblioteki Javy czy stron na Wikipedii. Aby wykonać te zadania musisz mieć wiedzę opisaną w artykułach w serii [kurs programowania java]({{ "/kurs-programowania-java/" | absolute_url }}) do artukułu o interfejsach włącznie.
