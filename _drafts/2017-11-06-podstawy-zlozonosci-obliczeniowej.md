@@ -39,7 +39,7 @@ Pojawia się zatem potrzeba wspólnej miary, niezależnej od zmiennych czynnikó
 
 ## Złożoność obliczeniowa a funkcja
 
-Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Mam nadzieję, że będzie Ci to łatwiej zrozumieć na przykładzie. Załóżmy, że mamy tablicę liczb. Problemem do rozwiązania jest znalezienie sumy tych liczb. Jeśli tablicę wejściową określimy jako `t` wówczas funkcja `funkcja(t)` (czy `f(t)`) będzie pozwalała określić jaka jest złożoność obliczeniowa danego algorytmu. 
+Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Mam nadzieję, że będzie Ci to łatwiej zrozumieć na przykładzie. Załóżmy, że mamy tablicę liczb. Problemem do rozwiązania jest znalezienie sumy tych liczb. Jeśli tablicę wejściową określimy jako `t` wówczas funkcja `funkcja(t)` (czy `f(t)`) będzie pozwalała określić jaka jest złożoność obliczeniowa danego algorytmu.
 
 O ile dla naukowców znalezienie dokładnej funkcji może być bardzo istotne, to w praktyce wystarczą jej oszacowania. Takie oszacowania to notacja Ο (dużego O), notacja Ω (omega) i notacja Θ (theta).
 
@@ -52,24 +52,11 @@ Na tapetę bierzemy przykładową funkcję:
 
 $$f(n) = n^3 - 6n^2 + 4n + 12$$
 
-Możemy założyć, że funkcja ta dokładnie opsuje złożoność obliczeniową jakiegoś algorytmu. Argument `n` to rozmiar danych wejściowych do algorytmu.  Wykres[^grafy] tej funkcji wygląda następująco: 
+Możemy założyć, że funkcja ta dokładnie opsuje złożoność obliczeniową jakiegoś algorytmu. Argument `n` to rozmiar danych wejściowych do algorytmu.  Wykres[^grafy] tej funkcji wygląda następująco:
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12.png" caption="Wykres funkcji `f(n) = n^3 - 6n^2 + 4n + 12`" %}
 
 [^grafy]: Wykresy użyte w tym artykule stworzyłem przy pomocy [graphsketch](https://graphsketch.com/).
-
-Jak wspomniałem wcześniej w praktyce nie potrzebujemy tak dokładnego wzoru wystarczy jedynie zgrubne oszacowanie, które uwzględnia najbardziej istotny element funkcji. Który element funkcji jest najbardziej istotny? Ten, który ma największy wpływ na ostateczny wynik funkcji. Jak to sprawdzić? Wystarczy pod `n` podstawić bardzo dużą liczbę i zobaczyć, który element będzie miał najwięszą wartość. Na przykład:
-
-| Element | Wartość przy `n = 1'000'000'000`      |
-|---------|---------------------------------------|
-| `n^3`   | 1'000'000'000'000'000'000'000'000'000 |
-| `6n^2`  | 6'000'000'000'000'000'000             |
-| `4n`    | 4'000'000'000                         |
-| `12`    | 12                                    |
-
-Jak widzisz, przy odpowiednio dużych wartościach `n` część "elementów równania" jest mniej istotna. W przypadku funkcji powyżej najszybciej rosnącym elementem jest `n^3`. Ma on największy wpływ na ostateczny wynik funkcji.
-
-Notacje opisane poniżej upraszczają dokładny wzór złożoności obliczeniowej do najbardziej istotnego elementu.
 
 ### Notacja Ο (dużego O)
 
@@ -81,9 +68,15 @@ Teraz przetłumaczę te matematyczne hieroglify :). Właśność ta oznacza, że
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_O.png" caption="Oszacowanie z góry, notacja Ο." %}
 
-Powyższy wykres pokazuje dwie funkcje. Pierwszą, którą już znasz z poprzedniego wykresu. Druga to wykres funkcji `g(n) = x^3`. Jak widzisz od pewnego punktu zielona linia jest zawsze ponad czerwoną linią. To nic innego jak oszacowanie z góry. To właśnie jest notacja Ο. Zatem w naszym przypadku nasza funkcja `f(n)` ma złożoność `Ο(n^3)`. 
+Powyższy wykres pokazuje dwie funkcje. Pierwszą, którą już znasz z poprzedniego wykresu. Druga to wykres funkcji `g(n) = x^3`. Jak widzisz od pewnego punktu zielona linia jest zawsze ponad czerwoną linią. To nic innego jak oszacowanie z góry. To właśnie jest notacja Ο. Zatem w naszym przypadku nasza funkcja `f(n)` ma złożoność `Ο(n^3)`.
 
 W mojej dotychczasowej praktyce notacja Ο jest najczęściej spotykana do określania złożoności algorytmów.
+
+Notacja Ο jest oszacowaniem z góry. Zatem można powiedzieć, że jeśli algorytm ma złożoność `Ο(n^2)` to ma także złożoność `Ο(n^3)` czy nawet `Ο(n!)`. Jednak `Ο(n^2)` może być najlepszym oszacowaniem złożoności danego algorytmu.
+{: .notice--info}
+
+Z racji tego, że jest to oszacowanie pomijamy w nim wszelkiego rodzaju stałe. Zatem `Ο(2n + 123)`, `Ο(2n)` i `Ο(n)` to ta sama złożoność obliczeniowa. 
+{: .notice--info}
 
 ### Notacja Ω (omega)
 
@@ -109,75 +102,232 @@ Tłumacząc to na polski można powiedzieć, że wynik funkcji `g(n)` pomnożony
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_theta.png" caption="Dokładne oszacowanie rzędu, notacja Θ." %}
 
-W naszym przypadku funkcję `g(n)` możemy opisać wzorem `g(n) = (n-4)^3`. Stałe mają odpowiednio wartości `c1 = 1`, `c2 = 5`. Wykres oznaczony kolorem niebieskim to wynik funkcji `g(n)` przemnożony przez stałą `c2`. Wykres oznaczony kolorem fioletowym to wynik funkcji `g(n)` przemnożony przez stałą `c1`. 
+W naszym przypadku funkcję `g(n)` możemy opisać wzorem `g(n) = (n-4)^3`. Stałe mają odpowiednio wartości `c1 = 1`, `c2 = 5`. Wykres oznaczony kolorem niebieskim to wynik funkcji `g(n)` przemnożony przez stałą `c2`. Wykres oznaczony kolorem fioletowym to wynik funkcji `g(n)` przemnożony przez stałą `c1`.
 
 Jak wcześniej wspomniałem notacja Ο jest najczęściej spotykana. W delszej części artykułu będę odnosił się tylko do tej notacji.
 {: .notice--info}
 
 ## Rząd złożoności obliczeniowej
 
-Zakła
+Tu także skupię się na przykładzie wzoru wałkowanego powyżej:
+
+$$f(n) = n^3 - 6n^2 + 4n + 12$$
+
+Jak wspomniałem wcześniej w praktyce nie potrzebujemy tak dokładnego wzoru wystarczy jedynie zgrubne oszacowanie, które uwzględnia najbardziej istotny element funkcji. Który element funkcji jest najbardziej istotny? Ten, który ma największy wpływ na ostateczny wynik funkcji. Jak to sprawdzić? Wystarczy pod `n` podstawić bardzo dużą liczbę i zobaczyć, który element będzie miał najwięszą wartość. Na przykład:
+
+| Element | Wartość przy `n = 1'000'000'000`      |
+|---------|---------------------------------------|
+| `n^3`   | 1'000'000'000'000'000'000'000'000'000 |
+| `6n^2`  | 6'000'000'000'000'000'000             |
+| `4n`    | 4'000'000'000                         |
+| `12`    | 12                                    |
+
+Jak widzisz, przy odpowiednio dużych wartościach `n` część "elementów równania" jest mniej istotna. W przypadku funkcji powyżej najszybciej rosnącym elementem jest `n^3`. Ma on największy wpływ na ostateczny wynik funkcji.
+
+Wiesz już z powyższych rozważań, że funkcja f(n) ma złożoność `Ο(n^3)`. Jest to tak zwana złożoność wykładnicza, specyficzny przypadek złożoności wielommianowej. Istnieje kilka popularnych rzędów złożoności obliczeniowej.
 
 ### `Ο(1)`
 
-Złożoność stała, niezależna od liczby danych wejściowych.
+Złożoność stała, niezależna od liczby danych wejściowych. Mówimy, że problem o złożoności `Ο(1)` możemy rozwiązać w stałym czasie niezależnie od wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm `Ο(1)`:
 
-### `Ο(n)`
+> Na wejściu programu jest tablica liczb o długości N. Liczby są posortowane rosnąco. Pomiędzy dwoma sąsiadującymi liczbami różnica jest stała. Znajdź sumę liczb w tablicy.
 
-Złożoność liniwa.
-
-### `Ο(log(n))`
-
-Złożoność logarytmiczna.
-
-### `Ο(nlog(n))`
-
-Złożoność liniowo-logarytmiczna
-
-### `Ο(n^2)`
-
-Złożoność kwadratowa
-
-### `Ο(n^x)`
-
-Złożoność wielomanowa. Złożoność liniowa i złożoność kwadratowa są specyficznymi przypadkami złożoności wielomianowej. Ze względu na częste występowanie wyszczególniłem je jako osobne funkcje.
-
-### `Ο(x^n)`
-
-Złożoność wygkładnicza
-
-### `Ο(n!)`
-
-## Najlepszy, średni i najgorszy przypadek
-
-Ten sam algorytm może zachowywać się zupełnie inaczej w przypadku innych danych wejściowych.
-
-Załóżmy, że naszym problemem do rozwiązania jest znalezienie największej liczby z przedziału `[0, 100]` w tablicy, którą otrzymujemy na wejściu. Algorytm, który rozwiązuje ten problem może wyglądać następująco:
+Problem to nic innego jak obliczenie sumy [ciągu arytmetycznego](https://pl.wikipedia.org/wiki/Ci%C4%85g_arytmetyczny). Istnieje na to wzór, króry można zaimplementować:
 
 ```java
-int findMax(int[] numbers) {
-	int max = numbers[0];
-	for (int number : numbers) {
-		if (number > max) {
-			max = number;
-		}
-		if (max == 100) {
-			return max;
-		}
-	}
+public int sum(int[] numbers) {
+    if (numbers == null || numbers.length == 0) {
+        return 0;
+    }
+    return (numbers[0] + numbers[numbers.length -1]) * numbers.length / 2;
 }
 ```
 
-Zakładając, że tablica ma długość `N` elementów, wówczas nasz algorytm musi:
+W tym przypadku nie potrzebujemy iterować po elementach tablicy. Niezależnie od wielkości tablicy wejściowej możemy obliczyć sumę ciągu w stałym czasie.
 
-1. przejrzeć tylko pierwszy element, jeśli liczba 100 występuje zawsze w pierwszym indeksie tablicy,
-2. przejrzeć `N` elementów, jeśli liczba 100 występuje zawsze w ostatnim indeksie tablicy.
+### `Ο(n)`
 
-Punkt pierwszy to najlepszy przypadek. Przy takich danych wejściowych algorytm zwróci wynik w najkrótszym czasie. Drugi punkt to najgorszy przypadek, wówczas algorytm będzie działał najdłużej. Mówi się także o średnim przypadku, sytuacji, która jest najbardziej prawdopodobna. W przykładzie powyżej w średnim przypadku musielibyśmy prz
+Złożoność liniowa. Jest to specyficzny przypadek złożoności wielomianowej. Czas rozwiązania problemu jest wprostproporcjonalny do wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm `Ο(n)`:
 
-W praktyce określenie średniego przypadku nie zawsze jest trywialne. Ponadto w większości przypadków interesuje nas najgorsza możliwa sytuacja - ile będzie trwało _najdłuższe_ uruchomienie algorytmu. 
+> Na wejściu porogramu jest tablica liczb o długości N. Znajdź sumę wszystkich liczb w tablicy wejściowej.
 
-Z tego właśnie powodu, aby móc łatwiej porównywać algorytmy w większości przypadków używa się najgorszego przypadku do określenia złożoności obliczeniowej algorytmu.
+```java
+public int sum(int[] numbers) {
+    int sum = 0;
+    for (int number : numbers) {
+        sum += number;
+    }
+    return sum;
+}
+```
+
+Aby znaleźć tę sumę należy przeiterować po wszystkich elementach. Musimy zatem odbyć N kroków.
+
+### `Ο(log(n))`
+
+Złożoność logarytmiczna, czas rozwiązania zależy od wyniku logarytmu z wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm `Ο(log(n))`:
+
+> Na wejściu programu jest posortowana tablica liczb o długości N. Sprawdź czy liczba x istnieje w tablicy wejściowej.
+
+To popularny algorytm przeszukiwania binarnego. Jego nazwa pochodzi od tego, że przy każdej iteracji algorytmu dzielimy przeszukiwany zbiór na dwie równe[^rowne] części. Algorytmy, które dzielą w ten sposób problem na mniejsze problemy przeważnie są zależne od logarytmu wielkości danych wejściowych.
+
+[^rowne]: Oczywiście, w przypadku tablicy o nieparzystej długości jedna z części nie będzie "równiejsza" od drugiej ;).
+
+```java
+public boolean binarySearch(int[] numbers, int number) {
+    int indexLow = 0;
+    int indexHigh = numbers.length - 1;
+    while (indexLow <= indexHigh) {
+        int indexMiddle = indexLow + (indexHigh - indexLow) / 2;
+
+        if (number < numbers[indexMiddle]) {
+            indexHigh = indexMiddle - 1;
+        }
+        else if (number > numbers[indexMiddle]) {
+            indexLow = indexMiddle + 1;
+        }
+        else {
+            return true;
+        }
+    }
+    return false;
+}
+```
+
+### `Ο(nlog(n))`
+
+Złożoność liniowo-logarytmiczna. Czas rozwiązania problemu jest wprostproporcjonalny do iloczynu wielkości danych wejściowych i ich logarytmu. Przykładem problemu dla którego istnieje algorytm o złożoności `Ο(nlog(n))` jest:
+
+> Na wejściu programu jest tablica liczb. Zwróć tablicę, która będzie zawierała te same elementy, które są w tablicy wejściowej. Tablica wynikowa powinna być posortowana w porządku rosnącym.
+
+Powyższy problem to sortowanie. Jeden z ze standardowych problemów w informatyce. Algorytmem sortującym, który ma złożoność obliczeniową `Ο(nlog(n))` jest sortowanie przez scalanie:
+
+```java
+public static int[] sort(int[] numbers) {
+    if (numbers.length <= 1) {
+        return numbers;
+    }
+    int[] first = new int[numbers.length / 2];
+    int[] second = new int[numbers.length - first.length];
+    for (int i = 0; i < first.length; i++) {
+        first[i] = numbers[i];
+    }
+    for (int i = 0; i < second.length; i++) {
+        second[i] = numbers[first.length + i];
+    }
+    return merge(sort(first), sort(second));
+}
+
+private static int[] merge(int[] first, int[] second) {
+    int[] merged = new int[first.length + second.length];
+    for (int indexFirst = 0, indexSecond = 0, indexMerged = 0; indexMerged < merged.length; indexMerged++) {
+        if (indexFirst >= first.length) {
+            merged[indexMerged] = second[indexSecond++];
+        }
+        else if (indexSecond >= second.length) {
+            merged[indexMerged] = first[indexFirst++];
+        }
+        else if (first[indexFirst] <= second[indexSecond]) {
+            merged[indexMerged] = first[indexFirst++];
+        }
+        else {
+            merged[indexMerged] = second[indexSecond++];
+        }
+    }
+    return merged;
+}
+```
+
+Algorytm dzieli tablicę na części do czasu aż każda z nich będzi e miała długość 1. Następnie scala je ze sobą. Każde takie scalenie to koszt `Ο(n)`. W związku z tym, że tablicę wejściową dzieliliśmy za każdym razem na pół takich scaleń mamy `log(n)`. Zatem wynikowa złożoność algorytmu to `Ο(nlog(n))`.
+
+Jak widzisz obliczanie złożoności obliczeniowej bardziej skomplikowanych algortmów nie jest takie łatwe.
+
+### `Ο(n^2)`
+
+Złożoność kwadratowa. Jest to specyficzny przypadek złożoności wielomianowej. Przykładowy problem może być ten, który użyłem wyżej - posortowanie tablicy. Tym razem jednak algorytm jest mniej wydajny. [Sortowanie bąbelkowe](https://pl.wikipedia.org/wiki/Sortowanie_b%C4%85belkowe) charakteryzuje się złożonością obliczeniową `Ο(n^2)`:
+
+```java
+public int[] sort(int[] numbers) {
+    for (int i = 0; i < numbers.length; i++) {
+        for (int j = 0; j < numbers.length - 1; j++) {
+            if (numbers[j] > numbers[j + 1]) {
+                int temp = numbers[j + 1];
+                numbers[j + 1] = numbers[j];
+                numbers[j] = temp;
+            }
+        }
+    }
+    return numbers;
+}
+```
+
+Mamy tutaj dwie zagnieżdżone pętle. Każda z nich iteruje po `n` elementach. W związku z tym otrzymujemy złożoność# `Ο(n^2)`.
+
+### `Ο(n^x)`
+
+Złożoność wielomanowa. Jak już wiesz złożoność liniowa i złożoność kwadratowa są specyficznymi przypadkami złożoności wielomianowej. Ze względu na częste występowanie wyszczególniłem je jako osobne rzędy złożoności. Przykłady problemów i rozwiązań znajdziesz w poprzednich punktach.
+
+### `Ο(x^n)`
+
+Jest to złożoność wykładnicza, jej przykładem może być `Ο(2^n)`. Problemem, który ma rozwiązanie o złożoności co najmniej `Ο(2^n)` jest:
+
+> Na wejściu programu jest tablica unikalnych liczb. Zwróć tablicę, która będzie zawierała wszystkie możliwe podzbiory elementów tablicy wejściowej.
+
+Wynika to z faktu, że wszystkich możliwych podzbiorów zbioru, który ma `n` elementów jest dokładnie `2^n`. Poniższy algorytm ma złożoność `Ο(n2^n)`. 
+
+```java
+public static int[][] powerSet(int[] numbers) {
+    int two_pow_n = 1 << numbers.length;
+
+    int[][] powerSet = new int[two_pow_n][];
+    for (int subsetIndex = 0; subsetIndex < two_pow_n; subsetIndex++) {
+        powerSet[subsetIndex] = pickNumbers(subsetIndex, numbers);
+    }
+    return powerSet;
+}
+
+private static int[] pickNumbers(int subsetIndex, int[] numbers) {
+    int howManyOnes = 0;
+    int temp = subsetIndex;
+    while (temp > 0) {
+        if (temp % 2 == 1) {
+            howManyOnes++;
+        }
+        temp >>= 1;
+    }
+
+    int[] subset = new int[howManyOnes];
+
+    for (int charIndex = 0, lastElementIndex = 0; subsetIndex > 0; charIndex++) {
+        if (subsetIndex % 2 == 1) {
+            subset[lastElementIndex++] = numbers[charIndex];
+        }
+        subsetIndex >>= 1;
+    }
+
+    return subset;
+}
+```
+
+Wynika to z faktu, że pętla wewnątrz metody `powerSet` wywołana jest dokładnie `2^n` razy. Natomiast wewnątrz metody `pickNumbers` są dwie pętle. Każda z nich ma złożoność `Ο(log(n))`. Zatem finalna złożoność algorytmu to `Ο(log(n)2^n)`.
+
+Spróbuj uruchomić ten kod z tablicą wejściową z 30 elementami, życzę powodzenia ;).
+
+### `Ο(n!)`
+
+Jest to złożoność typu silnia.  Dla przypomnienia silnia `n`, albo inaczej `n!` to iloczyn wszystkich liczb od 1 do `n`. Na przykład '3! = 1 * 2 * 3 = 6`. Przykładem problemu, dla którego istnieje naiwny algorytm o tej złożoności to [problem komiwojażera](https://pl.wikipedia.org/wiki/Problem_komiwoja%C5%BCera):
+
+> Na wejściu programu jest `n` miast oraz odległości pomiędzy każdą parą miast. Zakładając, że komiwojażer zaczyna z miasta A i ma dojść do miasta B jaką trasę powinien pokonać aby była ona najkrótsza?
+
+Nie silę się nawet na naiwny algorytm dla tego problemu, nie jest on możliwy do uruchomienia na dzisiejszych komputerach dla problemów odpowienio dużych. Wyobraź sobie, skalę możliwych rozwiązań. `60! ~= 8,3 * 10^81`. Szacowana liczba atomów wodoru w widzialnym wszechświecie to około [`10^80`](https://en.wikipedia.org/wiki/Observable_universe#Matter_content_.E2.80.93_number_of_atoms). Przekładając to na problem wyżej. Możliwych dróg pomiędzy 60 miastami jest więcej niż atomów wodoru w widzialnym wszechświecie ;).
+
+## Najlepszy, średni i najgorszy przypadek
+
+Ten sam algorytm może zachowywać się zupełnie inaczej w przypadku innych danych wejściowych. Nie mówię tu o wielkości problemu, wielkości danych wejściowych. A o instancji problemu.
+
+Jeśli algorytm jako dane wejściowe przyjmuje tablicę liczb to wielkością problemu może być 5 - tablica o długości 5. Natomiast instancji tego problemu jest nieskończenie wiele: `[1, 2, 3, 4, 5]`, `[-1, 2, -3, 4, -5]` czy `[5, 4, 3, 2, 1]`. Algorytm może mieć różną złożoność obliczeniową określoną w notacji `Ο` w zależności od instancji problemu. Są także algorytmy, których złożoność obliczeniowa jest niezależna od instancji problemu.
+
+W zależności od wymagań w wyborze algorytmu bierze się pod uwagę złożoność odpowiedniego przypadku.
 
 ## Dodatkowe matriały do nauki
 
