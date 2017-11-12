@@ -46,7 +46,7 @@ O ile dla naukowców znalezienie dokładnej funkcji może być bardzo istotne, t
 Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja `f(x) = ax^2 + bx + c` opisuje [parabolę](https://pl.wikipedia.org/wiki/Parabola_(matematyka\)).
 {: .notice--info}
 
-### Oszacowania funkcji
+### Oszacowania rzędu złożoności funkcji
 
 Na tapetę bierzemy przykładową funkcję:
 
@@ -81,7 +81,9 @@ Teraz przetłumaczę te matematyczne hieroglify :). Właśność ta oznacza, że
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_O.png" caption="Oszacowanie z góry, notacja Ο." %}
 
-Powyższy wykres pokazuje dwie funkcje. Pierwszą, którą już znasz z poprzedniego wykresu. Druga to wykres funkcji `g(n) = x^3`. Jak widzisz od pewnego punktu zielona linia jest zawsze ponad czerwoną linią. To nic innego jak oszacowanie z góry. To właśnie jest notacja Ο. Zatem w naszym przypadku nasza funkcja `f(n)` ma złożoność `Ο(n^3)`.
+Powyższy wykres pokazuje dwie funkcje. Pierwszą, którą już znasz z poprzedniego wykresu. Druga to wykres funkcji `g(n) = x^3`. Jak widzisz od pewnego punktu zielona linia jest zawsze ponad czerwoną linią. To nic innego jak oszacowanie z góry. To właśnie jest notacja Ο. Zatem w naszym przypadku nasza funkcja `f(n)` ma złożoność `Ο(n^3)`. 
+
+W mojej dotychczasowej praktyce notacja Ο jest najczęściej spotykana do określania złożoności algorytmów.
 
 ### Notacja Ω (omega)
 
@@ -89,11 +91,30 @@ Notacja ta różni się od poprzedniej własnością, którą spełnia nowa funk
 
 $$\forall n \geqslant n_0 : f(n) \geqslant c * g(n)$$
 
+Właśność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie mniejszy od wyniku funkcji `f(n)`. Właśność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Ponownie wykres pomoże Ci to zrozumieć:
+
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_omega.png" caption="Oszacowanie z dołu, notacja Ω." %}
+
+Na wykresie widoczne są dwie funkcje. Pierwszą znasz. Druga to wykres funkcji `g(n) = x^2`. "Ostatni" punkt przecięcia tych dwóch wykresów, to `n0`[^punkt]. Od tego miejsca wykres funkcji `g(n)` jest zawsze pod wykresem funkcji `f(n)`. Możemy powiedzieć, że funkcja `f(n)` ma złożoność `Ω(n^2)`.
+
+[^punkt]: To oczywiście kolejne uproszczenie, punkt to para dwóch liczb. `n0` jest jedną z nich - tą na osi poziomej. Dasz radę wyznaczyć drugą współrzędną? ;)
 
 ### Notacja Θ (theta)
 
-## Klasy funkcji przybliżających
+Można powiedzieć, że notacja Θ to połączenie notacji Ο i Ω. W tym przypadku funkcja użyta do oszacowania musi spełniać zależność:
+
+$$\forall n \geqslant n_0 : c_1 * g(n) \geqslant f(n) \geqslant c_2 * g(n)$$
+
+Tłumacząc to na polski można powiedzieć, że wynik funkcji `g(n)` pomnożony przez stałą `c1` będzie mniejszy od wartości funkcji `f(n)`. Jednocześnie będzie większy od wartości funkcji `f(n)` jeśli pomnożymy go przez stałą `c2`. Ponownie wykres może pomóc to zrozumieć:
+
+{% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_theta.png" caption="Dokładne oszacowanie rzędu, notacja Θ." %}
+
+W naszym przypadku funkcję `g(n)` możemy opisać wzorem `g(n) = (n-4)^3`. Stałe mają odpowiednio wartości `c1 = 1`, `c2 = 5`. Wykres oznaczony kolorem niebieskim to wynik funkcji `g(n)` przemnożony przez stałą `c2`. Wykres oznaczony kolorem fioletowym to wynik funkcji `g(n)` przemnożony przez stałą `c1`. 
+
+Jak wcześniej wspomniałem notacja Ο jest najczęściej spotykana. W delszej części artykułu będę odnosił się tylko do tej notacji.
+{: .notice--info}
+
+## Rząd złożoności obliczeniowej
 
 Zakła
 
@@ -166,7 +187,8 @@ Informacji na temate teorii obliczeń i złożoności obliczeniowej w internecie
 - [Kilka krótkich artykułów opisujących podstawy teorii obliczeń](http://cpp0x.pl/kursy/Teoria-w-Informatyce/424),
 - [Computational Complexity: A Modern Approach](http://theory.cs.princeton.edu/complexity/), szkic książki o złożoności obliczeniowej. Jej ostateczna wersja dostępna jest na [Amazonie](http://amzn.to/2zxrqqs)[^afiliacja],
 - [Artykuł na temat złożoności obliczeniowej z uniwersytetu Stanford](https://plato.stanford.edu/entries/computational-complexity/),
-- [Sekcja Wolfram Alpha poświęcona złożoności obliczeniowej](https://www.wolframalpha.com/examples/ComputationalComplexity.html).
+- [Sekcja Wolfram Alpha poświęcona złożoności obliczeniowej](https://www.wolframalpha.com/examples/ComputationalComplexity.html),
+- [Artykuł na Wikipedii na temat funkcji służących do szacowania](https://pl.wikipedia.org/wiki/Asymptotyczne_tempo_wzrostu).
 
 [^afiliacja]: To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :)
 
