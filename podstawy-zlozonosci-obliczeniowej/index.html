@@ -1,0 +1,967 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Podstawy złożoności obliczeniowej - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji Ο. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Podstawy złożoności obliczeniowej">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji Ο. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/11/13_zlozonosc_obliczeniowa_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-11-13T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/11/13_zlozonosc_obliczeniowa_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Podstawy złożoności obliczeniowej
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji Ο. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/lytfyre/6489338411/sizes/l">© lytfyre</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Podstawy złożoności obliczeniowej</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Podstawy złożoności obliczeniowej">
+    <meta itemprop="description" content="W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji Ο. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!">
+    <meta itemprop="datePublished" content="November 13, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#teoria-obliczeń">Teoria obliczeń</a></li>
+<li class="toc-entry toc-h2"><a href="#dlaczego-używamy-złożoności-obliczeniowej">Dlaczego używamy złożoności obliczeniowej</a></li>
+<li class="toc-entry toc-h2"><a href="#złożoność-obliczeniowa-a-funkcja">Złożoność obliczeniowa a funkcja</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#oszacowania-rzędu-złożoności-funkcji">Oszacowania rzędu złożoności funkcji</a></li>
+<li class="toc-entry toc-h3"><a href="#notacja-Ο-dużego-o">Notacja Ο (dużego O)</a></li>
+<li class="toc-entry toc-h3"><a href="#notacja-Ω-omega">Notacja Ω (omega)</a></li>
+<li class="toc-entry toc-h3"><a href="#notacja-Θ-theta">Notacja Θ (theta)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#rząd-złożoności-obliczeniowej">Rząd złożoności obliczeniowej</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Ο1">Ο(1)</a></li>
+<li class="toc-entry toc-h3"><a href="#Οn">Ο(n)</a></li>
+<li class="toc-entry toc-h3"><a href="#Οlogn">Ο(log(n))</a></li>
+<li class="toc-entry toc-h3"><a href="#Οnlogn">Ο(nlog(n))</a></li>
+<li class="toc-entry toc-h3"><a href="#Οn2">Ο(n^2)</a></li>
+<li class="toc-entry toc-h3"><a href="#Οnx">Ο(n^x)</a></li>
+<li class="toc-entry toc-h3"><a href="#Οxn">Ο(x^n)</a></li>
+<li class="toc-entry toc-h3"><a href="#Οn-1">Ο(n!)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#najlepszy-średni-i-najgorszy-przypadek">Najlepszy, średni i najgorszy przypadek</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<div class="notice--warning">
+  
+<p>Artykuł ten zawiera jedynie podstawy związane z zagadnieniem złożoności obliczeniowej. Bynajmniej nie wyczerpuje tematu. Teoria obliczeń to osobny dział informatyki. Jeśli chcesz go zgłębić zachęcam Cię do przejrzenia dodatkowych materiałów do nauki.</p>
+
+<p>Mam świadomość, że tłumaczenie złożoności obliczeniowej bez wspominania o maszynie Turinga to profanacja. Jednak dla zupełnie początkujących w temacie takie podejście wydaje mi się łatwiejsze.</p>
+
+</div>
+
+<h2 id="teoria-obliczeń">Teoria obliczeń</h2>
+
+<p>Teoria obliczeń to dział informatyki. Jedną z gałęzi tego działu jest teoria złożoności obliczeniowej. W uproszczeniu można powiedzieć, że zajmuje się ona oszacowaniem wydajności czasowej i pamięciowej algorytmów. Teoria złożoności obliczeniowej bazuje na wielu modelach, które służą do łatwego porównywania algorytmów.</p>
+
+<h2 id="dlaczego-używamy-złożoności-obliczeniowej">Dlaczego używamy złożoności obliczeniowej</h2>
+
+<p>Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni. Mają różny procesor, inny moduł RAM. Część z nich używa bardziej wydajnych dysków, które pozwalają na szybszy dostęp do danych. Dla części z nich dane dostępne są na zdalnych maszynach, do których trzeba łączyć się przez sieć. Są też mega-komputery, maszyny o ogromnej mocy obliczeniowej, czy smartfony w kieszeniach.</p>
+
+<p>W związku z tą różnorodnością pojawia się pytanie. W jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Nie ma ono większego sensu z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.</p>
+
+<p>Pojawia się zatem potrzeba wspólnej miary, niezależnej od zmiennych czynników. Miara ta ma pomóc zorientować się w wydajności danego algorytmu, przyporządkować go do zdefiniowanej klasy algorytmów. Tutaj w grę wkraczają modele, o których wspomniałem wcześniej. Modele te upraszczają zawiłości związane z różnorodnością sprzętu. Dzięki modelom możemy określać złożoność obliczeniową jako funkcję.</p>
+
+<h2 id="złożoność-obliczeniowa-a-funkcja">Złożoność obliczeniowa a funkcja</h2>
+
+<p>Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Mam nadzieję, że będzie Ci to łatwiej zrozumieć na przykładzie. Załóżmy, że mamy tablicę liczb. Problemem do rozwiązania jest znalezienie sumy tych liczb. Jeśli tablicę wejściową określimy jako <code class="highlighter-rouge">t</code> wówczas funkcja <code class="highlighter-rouge">funkcja(t)</code> (czy <code class="highlighter-rouge">f(t)</code>) będzie pozwalała określić jaka jest złożoność obliczeniowa danego algorytmu.</p>
+
+<p>O ile dla naukowców znalezienie dokładnej funkcji może być bardzo istotne, to w praktyce wystarczą jej oszacowania. Takie oszacowania to notacja Ο (dużego O), notacja Ω (omega) i notacja Θ (theta).</p>
+
+<p class="notice--info">Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja <code class="highlighter-rouge">f(x) = ax^2 + bx + c</code> opisuje <a href="https://pl.wikipedia.org/wiki/Parabola_(matematyka\)">parabolę</a>.</p>
+
+<h3 id="oszacowania-rzędu-złożoności-funkcji">Oszacowania rzędu złożoności funkcji</h3>
+
+<p>Na tapetę bierzemy przykładową funkcję:</p>
+
+<script type="math/tex; mode=display">f(n) = n^3 - 6n^2 + 4n + 12</script>
+
+<p>Możemy założyć, że funkcja ta dokładnie opisuje złożoność obliczeniową jakiegoś algorytmu. Argument <code class="highlighter-rouge">n</code> to rozmiar danych wejściowych do algorytmu. Wykres<sup id="fnref:grafy"><a href="#fn:grafy" class="footnote">1</a></sup> tej funkcji wygląda następująco:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12.png" alt="" />
+  
+    <figcaption>Wykres funkcji <code class="highlighter-rouge">f(n) = n^3 - 6n^2 + 4n + 12</code>
+</figcaption>
+  
+</figure>
+
+<h3 id="notacja-Ο-dużego-o">Notacja Ο (dużego O)</h3>
+
+<p>Notacja ta zakłada, że istnieje funkcja <code class="highlighter-rouge">g(n)</code>, dla której spełniona jest poniższa własność:</p>
+
+<script type="math/tex; mode=display">\forall n \geqslant n_0 : f(n) \leqslant c * g(n)</script>
+
+<p>Teraz przetłumaczę te matematyczne hieroglify :). Własność ta oznacza, że wynik funkcji <code class="highlighter-rouge">g(n)</code> pomnożony przez jakąś stałą <code class="highlighter-rouge">c</code> będzie większy bądź równy wynikowi funkcji <code class="highlighter-rouge">f(n)</code>. Własność ta jest spełniona dla wszystkich <code class="highlighter-rouge">n</code>, które będą większe od <code class="highlighter-rouge">n0</code>. Jeszcze łatwiej wygląda to na wykresie:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_O.png" alt="" />
+  
+    <figcaption>Oszacowanie z góry, notacja Ο.
+</figcaption>
+  
+</figure>
+
+<p>Powyższy wykres pokazuje dwie funkcje. Pierwszą, którą już znasz z poprzedniego wykresu. Druga to wykres funkcji <code class="highlighter-rouge">g(n) = n^3</code>. Jak widzisz od pewnego punktu zielona linia jest zawsze ponad czerwoną linią. To nic innego jak oszacowanie z góry. To właśnie jest notacja Ο. Zatem w naszym przypadku nasza funkcja <code class="highlighter-rouge">f(n)</code> ma złożoność <code class="highlighter-rouge">Ο(n^3)</code>.</p>
+
+<p>W mojej dotychczasowej praktyce notacja Ο jest najczęściej spotykana do określania złożoności algorytmów.</p>
+
+<p class="notice--info">Notacja Ο jest oszacowaniem z góry. Zatem można powiedzieć, że jeśli algorytm ma złożoność <code class="highlighter-rouge">Ο(n^2)</code> to ma także złożoność <code class="highlighter-rouge">Ο(n^3)</code> czy nawet <code class="highlighter-rouge">Ο(n!)</code>. Jednak <code class="highlighter-rouge">Ο(n^2)</code> może być najlepszym oszacowaniem złożoności danego algorytmu.</p>
+
+<p class="notice--info">Z racji tego, że jest to oszacowanie pomijamy w nim wszelkiego rodzaju stałe. Zatem <code class="highlighter-rouge">Ο(2n + 123)</code>, <code class="highlighter-rouge">Ο(2n)</code> i <code class="highlighter-rouge">Ο(n)</code> to ta sama złożoność obliczeniowa. Stałe te i tak nie mają znaczenia przy odpowiednio dużych wartościach <code class="highlighter-rouge">n</code>.</p>
+
+<h3 id="notacja-Ω-omega">Notacja Ω (omega)</h3>
+
+<p>Notacja ta różni się od poprzedniej własnością, którą spełnia nowa funkcja:</p>
+
+<script type="math/tex; mode=display">\forall n \geqslant n_0 : f(n) \geqslant c * g(n)</script>
+
+<p>Własność ta oznacza, że wynik funkcji <code class="highlighter-rouge">g(n)</code> pomnożony przez jakąś stałą <code class="highlighter-rouge">c</code> będzie mniejszy bądź równy wynikowi funkcji <code class="highlighter-rouge">f(n)</code>. Własność ta jest spełniona dla wszystkich <code class="highlighter-rouge">n</code>, które będą większe od <code class="highlighter-rouge">n0</code>. Ponownie wykres pomoże Ci to zrozumieć:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_omega.png" alt="" />
+  
+    <figcaption>Oszacowanie z dołu, notacja Ω.
+</figcaption>
+  
+</figure>
+
+<p>Na wykresie widoczne są dwie funkcje. Pierwszą znasz. Druga to wykres funkcji <code class="highlighter-rouge">g(n) = n^2</code>. “Ostatni” punkt przecięcia tych dwóch wykresów, to <code class="highlighter-rouge">n0</code><sup id="fnref:punkt"><a href="#fn:punkt" class="footnote">2</a></sup>. Od tego miejsca wykres funkcji <code class="highlighter-rouge">g(n)</code> jest zawsze pod wykresem funkcji <code class="highlighter-rouge">f(n)</code>. Możemy powiedzieć, że funkcja <code class="highlighter-rouge">f(n)</code> ma złożoność <code class="highlighter-rouge">Ω(n^2)</code>.</p>
+
+<h3 id="notacja-Θ-theta">Notacja Θ (theta)</h3>
+
+<p>Można powiedzieć, że notacja Θ to połączenie notacji Ο i Ω. W tym przypadku funkcja użyta do oszacowania musi spełniać zależność:</p>
+
+<script type="math/tex; mode=display">\forall n \geqslant n_0 : c_1 * g(n) \geqslant f(n) \geqslant c_2 * g(n)</script>
+
+<p>Tłumacząc to na polski można powiedzieć, że wynik funkcji <code class="highlighter-rouge">g(n)</code> pomnożony przez stałą <code class="highlighter-rouge">c1</code> będzie większy bądź równy wartości funkcji <code class="highlighter-rouge">f(n)</code>. Jednocześnie będzie mniejszy bądź równy wartości funkcji <code class="highlighter-rouge">f(n)</code> jeśli pomnożymy go przez stałą <code class="highlighter-rouge">c2</code>. Ponownie wykres może pomóc to zrozumieć:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_theta.png" alt="" />
+  
+    <figcaption>Dokładne oszacowanie rzędu, notacja Θ.
+</figcaption>
+  
+</figure>
+
+<p>W naszym przypadku funkcję <code class="highlighter-rouge">g(n)</code> możemy opisać wzorem <code class="highlighter-rouge">g(n) = (n-4)^3</code>. Stałe mają odpowiednio wartości <code class="highlighter-rouge">c1 = 5</code>, <code class="highlighter-rouge">c2 = 1</code>. Wykres oznaczony kolorem niebieskim to wynik funkcji <code class="highlighter-rouge">g(n)</code> przemnożony przez stałą <code class="highlighter-rouge">c1</code>. Wykres oznaczony kolorem fioletowym to wynik funkcji <code class="highlighter-rouge">g(n)</code> przemnożony przez stałą <code class="highlighter-rouge">c2</code>.</p>
+
+<p class="notice--info">Jak wcześniej wspomniałem notacja Ο jest najczęściej spotykana. W dalszej części artykułu będę odnosił się tylko do tej notacji.</p>
+
+<h2 id="rząd-złożoności-obliczeniowej">Rząd złożoności obliczeniowej</h2>
+
+<p>Tu także skupię się na przykładzie wzoru wałkowanego wcześniej:</p>
+
+<script type="math/tex; mode=display">f(n) = n^3 - 6n^2 + 4n + 12</script>
+
+<p>Jak wspomniałem wcześniej w praktyce nie potrzebujemy tak dokładnego wzoru wystarczy jedynie zgrubne oszacowanie, które uwzględnia najbardziej istotny element funkcji. Który element funkcji jest najbardziej istotny? Ten, który ma największy wpływ na ostateczny wynik funkcji. Jak to sprawdzić? Wystarczy pod <code class="highlighter-rouge">n</code> podstawić bardzo dużą liczbę i zobaczyć, który element będzie miał największą wartość. Na przykład:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>Wartość przy <code class="highlighter-rouge">n = 1'000'000'000</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">n^3</code></td>
+      <td>1’000’000’000’000’000’000’000’000’000</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">6n^2</code></td>
+      <td>6’000’000’000’000’000’000</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">4n</code></td>
+      <td>4’000’000’000</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">12</code></td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Jak widzisz, przy odpowiednio dużych wartościach <code class="highlighter-rouge">n</code> część “elementów równania” jest mniej istotna. W przypadku funkcji powyżej najszybciej rosnącym elementem jest <code class="highlighter-rouge">n^3</code>. Ma on największy wpływ na ostateczny wynik funkcji.</p>
+
+<p>Wiesz już z powyższych rozważań, że funkcja f(n) ma złożoność <code class="highlighter-rouge">Ο(n^3)</code>. Jest to tak zwana złożoność wykładnicza, specyficzny przypadek złożoności wielomianowej. Istnieje kilka popularnych rzędów złożoności obliczeniowej.</p>
+
+<h3 id="Ο1"><code class="highlighter-rouge">Ο(1)</code></h3>
+
+<p>Złożoność stała, niezależna od liczby danych wejściowych. Mówimy, że problem o złożoności <code class="highlighter-rouge">Ο(1)</code> możemy rozwiązać w stałym czasie niezależnie od wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm <code class="highlighter-rouge">Ο(1)</code>:</p>
+
+<blockquote>
+  <p>Na wejściu programu jest tablica liczb o długości N. Liczby są posortowane rosnąco. Pomiędzy dwoma sąsiadującymi liczbami różnica jest stała. Znajdź sumę liczb w tablicy.</p>
+</blockquote>
+
+<p>Problem to nic innego jak obliczenie sumy <a href="https://pl.wikipedia.org/wiki/Ci%C4%85g_arytmetyczny">ciągu arytmetycznego</a>. Istnieje na to wzór, który można zaimplementować:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="o">[</span><span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">])</span> <span class="o">*</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku nie potrzebujemy iterować po elementach tablicy. Niezależnie od wielkości tablicy wejściowej możemy obliczyć sumę ciągu w stałym czasie.</p>
+
+<h3 id="Οn"><code class="highlighter-rouge">Ο(n)</code></h3>
+
+<p>Złożoność liniowa. Jest to specyficzny przypadek złożoności wielomianowej. Czas rozwiązania problemu jest wprost proporcjonalny do wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm <code class="highlighter-rouge">Ο(n)</code>:</p>
+
+<blockquote>
+  <p>Na wejściu programu jest tablica liczb o długości N. Znajdź sumę wszystkich liczb w tablicy wejściowej.</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">number</span> <span class="o">:</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Aby znaleźć tę sumę należy sprawdzić wszystkie elementy tablicy. Musimy zatem odbyć N kroków.</p>
+
+<h3 id="Οlogn"><code class="highlighter-rouge">Ο(log(n))</code></h3>
+
+<p>Złożoność logarytmiczna, czas rozwiązania zależy od wyniku logarytmu<sup id="fnref:podstawa"><a href="#fn:podstawa" class="footnote">3</a></sup> z wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm <code class="highlighter-rouge">Ο(log(n))</code>:</p>
+
+<blockquote>
+  <p>Na wejściu programu jest posortowana tablica liczb o długości N. Sprawdź czy liczba x istnieje w tablicy wejściowej.</p>
+</blockquote>
+
+<p>To popularny algorytm przeszukiwania binarnego. Jego nazwa pochodzi od tego, że przy każdej iteracji algorytmu dzielimy przeszukiwany zbiór na dwie równe<sup id="fnref:rowne"><a href="#fn:rowne" class="footnote">4</a></sup> części. Algorytmy, które dzielą w ten sposób problem na mniejsze problemy przeważnie są zależne od logarytmu wielkości danych wejściowych.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">binarySearch</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">,</span> <span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">indexLow</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">indexHigh</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">indexLow</span> <span class="o">&lt;=</span> <span class="n">indexHigh</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">indexMiddle</span> <span class="o">=</span> <span class="n">indexLow</span> <span class="o">+</span> <span class="o">(</span><span class="n">indexHigh</span> <span class="o">-</span> <span class="n">indexLow</span><span class="o">)</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">[</span><span class="n">indexMiddle</span><span class="o">])</span> <span class="o">{</span>
+            <span class="n">indexHigh</span> <span class="o">=</span> <span class="n">indexMiddle</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="o">[</span><span class="n">indexMiddle</span><span class="o">])</span> <span class="o">{</span>
+            <span class="n">indexLow</span> <span class="o">=</span> <span class="n">indexMiddle</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="Οnlogn"><code class="highlighter-rouge">Ο(nlog(n))</code></h3>
+
+<p>Złożoność liniowo-logarytmiczna. Czas rozwiązania problemu jest wprost proporcjonalny do iloczynu wielkości danych wejściowych i ich logarytmu. Przykładem problemu dla którego istnieje algorytm o złożoności <code class="highlighter-rouge">Ο(nlog(n))</code> jest:</p>
+
+<blockquote>
+  <p>Na wejściu programu jest tablica liczb. Zwróć tablicę, która będzie zawierała te same elementy, które są w tablicy wejściowej. Tablica wynikowa powinna być posortowana w porządku rosnącym.</p>
+</blockquote>
+
+<p>Powyższy problem to sortowanie. Jeden z ze standardowych problemów w informatyce. Algorytmem sortującym, który ma złożoność obliczeniową <code class="highlighter-rouge">Ο(nlog(n))</code> jest sortowanie przez scalanie (ang. <em>merge sort</em>):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">numbers</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">first</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">/</span> <span class="mi">2</span><span class="o">];</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">second</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">first</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">first</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">first</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">second</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">second</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">first</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="n">i</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="nf">merge</span><span class="o">(</span><span class="n">sort</span><span class="o">(</span><span class="n">first</span><span class="o">),</span> <span class="n">sort</span><span class="o">(</span><span class="n">second</span><span class="o">));</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">merge</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">first</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">second</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">merged</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">first</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="n">second</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">indexFirst</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">indexSecond</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">indexMerged</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">indexMerged</span> <span class="o">&lt;</span> <span class="n">merged</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">indexMerged</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">indexFirst</span> <span class="o">&gt;=</span> <span class="n">first</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">merged</span><span class="o">[</span><span class="n">indexMerged</span><span class="o">]</span> <span class="o">=</span> <span class="n">second</span><span class="o">[</span><span class="n">indexSecond</span><span class="o">++];</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">indexSecond</span> <span class="o">&gt;=</span> <span class="n">second</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">merged</span><span class="o">[</span><span class="n">indexMerged</span><span class="o">]</span> <span class="o">=</span> <span class="n">first</span><span class="o">[</span><span class="n">indexFirst</span><span class="o">++];</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">first</span><span class="o">[</span><span class="n">indexFirst</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">second</span><span class="o">[</span><span class="n">indexSecond</span><span class="o">])</span> <span class="o">{</span>
+            <span class="n">merged</span><span class="o">[</span><span class="n">indexMerged</span><span class="o">]</span> <span class="o">=</span> <span class="n">first</span><span class="o">[</span><span class="n">indexFirst</span><span class="o">++];</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">merged</span><span class="o">[</span><span class="n">indexMerged</span><span class="o">]</span> <span class="o">=</span> <span class="n">second</span><span class="o">[</span><span class="n">indexSecond</span><span class="o">++];</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">merged</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Algorytm dzieli tablicę na części do czasu aż każda z nich będzie miała długość 1. Następnie scala je ze sobą. Każde takie scalenie to koszt <code class="highlighter-rouge">Ο(n)</code>. W związku z tym, że tablicę wejściową dzieliliśmy za każdym razem na pół takich scaleń mamy <code class="highlighter-rouge">log(n)</code>. Zatem wynikowa złożoność algorytmu to <code class="highlighter-rouge">Ο(nlog(n))</code>.</p>
+
+<p>Jak widzisz obliczanie złożoności obliczeniowej bardziej skomplikowanych algorytmów nie jest takie łatwe.</p>
+
+<h3 id="Οn2"><code class="highlighter-rouge">Ο(n^2)</code></h3>
+
+<p>Złożoność kwadratowa. Jest to specyficzny przypadek złożoności wielomianowej. Przykładowy problem może być ten, który użyłem wyżej - posortowanie tablicy. Tym razem jednak algorytm jest mniej wydajny. <a href="https://pl.wikipedia.org/wiki/Sortowanie_b%C4%85belkowe">Sortowanie bąbelkowe</a> charakteryzuje się złożonością obliczeniową <code class="highlighter-rouge">Ο(n^2)</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="o">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="o">])</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="o">];</span>
+                <span class="n">numbers</span><span class="o">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+                <span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">numbers</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Mamy tutaj dwie zagnieżdżone pętle. Każda z nich iteruje po <code class="highlighter-rouge">n</code> elementach. W związku z tym otrzymujemy złożoność <code class="highlighter-rouge">Ο(n^2)</code>.</p>
+
+<h3 id="Οnx"><code class="highlighter-rouge">Ο(n^x)</code></h3>
+
+<p>Złożoność wielomianowa. Jak już wiesz złożoność liniowa i złożoność kwadratowa są specyficznymi przypadkami złożoności wielomianowej. Ze względu na częste występowanie wyszczególniłem je jako osobne rzędy złożoności. Przykłady problemów i rozwiązań znajdziesz w poprzednich punktach.</p>
+
+<h3 id="Οxn"><code class="highlighter-rouge">Ο(x^n)</code></h3>
+
+<p>Jest to złożoność wykładnicza, jej przykładem może być <code class="highlighter-rouge">Ο(2^n)</code>. Problemem, który ma rozwiązanie o złożoności co najmniej <code class="highlighter-rouge">Ο(2^n)</code> jest:</p>
+
+<blockquote>
+  <p>Na wejściu programu jest tablica unikalnych liczb. Zwróć tablicę, która będzie zawierała wszystkie możliwe podzbiory elementów tablicy wejściowej.</p>
+</blockquote>
+
+<p>Wynika to z faktu, że wszystkich możliwych podzbiorów zbioru, który ma <code class="highlighter-rouge">n</code> elementów jest dokładnie <code class="highlighter-rouge">2^n</code>. Poniższy algorytm ma złożoność <code class="highlighter-rouge">Ο(log(n)2^n)</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[][]</span> <span class="nf">powerSet</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">two_pow_n</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+
+    <span class="kt">int</span><span class="o">[][]</span> <span class="n">powerSet</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">two_pow_n</span><span class="o">][];</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">subsetIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">subsetIndex</span> <span class="o">&lt;</span> <span class="n">two_pow_n</span><span class="o">;</span> <span class="n">subsetIndex</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">powerSet</span><span class="o">[</span><span class="n">subsetIndex</span><span class="o">]</span> <span class="o">=</span> <span class="n">pickNumbers</span><span class="o">(</span><span class="n">subsetIndex</span><span class="o">,</span> <span class="n">numbers</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">powerSet</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">pickNumbers</span><span class="o">(</span><span class="kt">int</span> <span class="n">subsetIndex</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">howManyOnes</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">subsetIndex</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">temp</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">temp</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">howManyOnes</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="n">temp</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">subset</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">howManyOnes</span><span class="o">];</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">charIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">lastElementIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">subsetIndex</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">;</span> <span class="n">charIndex</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">subsetIndex</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">subset</span><span class="o">[</span><span class="n">lastElementIndex</span><span class="o">++]</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">charIndex</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="n">subsetIndex</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">subset</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Wynika to z faktu, że pętla wewnątrz metody <code class="highlighter-rouge">powerSet</code> wywołana jest dokładnie <code class="highlighter-rouge">2^n</code> razy. Natomiast wewnątrz metody <code class="highlighter-rouge">pickNumbers</code> są dwie pętle. Każda z nich ma złożoność <code class="highlighter-rouge">Ο(log(n))</code>. Zatem finalna złożoność algorytmu to <code class="highlighter-rouge">Ο(log(n)2^n)</code>.</p>
+
+<p>Spróbuj uruchomić ten kod z tablicą wejściową z 30 elementami, życzę powodzenia ;).</p>
+
+<h3 id="Οn-1"><code class="highlighter-rouge">Ο(n!)</code></h3>
+
+<p>Jest to złożoność typu silnia.  Dla przypomnienia silnia <code class="highlighter-rouge">n</code>, albo inaczej <code class="highlighter-rouge">n!</code> to iloczyn wszystkich liczb od 1 do <code class="highlighter-rouge">n</code>. Na przykład <code class="highlighter-rouge">3! = 1 * 2 * 3 = 6</code>. Przykładem problemu, dla którego istnieje naiwny algorytm o tej złożoności to <a href="https://pl.wikipedia.org/wiki/Problem_komiwoja%C5%BCera">problem komiwojażera</a>:</p>
+
+<blockquote>
+  <p>Na wejściu programu jest <code class="highlighter-rouge">n</code> miast oraz odległości pomiędzy każdą parą miast. Zakładając, że komiwojażer zaczyna z miasta A i ma dojść do miasta B jaką trasę powinien pokonać aby była ona najkrótsza?</p>
+</blockquote>
+
+<p>Nie silę się nawet na naiwny algorytm dla tego problemu, nie jest on możliwy do uruchomienia na dzisiejszych komputerach dla problemów odpowiednio dużych. Wyobraź sobie, skalę możliwych rozwiązań. <code class="highlighter-rouge">60! ~= 8,3 * 10^81</code>. Szacowana liczba atomów wodoru w widzialnym wszechświecie to około <a href="https://en.wikipedia.org/wiki/Observable_universe#Matter_content_.E2.80.93_number_of_atoms"><code class="highlighter-rouge">10^80</code></a>. Przekładając to na problem wyżej. Możliwych dróg pomiędzy 60 miastami jest więcej niż atomów wodoru w widzialnym wszechświecie ;).</p>
+
+<h2 id="najlepszy-średni-i-najgorszy-przypadek">Najlepszy, średni i najgorszy przypadek</h2>
+
+<p>Ten sam algorytm może zachowywać się zupełnie inaczej w przypadku innych danych wejściowych. Nie mówię tu o wielkości problemu, wielkości danych wejściowych. A o instancji problemu.</p>
+
+<p>Jeśli algorytm jako dane wejściowe przyjmuje tablicę liczb to wielkością problemu może być 5 - tablica o długości 5. Natomiast instancji tego problemu jest nieskończenie wiele: <code class="highlighter-rouge">[1, 2, 3, 4, 5]</code>, <code class="highlighter-rouge">[-1, 2, -3, 4, -5]</code> czy <code class="highlighter-rouge">[5, 4, 3, 2, 1]</code>. Algorytm może mieć różną złożoność obliczeniową określoną w notacji <code class="highlighter-rouge">Ο</code> w zależności od instancji problemu. Są także algorytmy, których złożoność obliczeniowa jest niezależna od instancji problemu.</p>
+
+<p>W zależności od wymagań w wyborze algorytmu bierze się pod uwagę złożoność odpowiedniego przypadku.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Informacji na temat teorii obliczeń i złożoności obliczeniowej w internecie jest sporo. Jednak dość ciężko jest znaleźć jakiekolwiek informacje, które są na początkującym poziomie. Niemniej jednak poniżej starałem się zebrać materiały, które mogą być interesujące:</p>
+
+<ul>
+  <li><a href="http://wazniak.mimuw.edu.pl/index.php?title=Z%C5%82o%C5%BCono%C5%9B%C4%87_obliczeniowa">Wykład dotyczący złożoności obliczeniowej na Uniwersytecie Warszawskim</a>,</li>
+  <li><a href="http://cpp0x.pl/kursy/Teoria-w-Informatyce/424">Kilka krótkich artykułów opisujących podstawy teorii obliczeń</a>,</li>
+  <li><a href="http://theory.cs.princeton.edu/complexity/">Computational Complexity: A Modern Approach</a>, szkic książki o złożoności obliczeniowej. Jej ostateczna wersja dostępna jest na <a href="http://amzn.to/2zxrqqs">Amazonie</a><sup id="fnref:afiliacja"><a href="#fn:afiliacja" class="footnote">5</a></sup>,</li>
+  <li><a href="https://plato.stanford.edu/entries/computational-complexity/">Artykuł na temat złożoności obliczeniowej z uniwersytetu Stanford</a>,</li>
+  <li><a href="https://www.wolframalpha.com/examples/ComputationalComplexity.html">Sekcja Wolfram Alpha poświęcona złożoności obliczeniowej</a>,</li>
+  <li><a href="https://pl.wikipedia.org/wiki/Asymptotyczne_tempo_wzrostu">Artykuł na Wikipedii na temat funkcji służących do szacowania</a>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/02_computational_complexity/src/main/java/pl/samouczekprogramisty/misc/complexity">Fragmenty kodu użyte w tym artykule</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Jeśli zrozumiałeś ten artykuł możesz śmiało powiedzieć, że wiesz czym jest złożoność obliczeniowa. Wiesz jak ją szacować, znasz przykłady algorytmów z najczęściej spotykanych rzędów złożoności obliczeniowej. Znasz kilka notacji do określania złożoności. Dowiedziałeś się też ile jest atomów wodoru we wszechświecie ;). W każdym razie masz za sobą spory kawałek lektury i sporo wiedzy.</p>
+
+<p>Na koniec mam do Ciebie prośbę. Proszę podziel się tym artykułem ze swoimi znajomymi, sporo się nad nim napracowałem. Mam nadzieję, że będzie mógł pomóc jak największej grupie osób. Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości polub Samouczka na Facebooku i zapisz się do newslettera. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:grafy">
+      <p>Wykresy użyte w tym artykule stworzyłem przy pomocy <a href="https://graphsketch.com/">graphsketch</a>. <a href="#fnref:grafy" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:punkt">
+      <p>To oczywiście kolejne uproszczenie, punkt to para dwóch liczb. <code class="highlighter-rouge">n0</code> jest jedną z nich - tą na osi poziomej. Dasz radę wyznaczyć drugą współrzędną? ;) <a href="#fnref:punkt" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:podstawa">
+      <p>Podstawą logarytmu przeważnie jest 2. Zdarzają się także algorytmy, w których logarytm ma inną podstawę. <a href="#fnref:podstawa" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:rowne">
+      <p>Oczywiście, w przypadku tablicy o nieparzystej długości jedna z części nie będzie “równiejsza” od drugiej ;). <a href="#fnref:rowne" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:afiliacja">
+      <p>To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :) <a href="#fnref:afiliacja" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#programowanie" class="page__taxonomy-item" rel="tag">Programowanie</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/categories/#wiedza-og%C3%B3lna" class="page__taxonomy-item" rel="tag">Wiedza ogólna</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-11-13T00:00:00+01:00">November 13, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpodstawy-zlozonosci-obliczeniowej%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpodstawy-zlozonosci-obliczeniowej%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe/" class="pagination--pager" title="Liczby zmiennoprzecinkowe
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/11/06_liczby_zmiennoprzecinkowe_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe/" rel="permalink">Liczby zmiennoprzecinkowe
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Po lekturze tego artykułu będziesz wiedział dlaczego 0,1 + 0,2 != 0,3. Dowiesz się w jaki sposób zapisywane są liczby wymierne w pamięci komputera. Poznasz c...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/10/29_modyfikatory_dostepu_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/modyfikatory-dostepu-w-jezyku-java/" rel="permalink">Modyfikatory dostępu w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory public, protected i private. Poznasz ...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/" rel="permalink">Jak dostać pierwszą pracę jako programista
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CV kandydata na młodszego programistę nie musi być puste, wręcz przeciwnie. Właściwie to musisz mieć się czym pochwalić, aby dostać tę pierwszą posadę. O tym...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
