@@ -31,7 +31,7 @@ Teoria obliczeń to dział informatyki. Jedną z gałęzi tego działu jest teor
 
 ## Dlaczego używamy złożoności obliczeniowej
 
-Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni. Mają różny procesor, inny moduł RAM. Część z nich używa bardziej wydajnych dysków, które pozwalają na szybszy dostęp do danych. Dla części z nich dane dostępne są na zdalnych maszynach, do których trzeba łączyć się przez sieć. Są też mega-komputery, maszyny o ogromnej mocy obliczeniowej.
+Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni. Mają różny procesor, inny moduł RAM. Część z nich używa bardziej wydajnych dysków, które pozwalają na szybszy dostęp do danych. Dla części z nich dane dostępne są na zdalnych maszynach, do których trzeba łączyć się przez sieć. Są też mega-komputery, maszyny o ogromnej mocy obliczeniowej, czy smartfony w kieszeniach.
 
 W związku z tą różnorodnością pojawia się pytanie. W jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Nie ma ono większego sensu z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.
 
@@ -64,18 +64,18 @@ Notacja ta zakłada, że istnieje funkcja `g(n)`, dla której spełniona jest po
 
 $$\forall n \geqslant n_0 : f(n) \leqslant c * g(n)$$
 
-Teraz przetłumaczę te matematyczne hieroglify :). Własność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie większy od wyniku funkcji `f(n)`. Własność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Jeszcze łatwiej wygląda to na wykresie:
+Teraz przetłumaczę te matematyczne hieroglify :). Własność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie większy bądź równy wynikowi funkcji `f(n)`. Własność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Jeszcze łatwiej wygląda to na wykresie:
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_O.png" caption="Oszacowanie z góry, notacja Ο." %}
 
-Powyższy wykres pokazuje dwie funkcje. Pierwszą, którą już znasz z poprzedniego wykresu. Druga to wykres funkcji `g(n) = x^3`. Jak widzisz od pewnego punktu zielona linia jest zawsze ponad czerwoną linią. To nic innego jak oszacowanie z góry. To właśnie jest notacja Ο. Zatem w naszym przypadku nasza funkcja `f(n)` ma złożoność `Ο(n^3)`.
+Powyższy wykres pokazuje dwie funkcje. Pierwszą, którą już znasz z poprzedniego wykresu. Druga to wykres funkcji `g(n) = n^3`. Jak widzisz od pewnego punktu zielona linia jest zawsze ponad czerwoną linią. To nic innego jak oszacowanie z góry. To właśnie jest notacja Ο. Zatem w naszym przypadku nasza funkcja `f(n)` ma złożoność `Ο(n^3)`.
 
 W mojej dotychczasowej praktyce notacja Ο jest najczęściej spotykana do określania złożoności algorytmów.
 
 Notacja Ο jest oszacowaniem z góry. Zatem można powiedzieć, że jeśli algorytm ma złożoność `Ο(n^2)` to ma także złożoność `Ο(n^3)` czy nawet `Ο(n!)`. Jednak `Ο(n^2)` może być najlepszym oszacowaniem złożoności danego algorytmu.
 {: .notice--info}
 
-Z racji tego, że jest to oszacowanie pomijamy w nim wszelkiego rodzaju stałe. Zatem `Ο(2n + 123)`, `Ο(2n)` i `Ο(n)` to ta sama złożoność obliczeniowa. 
+Z racji tego, że jest to oszacowanie pomijamy w nim wszelkiego rodzaju stałe. Zatem `Ο(2n + 123)`, `Ο(2n)` i `Ο(n)` to ta sama złożoność obliczeniowa. Stałe te i tak nie mają znaczenia przy odpowiednio dużych wartościach `n`.
 {: .notice--info}
 
 ### Notacja Ω (omega)
@@ -84,11 +84,11 @@ Notacja ta różni się od poprzedniej własnością, którą spełnia nowa funk
 
 $$\forall n \geqslant n_0 : f(n) \geqslant c * g(n)$$
 
-Własność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie mniejszy od wyniku funkcji `f(n)`. Własność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Ponownie wykres pomoże Ci to zrozumieć:
+Własność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie mniejszy bądź równy wynikowi funkcji `f(n)`. Własność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Ponownie wykres pomoże Ci to zrozumieć:
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_omega.png" caption="Oszacowanie z dołu, notacja Ω." %}
 
-Na wykresie widoczne są dwie funkcje. Pierwszą znasz. Druga to wykres funkcji `g(n) = x^2`. "Ostatni" punkt przecięcia tych dwóch wykresów, to `n0`[^punkt]. Od tego miejsca wykres funkcji `g(n)` jest zawsze pod wykresem funkcji `f(n)`. Możemy powiedzieć, że funkcja `f(n)` ma złożoność `Ω(n^2)`.
+Na wykresie widoczne są dwie funkcje. Pierwszą znasz. Druga to wykres funkcji `g(n) = n^2`. "Ostatni" punkt przecięcia tych dwóch wykresów, to `n0`[^punkt]. Od tego miejsca wykres funkcji `g(n)` jest zawsze pod wykresem funkcji `f(n)`. Możemy powiedzieć, że funkcja `f(n)` ma złożoność `Ω(n^2)`.
 
 [^punkt]: To oczywiście kolejne uproszczenie, punkt to para dwóch liczb. `n0` jest jedną z nich - tą na osi poziomej. Dasz radę wyznaczyć drugą współrzędną? ;)
 
@@ -98,18 +98,18 @@ Można powiedzieć, że notacja Θ to połączenie notacji Ο i Ω. W tym przypa
 
 $$\forall n \geqslant n_0 : c_1 * g(n) \geqslant f(n) \geqslant c_2 * g(n)$$
 
-Tłumacząc to na polski można powiedzieć, że wynik funkcji `g(n)` pomnożony przez stałą `c1` będzie mniejszy od wartości funkcji `f(n)`. Jednocześnie będzie większy od wartości funkcji `f(n)` jeśli pomnożymy go przez stałą `c2`. Ponownie wykres może pomóc to zrozumieć:
+Tłumacząc to na polski można powiedzieć, że wynik funkcji `g(n)` pomnożony przez stałą `c1` będzie większy bądź równy wartości funkcji `f(n)`. Jednocześnie będzie mniejszy bądź równy wartości funkcji `f(n)` jeśli pomnożymy go przez stałą `c2`. Ponownie wykres może pomóc to zrozumieć:
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_theta.png" caption="Dokładne oszacowanie rzędu, notacja Θ." %}
 
-W naszym przypadku funkcję `g(n)` możemy opisać wzorem `g(n) = (n-4)^3`. Stałe mają odpowiednio wartości `c1 = 1`, `c2 = 5`. Wykres oznaczony kolorem niebieskim to wynik funkcji `g(n)` przemnożony przez stałą `c2`. Wykres oznaczony kolorem fioletowym to wynik funkcji `g(n)` przemnożony przez stałą `c1`.
+W naszym przypadku funkcję `g(n)` możemy opisać wzorem `g(n) = (n-4)^3`. Stałe mają odpowiednio wartości `c1 = 5`, `c2 = 1`. Wykres oznaczony kolorem niebieskim to wynik funkcji `g(n)` przemnożony przez stałą `c1`. Wykres oznaczony kolorem fioletowym to wynik funkcji `g(n)` przemnożony przez stałą `c2`.
 
 Jak wcześniej wspomniałem notacja Ο jest najczęściej spotykana. W dalszej części artykułu będę odnosił się tylko do tej notacji.
 {: .notice--info}
 
 ## Rząd złożoności obliczeniowej
 
-Tu także skupię się na przykładzie wzoru wałkowanego powyżej:
+Tu także skupię się na przykładzie wzoru wałkowanego wcześniej:
 
 $$f(n) = n^3 - 6n^2 + 4n + 12$$
 
@@ -139,7 +139,7 @@ public int sum(int[] numbers) {
     if (numbers == null || numbers.length == 0) {
         return 0;
     }
-    return (numbers[0] + numbers[numbers.length -1]) * numbers.length / 2;
+    return (numbers[0] + numbers[numbers.length - 1]) * numbers.length / 2;
 }
 ```
 
@@ -161,11 +161,13 @@ public int sum(int[] numbers) {
 }
 ```
 
-Aby znaleźć tę sumę należy przeiterować po wszystkich elementach. Musimy zatem odbyć N kroków.
+Aby znaleźć tę sumę należy sprawdzić wszystkie elementy tablicy. Musimy zatem odbyć N kroków.
 
 ### `Ο(log(n))`
 
-Złożoność logarytmiczna, czas rozwiązania zależy od wyniku logarytmu z wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm `Ο(log(n))`:
+Złożoność logarytmiczna, czas rozwiązania zależy od wyniku logarytmu[^podstawa] z wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm `Ο(log(n))`:
+
+[^podstawa]: Podstawą logarytmu przeważnie jest 2. Zdarzają się także algorytmy, w których logarytm ma inną podstawę.
 
 > Na wejściu programu jest posortowana tablica liczb o długości N. Sprawdź czy liczba x istnieje w tablicy wejściowej.
 
@@ -200,7 +202,7 @@ Złożoność liniowo-logarytmiczna. Czas rozwiązania problemu jest wprost prop
 
 > Na wejściu programu jest tablica liczb. Zwróć tablicę, która będzie zawierała te same elementy, które są w tablicy wejściowej. Tablica wynikowa powinna być posortowana w porządku rosnącym.
 
-Powyższy problem to sortowanie. Jeden z ze standardowych problemów w informatyce. Algorytmem sortującym, który ma złożoność obliczeniową `Ο(nlog(n))` jest sortowanie przez scalanie:
+Powyższy problem to sortowanie. Jeden z ze standardowych problemów w informatyce. Algorytmem sortującym, który ma złożoność obliczeniową `Ο(nlog(n))` jest sortowanie przez scalanie (ang. _merge sort_):
 
 ```java
 public static int[] sort(int[] numbers) {
@@ -261,7 +263,7 @@ public int[] sort(int[] numbers) {
 }
 ```
 
-Mamy tutaj dwie zagnieżdżone pętle. Każda z nich iteruje po `n` elementach. W związku z tym otrzymujemy złożoność# `Ο(n^2)`.
+Mamy tutaj dwie zagnieżdżone pętle. Każda z nich iteruje po `n` elementach. W związku z tym otrzymujemy złożoność `Ο(n^2)`.
 
 ### `Ο(n^x)`
 
@@ -273,7 +275,7 @@ Jest to złożoność wykładnicza, jej przykładem może być `Ο(2^n)`. Proble
 
 > Na wejściu programu jest tablica unikalnych liczb. Zwróć tablicę, która będzie zawierała wszystkie możliwe podzbiory elementów tablicy wejściowej.
 
-Wynika to z faktu, że wszystkich możliwych podzbiorów zbioru, który ma `n` elementów jest dokładnie `2^n`. Poniższy algorytm ma złożoność `Ο(n2^n)`. 
+Wynika to z faktu, że wszystkich możliwych podzbiorów zbioru, który ma `n` elementów jest dokładnie `2^n`. Poniższy algorytm ma złożoność `Ο(log(n)2^n)`. 
 
 ```java
 public static int[][] powerSet(int[] numbers) {
@@ -315,7 +317,7 @@ Spróbuj uruchomić ten kod z tablicą wejściową z 30 elementami, życzę powo
 
 ### `Ο(n!)`
 
-Jest to złożoność typu silnia.  Dla przypomnienia silnia `n`, albo inaczej `n!` to iloczyn wszystkich liczb od 1 do `n`. Na przykład '3! = 1 * 2 * 3 = 6`. Przykładem problemu, dla którego istnieje naiwny algorytm o tej złożoności to [problem komiwojażera](https://pl.wikipedia.org/wiki/Problem_komiwoja%C5%BCera):
+Jest to złożoność typu silnia.  Dla przypomnienia silnia `n`, albo inaczej `n!` to iloczyn wszystkich liczb od 1 do `n`. Na przykład `3! = 1 * 2 * 3 = 6`. Przykładem problemu, dla którego istnieje naiwny algorytm o tej złożoności to [problem komiwojażera](https://pl.wikipedia.org/wiki/Problem_komiwoja%C5%BCera):
 
 > Na wejściu programu jest `n` miast oraz odległości pomiędzy każdą parą miast. Zakładając, że komiwojażer zaczyna z miasta A i ma dojść do miasta B jaką trasę powinien pokonać aby była ona najkrótsza?
 
@@ -338,8 +340,13 @@ Informacji na temat teorii obliczeń i złożoności obliczeniowej w internecie 
 - [Computational Complexity: A Modern Approach](http://theory.cs.princeton.edu/complexity/), szkic książki o złożoności obliczeniowej. Jej ostateczna wersja dostępna jest na [Amazonie](http://amzn.to/2zxrqqs)[^afiliacja],
 - [Artykuł na temat złożoności obliczeniowej z uniwersytetu Stanford](https://plato.stanford.edu/entries/computational-complexity/),
 - [Sekcja Wolfram Alpha poświęcona złożoności obliczeniowej](https://www.wolframalpha.com/examples/ComputationalComplexity.html),
-- [Artykuł na Wikipedii na temat funkcji służących do szacowania](https://pl.wikipedia.org/wiki/Asymptotyczne_tempo_wzrostu).
+- [Artykuł na Wikipedii na temat funkcji służących do szacowania](https://pl.wikipedia.org/wiki/Asymptotyczne_tempo_wzrostu),
+- [Fragmenty kodu użyte w tym artykule](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/02_computational_complexity/src/main/java/pl/samouczekprogramisty/misc/complexity).
 
 [^afiliacja]: To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :)
 
 ## Podsumowanie
+
+Jeśli zrozumiałeś ten artykuł możesz śmiało powiedzieć, że wiesz czym jest złożoność obliczeniowa. Wiesz jak ją szacować, znasz przykłady algorytmów z najczęściej spotykanych rzędów złożoności obliczeniowej. Znasz kilka notacji do określania złożoności. Dowiedziałeś się też ile jest atomów wodoru we wszechświecie ;). W każdym razie masz za sobą spory kawałek lektury i sporo wiedzy.
+
+Na koniec mam do Ciebie prośbę. Proszę podziel się tym artykułem ze swoimi znajomymi, sporo się nad nim napracowałem. Mam nadzieję, że będzie mógł pomóc jak największej grupie osób. Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości polub Samouczka na Facebooku i zapisz się do newslettera. Do następnego razu!
