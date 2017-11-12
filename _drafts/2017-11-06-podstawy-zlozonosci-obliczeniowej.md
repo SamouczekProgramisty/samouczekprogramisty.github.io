@@ -8,8 +8,12 @@ header:
     teaser: /assets/images/2017/11/13_zlozonosc_obliczeniowa_artykul.jpg
     overlay_image: /assets/images/2017/11/13_zlozonosc_obliczeniowa_artykul.jpg
     caption: "[&copy; lytfyre](https://www.flickr.com/photos/lytfyre/6489338411/sizes/l)"
-excerpt: W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji &Omicron;. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!
+excerpt: W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji Ο. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!
 ---
+
+<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 {% capture wstep %}
 Artykuł ten zawiera jedynie podstawy związane z zagadnieniem złożoności obliczeniowej. Bynajmniej nie wyczerpuje tematu. Teoria obliczeń to osobny dział informatyki. Jeśli chcesz go zgłębić zachęcam Cię do przejrzenia dodatkowych materiałów do nauki.
@@ -44,19 +48,50 @@ Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład 
 
 ### Oszacowania funkcji
 
-Załóżmy, że mamy do czynienia z funkcją.
-$$f(x) = x^3 - 6x^2 + 4x + 12$$
+Na tapetę bierzemy przykładową funkcję:
 
-W kolejnych para
+$$f(n) = n^3 - 6n^2 + 4n + 12$$
 
+Możemy założyć, że funkcja ta dokładnie opsuje złożoność obliczeniową jakiegoś algorytmu. Argument `n` to rozmiar danych wejściowych do algorytmu.  Wykres[^grafy] tej funkcji wygląda następująco: 
 
-#### Notacja Ο (dużego O)
+{% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12.png" caption="Wykres funkcji `f(n) = n^3 - 6n^2 + 4n + 12`" %}
 
-[^grafy]: Wykresy stworzyłem przy pomocy [graphsketch](https://graphsketch.com/).
+[^grafy]: Wykresy użyte w tym artykule stworzyłem przy pomocy [graphsketch](https://graphsketch.com/).
 
-#### Notacja Ω (omega)
+Jak wspomniałem wcześniej w praktyce nie potrzebujemy tak dokładnego wzoru wystarczy jedynie zgrubne oszacowanie, które uwzględnia najbardziej istotny element funkcji. Który element funkcji jest najbardziej istotny? Ten, który ma największy wpływ na ostateczny wynik funkcji. Jak to sprawdzić? Wystarczy pod `n` podstawić bardzo dużą liczbę i zobaczyć, który element będzie miał najwięszą wartość. Na przykład:
 
-#### Notacja Θ (theta)
+| Element | Wartość przy `n = 1'000'000'000`      |
+|---------|---------------------------------------|
+| `n^3`   | 1'000'000'000'000'000'000'000'000'000 |
+| `6n^2`  | 6'000'000'000'000'000'000             |
+| `4n`    | 4'000'000'000                         |
+| `12`    | 12                                    |
+
+Jak widzisz, przy odpowiednio dużych wartościach `n` część "elementów równania" jest mniej istotna. W przypadku funkcji powyżej najszybciej rosnącym elementem jest `n^3`. Ma on największy wpływ na ostateczny wynik funkcji.
+
+Notacje opisane poniżej upraszczają dokładny wzór złożoności obliczeniowej do najbardziej istotnego elementu.
+
+### Notacja Ο (dużego O)
+
+Notacja ta zakłada, że istnieje funkcja `g(n)`, dla której spełniona jest poniższa własność:
+
+$$\forall n \geqslant n_0 : f(n) \leqslant c * g(n)$$
+
+Teraz przetłumaczę te matematyczne hieroglify :). Właśność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie większy od wyniku funkcji `f(n)`. Właśność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Jeszcze łatwiej wygląda to na wykresie:
+
+{% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_O.png" caption="Oszacowanie z góry, notacja Ο." %}
+
+Powyższy wykres pokazuje dwie funkcje. Pierwszą, którą już znasz z poprzedniego wykresu. Druga to wykres funkcji `g(n) = x^3`. Jak widzisz od pewnego punktu zielona linia jest zawsze ponad czerwoną linią. To nic innego jak oszacowanie z góry. To właśnie jest notacja Ο. Zatem w naszym przypadku nasza funkcja `f(n)` ma złożoność `Ο(n^3)`.
+
+### Notacja Ω (omega)
+
+Notacja ta różni się od poprzedniej własnością, którą spełnia nowa funkcja:
+
+$$\forall n \geqslant n_0 : f(n) \geqslant c * g(n)$$
+
+{% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_omega.png" caption="Oszacowanie z dołu, notacja Ω." %}
+
+### Notacja Θ (theta)
 
 ## Klasy funkcji przybliżających
 
