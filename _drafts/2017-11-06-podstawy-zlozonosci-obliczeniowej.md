@@ -18,7 +18,7 @@ excerpt: W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się 
 {% capture wstep %}
 Artykuł ten zawiera jedynie podstawy związane z zagadnieniem złożoności obliczeniowej. Bynajmniej nie wyczerpuje tematu. Teoria obliczeń to osobny dział informatyki. Jeśli chcesz go zgłębić zachęcam Cię do przejrzenia dodatkowych materiałów do nauki.
 
-Mam świadomość, że tłumaczenie złożoności obliczeniowej bez wspomniania o maszynie Turinga to profanacja. Jednak dla zupełnie początkujących w temacie takie podejście wydaje mi się łatwiejsze.
+Mam świadomość, że tłumaczenie złożoności obliczeniowej bez wspominania o maszynie Turinga to profanacja. Jednak dla zupełnie początkujących w temacie takie podejście wydaje mi się łatwiejsze.
 {% endcapture %}
 
 <div class="notice--warning">
@@ -31,7 +31,7 @@ Teoria obliczeń to dział informatyki. Jedną z gałęzi tego działu jest teor
 
 ## Dlaczego używamy złożoności obliczeniowej
 
-Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni. Mają różny procesor, inny moduł RAM. Część z nich używa bardziej wydajnych dysków, które pozwalają na szybszy dostęp do danych. Dla części z nich dane dostępne są na zdalnych maszynach, do których trzeba łączyć się przez sieć. Są też megakomputery, maszyny o ogromnej mocy obliczeniowej.
+Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni. Mają różny procesor, inny moduł RAM. Część z nich używa bardziej wydajnych dysków, które pozwalają na szybszy dostęp do danych. Dla części z nich dane dostępne są na zdalnych maszynach, do których trzeba łączyć się przez sieć. Są też mega-komputery, maszyny o ogromnej mocy obliczeniowej.
 
 W związku z tą różnorodnością pojawia się pytanie. W jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Nie ma ono większego sensu z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.
 
@@ -52,7 +52,7 @@ Na tapetę bierzemy przykładową funkcję:
 
 $$f(n) = n^3 - 6n^2 + 4n + 12$$
 
-Możemy założyć, że funkcja ta dokładnie opsuje złożoność obliczeniową jakiegoś algorytmu. Argument `n` to rozmiar danych wejściowych do algorytmu.  Wykres[^grafy] tej funkcji wygląda następująco:
+Możemy założyć, że funkcja ta dokładnie opisuje złożoność obliczeniową jakiegoś algorytmu. Argument `n` to rozmiar danych wejściowych do algorytmu. Wykres[^grafy] tej funkcji wygląda następująco:
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12.png" caption="Wykres funkcji `f(n) = n^3 - 6n^2 + 4n + 12`" %}
 
@@ -64,7 +64,7 @@ Notacja ta zakłada, że istnieje funkcja `g(n)`, dla której spełniona jest po
 
 $$\forall n \geqslant n_0 : f(n) \leqslant c * g(n)$$
 
-Teraz przetłumaczę te matematyczne hieroglify :). Właśność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie większy od wyniku funkcji `f(n)`. Właśność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Jeszcze łatwiej wygląda to na wykresie:
+Teraz przetłumaczę te matematyczne hieroglify :). Własność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie większy od wyniku funkcji `f(n)`. Własność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Jeszcze łatwiej wygląda to na wykresie:
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_O.png" caption="Oszacowanie z góry, notacja Ο." %}
 
@@ -84,7 +84,7 @@ Notacja ta różni się od poprzedniej własnością, którą spełnia nowa funk
 
 $$\forall n \geqslant n_0 : f(n) \geqslant c * g(n)$$
 
-Właśność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie mniejszy od wyniku funkcji `f(n)`. Właśność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Ponownie wykres pomoże Ci to zrozumieć:
+Własność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie mniejszy od wyniku funkcji `f(n)`. Własność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Ponownie wykres pomoże Ci to zrozumieć:
 
 {% include figure image_path="/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_omega.png" caption="Oszacowanie z dołu, notacja Ω." %}
 
@@ -104,7 +104,7 @@ Tłumacząc to na polski można powiedzieć, że wynik funkcji `g(n)` pomnożony
 
 W naszym przypadku funkcję `g(n)` możemy opisać wzorem `g(n) = (n-4)^3`. Stałe mają odpowiednio wartości `c1 = 1`, `c2 = 5`. Wykres oznaczony kolorem niebieskim to wynik funkcji `g(n)` przemnożony przez stałą `c2`. Wykres oznaczony kolorem fioletowym to wynik funkcji `g(n)` przemnożony przez stałą `c1`.
 
-Jak wcześniej wspomniałem notacja Ο jest najczęściej spotykana. W delszej części artykułu będę odnosił się tylko do tej notacji.
+Jak wcześniej wspomniałem notacja Ο jest najczęściej spotykana. W dalszej części artykułu będę odnosił się tylko do tej notacji.
 {: .notice--info}
 
 ## Rząd złożoności obliczeniowej
@@ -113,7 +113,7 @@ Tu także skupię się na przykładzie wzoru wałkowanego powyżej:
 
 $$f(n) = n^3 - 6n^2 + 4n + 12$$
 
-Jak wspomniałem wcześniej w praktyce nie potrzebujemy tak dokładnego wzoru wystarczy jedynie zgrubne oszacowanie, które uwzględnia najbardziej istotny element funkcji. Który element funkcji jest najbardziej istotny? Ten, który ma największy wpływ na ostateczny wynik funkcji. Jak to sprawdzić? Wystarczy pod `n` podstawić bardzo dużą liczbę i zobaczyć, który element będzie miał najwięszą wartość. Na przykład:
+Jak wspomniałem wcześniej w praktyce nie potrzebujemy tak dokładnego wzoru wystarczy jedynie zgrubne oszacowanie, które uwzględnia najbardziej istotny element funkcji. Który element funkcji jest najbardziej istotny? Ten, który ma największy wpływ na ostateczny wynik funkcji. Jak to sprawdzić? Wystarczy pod `n` podstawić bardzo dużą liczbę i zobaczyć, który element będzie miał największą wartość. Na przykład:
 
 | Element | Wartość przy `n = 1'000'000'000`      |
 |---------|---------------------------------------|
@@ -124,7 +124,7 @@ Jak wspomniałem wcześniej w praktyce nie potrzebujemy tak dokładnego wzoru wy
 
 Jak widzisz, przy odpowiednio dużych wartościach `n` część "elementów równania" jest mniej istotna. W przypadku funkcji powyżej najszybciej rosnącym elementem jest `n^3`. Ma on największy wpływ na ostateczny wynik funkcji.
 
-Wiesz już z powyższych rozważań, że funkcja f(n) ma złożoność `Ο(n^3)`. Jest to tak zwana złożoność wykładnicza, specyficzny przypadek złożoności wielommianowej. Istnieje kilka popularnych rzędów złożoności obliczeniowej.
+Wiesz już z powyższych rozważań, że funkcja f(n) ma złożoność `Ο(n^3)`. Jest to tak zwana złożoność wykładnicza, specyficzny przypadek złożoności wielomianowej. Istnieje kilka popularnych rzędów złożoności obliczeniowej.
 
 ### `Ο(1)`
 
@@ -132,7 +132,7 @@ Złożoność stała, niezależna od liczby danych wejściowych. Mówimy, że pr
 
 > Na wejściu programu jest tablica liczb o długości N. Liczby są posortowane rosnąco. Pomiędzy dwoma sąsiadującymi liczbami różnica jest stała. Znajdź sumę liczb w tablicy.
 
-Problem to nic innego jak obliczenie sumy [ciągu arytmetycznego](https://pl.wikipedia.org/wiki/Ci%C4%85g_arytmetyczny). Istnieje na to wzór, króry można zaimplementować:
+Problem to nic innego jak obliczenie sumy [ciągu arytmetycznego](https://pl.wikipedia.org/wiki/Ci%C4%85g_arytmetyczny). Istnieje na to wzór, który można zaimplementować:
 
 ```java
 public int sum(int[] numbers) {
@@ -147,9 +147,9 @@ W tym przypadku nie potrzebujemy iterować po elementach tablicy. Niezależnie o
 
 ### `Ο(n)`
 
-Złożoność liniowa. Jest to specyficzny przypadek złożoności wielomianowej. Czas rozwiązania problemu jest wprostproporcjonalny do wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm `Ο(n)`:
+Złożoność liniowa. Jest to specyficzny przypadek złożoności wielomianowej. Czas rozwiązania problemu jest wprost proporcjonalny do wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm `Ο(n)`:
 
-> Na wejściu porogramu jest tablica liczb o długości N. Znajdź sumę wszystkich liczb w tablicy wejściowej.
+> Na wejściu programu jest tablica liczb o długości N. Znajdź sumę wszystkich liczb w tablicy wejściowej.
 
 ```java
 public int sum(int[] numbers) {
@@ -196,7 +196,7 @@ public boolean binarySearch(int[] numbers, int number) {
 
 ### `Ο(nlog(n))`
 
-Złożoność liniowo-logarytmiczna. Czas rozwiązania problemu jest wprostproporcjonalny do iloczynu wielkości danych wejściowych i ich logarytmu. Przykładem problemu dla którego istnieje algorytm o złożoności `Ο(nlog(n))` jest:
+Złożoność liniowo-logarytmiczna. Czas rozwiązania problemu jest wprost proporcjonalny do iloczynu wielkości danych wejściowych i ich logarytmu. Przykładem problemu dla którego istnieje algorytm o złożoności `Ο(nlog(n))` jest:
 
 > Na wejściu programu jest tablica liczb. Zwróć tablicę, która będzie zawierała te same elementy, które są w tablicy wejściowej. Tablica wynikowa powinna być posortowana w porządku rosnącym.
 
@@ -238,9 +238,9 @@ private static int[] merge(int[] first, int[] second) {
 }
 ```
 
-Algorytm dzieli tablicę na części do czasu aż każda z nich będzi e miała długość 1. Następnie scala je ze sobą. Każde takie scalenie to koszt `Ο(n)`. W związku z tym, że tablicę wejściową dzieliliśmy za każdym razem na pół takich scaleń mamy `log(n)`. Zatem wynikowa złożoność algorytmu to `Ο(nlog(n))`.
+Algorytm dzieli tablicę na części do czasu aż każda z nich będzie miała długość 1. Następnie scala je ze sobą. Każde takie scalenie to koszt `Ο(n)`. W związku z tym, że tablicę wejściową dzieliliśmy za każdym razem na pół takich scaleń mamy `log(n)`. Zatem wynikowa złożoność algorytmu to `Ο(nlog(n))`.
 
-Jak widzisz obliczanie złożoności obliczeniowej bardziej skomplikowanych algortmów nie jest takie łatwe.
+Jak widzisz obliczanie złożoności obliczeniowej bardziej skomplikowanych algorytmów nie jest takie łatwe.
 
 ### `Ο(n^2)`
 
@@ -265,7 +265,7 @@ Mamy tutaj dwie zagnieżdżone pętle. Każda z nich iteruje po `n` elementach. 
 
 ### `Ο(n^x)`
 
-Złożoność wielomanowa. Jak już wiesz złożoność liniowa i złożoność kwadratowa są specyficznymi przypadkami złożoności wielomianowej. Ze względu na częste występowanie wyszczególniłem je jako osobne rzędy złożoności. Przykłady problemów i rozwiązań znajdziesz w poprzednich punktach.
+Złożoność wielomianowa. Jak już wiesz złożoność liniowa i złożoność kwadratowa są specyficznymi przypadkami złożoności wielomianowej. Ze względu na częste występowanie wyszczególniłem je jako osobne rzędy złożoności. Przykłady problemów i rozwiązań znajdziesz w poprzednich punktach.
 
 ### `Ο(x^n)`
 
@@ -319,7 +319,7 @@ Jest to złożoność typu silnia.  Dla przypomnienia silnia `n`, albo inaczej `
 
 > Na wejściu programu jest `n` miast oraz odległości pomiędzy każdą parą miast. Zakładając, że komiwojażer zaczyna z miasta A i ma dojść do miasta B jaką trasę powinien pokonać aby była ona najkrótsza?
 
-Nie silę się nawet na naiwny algorytm dla tego problemu, nie jest on możliwy do uruchomienia na dzisiejszych komputerach dla problemów odpowienio dużych. Wyobraź sobie, skalę możliwych rozwiązań. `60! ~= 8,3 * 10^81`. Szacowana liczba atomów wodoru w widzialnym wszechświecie to około [`10^80`](https://en.wikipedia.org/wiki/Observable_universe#Matter_content_.E2.80.93_number_of_atoms). Przekładając to na problem wyżej. Możliwych dróg pomiędzy 60 miastami jest więcej niż atomów wodoru w widzialnym wszechświecie ;).
+Nie silę się nawet na naiwny algorytm dla tego problemu, nie jest on możliwy do uruchomienia na dzisiejszych komputerach dla problemów odpowiednio dużych. Wyobraź sobie, skalę możliwych rozwiązań. `60! ~= 8,3 * 10^81`. Szacowana liczba atomów wodoru w widzialnym wszechświecie to około [`10^80`](https://en.wikipedia.org/wiki/Observable_universe#Matter_content_.E2.80.93_number_of_atoms). Przekładając to na problem wyżej. Możliwych dróg pomiędzy 60 miastami jest więcej niż atomów wodoru w widzialnym wszechświecie ;).
 
 ## Najlepszy, średni i najgorszy przypadek
 
@@ -329,11 +329,11 @@ Jeśli algorytm jako dane wejściowe przyjmuje tablicę liczb to wielkością pr
 
 W zależności od wymagań w wyborze algorytmu bierze się pod uwagę złożoność odpowiedniego przypadku.
 
-## Dodatkowe matriały do nauki
+## Dodatkowe materiały do nauki
 
-Informacji na temate teorii obliczeń i złożoności obliczeniowej w internecie jest sporo. Jednak dość ciężko jest znaleźć jakiekolwiek informacje, które są na początkującym poziomie. Niemniej jednak poniżej starałem się zebrać materiały, które mogą być interesujące:
+Informacji na temat teorii obliczeń i złożoności obliczeniowej w internecie jest sporo. Jednak dość ciężko jest znaleźć jakiekolwiek informacje, które są na początkującym poziomie. Niemniej jednak poniżej starałem się zebrać materiały, które mogą być interesujące:
 
-- [Wydkład dotyczący złożoności obliczeniowej na Uniwersytecie Warszawskim](http://wazniak.mimuw.edu.pl/index.php?title=Z%C5%82o%C5%BCono%C5%9B%C4%87_obliczeniowa),
+- [Wykład dotyczący złożoności obliczeniowej na Uniwersytecie Warszawskim](http://wazniak.mimuw.edu.pl/index.php?title=Z%C5%82o%C5%BCono%C5%9B%C4%87_obliczeniowa),
 - [Kilka krótkich artykułów opisujących podstawy teorii obliczeń](http://cpp0x.pl/kursy/Teoria-w-Informatyce/424),
 - [Computational Complexity: A Modern Approach](http://theory.cs.princeton.edu/complexity/), szkic książki o złożoności obliczeniowej. Jej ostateczna wersja dostępna jest na [Amazonie](http://amzn.to/2zxrqqs)[^afiliacja],
 - [Artykuł na temat złożoności obliczeniowej z uniwersytetu Stanford](https://plato.stanford.edu/entries/computational-complexity/),
