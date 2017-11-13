@@ -33,18 +33,42 @@ Teoria obliczeń to dział informatyki. Jedną z gałęzi tego działu jest teor
 
 Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni. Mają różny procesor, inny moduł RAM. Część z nich używa bardziej wydajnych dysków, które pozwalają na szybszy dostęp do danych. Dla części z nich dane dostępne są na zdalnych maszynach, do których trzeba łączyć się przez sieć. Są też mega-komputery, maszyny o ogromnej mocy obliczeniowej, czy smartfony w kieszeniach.
 
-W związku z tą różnorodnością pojawia się pytanie. W jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Nie ma ono większego sensu z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.
+W związku z tą różnorodnością pojawia się potrzeba wspólnej miary. Miary, która jest niezależna od zmiennych czynników. Może ona pomóc zorientować się w wydajności danego algorytmu, przyporządkować go do zdefiniowanej klasy algorytmów. Tutaj w grę wkraczają modele, o których wspomniałem wcześniej. Modele te upraszczają zawiłości związane z różnorodnością sprzętu.
 
-Pojawia się zatem potrzeba wspólnej miary, niezależnej od zmiennych czynników. Miara ta ma pomóc zorientować się w wydajności danego algorytmu, przyporządkować go do zdefiniowanej klasy algorytmów. Tutaj w grę wkraczają modele, o których wspomniałem wcześniej. Modele te upraszczają zawiłości związane z różnorodnością sprzętu. Dzięki modelom możemy określać złożoność obliczeniową jako funkcję.
+Mamy zatem wspólną bazę - model. Dalej jednak pozostaje pytanie: w jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Na modelu nie możemy mierzyć czasu. Mierzenie czasu nie ma większego sensu na komputerze z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.
 
-## Złożoność obliczeniowa a funkcja
+Mierzymy więc zatem liczbę operacji wykonanych na modelu. Następnie próbujemy znaleźć funkcję, która będzie opisywała liczbę operacji w zależności od wejścia algorytmu. Funkcje te możemy porównywać ze sobą.
 
-Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Mam nadzieję, że będzie Ci to łatwiej zrozumieć na przykładzie. Załóżmy, że mamy tablicę liczb. Problemem do rozwiązania jest znalezienie sumy tych liczb. Jeśli tablicę wejściową określimy jako `t` wówczas funkcja `funkcja(t)` (czy `f(t)`) będzie pozwalała określić jaka jest złożoność obliczeniowa danego algorytmu.
+### Przykład wyznaczania złożoności obliczeniowej
 
-O ile dla naukowców znalezienie dokładnej funkcji może być bardzo istotne, to w praktyce wystarczą jej oszacowania. Takie oszacowania to notacja Ο (dużego O), notacja Ω (omega) i notacja Θ (theta).
+Załóżmy że chcemy policzyć sumę elementów tablicy. Może nam w tym pomóc następujący algorytm:
+
+```java
+public int sum(int[] numbers) {
+    int sum = 0;
+    for (int number : numbers) {
+        sum += number;
+    }
+    return sum;
+}
+```
+
+Ile mamy w nim operacji? `int sum = 0;`, przypisanie to jedna operacja. Następnie mamy pętlę `for`. Jej ciało zawiera jedną operację. Sama pętla wykona się dokładnie tyle razy ile jest elementów tablicy `numbers`. Liczbę tych elementów określmy jako `n`. Na końcu mamy instrukcję `return sum;`. Jest to ostatnia operacja.
+
+Dodając te operacje do siebie otrzymujemy wzór:
+
+$$f(n) = 1 + n + 1 = n + 2$$
+
+Zatem złożoność naszego algorytmu opisana jest przez funkcję `f(n) = n + 2`.
 
 Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja `f(x) = ax^2 + bx + c` opisuje [parabolę](https://pl.wikipedia.org/wiki/Parabola_(matematyka\)).
 {: .notice--info}
+
+## Złożoność obliczeniowa a funkcja
+
+Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Wyznacza się ją jak opisałem w poprzednim punkcie - licząc operacje.
+
+O ile dla naukowców znalezienie dokładnej funkcji może być bardzo istotne, to w praktyce wystarczą jej oszacowania. Takie oszacowania to notacja Ο (dużego O), notacja Ω (omega) i notacja Θ (theta).
 
 ### Oszacowania rzędu złożoności funkcji
 
