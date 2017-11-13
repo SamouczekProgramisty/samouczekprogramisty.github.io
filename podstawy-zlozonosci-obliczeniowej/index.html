@@ -252,7 +252,11 @@
                 </header>
                 <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#teoria-obliczeń">Teoria obliczeń</a></li>
-<li class="toc-entry toc-h2"><a href="#dlaczego-używamy-złożoności-obliczeniowej">Dlaczego używamy złożoności obliczeniowej</a></li>
+<li class="toc-entry toc-h2"><a href="#dlaczego-używamy-złożoności-obliczeniowej">Dlaczego używamy złożoności obliczeniowej</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#przykład-wyznaczania-złożoności-obliczeniowej">Przykład wyznaczania złożoności obliczeniowej</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#złożoność-obliczeniowa-a-funkcja">Złożoność obliczeniowa a funkcja</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#oszacowania-rzędu-złożoności-funkcji">Oszacowania rzędu złożoności funkcji</a></li>
@@ -301,17 +305,40 @@
 
 <p>Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni. Mają różny procesor, inny moduł RAM. Część z nich używa bardziej wydajnych dysków, które pozwalają na szybszy dostęp do danych. Dla części z nich dane dostępne są na zdalnych maszynach, do których trzeba łączyć się przez sieć. Są też mega-komputery, maszyny o ogromnej mocy obliczeniowej, czy smartfony w kieszeniach.</p>
 
-<p>W związku z tą różnorodnością pojawia się pytanie. W jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Nie ma ono większego sensu z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.</p>
+<p>W związku z tą różnorodnością pojawia się potrzeba wspólnej miary. Miary, która jest niezależna od zmiennych czynników. Może ona pomóc zorientować się w wydajności danego algorytmu, przyporządkować go do zdefiniowanej klasy algorytmów. Tutaj w grę wkraczają modele, o których wspomniałem wcześniej. Modele te upraszczają zawiłości związane z różnorodnością sprzętu.</p>
 
-<p>Pojawia się zatem potrzeba wspólnej miary, niezależnej od zmiennych czynników. Miara ta ma pomóc zorientować się w wydajności danego algorytmu, przyporządkować go do zdefiniowanej klasy algorytmów. Tutaj w grę wkraczają modele, o których wspomniałem wcześniej. Modele te upraszczają zawiłości związane z różnorodnością sprzętu. Dzięki modelom możemy określać złożoność obliczeniową jako funkcję.</p>
+<p>Mamy zatem wspólną bazę - model. Dalej jednak pozostaje pytanie: w jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Na modelu nie możemy mierzyć czasu. Mierzenie czasu nie ma większego sensu na komputerze z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.</p>
+
+<p>Mierzymy więc zatem liczbę operacji wykonanych na modelu. Następnie próbujemy znaleźć funkcję, która będzie opisywała liczbę operacji w zależności od wejścia algorytmu. Funkcje te możemy porównywać ze sobą.</p>
+
+<h3 id="przykład-wyznaczania-złożoności-obliczeniowej">Przykład wyznaczania złożoności obliczeniowej</h3>
+
+<p>Załóżmy że chcemy policzyć sumę elementów tablicy. Może nam w tym pomóc następujący algorytm:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">number</span> <span class="o">:</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Ile mamy w nim operacji? <code class="highlighter-rouge">int sum = 0;</code>, przypisanie to jedna operacja. Następnie mamy pętlę <code class="highlighter-rouge">for</code>. Jej ciało zawiera jedną operację. Sama pętla wykona się dokładnie tyle razy ile jest elementów tablicy <code class="highlighter-rouge">numbers</code>. Liczbę tych elementów określmy jako <code class="highlighter-rouge">n</code>. Na końcu mamy instrukcję <code class="highlighter-rouge">return sum;</code>. Jest to ostatnia operacja.</p>
+
+<p>Dodając te operacje do siebie otrzymujemy wzór:</p>
+
+<script type="math/tex; mode=display">f(n) = 1 + n + 1 = n + 2</script>
+
+<p>Zatem złożoność naszego algorytmu opisana jest przez funkcję <code class="highlighter-rouge">f(n) = n + 2</code>.</p>
+
+<p class="notice--info">Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja <code class="highlighter-rouge">f(x) = ax^2 + bx + c</code> opisuje <a href="https://pl.wikipedia.org/wiki/Parabola_(matematyka\)">parabolę</a>.</p>
 
 <h2 id="złożoność-obliczeniowa-a-funkcja">Złożoność obliczeniowa a funkcja</h2>
 
-<p>Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Mam nadzieję, że będzie Ci to łatwiej zrozumieć na przykładzie. Załóżmy, że mamy tablicę liczb. Problemem do rozwiązania jest znalezienie sumy tych liczb. Jeśli tablicę wejściową określimy jako <code class="highlighter-rouge">t</code> wówczas funkcja <code class="highlighter-rouge">funkcja(t)</code> (czy <code class="highlighter-rouge">f(t)</code>) będzie pozwalała określić jaka jest złożoność obliczeniowa danego algorytmu.</p>
+<p>Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Wyznacza się ją jak opisałem w poprzednim punkcie - licząc operacje.</p>
 
 <p>O ile dla naukowców znalezienie dokładnej funkcji może być bardzo istotne, to w praktyce wystarczą jej oszacowania. Takie oszacowania to notacja Ο (dużego O), notacja Ω (omega) i notacja Θ (theta).</p>
-
-<p class="notice--info">Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja <code class="highlighter-rouge">f(x) = ax^2 + bx + c</code> opisuje <a href="https://pl.wikipedia.org/wiki/Parabola_(matematyka\)">parabolę</a>.</p>
 
 <h3 id="oszacowania-rzędu-złożoności-funkcji">Oszacowania rzędu złożoności funkcji</h3>
 

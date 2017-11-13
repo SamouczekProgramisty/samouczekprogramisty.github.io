@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2017-11-13T00:41:37+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Podstawy złożoności obliczeniowej</title><link href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/" rel="alternate" type="text/html" title="Podstawy złożoności obliczeniowej" /><published>2017-11-13T00:00:00+01:00</published><updated>2017-11-13T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/">&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2017-11-13T23:20:14+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Podstawy złożoności obliczeniowej</title><link href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/" rel="alternate" type="text/html" title="Podstawy złożoności obliczeniowej" /><published>2017-11-13T00:00:00+01:00</published><updated>2017-11-13T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/">&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;
 &lt;/script&gt;
 
 &lt;div class=&quot;notice--warning&quot;&gt;
@@ -17,17 +17,40 @@
 
 &lt;p&gt;Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni. Mają różny procesor, inny moduł RAM. Część z nich używa bardziej wydajnych dysków, które pozwalają na szybszy dostęp do danych. Dla części z nich dane dostępne są na zdalnych maszynach, do których trzeba łączyć się przez sieć. Są też mega-komputery, maszyny o ogromnej mocy obliczeniowej, czy smartfony w kieszeniach.&lt;/p&gt;
 
-&lt;p&gt;W związku z tą różnorodnością pojawia się pytanie. W jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Nie ma ono większego sensu z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.&lt;/p&gt;
+&lt;p&gt;W związku z tą różnorodnością pojawia się potrzeba wspólnej miary. Miary, która jest niezależna od zmiennych czynników. Może ona pomóc zorientować się w wydajności danego algorytmu, przyporządkować go do zdefiniowanej klasy algorytmów. Tutaj w grę wkraczają modele, o których wspomniałem wcześniej. Modele te upraszczają zawiłości związane z różnorodnością sprzętu.&lt;/p&gt;
 
-&lt;p&gt;Pojawia się zatem potrzeba wspólnej miary, niezależnej od zmiennych czynników. Miara ta ma pomóc zorientować się w wydajności danego algorytmu, przyporządkować go do zdefiniowanej klasy algorytmów. Tutaj w grę wkraczają modele, o których wspomniałem wcześniej. Modele te upraszczają zawiłości związane z różnorodnością sprzętu. Dzięki modelom możemy określać złożoność obliczeniową jako funkcję.&lt;/p&gt;
+&lt;p&gt;Mamy zatem wspólną bazę - model. Dalej jednak pozostaje pytanie: w jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Na modelu nie możemy mierzyć czasu. Mierzenie czasu nie ma większego sensu na komputerze z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.&lt;/p&gt;
+
+&lt;p&gt;Mierzymy więc zatem liczbę operacji wykonanych na modelu. Następnie próbujemy znaleźć funkcję, która będzie opisywała liczbę operacji w zależności od wejścia algorytmu. Funkcje te możemy porównywać ze sobą.&lt;/p&gt;
+
+&lt;h3 id=&quot;przykład-wyznaczania-złożoności-obliczeniowej&quot;&gt;Przykład wyznaczania złożoności obliczeniowej&lt;/h3&gt;
+
+&lt;p&gt;Załóżmy że chcemy policzyć sumę elementów tablicy. Może nam w tym pomóc następujący algorytm:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Ile mamy w nim operacji? &lt;code class=&quot;highlighter-rouge&quot;&gt;int sum = 0;&lt;/code&gt;, przypisanie to jedna operacja. Następnie mamy pętlę &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt;. Jej ciało zawiera jedną operację. Sama pętla wykona się dokładnie tyle razy ile jest elementów tablicy &lt;code class=&quot;highlighter-rouge&quot;&gt;numbers&lt;/code&gt;. Liczbę tych elementów określmy jako &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;. Na końcu mamy instrukcję &lt;code class=&quot;highlighter-rouge&quot;&gt;return sum;&lt;/code&gt;. Jest to ostatnia operacja.&lt;/p&gt;
+
+&lt;p&gt;Dodając te operacje do siebie otrzymujemy wzór:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(n) = 1 + n + 1 = n + 2&lt;/script&gt;
+
+&lt;p&gt;Zatem złożoność naszego algorytmu opisana jest przez funkcję &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n) = n + 2&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja &lt;code class=&quot;highlighter-rouge&quot;&gt;f(x) = ax^2 + bx + c&lt;/code&gt; opisuje &lt;a href=&quot;https://pl.wikipedia.org/wiki/Parabola_(matematyka\)&quot;&gt;parabolę&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;złożoność-obliczeniowa-a-funkcja&quot;&gt;Złożoność obliczeniowa a funkcja&lt;/h2&gt;
 
-&lt;p&gt;Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Mam nadzieję, że będzie Ci to łatwiej zrozumieć na przykładzie. Załóżmy, że mamy tablicę liczb. Problemem do rozwiązania jest znalezienie sumy tych liczb. Jeśli tablicę wejściową określimy jako &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt; wówczas funkcja &lt;code class=&quot;highlighter-rouge&quot;&gt;funkcja(t)&lt;/code&gt; (czy &lt;code class=&quot;highlighter-rouge&quot;&gt;f(t)&lt;/code&gt;) będzie pozwalała określić jaka jest złożoność obliczeniowa danego algorytmu.&lt;/p&gt;
+&lt;p&gt;Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Wyznacza się ją jak opisałem w poprzednim punkcie - licząc operacje.&lt;/p&gt;
 
 &lt;p&gt;O ile dla naukowców znalezienie dokładnej funkcji może być bardzo istotne, to w praktyce wystarczą jej oszacowania. Takie oszacowania to notacja Ο (dużego O), notacja Ω (omega) i notacja Θ (theta).&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja &lt;code class=&quot;highlighter-rouge&quot;&gt;f(x) = ax^2 + bx + c&lt;/code&gt; opisuje &lt;a href=&quot;https://pl.wikipedia.org/wiki/Parabola_(matematyka\)&quot;&gt;parabolę&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;oszacowania-rzędu-złożoności-funkcji&quot;&gt;Oszacowania rzędu złożoności funkcji&lt;/h3&gt;
 
