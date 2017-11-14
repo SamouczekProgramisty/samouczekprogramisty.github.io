@@ -9,6 +9,7 @@ A najważniejsze w tym wszystkiem jest to, że nie muszę zaglądać do wordpres
 Zainstaluj rvm, bundlera i baw się :)
 
 ```
+apt install libgsl-dev  # dla --lsi
 rvm install ruby-2.2.1
 rvm use ruby-2.2.1
 rvm gemset create samouczekprogramisty
