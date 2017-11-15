@@ -1,4 +1,59 @@
 ---
-layout: home
-author_profile: true
+layout: start_page
+header:
+  overlay_image: /assets/images/splash.jpg
+excerpt: Twój mentor na drodze do programowania
+frwstep:
+  - title: 'Najnowsze artykuły'
+frarchiwum:
+  - title: 'Archiwum bloga'
+  - url: '/archiwum/'
+  - btn_class: btn-primary
+  - btn_label: 'Wszystkie archiwalne artykuły' 
 ---
+
+{% include feature_row id="frwstep" type="center" %}
+
+<div class="feature__wrapper">
+  {% for post in site.posts limit:3 %}
+    <div class="feature__item{% if include.type %}--{{ include.type }}{% endif %}">
+      <div class="archive__item">
+        {% if post.header.teaser %}
+          <div class="archive__item-teaser">
+              <a href="{{ post.url | absolute_url }}"><img src=
+              {% if post.header.teaser contains "://" %}
+                "{{ post.header.teaser }}"
+              {% else %}
+                "{{ post.header.teaser | absolute_url }}"
+              {% endif %}
+                 alt="{% if post.alt %}{{ post.alt }}{% endif %}"></a>
+          </div>
+        {% endif %}
+
+        <div class="archive__item-body">
+          {% if post.title %}
+            <a href="{{ post.url | absolute_url }}"><h2 class="archive__item-title">{{ post.title }}</h2></a>
+          {% endif %}
+
+          {% if post.excerpt %}
+            <div class="archive__item-excerpt">
+              {{ post.excerpt | markdownify }}
+            </div>
+          {% endif %}
+
+          {% if post.url %}
+            <p><a href="{{ post.url | absolute_url }}" class="btn {{ post.btn_class }}">Czytaj dalej</a></p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="page__hero--overlay" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ '/assets/images/archiwum.jpg' | absolute_url }}');">
+  <div class="wrapper">
+    <h2 class="page__title">Archiwum Samouczka Programisty</h2>
+    <p class="page__lead">Tutaj znajdziesz wszystkie archiwalne artykuły, które ukazały się na blogu.<p>
+    <p><a href="{{ '/archiwum/' | absolute_url }}" class="btn btn--light-outline btn--large"><i class="fa fa-archive"></i> Przejdz do archiwum</a></p>
+  </div>
+</div>
