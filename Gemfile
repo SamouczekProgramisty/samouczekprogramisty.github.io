@@ -8,4 +8,5 @@ gem 'classifier-reborn'  # --lsi for Jekyll
 gem 'rb-gsl'  # faseter --lsi
 
 gem 'jekyll-toc'
+gem 'jekyll-paginate-v2'
 
