@@ -261,7 +261,11 @@
 <li class="toc-entry toc-h2"><a href="#dziedziczenie-interfejsów">Dziedziczenie interfejsów</a></li>
 <li class="toc-entry toc-h2"><a href="#interfejs-znacznikowy">Interfejs znacznikowy</a></li>
 <li class="toc-entry toc-h2"><a href="#interfejs-a-typ-obiektu">Interfejs a typ obiektu</a></li>
-<li class="toc-entry toc-h2"><a href="#zastosowania-interfejsów">Zastosowania interfejsów</a></li>
+<li class="toc-entry toc-h2"><a href="#zastosowania-interfejsów">Zastosowania interfejsów</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#interfejs-czyli-widok-na-obiekt">Interfejs czyli widok na obiekt</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#zadanie">Zadanie</a></li>
 <li class="toc-entry toc-h2"><a href="#materiały-dodatkowe">Materiały dodatkowe</a></li>
 <li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
@@ -275,7 +279,7 @@
 
 <h2 id="interfejs">Interfejs</h2>
 
-<p>Wyobraź sobie kuchenkę mikrofalową. Kuchenka ma zestaw przycisków, parę pokręteł możliwe, że dodatkowy wyświetlacz. Ten zestaw to nic innego jak właśnie interfejs (ang. interface). Interfejs to  zestaw „mechanizmów” służących do interakcji, w tym przypadku z kuchenką mikrofalową.</p>
+<p>Wyobraź sobie kuchenkę mikrofalową. Kuchenka ma zestaw przycisków, parę pokręteł możliwe, że dodatkowy wyświetlacz. Ten zestaw to nic innego jak właśnie interfejs (ang. <em>interface</em>). Interfejs to zestaw „mechanizmów” służących do interakcji, w tym przypadku z kuchenką mikrofalową.</p>
 
 <p>Pojęcie interfejsu można także przenieść do świata programowania. Mówimy wówczas o tak zwanym API (ang. <em>Application Programming Interface</em>).</p>
 
@@ -308,13 +312,13 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MicrowaveOven</span> <span class="o">{</span>
     <span class="kt">void</span> <span class="nf">start</span><span class="o">();</span>
- 
+
     <span class="kt">void</span> <span class="nf">setDuration</span><span class="o">(</span><span class="kt">int</span> <span class="n">durationInSeconds</span><span class="o">);</span>
- 
+
     <span class="kt">boolean</span> <span class="nf">isFinished</span><span class="o">();</span>
- 
+
     <span class="kt">void</span> <span class="nf">setPower</span><span class="o">(</span><span class="kt">int</span> <span class="n">power</span><span class="o">);</span>
- 
+
     <span class="k">default</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="s">"MicrovaweOwen"</span><span class="o">;</span>
     <span class="o">}</span>
@@ -335,10 +339,10 @@
 
 <p>Wartości niezmienne w odróżnieniu od zmiennych poprzedzamy słowem kluczowym <code class="highlighter-rouge">final</code>. Poniżej możesz zobaczyć przykład klasy z atrybutem, którego wartości nie możemy przypisać na nowo. Atrybuty tego typu możemy inicjalizować jak w przykładzie poniżej: bezpośrednio bądź w ciele konstruktora.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="kd">implements</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">PI</span> <span class="o">=</span> <span class="mf">3.14</span><span class="o">;</span>
     <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">SQRT_2</span><span class="o">;</span>
- 
+
     <span class="kd">public</span> <span class="nf">Calculator</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">SQRT_2</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
     <span class="o">}</span>
@@ -363,7 +367,7 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Clock</span> <span class="o">{</span>
     <span class="kt">long</span> <span class="nf">secondsElapsedSince</span><span class="o">(</span><span class="n">Date</span> <span class="n">date</span><span class="o">);</span>
 <span class="o">}</span>
- 
+
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">BrokenClock</span> <span class="kd">implements</span> <span class="n">Clock</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kt">long</span> <span class="nf">secondsElapsedSince</span><span class="o">(</span><span class="n">Date</span> <span class="n">date</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="mi">300</span><span class="o">;</span>
@@ -371,24 +375,24 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Klasa <code class="highlighter-rouge">BrokenClock</code> implementuje interfejs <code class="highlighter-rouge">Clock</code>. Zwróć uwagę na słowo kluczowe <code class="highlighter-rouge">implements</code>. Używamy go żeby pokazać że klasa <code class="highlighter-rouge">BrockenClock</code> implementuje interfejs <code class="highlighter-rouge">Clock</code>.</p>
+<p>Klasa <code class="highlighter-rouge">BrokenClock</code> implementuje interfejs <code class="highlighter-rouge">Clock</code>. Zwróć uwagę na słowo kluczowe <code class="highlighter-rouge">implements</code>. Używamy go żeby pokazać że klasa <code class="highlighter-rouge">BrokenClock</code> implementuje interfejs <code class="highlighter-rouge">Clock</code>.</p>
 
 <p>W języku Java jedna klasa może implementować wiele interfejsów. W takim przypadku klasa implementująca musi definiować metody wszystkich interfejsów, które implementuje<sup id="fnref:abstrakcyjne"><a href="#fn:abstrakcyjne" class="footnote">3</a></sup>.</p>
 
 <h2 id="dziedziczenie-interfejsów">Dziedziczenie interfejsów</h2>
 
-<p>Dziedziczenie to temat na osobny, obszerny artykuł. Jednak już teraz wspomnę, że interfejsy mogą dziedziczyć po innych interfejsach. Dziedziczenie oznaczane jest słowem kluczowym <code class="highlighter-rouge">extends</code>. Interfejs, który dziedziczy po innych interfejsach zawiera wszystkie metody z tych interfejsów.</p>
+<p>Dziedziczenie to temat na osobny, obszerny <a href="/dziedziczenie-w-jezyku-java/">artykuł</a>. Jednak już teraz wspomnę, że interfejsy mogą dziedziczyć po innych interfejsach. Dziedziczenie oznaczane jest słowem kluczowym <code class="highlighter-rouge">extends</code>. Interfejs, który dziedziczy po innych interfejsach zawiera wszystkie metody z tych interfejsów.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Cat</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">NUMBER_OF_PAWS</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
- 
+
     <span class="n">String</span> <span class="nf">getName</span><span class="o">();</span>
 <span class="o">}</span>
- 
+
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">LasagnaEater</span> <span class="o">{</span>
     <span class="n">String</span> <span class="nf">getLasagnaRecipe</span><span class="o">();</span>
 <span class="o">}</span>
- 
+
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FatCat</span> <span class="kd">extends</span> <span class="n">Cat</span><span class="o">,</span> <span class="n">LasagnaEater</span> <span class="o">{</span>
     <span class="kt">double</span> <span class="nf">getWeight</span><span class="o">();</span>
 <span class="o">}</span>
@@ -403,7 +407,7 @@
 
 <h2 id="interfejs-znacznikowy">Interfejs znacznikowy</h2>
 
-<p>A czy możliwa jest sytuacja kiedy interfejs nie ma żadnej metody? Oczywiście, że tak. Mówimy wówczas o interfejsie znacznikowym. Jak sama nazwa wskazuje służy on do oznaczenia, danej klasy. Dzięki temu możesz przekazać zestaw dodatkowych informacji. Przykładem takiego interfejsu jest <code class="highlighter-rouge">java.io.Serializable</code>, którego używamy aby dać znać kompilatorowi, że dana klasa jest serializowalna (o serializacji przeczytasz w innym artykule).</p>
+<p>A czy możliwa jest sytuacja kiedy interfejs nie ma żadnej metody? Oczywiście, że tak. Mówimy wówczas o interfejsie znacznikowym. Jak sama nazwa wskazuje służy on do oznaczenia, danej klasy. Dzięki temu możesz przekazać zestaw dodatkowych informacji. Przykładem takiego interfejsu jest <code class="highlighter-rouge">java.io.Serializable</code>, którego używamy aby dać znać kompilatorowi, że dana klasa jest serializowalna (o <a href="/serializacja-w-jezyku-java/">serializacji</a> przeczytasz w innym artykule).</p>
 
 <h2 id="interfejs-a-typ-obiektu">Interfejs a typ obiektu</h2>
 
@@ -479,6 +483,76 @@
 
 <p>To właśnie jest kolejna zaleta interfejsów. Dzięki nim możemy pisać programy, które możemy w łatwiejszy sposób modyfikować. Interfejsy jasno oddzielają komponenty programu. Dzięki takiemu podejściu komponenty można z łatwością wymieniać.</p>
 
+<h3 id="interfejs-czyli-widok-na-obiekt">Interfejs czyli widok na obiekt</h3>
+
+<p>Postaram się pokazać Ci kolejny przykład. Ważne jest żebyś zrozumiał koncept interfejsów. Są one bardzo ważne i często używane w codziennym programowaniu. Wyobraź sobie piekarnik. Piekarnik to obiekt. W piekarniku możesz upiec chleb, zrobić dobrą pieczeń czy upiec ciasteczka. Każde z tych dań wymaga innych ustawień piekarnika.</p>
+
+<p>Inna temperatura, inny czas pieczenia, inny tryb. W programowaniu często chcemy ukryć takie szczegóły przez innymi klasami. Na zewnątrz w formie interfejsu wystawiamy jedynie dobrze zdefiniowane metody. Każda z tych metod może być umieszczona w osobnym interfejsie, który będzie implementowany przez obiekt piekarnika:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BakingOven</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">bakeCookies</span><span class="o">();</span>
+    <span class="kt">void</span> <span class="nf">bakeBread</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">RoastingOven</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">roastChicken</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Oven</span> <span class="kd">implements</span> <span class="n">BakingOven</span><span class="o">,</span> <span class="n">RoastingOven</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">time</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">temperature</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">bakeBread</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">temperature</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="mi">120</span><span class="o">;</span>
+        <span class="n">turnOn</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">bakeCookies</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">temperature</span> <span class="o">=</span> <span class="mi">180</span><span class="o">;</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="mi">90</span><span class="o">;</span>
+        <span class="n">turnOn</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">roastChicken</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">temperature</span> <span class="o">=</span> <span class="mi">130</span><span class="o">;</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="mi">240</span><span class="o">;</span>
+        <span class="n">turnOn</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">turnOn</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Start. Heat up to %s and work for %d minutes."</span><span class="o">,</span> <span class="n">temperature</span><span class="o">,</span> <span class="n">time</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Oven</span> <span class="n">oven</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Oven</span><span class="o">();</span>
+        <span class="n">BakingOven</span> <span class="n">bakingOven</span> <span class="o">=</span> <span class="n">oven</span><span class="o">;</span>
+        <span class="n">RoastingOven</span> <span class="n">roastingOven</span> <span class="o">=</span> <span class="n">oven</span><span class="o">;</span>
+
+        <span class="n">bakingOven</span><span class="o">.</span><span class="na">bakeBread</span><span class="o">();</span>
+        <span class="n">bakingOven</span><span class="o">.</span><span class="na">bakeCookies</span><span class="o">();</span>
+        <span class="n">roastingOven</span><span class="o">.</span><span class="na">roastChicken</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Po uruchomieniu tego fragmentu kodu na konsoli pokaże się:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Start. Heat up to 200 and work for 120 minutes
+Start. Heat up to 180 and work for 90 minutes.
+Start. Heat up to 130 and work for 240 minutes.
+</code></pre></div></div>
+
+<p class="notice--info">Użyłem tutaj mechanizmu formatowania łańcuchów znaków. Jeśli chcesz przeczytać o tym więcej zachęcam do przeczytania osobnego artykułu na temat <a href="/formatter-formatowanie-lancuchow-znakow/">formatowania łańcuchów znaków w języku Java</a>.</p>
+
+<p>Interfejsy opisują spójny zakres funkcjonalności udostępniony przez dany obiekt. Metody, które są w nim zawarte powinny być ze sobą powiązane. Możesz porównać interfejsy do “widoku” na obiekt/klasę. Widzą obiekt przez pryzmat interfejsu możesz widzieć tylko podzbiór jego możliwości.</p>
+
 <h2 id="zadanie">Zadanie</h2>
 
 <p>Napisz dwie klasy implementujące interfejs <code class="highlighter-rouge">Computation</code>. Niech jedna z implementacji przeprowadza operację dodawania, druga mnożenia.</p>
@@ -494,25 +568,25 @@
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Main</span> <span class="n">main</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Main</span><span class="o">();</span>
         <span class="n">Computation</span> <span class="n">computation</span><span class="o">;</span>
- 
+
         <span class="k">if</span> <span class="o">(</span><span class="n">main</span><span class="o">.</span><span class="na">shouldMultiply</span><span class="o">())</span> <span class="o">{</span>
             <span class="n">computation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Multiplication</span><span class="o">();</span> <span class="c1">// zaimplementuj brakującą klasę</span>
         <span class="o">}</span>
         <span class="k">else</span> <span class="o">{</span>
             <span class="n">computation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Addition</span><span class="o">();</span> <span class="c1">// zaimplementuj brakującą klasę</span>
         <span class="o">}</span>
- 
+
         <span class="kt">double</span> <span class="n">argument1</span> <span class="o">=</span> <span class="n">main</span><span class="o">.</span><span class="na">getArgument</span><span class="o">();</span>
         <span class="kt">double</span> <span class="n">argument2</span> <span class="o">=</span> <span class="n">main</span><span class="o">.</span><span class="na">getArgument</span><span class="o">();</span>
- 
+
         <span class="kt">double</span> <span class="n">result</span> <span class="o">=</span> <span class="n">computation</span><span class="o">.</span><span class="na">compute</span><span class="o">(</span><span class="n">argument1</span><span class="o">,</span> <span class="n">argument2</span><span class="o">);</span>
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wynik: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
     <span class="o">}</span>
- 
+
     <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">shouldMultiply</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span> <span class="c1">// tutaj zapytaj użytkownika co chce zrobić (mnożenie czy dodawanie)</span>
     <span class="o">}</span>
- 
+
     <span class="kd">private</span> <span class="kt">double</span> <span class="nf">getArgument</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">// tutaj pobierz liczbę od użytkownika</span>
     <span class="o">}</span>
@@ -536,16 +610,16 @@
 
 <p>Mam nadzieję, że artykuł był dla Ciebie ciekawy, jeśli cokolwiek nie było zrozumiałe bądź wymaga dokładniejszego wyjaśnienia daj znać, na pewno pomogę.</p>
 
-<p>Jak zwykle na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, zależy mi na dotarciu do jak największej liczby osób, które chcą nauczyć się programowania :) Zapraszam także na <a href="https://facebook.com/SamouczekProgramisty">SamouczekProgramisty</a> na facebooku. Możesz też zapisać się do mojego newslettera.</p>
+<p>Jak zwykle na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, zależy mi na dotarciu do jak największej liczby osób, które chcą nauczyć się programowania :) Zapraszam także na <a href="https://facebook.com/SamouczekProgramisty">SamouczekProgramisty</a> na Facebooku. Możesz też zapisać się do mojego newslettera.</p>
 
 <p>Do następnego razu!</p>
 <div class="footnotes">
   <ol>
     <li id="fn:domyslne">
-      <p>Wyjątkiem tutaj są tak zwane metody domyślne o których przeczytasz niżej. <a href="#fnref:domyslne" class="reversefootnote">&#8617;</a></p>
+      <p>Wyjątkiem tutaj są tak zwane metody domyślne, o których przeczytasz niżej. <a href="#fnref:domyslne" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:data">
-      <p><code class="highlighter-rouge">java.util.Date</code> jest jednym z typów z bilblioteki standardowej służącym do przedstawiania czasu. <a href="#fnref:data" class="reversefootnote">&#8617;</a></p>
+      <p><code class="highlighter-rouge">java.util.Date</code> jest jednym z typów z biblioteki standardowej służącym do przedstawiania daty/czasu. <a href="#fnref:data" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:abstrakcyjne">
       <p>Oczywiście jest od tego wyjątek, o klasach abstrakcyjnych przeczytasz w innym artykule. <a href="#fnref:abstrakcyjne" class="reversefootnote">&#8617;</a></p>
@@ -574,7 +648,7 @@
     
       
       
-      <a href="http://www.samouczekprogramisty.pl/categories/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#kurs-programowania-java" class="page__taxonomy-item" rel="tag">Kurs programowania Java</a>
     
     </span>
   </p>
@@ -637,40 +711,6 @@
       <div class="archive__item-teaser">
         <img src=
           
-            "http://www.samouczekprogramisty.pl/assets/images/2016/03/23_java_typy_generyczne_artykul.jpg"
-          
-          alt="">
-      </div>
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="http://www.samouczekprogramisty.pl/typy-generyczne-w-jezyku-java/" rel="permalink">Typy generyczne w języku Java
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  9 minut(y)
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Dzień dobry! Nadszedł czas na poznanie typów generycznych. Dowiesz się o “szablonach” w języku Java, które pozwalają na tworzenie bardziej uniwersalnych typó...</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-      <div class="archive__item-teaser">
-        <img src=
-          
             "http://www.samouczekprogramisty.pl/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
           
           alt="">
@@ -705,14 +745,14 @@
       <div class="archive__item-teaser">
         <img src=
           
-            "http://www.samouczekprogramisty.pl/assets/images/2016/09/02_serializacja_artykul.jpg"
+            "http://www.samouczekprogramisty.pl/assets/images/2016/03/23_java_typy_generyczne_artykul.jpg"
           
           alt="">
       </div>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://www.samouczekprogramisty.pl/serializacja-w-jezyku-java/" rel="permalink">Serializacja w języku Java
+        <a href="http://www.samouczekprogramisty.pl/typy-generyczne-w-jezyku-java/" rel="permalink">Typy generyczne w języku Java
 </a>
       
     </h2>
@@ -722,10 +762,10 @@
 
 
 
-  10 minut(y)
+  9 minut(y)
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak ObjectInputStream czy ObjectOutputStream i dowiesz się c...</p>
+    <p class="archive__item-excerpt" itemprop="description">Dzień dobry! Nadszedł czas na poznanie typów generycznych. Dowiesz się o “szablonach” w języku Java, które pozwalają na tworzenie bardziej uniwersalnych typó...</p>
   </article>
 </div>
         
@@ -760,6 +800,40 @@
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory public, protected i private. Poznasz ...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/09/02_serializacja_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/serializacja-w-jezyku-java/" rel="permalink">Serializacja w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym dowiesz się czym jest serializacja obiektów w Javie. Przeczytasz o klasach takich jak ObjectInputStream czy ObjectOutputStream i dowiesz się c...</p>
   </article>
 </div>
         
