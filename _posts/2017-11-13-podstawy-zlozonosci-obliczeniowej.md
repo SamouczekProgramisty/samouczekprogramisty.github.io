@@ -61,7 +61,7 @@ $$f(n) = 1 + n + 1 = n + 2$$
 
 Zatem złożoność naszego algorytmu opisana jest przez funkcję `f(n) = n + 2`.
 
-Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja `f(x) = ax^2 + bx + c` opisuje [parabolę](https://pl.wikipedia.org/wiki/Parabola_(matematyka\)).
+Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja `f(x) = ax^2 + bx + c` opisuje [parabolę](https://pl.wikipedia.org/wiki/Parabola_(matematyka)).
 {: .notice--info}
 
 ## Złożoność obliczeniowa a funkcja
