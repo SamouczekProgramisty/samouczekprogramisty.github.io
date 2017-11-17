@@ -91,7 +91,7 @@ W pracy programisty umiejętność czytania tego typu komunikatów jest bardzo i
 
 Proszę zwróć uwagę na stos wywołań metod, który wspomniałem wyżej i porównaj go ze stacktrace'em. Widzisz pewną zależność? Dokładnie – stacktrace to nic innego jak odwrócony stos wywołań metod od rozpoczęcia programu do miejsca w którym został rzucony wyjątek.
 
-Pierwsza linijka mówi o tym jaki wyjątek został rzucony, kolejne linijki to metody, które były wywoływane. Każda linia składa się z nazwy klasy wraz z pakietem, w nawiasach znajduje się nazwa pliku oddzielona dwukropkiem od numeru linii w tym pliku. W naszym przypadku wyjątek `RuntimeException` został rzucony po wywołaniu metody&nbsp;`pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method3`, która znajduje się w 18 linijce pliku&nbsp;`StackTraceExample.java`.
+Pierwsza linijka mówi o tym jaki wyjątek został rzucony, kolejne linijki to metody, które były wywoływane. Każda linia składa się z nazwy klasy wraz z pakietem, w nawiasach znajduje się nazwa pliku oddzielona dwukropkiem od numeru linii w tym pliku. W naszym przypadku wyjątek `RuntimeException` został rzucony po wywołaniu metody `pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method3`, która znajduje się w 18 linijce pliku&nbsp;`StackTraceExample.java`.
 
 Ostatnie linijki także pokazują na kod programu, jednak ten nie jest już napisany prze mnie. Program powyżej uruchamiałem z IDE i to właśnie przez InteliJ stacktrace zawiera te 5 dodatkowych linijek.
 
@@ -151,7 +151,7 @@ catch (ArithmeticException | IllegalArgumentException exception) {
 
 ## Rodzaje wyjątków _checked_ oraz _unchecked_
 
-Każdy wyjątek w języku Java dziedziczy po klasie `Throwable`. Wyróżniamy dwa rodzaje wyjątków, tak zwane _"checked exceptions"_ oraz _"unchecked exceptions"_.&nbsp; Różnica między nimi sprowadza się do tego, że te pierwsze muszą być obsłużone przez programistę, wymaga tego kompilator. Przykładowym wyjątkiem typu unchecked jest `IllegalArgumentException`, natomiast `IOException` jest wyjątkiem typu checked.
+Każdy wyjątek w języku Java dziedziczy po klasie `Throwable`. Wyróżniamy dwa rodzaje wyjątków, tak zwane _"checked exceptions"_ oraz _"unchecked exceptions"_. Różnica między nimi sprowadza się do tego, że te pierwsze muszą być obsłużone przez programistę, wymaga tego kompilator. Przykładowym wyjątkiem typu unchecked jest `IllegalArgumentException`, natomiast `IOException` jest wyjątkiem typu checked.
 
 {% include figure image_path="/assets/images/2016/01/31_wyjatki.gif" caption="Hierarchia dziedziczenia wyjątków" %}
 
@@ -211,7 +211,7 @@ Poniżej zebrałem dla Ciebie zestaw kilku dobrych praktyk przy pracy z wyjątka
 
 ## Zadanie
 
-Napisz program, który pobierze od użytkownika liczbę i wyświetli jej pierwiastek. Do obliczenia pierwiastka możesz użyć istniejącej metody `java.lang.Math.sqrt()`. Jeśli użytkownik poda liczbę ujemną rzuć wyjątek `java.lang.IllegalArgumentException`.&nbsp; Obsłuż sytuację, w której użytkownik poda ciąg znaków, który nie jest liczbą.
+Napisz program, który pobierze od użytkownika liczbę i wyświetli jej pierwiastek. Do obliczenia pierwiastka możesz użyć istniejącej metody `java.lang.Math.sqrt()`. Jeśli użytkownik poda liczbę ujemną rzuć wyjątek `java.lang.IllegalArgumentException`. Obsłuż sytuację, w której użytkownik poda ciąg znaków, który nie jest liczbą.
 
 Zachęcam do samodzielnego rozwiązania zadania, jeśli rozwiązujesz zadanie samodzielnie uczysz się najwięcej. Jeśli jednak chciałbyś zobaczyć przykładowe rozwiązanie, to umieściłem je na [githubie](https://github.com/SamouczekProgramisty/KursJava/blob/master/09_wyjatki/src/main/java/pl/samouczekprogramisty/kursjava/exception/exercise/Exercise.java).
 

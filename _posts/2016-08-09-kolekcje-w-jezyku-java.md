@@ -36,7 +36,7 @@ Lista (ang. _list_) podobnie jak tablica, grupuje elementy. Jej główną przewa
 
 [^oom]: Oczywiście w granicach rozsądku, w skrajnych przypadkach utworzenie listy ze zbyt dużą liczbą elementów może prowadzić do wystąpienia błędu `OutOfMemoryError`.
 
-Bez wdawania się w zbędne szczegóły, proszę zapamiętaj, że `LinkedList` lepiej jest używać jeśli często usuwasz elementy z listy a `ArrayList` lepiej jest używać jeśli często chcesz mieć dostęp do losowych elementów w liście. Obiecuje, że dokładne wytłumaczenie&nbsp; dlaczego tak się dzieje znajdziesz w jednym z kolejnych artykułów.
+Bez wdawania się w zbędne szczegóły, proszę zapamiętaj, że `LinkedList` lepiej jest używać jeśli często usuwasz elementy z listy a `ArrayList` lepiej jest używać jeśli często chcesz mieć dostęp do losowych elementów w liście. Obiecuje, że dokładne wytłumaczenie dlaczego tak się dzieje znajdziesz w jednym z kolejnych artykułów.
 
 ### Przydatne metody w `java.util.List`
 
@@ -275,7 +275,7 @@ Jeśli będziesz miał problemy z rozwiązaniem któregokolwiek z zadań na gith
 
 ## Dodatkowe materiały do nauki
 
-Materiałów na temat kolekcji w internecie jest całkiem sporo, poniżej przygotowałem dla Ciebie zestaw linków do innych blogów/kursów gdzie autorzy także opisują kolekcje. Jeśli będzie brakowało Ci materiałów, bądź będziesz chciał poznać temat z innej strony zachęcam do zapoznania się z nimi. Na początek kod źródłowy przykładów i rozwiązań zadań oraz&nbsp; dokumentacja biblioteki standardowej.
+Materiałów na temat kolekcji w internecie jest całkiem sporo, poniżej przygotowałem dla Ciebie zestaw linków do innych blogów/kursów gdzie autorzy także opisują kolekcje. Jeśli będzie brakowało Ci materiałów, bądź będziesz chciał poznać temat z innej strony zachęcam do zapoznania się z nimi. Na początek kod źródłowy przykładów i rozwiązań zadań oraz dokumentacja biblioteki standardowej.
 - [https://docs.oracle.com/javase/8/docs/api/java/util/Map.html](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html)
 - [https://docs.oracle.com/javase/8/docs/api/java/util/Set.html](https://docs.oracle.com/javase/8/docs/api/java/util/Set.html)
 - [https://docs.oracle.com/javase/8/docs/api/java/util/List.html](https://docs.oracle.com/javase/8/docs/api/java/util/List.html)

@@ -18,7 +18,7 @@ Oczywista odpowiedź jest prosta – żeby nie było błędów :). Błędy powod
 
 Wszystkie powody testowania komercyjnego oprogramowania sprowadzają się do pieniędzy. Im wcześniej wykryjemy błąd, tym niższy jest koszt jego naprawienia. Pisanie testów jednostkowych pozwala wykryć błędy w najwcześniejszej możliwej fazie, w trakcie pisania kodu programu. Dlatego każdy porządny programista powinien testować kod, który napisze. Oddając kod do użytku powinien być pewny, że działa jak powinien.
 
-Pojawia się tu jednak pewien problem.&nbsp; Manualne testowanie to żmudna, czasochłonna i mozolna praca. Bardzo tu łatwo o drobne przeoczenie kończące się błędem w programie. Do tego w projektach IT wymagania zmieniają się bardzo często więc takie testy także muszą być bardzo często przeprowadzane.
+Pojawia się tu jednak pewien problem. Manualne testowanie to żmudna, czasochłonna i mozolna praca. Bardzo tu łatwo o drobne przeoczenie kończące się błędem w programie. Do tego w projektach IT wymagania zmieniają się bardzo często więc takie testy także muszą być bardzo często przeprowadzane.
 
 W związku z tym programiści testują swój kod pisząc testy jednostkowe.
 
@@ -266,7 +266,7 @@ Dzięki takim testom będziesz pewien, jak zachowuje się Twoja metoda w sytuacj
 
 ## Testy jednostkowe w IntejiJ Idea
 
-Zacznijmy od utworzenia testu jednostkowego dla istniejącej klasy. Z pomocą przychodzi skrót klawiaturowy `<Ctrl + Shift + T>` – naciśnij tę kombinację na nazwie klasy dla której chcesz utworzyć test. Pokaże się wówczas dialog&nbsp;pomagający utworzyć nową klasę testu.
+Zacznijmy od utworzenia testu jednostkowego dla istniejącej klasy. Z pomocą przychodzi skrót klawiaturowy `<Ctrl + Shift + T>` – naciśnij tę kombinację na nazwie klasy dla której chcesz utworzyć test. Pokaże się wówczas dialog pomagający utworzyć nową klasę testu.
 
 {% include figure image_path="/assets/images/2016/10/29_nowy_test_dialog.png" caption="Tworzenie nowego testu." %}
 

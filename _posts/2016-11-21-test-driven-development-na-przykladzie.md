@@ -28,7 +28,7 @@ TDD to podejście, które składa się z trzech faz. Te trzy fazy łączą się 
 
 ### Faza Red
 
-Pierwszym krokiem jest napisanie testu. Test ten nie może się powieść, ponieważ sama funkcjonalność jeszcze nie jest zaimplementowana.&nbsp; Możliwe, że nawet po napisaniu takiego testu kod nie będzie się kompilował. Może się tak stać w przypadku, gdy napisałeś test dla metody, która jeszcze nie istnieje.
+Pierwszym krokiem jest napisanie testu. Test ten nie może się powieść, ponieważ sama funkcjonalność jeszcze nie jest zaimplementowana. Możliwe, że nawet po napisaniu takiego testu kod nie będzie się kompilował. Może się tak stać w przypadku, gdy napisałeś test dla metody, która jeszcze nie istnieje.
 
 Sytuacja, w której testy jednostkowe nie przechodzą bardzo często w IDE oznaczana jest kolorem czerwonym.
 
@@ -44,7 +44,7 @@ Refaktoryzacja (ang. _refactor_) to proces, w którym zmieniamy kod w taki spos�
 
 Jest to ostatnia z trzech faz cyklu TDD. Faza refaktoryzacji jest bardzo istotna. Nawet doświadczeni programiści bardzo często pomijają tę fazę. Jej brak może w dłuższej perspektywie prowadzić do kodu programu, który jest trudny w utrzymaniu. Praca z takim kodem może być wówczas dużo cięższa, proste zmiany mogą zajmować bardzo dużo czasu.
 
-Dzięki testom, które napisałeś w fazie Red czy wcześniejszych cyklach TDD, możesz czuć się swobodnie zmieniając istniejący kod. Z większą pewnością możesz zmieniać kod, po każdej zmianie uruchamiając istniejące testy jednostkowe. Takie podejście pozwala&nbsp; Ci bardzo szybko wychwycić potencjalne błędy, które mógłbyś wprowadzić refaktoryzacją.
+Dzięki testom, które napisałeś w fazie Red czy wcześniejszych cyklach TDD, możesz czuć się swobodnie zmieniając istniejący kod. Z większą pewnością możesz zmieniać kod, po każdej zmianie uruchamiając istniejące testy jednostkowe. Takie podejście pozwala Ci bardzo szybko wychwycić potencjalne błędy, które mógłbyś wprowadzić refaktoryzacją.
 
 Może się zdarzyć, że faza refaktoryzacji nie zawsze jest konieczna. Usprawnianie dobrego kodu na siłę nie koniecznie może prowadzić do dobrych rezultatów.
 

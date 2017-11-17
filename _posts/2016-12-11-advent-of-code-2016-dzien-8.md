@@ -21,7 +21,7 @@ toc: false
 
 Dzięki Twoje pomocy [poprzednio]({% post_url 2016-12-09-advent-of-code-2016-dzien-7 %}) udało się znaleźć wszystkie adresy w Kwaterze Głównej Króliczka Wielkanocnego wspierające TLS. Dzisiaj czeka na Ciebie inne zadanie.
 
-Trafiłeś na drzwi. Wydaje się, że drzwi implementują coś w rodzaju uwierzytelniania dwuskładnikowego. Aby przez nie&nbsp;przejść na początku musisz użyć karty magnetycznej (z tym nie ma problemu, jedną znalazłeś na pobliskim biurku). Następnie, na malutkim ekranie pokazywany jest kod, który musisz wklepać na klawiaturze przy drzwiach. Później można tylko zakładać, że drzwi się otworzą.
+Trafiłeś na drzwi. Wydaje się, że drzwi implementują coś w rodzaju uwierzytelniania dwuskładnikowego. Aby przez nie przejść na początku musisz użyć karty magnetycznej (z tym nie ma problemu, jedną znalazłeś na pobliskim biurku). Następnie, na malutkim ekranie pokazywany jest kod, który musisz wklepać na klawiaturze przy drzwiach. Później można tylko zakładać, że drzwi się otworzą.
 
 Niestety, wyświetlacz, na którym pokazywany jest kod jest rozbity. Po kilku minutach i rozłożeniu wszystkiego na części dowiedziałeś się dokładnie jak on działa. Teraz nie zostało już nic innego jak tylko dojść do tego co pokazałby wyświetlacz.
 

@@ -74,7 +74,7 @@ Taka struktura tłumaczona jest przez kompilator na sekwencję zagnieżdżonych 
 
 Całość działa, ponieważ klasy takie jak `BufferedFileWriter` czy `BufferedFileReader` implementują interfejs [`java.lang.AutoCloseable`](https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html). Właściwie to wszystkie znane mi klasy do obsługi strumieni wejściowych/wyjściowych w standardowej bibliotece Javy implementują ten interfejs. To jest właśnie główne wymaganie, które musi być spełnione przez zmienne definiowane wewnątrz `()` gdy używamy konstrukcji try-with-resources.
 
-Nasunąć się zatem może pytanie, czy&nbsp; możemy stworzyć własną klasę, która będzie działała z tą konstrukcją? Oczywiście! :) Poniżej przykład:
+Nasunąć się zatem może pytanie, czy możemy stworzyć własną klasę, która będzie działała z tą konstrukcją? Oczywiście! :) Poniżej przykład:
 
 ```java
 public class MyContextManager implements AutoCloseable {
@@ -110,7 +110,7 @@ Widzisz? Metody `close` nie wywoływałem nigdzie a mimo to została automatyczn
 
 ## Zadanie
 
-Teraz nadszedł czas na zadanie dla Ciebie. Strony w internecie tworzone są przy pomocy `HTML`, jest to język znaczników, który jest&nbsp; interpretowany przez przeglądarki internetowe wyświetlające strony www. Przykładem znaczników jest para `<em>tekst</em>`, jak widzisz jest tu znacznik otwierający `<em>` oraz zamykający `</em>` (akurat ta para odpowiedzialna jest za wyróżnianie tekstu). Wewnątrz znaczników znajduje się treść np. `tekst`. Istnieje wiele innych par znaczników np. `<h1></h1>`, `<p></p>`, `<ul></ul>` itd.,
+Teraz nadszedł czas na zadanie dla Ciebie. Strony w internecie tworzone są przy pomocy `HTML`, jest to język znaczników, który jest interpretowany przez przeglądarki internetowe wyświetlające strony www. Przykładem znaczników jest para `<em>tekst</em>`, jak widzisz jest tu znacznik otwierający `<em>` oraz zamykający `</em>` (akurat ta para odpowiedzialna jest za wyróżnianie tekstu). Wewnątrz znaczników znajduje się treść np. `tekst`. Istnieje wiele innych par znaczników np. `<h1></h1>`, `<p></p>`, `<ul></ul>` itd.,
 
 Zaimplementuj klasę `HtmlTag`, która będzie menadżerem kontekstu. W konstruktorze powinna przyjmować nazwę znacznika np. `em`. Klasa powinna mieć metodę `body`, która przyjmie parametr typu `String` i wypisze go na konsoli. Uruchamiając kod
 

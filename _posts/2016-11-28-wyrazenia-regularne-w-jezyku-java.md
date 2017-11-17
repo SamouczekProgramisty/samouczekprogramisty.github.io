@@ -92,7 +92,7 @@ W naszym przykładzie kompilator interpretując literał znakowy `"1 \\+ 2 = 3"`
 
 Pójdźmy o krok dalej. Ten przykład jest już zakręcony więc trzymaj się mocno ;). Co jeśli chcemy sprawdzić numer mieszkania. Załóżmy, że numer mieszkania to kilka cyfr oddzielonych ukośnikiem od kolejnej grupy cyfr. Przykładowy numer pasujący do tego opisu może wyglądać tak 123\5.
 
-Jak już wiesz `+` dla silnika wyrażeń regularnych jest jednym z symboli specjalnych więc jego użycie trzeba poprzedzać `\`. W związku&nbsp; z tym sam symbol `\` także jest traktowany w specjalny sposób więc i tu jego dosłowne użycie musi być poprzedzone `\`. Więc w tym przypadku nasze wyrażenie regularne wygląda następująco `123\\5`.
+Jak już wiesz `+` dla silnika wyrażeń regularnych jest jednym z symboli specjalnych więc jego użycie trzeba poprzedzać `\`. W związku z tym sam symbol `\` także jest traktowany w specjalny sposób więc i tu jego dosłowne użycie musi być poprzedzone `\`. Więc w tym przypadku nasze wyrażenie regularne wygląda następująco `123\\5`.
 
 A jak takie wyrażenie zapisać jako literał znakowy? Tak, trzeba zdublować każdy ukośnik, więc wychodzi nam taki potworek `"123\\\\5"`.
 
@@ -104,7 +104,7 @@ W wyrażeniach regularnych istnieje kilka mechanizmów, które pozwalają nam na
 
 #### Znak `?`
 
-Znak `?` oznacza – element znajdujący się wcześniej jest opcjonalny. Innymi słowy to co występuje przed `?` może wystąpić raz lub może zostać pominięte. Na przykład do wyrażenia regularnego `kr?at` pasują&nbsp; zarówno `"krat"` jak i `"kat"` ale nie pasuje `"kot"` czy `"krrat"`.
+Znak `?` oznacza – element znajdujący się wcześniej jest opcjonalny. Innymi słowy to co występuje przed `?` może wystąpić raz lub może zostać pominięte. Na przykład do wyrażenia regularnego `kr?at` pasują zarówno `"krat"` jak i `"kat"` ale nie pasuje `"kot"` czy `"krrat"`.
 
 ```java
 @Test
@@ -209,7 +209,7 @@ Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku a
 
 ### Klasy
 
-W wyrażeniach regularnych też istnieją klasy, jednak nie są to klasy jak w języku Java :). W kontekście wyrażeń regularnych klasy oznaczają grupy symboli, klasy oznaczamy przy pomocy nawiasów `[` i `]`. Na przykład wyrażenie regularne `[rtmp]aca` opisuje łańcuchy znaków `"raca"`, `"taca"`,&nbsp;`"maca"` czy `"paca"` ale już nie `"praca"` czy `"pacanów"`.
+W wyrażeniach regularnych też istnieją klasy, jednak nie są to klasy jak w języku Java :). W kontekście wyrażeń regularnych klasy oznaczają grupy symboli, klasy oznaczamy przy pomocy nawiasów `[` i `]`. Na przykład wyrażenie regularne `[rtmp]aca` opisuje łańcuchy znaków `"raca"`, `"taca"`, `"maca"` czy `"paca"` ale już nie `"praca"` czy `"pacanów"`.
 
 ```java
 @Test
@@ -226,7 +226,7 @@ public void testSimpleClasses() {
 
 #### Zakresy znaków
 
-Aby ułatwić zapisywanie grup znaków klasy pozwalają na definiowanie zakresów. Można to zrobić przy pomocy `-`. Na przykład do wyrażenia regularnego `[a-d]uma` pasują łańcuchy znaków `"auma"`, `"buma"`, `"cuma"` czy `"duma"` ale nie pasuje `"fuma"` czy `"abuma"`. W podobnym sposób możemy podawać zakresy cyfr. Do wyrażenia regularnego `[0-7]xyz`&nbsp; pasują łańcucy znaków `"0xyz"`, `"1xyz"` czy `"7xyz"` ale nie pasuje `"8xyz"` czy `"07xyz"`.
+Aby ułatwić zapisywanie grup znaków klasy pozwalają na definiowanie zakresów. Można to zrobić przy pomocy `-`. Na przykład do wyrażenia regularnego `[a-d]uma` pasują łańcuchy znaków `"auma"`, `"buma"`, `"cuma"` czy `"duma"` ale nie pasuje `"fuma"` czy `"abuma"`. W podobnym sposób możemy podawać zakresy cyfr. Do wyrażenia regularnego `[0-7]xyz` pasują łańcucy znaków `"0xyz"`, `"1xyz"` czy `"7xyz"` ale nie pasuje `"8xyz"` czy `"07xyz"`.
 
 ```java
 @Test

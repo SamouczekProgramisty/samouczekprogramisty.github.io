@@ -44,7 +44,7 @@ Dla przykłady, załóżmy, że komponenty w odizolowanej strefie rozłożone s�
 - trzecie piętro zawiera generator lithium,
 - czwarte piętro jest puste.
 
-Początkowy układ możemy zapisać jako (F# oznacza numer piętra, E windę (ang. _elevator_), H&nbsp; hydrogen, L lithium, M mikrochip i G generator)
+Początkowy układ możemy zapisać jako (F# oznacza numer piętra, E windę (ang. _elevator_), H hydrogen, L lithium, M mikrochip i G generator)
 
 ```
 F4 .  .  .  .  .

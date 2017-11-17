@@ -73,9 +73,9 @@ Mimo tego, że parametry przesyłane są w inny sposób możesz z nimi pracować
 
 Obiekt opakowujący żądanie pozwala także na pracę z adresem URL, którego żądanie dotyczy. Zestaw metod pozwala na pobranie informacji na temat adresu żądania:
 - [`getContextPath()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getContextPath--) zwraca fragment ścieżki, która jest “podstawą” wszystkich ścieżek obsługiwanych przez daną aplikację. W przypadku prostego instalowania aplikacji przy pomocy gradle będzie to nazwa pliku war,
-- [`getServletPath()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getServletPath--)&nbsp; zwraca fragment ścieżki, która została użyta w konfiguracji serwletu,
-- [`getRequestURL()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURL--)&nbsp; metoda zwraca adres URL żądania bez parametrów zawartych w adresie,
-- [`getRequstURI()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURI--)&nbsp; zwraca adres URI (ang. _Uniform Resource Identifier_). Od aresu URL różni się on tym, że nie zawiera protokołu, serwera i portu.
+- [`getServletPath()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getServletPath--) zwraca fragment ścieżki, która została użyta w konfiguracji serwletu,
+- [`getRequestURL()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURL--) metoda zwraca adres URL żądania bez parametrów zawartych w adresie,
+- [`getRequstURI()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURI--) zwraca adres URI (ang. _Uniform Resource Identifier_). Od aresu URL różni się on tym, że nie zawiera protokołu, serwera i portu.
 
 Zakładając, że nasz sewlet obsługuje ścieżkę /path wówczas wywołanie powyższych metod po żądaniu
 
@@ -92,7 +92,7 @@ Przykładowy serwlet, który używa tych metod możesz znaleźć na [samouczkowy
 
 Obiekt, implementujący ten interfejs także tworzony jest przez kontener serwletów. Służy on do przygotowania odpowiedzi na żądanie wysłane do serwera. W przypadku obiektu odpowiedzi musisz wiedzieć o następujących metodach
 - [`getOutputStream()`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html#getOutputStream--) zwraca instancję [`ServletOutputStream`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletOutputStream.html), która służy do tworzenia odpowiedzi zawierającej dane binarne,
-- [`getWriter()`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html#getWriter--)&nbsp;zwraca instancję `PrintWriter`, która służy do tworzenia odpowiedzi zawierającej tekst.
+- [`getWriter()`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html#getWriter--) zwraca instancję `PrintWriter`, która służy do tworzenia odpowiedzi zawierającej tekst.
 
 
 Ważne jest aby pamiętać, że w trakcie obsługi żądania możemy posługiwać się wyłącznie jedną z tych metod.

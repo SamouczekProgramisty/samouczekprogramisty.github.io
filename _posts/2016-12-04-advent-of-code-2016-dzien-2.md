@@ -47,7 +47,7 @@ Zakładając, że instrukcje są następujące:
 - Idąc dalej z 9 idziesz w lewo (8), do góry (5), w prawo (6), w dół (9) i w lewo (8), trzecią cyfrą kodu jest 8,
 - W końcu, z 8 idziesz do góry cztery razy (zatrzymując się na 2) i raz w dół kończąc na 5.
 
-W tym przypadku kod do toalety to 1985.&nbsp; Jaki jest kod do toalety jeśli instrukcje są jak w pliku [day02\_input.txt]({{ "/assets/misc/2016/12/03_day02_input.txt" | absolute_url }})?
+W tym przypadku kod do toalety to 1985. Jaki jest kod do toalety jeśli instrukcje są jak w pliku [day02\_input.txt]({{ "/assets/misc/2016/12/03_day02_input.txt" | absolute_url }})?
 
 ## Podsumowanie
 

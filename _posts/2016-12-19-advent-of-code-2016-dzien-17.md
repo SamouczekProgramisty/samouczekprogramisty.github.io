@@ -42,7 +42,7 @@ Drzwi w aktualnym pokoju są otwarte lub zamknięte. To w jakim są stanie zale�
 
 Tylko pierwsze cztery znaki sumy kontrolnej są wykorzystywane. Przedstawiają one odpowiednio drzwi z góry, z dołu z lewej i z prawej strony względem Twojej aktualnej pozycji. Którakolwiek z liter `b`, `c`, `d`, `e` czy `f` oznaczają, że odpowiadające im drzwi są otwarte. Każdy inny znak (numer czy `a`) znaczy, że drzwi są zamknięte i nie możesz ich otworzyć.
 
-Aby dotrzeć do sejfu, jedyne co musisz zrobić to dotrzeć do pokoju w prawym&nbsp;dolnym rogu. Dotarcie do tego pokoju otwiera sejf i wszystkie pozostałe drzwi w labiryncie.
+Aby dotrzeć do sejfu, jedyne co musisz zrobić to dotrzeć do pokoju w prawym dolnym rogu. Dotarcie do tego pokoju otwiera sejf i wszystkie pozostałe drzwi w labiryncie.
 
 Dla przykładu załóżmy, że hasło to `hijkl`. Początkowo, nie ruszyłeś się do żadnego pokoju więc aktualna ścieżka jest pusta. Po prostu znajdujesz sumę kontrolną MD5 z `hijkl`. Pierwsze cztery znaki tej sumy to `ced9`. Oznacza to, że góra jest otwarta (`c`), dół jest otwarty (`e`), lewa strona jest otwarta (`d`) i prawa strona jest zamknięta (`9`). Ponieważ zaczynasz w lewym górnym rogu nie ma drzwi u góry ani po lewej stronie więc możesz pójść tylko w dół.
 

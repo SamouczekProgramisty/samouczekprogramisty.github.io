@@ -32,7 +32,7 @@ Istnieje kilka zarezerwowanych nazw pakietów. Służą one do odróżnienia kla
 
 Pakiety służą do grupowania klas, interfejsów, typów wyliczeniowych czy adnotacji (Jeśli czytasz artykuły chronologicznie te terminy prawdopodobnie są dla Ciebie nowe. Nie przejmuj się, opiszę je dokładnie w jednym z kolejnych artykułów.).
 
-Jak zauważyłeś nazwa pakietów jest specyficzna. Przyjęło się, że za pakiet używa się odwróconej nazwy domeny. Takie podejście pozwala na łatwiejsze uniknięcie konfliktów. W przypadku naszego kursu użyłem `pl.samouczekprogramisty.kursjava`. Istotne jest&nbsp; tutaj odwzorowanie struktury katalogów. Każdy człon pakietu odpowiada katalogowi na dysku.
+Jak zauważyłeś nazwa pakietów jest specyficzna. Przyjęło się, że za pakiet używa się odwróconej nazwy domeny. Takie podejście pozwala na łatwiejsze uniknięcie konfliktów. W przypadku naszego kursu użyłem `pl.samouczekprogramisty.kursjava`. Istotne jest tutaj odwzorowanie struktury katalogów. Każdy człon pakietu odpowiada katalogowi na dysku.
 
 {% include figure image_path="/assets/images/2015/11/01_kurs_java2_pakiety.png" caption="Pakiety w języku Java" %}
 
