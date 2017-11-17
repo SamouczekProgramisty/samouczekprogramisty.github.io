@@ -79,7 +79,7 @@ Operatory w języku Java mają swój priorytet. Dzięki temu mnożenie jest wyko
   
 Do tej pory każda linijka kodu, którą napisałeś w działającym programie została wykonana. W większych programach często musimy decydować co powinno być wykonane. Np. jeśli jest temperatura jest większa niż 37°C[^zmiennyprzecinek] oznacza to, że możesz być chory. Jeśli jest mniejsza niż 36°C możesz być osłabiony.
 
- [^zmiennyprzecinek]: Tutaj lepszym pomysłem byłyby liczby "z przecinkiem", te omówimy w osobnym artykule.
+ [^zmiennyprzecinek]: Tutaj lepszym pomysłem byłyby liczby "z przecinkiem", napisałem osobny artykuł na temat [liczb zmiennoprzecinkowych]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}).
 
 To jest najprostsza instrukcja warunkowa. Blok kodu zostanie wykonany jeśli wartość w nawiasie `()` będzie prawdą. W przykładzie sprawdzamy, czy temperatura jest mniejsza niż 36 stopni.
 
@@ -201,7 +201,7 @@ counter += 1;
 counter++;
 ```
   
-Każda z trzech ostatnich linii zwiększa o jeden wartość zmiennej&nbsp;`counter`. Ostatnia wersja jest najkrótsza dlatego jest najczęściej spotykana w tego typu pętlach.
+Każda z trzech ostatnich linii zwiększa o jeden wartość zmiennej `counter`. Ostatnia wersja jest najkrótsza dlatego jest najczęściej spotykana w tego typu pętlach.
 
 Kolejnym przykładem użycia pętli może być wyświetlenie każdego elementu tablicy
 
@@ -274,6 +274,8 @@ while(true) {
 2. Napisz pętlę while, która wypisze na ekranie wszystkie liczby od 10 do 20 włącznie.
 3. Napisz pętlę for, która wypisze na ekranie wszystkie liczby nieparzyste od -10 do 40.
 4. Przerób pętlę z zadania trzeciego na pętlę while.
+5. Napisz metodę, która jako jedyny argument przyjmie zmienną typu `int[]` i zwróci sumę wszystkich elementów tablicy.
+6. Przerób funkcję z zadania piątego tak, żeby metoda przymowała tablicę dwuwymiarową typu `int[][]`.
   
 Przygotowałem też [zestaw przykładowych rozwiązań](https://github.com/SamouczekProgramisty/KursJava/tree/master/05_petle/src/main/java/pl/samouczekprogramisty/kursjava/loops/exercise) powyższych zadań. Zachęcam jednak do ich samodzielnego rozwiązania, wtedy nauczysz się najwięcej.
 
