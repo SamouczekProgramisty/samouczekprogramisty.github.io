@@ -365,7 +365,10 @@ Informacji na temat teorii obliczeń i złożoności obliczeniowej w internecie 
 - [Artykuł na temat złożoności obliczeniowej z uniwersytetu Stanford](https://plato.stanford.edu/entries/computational-complexity/),
 - [Sekcja Wolfram Alpha poświęcona złożoności obliczeniowej](https://www.wolframalpha.com/examples/ComputationalComplexity.html),
 - [Artykuł na Wikipedii na temat funkcji służących do szacowania](https://pl.wikipedia.org/wiki/Asymptotyczne_tempo_wzrostu),
+- [Artykuł o złożoności obliczeniowej na Codility](https://codility.com/media/train/1-TimeComplexity.pdf)[^marek],
 - [Fragmenty kodu użyte w tym artykule](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/02_computational_complexity/src/main/java/pl/samouczekprogramisty/misc/complexity).
+
+[^marek]: Wielkie dzięki dla Marka za podesłanie linka do tego artykułu.
 
 [^afiliacja]: To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :)
 
