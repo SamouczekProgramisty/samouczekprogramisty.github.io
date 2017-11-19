@@ -30,7 +30,7 @@ Podsumowując:
 
 Do porozumiewania się ze swoimi przyjaciółmi, znajomymi używamy dobrze znanych słów i zwrotów. Rozumiemy się nawzajem, jesteśmy w stanie przekazać sobie pewne informacje. Jeśli posługujemy się językami obcymi porozumiemy się swobodnie z większą grupą ludzi. Podobnie jest z komputerem. Jeśli chcesz się z nim porozumieć musisz mówić jego językiem. Nie chcę Cię tu zanudzać wpisem o zerach i jedynkach fruwających w pamięci komputera jednak pewne podstawy są tu potrzebne.
 
-Język programowania to nic innego jak język, który &bdquo;rozumieją&rdquo; programiści. Są w stanie się nim swobodnie posługiwać, który następnie &bdquo;tłumaczony&rdquo; jest do języka komputera. Słowa przetłumaczone są na ciąg zer i jedynek zrozumiały przez komputer. Ten etap tłumaczenia możemy nazwać kompilacją (ang. compile).
+Język programowania to nic innego jak język, który &bdquo;rozumieją&rdquo; programiści. Są w stanie się nim swobodnie posługiwać, który następnie &bdquo;tłumaczony&rdquo; jest do języka komputera. Słowa przetłumaczone są na ciąg zer i jedynek zrozumiały przez komputer. Ten etap tłumaczenia możemy nazwać kompilacją (ang. _compile_).
 
 Języki programowania możemy podzielić na języki niskopoziomowe i wysokopoziomowe. Te pierwsze są bardzo trudne do samodzielnego używania. Programy napisane przy ich pomocy mogą być uruchamiane tylko na konkretnych rodzajach komputerów. Na przykład program napisany w języku niskiego poziomu na Twój komputer nie może być uruchomiony na komputerze Twojego kolegi[^architektura].
 
@@ -40,9 +40,9 @@ Tego typu ograniczenia sprawiają, że języków niskiego poziomu nie używa si�
 
 ## Polski? Angielski? Niemiecki? Rosyjski? Francuski?
 
-F? Erlang? JavaScript? Java? Perl? Ruby? Podobnie jak istnieje wiele języków, którymi mówią ludzie istnieje także wiele języków programowania. Każdy z tych języków charakteryzuje się specyficzną składnią (ang. _sytax_). Każdy z nich ma również specyficzny zakres zastosowań. Po prostu jego właściwości sprawiają, że lepiej nadaje się np. do pisania gier komputerowych niż tworzenia interaktywnych stron internetowych.
+F? Erlang? JavaScript? Java? Perl? Ruby? Podobnie jak istnieje wiele języków, którymi mówią ludzie istnieje także wiele języków programowania. Każdy z tych języków charakteryzuje się specyficzną składnią (ang. _syntax_). Każdy z nich ma również specyficzny zakres zastosowań. Po prostu jego właściwości sprawiają, że lepiej nadaje się np. do pisania gier komputerowych niż tworzenia interaktywnych stron internetowych.
 
-W ramach pierwszego kursu dostępnego na blogu skupimy się na języku Java. Wybór padł na ten język ponieważ google nadal raportuje spore zainteresowanie tym językiem, jak i jest on w miarę &bdquo;uniwersalny&rdquo; i bardzo powszechny. W następnym artykule skupimy się na omówieniu podstaw tego języka jednak zanim do tego dojdzie chciałbym Wam przybliżyć następujące pojęcia:
+W ramach pierwszego kursu dostępnego na blogu skupimy się na języku Java. Wybór padł na ten język ponieważ Google nadal raportuje spore zainteresowanie tym językiem, jak i jest on w miarę &bdquo;uniwersalny&rdquo; i bardzo powszechny. W następnym artykule skupimy się na omówieniu podstaw tego języka jednak zanim do tego dojdzie chciałbym Wam przybliżyć następujące pojęcia:
 
  - język obiektowy (ang. _objective language_)
  - maszyna wirtualna (ang. _virtual machine_)
