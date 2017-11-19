@@ -33,7 +33,7 @@ public int getNumberOfSeconds(int hour) {
 }
 ```
 
-W przykładzie powyżej użyliśmy wyjątku występującego w standardowej bibliotece języka Java: `java.lang.IllegalArgumentException`. Do rzucania wyjątku używamy słowa kluczowego `trow`.
+W przykładzie powyżej użyliśmy wyjątku występującego w standardowej bibliotece języka Java: `java.lang.IllegalArgumentException`. Do rzucania wyjątku używamy słowa kluczowego `throw`.
 
 ### Co się dzieje po rzuceniu wyjątku?
 
