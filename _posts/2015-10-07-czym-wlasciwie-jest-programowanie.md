@@ -19,7 +19,7 @@ Programowanie jako zajęcie wymaga pewnych umiejętności. Umiejętności te są
 
 Nie bez powodu piszę blog po polsku. Zależy mi na tym, żeby ludzie, którzy nie czują się swobodnie czytając angielskie teksty również znaleźli coś dla siebie. Jednak muszę to powiedzieć z pełną stanowczością. Język angielski to podstawa. Jest to uniwersalny język komunikacji, który każdy programista po prostu musi znać. Jeśli go nie znasz zachęcam do przyłożenia się do zajęć z języka angielskiego. Jeśli nie masz dostępu do takich zajęć w internecie można znaleźć bardzo dużo darmowych materiałów pomagających w nauce.
 
-Mówi się, że programista powinien charakteryzować się analitycznym myśleniem, rozumieć zagadnienia matematyczne. Oczywiście &bdquo;ścisły umysł&rdquo; to predyspozycja, która bardzo pomaga &ndash; sam znam architektów (tych od budownictwa) czy chemików, którzy samodzielnie nauczyli się programowania. Jednak mam wrażenie, że przy odpowiedniej ilości ciężkiej pracy i humanista też w programowaniu znajdzie coś dla siebie. Spróbuj, to na pewno nie zaszkodzi! :)
+Mówi się, że programista powinien charakteryzować się analitycznym myśleniem, rozumieć zagadnienia matematyczne. Oczywiście ścisły umysł to predyspozycja, która bardzo pomaga &ndash; sam znam architektów (tych od budownictwa) czy chemików, którzy samodzielnie nauczyli się programowania. Jednak mam wrażenie, że przy odpowiedniej ilości ciężkiej pracy i humanista też w programowaniu znajdzie coś dla siebie. Spróbuj, to na pewno nie zaszkodzi! :)
 
 Podsumowując:
  - ucz się języka angielskiego, na pewno przyda się nie tylko do programowania,
@@ -30,19 +30,19 @@ Podsumowując:
 
 Do porozumiewania się ze swoimi przyjaciółmi, znajomymi używamy dobrze znanych słów i zwrotów. Rozumiemy się nawzajem, jesteśmy w stanie przekazać sobie pewne informacje. Jeśli posługujemy się językami obcymi porozumiemy się swobodnie z większą grupą ludzi. Podobnie jest z komputerem. Jeśli chcesz się z nim porozumieć musisz mówić jego językiem. Nie chcę Cię tu zanudzać wpisem o zerach i jedynkach fruwających w pamięci komputera jednak pewne podstawy są tu potrzebne.
 
-Język programowania to nic innego jak język, który &bdquo;rozumieją&rdquo; programiści. Są w stanie się nim swobodnie posługiwać, który następnie &bdquo;tłumaczony&rdquo; jest do języka komputera. Słowa przetłumaczone są na ciąg zer i jedynek zrozumiały przez komputer. Ten etap tłumaczenia możemy nazwać kompilacją (ang. _compile_).
+Język programowania to nic innego jak język, który rozumieją programiści. Są w stanie się nim swobodnie posługiwać, który następnie tłumaczony jest do języka komputera. Słowa przetłumaczone są na ciąg zer i jedynek zrozumiały przez komputer. Ten etap tłumaczenia możemy nazwać kompilacją (ang. _compile_).
 
 Języki programowania możemy podzielić na języki niskopoziomowe i wysokopoziomowe. Te pierwsze są bardzo trudne do samodzielnego używania. Programy napisane przy ich pomocy mogą być uruchamiane tylko na konkretnych rodzajach komputerów. Na przykład program napisany w języku niskiego poziomu na Twój komputer nie może być uruchomiony na komputerze Twojego kolegi[^architektura].
 
 [^architektura]: Jest to duże uproszczenie, chodzi tu o tak zwaną architekturę procesora. Każda architektura ma swój specyficzny zestaw komend tzw. assembler, która czasami nie może być uruchamiana na różnych procesorach.
 
-Tego typu ograniczenia sprawiają, że języków niskiego poziomu nie używa się powszechnie a jedynie do bardzo specyficznych zastosowań, które są bardzo odległe od &bdquo;podstaw i nauki programowania&rdquo; :) Dzięki tym samym ograniczeniom języki wysokiego poziomu zyskują na popularności.
+Tego typu ograniczenia sprawiają, że języków niskiego poziomu nie używa się powszechnie a jedynie do bardzo specyficznych zastosowań, które są bardzo odległe od podstaw i nauki programowania :) Dzięki tym samym ograniczeniom języki wysokiego poziomu zyskują na popularności.
 
 ## Polski? Angielski? Niemiecki? Rosyjski? Francuski?
 
 F? Erlang? JavaScript? Java? Perl? Ruby? Podobnie jak istnieje wiele języków, którymi mówią ludzie istnieje także wiele języków programowania. Każdy z tych języków charakteryzuje się specyficzną składnią (ang. _syntax_). Każdy z nich ma również specyficzny zakres zastosowań. Po prostu jego właściwości sprawiają, że lepiej nadaje się np. do pisania gier komputerowych niż tworzenia interaktywnych stron internetowych.
 
-W ramach pierwszego kursu dostępnego na blogu skupimy się na języku Java. Wybór padł na ten język ponieważ Google nadal raportuje spore zainteresowanie tym językiem, jak i jest on w miarę &bdquo;uniwersalny&rdquo; i bardzo powszechny. W następnym artykule skupimy się na omówieniu podstaw tego języka jednak zanim do tego dojdzie chciałbym Wam przybliżyć następujące pojęcia:
+W ramach pierwszego kursu dostępnego na blogu skupimy się na języku Java. Wybór padł na ten język ponieważ Google nadal raportuje spore zainteresowanie tym językiem, jak i jest on w miarę uniwersalny i bardzo powszechny. W następnym artykule skupimy się na omówieniu podstaw tego języka jednak zanim do tego dojdzie chciałbym Wam przybliżyć następujące pojęcia:
 
  - język obiektowy (ang. _objective language_)
  - maszyna wirtualna (ang. _virtual machine_)
