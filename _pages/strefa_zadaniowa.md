@@ -1,7 +1,6 @@
 ---
 layout: default
-title: O mnie
-date: '2015-10-12 04:55:07 +0200'
+title: Strefa Zadaniowa Samouka
 permalink: "/strefa-zadaniowa/"
 ---
 

@@ -1,0 +1,63 @@
+---
+layout: default
+title: Samouczkowy tester webservice'ów
+permalink: "/testuj-web-service/"
+---
+
+<div id="main" role="main">
+    <p>
+    Formularz poniżej wysyła zapytania odpowiedniego typu pod adres wskazany w polu endpoint. Służy do podstawowego testowania web service'ów.
+    </p>
+
+    <form>
+        <label for="endpoint">Endpoint</label>
+        <input type="text" id="endpoint" value="http://localhost:8080/rest/reservation" placeholder="http://localhost:8080/rest/reservation">
+
+        <label for="httpMethod">Czasownik HTTP</label>
+        <select id="httpMethod">
+            <option selected>GET</option>
+            <option>POST</option>
+            <option>PUT</option>
+            <option>DELETE</option>
+        </select>
+
+        <label for="requestBody">Ciało zapytania (JSON)</label>
+        <textarea id="requestBody" rows="5">{
+    "date": "2017-11-20T18:00",
+    "table": 123
+}</textarea>
+
+        <button class="btn btn--primary" id="sendRequest" type="submit">Wyślij zapytanie</button>
+
+        <label for="requestBody">Treść odpowiedzi</label>
+        <textarea readonly="true" id="responseBody" rows="5">...</textarea>
+    </form>
+
+    <script>
+    document.getElementById("sendRequest").addEventListener("click", function(event) {
+        event.preventDefault();
+
+        var endpoint = document.getElementById("endpoint").value;
+        var httpMethod = document.getElementById("httpMethod").value;
+        var requestBody = document.getElementById("requestBody").value;
+        var request = new XMLHttpRequest();
+        var asynchronous = true;
+        
+        request.open(httpMethod, endpoint, asynchronous);
+        request.setRequestHeader("Content-type", "application/json");
+        request.send(requestBody);
+
+        request.addEventListener("readystatechange", function () {
+            document.getElementById("responseBody").value = request.response;
+        });
+        request.addEventListener("error", function () {
+            document.getElementById("responseBody").value = "!!! WYSTĄPIŁ BŁĄD !!!";
+        });
+        request.addEventListener("load", function(x) {
+            if (request.status != 200) {
+                document.getElementById("responseBody").value = "!!! WYSTĄPIŁ BŁĄD !!! " + request.status;
+            }
+        });
+    });
+    </script>
+</div>
