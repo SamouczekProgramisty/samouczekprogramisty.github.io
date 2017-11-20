@@ -19,7 +19,7 @@
 
 
 
-<title>Kurs aplikacji webowych - Samouczek Programisty</title>
+<title>Samouczkowy tester webservice’ów - Samouczek Programisty</title>
 
 
 
@@ -33,11 +33,11 @@
 
 <meta property="og:locale" content="pl">
 <meta property="og:site_name" content="Samouczek Programisty">
-<meta property="og:title" content="Kurs aplikacji webowych">
+<meta property="og:title" content="Samouczkowy tester webservice’ów">
 
 
-  <link rel="canonical" href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">
-  <meta property="og:url" content="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/testuj-web-service/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/testuj-web-service/">
 
 
 
@@ -52,9 +52,6 @@
 
 
 
-
-  <meta property="og:type" content="article">
-  <meta property="article:published_time" content="2017-10-20T01:08:07+02:00">
 
 
 
@@ -148,34 +145,62 @@
 </div>
 
 
-    
-<div id="main" role="main">
-  
-<p>Do tej pory w ramach kursu aplikacji webowych ukazały się następujące artykuły:</p>
+    <div id="main" role="main">
+    <p>
+    Formularz poniżej wysyła zapytania odpowiedniego typu pod adres wskazany w polu endpoint. Służy do podstawowego testowania web service'ów.
+    </p>
 
-<ol>
-  <li>
-    <p><a href="/serwlety-w-aplikacjach-webowych/">Serwlety w aplikacjach webowych</a></p>
-  </li>
-  <li>
-    <p><a href="/naglowki-sesje-i-ciasteczka/">Nagłówki, sesje i ciasteczka</a></p>
-  </li>
-  <li>
-    <p><a href="/filtry-w-aplikacjach-webowych/">Filtry w aplikacjach webowych</a></p>
-  </li>
-  <li>
-    <p><a href="/kontekst-serwletu-i-obiekty-nasluchujace-w-aplikacjach-webowych/">Kontekst serwletu i obiekty nasłuchujące w aplikacjach webowych</a></p>
-  </li>
-  <li>
-    <p><a href="/deskryptor-wdrozenia-w-aplikacjach-webowych/">Deskryptor wdrożenia w aplikacjach webowych</a></p>
-  </li>
-  <li>
-    <p><a href="/rest-web-service-z-java-ee-czesc-1/">REST web service z Java EE część 1</a></p>
-  </li>
-</ol>
+    <form>
+        <label for="endpoint">Endpoint</label>
+        <input type="text" id="endpoint" value="http://localhost:8080/rest/reservation" placeholder="http://localhost:8080/rest/reservation">
 
-<p>Jeśli jakikolwiek temat nie jest dla Ciebie wystarczająco jasno opisany proszę daj znać, postaram się go rozwinąć w kolejnym artykule.</p>
+        <label for="httpMethod">Czasownik HTTP</label>
+        <select id="httpMethod">
+            <option selected>GET</option>
+            <option>POST</option>
+            <option>PUT</option>
+            <option>DELETE</option>
+        </select>
 
+        <label for="requestBody">Ciało zapytania (JSON)</label>
+        <textarea id="requestBody" rows="5">{
+    "date": "2017-11-20T18:00",
+    "table": 123
+}</textarea>
+
+        <button class="btn btn--primary" id="sendRequest" type="submit">Wyślij zapytanie</button>
+
+        <label for="requestBody">Treść odpowiedzi</label>
+        <textarea readonly="true" id="responseBody" rows="5">...</textarea>
+    </form>
+
+    <script>
+    document.getElementById("sendRequest").addEventListener("click", function(event) {
+        event.preventDefault();
+
+        var endpoint = document.getElementById("endpoint").value;
+        var httpMethod = document.getElementById("httpMethod").value;
+        var requestBody = document.getElementById("requestBody").value;
+        var request = new XMLHttpRequest();
+        var asynchronous = true;
+        
+        request.open(httpMethod, endpoint, asynchronous);
+        request.setRequestHeader("Content-type", "application/json");
+        request.send(requestBody);
+
+        request.addEventListener("readystatechange", function () {
+            document.getElementById("responseBody").value = request.response;
+        });
+        request.addEventListener("error", function () {
+            document.getElementById("responseBody").value = "!!! WYSTĄPIŁ BŁĄD !!!";
+        });
+        request.addEventListener("load", function(x) {
+            if (request.status != 200) {
+                document.getElementById("responseBody").value = "!!! WYSTĄPIŁ BŁĄD !!! " + request.status;
+            }
+        });
+    });
+    </script>
 </div>
 
 

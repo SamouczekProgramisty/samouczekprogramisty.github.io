@@ -1,4 +1,344 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2017-11-16T14:53:07+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Podstawy złożoności obliczeniowej</title><link href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/" rel="alternate" type="text/html" title="Podstawy złożoności obliczeniowej" /><published>2017-11-13T00:00:00+01:00</published><updated>2017-11-13T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/">&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2017-11-20T23:41:46+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">REST web service z Java EE część 1</title><link href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-1/" rel="alternate" type="text/html" title="REST web service z Java EE część 1" /><published>2017-11-20T00:00:00+01:00</published><updated>2017-11-20T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/rest-webservice-z-java-ee-czesc-1</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-1/">&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/&quot;&gt;darmowego kursu programowania aplikacji webowych w Javie&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
+
+&lt;p&gt;W kursie tym zakładam, że znasz język Java. Możesz go poznać w osobnym &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java&quot;&gt;kursie programowania w języku Java&lt;/a&gt;. Do budowania wszystkich projetków używam Gradle, przeczytasz o nim więcej w &lt;a href=&quot;/wstep-do-gradle/&quot;&gt;osobnym artykule&lt;/a&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;słownik-pojęć&quot;&gt;Słownik pojęć&lt;/h2&gt;
+
+&lt;p&gt;Na początku postaram się wytłumaczyć pojęcia, które będą używane w dalszej części artykułu.&lt;/p&gt;
+
+&lt;h3 id=&quot;czym-jest-web-service&quot;&gt;Czym jest web service&lt;/h3&gt;
+
+&lt;p&gt;Wyobraź sobie obiekt. Obiekt ma zestaw metod. W normalnych warunkach metody na tym obiekcie możemy wywoływać wyłącznie w tym samym programie, w ramach tej samej wirtualnej maszyny Java. W uproszczeniu web service&lt;sup id=&quot;fnref:tlumaczenie&quot;&gt;&lt;a href=&quot;#fn:tlumaczenie&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; to mechanizm umożliwiający wywołanie jakiejś funkcjonalności za pośrednictwem internetu. Istnieje kilka podejść do tworzenia web service’ów.&lt;/p&gt;
+
+&lt;p&gt;Jednym z nich jest tak zwany REST.&lt;/p&gt;
+
+&lt;h3 id=&quot;czym-jest-rest&quot;&gt;Czym jest REST&lt;/h3&gt;
+
+&lt;p&gt;REST to rozwinięcie &lt;em&gt;Representational State Transfer&lt;/em&gt;. REST to zbiór praktyk, które określają w jaki sposób powinniśmy implementować web service’y. REST kręci się wokół tak zwanych encji (ang. &lt;em&gt;resource&lt;/em&gt;). Encja to obiekt, który reprezentuje byt w aplikacji. Może to być na przykład obiekt reprezentujący rezerwację stolika, użytkownika aplikacji czy kredyt w banku.&lt;/p&gt;
+
+&lt;p&gt;Operacje na encjach wykonuje się za pomocą zapytań HTTP. Do encji dobieramy się używając odpowiednich typów zapytań. Typy zapytań określone są przez czasowniki HTTP: &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;. Czasowniki te wraz z adresem URL definiują dokładnie jaką operację chcemy wykonać na danej encji.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Czasownik&lt;/th&gt;
+      &lt;th&gt;Przykład&lt;/th&gt;
+      &lt;th&gt;Znaczenie&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;GET /rezerwacja/123&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Pobranie rezerwacji o identyfikatorze 123&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;POST /rezerwacja/123&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Edycja rezerwacji o identyfikatorze 123&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PUT /rezerwacja&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Utworzenie nowej rezerwacji&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE /rezerwacja/123&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Usunięcie rezerwacji o identyfikatorze 123&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Zanim powstał REST, web service’y w języku Java tworzono w oparciu o SOAP (ang. &lt;em&gt;Simple Object Access Protocol&lt;/em&gt;). SOAP w porównaniu do REST jest dużo bardziej złożony. SOAP oparty jest o XML’a i jest dość rozwlekłym protokołem. Moim zdaniem REST zdobył dużą przewagę właśnie swoją prostotą w porównaniu do SOAP. REST jest &lt;em&gt;de facto&lt;/em&gt; standardem jeśli chodzi o tworzenie web service’ów w większości aplikacji webowych.&lt;/p&gt;
+
+&lt;p&gt;Wysłane zapytanie informuje także web service o preferowanej formie odpowiedzi. Dzieje się to zazwyczaj przy pomocy nagłówków HTTP. Na przykład nagłówek zapytania &lt;code class=&quot;highlighter-rouge&quot;&gt;Accept: application/json&lt;/code&gt; informuje web service, że klient oczekuje odpowiedzi w formacie &lt;a href=&quot;https://www.json.org/&quot;&gt;JSON&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Jest to tylko krótkie wprowadzenie, jeśli chcesz dowiedzieć się więcej na temat REST odsyłam Cię do materiałów dodatkowych.&lt;/p&gt;
+
+&lt;h3 id=&quot;czym-jest-java-ee&quot;&gt;Czym jest Java EE&lt;/h3&gt;
+
+&lt;p&gt;W jednym zdaniu. Java EE to platforma, która oparta jest na zbiorze specyfikacji. Technologie opisane w tych specyfikacjach są używane głównie do tworzenia aplikacji webowych.&lt;/p&gt;
+
+&lt;figure class=&quot;&quot;&gt;
+  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2017/11/20_java_ee_logo.png&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Logo Java EE
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;p&gt;Teraz należy Ci się rozwinięcie. Język Java już znasz. Java wraz z zestawem biblioteki standardowej to Java SE (ang. &lt;em&gt;Standard Edition&lt;/em&gt;). Istnieje również taki twór jak Java EE (ang. &lt;em&gt;Enterprise Edition&lt;/em&gt;). Jak napisałem wyżej Java EE to nic innego jak zbiór różnych specyfikacji. Można powiedzieć, że Java EE rozbudowuje możliwości Java SE. Oczywiście podstawą tutaj jest język programowania Java. Java EE w wersji 8 została opublikowana 31 sierpnia 2017 roku. Java EE w wersji 8 to &lt;a href=&quot;http://www.oracle.com/technetwork/java/javaee/tech/java-ee-8-3890673.html&quot;&gt;41 osobnych specyfikacji&lt;/a&gt;! Jedną ze specyfikacji jest Java Servlets. Opisywałem ją w poprzednich artykułach w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/&quot;&gt;kursu&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Java Servlets jest specyfikacją, którą można używać w kontenerach serwletów. Niestety nie wszystkie ze wspomnianych 41 specyfikacji można używać w kontenerze serwletów. Java API for RESTful Web Services (w skrócie JAX-RS) jest tu dobrym przykładem. Aby móc używać tej technologii potrzebujemy kontenera aplikacji.&lt;/p&gt;
+
+&lt;h3 id=&quot;kontener-aplikacji-a-kontener-serwletów&quot;&gt;Kontener aplikacji a kontener serwletów&lt;/h3&gt;
+
+&lt;p&gt;Apache Tomcat, którego używałem do tej pory w ramach kursu jest kontenerem serwletów. Umożliwia on uruchamianie aplikacji webowych, które używają podzbioru specyfikacji Java EE (na przykład specyfikacji serwletów).&lt;/p&gt;
+
+&lt;p&gt;Pisanie web service’ów w oparciu o JAX-RS wymaga kontenera aplikacji. Jednym z kontenerów aplikacji jest &lt;a href=&quot;http://tomee.apache.org&quot;&gt;Apache TomEE&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;instalacja-kontenera-aplikacji&quot;&gt;Instalacja kontenera aplikacji&lt;/h2&gt;
+
+&lt;p&gt;Jest wiele kontenerów aplikacji. W tym kursie będę używał Apache TomEE. Jest to jeden z darmowych kontenerów. Aby go zainstalować pobierz &lt;a href=&quot;http://tomee.apache.org/download-ng.html&quot;&gt;TomEE PluME&lt;/a&gt; i rozpakuj plik ZIP do dowolnego folderu. To tyle, instalację kontenera aplikacji masz już za sobą.&lt;/p&gt;
+
+&lt;p&gt;Ważne jest, żebyś pobrał wersję TomEE PluME, lub TomEE+. Te wersje &lt;a href=&quot;http://tomee.apache.org/comparison.html&quot;&gt;wspierają specyfikację JAX-RS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;&quot;&gt;
+  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2017/11/20_tomee_plume_download.png&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Pobieranie TomEE Plume
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;web-service-z-jax-rs&quot;&gt;Web service z JAX-RS&lt;/h2&gt;
+
+&lt;h3 id=&quot;buildgradle&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania aplikacji użyłem Gradle. Plik &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; wygląda następująco:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'war'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+group = 'pl.samouczekprogramisty.kursaplikacjewebowe'
+version = '1.0-SNAPSHOT'
+
+dependencies {
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+}
+
+task explodedWar(type: Copy) {
+    into &quot;$buildDir/explodedWar&quot;
+    with war
+}
+
+war.dependsOn explodedWar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Najbardziej istotnym fragmentem jest &lt;code class=&quot;highlighter-rouge&quot;&gt;providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'&lt;/code&gt;&lt;sup id=&quot;fnref:jee7&quot;&gt;&lt;a href=&quot;#fn:jee7&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. &lt;code class=&quot;highlighter-rouge&quot;&gt;providedCompile&lt;/code&gt; mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na &lt;a href=&quot;%/java-z-linii-polecen/&quot;&gt;classpath&lt;/a&gt; kontenera aplikacji.&lt;/p&gt;
+
+&lt;h3 id=&quot;pierwszy-web-service&quot;&gt;Pierwszy web service&lt;/h3&gt;
+
+&lt;p&gt;Następnie utwórz klasę, która będzie odpowiedzialna za encję &lt;code class=&quot;highlighter-rouge&quot;&gt;Reservation&lt;/code&gt;. Może to być na przykład &lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationWebservice&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;samouczekprogramisty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;kursaplikacjewebowe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;rest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.ws.rs.GET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.ws.rs.Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.ws.rs.core.Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/reservation&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ReservationWebservice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@GET&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;listReservations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Oto wszystkie rezerwacje :)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jest to standardowa klasa Javy, tak zwane POJO (ang. &lt;em&gt;Plain Old Java Object&lt;/em&gt;). Zawiera ona jedną metodą, &lt;code class=&quot;highlighter-rouge&quot;&gt;listReservations&lt;/code&gt;. Dodatkowo znajdują się w niej dwie &lt;a href=&quot;/adnotacje-w-jezyku-java/&quot;&gt;adnotacje&lt;/a&gt;: &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Path&lt;/code&gt;&lt;/a&gt; i &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@GET&lt;/code&gt;&lt;/a&gt;. Metoda ta zwraca instancję obiektu &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Response.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Response&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ta kombinacja to Twój pierwszy web service. Adnotacja &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Path&lt;/code&gt;&lt;/a&gt; informuje JAX-RS o tym pod jakim URL dana klasa/metoda powinna odpowiadać. Adnotacja &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@GET&lt;/code&gt;&lt;/a&gt; mówi o tym jaki czasownik HTTP jest obsługiwany przez daną metodę.&lt;/p&gt;
+
+&lt;p&gt;Następnie zbuduj aplikację używając polecenia:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gradle war
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Po jego wykonaniu w katalogu &lt;code class=&quot;highlighter-rouge&quot;&gt;build/libs&lt;/code&gt; projektu powinien znaleźć się plik war. Przekopiuj go do katalogu &lt;code class=&quot;highlighter-rouge&quot;&gt;webapps&lt;/code&gt; w miejscu gdzie zainstalowałeś TomEE. W moim przypadku wygląda to następująco:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp /home/mapi/KursAplikacjeWebowe/06_rest_endpoint/build/libs/06_rest_endpoint-1.0-SNAPSHOT.war /home/mapi/opt/apache-tomee/webapps/rest.war
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Zauważ, że w trakcie kopiowania zmieniłem nazwę pliku war z &lt;code class=&quot;highlighter-rouge&quot;&gt;06_rest_endpoint-1.0-SNAPSHOT.war&lt;/code&gt; na &lt;code class=&quot;highlighter-rouge&quot;&gt;rest.war&lt;/code&gt;. Zrobiłem tak, ponieważ TomEE, podobnie jak Tomcat używa nazwy pliku war jako fragmentu adresu URI aplikacji. Szybciej napiszę &lt;code class=&quot;highlighter-rouge&quot;&gt;rest&lt;/code&gt; niż &lt;code class=&quot;highlighter-rouge&quot;&gt;06_rest_endpoint-1.0-SNAPSHOT&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Po przekopiowaniu pliku war uruchom serwer TomEE. Możesz to zrobić przy pomocy pliku &lt;code class=&quot;highlighter-rouge&quot;&gt;catalina.sh&lt;/code&gt;&lt;sup id=&quot;fnref:windows&quot;&gt;&lt;a href=&quot;#fn:windows&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/home/mapi/opt/apache-tomee/bin/catalina.sh run
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jeśli zrobiłeś wszystko zgodnie z powyższą instrukcją masz swój pierwszy działający web service. Gratulacje ;). Aby móc zobaczyć go w działaniu odwiedź stronę: &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8080/rest/reservation&lt;/code&gt;. Powinieneś zobaczyć napis &lt;code class=&quot;highlighter-rouge&quot;&gt;Oto Wszystkie rezerwacje :)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;jak-działa-web-service-z-użyciem-jax-rs&quot;&gt;Jak działa web service z użyciem JAX-RS&lt;/h2&gt;
+
+&lt;p&gt;Skoro napisałeś już swój pierwszy web service warto zrozumieć co dzieje się pod spodem. Nie ma tam żadnej magii. Jedynie trochę pracy po stronie kontenera aplikacji.&lt;/p&gt;
+
+&lt;p&gt;Otóż w naszym przypadku specyfikacja JAX-RS wymaga od kontenera aplikacji utworzenia specjalnego serwletu. Serlwet ten ma za zadanie obsługiwać wszystkie żądania, które wysyłane są do naszej aplikacji.&lt;/p&gt;
+
+&lt;p&gt;Kontener aplikacji musi przeskanować wszystkie klasy w naszej aplikacji pod kątem adnotacji JAX-RS. Jeśli znajdzie te adnotacje w klasach zapamiętuje je. Następnie używa tych klas do obsługi żądań wysyłanych przez klienty&lt;sup id=&quot;fnref:uproszczenie&quot;&gt;&lt;a href=&quot;#fn:uproszczenie&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Więc w tym przypadku, wysłanie żądania na adres &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8080/rest/reservation&lt;/code&gt; spowoduje wywołanie tego serwletu. Następnie serwlet stworzy instancję klasy 
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationWebservice&lt;/code&gt;. Na tej instancji wywoła metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;listReservations&lt;/code&gt;. Wartość zwrócona przez tę metodę zostanie użyta do przygotowania odpowiedzi dla klienta.&lt;/p&gt;
+
+&lt;h3 id=&quot;rest-bez-użycia-jax-rs&quot;&gt;REST bez użycia JAX-RS&lt;/h3&gt;
+
+&lt;p&gt;Jak widzisz z powyższego opisu JAX-RS jest jedynie nakładką na mechanizm serwletów. Jeśli czytałeś poprzednie artykuły w ramach kursu to wiesz, że serwlety są sercem ogromnej większości aplikacji webowych napisanych w Javie.&lt;/p&gt;
+
+&lt;p&gt;Skoro jest to nakładka, to można tę samą funkcjonalność uzyskać bez niej. Innymi słowy można pisać REST’owe web service’y bez użycia JAX-RS, używając standardowego kontenera serwletów. Jednak JAX-RS sporo upraszcza, pozwala programiście używać wyższego poziomu abstrakcji. Nie musisz pamiętać o &lt;code class=&quot;highlighter-rouge&quot;&gt;doGet&lt;/code&gt; czy innych metod z API serwletów.&lt;/p&gt;
+
+&lt;h2 id=&quot;pozostałe-metody-web-serviceu&quot;&gt;Pozostałe metody web service’u&lt;/h2&gt;
+
+&lt;p&gt;Metody te to jedynie szablony, które mają pokazać Ci przykład użycia adnotacji udostępnionych przez JAX-RS.&lt;/p&gt;
+
+&lt;h3 id=&quot;pobieranie-encji-metoda-get&quot;&gt;Pobieranie encji. Metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Poprzednia metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;listReservations&lt;/code&gt; odpowiadała na żądanie do ścieżki &lt;code class=&quot;highlighter-rouge&quot;&gt;/reservation&lt;/code&gt; i zwracała (teoretycznie) wszystkie rezerwacje. Tym razem chcemy zwrócić pojedynczą rezerwację. Proszę spójrz na przykład poniżej:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@GET&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{id}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Oto rezerwacja o identyfikatorze &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; :)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jak widzisz w tym przypadku metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;getReservation&lt;/code&gt; dekorowana jest adnotacją &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Path&lt;/code&gt;&lt;/a&gt;. Metoda ta zostanie wywołana do obsłużenia zapytania wysłanego pod adres &lt;code class=&quot;highlighter-rouge&quot;&gt;/reservation/{id}&lt;/code&gt;. Składnia &lt;code class=&quot;highlighter-rouge&quot;&gt;{id}&lt;/code&gt; użyta jest do przechwytywania części adresu URL. Dzięki tej składni i użyciu adnotacji &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@PathParam&lt;/code&gt;&lt;/a&gt; część tej ścieżki zostanie przekazana w trakcie wywołania metody &lt;code class=&quot;highlighter-rouge&quot;&gt;getReservation&lt;/code&gt;. Na przykład zapytanie &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /reservation/123&lt;/code&gt; spowoduje wywołanie tej metody z argumentem &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; o wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;123&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;edycja-encji-metoda-post&quot;&gt;Edycja encji. Metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@POST&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{id}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Zmodyfikowaliśmy rezerwację o numerze &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; :)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W tym przypadku nowa jest dla Ciebie jedynie adnotacja &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/POST.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@POST&lt;/code&gt;&lt;/a&gt;. Informuje ona kontener aplikacji o tym, że metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;updateReservation&lt;/code&gt; powinna być wywołana jeśli klient wyśle zapytanie &lt;code class=&quot;highlighter-rouge&quot;&gt;POST /reservation/{id}&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;usuwanie-encji-metoda-delete&quot;&gt;Usuwanie encji. Metoda ‘DELETE`&lt;/h3&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@DELETE&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{id}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deleteReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Usunęliśmy rezerwację o numerze &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; :)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;dodawanie-encji-metoda-put&quot;&gt;Dodawanie encji. Metoda ‘PUT`&lt;/h3&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@PUT&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Rezerwacja została utworzona!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;testowanie-zapytań-typu-put-delete&quot;&gt;Testowanie zapytań typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Do przetestowania zapytań typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt; w przeglądarce potrzebujesz odrobiny HTML’a i kodu w języku JavaScript. Przygotowałem dla Ciebie &lt;a href=&quot;http://www.samouczekprogramisty.pl/testuj-web-service/&quot;&gt;prostą stronę&lt;/a&gt;, która może Ci w tym pomóc.&lt;/p&gt;
+
+&lt;p&gt;Jeśli Twoja instancja TomEE będzie uruchomiona i aplikacja będzie zainstalowana, to po odpowiednim wypełnieniu pól zostanie wysłane żądanie.&lt;/p&gt;
+
+&lt;h3 id=&quot;słów-kilka-o-cors&quot;&gt;Słów kilka o CORS&lt;/h3&gt;
+
+&lt;p&gt;CORS (ang. &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt;) jest mechanizmem używanym przez przeglądarki. Polega on na dodawaniu odpowiednich nagłówków do odpowiedzi serwera. Zawartość tych nagłówków informuje przeglądarkę czy może używać wyników tego zapytania.&lt;/p&gt;
+
+&lt;p&gt;Mechanizm ten użyty jest do podniesienia bezpieczeństwa używania stron internetowych. Na chwilę obecną musisz wiedzieć, że aby móc używać &lt;a href=&quot;http://www.samouczekprogramisty.pl/testuj-web-service/&quot;&gt;strony do testowania&lt;/a&gt; Twój web service musi dodawać odpowiednie nagłówki do odpowiedzi.&lt;/p&gt;
+
+&lt;p&gt;Innymi słowy zamiast wysyłać prostą odpowiedź:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Usunęliśmy rezerwację o numerze &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; :)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Musiałbyś dodać zestaw nagłówków:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Usunęliśmy rezerwację o numerze &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; :)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access-Control-Allow-Origin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access-Control-Allow-Headers&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Content-Type&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access-Control-Allow-Methods&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;DELETE&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jest to wymagane dla każdego zapytania, które będzie uruchamiane ze strony do testowania. Jest to spowodowane tym, że adres URL źródła zapytania jest inny niż adres URL web service’u&lt;sup id=&quot;fnref:cors&quot;&gt;&lt;a href=&quot;#fn:cors&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;. W związku z tym, że trzeba to umieścić w wielu miejscach JAX-RS przychodzi z pomocą.&lt;/p&gt;
+
+&lt;h2 id=&quot;adnotacja-provider&quot;&gt;Adnotacja &lt;code class=&quot;highlighter-rouge&quot;&gt;@Provider&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Więcej o tej adnotacji przeczytasz w drugiej części artykułu. Dzisiaj opiszę jedynie część jej możliwości.&lt;/p&gt;
+
+&lt;p&gt;JAX-RS udostępnia adnotację &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Providers.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Provider&lt;/code&gt;&lt;/a&gt;. Służy ona do oznaczenia komponentów, które powinny być automatycznie odkryte przez kontener aplikacji. Tą adnotacją oznacza się klasy, które są odpowiedzialne za przekrojowe zadania (ang. &lt;em&gt;cross-cutting&lt;/em&gt;) związane z aplikacją.&lt;/p&gt;
+
+&lt;p&gt;Przykładem takiego przekrojowego zadania może być automatyczne dodawanie nagłówków do każdej odpowiedzi. Ta funkcjonalność pozwala na łatwą implementację wymagań narzucanych przez CORS:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Provider&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CORSFilter&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ContainerResponseFilter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ContainerRequestContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requestContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ContainerResponseContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;responseContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IOException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;MultivaluedMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;responseContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;containsKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access-Control-Allow-Origin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access-Control-Allow-Origin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;containsKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access-Control-Allow-Headers&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access-Control-Allow-Headers&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Content-Type&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;containsKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access-Control-Allow-Methods&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access-Control-Allow-Methods&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GET, PUT, POST, DELETE&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;CORSFilter&lt;/code&gt; implementuje interfejs &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/container/ContainerResponseFilter.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ContainerResponseFilter&lt;/code&gt;&lt;/a&gt;. Interfejs ten zawiera metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt;, która pozwala między innymi na dodanie nagłówków do każdej odpowiedzi.&lt;/p&gt;
+
+&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
+
+&lt;p&gt;Jest tego sporo, głównie w języku angielskim:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/06_rest_endpoint/src/main/java/pl/samouczekprogramisty/kursaplikacjewebowe/rest&quot;&gt;Przykłady kodu użyte w artykule&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://javaee.github.io/tutorial/jaxrs.html#GIEPU&quot;&gt;Tutorial dotyczący JAX-RS przygotowany przez Oracle&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf&quot;&gt;Praca doktorska Roy’a Fielding’a, gdzie po raz pierwszy użyto określenia REST&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm&quot;&gt;Rozdział w wyżej wspomnianej pracy na temat REST&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.restapitutorial.com/&quot;&gt;REST API Tutorial&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Representational_state_transfer&quot;&gt;Artykuł o REST na anglojęzycznej wersji Wikipedii&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://download.oracle.com/otndocs/jcp/jaxrs-2_1-final-eval-spec/index.html&quot;&gt;Specyfikacja JAX-RS 2.1&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/package-summary.html&quot;&gt;Dokumentacja API JAX-RS&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS&quot;&gt;Artykuł na stronie Mozilli o CORS&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://martinfowler.com/articles/richardsonMaturityModel.html&quot;&gt;Artykuł na temat dojrzałości architektury REST&lt;/a&gt;,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Dzisiaj udało Ci się zdobyć sporo wiedzy. Dowiedziałeś się czym jest REST. Co składa się na platformę Java EE. Poznałeś część funkcjonalności jednej ze specyfikacji znajdującej się pod parasolem Java EE. Zainstalowałeś kontener aplikacji, no i przede wszystkim napisałeś swój pierwszy web service przy pomocy JAX-RS.&lt;/p&gt;
+
+&lt;p&gt;W kolejnym artykule z tej serii zajmę się implementacją bardziej użytecznego web service’u. Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:tlumaczenie&quot;&gt;
+      &lt;p&gt;Zawsze staram się tłumaczyć angielskie terminy. Jednak w tym przypadku poddałem się. Jak przetłumaczyć web service? Usługa sieciowa? Serwis internetowy? Takie tłumaczenie wprowadzałoby więcej zamieszania niż pożytku. Zostanie więc web service, jeśli masz jakiś pomysł jak to przetłumaczyć daj znać ;). &lt;a href=&quot;#fnref:tlumaczenie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:jee7&quot;&gt;
+      &lt;p&gt;W rzeczywistości mimo, że importuję tu API w wersji 2.1 serwer TomEE, którego używam (7.0.4) wspiera wersję 2.0. &lt;a href=&quot;#fnref:jee7&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:windows&quot;&gt;
+      &lt;p&gt;Jeśli pracujesz na systemie Windows wówczas plik ten nazywa się &lt;code class=&quot;highlighter-rouge&quot;&gt;catalina.bat&lt;/code&gt;. &lt;a href=&quot;#fnref:windows&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:uproszczenie&quot;&gt;
+      &lt;p&gt;Oczywiście jest to uproszczenie. W praktyce proces jest trochę bardziej rozbudowany. Proces ten opisany jest w sekcji 3.7 specyfikacji “Matching Requests to Resource Methods”. Domyślnie nowa instancja klasy obsługującej zapytanie tworzona jest dla każdego zapytania. W większości przypadków nie jest to zachowanie, które chcesz zostawić na produkcyjnym środowisku. &lt;a href=&quot;#fnref:uproszczenie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:cors&quot;&gt;
+      &lt;p&gt;W tym przypadku porównywany jest protokół (np. http), domena (np. www.samouczekprogramisty.pl) i port (np. 8080). &lt;a href=&quot;#fnref:cors&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS.</summary></entry><entry><title type="html">Podstawy złożoności obliczeniowej</title><link href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/" rel="alternate" type="text/html" title="Podstawy złożoności obliczeniowej" /><published>2017-11-13T00:00:00+01:00</published><updated>2017-11-13T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/">&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;
 &lt;/script&gt;
 
 &lt;div class=&quot;notice--warning&quot;&gt;
@@ -387,6 +727,7 @@
   &lt;li&gt;&lt;a href=&quot;https://plato.stanford.edu/entries/computational-complexity/&quot;&gt;Artykuł na temat złożoności obliczeniowej z uniwersytetu Stanford&lt;/a&gt;,&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.wolframalpha.com/examples/ComputationalComplexity.html&quot;&gt;Sekcja Wolfram Alpha poświęcona złożoności obliczeniowej&lt;/a&gt;,&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://pl.wikipedia.org/wiki/Asymptotyczne_tempo_wzrostu&quot;&gt;Artykuł na Wikipedii na temat funkcji służących do szacowania&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://codility.com/media/train/1-TimeComplexity.pdf&quot;&gt;Artykuł o złożoności obliczeniowej na Codility&lt;/a&gt;&lt;sup id=&quot;fnref:marek&quot;&gt;&lt;a href=&quot;#fn:marek&quot; class=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/02_computational_complexity/src/main/java/pl/samouczekprogramisty/misc/complexity&quot;&gt;Fragmenty kodu użyte w tym artykule&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -411,6 +752,9 @@
     &lt;/li&gt;
     &lt;li id=&quot;fn:afiliacja&quot;&gt;
       &lt;p&gt;To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :) &lt;a href=&quot;#fnref:afiliacja&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:marek&quot;&gt;
+      &lt;p&gt;Wielkie dzięki dla Marka za podesłanie linka do tego artykułu. &lt;a href=&quot;#fnref:marek&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji Ο. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!</summary></entry><entry><title type="html">Liczby zmiennoprzecinkowe</title><link href="http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe/" rel="alternate" type="text/html" title="Liczby zmiennoprzecinkowe" /><published>2017-11-06T00:00:00+01:00</published><updated>2017-11-06T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe/">&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;
@@ -1729,243 +2073,4 @@ Stan konta: -5000
 
 &lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
 
-&lt;p&gt;Muszę jeszcze popracować nad spięciem wszystkich elementów w całość, został mi na to tydzień. Trzymajcie kciuki ;). Zostało też “kilka” brakujących funkcjonalności i finalne testy. Mówi się, że tego typu praca pochłania 80% czasu. Zobaczymy czy zasada &lt;a href=&quot;https://pl.wikipedia.org/wiki/Zasada_Pareta&quot;&gt;80/20&lt;/a&gt; sprawdzi się i tym razem. Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Pogodynka to projekt, w ramach którego przy pomocy Raspberry Pi i czujnika temperatury udostępnię aktualne odczyty temperatury na stronie www. Ten krótki wpis podsumowuje dzisiejszy postęp prac nad projektem.</summary></entry><entry><title type="html">Formatter - formatowanie łańcuchów znaków</title><link href="http://www.samouczekprogramisty.pl/formatter-formatowanie-lancuchow-znakow/" rel="alternate" type="text/html" title="Formatter - formatowanie łańcuchów znaków" /><published>2017-05-12T23:25:55+02:00</published><updated>2017-05-12T23:25:55+02:00</updated><id>http://www.samouczekprogramisty.pl/formatter-formatowanie-lancuchow-znakow</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/formatter-formatowanie-lancuchow-znakow/">&lt;h2 id=&quot;formatowanie&quot;&gt;Formatowanie&lt;/h2&gt;
-
-&lt;p&gt;Wyobraź sobie, że chcesz pokazać użytkownikowi pewne zestawienie. Dane tego typu wygodnie jest prezentować w formie tabelarycznej. Tak dochodzimy do problemu formatowania. W jaki sposób można taki format uzyskać?&lt;/p&gt;
-
-&lt;p&gt;Problem ten można rozwiązać posługując się klasą &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Formatter&lt;/code&gt;&lt;/a&gt;. Instancje właśnie tej klasy użyte są w wielu innych miejscach. Na przykład:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/io/PrintWriter.html#format-java.lang.String-java.lang.Object...-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PrintWriter.format&lt;/code&gt;&lt;/a&gt; Wewnątrz tej metody użyty jest &lt;code class=&quot;highlighter-rouge&quot;&gt;Formatter&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;System.out&lt;/code&gt; to instancja klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;PrintWriter&lt;/code&gt;. Dzięki temu w bardzo wygodny sposób możesz formatować tekst wypisując go na konsoli używając metody &lt;code class=&quot;highlighter-rouge&quot;&gt;System.out.format&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#format-java.lang.String-java.lang.Object...-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;String.format&lt;/code&gt;&lt;/a&gt; statyczna metoda w klasie &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;, która pozwala na formatowanie łańcucha znaków. Jej implementacja także bazuje na klasie &lt;code class=&quot;highlighter-rouge&quot;&gt;Formatter&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;zasada-działania-formattera&quot;&gt;Zasada działania formattera&lt;/h2&gt;
-
-&lt;p&gt;Formatter działa w oparciu o specjalny łańcuch znaków. Ten łańcuch opisuje sam format w jakim dane powinny być sformatowane. Może on wyglądać następująco:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;%2$08.3f %3$(,08.3f %s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Nie przeraź się tym przykładem, po przeczytaniu tego artykułu będziesz dokładnie wiedział co ten magiczny wzorek oznacza. Jest on celowo skomplikowany, żeby pokazać Ci możliwości klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Formatter&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;Łańcuch-formatujący&quot;&gt;Łańcuch formatujący&lt;/h2&gt;
-
-&lt;p&gt;Zacznijmy od prostego przykładu:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Formatter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Formatter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2015&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Marcin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formattedString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formattedString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Po uruchomieniu tego fragmentu kodu na konsoli pokaże się:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Samouczek Programisty istnieje od 2015. Wszystkie artykuły pisze Marcin.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Powyższy fragment kodu to nic innego jak utworzenie nowej instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Formatter&lt;/code&gt;. Następnie na tej instancji wywołana jest metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;format&lt;/code&gt;. Jako pierwszy argument przyjmuje ona łańcuch formatujący. Następnie może przyjąć zmienną liczbę argumentów, które wykorzystywane są do uzupełniania formatu.&lt;/p&gt;
-
-&lt;p&gt;W naszym przypadku łańcuchem formatującym jest &lt;code class=&quot;highlighter-rouge&quot;&gt;Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.&lt;/code&gt;. Natomiast dwa parametry służące do uzupełniania formatu to literały &lt;code class=&quot;highlighter-rouge&quot;&gt;2015&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;Marcin&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Powyższy fragment można uprościć używając wcześniej wspomnianej metody &lt;code class=&quot;highlighter-rouge&quot;&gt;PrintWriter.format&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2015&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Marcin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W dalszej części artykułu posługiwał będę się tą uproszczoną wersją. Ważne jest żebyś miał jednak świadomość, że pod spodem używana jest instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Formatter&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;znaczniki-konwersji&quot;&gt;Znaczniki konwersji&lt;/h2&gt;
-
-&lt;p&gt;Wcześniej użyty łańcuch formatujący to zwykły &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;, wewnątrz którego znajdują się sekwencje interpretowane w specjalny sposób. Sekwencje te zawsze mają format:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;%[indeks argumentu$][flagi][szerokość][.precyzja]konwersja
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Wszystkie elementy otoczone nawiasami [] są opcjonalne więc w najprostszej wersji znacznik konwersji może mieć format &lt;code class=&quot;highlighter-rouge&quot;&gt;%konwersja&lt;/code&gt;. Zwróć jeszcze raz uwagę na łańcuch formatujący&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Jak widzisz znajdują się w nim dwa znaczniki konwersji. Są to &lt;code class=&quot;highlighter-rouge&quot;&gt;%d&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;%s&lt;/code&gt;. Odnoszą się one do kolejnych argumentów metody &lt;code class=&quot;highlighter-rouge&quot;&gt;format&lt;/code&gt;. W naszym przypadku są to literały &lt;code class=&quot;highlighter-rouge&quot;&gt;2015&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;Marcin&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Znaczniki konwersji informują instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Formatter&lt;/code&gt; w jaki sposób dodatkowe parametry powinny być sformatowane. Występuje wiele znaczników konwersji, te najczęściej używane podsumowane są w tabeli poniżej:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Znacznik&lt;/th&gt;
-      &lt;th&gt;Typ argumentu&lt;/th&gt;
-      &lt;th&gt;Działanie&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%b&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;dowolny&lt;/td&gt;
-      &lt;td&gt;interpretuje argument jako wartość logiczną&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%s&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;dowolny&lt;/td&gt;
-      &lt;td&gt;interpretuje argument jako łańcuch znaków&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%d&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;liczba całkowita&lt;/td&gt;
-      &lt;td&gt;interpretuje argument jako liczbę całkowitą&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%o&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;liczba całkowita&lt;/td&gt;
-      &lt;td&gt;interpretuje argument jako liczbę całkowitą zapisaną w systemie ósemkowym&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%x&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;liczba całkowita&lt;/td&gt;
-      &lt;td&gt;interpretuje argument jako liczbę całkowitą zapisaną w systemie szesnastkowym&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%f&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;liczba zmiennoprzecinkowa&lt;/td&gt;
-      &lt;td&gt;interpretuje argument jako liczbę zmiennoprzecinkową&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%%&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;nie potrzebuje argumentu, jest to sposób na umieszczenie znaku &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; wewnątrz sformatowanego łańcucha znaków&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%n&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;nie potrzebuje argumentu, jest to sposób na umieszczenie znaku nowej linii wewnątrz sformatowanego łańcucha znaków&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;indeks-argumentu&quot;&gt;Indeks argumentu&lt;/h3&gt;
-
-&lt;p&gt;Metoda format przyjmuje łańcuch formatujący i parametry, które służą do wypełnienia znaczników formatujących. Jeśli chciałbyś użyć, któregoś obiektu wiele razy możesz użyć indeksu argumentu. Indeksy mają także zastosowanie jeśli chciałbyś użyć argumentów w innej kolejności. Numeracja argumentów zaczyna się od 1. Proszę spójrz na przykład poniżej:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[%2$s] [%1$s] [%1$s]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;pierwszy argument&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;drugi argument&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Po uruchomieniu tego kodu na konsoli zostanie wyświetlony napis:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[drugi argument] [pierwszy argument] [pierwszy argument]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Argument z numerem 1 użyty jest dwa razy, argument 2. użyty jest jako pierwszy w łańcuchu formatującym.&lt;/p&gt;
-&lt;h3 id=&quot;szerokość&quot;&gt;Szerokość&lt;/h3&gt;
-
-&lt;p&gt;Możesz także określić minimalną szerokość jaką powinien zająć argument. Domyślnie zostanie on wyrównany do prawej. Proszę spójrz na przykład poniżej:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[%10s] [%3s]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Pierwszy fragment będzie uzupełniony sześcioma spacjami. Dzieje się tak ponieważ test ma cztery znaki a minimalna szerokość to 10. Zauważ, że w drugiej części gdzie minimalna szerokość to 3 żadne dodatkowe spacje nie zostały dodane.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[      test] [test]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;precyzja&quot;&gt;Precyzja&lt;/h3&gt;
-
-&lt;p&gt;Dodatkowo dla liczb zmiennoprzecinkowych możesz określić precyzję. Dodając ten modyfikator określasz ile liczb po przecinku powinno być wyświetlonych&lt;sup id=&quot;fnref:precyzja&quot;&gt;&lt;a href=&quot;#fn:precyzja&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;Jeśli precyzja zostanie pominięta użyta jest domyślna wartość - sześć miejsc po przecinku. Proszę spójrz na przykład poniżej:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1234567890123&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[%.10f] [%.3f] [%f]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Na konsoli pokażą się trzy liczby. Pierwsza z nich zawiera 10 liczb po przecinku, druga 3 a ostatnia domyślne 6:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[1.1234567890] [1.123] [1.123457]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;flagi&quot;&gt;Flagi&lt;/h3&gt;
-
-&lt;p&gt;Flagi modyfikują zachowanie znaczników konwersji. Poniżej opiszę kilka dostępnych flag:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt; element będzie wyrównany do lewej strony,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt; liczba zawsze będzie zawierała znak (nawet jeśli jest dodatnia),&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; liczba będzie uzupełniona 0 do żądanej szerokości,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(&lt;/code&gt; liczby ujemne nie będą prezentowane ze znakiem,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;,&lt;/code&gt; użyj separatora do grupowania liczb. Separator ten zależy jest od lokalizacji.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Jeden znacznik może zawierać kilka flag. Dodatkowo wszystkie opisane wcześniej elementy mogą być połączone ze sobą.&lt;/p&gt;
-
-&lt;h2 id=&quot;lokalizacja&quot;&gt;Lokalizacja&lt;/h2&gt;
-
-&lt;p&gt;W uproszczeniu lokalizacja to zbiór reguł, które określają w jaki sposób w należy prezentować dany łańcuch znaków. Można powiedzieć, że jest to swego rodzaju tłumaczenie na reguły obowiązujące w danym kraju/regionie. To lokalizacja ma wpływ na to jak na przykład wyświetlane są na daty czy liczby.&lt;/p&gt;
-
-&lt;p&gt;Do tej pory w całym artykule używałem metod, które używały domyślnej lokalizacji, możesz ją uzyskać odwołując się do metody &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#getDefault-java.util.Locale.Category-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Locale.getDefault&lt;/code&gt;&lt;/a&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;Formatter&lt;/code&gt; pozwala także na formatowanie łańcucha znaków używając innych ustawień lokalizacji.&lt;/p&gt;
-
-&lt;p&gt;Proszę spójrz na przykład poniżej. Ta sama liczba prezentowana jest używając trzech różnych ustawień lokalizacji. Zwróć uwagę na to, że w każdym przypadku otrzymujemy różne wyniki:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;12345.12&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Locale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;US&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%,.2f%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Locale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;GERMAN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%,.2f%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Locale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forLanguageTag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;PL&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%,.2f%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;12,345.12
-12.345,12
-12 345,12
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Wyniki różnią się separatorem dziesiętnym (&lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt; lub &lt;code class=&quot;highlighter-rouge&quot;&gt;,&lt;/code&gt;) i separatorem grup liczb (&lt;code class=&quot;highlighter-rouge&quot;&gt;,&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt; lub ` `).&lt;/p&gt;
-&lt;h2 id=&quot;bardziej-skomplikowany-przykład&quot;&gt;Bardziej skomplikowany przykład&lt;/h2&gt;
-
-&lt;p&gt;Teraz masz już wystarczająco dużo informacji aby zrozumieć pierwszy przykład użyty na początku artykułu. Dla przypomnienia:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;%2$08.3f %3$(,08.3f %s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Rozkładając ten łańcuch formatujący na części widzisz trzy znaczniki formatujące:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%2$08.3f&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%3$(,08.3f&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%s&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Rozkładając najbardziej skomplikowany z nich &lt;code class=&quot;highlighter-rouge&quot;&gt;%3$(,08.3f&lt;/code&gt; na części pierwsze otrzymujemy:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%3$&lt;/code&gt; odwołanie się do trzeciego argumentu,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(&lt;/code&gt; otoczenie liczb ujemnych nawiasami &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;,&lt;/code&gt; użycie separatora grup liczb,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; uzupełnienie liczby zerami,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;8&lt;/code&gt; ustawienie minimalnej szerokości wyświetlanej liczby na osiem znaków,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.3&lt;/code&gt; wyświetlenie trzech miejsc dziesiętnych,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt; konwersja liczby zmiennoprzecinkowej.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;Ćwiczenie-do-wykonania&quot;&gt;Ćwiczenie do wykonania&lt;/h2&gt;
-
-&lt;p&gt;Plik CSV zawiera trzy kolumny oddzielone znakiem &lt;code class=&quot;highlighter-rouge&quot;&gt;,&lt;/code&gt;. Pierwsza kolumna zawiera imię, druga liczbę zmiennoprzecinkową trzecia dzień tygodnia. Twoim zadaniem jest wczytanie zawartości &lt;a href=&quot;https://raw.githubusercontent.com/SamouczekProgramisty/KursJava/master/27_lancuchy_znakow_formatowanie/src/main/resources/test.csv&quot;&gt;tego pliku&lt;/a&gt; i wyświetlenie jej w formie tabeli. Efekt, który chcesz uzyskać wygląda następująco:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;| Piotrek | 123.12  | poniedziałek |
-| Tomek   | 321.30  | wtorek       |
-| Marcin  | -123.12 | środa        |
-| Wojtek  | -3.12   | czwartek     |
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Zachęcam Cię do rozwiązania zadania samodzielnie. Jeśli jednak będziesz miał problem z jego rozwiązaniem przygotowałem dla Ciebie &lt;a href=&quot;https://github.com/SamouczekProgramisty/KursJava/blob/master/27_lancuchy_znakow_formatowanie/src/main/java/pl/samouczekprogramisty/kursjava/strings/formatting/ExerciseSolution.java&quot;&gt;przykładowe rozwiązanie&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
-
-&lt;p&gt;Artykuł ten to “skrót” dokumentacji dla klasy klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Formatter&lt;/code&gt;. Jeśli chcesz dowiedzieć się czegoś więcej zachęcam do przeczytania &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html&quot;&gt;dokumentacji tej klasy&lt;/a&gt;. Dodatkowo możesz także przejrzeć &lt;a href=&quot;https://github.com/SamouczekProgramisty/KursJava/blob/master/27_lancuchy_znakow_formatowanie/src/main/java/pl/samouczekprogramisty/kursjava/strings/formatting/StringFormatting.java&quot;&gt;kod źródłowy wszystkich przykładów&lt;/a&gt; użytych w tym artykule.&lt;/p&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;W artykule przeczytałeś o formatowaniu łańcuchów znaków. Wiesz jak formatować liczby zmiennoprzecinkowe, poznałeś klasę Formatter wraz miejscami gdzie jest ona używana. Rozwiązując ćwiczenie wykorzystałeś całą wiedzę w praktyce.&lt;/p&gt;
-
-&lt;p&gt;Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli masz jakieś pytania nie wahaj się zadać je w komentarzach. Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na facebooku i dopisz się do newslettera. Do następnego razu.&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:precyzja&quot;&gt;
-      &lt;p&gt;Precyzję można także użyć na przykład wraz z &lt;code class=&quot;highlighter-rouge&quot;&gt;%s&lt;/code&gt;, wtedy oznacza to maksymalną liczbę znaków do wyświetlenia. &lt;a href=&quot;#fnref:precyzja&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W trakcie pracy z łańcuchami znaków bardzo często musimy prezentować je odpowiednim formacie. Dzisiejszy artykuł poświęcony będzie właśnie formatowaniu łańcuchów znaków. Dodatkowo dowiesz się czym jest lokalizacja i jaki ma wpływ na formatowanie. Całość będziesz mógł przećwiczyć rozwiązując ćwiczenie związane z formatowaniem.</summary></entry></feed>
+&lt;p&gt;Muszę jeszcze popracować nad spięciem wszystkich elementów w całość, został mi na to tydzień. Trzymajcie kciuki ;). Zostało też “kilka” brakujących funkcjonalności i finalne testy. Mówi się, że tego typu praca pochłania 80% czasu. Zobaczymy czy zasada &lt;a href=&quot;https://pl.wikipedia.org/wiki/Zasada_Pareta&quot;&gt;80/20&lt;/a&gt; sprawdzi się i tym razem. Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Pogodynka to projekt, w ramach którego przy pomocy Raspberry Pi i czujnika temperatury udostępnię aktualne odczyty temperatury na stronie www. Ten krótki wpis podsumowuje dzisiejszy postęp prac nad projektem.</summary></entry></feed>

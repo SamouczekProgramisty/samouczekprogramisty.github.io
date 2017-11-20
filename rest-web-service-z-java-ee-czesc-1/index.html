@@ -1,0 +1,923 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>REST web service z Java EE część 1 - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="REST web service z Java EE część 1">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-1/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-1/">
+
+
+
+  <meta property="og:description" content="Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/11/20_rest_web_service_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-11-20T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/11/20_rest_web_service_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          REST web service z Java EE część 1
+
+        
+      </h1>
+      
+        <p class="page__lead">Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/exfordy/2486394359/sizes/l">© exfordy</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">REST web service z Java EE część 1</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="REST web service z Java EE część 1">
+    <meta itemprop="description" content="Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS.">
+    <meta itemprop="datePublished" content="November 20, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#słownik-pojęć">Słownik pojęć</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#czym-jest-web-service">Czym jest web service</a></li>
+<li class="toc-entry toc-h3"><a href="#czym-jest-rest">Czym jest REST</a></li>
+<li class="toc-entry toc-h3"><a href="#czym-jest-java-ee">Czym jest Java EE</a></li>
+<li class="toc-entry toc-h3"><a href="#kontener-aplikacji-a-kontener-serwletów">Kontener aplikacji a kontener serwletów</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#instalacja-kontenera-aplikacji">Instalacja kontenera aplikacji</a></li>
+<li class="toc-entry toc-h2"><a href="#web-service-z-jax-rs">Web service z JAX-RS</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#buildgradle">build.gradle</a></li>
+<li class="toc-entry toc-h3"><a href="#pierwszy-web-service">Pierwszy web service</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#jak-działa-web-service-z-użyciem-jax-rs">Jak działa web service z użyciem JAX-RS</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#rest-bez-użycia-jax-rs">REST bez użycia JAX-RS</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#pozostałe-metody-web-serviceu">Pozostałe metody web service’u</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#pobieranie-encji-metoda-get">Pobieranie encji. Metoda GET</a></li>
+<li class="toc-entry toc-h3"><a href="#edycja-encji-metoda-post">Edycja encji. Metoda POST</a></li>
+<li class="toc-entry toc-h3"><a href="#usuwanie-encji-metoda-delete">Usuwanie encji. Metoda ‘DELETE`</a></li>
+<li class="toc-entry toc-h3"><a href="#dodawanie-encji-metoda-put">Dodawanie encji. Metoda ‘PUT`</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#testowanie-zapytań-typu-put-delete">Testowanie zapytań typu PUT, DELETE</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#słów-kilka-o-cors">Słów kilka o CORS</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#adnotacja-provider">Adnotacja @Provider</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        
+<div class="notice--info">
+  
+<p>To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">darmowego kursu programowania aplikacji webowych w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<p>W kursie tym zakładam, że znasz język Java. Możesz go poznać w osobnym <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java">kursie programowania w języku Java</a>. Do budowania wszystkich projetków używam Gradle, przeczytasz o nim więcej w <a href="/wstep-do-gradle/">osobnym artykule</a>.</p>
+
+</div>
+
+<h2 id="słownik-pojęć">Słownik pojęć</h2>
+
+<p>Na początku postaram się wytłumaczyć pojęcia, które będą używane w dalszej części artykułu.</p>
+
+<h3 id="czym-jest-web-service">Czym jest web service</h3>
+
+<p>Wyobraź sobie obiekt. Obiekt ma zestaw metod. W normalnych warunkach metody na tym obiekcie możemy wywoływać wyłącznie w tym samym programie, w ramach tej samej wirtualnej maszyny Java. W uproszczeniu web service<sup id="fnref:tlumaczenie"><a href="#fn:tlumaczenie" class="footnote">1</a></sup> to mechanizm umożliwiający wywołanie jakiejś funkcjonalności za pośrednictwem internetu. Istnieje kilka podejść do tworzenia web service’ów.</p>
+
+<p>Jednym z nich jest tak zwany REST.</p>
+
+<h3 id="czym-jest-rest">Czym jest REST</h3>
+
+<p>REST to rozwinięcie <em>Representational State Transfer</em>. REST to zbiór praktyk, które określają w jaki sposób powinniśmy implementować web service’y. REST kręci się wokół tak zwanych encji (ang. <em>resource</em>). Encja to obiekt, który reprezentuje byt w aplikacji. Może to być na przykład obiekt reprezentujący rezerwację stolika, użytkownika aplikacji czy kredyt w banku.</p>
+
+<p>Operacje na encjach wykonuje się za pomocą zapytań HTTP. Do encji dobieramy się używając odpowiednich typów zapytań. Typy zapytań określone są przez czasowniki HTTP: <code class="highlighter-rouge">GET</code>, <code class="highlighter-rouge">POST</code>, <code class="highlighter-rouge">PUT</code> i <code class="highlighter-rouge">DELETE</code>. Czasowniki te wraz z adresem URL definiują dokładnie jaką operację chcemy wykonać na danej encji.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Czasownik</th>
+      <th>Przykład</th>
+      <th>Znaczenie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">GET</code></td>
+      <td><code class="highlighter-rouge">GET /rezerwacja/123</code></td>
+      <td>Pobranie rezerwacji o identyfikatorze 123</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">POST</code></td>
+      <td><code class="highlighter-rouge">POST /rezerwacja/123</code></td>
+      <td>Edycja rezerwacji o identyfikatorze 123</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">PUT</code></td>
+      <td><code class="highlighter-rouge">PUT /rezerwacja</code></td>
+      <td>Utworzenie nowej rezerwacji</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">DELETE</code></td>
+      <td><code class="highlighter-rouge">DELETE /rezerwacja/123</code></td>
+      <td>Usunięcie rezerwacji o identyfikatorze 123</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Zanim powstał REST, web service’y w języku Java tworzono w oparciu o SOAP (ang. <em>Simple Object Access Protocol</em>). SOAP w porównaniu do REST jest dużo bardziej złożony. SOAP oparty jest o XML’a i jest dość rozwlekłym protokołem. Moim zdaniem REST zdobył dużą przewagę właśnie swoją prostotą w porównaniu do SOAP. REST jest <em>de facto</em> standardem jeśli chodzi o tworzenie web service’ów w większości aplikacji webowych.</p>
+
+<p>Wysłane zapytanie informuje także web service o preferowanej formie odpowiedzi. Dzieje się to zazwyczaj przy pomocy nagłówków HTTP. Na przykład nagłówek zapytania <code class="highlighter-rouge">Accept: application/json</code> informuje web service, że klient oczekuje odpowiedzi w formacie <a href="https://www.json.org/">JSON</a>.</p>
+
+<p>Jest to tylko krótkie wprowadzenie, jeśli chcesz dowiedzieć się więcej na temat REST odsyłam Cię do materiałów dodatkowych.</p>
+
+<h3 id="czym-jest-java-ee">Czym jest Java EE</h3>
+
+<p>W jednym zdaniu. Java EE to platforma, która oparta jest na zbiorze specyfikacji. Technologie opisane w tych specyfikacjach są używane głównie do tworzenia aplikacji webowych.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/11/20_java_ee_logo.png" alt="" />
+  
+    <figcaption>Logo Java EE
+</figcaption>
+  
+</figure>
+
+<p>Teraz należy Ci się rozwinięcie. Język Java już znasz. Java wraz z zestawem biblioteki standardowej to Java SE (ang. <em>Standard Edition</em>). Istnieje również taki twór jak Java EE (ang. <em>Enterprise Edition</em>). Jak napisałem wyżej Java EE to nic innego jak zbiór różnych specyfikacji. Można powiedzieć, że Java EE rozbudowuje możliwości Java SE. Oczywiście podstawą tutaj jest język programowania Java. Java EE w wersji 8 została opublikowana 31 sierpnia 2017 roku. Java EE w wersji 8 to <a href="http://www.oracle.com/technetwork/java/javaee/tech/java-ee-8-3890673.html">41 osobnych specyfikacji</a>! Jedną ze specyfikacji jest Java Servlets. Opisywałem ją w poprzednich artykułach w ramach <a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">kursu</a>.</p>
+
+<p>Java Servlets jest specyfikacją, którą można używać w kontenerach serwletów. Niestety nie wszystkie ze wspomnianych 41 specyfikacji można używać w kontenerze serwletów. Java API for RESTful Web Services (w skrócie JAX-RS) jest tu dobrym przykładem. Aby móc używać tej technologii potrzebujemy kontenera aplikacji.</p>
+
+<h3 id="kontener-aplikacji-a-kontener-serwletów">Kontener aplikacji a kontener serwletów</h3>
+
+<p>Apache Tomcat, którego używałem do tej pory w ramach kursu jest kontenerem serwletów. Umożliwia on uruchamianie aplikacji webowych, które używają podzbioru specyfikacji Java EE (na przykład specyfikacji serwletów).</p>
+
+<p>Pisanie web service’ów w oparciu o JAX-RS wymaga kontenera aplikacji. Jednym z kontenerów aplikacji jest <a href="http://tomee.apache.org">Apache TomEE</a>.</p>
+
+<h2 id="instalacja-kontenera-aplikacji">Instalacja kontenera aplikacji</h2>
+
+<p>Jest wiele kontenerów aplikacji. W tym kursie będę używał Apache TomEE. Jest to jeden z darmowych kontenerów. Aby go zainstalować pobierz <a href="http://tomee.apache.org/download-ng.html">TomEE PluME</a> i rozpakuj plik ZIP do dowolnego folderu. To tyle, instalację kontenera aplikacji masz już za sobą.</p>
+
+<p>Ważne jest, żebyś pobrał wersję TomEE PluME, lub TomEE+. Te wersje <a href="http://tomee.apache.org/comparison.html">wspierają specyfikację JAX-RS</a>.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2017/11/20_tomee_plume_download.png" alt="" />
+  
+    <figcaption>Pobieranie TomEE Plume
+</figcaption>
+  
+</figure>
+
+<h2 id="web-service-z-jax-rs">Web service z JAX-RS</h2>
+
+<h3 id="buildgradle"><code class="highlighter-rouge">build.gradle</code></h3>
+
+<p>Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania aplikacji użyłem Gradle. Plik <code class="highlighter-rouge">build.gradle</code> wygląda następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'war'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+group = 'pl.samouczekprogramisty.kursaplikacjewebowe'
+version = '1.0-SNAPSHOT'
+
+dependencies {
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+}
+
+task explodedWar(type: Copy) {
+    into "$buildDir/explodedWar"
+    with war
+}
+
+war.dependsOn explodedWar
+</code></pre></div></div>
+
+<p>Najbardziej istotnym fragmentem jest <code class="highlighter-rouge">providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'</code><sup id="fnref:jee7"><a href="#fn:jee7" class="footnote">2</a></sup>. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. <code class="highlighter-rouge">providedCompile</code> mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na <a href="%/java-z-linii-polecen/">classpath</a> kontenera aplikacji.</p>
+
+<h3 id="pierwszy-web-service">Pierwszy web service</h3>
+
+<p>Następnie utwórz klasę, która będzie odpowiedzialna za encję <code class="highlighter-rouge">Reservation</code>. Może to być na przykład <code class="highlighter-rouge">ReservationWebservice</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursaplikacjewebowe</span><span class="o">.</span><span class="na">rest</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.GET</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.Path</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Response</span><span class="o">;</span>
+
+<span class="nd">@Path</span><span class="o">(</span><span class="s">"/reservation"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReservationWebservice</span> <span class="o">{</span>
+    <span class="nd">@GET</span>
+    <span class="kd">public</span> <span class="n">Response</span> <span class="nf">listReservations</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="s">"Oto wszystkie rezerwacje :)"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jest to standardowa klasa Javy, tak zwane POJO (ang. <em>Plain Old Java Object</em>). Zawiera ona jedną metodą, <code class="highlighter-rouge">listReservations</code>. Dodatkowo znajdują się w niej dwie <a href="/adnotacje-w-jezyku-java/">adnotacje</a>: <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html"><code class="highlighter-rouge">@Path</code></a> i <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html"><code class="highlighter-rouge">@GET</code></a>. Metoda ta zwraca instancję obiektu <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Response.html"><code class="highlighter-rouge">Response</code></a>.</p>
+
+<p>Ta kombinacja to Twój pierwszy web service. Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html"><code class="highlighter-rouge">@Path</code></a> informuje JAX-RS o tym pod jakim URL dana klasa/metoda powinna odpowiadać. Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html"><code class="highlighter-rouge">@GET</code></a> mówi o tym jaki czasownik HTTP jest obsługiwany przez daną metodę.</p>
+
+<p>Następnie zbuduj aplikację używając polecenia:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gradle war
+</code></pre></div></div>
+
+<p>Po jego wykonaniu w katalogu <code class="highlighter-rouge">build/libs</code> projektu powinien znaleźć się plik war. Przekopiuj go do katalogu <code class="highlighter-rouge">webapps</code> w miejscu gdzie zainstalowałeś TomEE. W moim przypadku wygląda to następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /home/mapi/KursAplikacjeWebowe/06_rest_endpoint/build/libs/06_rest_endpoint-1.0-SNAPSHOT.war /home/mapi/opt/apache-tomee/webapps/rest.war
+</code></pre></div></div>
+
+<p>Zauważ, że w trakcie kopiowania zmieniłem nazwę pliku war z <code class="highlighter-rouge">06_rest_endpoint-1.0-SNAPSHOT.war</code> na <code class="highlighter-rouge">rest.war</code>. Zrobiłem tak, ponieważ TomEE, podobnie jak Tomcat używa nazwy pliku war jako fragmentu adresu URI aplikacji. Szybciej napiszę <code class="highlighter-rouge">rest</code> niż <code class="highlighter-rouge">06_rest_endpoint-1.0-SNAPSHOT</code>.</p>
+
+<p>Po przekopiowaniu pliku war uruchom serwer TomEE. Możesz to zrobić przy pomocy pliku <code class="highlighter-rouge">catalina.sh</code><sup id="fnref:windows"><a href="#fn:windows" class="footnote">3</a></sup>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/mapi/opt/apache-tomee/bin/catalina.sh run
+</code></pre></div></div>
+
+<p>Jeśli zrobiłeś wszystko zgodnie z powyższą instrukcją masz swój pierwszy działający web service. Gratulacje ;). Aby móc zobaczyć go w działaniu odwiedź stronę: <code class="highlighter-rouge">http://localhost:8080/rest/reservation</code>. Powinieneś zobaczyć napis <code class="highlighter-rouge">Oto Wszystkie rezerwacje :)</code>.</p>
+
+<h2 id="jak-działa-web-service-z-użyciem-jax-rs">Jak działa web service z użyciem JAX-RS</h2>
+
+<p>Skoro napisałeś już swój pierwszy web service warto zrozumieć co dzieje się pod spodem. Nie ma tam żadnej magii. Jedynie trochę pracy po stronie kontenera aplikacji.</p>
+
+<p>Otóż w naszym przypadku specyfikacja JAX-RS wymaga od kontenera aplikacji utworzenia specjalnego serwletu. Serlwet ten ma za zadanie obsługiwać wszystkie żądania, które wysyłane są do naszej aplikacji.</p>
+
+<p>Kontener aplikacji musi przeskanować wszystkie klasy w naszej aplikacji pod kątem adnotacji JAX-RS. Jeśli znajdzie te adnotacje w klasach zapamiętuje je. Następnie używa tych klas do obsługi żądań wysyłanych przez klienty<sup id="fnref:uproszczenie"><a href="#fn:uproszczenie" class="footnote">4</a></sup>.</p>
+
+<p>Więc w tym przypadku, wysłanie żądania na adres <code class="highlighter-rouge">http://localhost:8080/rest/reservation</code> spowoduje wywołanie tego serwletu. Następnie serwlet stworzy instancję klasy 
+<code class="highlighter-rouge">ReservationWebservice</code>. Na tej instancji wywoła metodę <code class="highlighter-rouge">listReservations</code>. Wartość zwrócona przez tę metodę zostanie użyta do przygotowania odpowiedzi dla klienta.</p>
+
+<h3 id="rest-bez-użycia-jax-rs">REST bez użycia JAX-RS</h3>
+
+<p>Jak widzisz z powyższego opisu JAX-RS jest jedynie nakładką na mechanizm serwletów. Jeśli czytałeś poprzednie artykuły w ramach kursu to wiesz, że serwlety są sercem ogromnej większości aplikacji webowych napisanych w Javie.</p>
+
+<p>Skoro jest to nakładka, to można tę samą funkcjonalność uzyskać bez niej. Innymi słowy można pisać REST’owe web service’y bez użycia JAX-RS, używając standardowego kontenera serwletów. Jednak JAX-RS sporo upraszcza, pozwala programiście używać wyższego poziomu abstrakcji. Nie musisz pamiętać o <code class="highlighter-rouge">doGet</code> czy innych metod z API serwletów.</p>
+
+<h2 id="pozostałe-metody-web-serviceu">Pozostałe metody web service’u</h2>
+
+<p>Metody te to jedynie szablony, które mają pokazać Ci przykład użycia adnotacji udostępnionych przez JAX-RS.</p>
+
+<h3 id="pobieranie-encji-metoda-get">Pobieranie encji. Metoda <code class="highlighter-rouge">GET</code></h3>
+
+<p>Poprzednia metoda <code class="highlighter-rouge">listReservations</code> odpowiadała na żądanie do ścieżki <code class="highlighter-rouge">/reservation</code> i zwracała (teoretycznie) wszystkie rezerwacje. Tym razem chcemy zwrócić pojedynczą rezerwację. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GET</span>
+<span class="nd">@Path</span><span class="o">(</span><span class="s">"{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">getReservation</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="s">"Oto rezerwacja o identyfikatorze "</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">" :)"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz w tym przypadku metoda <code class="highlighter-rouge">getReservation</code> dekorowana jest adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html"><code class="highlighter-rouge">@Path</code></a>. Metoda ta zostanie wywołana do obsłużenia zapytania wysłanego pod adres <code class="highlighter-rouge">/reservation/{id}</code>. Składnia <code class="highlighter-rouge">{id}</code> użyta jest do przechwytywania części adresu URL. Dzięki tej składni i użyciu adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html"><code class="highlighter-rouge">@PathParam</code></a> część tej ścieżki zostanie przekazana w trakcie wywołania metody <code class="highlighter-rouge">getReservation</code>. Na przykład zapytanie <code class="highlighter-rouge">GET /reservation/123</code> spowoduje wywołanie tej metody z argumentem <code class="highlighter-rouge">id</code> o wartości <code class="highlighter-rouge">123</code>.</p>
+
+<h3 id="edycja-encji-metoda-post">Edycja encji. Metoda <code class="highlighter-rouge">POST</code></h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
+<span class="nd">@Path</span><span class="o">(</span><span class="s">"{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">updateReservation</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="s">"Zmodyfikowaliśmy rezerwację o numerze "</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">" :)"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku nowa jest dla Ciebie jedynie adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/POST.html"><code class="highlighter-rouge">@POST</code></a>. Informuje ona kontener aplikacji o tym, że metoda <code class="highlighter-rouge">updateReservation</code> powinna być wywołana jeśli klient wyśle zapytanie <code class="highlighter-rouge">POST /reservation/{id}</code>.</p>
+
+<h3 id="usuwanie-encji-metoda-delete">Usuwanie encji. Metoda ‘DELETE`</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@DELETE</span>
+<span class="nd">@Path</span><span class="o">(</span><span class="s">"{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">deleteReservation</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="s">"Usunęliśmy rezerwację o numerze "</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">" :)"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="dodawanie-encji-metoda-put">Dodawanie encji. Metoda ‘PUT`</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PUT</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">createReservation</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="s">"Rezerwacja została utworzona!"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="testowanie-zapytań-typu-put-delete">Testowanie zapytań typu <code class="highlighter-rouge">PUT</code>, <code class="highlighter-rouge">DELETE</code></h2>
+
+<p>Do przetestowania zapytań typu <code class="highlighter-rouge">PUT</code> czy <code class="highlighter-rouge">DELETE</code> w przeglądarce potrzebujesz odrobiny HTML’a i kodu w języku JavaScript. Przygotowałem dla Ciebie <a href="http://www.samouczekprogramisty.pl/testuj-web-service/">prostą stronę</a>, która może Ci w tym pomóc.</p>
+
+<p>Jeśli Twoja instancja TomEE będzie uruchomiona i aplikacja będzie zainstalowana, to po odpowiednim wypełnieniu pól zostanie wysłane żądanie.</p>
+
+<h3 id="słów-kilka-o-cors">Słów kilka o CORS</h3>
+
+<p>CORS (ang. <em>Cross-Origin Resource Sharing</em>) jest mechanizmem używanym przez przeglądarki. Polega on na dodawaniu odpowiednich nagłówków do odpowiedzi serwera. Zawartość tych nagłówków informuje przeglądarkę czy może używać wyników tego zapytania.</p>
+
+<p>Mechanizm ten użyty jest do podniesienia bezpieczeństwa używania stron internetowych. Na chwilę obecną musisz wiedzieć, że aby móc używać <a href="http://www.samouczekprogramisty.pl/testuj-web-service/">strony do testowania</a> Twój web service musi dodawać odpowiednie nagłówki do odpowiedzi.</p>
+
+<p>Innymi słowy zamiast wysyłać prostą odpowiedź:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Response</span><span class="o">.</span>
+    <span class="nf">ok</span><span class="o">(</span><span class="s">"Usunęliśmy rezerwację o numerze "</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">" :)"</span><span class="o">).</span>
+    <span class="n">build</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Musiałbyś dodać zestaw nagłówków:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Response</span><span class="o">.</span>
+    <span class="nf">ok</span><span class="o">(</span><span class="s">"Usunęliśmy rezerwację o numerze "</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">" :)"</span><span class="o">).</span>
+    <span class="n">header</span><span class="o">(</span><span class="s">"Access-Control-Allow-Origin"</span><span class="o">,</span> <span class="s">"*"</span><span class="o">)</span>
+    <span class="n">header</span><span class="o">(</span><span class="s">"Access-Control-Allow-Headers"</span><span class="o">,</span> <span class="s">"Content-Type"</span><span class="o">)</span>
+    <span class="n">header</span><span class="o">(</span><span class="s">"Access-Control-Allow-Methods"</span><span class="o">,</span> <span class="s">"DELETE"</span><span class="o">)</span>
+    <span class="n">build</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Jest to wymagane dla każdego zapytania, które będzie uruchamiane ze strony do testowania. Jest to spowodowane tym, że adres URL źródła zapytania jest inny niż adres URL web service’u<sup id="fnref:cors"><a href="#fn:cors" class="footnote">5</a></sup>. W związku z tym, że trzeba to umieścić w wielu miejscach JAX-RS przychodzi z pomocą.</p>
+
+<h2 id="adnotacja-provider">Adnotacja <code class="highlighter-rouge">@Provider</code></h2>
+
+<p>Więcej o tej adnotacji przeczytasz w drugiej części artykułu. Dzisiaj opiszę jedynie część jej możliwości.</p>
+
+<p>JAX-RS udostępnia adnotację <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Providers.html"><code class="highlighter-rouge">@Provider</code></a>. Służy ona do oznaczenia komponentów, które powinny być automatycznie odkryte przez kontener aplikacji. Tą adnotacją oznacza się klasy, które są odpowiedzialne za przekrojowe zadania (ang. <em>cross-cutting</em>) związane z aplikacją.</p>
+
+<p>Przykładem takiego przekrojowego zadania może być automatyczne dodawanie nagłówków do każdej odpowiedzi. Ta funkcjonalność pozwala na łatwą implementację wymagań narzucanych przez CORS:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Provider</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CORSFilter</span> <span class="kd">implements</span> <span class="n">ContainerResponseFilter</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">filter</span><span class="o">(</span><span class="n">ContainerRequestContext</span> <span class="n">requestContext</span><span class="o">,</span> <span class="n">ContainerResponseContext</span> <span class="n">responseContext</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">MultivaluedMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">responseContext</span><span class="o">.</span><span class="na">getHeaders</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">headers</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="s">"Access-Control-Allow-Origin"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Access-Control-Allow-Origin"</span><span class="o">,</span> <span class="s">"*"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">headers</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="s">"Access-Control-Allow-Headers"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Access-Control-Allow-Headers"</span><span class="o">,</span> <span class="s">"Content-Type"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">headers</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="s">"Access-Control-Allow-Methods"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Access-Control-Allow-Methods"</span><span class="o">,</span> <span class="s">"GET, PUT, POST, DELETE"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Klasa <code class="highlighter-rouge">CORSFilter</code> implementuje interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/container/ContainerResponseFilter.html"><code class="highlighter-rouge">ContainerResponseFilter</code></a>. Interfejs ten zawiera metodę <code class="highlighter-rouge">filter</code>, która pozwala między innymi na dodanie nagłówków do każdej odpowiedzi.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Jest tego sporo, głównie w języku angielskim:</p>
+
+<ul>
+  <li><a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/06_rest_endpoint/src/main/java/pl/samouczekprogramisty/kursaplikacjewebowe/rest">Przykłady kodu użyte w artykule</a>,</li>
+  <li><a href="https://javaee.github.io/tutorial/jaxrs.html#GIEPU">Tutorial dotyczący JAX-RS przygotowany przez Oracle</a>,</li>
+  <li><a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf">Praca doktorska Roy’a Fielding’a, gdzie po raz pierwszy użyto określenia REST</a>,</li>
+  <li><a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Rozdział w wyżej wspomnianej pracy na temat REST</a>,</li>
+  <li><a href="http://www.restapitutorial.com/">REST API Tutorial</a>,</li>
+  <li><a href="https://en.wikipedia.org/wiki/Representational_state_transfer">Artykuł o REST na anglojęzycznej wersji Wikipedii</a>,</li>
+  <li><a href="http://download.oracle.com/otndocs/jcp/jaxrs-2_1-final-eval-spec/index.html">Specyfikacja JAX-RS 2.1</a>,</li>
+  <li><a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/package-summary.html">Dokumentacja API JAX-RS</a>,</li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">Artykuł na stronie Mozilli o CORS</a>,</li>
+  <li><a href="https://martinfowler.com/articles/richardsonMaturityModel.html">Artykuł na temat dojrzałości architektury REST</a>,</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Dzisiaj udało Ci się zdobyć sporo wiedzy. Dowiedziałeś się czym jest REST. Co składa się na platformę Java EE. Poznałeś część funkcjonalności jednej ze specyfikacji znajdującej się pod parasolem Java EE. Zainstalowałeś kontener aplikacji, no i przede wszystkim napisałeś swój pierwszy web service przy pomocy JAX-RS.</p>
+
+<p>W kolejnym artykule z tej serii zajmę się implementacją bardziej użytecznego web service’u. Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:tlumaczenie">
+      <p>Zawsze staram się tłumaczyć angielskie terminy. Jednak w tym przypadku poddałem się. Jak przetłumaczyć web service? Usługa sieciowa? Serwis internetowy? Takie tłumaczenie wprowadzałoby więcej zamieszania niż pożytku. Zostanie więc web service, jeśli masz jakiś pomysł jak to przetłumaczyć daj znać ;). <a href="#fnref:tlumaczenie" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:jee7">
+      <p>W rzeczywistości mimo, że importuję tu API w wersji 2.1 serwer TomEE, którego używam (7.0.4) wspiera wersję 2.0. <a href="#fnref:jee7" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:windows">
+      <p>Jeśli pracujesz na systemie Windows wówczas plik ten nazywa się <code class="highlighter-rouge">catalina.bat</code>. <a href="#fnref:windows" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:uproszczenie">
+      <p>Oczywiście jest to uproszczenie. W praktyce proces jest trochę bardziej rozbudowany. Proces ten opisany jest w sekcji 3.7 specyfikacji “Matching Requests to Resource Methods”. Domyślnie nowa instancja klasy obsługującej zapytanie tworzona jest dla każdego zapytania. W większości przypadków nie jest to zachowanie, które chcesz zostawić na produkcyjnym środowisku. <a href="#fnref:uproszczenie" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:cors">
+      <p>W tym przypadku porównywany jest protokół (np. http), domena (np. www.samouczekprogramisty.pl) i port (np. 8080). <a href="#fnref:cors" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#kurs-aplikacji-webowych" class="page__taxonomy-item" rel="tag">Kurs aplikacji webowych</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-11-20T00:00:00+01:00">November 20, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Frest-web-service-z-java-ee-czesc-1%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Frest-web-service-z-java-ee-czesc-1%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/" class="pagination--pager" title="Podstawy złożoności obliczeniowej
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/03/25_serwlety_w_aplikacjach_webowych_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/serwlety-w-aplikacjach-webowych/" rel="permalink">Serwlety w aplikacjach webowych
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o serwletach. Poznasz podstawy protokołu HTTP. Dowiesz się czym są serwlety i jak je pisać. Dowiesz się także czym jest plik war i...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/04/01_naglowki_ciasteczka_sesje_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/naglowki-sesje-i-ciasteczka/" rel="permalink">Nagłówki, sesje i ciasteczka
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W pierwszej części artykułu opisującej serwlety dowiedziałeś się podstaw dotyczących serwletów. W tym artykule będziesz mógł poszerzyć tę wiedzę. Dowiesz się...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/01/19_wstep_do_gradle_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wstep-do-gradle/" rel="permalink">Wstęp do Gradle
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używane...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-1/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
