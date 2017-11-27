@@ -1,0 +1,961 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>SOLID czyli dobre praktyki w programowaniu obiektowym - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o dobrych praktykach. Praktyki te opisane są przez akronim S.O.L.I.D. Można powiedzieć, że stały się one standardem w obiektowym podejściu do rozwijania oprogramowania. Po lekturze artykułu będziesz znał poszczególne składowe akronimu S.O.L.I.D. Przykładowe fragmenty kodu pozwolą zobaczyć Ci te wytyczne w praktyce. Zapraszam do lektury.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="SOLID czyli dobre praktyki w programowaniu obiektowym">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o dobrych praktykach. Praktyki te opisane są przez akronim S.O.L.I.D. Można powiedzieć, że stały się one standardem w obiektowym podejściu do rozwijania oprogramowania. Po lekturze artykułu będziesz znał poszczególne składowe akronimu S.O.L.I.D. Przykładowe fragmenty kodu pozwolą zobaczyć Ci te wytyczne w praktyce. Zapraszam do lektury.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/11/27_solid_dobre_praktyki_w_programowaniu_obiektowym_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-11-27T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/11/27_solid_dobre_praktyki_w_programowaniu_obiektowym_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          SOLID czyli dobre praktyki w programowaniu obiektowym
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o dobrych praktykach. Praktyki te opisane są przez akronim S.O.L.I.D. Można powiedzieć, że stały się one standardem w obiektowym podejściu do rozwijania oprogramowania. Po lekturze artykułu będziesz znał poszczególne składowe akronimu S.O.L.I.D. Przykładowe fragmenty kodu pozwolą zobaczyć Ci te wytyczne w praktyce. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/fdecomite/5846492896/sizes/l">© fdecomite</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">SOLID czyli dobre praktyki w programowaniu obiektowym</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="SOLID czyli dobre praktyki w programowaniu obiektowym">
+    <meta itemprop="description" content="W artykule tym przeczytasz o dobrych praktykach. Praktyki te opisane są przez akronim S.O.L.I.D. Można powiedzieć, że stały się one standardem w obiektowym podejściu do rozwijania oprogramowania. Po lekturze artykułu będziesz znał poszczególne składowe akronimu S.O.L.I.D. Przykładowe fragmenty kodu pozwolą zobaczyć Ci te wytyczne w praktyce. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="November 27, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#czym-jest-solid">Czym jest SOLID</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#s-jak-samodzielny">S jak Samodzielny</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#przykład">Przykład</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#o-jak-otwarty">O jak Otwarty</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#przykład-1">Przykład</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#l-jak-liskov-barbara">L jak Liskov Barbara</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#przykład-2">Przykład</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#i-jak-interfejsy">I jak Interfejsy</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#przykład-3">Przykład</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#d-jak-odwrócenie-zależności">D jak oDwrócenie zależności</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#przykład-4">Przykład</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#nie-rób-nic-na-ślepo">Nie rób nic na ślepo</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        <p class="notice--info">Artykuł ten zakłada, że znasz już podstawy języka programowania. Najlepiej gdybyś miał już za sobą drobny projekt, na przykład prosty kalkulator. Abyś mógł wynieść coś z tego artykułu musisz wiedzieć czym są <a href="/interfejsy-w-jezyku-java/">interfejsy</a> i <a href="/dziedziczenie-w-jezyku-java/">dziedziczenie</a>. Przydatne mogą być też pozostałe artykuły z <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java">kursu programowania w języku Java</a>.</p>
+
+<h2 id="czym-jest-solid">Czym jest SOLID</h2>
+
+<p>S.O.L.I.D. to <a href="https://pl.wikipedia.org/wiki/Skr%C3%B3towiec">akronim</a>, który wymyślił <a href="https://en.wikipedia.org/wiki/Robert_C._Martin">Robert C. Martin</a>. Uncle Bob (taki ma pseudonim) jest programistą. Ma sporo doświadczenia, przez wielu uważany jest za swego rodzaju autorytet.</p>
+
+<p>Akronim ten zbiera zestaw wytycznych. Wytyczne te stosuje się podczas pisania programów w sposób obiektowy. Samo słówko <em>solid</em> można przetłumaczyć jako solidny, konkretny, mocny. Ta gra słów pewnie też miała spore znaczenie dla popularności samego akronimu.</p>
+
+<p>Poniżej na przykładach postaram się wyjaśnić poszczególne literki.</p>
+
+<h3 id="s-jak-samodzielny">S jak Samodzielny</h3>
+
+<p>S pochodzi od <em>Single Responsibility Principle</em>. W oryginalnym wydaniu autor mówi o tym, że klasa powinna mieć wyłącznie jeden powód do zmiany. Wytyczna ta sprowadza się do tego, że dana klasa powinna mieć jeden główny cel. Jedną główną odpowiedzialność. Jedną funkcjonalność, którą realizuje.</p>
+
+<p>Klasy, które implementują wyłącznie jedną odpowiedzialność nie są bezpośrednio związane (ang. <em>coupled</em>) z inną funkcjonalnością. Moim zdaniem, w większości przypadków łatwiej jest zrozumieć taki kod, który jest odpowiedzialny za jedną rzecz.</p>
+
+<p>Twoje klasy powinny mieć motto: rób jedną rzecz, rób tę rzecz dobrze<sup id="fnref:praktyka"><a href="#fn:praktyka" class="footnote">1</a></sup>.</p>
+
+<h4 id="przykład">Przykład</h4>
+
+<p>W praktyce możesz pomyśleć o klasie, która przechowuje szczegóły umowy. Taką umowę czasami trzeba wydrukować. Niezbędne jest też obliczenie miesięcznej kwoty abonamentu. W przypadku upakowania tych dwóch odpowiedzialności do jednej klasy może ona wyglądać następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Contract</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">start</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">end</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Contract</span><span class="o">(</span><span class="n">Date</span> <span class="n">start</span><span class="o">,</span> <span class="n">Date</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">start</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">end</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">getMonthlySubscriptionFee</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// compute based on end and start</span>
+        <span class="k">return</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">ONE</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">formatAsPDF</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"..."</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Ewidentnie w tym przypadku mamy kilka powodów do zmiany. Jeśli zmieni się wymaganie dotyczące wydruków, czy sposobu obliczania abonamentu musimy zmienić klasę <code class="highlighter-rouge">Contract</code>. Literka S w SOLID zachęca do rozdzielenia tych zagadnień:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Contract</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">start</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">end</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Contract</span><span class="o">(</span><span class="n">Date</span> <span class="n">start</span><span class="o">,</span> <span class="n">Date</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">start</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">end</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Date</span> <span class="nf">getStart</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">start</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Date</span> <span class="nf">getEnd</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">end</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">getMonthlySubscriptionFee</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// compute based on end and start</span>
+        <span class="k">return</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">ONE</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PDFFormatter</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Contract</span> <span class="n">contract</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PDFFormatter</span><span class="o">(</span><span class="n">Contract</span> <span class="n">contract</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">contract</span> <span class="o">=</span> <span class="n">contract</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">format</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"..."</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="o-jak-otwarty">O jak Otwarty</h3>
+
+<p>O pochodzi od <em>Open/Closed Principle</em>. W tym miejscu Uncle Bob zwraca uwagę na to aby kod, który tworzymy był “możliwy do rozszerzania i zamknięty na modyfikacje”. Sprowadza się do do świadomego użycia kompozycji, <a href="/dziedziczenie-w-jezyku-java/">dziedziczenia</a> czy <a href="/modyfikatory-dostepu-w-jezyku-java/">modyfikatorów dostępu</a>.</p>
+
+<h4 id="przykład-1">Przykład</h4>
+
+<p>Załóżmy, że firma poza umową chce też wydrukować ulotki. Drukarnia przyjmuje dokumenty w formacie PDF więc i ulotkę trzeba zapisać w tym właśnie formacie. Klasy <code class="highlighter-rouge">Contract</code> i <code class="highlighter-rouge">PDFFormatter</code> nie różnią się od poprzedniego przykładu. Aby zrealizować to wymaganie można utworzyć dwie nowe klasy:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Leaflet</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">location</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Leaflet</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">,</span> <span class="n">String</span> <span class="n">location</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getTitle</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">title</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getLocation</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">location</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LeafletPDFFormatter</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Leaflet</span> <span class="n">leaflet</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">LeafletPDFFormatter</span><span class="o">(</span><span class="n">Leaflet</span> <span class="n">leaflet</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">leaflet</span> <span class="o">=</span> <span class="n">leaflet</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">format</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"..."</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Klasa <code class="highlighter-rouge">LeafletPDFFormatter</code> jest praktycznie taka sama jak klasa <code class="highlighter-rouge">PDFFormatter</code>. W tym przypadku klasa <code class="highlighter-rouge">PDFFormatter</code> nie spełnia wytycznych <em>Open/Closed Principle</em>. Nie można rozszerzyć jej funkcjonalności bez zmiany jej kodu źródłowego. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PDFMetadata</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">metadata</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PDFMetadata</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">metadata</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">metadata</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">metadata</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getMetadata</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">unmodifiableList</span><span class="o">(</span><span class="n">metadata</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Leaflet</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="n">PDFMetadata</span> <span class="nf">getPDFMetadata</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">PDFMetadata</span><span class="o">(</span><span class="n">title</span><span class="o">,</span> <span class="n">location</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Contract</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="n">PDFMetadata</span> <span class="nf">getPDFMetadata</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">PDFMetadata</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">toString</span><span class="o">(),</span> <span class="n">end</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PDFFormatter</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">PDFMetadata</span> <span class="n">metadata</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PDFFormatter</span><span class="o">(</span><span class="n">PDFMetadata</span> <span class="n">metadata</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">metadata</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">format</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">metadata</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">getBytes</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku wprowadziłem klasę <code class="highlighter-rouge">PDFMetadata</code>. Zawiera ona dane niezbędne do przygotowania wydruku PDF. Zarówno klasa <code class="highlighter-rouge">Leaflet</code> jak i <code class="highlighter-rouge">Contract</code> zwracają taką reprezentację. Dzięki temu klasa <code class="highlighter-rouge">PDFFormatter</code> może utworzyć wydruk dla każdej z nich. Zauważ, ze teraz klasa <code class="highlighter-rouge">PDFFormatter</code> jest otwarta na rozszerzenie. Jeśli Twoja nowa klasa będzie zwracała instancję <code class="highlighter-rouge">PDFMetadata</code> będzie można ją przekonwertować do formatu PDF.</p>
+
+<h3 id="l-jak-liskov-barbara">L jak <a href="http://www.pmg.csail.mit.edu/~liskov/">Liskov Barbara</a></h3>
+
+<p>L pochodzi od <em>Liskov Substitution Principle</em>. W przypadku tej wytycznej Twój kod powinien współpracować poprawnie z klasą, jak i wszystkimi jej podklasami. Innymi słowy jeśli zależysz od jakiegoś <a href="/interfejsy-w-jezyku-java/">interfejsu</a> to wszystkie jego implementacje powinny poprawnie działać z Twoją klasą/metodą.</p>
+
+<p>Stosowanie się do tej zasady pozwala na dostarczenie alternatywnej implementacji danej funkcjonalności bez zmiany Twojego kodu.</p>
+
+<h4 id="przykład-2">Przykład</h4>
+
+<p>W tym przypadku świetnym przykładem są <a href="/kolekcje-w-jezyku-java/">kolekcje w języku Java</a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubstitutionExample</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">someList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">someSet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">someQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;();</span>
+
+        <span class="n">SubstitutionExample</span> <span class="n">example</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubstitutionExample</span><span class="o">();</span>
+        <span class="n">example</span><span class="o">.</span><span class="na">doSomethingWithElements</span><span class="o">(</span><span class="n">someList</span><span class="o">);</span>
+        <span class="n">example</span><span class="o">.</span><span class="na">doSomethingWithElements</span><span class="o">(</span><span class="n">someSet</span><span class="o">);</span>
+        <span class="n">example</span><span class="o">.</span><span class="na">doSomethingWithElements</span><span class="o">(</span><span class="n">someQueue</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomethingWithElements</span><span class="o">(</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">someCollection</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">element</span> <span class="o">:</span> <span class="n">someCollection</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"element: "</span> <span class="o">+</span> <span class="n">element</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Metoda <code class="highlighter-rouge">doSomethingWithElements</code> zrobi dokładnie to samo bez wiedzy o tym z jakim podtypem ma do czynienia. Niezależnie od tego czy będzie to <code class="highlighter-rouge">ArrayList</code> czy <code class="highlighter-rouge">PriorityQueue</code> metoda zadziała poprawnie.</p>
+
+<h3 id="i-jak-interfejsy">I jak Interfejsy</h3>
+
+<p>I pochodzi od <em>Interface Segregation Principle</em>. Wytyczna ta mówi o tym, abyś rozdzielał interfejs klasy. Interfejs ten powinien być odpowiednio zdefiniowany. Chodzi tu o aby inny fragment kodu, który używa Twojej klasy używał wyłącznie podzbioru metod, który jest w tamtym przypadku istotny. W oryginale wytyczna ta mówi o tym, ze klienty nie powinny być zmuszane do wprowadzania zależności od interfejsów, których nie używają.</p>
+
+<p>Jeśli będziesz stosował się do tej wytycznej to zmiany Twoich klas powinny być łatwiejsze do przeprowadzenia. Dzięki jasno zdefiniowanym interfejsom ryzyko zmiany klas, które używają tych interfejsów będzie mniejsze.</p>
+
+<h4 id="przykład-3">Przykład</h4>
+
+<p>Załóżmy, ze w swoim interfejsie masz 3 metody:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ObjectFormatter</span> <span class="o">{</span>
+
+    <span class="kt">byte</span><span class="o">[]</span> <span class="nf">toPDF</span><span class="o">(</span><span class="n">Object</span> <span class="n">someObject</span><span class="o">);</span>
+
+    <span class="n">String</span> <span class="nf">toXML</span><span class="o">(</span><span class="n">Object</span> <span class="n">someObject</span><span class="o">);</span>
+
+    <span class="n">String</span> <span class="nf">toJSON</span><span class="o">(</span><span class="n">Object</span> <span class="n">someObject</span><span class="o">);</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Interfejs ten jest używany w trzydziestu innych projektach. W każdym przypadku używa wyłącznie jednej z tych trzech metod. Niestety z jakiegoś powodu musisz zmienić ten interfejs. W konsekwencji każdy z tych projektów musi wprowadzić jakieś zmiany. W praktyce rozdzielenie tego interfejsu na trzy oddzielne może mieć sens:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PDFFormatter</span> <span class="o">{</span>
+
+    <span class="kt">byte</span><span class="o">[]</span> <span class="nf">toPDF</span><span class="o">(</span><span class="n">Object</span> <span class="n">someObject</span><span class="o">);</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">XMLFormatter</span> <span class="o">{</span>
+
+    <span class="n">String</span> <span class="nf">toXML</span><span class="o">(</span><span class="n">Object</span> <span class="n">someObject</span><span class="o">);</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">JSONFormatter</span> <span class="o">{</span>
+
+    <span class="n">String</span> <span class="nf">toJSON</span><span class="o">(</span><span class="n">Object</span> <span class="n">someObject</span><span class="o">);</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W takim przypadku zmiana jednej z tych metod nie pociąga za sobą zmian w każdym z 30 wspomnianych projektów.</p>
+
+<h3 id="d-jak-odwrócenie-zależności">D jak oDwrócenie zależności</h3>
+
+<p>D pochodzi od <em>Dependency Inversion Principle</em>. Wytyczna ta mówi, że wysokopoziomowe klasy nie powinny zleżeć od niskopoziomowych detali. Zależność ta powinna być odwrócona poprzez wprowadzenie dodatkowych elementów. Mówi się tu o dodatkowych warstwach abstrakcji, które pozwalają na zmianę kierunku takiej zależności.</p>
+
+<p>Osobiście ciężko było mi tę zasadę zrozumieć bez dobrego przykładu. Mam nadzieję, że ten przytoczony poniżej trochę Ci to ułatwi.</p>
+
+<h4 id="przykład-4">Przykład</h4>
+
+<p>Przykład poniżej pokazuje klasę <code class="highlighter-rouge">PageCrawler</code>. Klasa ta ma powinna zwrócić odnośniki znajdujące się na stronie. Poza tym, że widzisz tu pogwałcenie zasady <em>Single Responsibility Principle</em> to jeszcze  <em>Dependency Inversion Principle</em> także nie jest spełnione. Klasa <code class="highlighter-rouge">PageCrawler</code> zleży od niskopoziomowych detali związanych z obsługą protokołu HTTP i parsowaniem HTML. Zależność ta powinna być odwrócona:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PageCrawler</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">findLinks</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">HttpURLConnection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">makeRequest</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+        <span class="n">validateResponse</span><span class="o">(</span><span class="n">connection</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">getResponse</span><span class="o">(</span><span class="n">connection</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nf">parseLinks</span><span class="o">(</span><span class="n">content</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">parseLinks</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span> <span class="c1">// do some magic with content</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">getResponse</span><span class="o">(</span><span class="n">HttpURLConnection</span> <span class="n">connection</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="na">getContent</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">HttpURLConnection</span> <span class="nf">makeRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">//</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">validateResponse</span><span class="o">(</span><span class="n">HttpURLConnection</span> <span class="n">connection</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">connection</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">!=</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"Wrong response code!"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">connection</span><span class="o">.</span><span class="na">getContentLength</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"Too small response!"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Poniższy przykład pokazuje wprowadzenie dwóch dodatkowych elementów. Są to odpowiednio <code class="highlighter-rouge">HTTPFetcher</code> i <code class="highlighter-rouge">HTMLTokenizer</code>. Klasy te odpowiedzialne są za ukrycie niskopoziomowych detali wymaganych przez <code class="highlighter-rouge">PageCrawler</code>. W tym przypadku <code class="highlighter-rouge">PageCrawler</code> zależy od tych dwóch klas. Odwróciłem więc zależność, teraz już wysokopoziomowa klasa (<code class="highlighter-rouge">PageCrawler</code>) nie zależy od niskopoziomowych detali (protokół HTTP czy parsowanie HTML).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HTTPFetcher</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">fetch</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"HTTP request details goes here"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HTMLTokenizer</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">tokenize</span><span class="o">(</span><span class="n">String</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span> <span class="c1">// details about HTML handling goes here</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PageCrawler</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">HTTPFetcher</span> <span class="n">fetcher</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">HTMLTokenizer</span> <span class="n">tokenizer</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PageCrawler</span><span class="o">(</span><span class="n">HTTPFetcher</span> <span class="n">fetcher</span><span class="o">,</span> <span class="n">HTMLTokenizer</span> <span class="n">tokenizer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">fetcher</span> <span class="o">=</span> <span class="n">fetcher</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">tokenizer</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">findLinks</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">fetcher</span><span class="o">.</span><span class="na">fetch</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="na">tokenize</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nf">findLinks</span><span class="o">(</span><span class="n">tokens</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">findLinks</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">tokens</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">tokens</span><span class="o">;</span> <span class="c1">// pick only links here</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="nie-rób-nic-na-ślepo">Nie rób nic na ślepo</h2>
+
+<p>Z mojego doświadczenia wynika to, że nie można na ślepo stosować się do wszystkich reguł. Mogą zdarzyć się sytuacje, w których w swojej codziennej pracy znajdziesz przypadek gdzie złamanie wytycznych SOLID ma sens. Możliwe, że czasami napisanie klasy, która ma dziesięć różnych zakresów odpowiedzialności jest dobre. Możliwe, że to dopiero przyczółek do dalszej pracy nad kodem.</p>
+
+<p>Postaraj się zrozumieć poszczególne wytyczne. Zacznij je rozważnie stosować dopiero po pełnym ich zrozumieniu. Robienie czegoś na ślepo tylko dlatego, że przeczytało się o tym w dowolnym miejscu moim zdaniem mija się z celem. Zastanów się nad SOLID, zrozum i dopiero wtedy zacznij stosować. Oczywiście tylko w przypadkach gdzie ma to sens :). Istotna jest także sama świadomość istnienia takich wytycznych. Prawdą jest, że nie wszyscy programiści są ich świadomi.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Z racji tego, że akronim ten jest powszechnie używany znajdziesz sporo informacji na jego temat w internecie. Poniżej zebrałem materiały źródłowe:</p>
+
+<ul>
+  <li><a href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod">SOLID opisany przez Robert’a C. Martin’a</a>,</li>
+  <li><a href="https://drive.google.com/file/d/0ByOwmqah_nuGNHEtcU5OekdDMkk/view">Single Responsibility Principle</a>,</li>
+  <li><a href="https://drive.google.com/file/d/0BwhCYaYDn8EgN2M5MTkwM2EtNWFkZC00ZTI3LWFjZTUtNTFhZGZiYmUzODc1/view">Open-Closed Principle</a>,</li>
+  <li><a href="https://drive.google.com/file/d/0BwhCYaYDn8EgNzAzZjA5ZmItNjU3NS00MzQ5LTkwYjMtMDJhNDU5ZTM0MTlh/view">Liskov Substitution Principle</a>,</li>
+  <li><a href="https://drive.google.com/file/d/0BwhCYaYDn8EgOTViYjJhYzMtMzYxMC00MzFjLWJjMzYtOGJiMDc5N2JkYmJi/view">Interface Segregation Principle</a>,</li>
+  <li><a href="https://drive.google.com/file/d/0BwhCYaYDn8EgMjdlMWIzNGUtZTQ0NC00ZjQ5LTkwYzQtZjRhMDRlNTQ3ZGMz/view">Dependency Inversion Principle</a>.</li>
+</ul>
+
+<p>Dodatkowo poniżej mam dla Ciebie książkę autorstwa twórcy akronimu S.O.L.I.D. Moim zdaniem jest to jedna z obowiązkowych pozycji na liście lektur każdego programisty:</p>
+
+<ul>
+  <li><a href="http://amzn.to/2ztqaSg">The Clean Code</a><sup id="fnref:afiliacja"><a href="#fn:afiliacja" class="footnote">2</a></sup>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/03_solid/src/pl/samouczekprogramisty/misc/solid">Przykłady użyte w treści artykułu</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Dzisiejszy artykuł był mocno teoretyczny. Przeczytałeś nim o akronimie SOLID. Na przykładach zobaczyłeś jak wyglądają poszczególne składowe tego akronimu. Mam nadzieję, że zachęci Cię to do pisania solidnego kodu ;).</p>
+
+<p>Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku w przyszłości proszę dopisz się do newslettera i polub Samouczka na Facebooku. Jeśli będziesz miał jakiekolwiek pytania czy wątpliwości proszę zadaj je w komentarzu, postaram się pomóc. Do następnego razu :).</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:praktyka">
+      <p>Wszystkie te reguły podlegają oczywiście dyskusji. W praktyce często ciężko jest zdefiniować czym ta “jedna” rzecz jest. <a href="#fnref:praktyka" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:afiliacja">
+      <p>To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt z tego odnośnika pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :) <a href="#fnref:afiliacja" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#programista-rzemie%C5%9Blnik" class="page__taxonomy-item" rel="tag">Programista rzemieślnik</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#wiedza-og%C3%B3lna" class="page__taxonomy-item" rel="tag">Wiedza ogólna</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-11-27T00:00:00+01:00">November 27, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fsolid-czyli-dobre-praktyki-w-programowaniu-obiektowym%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fsolid-czyli-dobre-praktyki-w-programowaniu-obiektowym%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-1/" class="pagination--pager" title="REST web service z Java EE część 1
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/10/29_modyfikatory_dostepu_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/modyfikatory-dostepu-w-jezyku-java/" rel="permalink">Modyfikatory dostępu w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory public, protected i private. Poznasz ...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2015/12/16_interfejsy_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/interfejsy-w-jezyku-java/" rel="permalink">Interfejsy w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o interfejsach. Poznasz interfejs ze standardowej biblioteki Java. Dowiesz się czym różni się interfejs od jego implementacji. Przeczy...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/obiekty-w-jezyku-java/" rel="permalink">Obiekty w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
