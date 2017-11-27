@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2017/11/27_solid_dobre_praktyki_w_programowaniu_obiektowym_artykul.jpg
     overlay_image: /assets/images/2017/11/27_solid_dobre_praktyki_w_programowaniu_obiektowym_artykul.jpg
     caption: "[&copy; fdecomite](https://www.flickr.com/photos/fdecomite/5846492896/sizes/l)"
-excerpt: W artykule tym przeczytasz o dobrych praktykach. Praktyki te opisane są przez akronim S.O.L.I.D. Można powiedzieć, że stały się one standardem w obiektowym podejściu do rozwijania oprogramowania. Po lekturze artykułu będziesz znał poszczególne składowe akronimu S.O.L.I.D. Przykładowe fragmenty kodu pozwolą Ci zobaczyć te wytyczne w praktyce. Zapraszam do lektury
+excerpt: W artykule tym przeczytasz o dobrych praktykach. Praktyki te opisane są przez akronim S.O.L.I.D. Można powiedzieć, że stały się one standardem w obiektowym podejściu do rozwijania oprogramowania. Po lekturze artykułu będziesz znał poszczególne składowe akronimu S.O.L.I.D. Przykładowe fragmenty kodu pozwolą zobaczyć Ci te wytyczne w praktyce. Zapraszam do lektury.
 ---
 
 Artykuł ten zakłada, że znasz już podstawy języka programowania. Najlepiej gdybyś miał już za sobą drobny projekt, na przykład prosty kalkulator. Abyś mógł wynieść coś z tego artykułu musisz wiedzieć czym są [interfejsy]({% post_url 2015-12-16-interfejsy-w-jezyku-java %}) i [dziedziczenie]({% post_url 2016-01-24-dziedziczenie-w-jezyku-java %}). Przydatne mogą być też pozostałe artykuły z [kursu programowania w języku Java]({{ "/kurs-programowania-java" | absolute_url }}).
@@ -18,9 +18,9 @@ Artykuł ten zakłada, że znasz już podstawy języka programowania. Najlepiej 
 
 S.O.L.I.D. to [akronim](https://pl.wikipedia.org/wiki/Skr%C3%B3towiec), który wymyślił [Robert C. Martin](https://en.wikipedia.org/wiki/Robert_C._Martin). Uncle Bob (taki ma pseudonim) jest programistą. Ma sporo doświadczenia, przez wielu uważany jest za swego rodzaju autorytet.
 
-Akronim ten zbiera zestaw wytycznych. Wytyczne te stosuje się podczas pisania programów w sposób obiektowy. Samo słówko solid można przetłumaczyć jako solidny, konkretny, mocny. Ta gra słów miała też pewnie spore znaczenie dla popularności samego akronimu.
+Akronim ten zbiera zestaw wytycznych. Wytyczne te stosuje się podczas pisania programów w sposób obiektowy. Samo słówko _solid_ można przetłumaczyć jako solidny, konkretny, mocny. Ta gra słów pewnie też miała spore znaczenie dla popularności samego akronimu.
 
-Poniżej na przykładach postaram się wyjaśnić poszczególne składowe tego akronimu.
+Poniżej na przykładach postaram się wyjaśnić poszczególne literki.
 
 ### S jak Samodzielny
 
@@ -59,7 +59,7 @@ public class Contract {
 }
 ```
 
-Ewidentnie w tym przypadku mamy kilka powodów do zmiany. Jeśli zmieni się wymaganie dotyczące wydruków, czy sposobu obliczania abonamentu musimy zmienić klasę `Contract`. S w SOLID zachęca do rozdzielenia tych zagadnień:
+Ewidentnie w tym przypadku mamy kilka powodów do zmiany. Jeśli zmieni się wymaganie dotyczące wydruków, czy sposobu obliczania abonamentu musimy zmienić klasę `Contract`. Literka S w SOLID zachęca do rozdzielenia tych zagadnień:
 
 ```java
 public class Contract {
@@ -241,7 +241,7 @@ Metoda `doSomethingWithElements` zrobi dokładnie to samo bez wiedzy o tym z jak
 
 I pochodzi od _Interface Segregation Principle_. Wytyczna ta mówi o tym, abyś rozdzielał interfejs klasy. Interfejs ten powinien być odpowiednio zdefiniowany. Chodzi tu o aby inny fragment kodu, który używa Twojej klasy używał wyłącznie podzbioru metod, który jest w tamtym przypadku istotny. W oryginale wytyczna ta mówi o tym, ze klienty nie powinny być zmuszane do wprowadzania zależności od interfejsów, których nie używają.
 
-Jeśli będziesz stosował się do tej wytycznej to zmiany Twoich klas powinny być łatwiejsze do przeprowadzenia. Dzięki jasno zdefiniowanym interfejsom ryzyko zmiany klas, które używają interfejsów będzie mniejsze.
+Jeśli będziesz stosował się do tej wytycznej to zmiany Twoich klas powinny być łatwiejsze do przeprowadzenia. Dzięki jasno zdefiniowanym interfejsom ryzyko zmiany klas, które używają tych interfejsów będzie mniejsze.
 
 #### Przykład
 
@@ -293,7 +293,7 @@ Osobiście ciężko było mi tę zasadę zrozumieć bez dobrego przykładu. Mam 
 
 #### Przykład
 
-Przykład poniżej pokazuje klasę `PageCrawler`. Klasa ta ma powinna zwrócić odnośniki znajdujące się na stronie. Poza tym, że widzisz tu pogwałcenie zasady _Single Responsibility Principal_ to jeszcze  _Dependency Inversion Principal_ także nie jest spełnione. Klasa `PageCrawler` zleży od niskopoziomowych detali związanych z obsługą protokołu HTTP i parsowaniem HTML. Zależność ta powinna być odwrócona:
+Przykład poniżej pokazuje klasę `PageCrawler`. Klasa ta ma powinna zwrócić odnośniki znajdujące się na stronie. Poza tym, że widzisz tu pogwałcenie zasady _Single Responsibility Principle_ to jeszcze  _Dependency Inversion Principle_ także nie jest spełnione. Klasa `PageCrawler` zleży od niskopoziomowych detali związanych z obsługą protokołu HTTP i parsowaniem HTML. Zależność ta powinna być odwrócona:
 
 ```java
 public class PageCrawler {
@@ -328,8 +328,7 @@ public class PageCrawler {
 }
 ```
 
-DD
-
+Poniższy przykład pokazuje wprowadzenie dwóch dodatkowych elementów. Są to odpowiednio `HTTPFetcher` i `HTMLTokenizer`. Klasy te odpowiedzialne są za ukrycie niskopoziomowych detali wymaganych przez `PageCrawler`. W tym przypadku `PageCrawler` zależy od tych dwóch klas. Odwróciłem więc zależność, teraz już wysokopoziomowa klasa (`PageCrawler`) nie zależy od niskopoziomowych detali (protokół HTTP czy parsowanie HTML).
 
 ```java
 public class HTTPFetcher {
