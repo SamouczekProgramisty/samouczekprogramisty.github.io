@@ -390,7 +390,7 @@ Z racji tego, że akronim ten jest powszechnie używany znajdziesz sporo informa
 Dodatkowo poniżej mam dla Ciebie książkę autorstwa twórcy akronimu S.O.L.I.D. Moim zdaniem jest to jedna z obowiązkowych pozycji na liście lektur każdego programisty:
 
 - [The Clean Code](http://amzn.to/2ztqaSg)[^afiliacja],
-- [Przykłady użyte w treści artykułu](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/03_solid/src/pl/samouczekprogramisty/misc/solid).
+- [Przykłady użyte w treści artykułu](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/03_solid/src/main/java/pl/samouczekprogramisty/misc/solid).
 
 [^afiliacja]: To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt z tego odnośnika pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :)
 
