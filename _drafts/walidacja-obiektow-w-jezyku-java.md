@@ -12,16 +12,58 @@ excerpt: Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artyku
 
 ## Specyfikacja _Bean Validation_
 
-Specyfikacja _Bean Validation_ ewoluuje. Wszystko zaczęło się od specyfikacji w wersji [1.0](http://beanvalidation.org/1.0/) wydanej w 2009 roku. Aktualną wersją specyfikacji jest 2.0. Jest ona częścią Java Enterprise Edition 8.0. Dodatkowo implementacji tej specyfikacji można używać w Java SE. Walidacja odbywa się w oparciu o reguły (ang. _constraint_), które stwierdzają, czy dany element jest poprawny.
+Specyfikacja _Bean Validation_ ewoluuje. Wszystko zaczęło się od specyfikacji w wersji [1.0](http://beanvalidation.org/1.0/) wydanej w 2009 roku. Najnowsza wersja tej specyfikacji to [2.0](http://beanvalidation.org/2.0/). Jest ona częścią Java Enterprise Edition 8.0. Dodatkowo implementacji tej specyfikacji można używać w Java SE. Walidacja odbywa się w oparciu o reguły (ang. _constraint_), które stwierdzają, czy dany element jest poprawny.
 
-Specyfikacja pozwala na przypisywanie reguł do obiektów za pomocą adnotacji i XML[^xml]. W dalszej części artykułu opisuję wyłącznie walidację opartą o adnotacje. Proszę spójrz na przykładową klasę z adnotacją do walidacji:
+Specyfikacja pozwala na przypisywanie reguł do poszczególnych elementów za pomocą adnotacji i XML[^xml]. W dalszej części artykułu opisuję wyłącznie walidację opartą o adnotacje. Proszę spójrz na przykładową klasę z adnotacjami do walidacji:
 
 [^xml]: Jeśli chcesz przeczytać więcej o XML zapraszam do [osobnego artykułu]({% post_url 2017-03-02-xml-dla-poczatkujacych %}) na blogu.
 
 ```java
+public class PaidAccount {
+    @NotBlank
+    @Size(min=3)
+    private String owner;
+
+    @Future
+    private Date validUntil;
+
+    public PaidAccount(@NotNull @Size(min = 3) String owner, @Future Date validUntil) {
+        this.owner = owner;
+        this.validUntil = validUntil;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public Date getValidUntil() {
+        return validUntil;
+    }
+}
 ```
 
-W ramach specyfikacji udostępniony jest standardowy zestaw reguł. Na przykład "pole nie może być puste" (`@NotNull`), "pole musi mieć minimum X znaków" (`@Min(X)`), "pole musi mieć datę w przyłości" (`@Future`) itd.
+W ramach specyfikacji udostępniony jest standardowy zestaw reguł. Na przykład "pole nie może mieć wartości `null`" (`@NotNull`), "pole musi mieć minimum X znaków" (`@Size(min=X)`), "pole musi być datą w przyłości" (`@Future`) itd. Przykład powyżej używa właśnie tych standarowych adnotacji. 
+
+### Wymagania dotyczące walidacji
+
+Atrybuty, których poprawność będą walidowane muszą być atrybutami w kontekście specyfikacji _Java Bean_. Innymi słowy dla każdego z walidowanych atrybutów powinna być zaimplementowana metoda dostępowa. Tak zwany "getter". W poprzednim fragmencie kodu są to metody `getOwner` i `getValidUntil`.
+
+Adnotacja dotyczące walidacji można stosować do:
+
+- klas, 
+- atrybutów,
+- parametrów metody czy konstruktora na przykład `public PaidAccount(@NotNull owner)`),
+- elementów wewnątrz kolekcji (na przykład `List<@NotBlank String> users`), 
+- wartości zwracanej metody.
+
+W przypadku wartości zwracanej metody odpowiednią adnotację przypisuje się do metody dostępowej (gettera). Proszę spójrz na przykład poniżej:
+
+```java
+@Future
+public Date getValidUntil() {
+    return validUntil;
+}
+```
 
 ### Dlaczego używa się walidacji
 
