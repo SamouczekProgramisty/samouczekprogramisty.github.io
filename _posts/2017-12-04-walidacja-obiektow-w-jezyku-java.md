@@ -378,9 +378,7 @@ Napisz program, który pobierze od użytkownika następujące dane:
 - datę urodzenia w formacie YYYY-MM-dd mm:hh,
 - adres email.
 
-Dane te powinny posłużyć do utworzenia instancji obiektu:
-
-Upewnij się, że dane są poprawne używając adnotacji dostępnych w specyfikacji Bean Validation:
+Utwórz klasę grupującą te dane. Upewnij się, że są one poprawne używając adnotacji dostępnych w specyfikacji _Bean Validation_ bądź własnych:
 
 - imię powinno mieć długość co najmniej 3 liter,
 - imię powinno zaczynać się od wielkiej litery,
@@ -394,7 +392,7 @@ Upewnij się, że dane są poprawne używając adnotacji dostępnych w specyfika
 - [Artykuł na temat _Fail fast, fail often_](https://www.martinfowler.com/ieeeSoftware/failFast.pdf),
 - [Biblioteka rozszerzająca standardowy zestaw reguł](https://github.com/nomemory/java-bean-validation-extension#additional-supported-annotations),
 - [Strona projektu Hibernate Validator](http://hibernate.org/validator/),
-- [Kod źródłowy przykładów użytych w artykule](TODO).
+- [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/04_bean_validation).
 
 ## Podsumowanie
 
