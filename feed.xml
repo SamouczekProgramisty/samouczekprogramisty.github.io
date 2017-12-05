@@ -1,4 +1,399 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2017-11-27T22:18:42+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">SOLID czyli dobre praktyki w programowaniu obiektowym</title><link href="http://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/" rel="alternate" type="text/html" title="SOLID czyli dobre praktyki w programowaniu obiektowym" /><published>2017-11-27T00:00:00+01:00</published><updated>2017-11-27T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/programowanie-obiektowe-solid</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/">&lt;p class=&quot;notice--info&quot;&gt;Artykuł ten zakłada, że znasz już podstawy języka programowania. Najlepiej gdybyś miał już za sobą drobny projekt, na przykład prosty kalkulator. Abyś mógł wynieść coś z tego artykułu musisz wiedzieć czym są &lt;a href=&quot;/interfejsy-w-jezyku-java/&quot;&gt;interfejsy&lt;/a&gt; i &lt;a href=&quot;/dziedziczenie-w-jezyku-java/&quot;&gt;dziedziczenie&lt;/a&gt;. Przydatne mogą być też pozostałe artykuły z &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java&quot;&gt;kursu programowania w języku Java&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2017-12-05T01:31:19+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Walidacja obiektów w języku Java</title><link href="http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/" rel="alternate" type="text/html" title="Walidacja obiektów w języku Java" /><published>2017-12-04T00:00:00+01:00</published><updated>2017-12-04T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/">&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;Artykuł ten zakłada, że znasz już podstawy języka Java. Abyś mógł wynieść coś z tego artykułu musisz wiedzieć czym są &lt;a href=&quot;/adnotacje-w-jezyku-java/&quot;&gt;adnotacje&lt;/a&gt;. Przydatne mogą być też pozostałe artykuły z &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java&quot;&gt;kursu programowania w języku Java&lt;/a&gt;, szczególnie te dotyczące:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/interfejsy-w-jezyku-java/&quot;&gt;interfejsów&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/typ-wyliczeniowy-w-jezyku-java/&quot;&gt;typów wyliczeniowych (enumów)&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/wyjatki-w-jezyku-java/&quot;&gt;wyjątków&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Przy budowaniu projektu może pomóc też znajomość &lt;a href=&quot;/wstep-do-gradle/&quot;&gt;Gradle&lt;/a&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;specyfikacja-bean-validation&quot;&gt;Specyfikacja &lt;em&gt;Bean Validation&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;Specyfikacja &lt;em&gt;Bean Validation&lt;/em&gt; ewoluuje. Wszystko zaczęło się od specyfikacji w wersji &lt;a href=&quot;http://beanvalidation.org/1.0/&quot;&gt;1.0&lt;/a&gt; wydanej w 2009 roku. Najnowsza wersja tej specyfikacji to &lt;a href=&quot;http://beanvalidation.org/2.0/&quot;&gt;2.0&lt;/a&gt;. Jest ona częścią Java Enterprise Edition 8. Dodatkowo implementacji tej specyfikacji można używać w Java SE. Walidacja odbywa się w oparciu o reguły (ang. &lt;em&gt;constraint&lt;/em&gt;), które stwierdzają, czy dany element jest poprawny.&lt;/p&gt;
+
+&lt;p&gt;Specyfikacja pozwala na przypisywanie reguł do poszczególnych elementów za pomocą adnotacji i XML&lt;sup id=&quot;fnref:xml&quot;&gt;&lt;a href=&quot;#fn:xml&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. W dalszej części artykułu opisuję wyłącznie walidację opartą o adnotacje. Dla uproszczenia skupię się jedynie na zastosowaniu walidacji w Java SE.&lt;/p&gt;
+
+&lt;p&gt;Proszę spójrz na przykładową klasę z adnotacjami do walidacji:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PaidAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@NotBlank&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Future&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validUntil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PaidAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@NotNull&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Future&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validUntil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;owner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validUntil&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validUntil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getOwner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getValidUntil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validUntil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W ramach specyfikacji udostępniony jest standardowy zestaw reguł. Na przykład “element nie może mieć wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt;” (&lt;code class=&quot;highlighter-rouge&quot;&gt;@NotNull&lt;/code&gt;), “element musi mieć minimum X znaków” (&lt;code class=&quot;highlighter-rouge&quot;&gt;@Size(min=X)&lt;/code&gt;), “element musi być datą w przyszłości” (&lt;code class=&quot;highlighter-rouge&quot;&gt;@Future&lt;/code&gt;) itd. Przykład powyżej używa właśnie tych standardowych adnotacji. Zwróć uwagę, że do jednego elementu można przypisać wiele adnotacji. Na przykład atrybut &lt;code class=&quot;highlighter-rouge&quot;&gt;owner&lt;/code&gt; posiada adnotacje &lt;code class=&quot;highlighter-rouge&quot;&gt;@NotBlank&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;@Size&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;implementacja-specyfikacji&quot;&gt;Implementacja specyfikacji&lt;/h3&gt;
+
+&lt;p&gt;Sama specyfikacja to nie wszystko. Dostarcza ona jedynie API. Zestaw interfejsów, adnotacji, typów wyliczeniowych i wyjątków. Potrzebna jest jeszcze konkretna implementacja tej specyfikacji. W artykule tym będę używał &lt;a href=&quot;http://hibernate.org/validator&quot;&gt;Hibernate Validator&lt;/a&gt; w wersji 6.0.5. Jest to implementacja referencyjna dla specyfikacji &lt;em&gt;Bean Validation&lt;/em&gt; w wersji 2.0. Do projektu mogę ją dodać przez następujący fragment w pliku &lt;a href=&quot;/wstep-do-gradle/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.hibernate.validator'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hibernate-validator'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;version:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'6.0.5.Final'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.glassfish'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'javax.el'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;version:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'3.0.1-b08'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Druga zależność jest wymagana, ponieważ EL (&lt;a href=&quot;https://jcp.org/en/jsr/detail?id=341&quot;&gt;&lt;em&gt;Expression Language&lt;/em&gt;&lt;/a&gt;) wykorzystywany jest do formatowania komunikatów błędów.&lt;/p&gt;
+
+&lt;h3 id=&quot;wymagania-dotyczące-walidacji&quot;&gt;Wymagania dotyczące walidacji&lt;/h3&gt;
+
+&lt;p&gt;Atrybuty, których poprawność będzie sprawdzana, muszą być atrybutami w kontekście specyfikacji &lt;em&gt;Java Beans&lt;/em&gt;. Innymi słowy dla każdego z sprawdzanych atrybutów powinna być zaimplementowana metoda dostępowa. Tak zwany “getter”. W poprzednim fragmencie kodu są to metody &lt;code class=&quot;highlighter-rouge&quot;&gt;getOwner&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;getValidUntil&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Adnotacja dotyczące walidacji można stosować do:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;atrybutów,&lt;/li&gt;
+  &lt;li&gt;parametrów metody czy konstruktora, na przykład &lt;code class=&quot;highlighter-rouge&quot;&gt;public PaidAccount(@NotNull owner)&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;elementów wewnątrz kolekcji, na przykład &lt;code class=&quot;highlighter-rouge&quot;&gt;List&amp;lt;@NotBlank String&amp;gt; users&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;wartości zwracanej metody,&lt;/li&gt;
+  &lt;li&gt;klas.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;W przypadku wartości zwracanej metody odpowiednią adnotację przypisuje się do metody dostępowej (gettera). Proszę spójrz na przykład poniżej:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Future&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getValidUntil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validUntil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Adnotacje przypisane do klas używane są wtedy, gdy do stwierdzenia czy dany obiekt jest poprawny potrzebujemy dostępu do wielu atrybutów:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@ZipCodeCityCoherent&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zipCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postOfficeCity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;street&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zipCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postOfficeCity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;street&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;zipCode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zipCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;postOfficeCity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postOfficeCity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;street&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;street&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getZipCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zipCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPostOfficeCity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postOfficeCity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getStreet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;street&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W przykładzie powyżej użyłem własnej adnotacji &lt;code class=&quot;highlighter-rouge&quot;&gt;@ZipCodeCityCoherent&lt;/code&gt;. Adnotacja ta pozwala na sprawdzenie czy kod pocztowy i miasto są spójne. O tym jak tworzyć swoje własne adnotacje do walidacji przeczytasz w dalszej części artykułu.&lt;/p&gt;
+
+&lt;h3 id=&quot;dlaczego-używa-się-walidacji&quot;&gt;Dlaczego używa się walidacji&lt;/h3&gt;
+
+&lt;p&gt;Odpowiedź jest prosta ;). Walidacji używa się, aby mieć pewność, że dany obiekt wypełniony jest poprawnymi danymi. Takie podejście pozwala na stosowanie praktyki “Psuj się szybko, psuj się często” (ang. &lt;a href=&quot;https://en.wikipedia.org/wiki/Fail-fast&quot;&gt;&lt;em&gt;Fail fast, fail often&lt;/em&gt;&lt;/a&gt;). Można powiedzieć, że programy napisane przy takim założeniu szybko raportują błędy. Dzięki temu łatwiej jest znaleźć potencjalny błąd - informacja o błędzie pochodzi z miejsca jego wystąpienia, a nie z odległego miejsca w systemie.&lt;/p&gt;
+
+&lt;p&gt;Nigdy nie ufaj danym pochodzącym od użytkownika Twojego kodu. Niezależnie czy jest to człowiek czy maszyna. Dane wejściowe trzeba walidować. Zawsze. Zdarza się, że &lt;a href=&quot;https://www.edn.com/electronics-blogs/edn-moments/4418667/Mariner-1-destroyed-due-to-code-error--July-22--1962&quot;&gt;brak przecinka kosztuje kilka ładnych milionów dolarów&lt;/a&gt;. Walidacja danych nie gwarantuje wyeliminowania wszystkich błędów. Pozwala jednak odsiać znaczną ich część.&lt;/p&gt;
+
+&lt;p&gt;Dodatkowo walidacja jest czymś powtarzalnym. Mam tu na myśli to, że sposoby walidacji są podobne. Często chcemy sprawdzić czy pole jest wypełnione, czy jest liczbą z odpowiedniego zakresu, czy jest adresem e-mail, itd. Używanie gotowych mechanizmów walidacji pozwala na uniknięcie tej powtarzalnej części pracy.&lt;/p&gt;
+
+&lt;h3 id=&quot;jak-działa-walidacja&quot;&gt;Jak działa walidacja&lt;/h3&gt;
+
+&lt;p&gt;Walidacja to nic innego jak szereg reguł, ograniczeń. Tylko poprawne dane spełniają te ograniczenia. Nakładanie ograniczeń na dane sprowadza się do użycia odpowiednich adnotacji.&lt;/p&gt;
+
+&lt;p&gt;Instancja klasy klasy, którą sprawdzamy, przekazywana jest do tak zwanego walidatora. Walidator interpretuje adnotacje i uruchamia poszczególne reguły walidacji. Walidacja, bez jasno określonej kolejności polega na:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;sprawdzeniu wszystkich “osiągalnych” atrybutów danej instancji,&lt;/li&gt;
+  &lt;li&gt;sprawdzeniu wszystkich metod dostępowych danej instancji (getterów),&lt;/li&gt;
+  &lt;li&gt;sprawdzeniu reguł przypisanych do klasy (adnotacje klasy).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Walidacja uruchamiana jest kaskadowo. Proszę spójrz na przykład poniżej:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MembershipBonus&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Valid&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PaidAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bonusName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MembershipBonus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Valid&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PaidAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bonusName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;userAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;bonusName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bonusName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PaidAccount&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getUserAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBonusName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bonusName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W przykładzie tym użyta jest adnotacja &lt;code class=&quot;highlighter-rouge&quot;&gt;@Valid&lt;/code&gt;. Zwraca ona uwagę na to, że instancja klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;PaidAccount&lt;/code&gt; także musi być sprawdzona pod kątem poprawności. To czy &lt;code class=&quot;highlighter-rouge&quot;&gt;PaidAccount&lt;/code&gt; jest poprawne czy nie określone jest przez adnotacje wewnątrz tej klasy.&lt;/p&gt;
+
+&lt;p&gt;Sprawdzenie reguł odbywa się poprzez uruchomienie metody &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html#validate-T-java.lang.Class...-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;validate&lt;/code&gt;&lt;/a&gt; na instancji klasy implementującej interfejs &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Validator&lt;/code&gt;&lt;/a&gt;. Biblioteka, która implementuje specyfikację &lt;em&gt;Bean Validation&lt;/em&gt; dosttarcza odpowiednią klasę.&lt;/p&gt;
+
+&lt;h2 id=&quot;kiedy-używamy-automatycznej-walidacji&quot;&gt;Kiedy używamy automatycznej walidacji&lt;/h2&gt;
+
+&lt;p&gt;Do tej pory z użyciem specyfikacji &lt;em&gt;Bean Validation&lt;/em&gt; spotkałem się głównie w &lt;a href=&quot;/kurs-aplikacji-webowych/&quot;&gt;aplikacjach webowych&lt;/a&gt;, bądź takich które używają bazy danych. Specyfikacja nie ogranicza użycia tego mechanizmu tylko do tych zastosowań.&lt;/p&gt;
+
+&lt;h3 id=&quot;aplikacje-webowe&quot;&gt;Aplikacje webowe&lt;/h3&gt;
+
+&lt;p&gt;Wszystkie dane pochodzące od użytkownika &lt;em&gt;muszą&lt;/em&gt; zostać sprawdzone. Użytkownicy Twojej aplikacji mogą wpisać cuda w formularzu, nie można tym danym do końca ufać. Zatem wszystkie dane przychodzące do aplikacji webowej w formie zapytań HTTP są bardzo często walidowane przy użyciu &lt;em&gt;Bean Validation&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;obiekty-w-bazie-danych&quot;&gt;Obiekty w bazie danych&lt;/h3&gt;
+
+&lt;p&gt;Mimo tego, że baza danych bardzo często pozwala na podstawową walidację przechowywanych danych, nie jest ona wystarczająca. Dodatkowo, poza walidacją przeprowadzaną przez samą bazę danych, używa się &lt;em&gt;Bean Validation&lt;/em&gt;. Jest to istotne ponieważ część reguł nie da się wymusić używając wyłącznie mechanizmów bazodanowych. Poza tym szybciej można sprawdzić poprawność danych w kodzie. Wynika to głównie z faktu, że wysłanie zapytania do bazy danych raczej nie jest szybsze niż walidacja przeprowadzona w kodzie.&lt;/p&gt;
+
+&lt;h2 id=&quot;najczęściej-używane-reguły&quot;&gt;Najczęściej używane reguły&lt;/h2&gt;
+
+&lt;p&gt;Jak już wspomniałem specyfikacja zawiera adnotacje określające najczęściej używane reguły walidacji. Część z nich zebrałem dla Ciebie poniżej:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@NotNull&lt;/code&gt; - dany element nie może mieć wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@NotBlank&lt;/code&gt; - dany element nie może mieć wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; i musi zawierać co najmniej jeden znak (nie może to być spacja, tabulator etc.),&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@NotEmpty&lt;/code&gt; - dany element nie może mieć wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; i musi zawierać co najmniej jeden znak,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Min(X)&lt;/code&gt; - dany element musi być liczbą i jego wartość musi być większa bądź równa &lt;code class=&quot;highlighter-rouge&quot;&gt;X&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Max(X)&lt;/code&gt; - dany element musi być liczbą i jego wartość musi być mniejsza bądź równa &lt;code class=&quot;highlighter-rouge&quot;&gt;X&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Email&lt;/code&gt; - dane element musi zawierać poprawny adres e-mail,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Pattern(regexp=X)&lt;/code&gt; - dany element musi pasować do &lt;a href=&quot;/wyrazenia-regularne-w-jezyku-java/&quot;&gt;wyrażenia regularnego&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;X&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Size(min=X, max=Y)&lt;/code&gt; - dany element musi mieć rozmiar określony przez elementy adnotacji &lt;code class=&quot;highlighter-rouge&quot;&gt;min&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;max&lt;/code&gt;. Obie wartości są opcjonalne.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Oczywiście lista reguł zapewniona przez specyfikację nie jest kompletna. Specyfikacja pozwala na rozszerzanie listy dostępnych reguł.&lt;/p&gt;
+
+&lt;h2 id=&quot;java-se-i-walidacja&quot;&gt;Java SE i walidacja&lt;/h2&gt;
+
+&lt;p&gt;Skoro już wiesz czym jest walidacja, to najwyższy czas sprawdzić ją w praktyce. Przykład poniżej pokazuje sposób uruchomienia walidacji w aplikacji Java SE&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ValidationExample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ValidationExample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ValidatorFactory&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validationFactory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;buildDefaultValidatorFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validationFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ValidationExample&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ValidationExample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;showSimpleValidation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;showSimpleValidation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;PaidAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PaidAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mp&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Calendar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConstraintViolation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PaidAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validationErrors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConstraintViolation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PaidAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validationError&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validationErrors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validationError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPropertyPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validationError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Po uruchomieniu tego programu na konsoli pokażą się następujące komunikaty błędów:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;validUntil must be a future date
+owner size must be between 3 and 2147483647
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;formatowanie-komunikatu-błędu&quot;&gt;Formatowanie komunikatu błędu&lt;/h3&gt;
+
+&lt;p&gt;Jak widzisz komunikaty błędów nie są po polsku. Wynika to z tego, że domyślne komunikaty dostarczone przez Hibernate Validator są w języku angielskim. Niestety biblioteka aktualnie nie zawiera polskich komunikatów. Możesz to zmienić.&lt;/p&gt;
+
+&lt;h4 id=&quot;komunikaty-błędów-zaszyte-w-kodzie&quot;&gt;Komunikaty błędów zaszyte w kodzie&lt;/h4&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;Sposób ten nie jest zalecany! Generalnie niezbyt dobrą praktyką jest umieszczanie tekstu w kodzie źródłowym programu. Doskonale do tego nadają się za to pliki &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt;, które opisałem poniżej.&lt;/p&gt;
+
+&lt;p&gt;Modyfikując nieznacznie klasę z adnotacjami możemy wymusić inne komunikaty błędów:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@NotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nie może być puste&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;musi być dłuższe niż {min}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Future&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;musi być w przyszłości&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validUntil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Po takiej modyfikacji na konsoli pokażą się następujące komunikaty błędów:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;validUntil musi być w przyszłości
+owner musi być dłuższe niż 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;komunikaty-błędów-w-plikach-properties&quot;&gt;Komunikaty błędów w plikach &lt;a href=&quot;https://en.wikipedia.org/wiki/.properties&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt;&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Pliki z rozszerzeniem &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt; to pliki tekstowe. Zawierają one zbiór wierszy w postaci &lt;code class=&quot;highlighter-rouge&quot;&gt;klucz=wartość&lt;/code&gt;. Pliki te nadają się do przechowywania komunikatów błędów.&lt;/p&gt;
+
+&lt;p&gt;Domyślna implementacja w kodzie ma zaszyty wyłącznie &lt;code class=&quot;highlighter-rouge&quot;&gt;klucz&lt;/code&gt; komunikatu błędu. Na przykład:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;{javax.validation.constraints.Size.message}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Przyjęło się, że klucz ma postać &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;pakiet&amp;gt;.&amp;lt;nazwa_klasy&amp;gt;.&amp;lt;nazwa_atrybutu&amp;gt;&lt;/code&gt;. W powyższym przykładzie jest to &lt;code class=&quot;highlighter-rouge&quot;&gt;javax.validation.constraints.Size.message&lt;/code&gt;. Następnie klucz ten wraz z wartością umieszcza się w pliku &lt;code class=&quot;highlighter-rouge&quot;&gt;ValidationMessages.properties&lt;/code&gt;. Plik ten jest odczytywany przez implementację &lt;em&gt;Bean Validation&lt;/em&gt;. Znalezione tam wartości użyte są do budowania komunikatów błędów.&lt;/p&gt;
+
+&lt;p&gt;Plik &lt;code class=&quot;highlighter-rouge&quot;&gt;ValidationMessages.properties&lt;/code&gt; umieść w katalogu projektu &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javax.validation.constraints.Size.message=musi być dłuższe niż {min}
+javax.validation.constraints.NotNull.message=nie może być puste
+javax.validation.constraints.Future.message=musi być w przyszłości
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;Niestety pliki &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt; do wersji 8 języka są “dziwne”. Mam tu na myśli to, że domyślnym kodowaniem z jakim są one czytane jest ISO-8859-1. W związku z tym możesz zobaczyć na konsoli:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;validUntil musi byÄ w przyszÅoÅci
+owner musi byÄ dÅuÅ¼sze niÅ¼ 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Te magiczne znaczki to nic innego ja próba interpretowania pliku &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt; zapisanego przy pomocy kodowania UTF-8 przez Javę stosując kodowanie ISO-8859-1. IntelliJ Idea pozwala na ustawienie kodowania plików &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt;. Możesz to zrobić w menu File -&amp;gt; Settings -&amp;gt; Editor -&amp;gt; File encodings. Istotne jest abyś ustawił ich kodowanie na ISO-8859-1 i zaznaczył opcję “Transparent native-to-ascii conversion”.&lt;/p&gt;
+
+&lt;p&gt;Przy takim ustawieniu możesz tworzyć pliki properties w normalny sposób. IntelliJ pod spodem zrobi za Ciebie odpowiednią konwersję znaków. Na przykład powyższy plik &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt; przerobiony przez IntelliJ wygląda następująco:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javax.validation.constraints.Size.message=musi by\u0107 d\u0142u\u017Csze ni\u017C {min}
+javax.validation.constraints.NotNull.message=nie mo\u017Ce by\u0107 puste
+javax.validation.constraints.Future.message=musi by\u0107 w przysz\u0142o\u015Bci
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Java 9 &lt;a href=&quot;http://openjdk.java.net/jeps/226&quot;&gt;rozwiązuje&lt;/a&gt; ten problem przez ustawienie domyślnego kodowania na UTF-8 co dużo lepiej odpowiada obecnym standardom.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h4 id=&quot;szablon-formatów-błędu&quot;&gt;Szablon formatów błędu&lt;/h4&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Celem tego artykułu nie jest wyjaśnianie &lt;em&gt;Expression Language&lt;/em&gt;, ma on dużo większe możliwości. Ten podpunkt ma Ci tylko pomóc zrozumieć użycie EL w komunikatach błędów.&lt;/p&gt;
+
+&lt;p&gt;Zauważyłeś użycie &lt;code class=&quot;highlighter-rouge&quot;&gt;{min}&lt;/code&gt; wewnątrz komunikatu błędu? To właśnie język EL. To właśnie ten element, który zmusił mnie do dodania dodatkowej zależności w pliku &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;. Składnia &lt;code class=&quot;highlighter-rouge&quot;&gt;{zmienna}&lt;/code&gt; pozwala na odwołanie się do elementu adnotacji. W naszym przypadku jest to element &lt;code class=&quot;highlighter-rouge&quot;&gt;min&lt;/code&gt;. W wynikowym komunikacie błędu znalazła się wartość 3 - wartość elementu &lt;code class=&quot;highlighter-rouge&quot;&gt;min&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Te same szablony użyte są do odwołania się do wartości komunikatu błędu z plików &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;własna-adnotacja-do-walidacji&quot;&gt;Własna adnotacja do walidacji&lt;/h2&gt;
+
+&lt;p&gt;Specyfikacja &lt;em&gt;Bean Validation&lt;/em&gt; zezwala na tworzenie własnych reguł walidacji. Dzięki temu mechanizm ten jest łatwo rozszerzalny. Utworzenie własnej reguły przeważnie sprowadza się do utworzenia &lt;a href=&quot;/adnotacje-w-jezyku-java/&quot;&gt;adnotacji&lt;/a&gt; i implementacji klasy sprawdzającej.&lt;/p&gt;
+
+&lt;h3 id=&quot;implementacja-adnotacji&quot;&gt;Implementacja adnotacji&lt;/h3&gt;
+
+&lt;p&gt;Poniższy przykład pokazuje adnotację, którą użyłem w jednym z powyższych fragmentów kodu. Służy ona do sprawdzenia czy atrybut klasy zawierający kod pocztowy pasuje do atrybutu zawierającego miasto:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TYPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Retention&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RUNTIME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Constraint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validatedBy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ZipCodeCityCoherentValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ZipCodeCityCoherent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;{pl.samouczekprogramisty.misc.validation.ZipCodeCityCoherent.message}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;groups&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{};&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Payload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;[]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{};&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Adnotacja ta może być przypisana wyłącznie do klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;@Target(TYPE)&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;@Retention(RUNTIME)&lt;/code&gt; określa, że informacja o adnotacji ma być widoczna w trakcie uruchomienia programu. Dodanie do naszej adnotacji &lt;code class=&quot;highlighter-rouge&quot;&gt;@Constraint(validatedBy = ZipCodeCityCoherentValidator.class)&lt;/code&gt; sprawia, że jest ona “widoczna” przez &lt;em&gt;Bean Validation&lt;/em&gt;. W tym miejscu określiłem też klasę, która będzie wywołana aby przeprowadzić właściwą walidację. W tym przypadku jest to klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;ZipCodeCityCoherentValidator&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ciało adnotacji zawiera trzy elementy. Są to odpowiednio &lt;code class=&quot;highlighter-rouge&quot;&gt;message&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;groups&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;payload&lt;/code&gt;. Komunikat błędu jest przechowywany w elemencie &lt;code class=&quot;highlighter-rouge&quot;&gt;message&lt;/code&gt;. W tym przypadku jest to odwołanie do zawartości pliku &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pl.samouczekprogramisty.misc.validation.ZipCodeCityCoherent.message=miasto nie pasuje do kodu pocztowego
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Elementy &lt;code class=&quot;highlighter-rouge&quot;&gt;groups&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;payload&lt;/code&gt; są wymagane. Ich zastosowanie pominę, artykuł i tak jest wystarczająco długi ;).&lt;/p&gt;
+
+&lt;p&gt;Skoro mamy już adnotację nadszedł czas na implementację klasy sprawdzającej.&lt;/p&gt;
+
+&lt;h3 id=&quot;implementacja-klasy-sprawdzającej&quot;&gt;Implementacja klasy sprawdzającej&lt;/h3&gt;
+
+&lt;p&gt;Każda klasa sprawdzająca powinien implementować &lt;a href=&quot;/interfejsy-w-jezyku-java/&quot;&gt;interfejs&lt;/a&gt; &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ConstraintValidator&lt;/code&gt;&lt;/a&gt;. W momencie walidowania danego elementu zostaje wywołana metoda &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html#isValid-T-javax.validation.ConstraintValidatorContext-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;isValid&lt;/code&gt;&lt;/a&gt;. To implementacja tej metody będzie decydowała o tym czy dany element jest poprawny.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ZipCodeCityCoherentValidator&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConstraintValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ZipCodeCityCoherent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isValid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Address&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConstraintValidatorContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;00-000&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getZipCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Warszawa&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPostOfficeCity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W powyższym przykładzie implementacja jest strasznie naiwna, masz pomysł jak obsłużyć więcej kombinacji miast/kodów pocztowych?&lt;/p&gt;
+
+&lt;h2 id=&quot;zadanie-do-wykonania&quot;&gt;Zadanie do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Napisz program, który pobierze od użytkownika następujące dane:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;imię,&lt;/li&gt;
+  &lt;li&gt;datę urodzenia w formacie YYYY-MM-dd mm:hh,&lt;/li&gt;
+  &lt;li&gt;adres e-mail.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Utwórz klasę grupującą te dane. Upewnij się, że są one poprawne używając adnotacji dostępnych w specyfikacji &lt;em&gt;Bean Validation&lt;/em&gt; bądź własnych:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;imię powinno mieć długość co najmniej 3 liter,&lt;/li&gt;
+  &lt;li&gt;imię powinno zaczynać się od wielkiej litery,&lt;/li&gt;
+  &lt;li&gt;imię powinno składać się wyłącznie z liter,&lt;/li&gt;
+  &lt;li&gt;data urodzenia powinna być w przeszłości,&lt;/li&gt;
+  &lt;li&gt;użytkownik powinien mieć co najmniej 4 lata.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;materiały-dodatkowe&quot;&gt;Materiały dodatkowe&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jcp.org/aboutJava/communityprocess/final/jsr380/index.html&quot;&gt;Specyfikacja Bean Validation 2.0&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.martinfowler.com/ieeeSoftware/failFast.pdf&quot;&gt;Artykuł na temat &lt;em&gt;Fail fast, fail often&lt;/em&gt;&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/nomemory/java-bean-validation-extension#additional-supported-annotations&quot;&gt;Biblioteka rozszerzająca standardowy zestaw reguł&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://hibernate.org/validator/&quot;&gt;Strona projektu Hibernate Validator&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/04_bean_validation&quot;&gt;Kod źródłowy przykładów użytych w artykule&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Po lekturze artykułu wiesz już czym jest walidacja. Masz świadomość dlaczego jest ona istotna. Potrafisz użyć walidacji w swojej aplikacji używając dostępnych reguł walidacji. Umiesz też zaimplementować swoje własne reguły. Ćwiczenie, które wykonałeś pozwoliło Ci sprawdzić tę wiedzę w praktyce. Gratulacje! ;)&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub stronę na Facebooku. Jeśli cokolwiek nie będzie dla Ciebie jasne zadaj pytanie w komentarzu, postaram się pomóc. Do następnego razu!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:xml&quot;&gt;
+      &lt;p&gt;Jeśli chcesz przeczytać więcej o XML zapraszam do &lt;a href=&quot;/xml-dla-poczatkujacych/&quot;&gt;osobnego artykułu&lt;/a&gt; na blogu. &lt;a href=&quot;#fnref:xml&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguły walidacji. Napiszesz także swoją własną regułę. Mechanizm walidacji jest powszechnie używany, więc jego znajomość przyda się zarówno w aplikacjach webowych jak i desktopowych.</summary></entry><entry><title type="html">SOLID czyli dobre praktyki w programowaniu obiektowym</title><link href="http://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/" rel="alternate" type="text/html" title="SOLID czyli dobre praktyki w programowaniu obiektowym" /><published>2017-11-27T00:00:00+01:00</published><updated>2017-11-27T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/programowanie-obiektowe-solid</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/">&lt;p class=&quot;notice--info&quot;&gt;Artykuł ten zakłada, że znasz już podstawy języka programowania. Najlepiej gdybyś miał już za sobą drobny projekt, na przykład prosty kalkulator. Abyś mógł wynieść coś z tego artykułu musisz wiedzieć czym są &lt;a href=&quot;/interfejsy-w-jezyku-java/&quot;&gt;interfejsy&lt;/a&gt; i &lt;a href=&quot;/dziedziczenie-w-jezyku-java/&quot;&gt;dziedziczenie&lt;/a&gt;. Przydatne mogą być też pozostałe artykuły z &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java&quot;&gt;kursu programowania w języku Java&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;czym-jest-solid&quot;&gt;Czym jest SOLID&lt;/h2&gt;
 
@@ -359,7 +754,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://amzn.to/2ztqaSg&quot;&gt;The Clean Code&lt;/a&gt;&lt;sup id=&quot;fnref:afiliacja&quot;&gt;&lt;a href=&quot;#fn:afiliacja&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/03_solid/src/pl/samouczekprogramisty/misc/solid&quot;&gt;Przykłady użyte w treści artykułu&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/03_solid/src/main/java/pl/samouczekprogramisty/misc/solid&quot;&gt;Przykłady użyte w treści artykułu&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
@@ -2331,94 +2726,4 @@ Stan konta: -5000
 
 &lt;p&gt;Podsumowując całość w jednym zdaniu. Bardzo się cieszę, że Pogodynka zakończyła się sukcesem :).&lt;/p&gt;
 
-&lt;p&gt;W przyszłości planuję realizację innych projektów tego typu. Może chciałbyś zobaczyć konkretny projekt realizowany w ten sposób? Daj znać w komentarzac, razem na pewno uda się nam wybrać coś ciekawego :).&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad projektem. Pokazuje też finalny efekt tej pracy.</summary></entry><entry><title type="html">Pogodynka - integracja</title><link href="http://www.samouczekprogramisty.pl/pogodynka-integracja/" rel="alternate" type="text/html" title="Pogodynka - integracja" /><published>2017-05-23T12:58:09+02:00</published><updated>2017-05-23T12:58:09+02:00</updated><id>http://www.samouczekprogramisty.pl/pogodynka-integracja</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/pogodynka-integracja/">&lt;p&gt;Jak wspomniałem wyżej większość zmian związanych było z konfiguracją i integracją poszczególnych komponentów. Zacznę od serwera HTTP.&lt;/p&gt;
-
-&lt;h2 id=&quot;nginx&quot;&gt;&lt;a href=&quot;https://nginx.org/en/&quot;&gt;nginx&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;Jak wspomniałem w jednym z poprzednich raportów nie chcę rozdmuchiwać kosztów projektu. Nie chciałem też pisać warstwy widoku w oparciu o JSP. Mógłbym statyczne strony HTML zawrzeć w pliku WAR, jednak nie podoba mi się to rozwiązanie.&lt;/p&gt;
-
-&lt;p&gt;Moim zdaniem nie jest to podejście, w którym teraz tworzy się nowe strony WWW. Przy jednym pliku WAR miałbym monolityczną aplikację. Przy podejściu, które zastosowałem mam osobną warstwę z interfejsem użytkownika i osobną, która serwuje dane.&lt;/p&gt;
-
-&lt;p&gt;Aby obsłużyć taką konfigurację i używać wyłącznie jednej instancji &lt;a href=&quot;https://en.wikipedia.org/wiki/Virtual_private_server&quot;&gt;VPS&lt;/a&gt; (ang. &lt;em&gt;Virtual Private Server&lt;/em&gt;) użyłem serwera nginx.&lt;/p&gt;
-
-&lt;p&gt;Na tej samej instancji uruchomiony jest serwer Tomcat. W związku z konfiguracją firewall’a na tej maszynie nie jest on jednak dostępny bezpośrednio. nginx skonfigurowałem jako “reverse proxy”. Sprowadza się to do tego, że część żądań przesyłana jest przez nginx to Tomcata. Pozostała część to serwowanie statycznych stron.&lt;/p&gt;
-
-&lt;p&gt;W uproszczeniu konfiguracja ta podobna jest do tej pokazanej na diagramie poniżej:&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2017/05/23_nginx_diagram.jpeg&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Nginx - reverse proxy.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Interfejs użytkownika wykorzystywał będzie aplikację webową do pobrania informacji o dotychczasowych odczytach temperatury.&lt;/p&gt;
-
-&lt;h2 id=&quot;postgresql&quot;&gt;&lt;a href=&quot;https://www.postgresql.org/&quot;&gt;PostgreSQL&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;Baza danych, którą skonfigurowałem do pracy z projektem nie nadaje się na produkcję. Mowa tu o &lt;a href=&quot;http://hsqldb.org&quot;&gt;HyperSQL&lt;/a&gt;. Do produkcyjnego działania potrzebna jest baza z prawdziwego zdarzenia. I tak pojawił się PosgreSQL.&lt;/p&gt;
-
-&lt;p&gt;Przy pomocy puppet’a skonfigurowałem serwer bazy danych, utworzyłem bazę i dodałem odpowiednich użytkowników. Użytkownik, którego używam w aplikacji ma uprawnienia tylko do części elementów. Konfigurację możesz zobaczyć na &lt;a href=&quot;https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/database.pp&quot;&gt;githubie&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Dodatkowo sama baza danych zainstalowana jest na tym samym VPS co Tomcat. Dzięki temu nie ma potrzeby “otwierać” bazy danych na świat. Dostępna jest ona wyłącznie lokalnie. Zapewnia to sama konfiguracja PostgreSQL oraz reguł firewall’a.&lt;/p&gt;
-
-&lt;h2 id=&quot;raspberry-pi&quot;&gt;Raspberry PI&lt;/h2&gt;
-
-&lt;p&gt;Stwierdziłem, że skoro mam już Puppeta to wykorzystam go także po stronie Raspberry PI. Podzieliłem manifesty w ten sposób, że konfiguracja Malinki także jest jasno opisana. Całość znajduje się w pliku &lt;a href=&quot;https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/node_thermometer.pp&quot;&gt;node_thermometer.pp&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Dzięki takiemu podejściu mam spójny sposób na konfigurację wszystkich “serwerów” jakie używam. Dodatkowo nie muszę już manualnie zarządzać wpisami w crontab. Robi to za mnie &lt;a href=&quot;https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/node_thermometer.pp#L27&quot;&gt;puppet&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;konfiguracja-serwera-tomcat&quot;&gt;Konfiguracja serwera Tomcat&lt;/h2&gt;
-
-&lt;p&gt;Aplikacje &lt;a href=&quot;https://github.com/SamouczekProgramisty/Pogodynka/tree/master/datavault&quot;&gt;Datavault&lt;/a&gt; i &lt;a href=&quot;https://github.com/SamouczekProgramisty/Pogodynka/tree/master/thermometer&quot;&gt;Thermometer&lt;/a&gt; starałem się pisać w taki sposób aby móc udostępnić kod publicznie.&lt;/p&gt;
-
-&lt;p&gt;Ma to pewne konsekwencje. Mianowicie pewne elementy takie jak hasła nie powinny być publicznie dostępne. Aby to obejść użyłem zmiennych środowiskowych. Używam takiej zmiennej na przykład aby pobrać &lt;a href=&quot;https://github.com/SamouczekProgramisty/Pogodynka/blob/5c5334e0dc5878cb62d4c864a5035ca54c607373/datavault/src/main/java/pl/samouczekprogramisty/pogodynka/datavault/configuration/JPAConfigration.java&quot;&gt;hasło użytkownika bazy danych&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Zmienne te są ustawione na serwerze za pomocą &lt;a href=&quot;https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/tomcat.pp#L21&quot;&gt;puppet’a&lt;/a&gt;. Ich wartość pobierana jest za pośrednictwem mechanizmu hiera (opisałem go w jednym z poprzednich &lt;a href=&quot;http://www.samouczekprogramisty.pl/pogodynka-konfiguracja-bazy-danych/&quot;&gt;artykułów opisujących projekt Pogodynka&lt;/a&gt;) więc nie są to dane dostępne publicznie.&lt;/p&gt;
-
-&lt;h2 id=&quot;zmiany-w-kodzie&quot;&gt;Zmiany w kodzie&lt;/h2&gt;
-
-&lt;p&gt;Jak wspomniałem zmian w kodzie Javy było niewiele. Można je podzielić na dwie części:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;wspólne interfejsy,&lt;/li&gt;
-  &lt;li&gt;uwierzytelnianie.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;wspólne-interfejsy&quot;&gt;Wspólne interfejsy&lt;/h3&gt;
-
-&lt;p&gt;Pogodynka składa się z trzech modułów: Datavault, Thermometer i Frontend. Thermometer wysyła dane do Datavault używając zapytania HTTP. Zapytanie to zawiera dane w formacie JSON.&lt;/p&gt;
-
-&lt;p&gt;W aplikacji Thermometer wysyłałem dane sformatowane w trochę inny sposób niż było to oczekiwane przez Datavault. Jako konsekwencja Datavault zwracał odpowiedzi ze statusem 400 na każde żądanie wysłane z Thermometer. Uwspólnienie formatu rozwiązało problem.&lt;/p&gt;
-
-&lt;h3 id=&quot;uwierzytelnianie&quot;&gt;Uwierzytelnianie&lt;/h3&gt;
-
-&lt;p&gt;Chociaż dane z termometru są publicznie dostępne to powinny być dostępne wyłącznie do odczytu. Możesz to sprawdzić otwierając &lt;a href=&quot;http://pogodynka.pietraszek.pl&quot;&gt;stronę pogodynki&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Zależy mi na tym aby te dane były rzetelne. Sprowadza się to do tego, że tylko określeni użytkownicy powinni móc dodawać informacje o aktualnych odczytach.&lt;/p&gt;
-
-&lt;p&gt;Nie chciałem zbytnio komplikować mechanizmu uwierzytelniania/autoryzacji więc poszedłem po najmniejszej linii oporu. Mianowicie przy żądaniu wysyłającym nowy pomiar sprawdzana jest zawartość pewnego nagłówka. Jeśli zawartość ta jest błędna żadne dane nie są dodawane do bazy. W odpowiedzi wysyłany jest kod 403.&lt;/p&gt;
-
-&lt;p&gt;Ta tajna wartość nagłówka również przechowywana jest w zmiennej środowiskowej.&lt;/p&gt;
-
-&lt;h2 id=&quot;brakujące-elementy&quot;&gt;Brakujące elementy&lt;/h2&gt;
-
-&lt;h3 id=&quot;czujnik-zewnętrzny&quot;&gt;Czujnik zewnętrzny&lt;/h3&gt;
-
-&lt;p&gt;Aktualnie całość działa w oparciu o czujnik wewnętrzny. Takie podejście raczej nie przejdzie próby deszczu ;). Kupiłem czujnik zewnętrzny, Mam nadzieję, że jutro już będzie uruchomiony.&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2017/05/23_czujnik_wodoodporny.jpeg&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Woododporny czujnik temperatury.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;h3 id=&quot;interfejs-użytkownika&quot;&gt;Interfejs użytkownika&lt;/h3&gt;
-
-&lt;p&gt;Chociaż szablon interfejsu użytkownika jest już dostępny, nie jest on prawidłowy. Aby miał on sens musi pobierać dane o temperaturach z Datavault. Właśnie na tej części skupię się w przeciągu najbliższych dni.&lt;/p&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Integrację mogę uznać za ukończoną. Monitoring całości opisany w początkowych odcinkach także działa. Zostały ostatnie szlify. Myślę, że mam duże szanse ukończyć projekt w terminie. Konkurs “Daj się poznać” trwa do 31.05.2017 więc zostało jeszcze parę dni. Trzymajcie kciuki i do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Raport z frontu Pogodynki. Ostatnie dwa dni minęły pod znakiem integracji. Spinałem w całość poszczególne elementy projektu. Pisania kodu było tu niewiele, raczej wyszukiwanie błędów i praca z zakresu “dev-ops”. Niemniej jednak prawie 30% zmian w repozytorium pojawiło się w przeciągu tych dwóch dni.</summary></entry></feed>
+&lt;p&gt;W przyszłości planuję realizację innych projektów tego typu. Może chciałbyś zobaczyć konkretny projekt realizowany w ten sposób? Daj znać w komentarzac, razem na pewno uda się nam wybrać coś ciekawego :).&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Pogodynka to projekt, w ramach którego od marca do maja pracowałem nad stacją pogodową opartą o Raspberry Pi. Ten artykuł podsumowuje ostatnią część prac nad projektem. Pokazuje też finalny efekt tej pracy.</summary></entry></feed>

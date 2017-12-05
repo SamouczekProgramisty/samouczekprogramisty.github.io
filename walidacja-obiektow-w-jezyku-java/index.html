@@ -1,0 +1,977 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Walidacja obiektów w języku Java - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguły walidacji. Napiszesz także swoją własną regułę. Mechanizm walidacji jest powszechnie używany, więc jego znajomość przyda się zarówno w aplikacjach webowych jak i desktopowych.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Walidacja obiektów w języku Java">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/">
+
+
+
+  <meta property="og:description" content="Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguły walidacji. Napiszesz także swoją własną regułę. Mechanizm walidacji jest powszechnie używany, więc jego znajomość przyda się zarówno w aplikacjach webowych jak i desktopowych.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-12-04T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Walidacja obiektów w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguły walidacji. Napiszesz także swoją własną regułę. Mechanizm walidacji jest powszechnie używany, więc jego znajomość przyda się zarówno w aplikacjach webowych jak i desktopowych.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/120262924@N05/13155237024/sizes/l">© startupphotos</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Walidacja obiektów w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Walidacja obiektów w języku Java">
+    <meta itemprop="description" content="Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguły walidacji. Napiszesz także swoją własną regułę. Mechanizm walidacji jest powszechnie używany, więc jego znajomość przyda się zarówno w aplikacjach webowych jak i desktopowych.">
+    <meta itemprop="datePublished" content="December 04, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#specyfikacja-bean-validation">Specyfikacja Bean Validation</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#implementacja-specyfikacji">Implementacja specyfikacji</a></li>
+<li class="toc-entry toc-h3"><a href="#wymagania-dotyczące-walidacji">Wymagania dotyczące walidacji</a></li>
+<li class="toc-entry toc-h3"><a href="#dlaczego-używa-się-walidacji">Dlaczego używa się walidacji</a></li>
+<li class="toc-entry toc-h3"><a href="#jak-działa-walidacja">Jak działa walidacja</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#kiedy-używamy-automatycznej-walidacji">Kiedy używamy automatycznej walidacji</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aplikacje-webowe">Aplikacje webowe</a></li>
+<li class="toc-entry toc-h3"><a href="#obiekty-w-bazie-danych">Obiekty w bazie danych</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#najczęściej-używane-reguły">Najczęściej używane reguły</a></li>
+<li class="toc-entry toc-h2"><a href="#java-se-i-walidacja">Java SE i walidacja</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#formatowanie-komunikatu-błędu">Formatowanie komunikatu błędu</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#komunikaty-błędów-zaszyte-w-kodzie">Komunikaty błędów zaszyte w kodzie</a></li>
+<li class="toc-entry toc-h4"><a href="#komunikaty-błędów-w-plikach-properties">Komunikaty błędów w plikach properties</a></li>
+<li class="toc-entry toc-h4"><a href="#szablon-formatów-błędu">Szablon formatów błędu</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#własna-adnotacja-do-walidacji">Własna adnotacja do walidacji</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#implementacja-adnotacji">Implementacja adnotacji</a></li>
+<li class="toc-entry toc-h3"><a href="#implementacja-klasy-sprawdzającej">Implementacja klasy sprawdzającej</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#zadanie-do-wykonania">Zadanie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#materiały-dodatkowe">Materiały dodatkowe</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        
+<div class="notice--info">
+  
+<p>Artykuł ten zakłada, że znasz już podstawy języka Java. Abyś mógł wynieść coś z tego artykułu musisz wiedzieć czym są <a href="/adnotacje-w-jezyku-java/">adnotacje</a>. Przydatne mogą być też pozostałe artykuły z <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java">kursu programowania w języku Java</a>, szczególnie te dotyczące:</p>
+<ul>
+  <li><a href="/interfejsy-w-jezyku-java/">interfejsów</a>,</li>
+  <li><a href="/typ-wyliczeniowy-w-jezyku-java/">typów wyliczeniowych (enumów)</a>,</li>
+  <li><a href="/wyjatki-w-jezyku-java/">wyjątków</a>.</li>
+</ul>
+
+<p>Przy budowaniu projektu może pomóc też znajomość <a href="/wstep-do-gradle/">Gradle</a>.</p>
+
+</div>
+
+<h2 id="specyfikacja-bean-validation">Specyfikacja <em>Bean Validation</em></h2>
+
+<p>Specyfikacja <em>Bean Validation</em> ewoluuje. Wszystko zaczęło się od specyfikacji w wersji <a href="http://beanvalidation.org/1.0/">1.0</a> wydanej w 2009 roku. Najnowsza wersja tej specyfikacji to <a href="http://beanvalidation.org/2.0/">2.0</a>. Jest ona częścią Java Enterprise Edition 8. Dodatkowo implementacji tej specyfikacji można używać w Java SE. Walidacja odbywa się w oparciu o reguły (ang. <em>constraint</em>), które stwierdzają, czy dany element jest poprawny.</p>
+
+<p>Specyfikacja pozwala na przypisywanie reguł do poszczególnych elementów za pomocą adnotacji i XML<sup id="fnref:xml"><a href="#fn:xml" class="footnote">1</a></sup>. W dalszej części artykułu opisuję wyłącznie walidację opartą o adnotacje. Dla uproszczenia skupię się jedynie na zastosowaniu walidacji w Java SE.</p>
+
+<p>Proszę spójrz na przykładową klasę z adnotacjami do walidacji:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PaidAccount</span> <span class="o">{</span>
+    <span class="nd">@NotBlank</span>
+    <span class="nd">@Size</span><span class="o">(</span><span class="n">min</span><span class="o">=</span><span class="mi">3</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">owner</span><span class="o">;</span>
+
+    <span class="nd">@Future</span>
+    <span class="kd">private</span> <span class="n">Date</span> <span class="n">validUntil</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PaidAccount</span><span class="o">(</span><span class="nd">@NotNull</span> <span class="nd">@Size</span><span class="o">(</span><span class="n">min</span> <span class="o">=</span> <span class="mi">3</span><span class="o">)</span> <span class="n">String</span> <span class="n">owner</span><span class="o">,</span> <span class="nd">@Future</span> <span class="n">Date</span> <span class="n">validUntil</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">owner</span> <span class="o">=</span> <span class="n">owner</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">validUntil</span> <span class="o">=</span> <span class="n">validUntil</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getOwner</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">owner</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Date</span> <span class="nf">getValidUntil</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">validUntil</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W ramach specyfikacji udostępniony jest standardowy zestaw reguł. Na przykład “element nie może mieć wartości <code class="highlighter-rouge">null</code>” (<code class="highlighter-rouge">@NotNull</code>), “element musi mieć minimum X znaków” (<code class="highlighter-rouge">@Size(min=X)</code>), “element musi być datą w przyszłości” (<code class="highlighter-rouge">@Future</code>) itd. Przykład powyżej używa właśnie tych standardowych adnotacji. Zwróć uwagę, że do jednego elementu można przypisać wiele adnotacji. Na przykład atrybut <code class="highlighter-rouge">owner</code> posiada adnotacje <code class="highlighter-rouge">@NotBlank</code> i <code class="highlighter-rouge">@Size</code>.</p>
+
+<h3 id="implementacja-specyfikacji">Implementacja specyfikacji</h3>
+
+<p>Sama specyfikacja to nie wszystko. Dostarcza ona jedynie API. Zestaw interfejsów, adnotacji, typów wyliczeniowych i wyjątków. Potrzebna jest jeszcze konkretna implementacja tej specyfikacji. W artykule tym będę używał <a href="http://hibernate.org/validator">Hibernate Validator</a> w wersji 6.0.5. Jest to implementacja referencyjna dla specyfikacji <em>Bean Validation</em> w wersji 2.0. Do projektu mogę ją dodać przez następujący fragment w pliku <a href="/wstep-do-gradle/"><code class="highlighter-rouge">build.gradle</code></a>:</p>
+
+<div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.hibernate.validator'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'hibernate-validator'</span><span class="o">,</span> <span class="nl">version:</span> <span class="s1">'6.0.5.Final'</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.glassfish'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'javax.el'</span><span class="o">,</span> <span class="nl">version:</span> <span class="s1">'3.0.1-b08'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Druga zależność jest wymagana, ponieważ EL (<a href="https://jcp.org/en/jsr/detail?id=341"><em>Expression Language</em></a>) wykorzystywany jest do formatowania komunikatów błędów.</p>
+
+<h3 id="wymagania-dotyczące-walidacji">Wymagania dotyczące walidacji</h3>
+
+<p>Atrybuty, których poprawność będzie sprawdzana, muszą być atrybutami w kontekście specyfikacji <em>Java Beans</em>. Innymi słowy dla każdego z sprawdzanych atrybutów powinna być zaimplementowana metoda dostępowa. Tak zwany “getter”. W poprzednim fragmencie kodu są to metody <code class="highlighter-rouge">getOwner</code> i <code class="highlighter-rouge">getValidUntil</code>.</p>
+
+<p>Adnotacja dotyczące walidacji można stosować do:</p>
+
+<ul>
+  <li>atrybutów,</li>
+  <li>parametrów metody czy konstruktora, na przykład <code class="highlighter-rouge">public PaidAccount(@NotNull owner)</code>,</li>
+  <li>elementów wewnątrz kolekcji, na przykład <code class="highlighter-rouge">List&lt;@NotBlank String&gt; users</code>,</li>
+  <li>wartości zwracanej metody,</li>
+  <li>klas.</li>
+</ul>
+
+<p>W przypadku wartości zwracanej metody odpowiednią adnotację przypisuje się do metody dostępowej (gettera). Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Future</span>
+<span class="kd">public</span> <span class="n">Date</span> <span class="nf">getValidUntil</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">validUntil</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Adnotacje przypisane do klas używane są wtedy, gdy do stwierdzenia czy dany obiekt jest poprawny potrzebujemy dostępu do wielu atrybutów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ZipCodeCityCoherent</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Address</span> <span class="o">{</span>
+
+    <span class="nd">@NotEmpty</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">zipCode</span><span class="o">;</span>
+
+    <span class="nd">@NotEmpty</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">postOfficeCity</span><span class="o">;</span>
+
+    <span class="nd">@NotEmpty</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">street</span><span class="o">;</span>
+
+    <span class="nd">@NotEmpty</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">number</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Address</span><span class="o">(</span><span class="nd">@NotEmpty</span> <span class="n">String</span> <span class="n">zipCode</span><span class="o">,</span> <span class="nd">@NotEmpty</span> <span class="n">String</span> <span class="n">postOfficeCity</span><span class="o">,</span> <span class="nd">@NotEmpty</span> <span class="n">String</span> <span class="n">street</span><span class="o">,</span> <span class="nd">@NotEmpty</span> <span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">zipCode</span> <span class="o">=</span> <span class="n">zipCode</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">postOfficeCity</span> <span class="o">=</span> <span class="n">postOfficeCity</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">street</span> <span class="o">=</span> <span class="n">street</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getZipCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">zipCode</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getPostOfficeCity</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">postOfficeCity</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getStreet</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">street</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getNumber</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W przykładzie powyżej użyłem własnej adnotacji <code class="highlighter-rouge">@ZipCodeCityCoherent</code>. Adnotacja ta pozwala na sprawdzenie czy kod pocztowy i miasto są spójne. O tym jak tworzyć swoje własne adnotacje do walidacji przeczytasz w dalszej części artykułu.</p>
+
+<h3 id="dlaczego-używa-się-walidacji">Dlaczego używa się walidacji</h3>
+
+<p>Odpowiedź jest prosta ;). Walidacji używa się, aby mieć pewność, że dany obiekt wypełniony jest poprawnymi danymi. Takie podejście pozwala na stosowanie praktyki “Psuj się szybko, psuj się często” (ang. <a href="https://en.wikipedia.org/wiki/Fail-fast"><em>Fail fast, fail often</em></a>). Można powiedzieć, że programy napisane przy takim założeniu szybko raportują błędy. Dzięki temu łatwiej jest znaleźć potencjalny błąd - informacja o błędzie pochodzi z miejsca jego wystąpienia, a nie z odległego miejsca w systemie.</p>
+
+<p>Nigdy nie ufaj danym pochodzącym od użytkownika Twojego kodu. Niezależnie czy jest to człowiek czy maszyna. Dane wejściowe trzeba walidować. Zawsze. Zdarza się, że <a href="https://www.edn.com/electronics-blogs/edn-moments/4418667/Mariner-1-destroyed-due-to-code-error--July-22--1962">brak przecinka kosztuje kilka ładnych milionów dolarów</a>. Walidacja danych nie gwarantuje wyeliminowania wszystkich błędów. Pozwala jednak odsiać znaczną ich część.</p>
+
+<p>Dodatkowo walidacja jest czymś powtarzalnym. Mam tu na myśli to, że sposoby walidacji są podobne. Często chcemy sprawdzić czy pole jest wypełnione, czy jest liczbą z odpowiedniego zakresu, czy jest adresem e-mail, itd. Używanie gotowych mechanizmów walidacji pozwala na uniknięcie tej powtarzalnej części pracy.</p>
+
+<h3 id="jak-działa-walidacja">Jak działa walidacja</h3>
+
+<p>Walidacja to nic innego jak szereg reguł, ograniczeń. Tylko poprawne dane spełniają te ograniczenia. Nakładanie ograniczeń na dane sprowadza się do użycia odpowiednich adnotacji.</p>
+
+<p>Instancja klasy klasy, którą sprawdzamy, przekazywana jest do tak zwanego walidatora. Walidator interpretuje adnotacje i uruchamia poszczególne reguły walidacji. Walidacja, bez jasno określonej kolejności polega na:</p>
+<ul>
+  <li>sprawdzeniu wszystkich “osiągalnych” atrybutów danej instancji,</li>
+  <li>sprawdzeniu wszystkich metod dostępowych danej instancji (getterów),</li>
+  <li>sprawdzeniu reguł przypisanych do klasy (adnotacje klasy).</li>
+</ul>
+
+<p>Walidacja uruchamiana jest kaskadowo. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MembershipBonus</span> <span class="o">{</span>
+
+    <span class="nd">@Valid</span>
+    <span class="kd">private</span> <span class="n">PaidAccount</span> <span class="n">userAccount</span><span class="o">;</span>
+
+    <span class="nd">@NotEmpty</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">bonusName</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MembershipBonus</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">PaidAccount</span> <span class="n">userAccount</span><span class="o">,</span> <span class="nd">@NotEmpty</span> <span class="n">String</span> <span class="n">bonusName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">userAccount</span> <span class="o">=</span> <span class="n">userAccount</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">bonusName</span> <span class="o">=</span> <span class="n">bonusName</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">PaidAccount</span> <span class="nf">getUserAccount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userAccount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getBonusName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">bonusName</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W przykładzie tym użyta jest adnotacja <code class="highlighter-rouge">@Valid</code>. Zwraca ona uwagę na to, że instancja klasy <code class="highlighter-rouge">PaidAccount</code> także musi być sprawdzona pod kątem poprawności. To czy <code class="highlighter-rouge">PaidAccount</code> jest poprawne czy nie określone jest przez adnotacje wewnątrz tej klasy.</p>
+
+<p>Sprawdzenie reguł odbywa się poprzez uruchomienie metody <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html#validate-T-java.lang.Class...-"><code class="highlighter-rouge">validate</code></a> na instancji klasy implementującej interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html"><code class="highlighter-rouge">Validator</code></a>. Biblioteka, która implementuje specyfikację <em>Bean Validation</em> dosttarcza odpowiednią klasę.</p>
+
+<h2 id="kiedy-używamy-automatycznej-walidacji">Kiedy używamy automatycznej walidacji</h2>
+
+<p>Do tej pory z użyciem specyfikacji <em>Bean Validation</em> spotkałem się głównie w <a href="/kurs-aplikacji-webowych/">aplikacjach webowych</a>, bądź takich które używają bazy danych. Specyfikacja nie ogranicza użycia tego mechanizmu tylko do tych zastosowań.</p>
+
+<h3 id="aplikacje-webowe">Aplikacje webowe</h3>
+
+<p>Wszystkie dane pochodzące od użytkownika <em>muszą</em> zostać sprawdzone. Użytkownicy Twojej aplikacji mogą wpisać cuda w formularzu, nie można tym danym do końca ufać. Zatem wszystkie dane przychodzące do aplikacji webowej w formie zapytań HTTP są bardzo często walidowane przy użyciu <em>Bean Validation</em>.</p>
+
+<h3 id="obiekty-w-bazie-danych">Obiekty w bazie danych</h3>
+
+<p>Mimo tego, że baza danych bardzo często pozwala na podstawową walidację przechowywanych danych, nie jest ona wystarczająca. Dodatkowo, poza walidacją przeprowadzaną przez samą bazę danych, używa się <em>Bean Validation</em>. Jest to istotne ponieważ część reguł nie da się wymusić używając wyłącznie mechanizmów bazodanowych. Poza tym szybciej można sprawdzić poprawność danych w kodzie. Wynika to głównie z faktu, że wysłanie zapytania do bazy danych raczej nie jest szybsze niż walidacja przeprowadzona w kodzie.</p>
+
+<h2 id="najczęściej-używane-reguły">Najczęściej używane reguły</h2>
+
+<p>Jak już wspomniałem specyfikacja zawiera adnotacje określające najczęściej używane reguły walidacji. Część z nich zebrałem dla Ciebie poniżej:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">@NotNull</code> - dany element nie może mieć wartości <code class="highlighter-rouge">null</code>,</li>
+  <li><code class="highlighter-rouge">@NotBlank</code> - dany element nie może mieć wartości <code class="highlighter-rouge">null</code> i musi zawierać co najmniej jeden znak (nie może to być spacja, tabulator etc.),</li>
+  <li><code class="highlighter-rouge">@NotEmpty</code> - dany element nie może mieć wartości <code class="highlighter-rouge">null</code> i musi zawierać co najmniej jeden znak,</li>
+  <li><code class="highlighter-rouge">@Min(X)</code> - dany element musi być liczbą i jego wartość musi być większa bądź równa <code class="highlighter-rouge">X</code>,</li>
+  <li><code class="highlighter-rouge">@Max(X)</code> - dany element musi być liczbą i jego wartość musi być mniejsza bądź równa <code class="highlighter-rouge">X</code>,</li>
+  <li><code class="highlighter-rouge">@Email</code> - dane element musi zawierać poprawny adres e-mail,</li>
+  <li><code class="highlighter-rouge">@Pattern(regexp=X)</code> - dany element musi pasować do <a href="/wyrazenia-regularne-w-jezyku-java/">wyrażenia regularnego</a> <code class="highlighter-rouge">X</code>.</li>
+  <li><code class="highlighter-rouge">@Size(min=X, max=Y)</code> - dany element musi mieć rozmiar określony przez elementy adnotacji <code class="highlighter-rouge">min</code> i <code class="highlighter-rouge">max</code>. Obie wartości są opcjonalne.</li>
+</ul>
+
+<p>Oczywiście lista reguł zapewniona przez specyfikację nie jest kompletna. Specyfikacja pozwala na rozszerzanie listy dostępnych reguł.</p>
+
+<h2 id="java-se-i-walidacja">Java SE i walidacja</h2>
+
+<p>Skoro już wiesz czym jest walidacja, to najwyższy czas sprawdzić ją w praktyce. Przykład poniżej pokazuje sposób uruchomienia walidacji w aplikacji Java SE</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ValidationExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Validator</span> <span class="n">validator</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ValidationExample</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">ValidatorFactory</span> <span class="n">validationFactory</span> <span class="o">=</span> <span class="n">Validation</span><span class="o">.</span><span class="na">buildDefaultValidatorFactory</span><span class="o">();</span>
+        <span class="n">validator</span> <span class="o">=</span> <span class="n">validationFactory</span><span class="o">.</span><span class="na">getValidator</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ValidationExample</span> <span class="n">example</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ValidationExample</span><span class="o">();</span>
+        <span class="n">example</span><span class="o">.</span><span class="na">showSimpleValidation</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">showSimpleValidation</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">PaidAccount</span> <span class="n">account</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PaidAccount</span><span class="o">(</span><span class="s">"mp"</span><span class="o">,</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getTime</span><span class="o">());</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">ConstraintViolation</span><span class="o">&lt;</span><span class="n">PaidAccount</span><span class="o">&gt;&gt;</span> <span class="n">validationErrors</span> <span class="o">=</span> <span class="n">validator</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">ConstraintViolation</span><span class="o">&lt;</span><span class="n">PaidAccount</span><span class="o">&gt;</span> <span class="n">validationError</span> <span class="o">:</span> <span class="n">validationErrors</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">validationError</span><span class="o">.</span><span class="na">getPropertyPath</span><span class="o">().</span><span class="na">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">validationError</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Po uruchomieniu tego programu na konsoli pokażą się następujące komunikaty błędów:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>validUntil must be a future date
+owner size must be between 3 and 2147483647
+</code></pre></div></div>
+
+<h3 id="formatowanie-komunikatu-błędu">Formatowanie komunikatu błędu</h3>
+
+<p>Jak widzisz komunikaty błędów nie są po polsku. Wynika to z tego, że domyślne komunikaty dostarczone przez Hibernate Validator są w języku angielskim. Niestety biblioteka aktualnie nie zawiera polskich komunikatów. Możesz to zmienić.</p>
+
+<h4 id="komunikaty-błędów-zaszyte-w-kodzie">Komunikaty błędów zaszyte w kodzie</h4>
+
+<p class="notice--warning">Sposób ten nie jest zalecany! Generalnie niezbyt dobrą praktyką jest umieszczanie tekstu w kodzie źródłowym programu. Doskonale do tego nadają się za to pliki <code class="highlighter-rouge">properties</code>, które opisałem poniżej.</p>
+
+<p>Modyfikując nieznacznie klasę z adnotacjami możemy wymusić inne komunikaty błędów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@NotNull</span><span class="o">(</span><span class="n">message</span><span class="o">=</span><span class="s">"nie może być puste"</span><span class="o">)</span>
+<span class="nd">@Size</span><span class="o">(</span><span class="n">min</span><span class="o">=</span><span class="mi">3</span><span class="o">,</span> <span class="n">message</span><span class="o">=</span><span class="s">"musi być dłuższe niż {min}"</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">owner</span><span class="o">;</span>
+
+<span class="nd">@Future</span><span class="o">(</span><span class="n">message</span><span class="o">=</span><span class="s">"musi być w przyszłości"</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">Date</span> <span class="n">validUntil</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Po takiej modyfikacji na konsoli pokażą się następujące komunikaty błędów:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>validUntil musi być w przyszłości
+owner musi być dłuższe niż 3
+</code></pre></div></div>
+
+<h4 id="komunikaty-błędów-w-plikach-properties">Komunikaty błędów w plikach <a href="https://en.wikipedia.org/wiki/.properties"><code class="highlighter-rouge">properties</code></a></h4>
+
+<p>Pliki z rozszerzeniem <code class="highlighter-rouge">properties</code> to pliki tekstowe. Zawierają one zbiór wierszy w postaci <code class="highlighter-rouge">klucz=wartość</code>. Pliki te nadają się do przechowywania komunikatów błędów.</p>
+
+<p>Domyślna implementacja w kodzie ma zaszyty wyłącznie <code class="highlighter-rouge">klucz</code> komunikatu błędu. Na przykład:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Size</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="nf">message</span><span class="o">()</span> <span class="k">default</span> <span class="s">"{javax.validation.constraints.Size.message}"</span><span class="o">;</span>
+    <span class="c1">//...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Przyjęło się, że klucz ma postać <code class="highlighter-rouge">&lt;pakiet&gt;.&lt;nazwa_klasy&gt;.&lt;nazwa_atrybutu&gt;</code>. W powyższym przykładzie jest to <code class="highlighter-rouge">javax.validation.constraints.Size.message</code>. Następnie klucz ten wraz z wartością umieszcza się w pliku <code class="highlighter-rouge">ValidationMessages.properties</code>. Plik ten jest odczytywany przez implementację <em>Bean Validation</em>. Znalezione tam wartości użyte są do budowania komunikatów błędów.</p>
+
+<p>Plik <code class="highlighter-rouge">ValidationMessages.properties</code> umieść w katalogu projektu <code class="highlighter-rouge">src/main/resources</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javax.validation.constraints.Size.message=musi być dłuższe niż {min}
+javax.validation.constraints.NotNull.message=nie może być puste
+javax.validation.constraints.Future.message=musi być w przyszłości
+</code></pre></div></div>
+
+<div class="notice--info">
+  
+<p>Niestety pliki <code class="highlighter-rouge">properties</code> do wersji 8 języka są “dziwne”. Mam tu na myśli to, że domyślnym kodowaniem z jakim są one czytane jest ISO-8859-1. W związku z tym możesz zobaczyć na konsoli:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>validUntil musi byÄ w przyszÅoÅci
+owner musi byÄ dÅuÅ¼sze niÅ¼ 3
+</code></pre></div></div>
+
+<p>Te magiczne znaczki to nic innego ja próba interpretowania pliku <code class="highlighter-rouge">properties</code> zapisanego przy pomocy kodowania UTF-8 przez Javę stosując kodowanie ISO-8859-1. IntelliJ Idea pozwala na ustawienie kodowania plików <code class="highlighter-rouge">properties</code>. Możesz to zrobić w menu File -&gt; Settings -&gt; Editor -&gt; File encodings. Istotne jest abyś ustawił ich kodowanie na ISO-8859-1 i zaznaczył opcję “Transparent native-to-ascii conversion”.</p>
+
+<p>Przy takim ustawieniu możesz tworzyć pliki properties w normalny sposób. IntelliJ pod spodem zrobi za Ciebie odpowiednią konwersję znaków. Na przykład powyższy plik <code class="highlighter-rouge">properties</code> przerobiony przez IntelliJ wygląda następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javax.validation.constraints.Size.message=musi by\u0107 d\u0142u\u017Csze ni\u017C {min}
+javax.validation.constraints.NotNull.message=nie mo\u017Ce by\u0107 puste
+javax.validation.constraints.Future.message=musi by\u0107 w przysz\u0142o\u015Bci
+</code></pre></div></div>
+
+<p>Java 9 <a href="http://openjdk.java.net/jeps/226">rozwiązuje</a> ten problem przez ustawienie domyślnego kodowania na UTF-8 co dużo lepiej odpowiada obecnym standardom.</p>
+
+</div>
+
+<h4 id="szablon-formatów-błędu">Szablon formatów błędu</h4>
+
+<p class="notice--info">Celem tego artykułu nie jest wyjaśnianie <em>Expression Language</em>, ma on dużo większe możliwości. Ten podpunkt ma Ci tylko pomóc zrozumieć użycie EL w komunikatach błędów.</p>
+
+<p>Zauważyłeś użycie <code class="highlighter-rouge">{min}</code> wewnątrz komunikatu błędu? To właśnie język EL. To właśnie ten element, który zmusił mnie do dodania dodatkowej zależności w pliku <code class="highlighter-rouge">build.gradle</code>. Składnia <code class="highlighter-rouge">{zmienna}</code> pozwala na odwołanie się do elementu adnotacji. W naszym przypadku jest to element <code class="highlighter-rouge">min</code>. W wynikowym komunikacie błędu znalazła się wartość 3 - wartość elementu <code class="highlighter-rouge">min</code>.</p>
+
+<p>Te same szablony użyte są do odwołania się do wartości komunikatu błędu z plików <code class="highlighter-rouge">properties</code>.</p>
+
+<h2 id="własna-adnotacja-do-walidacji">Własna adnotacja do walidacji</h2>
+
+<p>Specyfikacja <em>Bean Validation</em> zezwala na tworzenie własnych reguł walidacji. Dzięki temu mechanizm ten jest łatwo rozszerzalny. Utworzenie własnej reguły przeważnie sprowadza się do utworzenia <a href="/adnotacje-w-jezyku-java/">adnotacji</a> i implementacji klasy sprawdzającej.</p>
+
+<h3 id="implementacja-adnotacji">Implementacja adnotacji</h3>
+
+<p>Poniższy przykład pokazuje adnotację, którą użyłem w jednym z powyższych fragmentów kodu. Służy ona do sprawdzenia czy atrybut klasy zawierający kod pocztowy pasuje do atrybutu zawierającego miasto:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">TYPE</span><span class="o">)</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Constraint</span><span class="o">(</span><span class="n">validatedBy</span> <span class="o">=</span> <span class="n">ZipCodeCityCoherentValidator</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">ZipCodeCityCoherent</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="nf">message</span><span class="o">()</span> <span class="k">default</span> <span class="s">"{pl.samouczekprogramisty.misc.validation.ZipCodeCityCoherent.message}"</span><span class="o">;</span>
+
+    <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">groups</span><span class="o">()</span> <span class="k">default</span> <span class="o">{};</span>
+
+    <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Payload</span><span class="o">&gt;[]</span> <span class="nf">payload</span><span class="o">()</span> <span class="k">default</span> <span class="o">{};</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Adnotacja ta może być przypisana wyłącznie do klasy <code class="highlighter-rouge">@Target(TYPE)</code>. <code class="highlighter-rouge">@Retention(RUNTIME)</code> określa, że informacja o adnotacji ma być widoczna w trakcie uruchomienia programu. Dodanie do naszej adnotacji <code class="highlighter-rouge">@Constraint(validatedBy = ZipCodeCityCoherentValidator.class)</code> sprawia, że jest ona “widoczna” przez <em>Bean Validation</em>. W tym miejscu określiłem też klasę, która będzie wywołana aby przeprowadzić właściwą walidację. W tym przypadku jest to klasa <code class="highlighter-rouge">ZipCodeCityCoherentValidator</code>.</p>
+
+<p>Ciało adnotacji zawiera trzy elementy. Są to odpowiednio <code class="highlighter-rouge">message</code>, <code class="highlighter-rouge">groups</code> i <code class="highlighter-rouge">payload</code>. Komunikat błędu jest przechowywany w elemencie <code class="highlighter-rouge">message</code>. W tym przypadku jest to odwołanie do zawartości pliku <code class="highlighter-rouge">properties</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pl.samouczekprogramisty.misc.validation.ZipCodeCityCoherent.message=miasto nie pasuje do kodu pocztowego
+</code></pre></div></div>
+
+<p>Elementy <code class="highlighter-rouge">groups</code> i <code class="highlighter-rouge">payload</code> są wymagane. Ich zastosowanie pominę, artykuł i tak jest wystarczająco długi ;).</p>
+
+<p>Skoro mamy już adnotację nadszedł czas na implementację klasy sprawdzającej.</p>
+
+<h3 id="implementacja-klasy-sprawdzającej">Implementacja klasy sprawdzającej</h3>
+
+<p>Każda klasa sprawdzająca powinien implementować <a href="/interfejsy-w-jezyku-java/">interfejs</a> <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html"><code class="highlighter-rouge">ConstraintValidator</code></a>. W momencie walidowania danego elementu zostaje wywołana metoda <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html#isValid-T-javax.validation.ConstraintValidatorContext-"><code class="highlighter-rouge">isValid</code></a>. To implementacja tej metody będzie decydowała o tym czy dany element jest poprawny.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZipCodeCityCoherentValidator</span> <span class="kd">implements</span> <span class="n">ConstraintValidator</span><span class="o">&lt;</span><span class="n">ZipCodeCityCoherent</span><span class="o">,</span> <span class="n">Address</span><span class="o">&gt;</span> <span class="o">{</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="n">Address</span> <span class="n">address</span><span class="o">,</span> <span class="n">ConstraintValidatorContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="s">"00-000"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">address</span><span class="o">.</span><span class="na">getZipCode</span><span class="o">())</span> <span class="o">&amp;&amp;</span> <span class="s">"Warszawa"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">address</span><span class="o">.</span><span class="na">getPostOfficeCity</span><span class="o">());</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W powyższym przykładzie implementacja jest strasznie naiwna, masz pomysł jak obsłużyć więcej kombinacji miast/kodów pocztowych?</p>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>Napisz program, który pobierze od użytkownika następujące dane:</p>
+
+<ul>
+  <li>imię,</li>
+  <li>datę urodzenia w formacie YYYY-MM-dd mm:hh,</li>
+  <li>adres e-mail.</li>
+</ul>
+
+<p>Utwórz klasę grupującą te dane. Upewnij się, że są one poprawne używając adnotacji dostępnych w specyfikacji <em>Bean Validation</em> bądź własnych:</p>
+
+<ul>
+  <li>imię powinno mieć długość co najmniej 3 liter,</li>
+  <li>imię powinno zaczynać się od wielkiej litery,</li>
+  <li>imię powinno składać się wyłącznie z liter,</li>
+  <li>data urodzenia powinna być w przeszłości,</li>
+  <li>użytkownik powinien mieć co najmniej 4 lata.</li>
+</ul>
+
+<h2 id="materiały-dodatkowe">Materiały dodatkowe</h2>
+
+<ul>
+  <li><a href="https://jcp.org/aboutJava/communityprocess/final/jsr380/index.html">Specyfikacja Bean Validation 2.0</a>,</li>
+  <li><a href="https://www.martinfowler.com/ieeeSoftware/failFast.pdf">Artykuł na temat <em>Fail fast, fail often</em></a>,</li>
+  <li><a href="https://github.com/nomemory/java-bean-validation-extension#additional-supported-annotations">Biblioteka rozszerzająca standardowy zestaw reguł</a>,</li>
+  <li><a href="http://hibernate.org/validator/">Strona projektu Hibernate Validator</a>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/04_bean_validation">Kod źródłowy przykładów użytych w artykule</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po lekturze artykułu wiesz już czym jest walidacja. Masz świadomość dlaczego jest ona istotna. Potrafisz użyć walidacji w swojej aplikacji używając dostępnych reguł walidacji. Umiesz też zaimplementować swoje własne reguły. Ćwiczenie, które wykonałeś pozwoliło Ci sprawdzić tę wiedzę w praktyce. Gratulacje! ;)</p>
+
+<p>Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub stronę na Facebooku. Jeśli cokolwiek nie będzie dla Ciebie jasne zadaj pytanie w komentarzu, postaram się pomóc. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:xml">
+      <p>Jeśli chcesz przeczytać więcej o XML zapraszam do <a href="/xml-dla-poczatkujacych/">osobnego artykułu</a> na blogu. <a href="#fnref:xml" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#kurs-aplikacji-webowych" class="page__taxonomy-item" rel="tag">Kurs aplikacji webowych</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2017-12-04T00:00:00+01:00">December 04, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwalidacja-obiektow-w-jezyku-java%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwalidacja-obiektow-w-jezyku-java%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/" class="pagination--pager" title="SOLID czyli dobre praktyki w programowaniu obiektowym
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/10/03_adnotacje_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/adnotacje-w-jezyku-java/" rel="permalink">Adnotacje w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o adnotacjach w języku Java. Poznasz różne zastosowania dla adnotacji. Postaram się wymienić te najbardziej użyteczne, najczęściej...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/obiekty-w-jezyku-java/" rel="permalink">Obiekty w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/11/20_rest_web_service_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-1/" rel="permalink">REST web service z Java EE część 1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstaluj...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
