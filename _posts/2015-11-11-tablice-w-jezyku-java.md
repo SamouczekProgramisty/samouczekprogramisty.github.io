@@ -64,7 +64,7 @@ String[] wintersMonths = new String[] {"grudzień", "styczeń", "luty"};
 Tablica to obiekt. Podobnie jak inne obiekty posiada swoje atrybuty i metody. Jedynym publicznie dostępnym atrybutem metody jest `length`. Atrybut ten przechowuje rozmiar tablicy
 
 ```java
-System.out.println(wintersMonths.length); // w naszy przypadku wyświetli 3
+System.out.println(wintersMonths.length); // w naszym przypadku wyświetli 3
 ```
 
 ## Tablice wielowymiarowe
@@ -160,6 +160,12 @@ int sum(int ... numbers);
 int sum(int[] numbers);
 ```
 
+## Materiały dodatkowe
+
+Jeśli chcesz przeczytać o tablicach w innym miejscu zachęcam do rzucenia okiem na linki poniżej:
+
+ - [Fragment wykładu na jednym z uniwersytetów w Stanach Zjednoczonych dotyczący tablic](https://www.andrew.cmu.edu/course/15-121/lectures/Arrays/arrays.html).
+
 ## Zadania
 
 1. Napisz metodę pobierającą dwuelementową tablicę liczb i zwracający ich sumę.
@@ -173,4 +179,4 @@ Zachęcam Cię, do samodzielnego rozwiązania zadań, jeśli jednak miałbyś ja
   
 Bardzo się cieszę, że przeczytałeś artykuł aż do końca. Jeśli masz jakiekolwiek uwagi proszę podziel się nimi w komentarzach. Byłbym także bardzo wdzięczny gdybyś przekazał swoim znajomym informację o blogu – jak zawsze zależy mi na dotarciu do jak największej grupy ludzi, którzy chcą uczyć się programować.
 
-Jak zwykle informacje o artykule prezentuję na stronie na facebooku, polub ją a będziesz otrzymywał informacje o nowych artykułach.
+Jak zwykle informacje o artykule prezentuję na stronie na Facebooku, polub ją a będziesz otrzymywał informacje o nowych artykułach.
