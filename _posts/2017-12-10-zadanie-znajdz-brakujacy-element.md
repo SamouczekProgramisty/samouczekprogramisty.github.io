@@ -3,12 +3,12 @@ title: Samouczek na rozmowie - znajdź brakujący element
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa
-permalink: /zadanie-znajdz-brakujacy-element/
+permalink: /samouczek-na-rozmowie-znajdz-brakujacy-element/
 header:
-    teaser: /assets/images/2017/11/20_rest_web_service_artykul.jpg
-    overlay_image: /assets/images/2017/11/20_rest_web_service_artykul.jpg
-    caption: "[&copy; exfordy](https://www.flickr.com/photos/exfordy/2486394359/sizes/l)"
-excerpt: W artykule tym rozkładam na części pierwsze zadanie, które sam miałem na ostatniej rozmowie kwalifikacyjnej. Przeprowadzę Cię przez różne sposoby rozwiązania danego zadania. Zaczynając od tych najprostszych do tych, które są najbardziej wydajne. Zapraszam do lektury.
+    teaser: /assets/images/2017/12/10_rozmowa_kwalifikacyjna_brakujacy_element_zadanie_artykul.jpg
+    overlay_image: /assets/images/2017/12/10_rozmowa_kwalifikacyjna_brakujacy_element_zadanie_artykul.jpg
+    caption: "[&copy; villamon](https://www.flickr.com/photos/villamon/5036944280/sizes/l)"
+excerpt: W artykule tym rozkładam na części pierwsze zadanie, które sam miałem na rozmowie kwalifikacyjnej. Przeprowadzę Cię przez różne sposoby rozwiązania tego zadania. Zaczynając od tych najprostszych do tych, które są najbardziej wydajne. Zapraszam do lektury.
 ---
 
 <script type="text/javascript"
@@ -18,7 +18,7 @@ excerpt: W artykule tym rozkładam na części pierwsze zadanie, które sam mia�
 {% capture rozmowa %}
 To jest artykuł z serii "Samouczek na rozmowie". W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych.
 
-W takcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz działanie algorytmu.
+W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz działanie algorytmu.
 
 - [Podstawy złożoności obliczeniowej]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}),
 - [Test Driven Development na przykładzie]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}),
@@ -37,7 +37,7 @@ Podstawą jest oczywiście znajomość języka programowania, ja używał będę
 
 Akurat to zadanie miałem sam na rozmowie kwalifikacyjnej. Rozmowa przeprowadzana na stanowisko starszego programisty. Sam problem nie jest dość trudny. Zauważyłem, że jest to częsta praktyka. Problemy do rozwiązania na rozmowach kwalifikacyjnych przeważnie służą tylko do tego, żeby zweryfikować czy kandydat zna składnię danego języka. Dodatkowo zadania tego typu sprawdzają umiejętność analizowania problemu i szukania rozwiązania.
 
-Na rozmowie rozwiązałem ten problem algorytmem o najlepszej złożoności czasowej, jednak nie był on optymalny pod kątem użycia pamięci. Mimo tego, że moje rozwiązanie nie było idealne dostałem ofertę pracy. Tutaj chcę Ci pokazać to, że nawet jeśli nie rozwiążesz problemu w idealny sposób a będziesz sensownie kombinował, uda się.
+Na rozmowie rozwiązałem ten problem algorytmem o najlepszej złożoności czasowej, jednak nie był on optymalny pod kątem użycia pamięci. Mimo tego, że moje rozwiązanie nie było idealne dostałem ofertę pracy. Tutaj chcę Ci pokazać, że nawet jeśli nie rozwiążesz problemu w idealny sposób a będziesz sensownie kombinował, uda się.
 
 Zacznij od najprostszego rozwiązania. Zacznij od czegokolwiek i później głośno zastanawiaj się nad minusami Twojego rozwiązania. Prowadzący rozmowę widząc Twoje zaangażowanie często pomogą i nakierują Cię na lepsze rozwiązanie problemu.
 
@@ -150,10 +150,10 @@ Algorytm ten wymaga stałej liczby zmiennych. Liczba ta nie jest zależna od wie
 
 ## Wyślij mi swoje zadanie
 
+Jeśli chcesz abym spróbował omówić zadanie, na które Ty trafiłeś daj znać. Zastrzegam jednak, że nie jestem alfą i omegą. Potrafię sobie wyobrazić problemy, na które nie znajdę najlepszego rozwiązania. Niemniej jednak postaram się rozwiązać to zadanie w najlepszy znany mi sposób. Zadania możesz wysłać na mój adres email _marcin [małpka] samouczekprogramisty.pl_.
+
 Często firmy zastrzegają sobie to, żeby nie rozpowszechniać zadań, które były na rozmowie kwalifikacyjnej. Jeśli tak było w Twoim przypadku proszę uszanuj wolę danej firmy i nie przesyłaj mi takiego zadania. 
 {: .notice--warning}
-
-Jeśli chcesz abym spróbował omówić zadanie, na które Ty trafiłeś daj znać. Zastrzegam jednak, że nie jestem alfą i omegą. Potrafię sobie wyobrazić problemy, na które nie znajdę najlepszego rozwiązania. Niemniej jednak postaram się rozwiązać to zadanie w najlepszy znany mi sposób. Zadania możesz wysłać na mój adres email _marcin [małpka] samouczekprogramisty.pl_.
 
 ## Podsumowanie
 
