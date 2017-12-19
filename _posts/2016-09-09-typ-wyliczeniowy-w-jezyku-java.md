@@ -18,7 +18,7 @@ disqus_page_identifier: 400 http://www.samouczekprogramisty.pl/?p=400
 Wyobraź sobie, że mamy klasę `Tshirt`, która posiada kilka atrybutów takich jak kolor, rozmiar czy producent. O ile producentów koszulek, podobnie jak ich kolorów jest dość dużo to rozmiary są już bardzo często wspólne dla różnych producentów. Rozmiary możemy wyliczyć: S, M, L czy XL. I właśnie do przechowywania danych tego typu Java ma specjalny typ. Jest to enum zwany także typem wyliczeniowym. Przejdźmy od razu do przykładu:
 
 ```java
-public enum SimpleSize {
+public enum TshirtSize {
     S,
     M,
     L,
