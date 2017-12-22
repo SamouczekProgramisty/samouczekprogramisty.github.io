@@ -282,7 +282,7 @@ Efekt działania wszystkich trzech fragmentów jest dokładnie taki sam. Różni
 
 Na koniec mam dla Ciebie kilka zadań, które pomogą przećwiczyć Ci wiedzę z tego artykułu.
 1. Napisz program, który pobierze o użytkownika cztery łańcuchy znaków, które umieścisz w liście. Następnie posortuj tę listę używając metody [`sort`](https://docs.oracle.com/javase/8/docs/api/java/util/List.html#sort-java.util.Comparator-). Użyj wyrażenia lambda, które posortuje łańcuchy znaków malejąco po długości.
-2. Napisz program, który wywoła funkcję `hashCode` na instancji klasy `Object` używając mechanizmu odwoływania się do metody (przy pomocy `::`).
+2. Napisz program, który wywoła funkcję `equals` na instancji klasy `Object` używając mechanizmu odwoływania się do metody (przy pomocy `::`).
 3. Utwórz instancję klasy `Human` przy pomocy mechanizmu odwoływania się do konstruktora (przy pomocy `::`).
 
 ```java
@@ -323,4 +323,4 @@ Wyrażenia lambda nie są proste. Mogą powodować sporo zakłopotania, szczegó
 
 Po przeczytaniu artykułu wiesz czym są wyrażenia lambda i jak je stosować. Znasz też mechanizm odwoływania się do metod. Przećwiczyłeś te mechanizmy rozwiązując przykładowe zadania. Nie zapomnij pochwalić się w komentarzu gdzie ostatnio użyłeś wyrażeń lambda :).
 
-Na koniec mam do Ciebie prośbę. Jeśli uważasz, że artykuł ten był dla Ciebie pomocny proszę podziel się nim ze swoimi znajomymi. Zależy mi na dotarciu do jak największej grupy czytelników a Ty możesz mi w tym pomóc. Jeśli nie chcesz pominąć żadnego nowego artykułu dopisz się do samouczkowego newslettera i polub samouczka na facebooku. Do następnego razu!
+Na koniec mam do Ciebie prośbę. Jeśli uważasz, że artykuł ten był dla Ciebie pomocny proszę podziel się nim ze swoimi znajomymi. Zależy mi na dotarciu do jak największej grupy czytelników a Ty możesz mi w tym pomóc. Jeśli nie chcesz pominąć żadnego nowego artykułu dopisz się do samouczkowego newslettera i polub samouczka na Facebooku. Do następnego razu!
