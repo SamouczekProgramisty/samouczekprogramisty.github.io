@@ -36,7 +36,7 @@ public class OuterClass {
     public class InnerClass {
     }
 
-    public InnerClass intantiate() {
+    public InnerClass instantiate() {
         return new InnerClass();
     }
 }
@@ -46,7 +46,7 @@ W naszym przykładzie widzisz dwie klasy. Standardowa klasa `OuterClass` i klasa
 
 Podobnie jak w przypadku atrybutów czy metod, klasy wewnętrzne mogą mieć standardowe modyfikatory dostępu `public`, `protected` czy `private`. Brak modyfikatora dostępu także i tutaj jest poprawny.
 
-Modyfikatory dostępu użyte przed definicją klasy wewnętrznej działają identycznie jak w przypadku atrybutów, metod czy konstruktorów. Jeśli chcesz przeczytać o nich więcej osobny akapit na ich temat znajdziesz w [artykule o dziedziczeniu](%{ post_url 2016-01-24-dziedziczenie-w-jezyku-java %}).
+Modyfikatory dostępu użyte przed definicją klasy wewnętrznej działają identycznie jak w przypadku atrybutów, metod czy konstruktorów. Jeśli chcesz przeczytać o nich więcej osobny akapit na ich temat znajdziesz w [artykule o dziedziczeniu]({% post_url 2016-01-24-dziedziczenie-w-jezyku-java %}). Napisałem też osobny artykuł w pełni poświęcony [modyfikatorom dostępu]({% post_url 2017-10-29-modyfikatory-dostepu-w-jezyku-java %}).
 
 Ważne jest także to, że klasa wewnętrzna ma dostęp do wszystkich atrybutów czy metod klasy zewnętrznej, w której została zdefiniowana.
 
@@ -57,7 +57,7 @@ Do stworzenia instancji klasy wewnętrznej potrzebujemy instancji klasy zewnętr
 ```java
 private static void innerClassInstantiation() {
     OuterClass outerClass = new OuterClass();
-    OuterClass.InnerClass instance1 = outerClass.intantiate();
+    OuterClass.InnerClass instance1 = outerClass.instantiate();
     OuterClass.InnerClass instance2 = outerClass.new InnerClass();
 }
 ```
@@ -101,11 +101,11 @@ private static void staticInnerClassInstantiation() {
 }
 ```
 
-Różnica jest taka, że wystarczy nam po prostu pełne odwołanie się do typu klasy wewnętrznej aby stworzyć jej instancję. W naszym przypadku jest to `new OuterClass2.InnerClass2()`.
+Różnica jest taka, że wystarczy pełne odwołanie się do typu klasy wewnętrznej, aby stworzyć jej instancję. W naszym przypadku jest to `new OuterClass2.InnerClass2()`.
 
 ## Lokalne klasy wewnętrzne
 
-Jako ostatni typ klas wewnętrznych zostały nam lokalne klasy wewnętrzne. I wiesz co? W sumie poza tym, że możemy je zdefiniować wewnątrz bloku (wewnątrz metody, bloku `if` itp.) i nie poprzedzają ich modyfikatory dostępu (`public`, `private`, `protected`) niczym szczególnym nie różnią się od pozostałych klas wewnętrznych. Proszę spójrz na przykład:
+Jako ostatni typ klas wewnętrznych zostały do omówienia lokalne klasy wewnętrzne. I wiesz co? W sumie poza tym, że możemy je zdefiniować wewnątrz bloku (wewnątrz metody, bloku `if` itp.) i nie poprzedzają ich modyfikatory dostępu (`public`, `private`, `protected`) niczym szczególnym nie różnią się od pozostałych klas wewnętrznych. Proszę spójrz na przykład:
 
 ```java
 private static void localClassInstantiation(String[] args) {
@@ -143,7 +143,7 @@ for(Map.Entry<String, Integer> entry : dayInMonths.entrySet()) {
 
 W naszej mapie trzymamy nazwę miesiąca i odpowiadającą mu liczbę dni. Każda instancja obiektu implementującego interfejs `Map` posiada metodę `entrySet`, która zwraca typ `Set<Map.Entry<K, V>>`.
 
-Rozłóżmy ten typ na części pierwsze. `K` to nasz klucz (ang. key), `V` to wartość (ang. value) przechowywana w mapie. `Map.Entry<K, V>` to typ generyczny który parametryzowany jest typem klucza i wartości. `Set<Map.Entry<K, V>>` to zbiór elementów mapy. Każdy element ma klucz i wartość. A czym jest `Map.Entry`? To nic innego jak interfejs wewnętrzny :) Jest to interfejs `Entry` zdefiniowany wewnątrz interfejsu `Map`.
+Rozłóżmy ten typ na części pierwsze. `K` to nasz klucz (ang. _key_), `V` to wartość (ang. _value_) przechowywana w mapie. `Map.Entry<K, V>` to [typ generyczny]({% post_url 2016-03-26-typy-generyczne-w-jezyku-java %}), który parametryzowany jest typem klucza i wartości. `Set<Map.Entry<K, V>>` to zbiór elementów mapy. Każdy element ma klucz i wartość. A czym jest `Map.Entry`? To nic innego jak interfejs wewnętrzny :) Jest to interfejs `Entry` zdefiniowany wewnątrz interfejsu `Map`.
 
 Więc po co używać klas wewnętrznych? Powodów jest kilka. Jak w przykładzie z `Map.Entry` dobrym pomysłem użycia klas wewnętrznych jest sytuacja, w której klasa wewnętrzna nie ma sensu bez klasy zewnętrznej i jest z nią ściśle związana.
 
@@ -151,7 +151,9 @@ Kolejnym powodem może być lepsza enkapsulacja kodu (ukrywanie szczegółów dz
 
 ## Klasy anonimowe
 
-Zacznijmy od prostej definicji. Klasy anonimowe to klasy definiowane w kodzie, które mają dokładnie jedną instancję. Definicja klasy anonimowej połączona jest z tworzeniem jej jedynej instancji. Klasy anonimowe zawsze są klasami wewnętrznymi.
+Zacznijmy od definicji. Klasy anonimowe to klasy definiowane w kodzie, które mają dokładnie jedną instancję[^refleksja]. Definicja klasy anonimowej połączona jest z tworzeniem jej jedynej instancji. Klasy anonimowe zawsze są klasami wewnętrznymi.
+
+[^refleksja]: Pomijam tutaj mechanizm refleksji. Możesz utworzyć więcej instancji takiej klasy, na [samouczkowym githubie](https://github.com/SamouczekProgramisty/KursJava/blob/master/21_klasy_wewnetrzne/src/main/java/pl/samouczekprogramisty/kursjava/inner/AnonymousCheating.java) możesz znaleźć przykład tego jak można to zrobić.
 
 Proszę spójrz na przykład poniżej:
 
@@ -160,21 +162,40 @@ public interface GreetingModule {
     void sayHello();
 }
  
-new GreetingModule() {
-    @Override
-    public void sayHello() {
-        System.out.println("good morning");
+public void someMethod()
+    GreetingModule greeting = new GreetingModule() {
+        @Override
+        public void sayHello() {
+            System.out.println("good morning");
+        }
     }
 }
 ```
 
-Na początku definicja interfejsu z jedną metodą sayHello. Ciekawsze są jednak ostatnie cztery linijki. To właśnie definicja klasy anonimowej.
+Na początku definicja interfejsu z jedną metodą `sayHello`. Ciekawsze są jednak ostatnie linijki. To właśnie definicja klasy anonimowej. Wewnątrz `someMethod` możesz zobaczyć taką konstrukcję:
 
     new TYP([ARGUMENTY]) {
         CIAŁO KLASY
     }
 
-Konstrukcja ta pozwala nam na stworzenie instancji klasy anonimowej. W naszym przykładzie tworzymy nową klasę, która implementuje interfejs `GreetingModule` oraz tworzymy jej nową instancję przy pomocy słowa kluczowego `new`.
+Pozwala ona na stworzenie instancji klasy anonimowej. W powyższym przykładzie kompilator tworzy nową klasę, która implementuje interfejs `GreetingModule`. W tym samym czasie tworzę jej nową instancję przy pomocy słowa kluczowego `new`. Upraszczając, można powiedzieć, że powyższy przykład to skrót:
+
+```java
+public interface GreetingModule {
+    void sayHello();
+}
+
+public class GreetingModuleImpl implements GreetingModule {
+    @Override
+    public void sayHello() {
+        System.out.println("good morning");
+    }
+}
+ 
+public void someMethod()
+    GreetingModule greeting = new GreetingModuleImpl();
+}
+```
 
 Wewnątrz definicji klasy anonimowej możemy definiować atrybuty czy metody. W praktyce sprowadza się to przeważnie do zaimplementowania metod interfejsu dla którego tworzymy klasę anonimową.
 
@@ -220,7 +241,41 @@ public class AnonymousClasses {
 
 W naszym przykładzie tworzymy dwie instancje robotów `jan` i `john`, które używają innych „modułów powitań”. Każdy z nich jest instancją anonimowej klasy wewnętrznej.
 
-Niektóre z klas anonimowych można zastąpić wyrażeniami lambda, o których przeczytasz w jednym z kolejnych artykułów.
+Niektóre z klas anonimowych można zastąpić [wyrażeniami lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}).
+
+### Klasa anonimowa to nie instancja interfejsu
+
+Ważne jest abyś pamiętał o tym, że klasa anonimowa nie tworzy instancji interfejsu. Kompilator tworzy nową klasę, która implementuje dany interfejs. Klasa stworzona przez kompilator tak na prawdę ma swoją nazwę. Możesz nawet do niej dotrzeć:
+
+```java
+public class AnonymousCheating {
+    private interface SomeInterface {
+        void doSomethingUseful();
+    }
+
+    public static void main(String[] args) {
+        SomeInterface anonymousInstance = new SomeInterface() {
+            @Override
+            public void doSomethingUseful() {
+                System.out.println("I'm doing something useful!");
+            }
+        };
+
+        anonymousInstance.doSomethingUseful();
+        System.out.println(anonymousInstance.getClass());
+    }
+}
+```
+
+Po uruchomieniu tego programu, na konsoli pokaże się tekst:
+
+    I'm doing something useful!
+    class pl.samouczekprogramisty.kursjava.inner.AnonymousCheating$1
+
+
+Zatem `anonymousInstance` jest instancją klasy `pl.samouczekprogramisty.kursjava.inner.AnonymousCheating$1`. Co to za nazwa? Nazwa klasy wewnętrznej oddzielona jest `$` od nazwy klasy wewnątrz której została umieszczona. Zatem w tym przypadku kompilator utworzył wewnętrzną klasę o nazwie `1` wewnątrz `AnonymousCheating` znajdującej się w pakiecie `pl.samouczekprogramisty.kursjava.inner`.
+
+Jak myślisz, jaką nazwę będzie miała kolejna klasa anonimowa stworzona wewnątrz `AnonymousCheating` ;) ?
 
 ## Używanie zmiennych z klas zewnętrznych
 
@@ -270,4 +325,4 @@ Przygotowałem też dla Ciebie zestaw materiałów dodatkowych zawierających in
 
 Bardzo się cieszę, że przeczytałeś artykuł do końca. Po lekturze artykułu wiesz czym są klasy wewnętrzne. Wiesz też jakie rodzaje klas wewnętrznych występują. Znasz także klasy anonimowe i wiesz kiedy ich używać. Rozwiązując zadanie przećwiczyłeś całość w praktyce. Innymi słowy kawał solidnej wiedzy :)
 
-Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze znajomymi i polub moją stronę na facebooku. Zależy mi na dotarciu do jak największej liczby osób, które chcą uczyć się programowania. Z góry dziękuję i do następnego razu.
+Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze znajomymi i polub moją stronę na Facebooku. Zależy mi na dotarciu do jak największej liczby osób, które chcą uczyć się programowania. Z góry dziękuję i do następnego razu.
