@@ -7,18 +7,19 @@ header:
     teaser: /assets/images/2017/12/17_struktury_danych_lista_wiazana_artykul.jpg
     overlay_image: /assets/images/2017/12/17_struktury_danych_lista_wiazana_artykul.jpg
     caption: "[&copy; mangpages](https://www.flickr.com/photos/mangpages/1519626646/sizes/l)"
-excerpt: Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS. Ćwiczenie do wykonania pomoże Ci zweryfikować zdobytą wiedzę w praktyce.
+excerpt: W artykule tym przeczytasz o liście wiązanej (ang. _linked list_). Pokażę Ci przykładową implementację takiej listy. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Poznasz różnicę pomiędzy listą jednokierunkową a listą dwukierunkową. W utrwaleniu wiedzy na temat list pomogą Ci zadania umieszczone na końcu artykułu.
 ---
 
 ## Struktury danych
 
-Lista wiązana to struktura danych. Struktury danych opisują sposób przechowywania danych w pamięci komputera. Przykładową strukturą danych jest [tablica]({% post_url 2015-11-11-tablice-w-jezyku-java %}). Każda struktura danych ma charakterystyczne dla siebie właściwości. Na przykład dodanie elementu do na początek tablicy ma [złożoność obliczeniową]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}) `Ο(n)`. Ta sama operacja dla listy wiązanej ma złożoność `Ο(1)`. 
+Lista wiązana to struktura danych. Struktury danych opisują sposób przechowywania danych w pamięci komputera. Przykładową strukturą danych jest [tablica]({% post_url 2015-11-11-tablice-w-jezyku-java %}). Każda struktura danych ma charakterystyczne dla siebie właściwości. Na przykład dodanie elementu do na początek tablicy ma [złożoność obliczeniową]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}) `Ο(n)`. Ta sama operacja dla listy wiązanej ma złożoność `Ο(1)`[^implementacja].
 
-Przykład powyżej pokazuje, że różne struktury danych używa się w różnych sytuacjach. Upraszczając przykład możemy powiedzieć, że czasami lepiej jest użyć tablicy a w innym przypadku lista wiązana 
+[^implementacja]: Oczywiście zależy to od implementacji listy. W przypadku listy wiązanej otrzymanie takiej złożoności nie jest problemem.
 
+Te właściwości sprawiają, że użycie konkretnej struktury może uprościć rozwiązanie niektórych problemów. Możemy powiedzieć, że czasami lepiej jest użyć tablicy a w innym przypadku lista wiązana jest lepszym rozwiązaniem. Wszystko zależy od problemu, który próbujemy rozwiązać.
 
-[Niklaus Wirth - Algorytmy + struktury danych = programy](http://lubimyczytac.pl/ksiazka/122213/algorytmy-struktury-danych-programy)
-
+Klasyczną pozycją jeśli chodzi o powiązanie algorytmów i struktur danych jest książka autorstwa Niklausa Wirtha [Algorytmy + struktury danych = programy](http://lubimyczytac.pl/ksiazka/122213/algorytmy-struktury-danych-programy). 
+{: .notice--info}
 
 ### Struktury danych w językach programowania
 
@@ -28,10 +29,22 @@ Podonie sytuacja wygląda z listą wiązaną. Przeważnie w standardowej bibliot
 
 Skoro zatem mamy gotowe implementacje to po co pisać kolejną? Jedynym powodem jest nauka i zrozumienie zasady działania danej struktury danych. Jeśli dany język dostarcza implementacji danej struktury najlepszym sposobem będzie jej użycie. Nie wymyślaj koła na nowo :).
 
+Struktury danych dostępne w standardowej bibltiotece będą na pewno lepiej zaimplementowane niż własna wersja. Dodatkowo będę przetestowane przez dużo większą liczbę programistów.
 
-# Jak działa lista wiązana
+## Jak działa lista wiązana
 
-## Czym różni się lista wiązana od tablicy
+Lista wiązana to struktura, która składa się z węzłów. Każdy z węzłów zawiera element, który przechowuje. Dodatkowo posiada także odnośniki do innych elementów. W ten sposób powstaje łańcuch powiązanych ze sobą węzłów. To ile odnośników przechowuje węzeł określa czy lista jest jedno, czy dwukierunkowa.
+
+Lista jednokierunkowa posiada wyłącznie odnośnik do jednego elementu. Lista dwukierunkowa posiada dwa odnośniki, do obu sąsiadujących elementów.
+
+Lista wiązana jest strukturą, w której kolejność elementów ma znaczenie.
+
+### Lista jednokierunkowa
+
+W zależności od 
+
+### Czym różni się lista wiązana od tablicy
+
 
 ## Czy można odwrócić listę wiązaną?
 
@@ -49,11 +62,19 @@ Sposób przechowywania listy wiązanej w pamięci
 
 ### Usuwanie elementów
 
-
 ## Dodatkowe materiały do nauki
 
 Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do przeczytania materiałów, które zebrałem poniżej. Lista jest dość popularną strukturą danych więc jest też sporo materiałów w internecie na jej temat.
 
 
+## Zadania
+
+Skoro już wiesz jak działa lista wiązana nadszedł czas na Twoją implementację. Przygotowałem dla Ciebie dwa zadania do wykonania:
+
+- Zmodyfikuj klasę `SingleLinkedList` w taki sposób aby dodawanie elementów na koniec listy miało złożoność `Ο(1)`.
+- Zmodyfikuj klasy `SingleLinkedList` i `DoubleLinkedList` w taki sposób aby pobieranie rozmiaru listy miało złożoność `Ο(1)`.
+
 ## Podsumowanie
+
+
 
