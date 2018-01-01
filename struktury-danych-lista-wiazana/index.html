@@ -1,0 +1,1106 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Struktury danych - lista wiązana - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o liście wiązanej (ang. linked list). Pokażę Ci przykładową implementację takiej listy. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Poznasz różnicę pomiędzy listą jednokierunkową a listą dwukierunkową. W utrwaleniu wiedzy na temat list pomogą Ci zadania umieszczone na końcu artykułu.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Struktury danych - lista wiązana">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/struktury-danych-lista-wiazana/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/struktury-danych-lista-wiazana/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o liście wiązanej (ang. linked list). Pokażę Ci przykładową implementację takiej listy. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Poznasz różnicę pomiędzy listą jednokierunkową a listą dwukierunkową. W utrwaleniu wiedzy na temat list pomogą Ci zadania umieszczone na końcu artykułu.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-01-01T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Struktury danych - lista wiązana
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o liście wiązanej (ang. <em>linked list</em>). Pokażę Ci przykładową implementację takiej listy. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Poznasz różnicę pomiędzy listą jednokierunkową a listą dwukierunkową. W utrwaleniu wiedzy na temat list pomogą Ci zadania umieszczone na końcu artykułu.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/mangpages/1519626646/sizes/l">© mangpages</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Struktury danych - lista wiązana</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Struktury danych - lista wiązana">
+    <meta itemprop="description" content="W artykule tym przeczytasz o liście wiązanej (ang. linked list). Pokażę Ci przykładową implementację takiej listy. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Poznasz różnicę pomiędzy listą jednokierunkową a listą dwukierunkową. W utrwaleniu wiedzy na temat list pomogą Ci zadania umieszczone na końcu artykułu.">
+    <meta itemprop="datePublished" content="January 01, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#struktury-danych">Struktury danych</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#struktury-danych-w-językach-programowania">Struktury danych w językach programowania</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#jak-działa-lista-wiązana">Jak działa lista wiązana</a></li>
+<li class="toc-entry toc-h2"><a href="#lista-jednokierunkowa">Lista jednokierunkowa</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sprawdzanie-czy-lista-jest-pusta">Sprawdzanie czy lista jest pusta</a></li>
+<li class="toc-entry toc-h3"><a href="#sprawdzanie-rozmiaru-listy">Sprawdzanie rozmiaru listy</a></li>
+<li class="toc-entry toc-h3"><a href="#pobieranie-elementu-z-listy">Pobieranie elementu z listy</a></li>
+<li class="toc-entry toc-h3"><a href="#dodawanie-elementu-do-listy">Dodawanie elementu do listy</a></li>
+<li class="toc-entry toc-h3"><a href="#usuwanie-elementu-z-listy">Usuwanie elementu z listy</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dwukierunkowa-lista-wiązana">Dwukierunkowa lista wiązana</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sprawdzanie-czy-lista-jest-pusta-1">Sprawdzanie czy lista jest pusta</a></li>
+<li class="toc-entry toc-h3"><a href="#sprawdzanie-rozmiaru-listy-1">Sprawdzanie rozmiaru listy</a></li>
+<li class="toc-entry toc-h3"><a href="#pobieranie-elementu-z-listy-1">Pobieranie elementu z listy</a></li>
+<li class="toc-entry toc-h3"><a href="#dodawanie-elementu-do-listy-1">Dodawanie elementu do listy</a></li>
+<li class="toc-entry toc-h3"><a href="#usuwanie-elementu-z-listy-1">Usuwanie elementu z listy</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#porównanie-złożoności-obliczeniowych">Porównanie złożoności obliczeniowych</a></li>
+<li class="toc-entry toc-h2"><a href="#najczęściej-zadawane-pytania">Najczęściej zadawane pytania</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#czym-różni-się-lista-wiązana-od-tablicy">Czym różni się lista wiązana od tablicy</a></li>
+<li class="toc-entry toc-h3"><a href="#kiedy-używać-listy-wiązanej">Kiedy używać listy wiązanej</a></li>
+<li class="toc-entry toc-h3"><a href="#czy-można-odwrócić-listę-wiązaną">Czy można odwrócić listę wiązaną</a></li>
+<li class="toc-entry toc-h3"><a href="#co-się-dzieje-z-pominiętymi-elementami">Co się dzieje z pominiętymi elementami</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#zadania-do-wykonania">Zadania do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        <h2 id="struktury-danych">Struktury danych</h2>
+
+<p>Lista wiązana to struktura danych. Struktury danych opisują sposób przechowywania danych w pamięci komputera. Przykładową strukturą danych jest <a href="/tablice-w-jezyku-java/">tablica</a>. Każda struktura danych ma charakterystyczne dla siebie właściwości. Na przykład dodanie elementu na początek tablicy ma <a href="/podstawy-zlozonosci-obliczeniowej/">złożoność obliczeniową</a> <code class="highlighter-rouge">Ο(n)</code>. Ta sama operacja dla listy wiązanej ma złożoność <code class="highlighter-rouge">Ο(1)</code><sup id="fnref:implementacja"><a href="#fn:implementacja" class="footnote">1</a></sup>.</p>
+
+<p>Te właściwości sprawiają, że użycie konkretnej struktury może uprościć rozwiązanie niektórych problemów. Możemy powiedzieć, że czasami lepiej jest użyć tablicy a w innym przypadku lista wiązana jest lepszym rozwiązaniem. Wszystko zależy od problemu, który próbujemy rozwiązać. Strukturę danych dopasowuje się do problemu.</p>
+
+<p class="notice--info">Klasyczną pozycją jeśli chodzi o powiązanie algorytmów i struktur danych jest książka autorstwa Niklausa Wirtha <a href="http://lubimyczytac.pl/ksiazka/122213/algorytmy-struktury-danych-programy">Algorytmy + struktury danych = programy</a>.</p>
+
+<h3 id="struktury-danych-w-językach-programowania">Struktury danych w językach programowania</h3>
+
+<p>Struktura danych jest niezależna od języka programowania. Można ją zaimplementować w różnych językach. Na przykład tablica jest uniwersalną strukturą, która istnieje w każdym znanym mi języku programowani.</p>
+
+<p>Podobnie sytuacja wygląda z listą wiązaną. Przeważnie w standardowej bibliotece danego języka znajdzie się już gotowa implementacja tej struktury danych. W języku Java implementacją dwukierunkowej listy wiązanej jest klasa <a href="https://docs.oracle.com/javase/9/docs/api/java/util/LinkedList.html"><code class="highlighter-rouge">LinkedList</code></a>. O tym czym jest dwukierunkowa lista wiązana przeczytasz w jednym z akapitów poniżej.</p>
+
+<p>Skoro zatem mamy gotowe implementacje to po co pisać kolejną? Jedynym powodem jest nauka i zrozumienie zasady działania danej struktury danych. Jeśli dany język dostarcza implementacji danej struktury najlepszym sposobem będzie jej użycie. Nie wymyślaj koła na nowo :).</p>
+
+<p>Struktury danych dostępne w standardowej bibliotece będą na pewno lepiej zaimplementowane niż własna wersja. Dodatkowo będę przetestowane przez dużo większą liczbę programistów.</p>
+
+<h2 id="jak-działa-lista-wiązana">Jak działa lista wiązana</h2>
+
+<p>Lista wiązana to struktura, która składa się z węzłów. Każdy z węzłów zawiera element, który przechowuje. Dodatkowo posiada także odnośniki do innych elementów. W ten sposób powstaje łańcuch powiązanych ze sobą węzłów. To ile odnośników przechowuje węzeł określa czy lista jest jedno, czy dwukierunkowa.</p>
+
+<p>W dalszej części artykułu te odnośniki do sąsiednich elementów będę nazywał wskaźnikami.</p>
+
+<p>Lista jednokierunkowa posiada wyłącznie wskaźnik do jednego elementu. Lista dwukierunkowa posiada dwa wskaźniki, do obu sąsiadujących elementów. Obrazki poniżej prezentują przykładowe listy z trzema elementami. Prostokąty to węzły, strzałki pokazują powiązania pomiędzy węzłami.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/02_lista_jednokierunkowa.jpg" alt="" />
+  
+    <figcaption>Lista jednokierunkowa.
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/02_lista_dwukierunkowa.jpg" alt="" />
+  
+    <figcaption>Lista dwukierunkowa.
+</figcaption>
+  
+</figure>
+
+<p>Lista wiązana jest strukturą, w której kolejność elementów ma znaczenie. Każdy z elementów ma swój numer, indeks, który zwyczajowo zaczyna się liczyć od <code class="highlighter-rouge">0</code>.</p>
+
+<p>Jeśli lista jest pusta wskaźnik na pierwszy/ostatni węzeł jest pusty (w przypadku Javy ma wartość <code class="highlighter-rouge">null</code>). Wskaźniki na następny/poprzedni węzeł w ostatnim/pierwszym węźle w liście są puste.</p>
+
+<h2 id="lista-jednokierunkowa">Lista jednokierunkowa</h2>
+
+<p>Jak już wiesz lista to powiązane ze sobą węzły. Przykładowa implementacja takiego węzła może wyglądać następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">E</span> <span class="n">element</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">next</span><span class="o">;</span>
+
+    <span class="n">Node</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">element</span> <span class="o">=</span> <span class="n">element</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Klasa ta posiada <code class="highlighter-rouge">element</code>, atrybut ten przechowuje wartość z danego węzła. Każdy węzeł zawiera również wskaźnik do kolejnego węzła w liście. Kolejny węzeł przechowywany jest w atrybucie <code class="highlighter-rouge">next</code>.</p>
+
+<p>Listę jednokierunkową w tym przypadku można przedstawić jako klasę, która zawiera informację o początku listy. W przykładzie poniżej pierwszy element z listy przechowywany jest w atrybucie <code class="highlighter-rouge">first</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleLinkedList</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">first</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="n">E</span> <span class="n">element</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">next</span><span class="o">;</span>
+
+        <span class="n">Node</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">element</span> <span class="o">=</span> <span class="n">element</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="sprawdzanie-czy-lista-jest-pusta">Sprawdzanie czy lista jest pusta</h3>
+
+<p>Mając taką klasę w prosty sposób możemy sprawdzić czy lista zawiera jakiekolwiek elementy. Wystarczy sprawdzić czy pierwszy element istnieje:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">first</span> <span class="o">==</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><a href="/podstawy-zlozonosci-obliczeniowej/">Złożoność obliczeniowa</a> tej operacji to <code class="highlighter-rouge">Ο(1)</code>.</p>
+
+<h3 id="sprawdzanie-rozmiaru-listy">Sprawdzanie rozmiaru listy</h3>
+
+<p>Kolejną podstawową operacją jest sprawdzanie rozmiaru listy. Poniżej pokazuję naiwną implementację tej operacji:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">currentNode</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">size</span><span class="o">++;</span>
+        <span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">size</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Przechodząc po wszystkich elementach listy otrzymuję złożoność <code class="highlighter-rouge">Ο(n)</code><sup id="fnref:lepiej"><a href="#fn:lepiej" class="footnote">2</a></sup>.</p>
+
+<h3 id="pobieranie-elementu-z-listy">Pobieranie elementu z listy</h3>
+
+<p>Wspomniałem wyżej, że lista wiązana jest strukturą, w której kolejność elementów jest istotna. Każdy z elementów ma swój indeks, podobnie jak w tablicy. Przydałaby się w takim razie metoda, która pozwoli pobrać element znajdujący się pod danym indeksem:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">E</span> <span class="nf">get</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isEmpty</span><span class="o">()</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IndexOutOfBoundsException</span><span class="o">(</span><span class="s">"Index "</span> <span class="o">+</span> <span class="n">index</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">currentIndex</span> <span class="o">=</span> <span class="n">index</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">currentIndex</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">currentNode</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IndexOutOfBoundsException</span><span class="o">(</span><span class="s">"Index "</span> <span class="o">+</span> <span class="n">index</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">currentIndex</span><span class="o">--;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">element</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pierwszy warunek sprawdza czy <code class="highlighter-rouge">index</code> ma szanse być poprawny. Następnie przechodząc przez kolejne elementy listy, zaczynając od początku dochodzę do elementu znajdującego się pod żądanym indeksem.</p>
+
+<p>W związku z tym, że pętla <code class="highlighter-rouge">while</code> zależna jest od liczby elementów znajdujących się w liście złożoność tej operacji to <code class="highlighter-rouge">Ο(n)</code>.</p>
+
+<h3 id="dodawanie-elementu-do-listy">Dodawanie elementu do listy</h3>
+
+<p>Dodawanie nowego elementu do listy wiązanej zależy od tego gdzie chcemy taki element dodać. Rysunek poniżej pokazuje przykład dodawania elementu pomiędzy istniejącymi węzłami:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/02_lista_jednokierunkowa_dodawanie.jpg" alt="" />
+  
+    <figcaption>Dodawanie węzła do listy jednokierunkowej.
+</figcaption>
+  
+</figure>
+
+<p>W takim przypadku należy w odpowiedni sposób przepiąć wskaźnik na kolejny element. Więc aby dodać element pod indeksem <code class="highlighter-rouge">N</code> potrzebuję dostęp do elementu pod indeksem <code class="highlighter-rouge">N - 1</code>. Metoda pomocnicza pozwala w łatwy sposób dostać się do obu węzłów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">NodePair</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previous</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">current</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nf">NodePair</span><span class="o">(</span><span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previous</span><span class="o">,</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">current</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">previous</span> <span class="o">=</span> <span class="n">previous</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">NodePair</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">getNodeWithPrevious</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isEmpty</span><span class="o">()</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IndexOutOfBoundsException</span><span class="o">(</span><span class="s">"Index "</span> <span class="o">+</span> <span class="n">index</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previousNode</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">currentIndex</span> <span class="o">=</span> <span class="n">index</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">currentIndex</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">currentNode</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IndexOutOfBoundsException</span><span class="o">(</span><span class="s">"Index "</span> <span class="o">+</span> <span class="n">index</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">previousNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">;</span>
+        <span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">currentIndex</span><span class="o">--;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="n">NodePair</span><span class="o">&lt;&gt;(</span><span class="n">previousNode</span><span class="o">,</span> <span class="n">currentNode</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Mając już metodę pomocniczą mogę zaimplementować dodawanie elementów do listy. Proszę spójrz na przykładową implementację poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">,</span> <span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;&gt;(</span><span class="n">element</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">NodePair</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">pair</span> <span class="o">=</span> <span class="n">getNodeWithPrevious</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previousNode</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="na">previous</span><span class="o">;</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">nodeAtIndex</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="na">current</span><span class="o">;</span>
+
+    <span class="c1">// adding at the beginning of the list</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">previousNode</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;&gt;(</span><span class="n">element</span><span class="o">);</span>
+        <span class="n">first</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">nodeAtIndex</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;&gt;(</span><span class="n">element</span><span class="o">);</span>
+    <span class="n">newNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">nodeAtIndex</span><span class="o">;</span>
+    <span class="n">previousNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pierwszy blok <code class="highlighter-rouge">if</code> obsługuje dodanie elementu do pustej listy. W tym przypadku po prostu tworzę nową instancję klasy <code class="highlighter-rouge">Node</code> i ustawiam ją jako atrybut <code class="highlighter-rouge">first</code>. Kolejny blok <code class="highlighter-rouge">if</code> obsługuje dodanie elementu na początku listy. W tym przypadku atrybut <code class="highlighter-rouge">first</code> musi być zmieniony. Resztę przypadków obsługują ostatnie linijki metody.</p>
+
+<p>W przypadku tej implementacji dodanie elementu na początku listy ma złożoność <code class="highlighter-rouge">Ο(1)</code>. Dodanie nowego elementu w innym miejscu to operacja o złożoności <code class="highlighter-rouge">Ο(n)</code>.</p>
+
+<h3 id="usuwanie-elementu-z-listy">Usuwanie elementu z listy</h3>
+
+<p>W przypadku usuwania elementu z listy również trzeba manipulować wskaźnikiem na kolejny element. Operację usuwanie pokazałem na rysunku poniżej:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/02_lista_jednokierunkowa_usuwanie.jpg" alt="" />
+  
+    <figcaption>Usuwanie węzła z listy jednokierunkowej.
+</figcaption>
+  
+</figure>
+
+<p>Także i tutaj pomocna jest metoda <code class="highlighter-rouge">getNodeWithPrevious</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">E</span> <span class="nf">remove</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">NodePair</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">pair</span> <span class="o">=</span> <span class="n">getNodeWithPrevious</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previousNode</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="na">previous</span><span class="o">;</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">nodeToRemove</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="na">current</span><span class="o">;</span>
+    <span class="n">E</span> <span class="n">removedElement</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">element</span><span class="o">;</span>
+
+    <span class="c1">// removing first node</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">previousNode</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">removedElement</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">previousNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">removedElement</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Blok <code class="highlighter-rouge">if</code> obsługuje usunięcie pierwszego elementu z listy. W tym przypadku należy zmienić wartość atrybutu <code class="highlighter-rouge">first</code>.</p>
+
+<p>W przypadku tej implementacji usunięcie elementu z początku listy ma złożoność <code class="highlighter-rouge">Ο(1)</code>. Usunięcie elementu z innego miejsca to operacja o złożoności <code class="highlighter-rouge">Ο(n)</code>.</p>
+
+<h2 id="dwukierunkowa-lista-wiązana">Dwukierunkowa lista wiązana</h2>
+
+<p>Dwukierunkowa lista wiązana od listy jednokierunkowej różni się tym, że każdy z węzłów zawiera wskaźnik na poprzedni i następny element. Sama lista zawiera też atrybuty wskazujące pierwszy i ostatni węzeł w liście:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DoubleLinkedList</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">first</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">last</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="n">E</span> <span class="n">element</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">next</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previous</span><span class="o">;</span>
+
+        <span class="n">Node</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">element</span> <span class="o">=</span> <span class="n">element</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="sprawdzanie-czy-lista-jest-pusta-1">Sprawdzanie czy lista jest pusta</h3>
+
+<p>Podobnie jak w przypadku listy jednokierunkowej, sprawdzenie czy lista ma pierwszy węzeł wystarczy:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">first</span> <span class="o">==</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="sprawdzanie-rozmiaru-listy-1">Sprawdzanie rozmiaru listy</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">currentNode</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">size</span><span class="o">++;</span>
+        <span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">size</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Także tutaj naiwna implementacja polega na każdorazowym zliczaniu wszystkich elementów listy.</p>
+
+<h3 id="pobieranie-elementu-z-listy-1">Pobieranie elementu z listy</h3>
+
+<p>Implementacja tej metody polega na przechodzeniu po wszystkich elementach od początku do żądanego indeksu. Także tutaj implementacja ta nie różni się znacznie od listy jednokierunkowej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">E</span> <span class="nf">get</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">getNode</span><span class="o">(</span><span class="n">index</span><span class="o">).</span><span class="na">element</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">getNode</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isEmpty</span><span class="o">()</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IndexOutOfBoundsException</span><span class="o">(</span><span class="s">"Index "</span> <span class="o">+</span> <span class="n">index</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">currentIndex</span> <span class="o">=</span> <span class="n">index</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">currentIndex</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">currentNode</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IndexOutOfBoundsException</span><span class="o">(</span><span class="s">"Index "</span> <span class="o">+</span> <span class="n">index</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">currentIndex</span><span class="o">--;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">currentNode</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="dodawanie-elementu-do-listy-1">Dodawanie elementu do listy</h3>
+
+<p>W przypadku listy dwukierunkowej węzły zawierają dwa wskaźniki. Operacje modyfikujące taką listę wymagają przepięcia każdego z tych wskaźników. Rysunek poniżej pokazuje przykładowe usunięcie elementu znajdującego się w środku listy:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/02_lista_dwukierunkowa_dodawanie.jpg" alt="" />
+  
+    <figcaption>Dodawanie nowego węzła do listy dwukierunkowej.
+</figcaption>
+  
+</figure>
+
+<p>Implementacja tej metody musi obsłużyć dodawanie elementu do pustej listy, dodawanie elementu na koniec i początek listy jak i dodawanie element pomiędzy istniejące węzły:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">,</span> <span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;&gt;(</span><span class="n">element</span><span class="o">);</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">nodeAtIndex</span> <span class="o">=</span> <span class="n">getNode</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+
+    <span class="c1">// adding at the beginning of the list</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">nodeAtIndex</span><span class="o">.</span><span class="na">previous</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previousFirst</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;&gt;(</span><span class="n">element</span><span class="o">);</span>
+        <span class="n">first</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">previousFirst</span><span class="o">;</span>
+        <span class="n">previousFirst</span><span class="o">.</span><span class="na">previous</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// adding at the end of the list</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">nodeAtIndex</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previousLast</span> <span class="o">=</span> <span class="n">last</span><span class="o">;</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;&gt;(</span><span class="n">element</span><span class="o">);</span>
+        <span class="n">last</span><span class="o">.</span><span class="na">previous</span> <span class="o">=</span> <span class="n">previousLast</span><span class="o">;</span>
+        <span class="n">previousLast</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">last</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;&gt;(</span><span class="n">element</span><span class="o">);</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previous</span> <span class="o">=</span> <span class="n">nodeAtIndex</span><span class="o">.</span><span class="na">previous</span><span class="o">;</span>
+    <span class="n">previous</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="n">newNode</span><span class="o">.</span><span class="na">previous</span> <span class="o">=</span> <span class="n">previous</span><span class="o">;</span>
+
+    <span class="n">newNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">nodeAtIndex</span><span class="o">;</span>
+    <span class="n">nodeAtIndex</span><span class="o">.</span><span class="na">previous</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="usuwanie-elementu-z-listy-1">Usuwanie elementu z listy</h3>
+
+<p>W tym przypadku także należy zmodyfikować wiele wskaźników. Rysunek poniżej pokazuje jak ta operacja wygląda:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/02_lista_dwukierunkowa_usuwanie.jpg" alt="" />
+  
+    <figcaption>Usuwanie węzła z listy dwukierunkowej.
+</figcaption>
+  
+</figure>
+
+<p>Należy w odpowiedni sposób obsłużyć usuwanie pierwszego i ostatniego elementu. Odpowiednio pierwszy i drugi blok <code class="highlighter-rouge">if</code> obsługują te przypadki:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">E</span> <span class="nf">remove</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">nodeToRemove</span> <span class="o">=</span> <span class="n">getNode</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">previousNode</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">previous</span><span class="o">;</span>
+    <span class="n">Node</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">nextNode</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="n">E</span> <span class="n">removedElement</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">element</span><span class="o">;</span>
+
+    <span class="c1">// removing first node</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">previousNode</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">nextNode</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">first</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">last</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">first</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">;</span>
+            <span class="n">nextNode</span><span class="o">.</span><span class="na">previous</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">removedElement</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// removing last node</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">nextNode</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="n">previousNode</span><span class="o">;</span>
+        <span class="n">previousNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">removedElement</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">previousNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">;</span>
+    <span class="n">nextNode</span><span class="o">.</span><span class="na">previous</span> <span class="o">=</span> <span class="n">previousNode</span><span class="o">;</span>
+
+    <span class="k">return</span> <span class="n">removedElement</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="porównanie-złożoności-obliczeniowych">Porównanie złożoności obliczeniowych</h2>
+
+<p>Poniższa tabela zawiera zestawienie złożoności obliczeniowych podstawowych operacji dla listy wiązanej i tablicy.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operacja</th>
+      <th style="text-align: center">Tablica</th>
+      <th style="text-align: center">Lista wiązana</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>pobieranie liczby elementów</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+    </tr>
+    <tr>
+      <td>dodawanie elementu na końcu/początku</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(n)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+    </tr>
+    <tr>
+      <td>dodawanie elementu</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(n)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(n)</code></td>
+    </tr>
+    <tr>
+      <td>usuwanie elementu na końcu/początku</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(n)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+    </tr>
+    <tr>
+      <td>usuwanie elementu</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(n)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(n)</code></td>
+    </tr>
+    <tr>
+      <td>pobieranie elementu z końca/początku</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+    </tr>
+    <tr>
+      <td>pobieranie elementu</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(n)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Jak widzisz w niektórych przypadkach używając listy wiązanej można uzyskać lepszą złożoność obliczeniową niż w przypadku tablicy.</p>
+
+<h2 id="najczęściej-zadawane-pytania">Najczęściej zadawane pytania</h2>
+
+<h3 id="czym-różni-się-lista-wiązana-od-tablicy">Czym różni się lista wiązana od tablicy</h3>
+
+<p>Lista wiązana to struktura, która przetrzymuje elementy rozrzucone w pamięci. Tablica potrzebuje jednolitego obszaru w pamięci komputera. Ponadto tablica ma inne złożoności obliczeniowe niż lista wiązana dla podstawowych operacji pobierania, dodawania czy usuwania elementów.</p>
+
+<h3 id="kiedy-używać-listy-wiązanej">Kiedy używać listy wiązanej</h3>
+
+<p>Na początku mojej przygody z programowaniem mówiono mi, że listy powinno używać się w momencie kiedy nie chcemy zajmować spójnego bloku w pamięci. Nie wydaje mi się, żeby ten argument był nadal bardzo istotny. Dalej jednak ważne są złożoności obliczeniowe zebrane w tabelce wyżej. Jeśli często dodajesz/usuwasz elementy z początku/końca kolekcji i nie potrzebujesz dostępu do innych elementów niż pierwszy/ostatni to lista wiązana jest lepszym wyborem niż tablica.</p>
+
+<h3 id="czy-można-odwrócić-listę-wiązaną">Czy można odwrócić listę wiązaną</h3>
+
+<p>W przypadku listy dwukierunkowej jest to proste. Wystarczy przechodzić po liście od ostatniego elementu do początku. Operacja ta ma złożoność <code class="highlighter-rouge">Ο(n)</code>. W przypadku listy jednokierunkowej jest to trudniejsze. Dla listy jednokierunkowej operacja odwrócenia ma złożoność <code class="highlighter-rouge">Ο(n^2)</code></p>
+
+<h3 id="co-się-dzieje-z-pominiętymi-elementami">Co się dzieje z pominiętymi elementami</h3>
+
+<p>W przykładowej implementacji powyżej mogłeś zwrócić uwagę na to, że przepinam wskaźniki na inne elementy. Przez taką manipulację możemy “gubić” instancje klasy <code class="highlighter-rouge">Node</code>. Takie instancje nadal zajmują miejsce na stercie. W przypadku Javy z pomocą przychodzi mechanizm “zbierania śmieci” (ang. <em>garbage collection</em>), który wykrywa takie obiekty i usuwa je z pamięci.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do przeczytania materiałów, które zebrałem poniżej:</p>
+
+<ul>
+  <li><a href="https://pl.wikipedia.org/wiki/Lista">Artykuł o liście wiązanej na Wikipedii</a>,</li>
+  <li><a href="https://pl.wikibooks.org/wiki/Struktury_danych/Listy">Artykuł na temat list na Wikibooks</a>,</li>
+  <li><a href="http://eduinf.waw.pl/inf/alg/001_search/0083.php">Materiały dotyczące list przygotowane przez Jerzego Wałaszka</a>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/01_linked_list">Kod źródłowy przykładów użytych w artykule</a>,</li>
+  <li><a href="http://hg.openjdk.java.net/jdk9/jdk9/jdk/file/65464a307408/src/java.base/share/classes/java/util/LinkedList.java">Implementacja dwukierunkowej listy wiązanej z OpenJDK</a>.</li>
+</ul>
+
+<h2 id="zadania-do-wykonania">Zadania do wykonania</h2>
+
+<p>Skoro już wiesz jak działa lista wiązana nadszedł czas na Twoją implementację. Przygotowałem dla Ciebie dwa zadania do wykonania:</p>
+
+<ol>
+  <li>Zmodyfikuj klasę <code class="highlighter-rouge">SingleLinkedList</code> w taki sposób aby dodawanie elementów na koniec listy miało złożoność <code class="highlighter-rouge">Ο(1)</code>.</li>
+  <li>Dodaj metodę <code class="highlighter-rouge">reversed</code> do klas <code class="highlighter-rouge">SingleLinkedList</code> i <code class="highlighter-rouge">DoubleLinkedList</code>. Metoda ta powinna zwrócić nową instancję klasy, w której węzły będą w odwróconej kolejności.</li>
+  <li>Zmodyfikuj klasy <code class="highlighter-rouge">SingleLinkedList</code> i <code class="highlighter-rouge">DoubleLinkedList</code> w taki sposób aby pobieranie rozmiaru listy miało złożoność <code class="highlighter-rouge">Ο(1)</code>.</li>
+</ol>
+
+<p>Kod źródłowy klas <code class="highlighter-rouge">SingleLinkedList</code> i <code class="highlighter-rouge">DoubleLinkedList</code> znajdziesz na <a href="https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/01_linked_list/src/main/java/pl/samouczekprogramisty/asd/list">samouczkowym githubie</a>.</p>
+
+<p>Na Githubie znajdziesz też <a href="/test-driven-development-na-przykladzie/">testy jednostkowe</a>, pamiętaj o tym żeby sprawdzić czy Twój kod działa poprawnie. Testy powinny Ci w tym pomóc.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu tego artykułu dokładnie wiesz czym są struktury danych. Poznałeś jednokierunkowe i dwukierunkowe listy wiązane. Zrozumiałeś działanie list na podstawie przykładowej implementacji. Rozwiązując zadania utrwaliłeś swoją wiedzę na temat list. Dobra robota :)!</p>
+
+<p>Jeśli masz jakiekolwiek pytania czy uwagi proszę daj znać w komentarzu, postaram się pomóc. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Proszę Cię też o podzielenie się linkiem ze znajomymi, może im także przyda się wiedza zgromadzona w tym artykule.</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:implementacja">
+      <p>Oczywiście zależy to od implementacji listy. W przypadku listy wiązanej otrzymanie takiej złożoności nie jest problemem. <a href="#fnref:implementacja" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:lepiej">
+      <p>Metodę tę można zaimplementować uzyskując złożoność <code class="highlighter-rouge">Ο(1)</code>, to będzie Twoim zadaniem na koniec artykułu ;). Uzyskanie takiej złożoności wymaga zmian we wszystkich metodach modyfikujących zawartość listy. <a href="#fnref:lepiej" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#kurs-aplikacji-webowych" class="page__taxonomy-item" rel="tag">Kurs aplikacji webowych</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-01-01T00:00:00+01:00">January 01, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fstruktury-danych-lista-wiazana%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fstruktury-danych-lista-wiazana%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-znajdz-brakujacy-element/" class="pagination--pager" title="Samouczek na rozmowie - znajdź brakujący element
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/11/13_zlozonosc_obliczeniowa_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/" rel="permalink">Podstawy złożoności obliczeniowej
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  13 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/08/09_kolekcje_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/kolekcje-w-jezyku-java/" rel="permalink">Kolekcje w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o kolekcjach w języku Java. Dowiesz się czym są kolekcje, kiedy można ich używać. Poznasz podstawowe kolekcje takie jak mapa, zbió...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/" rel="permalink">Walidacja obiektów w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguł...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/struktury-danych-lista-wiazana/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
