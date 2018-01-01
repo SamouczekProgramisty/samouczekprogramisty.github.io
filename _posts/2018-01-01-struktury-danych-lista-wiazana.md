@@ -25,17 +25,17 @@ Klasyczną pozycją jeśli chodzi o powiązanie algorytmów i struktur danych je
 
 Struktura danych jest niezależna od języka programowania. Można ją zaimplementować w różnych językach. Na przykład tablica jest uniwersalną strukturą, która istnieje w każdym znanym mi języku programowani.
 
-Podobnie sytuacja wygląda z listą wiązaną. Przeważnie w standardowej bibliotece danego języka znajdzie się już gotowa implementacja tej struktry danych. W języku Java implementacją dwukierunkowej listy wiązanej jest klasa [`LinkedList`](https://docs.oracle.com/javase/9/docs/api/java/util/LinkedList.html). O tym czym jest dwukierunkowa lista wiązana przeczytasz w jednym z akapitów poniżej.
+Podobnie sytuacja wygląda z listą wiązaną. Przeważnie w standardowej bibliotece danego języka znajdzie się już gotowa implementacja tej struktury danych. W języku Java implementacją dwukierunkowej listy wiązanej jest klasa [`LinkedList`](https://docs.oracle.com/javase/9/docs/api/java/util/LinkedList.html). O tym czym jest dwukierunkowa lista wiązana przeczytasz w jednym z akapitów poniżej.
 
 Skoro zatem mamy gotowe implementacje to po co pisać kolejną? Jedynym powodem jest nauka i zrozumienie zasady działania danej struktury danych. Jeśli dany język dostarcza implementacji danej struktury najlepszym sposobem będzie jej użycie. Nie wymyślaj koła na nowo :).
 
-Struktury danych dostępne w standardowej bibltiotece będą na pewno lepiej zaimplementowane niż własna wersja. Dodatkowo będę przetestowane przez dużo większą liczbę programistów.
+Struktury danych dostępne w standardowej bibliotece będą na pewno lepiej zaimplementowane niż własna wersja. Dodatkowo będę przetestowane przez dużo większą liczbę programistów.
 
 ## Jak działa lista wiązana
 
 Lista wiązana to struktura, która składa się z węzłów. Każdy z węzłów zawiera element, który przechowuje. Dodatkowo posiada także odnośniki do innych elementów. W ten sposób powstaje łańcuch powiązanych ze sobą węzłów. To ile odnośników przechowuje węzeł określa czy lista jest jedno, czy dwukierunkowa.
 
-W dalszej części artykułu te odnośniki do sąsiednikch elementów będę nazywał wskaźnikami.
+W dalszej części artykułu te odnośniki do sąsiednich elementów będę nazywał wskaźnikami.
 
 Lista jednokierunkowa posiada wyłącznie wskaźnik do jednego elementu. Lista dwukierunkowa posiada dwa wskaźniki, do obu sąsiadujących elementów. Obrazki poniżej prezentują przykładowe listy z trzema elementami. Prostokąty to węzły, strzałki pokazują powiązania pomiędzy węzłami.
 
@@ -62,7 +62,7 @@ private static class Node<E> {
 
 Klasa ta posiada `element`, atrybut ten przechowuje wartość z danego węzła. Każdy węzeł zawiera również wskaźnik do kolejnego węzła w liście. Kolejny węzeł przechowywany jest w atrybucie `next`.
 
-Listę jednokierunkową w tym przypadku można porzedstawić jako klasę, która zawiera informację o początku listy. W przykładzie poniżej pierwszy element z listy przechowywany jest w atrybucie `first`.
+Listę jednokierunkową w tym przypadku można przedstawić jako klasę, która zawiera informację o początku listy. W przykładzie poniżej pierwszy element z listy przechowywany jest w atrybucie `first`.
 
 ```java
 public class SingleLinkedList<E> {
@@ -110,7 +110,7 @@ public int size() {
 ```
 Przechodząc po wszystkich elementach listy otrzymuję złożoność `Ο(n)`[^lepiej].
 
-[^lepiej]: Metodę tę można zamiplementować uzyskując złożoność `Ο(1)`, to będzie Twoim zadaniem na koniec artykułu ;). Usyskanie takiej złożoności wymaga zmian we wszystkich metodach modyfikujących zawartość listy.
+[^lepiej]: Metodę tę można zaimplementować uzyskując złożoność `Ο(1)`, to będzie Twoim zadaniem na koniec artykułu ;). Uzyskanie takiej złożoności wymaga zmian we wszystkich metodach modyfikujących zawartość listy.
 
 ### Pobieranie elementu z listy
 
@@ -209,7 +209,7 @@ public boolean add(int index, E element) {
 
 Pierwszy blok `if` obsługuje dodanie elementu do pustej listy. W tym przypadku po prostu tworzę nową instancję klasy `Node` i ustawiam ją jako atrybut `first`. Kolejny blok `if` obsługuje dodanie elementu na początku listy. W tym przypadku atrybut `first` musi być zmieniony. Resztę przypadków obsługują ostatnie linijki metody.
 
-W przypadku tej implemetntacji dodanie elementu na początku listy ma złożoność `Ο(1)`. Dodanie nowego elementu w innym miejscu to operacja o złożoności `Ο(n)`.
+W przypadku tej implementacji dodanie elementu na początku listy ma złożoność `Ο(1)`. Dodanie nowego elementu w innym miejscu to operacja o złożoności `Ο(n)`.
 
 ### Usuwanie elementu z listy
 
@@ -239,11 +239,11 @@ public E remove(int index) {
 
 Blok `if` obsługuje usunięcie pierwszego elementu z listy. W tym przypadku należy zmienić wartość atrybutu `first`.
 
-W przypadku tej implemetntacji usunięcie elementu z początku listy ma złożoność `Ο(1)`. Usunięcie elementu z innego miejsca to operacja o złożoności `Ο(n)`.
+W przypadku tej implementacji usunięcie elementu z początku listy ma złożoność `Ο(1)`. Usunięcie elementu z innego miejsca to operacja o złożoności `Ο(n)`.
 
 ## Dwukierunkowa lista wiązana
 
-Dwukierunkowa lista wiązana od listy jednokierunkowej róźni się tym, że każdy z węzłów zawiera wskażnik na poprzedni i następny element. Sama lista zawiera też atrybuty wskazujące pierwszy i ostatni węzeł w liście:
+Dwukierunkowa lista wiązana od listy jednokierunkowej różni się tym, że każdy z węzłów zawiera wskaźnik na poprzedni i następny element. Sama lista zawiera też atrybuty wskazujące pierwszy i ostatni węzeł w liście:
 
 ```java
 public class DoubleLinkedList<E> {
@@ -317,7 +317,7 @@ private Node<E> getNode(int index) {
 
 ### Dodawanie elementu do listy
 
-W przypadku listy dwukierunkowej węzły zawierają dwa wskaźniki. Operacje modyfikujące taką listę wymagają przepięcia każdego z tych wskaźników. Rysunek poniżej pokazuje przykładowe usunięcie wlementu znajdującego się w środku listy:
+W przypadku listy dwukierunkowej węzły zawierają dwa wskaźniki. Operacje modyfikujące taką listę wymagają przepięcia każdego z tych wskaźników. Rysunek poniżej pokazuje przykładowe usunięcie elementu znajdującego się w środku listy:
 
 {% include figure image_path="/assets/images/2018/01/02_lista_dwukierunkowa_dodawanie.jpg" caption="Dodawanie nowego węzła do listy dwukierunkowej." %}
 
@@ -402,7 +402,7 @@ public E remove(int index) {
 }
 ```
 
-Usuwanie, także wymaga modyfikacji wielu wskaźników. Należy w odpowiedni sposób obsłużyć usuwanie pierwszeg i ostatniego elementu.
+Usuwanie, także wymaga modyfikacji wielu wskaźników. Należy w odpowiedni sposób obsłużyć usuwanie pierwszego i ostatniego elementu.
 
 ## Porównanie złożoności obliczeniowych
 
@@ -432,11 +432,11 @@ Na początku mojej przygody z programowaniem mówiono mi, że listy powinno uży
 
 ### Czy można odwrócić listę wiązaną
 
-W przypadku listy dwukierunkowej jest to proste. Wysarczy przechodzić po liście od ostatniego elementu do początku. Operacja ta ma złożoność `Ο(1)`. W przypadku listy jednokierunkowej jest to trudniejsze. Dla listy jednokierunkowej operacja odwrócenia ma złożoność `Ο(n^2)`
+W przypadku listy dwukierunkowej jest to proste. Wystarczy przechodzić po liście od ostatniego elementu do początku. Operacja ta ma złożoność `Ο(1)`. W przypadku listy jednokierunkowej jest to trudniejsze. Dla listy jednokierunkowej operacja odwrócenia ma złożoność `Ο(n^2)`
 
 ### Co się dzieje z pominiętymi elementami
 
-W przykładowej implemetacji powyżej mogłeś zwrócić uwagę na to, że przepinam wkaźniki na inne elementy. Przez taką manipulację możemy "gubić" instancje klasy `Node`. Takie instancje nadal zajmują miejsce na stercie. W przypadku Javy z pomocą przychodzi mechanizm "zbierania śmieci" (ang. _garbage collection_), który wykrywa takie obiekty i usuwa je z pamięci.
+W przykładowej implementacji powyżej mogłeś zwrócić uwagę na to, że przepinam wskaźniki na inne elementy. Przez taką manipulację możemy "gubić" instancje klasy `Node`. Takie instancje nadal zajmują miejsce na stercie. W przypadku Javy z pomocą przychodzi mechanizm "zbierania śmieci" (ang. _garbage collection_), który wykrywa takie obiekty i usuwa je z pamięci.
 
 ## Dodatkowe materiały do nauki
 
@@ -450,10 +450,10 @@ Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do prze
 Skoro już wiesz jak działa lista wiązana nadszedł czas na Twoją implementację. Przygotowałem dla Ciebie dwa zadania do wykonania:
 
 1. Zmodyfikuj klasę `SingleLinkedList` w taki sposób aby dodawanie elementów na koniec listy miało złożoność `Ο(1)`.
-2. Dodaj metodę `reversed` do klas `SingleLinkedList` i `DoubleLinkedList`. Meoda ta powinna zwrócić nową instancję klasy, w której węzły będą w odwróconej kolejności.
+2. Dodaj metodę `reversed` do klas `SingleLinkedList` i `DoubleLinkedList`. Metoda ta powinna zwrócić nową instancję klasy, w której węzły będą w odwróconej kolejności.
 3. Zmodyfikuj klasy `SingleLinkedList` i `DoubleLinkedList` w taki sposób aby pobieranie rozmiaru listy miało złożoność `Ο(1)`.
 
-Kod źródłowy klas `SingleLikedList` i `DoubleLinkedList` znajdziesz na [samouczkowym githubie](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/01_linked_list/src/main/java/pl/samouczekprogramisty/asd/list).
+Kod źródłowy klas `SingleLinkedList` i `DoubleLinkedList` znajdziesz na [samouczkowym githubie](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/01_linked_list/src/main/java/pl/samouczekprogramisty/asd/list).
 
 Na Githubie znajdziesz też [testy jednostkowe]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}), pamiętaj o tym żeby sprawdzić czy Twój kod działa poprawnie. Testy powinny Ci w tym pomóc.
 
