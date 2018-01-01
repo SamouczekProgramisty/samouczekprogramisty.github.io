@@ -217,6 +217,8 @@ W przypadku usuwania elementu z listy również trzeba manipulować ze wskaźnik
 
 {% include figure image_path="/assets/images/2018/01/02_lista_jednokierunkowa_usuwanie.jpg" caption="Usuwanie węzła z listy jednokierunkowej." %}
 
+Także i tutaj pomocna jest metoda `getNodeWithPrevious`.
+
 ```java
 public E remove(int index) {
     NodePair<E> pair = getNodeWithPrevious(index);
@@ -235,10 +237,172 @@ public E remove(int index) {
 }
 ```
 
+Blok `if` obsługuje usunięcie pierwszego elementu z listy. W tym przypadku należy zmienić wartość atrybutu `first`.
+
+W przypadku tej implemetntacji usunięcie elementu z początku listy ma złożoność `Ο(1)`. Usunięcie elementu z innego miejsca to operacja o złożoności `Ο(n)`.
+
 ## Dwukierunkowa lista wiązana
 
+Dwukierunkowa lista wiązana od listy jednokierunkowej róźni się tym, że każdy z węzłów zawiera wskażnik na poprzedni i następny element. Sama lista zawiera też atrybuty wskazujące pierwszy i ostatni węzeł w liście:
+
+```java
+public class DoubleLinkedList<E> {
+
+    private Node<E> first;
+    private Node<E> last;
+
+    private static class Node<E> {
+        private E element;
+        private Node<E> next;
+        private Node<E> previous;
+
+        Node(E element) {
+            this.element = element;
+        }
+    }
+}
+```
+
+### Sprawdzanie czy lista jest pusta
+
+Podobnie jak w przypadku listy jednokierunkowej, sprawdzenie czy lista ma pierwszy węzeł wystarczy:
+
+```java
+public boolean isEmpty() {
+    return first == null;
+}
+```
+
+### Sprawdzanie rozmiaru listy
+
+```java
+public int size() {
+    int size = 0;
+    Node<E> currentNode = first;
+    while (currentNode != null) {
+        size++;
+        currentNode = currentNode.next;
+    }
+    return size;
+}
+```
+
+Także tutaj naiwna implementacja polega na każdorazowym zliczaniu wszystkich elementów listy.
+
+### Pobieranie elementu z listy
+
+Implementacja tej metody polega na przechodzeniu po wszystkich elementach od początku do żądanego indeksu. Także tutaj implementacja ta nie różni się znacznie od listy jednokierunkowej:
+
+```java
+public E get(int index) {
+    return getNode(index).element;
+}
+
+private Node<E> getNode(int index) {
+    if (isEmpty() || index < 0) {
+        throw new IndexOutOfBoundsException("Index " + index);
+    }
+    Node<E> currentNode = first;
+    int currentIndex = index;
+    while (currentIndex > 0) {
+        if (currentNode == null) {
+            throw new IndexOutOfBoundsException("Index " + index);
+        }
+        currentNode = currentNode.next;
+        currentIndex--;
+    }
+    return currentNode;
+}
+```
+
+### Dodawanie elementu do listy
+
+W przypadku listy dwukierunkowej węzły zawierają dwa wskaźniki. Operacje modyfikujące taką listę wymagają przepięcia każdego z tych wskaźników. Rysunek poniżej pokazuje przykładowe usunięcie wlementu znajdującego się w środku listy:
+
 {% include figure image_path="/assets/images/2018/01/02_lista_dwukierunkowa_dodawanie.jpg" caption="Dodawanie nowego węzła do listy dwukierunkowej." %}
+
+Implementacja tej metody musi obsłużyć dodawanie elementu do pustej listy, dodawanie elementu na koniec i początek listy jak i dodawanie element pomiędzy istniejące węzły:
+
+```java
+public boolean add(int index, E element) {
+    if (first == null && index == 0) {
+        first = new Node<>(element);
+        last = first;
+        return true;
+    }
+
+    Node<E> nodeAtIndex = getNode(index);
+
+    // adding at the beginning of the list
+    if (nodeAtIndex.previous == null) {
+        Node<E> previousFirst = first;
+        first = new Node<>(element);
+        first.next = previousFirst;
+        previousFirst.previous = first;
+        return true;
+    }
+
+    // adding at the end of the list
+    if (nodeAtIndex.next == null) {
+        Node<E> previousLast = last;
+        last = new Node<>(element);
+        last.previous = previousLast;
+        previousLast.next = last;
+        return true;
+    }
+
+    Node<E> newNode = new Node<>(element);
+    Node<E> previous = nodeAtIndex.previous;
+    previous.next = newNode;
+    newNode.previous = previous;
+
+    newNode.next = nodeAtIndex;
+    nodeAtIndex.previous = newNode;
+    return true;
+}
+```
+
+### Usuwanie elementu z listy
+
+W tym przypadku także należy zmodyfikować wiele wskaźników. Rysunek poniżej pokazuje jak ta operacja wygląda:
+
 {% include figure image_path="/assets/images/2018/01/02_lista_dwukierunkowa_usuwanie.jpg" caption="Usuwanie węzła z listy dwukierunkowej." %}
+
+```java
+public E remove(int index) {
+    Node<E> nodeToRemove = getNode(index);
+    Node<E> previousNode = nodeToRemove.previous;
+    Node<E> nextNode = nodeToRemove.next;
+    E removedElement = nodeToRemove.element;
+
+    // removing first node
+    if (previousNode == null) {
+        if (nextNode == null) {
+            first = null;
+            last = null;
+        }
+        else {
+            first = nextNode;
+            nextNode.previous = null;
+        }
+        return removedElement;
+    }
+
+    // removing last node
+    if (nextNode == null) {
+        last = previousNode;
+        previousNode.next = null;
+        return removedElement;
+    }
+
+    previousNode.next = nextNode;
+    nextNode.previous = previousNode;
+
+    return removedElement;
+}
+```
+
+Usuwanie, także wymaga modyfikacji wielu wskaźników. Należy w odpowiedni sposób obsłużyć usuwanie pierwszeg i ostatniego elementu.
 
 ## Porównanie złożoności obliczeniowych
 
@@ -264,20 +428,30 @@ Lista wiązana to struktura, która przetrzymuje elementy rozrzucone w pamięci.
 
 ### Kiedy używać listy wiązanej
 
-### Czy można odwrócić listę wiązaną?
+Na początku mojej przygody z programowaniem mówiono mi, że listy powinno używać się w momencie kiedy nie chcemy zajmować spójnego bloku w pamięci. Nie wydaje mi się, żeby ten argument był nadal bardzo istotny. Dalej jednak ważne są złożoności obliczeniowe zebrane w tabelce wyżej. Jeśli często dodajesz/usuwasz elementy z początku/końca kolekcji i nie potrzebujesz dostępu do innych elementów niż pierwszy/ostatni to lista wiązana jest lepszym wyborem niż tablica.
+
+### Czy można odwrócić listę wiązaną
+
+W przypadku listy dwukierunkowej jest to proste. Wysarczy przechodzić po liście od ostatniego elementu do początku. Operacja ta ma złożoność `Ο(1)`. W przypadku listy jednokierunkowej jest to trudniejsze. Dla listy jednokierunkowej operacja odwrócenia ma złożoność `Ο(n^2)`
+
+### Co się dzieje z pominiętymi elementami
+
+W przykładowej implemetacji powyżej mogłeś zwrócić uwagę na to, że przepinam wkaźniki na inne elementy. Przez taką manipulację możemy "gubić" instancje klasy `Node`. Takie instancje nadal zajmują miejsce na stercie. W przypadku Javy z pomocą przychodzi mechanizm "zbierania śmieci" (ang. _garbage collection_), który wykrywa takie obiekty i usuwa je z pamięci.
 
 ## Dodatkowe materiały do nauki
 
 Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do przeczytania materiałów, które zebrałem poniżej. Lista jest dość popularną strukturą danych więc jest też sporo materiałów w internecie na jej temat.             
 
-- [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/01_linked_list). 
+- [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/01_linked_list),
+- [Implementacja dwukierunkowej listy wiązanej z OpenJDK](http://hg.openjdk.java.net/jdk9/jdk9/jdk/file/65464a307408/src/java.base/share/classes/java/util/LinkedList.java).
 
 ## Zadania do wykonania
 
 Skoro już wiesz jak działa lista wiązana nadszedł czas na Twoją implementację. Przygotowałem dla Ciebie dwa zadania do wykonania:
 
 1. Zmodyfikuj klasę `SingleLinkedList` w taki sposób aby dodawanie elementów na koniec listy miało złożoność `Ο(1)`.
-2. Zmodyfikuj klasy `SingleLinkedList` i `DoubleLinkedList` w taki sposób aby pobieranie rozmiaru listy miało złożoność `Ο(1)`.
+2. Dodaj metodę `reversed` do klas `SingleLinkedList` i `DoubleLinkedList`. Meoda ta powinna zwrócić nową instancję klasy, w której węzły będą w odwróconej kolejności.
+3. Zmodyfikuj klasy `SingleLinkedList` i `DoubleLinkedList` w taki sposób aby pobieranie rozmiaru listy miało złożoność `Ο(1)`.
 
 Kod źródłowy klas `SingleLikedList` i `DoubleLinkedList` znajdziesz na [samouczkowym githubie](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/01_linked_list/src/main/java/pl/samouczekprogramisty/asd/list).
 
