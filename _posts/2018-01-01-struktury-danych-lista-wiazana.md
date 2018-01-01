@@ -12,7 +12,7 @@ excerpt: W artykule tym przeczytasz o liście wiązanej (ang. _linked list_). Po
 
 ## Struktury danych
 
-Lista wiązana to struktura danych. Struktury danych opisują sposób przechowywania danych w pamięci komputera. Przykładową strukturą danych jest [tablica]({% post_url 2015-11-11-tablice-w-jezyku-java %}). Każda struktura danych ma charakterystyczne dla siebie właściwości. Na przykład dodanie elementu do na początek tablicy ma [złożoność obliczeniową]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}) `Ο(n)`. Ta sama operacja dla listy wiązanej ma złożoność `Ο(1)`[^implementacja].
+Lista wiązana to struktura danych. Struktury danych opisują sposób przechowywania danych w pamięci komputera. Przykładową strukturą danych jest [tablica]({% post_url 2015-11-11-tablice-w-jezyku-java %}). Każda struktura danych ma charakterystyczne dla siebie właściwości. Na przykład dodanie elementu na początek tablicy ma [złożoność obliczeniową]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}) `Ο(n)`. Ta sama operacja dla listy wiązanej ma złożoność `Ο(1)`[^implementacja].
 
 [^implementacja]: Oczywiście zależy to od implementacji listy. W przypadku listy wiązanej otrzymanie takiej złożoności nie jest problemem.
 
@@ -43,7 +43,9 @@ Lista jednokierunkowa posiada wyłącznie wskaźnik do jednego elementu. Lista d
 
 {% include figure image_path="/assets/images/2018/01/02_lista_dwukierunkowa.jpg" caption="Lista dwukierunkowa." %}
 
-Lista wiązana jest strukturą, w której kolejność elementów ma znaczenie. Każdy z elementów ma swój numer, indeks, który zwyczajowo zaczyna się liczyć od `0`. W tym przypadku lista wiązana podobna jest do tablicy.
+Lista wiązana jest strukturą, w której kolejność elementów ma znaczenie. Każdy z elementów ma swój numer, indeks, który zwyczajowo zaczyna się liczyć od `0`.
+
+Jeśli lista jest pusta wskaźnik na pierwszy/ostatni węzeł jest pusty (w przypadku Javy ma wartość `null`). Wskaźniki na następny/poprzedni węzeł w ostatnim/pierwszym węźle w liście są puste.
 
 ## Lista jednokierunkowa
 
@@ -213,7 +215,7 @@ W przypadku tej implementacji dodanie elementu na początku listy ma złożonoś
 
 ### Usuwanie elementu z listy
 
-W przypadku usuwania elementu z listy również trzeba manipulować ze wskaźnikiem na kolejny element. Operację usuwanie pokazałem na rysunku poniżej:
+W przypadku usuwania elementu z listy również trzeba manipulować wskaźnikiem na kolejny element. Operację usuwanie pokazałem na rysunku poniżej:
 
 {% include figure image_path="/assets/images/2018/01/02_lista_jednokierunkowa_usuwanie.jpg" caption="Usuwanie węzła z listy jednokierunkowej." %}
 
@@ -368,6 +370,8 @@ W tym przypadku także należy zmodyfikować wiele wskaźników. Rysunek poniże
 
 {% include figure image_path="/assets/images/2018/01/02_lista_dwukierunkowa_usuwanie.jpg" caption="Usuwanie węzła z listy dwukierunkowej." %}
 
+Należy w odpowiedni sposób obsłużyć usuwanie pierwszego i ostatniego elementu. Odpowiednio pierwszy i drugi blok `if` obsługują te przypadki:
+
 ```java
 public E remove(int index) {
     Node<E> nodeToRemove = getNode(index);
@@ -402,8 +406,6 @@ public E remove(int index) {
 }
 ```
 
-Usuwanie, także wymaga modyfikacji wielu wskaźników. Należy w odpowiedni sposób obsłużyć usuwanie pierwszego i ostatniego elementu.
-
 ## Porównanie złożoności obliczeniowych
 
 Poniższa tabela zawiera zestawienie złożoności obliczeniowych podstawowych operacji dla listy wiązanej i tablicy.
@@ -432,7 +434,7 @@ Na początku mojej przygody z programowaniem mówiono mi, że listy powinno uży
 
 ### Czy można odwrócić listę wiązaną
 
-W przypadku listy dwukierunkowej jest to proste. Wystarczy przechodzić po liście od ostatniego elementu do początku. Operacja ta ma złożoność `Ο(1)`. W przypadku listy jednokierunkowej jest to trudniejsze. Dla listy jednokierunkowej operacja odwrócenia ma złożoność `Ο(n^2)`
+W przypadku listy dwukierunkowej jest to proste. Wystarczy przechodzić po liście od ostatniego elementu do początku. Operacja ta ma złożoność `Ο(n)`. W przypadku listy jednokierunkowej jest to trudniejsze. Dla listy jednokierunkowej operacja odwrócenia ma złożoność `Ο(n^2)`
 
 ### Co się dzieje z pominiętymi elementami
 
@@ -440,8 +442,11 @@ W przykładowej implementacji powyżej mogłeś zwrócić uwagę na to, że prze
 
 ## Dodatkowe materiały do nauki
 
-Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do przeczytania materiałów, które zebrałem poniżej. Lista jest dość popularną strukturą danych więc jest też sporo materiałów w internecie na jej temat.             
+Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do przeczytania materiałów, które zebrałem poniżej:
 
+- [Artykuł o liście wiązanej na Wikipedii](https://pl.wikipedia.org/wiki/Lista),
+- [Artykuł na temat list na Wikibooks](https://pl.wikibooks.org/wiki/Struktury_danych/Listy),
+- [Materiały dotyczące list przygotowane przez Jerzego Wałaszka](http://eduinf.waw.pl/inf/alg/001_search/0083.php),
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/01_linked_list),
 - [Implementacja dwukierunkowej listy wiązanej z OpenJDK](http://hg.openjdk.java.net/jdk9/jdk9/jdk/file/65464a307408/src/java.base/share/classes/java/util/LinkedList.java).
 
