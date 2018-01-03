@@ -335,21 +335,21 @@ public boolean add(int index, E element) {
 
     Node<E> nodeAtIndex = getNode(index);
 
+    // adding at the end of the list
+    if (nodeAtIndex == null) {
+        Node<E> previousLast = last;
+        last = new Node<>(element);
+        last.previous = previousLast;
+        previousLast.next = last;
+        return true;
+    }
+
     // adding at the beginning of the list
     if (nodeAtIndex.previous == null) {
         Node<E> previousFirst = first;
         first = new Node<>(element);
         first.next = previousFirst;
         previousFirst.previous = first;
-        return true;
-    }
-
-    // adding at the end of the list
-    if (nodeAtIndex.next == null) {
-        Node<E> previousLast = last;
-        last = new Node<>(element);
-        last.previous = previousLast;
-        previousLast.next = last;
         return true;
     }
 
