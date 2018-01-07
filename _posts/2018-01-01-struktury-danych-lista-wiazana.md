@@ -448,7 +448,7 @@ Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do prze
 - [Artykuł na temat list na Wikibooks](https://pl.wikibooks.org/wiki/Struktury_danych/Listy),
 - [Materiały dotyczące list przygotowane przez Jerzego Wałaszka](http://eduinf.waw.pl/inf/alg/001_search/0083.php),
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/01_linked_list),
-- [Implementacja dwukierunkowej listy wiązanej z OpenJDK](http://hg.openjdk.java.net/jdk9/jdk9/jdk/file/65464a307408/src/java.base/share/classes/java/util/LinkedList.java).
+- [Implementacja dwukierunkowej listy wiązanej z OpenJDK](http://hg.openjdk.java.net/jdk9/jdk9/jdk/file/tip/src/java.base/share/classes/java/util/LinkedList.java).
 
 ## Zadania do wykonania
 
