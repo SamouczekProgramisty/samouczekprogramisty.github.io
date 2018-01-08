@@ -30,7 +30,7 @@ Tablica asocjacyjna to struktura, która pozwala na przechowywanie par. Każda p
 
 Przykładem tablicy asocjacyjnej może być zwykły słownik wyrazów obcych. Na przykład słownik polsko-angielski. Kluczami w tym przypadku są słowa po polsku, wartościami ich angielskie odpowiedniki.
 
-Istnieje wiele możliwych sposobów na zaimplementowanie tej struktury danych. Jednym z nich jest tablica asocjacyjna oparta o funkcję skrótu. Założeniem tej implemntacji jest uzyskanie bardzo dobrych czasów dostępu do danych. Dodawanie nowych elementów do mapy także powinno być szybkie.
+Istnieje wiele możliwych sposobów na zaimplementowanie tej struktury danych. Jednym z nich jest tablica asocjacyjna oparta o funkcję skrótu. Założeniem tej implementacji jest uzyskanie bardzo dobrych czasów dostępu do danych. Dodawanie nowych elementów do mapy także powinno być szybkie.
 
 ### Czym jest funkcja skrótu
 
@@ -90,7 +90,7 @@ Zmienna `table` przechowuje instancje klasy `Entry<K, V>`, czyli pary klucz-wart
 
 ### Zastosowanie funkcji skrótu
 
-Funkcja skrótu pozwala na zmapowanie klucza na indeks w tablicy wspomnianej wyżej. Wartość zwrócona przez metodę `hashCode` (funkcję skrótu) musi zostać dopasowana do wielkości tablicy. Najprosztszym sposobem jest użycie reszty z dzielenia:
+Funkcja skrótu pozwala na zmapowanie klucza na indeks w tablicy wspomnianej wyżej. Wartość zwrócona przez metodę `hashCode` (funkcję skrótu) musi zostać dopasowana do wielkości tablicy. Najprostszym sposobem jest użycie reszty z dzielenia:
 
 ```java
 private int hash(K key) {
@@ -121,7 +121,7 @@ Podział na przedziały ma istotny wpływ na wydajność pracy na mapie.
 
 A co jeśli pod danym indeksem występuje już element? Co jeśli dodamy dwa różne klucze, których funkcja `hashCode` zwróci tę samą wartość? Jeśli klucze są równe (czyli `equals` potwierdza, że obiekty są sobie równe) wtedy należy nadpisać wartość. Jeśli jednak `hashCode` jest ten sam a `equals` mówi, że obiekty są różne mamy problem ;).
 
-Z tego właśnie powodu w tablicy nie trzymamy par. Trzymamy kolejcę par:
+Z tego właśnie powodu w tablicy nie trzymamy par. Trzymamy kolekcję par:
 
 ```java
 public class SimpleHashMap<K, V> {
@@ -136,7 +136,7 @@ Dlatego właśnie zmienna `table` jest tablicą [list wiązanych]({% post_url 20
 
 ### Lepsza wydajność dostępu do danych
 
-Jednak nawet takie zachowanie nie rozwiązuje problemu. Pamiętasz domyślną wielkość tablicy? W przykładzie powyżej było to 4. Oznaza to tyle, że wszystkie możliwe wartości `hashCode` podzielone są na 4 przedziały. Jeśli w naszej mapie będzie odpowiednio dużo elementów znacząco wydłuży to czas pobierania elementu po kluczu. Poniższy rysunek pokazuje sytuację, w której aż 8 par trafiło do pierwszego przedziału.
+Jednak nawet takie zachowanie nie rozwiązuje problemu. Pamiętasz domyślną wielkość tablicy? W przykładzie powyżej było to 4. Oznacza to tyle, że wszystkie możliwe wartości `hashCode` podzielone są na 4 przedziały. Jeśli w naszej mapie będzie odpowiednio dużo elementów znacząco wydłuży to czas pobierania elementu po kluczu. Poniższy rysunek pokazuje sytuację, w której aż 8 par trafiło do pierwszego przedziału.
 
 {% include figure image_path="/assets/images/2018/01/08_duzo_par_w_jednym_przedziale.jpg" caption="Zbyt dużo par w jednym przedziale" %}
 
@@ -153,7 +153,7 @@ public class SimpleHashMap<K, V> {
     private int size;
     private int threshold;
 
-    private List<Entry<K, V>>[] table;<Paste>
+    private List<Entry<K, V>>[] table;
 
     public SimpleHashMap() {
         table = new List[INITIAL_CAPACITY];
@@ -166,7 +166,7 @@ Fragment kodu powyżej zakłada, że współczynnik wypełnienia ma wartość `0
 
 ### Powiększenie tablicy przechowującej pary
 
-Dobrym sposobem na powiększenie wielkości tablicy jest podwojenie jej rozmiaru. Zauważ, że w przypadku powiększenia wielkości tablicy należy od nowa przyporządkować poszczególne klucze do nowych indeksów w tablicy. Funkcja poniżej podwaja wielkość tablicy `table` i przepisuje pary w odpowienie miejsca w nowej tablicy:
+Dobrym sposobem na powiększenie wielkości tablicy jest podwojenie jej rozmiaru. Zauważ, że w przypadku powiększenia wielkości tablicy należy od nowa przyporządkować poszczególne klucze do nowych indeksów w tablicy. Funkcja poniżej podwaja wielkość tablicy `table` i przepisuje pary w odpowiednie miejsca w nowej tablicy:
 
 ```java
 private void resize() {
@@ -272,7 +272,7 @@ Złożoność obliczeniowa wygląda podobnie jak w przypadku dodawania pary do m
 
 ### Usuwanie wartości z mapy
 
-Usuwanie wartoścy wygląda podobnie do pobierania. W tym przypadku dodatkowo zmiejszana jest wartoś atrybutu `size` przechowującego liczbę par w mapie.
+Usuwanie wartości wygląda podobnie do pobierania. W tym przypadku dodatkowo zmniejszana jest wartość atrybutu `size` przechowującego liczbę par w mapie.
 
 ```java
 public V remove(K key) {
@@ -302,7 +302,7 @@ public V remove(K key) {
 ```
 Zwróć uwagę na to, że w przypadku usuwania elementów nie zmniejszam wielkości tablicy z parami - `table` zostaje bez zmian.
 
-Złożoność obliczeniowa nie różni się od operacji dodawania/pobierania elementów. W zależności od funkcji skrótu i rozłożenia elemetnów wynosi ona `Ο(n)` lub `Ο(1)`.
+Złożoność obliczeniowa nie różni się od operacji dodawania/pobierania elementów. W zależności od funkcji skrótu i rozłożenia elementów wynosi ona `Ο(n)` lub `Ο(1)`.
 
 ### Sprawdzanie rozmiaru mapy
 
@@ -327,7 +327,7 @@ Dla przypomnienia, kontrakt ten sprowadza się do trzech reguł:
 - Kilkukrotne wywołanie metody `hashCode` na tym samym obiekcie, który nie był modyfikowany pomiędzy wywołaniami musi zwrócić tę samą wartość,
 - Jeśli `X.hashCode() == Y.hashCode()` to nie jest wymagane aby `X.equals(Y) == true`.
 
-Wybraź sobie sytuację, w której mamy dwa obiekty. `X` i `Y`. Załóżmy, że obiekty te są sobie równe, czyli `X.equals(Y) == true`. W tej sytuacji metoda `hashCode` powinna zwrócić tę samą wartość dla obu obiektów. Implementacja jest jednak błedna: `X.hashCode() == 4` i `Y.hashCode() == 5`.
+Wyobraź sobie sytuację, w której mamy dwa obiekty. `X` i `Y`. Załóżmy, że obiekty te są sobie równe, czyli `X.equals(Y) == true`. W tej sytuacji metoda `hashCode` powinna zwrócić tę samą wartość dla obu obiektów. Implementacja jest jednak błędna: `X.hashCode() == 4` i `Y.hashCode() == 5`.
 
 Jeśli użyłbyś obiektów `X` i `Y` jako kluczy w mapie wówczas trafiłyby one do różnych przedziałów. Prowadziłoby to złamania założeń mapy. Pamiętaj, że w mapie wszystkie klucze powinny być unikalne. Błędna implementacja `hashCode` doprowadziłaby do złamania tej reguły.
 
@@ -341,7 +341,7 @@ Wewnątrz `HashMap` używa dedykowanej implementacji kolekcji. Nie jest to zwyk�
 
 Struktura ta pozwala na lepsze wyszukiwanie elementów. Dzięki temu pesymistyczna złożoność obliczeniowa spada z `Ο(n)` do `Ο(log(n))` dla operacji takich jak pobieranie, dodawanie czy usuwanie elementów[^worst].
 
-[^worst]: Delikanie pomijam tu pesymistyczną złożoność obliczeniową dla drzewa.
+[^worst]: Delikatnie pomijam tu pesymistyczną złożoność obliczeniową dla drzewa.
 
 {% include figure image_path="/assets/images/2018/01/08_drzewo_w_hashmap.jpg" caption="`HashMap` z drzewem jako kolekcją do przechowywania par" %}
 
@@ -373,7 +373,7 @@ Jeśli w programie potrzebujesz przechować strukturę podobną do słownika to 
 
 ### Czy mapa może mieć klucz/wartość `null`
 
-To zależy od implementacji. Interfejs [`Map`](https://docs.oracle.com/javase/9/docs/api/java/util/Map.html) daje taką możliwość. `HashMap` czy moja implemenatcja pozwalają przechowywać zarówno klucze i wartości `null`. Oczywiście tylko jeden klucz może mieć wartość `null`.
+To zależy od implementacji. Interfejs [`Map`](https://docs.oracle.com/javase/9/docs/api/java/util/Map.html) daje taką możliwość. `HashMap` czy moja implementacja pozwalają przechowywać zarówno klucze i wartości `null`. Oczywiście tylko jeden klucz może mieć wartość `null`.
 
 ## Dodatkowe materiały do nauki
 
@@ -395,6 +395,6 @@ Kod źródłowy klasy [`SimpleHashMap`](https://github.com/SamouczekProgramisty/
 
 ## Podsumowanie
 
-Poznałeś właśnie zasadę działania mapy. Z praktycznej strony poznałeś kontrakt pomiędzy metodami `equals` i `hashCode`. Zapoznałeś się z przykładową implementacją mapy. Po rozwiązaniu zadań utrwaliłeś wiedzę z tego zakresu. Powiem Ci w tajemnicy, że o tym jak działa `HashMap` często pyta się na rozmowach rekrutacyjnych ;). Jesteś zatem o jedno ptanie bliżej otrzymania pracy ;).
+Poznałeś właśnie zasadę działania mapy. Z praktycznej strony poznałeś kontrakt pomiędzy metodami `equals` i `hashCode`. Zapoznałeś się z przykładową implementacją mapy. Po rozwiązaniu zadań utrwaliłeś wiedzę z tego zakresu. Powiem Ci w tajemnicy, że o tym jak działa `HashMap` często pyta się na rozmowach rekrutacyjnych ;). Jesteś zatem o jedno pytanie bliżej otrzymania pracy ;).
 
 Jeśli masz jakiekolwiek pytania czy uwagi proszę daj znać w komentarzu, postaram się pomóc. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Proszę Cię też o podzielenie się linkiem ze znajomymi, może im także przyda się wiedza zgromadzona w tym artykule.
