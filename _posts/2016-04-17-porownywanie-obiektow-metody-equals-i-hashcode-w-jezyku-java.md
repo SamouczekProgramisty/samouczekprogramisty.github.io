@@ -213,7 +213,7 @@ W większości przypadków użycie metody [`Objects.hash`](https://docs.oracle.c
 Metody `hashCode` i `equals` są ze sobą powiązane i ich implementacja powinna być spójna. Tą zależność określa się kontraktem między metodami `hashCode` i `equals`.
 
 - Jeśli `X.equals(Y) == true` wówczas wymagane jest aby `X.hashCode() == Y.hashCode()`,
-- Kilkukrotne wywołanie metody `hashCode` na tym samym obiekcie, który nie był modyfikowany pomiędzy wywołaniami musi zwrócić tą samą wartość,
+- Kilkukrotne wywołanie metody `hashCode` na tym samym obiekcie, który nie był modyfikowany pomiędzy wywołaniami musi zwrócić tę samą wartość,
 - Jeśli `X.hashCode() == Y.hashCode()` to nie jest wymagane aby `X.equals(Y) == true`.
 
 Trzeci przypadek jest ilustrowany na obrazku powyżej gdzie koła i trójkąt mają ten sam `hashCode` jednak koło i trójkąt nie są równe.
