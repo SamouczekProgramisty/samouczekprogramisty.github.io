@@ -1,0 +1,1056 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Struktury danych - tablica asocjacyjna - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację tablicy asocjacyjnej. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Na przykładzie zobaczysz dlaczego dobra funkcja skrótu jest bardzo istotna w przypadku tablicy asocjacyjnej. W przystępny sposób opiszę optymalizacje wprowadzone w implementacji tej struktury w języku Java. Zadania do rozwiązania pomogą Ci utrwalić zdobytą wiedzę.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Struktury danych - tablica asocjacyjna">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację tablicy asocjacyjnej. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Na przykładzie zobaczysz dlaczego dobra funkcja skrótu jest bardzo istotna w przypadku tablicy asocjacyjnej. W przystępny sposób opiszę optymalizacje wprowadzone w implementacji tej struktury w języku Java. Zadania do rozwiązania pomogą Ci utrwalić zdobytą wiedzę.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-01-08T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Struktury danych - tablica asocjacyjna
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację tablicy asocjacyjnej. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Na przykładzie zobaczysz dlaczego dobra funkcja skrótu jest bardzo istotna w przypadku tablicy asocjacyjnej. W przystępny sposób opiszę optymalizacje wprowadzone w implementacji tej struktury w języku Java. Zadania do rozwiązania pomogą Ci utrwalić zdobytą wiedzę.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/horiavarlan/4332381194/sizes/l">© horiavarlan</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Struktury danych - tablica asocjacyjna</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Struktury danych - tablica asocjacyjna">
+    <meta itemprop="description" content="W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację tablicy asocjacyjnej. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Na przykładzie zobaczysz dlaczego dobra funkcja skrótu jest bardzo istotna w przypadku tablicy asocjacyjnej. W przystępny sposób opiszę optymalizacje wprowadzone w implementacji tej struktury w języku Java. Zadania do rozwiązania pomogą Ci utrwalić zdobytą wiedzę.">
+    <meta itemprop="datePublished" content="January 08, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#czym-jest-tablica-asocjacyjna">Czym jest tablica asocjacyjna</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#czym-jest-funkcja-skrótu">Czym jest funkcja skrótu</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#jak-działa-hashmap">Jak działa HashMap</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#zastosowanie-funkcji-skrótu">Zastosowanie funkcji skrótu</a></li>
+<li class="toc-entry toc-h3"><a href="#powtarzające-się-indeksy">Powtarzające się indeksy</a></li>
+<li class="toc-entry toc-h3"><a href="#lepsza-wydajność-dostępu-do-danych">Lepsza wydajność dostępu do danych</a></li>
+<li class="toc-entry toc-h3"><a href="#powiększenie-tablicy-przechowującej-pary">Powiększenie tablicy przechowującej pary</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#standardowe-operacje">Standardowe operacje</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#dodanie-pary-do-mapy">Dodanie pary do mapy</a></li>
+<li class="toc-entry toc-h3"><a href="#pobieranie-wartości-z-mapy">Pobieranie wartości z mapy</a></li>
+<li class="toc-entry toc-h3"><a href="#usuwanie-wartości-z-mapy">Usuwanie wartości z mapy</a></li>
+<li class="toc-entry toc-h3"><a href="#sprawdzanie-rozmiaru-mapy">Sprawdzanie rozmiaru mapy</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#kontrakt-hashcode-i-equals">Kontrakt hashCode i equals</a></li>
+<li class="toc-entry toc-h2"><a href="#jak-działa-hashmap-1">Jak działa HashMap</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#dedykowana-implementacja-kolekcji">Dedykowana implementacja kolekcji</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#porównanie-złożoności-obliczeniowych">Porównanie złożoności obliczeniowych</a></li>
+<li class="toc-entry toc-h2"><a href="#najczęściej-zadawane-pytania">Najczęściej zadawane pytania</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#czy-mogę-modyfikować-klucze">Czy mogę modyfikować klucze</a></li>
+<li class="toc-entry toc-h3"><a href="#czy-pary-w-mapie-są-posortowane">Czy pary w mapie są posortowane</a></li>
+<li class="toc-entry toc-h3"><a href="#kiedy-używać-mapy">Kiedy używać mapy</a></li>
+<li class="toc-entry toc-h3"><a href="#czy-mapa-może-mieć-kluczwartość-null">Czy mapa może mieć klucz/wartość null</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#zadania-do-wykonania">Zadania do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        
+<div class="notice--info">
+  
+<p>Artykuł ten opisuje strukturę danych określaną jako tablica asocjacyjna. Tę strukturę nazywa się też słownikiem czy mapą. Sama struktura występuje w wielu językach programowania. Zasada działania tej struktury jest niezależnie od języka programowania.</p>
+
+<p>Przykładową implementację przygotowałem w Javie. Aby wynieść jak najwięcej z tego artykułu powinieneś wiedzieć czym są metody <code class="highlighter-rouge">hashCode</code> i <code class="highlighter-rouge">equals</code>. Powinieneś też znać <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/">kontrakt pomiędzy metodami <code class="highlighter-rouge">equals</code> i <code class="highlighter-rouge">hashCode</code></a>.</p>
+
+<p>Do zrozumienia przykładowej implementacji niezbędna będzie też wiedza o <a href="/typy-generyczne-w-jezyku-java/">typach generycznych</a>.</p>
+
+<p>Może przydać się też wiedza na temat <a href="/podstawy-zlozonosci-obliczeniowej/">szacowania złożoności obliczeniowej</a>.</p>
+
+</div>
+
+<h2 id="czym-jest-tablica-asocjacyjna">Czym jest tablica asocjacyjna</h2>
+
+<p>Tablica asocjacyjna to struktura, która pozwala na przechowywanie par. Każda para zawiera klucz i wartość. Dzięki kluczowi jesteś w stanie w prosty sposób znaleźć wartość skojarzoną z danym kluczem. Klucz jest unikalny w ramach całej tablicy asocjacyjnej.</p>
+
+<p>Przykładem tablicy asocjacyjnej może być zwykły słownik wyrazów obcych. Na przykład słownik polsko-angielski. Kluczami w tym przypadku są słowa po polsku, wartościami ich angielskie odpowiedniki.</p>
+
+<p>Istnieje wiele możliwych sposobów na zaimplementowanie tej struktury danych. Jednym z nich jest tablica asocjacyjna oparta o funkcję skrótu. Założeniem tej implementacji jest uzyskanie bardzo dobrych czasów dostępu do danych. Dodawanie nowych elementów do mapy także powinno być szybkie.</p>
+
+<h3 id="czym-jest-funkcja-skrótu">Czym jest funkcja skrótu</h3>
+
+<p>Funkcja skrótu to funkcja, która z wartości może wyprodukować klucz. Klucz ten jest zawsze ten sam dla danej wartości. Przykładem funkcji skrótu w języku Java jest funkcja <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/"><code class="highlighter-rouge">hashCode</code></a>.</p>
+
+<p>Funkcja ta zwyczaj zwraca liczbę typu <code class="highlighter-rouge">int</code>. Jest ona bardzo ważna dla wydajnego działania tej implementacji mapy. Powinna ona zwracać wartości, które są dobrze rozdystrybuowane. Innymi słowy, funkcja skrótu, która zawsze zwraca wartość 1 nie jest najlepszym pomysłem. Zwracane wartości powinny być równomiernie rozrzucone po wszystkich liczbach. W dalszej części artykułu przeczytasz o tym dlaczego jest to ważne.</p>
+
+<p>Wspomniałem już wyżej, że tablicę asocjacyjną nazywa się także słownikiem czy mapą. Od teraz będę posługiwał się określeniem mapa.</p>
+
+<h2 id="jak-działa-hashmap">Jak działa <code class="highlighter-rouge">HashMap</code></h2>
+
+<p class="notice--info">Fragmenty kodu, które prezentuję poniżej pochodzą z uproszczonej implementacji mapy. Nie zmieniają one zasady działania tej implementacji. Te uproszczenia mają pomóc Ci zrozumieć sposób działania tej struktury danych.</p>
+
+<p>Mapa to zestaw par, par kluczy i wartości. Do reprezentacji takiej pary potrzebna jest osobna klasa. Może ona wyglądać następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">K</span> <span class="n">key</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">V</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="n">Entry</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Sama klasa mapy powinna przechowywać te pary. Dobrym sposobem może być użycie tablicy:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;[]</span> <span class="n">table</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Tylko jak duża powinna być ta tablica? Ile elementów chcemy przechowywać w mapie? Uniwersalna implementacja nie może tego założyć. Zakłada więc rozsądne wartości domyślne:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;[]</span> <span class="n">table</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SimpleHashMap</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">[</span><span class="n">INITIAL_CAPACITY</span><span class="o">];</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/08_tablica_z_dwiema_parami.jpg" alt="" />
+  
+    <figcaption>Tablica z dwiema parami
+</figcaption>
+  
+</figure>
+
+<p>Co jeśli chcemy wrzucić do mapy więcej niż 4 wartości? Implementacja ta zakłada, że tablica ta zostanie rozszerzona. Jak? Opiszę to niżej. Teraz proszę skup się na zmiennej <code class="highlighter-rouge">table</code>.</p>
+
+<p>Zmienna <code class="highlighter-rouge">table</code> przechowuje instancje klasy <code class="highlighter-rouge">Entry&lt;K, V&gt;</code>, czyli pary klucz-wartość. Aby ta struktura pozwalała na szybkie wstawianie/dostęp do elementów musi być prosty sposób na zmapowanie klucza na indeks w tej tablicy. Dochodzimy tu do zastosowania funkcji skrótu.</p>
+
+<h3 id="zastosowanie-funkcji-skrótu">Zastosowanie funkcji skrótu</h3>
+
+<p>Funkcja skrótu pozwala na zmapowanie klucza na indeks w tablicy wspomnianej wyżej. Wartość zwrócona przez metodę <code class="highlighter-rouge">hashCode</code> (funkcję skrótu) musi zostać dopasowana do wielkości tablicy. Najprostszym sposobem jest użycie reszty z dzielenia:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kt">int</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">%</span> <span class="n">table</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">hash</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="n">hash</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">hash</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Zakładając, że nasza tablica ma wielkość 4 mapowanie wartości <code class="highlighter-rouge">hashCode</code> na indeks tablicy wygląda następująco:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Wartość <code class="highlighter-rouge">hashCode</code></th>
+      <th style="text-align: center">Indeks w tablicy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">3</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">6</td>
+      <td style="text-align: center">2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">-4</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">-5</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">17</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Funkcja skrótu dzieli całą możliwy zakres liczb na przedziały. Przedziały te nazywa się wiadrami (ang. <em>bucket</em>). Dzięki temu, aby znaleźć interesujący nas element na podstawie klucza, musimy przejrzeć tylko jeden przedział.</p>
+
+<p>Podział na przedziały ma istotny wpływ na wydajność pracy na mapie.</p>
+
+<h3 id="powtarzające-się-indeksy">Powtarzające się indeksy</h3>
+
+<p>A co jeśli pod danym indeksem występuje już element? Co jeśli dodamy dwa różne klucze, których funkcja <code class="highlighter-rouge">hashCode</code> zwróci tę samą wartość? Jeśli klucze są równe (czyli <code class="highlighter-rouge">equals</code> potwierdza, że obiekty są sobie równe) wtedy należy nadpisać wartość. Jeśli jednak <code class="highlighter-rouge">hashCode</code> jest ten sam a <code class="highlighter-rouge">equals</code> mówi, że obiekty są różne mamy problem ;).</p>
+
+<p>Z tego właśnie powodu w tablicy nie trzymamy par. Trzymamy kolekcję par:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;[]</span> <span class="n">table</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Dlatego właśnie zmienna <code class="highlighter-rouge">table</code> jest tablicą <a href="/struktury-danych-lista-wiazana/">list wiązanych</a> zawierających pary elementów.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/08_tablica_z_trzema_parami.jpg" alt="" />
+  
+    <figcaption>Tablica z trzema parami
+</figcaption>
+  
+</figure>
+
+<h3 id="lepsza-wydajność-dostępu-do-danych">Lepsza wydajność dostępu do danych</h3>
+
+<p>Jednak nawet takie zachowanie nie rozwiązuje problemu. Pamiętasz domyślną wielkość tablicy? W przykładzie powyżej było to 4. Oznacza to tyle, że wszystkie możliwe wartości <code class="highlighter-rouge">hashCode</code> podzielone są na 4 przedziały. Jeśli w naszej mapie będzie odpowiednio dużo elementów znacząco wydłuży to czas pobierania elementu po kluczu. Poniższy rysunek pokazuje sytuację, w której aż 8 par trafiło do pierwszego przedziału.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/08_duzo_par_w_jednym_przedziale.jpg" alt="" />
+  
+    <figcaption>Zbyt dużo par w jednym przedziale
+</figcaption>
+  
+</figure>
+
+<p>Przy takim rozłożeniu par może wystąpić sytuacja, w której będziemy musieli przejrzeć wszystkie aby znaleźć właściwą.</p>
+
+<p>Dlatego właśnie tablica ta jest automatycznie rozszerzana. Powstaje kolejne pytanie. Kiedy należy taką tablicę powiększyć? Tutaj też wprowadza się pewne wartości domyślne. Możemy powiedzieć o czymś co nazywa się współczynnikiem wypełnienia (ang. <em>load factor</em>). Jeśli nasza tablica jest wypełniona w dość dużym stopniu i liczba elementów przechowywanych w mapie przekroczy pewien próg należy rozszerzyć naszą tablicę.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">LOAD_FACTOR</span> <span class="o">=</span> <span class="mf">0.75</span><span class="n">F</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">threshold</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;[]</span> <span class="n">table</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SimpleHashMap</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">List</span><span class="o">[</span><span class="n">INITIAL_CAPACITY</span><span class="o">];</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(</span><span class="n">INITIAL_CAPACITY</span> <span class="o">*</span> <span class="n">LOAD_FACTOR</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Fragment kodu powyżej zakłada, że współczynnik wypełnienia ma wartość <code class="highlighter-rouge">0.75</code>. Zatem próg, po którym tablica przechowująca pary zostanie rozszerzona wynosi <code class="highlighter-rouge">0.75 * 4 == 3</code>. Innymi słowy, jeśli włożymy do mapy 3 pary, to pierwotna tablica o wielkości 4 zostanie powiększona.</p>
+
+<h3 id="powiększenie-tablicy-przechowującej-pary">Powiększenie tablicy przechowującej pary</h3>
+
+<p>Dobrym sposobem na powiększenie wielkości tablicy jest podwojenie jej rozmiaru. Zauważ, że w przypadku powiększenia wielkości tablicy należy od nowa przyporządkować poszczególne klucze do nowych indeksów w tablicy. Funkcja poniżej podwaja wielkość tablicy <code class="highlighter-rouge">table</code> i przepisuje pary w odpowiednie miejsca w nowej tablicy:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">resize</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;[]</span> <span class="n">oldTable</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">List</span><span class="o">[</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">*</span> <span class="mi">2</span><span class="o">];</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">*</span> <span class="n">LOAD_FACTOR</span><span class="o">);</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">:</span> <span class="n">oldTable</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">bucket</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">continue</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">bucket</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+            <span class="o">}</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">newBucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">];</span>
+            <span class="n">newBucket</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">entry</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Ilustracja poniżej pokazuje jak po takiej operacji para <code class="highlighter-rouge">K: 12, V: "X"</code> znalazła się pod zupełnie innym indeksem. Dzieje się tak ponieważ funkcja <code class="highlighter-rouge">hash</code> bierze pod uwagę nową wielkość tablicy. W sytuacji gdy tablica miała rozmiar 4 wówczas <code class="highlighter-rouge">12 % 4 == 3</code>. Po rozszerzeniu ta sama wartość klucza ląduje w innym miejscu w tabeli: <code class="highlighter-rouge">12 % 8 == 4</code>.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/08_tablica_po_powiekszeniu.jpg" alt="" />
+  
+    <figcaption>Powiększenie tablicy
+</figcaption>
+  
+</figure>
+
+<h2 id="standardowe-operacje">Standardowe operacje</h2>
+
+<p>Standardowymi operacjami dostępnymi w mapie są:</p>
+<ul>
+  <li>dodanie pary klucz, wartość,</li>
+  <li>pobranie wartości na podstawie klucze,</li>
+  <li>usunięcie pary klucz, wartość,</li>
+  <li>sprawdzenie czy dany klucz istnieje,</li>
+  <li>pobranie rozmiaru mapy.</li>
+</ul>
+
+<p>Po wprowadzeniu powyżej mogę pokazać Ci przykładową implementację tych operacji.</p>
+
+<h3 id="dodanie-pary-do-mapy">Dodanie pary do mapy</h3>
+
+<p>Dodanie pary do mapy może skutkować utworzeniem nowej pary lub nadpisaniem istniejącej już wartości. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">V</span> <span class="nf">put</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+    <span class="o">}</span>
+    <span class="n">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="n">keyExist</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">];</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">bucket</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">keysEqual</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">entry</span><span class="o">.</span><span class="na">key</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">oldValue</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+            <span class="n">entry</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+            <span class="n">keyExist</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(!</span><span class="n">keyExist</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">bucket</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Entry</span><span class="o">&lt;&gt;(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">));</span>
+        <span class="n">size</span><span class="o">++;</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">size</span> <span class="o">==</span> <span class="n">threshold</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">resize</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">oldValue</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Funkcja ta pobiera wiadro do którego dana para powinna zostać dodana. Następnie iteruje po wszystkich elementach w tym wiadrze, aby sprawdzić czy dany klucz już istnieje. Jeśli klucz istnieje wartość zostaje nadpisana. W przeciwnym wypadku na koniec przedziału zostaje dodana nowa para klucz/wartość.</p>
+
+<p>Teraz widzisz dlaczego porządna funkcja skrótu jest istotna. Jeśli do jednego przedziału trafia dużo elementów to złożoność obliczeniowa takiej operacji wynosi <code class="highlighter-rouge">Ο(n)</code>. Jeśli natomiast w danym przedziale nie ma innych par klucz wartość wówczas złożoność tej operacji wynosi <code class="highlighter-rouge">Ο(1)</code>.</p>
+
+<h3 id="pobieranie-wartości-z-mapy">Pobieranie wartości z mapy</h3>
+
+<p>Pobieranie elementów z mapy sprowadza się do sprawdzenia czy klucz występuje w tablicy. Funkcja skrótu służy do wskazania przedziału, w którym należy szukać instancji klucza. Przykładowa implementacja niżej pozwala na pobranie wartości z mapy:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">V</span> <span class="nf">get</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">];</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">bucket</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">bucket</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">keysEqual</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">entry</span><span class="o">.</span><span class="na">key</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">entry</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Złożoność obliczeniowa wygląda podobnie jak w przypadku dodawania pary do mapy. Jeśli pary są źle rozdystrybuowane, jeśli wszystkie są w jednym przedziale otrzymujemy złożoność <code class="highlighter-rouge">Ο(n)</code>. Jeśli natomiast w danym przedziale nie ma innych par klucz wartość wówczas złożoność tej operacji wynosi <code class="highlighter-rouge">Ο(1)</code>.</p>
+
+<h3 id="usuwanie-wartości-z-mapy">Usuwanie wartości z mapy</h3>
+
+<p>Usuwanie wartości wygląda podobnie do pobierania. W tym przypadku dodatkowo zmniejszana jest wartość atrybutu <code class="highlighter-rouge">size</code> przechowującego liczbę par w mapie.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">V</span> <span class="nf">remove</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">)];</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">bucket</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucketIterator</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+    <span class="n">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">bucketIterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">bucketIterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">keysEqual</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">entry</span><span class="o">.</span><span class="na">key</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">oldValue</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+            <span class="n">bucketIterator</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>
+            <span class="n">size</span><span class="o">--;</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">bucket</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">)]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">oldValue</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Zwróć uwagę na to, że w przypadku usuwania elementów nie zmniejszam wielkości tablicy z parami - <code class="highlighter-rouge">table</code> zostaje bez zmian.</p>
+
+<p>Złożoność obliczeniowa nie różni się od operacji dodawania/pobierania elementów. W zależności od funkcji skrótu i rozłożenia elementów wynosi ona <code class="highlighter-rouge">Ο(n)</code> lub <code class="highlighter-rouge">Ο(1)</code>.</p>
+
+<h3 id="sprawdzanie-rozmiaru-mapy">Sprawdzanie rozmiaru mapy</h3>
+
+<p>Wszystkie metody modyfikujące zawartość mapy manipulują także atrybutem <code class="highlighter-rouge">size</code>. Atrybut ten przechowuje aktualną liczbę elementów.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">size</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h2 id="kontrakt-hashcode-i-equals">Kontrakt <code class="highlighter-rouge">hashCode</code> i <code class="highlighter-rouge">equals</code></h2>
+
+<p>W artykule opisującym <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/">porównywanie obiektów</a> opisałem dokładnie kontrakt pomiędzy tymi metodami. Tutaj na przykładzie wyjaśnię Ci dlaczego jest on tak istotny.</p>
+
+<p>Dla przypomnienia, kontrakt ten sprowadza się do trzech reguł:</p>
+
+<ul>
+  <li>Jeśli <code class="highlighter-rouge">X.equals(Y) == true</code> wówczas wymagane jest aby <code class="highlighter-rouge">X.hashCode() == Y.hashCode()</code>,</li>
+  <li>Kilkukrotne wywołanie metody <code class="highlighter-rouge">hashCode</code> na tym samym obiekcie, który nie był modyfikowany pomiędzy wywołaniami musi zwrócić tę samą wartość,</li>
+  <li>Jeśli <code class="highlighter-rouge">X.hashCode() == Y.hashCode()</code> to nie jest wymagane aby <code class="highlighter-rouge">X.equals(Y) == true</code>.</li>
+</ul>
+
+<p>Wyobraź sobie sytuację, w której mamy dwa obiekty. <code class="highlighter-rouge">X</code> i <code class="highlighter-rouge">Y</code>. Załóżmy, że obiekty te są sobie równe, czyli <code class="highlighter-rouge">X.equals(Y) == true</code>. W tej sytuacji metoda <code class="highlighter-rouge">hashCode</code> powinna zwrócić tę samą wartość dla obu obiektów. Implementacja jest jednak błędna: <code class="highlighter-rouge">X.hashCode() == 4</code> i <code class="highlighter-rouge">Y.hashCode() == 5</code>.</p>
+
+<p>Jeśli użyłbyś obiektów <code class="highlighter-rouge">X</code> i <code class="highlighter-rouge">Y</code> jako kluczy w mapie wówczas trafiłyby one do różnych przedziałów. Prowadziłoby to złamania założeń mapy. Pamiętaj, że w mapie wszystkie klucze powinny być unikalne. Błędna implementacja <code class="highlighter-rouge">hashCode</code> doprowadziłaby do złamania tej reguły.</p>
+
+<h2 id="jak-działa-hashmap-1">Jak działa <code class="highlighter-rouge">HashMap</code></h2>
+
+<p>Oczywiście <code class="highlighter-rouge">HashMap</code> z biblioteki standardowej jest dużo lepszą implementacją niż ta przedstawiona w artykule ;). Poza tym, że jest lepiej przetestowana i posiada dużo więcej przydatnych metod to zawiera także sporo usprawnień, które polepszają jej wydajność.</p>
+
+<h3 id="dedykowana-implementacja-kolekcji">Dedykowana implementacja kolekcji</h3>
+
+<p>Wewnątrz <code class="highlighter-rouge">HashMap</code> używa dedykowanej implementacji kolekcji. Nie jest to zwykła lista <code class="highlighter-rouge">LinkedList</code> jak w mojej implementacji. Ta kolekcja zmienia swoje właściwości w zależności od liczby elementów znajdujących się w danym przedziale. Standardowo jest to <a href="/struktury-danych-lista-wiazana/">lista wiązana</a>. Jeśli jednak w danym przedziale znajduje się więcej niż 8 elementów wówczas zmienia się w strukturę zwaną drzewem.</p>
+
+<p>Struktura ta pozwala na lepsze wyszukiwanie elementów. Dzięki temu pesymistyczna złożoność obliczeniowa spada z <code class="highlighter-rouge">Ο(n)</code> do <code class="highlighter-rouge">Ο(log(n))</code> dla operacji takich jak pobieranie, dodawanie czy usuwanie elementów<sup id="fnref:worst"><a href="#fn:worst" class="footnote">1</a></sup>.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/01/08_drzewo_w_hashmap.jpg" alt="" />
+  
+    <figcaption><code class="highlighter-rouge">HashMap</code> z drzewem jako kolekcją do przechowywania par
+</figcaption>
+  
+</figure>
+
+<h2 id="porównanie-złożoności-obliczeniowych">Porównanie złożoności obliczeniowych</h2>
+
+<p>Poniższa tabela zawiera zestawienie złożoności obliczeniowych podstawowych operacji dla mapy:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operacja</th>
+      <th style="text-align: center">Mapa (dobra funkcja skrótu)</th>
+      <th style="text-align: center">Mapa (zła funkcja skrótu)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>dodawanie pary klucz/wartość</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+    </tr>
+    <tr>
+      <td>usuwanie wartości z klucza</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(n)</code> lub <code class="highlighter-rouge">Ο(log(n))</code></td>
+    </tr>
+    <tr>
+      <td>pobieranie wartości dla klucza</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(1)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">Ο(n)</code> lub <code class="highlighter-rouge">Ο(log(n))</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Oczywiście należy brać poprawkę na złożoność obliczeniową dodawania elementów do mapy. Należy pamiętać o tym, że niektóre operacje dodawania kończą się powiększeniem tablicy przechowującej pary. Wówczas złożoność obliczeniowa tej operacji spada do <code class="highlighter-rouge">Ο(n)</code>.</p>
+
+<h2 id="najczęściej-zadawane-pytania">Najczęściej zadawane pytania</h2>
+
+<h3 id="czy-mogę-modyfikować-klucze">Czy mogę modyfikować klucze</h3>
+
+<p>Krótka, zwięzła odpowiedź: nie. Klucze powinny być instancjami klas, które są niemutowalne. Załóżmy, że modyfikacja klucza zmieniłaby wartość zwracaną przez metodę <code class="highlighter-rouge">hashCode</code>. Zastanów się, co by się stało gdybyś zmodyfikował instancję klasy, która już jest użyta jako klucz?</p>
+
+<h3 id="czy-pary-w-mapie-są-posortowane">Czy pary w mapie są posortowane</h3>
+
+<p>Implementacja przedstawiona w tym artykule, czy <code class="highlighter-rouge">HashMap</code> nie przechowują elementów w żadnym porządku. Istnieją jednak implementacje, które pozwalają na przykład na przechowywanie elementów w porządku alfabetycznym kluczy (<a href="https://docs.oracle.com/javase/9/docs/api/java/util/TreeMap.html"><code class="highlighter-rouge">TreeMap</code></a>) czy według kolejności ich dodawania (<a href="https://docs.oracle.com/javase/9/docs/api/java/util/LinkedHashMap.html"><code class="highlighter-rouge">LinkedHashMap</code></a>).</p>
+
+<h3 id="kiedy-używać-mapy">Kiedy używać mapy</h3>
+
+<p>Jeśli w programie potrzebujesz przechować strukturę podobną do słownika to mapa jest właśnie tym typem, którego chcesz użyć. Mapy pozwalają na uniknięcie rozbudowanych bloków <code class="highlighter-rouge">switch</code>. Użycie ich w taki sposób moim zdaniem poprawia czytelność kodu.</p>
+
+<h3 id="czy-mapa-może-mieć-kluczwartość-null">Czy mapa może mieć klucz/wartość <code class="highlighter-rouge">null</code></h3>
+
+<p>To zależy od implementacji. Interfejs <a href="https://docs.oracle.com/javase/9/docs/api/java/util/Map.html"><code class="highlighter-rouge">Map</code></a> daje taką możliwość. <code class="highlighter-rouge">HashMap</code> czy moja implementacja pozwalają przechowywać zarówno klucze i wartości <code class="highlighter-rouge">null</code>. Oczywiście tylko jeden klucz może mieć wartość <code class="highlighter-rouge">null</code>.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do przeczytania materiałów, które zebrałem poniżej. Szczególnie polecam przejrzenie kodu źródłowego implementacji dostarczonej w SDK:</p>
+
+<ul>
+  <li><a href="https://pl.wikipedia.org/wiki/Tablica_asocjacyjna">Artykuł o tablicy asocjacyjnej na Wikipedii</a>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/blob/master/02_hash_map/src/main/java/pl/samouczekprogramisty/asd/map/SimpleHashMap.java">Kod źródłowy przykładów użytych w artykule</a>,</li>
+  <li><a href="http://hg.openjdk.java.net/jdk9/jdk9/jdk/file/tip/src/java.base/share/classes/java/util/HashMap.java">Implementacja HashMap z OpenJDK</a>.</li>
+</ul>
+
+<h2 id="zadania-do-wykonania">Zadania do wykonania</h2>
+
+<p>Dodaj do Klasy <code class="highlighter-rouge">SimpleHashMap</code> kilka metod występujących w interfejsie <a href="https://docs.oracle.com/javase/9/docs/api/java/util/Map.html"><code class="highlighter-rouge">Map</code></a>:</p>
+
+<ol>
+  <li>Dodaj metodę <a href="https://docs.oracle.com/javase/9/docs/api/java/util/Map.html#containsKey-java.lang.Object-"><code class="highlighter-rouge">containsKey</code></a>. Metoda powinna zwrócić <code class="highlighter-rouge">true</code> jeśli dany klucz istnieje w mapie.</li>
+  <li>Dodaj metodę <a href="https://docs.oracle.com/javase/9/docs/api/java/util/Map.html#containsValue-java.lang.Object-"><code class="highlighter-rouge">containsValue</code></a>. Metoda powinna zwrócić <code class="highlighter-rouge">true</code> jeśli dany wartość istnieje w mapie.</li>
+  <li>Jaka jest złożoność obliczeniowa Twojej implementacji metod <code class="highlighter-rouge">containsKey</code> i <code class="highlighter-rouge">containsValue</code>?</li>
+</ol>
+
+<p>Kod źródłowy klasy <a href="https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/blob/master/02_hash_map/src/main/java/pl/samouczekprogramisty/asd/map/SimpleHashMap.java"><code class="highlighter-rouge">SimpleHashMap</code></a>. Pamiętaj o dodaniu <a href="/test-driven-development-na-przykladzie/">testów jednostkowych</a>, potwierdzających, że Twoja implementacja działa poprawnie.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Poznałeś właśnie zasadę działania mapy. Z praktycznej strony poznałeś kontrakt pomiędzy metodami <code class="highlighter-rouge">equals</code> i <code class="highlighter-rouge">hashCode</code>. Zapoznałeś się z przykładową implementacją mapy. Po rozwiązaniu zadań utrwaliłeś wiedzę z tego zakresu. Powiem Ci w tajemnicy, że o tym jak działa <code class="highlighter-rouge">HashMap</code> często pyta się na rozmowach rekrutacyjnych ;). Jesteś zatem o jedno pytanie bliżej otrzymania pracy ;).</p>
+
+<p>Jeśli masz jakiekolwiek pytania czy uwagi proszę daj znać w komentarzu, postaram się pomóc. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Proszę Cię też o podzielenie się linkiem ze znajomymi, może im także przyda się wiedza zgromadzona w tym artykule.</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:worst">
+      <p>Delikatnie pomijam tu pesymistyczną złożoność obliczeniową dla drzewa. <a href="#fnref:worst" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        <div class="mailerlite__form">
+            <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+        </div>
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#programista-rzemie%C5%9Blnik" class="page__taxonomy-item" rel="tag">Programista rzemieślnik</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-01-08T00:00:00+01:00">January 08, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fstruktury-danych-tablica-asocjacyjna%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fstruktury-danych-tablica-asocjacyjna%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/struktury-danych-lista-wiazana/" class="pagination--pager" title="Struktury danych - lista wiązana
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/struktury-danych-lista-wiazana/" rel="permalink">Struktury danych - lista wiązana
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o liście wiązanej (ang. linked list). Pokażę Ci przykładową implementację takiej listy. Dowiesz się jaka jest złożoność obliczenio...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/08/09_kolekcje_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/kolekcje-w-jezyku-java/" rel="permalink">Kolekcje w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o kolekcjach w języku Java. Dowiesz się czym są kolekcje, kiedy można ich używać. Poznasz podstawowe kolekcje takie jak mapa, zbió...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/11/13_zlozonosc_obliczeniowa_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/" rel="permalink">Podstawy złożoności obliczeniowej
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  13 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/" rel="permalink">Walidacja obiektów w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguł...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
