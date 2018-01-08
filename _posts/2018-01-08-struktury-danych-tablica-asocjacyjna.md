@@ -1,7 +1,7 @@
 ---
 title: Struktury danych - tablica asocjacyjna
 categories:
-- Kurs aplikacji webowych
+- Programista rzemieślnik
 permalink: /struktury-danych-tablica-asocjacyjna/
 header:
     teaser: /assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg

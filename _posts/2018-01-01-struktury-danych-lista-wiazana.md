@@ -1,7 +1,7 @@
 ---
 title: Struktury danych - lista wiązana
 categories:
-- Kurs aplikacji webowych
+- Programista rzemieślnik
 permalink: /struktury-danych-lista-wiazana/
 header:
     teaser: /assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg
