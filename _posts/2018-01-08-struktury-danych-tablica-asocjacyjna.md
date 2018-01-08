@@ -4,8 +4,8 @@ categories:
 - Kurs aplikacji webowych
 permalink: /struktury-danych-tablica-asocjacyjna/
 header:
-    teaser: /assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg
-    overlay_image: /assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg
+    teaser: /assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg
+    overlay_image: /assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg
     caption: "[&copy; horiavarlan](https://www.flickr.com/photos/horiavarlan/4332381194/sizes/l)"
 excerpt: W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację tablicy asocjacyjnej. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Na przykładzie zobaczysz dlaczego dobra funkcja skrótu jest bardzo istotna w przypadku tablicy asocjacyjnej. W przystępny sposób opiszę optymalizacje wprowadzone w implementacji tej struktury w języku Java. Zadania do rozwiązania pomogą Ci utrwalić zdobytą wiedzę.
 ---
@@ -16,6 +16,8 @@ Artykuł ten opisuje strukturę danych określaną jako tablica asocjacyjna. Tę
 Przykładową implementację przygotowałem w Javie. Aby wynieść jak najwięcej z tego artykułu powinieneś wiedzieć czym są metody `hashCode` i `equals`. Powinieneś też znać [kontrakt pomiędzy metodami `equals` i `hashCode`]({% post_url 2016-04-17-porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java %}).
 
 Do zrozumienia przykładowej implementacji niezbędna będzie też wiedza o [typach generycznych]({% post_url 2016-03-26-typy-generyczne-w-jezyku-java %}).
+
+Może przydać się też wiedza na temat [szacowania złożoności obliczeniowej]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}).
 {% endcapture %}
 
 <div class="notice--info">
@@ -34,13 +36,13 @@ Istnieje wiele możliwych sposobów na zaimplementowanie tej struktury danych. J
 
 Funkcja skrótu to funkcja, która z wartości może wyprodukować klucz. Klucz ten jest zawsze ten sam dla danej wartości. Przykładem funkcji skrótu w języku Java jest funkcja [`hashCode`]({% post_url 2016-04-17-porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java %}).
 
-Funkcja ta zazwyczaj zwraca liczbę typu `int`. Jest ona bardzo ważna dla wydajnego działania tej implementacji mapy. Powinna ona zwracać wartości, które są dobrze rozdystrybuowane. Innymi słowy, funkcja skrótu, która zawsze zwraca wartość 1 nie jest najlepszym pomysłem. Zwracane wartości powinny być równomiernie rozrzucone po wszystkich liczbach. W dalszej części artykułu przeczytasz o tym dlaczego.
+Funkcja ta zwyczaj zwraca liczbę typu `int`. Jest ona bardzo ważna dla wydajnego działania tej implementacji mapy. Powinna ona zwracać wartości, które są dobrze rozdystrybuowane. Innymi słowy, funkcja skrótu, która zawsze zwraca wartość 1 nie jest najlepszym pomysłem. Zwracane wartości powinny być równomiernie rozrzucone po wszystkich liczbach. W dalszej części artykułu przeczytasz o tym dlaczego jest to ważne.
 
 Wspomniałem już wyżej, że tablicę asocjacyjną nazywa się także słownikiem czy mapą. Od teraz będę posługiwał się określeniem mapa.
 
 ## Jak działa `HashMap`
 
-Fragmenty kodu, które prezentuję poniżej pochodzą z uproszczonej implementacji mapy. Nie zmieniają one zasady działania tej implementacji. Te uproszczenia mają pomóc Ci zrozumieć sposób działania mapy.
+Fragmenty kodu, które prezentuję poniżej pochodzą z uproszczonej implementacji mapy. Nie zmieniają one zasady działania tej implementacji. Te uproszczenia mają pomóc Ci zrozumieć sposób działania tej struktury danych.
 {: .notice--info}
 
 Mapa to zestaw par, par kluczy i wartości. Do reprezentacji takiej pary potrzebna jest osobna klasa. Może ona wyglądać następująco:
@@ -80,7 +82,7 @@ public class SimpleHashMap<K, V> {
 }
 ```
 
-{% include figure image_path="/assets/images/2018/01/08_tablica_dwie_pary.jpg" caption="Tablica z dwoma parami" %}
+{% include figure image_path="/assets/images/2018/01/08_tablica_z_dwiema_parami.jpg" caption="Tablica z dwiema parami" %}
 
 Co jeśli chcemy wrzucić do mapy więcej niż 4 wartości? Implementacja ta zakłada, że tablica ta zostanie rozszerzona. Jak? Opiszę to niżej. Teraz proszę skup się na zmiennej `table`.
 
@@ -111,7 +113,9 @@ Zakładając, że nasza tablica ma wielkość 4 mapowanie wartości `hashCode` n
 | -5                 | 1                |
 | 17                 | 1                |
 
-Funkcja skrótu dzieli całą możliwy zakres liczb na przedziały. Przedziały te nazywa się wiadrami (ang. _bucket_). Dzięki temu aby znaleźć interesujący nas element na podstawie klucza musimy przejrzeć tylko jeden przedział.
+Funkcja skrótu dzieli całą możliwy zakres liczb na przedziały. Przedziały te nazywa się wiadrami (ang. _bucket_). Dzięki temu, aby znaleźć interesujący nas element na podstawie klucza, musimy przejrzeć tylko jeden przedział.
+
+Podział na przedziały ma istotny wpływ na wydajność pracy na mapie.
 
 ### Powtarzające się indeksy
 
@@ -126,7 +130,9 @@ public class SimpleHashMap<K, V> {
 }
 ```
 
-Dlatego właśnie zmienna `table` jest tablicą list zawierających pary elementów.
+Dlatego właśnie zmienna `table` jest tablicą [list wiązanych]({% post_url 2018-01-01-struktury-danych-lista-wiazana %}) zawierających pary elementów.
+
+{% include figure image_path="/assets/images/2018/01/08_tablica_z_trzema_parami.jpg" caption="Tablica z trzema parami" %}
 
 ### Lepsza wydajność dostępu do danych
 
@@ -156,7 +162,7 @@ public class SimpleHashMap<K, V> {
 }
 ```
 
-Fragment kodu powyżej zakłada, że współczynnik wypełnienia ma wartość `0.75`. Zatem próg po którym tablica przechowująca pary zostanie rozszerzona wynosi `0.75 * 4 = 3`. Innymi słowy, jeśli włożymy do mapy 3 pary, to pierwotna tablica o wielkości 4 zostanie powiększona.
+Fragment kodu powyżej zakłada, że współczynnik wypełnienia ma wartość `0.75`. Zatem próg, po którym tablica przechowująca pary zostanie rozszerzona wynosi `0.75 * 4 == 3`. Innymi słowy, jeśli włożymy do mapy 3 pary, to pierwotna tablica o wielkości 4 zostanie powiększona.
 
 ### Powiększenie tablicy przechowującej pary
 
@@ -327,15 +333,17 @@ Jeśli użyłbyś obiektów `X` i `Y` jako kluczy w mapie wówczas trafiłyby on
 
 ## Jak działa `HashMap`
 
-Oczywiście `HashMap` z biblioteki standardowej jest dużo lepszą implementacją niż ta przedstawiona w artykule ;). Poza tym, że jest lepiej przetestowana, posiada dużo więcej przydatnych metod to zawiera także sporo usprawnień, które polepszają jej wydajność.
+Oczywiście `HashMap` z biblioteki standardowej jest dużo lepszą implementacją niż ta przedstawiona w artykule ;). Poza tym, że jest lepiej przetestowana i posiada dużo więcej przydatnych metod to zawiera także sporo usprawnień, które polepszają jej wydajność.
 
 ### Dedykowana implementacja kolekcji
 
-Wewnątrz `HashMap` używa dedykowanej implementacji kolekcji. Nie jest to zwykła lista `LinkedList` jak w mojej implementacji. Ta kolekcja zmienia swoje właśiwości w zależności od liczby elementów znajdujących się w danym przedziale. Standardowo jest to [lista wiązana]({% post_url 2018-01-01-struktury-danych-lista-wiazana %}). Jednak jeśli w danym przedziale znajduje się więcej niż 8 elementów wówczas zmienia się strukturę zwaną drzewem.
+Wewnątrz `HashMap` używa dedykowanej implementacji kolekcji. Nie jest to zwykła lista `LinkedList` jak w mojej implementacji. Ta kolekcja zmienia swoje właściwości w zależności od liczby elementów znajdujących się w danym przedziale. Standardowo jest to [lista wiązana]({% post_url 2018-01-01-struktury-danych-lista-wiazana %}). Jeśli jednak w danym przedziale znajduje się więcej niż 8 elementów wówczas zmienia się w strukturę zwaną drzewem.
 
-Struktura ta pozwala na lepsze wyszukiwanie elementów. Dzięki temu pesymistyczna złożoność obliczeniowa spada z `Ο(n)` do `Ο(log(n))` dla operacji takich jak pobieranie, dodawanie czy usuwanie elementów.
+Struktura ta pozwala na lepsze wyszukiwanie elementów. Dzięki temu pesymistyczna złożoność obliczeniowa spada z `Ο(n)` do `Ο(log(n))` dla operacji takich jak pobieranie, dodawanie czy usuwanie elementów[^worst].
 
-{% include figure image_path="/assets/images/2018/01/08_drzewo_w_hash_map.jpg" caption="`HashMap` z drzewem jako kolekcją do przechowywania par." %}
+[^worst]: Delikanie pomijam tu pesymistyczną złożoność obliczeniową dla drzewa.
+
+{% include figure image_path="/assets/images/2018/01/08_drzewo_w_hashmap.jpg" caption="`HashMap` z drzewem jako kolekcją do przechowywania par" %}
 
 ## Porównanie złożoności obliczeniowych
 
@@ -363,6 +371,10 @@ Implementacja przedstawiona w tym artykule, czy `HashMap` nie przechowują eleme
 
 Jeśli w programie potrzebujesz przechować strukturę podobną do słownika to mapa jest właśnie tym typem, którego chcesz użyć. Mapy pozwalają na uniknięcie rozbudowanych bloków `switch`. Użycie ich w taki sposób moim zdaniem poprawia czytelność kodu.
 
+### Czy mapa może mieć klucz/wartość `null`
+
+To zależy od implementacji. Interfejs [`Map`](https://docs.oracle.com/javase/9/docs/api/java/util/Map.html) daje taką możliwość. `HashMap` czy moja implemenatcja pozwalają przechowywać zarówno klucze i wartości `null`. Oczywiście tylko jeden klucz może mieć wartość `null`.
+
 ## Dodatkowe materiały do nauki
 
 Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do przeczytania materiałów, które zebrałem poniżej. Szczególnie polecam przejrzenie kodu źródłowego implementacji dostarczonej w SDK:
@@ -383,6 +395,6 @@ Kod źródłowy klasy [`SimpleHashMap`](https://github.com/SamouczekProgramisty/
 
 ## Podsumowanie
 
-Poznałeś właśnie zasadę działania mapy. Z praktycznej strony poznałeś kontrakt pomiędzy metodami `equals` i `hashCode`. W praktyczny sposób zapoznałeś się z przykładową implementacją mapy. Po rozwiązaniu zadań utrwaliłeś wiedzę z tego zakresu. Powiem Ci w tajemnicy, że o tym jak działa `HashMap` często pyta się na rozmowach rekrutacyjnych ;). Jesteś zatem o jedno ptanie bliżej otrzymania pracy ;).
+Poznałeś właśnie zasadę działania mapy. Z praktycznej strony poznałeś kontrakt pomiędzy metodami `equals` i `hashCode`. Zapoznałeś się z przykładową implementacją mapy. Po rozwiązaniu zadań utrwaliłeś wiedzę z tego zakresu. Powiem Ci w tajemnicy, że o tym jak działa `HashMap` często pyta się na rozmowach rekrutacyjnych ;). Jesteś zatem o jedno ptanie bliżej otrzymania pracy ;).
 
 Jeśli masz jakiekolwiek pytania czy uwagi proszę daj znać w komentarzu, postaram się pomóc. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Proszę Cię też o podzielenie się linkiem ze znajomymi, może im także przyda się wiedza zgromadzona w tym artykule.
