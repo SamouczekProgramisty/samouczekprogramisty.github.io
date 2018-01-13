@@ -252,8 +252,11 @@
                 </header>
                 <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#czym-są-typy-generyczne">Czym są typy generyczne</a></li>
-<li class="toc-entry toc-h2"><a href="#porównanie-typów-generycznych-i-standardowych">Porównanie typów generycznych i standardowych</a></li>
-<li class="toc-entry toc-h2"><a href="#definicja-klasy-generycznej">Definicja klasy generycznej</a></li>
+<li class="toc-entry toc-h2"><a href="#porównanie-typów-generycznych-i-standardowych">Porównanie typów generycznych i standardowych</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#klasy-generyczne-i-parametryzowanie">Klasy generyczne i parametryzowanie</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#instancja-klasy-generycznej">Instancja klasy generycznej</a></li>
 <li class="toc-entry toc-h2"><a href="#zagnieżdżone-typy-generyczne">Zagnieżdżone typy generyczne</a></li>
 <li class="toc-entry toc-h2"><a href="#typy-generyczne-nie-rozwiązują-wszystkich-problemów">Typy generyczne nie rozwiązują wszystkich problemów</a></li>
@@ -283,8 +286,9 @@
 
 <h2 id="czym-są-typy-generyczne">Czym są typy generyczne</h2>
 
-<p>W uproszczeniu można powiedzieć, że typy generyczne są “szablonami”. Dzięki typom generycznym możemy uniknąć niepotrzebnego rzutowania. Ponadto przy ich pomocy kompilator jest w stanie sprawdzić poprawność typów na etapie kompilacji, oznacza to więcej błędów wykrytych w jej trakcie.&gt; I tu mała dygresja. Każdy błąd w kodzie kosztuje. Ktoś w końcu płaci za pracę testerów, programistów, administratorów. Im wcześniej wykryjemy błąd tym tańsze jest jego naprawienie. Poprawienie programu działającego na środowisku produkcyjnym może być bardzo drogie. Wykrywanie błędów w trakcie kompilacji, chociaż może być frustrujące dla programisty jest najtańszym rozwiązaniem :)
-Poza tym dzięki typom generycznym możemy konstruować bardziej złożone klasy, które możemy używać w wielu kontekstach, łatwiej będzie Ci to zrozumieć na przykładzie.</p>
+<p>W uproszczeniu można powiedzieć, że typy generyczne są “szablonami”. Dzięki typom generycznym możemy uniknąć niepotrzebnego rzutowania. Ponadto przy ich pomocy kompilator jest w stanie sprawdzić poprawność typów na etapie kompilacji, oznacza to więcej błędów wykrytych w jej trakcie<sup id="fnref:dygresja"><a href="#fn:dygresja" class="footnote">1</a></sup>.</p>
+
+<p>Poza tym dzięki typom generycznym możemy konstruować bardziej złożone klasy, które możemy używać w wielu kontekstach, łatwiej będzie Ci to zrozumieć na przykładzie.</p>
 <h2 id="porównanie-typów-generycznych-i-standardowych">Porównanie typów generycznych i standardowych</h2>
 
 <p>Znasz już zwykłe klasy i interfejsy, zostały one omówione we wcześniejszych artykułach. Klasy mają swoje atrybuty, których typy znasz pisząc program.</p>
@@ -325,27 +329,27 @@ Poza tym dzięki typom generycznym możemy konstruować bardziej złożone klasy
 
 <p>Oba przykłady są jak najbardziej poprawne jednak występuje w nich duplikacja. Te same elementy, konstrukcje powielane są wielokrotnie. Duplikacja w kodzie generalnie jest złą praktyką, należy jej unikać. Możemy zatem stworzyć kolejną klasę:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class FruitBox {
-    private Object fruit;
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FruitBox</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Object</span> <span class="n">fruit</span><span class="o">;</span>
 
-    public FruitBox(Object fruit) {
-        this.fruit = fruit;
-    }
+    <span class="kd">public</span> <span class="nf">FruitBox</span><span class="o">(</span><span class="n">Object</span> <span class="n">fruit</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">fruit</span> <span class="o">=</span> <span class="n">fruit</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    public Object getFruit() {
-        return fruit;
-    }
-}
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getFruit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">fruit</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 
-public class Main {
-    public static void main(String[] args) {
-        FruitBox fruitBox = new FruitBox(new Orange());
-        Orange fruit1 = (Orange) fruitBox.getFruit();
-    }
-}
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">FruitBox</span> <span class="n">fruitBox</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FruitBox</span><span class="o">(</span><span class="k">new</span> <span class="n">Orange</span><span class="o">());</span>
+        <span class="n">Orange</span> <span class="n">fruit1</span> <span class="o">=</span> <span class="o">(</span><span class="n">Orange</span><span class="o">)</span> <span class="n">fruitBox</span><span class="o">.</span><span class="na">getFruit</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
-<p>Z racji tego, że atrybut fruit jest typu Object możemy do niego przypisać zarówno instancję klasy <code class="highlighter-rouge">Orange</code> jak i <code class="highlighter-rouge">Apple</code>. Pojawia się jednak pewien problem. Mianowicie jeśli chcemy pobrać atrybut <code class="highlighter-rouge">fruit</code> i przypisać go do zmiennej odpowiedniego typu musimy rzutować. Tego typu konstrukcja może powodować błędy podczas wykonania programu i warto jej unikać. Z pomocą przychodzą typy generyczne. Proszę spójrz na przykład poniżej.</p>
+<p>Z racji tego, że atrybut <code class="highlighter-rouge">fruit</code> jest typu <code class="highlighter-rouge">Object</code> możemy do niego przypisać zarówno instancję klasy <code class="highlighter-rouge">Orange</code> jak i <code class="highlighter-rouge">Apple</code>. Pojawia się jednak pewien problem. Mianowicie jeśli chcemy pobrać atrybut <code class="highlighter-rouge">fruit</code> i przypisać go do zmiennej odpowiedniego typu musimy <a href="/konwersja-i-rzutowanie-w-jezyku-java/">rzutować</a>. Tego typu konstrukcja może powodować błędy podczas wykonania programu i warto jej unikać. Z pomocą przychodzą typy generyczne. Proszę spójrz na przykład poniżej.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BoxOnSteroids</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="n">T</span> <span class="n">fruit</span><span class="o">;</span>
@@ -371,13 +375,24 @@ public class Main {
 
 <p><code class="highlighter-rouge">public class BoxOnSteroids&lt;T&gt;</code> to nic innego jak pierwsza linijka definicji klasy. Nowa tutaj jest konstrukcja z nawiasami. Oznacza ona właśnie typ generyczny, który możemy parametryzować innym typem. Typ ten dostaje “tymczasową nazwę”, w tym przypadku <code class="highlighter-rouge">T</code>, której używamy dalej w ciele klasy.</p>
 
-<p>W trakcie tworzenia instancji obiektu <code class="highlighter-rouge">BoxOnSteroids</code> podajemy informację o typie, który chcielibyśmy wstawić w miejsce <code class="highlighter-rouge">T</code>. W naszym przykładzie są to klasy <code class="highlighter-rouge">Apple</code> lub <code class="highlighter-rouge">Orange</code>. Dzięki takiej konstrukcji kompilator dokładnie wie jakiego typu obiekt zostanie zwrócony przez metodę <code class="highlighter-rouge">getFruit</code> w związku z tym rzutowanie nie jest konieczne<sup id="fnref:rzutowanie"><a href="#fn:rzutowanie" class="footnote">1</a></sup>.</p>
+<p>W trakcie tworzenia instancji obiektu <code class="highlighter-rouge">BoxOnSteroids</code> podajemy informację o typie, który chcielibyśmy wstawić w miejsce <code class="highlighter-rouge">T</code>. W naszym przykładzie są to klasy <code class="highlighter-rouge">Apple</code> lub <code class="highlighter-rouge">Orange</code>. Dzięki takiej konstrukcji kompilator dokładnie wie jakiego typu obiekt zostanie zwrócony przez metodę <code class="highlighter-rouge">getFruit</code> w związku z tym rzutowanie nie jest konieczne<sup id="fnref:rzutowanie"><a href="#fn:rzutowanie" class="footnote">2</a></sup>.</p>
 
-<h2 id="definicja-klasy-generycznej">Definicja klasy generycznej</h2>
+<h3 id="klasy-generyczne-i-parametryzowanie">Klasy generyczne i parametryzowanie</h3>
 
-<p>Klasę generyczną definiujemy w następujący sposób</p>
+<p>Wspomniałem wcześniej, że klasy generyczne są szablonami dla nowych klas. W uproszczeniu można powiedzieć, że parametry klasy generycznej są elementami uzupełnianymi w szablonie.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Name</span><span class="o">&lt;</span><span class="n">T1</span><span class="o">,</span> <span class="n">T2</span><span class="o">,</span> <span class="o">...,</span> <span class="n">Tn</span><span class="o">&gt;</span> <span class="o">{</span>
+<p>Spróbuję opisać to bardziej obrazowo. Szablon to foremka do wycinania ciastek. Tej foremki możemy użyć do wycięcia wielu ciastek. Każde z nich możemy ozdobić w inny sposób. To w jaki sposób ciastko jest ozdobione jest parametrem tego szablonu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CookieCutter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">T</span> <span class="n">glaze</span><span class="o">;</span>
+<span class="o">}</span><span class="err">```</span>
+
+<span class="err">##</span> <span class="n">Definicja</span> <span class="n">klasy</span> <span class="n">generycznej</span>
+
+<span class="n">Klas</span><span class="err">ę</span> <span class="n">generyczn</span><span class="err">ą</span> <span class="n">definiujemy</span> <span class="n">w</span> <span class="n">nast</span><span class="err">ę</span><span class="n">puj</span><span class="err">ą</span><span class="n">cy</span> <span class="n">spos</span><span class="err">ó</span><span class="n">b</span>
+
+<span class="err">```</span><span class="n">java</span>
+<span class="kd">class</span> <span class="nc">Name</span><span class="o">&lt;</span><span class="n">T1</span><span class="o">,</span> <span class="n">T2</span><span class="o">,</span> <span class="o">...,</span> <span class="n">Tn</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="cm">/* body */</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -439,7 +454,7 @@ public class Main {
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BoxOnSteroids boxWithoutType = new BoxOnSteroids(new Apple());BoxOnSteroids boxWithApple = boxWithoutType;BoxOnSteroids boxWithOrange = boxWithoutType;Apple apple = boxWithApple.getFruit();Orange orange = boxWithOrange.getFruit(); // ClassCastException
 </code></pre></div></div>
 
-<p>W przykładzie tym tworzona jest instancja klasy generycznej <code class="highlighter-rouge">BoxOnSteroids</code> bez wyspecyfikowania klasy, która znajduje się “w środku”. Następnie tą instancję przypisujemy do zmiennych typu <code class="highlighter-rouge">BoxOnSteroids&lt;Apple&gt;</code> i <code class="highlighter-rouge">BoxOnSteroids&lt;Orange&gt;</code>. O ile w pierwszym przypadku typ owocu trzymanego w środku się zgadza to ostatnia linia nie jest poprawna – generuje błąd typu <code class="highlighter-rouge">ClassCastException</code>. Obiekt typu <code class="highlighter-rouge">Apple</code> jest rzutowany przez kompilator do typu <code class="highlighter-rouge">Orange</code><sup id="fnref:rzutowanie:1"><a href="#fn:rzutowanie" class="footnote">1</a></sup>.</p>
+<p>W przykładzie tym tworzona jest instancja klasy generycznej <code class="highlighter-rouge">BoxOnSteroids</code> bez wyspecyfikowania klasy, która znajduje się “w środku”. Następnie tą instancję przypisujemy do zmiennych typu <code class="highlighter-rouge">BoxOnSteroids&lt;Apple&gt;</code> i <code class="highlighter-rouge">BoxOnSteroids&lt;Orange&gt;</code>. O ile w pierwszym przypadku typ owocu trzymanego w środku się zgadza to ostatnia linia nie jest poprawna – generuje błąd typu <code class="highlighter-rouge">ClassCastException</code>. Obiekt typu <code class="highlighter-rouge">Apple</code> jest rzutowany przez kompilator do typu <code class="highlighter-rouge">Orange</code><sup id="fnref:rzutowanie:1"><a href="#fn:rzutowanie" class="footnote">2</a></sup>.</p>
 
 <h2 id="słowo-kluczowe-extends">Słowo kluczowe <code class="highlighter-rouge">extends</code></h2>
 
@@ -498,7 +513,7 @@ public class Main {
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Jak wiesz każda klasa w języku Java dziedziczy po klasie <code class="highlighter-rouge">Object</code> (bezpośrednio, bądź pośrednio). W naszym przykładzie bezpośrednio po klasie <code class="highlighter-rouge">Object</code> dziedziczą klasy <code class="highlighter-rouge">Rectangle</code>, <code class="highlighter-rouge">BoxForFigures&lt;Rectangle&gt;</code> i <code class="highlighter-rouge">BoxForFigures&lt;Square&gt;</code><sup id="fnref:plik_class"><a href="#fn:plik_class" class="footnote">2</a></sup>. Natomiast <code class="highlighter-rouge">Square</code> dziedziczy po <code class="highlighter-rouge">Rectangle</code>.</p>
+<p>Jak wiesz każda klasa w języku Java dziedziczy po klasie <code class="highlighter-rouge">Object</code> (bezpośrednio, bądź pośrednio). W naszym przykładzie bezpośrednio po klasie <code class="highlighter-rouge">Object</code> dziedziczą klasy <code class="highlighter-rouge">Rectangle</code>, <code class="highlighter-rouge">BoxForFigures&lt;Rectangle&gt;</code> i <code class="highlighter-rouge">BoxForFigures&lt;Square&gt;</code><sup id="fnref:plik_class"><a href="#fn:plik_class" class="footnote">3</a></sup>. Natomiast <code class="highlighter-rouge">Square</code> dziedziczy po <code class="highlighter-rouge">Rectangle</code>.</p>
 
 <figure class="">
   <img src="http://www.samouczekprogramisty.pl/assets/images/2016/03/23_dziedziczenie_typow_generycznych_2.jpg" alt="" />
@@ -613,11 +628,11 @@ public class Main {
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Zauważ, ze w niektórych miejscach nie ma potrzeby podawania typu generycznego. Samo <code class="highlighter-rouge">&lt;&gt;</code> wystarczy, kompilator jest w stanie wywnioskować jakiego typu może się tam spodziewać.Typy generyczne są skomplikowaneJeśli aktualnie masz mętlik w głowie nie przejmuj się.</p>
+<p>Zauważ, ze w niektórych miejscach nie ma potrzeby podawania typu generycznego. Samo <code class="highlighter-rouge">&lt;&gt;</code> wystarczy, kompilator jest w stanie wywnioskować jakiego typu może się tam spodziewać. Typy generyczne są skomplikowane. Jeśli aktualnie masz mętlik w głowie nie przejmuj się, przeczytaj artykuł jeszcze raz, przejrzyj przykłady. Zrozumienie przyjdzie z doświadczeniem.</p>
 
 <h2 id="typy-generyczne-są-skomplikowane">Typy generyczne są skomplikowane</h2>
 
-<p>Nie zostały one dodane do Javy od samego początku. W związku z tym, że twórcy chcieli zachować kompatybilność wstecz<sup id="fnref:compatibility"><a href="#fn:compatibility" class="footnote">3</a></sup> istnieje wiele kruczków, które nie są trywialne. Pominąłem w artykule np. “type erasure” czy generyczne metody, które nie są istotne na początku. Jeśli jesteś nimi zainteresowany odsyłam do materiałów dodatkowych.</p>
+<p>Nie zostały one dodane do Javy od samego początku. W związku z tym, że twórcy chcieli zachować kompatybilność wstecz<sup id="fnref:compatibility"><a href="#fn:compatibility" class="footnote">4</a></sup> istnieje wiele kruczków, które nie są trywialne. Pominąłem w artykule np. “type erasure” czy generyczne metody, które nie są istotne na początku. Jeśli jesteś nimi zainteresowany odsyłam do materiałów dodatkowych.</p>
 
 <h2 id="materiały-dodatkowe">Materiały dodatkowe</h2>
 
@@ -634,9 +649,12 @@ public class Main {
 
 <p>Nie jest to oczywiście kompletny artykuł dotyczący typów generycznych w Javie. Pominięte zostały aspekty wymazywania typów czy bardziej szczegółowe informacje dotyczące użycia ?. Jeśli któryś fragment jest dla Ciebie nie do końca zrozumiały daj znać, postaram się rozszerzyć artykuł o dodatkowe przykłady i opisy.</p>
 
-<p>Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz ominąć żadnego kolejnego artykułu polub nas na facebooku :) Do następnego razu!</p>
+<p>Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz ominąć żadnego kolejnego artykułu polub nas na Facebooku :) Do następnego razu!</p>
 <div class="footnotes">
   <ol>
+    <li id="fn:dygresja">
+      <p>Mała dygresja. Każdy błąd w kodzie kosztuje. Ktoś w końcu płaci za pracę testerów, programistów, administratorów. Im wcześniej wykryjemy błąd tym tańsze jest jego naprawienie. Poprawienie programu działającego na środowisku produkcyjnym może być bardzo drogie. Wykrywanie błędów w trakcie kompilacji, chociaż może być frustrujące dla programisty jest najtańszym rozwiązaniem :) <a href="#fnref:dygresja" class="reversefootnote">&#8617;</a></p>
+    </li>
     <li id="fn:rzutowanie">
       <p>Tu właśnie objawia się to automatyczne rzutowanie generowane przez kompilator <a href="#fnref:rzutowanie" class="reversefootnote">&#8617;</a> <a href="#fnref:rzutowanie:1" class="reversefootnote">&#8617;<sup>2</sup></a></p>
     </li>
@@ -838,14 +856,14 @@ public class Main {
       <div class="archive__item-teaser">
         <img src=
           
-            "http://www.samouczekprogramisty.pl/assets/images/2016/10/03_adnotacje_artykul.jpg"
+            "http://www.samouczekprogramisty.pl/assets/images/2015/12/16_interfejsy_w_jezyku_java_artykul.jpg"
           
           alt="">
       </div>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://www.samouczekprogramisty.pl/adnotacje-w-jezyku-java/" rel="permalink">Adnotacje w języku Java
+        <a href="http://www.samouczekprogramisty.pl/interfejsy-w-jezyku-java/" rel="permalink">Interfejsy w języku Java
 </a>
       
     </h2>
@@ -858,7 +876,7 @@ public class Main {
   8 minut(y)
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o adnotacjach w języku Java. Poznasz różne zastosowania dla adnotacji. Postaram się wymienić te najbardziej użyteczne, najczęściej...</p>
+    <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o interfejsach. Poznasz interfejs ze standardowej biblioteki Java. Dowiesz się czym różni się interfejs od jego implementacji. Przeczy...</p>
   </article>
 </div>
         
