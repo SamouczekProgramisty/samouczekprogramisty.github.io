@@ -124,7 +124,8 @@ Spróbuję opisać to bardziej obrazowo. Szablon to foremka do wycinania ciastek
 ```java
 public class CookieCutter<T> {
     private T glaze;
-}```
+}
+```
 
 ## Definicja klasy generycznej
 
