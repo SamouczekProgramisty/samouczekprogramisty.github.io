@@ -16,7 +16,10 @@ disqus_page_identifier: 273 http://www.samouczekprogramisty.pl/?p=273
 
 ## Czym są typy generyczne
 
-W uproszczeniu można powiedzieć, że typy generyczne są "szablonami". Dzięki typom generycznym możemy uniknąć niepotrzebnego rzutowania. Ponadto przy ich pomocy kompilator jest w stanie sprawdzić poprawność typów na etapie kompilacji, oznacza to więcej błędów wykrytych w jej trakcie.> I tu mała dygresja. Każdy błąd w kodzie kosztuje. Ktoś w końcu płaci za pracę testerów, programistów, administratorów. Im wcześniej wykryjemy błąd tym tańsze jest jego naprawienie. Poprawienie programu działającego na środowisku produkcyjnym może być bardzo drogie. Wykrywanie błędów w trakcie kompilacji, chociaż może być frustrujące dla programisty jest najtańszym rozwiązaniem :)
+W uproszczeniu można powiedzieć, że typy generyczne są "szablonami". Dzięki typom generycznym możemy uniknąć niepotrzebnego rzutowania. Ponadto przy ich pomocy kompilator jest w stanie sprawdzić poprawność typów na etapie kompilacji, oznacza to więcej błędów wykrytych w jej trakcie[^dygresja].
+
+[^dygresja]: Mała dygresja. Każdy błąd w kodzie kosztuje. Ktoś w końcu płaci za pracę testerów, programistów, administratorów. Im wcześniej wykryjemy błąd tym tańsze jest jego naprawienie. Poprawienie programu działającego na środowisku produkcyjnym może być bardzo drogie. Wykrywanie błędów w trakcie kompilacji, chociaż może być frustrujące dla programisty jest najtańszym rozwiązaniem :)
+
 Poza tym dzięki typom generycznym możemy konstruować bardziej złożone klasy, które możemy używać w wielu kontekstach, łatwiej będzie Ci to zrozumieć na przykładzie.
 ## Porównanie typów generycznych i standardowych
 
@@ -60,7 +63,7 @@ public class OrangeBox {
 
 Oba przykłady są jak najbardziej poprawne jednak występuje w nich duplikacja. Te same elementy, konstrukcje powielane są wielokrotnie. Duplikacja w kodzie generalnie jest złą praktyką, należy jej unikać. Możemy zatem stworzyć kolejną klasę:
 
-```
+```java
 public class FruitBox {
     private Object fruit;
 
@@ -81,7 +84,7 @@ public class Main {
 }
 ```
 
-Z racji tego, że atrybut fruit jest typu Object możemy do niego przypisać zarówno instancję klasy `Orange` jak i `Apple`. Pojawia się jednak pewien problem. Mianowicie jeśli chcemy pobrać atrybut `fruit` i przypisać go do zmiennej odpowiedniego typu musimy rzutować. Tego typu konstrukcja może powodować błędy podczas wykonania programu i warto jej unikać. Z pomocą przychodzą typy generyczne. Proszę spójrz na przykład poniżej.
+Z racji tego, że atrybut `fruit` jest typu `Object` możemy do niego przypisać zarówno instancję klasy `Orange` jak i `Apple`. Pojawia się jednak pewien problem. Mianowicie jeśli chcemy pobrać atrybut `fruit` i przypisać go do zmiennej odpowiedniego typu musimy [rzutować]({% post_url 2016-02-17-konwersja-i-rzutowanie-w-jezyku-java %}). Tego typu konstrukcja może powodować błędy podczas wykonania programu i warto jej unikać. Z pomocą przychodzą typy generyczne. Proszę spójrz na przykład poniżej.
 
 ```java
 public class BoxOnSteroids<T> {
@@ -111,6 +114,17 @@ public class Main {
 W trakcie tworzenia instancji obiektu `BoxOnSteroids` podajemy informację o typie, który chcielibyśmy wstawić w miejsce `T`. W naszym przykładzie są to klasy `Apple` lub `Orange`. Dzięki takiej konstrukcji kompilator dokładnie wie jakiego typu obiekt zostanie zwrócony przez metodę `getFruit` w związku z tym rzutowanie nie jest konieczne[^rzutowanie].
 
 [^rzutowanie]: W praktyce rzutowanie tam występuje jednak jest wykonywane automatycznie przez kompilator generujący bytecode.
+
+### Klasy generyczne i parametryzowanie
+                            
+Wspomniałem wcześniej, że klasy generyczne są szablonami dla nowych klas. W uproszczeniu można powiedzieć, że parametry klasy generycznej są elementami uzupełnianymi w szablonie. 
+
+Spróbuję opisać to bardziej obrazowo. Szablon to foremka do wycinania ciastek. Tej foremki możemy użyć do wycięcia wielu ciastek. Każde z nich możemy ozdobić w inny sposób. To w jaki sposób ciastko jest ozdobione jest parametrem tego szablonu:
+
+```java
+public class CookieCutter<T> {
+    private T glaze;
+}```
 
 ## Definicja klasy generycznej
 
@@ -356,7 +370,7 @@ private static void lowerBoundWildcard() {
 }
 ```
 
-Zauważ, ze w niektórych miejscach nie ma potrzeby podawania typu generycznego. Samo `<>` wystarczy, kompilator jest w stanie wywnioskować jakiego typu może się tam spodziewać.Typy generyczne są skomplikowaneJeśli aktualnie masz mętlik w głowie nie przejmuj się.
+Zauważ, ze w niektórych miejscach nie ma potrzeby podawania typu generycznego. Samo `<>` wystarczy, kompilator jest w stanie wywnioskować jakiego typu może się tam spodziewać. Typy generyczne są skomplikowane. Jeśli aktualnie masz mętlik w głowie nie przejmuj się, przeczytaj artykuł jeszcze raz, przejrzyj przykłady. Zrozumienie przyjdzie z doświadczeniem.
 
 ## Typy generyczne są skomplikowane
 
@@ -377,4 +391,4 @@ Wszystkie przykłady użyte w tym artykule dostępne są na githubie. Poniżej z
 
 Nie jest to oczywiście kompletny artykuł dotyczący typów generycznych w Javie. Pominięte zostały aspekty wymazywania typów czy bardziej szczegółowe informacje dotyczące użycia ?. Jeśli któryś fragment jest dla Ciebie nie do końca zrozumiały daj znać, postaram się rozszerzyć artykuł o dodatkowe przykłady i opisy.
 
-Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz ominąć żadnego kolejnego artykułu polub nas na facebooku :) Do następnego razu!
+Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz ominąć żadnego kolejnego artykułu polub nas na Facebooku :) Do następnego razu!
