@@ -10,6 +10,11 @@ header:
 excerpt: Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS. Ćwiczenie do wykonania pomoże Ci zweryfikować zdobytą wiedzę w praktyce.
 ---
 
+{% include kurs-web-java-notice.md %}
+
+
+Tematykę REST omówiłem dokładnie w [poprzednim artykule]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}). W tym pokażę przykładową implementację webservice'u używającego wyłącznie technologii opisanych w ramach specyfikacji JEE8.
+
 ## Aplikacje EE w IntelliJ Idea Community
 
 Niestety IntelliJ Community edition nie ma wsparcia dla łatwego uruchamiania kontenerów. Rozwiązaniem jest tu użycie innego IDE, albo wykupienie wersji płatnej. Jeśli zdecydujesz się na inne IDE polecam [Eclipse](https://www.eclipse.org/downloads/eclipse-packages/), wersję IntelliJ Idea Ultimate możesz pobrać ze strony [Jetbrains](https://www.jetbrains.com/idea/).

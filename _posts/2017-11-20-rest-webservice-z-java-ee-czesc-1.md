@@ -43,6 +43,12 @@ Wysłane zapytanie informuje także web service o preferowanej formie odpowiedzi
 
 Jest to tylko krótkie wprowadzenie, jeśli chcesz dowiedzieć się więcej na temat REST odsyłam Cię do materiałów dodatkowych.
 
+#### `PUT` czy `POST`?
+
+W tabeli wyżej wspomniałem o tym, że to zapytania typu `PUT` powinny tworzyć nową instancję a zapytania typu `POST` powinny ją edytować. Dla pełni informacji muszę Ci powiedzieć, że z tego co wiem, nie jest to nigdzie ustandaryzowane. 
+
+Spotkasz się zarówno z takim podejściem jak w tabeli wyżej jak i odwrotnym, w którym to zapytania typu `POST` służą do utworzenia nowej encji.
+
 ### Czym jest Java EE
 
 W jednym zdaniu. Java EE to platforma, która oparta jest na zbiorze specyfikacji. Technologie opisane w tych specyfikacjach są używane głównie do tworzenia aplikacji webowych.
@@ -71,7 +77,7 @@ Ważne jest, żebyś pobrał wersję TomEE PluME, lub TomEE+. Te wersje [wspiera
 
 ### `build.gradle`
 
-Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania aplikacji użyłem Gradle. Plik `build.gradle` wygląda następująco:
+Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania aplikacji użyłem [Gradle]({% post_url 2017-01-19-wstep-do-gradle %}). Plik `build.gradle` wygląda następująco:
 
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -103,7 +109,7 @@ Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania a
     
     war.dependsOn explodedWar
 
-Najbardziej istotnym fragmentem jest `providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'`[^jee7]. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. `providedCompile` mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na [classpath](%{% post_url 2017-03-08-java-z-linii-polecen %}) kontenera aplikacji.
+Najbardziej istotnym fragmentem jest `providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'`[^jee7]. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. `providedCompile` mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na [classpath]({% post_url 2017-03-08-java-z-linii-polecen %}) kontenera aplikacji.
 
 [^jee7]: W rzeczywistości mimo, że importuję tu API w wersji 2.1 serwer TomEE, którego używam (7.0.4) wspiera wersję 2.0.
 
@@ -145,7 +151,7 @@ Po przekopiowaniu pliku war uruchom serwer TomEE. Możesz to zrobić przy pomocy
 
     /home/mapi/opt/apache-tomee/bin/catalina.sh run
 
-[^windows]: Jeśli pracujesz na systemie Windows wówczas plik ten nazywa się `catalina.bat`.
+[^windows]: Jeśli pracujesz w systemie Windows wówczas plik ten nazywa się `catalina.bat`.
 
 Jeśli zrobiłeś wszystko zgodnie z powyższą instrukcją masz swój pierwszy działający web service. Gratulacje ;). Aby móc zobaczyć go w działaniu odwiedź stronę: `http://localhost:8080/rest/reservation`. Powinieneś zobaczyć napis `Oto Wszystkie rezerwacje :)`.
 
