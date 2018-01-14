@@ -4,9 +4,9 @@ categories:
 - Kurs aplikacji webowych
 permalink: /rest-web-service-z-java-ee-czesc-2/
 header:
-    teaser: /assets/images/2017/11/20_rest_web_service_artykul.jpg
-    overlay_image: /assets/images/2017/11/20_rest_web_service_artykul.jpg
-    caption: "[&copy; exfordy](https://www.flickr.com/photos/exfordy/2486394359/sizes/l)"
+    teaser: /assets/images/2018/01/16_rest_web_service_2_artykul.jpg
+    overlay_image: /assets/images/2018/01/16_rest_web_service_2_artykul.jpg
+    caption: "[&copy; frankhg](https://www.flickr.com/photos/frankhg/3800436379/sizes/l)"
 excerpt: Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS. Ćwiczenie do wykonania pomoże Ci zweryfikować zdobytą wiedzę w praktyce.
 ---
 
