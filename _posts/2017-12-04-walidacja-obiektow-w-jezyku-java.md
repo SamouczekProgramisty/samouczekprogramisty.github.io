@@ -390,6 +390,7 @@ Utwórz klasę grupującą te dane. Upewnij się, że są one poprawne używają
 - [Specyfikacja Bean Validation 2.0](https://jcp.org/aboutJava/communityprocess/final/jsr380/index.html),
 - [Artykuł na temat _Fail fast, fail often_](https://www.martinfowler.com/ieeeSoftware/failFast.pdf),
 - [Biblioteka rozszerzająca standardowy zestaw reguł](https://github.com/nomemory/java-bean-validation-extension#additional-supported-annotations),
+- [Fragment tutoriala dla Java EE 7 opisujący walidację](https://docs.oracle.com/javaee/7/tutorial/bean-validation001.htm),
 - [Strona projektu Hibernate Validator](http://hibernate.org/validator/),
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/04_bean_validation).
 
