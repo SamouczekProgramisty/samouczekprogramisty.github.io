@@ -1,4 +1,399 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-01-13T10:59:55+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Struktury danych - tablica asocjacyjna</title><link href="http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/" rel="alternate" type="text/html" title="Struktury danych - tablica asocjacyjna" /><published>2018-01-08T00:00:00+01:00</published><updated>2018-01-08T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/">&lt;div class=&quot;notice--info&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-01-23T01:40:00+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">REST web service z Java EE część 2</title><link href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-2/" rel="alternate" type="text/html" title="REST web service z Java EE część 2" /><published>2018-01-22T00:00:00+01:00</published><updated>2018-01-22T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/rest-webservice-z-java-ee-czesc-2</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-2/">&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/&quot;&gt;darmowego kursu programowania aplikacji webowych w Javie&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
+
+&lt;p&gt;W kursie tym zakładam, że znasz język Java. Możesz go poznać w osobnym &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java&quot;&gt;kursie programowania w języku Java&lt;/a&gt;. Do budowania wszystkich projetków używam Gradle, przeczytasz o nim więcej w &lt;a href=&quot;/wstep-do-gradle/&quot;&gt;osobnym artykule&lt;/a&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;rest-webservice-w-java-ee-8&quot;&gt;REST Webservice w Java EE 8&lt;/h2&gt;
+
+&lt;p&gt;Tematykę REST omówiłem dokładnie w &lt;a href=&quot;/rest-web-service-z-java-ee-czesc-1/&quot;&gt;poprzednim artykule&lt;/a&gt;. W tym pokażę przykładową implementację webservice’u używającego wyłącznie technologii opisanych w ramach specyfikacji Java EE 8.&lt;/p&gt;
+
+&lt;p&gt;Przykładowa aplikacja będzie używała implementacji następujących specyfikacji:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;JAX-RS: Java API for RESTful Web Services 2.1,&lt;/li&gt;
+  &lt;li&gt;JSON-B: JavaTM API for JSON Binding 1.0&lt;/li&gt;
+  &lt;li&gt;Java API for JSON Processing 1.1&lt;/li&gt;
+  &lt;li&gt;Context and Dependency Injection for Java 2.0&lt;/li&gt;
+  &lt;li&gt;Java TM Servlet Specification 3.1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;W artykule tym rozszerzę przykładowy webservice do zarządzania rezerwacjami. Będzie on posiadał pięć metod odpowiedzialnych odpowiednio za:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;pobieranie listy rezerwacji,&lt;/li&gt;
+  &lt;li&gt;pobieranie konkretnej rezerwacji,&lt;/li&gt;
+  &lt;li&gt;tworzenie nowej rezerwacji,&lt;/li&gt;
+  &lt;li&gt;edycja rezerwacji,&lt;/li&gt;
+  &lt;li&gt;usunięcie rezerwacji.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;serwer-aplikacji-dla-javaee-8&quot;&gt;Serwer aplikacji dla JavaEE 8&lt;/h2&gt;
+
+&lt;p&gt;W poprzednim artykule posłużyłem się kontenerem aplikacji TomEE. Niestety aktualnie kontener ten nie wspiera JEE 8. W związku z tym w tym artykule bazuję na serwerze Glassfish 5.&lt;/p&gt;
+
+&lt;h3 id=&quot;instalacja-serwera-aplikacji-glassfish&quot;&gt;Instalacja serwera aplikacji Glassfish&lt;/h3&gt;
+
+&lt;p&gt;Podobnie jak w przypadku serwera TomEE instalacja nie jest skomplikowana. W tym przypadku należy pobrać &lt;a href=&quot;https://javaee.github.io/glassfish/download&quot;&gt;najnowszą wersję&lt;/a&gt; serwera Glassfish. Następnie należy rozpakować ściągnięty plik do dowolnego folderu. W moim przypadku jest to &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/mapi/opt/glassfish5&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Nie wchodząc zbytnio w szczegóły działania serwera Glassfish musisz wiedzieć o programie &lt;code class=&quot;highlighter-rouge&quot;&gt;asadmin&lt;/code&gt;, który pomaga w administracji serwerem. Program ten znajduje się w katalogu &lt;code class=&quot;highlighter-rouge&quot;&gt;bin&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;podstawowe-komendy-do-zarządzania-serwerem&quot;&gt;Podstawowe komendy do zarządzania serwerem&lt;/h3&gt;
+
+&lt;p&gt;Aby uruchomić serwer musisz wywołać polecenie &lt;code class=&quot;highlighter-rouge&quot;&gt;asadmin start-domain&lt;/code&gt;. Mając działający serwer aplikacji możesz przejść do następnego kroku.&lt;/p&gt;
+
+&lt;p&gt;Możesz pobrać listę aplikacji, które są aktualnie zainstalowane na serwerze przy pomocy polecenia &lt;code class=&quot;highlighter-rouge&quot;&gt;asadmin list-applications&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Zainstalować aplikację możesz przy pomocy polecenia &lt;code class=&quot;highlighter-rouge&quot;&gt;asadmin deploy --contextroot / build/libs/07_rest_crud-1.0-SNAPSHOT.war&lt;/code&gt;. Ścieżka na końcu odpowiada plikowi war z aplikacją webową.&lt;/p&gt;
+
+&lt;p&gt;Jeśli chcesz usunąć zainstalowaną aplikację uruchom &lt;code class=&quot;highlighter-rouge&quot;&gt;asadmin undeploy 07_rest_crud-1.0-SNAPSHOT&lt;/code&gt;. Nazwę aplikacji do usunięcia możesz uzyskać wcześniej wspomniane polecenie &lt;code class=&quot;highlighter-rouge&quot;&gt;asadmin list-applications&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;wstrzykiwanie-zależności&quot;&gt;Wstrzykiwanie zależności&lt;/h2&gt;
+
+&lt;p&gt;Wstrzykiwanie zależności (ang. &lt;em&gt;dependency injection&lt;/em&gt;) pozwala na oddelegowanie zarządzanie zależnościami do kontenera. Dzięki takiemu podejściu programista nie musi samemu tworzyć instancji obiektów, robi to za niego kontener aplikacji. Kontener aplikacji zarządza cyklem życia takich instancji. To kontener wywołuje konstruktor i kontener utrzymuje referencje do tych obiektów. Także kontener ustawia atrybuty jeśli odpowiadają one instancjom, którymi zarządza.&lt;/p&gt;
+
+&lt;p&gt;Takie podejście do zarządzania obiektami znacząco upraszcza aplikacje. Pozwala też tworzyć kod, który można w łatwiejszy sposób przetestować przy pomocy &lt;a href=&quot;/testy-jednostkowe-z-junit/&quot;&gt;testów jednostkowych&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Wstrzykiwanie zależności to funkcjonalność, dzięki której Spring stał się tak popularny. W początkowych fazach istnienia biblioteki Spring jej możliwości sprowadzały się do przyjaznego zarządzania zależnościami.&lt;/p&gt;
+
+&lt;p&gt;Proszę spójrz na przykład:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ReservationWebservice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Inject&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ReservationDAO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@ApplicationScoped&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ReservationDAO&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Fragment kodu powyżej używa mechanizmu wstrzykiwania zależności. Klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationWebservice&lt;/code&gt; potrzebuje instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationDAO&lt;/code&gt;&lt;sup id=&quot;fnref:dao&quot;&gt;&lt;a href=&quot;#fn:dao&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Atrybut &lt;code class=&quot;highlighter-rouge&quot;&gt;dao&lt;/code&gt; może zostać wstrzyknięty dzięki mechanizmowi DI (ang. &lt;em&gt;Dependency Injection&lt;/em&gt;). Adnotacja &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/inject/Inject.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Inject&lt;/code&gt;&lt;/a&gt; informuje kontener o tym, że ten atrybut powinien zostać wstrzyknięty.&lt;/p&gt;
+
+&lt;p&gt;Klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationDAO&lt;/code&gt; poprzedzona jest adnotacją &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/context/ApplicationScoped.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@ApplicationScoped&lt;/code&gt;&lt;/a&gt;. Adnotacja ta informuje kontener o tym, że instancja tej klasy powinna być możliwa do wstrzyknięcia. Instancja będzie dostępna w kontekście aplikacji. Oznacza to tyle, że kontener utworzy wyłącznie jedną instancję tej klasy w trakcie działania aplikacji&lt;sup id=&quot;fnref:serwery&quot;&gt;&lt;a href=&quot;#fn:serwery&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;notice--warning&quot;&gt;
+    
+&lt;p&gt;Mechanizm wstrzykiwania zależności powinien być domyślnie dostępny jak tylko kontener wykryje klasy, które powinien wstrzykiwać. Niestety jednak nie udało mi się zmusić do tego Glassfisha 5.&lt;/p&gt;
+
+&lt;p&gt;Obszedłem to poprzez dodanie pustego pliku &lt;a href=&quot;https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/07_rest_crud/src/main/webapp/WEB-INF/beans.xml&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;beans.xml&lt;/code&gt;&lt;/a&gt;, który także włącza ten mechanizm.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;model---rezerwacja&quot;&gt;Model - rezerwacja&lt;/h2&gt;
+
+&lt;p&gt;Rezerwacje, którymi zarządza webservice są reprezentowane przez osobną klasę &lt;code class=&quot;highlighter-rouge&quot;&gt;Reservation&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@NotEmpty&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@NotNull&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Positive&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tableNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@FutureOrPresent&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@NotNull&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LocalDateTime&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Future&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@NotNull&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LocalDateTime&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// getters/setters&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Klasa ta zawiera atrybuty opisujące rezerwację takie jak nazwisko rezerwującego, numer stolika czy początek i koniec rezerwacji. Rezerwacja jest prawidłowa wyłącznie jeśli atrybuty uzupełnione są poprawnymi danymi. Poprawność instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Reservation&lt;/code&gt; zapewniona jest przez &lt;a href=&quot;/walidacja-obiektow-w-jezyku-java/&quot;&gt;mechanizm walidacji&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;walidacja&quot;&gt;Walidacja&lt;/h3&gt;
+
+&lt;p&gt;Walidacja obiektów dostarczona jest przez implementację specyfikacji Bean Validation. Każdy kontener aplikacji, który jest kompatybilny z Java EE 8 (jak Glassfish 5 wspomniany wyżej), musi dostarczać implementację tej specyfikacji.&lt;/p&gt;
+
+&lt;p&gt;Samą &lt;a href=&quot;/walidacja-obiektow-w-jezyku-java/&quot;&gt;walidację obiektów&lt;/a&gt; omówiłem bardziej szczegółowo w osobnym artykule. Tutaj widzisz jej użycie w kontekście aplikacji webowej.&lt;/p&gt;
+
+&lt;p&gt;Instancja walidatora tworzona jest przez kontener automatycznie. Kontener także wywołuje mechanizm walidacji. Mechanizm ten wywoływany jest za każdym razem w metodach obsługujących podstawowe operacje. Przykład poniżej pokazuje użycie adnotacji &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Valid&lt;/code&gt;&lt;/a&gt; w metodzie odpowiedzialnej za tworzenie nowej instancji rezerwacji.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@PUT&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Valid&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Kontener na podstawie zapytania wysłanego przez użytkownika tworzy instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Reservation&lt;/code&gt;, następnie sprawdza czy instancja ta jest poprawna. Jeśli dane przesłane przez użytkownika są poprawne wówczas wywołuje ciało metody. Jeśli dane nie pozwolą na utworzenie poprawnej instancji wówczas zostanie rzucony &lt;a href=&quot;%{ post_url 2016-01-31-wyjatki-w-jezyku-java %}&quot;&gt;wyjątek&lt;/a&gt;&lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ValidationException&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;W akapicie opisującym instancje oznaczone adnotacją &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Provider.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Provider&lt;/code&gt;&lt;/a&gt; opiszę ten mechanizm dokładniej.&lt;/p&gt;
+
+&lt;h3 id=&quot;dostęp-do-danych&quot;&gt;Dostęp do danych&lt;/h3&gt;
+
+&lt;p&gt;W normalnej wersji aplikacji dane zapisywane są w dedykowanej bazie danych&lt;sup id=&quot;fnref:baza&quot;&gt;&lt;a href=&quot;#fn:baza&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;. Na potrzeby tej aplikacji symuluję bazę danych przy pomocy &lt;a href=&quot;/struktury-danych-tablica-asocjacyjna/&quot;&gt;mapy&lt;/a&gt; przechowywanej w pamięci. Oczywistym minusem jest to, że dane nie są zachowywane po wyłączeniu aplikacji. Na potrzeby tego artykułu taki mechanizm jest wystarczający:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@ApplicationScoped&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ReservationDAO&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Collections&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;synchronizedMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TreeMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;());;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AtomicInteger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lastId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AtomicInteger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Collection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deleteReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lastId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAndIncrement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;reservations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationDAO&lt;/code&gt; pozwala na łatwy dostęp do instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Reservation&lt;/code&gt; przechowywanych w pamięci. Pozwala na utworzenie, pobranie, usunięcie i edycję rezerwacji.&lt;/p&gt;
+
+&lt;p&gt;Jak wspomniałem wyżej w akapicie opisującym wstrzykiwanie zależności, instancja klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationDAO&lt;/code&gt; jest zarządzana przez kontener aplikacji. W ramach całej aplikacji zostanie utworzona wyłącznie jedna instancja tej klasy. Ta instancja będzie wykorzystywana przez klasę obsługującą żądania wysyłane przez użytkownika.&lt;/p&gt;
+
+&lt;h2 id=&quot;aplikacja&quot;&gt;Aplikacja&lt;/h2&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@ApplicationPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/rest&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RegistrationApplication&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Adnotacja &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ApplicationPath.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@ApplicationPath&lt;/code&gt;&lt;/a&gt; informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice’ów w tej aplikacji poprzedzone są &lt;code class=&quot;highlighter-rouge&quot;&gt;/rest&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Adnotacja ta może zostać dodana wyłącznie do instancji klasy &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Application.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Application&lt;/code&gt;&lt;/a&gt;. Klasa ta dostarcza dodatkowych metadanych o aplikacji. W moim przypadku jedyną wymaganą informacją dodatkową jest ta dostarczona przez adnotację.&lt;/p&gt;
+
+&lt;h2 id=&quot;webservice&quot;&gt;Webservice&lt;/h2&gt;
+
+&lt;p&gt;Teraz znasz komponenty, które są wykorzystywane przez webservice. Nadszedł czas na klasę obsługują żądania użytkownika:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/reservation&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Produces&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Consumes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ReservationWebservice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Inject&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ReservationDAO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Adnotację &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Path&lt;/code&gt;&lt;/a&gt; znasz z &lt;a href=&quot;/rest-web-service-z-java-ee-czesc-1/&quot;&gt;poprzedniej części artykułu&lt;/a&gt;. Określa ona ścieżkę, która obsługiwana jest przez daną klasę.&lt;/p&gt;
+
+&lt;p&gt;Nowe są dla Ciebie adnotacje &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Consumes&lt;/code&gt;&lt;/a&gt; i &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Produces&lt;/code&gt;&lt;/a&gt;. Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie &lt;a href=&quot;https://www.json.org/&quot;&gt;JSON&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415&quot;&gt;415&lt;/a&gt;. Kod ten informuje klienty o tym, że format danych w zapytaniu nie jest wspierany.&lt;/p&gt;
+
+&lt;p&gt;Wewnątrz klasy widzisz atrybut, który zostanie wstrzyknięty przez kontener aplikacji. Jest to instancja klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationDAO&lt;/code&gt; pozwalająca na dostęp do aktualnie dostępnych rezerwacji.&lt;/p&gt;
+
+&lt;p&gt;Zgodnie ze specyfikacją JAX-RS dla każdego żądania przychodzącego od użytkownika zostanie utworzona nowa instancja klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationWebservice&lt;/code&gt;. Po raz kolejny to kontener aplikacji zajmuje się tworzeniem tych instancji.&lt;/p&gt;
+
+&lt;h3 id=&quot;pobranie-listy-rezerwacji&quot;&gt;Pobranie listy rezerwacji&lt;/h3&gt;
+
+&lt;p&gt;Kod odpowiedzialny za pobranie wszystkich rezerwacji nie jest zbyt skomplikowany:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@GET&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;listReservations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;listReservations&lt;/code&gt; poprzedzona jest adnotacją &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@GET&lt;/code&gt;&lt;/a&gt;. Nie zawiera dodatkowej adnotacji &lt;code class=&quot;highlighter-rouge&quot;&gt;@Path&lt;/code&gt;, więc wszystkie żądania wysłane pod adres &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /rest/reservation&lt;/code&gt; zostaną obsłużone przez tę metodę. Do sprawdzenia jej działania możesz użyć programu &lt;a href=&quot;https://curl.haxx.se/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -H &quot;Content-Type: application/json&quot; http://localhost:8080/rest/reservation
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-H &quot;Content-Type: application/json&quot;&lt;/code&gt; dodaje nagłówek do żądania. Określa on format zawartości zapytania. To właśnie ten nagłówek sprawdzany jest przez adnotację &lt;code class=&quot;highlighter-rouge&quot;&gt;@Consumes&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Wewnątrz metody buduję odpowiedź. Ciałem tej odpowiedzi jest lista rezerwacji zwrócona przez &lt;code class=&quot;highlighter-rouge&quot;&gt;dao&lt;/code&gt;. Dzięki adnotacji &lt;code class=&quot;highlighter-rouge&quot;&gt;@Produces&lt;/code&gt; JAX-RS wymusza format odpowiedzi. W moim przypadku jest to JSON.&lt;/p&gt;
+
+&lt;p&gt;Kontener automatycznie przekonwertuje instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Reservation&lt;/code&gt; do formatu JSON. Dzieje się to dzięki implementacji specyfikacji JSON-B i JSON-P.&lt;/p&gt;
+
+&lt;h3 id=&quot;pobieranie-pojedynczej-rezerwacji&quot;&gt;Pobieranie pojedynczej rezerwacji&lt;/h3&gt;
+
+&lt;p&gt;Pobieranie pojedynczej rezerwacji również bazuje na atrybucie &lt;code class=&quot;highlighter-rouge&quot;&gt;dao&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@GET&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{id}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Min&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;NOT_FOUND&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Dodatkowa adnotacja &lt;code class=&quot;highlighter-rouge&quot;&gt;@Path&lt;/code&gt; rozszerza tę umieszczoną nad klasą &lt;code class=&quot;highlighter-rouge&quot;&gt;ReservationWebservice&lt;/code&gt;. W wyniku tego metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;getReservation&lt;/code&gt; obsługuje wszystkie żądania wysłane przez klienty na adres &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /reservation/{id}&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; jest identyfikatorem rezerwacji pobieranym z adresu URL dzięki adnotacji &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@PathParam&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Zwróć także uwagę na użycie adnotacji &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/Min.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Min&lt;/code&gt;&lt;/a&gt;. Adnotacja ta uruchomi mechanizm walidacji dla parametru &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt;. Mechanizm ten sprawdzi czy liczba przekazana w adresie ma wartość większą, bądź równą 0. Jeśli wartość parametru jest niepoprawna zostanie rzucony wyjątek.&lt;/p&gt;
+
+&lt;p&gt;Wewnątrz ciała metody odwołuję się do atrybutu &lt;code class=&quot;highlighter-rouge&quot;&gt;dao&lt;/code&gt; pobierając rezerwację na podstawie identyfikatora pobranego od użytkownika. &lt;code class=&quot;highlighter-rouge&quot;&gt;dao&lt;/code&gt; zwróci wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; jeśli rezerwacja o danym identyfikatorze nie zostanie odnaleziona. W takim przypadku klient uzyska odpowiedź z kodem &lt;a href=&quot;https://developer.mozilla.org/uk/docs/Web/HTTP/Status/404&quot;&gt;404&lt;/a&gt; informującą o braku szukanego elementu.&lt;/p&gt;
+
+&lt;p&gt;Jeśli &lt;code class=&quot;highlighter-rouge&quot;&gt;dao&lt;/code&gt; znajdzie rezerwację o zadanym identyfikatorze, wówczas zostanie ona przekazana w odpowiedzi. Także tutaj zostanie ona przekształcona do formatu JSON.&lt;/p&gt;
+
+&lt;p&gt;Także w tym przypadku &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; może pomóc w wysłaniu zapytania:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -H &quot;Content-Type: application/json&quot; http://localhost:8080/rest/reservation/0 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;usuwanie-rezerwacji&quot;&gt;Usuwanie rezerwacji&lt;/h3&gt;
+
+&lt;p&gt;Usuwanie rezerwacji niewiele różni się od pobierania pojedynczej wartości:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@DELETE&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{id}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deleteReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Min&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;deleteReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;NOT_FOUND&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W tym przypadku kombinacja adnotacji &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/DELETE.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@DELETE&lt;/code&gt;&lt;/a&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;@Path&lt;/code&gt; wskazuje, że metoda ta zostanie wywołana w przypadku wysłania żądania na adres &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE /reservation/{id}&lt;/code&gt;. Podobnie jak w przypadku pobierania rezerwacji mechanizm walidacja sprawdza poprawność przekazanego parametru &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;W przypadku tej metody &lt;code class=&quot;highlighter-rouge&quot;&gt;dao&lt;/code&gt; użyte jest do usunięcia rezerwacji o podanym identyfikatorze.&lt;/p&gt;
+
+&lt;p&gt;Przykładowe wywołanie &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; usuwające rezerwację o identyfikatorze 0:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -H &quot;Content-Type: application/json&quot; http://localhost:8080/rest/reservation/0 -X DELETE
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;utworzenie-rezerwacji&quot;&gt;Utworzenie rezerwacji&lt;/h3&gt;
+
+&lt;p&gt;Podczas tworzenia rezerwacji webservice wymusza poprawność danych przekazanych przez użytkownika. To adnotacja &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Valid&lt;/code&gt;&lt;/a&gt; wymusza sprawdzenie poprawności danych:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@PUT&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Valid&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;URI&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;URI&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;reservation/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;URISyntaxException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuntimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;created&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jeśli wszystkie wymagania określone w klasie &lt;code class=&quot;highlighter-rouge&quot;&gt;Reservation&lt;/code&gt; zostaną spełnione zostanie wywołana metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;createReservation&lt;/code&gt;. W przeciwnym wypadku zostanie rzucony wyjątek &lt;code class=&quot;highlighter-rouge&quot;&gt;ValidationException&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;W ciele metody &lt;code class=&quot;highlighter-rouge&quot;&gt;createReservation&lt;/code&gt; wywołuję &lt;code class=&quot;highlighter-rouge&quot;&gt;dao.createReservation&lt;/code&gt;. To wywołanie zapisuje nową rezerwację w bazie danych. W wyniku wywołania tej metody zwrócony jest nowy identyfikator dla tej rezerwacji. Pomaga on w utworzeniu adresu URL, który zostaje zwrócony w odpowiedzi.&lt;/p&gt;
+
+&lt;p&gt;Także i tutaj &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; może zostać użyty do wysłania zapytania. Tym razem w ciele zapytania muszę przesłać dane w formacie JSON, które reprezentują nową rezerwację. Przykładowe zapytanie może wyglądać następująco:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -H &quot;Content-Type: application/json&quot; http://localhost:8080/rest/reservation -X PUT -d '{&quot;start&quot;: &quot;2018-01-22T20:00&quot;, &quot;tableNumber&quot;: 1, &quot;name&quot;: &quot;Marcin&quot;, &quot;end&quot;: &quot;2018-01-22T21:20&quot;}'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Parametr &lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt; służy do przekazania zawartości zapytania. W tym przypadku jest to JSON, który reprezentuje dane potrzebne do utworzenia instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Reservation&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+    &quot;name&quot;: &quot;Marcin&quot;,
+    &quot;tableNumber&quot;: 1,
+    &quot;start&quot;: &quot;2018-01-22T20:00&quot;,
+    &quot;end&quot;: &quot;2018-01-22T21:20&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W przykładzie powyżej instancja reprezentowana jest przez mapę. Kluczami są nazwy atrybutów, na przykład &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt;. Atrybuty klasy zostaną uzupełnione wartościami przekazanymi w mapie. Oczywiście format wartości musi być odpowiedni. Automatyczna transformacja pomiędzy formatem JSON a klasą Java możliwa jest dzięki specyfikacjom JSON-B i JSON-P.&lt;/p&gt;
+
+&lt;h3 id=&quot;modyfikacja-rezerwacji&quot;&gt;Modyfikacja rezerwacji&lt;/h3&gt;
+
+&lt;p&gt;Modyfikacja rezerwacji nie zawiera nowych mechanizmów. Jest dość podobna do tworzenia nowej instancji:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@POST&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{id}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Min&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Valid&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reservation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hasReservation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hasReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;updateReservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reservation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;noContent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;NOT_FOUND&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;własna-klasa-provider&quot;&gt;Własna klasa &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/ExceptionMapper.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Provider&lt;/code&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;W &lt;a href=&quot;/rest-web-service-z-java-ee-czesc-1/&quot;&gt;poprzedniej części&lt;/a&gt; artykułu użyłem tej adnotacji to utworzenia filtra, który dodawał nagłówki. Tym razem posłuży ona do pomocy przy walidacji.&lt;/p&gt;
+
+&lt;p&gt;Specyfikacja JAX-RS pozwala na utworzenie klasy, która będzie odpowiedzialna za obsługę wyjątków, które wystąpiły w trakcie przetwarzania żądania klienta. To zastosowanie idealnie nadaje się do obsługi błędów walidacji:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Provider&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ValidationExceptionMapper&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ExceptionMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConstraintViolationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ErrorMessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ErrorMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConstraintViolationException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;BAD_REQUEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;entity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ErrorMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;ValidationExceptionMapper&lt;/code&gt; implementuje interfejs &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/ExceptionMapper.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ExceptionMapper&lt;/code&gt;&lt;/a&gt;. Interfejs ten zawiera wyłącznie jedną metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;toResponse&lt;/code&gt;. Metoda ta zostaje wywołana jeśli zostanie rzucony wyjątek obsługiwany przez daną klasę.&lt;/p&gt;
+
+&lt;p&gt;W moim przypadku tworzę nową odpowiedź, która zwraca kod błędu &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400&quot;&gt;400&lt;/a&gt; wraz z dodatkowym komunikatem błędu zwróconym przez mechanizm walidacji.&lt;/p&gt;
+
+&lt;div class=&quot;notice--warning&quot;&gt;
+    
+&lt;p&gt;W związku z &lt;a href=&quot;https://github.com/jersey/jersey/issues/3425&quot;&gt;błędem&lt;/a&gt; w bibliotece Jersey musiałem utworzyć klasę, która obsługuje wyjątek &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintViolationException.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ConstraintViolationException&lt;/code&gt;&lt;/a&gt;. Po rozwiązaniu tego błędu klasa ta powinna obsługiwać wyjątek &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ValidationException&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Zgodnie ze specyfikacją użycie adnotacji &lt;a href=&quot;https://javaee.github.io/javaee-spec/javadocs/javax/annotation/Priority.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Priority&lt;/code&gt;&lt;/a&gt; także powinno pomóc obejść ten problem.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
+
+&lt;p&gt;W tym miejscu poproszę Cię o uruchomienie tej aplikacji na swoim komputerze i testowanie jej przy pomocy programu &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt;. Taka zabawa na żywo potrafi sporo nauczyć. Kod źródłowy aplikacji znajdziesz na &lt;a href=&quot;https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/07_rest_crud&quot;&gt;samouczkowym githubie&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;zadanie-do-wykonania&quot;&gt;Zadanie do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Kod źródłowy aplikacji użytej w artykule znajduje się na samouczkowym githubie. Twoim zadaniem jest rozszerzenie działania tej aplikacji. W obecnym kształcie aplikacja nie sprawdza czy dany stolik nie jest już zarezerwowany. Może to prowadzić do sytuacji, w której ten sam stolik będzie zarezerwowany w tym samym czasie dla więcej niż jednej osoby.&lt;/p&gt;
+
+&lt;p&gt;Popraw aplikację w taki sposób, aby nie pozwalała na ponowną rezerwację już zarezerwowanego stolika. Więc jeśli stolik nr 1. jest zarezerwowany w godzinach od 17:00 do 18:30, to rezerwacja na ten sam stolik od 18:10 do 19:00 nie jest możliwa.&lt;/p&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;W artykule przeczytałeś o praktycznym zastosowaniu kilku specyfikacji z parasola Java EE. Na przykładzie mogłeś zobaczyć użycie walidacji czy wstrzykiwania zależności. Poznałeś też mechanizm obsługi wyjątków, w którym użyłem adnotacji &lt;code class=&quot;highlighter-rouge&quot;&gt;@Provider&lt;/code&gt;. Użyłeś implementacji specyfikacji JSON-P i JSON-B pozwalających na proste obsługiwanie danych w formacie JSON. Całość opakowana została w webservice, oparty o specyfikację JAX-RS. Mam nadzieję, że przykłady użyte w artykule pozwoliły Ci spojrzeć na Java EE z innej strony.&lt;/p&gt;
+
+&lt;p&gt;Jeśli którakolwiek część artykułu nie jest dla Ciebie jasna proszę daj znać. Postaram się pomóc. Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości proszę dopisz się do samouczkowego newslettera i polub stronę Samouczka na Facebooku. Do następnego razu!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:dao&quot;&gt;
+      &lt;p&gt;DAO to akronim od &lt;em&gt;Data Access Object&lt;/em&gt;. Jest to często spotykany sposób na oznaczenie klas, które odpowiedzialne są za dostęp do danych. &lt;a href=&quot;#fnref:dao&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:serwery&quot;&gt;
+      &lt;p&gt;Mam na myśli tutaj jedną instancję klasy na każdą wirtualną maszynę Javy. Jeśli aplikacja uruchomiona jest w kliku kontenerach wówczas każdy z nich będzie miał osobną instancję. &lt;a href=&quot;#fnref:serwery&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:baza&quot;&gt;
+      &lt;p&gt;Raz jest to zwykła baza relacyjna, innym razem może to być plik na dysku. W przypadku niektórych aplikacji wymaganiem może okazać się użycie innych mechanizmów jak na przykład bazy “nosql”, czy rozproszone systemy plików. Wszystko zależy od wymagań stawianych przed daną aplikacją. &lt;a href=&quot;#fnref:baza&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym pokazuję przykład webservice'u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzystanie wstrzykiwania zależności (CDI), walidacji (Bean Validation) czy obsługi formatu JSON (JSON-P i JSON-B). W praktyce JAX-RS pozwala na łatwe połączenie tych mechanizmów w całość. Artykuł przedstawia prosty webservice, napisany bez Springa. W artykule tym staram się pokazać, że nowoczesna Java EE nie jest taka straszna.</summary></entry><entry><title type="html">Struktury danych - tablica asocjacyjna</title><link href="http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/" rel="alternate" type="text/html" title="Struktury danych - tablica asocjacyjna" /><published>2018-01-08T00:00:00+01:00</published><updated>2018-01-08T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/">&lt;div class=&quot;notice--info&quot;&gt;
   
 &lt;p&gt;Artykuł ten opisuje strukturę danych określaną jako tablica asocjacyjna. Tę strukturę nazywa się też słownikiem czy mapą. Sama struktura występuje w wielu językach programowania. Zasada działania tej struktury jest niezależnie od języka programowania.&lt;/p&gt;
 
@@ -1517,6 +1912,7 @@ javax.validation.constraints.Future.message=musi by\u0107 w przysz\u0142o\u015Bc
   &lt;li&gt;&lt;a href=&quot;https://jcp.org/aboutJava/communityprocess/final/jsr380/index.html&quot;&gt;Specyfikacja Bean Validation 2.0&lt;/a&gt;,&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.martinfowler.com/ieeeSoftware/failFast.pdf&quot;&gt;Artykuł na temat &lt;em&gt;Fail fast, fail often&lt;/em&gt;&lt;/a&gt;,&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/nomemory/java-bean-validation-extension#additional-supported-annotations&quot;&gt;Biblioteka rozszerzająca standardowy zestaw reguł&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javaee/7/tutorial/bean-validation001.htm&quot;&gt;Fragment tutoriala dla Java EE 7 opisujący walidację&lt;/a&gt;,&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://hibernate.org/validator/&quot;&gt;Strona projektu Hibernate Validator&lt;/a&gt;,&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/04_bean_validation&quot;&gt;Kod źródłowy przykładów użytych w artykule&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
@@ -1973,6 +2369,12 @@ javax.validation.constraints.Future.message=musi by\u0107 w przysz\u0142o\u015Bc
 
 &lt;p&gt;Jest to tylko krótkie wprowadzenie, jeśli chcesz dowiedzieć się więcej na temat REST odsyłam Cię do materiałów dodatkowych.&lt;/p&gt;
 
+&lt;h4 id=&quot;put-czy-post&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;?&lt;/h4&gt;
+
+&lt;p&gt;W tabeli wyżej wspomniałem o tym, że to zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; powinny tworzyć nową instancję a zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; powinny ją edytować. Dla pełni informacji muszę Ci powiedzieć, że z tego co wiem, nie jest to nigdzie ustandaryzowane.&lt;/p&gt;
+
+&lt;p&gt;Spotkasz się zarówno z takim podejściem jak w tabeli wyżej jak i odwrotnym, w którym to zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; służą do utworzenia nowej encji.&lt;/p&gt;
+
 &lt;h3 id=&quot;czym-jest-java-ee&quot;&gt;Czym jest Java EE&lt;/h3&gt;
 
 &lt;p&gt;W jednym zdaniu. Java EE to platforma, która oparta jest na zbiorze specyfikacji. Technologie opisane w tych specyfikacjach są używane głównie do tworzenia aplikacji webowych.&lt;/p&gt;
@@ -2013,7 +2415,7 @@ javax.validation.constraints.Future.message=musi by\u0107 w przysz\u0142o\u015Bc
 
 &lt;h3 id=&quot;buildgradle&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;&lt;/h3&gt;
 
-&lt;p&gt;Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania aplikacji użyłem Gradle. Plik &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; wygląda następująco:&lt;/p&gt;
+&lt;p&gt;Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania aplikacji użyłem &lt;a href=&quot;/wstep-do-gradle/&quot;&gt;Gradle&lt;/a&gt;. Plik &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; wygląda następująco:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apply plugin: 'java'
 apply plugin: 'idea'
@@ -2046,7 +2448,7 @@ task explodedWar(type: Copy) {
 war.dependsOn explodedWar
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Najbardziej istotnym fragmentem jest &lt;code class=&quot;highlighter-rouge&quot;&gt;providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'&lt;/code&gt;&lt;sup id=&quot;fnref:jee7&quot;&gt;&lt;a href=&quot;#fn:jee7&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. &lt;code class=&quot;highlighter-rouge&quot;&gt;providedCompile&lt;/code&gt; mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na &lt;a href=&quot;%/java-z-linii-polecen/&quot;&gt;classpath&lt;/a&gt; kontenera aplikacji.&lt;/p&gt;
+&lt;p&gt;Najbardziej istotnym fragmentem jest &lt;code class=&quot;highlighter-rouge&quot;&gt;providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'&lt;/code&gt;&lt;sup id=&quot;fnref:jee7&quot;&gt;&lt;a href=&quot;#fn:jee7&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. &lt;code class=&quot;highlighter-rouge&quot;&gt;providedCompile&lt;/code&gt; mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na &lt;a href=&quot;/java-z-linii-polecen/&quot;&gt;classpath&lt;/a&gt; kontenera aplikacji.&lt;/p&gt;
 
 &lt;h3 id=&quot;pierwszy-web-service&quot;&gt;Pierwszy web service&lt;/h3&gt;
 
@@ -2242,7 +2644,7 @@ war.dependsOn explodedWar
       &lt;p&gt;W rzeczywistości mimo, że importuję tu API w wersji 2.1 serwer TomEE, którego używam (7.0.4) wspiera wersję 2.0. &lt;a href=&quot;#fnref:jee7&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:windows&quot;&gt;
-      &lt;p&gt;Jeśli pracujesz na systemie Windows wówczas plik ten nazywa się &lt;code class=&quot;highlighter-rouge&quot;&gt;catalina.bat&lt;/code&gt;. &lt;a href=&quot;#fnref:windows&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;Jeśli pracujesz w systemie Windows wówczas plik ten nazywa się &lt;code class=&quot;highlighter-rouge&quot;&gt;catalina.bat&lt;/code&gt;. &lt;a href=&quot;#fnref:windows&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:uproszczenie&quot;&gt;
       &lt;p&gt;Oczywiście jest to uproszczenie. W praktyce proces jest trochę bardziej rozbudowany. Proces ten opisany jest w sekcji 3.7 specyfikacji “Matching Requests to Resource Methods”. Domyślnie nowa instancja klasy obsługującej zapytanie tworzona jest dla każdego zapytania. W większości przypadków nie jest to zachowanie, które chcesz zostawić na produkcyjnym środowisku. &lt;a href=&quot;#fnref:uproszczenie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
@@ -3312,306 +3714,4 @@ Stan konta: -5000
       &lt;p&gt;Chyba, że są to klasy wewnętrzne. W takim przypadku modyfikator &lt;code class=&quot;highlighter-rouge&quot;&gt;protected&lt;/code&gt; jest dozwolony. &lt;a href=&quot;#fnref:wewnetrzne&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory `public`, `protected` i `private`. Poznasz też zastosowanie czwartego modyfikatora dostępu - braku każdego z poprzednich. Zobaczysz różnice pomiędzy modyfikatorami na przykładowych fragmentach kodu. Na koniec będzie czekało na Ciebie zadanie do rozwiązania, w którym przećwiczysz wiedzę zdobytą po przeczytaniu.</summary></entry><entry><title type="html">Wyrażenia lambda w języku Java</title><link href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="alternate" type="text/html" title="Wyrażenia lambda w języku Java" /><published>2017-07-26T21:28:10+02:00</published><updated>2017-07-26T21:28:10+02:00</updated><id>http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/">&lt;div class=&quot;notice--info&quot;&gt;
-  
-&lt;p&gt;Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami, które dotyczą:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/&quot;&gt;klas anonimowych&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/typy-generyczne-w-jezyku-java/&quot;&gt;typów generycznych&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/adnotacje-w-jezyku-java/&quot;&gt;adnotacji&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;czym-jest-wyrażenie-lambda&quot;&gt;Czym jest wyrażenie lambda&lt;/h2&gt;
-
-&lt;p&gt;Dla uproszczenia można powiedzieć, że wyrażenie lambda jest metodą&lt;sup id=&quot;fnref:roznice&quot;&gt;&lt;a href=&quot;#fn:roznice&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Metodą, którą możesz przypisać do zmiennej. Możesz ją także wywołać czy przekazać jako argument do innej metody.&lt;/p&gt;
-
-&lt;p&gt;Wyrażenia lambda możesz także porównać do klas anonimowych&lt;sup id=&quot;fnref:roznice2&quot;&gt;&lt;a href=&quot;#fn:roznice2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Mają one jednak dużo bardziej czytelną i zwięzłą składnię.&lt;/p&gt;
-
-&lt;p&gt;Na przykład wyrażenie lambda, które podnosi do kwadratu przekazaną liczbę wygląda następująco:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;składnia-wyrażeń-lambda&quot;&gt;Składnia wyrażeń lambda&lt;/h3&gt;
-
-&lt;p&gt;Wyrażenie lambda ma następującą składnię&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;lista parametrów&amp;gt; -&amp;gt; &amp;lt;ciało wyrażenia&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;lista-parametrów&quot;&gt;Lista parametrów&lt;/h4&gt;
-
-&lt;p&gt;Lista parametrów zawiera wszystkie parametry przekazane do “ciała” wyrażenia lambda. W szczególności lista ta może być pusta. Wyrażenie lambda poniżej nie przyjmuje żadnych argumentów, zwraca natomiast instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Podawanie typów parametrów jest opcjonalne. Kompilator jest w stanie poznać te parametry z kontekstu w którym znajduje się dane wyrażenie lambda. Jeśli chcesz możesz je także podać:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Nawiasy otaczające listę parametrów są opcjonalne jeśli wyrażenie ma wyłącznie jeden parametr bez określonego typu&lt;sup id=&quot;fnref:kompilacja&quot;&gt;&lt;a href=&quot;#fn:kompilacja&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;ciało-wyrażenia-lambda&quot;&gt;Ciało wyrażenia lambda&lt;/h4&gt;
-
-&lt;p&gt;W ogromnej większości przypadków wyrażenia lambda zawierają jedną linijkę kodu:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Może się jednak zdarzyć, że Twoje wyrażenie lambda będzie zawierało więcej linii. W takim przypadku musisz otoczyć je nawiasami &lt;code class=&quot;highlighter-rouge&quot;&gt;{}&lt;/code&gt; jak w przykładzie poniżej:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;123L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Można sobie wyobrazić wyrażenie lambda, które nie przyjmuje żadnych parametrów i nie zwraca żadnych wartości. Najprostsza wersja takiego wyrażenia wygląda następująco:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;od-klasy-anonimowej-do-wyrażenia-lambda&quot;&gt;Od klasy anonimowej do wyrażenia lambda&lt;/h2&gt;
-
-&lt;p&gt;Wiesz już czym jest klasa anonimowa. Dla przypomnienia powiem, że jest to stworzenie jedynej instancji klasy w miejscu jej użycia. Wiesz już też jak wyglądają wyrażenia lambda. Teraz nadszedł czas na zamianę klasy anonimowej na wyrażenie lambda. Proszę spójrz na przykład poniżej:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Checker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
- 
-&lt;span class=&quot;n&quot;&gt;Checker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isOddAnonymous&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Checker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
- 
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isOddAnonymous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isOddAnonymous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;124&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W przykładzie tym zdefiniowałem interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Checker&lt;/code&gt;, który posiada jedną metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;check&lt;/code&gt;. Metoda ta zwraca wartość logiczną na podstawie przekazanego argumentu.&lt;/p&gt;
-
-&lt;p&gt;Fragment kodu robiący to samo jednak przy użyciu składni wyrażeń lambda wygląda następująco:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Checker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isOddLambda&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- 
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isOddLambda&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isOddLambda&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;124&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Prawda, że ładniej :)?&lt;/p&gt;
-
-&lt;p&gt;Dochodzimy teraz do momentu, w którym muszę Ci powiedzieć o typach w wyrażeniach lambda. Każde wyrażenie lambda jest instancją dowolnego interfejsu funkcyjnego. Jest to bardzo ważne, dlatego też musisz dokładnie wiedzieć czym jest interfejs funkcyjny.&lt;/p&gt;
-
-&lt;h2 id=&quot;interfejs-funkcyjny&quot;&gt;Interfejs funkcyjny&lt;/h2&gt;
-
-&lt;p&gt;Interfejs funkcyjny to interfejs, który ma jedną abstrakcyjną metodę&lt;sup id=&quot;fnref:efektywnie_abstrakcyjna&quot;&gt;&lt;a href=&quot;#fn:efektywnie_abstrakcyjna&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;. Wprowadzono adnotację &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@FunctionalInterface&lt;/code&gt;&lt;/a&gt;, którą możesz dodać do interfejsów tego typu.&lt;/p&gt;
-
-&lt;p&gt;Adnotacja ta zapewnia, że kompilator upewni się, że dany interfejs jest interfejsem funkcyjnym. Jeśli nie, wówczas kompilacja się nie powiedzie.&lt;/p&gt;
-
-&lt;p&gt;Przykładem interfejsu funkcyjnego może być zdefiniowany wcześniej interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Checker&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@FunctionalInterface&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Checker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Zawiera on wyłącznie jedną metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;check&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;przykładowe-interfejsy-funkcyjne&quot;&gt;Przykładowe interfejsy funkcyjne&lt;/h3&gt;
-
-&lt;p&gt;Twórcy języka Java przygotowali zestaw interfejsów funkcyjnych, które możesz implementować. W większości przypadków w zupełności wystarczy ich użycie. Część z nich znajduje się w pakiecie &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;java.util.function&lt;/code&gt;&lt;/a&gt;. Najważniejsze z nich zebrałem poniżej:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Function&amp;lt;T, R&amp;gt;&lt;/code&gt; zawiera metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt;, która przyjmuje instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;T&lt;/code&gt; zwracając instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Consumer&amp;lt;T&amp;gt;&lt;/code&gt; zawiera metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;accept&lt;/code&gt;, która przyjmuje instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;T&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Predicate&amp;lt;T&amp;gt;&lt;/code&gt; zawiera metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt;, która przyjmuje instancję klasy T i zwraca flagę. Interfejs ten może posłużyć do zastąpienia interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Checker&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Supplier&amp;lt;T&amp;gt;&lt;/code&gt; zawiera metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;get&lt;/code&gt;, która nie przyjmuje żadnych parametrów i zwraca instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;T&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UnaryOperator&amp;lt;T&amp;gt;&lt;/code&gt; jest specyficznym przypadkiem interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Function&lt;/code&gt;. W tym przypadku typ argumentu i typ zwracany są te same.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Wyrażenia lambda zdefiniowane na początku artykułu można przypisać do tych właśnie interfejsów:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;UnaryOperator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;square&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Supplier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;some return value&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;BiConsumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiplier&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiline&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;123L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;zalety-stosowania-wyrażeń-lambda&quot;&gt;Zalety stosowania wyrażeń lambda&lt;/h2&gt;
-
-&lt;p&gt;Wyrażenia lambda są bardzo pomocne przy operacji na kolekcjach. Są niezastąpione także przy pracy ze strumieniami. Pozwalają także na pisanie w Javie w sposób “funkcyjny”&lt;sup id=&quot;fnref:funkcyjny&quot;&gt;&lt;a href=&quot;#fn:funkcyjny&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;Oczywistą zaletą wyrażeń lambda jest ich zwięzłość. Kod zajmuje o wiele mniej miejsca, staje się przez to bardziej czytelny.&lt;/p&gt;
-
-&lt;h2 id=&quot;odwoływanie-się-do-metod&quot;&gt;Odwoływanie się do metod&lt;/h2&gt;
-
-&lt;p&gt;Wraz z wyrażeniami lambda Java została rozbudowana o składnię pozwalającą na odwoływanie się do metod. Służy do tego &lt;code class=&quot;highlighter-rouge&quot;&gt;::&lt;/code&gt;. Dzięki temu wyrażeniu możemy przypisać metodę do zmiennej bez jej wywołania. Takie podejście pozwala na przekazanie tak wyłuskanej metody i wywołanie jej w zupełnie innym miejscu. Proszę spójrz na przykład poniżej:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectInstance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;IntSupplier&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;equalsMethodOnObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;objectInstance:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;equalsMethodOnObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAsInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W przykładzie tym tworzę nową instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;. Następnie pobieram metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;hashCode&lt;/code&gt; z tego obiektu i przypisuję ją do typu &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/function/IntSupplier.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;IntSupplier&lt;/code&gt;&lt;/a&gt;. Jest to kolejny interfejs funkcyjny znajdujący się w standardowej bibliotece. Ostatnia linijka to wywołanie metody znajdującej się w tym interfejsie.&lt;/p&gt;
-
-&lt;p&gt;Kod powyżej można porównać do:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectInstance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;objectInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W obu przypadkach tworzę nowy obiekt klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt; i wywołują na nim metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;hashCode&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;odwoływanie-się-do-metod-bez-podania-instancji&quot;&gt;Odwoływanie się do metod bez podania instancji&lt;/h2&gt;
-
-&lt;p&gt;Można także odwołać się do metody bez podania instancji, na której metoda powinna być wywołana. Wówczas ta instancja musi być przekazana jako pierwszy argument. Przykład poniżej powinien pomóc zrozumieć to zastosowanie:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ToIntFunction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hashCodeMethodOnClass&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;Object:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectInstance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hashCodeMethodOnClass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;applyAsInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;objectInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W odróżnieniu do poprzedniego przykładu tutaj na początku pobieram metodę. Tym razem metoda nie jest przypisana do instancji. W związku z tym wyrażenie lambda jest już innego typu. W takim przypadku zawsze pierwszym argumentem jest instancja na której metoda powinna być wywołana. W kolejnej linijce tworzę instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;. Ostatnia linijka to wywołanie metody na tej instancji.&lt;/p&gt;
-
-&lt;p&gt;Kod bez użycia odwołania do metody robiący dokładnie to samo wygląda trochę mniej skomplikowanie:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectInstance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;objectInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;odwoływanie-się-do-konstruktora&quot;&gt;Odwoływanie się do konstruktora&lt;/h2&gt;
-
-&lt;p&gt;Notacja z &lt;code class=&quot;highlighter-rouge&quot;&gt;::&lt;/code&gt; może być także użyta do odwołania się do konstruktora. W tym przypadku należy użyć &lt;code class=&quot;highlighter-rouge&quot;&gt;::&lt;/code&gt; wraz ze słowem kluczowym &lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt;. Proszę spójrz na przykład poniżej:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Supplier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectCreator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;Object:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;objectCreator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W pierwszej linijce przykładu przypisuje konstruktor klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt; do zmiennej &lt;code class=&quot;highlighter-rouge&quot;&gt;objectCreator&lt;/code&gt;. Kolejna linijka to wywołanie konstruktora.&lt;/p&gt;
-
-&lt;p&gt;To samo bez użycia referencji metody możesz uzyskać w dobrze Ci znany sposób:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;przykład-zastosowania-wyrażeń-lambda-i-odwołania-do-metody&quot;&gt;Przykład zastosowania wyrażeń lambda i odwołania do metody&lt;/h2&gt;
-
-&lt;p&gt;Załóżmy, że chcemy wypisać na konsoli liczby znajdujące się w kolekcji. Możemy to zrobić przy pomocy standardowej pętli, którą już znasz:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Arrays&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;asList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
- 
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;To samo zadanie można także zrobić przy pomocy wyrażeń lambda:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Arrays&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;asList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integerConsumer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;integerConsumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Pierwsza linijka to utworzenie listy z liczbami. Kolejna jest bardziej ciekawa, zawiera wyrażenie lambda, które konsumuje liczbę wypisując ją na konsoli. Ostatnia to wywołanie metody &lt;code class=&quot;highlighter-rouge&quot;&gt;forEach&lt;/code&gt; wraz z wyrażeniem lambda. Wyrażenie to zostanie wywołane dla każdego elementu.&lt;/p&gt;
-
-&lt;p&gt;Kod ten można jeszcze bardziej skrócić używając mechanizmu odwoływania się do metod:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Arrays&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;asList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Efekt działania wszystkich trzech fragmentów jest dokładnie taki sam. Różnią się między sobą sposobem rozwiązania danego problemu.&lt;/p&gt;
-
-&lt;h2 id=&quot;zadania&quot;&gt;Zadania&lt;/h2&gt;
-
-&lt;p&gt;Na koniec mam dla Ciebie kilka zadań, które pomogą przećwiczyć Ci wiedzę z tego artykułu.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Napisz program, który pobierze o użytkownika cztery łańcuchy znaków, które umieścisz w liście. Następnie posortuj tę listę używając metody &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/List.html#sort-java.util.Comparator-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sort&lt;/code&gt;&lt;/a&gt;. Użyj wyrażenia lambda, które posortuje łańcuchy znaków malejąco po długości.&lt;/li&gt;
-  &lt;li&gt;Napisz program, który wywoła funkcję &lt;code class=&quot;highlighter-rouge&quot;&gt;equals&lt;/code&gt; na instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt; używając mechanizmu odwoływania się do metody (przy pomocy &lt;code class=&quot;highlighter-rouge&quot;&gt;::&lt;/code&gt;).&lt;/li&gt;
-  &lt;li&gt;Utwórz instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Human&lt;/code&gt; przy pomocy mechanizmu odwoływania się do konstruktora (przy pomocy &lt;code class=&quot;highlighter-rouge&quot;&gt;::&lt;/code&gt;).&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Human&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
- 
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Human&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
- 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getAge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
- 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Jeśli będziesz miał problem z rozwiązaniem zadań możesz rzucić okiem na &lt;a href=&quot;https://github.com/SamouczekProgramisty/KursJava/tree/master/28_wyrazenia_lambda/src/main/java/pl/samouczekprogramisty/kursjava/lambdaexpressions/exercise&quot;&gt;przykładowe rozwiązania&lt;/a&gt;, które umieściłem na samouczkowym githubie.&lt;/p&gt;
-
-&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
-
-&lt;p&gt;Przygotowałem dla Ciebie zestaw kilku linków z materiałami dodatkowymi:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/index.html&quot;&gt;Wprowadzenie do wyrażeń lambda na stronie Oracle&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html&quot;&gt;Tutorial dotyczący wyrażeń lambda na stronie Oracle&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.8&quot;&gt;Opis interfejsów funkcyjnych w JLS&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.13&quot;&gt;Referencja do metody w JLS&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.27&quot;&gt;Wyrażenia lambda w JLS&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Wyrażenia lambda nie są proste. Mogą powodować sporo zakłopotania, szczególnie na początku. Jeśli jednak się do nich przyzwyczaisz pisanie kodu z ich udziałem będzie sprawiało Ci sporo frajdy :). Po pewnym czasie docenisz też zwięzłość wyrażeń lambda.&lt;/p&gt;
-
-&lt;p&gt;Po przeczytaniu artykułu wiesz czym są wyrażenia lambda i jak je stosować. Znasz też mechanizm odwoływania się do metod. Przećwiczyłeś te mechanizmy rozwiązując przykładowe zadania. Nie zapomnij pochwalić się w komentarzu gdzie ostatnio użyłeś wyrażeń lambda :).&lt;/p&gt;
-
-&lt;p&gt;Na koniec mam do Ciebie prośbę. Jeśli uważasz, że artykuł ten był dla Ciebie pomocny proszę podziel się nim ze swoimi znajomymi. Zależy mi na dotarciu do jak największej grupy czytelników a Ty możesz mi w tym pomóc. Jeśli nie chcesz pominąć żadnego nowego artykułu dopisz się do samouczkowego newslettera i polub samouczka na Facebooku. Do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:roznice&quot;&gt;
-      &lt;p&gt;Nie jest to do końca prawda, na przykład wyrażenie lambda nie wprowadza nowego zakresu zmiennych, ale takie uproszczenie pomoże zrozumieć działanie wyrażeń lambda. &lt;a href=&quot;#fnref:roznice&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:roznice2&quot;&gt;
-      &lt;p&gt;Podobnie jak przy poprzednim porównaniu, są różnice pomiędzy wyrażeniami lambda i klasami anonimowymi. Jednak na potrzeby tego wprowadzenia możemy je pominąć. &lt;a href=&quot;#fnref:roznice2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:kompilacja&quot;&gt;
-      &lt;p&gt;Oczywiście w trakcie kompilacji typ jest znany, ale nie jest jawnie podany w kodzie źródłowym. &lt;a href=&quot;#fnref:kompilacja&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:efektywnie_abstrakcyjna&quot;&gt;
-      &lt;p&gt;Efektywnie abstrakcyjną, czyli dodanie do interfejsu np. metody equals, która jest w klasie Object nadal spełnia to wymaganie. &lt;a href=&quot;#fnref:efektywnie_abstrakcyjna&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:funkcyjny&quot;&gt;
-      &lt;p&gt;Oczywiście Java nie jest językiem w pełni funkcyjnym, jednak taka namiastka jest przydatna. &lt;a href=&quot;#fnref:funkcyjny&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operator `::`. Jeśli jesteś początkującym zrozumienie wyrażeń lambda pozwoli Ci przenieść swoje umiejętności na kolejny poziom. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując kilka przykładowych zadań.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory `public`, `protected` i `private`. Poznasz też zastosowanie czwartego modyfikatora dostępu - braku każdego z poprzednich. Zobaczysz różnice pomiędzy modyfikatorami na przykładowych fragmentach kodu. Na koniec będzie czekało na Ciebie zadanie do rozwiązania, w którym przećwiczysz wiedzę zdobytą po przeczytaniu.</summary></entry></feed>

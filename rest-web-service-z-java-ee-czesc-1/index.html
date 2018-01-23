@@ -254,7 +254,11 @@
 <li class="toc-entry toc-h2"><a href="#słownik-pojęć">Słownik pojęć</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#czym-jest-web-service">Czym jest web service</a></li>
-<li class="toc-entry toc-h3"><a href="#czym-jest-rest">Czym jest REST</a></li>
+<li class="toc-entry toc-h3"><a href="#czym-jest-rest">Czym jest REST</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#put-czy-post">PUT czy POST?</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h3"><a href="#czym-jest-java-ee">Czym jest Java EE</a></li>
 <li class="toc-entry toc-h3"><a href="#kontener-aplikacji-a-kontener-serwletów">Kontener aplikacji a kontener serwletów</a></li>
 </ul>
@@ -360,6 +364,12 @@
 
 <p>Jest to tylko krótkie wprowadzenie, jeśli chcesz dowiedzieć się więcej na temat REST odsyłam Cię do materiałów dodatkowych.</p>
 
+<h4 id="put-czy-post"><code class="highlighter-rouge">PUT</code> czy <code class="highlighter-rouge">POST</code>?</h4>
+
+<p>W tabeli wyżej wspomniałem o tym, że to zapytania typu <code class="highlighter-rouge">PUT</code> powinny tworzyć nową instancję a zapytania typu <code class="highlighter-rouge">POST</code> powinny ją edytować. Dla pełni informacji muszę Ci powiedzieć, że z tego co wiem, nie jest to nigdzie ustandaryzowane.</p>
+
+<p>Spotkasz się zarówno z takim podejściem jak w tabeli wyżej jak i odwrotnym, w którym to zapytania typu <code class="highlighter-rouge">POST</code> służą do utworzenia nowej encji.</p>
+
 <h3 id="czym-jest-java-ee">Czym jest Java EE</h3>
 
 <p>W jednym zdaniu. Java EE to platforma, która oparta jest na zbiorze specyfikacji. Technologie opisane w tych specyfikacjach są używane głównie do tworzenia aplikacji webowych.</p>
@@ -400,7 +410,7 @@
 
 <h3 id="buildgradle"><code class="highlighter-rouge">build.gradle</code></h3>
 
-<p>Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania aplikacji użyłem Gradle. Plik <code class="highlighter-rouge">build.gradle</code> wygląda następująco:</p>
+<p>Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania aplikacji użyłem <a href="/wstep-do-gradle/">Gradle</a>. Plik <code class="highlighter-rouge">build.gradle</code> wygląda następująco:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apply plugin: 'java'
 apply plugin: 'idea'
@@ -433,7 +443,7 @@ task explodedWar(type: Copy) {
 war.dependsOn explodedWar
 </code></pre></div></div>
 
-<p>Najbardziej istotnym fragmentem jest <code class="highlighter-rouge">providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'</code><sup id="fnref:jee7"><a href="#fn:jee7" class="footnote">2</a></sup>. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. <code class="highlighter-rouge">providedCompile</code> mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na <a href="%/java-z-linii-polecen/">classpath</a> kontenera aplikacji.</p>
+<p>Najbardziej istotnym fragmentem jest <code class="highlighter-rouge">providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'</code><sup id="fnref:jee7"><a href="#fn:jee7" class="footnote">2</a></sup>. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. <code class="highlighter-rouge">providedCompile</code> mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na <a href="/java-z-linii-polecen/">classpath</a> kontenera aplikacji.</p>
 
 <h3 id="pierwszy-web-service">Pierwszy web service</h3>
 
@@ -629,7 +639,7 @@ war.dependsOn explodedWar
       <p>W rzeczywistości mimo, że importuję tu API w wersji 2.1 serwer TomEE, którego używam (7.0.4) wspiera wersję 2.0. <a href="#fnref:jee7" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:windows">
-      <p>Jeśli pracujesz na systemie Windows wówczas plik ten nazywa się <code class="highlighter-rouge">catalina.bat</code>. <a href="#fnref:windows" class="reversefootnote">&#8617;</a></p>
+      <p>Jeśli pracujesz w systemie Windows wówczas plik ten nazywa się <code class="highlighter-rouge">catalina.bat</code>. <a href="#fnref:windows" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:uproszczenie">
       <p>Oczywiście jest to uproszczenie. W praktyce proces jest trochę bardziej rozbudowany. Proces ten opisany jest w sekcji 3.7 specyfikacji “Matching Requests to Resource Methods”. Domyślnie nowa instancja klasy obsługującej zapytanie tworzona jest dla każdego zapytania. W większości przypadków nie jest to zachowanie, które chcesz zostawić na produkcyjnym środowisku. <a href="#fnref:uproszczenie" class="reversefootnote">&#8617;</a></p>
@@ -716,6 +726,40 @@ war.dependsOn explodedWar
     <div class="page__related">
       <h4 class="page__related-title">Także może Ci się spodobać</h4>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2018/01/22_rest_web_service_2_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-2/" rel="permalink">REST web service z Java EE część 2
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  12 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzys...</p>
+  </article>
+</div>
         
           
 
@@ -816,40 +860,6 @@ war.dependsOn explodedWar
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używane...</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-      <div class="archive__item-teaser">
-        <img src=
-          
-            "http://www.samouczekprogramisty.pl/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg"
-          
-          alt="">
-      </div>
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/" rel="permalink">Walidacja obiektów w języku Java
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  12 minut(y)
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguł...</p>
   </article>
 </div>
         

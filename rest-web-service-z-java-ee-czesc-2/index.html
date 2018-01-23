@@ -1,0 +1,977 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>REST web service z Java EE część 2 - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzystanie wstrzykiwania zależności (CDI), walidacji (Bean Validation) czy obsługi formatu JSON (JSON-P i JSON-B). W praktyce JAX-RS pozwala na łatwe połączenie tych mechanizmów w całość. Artykuł przedstawia prosty webservice, napisany bez Springa. W artykule tym staram się pokazać, że nowoczesna Java EE nie jest taka straszna.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="REST web service z Java EE część 2">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-2/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-2/">
+
+
+
+  <meta property="og:description" content="W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzystanie wstrzykiwania zależności (CDI), walidacji (Bean Validation) czy obsługi formatu JSON (JSON-P i JSON-B). W praktyce JAX-RS pozwala na łatwe połączenie tych mechanizmów w całość. Artykuł przedstawia prosty webservice, napisany bez Springa. W artykule tym staram się pokazać, że nowoczesna Java EE nie jest taka straszna.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/01/22_rest_web_service_2_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-01-22T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2018/01/22_rest_web_service_2_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          REST web service z Java EE część 2
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzystanie wstrzykiwania zależności (CDI), walidacji (Bean Validation) czy obsługi formatu JSON (JSON-P i JSON-B). W praktyce JAX-RS pozwala na łatwe połączenie tych mechanizmów w całość. Artykuł przedstawia prosty webservice, napisany bez Springa. W artykule tym staram się pokazać, że nowoczesna Java EE nie jest taka straszna.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/trevor_dobson_inefekt69/32936864910/sizes/l">© trevor_dobson_inefekt69</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">REST web service z Java EE część 2</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="REST web service z Java EE część 2">
+    <meta itemprop="description" content="W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzystanie wstrzykiwania zależności (CDI), walidacji (Bean Validation) czy obsługi formatu JSON (JSON-P i JSON-B). W praktyce JAX-RS pozwala na łatwe połączenie tych mechanizmów w całość. Artykuł przedstawia prosty webservice, napisany bez Springa. W artykule tym staram się pokazać, że nowoczesna Java EE nie jest taka straszna.">
+    <meta itemprop="datePublished" content="January 22, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#rest-webservice-w-java-ee-8">REST Webservice w Java EE 8</a></li>
+<li class="toc-entry toc-h2"><a href="#serwer-aplikacji-dla-javaee-8">Serwer aplikacji dla JavaEE 8</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#instalacja-serwera-aplikacji-glassfish">Instalacja serwera aplikacji Glassfish</a></li>
+<li class="toc-entry toc-h3"><a href="#podstawowe-komendy-do-zarządzania-serwerem">Podstawowe komendy do zarządzania serwerem</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#wstrzykiwanie-zależności">Wstrzykiwanie zależności</a></li>
+<li class="toc-entry toc-h2"><a href="#model---rezerwacja">Model - rezerwacja</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#walidacja">Walidacja</a></li>
+<li class="toc-entry toc-h3"><a href="#dostęp-do-danych">Dostęp do danych</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#aplikacja">Aplikacja</a></li>
+<li class="toc-entry toc-h2"><a href="#webservice">Webservice</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#pobranie-listy-rezerwacji">Pobranie listy rezerwacji</a></li>
+<li class="toc-entry toc-h3"><a href="#pobieranie-pojedynczej-rezerwacji">Pobieranie pojedynczej rezerwacji</a></li>
+<li class="toc-entry toc-h3"><a href="#usuwanie-rezerwacji">Usuwanie rezerwacji</a></li>
+<li class="toc-entry toc-h3"><a href="#utworzenie-rezerwacji">Utworzenie rezerwacji</a></li>
+<li class="toc-entry toc-h3"><a href="#modyfikacja-rezerwacji">Modyfikacja rezerwacji</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#własna-klasa-provider">Własna klasa @Provider</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#zadanie-do-wykonania">Zadanie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        
+<div class="notice--info">
+  
+<p>To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">darmowego kursu programowania aplikacji webowych w Javie</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<p>W kursie tym zakładam, że znasz język Java. Możesz go poznać w osobnym <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java">kursie programowania w języku Java</a>. Do budowania wszystkich projetków używam Gradle, przeczytasz o nim więcej w <a href="/wstep-do-gradle/">osobnym artykule</a>.</p>
+
+</div>
+
+<h2 id="rest-webservice-w-java-ee-8">REST Webservice w Java EE 8</h2>
+
+<p>Tematykę REST omówiłem dokładnie w <a href="/rest-web-service-z-java-ee-czesc-1/">poprzednim artykule</a>. W tym pokażę przykładową implementację webservice’u używającego wyłącznie technologii opisanych w ramach specyfikacji Java EE 8.</p>
+
+<p>Przykładowa aplikacja będzie używała implementacji następujących specyfikacji:</p>
+
+<ul>
+  <li>JAX-RS: Java API for RESTful Web Services 2.1,</li>
+  <li>JSON-B: JavaTM API for JSON Binding 1.0</li>
+  <li>Java API for JSON Processing 1.1</li>
+  <li>Context and Dependency Injection for Java 2.0</li>
+  <li>Java TM Servlet Specification 3.1</li>
+</ul>
+
+<p>W artykule tym rozszerzę przykładowy webservice do zarządzania rezerwacjami. Będzie on posiadał pięć metod odpowiedzialnych odpowiednio za:</p>
+
+<ul>
+  <li>pobieranie listy rezerwacji,</li>
+  <li>pobieranie konkretnej rezerwacji,</li>
+  <li>tworzenie nowej rezerwacji,</li>
+  <li>edycja rezerwacji,</li>
+  <li>usunięcie rezerwacji.</li>
+</ul>
+
+<h2 id="serwer-aplikacji-dla-javaee-8">Serwer aplikacji dla JavaEE 8</h2>
+
+<p>W poprzednim artykule posłużyłem się kontenerem aplikacji TomEE. Niestety aktualnie kontener ten nie wspiera JEE 8. W związku z tym w tym artykule bazuję na serwerze Glassfish 5.</p>
+
+<h3 id="instalacja-serwera-aplikacji-glassfish">Instalacja serwera aplikacji Glassfish</h3>
+
+<p>Podobnie jak w przypadku serwera TomEE instalacja nie jest skomplikowana. W tym przypadku należy pobrać <a href="https://javaee.github.io/glassfish/download">najnowszą wersję</a> serwera Glassfish. Następnie należy rozpakować ściągnięty plik do dowolnego folderu. W moim przypadku jest to <code class="highlighter-rouge">/home/mapi/opt/glassfish5</code>.</p>
+
+<p>Nie wchodząc zbytnio w szczegóły działania serwera Glassfish musisz wiedzieć o programie <code class="highlighter-rouge">asadmin</code>, który pomaga w administracji serwerem. Program ten znajduje się w katalogu <code class="highlighter-rouge">bin</code>.</p>
+
+<h3 id="podstawowe-komendy-do-zarządzania-serwerem">Podstawowe komendy do zarządzania serwerem</h3>
+
+<p>Aby uruchomić serwer musisz wywołać polecenie <code class="highlighter-rouge">asadmin start-domain</code>. Mając działający serwer aplikacji możesz przejść do następnego kroku.</p>
+
+<p>Możesz pobrać listę aplikacji, które są aktualnie zainstalowane na serwerze przy pomocy polecenia <code class="highlighter-rouge">asadmin list-applications</code>.</p>
+
+<p>Zainstalować aplikację możesz przy pomocy polecenia <code class="highlighter-rouge">asadmin deploy --contextroot / build/libs/07_rest_crud-1.0-SNAPSHOT.war</code>. Ścieżka na końcu odpowiada plikowi war z aplikacją webową.</p>
+
+<p>Jeśli chcesz usunąć zainstalowaną aplikację uruchom <code class="highlighter-rouge">asadmin undeploy 07_rest_crud-1.0-SNAPSHOT</code>. Nazwę aplikacji do usunięcia możesz uzyskać wcześniej wspomniane polecenie <code class="highlighter-rouge">asadmin list-applications</code>.</p>
+
+<h2 id="wstrzykiwanie-zależności">Wstrzykiwanie zależności</h2>
+
+<p>Wstrzykiwanie zależności (ang. <em>dependency injection</em>) pozwala na oddelegowanie zarządzanie zależnościami do kontenera. Dzięki takiemu podejściu programista nie musi samemu tworzyć instancji obiektów, robi to za niego kontener aplikacji. Kontener aplikacji zarządza cyklem życia takich instancji. To kontener wywołuje konstruktor i kontener utrzymuje referencje do tych obiektów. Także kontener ustawia atrybuty jeśli odpowiadają one instancjom, którymi zarządza.</p>
+
+<p>Takie podejście do zarządzania obiektami znacząco upraszcza aplikacje. Pozwala też tworzyć kod, który można w łatwiejszy sposób przetestować przy pomocy <a href="/testy-jednostkowe-z-junit/">testów jednostkowych</a>.</p>
+
+<p class="notice--info">Wstrzykiwanie zależności to funkcjonalność, dzięki której Spring stał się tak popularny. W początkowych fazach istnienia biblioteki Spring jej możliwości sprowadzały się do przyjaznego zarządzania zależnościami.</p>
+
+<p>Proszę spójrz na przykład:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReservationWebservice</span> <span class="o">{</span>
+    <span class="nd">@Inject</span>
+    <span class="kd">private</span> <span class="n">ReservationDAO</span> <span class="n">dao</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@ApplicationScoped</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReservationDAO</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Fragment kodu powyżej używa mechanizmu wstrzykiwania zależności. Klasa <code class="highlighter-rouge">ReservationWebservice</code> potrzebuje instancji klasy <code class="highlighter-rouge">ReservationDAO</code><sup id="fnref:dao"><a href="#fn:dao" class="footnote">1</a></sup>. Atrybut <code class="highlighter-rouge">dao</code> może zostać wstrzyknięty dzięki mechanizmowi DI (ang. <em>Dependency Injection</em>). Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/inject/Inject.html"><code class="highlighter-rouge">@Inject</code></a> informuje kontener o tym, że ten atrybut powinien zostać wstrzyknięty.</p>
+
+<p>Klasa <code class="highlighter-rouge">ReservationDAO</code> poprzedzona jest adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/context/ApplicationScoped.html"><code class="highlighter-rouge">@ApplicationScoped</code></a>. Adnotacja ta informuje kontener o tym, że instancja tej klasy powinna być możliwa do wstrzyknięcia. Instancja będzie dostępna w kontekście aplikacji. Oznacza to tyle, że kontener utworzy wyłącznie jedną instancję tej klasy w trakcie działania aplikacji<sup id="fnref:serwery"><a href="#fn:serwery" class="footnote">2</a></sup>.</p>
+
+<div class="notice--warning">
+    
+<p>Mechanizm wstrzykiwania zależności powinien być domyślnie dostępny jak tylko kontener wykryje klasy, które powinien wstrzykiwać. Niestety jednak nie udało mi się zmusić do tego Glassfisha 5.</p>
+
+<p>Obszedłem to poprzez dodanie pustego pliku <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/07_rest_crud/src/main/webapp/WEB-INF/beans.xml"><code class="highlighter-rouge">beans.xml</code></a>, który także włącza ten mechanizm.</p>
+
+</div>
+
+<h2 id="model---rezerwacja">Model - rezerwacja</h2>
+
+<p>Rezerwacje, którymi zarządza webservice są reprezentowane przez osobną klasę <code class="highlighter-rouge">Reservation</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Reservation</span> <span class="o">{</span>
+
+    <span class="nd">@NotEmpty</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nd">@NotNull</span>
+    <span class="nd">@Positive</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">tableNumber</span><span class="o">;</span>
+
+    <span class="nd">@FutureOrPresent</span>
+    <span class="nd">@NotNull</span>
+    <span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">start</span><span class="o">;</span>
+
+    <span class="nd">@Future</span>
+    <span class="nd">@NotNull</span>
+    <span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">end</span><span class="o">;</span>
+
+    <span class="c1">// getters/setters</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Klasa ta zawiera atrybuty opisujące rezerwację takie jak nazwisko rezerwującego, numer stolika czy początek i koniec rezerwacji. Rezerwacja jest prawidłowa wyłącznie jeśli atrybuty uzupełnione są poprawnymi danymi. Poprawność instancji klasy <code class="highlighter-rouge">Reservation</code> zapewniona jest przez <a href="/walidacja-obiektow-w-jezyku-java/">mechanizm walidacji</a>.</p>
+
+<h3 id="walidacja">Walidacja</h3>
+
+<p>Walidacja obiektów dostarczona jest przez implementację specyfikacji Bean Validation. Każdy kontener aplikacji, który jest kompatybilny z Java EE 8 (jak Glassfish 5 wspomniany wyżej), musi dostarczać implementację tej specyfikacji.</p>
+
+<p>Samą <a href="/walidacja-obiektow-w-jezyku-java/">walidację obiektów</a> omówiłem bardziej szczegółowo w osobnym artykule. Tutaj widzisz jej użycie w kontekście aplikacji webowej.</p>
+
+<p>Instancja walidatora tworzona jest przez kontener automatycznie. Kontener także wywołuje mechanizm walidacji. Mechanizm ten wywoływany jest za każdym razem w metodach obsługujących podstawowe operacje. Przykład poniżej pokazuje użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html"><code class="highlighter-rouge">@Valid</code></a> w metodzie odpowiedzialnej za tworzenie nowej instancji rezerwacji.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PUT</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">createReservation</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Kontener na podstawie zapytania wysłanego przez użytkownika tworzy instancję klasy <code class="highlighter-rouge">Reservation</code>, następnie sprawdza czy instancja ta jest poprawna. Jeśli dane przesłane przez użytkownika są poprawne wówczas wywołuje ciało metody. Jeśli dane nie pozwolą na utworzenie poprawnej instancji wówczas zostanie rzucony <a href="%{ post_url 2016-01-31-wyjatki-w-jezyku-java %}">wyjątek</a><a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html"><code class="highlighter-rouge">ValidationException</code></a>.</p>
+
+<p>W akapicie opisującym instancje oznaczone adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Provider.html"><code class="highlighter-rouge">@Provider</code></a> opiszę ten mechanizm dokładniej.</p>
+
+<h3 id="dostęp-do-danych">Dostęp do danych</h3>
+
+<p>W normalnej wersji aplikacji dane zapisywane są w dedykowanej bazie danych<sup id="fnref:baza"><a href="#fn:baza" class="footnote">3</a></sup>. Na potrzeby tej aplikacji symuluję bazę danych przy pomocy <a href="/struktury-danych-tablica-asocjacyjna/">mapy</a> przechowywanej w pamięci. Oczywistym minusem jest to, że dane nie są zachowywane po wyłączeniu aplikacji. Na potrzeby tego artykułu taki mechanizm jest wystarczający:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ApplicationScoped</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReservationDAO</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Reservation</span><span class="o">&gt;</span> <span class="n">reservations</span> <span class="o">=</span> <span class="n">Collections</span><span class="o">.</span><span class="na">synchronizedMap</span><span class="o">(</span><span class="k">new</span> <span class="n">TreeMap</span><span class="o">&lt;&gt;());;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AtomicInteger</span> <span class="n">lastId</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicInteger</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Reservation</span><span class="o">&gt;</span> <span class="nf">getAll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">reservations</span><span class="o">.</span><span class="na">values</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Reservation</span> <span class="nf">getById</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">reservations</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Reservation</span> <span class="nf">updateReservation</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">,</span> <span class="n">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">reservations</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">reservation</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Reservation</span> <span class="nf">deleteReservation</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">reservations</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">createReservation</span><span class="o">(</span><span class="n">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">lastId</span><span class="o">.</span><span class="na">getAndIncrement</span><span class="o">();</span>
+        <span class="n">reservations</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">reservation</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Klasa <code class="highlighter-rouge">ReservationDAO</code> pozwala na łatwy dostęp do instancji klasy <code class="highlighter-rouge">Reservation</code> przechowywanych w pamięci. Pozwala na utworzenie, pobranie, usunięcie i edycję rezerwacji.</p>
+
+<p>Jak wspomniałem wyżej w akapicie opisującym wstrzykiwanie zależności, instancja klasy <code class="highlighter-rouge">ReservationDAO</code> jest zarządzana przez kontener aplikacji. W ramach całej aplikacji zostanie utworzona wyłącznie jedna instancja tej klasy. Ta instancja będzie wykorzystywana przez klasę obsługującą żądania wysyłane przez użytkownika.</p>
+
+<h2 id="aplikacja">Aplikacja</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ApplicationPath</span><span class="o">(</span><span class="s">"/rest"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RegistrationApplication</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ApplicationPath.html"><code class="highlighter-rouge">@ApplicationPath</code></a> informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice’ów w tej aplikacji poprzedzone są <code class="highlighter-rouge">/rest</code>.</p>
+
+<p>Adnotacja ta może zostać dodana wyłącznie do instancji klasy <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Application.html"><code class="highlighter-rouge">Application</code></a>. Klasa ta dostarcza dodatkowych metadanych o aplikacji. W moim przypadku jedyną wymaganą informacją dodatkową jest ta dostarczona przez adnotację.</p>
+
+<h2 id="webservice">Webservice</h2>
+
+<p>Teraz znasz komponenty, które są wykorzystywane przez webservice. Nadszedł czas na klasę obsługują żądania użytkownika:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Path</span><span class="o">(</span><span class="s">"/reservation"</span><span class="o">)</span>
+<span class="nd">@Produces</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+<span class="nd">@Consumes</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReservationWebservice</span> <span class="o">{</span>
+
+    <span class="nd">@Inject</span>
+    <span class="kd">private</span> <span class="n">ReservationDAO</span> <span class="n">dao</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Adnotację <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html"><code class="highlighter-rouge">@Path</code></a> znasz z <a href="/rest-web-service-z-java-ee-czesc-1/">poprzedniej części artykułu</a>. Określa ona ścieżkę, która obsługiwana jest przez daną klasę.</p>
+
+<p>Nowe są dla Ciebie adnotacje <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html"><code class="highlighter-rouge">@Consumes</code></a> i <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html"><code class="highlighter-rouge">@Produces</code></a>. Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie <a href="https://www.json.org/">JSON</a>.</p>
+
+<p>Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415">415</a>. Kod ten informuje klienty o tym, że format danych w zapytaniu nie jest wspierany.</p>
+
+<p>Wewnątrz klasy widzisz atrybut, który zostanie wstrzyknięty przez kontener aplikacji. Jest to instancja klasy <code class="highlighter-rouge">ReservationDAO</code> pozwalająca na dostęp do aktualnie dostępnych rezerwacji.</p>
+
+<p>Zgodnie ze specyfikacją JAX-RS dla każdego żądania przychodzącego od użytkownika zostanie utworzona nowa instancja klasy <code class="highlighter-rouge">ReservationWebservice</code>. Po raz kolejny to kontener aplikacji zajmuje się tworzeniem tych instancji.</p>
+
+<h3 id="pobranie-listy-rezerwacji">Pobranie listy rezerwacji</h3>
+
+<p>Kod odpowiedzialny za pobranie wszystkich rezerwacji nie jest zbyt skomplikowany:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GET</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">listReservations</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">dao</span><span class="o">.</span><span class="na">getAll</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Metoda <code class="highlighter-rouge">listReservations</code> poprzedzona jest adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html"><code class="highlighter-rouge">@GET</code></a>. Nie zawiera dodatkowej adnotacji <code class="highlighter-rouge">@Path</code>, więc wszystkie żądania wysłane pod adres <code class="highlighter-rouge">GET /rest/reservation</code> zostaną obsłużone przez tę metodę. Do sprawdzenia jej działania możesz użyć programu <a href="https://curl.haxx.se/"><code class="highlighter-rouge">curl</code></a></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">-H "Content-Type: application/json"</code> dodaje nagłówek do żądania. Określa on format zawartości zapytania. To właśnie ten nagłówek sprawdzany jest przez adnotację <code class="highlighter-rouge">@Consumes</code>.</p>
+
+<p>Wewnątrz metody buduję odpowiedź. Ciałem tej odpowiedzi jest lista rezerwacji zwrócona przez <code class="highlighter-rouge">dao</code>. Dzięki adnotacji <code class="highlighter-rouge">@Produces</code> JAX-RS wymusza format odpowiedzi. W moim przypadku jest to JSON.</p>
+
+<p>Kontener automatycznie przekonwertuje instancję klasy <code class="highlighter-rouge">Reservation</code> do formatu JSON. Dzieje się to dzięki implementacji specyfikacji JSON-B i JSON-P.</p>
+
+<h3 id="pobieranie-pojedynczej-rezerwacji">Pobieranie pojedynczej rezerwacji</h3>
+
+<p>Pobieranie pojedynczej rezerwacji również bazuje na atrybucie <code class="highlighter-rouge">dao</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GET</span>
+<span class="nd">@Path</span><span class="o">(</span><span class="s">"{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">getReservation</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="nd">@Min</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Reservation</span> <span class="n">reservation</span> <span class="o">=</span> <span class="n">dao</span><span class="o">.</span><span class="na">getById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">reservation</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">reservation</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="n">Response</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Dodatkowa adnotacja <code class="highlighter-rouge">@Path</code> rozszerza tę umieszczoną nad klasą <code class="highlighter-rouge">ReservationWebservice</code>. W wyniku tego metoda <code class="highlighter-rouge">getReservation</code> obsługuje wszystkie żądania wysłane przez klienty na adres <code class="highlighter-rouge">GET /reservation/{id}</code>. <code class="highlighter-rouge">id</code> jest identyfikatorem rezerwacji pobieranym z adresu URL dzięki adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html"><code class="highlighter-rouge">@PathParam</code></a>.</p>
+
+<p>Zwróć także uwagę na użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/Min.html"><code class="highlighter-rouge">@Min</code></a>. Adnotacja ta uruchomi mechanizm walidacji dla parametru <code class="highlighter-rouge">id</code>. Mechanizm ten sprawdzi czy liczba przekazana w adresie ma wartość większą, bądź równą 0. Jeśli wartość parametru jest niepoprawna zostanie rzucony wyjątek.</p>
+
+<p>Wewnątrz ciała metody odwołuję się do atrybutu <code class="highlighter-rouge">dao</code> pobierając rezerwację na podstawie identyfikatora pobranego od użytkownika. <code class="highlighter-rouge">dao</code> zwróci wartość <code class="highlighter-rouge">null</code> jeśli rezerwacja o danym identyfikatorze nie zostanie odnaleziona. W takim przypadku klient uzyska odpowiedź z kodem <a href="https://developer.mozilla.org/uk/docs/Web/HTTP/Status/404">404</a> informującą o braku szukanego elementu.</p>
+
+<p>Jeśli <code class="highlighter-rouge">dao</code> znajdzie rezerwację o zadanym identyfikatorze, wówczas zostanie ona przekazana w odpowiedzi. Także tutaj zostanie ona przekształcona do formatu JSON.</p>
+
+<p>Także w tym przypadku <code class="highlighter-rouge">curl</code> może pomóc w wysłaniu zapytania:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation/0 
+</code></pre></div></div>
+
+<h3 id="usuwanie-rezerwacji">Usuwanie rezerwacji</h3>
+
+<p>Usuwanie rezerwacji niewiele różni się od pobierania pojedynczej wartości:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@DELETE</span>
+<span class="nd">@Path</span><span class="o">(</span><span class="s">"{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">deleteReservation</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="nd">@Min</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Reservation</span> <span class="n">reservation</span> <span class="o">=</span> <span class="n">dao</span><span class="o">.</span><span class="na">deleteReservation</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">reservation</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">reservation</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="n">Response</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku kombinacja adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/DELETE.html"><code class="highlighter-rouge">@DELETE</code></a> i <code class="highlighter-rouge">@Path</code> wskazuje, że metoda ta zostanie wywołana w przypadku wysłania żądania na adres <code class="highlighter-rouge">DELETE /reservation/{id}</code>. Podobnie jak w przypadku pobierania rezerwacji mechanizm walidacja sprawdza poprawność przekazanego parametru <code class="highlighter-rouge">id</code>.</p>
+
+<p>W przypadku tej metody <code class="highlighter-rouge">dao</code> użyte jest do usunięcia rezerwacji o podanym identyfikatorze.</p>
+
+<p>Przykładowe wywołanie <code class="highlighter-rouge">curl</code> usuwające rezerwację o identyfikatorze 0:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation/0 -X DELETE
+</code></pre></div></div>
+
+<h3 id="utworzenie-rezerwacji">Utworzenie rezerwacji</h3>
+
+<p>Podczas tworzenia rezerwacji webservice wymusza poprawność danych przekazanych przez użytkownika. To adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html"><code class="highlighter-rouge">@Valid</code></a> wymusza sprawdzenie poprawności danych:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PUT</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">createReservation</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">newId</span> <span class="o">=</span> <span class="n">dao</span><span class="o">.</span><span class="na">createReservation</span><span class="o">(</span><span class="n">reservation</span><span class="o">);</span>
+    <span class="n">URI</span> <span class="n">location</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s">"reservation/"</span> <span class="o">+</span> <span class="n">newId</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">URISyntaxException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">created</span><span class="o">(</span><span class="n">location</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jeśli wszystkie wymagania określone w klasie <code class="highlighter-rouge">Reservation</code> zostaną spełnione zostanie wywołana metoda <code class="highlighter-rouge">createReservation</code>. W przeciwnym wypadku zostanie rzucony wyjątek <code class="highlighter-rouge">ValidationException</code>.</p>
+
+<p>W ciele metody <code class="highlighter-rouge">createReservation</code> wywołuję <code class="highlighter-rouge">dao.createReservation</code>. To wywołanie zapisuje nową rezerwację w bazie danych. W wyniku wywołania tej metody zwrócony jest nowy identyfikator dla tej rezerwacji. Pomaga on w utworzeniu adresu URL, który zostaje zwrócony w odpowiedzi.</p>
+
+<p>Także i tutaj <code class="highlighter-rouge">curl</code> może zostać użyty do wysłania zapytania. Tym razem w ciele zapytania muszę przesłać dane w formacie JSON, które reprezentują nową rezerwację. Przykładowe zapytanie może wyglądać następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation -X PUT -d '{"start": "2018-01-22T20:00", "tableNumber": 1, "name": "Marcin", "end": "2018-01-22T21:20"}'
+</code></pre></div></div>
+
+<p>Parametr <code class="highlighter-rouge">-d</code> służy do przekazania zawartości zapytania. W tym przypadku jest to JSON, który reprezentuje dane potrzebne do utworzenia instancji klasy <code class="highlighter-rouge">Reservation</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "name": "Marcin",
+    "tableNumber": 1,
+    "start": "2018-01-22T20:00",
+    "end": "2018-01-22T21:20"
+}
+</code></pre></div></div>
+
+<p>W przykładzie powyżej instancja reprezentowana jest przez mapę. Kluczami są nazwy atrybutów, na przykład <code class="highlighter-rouge">name</code> czy <code class="highlighter-rouge">start</code>. Atrybuty klasy zostaną uzupełnione wartościami przekazanymi w mapie. Oczywiście format wartości musi być odpowiedni. Automatyczna transformacja pomiędzy formatem JSON a klasą Java możliwa jest dzięki specyfikacjom JSON-B i JSON-P.</p>
+
+<h3 id="modyfikacja-rezerwacji">Modyfikacja rezerwacji</h3>
+
+<p>Modyfikacja rezerwacji nie zawiera nowych mechanizmów. Jest dość podobna do tworzenia nowej instancji:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
+<span class="nd">@Path</span><span class="o">(</span><span class="s">"{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">Response</span> <span class="nf">updateReservation</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="nd">@Min</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">,</span> <span class="nd">@Valid</span> <span class="n">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="n">hasReservation</span> <span class="o">=</span> <span class="n">dao</span><span class="o">.</span><span class="na">getById</span><span class="o">(</span><span class="n">id</span><span class="o">)</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">hasReservation</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">dao</span><span class="o">.</span><span class="na">updateReservation</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">reservation</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">noContent</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="n">Response</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="własna-klasa-provider">Własna klasa <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/ExceptionMapper.html"><code class="highlighter-rouge">@Provider</code></a></h2>
+
+<p>W <a href="/rest-web-service-z-java-ee-czesc-1/">poprzedniej części</a> artykułu użyłem tej adnotacji to utworzenia filtra, który dodawał nagłówki. Tym razem posłuży ona do pomocy przy walidacji.</p>
+
+<p>Specyfikacja JAX-RS pozwala na utworzenie klasy, która będzie odpowiedzialna za obsługę wyjątków, które wystąpiły w trakcie przetwarzania żądania klienta. To zastosowanie idealnie nadaje się do obsługi błędów walidacji:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Provider</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ValidationExceptionMapper</span> <span class="kd">implements</span> <span class="n">ExceptionMapper</span><span class="o">&lt;</span><span class="n">ConstraintViolationException</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ErrorMessage</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">error</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nf">ErrorMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">error</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">error</span> <span class="o">=</span> <span class="n">error</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Response</span> <span class="nf">toResponse</span><span class="o">(</span><span class="n">ConstraintViolationException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Response</span>
+                <span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="n">Response</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="k">new</span> <span class="n">ErrorMessage</span><span class="o">(</span><span class="n">exception</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()))</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Klasa <code class="highlighter-rouge">ValidationExceptionMapper</code> implementuje interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/ExceptionMapper.html"><code class="highlighter-rouge">ExceptionMapper</code></a>. Interfejs ten zawiera wyłącznie jedną metodę <code class="highlighter-rouge">toResponse</code>. Metoda ta zostaje wywołana jeśli zostanie rzucony wyjątek obsługiwany przez daną klasę.</p>
+
+<p>W moim przypadku tworzę nową odpowiedź, która zwraca kod błędu <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400">400</a> wraz z dodatkowym komunikatem błędu zwróconym przez mechanizm walidacji.</p>
+
+<div class="notice--warning">
+    
+<p>W związku z <a href="https://github.com/jersey/jersey/issues/3425">błędem</a> w bibliotece Jersey musiałem utworzyć klasę, która obsługuje wyjątek <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintViolationException.html"><code class="highlighter-rouge">ConstraintViolationException</code></a>. Po rozwiązaniu tego błędu klasa ta powinna obsługiwać wyjątek <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html"><code class="highlighter-rouge">ValidationException</code></a>.</p>
+
+<p>Zgodnie ze specyfikacją użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/annotation/Priority.html"><code class="highlighter-rouge">@Priority</code></a> także powinno pomóc obejść ten problem.</p>
+
+</div>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>W tym miejscu poproszę Cię o uruchomienie tej aplikacji na swoim komputerze i testowanie jej przy pomocy programu <code class="highlighter-rouge">curl</code>. Taka zabawa na żywo potrafi sporo nauczyć. Kod źródłowy aplikacji znajdziesz na <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/07_rest_crud">samouczkowym githubie</a>.</p>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>Kod źródłowy aplikacji użytej w artykule znajduje się na samouczkowym githubie. Twoim zadaniem jest rozszerzenie działania tej aplikacji. W obecnym kształcie aplikacja nie sprawdza czy dany stolik nie jest już zarezerwowany. Może to prowadzić do sytuacji, w której ten sam stolik będzie zarezerwowany w tym samym czasie dla więcej niż jednej osoby.</p>
+
+<p>Popraw aplikację w taki sposób, aby nie pozwalała na ponowną rezerwację już zarezerwowanego stolika. Więc jeśli stolik nr 1. jest zarezerwowany w godzinach od 17:00 do 18:30, to rezerwacja na ten sam stolik od 18:10 do 19:00 nie jest możliwa.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>W artykule przeczytałeś o praktycznym zastosowaniu kilku specyfikacji z parasola Java EE. Na przykładzie mogłeś zobaczyć użycie walidacji czy wstrzykiwania zależności. Poznałeś też mechanizm obsługi wyjątków, w którym użyłem adnotacji <code class="highlighter-rouge">@Provider</code>. Użyłeś implementacji specyfikacji JSON-P i JSON-B pozwalających na proste obsługiwanie danych w formacie JSON. Całość opakowana została w webservice, oparty o specyfikację JAX-RS. Mam nadzieję, że przykłady użyte w artykule pozwoliły Ci spojrzeć na Java EE z innej strony.</p>
+
+<p>Jeśli którakolwiek część artykułu nie jest dla Ciebie jasna proszę daj znać. Postaram się pomóc. Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości proszę dopisz się do samouczkowego newslettera i polub stronę Samouczka na Facebooku. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:dao">
+      <p>DAO to akronim od <em>Data Access Object</em>. Jest to często spotykany sposób na oznaczenie klas, które odpowiedzialne są za dostęp do danych. <a href="#fnref:dao" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:serwery">
+      <p>Mam na myśli tutaj jedną instancję klasy na każdą wirtualną maszynę Javy. Jeśli aplikacja uruchomiona jest w kliku kontenerach wówczas każdy z nich będzie miał osobną instancję. <a href="#fnref:serwery" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:baza">
+      <p>Raz jest to zwykła baza relacyjna, innym razem może to być plik na dysku. W przypadku niektórych aplikacji wymaganiem może okazać się użycie innych mechanizmów jak na przykład bazy “nosql”, czy rozproszone systemy plików. Wszystko zależy od wymagań stawianych przed daną aplikacją. <a href="#fnref:baza" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        <div class="mailerlite__form">
+            <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+        </div>
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#kurs-aplikacji-webowych" class="page__taxonomy-item" rel="tag">Kurs aplikacji webowych</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-01-22T00:00:00+01:00">January 22, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Frest-web-service-z-java-ee-czesc-2%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Frest-web-service-z-java-ee-czesc-2%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/" class="pagination--pager" title="Struktury danych - tablica asocjacyjna
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/11/20_rest_web_service_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-1/" rel="permalink">REST web service z Java EE część 1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstaluj...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/" rel="permalink">Walidacja obiektów w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguł...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/04/01_naglowki_ciasteczka_sesje_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/naglowki-sesje-i-ciasteczka/" rel="permalink">Nagłówki, sesje i ciasteczka
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W pierwszej części artykułu opisującej serwlety dowiedziałeś się podstaw dotyczących serwletów. W tym artykule będziesz mógł poszerzyć tę wiedzę. Dowiesz się...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/03/25_serwlety_w_aplikacjach_webowych_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/serwlety-w-aplikacjach-webowych/" rel="permalink">Serwlety w aplikacjach webowych
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o serwletach. Poznasz podstawy protokołu HTTP. Dowiesz się czym są serwlety i jak je pisać. Dowiesz się także czym jest plik war i...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-2/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
