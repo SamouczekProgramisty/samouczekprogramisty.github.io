@@ -8,9 +8,26 @@ header:
     teaser: /assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg
     overlay_image: /assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg
     caption: "[&copy; thomashawk](https://www.flickr.com/photos/thomashawk/3191454610/sizes/l)"
-excerpt: Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardowej pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskazówki kiedy można używać wyrażeń regularnych i jakie są ich wady. Nie obędzie się też bez wskazówek do InteliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując zadania, które wymagały będą wykorzystania wyrażeń regularnych. Zapraszam do lektury.
+excerpt: Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardowej pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskazówki kiedy można używać wyrażeń regularnych i jakie są ich wady. Nie obędzie się też bez wskazówek do IntelliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując zadania, które wymagały będą wykorzystania wyrażeń regularnych. Zapraszam do lektury.
 disqus_page_identifier: 562 http://www.samouczekprogramisty.pl/?p=562
 ---
+
+{% capture notice-text %}
+To jest wprowadzający artykuł na temat wyrażeń regularnych. Część bardziej zaawansowanych zagadnień związanych z wyrażeniami regularnymi opisana jest w [drugiej części]({% post_url 2017-01-06-wyrazenia-regularne-czesc-2 %}):
+
+ - zachłanność wyrażeń regularnych,
+ - alternatywa,
+ - grupy nieprzechwytujące,
+ - grupy nazwane,
+ - ponowne użycie grup,
+ - kotwice.
+
+Zachęcam do przeczytania drugiej części jeśli chciałbyś dowiedzieć się czegoś więcej o punktach wspomnianych powyżej.
+{% endcapture %}
+
+<div class="notice--info">
+  {{ notice-text | markdownify }}
+</div>
 
 ## Czym są wyrażenia regularne
 
@@ -226,7 +243,7 @@ public void testSimpleClasses() {
 
 #### Zakresy znaków
 
-Aby ułatwić zapisywanie grup znaków klasy pozwalają na definiowanie zakresów. Można to zrobić przy pomocy `-`. Na przykład do wyrażenia regularnego `[a-d]uma` pasują łańcuchy znaków `"auma"`, `"buma"`, `"cuma"` czy `"duma"` ale nie pasuje `"fuma"` czy `"abuma"`. W podobnym sposób możemy podawać zakresy cyfr. Do wyrażenia regularnego `[0-7]xyz` pasują łańcucy znaków `"0xyz"`, `"1xyz"` czy `"7xyz"` ale nie pasuje `"8xyz"` czy `"07xyz"`.
+Aby ułatwić zapisywanie grup znaków klasy pozwalają na definiowanie zakresów. Można to zrobić przy pomocy `-`. Na przykład do wyrażenia regularnego `[a-d]uma` pasują łańcuchy znaków `"auma"`, `"buma"`, `"cuma"` czy `"duma"` ale nie pasuje `"fuma"` czy `"abuma"`. W podobnym sposób możemy podawać zakresy cyfr. Do wyrażenia regularnego `[0-7]xyz` pasują łańcuchy znaków `"0xyz"`, `"1xyz"` czy `"7xyz"` ale nie pasuje `"8xyz"` czy `"07xyz"`.
 
 ```java
 @Test
@@ -298,7 +315,7 @@ Takie często używane klasy zostały wbudowane w wyrażenia regularne pod posta
 - `\s` - tak zwane białe znaki czyli znak spacji czy tabulacji `[ \t\n\r\f\x0B]`. Możesz je opisać jako znaki, które nie są widoczne podczas wydruku,
 - `\S` - negacja grupy `\s` czyli `[^ \t\n\r\f\x0B]`.
 
-Dla przykładu do wyrażenia regularnego `\d\w\d` pasują łąńcuchy znaków `"0_0"` czy `"0X1"` ale nie pasują `"a0b"` czy `"0 0"`.
+Dla przykładu do wyrażenia regularnego `\d\w\d` pasują łańcuchy znaków `"0_0"` czy `"0X1"` ale nie pasują `"a0b"` czy `"0 0"`.
 
 ```java
 @Test
@@ -383,7 +400,7 @@ Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku 
 
 ## IDE pomaga
 
-InteliJ Idea ma dość przydatną funkcję, która pomaga przy pracy z wyrażeniami regularnymi. Naciskając `<Alt + Enter>` na wyrażeniu regularnym i klikając na „Check RegExp” pokaże się okienko, w którym na żywo możesz sprawdzić działanie wyrażenia regularnego.
+IntelliJ Idea ma dość przydatną funkcję, która pomaga przy pracy z wyrażeniami regularnymi. Naciskając `<Alt + Enter>` na wyrażeniu regularnym i klikając na „Check RegExp” pokaże się okienko, w którym na żywo możesz sprawdzić działanie wyrażenia regularnego.
 
 {% include figure image_path="/assets/images/2016/11/28_check_regexp_menu.jpg" caption="Check RegExp menu." %}
 
@@ -405,10 +422,10 @@ Jeśli w Twoim wyrażeniu regularnym jest dużo `*` zastanów się jeszcze raz c
 
 ## Zadania do wykonania
 
-Twoim dzisiejszym zadaniem będzie napisanie kilku wyrażeń regularnych, które będą potrafiły walidować przykładowe dane pochodzące od użytkownika. Napisz wyrażenie regulane, które:
+Twoim dzisiejszym zadaniem będzie napisanie kilku wyrażeń regularnych, które będą potrafiły walidować przykładowe dane pochodzące od użytkownika. Napisz wyrażenie regularne, które:
 1. Sprawdza czy liczba zmiennoprzecinkowa podana przez użytkownika ma poprawny format. Na przykład liczba 123,2341515132135 czy -10 są poprawne ale 18-12 czy 123, już nie,
 2. sprawdza czy numer domu jest w formacie numer\numer. Poprawnym numerem jest 123\2A, 24B\3 czy 12\5, ale już numer abc\cba nie,
-3. sprawdza czy użytkownik wprowadził poprawną nazwę miasta. Na przykład Wroclaw, Zielona Gora czy Bielsko-Biala jest ok, jednak Ptysiow123 już nie. Dla uproszczenia załóżmy, że żadna nazwa miejscowości nie zwiera polskich znaków.
+3. sprawdza czy użytkownik wprowadził poprawną nazwę miasta. Na przykład Wrocław, Zielona Gora czy Bielsko-Biala jest ok, jednak Ptysiow123 już nie. Dla uproszczenia załóżmy, że żadna nazwa miejscowości nie zwiera polskich znaków.
 
 Rozwiązania jak zwykle są na [githubie](https://github.com/SamouczekProgramisty/KursJava/blob/master/23_wyrazenia_regularne/src/test/java/pl/samouczekprogramisty/kursjava/regexp/exercise/ExerciseTest.java) jednak zachęcam do samodzielnej pracy. Próbując rozwiązać zadania samodzielnie nauczysz się najwięcej.
 
@@ -418,7 +435,7 @@ Poniżej przygotowałem dla Ciebie kilka dodatkowych linków, które zawierają 
 - [Rubular](http://rubular.com/) - narzędzie pozwalające na sprawdzenie wyrażenia regularnego. Co prawda dotyczy wyrażeń regularnych dla języka Ruby jednak w przypadku Javy też znajduje zastosowanie,
 - [Regexr](http://regexr.com) - kolejne narzędzie pomagające w testowaniu wyrażeń regularnych.
 - [http://www.regular-expressions.info](http://www.regular-expressions.info) - bezsprzecznie najlepszy materiał w sieci jaki znalazłem na temat wyrażeń regularnych. Zawiera szczegółowy opis zarówno tych podstawowych jak i zaawansowanych technik. Sam bardzo często korzystam z tego źródła,
-- artykuł na temat wyrażeń regularnych na [wikipedii](https://pl.wikipedia.org/wiki/Wyra%C5%BCenie_regularne),
+- artykuł na temat wyrażeń regularnych na [Wikipedii](https://pl.wikipedia.org/wiki/Wyra%C5%BCenie_regularne),
 - [dokumentacja](http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) dla klasy Pattern,
 - [dokumentacja](http://docs.oracle.com/javase/8/docs/api/java/util/regex/Matcher.html) dla klasy Matcher,
 - [tutorial](http://docs.oracle.com/javase/tutorial/essential/regex/index.html) dotyczący wyrażeń regularnych na stronie Oracle,
@@ -426,8 +443,8 @@ Poniżej przygotowałem dla Ciebie kilka dodatkowych linków, które zawierają 
 
 ## Podsumowanie
 
-Mimo, że artykuł zawiera dość sporą ilość informacji na temat wyrażeń regularnych nie mówi o wszystkich możliwościach. Pominąłem tu celowo na przykład kwestie tak zwanego backtrackingu, zachłanności, alternatyw, nazwanych grup, ponownego użycia grup w wyrażeniu, flag, kotwic itd. Jeśli jesteś zainteresowany dodatkowym materiałem daj znać, nadziubię kolejny artykuł ;).
+Mimo, że artykuł zawiera dość sporą ilość informacji na temat wyrażeń regularnych nie mówi o wszystkich możliwościach. Pominąłem tu celowo na przykład kwestie tak zwanego backtrackingu, zachłanności, alternatyw, nazwanych grup, ponownego użycia grup w wyrażeniu, flag, kotwic itd. Te zagadnienia opisuję w [drugiej części]({% post_url 2017-01wyrazenia-regularne-czesc-2 %}).
 
 Tymczasem dzięki za lekturę i na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze swoimi znajomymi, zależy mi na dotarciu do jak największej grupy czytelników i możesz mi w tym pomóc.
 
-Jeśli nie chcesz pominąć żadnego kolejnego artykułu zapisz się do newslettera i polub moją stronę na facebooku. Do następnego razu!
+Jeśli nie chcesz pominąć żadnego kolejnego artykułu zapisz się do newslettera i polub moją stronę na Facebooku. Do następnego razu!
