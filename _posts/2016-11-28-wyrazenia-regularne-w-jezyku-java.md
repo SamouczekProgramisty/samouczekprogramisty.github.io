@@ -443,7 +443,7 @@ Poniżej przygotowałem dla Ciebie kilka dodatkowych linków, które zawierają 
 
 ## Podsumowanie
 
-Mimo, że artykuł zawiera dość sporą ilość informacji na temat wyrażeń regularnych nie mówi o wszystkich możliwościach. Pominąłem tu celowo na przykład kwestie tak zwanego backtrackingu, zachłanności, alternatyw, nazwanych grup, ponownego użycia grup w wyrażeniu, flag, kotwic itd. Te zagadnienia opisuję w [drugiej części]({% post_url 2017-01wyrazenia-regularne-czesc-2 %}).
+Mimo, że artykuł zawiera dość sporą ilość informacji na temat wyrażeń regularnych nie mówi o wszystkich możliwościach. Pominąłem tu celowo na przykład kwestie tak zwanego backtrackingu, zachłanności, alternatyw, nazwanych grup, ponownego użycia grup w wyrażeniu, flag, kotwic itd. Te zagadnienia opisuję w [drugiej części]({% post_url 2017-01-06-wyrazenia-regularne-czesc-2 %}).
 
 Tymczasem dzięki za lekturę i na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze swoimi znajomymi, zależy mi na dotarciu do jak największej grupy czytelników i możesz mi w tym pomóc.
 
