@@ -278,9 +278,9 @@
 <li class="toc-entry toc-h2"><a href="#pozostałe-metody-web-serviceu">Pozostałe metody web service’u</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#pobieranie-encji-metoda-get">Pobieranie encji. Metoda GET</a></li>
-<li class="toc-entry toc-h3"><a href="#edycja-encji-metoda-post">Edycja encji. Metoda POST</a></li>
+<li class="toc-entry toc-h3"><a href="#edycja-encji-metoda-put">Edycja encji. Metoda PUT</a></li>
 <li class="toc-entry toc-h3"><a href="#usuwanie-encji-metoda-delete">Usuwanie encji. Metoda ‘DELETE`</a></li>
-<li class="toc-entry toc-h3"><a href="#dodawanie-encji-metoda-put">Dodawanie encji. Metoda ‘PUT`</a></li>
+<li class="toc-entry toc-h3"><a href="#dodawanie-encji-metoda-post">Dodawanie encji. Metoda ‘POST`</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#testowanie-zapytań-typu-put-delete">Testowanie zapytań typu PUT, DELETE</a>
@@ -341,13 +341,13 @@
       <td>Pobranie rezerwacji o identyfikatorze 123</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">POST</code></td>
-      <td><code class="highlighter-rouge">POST /rezerwacja/123</code></td>
+      <td><code class="highlighter-rouge">PUT</code></td>
+      <td><code class="highlighter-rouge">PUT /rezerwacja/123</code></td>
       <td>Edycja rezerwacji o identyfikatorze 123</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">PUT</code></td>
-      <td><code class="highlighter-rouge">PUT /rezerwacja</code></td>
+      <td><code class="highlighter-rouge">POST</code></td>
+      <td><code class="highlighter-rouge">POST /rezerwacja</code></td>
       <td>Utworzenie nowej rezerwacji</td>
     </tr>
     <tr>
@@ -366,9 +366,9 @@
 
 <h4 id="put-czy-post"><code class="highlighter-rouge">PUT</code> czy <code class="highlighter-rouge">POST</code>?</h4>
 
-<p>W tabeli wyżej wspomniałem o tym, że to zapytania typu <code class="highlighter-rouge">PUT</code> powinny tworzyć nową instancję a zapytania typu <code class="highlighter-rouge">POST</code> powinny ją edytować. Dla pełni informacji muszę Ci powiedzieć, że z tego co wiem, nie jest to nigdzie ustandaryzowane.</p>
+<p>W tabeli wyżej wspomniałem o tym, że to zapytania typu <code class="highlighter-rouge">POST</code> powinny tworzyć nową instancję a zapytania typu <code class="highlighter-rouge">PUT</code> powinny ją edytować. Dla pełni informacji muszę Ci powiedzieć, że z tego co wiem, nie jest to nigdzie ustandaryzowane.</p>
 
-<p>Spotkasz się zarówno z takim podejściem jak w tabeli wyżej jak i odwrotnym, w którym to zapytania typu <code class="highlighter-rouge">POST</code> służą do utworzenia nowej encji.</p>
+<p>Spotkasz się zarówno z takim podejściem jak w tabeli wyżej jak i odwrotnym, w którym to zapytania typu <code class="highlighter-rouge">POST</code> służą do edycji encji.</p>
 
 <h3 id="czym-jest-java-ee">Czym jest Java EE</h3>
 
@@ -447,7 +447,7 @@ war.dependsOn explodedWar
 
 <h3 id="pierwszy-web-service">Pierwszy web service</h3>
 
-<p>Następnie utwórz klasę, która będzie odpowiedzialna za encję <code class="highlighter-rouge">Reservation</code>. Może to być na przykład <code class="highlighter-rouge">ReservationWebservice</code>:</p>
+<p>Utwórz klasę, która będzie odpowiedzialna za encję <code class="highlighter-rouge">Reservation</code>. Może to być na przykład <code class="highlighter-rouge">ReservationWebservice</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursaplikacjewebowe</span><span class="o">.</span><span class="na">rest</span><span class="o">;</span>
 
@@ -502,7 +502,7 @@ war.dependsOn explodedWar
 
 <p>Jak widzisz z powyższego opisu JAX-RS jest jedynie nakładką na mechanizm serwletów. Jeśli czytałeś poprzednie artykuły w ramach kursu to wiesz, że serwlety są sercem ogromnej większości aplikacji webowych napisanych w Javie.</p>
 
-<p>Skoro jest to nakładka, to można tę samą funkcjonalność uzyskać bez niej. Innymi słowy można pisać REST’owe web service’y bez użycia JAX-RS, używając standardowego kontenera serwletów. Jednak JAX-RS sporo upraszcza, pozwala programiście używać wyższego poziomu abstrakcji. Nie musisz pamiętać o <code class="highlighter-rouge">doGet</code> czy innych metod z API serwletów.</p>
+<p>Skoro jest to nakładka, to można tę samą funkcjonalność uzyskać bez niej. Innymi słowy można pisać REST’owe web service’y bez użycia JAX-RS, używając standardowego kontenera serwletów. Jednak JAX-RS sporo upraszcza, pozwala programiście używać wyższego poziomu abstrakcji. Nie musisz pamiętać o <code class="highlighter-rouge">doGet</code> czy innych metodach z API serwletów.</p>
 
 <h2 id="pozostałe-metody-web-serviceu">Pozostałe metody web service’u</h2>
 
@@ -521,16 +521,16 @@ war.dependsOn explodedWar
 
 <p>Jak widzisz w tym przypadku metoda <code class="highlighter-rouge">getReservation</code> dekorowana jest adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html"><code class="highlighter-rouge">@Path</code></a>. Metoda ta zostanie wywołana do obsłużenia zapytania wysłanego pod adres <code class="highlighter-rouge">/reservation/{id}</code>. Składnia <code class="highlighter-rouge">{id}</code> użyta jest do przechwytywania części adresu URL. Dzięki tej składni i użyciu adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html"><code class="highlighter-rouge">@PathParam</code></a> część tej ścieżki zostanie przekazana w trakcie wywołania metody <code class="highlighter-rouge">getReservation</code>. Na przykład zapytanie <code class="highlighter-rouge">GET /reservation/123</code> spowoduje wywołanie tej metody z argumentem <code class="highlighter-rouge">id</code> o wartości <code class="highlighter-rouge">123</code>.</p>
 
-<h3 id="edycja-encji-metoda-post">Edycja encji. Metoda <code class="highlighter-rouge">POST</code></h3>
+<h3 id="edycja-encji-metoda-put">Edycja encji. Metoda <code class="highlighter-rouge">PUT</code></h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PUT</span>
 <span class="nd">@Path</span><span class="o">(</span><span class="s">"{id}"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="n">Response</span> <span class="nf">updateReservation</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="s">"Zmodyfikowaliśmy rezerwację o numerze "</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">" :)"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W tym przypadku nowa jest dla Ciebie jedynie adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/POST.html"><code class="highlighter-rouge">@POST</code></a>. Informuje ona kontener aplikacji o tym, że metoda <code class="highlighter-rouge">updateReservation</code> powinna być wywołana jeśli klient wyśle zapytanie <code class="highlighter-rouge">POST /reservation/{id}</code>.</p>
+<p>W tym przypadku nowa jest dla Ciebie jedynie adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PUT.html"><code class="highlighter-rouge">@PUT</code></a>. Informuje ona kontener aplikacji o tym, że metoda <code class="highlighter-rouge">updateReservation</code> powinna być wywołana jeśli klient wyśle zapytanie <code class="highlighter-rouge">PUT /reservation/{id}</code>.</p>
 
 <h3 id="usuwanie-encji-metoda-delete">Usuwanie encji. Metoda ‘DELETE`</h3>
 
@@ -541,9 +541,9 @@ war.dependsOn explodedWar
 <span class="o">}</span>
 </code></pre></div></div>
 
-<h3 id="dodawanie-encji-metoda-put">Dodawanie encji. Metoda ‘PUT`</h3>
+<h3 id="dodawanie-encji-metoda-post">Dodawanie encji. Metoda ‘POST`</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PUT</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
 <span class="kd">public</span> <span class="n">Response</span> <span class="nf">createReservation</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="s">"Rezerwacja została utworzona!"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 <span class="o">}</span>
@@ -582,7 +582,7 @@ war.dependsOn explodedWar
 
 <h2 id="adnotacja-provider">Adnotacja <code class="highlighter-rouge">@Provider</code></h2>
 
-<p>Więcej o tej adnotacji przeczytasz w drugiej części artykułu. Dzisiaj opiszę jedynie część jej możliwości.</p>
+<p class="notice--info">Więcej o tej adnotacji przeczytasz w drugiej części artykułu. Dzisiaj opiszę jedynie część jej możliwości.</p>
 
 <p>JAX-RS udostępnia adnotację <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Providers.html"><code class="highlighter-rouge">@Provider</code></a>. Służy ona do oznaczenia komponentów, które powinny być automatycznie odkryte przez kontener aplikacji. Tą adnotacją oznacza się klasy, które są odpowiedzialne za przekrojowe zadania (ang. <em>cross-cutting</em>) związane z aplikacją.</p>
 

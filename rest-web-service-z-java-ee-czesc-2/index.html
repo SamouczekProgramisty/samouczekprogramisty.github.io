@@ -409,7 +409,7 @@
 
 <p>Instancja walidatora tworzona jest przez kontener automatycznie. Kontener także wywołuje mechanizm walidacji. Mechanizm ten wywoływany jest za każdym razem w metodach obsługujących podstawowe operacje. Przykład poniżej pokazuje użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html"><code class="highlighter-rouge">@Valid</code></a> w metodzie odpowiedzialnej za tworzenie nowej instancji rezerwacji.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PUT</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
 <span class="kd">public</span> <span class="n">Response</span> <span class="nf">createReservation</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">//...</span>
 <span class="o">}</span>
@@ -487,7 +487,7 @@
 
 <p>Nowe są dla Ciebie adnotacje <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html"><code class="highlighter-rouge">@Consumes</code></a> i <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html"><code class="highlighter-rouge">@Produces</code></a>. Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie <a href="https://www.json.org/">JSON</a>.</p>
 
-<p>Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415">415</a>. Kod ten informuje klienty o tym, że format danych w zapytaniu nie jest wspierany.</p>
+<p>Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415">415</a>. Kod ten informuje klienty o tym, że format danych nie jest wspierany.</p>
 
 <p>Wewnątrz klasy widzisz atrybut, który zostanie wstrzyknięty przez kontener aplikacji. Jest to instancja klasy <code class="highlighter-rouge">ReservationDAO</code> pozwalająca na dostęp do aktualnie dostępnych rezerwacji.</p>
 
@@ -570,7 +570,7 @@
 
 <p>Podczas tworzenia rezerwacji webservice wymusza poprawność danych przekazanych przez użytkownika. To adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html"><code class="highlighter-rouge">@Valid</code></a> wymusza sprawdzenie poprawności danych:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PUT</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
 <span class="kd">public</span> <span class="n">Response</span> <span class="nf">createReservation</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">newId</span> <span class="o">=</span> <span class="n">dao</span><span class="o">.</span><span class="na">createReservation</span><span class="o">(</span><span class="n">reservation</span><span class="o">);</span>
     <span class="n">URI</span> <span class="n">location</span><span class="o">;</span>
@@ -589,7 +589,7 @@
 
 <p>Także i tutaj <code class="highlighter-rouge">curl</code> może zostać użyty do wysłania zapytania. Tym razem w ciele zapytania muszę przesłać dane w formacie JSON, które reprezentują nową rezerwację. Przykładowe zapytanie może wyglądać następująco:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation -X PUT -d '{"start": "2018-01-22T20:00", "tableNumber": 1, "name": "Marcin", "end": "2018-01-22T21:20"}'
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation -X POST -d '{"start": "2018-01-22T20:00", "tableNumber": 1, "name": "Marcin", "end": "2018-01-22T21:20"}'
 </code></pre></div></div>
 
 <p>Parametr <code class="highlighter-rouge">-d</code> służy do przekazania zawartości zapytania. W tym przypadku jest to JSON, który reprezentuje dane potrzebne do utworzenia instancji klasy <code class="highlighter-rouge">Reservation</code>.</p>
@@ -608,7 +608,7 @@
 
 <p>Modyfikacja rezerwacji nie zawiera nowych mechanizmów. Jest dość podobna do tworzenia nowej instancji:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PUT</span>
 <span class="nd">@Path</span><span class="o">(</span><span class="s">"{id}"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="n">Response</span> <span class="nf">updateReservation</span><span class="o">(</span><span class="nd">@PathParam</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="nd">@Min</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">,</span> <span class="nd">@Valid</span> <span class="n">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">boolean</span> <span class="n">hasReservation</span> <span class="o">=</span> <span class="n">dao</span><span class="o">.</span><span class="na">getById</span><span class="o">(</span><span class="n">id</span><span class="o">)</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span>
