@@ -184,7 +184,7 @@ Function<Integer, Long> multiline = x -> {
 
 ## Zalety stosowania wyrażeń lambda
 
-Wyrażenia lambda są bardzo pomocne przy operacji na kolekcjach. Są niezastąpione także przy pracy ze strumieniami. Pozwalają także na pisanie w Javie w sposób “funkcyjny”[^funkcyjny].
+Wyrażenia lambda są bardzo pomocne przy operacji na kolekcjach. Są niezastąpione także przy pracy ze [strumieniami]({% post_url 2018-01-30-strumienie-w-jezyku-java %}). Pozwalają także na pisanie w Javie w sposób “funkcyjny”[^funkcyjny].
 
 [^funkcyjny]: Oczywiście Java nie jest językiem w pełni funkcyjnym, jednak taka namiastka jest przydatna.
 

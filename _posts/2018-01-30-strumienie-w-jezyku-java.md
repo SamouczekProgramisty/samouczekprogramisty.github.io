@@ -407,7 +407,7 @@ W poprzednich artykułach opisałem kilka struktur danych. Przykładem struktur 
 
 Mówi się, że strumienie pozwalają w deklaratywny sposób opisać operacje na danych. Można to uprościć do stwierdzenia, że struktury służą do przechowywania danych a strumienie służą do opisywania algorytmów, operacji na danych.
 
-## Zadanie
+## Zadania
 
 Na koniec przygotowałem dla Ciebie kilka zadań do rozwiązania, które pomogą Ci utrwalić wiedzę zdobytą w tym artykule:
 
