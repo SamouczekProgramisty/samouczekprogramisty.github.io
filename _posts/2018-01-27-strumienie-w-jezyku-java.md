@@ -22,9 +22,9 @@ W szczególności potrzebna będzie wiedza na temat [kolekcji]({% post_url 2016-
 
 ## Czym są strumienie
 
-Strumienie służą do przetwarzania danych. Dane mogą być przechowywane w kolekcji, mogą być wynikem pracy z [wyrażeniami regularnymi]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}). W strumień możesz opakować praktycznie dowolny zestaw danych. Strumienie pozwalają w łatwy spobób zrównoleglić pracę na danych. Dzięki temu przetwarzanie dużych zbiorów danych może być dużo szybsze. Strumienie kładą nacisk na operacje jakie należy przeprowadzić na danych.
+Strumienie służą do przetwarzania danych. Dane mogą być przechowywane w kolekcji, mogą być wynikiem pracy z [wyrażeniami regularnymi]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}). W strumień możesz opakować praktycznie dowolny zestaw danych. Strumienie pozwalają w łatwy sposób zrównoleglić pracę na danych. Dzięki temu przetwarzanie dużych zbiorów danych może być dużo szybsze. Strumienie kładą nacisk na operacje jakie należy przeprowadzić na danych.
 
-Niestety pojęcie struminia jest dość szerokie. Możesz się z nim także spotkać w przypadku pracy z plikami. W tym artykule mówiąc o strumieniach mam na myśli klasy implementujące interfejs [`Stream`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html).
+Niestety pojęcie strumienia jest dość szerokie. Możesz się z nim także spotkać w przypadku pracy z plikami. W tym artykule mówiąc o strumieniach mam na myśli klasy implementujące interfejs [`Stream`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html).
 {: .notice--warning}
 
 ### Strumień na przykładzie
@@ -116,7 +116,7 @@ Strumienie zostały wprowadzone w Java 8. W tej wersji także dodano możliwoś�
 
 Interfejs `Stream` jest [interfejsem generycznym]({% post_url 2016-03-26-typy-generyczne-w-jezyku-java %}). Przechowuje on informację o typie, który aktualnie znajduje się w danym strumieniu. W przykładzie powyżej utworzyłem strumień `gamesStream` zawierający instancje klasy `BoardGame`. Strumień ten utworzyłem na podstawie [listy]({% post_url 2018-01-01-struktury-danych-lista-wiazana %}).
 
-Następnie filtruję strumień używając wyrażeń lambda. Zwróć uwagę na to, że każde wywołąnie metody [`filter`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-) tworzy nową instancję klasy `Stream`. Każda linijka odpowiedzialna jest za filtr innego rodzaju. Pierszy wybiera wyłącznie te gry, w które może grać więcej niż 4 graczy. Wśród tak odfiltrowanych gier następnie wybieram te, których ocena jest wyższa niż 8. Ostatnim zawężeniem jest wybranie gier, które kosztują mniej niż 150zł:
+Następnie filtruję strumień używając wyrażeń lambda. Zwróć uwagę na to, że każde wywołanie metody [`filter`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-) tworzy nową instancję klasy `Stream`. Każda linijka odpowiedzialna jest za filtr innego rodzaju. Pierwszy wybiera wyłącznie te gry, w które może grać więcej niż 4 graczy. Wśród tak odfiltrowanych gier następnie wybieram te, których ocena jest wyższa niż 8. Ostatnim zawężeniem jest wybranie gier, które kosztują mniej niż 150zł:
 
 ```java
 Stream<BoardGame> filteredStream = gamesStream
@@ -125,7 +125,7 @@ Stream<BoardGame> filteredStream = gamesStream
     .filter(g -> new BigDecimal(150).compareTo(g.price) > 0);
 ```
 
-W tym przypadku nie zapisywałem pośrednich strumieni do zmiennych. Zapisałem wyczłącznie wynik, który otrzymam po użyciu wszystkich trzech filtrów. Następnie z każdej gry pobieram jej nazwę i zmieniam ją na pisaną wielkimi literami:
+W tym przypadku nie zapisywałem pośrednich strumieni do zmiennych. Zapisałem wyłącznie wynik, który otrzymam po użyciu wszystkich trzech filtrów. Następnie z każdej gry pobieram jej nazwę i zmieniam ją na pisaną wielkimi literami:
 
 ```java
 Stream<String> namesStream = filteredStream
@@ -156,7 +156,7 @@ Każdy strumień ma dokładnie jedną metodę, która go tworzy na podstawie dan
 
 Każda z operacji wykonywanych na strumieniu musi spełniać jasno określone wymagania.
 
-#### Nie posida stanu
+#### Nie posiada stanu
 
 Operacja nie może posiadać stanu. Przykładem operacji, która taki stan posiada jest metoda `modify`:
 
@@ -203,7 +203,7 @@ numbers.stream()
     .forEach(System.out::println);
 ```
 
-Uruchomienie tego kodu kończy się rzucieniem wyjątku:
+Uruchomienie tego kodu kończy się rzuceniem wyjątku:
 
     1
     Exception in thread "main" java.util.ConcurrentModificationException
@@ -217,7 +217,7 @@ Uruchomienie tego kodu kończy się rzucieniem wyjątku:
         at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
         at pl.samouczekprogramisty.kursjava.streams.requirements.InterferingOperation.main(InterferingOperation.java:15)
 
-## Rodzje operacji na strumieniach
+## Rodzie operacji na strumieniach
 
 ### Tworzenie strumieni
 
@@ -371,9 +371,9 @@ int fastNumber = IntStream.range(1950, 2150)
         .sum();
 ```
 
-### Unikaj skomplkikowanych wyrażeń lambda
+### Unikaj skomplikowanych wyrażeń lambda
 
-Skomplikowane, wielolinijkowe wyrażenie lambda może nie być czytelne. W takim przypadku, moim zdaniem, lepiej opakować kod w standarową metodę i użyć odnośnika do metody wewnątrz strumienia. Proszę porównaj dwa poniższe przykłady
+Skomplikowane, wieloliniowe wyrażenie lambda może nie być czytelne. W takim przypadku, moim zdaniem, lepiej opakować kod w sztandarową metodę i użyć odnośnika do metody wewnątrz strumienia. Proszę porównaj dwa poniższe przykłady
 
 ```java
 IntStream.range(1950, 2150)
@@ -399,7 +399,7 @@ Chociaż drugi przykład jest zdecydowanie dłuższy wydaje mi się, że jest te
 
 ### Nie nadużywaj strumieni
 
-Jak ktoś umie obsługiwac młotek to każdy problem wygląda jak gwóźdź. Strumienie są jednym ze sposobów rozwiązania problemu. To nie jest prawda, że znając strumienie powinieneś zapomnieć o pętlach. Dobrze jest znać oba mechanizmy. Poza tym, niektórych konstrukcji nie da się uzyskać przy pomocy strumieni. Przykładem mogą być tu niektóre pętle ze słówkiem kluczowym `break`.
+Jak ktoś umie obsługiwać młotek to każdy problem wygląda jak gwóźdź. Strumienie są jednym ze sposobów rozwiązania problemu. To nie jest prawda, że znając strumienie powinieneś zapomnieć o pętlach. Dobrze jest znać oba mechanizmy. Poza tym, niektórych konstrukcji nie da się uzyskać przy pomocy strumieni. Przykładem mogą być tu niektóre pętle ze słówkiem kluczowym `break`.
 
 ## Strumienie to nie struktury danych
 
@@ -411,7 +411,7 @@ Mówi się, że strumienie pozwalają w deklaratywny sposób opisać operacje na
 
 Na koniec przygotowałem dla Ciebie kilka zadań do rozwiązania, które pomogą Ci utrwalić wiedzę zdobytą w tym artykule:
 
-- Przerób poniższ fragment kodu tak żeby używał strumieni:
+- Przerób poniższa fragment kodu tak żeby używał strumieni:
 ```java
 double highestRanking = 0;
 BoardGame bestGame = null;
@@ -425,7 +425,7 @@ for (BoardGame game : BoardGame.GAMES) {
 }
 System.out.println(bestGame.name);
 ```
-- Znajdz minimalny elment w kolekcji używając strumieni i funkcji [`reduce`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#reduce-java.util.function.BinaryOperator-). Twoja funkcja powinna działać jak isteniejąca funkcja [`min`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#min-java.util.Comparator-).
+- Znajdź minimalny element w kolekcji używając strumieni i funkcji [`reduce`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#reduce-java.util.function.BinaryOperator-). Twoja funkcja powinna działać jak istniejąca funkcja [`min`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#min-java.util.Comparator-).
 - Używając metody [`flatMap`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#flatMap-java.util.function.Function-) napisz strumień, który "spłaszczy" listę list.
 
 ## Dodatkowe materiały do nauki
