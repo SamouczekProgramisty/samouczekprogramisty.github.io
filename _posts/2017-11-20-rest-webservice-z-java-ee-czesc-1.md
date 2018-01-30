@@ -33,8 +33,8 @@ Operacje na encjach wykonuje się za pomocą zapytań HTTP. Do encji dobieramy s
 | Czasownik | Przykład                 | Znaczenie                                  | 
 | --------- | ------------------------ | ------------------------------------------ | 
 | `GET`     | `GET /rezerwacja/123`    | Pobranie rezerwacji o identyfikatorze 123  | 
-| `POST`    | `POST /rezerwacja/123`   | Edycja rezerwacji o identyfikatorze 123    | 
-| `PUT`     | `PUT /rezerwacja`        | Utworzenie nowej rezerwacji                | 
+| `PUT`     | `PUT /rezerwacja/123`    | Edycja rezerwacji o identyfikatorze 123    | 
+| `POST`    | `POST /rezerwacja`       | Utworzenie nowej rezerwacji                | 
 | `DELETE`  | `DELETE /rezerwacja/123` | Usunięcie rezerwacji o identyfikatorze 123 |
 
 Zanim powstał REST, web service'y w języku Java tworzono w oparciu o SOAP (ang. _Simple Object Access Protocol_). SOAP w porównaniu do REST jest dużo bardziej złożony. SOAP oparty jest o XML'a i jest dość rozwlekłym protokołem. Moim zdaniem REST zdobył dużą przewagę właśnie swoją prostotą w porównaniu do SOAP. REST jest _de facto_ standardem jeśli chodzi o tworzenie web service'ów w większości aplikacji webowych.
@@ -45,9 +45,9 @@ Jest to tylko krótkie wprowadzenie, jeśli chcesz dowiedzieć się więcej na t
 
 #### `PUT` czy `POST`?
 
-W tabeli wyżej wspomniałem o tym, że to zapytania typu `PUT` powinny tworzyć nową instancję a zapytania typu `POST` powinny ją edytować. Dla pełni informacji muszę Ci powiedzieć, że z tego co wiem, nie jest to nigdzie ustandaryzowane. 
+W tabeli wyżej wspomniałem o tym, że to zapytania typu `POST` powinny tworzyć nową instancję a zapytania typu `PUT` powinny ją edytować. Dla pełni informacji muszę Ci powiedzieć, że z tego co wiem, nie jest to nigdzie ustandaryzowane. 
 
-Spotkasz się zarówno z takim podejściem jak w tabeli wyżej jak i odwrotnym, w którym to zapytania typu `POST` służą do utworzenia nowej encji.
+Spotkasz się zarówno z takim podejściem jak w tabeli wyżej jak i odwrotnym, w którym to zapytania typu `POST` służą do edycji encji.
 
 ### Czym jest Java EE
 
@@ -115,7 +115,7 @@ Najbardziej istotnym fragmentem jest `providedCompile group: 'javax.ws.rs', name
 
 ### Pierwszy web service
 
-Następnie utwórz klasę, która będzie odpowiedzialna za encję `Reservation`. Może to być na przykład `ReservationWebservice`:
+Utwórz klasę, która będzie odpowiedzialna za encję `Reservation`. Może to być na przykład `ReservationWebservice`:
 
 ```java
 package pl.samouczekprogramisty.kursaplikacjewebowe.rest;
@@ -172,7 +172,7 @@ Więc w tym przypadku, wysłanie żądania na adres `http://localhost:8080/rest/
 
 Jak widzisz z powyższego opisu JAX-RS jest jedynie nakładką na mechanizm serwletów. Jeśli czytałeś poprzednie artykuły w ramach kursu to wiesz, że serwlety są sercem ogromnej większości aplikacji webowych napisanych w Javie. 
 
-Skoro jest to nakładka, to można tę samą funkcjonalność uzyskać bez niej. Innymi słowy można pisać REST'owe web service'y bez użycia JAX-RS, używając standardowego kontenera serwletów. Jednak JAX-RS sporo upraszcza, pozwala programiście używać wyższego poziomu abstrakcji. Nie musisz pamiętać o `doGet` czy innych metod z API serwletów.
+Skoro jest to nakładka, to można tę samą funkcjonalność uzyskać bez niej. Innymi słowy można pisać REST'owe web service'y bez użycia JAX-RS, używając standardowego kontenera serwletów. Jednak JAX-RS sporo upraszcza, pozwala programiście używać wyższego poziomu abstrakcji. Nie musisz pamiętać o `doGet` czy innych metodach z API serwletów.
 
 ## Pozostałe metody web service'u
 
@@ -192,17 +192,17 @@ public Response getReservation(@PathParam("id") Integer id) {
 
 Jak widzisz w tym przypadku metoda `getReservation` dekorowana jest adnotacją [`@Path`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html). Metoda ta zostanie wywołana do obsłużenia zapytania wysłanego pod adres `/reservation/{id}`. Składnia `{id}` użyta jest do przechwytywania części adresu URL. Dzięki tej składni i użyciu adnotacji [`@PathParam`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html) część tej ścieżki zostanie przekazana w trakcie wywołania metody `getReservation`. Na przykład zapytanie `GET /reservation/123` spowoduje wywołanie tej metody z argumentem `id` o wartości `123`.
 
-### Edycja encji. Metoda `POST`
+### Edycja encji. Metoda `PUT`
 
 ```java
-@POST
+@PUT
 @Path("{id}")
 public Response updateReservation(@PathParam("id") Integer id) {
     return Response.ok("Zmodyfikowaliśmy rezerwację o numerze " + id + " :)").build();
 }
 ```
 
-W tym przypadku nowa jest dla Ciebie jedynie adnotacja [`@POST`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/POST.html). Informuje ona kontener aplikacji o tym, że metoda `updateReservation` powinna być wywołana jeśli klient wyśle zapytanie `POST /reservation/{id}`.
+W tym przypadku nowa jest dla Ciebie jedynie adnotacja [`@PUT`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PUT.html). Informuje ona kontener aplikacji o tym, że metoda `updateReservation` powinna być wywołana jeśli klient wyśle zapytanie `PUT /reservation/{id}`.
 
 ### Usuwanie encji. Metoda 'DELETE`
 
@@ -214,10 +214,10 @@ public Response deleteReservation(@PathParam("id") Integer id) {
 }
 ```
 
-### Dodawanie encji. Metoda 'PUT`
+### Dodawanie encji. Metoda 'POST`
 
 ```java
-@PUT
+@POST
 public Response createReservation() {
     return Response.ok("Rezerwacja została utworzona!").build();
 }
@@ -261,6 +261,7 @@ Jest to wymagane dla każdego zapytania, które będzie uruchamiane ze strony do
 ## Adnotacja `@Provider` 
 
 Więcej o tej adnotacji przeczytasz w drugiej części artykułu. Dzisiaj opiszę jedynie część jej możliwości.
+{: .notice--info}
 
 JAX-RS udostępnia adnotację [`@Provider`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Providers.html). Służy ona do oznaczenia komponentów, które powinny być automatycznie odkryte przez kontener aplikacji. Tą adnotacją oznacza się klasy, które są odpowiedzialne za przekrojowe zadania (ang. _cross-cutting_) związane z aplikacją.
 

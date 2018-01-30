@@ -129,7 +129,7 @@ Samą [walidację obiektów]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-
 Instancja walidatora tworzona jest przez kontener automatycznie. Kontener także wywołuje mechanizm walidacji. Mechanizm ten wywoływany jest za każdym razem w metodach obsługujących podstawowe operacje. Przykład poniżej pokazuje użycie adnotacji [`@Valid`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html) w metodzie odpowiedzialnej za tworzenie nowej instancji rezerwacji.
 
 ```java
-@PUT
+@POST
 public Response createReservation(@Valid Reservation reservation) {
     //...
 }
@@ -212,7 +212,7 @@ Adnotację [`@Path`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/P
 
 Nowe są dla Ciebie adnotacje [`@Consumes`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html) i [`@Produces`](https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html). Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie [JSON](https://www.json.org/).
 
-Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod [415](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415). Kod ten informuje klienty o tym, że format danych w zapytaniu nie jest wspierany. 
+Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod [415](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415). Kod ten informuje klienty o tym, że format danych nie jest wspierany. 
 
 Wewnątrz klasy widzisz atrybut, który zostanie wstrzyknięty przez kontener aplikacji. Jest to instancja klasy `ReservationDAO` pozwalająca na dostęp do aktualnie dostępnych rezerwacji.
 
@@ -296,7 +296,7 @@ Przykładowe wywołanie `curl` usuwające rezerwację o identyfikatorze 0:
 Podczas tworzenia rezerwacji webservice wymusza poprawność danych przekazanych przez użytkownika. To adnotacja [`@Valid`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html) wymusza sprawdzenie poprawności danych: 
 
 ```java
-@PUT
+@POST
 public Response createReservation(@Valid Reservation reservation) {
     int newId = dao.createReservation(reservation);
     URI location;
@@ -315,7 +315,7 @@ W ciele metody `createReservation` wywołuję `dao.createReservation`. To wywoł
 
 Także i tutaj `curl` może zostać użyty do wysłania zapytania. Tym razem w ciele zapytania muszę przesłać dane w formacie JSON, które reprezentują nową rezerwację. Przykładowe zapytanie może wyglądać następująco:
 
-    curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation -X PUT -d '{"start": "2018-01-22T20:00", "tableNumber": 1, "name": "Marcin", "end": "2018-01-22T21:20"}'
+    curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation -X POST -d '{"start": "2018-01-22T20:00", "tableNumber": 1, "name": "Marcin", "end": "2018-01-22T21:20"}'
 
 Parametr `-d` służy do przekazania zawartości zapytania. W tym przypadku jest to JSON, który reprezentuje dane potrzebne do utworzenia instancji klasy `Reservation`.
 
@@ -333,7 +333,7 @@ W przykładzie powyżej instancja reprezentowana jest przez mapę. Kluczami są 
 Modyfikacja rezerwacji nie zawiera nowych mechanizmów. Jest dość podobna do tworzenia nowej instancji:
 
 ```java
-@POST
+@PUT
 @Path("{id}")
 public Response updateReservation(@PathParam("id") @Min(0) Integer id, @Valid Reservation reservation) {
     boolean hasReservation = dao.getById(id) != null;
