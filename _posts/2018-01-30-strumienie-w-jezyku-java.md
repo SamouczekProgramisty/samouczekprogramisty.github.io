@@ -217,7 +217,7 @@ Uruchomienie tego kodu kończy się rzuceniem wyjątku:
         at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
         at pl.samouczekprogramisty.kursjava.streams.requirements.InterferingOperation.main(InterferingOperation.java:15)
 
-## Rodzie operacji na strumieniach
+## Rodzaje operacji na strumieniach
 
 ### Tworzenie strumieni
 
