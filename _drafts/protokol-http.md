@@ -7,7 +7,7 @@ header:
     teaser: /assets/images/2018/02/06_protokol_http_artykul.jpg
     overlay_image: /assets/images/2018/02/06_protokol_http_artykul.jpg
     caption: "[&copy; adrienneserra](https://www.flickr.com/photos/adrienneserra/2037060375/sizes/l)"
-excerpt: W artykule tym dowiesz się więcej o protokole HTTP. Dowiesz się czym są ciasteczka, nagłówki, czasowniki HTTP. Dowiesz się czym jest idempotentość. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem podstawową więdzę na temat prokokołu niezbędną do tworzenia aplikacji webowybch.
+excerpt: W artykule tym dowiesz się więcej o protokole HTTP. Dowiesz się czym są ciasteczka, nagłówki, czasowniki HTTP. Dowiesz się czym jest idempotentość. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem podstawową więdzę na temat prokokołu HTTP niezbędną do tworzenia aplikacji webowybch.
 ---
 
 ## Czym jest protokół HTTP
@@ -109,10 +109,23 @@ Ostatnia część adresu URL. W praktyce wykorzystywana jest do określenia frag
 
 ## Żądanie i odpowiedź
 
+{% capture devtools %}
 W dalszej części artykułu będę używał programu [curl](https://curl.haxx.se/) jako klienta HTTP. Jest to program, który z linii poleceń pozwala na łatwe wysyłanie zapytań do serwerów.
-{: .notice--info}
 
-Teraz przeanalizuję przykładowe zapytania wraz z odesłanymi odpowiedziami. Użyję do tego istniejących serwisów i ich publicznych API. Serwisy te używają HTTPS. W analizie zapytań/odpowiedzi pominę fragmenty dotyczące HTTPS.
+Jeśli nie chcesz używać narzędzia z linii poleceń możesz użyć narzędzi dla programistów dostępnych w Twojej przeglądarce:
+
+* [Chrome](https://developer.chrome.com/devtools),
+* [Firefox](https://developer.mozilla.org/son/docs/Tools),
+* [Safari](https://developer.apple.com/safari/tools/),
+* [Opera](http://www.opera.com/dragonfly/),
+* [Edge](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide).
+{% endcapture %}
+
+<div class="notice--info">
+    {{ devtools | markdownify }}
+</div>
+
+Teraz przeanalizuję przykładowe zapytanie wraz z odesłaną odpowiedzią. Użyję do tego publiczego API Github'a. Github używa HTTPS, w analizie żądania/odpowiedzi pominę fragmenty dotyczące HTTPS.
 
 ### Żądanie HTTP
 
@@ -124,6 +137,7 @@ Klient wysyła żądanie do serwera w formie wiadomości. Wiadomość ta ma dok�
  - ciało wiadomości (jeśli istnieje).
 
 Jak wspomniałem wyżej użyję programu curl. Dodatoko użyję przełącznika `-v`. Włącza on tryb lania wody ;). Wtedy curl raportuje dużo więcej. Dane wysłane do serwera poprzedzone są znakiem `>`. Odpowiedź poprzedzona jest `<`. Poniżej pokazuję zapytanie do API githuba. Wysyłam żądanie na adres `https://api.github.com/users/kbl`:
+
 
     $ curl -v https://api.github.com/users/kbl
     // ciach usunąłem część związaną z HTTPS
@@ -191,12 +205,26 @@ W przypadku odpowiedzi ciało wiadomości zawiera dane w formacie JSON - zasób.
 
 ## Czasowniki HTTP
 
+Specyfikacja HTTP definiuje 8 czasowników[^rozszerzenie]:
+
+[^rozszerzenie]: [RFC5789](https://tools.ietf.org/html/rfc5789) rozszerza tę grupę o czasownik PATCH.
+
+### GET
+### HEAD
+### POST
+### PUT
+### DELETE
+### CONNECT
+### OPTIONS
+### TRACE
+
 ## Nagłówki HTTP
+
+Zgodnie ze specyfikacją wielkość liter w nazwach nagłówków nie ma znaczenia. Wielkość liter w wartości nagłówka może mieć znaczenie.
 
 ## Ciasteczka
 
-[nagłówki i ciasteczka]({% post_url 2017-04-01-naglowki-sesje-i-ciasteczka %})
-
+Co prawda ciasteczka to nic innego jak nagłówki, jednak poświęcę im osobny podpunkt. W osobnym artykule możesz przeczytać o [ciasteczkach w kontekście specyfikacji serwletów]({% post_url 2017-04-01-naglowki-sesje-i-ciasteczka %}).
 
 ## Prawie 300 zapytań aby wyświetlić stronę
 
@@ -204,7 +232,10 @@ Teraz jak już wiesz czym jest protokół HTTP wyjaśnię "tajemnicę" około 30
 
 {% include figure image_path="/assets/images/2018/02/06_amazon_zapytania.jpeg" caption="Do wyświetlenia www.amazon.com potrzeba około 300 zapytań" %}
 
-http headers case sensitive
+Przeglądarka jest klientem HTTP. Klienty mogą interpretować odpowiedź wysyłaną od serwera. Wpisując w pasek adresu `www.amazon.com` i naciskając ENTER wysyłasz jedno zapytanie. Jest to zapytanie typu GET o zasób `www.amazon.com`. W odpowiedzi serwer zwraca dokument HTML. 
+
+Dokument ten jest interpretowany przez przeglądarkę, zawiera on znaczniki HTML. Takie jak `img`, `script` czy `style`. Każdy z tych znaczników może kończyć się kolejnym zapytaniem typu GET. Dodatkowo kod JavaScript interpretowany przez przeglądarkę może wykonywać dodatkowe zapytania. W sumie do wyświetlenia strony głównej sklepu Amazon potrzeba tych zapytań około 300. A wszystko zaczęło się od jednego, niewinnego GET :).
+
 
 
 jak działa cache http
