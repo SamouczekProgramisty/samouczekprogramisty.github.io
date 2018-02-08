@@ -7,12 +7,12 @@ header:
     teaser: /assets/images/2018/02/08_protokol_http_artykul.jpg
     overlay_image: /assets/images/2018/02/08_protokol_http_artykul.jpg
     caption: "[&copy; adrienneserra](https://www.flickr.com/photos/adrienneserra/2037060375/sizes/l)"
-excerpt: W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem podstawową wiedzę na temat protokołu HTTP niezbędną do tworzenia aplikacji webowych.
+excerpt: W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem wiedzę na temat protokołu HTTP niezbędną do tworzenia aplikacji webowych.
 ---
 
 ## Czym jest protokół HTTP
 
-Według <a href="https://sjp.pwn.pl/sjp/protokol;2572786.html">słownika języka polskiego</a> protokół to:
+Według [słownika języka polskiego](https://sjp.pwn.pl/sjp/protokol;2572786.html) protokół to:
 
 > zasady wymiany informacji i współpracy programów i urządzeń komputerowych
 
@@ -89,7 +89,9 @@ W przypadku protokołu HTTP sprowadza się to do nazwy domeny internetowej lub a
 
 ### `port`
 
-Port to numer. Numer ten jest wykorzystywany przez serwer. Serwer nasłuchuje ruch na danym porcie. Protokoły mają swoje standardowe porty. Na przykład standardowym portem protokołu HTTP jest 80. Protokół HTTPS natomiast używa portu 443. W praktyce, ze względu na domyślne wartości, porty te często się pomija. Odpowiednia wartość pola `scheme` pozwala na określenie czy użytkownikowi chodzi o port 80 czy 443.
+Port to numer. Numer ten jest wykorzystywany przez serwer. Serwer nasłuchuje ruch na danym porcie. To tak jak z numerem w bloku, domena do numer klatki a port to numer mieszkania ;).
+
+Protokoły mają swoje standardowe porty. Na przykład standardowym portem protokołu HTTP jest 80. Protokół HTTPS natomiast używa portu 443. W praktyce, ze względu na domyślne wartości, porty te często się pomija. Odpowiednia wartość pola `scheme` pozwala na określenie czy użytkownikowi chodzi o port 80 czy 443.
 
 Możesz także uruchomić serwer, który nasłuchuje na innym porcie. Przykładem może tu być Tomcat, który domyślnie uruchamia się na porcie 8080. W takim przypadku podanie portu jest konieczne.
 
@@ -208,7 +210,7 @@ Specyfikacja HTTP definiuje 8 czasowników[^rozszerzenie]. Każdy z tych czasown
 
 [^rozszerzenie]: [RFC5789](https://tools.ietf.org/html/rfc5789) rozszerza tę grupę o czasownik PATCH.
 
-Zanim przejdę do omówienia poszczególnych czasowników musisz wiedzieć czym jest cache[^polski]. Cache to mechanizm, który pozwala na zmniejszenie czasu oczekiwania na odpowiedź. Zakładając, że wykonasz dwa zapytania pod rząd o ten sam zasób wynik pierwszego zapytania może być zapisany w cache'u. W związku z tym drugie zapytanie może nie dotrzeć do serwera, odpowiedź może zostać pobrana z cache'a.
+Zanim przejdę do omówienia poszczególnych czasowników musisz wiedzieć czym jest cache[^polski]. Cache to mechanizm, który pozwala na zmniejszenie czasu oczekiwania na odpowiedź. Zakładając, że wykonasz dwa zapytania z rzędu o ten sam zasób wynik pierwszego zapytania może być zapisany w cache'u. W związku z tym drugie zapytanie może nie dotrzeć do serwera, odpowiedź może zostać pobrana z cache'a.
 {: .notice--info}
 
 [^polski]: Tutaj podobnie jak z webservice'em postanowiłem nie tłumaczyć tego określenia. Jest ono na tyle powszechne, że nawet nie wiem jakie byłoby dobre tłumaczenie. Schowek? Skrytka? ;)
@@ -243,13 +245,13 @@ W codziennym użytkowaniu żądania typu `PUT` służą do aktualizacji danego z
 
 W większości znanych mi przypadków ten pierwszy aspekt jest pomijany, prawdopodobnie dla uproszczenia logiki aplikacji.
 
-Główna różnica pomiędzy zapytaniami `POST` i `PUT` polega na sposobie interpretowania ciała wiadomości. W przypadku zapytania typu `POST` to zasób decyduje jak przetworzyć otrzymaną wiadomość. W przypadku żądania typu `PUT` otrzymana wiadomość powinna posłużyć do ustawić wartość zasobu.
+Główna różnica pomiędzy zapytaniami `POST` i `PUT` polega na sposobie interpretowania ciała wiadomości. W przypadku zapytania typu `POST` to zasób decyduje jak przetworzyć otrzymaną wiadomość. W przypadku żądania typu `PUT` otrzymana wiadomość powinna posłużyć do ustawienia wartość zasobu.
 
 Odpowiedzi na żądanie typu `PUT` nie powinny być przechowywane w cache'u.
 
 #### Idempotentność
 
-Oznacza to tyle, że zapytania typu post są idempotentne. Zapytania, które są idempotentne można powtarzać wielokrotnie i zawsze doprowadzą one do tego samego stanu danego zasobu.
+Oznacza to tyle, że zapytania typu `PUT` są idempotentne. Zapytania, które są idempotentne można powtarzać wielokrotnie i zawsze doprowadzą one do tego samego stanu danego zasobu.
 
 ### `DELETE`
 
@@ -259,7 +261,7 @@ Odpowiedzi na żądania typu `DELETE` nie powinny być umieszczane w cache'u.
 
 ### `CONNECT`
 
-Żądania tego typu służą do utworzenia połączenia pomiędzy klientem a serwerem docelowym (za pośrednictwem proxy). W praktyce nie będziesz używał tego typu żądań w trakcie pisania aplikacji webowych. Mi się to nigdy do tej pory nie zdarzyło :).
+Żądania tego typu służą do utworzenia połączenia pomiędzy klientem a serwerem docelowym (za pomocą węzłów pośrednich). W praktyce nie będziesz używał tego typu żądań w trakcie pisania aplikacji webowych. Mi się to nigdy do tej pory nie zdarzyło :).
 
 ### `OPTIONS`
 
@@ -267,11 +269,11 @@ Odpowiedzi na żądania typu `DELETE` nie powinny być umieszczane w cache'u.
 
 Odpowiedzi na żądania typu `OPTIONS` nie powinny być przechowywane w cache'u.
 
-### TRACE
+### `TRACE`
 
-Żądanie tego typu służy do testowania. W odpowiedzi na to żądanie serwer powinien wysłać zapytanie, które otrzymał. Możliwa jest drobna modyfikacja otrzymanych nagłówków, na przykład serwer może usunąć nagłówki zawierające dane wrażliwe (na przykład ciasteczka). Żądanie typu TRACE nie może zawierać ciała wiadomości.
+Żądanie tego typu służy do testowania. W odpowiedzi na to żądanie serwer powinien wysłać zapytanie, które otrzymał. Możliwa jest drobna modyfikacja otrzymanych nagłówków, na przykład serwer może usunąć nagłówki zawierające dane wrażliwe (na przykład ciasteczka). Żądanie typu `TRACE` nie może zawierać ciała wiadomości.
 
-Odpowiedzi na żądanie typu TRACE nie powinny być umieszczane w cache'u.
+Odpowiedzi na żądanie typu `TRACE` nie powinny być umieszczane w cache'u.
 
 ## Nagłówki HTTP
 
@@ -298,6 +300,26 @@ Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mog�
 | `Set-Cookie`                   | Nagłówek służący do ustawienia ciasteczka                                                                                                              |
 | `User-Agent`                   | Nagłówek dołączany do zapytania informujący o tym jaki klient został użyty to jego wysłania                                                            |
 
+## Ciasteczka
+
+Co prawda ciasteczka to nic innego jak nagłówki, jednak poświęcę im osobny podpunkt. W osobnym artykule możesz przeczytać o [ciasteczkach w kontekście specyfikacji serwletów]({% post_url 2017-04-01-naglowki-sesje-i-ciasteczka %}).
+
+Wiesz już, że protokół HTTP jest bezstanowy. Serwer HTTP nie może powiązać ze sobą zapytać pochodzących od tego samego klienta w jedną paczkę. Z pomocą przychodzą ciasteczka. Ciasteczka to specyficzne nagłówki, które są obsługiwane przez klienty.
+
+Serwer w odpowiedzi może wysłać nagłówek, który utworzy ciasteczko. Ciasteczko to jest przypisane do domeny (część `host` i `path` adresu URL). Przykładowy nagłówek do ustawienia ciasteczka może wyglądać następująco:
+
+    Set-Cookie: <nazwa ciasteczka>=<wartość ciasteczka>
+
+W każdym kolejnym zapytaniu do tej domeny klient dołącza nagłówki ciasteczek. Dzięki temu aplikacja na serwerze może połączyć pojedyncze zapytania w sesje. Przykładowe ciasteczko w odpowiedzi dołączane jest przy pomocy nagłówka:
+
+    Cookie: <nazwa ciasteczka>=<wartość ciasteczka>
+
+Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć "zapamiętaj mnie". Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek `Set-Cookie`). To ciasteczko zawiera unikalny klucz, który później jest dotłaczany przez klienta do każdego żądania do danej domeny (nagłówek `Cookie`). Dzięki temu każde kolejne zapytanie ma nagłówek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.
+
+Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą być wykorzystywane jako jeden ze sposobów do śledzenia Twojego ruchu w sieci. Zdarzyło Ci się kliknąć na reklamę a później ta reklama pokazywała Ci się bez przerwy? Ciasteczka także mogły się do tego przyczynić[^zaawansowane].
+
+[^zaawansowane]: Ciasteczka nie są jedynym narzędziem używanym do śledzenia użytkownika. Podobnie sprawa wygląda z reklamami, to nie tylko ciasteczka mogą służyć do wybierania tych do wyświetlenia dla Ciebie.
+
 ## Statusy HTTP
 
 Wiesz już, że każda odpowiedź od serwera zawiera między innymi informacje o statusie. Status ten jest podstawową informacją o tym czy żądanie się powiodło. Wszystkie statusy podzielone są na pięć grup.
@@ -317,9 +339,9 @@ Statusy z tej grupy informują o tym, że zapytanie zostało poprawnie przetworz
 
 ### Statusy 3xx
 
-Statusy zaczynające się o 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetwarzania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx.
+Statusy zaczynające się o 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetwarzania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx:
 
- - `301 Moved Permanently` - informuje klienta, że zasób został przeniesiony na stałe w inne miejsce. Ten status ma znaczenie duże dla twórców stron, którzy bazują na ruchu z wyszukiwarek. Taki status informuje wyszukiwarki o tym, że strona, która wcześniej była pod adresem X znajduje się w nowym miejscu,
+ - `301 Moved Permanently` - informuje klienta, że zasób został przeniesiony na stałe w inne miejsce. Ten status ma znaczenie duże dla twórców stron, którzy bazują na ruchu z wyszukiwarek. Taki status informuje wyszukiwarki o tym, że strona, która wcześniej była pod adresem X znajduje się w nowym miejscu.
 
 ### Statusy 4xx
 
@@ -327,41 +349,21 @@ Statusy z tej grupy informują o błędzie klienta. Pewnie nie raz widziałeś b
 
  - `400 Bad Request` - serwer informuje klienta o błędnym zapytaniu, które nie będzie przetworzone,
  - `403 Forbidden` - zasób wymaga uwierzytelnienia, po potwierdzeniu tożsamości może być dostępny,
- - `404 Not Found` - to pewnie znasz i widziałeś wielokrotnie, żądany zasób nie istnieje ;).
+ - `404 Not Found` - to pewnie znasz i widziałeś wielokrotnie, żądany zasób nie istnieje.
 
 ### Statusy 5xx
 
-Tutaj sprawa jest poważna. Serwer informuje klienty o błędzie po stronie serwera, które uniemożliwiają przetworzenie zapytania.
+Tutaj sprawa jest poważna. Serwer informuje klienty o błędzie po stronie serwera, które uniemożliwiają przetworzenie zapytania:
 
  - `500 Internal Server Error` - informacja dla klienta o tym, że serwer znalazł się w stanie, który uniemożliwia poprawne przetworzenie żądania,
  - `502 Bad Gateway` - na początku artykułu wspomniałem o tym, że może być wiele węzłów, które będą przekazywały zapytanie do serwera, który je finalnie obsłuży. Ten status informuje klienta o tym, że jeden z tych pośrednich węzłów dostał błędną odpowiedź od poprzedniego węzła,
  - `503 Service Unavailable` - ten błąd może informować klienta o tym, że serwer jest przeciążony. Ponowna próba może kończyć się poprawną odpowiedzią.
 
-## Ciasteczka
-
-Co prawda ciasteczka to nic innego jak nagłówki, jednak poświęcę im osobny podpunkt. W osobnym artykule możesz przeczytać o [ciasteczkach w kontekście specyfikacji serwletów]({% post_url 2017-04-01-naglowki-sesje-i-ciasteczka %}).
-
-Wiesz już, że protokół HTTP jest bezstanowy. Serwer HTTP nie może powiązać ze sobą zapytać pochodzących od tego samego klienta w jedną paczkę. Z pomocą przychodzą ciasteczka. Ciasteczka to specyficzne nagłówki, które są obsługiwane przez klienty.
-
-Serwer w odpowiedzi może wysłać nagłówek, który utworzy ciasteczko. Ciasteczko to jest przypisane do domeny (część `host` i `path` adresu URL). Przykładowy nagłówek do ustawienia ciasteczka może wyglądać następująco:
-
-    Set-Cookie: <nazwa ciasteczka>=<wartość ciasteczka>
-
-W każdym kolejnym zapytani do tej domeny klient dołącza nagłówki ciasteczek. Dzięki temu aplikacja na serwerze może połączyć pojedyncze zapytania w sesje. Przykładowe ciasteczko w odpowiedzi dołączane jest przy pomocy nagłówka:
-
-    Cookie: <nazwa ciasteczka>=<wartość ciasteczka>
-
-Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć "zapamiętaj mnie". Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek `Set-Cookie`). To ciasteczko zawiera unikalny klucz, który później jest dotłaczany przez klienta do każdego żądania do danej domeny (nagłówek `Cookie`). Dzięki temu każde kolejne zapytanie ma nagłówek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.
-
-Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą być wykorzystywane jako jeden ze sposobów do śledzenia Twojego ruchu w sieci. Zdarzyło Ci się kliknąć na reklamę a później ta reklama pokazywała Ci się bez przerwy? Ciasteczka także mogły się do tego przyczynić[^zaawansowane].
-
-[^zaawansowane]: Ciasteczka nie są jedynym narzędziem używanym do śledzenia użytkownika. Podobnie sprawa wygląda z reklamami, to nie tylko ciasteczka mogą służyć do wybierania tych do wyświetlenia dla Ciebie.
-
 ## Prawie 300 zapytań aby wyświetlić stronę
 
 Teraz jak już wiesz czym jest protokół HTTP wyjaśnię "tajemnicę" około 300 zapytań.
 
-{% include figure image_path="/assets/images/2018/02/06_amazon_zapytania.jpeg" caption="Do wyświetlenia www.amazon.com potrzeba około 300 zapytań" %}
+{% include figure image_path="/assets/images/2018/02/08_amazon_zapytania.jpeg" caption="Do wyświetlenia www.amazon.com potrzeba około 300 zapytań" %}
 
 Przeglądarka jest klientem HTTP. Klienty mogą interpretować odpowiedź wysyłaną od serwera. Wpisując w pasek adresu `www.amazon.com` i naciskając ENTER wysyłasz jedno zapytanie. Jest to zapytanie typu `GET` o zasób `www.amazon.com`. W odpowiedzi serwer zwraca dokument HTML.
 
@@ -369,15 +371,22 @@ Dokument ten jest interpretowany przez przeglądarkę, zawiera on znaczniki HTML
 
 ## Dodatkowe materiały
 
-- [Zbiór materiałów fundacji Mozilla dotyczących HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP),
-- Zbiór RFC dla HTTP 1.1:
--- [RFC 7230](https://tools.ietf.org/html/rfc7230)
--- [RFC 7231](https://tools.ietf.org/html/rfc7231)
--- [RFC 7232](https://tools.ietf.org/html/rfc7232)
--- [RFC 7233](https://tools.ietf.org/html/rfc7233)
--- [RFC 7234](https://tools.ietf.org/html/rfc7234)
--- [RFC 7235](https://tools.ietf.org/html/rfc7235)
-- [RFC dla URI](https://tools.ietf.org/html/rfc3986)
+Odsyłam Cię głównie do źródeł. Mam wrażenie, że artykuł jest na tyle szczegółowy, że bardziej dokładne informacje znajdziesz właśnie tam:
+
+ - [Zbiór materiałów fundacji Mozilla dotyczących HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP),
+ - Zbiór RFC dla HTTP 1.1:
+   - [RFC 7230](https://tools.ietf.org/html/rfc7230)
+   - [RFC 7231](https://tools.ietf.org/html/rfc7231)
+   - [RFC 7232](https://tools.ietf.org/html/rfc7232)
+   - [RFC 7233](https://tools.ietf.org/html/rfc7233)
+   - [RFC 7234](https://tools.ietf.org/html/rfc7234)
+   - [RFC 7235](https://tools.ietf.org/html/rfc7235)
+ - [RFC dla URI](https://tools.ietf.org/html/rfc3986)
 
 # Podsumowanie
 
+Jeśli przeczytałeś i zrozumiałeś ten artykuł to śmiało możesz powiedzieć, że znasz protokół HTTP. Wiesz jak działa ten protokół, wiesz czym są zasoby. Poznałeś różnicę pomiędzy URI a URL. Znasz mechanizm działania nagłówków, poznałeś też główne statusy odpowiedzi. Moim zdaniem, poznając to wszystko wyszedłeś poza podstawową wiedzę na temat tego protokołu.
+
+Zapowiadało się niewinnie a wyszedł taziemiec. Sporo napracowałem się przy tym artykule, więc będę Ci bardzo wdzięczny za udostępnienie go dalej :).
+
+Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Trzymaj się! :)
