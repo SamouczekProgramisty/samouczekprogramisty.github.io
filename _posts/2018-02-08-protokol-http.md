@@ -4,8 +4,8 @@ categories:
 - Kurs aplikacji webowych
 permalink: /protokol-http/
 header:
-    teaser: /assets/images/2018/02/06_protokol_http_artykul.jpg
-    overlay_image: /assets/images/2018/02/06_protokol_http_artykul.jpg
+    teaser: /assets/images/2018/02/08_protokol_http_artykul.jpg
+    overlay_image: /assets/images/2018/02/08_protokol_http_artykul.jpg
     caption: "[&copy; adrienneserra](https://www.flickr.com/photos/adrienneserra/2037060375/sizes/l)"
 excerpt: W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentość. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem podstawową więdzę na temat prokokołu HTTP niezbędną do tworzenia aplikacji webowybch.
 ---
