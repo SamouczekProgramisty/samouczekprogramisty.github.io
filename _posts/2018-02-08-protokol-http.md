@@ -26,7 +26,7 @@ Nawiasem mówiąc przeglądarka robi całkiem sporo rzeczy w tle... Wiesz, że d
 Komunikacja pomiędzy serwerem a klientem oparta jest na wielu innych protokołach. Ten zestaw porotokółów nazywa się modelem [ISO/OSI](https://pl.wikipedia.org/wiki/Model_OSI). Model ten zawiera wartstwy. Każda warstwa, na bazie poprzednich, udostępnia dodatkowe funkcjonalności. Protokół HTTP znajduje się w najwyższej warstwie modelu, [warstwie aplikacji](https://pl.wikipedia.org/wiki/Model_OSI#Warstwa_7:_aplikacji).
 {: .notice--info}
 
-Klienty wysyłają żądania. Każde żadanie powiązane jest z zasobem. Zasobem może być obrazek, strona HTML czy plik z kodem JavaScript. Sam protokół HTTP nie określa czym dokładnie jest zasób. Określa jedynie sposób w jaki można dostać się do zasobów. Każdy zasób ma swój unikalny identyfikator. Ten identyfikator to URI (ang. _Uniform Resource Identifier_). 
+Klienty wysyłają żądania. Każde żadanie powiązane jest z zasobem. Zasobem może być obrazek, strona HTML czy plik z kodem JavaScript. Sam protokół HTTP nie określa czym dokładnie jest zasób. Określa jedynie sposób w jaki można dostać się do zasobów. Każdy zasób ma swój unikalny identyfikator. Ten identyfikator to URI (ang. _Uniform Resource Identifier_).
 
 Protokół HTTP dokładnie określa format komunikacji pomiędzy klientami i serwerami. Komunikacja ta oparta jest na wspomnianych już żądaniach i odpowiedziach. Protokół HTTP określa format tych wiadomości.
 
@@ -38,7 +38,7 @@ Teraz wprowadzę Cię w poszczególne elementy składające się na protokół H
 
 ## Adres czyli URL
 
-Wspomniałem wcześniej o URI. Podzbiorem URI są URL (ang. _Uniform Resource Locator_). URI możnta traktować jako zbiór znaków który pozwala na unikalną identyfikację zasobu. URL natomiast poza tym unikalnym identyfikatorem zawiera informację dotyczącą "położenia" danego zasobu. Często określenia te stosowane są zamiennie. 
+Wspomniałem wcześniej o URI. Podzbiorem URI są URL (ang. _Uniform Resource Locator_). URI możnta traktować jako zbiór znaków który pozwala na unikalną identyfikację zasobu. URL natomiast poza tym unikalnym identyfikatorem zawiera informację dotyczącą "położenia" danego zasobu. Często określenia te stosowane są zamiennie.
 
 
 Adres URL ma postać:
@@ -74,7 +74,7 @@ W praktyce ta część adresu używana jest do określenia protokołu, najczęś
 
 ### user:password
 
-user:password służą do uwierzytelniania. Uwierzytelnianie to proces, który polega na udowodnieniu, że klient wysyłający dane żądanie jest tym za kogo się podaje. Mechanizmu uwieżytelniania używasz praktycznie w każdym serwisie gdzie masz założone konto. 
+user:password służą do uwierzytelniania. Uwierzytelnianie to proces, który polega na udowodnieniu, że klient wysyłający dane żądanie jest tym za kogo się podaje. Mechanizmu uwieżytelniania używasz praktycznie w każdym serwisie gdzie masz założone konto.
 
 W tym przypadku nazwa użytkownika i hasło przesyłane są jako część URL. Nie jest to bezpieczne w przypadku używania protokołu HTTP. Nawet przy komunikacji protokołem HTTPS adres URL może być zapamiętany przez przeglądarkę. Daje to możliwość przechwycenia nazwy użytkownika i hasła. W związku z tym nie jest to bezpieczny sposób na przesyłanie hasła czy nazwy użytkownika i należy go unikać[^wewnetrzna].
 
@@ -145,7 +145,7 @@ Jak wspomniałem wyżej użyję programu curl. Dodatoko użyję przełącznika `
     > Host: api.github.com
     > User-Agent: curl/7.52.1
     > Accept: */*
-    > 
+    >
 
 Zacznę od analizowania pierwszej linijki `GET /users/kbl HTTP/1.1`. Na początku zawiera ona czasownik HTTP - `GET` (czasowniki opiszę dokładniej poniżej). Następnie zawiera część adresu URL, wszystko od częśći "path". W moim przypadku jest to `/users/kbl`. Kolejną częścią jest protokół wraz z wersją `HTTP/1.1`.
 
@@ -158,7 +158,7 @@ W przypadku tego żądania, ciało wiadomości jest puste. Widzisz więc tylko p
 Serwer odpowieada na żądanie klienta wysyłając odpowiedź[^kilka]. Podobnie jak w przypadku zapytania format jest dokładnie określony:
 
  - linijka z wersją protokołu i statusem odpowiedzi,
- - linie zawierające nagłówki, 
+ - linie zawierające nagłówki,
  - pustą linię określającą koniec nagłówków,
  - ciało wiadomości (jeśli istnieje).
 
@@ -189,7 +189,7 @@ Tym razem odpowiedź, jest dużo dłuższa:
     < X-XSS-Protection: 1; mode=block
     < X-Runtime-rack: 0.030276
     < X-GitHub-Request-Id: 8AAA:602C:92D77:140069:5A7A03BC
-    < 
+    <
     {
       "login": "kbl",
       // ciach
@@ -214,59 +214,59 @@ Zanim przejdę do omówienia poszczególnych czasowników musisz wiedzieć czym 
 
 [^polski]: Tutuaj podobnie jak z webservice'em postanowiłem nie tłumaczyć tego określenia. Jest ono na tyle powszechne, że nawet nie wiem jakie byłoby dobre tłumaczenie. Schowek? Skrytka? ;)
 
-### GET
+### `GET`
 
-Jest to podstawowe żądanie. Każde otworzenie strony internetowej zaczyna się od zapytania typu GET. Przeglądarka wysyła żądanie typu GET żeby otworzyć stronę internetową. Specyfikacja mówi, że żądanie to służy do pobrania aktualnej reprezentacji zasobu. W praktyce może to oznaczać pobranie aktualnej wersji strony znajdującej się pod danym adresem. Zakłada się, że żądania typu GET nie posiadają dołączonego ciała wiadomości.
+Jest to podstawowe żądanie. Każde otworzenie strony internetowej zaczyna się od zapytania typu `GET`. Przeglądarka wysyła żądanie typu `GET` żeby otworzyć stronę internetową. Specyfikacja mówi, że żądanie to służy do pobrania aktualnej reprezentacji zasobu. W praktyce może to oznaczać pobranie aktualnej wersji strony znajdującej się pod danym adresem. Zakłada się, że żądania typu `GET` nie posiadają dołączonego ciała wiadomości.
 
-Odpowiedź na żądania typu GET może być przechowywana w cache'u.
+Odpowiedź na żądania typu `GET` może być przechowywana w cache'u.
 
-### HEAD
+### `HEAD`
 
-Zapytanie typu HEAD jest podobne do GET. Różni się jednym ważnym szczegółem. W przypadku tego zapytania odpowiedź serwera nie może zawierać ciała wiadomości. Zapytania tego typu są używane do sprawdzenia czy dany zasób się zmienił, czy do sprawdzania poprawności odnośników. Zysk z używania tego zapytania polega na tym, że ciało wiadomości nie jest przesyłane. Wyobraź sobie plik PDF, który zawiera 10MB danych. Można wysłać zapytanie typu HEAD, żeby sprawdzić czy zawartość tego pliku uległa zmianie. To czy plik jest nowszy można określić na podstawie nagłówków, które będą dołączone do odpowiedzi.
+Zapytanie typu `HEAD` jest podobne do `GET`. Różni się jednym ważnym szczegółem. W przypadku tego zapytania odpowiedź serwera nie może zawierać ciała wiadomości. Zapytania tego typu są używane do sprawdzenia czy dany zasób się zmienił, czy do sprawdzania poprawności odnośników. Zysk z używania tego zapytania polega na tym, że ciało wiadomości nie jest przesyłane. Wyobraź sobie plik PDF, który zawiera 10MB danych. Można wysłać zapytanie typu `HEAD`, żeby sprawdzić czy zawartość tego pliku uległa zmianie. To czy plik jest nowszy można określić na podstawie nagłówków, które będą dołączone do odpowiedzi.
 
-Odpowiedź na żądania typu HEAD może być przechowywana w cache'u.
+Odpowiedź na żądania typu `HEAD` może być przechowywana w cache'u.
 
-### POST
+### `POST`
 
-Specyfikacja mówi, że żądania typu POST są przetwarzane przez serwer zgodnie z założeniami dla danego zasobu. Taki skomplikowany opis sprowadza się do:
+Specyfikacja mówi, że żądania typu `POST` są przetwarzane przez serwer zgodnie z założeniami dla danego zasobu. Taki skomplikowany opis sprowadza się do:
 
- - używania POST do przesyłania zawartości formularzy,
+ - używania `POST` do przesyłania zawartości formularzy,
  - dodawania nowego zasobu,
  - dodawanie danych do istniejącego zasobu.
 
-Odpowiedzi na żądania typu POST nie jest przechowywana w cache'u[^wyjatek].
+Odpowiedzi na żądania typu `POST` nie jest przechowywana w cache'u[^wyjatek].
 
 [^wyjatek]: W wiekszości przypadków, specyfikacja dopuscza wyjątki od tej reguły.
 
-### PUT
+### `PUT`
 
-W codziennym użytkowaniu żądania typu PUT służą do aktualizacji danego zasobu. Zgodnie ze specyfikacją ciało wiadomości powinno posłużyć do ustawienia stanu zasobu na serwerze. Zatem w przypadku gdy zasób nie istniał żądanie tego typu powinno go utworzyć. Jeśli zasób istnieje wówczas jego stan powinien być ustawiony na ten przekazany w ciele wiadomości.
+W codziennym użytkowaniu żądania typu `PUT` służą do aktualizacji danego zasobu. Zgodnie ze specyfikacją ciało wiadomości powinno posłużyć do ustawienia stanu zasobu na serwerze. Zatem w przypadku gdy zasób nie istniał żądanie tego typu powinno go utworzyć. Jeśli zasób istnieje wówczas jego stan powinien być ustawiony na ten przekazany w ciele wiadomości.
 
-W większości znanych mi przypadków ten pierwszy aspekt jest pomijany, prawodopodobnie dla uproszczenia logiki aplikacji. 
+W większości znanych mi przypadków ten pierwszy aspekt jest pomijany, prawodopodobnie dla uproszczenia logiki aplikacji.
 
-Główna róznica pomiędzy zapytaniami POST i PUT polega na sposobie interpretowania ciała wiadomości. W przypadku zapytania typu POST to zasób decyduje jak przetworzyć otrzymaną wiadomość. W przypadku żadania typu PUT otrzymana wiadomość powinna posłużyć do ustawić wartość zasobu.
+Główna róznica pomiędzy zapytaniami `POST` i `PUT` polega na sposobie interpretowania ciała wiadomości. W przypadku zapytania typu `POST` to zasób decyduje jak przetworzyć otrzymaną wiadomość. W przypadku żadania typu `PUT` otrzymana wiadomość powinna posłużyć do ustawić wartość zasobu.
 
-Odpowiedzi na żądanie typu PUT nie powinny być przechowywane w cache'u.
+Odpowiedzi na żądanie typu `PUT` nie powinny być przechowywane w cache'u.
 
 #### Idempotentnosć
 
 Oznacza to tyle, że zapytania typu post są idempotentne. Zapytania, które są idempotentne można powtarzać wielokrotnie i zawsze doprowadzą one do tego samego stanu danego zasobu.
 
-### DELETE
+### `DELETE`
 
-Zapytania tego typu służą do usuwania zasobów. Na przykład w którymś z wczesniejszych zapytań dany zasób może być utworzony przy pomocy żądania typu POST. Następnie może on być usunięty przy pomocy DELETE. Odpowiedzi na żądania tego typu nie powinny zawierać ciała wiadomości.
+Zapytania tego typu służą do usuwania zasobów. Na przykład w którymś z wczesniejszych zapytań dany zasób może być utworzony przy pomocy żądania typu `POST`. Następnie może on być usunięty przy pomocy `DELETE`. Odpowiedzi na żądania tego typu nie powinny zawierać ciała wiadomości.
 
-Odpowiedzi na żądania typu DELETE nie powinny być umieszczane w cache'u.
+Odpowiedzi na żądania typu `DELETE` nie powinny być umieszczane w cache'u.
 
-### CONNECT
+### `CONNECT`
 
-Żądania tego typu służą do uwtorzenia połączenia pomiędzy klientem a serwerem docelowym (za pośrednictwem proxy). W praktyce nie będziesz używał tego typu żądań w trakcie pisania aplikacji webowych. Mi się to nigdy do tej pory nie zdarzyło :). 
+Żądania tego typu służą do uwtorzenia połączenia pomiędzy klientem a serwerem docelowym (za pośrednictwem proxy). W praktyce nie będziesz używał tego typu żądań w trakcie pisania aplikacji webowych. Mi się to nigdy do tej pory nie zdarzyło :).
 
-### OPTIONS
+### `OPTIONS`
 
-Żądania typu OPTIONS używane są do pobrania informacji na temat możliwości komunikacji dla danego zasobu. W praktyce żądania tego typu używane są do sprawdzenia jakie żąddania są obsługiwane przez serwer. Żądanie tego typu także wykorzystywane jest w mechanizmie [CORS](https://pl.wikipedia.org/wiki/Cross-Origin_Resource_Sharing).
+Żądania typu `OPTIONS` używane są do pobrania informacji na temat możliwości komunikacji dla danego zasobu. W praktyce żądania tego typu używane są do sprawdzenia jakie żąddania są obsługiwane przez serwer. Żądanie tego typu także wykorzystywane jest w mechanizmie [CORS](https://pl.wikipedia.org/wiki/Cross-Origin_Resource_Sharing).
 
-Odpowiedzi na żądania typu OPTIONS nie powinny być przechowywane w cache'u.
+Odpowiedzi na żądania typu `OPTIONS` nie powinny być przechowywane w cache'u.
 
 ### TRACE
 
@@ -280,20 +280,79 @@ Nagłowki dołączane są przez klienty do wysyłanych zapytań i przez serwery 
 
 Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mogą zawierać na przykład infomacje o formacie, statusie odpowiedzi czy dacie. Poniżej postaram się wyjaśnić kilka najczęściej spotykanych nagłówków:
 
-| Nagłówek      | Znaczenie                                                      |
-| Date          | Zawiera datę mówiącą od czasie wygenerowania żądania/odpwiedzi |
-| Cache-Control |
-| Connection    |
+| Nagłówek                       | Znaczenie                                                                                                                                              |
+| --------                       | ---------                                                                                                                                              |
+| `Accept`                       | Klient informuje serwer o tym jaki format jest w stanie zrozumieć, może to być na przykład JSON: `application/json`                                    |
+| `Accept-Encoding`              | Klient informuje serwer o tym jakie sposoby kodowania ciała wiadomości rozumie, może być użyty do określenia pożądanego algorytmu kompresji odpowiedzi |
+| `Access-Control-Allow-Methods` | W odpowiedzi na zapytanie typu `OPTIONS` serwer informuje jakie inne czasowniki HTTP są dozwolone                                                      |
+| `Access-Control-Allow-Origin`  | Serwer informuje klienta jakie domeny uprawnione są do użycia odpowiedzi                                                                               |
+| `Cache-Control`                | Nagłówek służący do zarządzania cache'owaniem. Dotyczy zarówno żądań jak i odpowiedzi                                                                  |
+| `Connection`                   | Zawiera informacje na temat połączenia pomiędzy klientem a serwerem                                                                                    |
+| `Content-Encoding`             | Serwer informuje klienta o sposobie kodowania ciała wiadomości                                                                                         |
+| `Content-Type`                 | Odpowiednik nagłówka `Accept` wysyłany przez serwer inforujący o formacie odpowiedzi                                                                   |
+| `Cookie`                       | Nagłówek służący do przesłania ciasteczka przez klienty do serwera                                                                                     |
+| `Date`                         | Zawiera datę mówiącą od czasie wygenerowania żądania/odpwiedzi                                                                                         |
+| `ETag`                         | Zawiera identyfikator zasobu zwróconego przez serwer. Używany przez cache                                                                              |
+| `Host`                         | Zawiera domenę, do której wysyłane jest żądanie                                                                                                        |
+| `Location`                     | Zawiera informacje o położeniu zasobu, może być użyty na przykład przy przekierowaniach i tworzeniu nowych zasobów                                     |
+| `Server`                       | Serwer informuje klienty jakiego oprogramowania używa do obsługi odpowiedzi                                                                            |
+| `Set-Cookie`                   | Nagłówek służący do ustawienia ciasteczka                                                                                                              |
+| `User-Agent`                   | Nagłówek dołączany do zapytania informujący o tym jaki klient został użyty to jego wysłania                                                            |
+
+## Statusy HTTP
+
+Wiesz już, że każda odpowiedź od serwera zawiera między innymi informacjie o statusie. Status ten jest podstawową informacją o tym czy żądanie się powiodło. Wszystkie statusy podzielone są na pięć grup.
+
+### Statusy 1xx
+
+Szczerze nigdy w praktyce nie spotkałem się z użyciem tych statusów. Ta grupa statusów to statusy informacyjne. Informują klienty o tym, że zapytanie zostało otrzymane i jest przetwarzane.
+
+### Statusy 2xx
+
+Statusy z tej grupy informują o tym, że zapytanie zostało poprawnie przetworzone. W zależności od kodu odpowiedzi wynik tego przetważania może być różny. Najczęściej używane statusy z tej grupy to:
+
+ - `200 OK` - zapytanie zostało przetworzone poprawnie,
+ - `201 Created` - zapytanie zostało przetworzone poprawnie i zasób został utworzony,
+ - `202 Accepted` - zapytanie zostało przyjęte przez serwer, jednak jego przetwarzanie nie jest jeszcze ukończone,
+ - `204 No Content` - zapytanie zostało przetworzone, ciało wiadomości jest puste.
+
+### Statusy 3xx
+
+Statusy zaczynające się o 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetważania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx.
+
+ - `301 Moved Permanently` - informuje klienta, że zasób został przeniesiony na stałe w inne miejsce. Ten status ma znaczenie duże dla twórców stron, którzy bazują na ruchu z wyszukiwarek. Taki status informuje wyszukiwarki o tym, że strona, która wcześniej była pod adresem X znajduje się w nowym miejscu,
+
+### Statusy 4xx
+
+Statusy z tej grupy informują o błędzie klienta. Pewnie nie raz widziałeś błąd 404 ;). Serwer tymy statusami informuje o tym, że żadanie nie może być poprawnie przetworzone:
+
+ - `400 Bad Request` - serwer informuje klienta o błędnym zapytaniu, które nie będzie przetworzone,
+ - `403 Forbidden` - zasób wymaga uwierzytelnienia, po potwierdzeniu tożsamości może być dostępny,
+ - `404 Not Found` - to pewnie znasz i widziałeś wielogrotnie, żądany zasób nie istnieje ;).
+
+### Statusy 5xx
+
+Tutaj sprawa jest poważna. Serwer informuje klienty o błędzie po stronie serwera, które uniemożliwiają przetworzenie zapytania.
+
+ - `500 Internal Server Error` - informacja dla klienta o tym, że serwer znalazł się w stanie, który uniemożliwa poprawne przetworzenie żądania,
+ - `502 Bad Gateway` - na początku artykułu wspomniałem o tym, że może być wiele węzłów, które będą przekazywały zapytanie do serwera, który je finalnie obsłuży. Ten status informuje klienta o tym, że jeden z tych pośrednich węzłów dostał błędną odpowiedź od poprzedniego węzła,
+ - `503 Service Unavailable` - ten błąd może informować klienta o tym, że serwer jest przeciążony. Ponowna próba może kończyć się poprawną odpowiedzią.
 
 ## Ciasteczka
 
 Co prawda ciasteczka to nic innego jak nagłówki, jednak poświęcę im osobny podpunkt. W osobnym artykule możesz przeczytać o [ciasteczkach w kontekście specyfikacji serwletów]({% post_url 2017-04-01-naglowki-sesje-i-ciasteczka %}).
 
-Wiesz już, że protokół HTTP jest bezstanowy. Serwer HTTP nie może powiązać ze sobą zapytać pochodzących od tego samego klienta w jedną paczkę. Z pomocą przychodzą ciasteczka. Ciasteczka to specyficzne nagłówki, które są obsługiwane przez klienty. 
+Wiesz już, że protokół HTTP jest bezstanowy. Serwer HTTP nie może powiązać ze sobą zapytać pochodzących od tego samego klienta w jedną paczkę. Z pomocą przychodzą ciasteczka. Ciasteczka to specyficzne nagłówki, które są obsługiwane przez klienty.
 
-Serwer w odpowiedzi może wysłać nagłówek, który utwory ciasteczko. Ciasteczko to jest przypisane do domeny (część host i path adresu URL). W każdym kolejnym zapytani do tej domeny klient dołącza nagłówki ciasteczek. Dzięki temu aplikacja na serwerze może połączyć pojedyncze zapytania w sesje.
+Serwer w odpowiedzi może wysłać nagłówek, który utworzy ciasteczko. Ciasteczko to jest przypisane do domeny (część host i path adresu URL). Przykładowy nagłowek do ustawienia ciasteczka może wyglądać następująco:
 
-Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć "zapamiętaj mnie". Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem. To ciasteczko zawiera unikalny klucz, który później jest dołaczany przez klienta do każdego żądania do danej domeny. Dzięki temu każde kolejne zapytanie ma nagłowek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.
+    Set-Cookie: <nazwa ciasteczka>=<wartość ciasteczka>
+
+W każdym kolejnym zapytani do tej domeny klient dołącza nagłówki ciasteczek. Dzięki temu aplikacja na serwerze może połączyć pojedyncze zapytania w sesje. Przykładowe ciasteczko w odpowiedzi dołączane jest przy pomocy nagłówka:
+
+    Cookie: <nazwa ciasteczka>=<wartość ciasteczka>
+
+Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć "zapamiętaj mnie". Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek `Set-Cookie`). To ciasteczko zawiera unikalny klucz, który później jest dołaczany przez klienta do każdego żądania do danej domeny (nagłówek `Cookie`). Dzięki temu każde kolejne zapytanie ma nagłowek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.
 
 Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą być wykorzystywane jako jeden ze sposobów do śledzenia Twojego ruchu w sieci. Zdarzyło Ci się kliknąć na reklamę a później ta reklama pokazywała Ci się bez przerwy? Ciasteczka także mogły się do tego przyczynić[^zaawansowane].
 
@@ -301,20 +360,13 @@ Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą
 
 ## Prawie 300 zapytań aby wyświetlić stronę
 
-Teraz jak już wiesz czym jest protokół HTTP wyjaśnię "tajemnicę" około 300 zapytań. 
+Teraz jak już wiesz czym jest protokół HTTP wyjaśnię "tajemnicę" około 300 zapytań.
 
 {% include figure image_path="/assets/images/2018/02/06_amazon_zapytania.jpeg" caption="Do wyświetlenia www.amazon.com potrzeba około 300 zapytań" %}
 
-Przeglądarka jest klientem HTTP. Klienty mogą interpretować odpowiedź wysyłaną od serwera. Wpisując w pasek adresu `www.amazon.com` i naciskając ENTER wysyłasz jedno zapytanie. Jest to zapytanie typu GET o zasób `www.amazon.com`. W odpowiedzi serwer zwraca dokument HTML. 
+Przeglądarka jest klientem HTTP. Klienty mogą interpretować odpowiedź wysyłaną od serwera. Wpisując w pasek adresu `www.amazon.com` i naciskając ENTER wysyłasz jedno zapytanie. Jest to zapytanie typu `GET` o zasób `www.amazon.com`. W odpowiedzi serwer zwraca dokument HTML.
 
-Dokument ten jest interpretowany przez przeglądarkę, zawiera on znaczniki HTML. Takie jak `img`, `script` czy `style`. Każdy z tych znaczników może kończyć się kolejnym zapytaniem typu GET. Dodatkowo kod JavaScript interpretowany przez przeglądarkę może wykonywać dodatkowe zapytania. W sumie do wyświetlenia strony głównej sklepu Amazon potrzeba tych zapytań około 300. A wszystko zaczęło się od jednego, niewinnego GET :).
-
-
-
-jak działa cache http
-jak działa uwierzytelnianie http
-header cache-control
-header size-limit
+Dokument ten jest interpretowany przez przeglądarkę, zawiera on znaczniki HTML. Takie jak `img`, `script` czy `style`. Każdy z tych znaczników może kończyć się kolejnym zapytaniem typu `GET`. Dodatkowo kod JavaScript interpretowany przez przeglądarkę może wykonywać dodatkowe zapytania. W sumie do wyświetlenia strony głównej sklepu Amazon potrzeba tych zapytań około 300. A wszystko zaczęło się od jednego, niewinnego `GET` :).
 
 ## Dodatkowe materiały
 
