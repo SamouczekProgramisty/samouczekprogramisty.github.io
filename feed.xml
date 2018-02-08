@@ -1,4 +1,510 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-01-30T19:21:04+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Strumienie w języku Java</title><link href="http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/" rel="alternate" type="text/html" title="Strumienie w języku Java" /><published>2018-01-30T00:00:00+01:00</published><updated>2018-01-30T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/">&lt;div class=&quot;notice--info&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-02-08T21:17:35+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Protokół HTTP</title><link href="http://www.samouczekprogramisty.pl/protokol-http/" rel="alternate" type="text/html" title="Protokół HTTP" /><published>2018-02-08T00:00:00+01:00</published><updated>2018-02-08T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/protokol-http</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/protokol-http/">&lt;h2 id=&quot;czym-jest-protokół-http&quot;&gt;Czym jest protokół HTTP&lt;/h2&gt;
+
+&lt;p&gt;Według &lt;a href=&quot;https://sjp.pwn.pl/sjp/protokol;2572786.html&quot;&gt;słownika języka polskiego&lt;/a&gt; protokół to:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;zasady wymiany informacji i współpracy programów i urządzeń komputerowych&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Zatem protokół HTTP (ang. &lt;em&gt;Hypertext Transfer Protocol&lt;/em&gt;) to zasady wymiany informacji i współpracy programów. Programami są serwery i klienty. Programy te wysyłają żądania (klienty) lub odpowiedzi (serwery). Przykładem klienta HTTP może być &lt;a href=&quot;https://www.opera.com/&quot;&gt;przeglądarka internetowa&lt;/a&gt;&lt;sup id=&quot;fnref:praca&quot;&gt;&lt;a href=&quot;#fn:praca&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Klienty mogą interpretować uzyskane odpowiedzi, na przykład przeglądarka internetowa potrafi wyświetlić stronę internetową, która została przesłana przez serwer.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Nawiasem mówiąc przeglądarka robi całkiem sporo rzeczy w tle… Wiesz, że do wyświetlania strony www.amazon.com przeglądarka wykonuje około 300 żądań HTTP? W końcowej części artykułu pokażę Ci jak to się dzieje.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Komunikacja pomiędzy serwerem a klientem oparta jest na wielu innych protokołach. Ten zestaw protokołów nazywa się modelem &lt;a href=&quot;https://pl.wikipedia.org/wiki/Model_OSI&quot;&gt;ISO/OSI&lt;/a&gt;. Model ten zawiera warstwy. Każda warstwa, na bazie poprzednich, udostępnia dodatkowe funkcjonalności. Protokół HTTP znajduje się w najwyższej warstwie modelu, &lt;a href=&quot;https://pl.wikipedia.org/wiki/Model_OSI#Warstwa_7:_aplikacji&quot;&gt;warstwie aplikacji&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Klienty wysyłają żądania. Każde żądanie powiązane jest z zasobem. Zasobem może być obrazek, strona HTML czy plik z kodem JavaScript. Sam protokół HTTP nie określa czym dokładnie jest zasób. Określa jedynie sposób w jaki można dostać się do zasobów. Każdy zasób ma swój unikalny identyfikator. Ten identyfikator to URI (ang. &lt;em&gt;Uniform Resource Identifier&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p&gt;Protokół HTTP dokładnie określa format komunikacji pomiędzy klientami i serwerami. Komunikacja ta oparta jest na wspomnianych już żądaniach i odpowiedziach. Protokół HTTP określa format tych wiadomości.&lt;/p&gt;
+
+&lt;p&gt;Protokół HTTP jest bezstanowy. Oznacza to tyle, że każde zapytanie może być interpretowane w oderwaniu od pozostałych.&lt;/p&gt;
+
+&lt;p&gt;Poza klientami i serwerami w komunikacji występują dodatkowe węzły. Na przykład mogą to być serwery, które zachowują kopię odpowiedzi przyspieszając komunikację. Mogą to być także elementy sieciowe pozwalające na sprawne dotarcie żądania do serwera. W tym artykule pominę te kwestie, moim zdaniem ich znajomość nie jest niezbędna do tworzenia aplikacji webowych.&lt;/p&gt;
+
+&lt;p&gt;Teraz wprowadzę Cię w poszczególne elementy składające się na protokół HTTP.&lt;/p&gt;
+
+&lt;h2 id=&quot;adres-czyli-url&quot;&gt;Adres czyli URL&lt;/h2&gt;
+
+&lt;p&gt;Wspomniałem wcześniej o URI. Podzbiorem URI są URL (ang. &lt;em&gt;Uniform Resource Locator&lt;/em&gt;). URI można traktować jako zbiór znaków który pozwala na unikalną identyfikację zasobu. URL natomiast poza tym unikalnym identyfikatorem zawiera informację dotyczącą “położenia” danego zasobu. Często określenia te stosowane są zamiennie.&lt;/p&gt;
+
+&lt;p&gt;Adres URL ma postać:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scheme:[//[user[:password]@]host[:port]][/path][?query][#fragment]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Przykładowy adres URL może wyglądać następująco:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://marcin:tajne@www.samouczekprogramisty.pl:80/nie/ma/tej?strony=1#identyfikator
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Część adresu&lt;/th&gt;
+      &lt;th&gt;Przykładowa wartość&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scheme&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;http&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;user&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;marcin&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;tajne&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;www.samouczekprogramisty.pl&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;port&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;80&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/path&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;/nie/ma/tej&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;?query&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;?strony=1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;#fragment&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;#identyfikator&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Zgodnie ze specyfikacją HTTP wielkość liter nie ma znaczenia w częściach &lt;code class=&quot;highlighter-rouge&quot;&gt;scheme&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt;. Wielkość liter w pozostałych elementach ma znaczenie&lt;sup id=&quot;fnref:litery&quot;&gt;&lt;a href=&quot;#fn:litery&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Poniżej opiszę poszczególne części adresu URL.&lt;/p&gt;
+
+&lt;h3 id=&quot;scheme&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scheme&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;W praktyce ta część adresu używana jest do określenia protokołu, najczęściej zobaczysz tu &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;https&lt;/code&gt;. W uproszczeniu można powiedzieć, że HTTPS (ang. &lt;em&gt;Hypertext Transfer Protocol Secure&lt;/em&gt;) jest rozszerzeniem protokołu HTTP. To rozszerzenie pozwala na szyfrowanie połączenia pomiędzy klientem a serwerem.&lt;/p&gt;
+
+&lt;h3 id=&quot;userpassword&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;user:password&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;user:password&lt;/code&gt; służą do uwierzytelniania. Uwierzytelnianie to proces, który polega na udowodnieniu, że klient wysyłający dane żądanie jest tym za kogo się podaje. Mechanizmu uwierzytelniania używasz praktycznie w każdym serwisie gdzie masz założone konto.&lt;/p&gt;
+
+&lt;p&gt;W tym przypadku nazwa użytkownika i hasło przesyłane są jako część URL. Nie jest to bezpieczne w przypadku używania protokołu HTTP. Nawet przy komunikacji protokołem HTTPS adres URL może być zapamiętany przez przeglądarkę. Daje to możliwość przechwycenia nazwy użytkownika i hasła. W związku z tym nie jest to bezpieczny sposób na przesyłanie hasła czy nazwy użytkownika i należy go unikać&lt;sup id=&quot;fnref:wewnetrzna&quot;&gt;&lt;a href=&quot;#fn:wewnetrzna&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;host&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;W przypadku protokołu HTTP sprowadza się to do nazwy domeny internetowej lub adresu IP. Przykładem domeny może być &lt;a href=&quot;http://www.samouczekprogramisty.pl&quot;&gt;www.samouczekprogramisty.pl&lt;/a&gt;. Przykładowy adres IPv4 to &lt;code class=&quot;highlighter-rouge&quot;&gt;192.30.253.112&lt;/code&gt;. Jaka strona kryje się pod tym adresem :)?&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;a href=&quot;https://pl.wikipedia.org/wiki/Domain_Name_System&quot;&gt;DNS&lt;/a&gt; (ang. &lt;em&gt;Domain Name System&lt;/em&gt;) jest protokołem, który pozwala na tłumaczenie &lt;a href=&quot;https://pl.wikipedia.org/wiki/Adres_IP&quot;&gt;adresów IP&lt;/a&gt; na nazwy domen.&lt;/p&gt;
+
+&lt;h3 id=&quot;port&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;port&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Port to numer. Numer ten jest wykorzystywany przez serwer. Serwer nasłuchuje ruch na danym porcie. To tak jak z numerem w bloku, domena do numer klatki a port to numer mieszkania ;).&lt;/p&gt;
+
+&lt;p&gt;Protokoły mają swoje standardowe porty. Na przykład standardowym portem protokołu HTTP jest 80. Protokół HTTPS natomiast używa portu 443. W praktyce, ze względu na domyślne wartości, porty te często się pomija. Odpowiednia wartość pola &lt;code class=&quot;highlighter-rouge&quot;&gt;scheme&lt;/code&gt; pozwala na określenie czy użytkownikowi chodzi o port 80 czy 443.&lt;/p&gt;
+
+&lt;p&gt;Możesz także uruchomić serwer, który nasłuchuje na innym porcie. Przykładem może tu być Tomcat, który domyślnie uruchamia się na porcie 8080. W takim przypadku podanie portu jest konieczne.&lt;/p&gt;
+
+&lt;h3 id=&quot;path&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;path&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Ta część adresu URL jest ścieżką, która określa zasób. Na przykład w adresie &lt;code class=&quot;highlighter-rouge&quot;&gt;www.samouczekprogramisty.pl/kurs-programowania-java&lt;/code&gt; ścieżką jest &lt;code class=&quot;highlighter-rouge&quot;&gt;/kurs-programowania-java&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;query&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;query&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Zawiera dodatkowe dane identyfikujące dany zasób. Ta część oddzielona jest od ścieżki znakiem &lt;code class=&quot;highlighter-rouge&quot;&gt;?&lt;/code&gt;. W praktyce zawiera pary &lt;code class=&quot;highlighter-rouge&quot;&gt;klucz=wartość&lt;/code&gt; połączone znakiem &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt;. Na przykład:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?parametr=wartosc&amp;amp;format=json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;fragment&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fragment&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Ostatnia część adresu URL. W praktyce wykorzystywana jest do określenia fragmentu strony HTML, która powinna zostać pokazana użytkownikowi. Na przykład adres &lt;a href=&quot;http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni&quot;&gt;http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni&lt;/a&gt; przeniesie Cię do sekcji opisującej właściwości strumieni.&lt;/p&gt;
+
+&lt;h2 id=&quot;Żądanie-i-odpowiedź&quot;&gt;Żądanie i odpowiedź&lt;/h2&gt;
+
+&lt;div class=&quot;notice--info&quot;&gt;
+    
+&lt;p&gt;W dalszej części artykułu będę używał programu &lt;a href=&quot;https://curl.haxx.se/&quot;&gt;curl&lt;/a&gt; jako klienta HTTP. Jest to program, który pozwala na łatwe wysyłanie zapytań do serwerów z linii poleceń.&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz używać tego programu możesz użyć narzędzi dla programistów dostępnych w Twojej przeglądarce:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developer.chrome.com/devtools&quot;&gt;Chrome&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org/son/docs/Tools&quot;&gt;Firefox&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developer.apple.com/safari/tools/&quot;&gt;Safari&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.opera.com/dragonfly/&quot;&gt;Opera&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide&quot;&gt;Edge&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Teraz przeanalizuję przykładowe zapytanie wraz z odesłaną odpowiedzią. Użyję do tego publicznego API Github’a. Github używa HTTPS, w analizie żądania/odpowiedzi pominę fragmenty dotyczące HTTPS.&lt;/p&gt;
+
+&lt;h3 id=&quot;Żądanie-http&quot;&gt;Żądanie HTTP&lt;/h3&gt;
+
+&lt;p&gt;Klient wysyła żądanie do serwera w formie wiadomości. Wiadomość ta ma dokładnie zdefiniowany format:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;linia określająca czasownik HTTP, zasób i wersję protokołu,&lt;/li&gt;
+  &lt;li&gt;linie zawierające nagłówki,&lt;/li&gt;
+  &lt;li&gt;pustą linię określającą koniec nagłówków,&lt;/li&gt;
+  &lt;li&gt;ciało wiadomości (jeśli istnieje).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Jak wspomniałem wyżej użyję programu curl. Dodatkowo użyję przełącznika &lt;code class=&quot;highlighter-rouge&quot;&gt;-v&lt;/code&gt;. Włącza on tryb lania wody ;). Wtedy curl raportuje dużo więcej informacji. Dane wysłane do serwera poprzedzone są znakiem &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;. Odpowiedź poprzedzona jest &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt;. Poniżej pokazuję zapytanie do API Githuba. Wysyłam żądanie na adres &lt;code class=&quot;highlighter-rouge&quot;&gt;https://api.github.com/users/kbl&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ curl -v https://api.github.com/users/kbl
+// ciach usunąłem część związaną z HTTPS
+&amp;gt; GET /users/kbl HTTP/1.1
+&amp;gt; Host: api.github.com
+&amp;gt; User-Agent: curl/7.52.1
+&amp;gt; Accept: */*
+&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Zacznę od analizowania pierwszej linijki &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /users/kbl HTTP/1.1&lt;/code&gt;. Na początku zawiera ona czasownik HTTP - &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; (czasowniki opiszę dokładniej poniżej). Następnie zawiera część adresu URL, wszystko od części &lt;code class=&quot;highlighter-rouge&quot;&gt;path&lt;/code&gt;. W moim przypadku jest to &lt;code class=&quot;highlighter-rouge&quot;&gt;/users/kbl&lt;/code&gt;. Kolejną częścią jest protokół wraz z wersją &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP/1.1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Trzy kolejne linijki zawierają tak zwane nagłówki HTTP, nagłówkom także poświęcę osobny podpunkt poniżej.&lt;/p&gt;
+
+&lt;p&gt;W przypadku tego żądania, ciało wiadomości jest puste. Widzisz więc tylko pustą linię oddzielającą nagłówki od pominiętego ciała wiadomości.&lt;/p&gt;
+
+&lt;h3 id=&quot;odpowiedź-http&quot;&gt;Odpowiedź HTTP&lt;/h3&gt;
+
+&lt;p&gt;Serwer odpowiada na żądanie klienta wysyłając odpowiedź&lt;sup id=&quot;fnref:kilka&quot;&gt;&lt;a href=&quot;#fn:kilka&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;. Podobnie jak w przypadku zapytania format jest dokładnie określony:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;linijka z wersją protokołu i statusem odpowiedzi,&lt;/li&gt;
+  &lt;li&gt;linie zawierające nagłówki,&lt;/li&gt;
+  &lt;li&gt;pustą linię określającą koniec nagłówków,&lt;/li&gt;
+  &lt;li&gt;ciało wiadomości (jeśli istnieje).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Tym razem odpowiedź, jest dużo dłuższa:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt; HTTP/1.1 200 OK
+&amp;lt; Server: GitHub.com
+&amp;lt; Date: Tue, 06 Feb 2018 19:36:28 GMT
+&amp;lt; Content-Type: application/json; charset=utf-8
+&amp;lt; Content-Length: 1218
+&amp;lt; Status: 200 OK
+&amp;lt; X-RateLimit-Limit: 60
+&amp;lt; X-RateLimit-Remaining: 55
+&amp;lt; X-RateLimit-Reset: 1517949218
+&amp;lt; Cache-Control: public, max-age=60, s-maxage=60
+&amp;lt; Vary: Accept
+&amp;lt; ETag: &quot;268c03d98e6e20c7824364d61b3f51b0&quot;
+&amp;lt; Last-Modified: Mon, 09 Oct 2017 19:42:33 GMT
+&amp;lt; X-GitHub-Media-Type: github.v3; format=json
+&amp;lt; Access-Control-Expose-Headers: ETag, Link, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+&amp;lt; Access-Control-Allow-Origin: *
+&amp;lt; Content-Security-Policy: default-src 'none'
+&amp;lt; Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+&amp;lt; X-Content-Type-Options: nosniff
+&amp;lt; X-Frame-Options: deny
+&amp;lt; X-XSS-Protection: 1; mode=block
+&amp;lt; X-Runtime-rack: 0.030276
+&amp;lt; X-GitHub-Request-Id: 8AAA:602C:92D77:140069:5A7A03BC
+&amp;lt;
+{
+  &quot;login&quot;: &quot;kbl&quot;,
+  // ciach
+  &quot;created_at&quot;: &quot;2009-04-14T08:28:56Z&quot;,
+  &quot;updated_at&quot;: &quot;2017-10-09T19:42:33Z&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Pierwsza linijka to wspomniany wcześniej protokół &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP/1.1&lt;/code&gt;. Następnie status odpowiedzi &lt;code class=&quot;highlighter-rouge&quot;&gt;200 OK&lt;/code&gt;, podobnie jak w przypadku nagłówków i czasowników więcej o statusie przeczytasz w osobnym podpunkcie.&lt;/p&gt;
+
+&lt;p&gt;Kolejne 22 linijki to nagłówki, po których występuje pusta linia. Podobnie jak przy żądaniu oddziela ona nagłówki od ciała wiadomości.&lt;/p&gt;
+
+&lt;p&gt;W przypadku odpowiedzi ciało wiadomości zawiera dane w formacie JSON - zasób. Dla czytelności pominąłem tu większość ciała odpowiedzi. Zachęcam Cię do eksperymentowania z własnymi zapytaniami :). Do tych eksperymentów może Ci się przydać &lt;a href=&quot;https://developer.github.com/v3/&quot;&gt;dokumentacja API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;czasowniki-http&quot;&gt;Czasowniki HTTP&lt;/h2&gt;
+
+&lt;p&gt;Specyfikacja HTTP definiuje 8 czasowników&lt;sup id=&quot;fnref:rozszerzenie&quot;&gt;&lt;a href=&quot;#fn:rozszerzenie&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;. Każdy z tych czasowników powiązany jest z żądaniem wysyłanym przez klienta. Każde z żądań ma swoje zastosowania.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Zanim przejdę do omówienia poszczególnych czasowników musisz wiedzieć czym jest cache&lt;sup id=&quot;fnref:polski&quot;&gt;&lt;a href=&quot;#fn:polski&quot; class=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;. Cache to mechanizm, który pozwala na zmniejszenie czasu oczekiwania na odpowiedź. Zakładając, że wykonasz dwa zapytania z rzędu o ten sam zasób wynik pierwszego zapytania może być zapisany w cache’u. W związku z tym drugie zapytanie może nie dotrzeć do serwera, odpowiedź może zostać pobrana z cache’a.&lt;/p&gt;
+
+&lt;h3 id=&quot;get&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Jest to podstawowe żądanie. Każde otworzenie strony internetowej zaczyna się od zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;. Przeglądarka wysyła żądanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; żeby otworzyć stronę internetową. Specyfikacja mówi, że żądanie to służy do pobrania aktualnej reprezentacji zasobu. W praktyce może to oznaczać pobranie aktualnej wersji strony znajdującej się pod danym adresem. Zakłada się, że żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; nie posiadają dołączonego ciała wiadomości.&lt;/p&gt;
+
+&lt;p&gt;Odpowiedź na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; może być przechowywana w cache’u.&lt;/p&gt;
+
+&lt;h3 id=&quot;head&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Zapytanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt; jest podobne do &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;. Różni się jednym ważnym szczegółem. W przypadku tego zapytania odpowiedź serwera nie może zawierać ciała wiadomości. Zapytania tego typu są używane do sprawdzenia czy dany zasób się zmienił, czy do sprawdzania poprawności odnośników. Zysk z używania tego zapytania polega na tym, że ciało wiadomości nie jest przesyłane. Wyobraź sobie plik PDF, który zawiera 10MB danych. Można wysłać zapytanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt;, żeby sprawdzić czy zawartość tego pliku uległa zmianie. To czy plik jest nowszy można określić na podstawie nagłówków, które będą dołączone do odpowiedzi.&lt;/p&gt;
+
+&lt;p&gt;Odpowiedź na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt; może być przechowywana w cache’u.&lt;/p&gt;
+
+&lt;h3 id=&quot;post&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Specyfikacja mówi, że żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; są przetwarzane przez serwer zgodnie z założeniami dla danego zasobu. Taki skomplikowany opis sprowadza się do:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;używania &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; do przesyłania zawartości formularzy,&lt;/li&gt;
+  &lt;li&gt;dodawania nowego zasobu,&lt;/li&gt;
+  &lt;li&gt;dodawanie danych do istniejącego zasobu.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Odpowiedzi na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; nie jest przechowywana w cache’u&lt;sup id=&quot;fnref:wyjatek&quot;&gt;&lt;a href=&quot;#fn:wyjatek&quot; class=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;put&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;W codziennym użytkowaniu żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; służą do aktualizacji danego zasobu. Zgodnie ze specyfikacją ciało wiadomości powinno posłużyć do ustawienia stanu zasobu na serwerze. Zatem w przypadku gdy zasób nie istniał żądanie tego typu powinno go utworzyć. Jeśli zasób istnieje wówczas jego stan powinien być ustawiony na ten przekazany w ciele wiadomości.&lt;/p&gt;
+
+&lt;p&gt;W większości znanych mi przypadków ten pierwszy aspekt jest pomijany, prawdopodobnie dla uproszczenia logiki aplikacji.&lt;/p&gt;
+
+&lt;p&gt;Główna różnica pomiędzy zapytaniami &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; polega na sposobie interpretowania ciała wiadomości. W przypadku zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; to zasób decyduje jak przetworzyć otrzymaną wiadomość. W przypadku żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; otrzymana wiadomość powinna posłużyć do ustawienia wartość zasobu.&lt;/p&gt;
+
+&lt;p&gt;Odpowiedzi na żądanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; nie powinny być przechowywane w cache’u.&lt;/p&gt;
+
+&lt;h4 id=&quot;idempotentność&quot;&gt;Idempotentność&lt;/h4&gt;
+
+&lt;p&gt;Oznacza to tyle, że zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; są idempotentne. Zapytania, które są idempotentne można powtarzać wielokrotnie i zawsze doprowadzą one do tego samego stanu danego zasobu.&lt;/p&gt;
+
+&lt;h3 id=&quot;delete&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Zapytania tego typu służą do usuwania zasobów. Na przykład w którymś z wcześniejszych zapytań dany zasób może być utworzony przy pomocy żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;. Następnie może on być usunięty przy pomocy &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;. Odpowiedzi na żądania tego typu nie powinny zawierać ciała wiadomości.&lt;/p&gt;
+
+&lt;p&gt;Odpowiedzi na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt; nie powinny być umieszczane w cache’u.&lt;/p&gt;
+
+&lt;h3 id=&quot;connect&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CONNECT&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Żądania tego typu służą do utworzenia połączenia pomiędzy klientem a serwerem docelowym (za pomocą węzłów pośrednich). W praktyce nie będziesz używał tego typu żądań w trakcie pisania aplikacji webowych. Mi się to nigdy do tej pory nie zdarzyło :).&lt;/p&gt;
+
+&lt;h3 id=&quot;options&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;OPTIONS&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;OPTIONS&lt;/code&gt; używane są do pobrania informacji na temat możliwości komunikacji dla danego zasobu. W praktyce żądania tego typu używane są do sprawdzenia jakie żądania są obsługiwane przez serwer. Żądanie tego typu także wykorzystywane jest w mechanizmie &lt;a href=&quot;https://pl.wikipedia.org/wiki/Cross-Origin_Resource_Sharing&quot;&gt;CORS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Odpowiedzi na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;OPTIONS&lt;/code&gt; nie powinny być przechowywane w cache’u.&lt;/p&gt;
+
+&lt;h3 id=&quot;trace&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TRACE&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Żądanie tego typu służy do testowania. W odpowiedzi na to żądanie serwer powinien wysłać zapytanie, które otrzymał. Możliwa jest drobna modyfikacja otrzymanych nagłówków, na przykład serwer może usunąć nagłówki zawierające dane wrażliwe (na przykład ciasteczka). Żądanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;TRACE&lt;/code&gt; nie może zawierać ciała wiadomości.&lt;/p&gt;
+
+&lt;p&gt;Odpowiedzi na żądanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;TRACE&lt;/code&gt; nie powinny być umieszczane w cache’u.&lt;/p&gt;
+
+&lt;h2 id=&quot;nagłówki-http&quot;&gt;Nagłówki HTTP&lt;/h2&gt;
+
+&lt;p&gt;Nagłówki dołączane są przez klienty do wysyłanych zapytań i przez serwery do wysyłanych odpowiedzi. Mają one postać &lt;code class=&quot;highlighter-rouge&quot;&gt;nazwa-nagłówka: wartość-nagłówka&lt;/code&gt;. Zgodnie ze specyfikacją wielkość liter w nazwach nagłówków nie ma znaczenia. Wielkość liter w wartości nagłówka może mieć znaczenie, zależy to od aplikacji. Chociaż istnieje &lt;a href=&quot;https://www.iana.org/assignments/message-headers/message-headers.xhtml&quot;&gt;cała masa standardowych nagłówków&lt;/a&gt; możesz tworzyć swoje własne.&lt;/p&gt;
+
+&lt;p&gt;Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mogą zawierać na przykład informacje o formacie, statusie odpowiedzi czy dacie. Poniżej postaram się wyjaśnić kilka najczęściej spotykanych nagłówków:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Nagłówek&lt;/th&gt;
+      &lt;th&gt;Znaczenie&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Accept&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Klient informuje serwer o tym jaki format jest w stanie zrozumieć, może to być na przykład JSON: &lt;code class=&quot;highlighter-rouge&quot;&gt;application/json&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Accept-Encoding&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Klient informuje serwer o tym jakie sposoby kodowania ciała wiadomości rozumie, może być użyty do określenia pożądanego algorytmu kompresji odpowiedzi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Access-Control-Allow-Methods&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;W odpowiedzi na zapytanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;OPTIONS&lt;/code&gt; serwer informuje jakie inne czasowniki HTTP są dozwolone&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Access-Control-Allow-Origin&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Serwer informuje klienta jakie domeny uprawnione są do użycia odpowiedzi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Cache-Control&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Nagłówek służący do zarządzania cache’owaniem. Dotyczy zarówno żądań jak i odpowiedzi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Connection&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Zawiera informacje na temat połączenia pomiędzy klientem a serwerem&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Encoding&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Serwer informuje klienta o sposobie kodowania ciała wiadomości&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Type&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Odpowiednik nagłówka &lt;code class=&quot;highlighter-rouge&quot;&gt;Accept&lt;/code&gt; wysyłany przez serwer informujący o formacie odpowiedzi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Cookie&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Nagłówek służący do przesłania ciasteczka przez klienty do serwera&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Date&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Zawiera datę mówiącą od czasie wygenerowania żądania/odwiedzi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ETag&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Zawiera identyfikator zasobu zwróconego przez serwer. Używany przez cache&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Host&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Zawiera domenę, do której wysyłane jest żądanie&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Location&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Zawiera informacje o położeniu zasobu, może być użyty na przykład przy przekierowaniach i tworzeniu nowych zasobów&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Server&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Serwer informuje klienty jakiego oprogramowania używa do obsługi odpowiedzi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Set-Cookie&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Nagłówek służący do ustawienia ciasteczka&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;User-Agent&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Nagłówek dołączany do zapytania informujący o tym jaki klient został użyty to jego wysłania&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;ciasteczka&quot;&gt;Ciasteczka&lt;/h2&gt;
+
+&lt;p&gt;Co prawda ciasteczka to nic innego jak nagłówki, jednak poświęcę im osobny podpunkt. W osobnym artykule możesz przeczytać o &lt;a href=&quot;/naglowki-sesje-i-ciasteczka/&quot;&gt;ciasteczkach w kontekście specyfikacji serwletów&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Wiesz już, że protokół HTTP jest bezstanowy. Serwer HTTP nie może powiązać ze sobą zapytać pochodzących od tego samego klienta w jedną paczkę. Z pomocą przychodzą ciasteczka. Ciasteczka to specyficzne nagłówki, które są obsługiwane przez klienty.&lt;/p&gt;
+
+&lt;p&gt;Serwer w odpowiedzi może wysłać nagłówek, który utworzy ciasteczko. Ciasteczko to jest przypisane do domeny (część &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;path&lt;/code&gt; adresu URL). Przykładowy nagłówek do ustawienia ciasteczka może wyglądać następująco:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Set-Cookie: &amp;lt;nazwa ciasteczka&amp;gt;=&amp;lt;wartość ciasteczka&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W każdym kolejnym zapytaniu do tej domeny klient dołącza nagłówki ciasteczek. Dzięki temu aplikacja na serwerze może połączyć pojedyncze zapytania w sesje. Przykładowe ciasteczko w odpowiedzi dołączane jest przy pomocy nagłówka:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Cookie: &amp;lt;nazwa ciasteczka&amp;gt;=&amp;lt;wartość ciasteczka&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć “zapamiętaj mnie”. Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek &lt;code class=&quot;highlighter-rouge&quot;&gt;Set-Cookie&lt;/code&gt;). To ciasteczko zawiera unikalny klucz, który później jest dotłaczany przez klienta do każdego żądania do danej domeny (nagłówek &lt;code class=&quot;highlighter-rouge&quot;&gt;Cookie&lt;/code&gt;). Dzięki temu każde kolejne zapytanie ma nagłówek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.&lt;/p&gt;
+
+&lt;p&gt;Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą być wykorzystywane jako jeden ze sposobów do śledzenia Twojego ruchu w sieci. Zdarzyło Ci się kliknąć na reklamę a później ta reklama pokazywała Ci się bez przerwy? Ciasteczka także mogły się do tego przyczynić&lt;sup id=&quot;fnref:zaawansowane&quot;&gt;&lt;a href=&quot;#fn:zaawansowane&quot; class=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;statusy-http&quot;&gt;Statusy HTTP&lt;/h2&gt;
+
+&lt;p&gt;Wiesz już, że każda odpowiedź od serwera zawiera między innymi informacje o statusie. Status ten jest podstawową informacją o tym czy żądanie się powiodło. Wszystkie statusy podzielone są na pięć grup.&lt;/p&gt;
+
+&lt;h3 id=&quot;statusy-1xx&quot;&gt;Statusy 1xx&lt;/h3&gt;
+
+&lt;p&gt;Szczerze nigdy w praktyce nie spotkałem się z użyciem tych statusów. Ta grupa statusów to statusy informacyjne. Informują klienty o tym, że zapytanie zostało otrzymane i jest przetwarzane.&lt;/p&gt;
+
+&lt;h3 id=&quot;statusy-2xx&quot;&gt;Statusy 2xx&lt;/h3&gt;
+
+&lt;p&gt;Statusy z tej grupy informują o tym, że zapytanie zostało poprawnie przetworzone. W zależności od kodu odpowiedzi wynik tego przetwarzania może być różny. Najczęściej używane statusy z tej grupy to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;200 OK&lt;/code&gt; - zapytanie zostało przetworzone poprawnie,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;201 Created&lt;/code&gt; - zapytanie zostało przetworzone poprawnie i zasób został utworzony,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;202 Accepted&lt;/code&gt; - zapytanie zostało przyjęte przez serwer, jednak jego przetwarzanie nie jest jeszcze ukończone,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;204 No Content&lt;/code&gt; - zapytanie zostało przetworzone, ciało wiadomości jest puste.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;statusy-3xx&quot;&gt;Statusy 3xx&lt;/h3&gt;
+
+&lt;p&gt;Statusy zaczynające się o 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetwarzania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;301 Moved Permanently&lt;/code&gt; - informuje klienta, że zasób został przeniesiony na stałe w inne miejsce. Ten status ma znaczenie duże dla twórców stron, którzy bazują na ruchu z wyszukiwarek. Taki status informuje wyszukiwarki o tym, że strona, która wcześniej była pod adresem X znajduje się w nowym miejscu.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;statusy-4xx&quot;&gt;Statusy 4xx&lt;/h3&gt;
+
+&lt;p&gt;Statusy z tej grupy informują o błędzie klienta. Pewnie nie raz widziałeś błąd 404 ;). Serwer tymi statusami informuje o tym, że żądanie nie może być poprawnie przetworzone:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;400 Bad Request&lt;/code&gt; - serwer informuje klienta o błędnym zapytaniu, które nie będzie przetworzone,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;403 Forbidden&lt;/code&gt; - zasób wymaga uwierzytelnienia, po potwierdzeniu tożsamości może być dostępny,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;404 Not Found&lt;/code&gt; - to pewnie znasz i widziałeś wielokrotnie, żądany zasób nie istnieje.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;statusy-5xx&quot;&gt;Statusy 5xx&lt;/h3&gt;
+
+&lt;p&gt;Tutaj sprawa jest poważna. Serwer informuje klienty o błędzie po stronie serwera, które uniemożliwiają przetworzenie zapytania:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;500 Internal Server Error&lt;/code&gt; - informacja dla klienta o tym, że serwer znalazł się w stanie, który uniemożliwia poprawne przetworzenie żądania,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;502 Bad Gateway&lt;/code&gt; - na początku artykułu wspomniałem o tym, że może być wiele węzłów, które będą przekazywały zapytanie do serwera, który je finalnie obsłuży. Ten status informuje klienta o tym, że jeden z tych pośrednich węzłów dostał błędną odpowiedź od poprzedniego węzła,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;503 Service Unavailable&lt;/code&gt; - ten błąd może informować klienta o tym, że serwer jest przeciążony. Ponowna próba może kończyć się poprawną odpowiedzią.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;prawie-300-zapytań-aby-wyświetlić-stronę&quot;&gt;Prawie 300 zapytań aby wyświetlić stronę&lt;/h2&gt;
+
+&lt;p&gt;Teraz jak już wiesz czym jest protokół HTTP wyjaśnię “tajemnicę” około 300 zapytań.&lt;/p&gt;
+
+&lt;figure class=&quot;&quot;&gt;
+  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2018/02/08_amazon_zapytania.jpeg&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Do wyświetlenia www.amazon.com potrzeba około 300 zapytań
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;p&gt;Przeglądarka jest klientem HTTP. Klienty mogą interpretować odpowiedź wysyłaną od serwera. Wpisując w pasek adresu &lt;code class=&quot;highlighter-rouge&quot;&gt;www.amazon.com&lt;/code&gt; i naciskając ENTER wysyłasz jedno zapytanie. Jest to zapytanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; o zasób &lt;code class=&quot;highlighter-rouge&quot;&gt;www.amazon.com&lt;/code&gt;. W odpowiedzi serwer zwraca dokument HTML.&lt;/p&gt;
+
+&lt;p&gt;Dokument ten jest interpretowany przez przeglądarkę, zawiera on znaczniki HTML. Takie jak &lt;code class=&quot;highlighter-rouge&quot;&gt;img&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;script&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;style&lt;/code&gt;. Każdy z tych znaczników może kończyć się kolejnym zapytaniem typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;. Dodatkowo kod JavaScript interpretowany przez przeglądarkę może wykonywać dodatkowe zapytania. W sumie do wyświetlenia strony głównej sklepu Amazon potrzeba tych zapytań około 300. A wszystko zaczęło się od jednego, niewinnego &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; :).&lt;/p&gt;
+
+&lt;h2 id=&quot;dodatkowe-materiały&quot;&gt;Dodatkowe materiały&lt;/h2&gt;
+
+&lt;p&gt;Odsyłam Cię głównie do źródeł. Mam wrażenie, że artykuł jest na tyle szczegółowy, że bardziej dokładne informacje znajdziesz właśnie tam:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP&quot;&gt;Zbiór materiałów fundacji Mozilla dotyczących HTTP&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;Zbiór RFC dla HTTP 1.1:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7230&quot;&gt;RFC 7230&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7231&quot;&gt;RFC 7231&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7232&quot;&gt;RFC 7232&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7233&quot;&gt;RFC 7233&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7234&quot;&gt;RFC 7234&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7235&quot;&gt;RFC 7235&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc3986&quot;&gt;RFC dla URI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h1&gt;
+
+&lt;p&gt;Jeśli przeczytałeś i zrozumiałeś ten artykuł to śmiało możesz powiedzieć, że znasz protokół HTTP. Wiesz jak działa ten protokół, wiesz czym są zasoby. Poznałeś różnicę pomiędzy URI a URL. Znasz mechanizm działania nagłówków, poznałeś też główne statusy odpowiedzi. Moim zdaniem, poznając to wszystko wyszedłeś poza podstawową wiedzę na temat tego protokołu.&lt;/p&gt;
+
+&lt;p&gt;Zapowiadało się niewinnie a wyszedł taziemiec. Sporo napracowałem się przy tym artykule, więc będę Ci bardzo wdzięczny za udostępnienie go dalej :).&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Trzymaj się! :)&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:praca&quot;&gt;
+      &lt;p&gt;Ot, taki “patriotyzm lokalny” - aktualnie pracuję w firmie Opera Software ;). &lt;a href=&quot;#fnref:praca&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:litery&quot;&gt;
+      &lt;p&gt;To czy wielkość liter jest rozróżniana zależy od aplikacji obsługującej dane żądanie. &lt;a href=&quot;#fnref:litery&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:wewnetrzna&quot;&gt;
+      &lt;p&gt;Potrafię sobie wyobrazić wyjątki od tej reguły. Na przykład w komunikacji, w której adres URL jest przesyłany zaszyfrowanym kanałem. &lt;a href=&quot;#fnref:wewnetrzna&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:kilka&quot;&gt;
+      &lt;p&gt;Na jedno żądanie serwer może wysłać kilka odpowiedzi, na przykład dzieląc dużą odpowiedź na kilka mniejszych. &lt;a href=&quot;#fnref:kilka&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:rozszerzenie&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc5789&quot;&gt;RFC5789&lt;/a&gt; rozszerza tę grupę o czasownik PATCH. &lt;a href=&quot;#fnref:rozszerzenie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:polski&quot;&gt;
+      &lt;p&gt;Tutaj podobnie jak z webservice’em postanowiłem nie tłumaczyć tego określenia. Jest ono na tyle powszechne, że nawet nie wiem jakie byłoby dobre tłumaczenie. Schowek? Skrytka? ;) &lt;a href=&quot;#fnref:polski&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:wyjatek&quot;&gt;
+      &lt;p&gt;W większości przypadków, specyfikacja dopuszcza wyjątki od tej reguły. &lt;a href=&quot;#fnref:wyjatek&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:zaawansowane&quot;&gt;
+      &lt;p&gt;Ciasteczka nie są jedynym narzędziem używanym do śledzenia użytkownika. Podobnie sprawa wygląda z reklamami, to nie tylko ciasteczka mogą służyć do wybierania tych do wyświetlenia dla Ciebie. &lt;a href=&quot;#fnref:zaawansowane&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem wiedzę na temat protokołu HTTP niezbędną do tworzenia aplikacji webowych.</summary></entry><entry><title type="html">Strumienie w języku Java</title><link href="http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/" rel="alternate" type="text/html" title="Strumienie w języku Java" /><published>2018-01-30T00:00:00+01:00</published><updated>2018-01-30T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/">&lt;div class=&quot;notice--info&quot;&gt;
     
 &lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java&quot;&gt;darmowego kursu programowania w Javie&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
 
@@ -192,7 +698,7 @@ Exception in thread &quot;main&quot; java.util.ConcurrentModificationException
     at pl.samouczekprogramisty.kursjava.streams.requirements.InterferingOperation.main(InterferingOperation.java:15)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;rodzie-operacji-na-strumieniach&quot;&gt;Rodzie operacji na strumieniach&lt;/h2&gt;
+&lt;h2 id=&quot;rodzaje-operacji-na-strumieniach&quot;&gt;Rodzaje operacji na strumieniach&lt;/h2&gt;
 
 &lt;h3 id=&quot;tworzenie-strumieni&quot;&gt;Tworzenie strumieni&lt;/h3&gt;
 
@@ -3512,271 +4018,4 @@ war.dependsOn explodedWar
       &lt;p&gt;Wielkie dzięki dla Marka za podesłanie linka do tego artykułu. &lt;a href=&quot;#fnref:marek&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji Ο. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!</summary></entry><entry><title type="html">Liczby zmiennoprzecinkowe</title><link href="http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe/" rel="alternate" type="text/html" title="Liczby zmiennoprzecinkowe" /><published>2017-11-06T00:00:00+01:00</published><updated>2017-11-06T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/liczby-zmiennoprzecinkowe/">&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;
-&lt;/script&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Artykuł ten wymaga znajomości notacji binarnej. Jeśli jeszcze jej nie znasz koniecznie zapoznaj się z &lt;a href=&quot;/system-dwojkowy/&quot;&gt;artykułem opisującym system binarny&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;notice--warning&quot;&gt;
-  
-&lt;p&gt;Artykuł ten ma Cię jedynie wprowadzić w tematykę związaną ze standardem IEEE754. Nie poruszam w nim kwestii związanych z arytmetyką, zaokrąglaniem czy wartościami specjalnymi.&lt;/p&gt;
-
-&lt;p&gt;Celem tego artykułu jest wytłumaczenie dlaczego operacje na liczbach zmiennoprzecinkowych nie są dokładne. Jeśli szukasz bardziej szczegółowych informacji odsyłam do punktu “Dodatkowe materiały do nauki”.&lt;/p&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;niezbędne-podstawy&quot;&gt;Niezbędne podstawy&lt;/h2&gt;
-
-&lt;h3 id=&quot;odrobina-matematyki&quot;&gt;Odrobina matematyki&lt;/h3&gt;
-
-&lt;p&gt;Żeby móc mówić o liczbach zmiennoprzecinkowych należy zrozumieć czym są liczby wymierne. Liczba wymierna to liczba, którą można przedstawić w postaci ułamka zwykłego. Dla przypomnienia to ten ułamek z kreską poziomą, który ma licznik i mianownik. Przykładem ułamka zwykłego jest ½.&lt;/p&gt;
-
-&lt;p&gt;Ułamki mają jeszcze postać dziesiętną. Przykładem ułamka dziesiętnego jest &lt;code class=&quot;highlighter-rouge&quot;&gt;0,5&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Niektóre ułamki zwykłe nie mają skończonej reprezentacji jako ułamek dziesiętny. Na przykład ułamek ⅓ zapisany dziesiętnie ma postać &lt;code class=&quot;highlighter-rouge&quot;&gt;0,(3)&lt;/code&gt;. Taka notacja oznacza, że ułamek dziesiętny ma rozwinięcie okresowe. Zawartość nawiasu powtarzana jest w nieskończoność &lt;code class=&quot;highlighter-rouge&quot;&gt;0,33333...&lt;/code&gt;. Okres ułamka może mieć kilka cyfr, na przykład &lt;code class=&quot;highlighter-rouge&quot;&gt;0,38(12)&lt;/code&gt;. Taki okres rozwija się do ułamka &lt;code class=&quot;highlighter-rouge&quot;&gt;0,3812121212...&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;liczby-wymierne-zapisywane-binarnie&quot;&gt;Liczby wymierne zapisywane binarnie&lt;/h3&gt;
-
-&lt;p&gt;Liczby wymierne można zapisać także binarnie. Algorytm na zamianę liczb całkowitych z postaci dziesiętnej na postać binarną opisałem w artykule na temat &lt;a href=&quot;/system-dwojkowy/&quot;&gt;systemu binarnego&lt;/a&gt;. Do zamiany zostaje część po przecinku. Weźmy na przykład liczbę 0,25. Aby zapisać ją binarnie należy postępować zgodnie z algorytmem:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Zapisz &lt;code class=&quot;highlighter-rouge&quot;&gt;0,&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;Pomnóż ułamek przez 2, jeśli wynik jest większy bądź równy 1 należy dopisać &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; w reprezentacji binarnej. W przeciwnym wypadku należy dopisać &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Jeśli wynik jest równy 1 jest to koniec algorytmu. Jeśli wynik jest mniejszy od 1 należy przejść do punktu drugiego. Jeśli wynik jest większy od 1 należy odjąć od niego 1 i przejść do punktu drugiego.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Mam nadzieję, że przykład pozwoli Ci lepiej zrozumieć zasadę działania algorytmu. Zacznijmy od liczby 0,75.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Postać binarna &lt;code class=&quot;highlighter-rouge&quot;&gt;0,&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;0,75 * 2 = 1,5. Wynik jest większy od 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;. Postać binarna &lt;code class=&quot;highlighter-rouge&quot;&gt;0,1&lt;/code&gt;. Wynik jest większy od 1 więc odejmuję jedynkę: 1,5 - 1 = 0,5,&lt;/li&gt;
-  &lt;li&gt;0,5 * 2 = 1. Wynik jest równy 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;. Postać binarna &lt;code class=&quot;highlighter-rouge&quot;&gt;0,11&lt;/code&gt;. Wynik jest równy 1 więc to koniec algorytmu,&lt;/li&gt;
-  &lt;li&gt;0,75 zapisane jako ułamek binarny to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,11&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Inny przykład, tym razem ułamek dziesiętny to 0,125:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Postać binarna &lt;code class=&quot;highlighter-rouge&quot;&gt;0,&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;0,125 * 2 = 0,25. 0,25 &amp;lt; 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;. Postać binarna to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,0&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;0,25 * 2 = 0,5. 0,5 &amp;lt; 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;. Postać binarna to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,00&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;0,5 * 2 = 1. 1 == 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;. Postać binarna to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,001&lt;/code&gt;, koniec algorytmu,&lt;/li&gt;
-  &lt;li&gt;0,125 zapisane jako ułamek binarny to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,001&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Nie wszystkie ułamki, które mają skończone rozwinięcie dziesiętne są skończone w postaci binarnej. Spójrz jak wygląda to w przypadku ułamka 0,1:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Postać binarna &lt;code class=&quot;highlighter-rouge&quot;&gt;0,&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;0,1 * 2 = 0,2. 0,2 &amp;lt; 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;. Postać binarna to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,0&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;0,2 * 2 = 0,4. 0,4 &amp;lt; 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;. Postać binarna to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,00&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;0,4 * 2 = 0,8. 0,8 &amp;lt; 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;. Postać binarna to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,000&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;0,8 * 2 = 1,6. 1,6 &amp;gt; 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; i odejmuję 1 od wyniku. Postać binarna to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,0001&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;0,6 * 2 = 1,2. 1,2 &amp;gt; 1 więc dopisuję &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; i odejmuję 1 od wyniku. Postać binarna to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,00011&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;Ułamek 0,2 występował już w kroku 3. Jeśli liczba się powtarza mamy do czynienia z ułamkiem, który ma nieskończone rozwinięcie binarne. Postać binarna to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,0(0011)&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Aby zapisać liczbę wymierną, która ma zarówno część całkowitą i ułamkową należy połączyć zapis części całkowitej i ułamkowej. Na przykład liczba 20,1 zapisana binarnie to &lt;code class=&quot;highlighter-rouge&quot;&gt;10100,0(0011)&lt;/code&gt;. Jest to tak zwana stałoprzecinkowa reprezentacja liczby wymiernej.&lt;/p&gt;
-
-&lt;h3 id=&quot;notacja-naukowa-a-liczby-wymierne&quot;&gt;Notacja naukowa a liczby wymierne&lt;/h3&gt;
-
-&lt;p&gt;W matematyce poza standardowym zapisem liczb, który już znasz 10, 123,15 czy 0,00000827194 istnieje tak zwana notacja naukowa. Jest ona pomocna przy zapisywaniu bardzo dużych/małych liczb w stosunkowo zwięzłej formie. Na przykład liczbę 0,00000827194 można zapisać jako \(8,27194 * 10^{-6}\). Inna postać tej liczby to 8,27194e-6.&lt;/p&gt;
-
-&lt;p&gt;W języku Java możesz zobaczyć jak dana liczba wygląda w postaci naukowej:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%e&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;123.456&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Po uruchomieniu powyższego kodu na konsoli pokaże się:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.234560e+02
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;czym-jest-standard-ieee754&quot;&gt;Czym jest standard IEEE754&lt;/h2&gt;
-
-&lt;p&gt;Standard IEEE754 jest standardem opisującym arytmetykę zmiennoprzecinkową. W dużym uproszczeniu można powiedzieć, że opisuje on sposób zapisywania liczby wymiernej w pamięci komputera. Standard ten może być implementowany już na poziomie sprzętowym. Oznacza to tyle, że procesor może mieć specjalną jednostkę odpowiedzialną za obliczenia zmiennoprzecinkowe.&lt;/p&gt;
-
-&lt;p&gt;Standard ten opisuje kilka formatów zapisu liczb. Jednym z nich jest zapis &lt;em&gt;pojedynczej precyzji&lt;/em&gt; gdzie do zapisania liczby używa się 32 bitów. Występuje też wersja z &lt;em&gt;podwójną precyzją&lt;/em&gt;, gdzie używa się 64 bitów do zapisania liczby.&lt;/p&gt;
-
-&lt;p&gt;W języku Java liczby typu &lt;code class=&quot;highlighter-rouge&quot;&gt;float&lt;/code&gt; są liczbami zmiennoprzecinkowymi formacie pojedynczej precyzji. Liczby typu &lt;code class=&quot;highlighter-rouge&quot;&gt;double&lt;/code&gt; to liczby zmiennoprzecinkowe zapisane na 64 bitach w formacie podwójnej precyzji.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;W dalszej części artykułu skupię się wyłącznie na liczbach zmiennoprzecinkowych zapisanych w formacie pojedynczej precyzji.&lt;/p&gt;
-
-&lt;h2 id=&quot;liczba-zmiennoprzecinkowa&quot;&gt;Liczba zmiennoprzecinkowa&lt;/h2&gt;
-
-&lt;p&gt;Liczba zmiennoprzecinkowa to liczba wymierna zapisana w formacie IEEE754. Nazwa zmiennoprzecinkowa wynika z tego, że miejsce przecinka w liczbie zmienia swoje położenie. Spójrz na przykład poniżej:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1234,567
-1,234567e-3
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Obie te liczby są równe, jednak przecinek w drugiej z nich znajduje się w innym miejscu. Druga liczba zapisana jest w notacji naukowej.&lt;/p&gt;
-
-&lt;h3 id=&quot;części-składowe-liczby-zmiennoprzecinkowej&quot;&gt;Części składowe liczby zmiennoprzecinkowej&lt;/h3&gt;
-
-&lt;p&gt;Każdą liczbę zmiennoprzecinkową zapisujemy w pamięci przy pomocy trzech składowych:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;znaku,&lt;/li&gt;
-  &lt;li&gt;wykładnika,&lt;/li&gt;
-  &lt;li&gt;mantysy.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2017/11/06_IEEE_754_pojedyncza_precyzja.png&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Liczba zmiennoprzecinkowa pojedynczej precyzji © Wikipedia
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Wartość liczby zmiennoprzecinkowej zależy od wartości poszczególnych pól. Można ją zapisać przy pomocy wzoru:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;-1^{znak} * 2^{wykładnik} * mantysa&lt;/script&gt;
-
-&lt;p&gt;Wzór ten przypomina notację naukową.&lt;/p&gt;
-
-&lt;h3 id=&quot;znak&quot;&gt;Znak&lt;/h3&gt;
-
-&lt;p&gt;Liczby mogą być dodanie, ujemne lub 0. Znak służy do określenia czy dana liczba jest dodania czy ujemna. Jeśli liczba jest dodatnia bit znaku zawiera &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;wykładnik&quot;&gt;Wykładnik&lt;/h3&gt;
-
-&lt;p&gt;Wykładnik to liczba zapisana na ośmiu bitach. Używa się tu tak zwanego kodowania z nadmiarem. W tym przypadku nadmiar wynosi -127. Oznacza to, że od zakodowanej liczby należy odjąć liczbę 127 aby uzyskać zakodowaną wartość. Standardowo na ośmiu bitach możemy zapisać liczbę \(2^8 -1 == 255\). Używając kodowania z nadmiarem -127 na ośmiu bitach możemy zakodować liczby z zakresu [-127, 128].&lt;/p&gt;
-
-&lt;p&gt;Innymi słowy wykładnik w liczbie zmiennoprzecinkowej może być z zakresu -127 do 128&lt;sup id=&quot;fnref:precyzja&quot;&gt;&lt;a href=&quot;#fn:precyzja&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;mantysa&quot;&gt;Mantysa&lt;/h3&gt;
-
-&lt;p&gt;Mantysa zapisana jest na 23 bitach. Zawiera ona właściwą liczbę, która zostanie pomnożona przez wykładnik zgodnie ze wzorem podanym wyżej.&lt;/p&gt;
-
-&lt;p&gt;Mantysa w większości przypadków ma postać znormalizowaną. Najłatwiej będzie mi to wytłumaczyć na przykładzie. Załóżmy, że mamy liczbę zapisaną binarnie &lt;code class=&quot;highlighter-rouge&quot;&gt;1011,1101&lt;/code&gt;. Znormalizowana postać tej liczby to \(1,0111101 * 2^3\). Jak widzisz przecinek przesunięty jest do pierwszej jedynki.&lt;/p&gt;
-
-&lt;p&gt;Inny przykład to &lt;code class=&quot;highlighter-rouge&quot;&gt;0,0001010110001&lt;/code&gt;, która po normalizacji wygląda następująco \(1,010110001 * 2^{-4}\).&lt;/p&gt;
-
-&lt;p&gt;W znormalizowanej mantysie pierwszą cyfrą jest zawsze 1. W związku z tym jest pomijana. Zatem mając liczbę &lt;code class=&quot;highlighter-rouge&quot;&gt;1,010110001&lt;/code&gt; mantysa będzie miała wartość (spacje dla czytelności):&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0101 1000 1000 0000 0000 000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Część ułamkowa &lt;code class=&quot;highlighter-rouge&quot;&gt;010110001&lt;/code&gt; została uzupełniona zerami aby zapełnić wszystkie 23 bity przeznaczone na mantysę.&lt;/p&gt;
-
-&lt;h2 id=&quot;zapis-liczby-zmiennoprzecinkowej&quot;&gt;Zapis liczby zmiennoprzecinkowej&lt;/h2&gt;
-
-&lt;p&gt;Teraz masz już wszystkie informacje potrzebne do zapisania liczby zmiennoprzecinkowej. Zacznijmy od liczby 270,125. Liczba ta zapisana binarnie to &lt;code class=&quot;highlighter-rouge&quot;&gt;100001110,001&lt;/code&gt;. Po znormalizowaniu otrzymujemy&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;1,00001110001 * 2^{8}&lt;/script&gt;
-
-&lt;p&gt;W naszym przypadku po przecinku mamy 11 cyfr. Mantysę zapisujemy na 23. Brakujące miejsca uzupełniamy zerami. Więc mantysa będzie miała następującą postać (spacje dla czytelności):&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0000 1110 0010 0000 0000 000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Nasz wykładnik to 8. Wynika on z przesunięcia w związku z normalizacją mantysy. Pamiętając o sposobie kodowania wykładnika dodaję do niego 127. Kodując 135 binarnie uzyskuję (spacja dla czytelności):&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1000 0111
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Nasza liczba jest dodania, więc bit znaku ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Zbierając te informacje razem mogę zapisać liczbę 270,125 w standardzie IEEE754. Zapis ten wygląda następująco (spacje dla czytelności):&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0  1000 0111  0000 1110 0010 0000 0000 000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;dlaczego-01--02--03&quot;&gt;Dlaczego &lt;code class=&quot;highlighter-rouge&quot;&gt;0,1 + 0,2 != 0,3&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;Standard IEEE754 bardzo ułatwił pracę z liczbami wymiernymi. Niestety ma on swoje wady. Jedną z nich jest to, że w pewnych przypadkach zapis liczby w tym formacie prowadzi do utracenia informacji. Dzieje się tak na przykład w przypadku gdy ułamek zapisany binarnie ma rozwinięcie okresowe. Przykładem takich ułamków są 0,1 czy 0,2.&lt;/p&gt;
-
-&lt;p&gt;Proszę spójrz na przykłady poniżej. Używam tu kodu Javy, jednak właściwość ta jest prawdziwa także w innych językach programowania:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%.17f&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%.17f&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%.17f&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0.10000000149011612
-0.20000000298023224
-0.30000001192092896
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Jeśli chcesz wiedzieć czym jest magiczne &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;%.17f&quot;&lt;/code&gt; zachęcam Cię do przeczytania artykułu na temat &lt;a href=&quot;/formatter-formatowanie-lancuchow-znakow/&quot;&gt;formatowania łańcuchów znaków w języku Java&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Jak widzisz wprowadzone 0,1 trochę różni się od właściwej wartości zapisanej w pamięci komputera. Chociaż &lt;code class=&quot;highlighter-rouge&quot;&gt;0,1 + 0,2 == 0,3&lt;/code&gt; to w pamięci komputera wygląda to trochę inaczej:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0.10000000149011612 + 0.20000000298023224 != 0.30000001192092896
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;rady-praktyczne&quot;&gt;Rady praktyczne&lt;/h3&gt;
-
-&lt;p&gt;W związku z opisanymi problemami typy &lt;code class=&quot;highlighter-rouge&quot;&gt;double&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;float&lt;/code&gt; nie zawsze są dobrym wyborem. Na przykład pisząc aplikację do banku, która oblicza ratę kredytu na pewno nie powinieneś używać tych typów. Z pomocą przychodzi klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;BigDecimal&lt;/code&gt;. Jeśli zależy Ci na dokładnych obliczeniach w większości przypadków będzie to dobry wybór:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0.1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Wyświetli oczekiwane&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Proszę zwróć uwagę na sposób tworzenia instancji &lt;code class=&quot;highlighter-rouge&quot;&gt;BigDecimal&lt;/code&gt;. Używam tutaj konstruktora, który przyjmuje liczbę jako łańcuch znaków. Użycie klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;BigDecimal&lt;/code&gt; utworzonej na podstawie instancji &lt;code class=&quot;highlighter-rouge&quot;&gt;float&lt;/code&gt; powtórzy błąd:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0.100000001490116119384765625
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Innym sposobem na pracę z liczbami wymiernymi jest użycie typów całkowitoliczbowych. Jest to możliwe w przypadku gdy wiesz ile miejsc po przecinku jest dla Ciebie ważne. Na przykład operacje pieniężne w większości przypadków potrzebują dwóch miejsc po przecinku. Zatem kwotę 125 złotych 68 groszy możemy zapisać jako 12568 i przechowywać w polu o typu &lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;long&lt;/code&gt;. Przy pomocy dzielenia możemy uzyskać część całkowitoliczbową i część ułamkową:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12568&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;zlotych: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;groszy: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
-
-&lt;p&gt;Jeśli chcesz spojrzeć na temat liczb zmiennoprzecinkowych z innej perspektywy możesz rzucić okiem na poniższe materiały:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pl.wikipedia.org/wiki/Liczba_zmiennoprzecinkowa&quot;&gt;artykuł na Wikipedii na temat liczb zmiennoprzecinkowych&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/IEEE_754&quot;&gt;artykuł na Wikipedii na temat standardu IEEE754&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://eduinf.waw.pl/inf/alg/006_bin/0022.php&quot;&gt;artykuł opisujący standard IEEE754&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://ieeexplore.ieee.org/document/4610935/&quot;&gt;treść najnowszej wersji standardu IEEE754&lt;/a&gt; (wymaga wykupienia dostępu).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;zadania-do-wykonania&quot;&gt;Zadania do wykonania&lt;/h2&gt;
-
-&lt;p&gt;Do wykonania zadań mogą Ci się przydać następujące funkcje:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/9/docs/api/java/lang/Integer.html#toBinaryString-int-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Integer.toBinaryString&lt;/code&gt;&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/9/docs/api/java/lang/Long.html#toBinaryString-long-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Long.toBinaryString&lt;/code&gt;&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/9/docs/api/java/lang/Float.html#floatToRawIntBits-float-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Float.floatToRawIntBits&lt;/code&gt;&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/9/docs/api/java/lang/Double.html#doubleToRawLongBits-double-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Double.doubleToRawLongBits&lt;/code&gt;&lt;/a&gt;,&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Zadania do wykonania:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Napisz program, który pobierze od użytkownika liczbę wymierną. Następnie wypisze tę liczbę w postaci binarnej pokazując osobno znak, wykładnik i mantysę.&lt;/li&gt;
-  &lt;li&gt;Uzupełnij program z punktu 1. w ten sposób, aby pokazywał błąd wynikający z zapisu liczb. Na przykład jeśli użytkownik wprowadzi liczbę 0,1 wówczas program powinien wyświetlić binarną reprezentację i błąd powstały w wyniku zapisu liczby w tym formacie,&lt;/li&gt;
-  &lt;li&gt;Spróbuj rozszerzyć program w ten sposób aby wspierał liczby zmiennoprzecinkowe zapisane w formacie podwójnej precyzji (1 bit znaku, 11 bitów wykładnika i 52 bity mantysy).&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Jeśli jednak będziesz potrzebował pomocy możesz rzucić okiem na &lt;a href=&quot;https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/01_floating_point_numbers/src/main/java/pl/samouczekprogramisty/misc/floatingpoint&quot;&gt;przykładowe rozwiązanie na githubie&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Po przeczytaniu artykułu wiesz już czym są liczby zmiennoprzecinkowe. Znasz podstawy standardu IEEE754. Wiesz dlaczego niektóre operacje na liczbach zmiennoprzecinkowych nie są dokładne. Wiesz także jak wykonywać dokładne operacje na liczbach wymiernych. Innymi słowy kawał wiedzy! :).&lt;/p&gt;
-
-&lt;p&gt;Mam nadzieję, że artykuł przypadł Ci do gustu. Proszę podziel się nim ze swoimi znajomymi, którzy mogą być nim zainteresowani. Jeśli nie chcesz pominąć nowych artykułów polub Samouczka na Facebooku i dopisz się do samouczkowego newslettera.&lt;/p&gt;
-
-&lt;p&gt;Do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:precyzja&quot;&gt;
-      &lt;p&gt;Jak już wspomniałem wcześniej dotyczy to liczb zapisanych w formacie pojedynczej precyzji. &lt;a href=&quot;#fnref:precyzja&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Po lekturze tego artykułu będziesz wiedział dlaczego 0,1 + 0,2 != 0,3. Dowiesz się w jaki sposób zapisywane są liczby wymierne w pamięci komputera. Poznasz część standardu IEEE754 i zrozumiesz dlaczego część typów nie nadaje się do przechowywania dokładnej reprezentacji liczb wymiernych. Zadania do rozwiązania pomogą Ci utrwalić wiedzę z artykułu.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji Ο. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!</summary></entry></feed>
