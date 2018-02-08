@@ -7,7 +7,7 @@ header:
     teaser: /assets/images/2018/02/08_protokol_http_artykul.jpg
     overlay_image: /assets/images/2018/02/08_protokol_http_artykul.jpg
     caption: "[&copy; adrienneserra](https://www.flickr.com/photos/adrienneserra/2037060375/sizes/l)"
-excerpt: W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentość. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem podstawową więdzę na temat prokokołu HTTP niezbędną do tworzenia aplikacji webowybch.
+excerpt: W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem podstawową wiedzę na temat protokołu HTTP niezbędną do tworzenia aplikacji webowych.
 ---
 
 ## Czym jest protokół HTTP
@@ -23,10 +23,10 @@ Nawiasem mówiąc przeglądarka robi całkiem sporo rzeczy w tle... Wiesz, że d
 
 [^praca]: Ot, taki "patriotyzm lokalny" - aktualnie pracuję w firmie Opera Software ;).
 
-Komunikacja pomiędzy serwerem a klientem oparta jest na wielu innych protokołach. Ten zestaw porotokółów nazywa się modelem [ISO/OSI](https://pl.wikipedia.org/wiki/Model_OSI). Model ten zawiera wartstwy. Każda warstwa, na bazie poprzednich, udostępnia dodatkowe funkcjonalności. Protokół HTTP znajduje się w najwyższej warstwie modelu, [warstwie aplikacji](https://pl.wikipedia.org/wiki/Model_OSI#Warstwa_7:_aplikacji).
+Komunikacja pomiędzy serwerem a klientem oparta jest na wielu innych protokołach. Ten zestaw protokołów nazywa się modelem [ISO/OSI](https://pl.wikipedia.org/wiki/Model_OSI). Model ten zawiera warstwy. Każda warstwa, na bazie poprzednich, udostępnia dodatkowe funkcjonalności. Protokół HTTP znajduje się w najwyższej warstwie modelu, [warstwie aplikacji](https://pl.wikipedia.org/wiki/Model_OSI#Warstwa_7:_aplikacji).
 {: .notice--info}
 
-Klienty wysyłają żądania. Każde żadanie powiązane jest z zasobem. Zasobem może być obrazek, strona HTML czy plik z kodem JavaScript. Sam protokół HTTP nie określa czym dokładnie jest zasób. Określa jedynie sposób w jaki można dostać się do zasobów. Każdy zasób ma swój unikalny identyfikator. Ten identyfikator to URI (ang. _Uniform Resource Identifier_).
+Klienty wysyłają żądania. Każde żądanie powiązane jest z zasobem. Zasobem może być obrazek, strona HTML czy plik z kodem JavaScript. Sam protokół HTTP nie określa czym dokładnie jest zasób. Określa jedynie sposób w jaki można dostać się do zasobów. Każdy zasób ma swój unikalny identyfikator. Ten identyfikator to URI (ang. _Uniform Resource Identifier_).
 
 Protokół HTTP dokładnie określa format komunikacji pomiędzy klientami i serwerami. Komunikacja ta oparta jest na wspomnianych już żądaniach i odpowiedziach. Protokół HTTP określa format tych wiadomości.
 
@@ -38,7 +38,7 @@ Teraz wprowadzę Cię w poszczególne elementy składające się na protokół H
 
 ## Adres czyli URL
 
-Wspomniałem wcześniej o URI. Podzbiorem URI są URL (ang. _Uniform Resource Locator_). URI możnta traktować jako zbiór znaków który pozwala na unikalną identyfikację zasobu. URL natomiast poza tym unikalnym identyfikatorem zawiera informację dotyczącą "położenia" danego zasobu. Często określenia te stosowane są zamiennie.
+Wspomniałem wcześniej o URI. Podzbiorem URI są URL (ang. _Uniform Resource Locator_). URI można traktować jako zbiór znaków który pozwala na unikalną identyfikację zasobu. URL natomiast poza tym unikalnym identyfikatorem zawiera informację dotyczącą "położenia" danego zasobu. Często określenia te stosowane są zamiennie.
 
 
 Adres URL ma postać:
@@ -50,60 +50,60 @@ Przykładowy adres URL może wyglądać następująco:
     http://marcin:tajne@www.samouczekprogramisty.pl:80/nie/ma/tej?strony=1#identyfikator
 
 
-| Część adresu | Przykładowa wartość         |
-| ------------ | --------------------------- |
-| scheme       | http                        |
-| user         | marcin                      |
-| password     | tajne                       |
-| host         | www.samouczekprogramisty.pl |
-| port         | 80                          |
-| /path        | /nie/ma/tej                 |
-| ?query       | ?strony=1                   |
-| #fragment    | #identyfikator              |
+| Część adresu   | Przykładowa wartość         |
+| -------------- | --------------------------- |
+| `scheme`       | http                        |
+| `user`         | marcin                      |
+| `password`     | tajne                       |
+| `host`         | www.samouczekprogramisty.pl |
+| `port`         | 80                          |
+| `/path`        | /nie/ma/tej                 |
+| `?query`       | ?strony=1                   |
+| `#fragment`    | #identyfikator              |
 
 
-Zgodnie ze specyfikacją HTTP wielkość liter nie ma znaczenia w częściach schema i host. Wielkość liter w pozostałych elementach ma znaczenie[^litery].
+Zgodnie ze specyfikacją HTTP wielkość liter nie ma znaczenia w częściach `scheme` i `host`. Wielkość liter w pozostałych elementach ma znaczenie[^litery].
 
 [^litery]: To czy wielkość liter jest rozróżniana zależy od aplikacji obsługującej dane żądanie.
 
 Poniżej opiszę poszczególne części adresu URL.
 
-### scheme
+### `scheme`
 
 W praktyce ta część adresu używana jest do określenia protokołu, najczęściej zobaczysz tu `http` czy `https`. W uproszczeniu można powiedzieć, że HTTPS (ang. _Hypertext Transfer Protocol Secure_) jest rozszerzeniem protokołu HTTP. To rozszerzenie pozwala na szyfrowanie połączenia pomiędzy klientem a serwerem.
 
-### user:password
+### `user:password`
 
-user:password służą do uwierzytelniania. Uwierzytelnianie to proces, który polega na udowodnieniu, że klient wysyłający dane żądanie jest tym za kogo się podaje. Mechanizmu uwieżytelniania używasz praktycznie w każdym serwisie gdzie masz założone konto.
+`user:password` służą do uwierzytelniania. Uwierzytelnianie to proces, który polega na udowodnieniu, że klient wysyłający dane żądanie jest tym za kogo się podaje. Mechanizmu uwierzytelniania używasz praktycznie w każdym serwisie gdzie masz założone konto.
 
 W tym przypadku nazwa użytkownika i hasło przesyłane są jako część URL. Nie jest to bezpieczne w przypadku używania protokołu HTTP. Nawet przy komunikacji protokołem HTTPS adres URL może być zapamiętany przez przeglądarkę. Daje to możliwość przechwycenia nazwy użytkownika i hasła. W związku z tym nie jest to bezpieczny sposób na przesyłanie hasła czy nazwy użytkownika i należy go unikać[^wewnetrzna].
 
 [^wewnetrzna]: Potrafię sobie wyobrazić wyjątki od tej reguły. Na przykład w komunikacji, w której adres URL jest przesyłany zaszyfrowanym kanałem.
 
-### host
+### `host`
 
 W przypadku protokołu HTTP sprowadza się to do nazwy domeny internetowej lub adresu IP. Przykładem domeny może być <a href="http://www.samouczekprogramisty.pl">www.samouczekprogramisty.pl</a>. Przykładowy adres IPv4 to `192.30.253.112`. Jaka strona kryje się pod tym adresem :)?
 
-[DNS](https://pl.wikipedia.org/wiki/Domain_Name_System) (ang. _Domain Name System_) jest protokołem, który pozwala na tłumacznie [adresów IP](https://pl.wikipedia.org/wiki/Adres_IP) na nazwy domen.
+[DNS](https://pl.wikipedia.org/wiki/Domain_Name_System) (ang. _Domain Name System_) jest protokołem, który pozwala na tłumaczenie [adresów IP](https://pl.wikipedia.org/wiki/Adres_IP) na nazwy domen.
 {: .notice--info}
 
-### port
+### `port`
 
-Port to numer. Numer ten jest wykorzystywany przez serwer. Serwer nasłuchuje ruch na danym porcie. Protokoły mają swoje standardowe porty. Na przykład standardowym portem protokołu HTTP jest 80. Protokół HTTPS natomiast używa portu 443. W praktyce, ze względu na domyślne wartości, porty te często się pomija. Odpowiednia wartość pola scheme pozwala na określenie czy użytkownikowi chodzi o port 80 czy 443.
+Port to numer. Numer ten jest wykorzystywany przez serwer. Serwer nasłuchuje ruch na danym porcie. Protokoły mają swoje standardowe porty. Na przykład standardowym portem protokołu HTTP jest 80. Protokół HTTPS natomiast używa portu 443. W praktyce, ze względu na domyślne wartości, porty te często się pomija. Odpowiednia wartość pola `scheme` pozwala na określenie czy użytkownikowi chodzi o port 80 czy 443.
 
 Możesz także uruchomić serwer, który nasłuchuje na innym porcie. Przykładem może tu być Tomcat, który domyślnie uruchamia się na porcie 8080. W takim przypadku podanie portu jest konieczne.
 
-### path
+### `path`
 
 Ta część adresu URL jest ścieżką, która określa zasób. Na przykład w adresie `www.samouczekprogramisty.pl/kurs-programowania-java` ścieżką jest `/kurs-programowania-java`.
 
-### query
+### `query`
 
 Zawiera dodatkowe dane identyfikujące dany zasób. Ta część oddzielona jest od ścieżki znakiem `?`. W praktyce zawiera pary `klucz=wartość` połączone znakiem `&`. Na przykład:
 
     ?parametr=wartosc&format=json
 
-### fragment
+### `fragment`
 
 Ostatnia część adresu URL. W praktyce wykorzystywana jest do określenia fragmentu strony HTML, która powinna zostać pokazana użytkownikowi. Na przykład adres [http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni](http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni) przeniesie Cię do sekcji opisującej właściwości strumieni.
 
@@ -125,7 +125,7 @@ Jeśli nie chcesz używać tego programu możesz użyć narzędzi dla programist
     {{ devtools | markdownify }}
 </div>
 
-Teraz przeanalizuję przykładowe zapytanie wraz z odesłaną odpowiedzią. Użyję do tego publiczego API Github'a. Github używa HTTPS, w analizie żądania/odpowiedzi pominę fragmenty dotyczące HTTPS.
+Teraz przeanalizuję przykładowe zapytanie wraz z odesłaną odpowiedzią. Użyję do tego publicznego API Github'a. Github używa HTTPS, w analizie żądania/odpowiedzi pominę fragmenty dotyczące HTTPS.
 
 ### Żądanie HTTP
 
@@ -136,8 +136,7 @@ Klient wysyła żądanie do serwera w formie wiadomości. Wiadomość ta ma dok�
  - pustą linię określającą koniec nagłówków,
  - ciało wiadomości (jeśli istnieje).
 
-Jak wspomniałem wyżej użyję programu curl. Dodatoko użyję przełącznika `-v`. Włącza on tryb lania wody ;). Wtedy curl raportuje dużo więcej informacji. Dane wysłane do serwera poprzedzone są znakiem `>`. Odpowiedź poprzedzona jest `<`. Poniżej pokazuję zapytanie do API githuba. Wysyłam żądanie na adres `https://api.github.com/users/kbl`:
-
+Jak wspomniałem wyżej użyję programu curl. Dodatkowo użyję przełącznika `-v`. Włącza on tryb lania wody ;). Wtedy curl raportuje dużo więcej informacji. Dane wysłane do serwera poprzedzone są znakiem `>`. Odpowiedź poprzedzona jest `<`. Poniżej pokazuję zapytanie do API Githuba. Wysyłam żądanie na adres `https://api.github.com/users/kbl`:
 
     $ curl -v https://api.github.com/users/kbl
     // ciach usunąłem część związaną z HTTPS
@@ -147,15 +146,15 @@ Jak wspomniałem wyżej użyję programu curl. Dodatoko użyję przełącznika `
     > Accept: */*
     >
 
-Zacznę od analizowania pierwszej linijki `GET /users/kbl HTTP/1.1`. Na początku zawiera ona czasownik HTTP - `GET` (czasowniki opiszę dokładniej poniżej). Następnie zawiera część adresu URL, wszystko od częśći "path". W moim przypadku jest to `/users/kbl`. Kolejną częścią jest protokół wraz z wersją `HTTP/1.1`.
+Zacznę od analizowania pierwszej linijki `GET /users/kbl HTTP/1.1`. Na początku zawiera ona czasownik HTTP - `GET` (czasowniki opiszę dokładniej poniżej). Następnie zawiera część adresu URL, wszystko od części `path`. W moim przypadku jest to `/users/kbl`. Kolejną częścią jest protokół wraz z wersją `HTTP/1.1`.
 
 Trzy kolejne linijki zawierają tak zwane nagłówki HTTP, nagłówkom także poświęcę osobny podpunkt poniżej.
 
-W przypadku tego żądania, ciało wiadomości jest puste. Widzisz więc tylko pustą liniję oddzielającą nagłówki od pominiętego ciała wiadomości.
+W przypadku tego żądania, ciało wiadomości jest puste. Widzisz więc tylko pustą linię oddzielającą nagłówki od pominiętego ciała wiadomości.
 
 ### Odpowiedź HTTP
 
-Serwer odpowieada na żądanie klienta wysyłając odpowiedź[^kilka]. Podobnie jak w przypadku zapytania format jest dokładnie określony:
+Serwer odpowiada na żądanie klienta wysyłając odpowiedź[^kilka]. Podobnie jak w przypadku zapytania format jest dokładnie określony:
 
  - linijka z wersją protokołu i statusem odpowiedzi,
  - linie zawierające nagłówki,
@@ -199,9 +198,9 @@ Tym razem odpowiedź, jest dużo dłuższa:
 
 Pierwsza linijka to wspomniany wcześniej protokół `HTTP/1.1`. Następnie status odpowiedzi `200 OK`, podobnie jak w przypadku nagłówków i czasowników więcej o statusie przeczytasz w osobnym podpunkcie.
 
-Kolejne 22 linijki to nagłówki, po których występuje pusta linija. Podobnie jak przy żądaniu oddziela ona nagłówki od ciała wiadomości.
+Kolejne 22 linijki to nagłówki, po których występuje pusta linia. Podobnie jak przy żądaniu oddziela ona nagłówki od ciała wiadomości.
 
-W przypadku odpowiedzi ciało wiadomości zawiera dane w formacie JSON - zasób. Dla czytelności pominąłem tu większość ciała odpowiedzi. Zachęcam Cię do eksmerymentowania z własnymi zapytaniami :). Do tych eksperymentów może Ci się przydać [dokumentacja API](https://developer.github.com/v3/).
+W przypadku odpowiedzi ciało wiadomości zawiera dane w formacie JSON - zasób. Dla czytelności pominąłem tu większość ciała odpowiedzi. Zachęcam Cię do eksperymentowania z własnymi zapytaniami :). Do tych eksperymentów może Ci się przydać [dokumentacja API](https://developer.github.com/v3/).
 
 ## Czasowniki HTTP
 
@@ -212,7 +211,7 @@ Specyfikacja HTTP definiuje 8 czasowników[^rozszerzenie]. Każdy z tych czasown
 Zanim przejdę do omówienia poszczególnych czasowników musisz wiedzieć czym jest cache[^polski]. Cache to mechanizm, który pozwala na zmniejszenie czasu oczekiwania na odpowiedź. Zakładając, że wykonasz dwa zapytania pod rząd o ten sam zasób wynik pierwszego zapytania może być zapisany w cache'u. W związku z tym drugie zapytanie może nie dotrzeć do serwera, odpowiedź może zostać pobrana z cache'a.
 {: .notice--info}
 
-[^polski]: Tutuaj podobnie jak z webservice'em postanowiłem nie tłumaczyć tego określenia. Jest ono na tyle powszechne, że nawet nie wiem jakie byłoby dobre tłumaczenie. Schowek? Skrytka? ;)
+[^polski]: Tutaj podobnie jak z webservice'em postanowiłem nie tłumaczyć tego określenia. Jest ono na tyle powszechne, że nawet nie wiem jakie byłoby dobre tłumaczenie. Schowek? Skrytka? ;)
 
 ### `GET`
 
@@ -236,35 +235,35 @@ Specyfikacja mówi, że żądania typu `POST` są przetwarzane przez serwer zgod
 
 Odpowiedzi na żądania typu `POST` nie jest przechowywana w cache'u[^wyjatek].
 
-[^wyjatek]: W wiekszości przypadków, specyfikacja dopuscza wyjątki od tej reguły.
+[^wyjatek]: W większości przypadków, specyfikacja dopuszcza wyjątki od tej reguły.
 
 ### `PUT`
 
 W codziennym użytkowaniu żądania typu `PUT` służą do aktualizacji danego zasobu. Zgodnie ze specyfikacją ciało wiadomości powinno posłużyć do ustawienia stanu zasobu na serwerze. Zatem w przypadku gdy zasób nie istniał żądanie tego typu powinno go utworzyć. Jeśli zasób istnieje wówczas jego stan powinien być ustawiony na ten przekazany w ciele wiadomości.
 
-W większości znanych mi przypadków ten pierwszy aspekt jest pomijany, prawodopodobnie dla uproszczenia logiki aplikacji.
+W większości znanych mi przypadków ten pierwszy aspekt jest pomijany, prawdopodobnie dla uproszczenia logiki aplikacji.
 
-Główna róznica pomiędzy zapytaniami `POST` i `PUT` polega na sposobie interpretowania ciała wiadomości. W przypadku zapytania typu `POST` to zasób decyduje jak przetworzyć otrzymaną wiadomość. W przypadku żadania typu `PUT` otrzymana wiadomość powinna posłużyć do ustawić wartość zasobu.
+Główna różnica pomiędzy zapytaniami `POST` i `PUT` polega na sposobie interpretowania ciała wiadomości. W przypadku zapytania typu `POST` to zasób decyduje jak przetworzyć otrzymaną wiadomość. W przypadku żądania typu `PUT` otrzymana wiadomość powinna posłużyć do ustawić wartość zasobu.
 
 Odpowiedzi na żądanie typu `PUT` nie powinny być przechowywane w cache'u.
 
-#### Idempotentnosć
+#### Idempotentność
 
 Oznacza to tyle, że zapytania typu post są idempotentne. Zapytania, które są idempotentne można powtarzać wielokrotnie i zawsze doprowadzą one do tego samego stanu danego zasobu.
 
 ### `DELETE`
 
-Zapytania tego typu służą do usuwania zasobów. Na przykład w którymś z wczesniejszych zapytań dany zasób może być utworzony przy pomocy żądania typu `POST`. Następnie może on być usunięty przy pomocy `DELETE`. Odpowiedzi na żądania tego typu nie powinny zawierać ciała wiadomości.
+Zapytania tego typu służą do usuwania zasobów. Na przykład w którymś z wcześniejszych zapytań dany zasób może być utworzony przy pomocy żądania typu `POST`. Następnie może on być usunięty przy pomocy `DELETE`. Odpowiedzi na żądania tego typu nie powinny zawierać ciała wiadomości.
 
 Odpowiedzi na żądania typu `DELETE` nie powinny być umieszczane w cache'u.
 
 ### `CONNECT`
 
-Żądania tego typu służą do uwtorzenia połączenia pomiędzy klientem a serwerem docelowym (za pośrednictwem proxy). W praktyce nie będziesz używał tego typu żądań w trakcie pisania aplikacji webowych. Mi się to nigdy do tej pory nie zdarzyło :).
+Żądania tego typu służą do utworzenia połączenia pomiędzy klientem a serwerem docelowym (za pośrednictwem proxy). W praktyce nie będziesz używał tego typu żądań w trakcie pisania aplikacji webowych. Mi się to nigdy do tej pory nie zdarzyło :).
 
 ### `OPTIONS`
 
-Żądania typu `OPTIONS` używane są do pobrania informacji na temat możliwości komunikacji dla danego zasobu. W praktyce żądania tego typu używane są do sprawdzenia jakie żąddania są obsługiwane przez serwer. Żądanie tego typu także wykorzystywane jest w mechanizmie [CORS](https://pl.wikipedia.org/wiki/Cross-Origin_Resource_Sharing).
+Żądania typu `OPTIONS` używane są do pobrania informacji na temat możliwości komunikacji dla danego zasobu. W praktyce żądania tego typu używane są do sprawdzenia jakie żądania są obsługiwane przez serwer. Żądanie tego typu także wykorzystywane jest w mechanizmie [CORS](https://pl.wikipedia.org/wiki/Cross-Origin_Resource_Sharing).
 
 Odpowiedzi na żądania typu `OPTIONS` nie powinny być przechowywane w cache'u.
 
@@ -276,9 +275,9 @@ Odpowiedzi na żądanie typu TRACE nie powinny być umieszczane w cache'u.
 
 ## Nagłówki HTTP
 
-Nagłowki dołączane są przez klienty do wysyłanych zapytań i przez serwery do wysyłanych odpowiedzi. Mają one postać `nazwa-nagłówka: wartość-nagłówka`. Zgodnie ze specyfikacją wielkość liter w nazwach nagłówków nie ma znaczenia. Wielkość liter w wartości nagłówka może mieć znaczenie, zależy to od aplikacji. Chociaż istnieje [cała masa standardowych nagłówków](https://www.iana.org/assignments/message-headers/message-headers.xhtml) możesz tworzyć swoje własne.
+Nagłówki dołączane są przez klienty do wysyłanych zapytań i przez serwery do wysyłanych odpowiedzi. Mają one postać `nazwa-nagłówka: wartość-nagłówka`. Zgodnie ze specyfikacją wielkość liter w nazwach nagłówków nie ma znaczenia. Wielkość liter w wartości nagłówka może mieć znaczenie, zależy to od aplikacji. Chociaż istnieje [cała masa standardowych nagłówków](https://www.iana.org/assignments/message-headers/message-headers.xhtml) możesz tworzyć swoje własne.
 
-Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mogą zawierać na przykład infomacje o formacie, statusie odpowiedzi czy dacie. Poniżej postaram się wyjaśnić kilka najczęściej spotykanych nagłówków:
+Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mogą zawierać na przykład informacje o formacie, statusie odpowiedzi czy dacie. Poniżej postaram się wyjaśnić kilka najczęściej spotykanych nagłówków:
 
 | Nagłówek                       | Znaczenie                                                                                                                                              |
 | --------                       | ---------                                                                                                                                              |
@@ -289,9 +288,9 @@ Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mog�
 | `Cache-Control`                | Nagłówek służący do zarządzania cache'owaniem. Dotyczy zarówno żądań jak i odpowiedzi                                                                  |
 | `Connection`                   | Zawiera informacje na temat połączenia pomiędzy klientem a serwerem                                                                                    |
 | `Content-Encoding`             | Serwer informuje klienta o sposobie kodowania ciała wiadomości                                                                                         |
-| `Content-Type`                 | Odpowiednik nagłówka `Accept` wysyłany przez serwer inforujący o formacie odpowiedzi                                                                   |
+| `Content-Type`                 | Odpowiednik nagłówka `Accept` wysyłany przez serwer informujący o formacie odpowiedzi                                                                   |
 | `Cookie`                       | Nagłówek służący do przesłania ciasteczka przez klienty do serwera                                                                                     |
-| `Date`                         | Zawiera datę mówiącą od czasie wygenerowania żądania/odpwiedzi                                                                                         |
+| `Date`                         | Zawiera datę mówiącą od czasie wygenerowania żądania/odwiedzi                                                                                         |
 | `ETag`                         | Zawiera identyfikator zasobu zwróconego przez serwer. Używany przez cache                                                                              |
 | `Host`                         | Zawiera domenę, do której wysyłane jest żądanie                                                                                                        |
 | `Location`                     | Zawiera informacje o położeniu zasobu, może być użyty na przykład przy przekierowaniach i tworzeniu nowych zasobów                                     |
@@ -301,7 +300,7 @@ Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mog�
 
 ## Statusy HTTP
 
-Wiesz już, że każda odpowiedź od serwera zawiera między innymi informacjie o statusie. Status ten jest podstawową informacją o tym czy żądanie się powiodło. Wszystkie statusy podzielone są na pięć grup.
+Wiesz już, że każda odpowiedź od serwera zawiera między innymi informacje o statusie. Status ten jest podstawową informacją o tym czy żądanie się powiodło. Wszystkie statusy podzielone są na pięć grup.
 
 ### Statusy 1xx
 
@@ -309,7 +308,7 @@ Szczerze nigdy w praktyce nie spotkałem się z użyciem tych statusów. Ta grup
 
 ### Statusy 2xx
 
-Statusy z tej grupy informują o tym, że zapytanie zostało poprawnie przetworzone. W zależności od kodu odpowiedzi wynik tego przetważania może być różny. Najczęściej używane statusy z tej grupy to:
+Statusy z tej grupy informują o tym, że zapytanie zostało poprawnie przetworzone. W zależności od kodu odpowiedzi wynik tego przetwarzania może być różny. Najczęściej używane statusy z tej grupy to:
 
  - `200 OK` - zapytanie zostało przetworzone poprawnie,
  - `201 Created` - zapytanie zostało przetworzone poprawnie i zasób został utworzony,
@@ -318,23 +317,23 @@ Statusy z tej grupy informują o tym, że zapytanie zostało poprawnie przetworz
 
 ### Statusy 3xx
 
-Statusy zaczynające się o 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetważania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx.
+Statusy zaczynające się o 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetwarzania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx.
 
  - `301 Moved Permanently` - informuje klienta, że zasób został przeniesiony na stałe w inne miejsce. Ten status ma znaczenie duże dla twórców stron, którzy bazują na ruchu z wyszukiwarek. Taki status informuje wyszukiwarki o tym, że strona, która wcześniej była pod adresem X znajduje się w nowym miejscu,
 
 ### Statusy 4xx
 
-Statusy z tej grupy informują o błędzie klienta. Pewnie nie raz widziałeś błąd 404 ;). Serwer tymy statusami informuje o tym, że żadanie nie może być poprawnie przetworzone:
+Statusy z tej grupy informują o błędzie klienta. Pewnie nie raz widziałeś błąd 404 ;). Serwer tymi statusami informuje o tym, że żądanie nie może być poprawnie przetworzone:
 
  - `400 Bad Request` - serwer informuje klienta o błędnym zapytaniu, które nie będzie przetworzone,
  - `403 Forbidden` - zasób wymaga uwierzytelnienia, po potwierdzeniu tożsamości może być dostępny,
- - `404 Not Found` - to pewnie znasz i widziałeś wielogrotnie, żądany zasób nie istnieje ;).
+ - `404 Not Found` - to pewnie znasz i widziałeś wielokrotnie, żądany zasób nie istnieje ;).
 
 ### Statusy 5xx
 
 Tutaj sprawa jest poważna. Serwer informuje klienty o błędzie po stronie serwera, które uniemożliwiają przetworzenie zapytania.
 
- - `500 Internal Server Error` - informacja dla klienta o tym, że serwer znalazł się w stanie, który uniemożliwa poprawne przetworzenie żądania,
+ - `500 Internal Server Error` - informacja dla klienta o tym, że serwer znalazł się w stanie, który uniemożliwia poprawne przetworzenie żądania,
  - `502 Bad Gateway` - na początku artykułu wspomniałem o tym, że może być wiele węzłów, które będą przekazywały zapytanie do serwera, który je finalnie obsłuży. Ten status informuje klienta o tym, że jeden z tych pośrednich węzłów dostał błędną odpowiedź od poprzedniego węzła,
  - `503 Service Unavailable` - ten błąd może informować klienta o tym, że serwer jest przeciążony. Ponowna próba może kończyć się poprawną odpowiedzią.
 
@@ -344,7 +343,7 @@ Co prawda ciasteczka to nic innego jak nagłówki, jednak poświęcę im osobny 
 
 Wiesz już, że protokół HTTP jest bezstanowy. Serwer HTTP nie może powiązać ze sobą zapytać pochodzących od tego samego klienta w jedną paczkę. Z pomocą przychodzą ciasteczka. Ciasteczka to specyficzne nagłówki, które są obsługiwane przez klienty.
 
-Serwer w odpowiedzi może wysłać nagłówek, który utworzy ciasteczko. Ciasteczko to jest przypisane do domeny (część host i path adresu URL). Przykładowy nagłowek do ustawienia ciasteczka może wyglądać następująco:
+Serwer w odpowiedzi może wysłać nagłówek, który utworzy ciasteczko. Ciasteczko to jest przypisane do domeny (część `host` i `path` adresu URL). Przykładowy nagłówek do ustawienia ciasteczka może wyglądać następująco:
 
     Set-Cookie: <nazwa ciasteczka>=<wartość ciasteczka>
 
@@ -352,7 +351,7 @@ W każdym kolejnym zapytani do tej domeny klient dołącza nagłówki ciasteczek
 
     Cookie: <nazwa ciasteczka>=<wartość ciasteczka>
 
-Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć "zapamiętaj mnie". Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek `Set-Cookie`). To ciasteczko zawiera unikalny klucz, który później jest dołaczany przez klienta do każdego żądania do danej domeny (nagłówek `Cookie`). Dzięki temu każde kolejne zapytanie ma nagłowek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.
+Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć "zapamiętaj mnie". Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek `Set-Cookie`). To ciasteczko zawiera unikalny klucz, który później jest dotłaczany przez klienta do każdego żądania do danej domeny (nagłówek `Cookie`). Dzięki temu każde kolejne zapytanie ma nagłówek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.
 
 Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą być wykorzystywane jako jeden ze sposobów do śledzenia Twojego ruchu w sieci. Zdarzyło Ci się kliknąć na reklamę a później ta reklama pokazywała Ci się bez przerwy? Ciasteczka także mogły się do tego przyczynić[^zaawansowane].
 
