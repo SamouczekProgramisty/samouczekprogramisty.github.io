@@ -1,9 +1,9 @@
 ---
-title: Samouczek na rozmowie - znajdź brakujący element
+title: Samouczek na rozmowie - czy liczba jest cykliczna
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa
-permalink: /samouczek-na-rozmowie-znajdz-brakujacy-element/
+permalink: /samouczek-na-rozmowie-czy-liczba-jest-cykliczna/
 header:
     teaser: /assets/images/2018/02/16_rozmowa_kwalifikacyjna_liczba_cykliczna_zadanie_artykul.jpg
     overlay_image: /assets/images/2018/02/16_rozmowa_kwalifikacyjna_liczba_cykliczna_zadanie_artykul.jpg
