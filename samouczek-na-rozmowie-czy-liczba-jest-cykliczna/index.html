@@ -1,0 +1,739 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Samouczek na rozmowie - czy liczba jest cykliczna - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cykliczne i w jaki sposób sprawdzić czy dana liczba jest cykliczna. Zapraszam do lektury.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Samouczek na rozmowie - czy liczba jest cykliczna">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-czy-liczba-jest-cykliczna/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-czy-liczba-jest-cykliczna/">
+
+
+
+  <meta property="og:description" content="W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cykliczne i w jaki sposób sprawdzić czy dana liczba jest cykliczna. Zapraszam do lektury.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/02/16_rozmowa_kwalifikacyjna_liczba_cykliczna_zadanie_artykul.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-02-16T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2018/02/16_rozmowa_kwalifikacyjna_liczba_cykliczna_zadanie_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Samouczek na rozmowie - czy liczba jest cykliczna
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cykliczne i w jaki sposób sprawdzić czy dana liczba jest cykliczna. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/soundman1024/6805264986/sizes/l">© soundman1024</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Samouczek na rozmowie - czy liczba jest cykliczna</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Samouczek na rozmowie - czy liczba jest cykliczna">
+    <meta itemprop="description" content="W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cykliczne i w jaki sposób sprawdzić czy dana liczba jest cykliczna. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="February 16, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#czym-jest-liczba-cykliczna">Czym jest liczba cykliczna</a></li>
+<li class="toc-entry toc-h2"><a href="#zadanie-do-wykonania">Zadanie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#od-czego-zależy-złożoność">Od czego zależy złożoność</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#najprostsze-rozwiązanie-problemu">Najprostsze rozwiązanie problemu</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#złożoność-obliczeniowa">Złożoność obliczeniowa</a></li>
+<li class="toc-entry toc-h4"><a href="#złożoność-pamięciowa">Złożoność pamięciowa</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#rozwiązanie-bazujące-na-właściwościach-liczb-cyklicznych">Rozwiązanie bazujące na właściwościach liczb cyklicznych</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#złożoność-obliczeniowa-1">Złożoność obliczeniowa</a></li>
+<li class="toc-entry toc-h4"><a href="#złożoność-pamięciowa-1">Złożoność pamięciowa</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#bardziej-wydajne-rozwiązanie-problemu">Bardziej wydajne rozwiązanie problemu</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#wyślij-mi-swoje-zadanie">Wyślij mi swoje zadanie</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        
+<div class="notice--info">
+  
+<p>To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych.</p>
+
+<p>W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz działanie algorytmu.</p>
+
+<ul>
+  <li><a href="/podstawy-zlozonosci-obliczeniowej/">Podstawy złożoności obliczeniowej</a>,</li>
+  <li><a href="/test-driven-development-na-przykladzie/">Test Driven Development na przykładzie</a>,</li>
+  <li><a href="% post_url 2016-10-29-testy-jednostkowe-z-junit %}">Testy jednostkowe z JUnit</a>,</li>
+</ul>
+
+<p>Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu będę używał “pseudo kodu”. Przykładowe rozwiązania będą w języku Java.</p>
+
+<ul>
+  <li><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java">Kurs programowania w języku Java</a>.</li>
+</ul>
+
+</div>
+
+<h2 id="czym-jest-liczba-cykliczna">Czym jest liczba cykliczna</h2>
+
+<p>Zanim przejdę do treści zadania musisz wiedzieć czym jest <a href="https://en.wikipedia.org/wiki/Cyclic_number">liczba cykliczna</a>. Liczba cykliczna to liczba całkowita, której cykliczne permutacje cyfr są możliwe do uzyskania przez mnożenie liczby przez kolejne liczby naturalne. Przykładową liczbą cykliczną jest 142857. Wyniki mnożenia tej liczby przez pierwsze 6 liczb naturalnych dają jej permutacje cykliczne:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>142857 * 1 = 142857
+142857 * 2 = 285714
+142857 * 3 = 428571
+142857 * 4 = 571428
+142857 * 5 = 714285
+142857 * 6 = 857142
+</code></pre></div></div>
+
+<div class="notice--info">
+    
+<p>Permutacja cykliczna może brzmieć jak coś skomplikowanego. W praktyce powstaje ona przez wstawianie pierwszego elementu danego łańcucha na koniec. Na przykład permutacjami cyklicznymi łańcucha znaków <code class="highlighter-rouge">abcd</code> są:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">abcd</code></li>
+  <li><code class="highlighter-rouge">bcda</code></li>
+  <li><code class="highlighter-rouge">cdab</code></li>
+  <li><code class="highlighter-rouge">dabc</code></li>
+</ul>
+
+</div>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>Napisz funkcję <code class="highlighter-rouge">isCyclic</code>, która jako argument dostaje dowolnie dużą dodatnią liczbę całkowitą w postaci łańcucha znaków. Liczba może być poprzedzona zerami, więc <code class="highlighter-rouge">"0123"</code> jest poprawnym wejściem programu. Zadaniem jest napisanie funkcji <code class="highlighter-rouge">isCyclic</code>, która sprawdzi czy dana liczba jest liczbą cykliczną.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>isCyclic("142857") == true
+isCyclic("012233") == false
+</code></pre></div></div>
+
+<p>W przykładzie pierwsza liczba jest liczbą cykliczną. Druga linijka pokazuje przykład, dla którego <code class="highlighter-rouge">isCyclic</code> powinna zwrócić wartość <code class="highlighter-rouge">false</code>.</p>
+
+<h2 id="od-czego-zależy-złożoność">Od czego zależy złożoność</h2>
+
+<p>W przypadku tego zadania danymi wejściowymi jest łańcuch znaków. W zadaniach tego typu długość takiego łańcucha używana jest do szacowania złożoności obliczeniowej i pamięciowej. Zatem <code class="highlighter-rouge">n</code> użyte poniżej odnosi się właśnie do długości wejściowego łańcucha znaków.</p>
+
+<h3 id="najprostsze-rozwiązanie-problemu">Najprostsze rozwiązanie problemu</h3>
+
+<p>Zacznę od najprostszego rozwiązania problemu. Parametrem funkcji jest łańcuch znaków reprezentujący liczbę. Żeby zobaczyć czy ta liczba jest cykliczna wygeneruję wszystkie jej permutacje cykliczne i będę sprawdzał czy mnożąc liczbę przez kolejne wartości od 1 do N wynik będzie znajdował się we wcześniej przygotowanych permutacjach. Proszę spójrz na przykładowe rozwiązanie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isCyclicNaive</span><span class="o">(</span><span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="n">permutations</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">()];</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">permutations</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">index</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">permutations</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">index</span><span class="o">)</span> <span class="o">+</span> <span class="n">number</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">index</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">BigInteger</span> <span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">formatString</span> <span class="o">=</span> <span class="s">"%0"</span> <span class="o">+</span> <span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="s">"d"</span><span class="o">;</span>
+
+    <span class="nl">outerLoop:</span> <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">multiplicator</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span> <span class="n">multiplicator</span> <span class="o">&lt;=</span> <span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">multiplicator</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">BigInteger</span> <span class="n">multiplication</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="n">BigInteger</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">multiplicator</span><span class="o">));</span>
+        <span class="n">String</span> <span class="n">formattedResult</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">formatString</span><span class="o">,</span> <span class="n">multiplication</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">permutation</span> <span class="o">:</span> <span class="n">permutations</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">formattedResult</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">permutation</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">continue</span> <span class="n">outerLoop</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pierwsza pętla odpowiedzialna jest za tworzenie permutacji cyklicznych. Wewnątrz drugiej pętli sprawdzam czy mnożąc liczbę przez kolejne wartości od 2 do N uzyskam jedną z wcześniej przygotowanych permutacji. Posługuję się tutaj typem <code class="highlighter-rouge">BigInteger</code> aby móc pracować na liczbach większych niż te, które mogę przechowywać w zmiennej typu <code class="highlighter-rouge">long</code>.</p>
+
+<h4 id="złożoność-obliczeniowa">Złożoność obliczeniowa</h4>
+
+<p>Pierwsza pętla ma złożoność <code class="highlighter-rouge">Ο(n^2)</code>. Dzieje się tak ponieważ metoda <code class="highlighter-rouge">substring</code> ma złożoność <code class="highlighter-rouge">Ο(n)</code>. Kolejna pętla jest zagnieżdżona i ma złożoność <code class="highlighter-rouge">Ο(n^3)</code>. Tym razem złożoność “psuje” operacja <code class="highlighter-rouge">multiply</code>, która ma złożoność obliczeniową <code class="highlighter-rouge">Ο(n^2)</code>. Więc finalnie złożoność obliczeniowa tego algorytmu to <code class="highlighter-rouge">O(n^3)</code>.</p>
+
+<h4 id="złożoność-pamięciowa">Złożoność pamięciowa</h4>
+
+<p>W przypadku tego algorytmu przechowuję listę permutacji w tablicy. Tablica zawiera <code class="highlighter-rouge">N</code> permutacji. Każda permutacja ma długość <code class="highlighter-rouge">N</code>. Zatem finalna złożoność pamięciowa to <code class="highlighter-rouge">Ο(n^2)</code>.</p>
+
+<h3 id="rozwiązanie-bazujące-na-właściwościach-liczb-cyklicznych">Rozwiązanie bazujące na właściwościach liczb cyklicznych</h3>
+
+<p>Czytając o <a href="https://en.wikipedia.org/wiki/Cyclic_number">liczbach cyklicznych</a> dowiedziałem się kilku istotnych rzeczy:</p>
+
+<ul>
+  <li>liczby cykliczne tworzone są na podstawie liczb pierwszych,</li>
+  <li>długość liczby cyklicznej jest o jeden większa niż liczba pierwsza użyta do generowania liczby cyklicznej,</li>
+  <li>liczba cykliczna jest cyklicznym rozwinięciem ułamka <code class="highlighter-rouge">1/liczba pierwsza do generacji</code>.</li>
+</ul>
+
+<p>Mając takie informacje podszedłem do problemu od drugiej strony. Zamiast sprawdzić czy dana liczba jest cykliczna wygenerowałem liczbę, która powstałaby na podstawie dzielenia <code class="highlighter-rouge">1/liczba pierwsza do generacji</code>. Następnie porównuję tak uzyskaną liczbę z tą przekazaną jako argument metody. Jeśli są sobie równe wówczas przekazana liczba jest liczbą cykliczną. Proszę spójrz na implementację:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isCyclicGeneration</span><span class="o">(</span><span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">base</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">generatingPrime</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+
+    <span class="n">StringBuilder</span> <span class="n">representation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+
+    <span class="kt">int</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">reminder</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="k">do</span> <span class="o">{</span>
+        <span class="n">step</span><span class="o">++;</span>
+        <span class="kt">int</span> <span class="n">currentValueToDivide</span> <span class="o">=</span> <span class="n">reminder</span> <span class="o">*</span> <span class="n">base</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">currentDigit</span> <span class="o">=</span> <span class="n">currentValueToDivide</span> <span class="o">/</span> <span class="n">generatingPrime</span><span class="o">;</span>
+        <span class="n">reminder</span> <span class="o">=</span> <span class="n">currentValueToDivide</span> <span class="o">%</span> <span class="n">generatingPrime</span><span class="o">;</span>
+        <span class="n">representation</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">currentDigit</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">reminder</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">step</span> <span class="o">&lt;</span> <span class="n">generatingPrime</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">number</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">representation</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Na początku ustawiam niezbędne zmienne. Następnie wewnątrz pętli obliczam kolejne wartości ułamka. Tak uzyskane liczby dodaję do bufora <code class="highlighter-rouge">representation</code>, który następnie porównuję z przekazaną liczbą.</p>
+
+<p>Warunek <code class="highlighter-rouge">reminder != 1</code> wykrywa wystąpienie okresu w rozwinięciu dziesiętnym ułamka. Więcej na temat “okresu ułamka” przeczytasz w artykule opisującym <a href="/liczby-zmiennoprzecinkowe/">liczby zmiennoprzecinkowe</a>.</p>
+
+<p>Warunek <code class="highlighter-rouge">step &lt; generatingPrime</code> jest potrzebny, aby uniknąć nieskończonej pętli. Taki przypadek mógłby mieć miejsce jeśli metoda jako parametr otrzymałaby liczbę, która nie jest cykliczna.</p>
+
+<h4 id="złożoność-obliczeniowa-1">Złożoność obliczeniowa</h4>
+
+<p>W przypadku tego rozwiązania występuje wyłącznie jedna pętla. Zatem złożoność obliczeniowa tego algorytmu to <code class="highlighter-rouge">Ο(n)</code>.</p>
+
+<h4 id="złożoność-pamięciowa-1">Złożoność pamięciowa</h4>
+
+<p>Algorytm do działania potrzebuje kilku zmiennych. Jedna z nich, <code class="highlighter-rouge">representation</code>, urośnie do długości <code class="highlighter-rouge">N</code>. Zatem w tym przypadku złożoność pamięciowa tego algorytmu to <code class="highlighter-rouge">O(n)</code>.</p>
+
+<h3 id="bardziej-wydajne-rozwiązanie-problemu">Bardziej wydajne rozwiązanie problemu</h3>
+
+<p>Masz jakiś pomysł? Z chęcią poznam Twoje podejście do rozwiązania tego problemu. Wrzuć swój kod na githuba i podziel się rozwiązaniem. Pamiętaj, żeby przetestować poprawność swojego rozwiązania. Możesz to zrobić przy pomocy testów jednostkowych, które <a href="https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/blob/master/08_cyclic_number/src/test/java/pl/samouczekprogramisty/szs/cyclic/CyclicNumberFinderTest.java">przygotowałem</a>.</p>
+
+<h2 id="wyślij-mi-swoje-zadanie">Wyślij mi swoje zadanie</h2>
+
+<p>Zadanie omówione w tym artykule zostało przesłane przez jednego z czytelników. Jeśli chcesz abym spróbował omówić zadanie, na które Ty trafiłeś daj znać. Zastrzegam jednak, że nie jestem alfą i omegą. Potrafię sobie wyobrazić problemy, na które nie znajdę najlepszego rozwiązania. Niemniej jednak postaram się rozwiązać to zadanie w najlepszy znany mi sposób. Zadania możesz wysłać na mój adres email <em>marcin [małpka] samouczekprogramisty.pl</em>.</p>
+
+<p class="notice--warning">Często firmy zastrzegają sobie to, żeby nie rozpowszechniać zadań, które były na rozmowie kwalifikacyjnej. Jeśli tak było w Twoim przypadku proszę uszanuj wolę danej firmy i nie przesyłaj mi takiego zadania.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu artykułu znasz dwa sposoby rozwiązania zadanego problemu. Znasz złożoność pamięciową i obliczeniową każdego z rozwiązań. Jesteś o jedno zadanie lepiej przygotowany do rozmowy kwalifikacyjnej ;).</p>
+
+<p>Przykładowe rozwiązania, przedstawione w artykule znajdziesz na <a href="https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/08_cyclic_number/src">samouczkowym githubie</a>. Kod zawiera także <a href="/testy-jednostkowe-z-junit/">testy jednostkowe</a>, których użyłem do weryfikacji poprawności działania algorytmów.</p>
+
+<p>Jeśli nie chcesz pominąć kolejnych artykułów z tej serii dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Jak zwykle, jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzach. Postaram się pomóc ;). Do następnego razu!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        <div class="mailerlite__form">
+            <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+        </div>
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#samouczek-na-rozmowie" class="page__taxonomy-item" rel="tag">Samouczek na rozmowie</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#strefa-zadaniowa" class="page__taxonomy-item" rel="tag">Strefa zadaniowa</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-02-16T00:00:00+01:00">February 16, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fsamouczek-na-rozmowie-czy-liczba-jest-cykliczna%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fsamouczek-na-rozmowie-czy-liczba-jest-cykliczna%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/protokol-http/" class="pagination--pager" title="Protokół HTTP
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/11/13_zlozonosc_obliczeniowa_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/" rel="permalink">Podstawy złożoności obliczeniowej
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  13 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/12/10_rozmowa_kwalifikacyjna_brakujacy_element_zadanie_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-znajdz-brakujacy-element/" rel="permalink">Samouczek na rozmowie - znajdź brakujący element
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  5 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym rozkładam na części pierwsze zadanie, które sam miałem na rozmowie kwalifikacyjnej. Przeprowadzę Cię przez różne sposoby rozwiązania tego zada...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/" rel="permalink">Struktury danych - tablica asocjacyjna
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  12 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację ...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-czy-liczba-jest-cykliczna/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>

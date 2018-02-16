@@ -1,4 +1,164 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-02-08T21:17:35+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Protokół HTTP</title><link href="http://www.samouczekprogramisty.pl/protokol-http/" rel="alternate" type="text/html" title="Protokół HTTP" /><published>2018-02-08T00:00:00+01:00</published><updated>2018-02-08T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/protokol-http</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/protokol-http/">&lt;h2 id=&quot;czym-jest-protokół-http&quot;&gt;Czym jest protokół HTTP&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-02-16T01:28:20+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Samouczek na rozmowie - czy liczba jest cykliczna</title><link href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-czy-liczba-jest-cykliczna/" rel="alternate" type="text/html" title="Samouczek na rozmowie - czy liczba jest cykliczna" /><published>2018-02-16T00:00:00+01:00</published><updated>2018-02-16T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/zadanie-czy-liczba-jest-cykliczna</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-czy-liczba-jest-cykliczna/">&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych.&lt;/p&gt;
+
+&lt;p&gt;W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz działanie algorytmu.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/podstawy-zlozonosci-obliczeniowej/&quot;&gt;Podstawy złożoności obliczeniowej&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;Test Driven Development na przykładzie&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;% post_url 2016-10-29-testy-jednostkowe-z-junit %}&quot;&gt;Testy jednostkowe z JUnit&lt;/a&gt;,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu będę używał “pseudo kodu”. Przykładowe rozwiązania będą w języku Java.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java&quot;&gt;Kurs programowania w języku Java&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;czym-jest-liczba-cykliczna&quot;&gt;Czym jest liczba cykliczna&lt;/h2&gt;
+
+&lt;p&gt;Zanim przejdę do treści zadania musisz wiedzieć czym jest &lt;a href=&quot;https://en.wikipedia.org/wiki/Cyclic_number&quot;&gt;liczba cykliczna&lt;/a&gt;. Liczba cykliczna to liczba całkowita, której cykliczne permutacje cyfr są możliwe do uzyskania przez mnożenie liczby przez kolejne liczby naturalne. Przykładową liczbą cykliczną jest 142857. Wyniki mnożenia tej liczby przez pierwsze 6 liczb naturalnych dają jej permutacje cykliczne:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;142857 * 1 = 142857
+142857 * 2 = 285714
+142857 * 3 = 428571
+142857 * 4 = 571428
+142857 * 5 = 714285
+142857 * 6 = 857142
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;notice--info&quot;&gt;
+    
+&lt;p&gt;Permutacja cykliczna może brzmieć jak coś skomplikowanego. W praktyce powstaje ona przez wstawianie pierwszego elementu danego łańcucha na koniec. Na przykład permutacjami cyklicznymi łańcucha znaków &lt;code class=&quot;highlighter-rouge&quot;&gt;abcd&lt;/code&gt; są:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;abcd&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bcda&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cdab&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dabc&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;zadanie-do-wykonania&quot;&gt;Zadanie do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Napisz funkcję &lt;code class=&quot;highlighter-rouge&quot;&gt;isCyclic&lt;/code&gt;, która jako argument dostaje dowolnie dużą dodatnią liczbę całkowitą w postaci łańcucha znaków. Liczba może być poprzedzona zerami, więc &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;0123&quot;&lt;/code&gt; jest poprawnym wejściem programu. Zadaniem jest napisanie funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;isCyclic&lt;/code&gt;, która sprawdzi czy dana liczba jest liczbą cykliczną.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;isCyclic(&quot;142857&quot;) == true
+isCyclic(&quot;012233&quot;) == false
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W przykładzie pierwsza liczba jest liczbą cykliczną. Druga linijka pokazuje przykład, dla którego &lt;code class=&quot;highlighter-rouge&quot;&gt;isCyclic&lt;/code&gt; powinna zwrócić wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;od-czego-zależy-złożoność&quot;&gt;Od czego zależy złożoność&lt;/h2&gt;
+
+&lt;p&gt;W przypadku tego zadania danymi wejściowymi jest łańcuch znaków. W zadaniach tego typu długość takiego łańcucha używana jest do szacowania złożoności obliczeniowej i pamięciowej. Zatem &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; użyte poniżej odnosi się właśnie do długości wejściowego łańcucha znaków.&lt;/p&gt;
+
+&lt;h3 id=&quot;najprostsze-rozwiązanie-problemu&quot;&gt;Najprostsze rozwiązanie problemu&lt;/h3&gt;
+
+&lt;p&gt;Zacznę od najprostszego rozwiązania problemu. Parametrem funkcji jest łańcuch znaków reprezentujący liczbę. Żeby zobaczyć czy ta liczba jest cykliczna wygeneruję wszystkie jej permutacje cykliczne i będę sprawdzał czy mnożąc liczbę przez kolejne wartości od 1 do N wynik będzie znajdował się we wcześniej przygotowanych permutacjach. Proszę spójrz na przykładowe rozwiązanie:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isCyclicNaive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;permutations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()];&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;permutations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;permutations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;substring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;substring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;BigInteger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigInteger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%0&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;d&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nl&quot;&gt;outerLoop:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiplicator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiplicator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiplicator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;BigInteger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigInteger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;multiplicator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formattedResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formatString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;permutation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;permutations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formattedResult&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;permutation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outerLoop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Pierwsza pętla odpowiedzialna jest za tworzenie permutacji cyklicznych. Wewnątrz drugiej pętli sprawdzam czy mnożąc liczbę przez kolejne wartości od 2 do N uzyskam jedną z wcześniej przygotowanych permutacji. Posługuję się tutaj typem &lt;code class=&quot;highlighter-rouge&quot;&gt;BigInteger&lt;/code&gt; aby móc pracować na liczbach większych niż te, które mogę przechowywać w zmiennej typu &lt;code class=&quot;highlighter-rouge&quot;&gt;long&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;złożoność-obliczeniowa&quot;&gt;Złożoność obliczeniowa&lt;/h4&gt;
+
+&lt;p&gt;Pierwsza pętla ma złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^2)&lt;/code&gt;. Dzieje się tak ponieważ metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;substring&lt;/code&gt; ma złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n)&lt;/code&gt;. Kolejna pętla jest zagnieżdżona i ma złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^3)&lt;/code&gt;. Tym razem złożoność “psuje” operacja &lt;code class=&quot;highlighter-rouge&quot;&gt;multiply&lt;/code&gt;, która ma złożoność obliczeniową &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^2)&lt;/code&gt;. Więc finalnie złożoność obliczeniowa tego algorytmu to &lt;code class=&quot;highlighter-rouge&quot;&gt;O(n^3)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;złożoność-pamięciowa&quot;&gt;Złożoność pamięciowa&lt;/h4&gt;
+
+&lt;p&gt;W przypadku tego algorytmu przechowuję listę permutacji w tablicy. Tablica zawiera &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt; permutacji. Każda permutacja ma długość &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt;. Zatem finalna złożoność pamięciowa to &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^2)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;rozwiązanie-bazujące-na-właściwościach-liczb-cyklicznych&quot;&gt;Rozwiązanie bazujące na właściwościach liczb cyklicznych&lt;/h3&gt;
+
+&lt;p&gt;Czytając o &lt;a href=&quot;https://en.wikipedia.org/wiki/Cyclic_number&quot;&gt;liczbach cyklicznych&lt;/a&gt; dowiedziałem się kilku istotnych rzeczy:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;liczby cykliczne tworzone są na podstawie liczb pierwszych,&lt;/li&gt;
+  &lt;li&gt;długość liczby cyklicznej jest o jeden większa niż liczba pierwsza użyta do generowania liczby cyklicznej,&lt;/li&gt;
+  &lt;li&gt;liczba cykliczna jest cyklicznym rozwinięciem ułamka &lt;code class=&quot;highlighter-rouge&quot;&gt;1/liczba pierwsza do generacji&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Mając takie informacje podszedłem do problemu od drugiej strony. Zamiast sprawdzić czy dana liczba jest cykliczna wygenerowałem liczbę, która powstałaby na podstawie dzielenia &lt;code class=&quot;highlighter-rouge&quot;&gt;1/liczba pierwsza do generacji&lt;/code&gt;. Następnie porównuję tak uzyskaną liczbę z tą przekazaną jako argument metody. Jeśli są sobie równe wówczas przekazana liczba jest liczbą cykliczną. Proszę spójrz na implementację:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isCyclicGeneration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generatingPrime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reminder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++;&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentValueToDivide&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reminder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentDigit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentValueToDivide&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generatingPrime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;reminder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentValueToDivide&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generatingPrime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentDigit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reminder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generatingPrime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Na początku ustawiam niezbędne zmienne. Następnie wewnątrz pętli obliczam kolejne wartości ułamka. Tak uzyskane liczby dodaję do bufora &lt;code class=&quot;highlighter-rouge&quot;&gt;representation&lt;/code&gt;, który następnie porównuję z przekazaną liczbą.&lt;/p&gt;
+
+&lt;p&gt;Warunek &lt;code class=&quot;highlighter-rouge&quot;&gt;reminder != 1&lt;/code&gt; wykrywa wystąpienie okresu w rozwinięciu dziesiętnym ułamka. Więcej na temat “okresu ułamka” przeczytasz w artykule opisującym &lt;a href=&quot;/liczby-zmiennoprzecinkowe/&quot;&gt;liczby zmiennoprzecinkowe&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Warunek &lt;code class=&quot;highlighter-rouge&quot;&gt;step &amp;lt; generatingPrime&lt;/code&gt; jest potrzebny, aby uniknąć nieskończonej pętli. Taki przypadek mógłby mieć miejsce jeśli metoda jako parametr otrzymałaby liczbę, która nie jest cykliczna.&lt;/p&gt;
+
+&lt;h4 id=&quot;złożoność-obliczeniowa-1&quot;&gt;Złożoność obliczeniowa&lt;/h4&gt;
+
+&lt;p&gt;W przypadku tego rozwiązania występuje wyłącznie jedna pętla. Zatem złożoność obliczeniowa tego algorytmu to &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;złożoność-pamięciowa-1&quot;&gt;Złożoność pamięciowa&lt;/h4&gt;
+
+&lt;p&gt;Algorytm do działania potrzebuje kilku zmiennych. Jedna z nich, &lt;code class=&quot;highlighter-rouge&quot;&gt;representation&lt;/code&gt;, urośnie do długości &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt;. Zatem w tym przypadku złożoność pamięciowa tego algorytmu to &lt;code class=&quot;highlighter-rouge&quot;&gt;O(n)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;bardziej-wydajne-rozwiązanie-problemu&quot;&gt;Bardziej wydajne rozwiązanie problemu&lt;/h3&gt;
+
+&lt;p&gt;Masz jakiś pomysł? Z chęcią poznam Twoje podejście do rozwiązania tego problemu. Wrzuć swój kod na githuba i podziel się rozwiązaniem. Pamiętaj, żeby przetestować poprawność swojego rozwiązania. Możesz to zrobić przy pomocy testów jednostkowych, które &lt;a href=&quot;https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/blob/master/08_cyclic_number/src/test/java/pl/samouczekprogramisty/szs/cyclic/CyclicNumberFinderTest.java&quot;&gt;przygotowałem&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;wyślij-mi-swoje-zadanie&quot;&gt;Wyślij mi swoje zadanie&lt;/h2&gt;
+
+&lt;p&gt;Zadanie omówione w tym artykule zostało przesłane przez jednego z czytelników. Jeśli chcesz abym spróbował omówić zadanie, na które Ty trafiłeś daj znać. Zastrzegam jednak, że nie jestem alfą i omegą. Potrafię sobie wyobrazić problemy, na które nie znajdę najlepszego rozwiązania. Niemniej jednak postaram się rozwiązać to zadanie w najlepszy znany mi sposób. Zadania możesz wysłać na mój adres email &lt;em&gt;marcin [małpka] samouczekprogramisty.pl&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;Często firmy zastrzegają sobie to, żeby nie rozpowszechniać zadań, które były na rozmowie kwalifikacyjnej. Jeśli tak było w Twoim przypadku proszę uszanuj wolę danej firmy i nie przesyłaj mi takiego zadania.&lt;/p&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Po przeczytaniu artykułu znasz dwa sposoby rozwiązania zadanego problemu. Znasz złożoność pamięciową i obliczeniową każdego z rozwiązań. Jesteś o jedno zadanie lepiej przygotowany do rozmowy kwalifikacyjnej ;).&lt;/p&gt;
+
+&lt;p&gt;Przykładowe rozwiązania, przedstawione w artykule znajdziesz na &lt;a href=&quot;https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/08_cyclic_number/src&quot;&gt;samouczkowym githubie&lt;/a&gt;. Kod zawiera także &lt;a href=&quot;/testy-jednostkowe-z-junit/&quot;&gt;testy jednostkowe&lt;/a&gt;, których użyłem do weryfikacji poprawności działania algorytmów.&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów z tej serii dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Jak zwykle, jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzach. Postaram się pomóc ;). Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cykliczne i w jaki sposób sprawdzić czy dana liczba jest cykliczna. Zapraszam do lektury.</summary></entry><entry><title type="html">Protokół HTTP</title><link href="http://www.samouczekprogramisty.pl/protokol-http/" rel="alternate" type="text/html" title="Protokół HTTP" /><published>2018-02-08T00:00:00+01:00</published><updated>2018-02-08T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/protokol-http</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/protokol-http/">&lt;h2 id=&quot;czym-jest-protokół-http&quot;&gt;Czym jest protokół HTTP&lt;/h2&gt;
 
 &lt;p&gt;Według &lt;a href=&quot;https://sjp.pwn.pl/sjp/protokol;2572786.html&quot;&gt;słownika języka polskiego&lt;/a&gt; protokół to:&lt;/p&gt;
 
@@ -3599,423 +3759,4 @@ war.dependsOn explodedWar
       &lt;p&gt;W tym przypadku porównywany jest protokół (np. http), domena (np. www.samouczekprogramisty.pl) i port (np. 8080). &lt;a href=&quot;#fnref:cors&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS.</summary></entry><entry><title type="html">Podstawy złożoności obliczeniowej</title><link href="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/" rel="alternate" type="text/html" title="Podstawy złożoności obliczeniowej" /><published>2017-11-13T00:00:00+01:00</published><updated>2017-11-13T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/podstawy-zlozonosci-obliczeniowej/">&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;
-&lt;/script&gt;
-
-&lt;div class=&quot;notice--warning&quot;&gt;
-  
-&lt;p&gt;Artykuł ten zawiera jedynie podstawy związane z zagadnieniem złożoności obliczeniowej. Bynajmniej nie wyczerpuje tematu. Teoria obliczeń to osobny dział informatyki. Jeśli chcesz go zgłębić zachęcam Cię do przejrzenia dodatkowych materiałów do nauki.&lt;/p&gt;
-
-&lt;p&gt;Mam świadomość, że tłumaczenie złożoności obliczeniowej bez wspominania o maszynie Turinga to profanacja. Jednak dla zupełnie początkujących w temacie takie podejście wydaje mi się łatwiejsze.&lt;/p&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;teoria-obliczeń&quot;&gt;Teoria obliczeń&lt;/h2&gt;
-
-&lt;p&gt;Teoria obliczeń to dział informatyki. Jedną z gałęzi tego działu jest teoria złożoności obliczeniowej. W uproszczeniu można powiedzieć, że zajmuje się ona oszacowaniem wydajności czasowej i pamięciowej algorytmów. Teoria złożoności obliczeniowej bazuje na wielu modelach, które służą do łatwego porównywania algorytmów.&lt;/p&gt;
-
-&lt;h2 id=&quot;dlaczego-używamy-złożoności-obliczeniowej&quot;&gt;Dlaczego używamy złożoności obliczeniowej&lt;/h2&gt;
-
-&lt;p&gt;Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni. Mają różny procesor, inny moduł RAM. Część z nich używa bardziej wydajnych dysków, które pozwalają na szybszy dostęp do danych. Dla części z nich dane dostępne są na zdalnych maszynach, do których trzeba łączyć się przez sieć. Są też mega-komputery, maszyny o ogromnej mocy obliczeniowej, czy smartfony w kieszeniach.&lt;/p&gt;
-
-&lt;p&gt;W związku z tą różnorodnością pojawia się potrzeba wspólnej miary. Miary, która jest niezależna od zmiennych czynników. Może ona pomóc zorientować się w wydajności danego algorytmu, przyporządkować go do zdefiniowanej klasy algorytmów. Tutaj w grę wkraczają modele, o których wspomniałem wcześniej. Modele te upraszczają zawiłości związane z różnorodnością sprzętu.&lt;/p&gt;
-
-&lt;p&gt;Mamy zatem wspólną bazę - model. Dalej jednak pozostaje pytanie: w jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Na modelu nie możemy mierzyć czasu. Mierzenie czasu nie ma większego sensu na komputerze z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.&lt;/p&gt;
-
-&lt;p&gt;Mierzymy więc zatem liczbę operacji wykonanych na modelu. Następnie próbujemy znaleźć funkcję, która będzie opisywała liczbę operacji w zależności od wejścia algorytmu. Funkcje te możemy porównywać ze sobą.&lt;/p&gt;
-
-&lt;h3 id=&quot;przykład-wyznaczania-złożoności-obliczeniowej&quot;&gt;Przykład wyznaczania złożoności obliczeniowej&lt;/h3&gt;
-
-&lt;p&gt;Załóżmy że chcemy policzyć sumę elementów tablicy. Może nam w tym pomóc następujący algorytm:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Ile mamy w nim operacji? &lt;code class=&quot;highlighter-rouge&quot;&gt;int sum = 0;&lt;/code&gt;, przypisanie to jedna operacja. Następnie mamy pętlę &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt;. Jej ciało zawiera jedną operację. Sama pętla wykona się dokładnie tyle razy ile jest elementów tablicy &lt;code class=&quot;highlighter-rouge&quot;&gt;numbers&lt;/code&gt;. Liczbę tych elementów określmy jako &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;. Na końcu mamy instrukcję &lt;code class=&quot;highlighter-rouge&quot;&gt;return sum;&lt;/code&gt;. Jest to ostatnia operacja.&lt;/p&gt;
-
-&lt;p&gt;Dodając te operacje do siebie otrzymujemy wzór:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(n) = 1 + n + 1 = n + 2&lt;/script&gt;
-
-&lt;p&gt;Zatem złożoność naszego algorytmu opisana jest przez funkcję &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n) = n + 2&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład funkcja &lt;code class=&quot;highlighter-rouge&quot;&gt;f(x) = ax^2 + bx + c&lt;/code&gt; opisuje &lt;a href=&quot;https://pl.wikipedia.org/wiki/Parabola_(matematyka)&quot;&gt;parabolę&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;złożoność-obliczeniowa-a-funkcja&quot;&gt;Złożoność obliczeniowa a funkcja&lt;/h2&gt;
-
-&lt;p&gt;Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Wyznacza się ją jak opisałem w poprzednim punkcie - licząc operacje.&lt;/p&gt;
-
-&lt;p&gt;O ile dla naukowców znalezienie dokładnej funkcji może być bardzo istotne, to w praktyce wystarczą jej oszacowania. Takie oszacowania to notacja Ο (dużego O), notacja Ω (omega) i notacja Θ (theta).&lt;/p&gt;
-
-&lt;h3 id=&quot;oszacowania-rzędu-złożoności-funkcji&quot;&gt;Oszacowania rzędu złożoności funkcji&lt;/h3&gt;
-
-&lt;p&gt;Na tapetę bierzemy przykładową funkcję:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(n) = n^3 - 6n^2 + 4n + 12&lt;/script&gt;
-
-&lt;p&gt;Możemy założyć, że funkcja ta dokładnie opisuje złożoność obliczeniową jakiegoś algorytmu. Argument &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; to rozmiar danych wejściowych do algorytmu. Wykres&lt;sup id=&quot;fnref:grafy&quot;&gt;&lt;a href=&quot;#fn:grafy&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; tej funkcji wygląda następująco:&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12.png&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Wykres funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n) = n^3 - 6n^2 + 4n + 12&lt;/code&gt;
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;h3 id=&quot;notacja-Ο-dużego-o&quot;&gt;Notacja Ο (dużego O)&lt;/h3&gt;
-
-&lt;p&gt;Notacja ta zakłada, że istnieje funkcja &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n)&lt;/code&gt;, dla której spełniona jest poniższa własność:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\forall n \geqslant n_0 : f(n) \leqslant c * g(n)&lt;/script&gt;
-
-&lt;p&gt;Teraz przetłumaczę te matematyczne hieroglify :). Własność ta oznacza, że wynik funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n)&lt;/code&gt; pomnożony przez jakąś stałą &lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt; będzie większy bądź równy wynikowi funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n)&lt;/code&gt;. Własność ta jest spełniona dla wszystkich &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;, które będą większe od &lt;code class=&quot;highlighter-rouge&quot;&gt;n0&lt;/code&gt;. Jeszcze łatwiej wygląda to na wykresie:&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_O.png&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Oszacowanie z góry, notacja Ο.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Powyższy wykres pokazuje dwie funkcje. Pierwszą, którą już znasz z poprzedniego wykresu. Druga to wykres funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n) = n^3&lt;/code&gt;. Jak widzisz od pewnego punktu zielona linia jest zawsze ponad czerwoną linią. To nic innego jak oszacowanie z góry. To właśnie jest notacja Ο. Zatem w naszym przypadku nasza funkcja &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n)&lt;/code&gt; ma złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^3)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;W mojej dotychczasowej praktyce notacja Ο jest najczęściej spotykana do określania złożoności algorytmów.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Notacja Ο jest oszacowaniem z góry. Zatem można powiedzieć, że jeśli algorytm ma złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^2)&lt;/code&gt; to ma także złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^3)&lt;/code&gt; czy nawet &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n!)&lt;/code&gt;. Jednak &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^2)&lt;/code&gt; może być najlepszym oszacowaniem złożoności danego algorytmu.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Z racji tego, że jest to oszacowanie pomijamy w nim wszelkiego rodzaju stałe. Zatem &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(2n + 123)&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(2n)&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n)&lt;/code&gt; to ta sama złożoność obliczeniowa. Stałe te i tak nie mają znaczenia przy odpowiednio dużych wartościach &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;notacja-Ω-omega&quot;&gt;Notacja Ω (omega)&lt;/h3&gt;
-
-&lt;p&gt;Notacja ta różni się od poprzedniej własnością, którą spełnia nowa funkcja:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\forall n \geqslant n_0 : f(n) \geqslant c * g(n)&lt;/script&gt;
-
-&lt;p&gt;Własność ta oznacza, że wynik funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n)&lt;/code&gt; pomnożony przez jakąś stałą &lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt; będzie mniejszy bądź równy wynikowi funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n)&lt;/code&gt;. Własność ta jest spełniona dla wszystkich &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;, które będą większe od &lt;code class=&quot;highlighter-rouge&quot;&gt;n0&lt;/code&gt;. Ponownie wykres pomoże Ci to zrozumieć:&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_omega.png&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Oszacowanie z dołu, notacja Ω.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Na wykresie widoczne są dwie funkcje. Pierwszą znasz. Druga to wykres funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n) = n^2&lt;/code&gt;. “Ostatni” punkt przecięcia tych dwóch wykresów, to &lt;code class=&quot;highlighter-rouge&quot;&gt;n0&lt;/code&gt;&lt;sup id=&quot;fnref:punkt&quot;&gt;&lt;a href=&quot;#fn:punkt&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Od tego miejsca wykres funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n)&lt;/code&gt; jest zawsze pod wykresem funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n)&lt;/code&gt;. Możemy powiedzieć, że funkcja &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n)&lt;/code&gt; ma złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ω(n^2)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;notacja-Θ-theta&quot;&gt;Notacja Θ (theta)&lt;/h3&gt;
-
-&lt;p&gt;Można powiedzieć, że notacja Θ to połączenie notacji Ο i Ω. W tym przypadku funkcja użyta do oszacowania musi spełniać zależność:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\forall n \geqslant n_0 : c_1 * g(n) \geqslant f(n) \geqslant c_2 * g(n)&lt;/script&gt;
-
-&lt;p&gt;Tłumacząc to na polski można powiedzieć, że wynik funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n)&lt;/code&gt; pomnożony przez stałą &lt;code class=&quot;highlighter-rouge&quot;&gt;c1&lt;/code&gt; będzie większy bądź równy wartości funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n)&lt;/code&gt;. Jednocześnie będzie mniejszy bądź równy wartości funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;f(n)&lt;/code&gt; jeśli pomnożymy go przez stałą &lt;code class=&quot;highlighter-rouge&quot;&gt;c2&lt;/code&gt;. Ponownie wykres może pomóc to zrozumieć:&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;http://www.samouczekprogramisty.pl/assets/images/2017/11/13_wykres_funkcji_n3_6n2_4n_12_notacja_theta.png&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Dokładne oszacowanie rzędu, notacja Θ.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;W naszym przypadku funkcję &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n)&lt;/code&gt; możemy opisać wzorem &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n) = (n-4)^3&lt;/code&gt;. Stałe mają odpowiednio wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;c1 = 5&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;c2 = 1&lt;/code&gt;. Wykres oznaczony kolorem niebieskim to wynik funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n)&lt;/code&gt; przemnożony przez stałą &lt;code class=&quot;highlighter-rouge&quot;&gt;c1&lt;/code&gt;. Wykres oznaczony kolorem fioletowym to wynik funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;g(n)&lt;/code&gt; przemnożony przez stałą &lt;code class=&quot;highlighter-rouge&quot;&gt;c2&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Jak wcześniej wspomniałem notacja Ο jest najczęściej spotykana. W dalszej części artykułu będę odnosił się tylko do tej notacji.&lt;/p&gt;
-
-&lt;h2 id=&quot;rząd-złożoności-obliczeniowej&quot;&gt;Rząd złożoności obliczeniowej&lt;/h2&gt;
-
-&lt;p&gt;Tu także skupię się na przykładzie wzoru wałkowanego wcześniej:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(n) = n^3 - 6n^2 + 4n + 12&lt;/script&gt;
-
-&lt;p&gt;Jak wspomniałem wcześniej w praktyce nie potrzebujemy tak dokładnego wzoru wystarczy jedynie zgrubne oszacowanie, które uwzględnia najbardziej istotny element funkcji. Który element funkcji jest najbardziej istotny? Ten, który ma największy wpływ na ostateczny wynik funkcji. Jak to sprawdzić? Wystarczy pod &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; podstawić bardzo dużą liczbę i zobaczyć, który element będzie miał największą wartość. Na przykład:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Element&lt;/th&gt;
-      &lt;th&gt;Wartość przy &lt;code class=&quot;highlighter-rouge&quot;&gt;n = 1'000'000'000&lt;/code&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;n^3&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;1’000’000’000’000’000’000’000’000’000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;6n^2&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;6’000’000’000’000’000’000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;4n&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;4’000’000’000&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;12&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;12&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Jak widzisz, przy odpowiednio dużych wartościach &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; część “elementów równania” jest mniej istotna. W przypadku funkcji powyżej najszybciej rosnącym elementem jest &lt;code class=&quot;highlighter-rouge&quot;&gt;n^3&lt;/code&gt;. Ma on największy wpływ na ostateczny wynik funkcji.&lt;/p&gt;
-
-&lt;p&gt;Wiesz już z powyższych rozważań, że funkcja f(n) ma złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^3)&lt;/code&gt;. Jest to tak zwana złożoność wykładnicza, specyficzny przypadek złożoności wielomianowej. Istnieje kilka popularnych rzędów złożoności obliczeniowej.&lt;/p&gt;
-
-&lt;h3 id=&quot;Ο1&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(1)&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Złożoność stała, niezależna od liczby danych wejściowych. Mówimy, że problem o złożoności &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(1)&lt;/code&gt; możemy rozwiązać w stałym czasie niezależnie od wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(1)&lt;/code&gt;:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Na wejściu programu jest tablica liczb o długości N. Liczby są posortowane rosnąco. Pomiędzy dwoma sąsiadującymi liczbami różnica jest stała. Znajdź sumę liczb w tablicy.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Problem to nic innego jak obliczenie sumy &lt;a href=&quot;https://pl.wikipedia.org/wiki/Ci%C4%85g_arytmetyczny&quot;&gt;ciągu arytmetycznego&lt;/a&gt;. Istnieje na to wzór, który można zaimplementować:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W tym przypadku nie potrzebujemy iterować po elementach tablicy. Niezależnie od wielkości tablicy wejściowej możemy obliczyć sumę ciągu w stałym czasie.&lt;/p&gt;
-
-&lt;h3 id=&quot;Οn&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n)&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Złożoność liniowa. Jest to specyficzny przypadek złożoności wielomianowej. Czas rozwiązania problemu jest wprost proporcjonalny do wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n)&lt;/code&gt;:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Na wejściu programu jest tablica liczb o długości N. Znajdź sumę wszystkich liczb w tablicy wejściowej.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Aby znaleźć tę sumę należy sprawdzić wszystkie elementy tablicy. Musimy zatem odbyć N kroków.&lt;/p&gt;
-
-&lt;h3 id=&quot;Οlogn&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(log(n))&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Złożoność logarytmiczna, czas rozwiązania zależy od wyniku logarytmu&lt;sup id=&quot;fnref:podstawa&quot;&gt;&lt;a href=&quot;#fn:podstawa&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; z wielkości danych wejściowych. Przykład problemu, dla którego istnieje algorytm &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(log(n))&lt;/code&gt;:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Na wejściu programu jest posortowana tablica liczb o długości N. Sprawdź czy liczba x istnieje w tablicy wejściowej.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;To popularny algorytm przeszukiwania binarnego. Jego nazwa pochodzi od tego, że przy każdej iteracji algorytmu dzielimy przeszukiwany zbiór na dwie równe&lt;sup id=&quot;fnref:rowne&quot;&gt;&lt;a href=&quot;#fn:rowne&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; części. Algorytmy, które dzielą w ten sposób problem na mniejsze problemy przeważnie są zależne od logarytmu wielkości danych wejściowych.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;binarySearch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexLow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexHigh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexLow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexHigh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexMiddle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexLow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexHigh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexLow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexMiddle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;indexHigh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexMiddle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexMiddle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;indexLow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexMiddle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;Οnlogn&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(nlog(n))&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Złożoność liniowo-logarytmiczna. Czas rozwiązania problemu jest wprost proporcjonalny do iloczynu wielkości danych wejściowych i ich logarytmu. Przykładem problemu dla którego istnieje algorytm o złożoności &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(nlog(n))&lt;/code&gt; jest:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Na wejściu programu jest tablica liczb. Zwróć tablicę, która będzie zawierała te same elementy, które są w tablicy wejściowej. Tablica wynikowa powinna być posortowana w porządku rosnącym.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Powyższy problem to sortowanie. Jeden z ze standardowych problemów w informatyce. Algorytmem sortującym, który ma złożoność obliczeniową &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(nlog(n))&lt;/code&gt; jest sortowanie przez scalanie (ang. &lt;em&gt;merge sort&lt;/em&gt;):&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merged&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexFirst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexSecond&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexMerged&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexMerged&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexMerged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexFirst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;merged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexMerged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexSecond&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++];&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexSecond&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;merged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexMerged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexFirst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++];&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexFirst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexSecond&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;merged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexMerged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexFirst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++];&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;merged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexMerged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexSecond&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++];&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Algorytm dzieli tablicę na części do czasu aż każda z nich będzie miała długość 1. Następnie scala je ze sobą. Każde takie scalenie to koszt &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n)&lt;/code&gt;. W związku z tym, że tablicę wejściową dzieliliśmy za każdym razem na pół takich scaleń mamy &lt;code class=&quot;highlighter-rouge&quot;&gt;log(n)&lt;/code&gt;. Zatem wynikowa złożoność algorytmu to &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(nlog(n))&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Jak widzisz obliczanie złożoności obliczeniowej bardziej skomplikowanych algorytmów nie jest takie łatwe.&lt;/p&gt;
-
-&lt;h3 id=&quot;Οn2&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^2)&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Złożoność kwadratowa. Jest to specyficzny przypadek złożoności wielomianowej. Przykładowy problem może być ten, który użyłem wyżej - posortowanie tablicy. Tym razem jednak algorytm jest mniej wydajny. &lt;a href=&quot;https://pl.wikipedia.org/wiki/Sortowanie_b%C4%85belkowe&quot;&gt;Sortowanie bąbelkowe&lt;/a&gt; charakteryzuje się złożonością obliczeniową &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^2)&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Mamy tutaj dwie zagnieżdżone pętle. Każda z nich iteruje po &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; elementach. W związku z tym otrzymujemy złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^2)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;Οnx&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n^x)&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Złożoność wielomianowa. Jak już wiesz złożoność liniowa i złożoność kwadratowa są specyficznymi przypadkami złożoności wielomianowej. Ze względu na częste występowanie wyszczególniłem je jako osobne rzędy złożoności. Przykłady problemów i rozwiązań znajdziesz w poprzednich punktach.&lt;/p&gt;
-
-&lt;h3 id=&quot;Οxn&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(x^n)&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Jest to złożoność wykładnicza, jej przykładem może być &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(2^n)&lt;/code&gt;. Problemem, który ma rozwiązanie o złożoności co najmniej &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(2^n)&lt;/code&gt; jest:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Na wejściu programu jest tablica unikalnych liczb. Zwróć tablicę, która będzie zawierała wszystkie możliwe podzbiory elementów tablicy wejściowej.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Wynika to z faktu, że wszystkich możliwych podzbiorów zbioru, który ma &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; elementów jest dokładnie &lt;code class=&quot;highlighter-rouge&quot;&gt;2^n&lt;/code&gt;. Poniższy algorytm ma złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(log(n)2^n)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[][]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;powerSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;two_pow_n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[][]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;powerSet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;two_pow_n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][];&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;two_pow_n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;powerSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pickNumbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;powerSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;pickNumbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;howManyOnes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;howManyOnes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;howManyOnes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;charIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lastElementIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;charIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;subset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lastElementIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;charIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;subsetIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Wynika to z faktu, że pętla wewnątrz metody &lt;code class=&quot;highlighter-rouge&quot;&gt;powerSet&lt;/code&gt; wywołana jest dokładnie &lt;code class=&quot;highlighter-rouge&quot;&gt;2^n&lt;/code&gt; razy. Natomiast wewnątrz metody &lt;code class=&quot;highlighter-rouge&quot;&gt;pickNumbers&lt;/code&gt; są dwie pętle. Każda z nich ma złożoność &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(log(n))&lt;/code&gt;. Zatem finalna złożoność algorytmu to &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(log(n)2^n)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Spróbuj uruchomić ten kod z tablicą wejściową z 30 elementami, życzę powodzenia ;).&lt;/p&gt;
-
-&lt;h3 id=&quot;Οn-1&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n!)&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Jest to złożoność typu silnia.  Dla przypomnienia silnia &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;, albo inaczej &lt;code class=&quot;highlighter-rouge&quot;&gt;n!&lt;/code&gt; to iloczyn wszystkich liczb od 1 do &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;. Na przykład &lt;code class=&quot;highlighter-rouge&quot;&gt;3! = 1 * 2 * 3 = 6&lt;/code&gt;. Przykładem problemu, dla którego istnieje naiwny algorytm o tej złożoności to &lt;a href=&quot;https://pl.wikipedia.org/wiki/Problem_komiwoja%C5%BCera&quot;&gt;problem komiwojażera&lt;/a&gt;:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Na wejściu programu jest &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; miast oraz odległości pomiędzy każdą parą miast. Zakładając, że komiwojażer zaczyna z miasta A i ma dojść do miasta B jaką trasę powinien pokonać aby była ona najkrótsza?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Nie silę się nawet na naiwny algorytm dla tego problemu, nie jest on możliwy do uruchomienia na dzisiejszych komputerach dla problemów odpowiednio dużych. Wyobraź sobie, skalę możliwych rozwiązań. &lt;code class=&quot;highlighter-rouge&quot;&gt;60! ~= 8,3 * 10^81&lt;/code&gt;. Szacowana liczba atomów wodoru w widzialnym wszechświecie to około &lt;a href=&quot;https://en.wikipedia.org/wiki/Observable_universe#Matter_content_.E2.80.93_number_of_atoms&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;10^80&lt;/code&gt;&lt;/a&gt;. Przekładając to na problem wyżej. Możliwych dróg pomiędzy 60 miastami jest więcej niż atomów wodoru w widzialnym wszechświecie ;).&lt;/p&gt;
-
-&lt;h2 id=&quot;najlepszy-średni-i-najgorszy-przypadek&quot;&gt;Najlepszy, średni i najgorszy przypadek&lt;/h2&gt;
-
-&lt;p&gt;Ten sam algorytm może zachowywać się zupełnie inaczej w przypadku innych danych wejściowych. Nie mówię tu o wielkości problemu, wielkości danych wejściowych. A o instancji problemu.&lt;/p&gt;
-
-&lt;p&gt;Jeśli algorytm jako dane wejściowe przyjmuje tablicę liczb to wielkością problemu może być 5 - tablica o długości 5. Natomiast instancji tego problemu jest nieskończenie wiele: &lt;code class=&quot;highlighter-rouge&quot;&gt;[1, 2, 3, 4, 5]&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;[-1, 2, -3, 4, -5]&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;[5, 4, 3, 2, 1]&lt;/code&gt;. Algorytm może mieć różną złożoność obliczeniową określoną w notacji &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο&lt;/code&gt; w zależności od instancji problemu. Są także algorytmy, których złożoność obliczeniowa jest niezależna od instancji problemu.&lt;/p&gt;
-
-&lt;p&gt;W zależności od wymagań w wyborze algorytmu bierze się pod uwagę złożoność odpowiedniego przypadku.&lt;/p&gt;
-
-&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
-
-&lt;p&gt;Informacji na temat teorii obliczeń i złożoności obliczeniowej w internecie jest sporo. Jednak dość ciężko jest znaleźć jakiekolwiek informacje, które są na początkującym poziomie. Niemniej jednak poniżej starałem się zebrać materiały, które mogą być interesujące:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://wazniak.mimuw.edu.pl/index.php?title=Z%C5%82o%C5%BCono%C5%9B%C4%87_obliczeniowa&quot;&gt;Wykład dotyczący złożoności obliczeniowej na Uniwersytecie Warszawskim&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://cpp0x.pl/kursy/Teoria-w-Informatyce/424&quot;&gt;Kilka krótkich artykułów opisujących podstawy teorii obliczeń&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://theory.cs.princeton.edu/complexity/&quot;&gt;Computational Complexity: A Modern Approach&lt;/a&gt;, szkic książki o złożoności obliczeniowej. Jej ostateczna wersja dostępna jest na &lt;a href=&quot;http://amzn.to/2zxrqqs&quot;&gt;Amazonie&lt;/a&gt;&lt;sup id=&quot;fnref:afiliacja&quot;&gt;&lt;a href=&quot;#fn:afiliacja&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://plato.stanford.edu/entries/computational-complexity/&quot;&gt;Artykuł na temat złożoności obliczeniowej z uniwersytetu Stanford&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.wolframalpha.com/examples/ComputationalComplexity.html&quot;&gt;Sekcja Wolfram Alpha poświęcona złożoności obliczeniowej&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pl.wikipedia.org/wiki/Asymptotyczne_tempo_wzrostu&quot;&gt;Artykuł na Wikipedii na temat funkcji służących do szacowania&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://codility.com/media/train/1-TimeComplexity.pdf&quot;&gt;Artykuł o złożoności obliczeniowej na Codility&lt;/a&gt;&lt;sup id=&quot;fnref:marek&quot;&gt;&lt;a href=&quot;#fn:marek&quot; class=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/02_computational_complexity/src/main/java/pl/samouczekprogramisty/misc/complexity&quot;&gt;Fragmenty kodu użyte w tym artykule&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Jeśli zrozumiałeś ten artykuł możesz śmiało powiedzieć, że wiesz czym jest złożoność obliczeniowa. Wiesz jak ją szacować, znasz przykłady algorytmów z najczęściej spotykanych rzędów złożoności obliczeniowej. Znasz kilka notacji do określania złożoności. Dowiedziałeś się też ile jest atomów wodoru we wszechświecie ;). W każdym razie masz za sobą spory kawałek lektury i sporo wiedzy.&lt;/p&gt;
-
-&lt;p&gt;Na koniec mam do Ciebie prośbę. Proszę podziel się tym artykułem ze swoimi znajomymi, sporo się nad nim napracowałem. Mam nadzieję, że będzie mógł pomóc jak największej grupie osób. Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości polub Samouczka na Facebooku i zapisz się do newslettera. Do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:grafy&quot;&gt;
-      &lt;p&gt;Wykresy użyte w tym artykule stworzyłem przy pomocy &lt;a href=&quot;https://graphsketch.com/&quot;&gt;graphsketch&lt;/a&gt;. &lt;a href=&quot;#fnref:grafy&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:punkt&quot;&gt;
-      &lt;p&gt;To oczywiście kolejne uproszczenie, punkt to para dwóch liczb. &lt;code class=&quot;highlighter-rouge&quot;&gt;n0&lt;/code&gt; jest jedną z nich - tą na osi poziomej. Dasz radę wyznaczyć drugą współrzędną? ;) &lt;a href=&quot;#fnref:punkt&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:podstawa&quot;&gt;
-      &lt;p&gt;Podstawą logarytmu przeważnie jest 2. Zdarzają się także algorytmy, w których logarytm ma inną podstawę. &lt;a href=&quot;#fnref:podstawa&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:rowne&quot;&gt;
-      &lt;p&gt;Oczywiście, w przypadku tablicy o nieparzystej długości jedna z części nie będzie “równiejsza” od drugiej ;). &lt;a href=&quot;#fnref:rowne&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:afiliacja&quot;&gt;
-      &lt;p&gt;To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :) &lt;a href=&quot;#fnref:afiliacja&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:marek&quot;&gt;
-      &lt;p&gt;Wielkie dzięki dla Marka za podesłanie linka do tego artykułu. &lt;a href=&quot;#fnref:marek&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο (dużego O), Ω (omega) i Θ (theta). Na przykładach algorytmów poznasz najczęściej używane funkcje w notacji Ο. Po lekturze określenia złożoność liniowa czy złożoność logarytmiczna nie powinny być dla Ciebie problemem. Zapraszam!</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS.</summary></entry></feed>
