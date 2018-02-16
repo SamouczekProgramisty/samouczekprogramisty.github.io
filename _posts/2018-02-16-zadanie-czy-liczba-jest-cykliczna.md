@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2018/02/16_rozmowa_kwalifikacyjna_liczba_cykliczna_zadanie_artykul.jpg
     overlay_image: /assets/images/2018/02/16_rozmowa_kwalifikacyjna_liczba_cykliczna_zadanie_artykul.jpg
     caption: "[&copy; soundman1024](https://www.flickr.com/photos/soundman1024/6805264986/sizes/l)"
-excerpt: W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cykliczne i w jaki sposób sprawczić czy dana liczba jest cykliczna. Zapraszam do lektury.
+excerpt: W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cykliczne i w jaki sposób sprawdzić czy dana liczba jest cykliczna. Zapraszam do lektury.
 ---
 
 {% include samouczek-na-rozmowie.md %}
@@ -25,7 +25,7 @@ Zanim przejdę do treści zadania musisz wiedzieć czym jest [liczba cykliczna](
     142857 * 6 = 857142
 
 {% capture permutacja %}
-Permutacja cykliczna może brzmieć jak coś skomplikowananego. W praktyce powstaje ona przez wstawianie pierwszego elementu danego łańcucha na koniec. Na przykład permutacjami cyklicznymi łańcucha znaków `abcd` są:
+Permutacja cykliczna może brzmieć jak coś skomplikowanego. W praktyce powstaje ona przez wstawianie pierwszego elementu danego łańcucha na koniec. Na przykład permutacjami cyklicznymi łańcucha znaków `abcd` są:
 
  - `abcd`
  - `bcda`
@@ -44,18 +44,18 @@ Napisz funkcję `isCyclic`, która jako argument dostaje dowolnie dużą dodatni
     isCyclic("142857") == true
     isCyclic("012233") == false
 
-W przykładzie pierwsza liczba jest liczbą cykliczną. Druga linijka pokazuja przykład, dla którego `isCyclic` powininna zwrócić wartość `false`.
+W przykładzie pierwsza liczba jest liczbą cykliczną. Druga linijka pokazuje przykład, dla którego `isCyclic` powinna zwrócić wartość `false`.
 
 ## Od czego zależy złożoność
 
-W przypadku tego zadania danymi wejściowwymi jest łańcuch znaków. W zadaniach tego typu długość takiego łańcucha używana jest do szacowania złożoności obliczeniowej i pamięciowej. Zatem `n` użyte poniżej odnosi się własnie do długości wejściowego łańcucha znaków.
+W przypadku tego zadania danymi wejściowymi jest łańcuch znaków. W zadaniach tego typu długość takiego łańcucha używana jest do szacowania złożoności obliczeniowej i pamięciowej. Zatem `n` użyte poniżej odnosi się właśnie do długości wejściowego łańcucha znaków.
 
 ### Najprostsze rozwiązanie problemu
 
-Zacznę od najprostszego rozwiązania problemu. Parametrem funkcji jest łańcuch znaków reprezentujący liczbę. Żeby zobaczyć czy ta liczba jest cykliczna wygenruję wyszstkie jej permutacje cykliczne i będę sprawdzał czy mnożąc liczbę przez kolejne wartości od 1 do N wynik będzie znajdował się we wczesniej przygotowanych permutacjach. Proszę spójrz na przykładowe rozwiązanie:
+Zacznę od najprostszego rozwiązania problemu. Parametrem funkcji jest łańcuch znaków reprezentujący liczbę. Żeby zobaczyć czy ta liczba jest cykliczna wygeneruję wszystkie jej permutacje cykliczne i będę sprawdzał czy mnożąc liczbę przez kolejne wartości od 1 do N wynik będzie znajdował się we wcześniej przygotowanych permutacjach. Proszę spójrz na przykładowe rozwiązanie:
 
 ```java
-public boolean isCyclicBruteForce(String number) {
+public boolean isCyclicNaive(String number) {
     String[] permutations = new String[number.length()];
 
     for (int index = 0; index < permutations.length; index++) {
@@ -80,7 +80,7 @@ public boolean isCyclicBruteForce(String number) {
 }
 ```
 
-Pierwsza pętla odpowiedzialna jest za tworznie permutacji cyklicznych. Wewnątrz drugiej pętli sprawdzam czy mnożąc liczbę przez kolejne wartości od 2 do N uzyskam jedną z wcześniej przygotowanych permutacji. Posługuję się tutaj typem `BigInteger` aby móc pracować na liczbach większych niż te, które mogę przechowywać w zmiennej typu `long`.
+Pierwsza pętla odpowiedzialna jest za tworzenie permutacji cyklicznych. Wewnątrz drugiej pętli sprawdzam czy mnożąc liczbę przez kolejne wartości od 2 do N uzyskam jedną z wcześniej przygotowanych permutacji. Posługuję się tutaj typem `BigInteger` aby móc pracować na liczbach większych niż te, które mogę przechowywać w zmiennej typu `long`.
 
 #### Złożoność obliczeniowa
 
@@ -123,9 +123,9 @@ public boolean isCyclicGeneration(String number) {
 
 Na początku ustawiam niezbędne zmienne. Następnie wewnątrz pętli obliczam kolejne wartości ułamka. Tak uzyskane liczby dodaję do bufora `representation`, który następnie porównuję z przekazaną liczbą. 
 
-Warunek `reminder != 1` wykrywa wysąpienie okresu w rozwinięciu dziesiętnym ułamka. Więcej na temat "okresu ułamka" przeczytasz w artykule opisującym [liczby zmiennoprzecinkowe]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}).
+Warunek `reminder != 1` wykrywa wystąpienie okresu w rozwinięciu dziesiętnym ułamka. Więcej na temat "okresu ułamka" przeczytasz w artykule opisującym [liczby zmiennoprzecinkowe]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}).
 
-Warunek `step < generatingPrime` jest potrzebny, aby uninkąć nieskończonej pętli. Taki przypadek mógłby mieć mijesce jeśli metoda jako parametr otrzymałaby liczbę, która nie jest cykliczna.
+Warunek `step < generatingPrime` jest potrzebny, aby uniknąć nieskończonej pętli. Taki przypadek mógłby mieć miejsce jeśli metoda jako parametr otrzymałaby liczbę, która nie jest cykliczna.
 
 #### Złożoność obliczeniowa
 
