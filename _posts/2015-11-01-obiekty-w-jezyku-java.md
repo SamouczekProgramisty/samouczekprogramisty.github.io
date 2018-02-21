@@ -253,7 +253,7 @@ W pierwszym przypadku w konstruktorze zostało użyte słowo kluczowe `this`. By
 Znasz już 2 modyfikatory dostępu, `private` i `public`. Wiesz też, że atrybuty, metody które poprzedzone są modyfikatorem `private` są dostępne wyłącznie w danej klasie. Jak więc z zewnątrz można dowiedzieć się jaka jest wartość atrybutu `started` w instancji klasy `Engine`? Z pomocą przychodzą tak zwane "gettery" i "settery". Jest to nic innego jak specyficzne metody, których jedynym zadaniem jest odpowiednio pobranie bądź ustawienie wartości atrybutu. Poniżej przykłady:
 
 ```java
-engine = Engine(); // tworzymy instancje klasy
+engine = new Engine(); // tworzymy instancje klasy
 engine.isStarted(); // zwraca wartość atrybutu
 engine.setStarted(true); // ustawia wartość atrybutu started w instancji engine
 ```
