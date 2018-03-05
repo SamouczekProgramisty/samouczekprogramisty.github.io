@@ -103,7 +103,7 @@ W dalszej części artykułu skupię się wyłącznie na liczbach zmiennoprzecin
 Liczba zmiennoprzecinkowa to liczba wymierna zapisana w formacie IEEE754. Nazwa zmiennoprzecinkowa wynika z tego, że miejsce przecinka w liczbie zmienia swoje położenie. Spójrz na przykład poniżej:
 
     1234,567
-    1,234567e-3
+    1,234567e+3
 
 Obie te liczby są równe, jednak przecinek w drugiej z nich znajduje się w innym miejscu. Druga liczba zapisana jest w notacji naukowej. 
 
