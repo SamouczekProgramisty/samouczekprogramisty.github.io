@@ -1,22 +1,22 @@
 ---
 title: Wstęp do relacyjnych baz danych
 categories:
-- Strefa zadaniowa
+- Bazy danych
 permalink: /wstep-do-relacyjnych-baz-danych/
 header:
     teaser: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
     overlay_image: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
     caption: "[&copy; liquene](https://www.flickr.com/photos/liquene/3802773731/sizes/l)"
-excerpt: W artykule tym przeczytasz o tym czym jest relacyjny model baz danych. Dowiesz się o tym jak wygląda komunikacja pomiędzy klientem a serwerem bazy danych. Poznasz pojęcia krotki, relacji i atrybutu w kontekście relacyjnych baz danych. Dowiesz się czym jest klucz główny lub obcy. Artykuł zawiera podstawy niezbędne do zrozumienia relacyjnych baz danych. Zapraszam do lektury.
+excerpt: W artykule tym przeczytasz o tym czym jest relacyjny model baz danych. Dowiesz się o tym jak wygląda komunikacja pomiędzy klientem a serwerem bazy danych. Poznasz pojęcia krotki, relacji i atrybutu w kontekście relacyjnych baz danych. Dowiesz się czym jest klucz główny i klucz obcy. Artykuł zawiera podstawy niezbędne do zrozumienia relacyjnych baz danych. Zapraszam do lektury.
 ---
 
 ## Czym jest baza danych
 
 Baza danych to zbiór danych zapisanych w odpowiednim formacie. Format zapisu danych pozwala na dostęp do danych. W zależności od zastosowania dane zapisywane są w różny sposób. Sposób zapisu danych ma wpływ na wydajność poszczególnych operacji (zapisu, odczytu, usunięcia i modyfikacji danych).
 
-Istnieje wiele rodzai baz danych. Jednym z najbardziej popularnych jest relacyjna baza danych. Określenie relacyjna baza danych opisuje bazę danych, w której dane zapisane są w postaci tak zwanych krotek. Krotki mają swoje atrybuty. Każda krotka zapisana jest w relacji. 
+Istnieje wiele rodzai baz danych. Jednym z najbardziej popularnych jest relacyjna baza danych. Określenie relacyjna baza danych opisuje bazę danych, w której dane zapisane są w postaci tak zwanych krotek. Krotki mają swoje atrybuty. Każda krotka zapisana jest w relacji.
 
-Operacje w relacyjnych bazach danych oparte są o [algebrę relacji](https://en.wikipedia.org/wiki/Relational_algebra). Dostęp do danych możliwy jest dzięki użyciu [SQL](https://en.wikipedia.org/wiki/SQL) (ang. _Structured Query Language_). SQL to język charakterystyczny dla baz danych. 
+Operacje w relacyjnych bazach danych oparte są o [algebrę relacji](https://en.wikipedia.org/wiki/Relational_algebra). Dostęp do danych możliwy jest dzięki użyciu [SQL](https://en.wikipedia.org/wiki/SQL) (ang. _Structured Query Language_). SQL to język charakterystyczny dla baz danych.
 
 Możesz spotkać się z wieloma implementacjami relacyjnych baz danych. Kilka najczęściej używanych implementacji możesz znaleźć poniżej:
 
@@ -27,7 +27,7 @@ Możesz spotkać się z wieloma implementacjami relacyjnych baz danych. Kilka na
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2017),
 - [HyperSQL](http://hsqldb.org/).
 
-Bazy danych różnią się między sobą implementacją. Nieznacznie różnią się także wersją SQL, którą obsługują. Chociaż istnieje standard opisujący język SQL istnieją drobne różnice pomiędzy SQL obsługiwanym przez poszczególne bazy danych. Różne wersje SQL nazywane są dialektami.
+Bazy danych różnią się między sobą implementacją. Różnią się także wersją SQL, którą obsługują. Chociaż istnieje standard opisujący język SQL występują drobne różnice pomiędzy SQL obsługiwanym przez poszczególne bazy danych. Różne wersje SQL nazywane są dialektami.
 
 {% capture infoshare %}
 Samouczek Programisty jest jednym z partnerów konferencji [infoShare 2018](https://infoshare.pl).
@@ -41,9 +41,9 @@ infoShare 2018 to konferencja, która odbywa się 22-23 maja w Gdańsku. 6000+ u
 {{ infoshare | markdownify }}
 </div>
 
-### Jak działa relacyjna baza danych
+## Jak działa relacyjna baza danych
 
-Bazy danych używane w środowiskach produkcyjnych składają się z wielu komponentów. W dużym uproszczeniu można powiedzieć, że zawsze występują dwa: klient bazy danych i serwer bazy danych. Serwer bazy danych to program, który potrafi obsłużyć żądania wysyłane przez klienty. Serwer odpowiedzialny jest za zapisywanie danych przechowywanych w bazie.
+Bazy danych używane w środowiskach produkcyjnych składają się z wielu komponentów. W dużym uproszczeniu można powiedzieć, że zawsze występują dwa: klient bazy danych i serwer bazy danych. Serwer bazy danych to program, który potrafi obsłużyć żądania wysyłane przez klienty. Serwer odpowiedzialny jest za zapisywanie i udostępnianie danych przechowywanych w bazie.
 
 Serwer używa pewnego portu, na którym nasłuchuje żądań od klientów. Na przykład [PostgreSQL](https://www.postgresql.org/) domyślnie używa portu 5432.
 
@@ -54,20 +54,20 @@ Klienty wskazują serwer, z którym chcą się połączyć za pomocą URL. W prz
     jdbc:postgresql://some.server.host:5432/database_name
 
 URL ten służy do połączenia się do serwera `some.server.host` na porcie `5432` używając protokołu `jdbc:postgresql`. `database_name` wskazuje bazę danych do której chcemy się połączyć. Jeśli chcesz przeczytać więcej o URL odsyłam Cię do artykułu na temat [protokołu HTTP](% post_url 2018-02-08-protokol-http %).
-    
-Do obsługi takiego połączenia klient potrzebuje odpowiedniego sterownika. Sterownik to klasa obsługująca połączenie. Producenci bazy danych [udostępniają](https://jdbc.postgresql.org/) takie sterowniki. 
+
+Do obsługi takiego połączenia klient potrzebuje odpowiedniego sterownika. Sterownik to klasa obsługująca połączenie. Producenci bazy danych [udostępniają](https://jdbc.postgresql.org/) takie sterowniki.
 
 Klienty używając języka SQL wysyłają żądania do serwera. Dotyczą one dostępu do danych zapisanych w bazie. Wcześniej wspomniany sterownik obsługuje komunikację pomiędzy klientem a serwerem.
 
-Serwer interpretuje te zapytania i pobiera dane z plików zachowanych na dysku serwera[^uproszczenie]. Następnie dane te są zwracane do klienta. Następnie sterownik interpretuje dane przekazane przez protokół, np. JDBC.
+Serwer interpretuje te zapytania i pobiera dane z plików zachowanych na dysku serwera[^uproszczenie]. Następnie dane te są zwracane do klienta, po czym sterownik interpretuje dane przekazane zgodnie z protokołem, np. JDBC.
 
-Bardzo często zapytanie SQL zwraca przetworzone dane do klienta. Przetwarzanie surowych danych odbywa się wówczas po stronie serwera relacyjnej bazy danych.
+Bardzo często zapytanie SQL zwraca przetworzone dane do klienta. Przetwarzanie surowych danych odbywa się po stronie serwera relacyjnej bazy danych.
 
-[^uproszczenie]: Jest to duże uproszczenie. Bazy danych są programami, które są przystosowane do obsługi dużej liczby zapytań. Znane mi relacyjne bazy danych wspierają [ACID](https://en.wikipedia.org/wiki/ACID). Czynniki te sprawiają, że dostęp do danych to coś więcej niż zwykłe "pobieranie danych z dysku".
+[^uproszczenie]: Jest to duże uproszczenie. Bazy danych są programami, które są przystosowane do obsługi dużej liczby zapytań. Znane mi relacyjne bazy danych wspierają [ACID](https://en.wikipedia.org/wiki/ACID). Zapytania często podlegają optymalizacji. Przetwarzanie danych zgodnie z zapytaniem SQL to także robota serwera. Czynniki te sprawiają, że dostęp do danych to coś więcej niż zwykłe "pobieranie danych z dysku".
 
 ## Model relacyjny
 
-Za modelem relacyjnym stoi [algebrę relacji](https://en.wikipedia.org/wiki/Relational_algebra). Jest to matematyczny opis operacji wykonywanych na danych zachowanych w bazie. Możesz w nim przeczytać o sumie zbiorów, iloczynie kartezjańskim etc. Postaram się wytłumaczyć sposób działa baz bez użycia takich pojęć.
+Za modelem relacyjnym stoi [algebra relacji](https://en.wikipedia.org/wiki/Relational_algebra). Jest to matematyczny opis operacji wykonywanych na danych zachowanych w bazie. Możesz w nim przeczytać o sumie zbiorów, iloczynie kartezjańskim etc. Postaram się wytłumaczyć sposób działa baz bez użycia takich pojęć.
 
 Na potrzeby tego artykułu posłużę się wcześniej wspomnianym przykładem magazynu. Załóżmy, że w tym przypadku bazę danych możemy opisać kilkoma zdaniami:
 
@@ -126,9 +126,7 @@ Przykładem krotki zawierającej towar może być:
 
 ### Relacja
 
-W relacyjnym modelu bazy danych relacją określamy zbiór krotek. Skoro pojedyncza krotka to wiersz w tabeli, to zbiór krotek to cała tabela :). Istnieją różne konwencje nazywania relacji. W dalszej części artykułu będę używał liczby mnogiej od nazwy encji. Dla przykładu relacja przechowująca krotki `towar` będzie nazywała się `towary`. Zatem relacja (tabela) w bazie danych będzie miała nazwę `towary`.
-
-Posługując się przykładem magazynu relacją może być zbiór `towary` zawierający informacje o wszystkich towarach. W praktyce jest to tabela. Tabela ta zawiera wiersze i kolumny. 
+W relacyjnym modelu bazy danych relacją określamy zbiór krotek. Skoro pojedyncza krotka to wiersz w tabeli, to zbiór krotek to cała tabela :). Istnieją różne konwencje nazywania relacji. W dalszej części artykułu będę używał liczby mnogiej od nazwy encji. Dla przykładu relacja przechowująca krotki `towar` będzie nazywała się `towary`.
 
 Musisz także wiedzieć, że relacją także możemy określać zależności jakie występują pomiędzy poszczególnymi tabelami. Na przykład tabela `towary` jest powiązana z tabelą `producenci`. Producent produkuje różne towary. Zatem pomiędzy `producenci` a `towary` występuje relacja jeden do wielu - jeden producent produkuje wiele towarów.
 {:.notice--info}
@@ -146,7 +144,7 @@ W modelu relacyjnym krotki w relacji nie mogą się powtarzać (elementy w zbior
 
 ### Klucz główny
 
-Zbiór atrybutów (kolumn w tabeli) tworzy klucz główny. Klucz główny to unikalny identyfikator dla każdego wiersza w tabeli. W większości przypadków tabele zawierają dodatkową kolumnę, która zawiera identyfikator w postaci numeru:
+Zbiór atrybutów (kolumn w tabeli) tworzy klucz główny. Klucz główny to unikalny identyfikator dla każdego wiersza w tabeli. W większości przypadków tabele zawierają dodatkową kolumnę, która zawiera identyfikator w postaci liczby:
 
 | Id `integer` (PK) | Nazwa `varchar` | ... |
 | ----------------- | --------------- | --- |
@@ -155,7 +153,7 @@ Zbiór atrybutów (kolumn w tabeli) tworzy klucz główny. Klucz główny to uni
 | 3                 | lizak           | ... |
 | 4                 | spinacz         | ... |
 
-W tabeli wyżej kolumna `Id` jest kluczem głównym (ang. _primary key_). Tworzenie kluczy głównych przy pomocy numeru pozwala na automatyczne tworzenie nowej wartości klucza dla nowego wiersza. Klucze główne składające się z wielu kolumn nazywa się kluczami złożonymi.
+W tabeli wyżej kolumna `Id` jest kluczem głównym (ang. _primary key_). Tworzenie kluczy głównych przy pomocy liczby pozwala na automatyczne tworzenie nowej wartości klucza dla nowego wiersza. Wystarczy podnieść o 1 największą wartość klucza głównego. Klucze główne składające się z wielu kolumn nazywa się kluczami złożonymi.
 
 Bazy danych optymalizują dostęp do danych przy pomocy klucza głównego. Oznacza to tyle, że pobranie wiersza z tabeli `towary` na podstawie kolumny `Id` będącej kluczem głównym może być bardziej wydajne niż pobranie tego samego wiersza na podstawie wartości kolumny `Nazwa`.
 
@@ -188,32 +186,35 @@ Tabele mogą mieć trzy rodzaje zależności. Każdą z nich opiszę w osobnym p
 
 Przykładem takiej zależności może być samochód - numer rejestracyjny. Każdy numer rejestracyjny przypisany jest do jednego samochodu, podobnie każdy samochód ma tylko jeden numer rejestracyjny. W przypadku magazynu relacją tego typu może być opiekun handlowy - producent. Zależność tego typu reprezentuje dodatkowa kolumna w tabeli:
 
-`producenci`:
+`producenci`
 
-- Id `integer` (PK),
-- Siedziba `varchar`,
-- Rok założenia `integer`.
+| Id `integer` (PK) | Siedziba `varchar` | Rok założenia `integer` |
+| ----------------- | ------------------ | ----------------------- |
+| ...               | ...                | ...                     |
 
-`opiekunowie`:
-- Id `integer` (PK),
-- Nazwisko `varchar`,
-- Producent id `integer` (FK).
+`opiekunowie`
+
+| Id `integer` (PK) | Nazwisko `varchar` | Producent id `integer` (FK) |
+| ----------------- | ------------------ | --------------------------- |
+| ...               | ...                | ...                         |
+
+Kolumna `Producent id` w tabeli `opiekunowie` wskazuje na producenta, za którego jest odpowiedzialny dany opiekun.
 
 ### Jeden do wielu
 
 Przykładem takiej zależności może być towar - producent. Każdy towar produkowany jest przez jednego producenta. Podobnie jak w przypadku reakcji jeden do jednego zależność tego typu uzyskuje się poprzez dodanie odpowiedniej kolumny:
 
-`producenci`:
-- Id `integer` (PK),
-- Siedziba `varchar`,
-- Rok założenia `integer`.
+`producenci`
 
-`towary`:
-- Id `integer` (PK),
-- Nazwa `varchar`,
-- Stan magazynowy `integer`,
-- Cena `double precision`,
-- Producent id `integer` (FK).
+| Id `integer` (PK) | Siedziba `varchar` | Rok założenia `integer` |
+| ----------------- | ------------------ | ----------------------- |
+| ...               | ...                | ...                     |
+
+`towary`
+
+| Id `integer` (PK) | Nazwa `varchar` | ... | Producent id `integer` (FK) |
+| ----------------- | --------------- | --- | --------------------------- |
+| ...               | ...             | ... | ...                         |
 
 Zauważ, że zarówno zależność jeden do wielu, jak i jeden do jednego możliwa jest przy pomocy pojedynczej kolumny.
 
@@ -223,29 +224,37 @@ Zależność tego typu określa się także jako 1 do n.
 
 Zależność wiele do wielu może występować pomiędzy hurtownikami i towarami. Oznacza ona tyle, że wielu hurtowników zaopatruje się w wiele towarów. Ten sam towar pobierany jest przez wielu hurtowników. W przypadku takiej zależności niezbędna jest dodatkowa tabela, która połączy ze sobą dwie tabele:
 
+`towary`
 
-`towary`:
-- Id `integer` (PK),
-- Nazwa `varchar`,
-- Stan magazynowy `integer`,
-- Cena `double precision`,
-- Producent id `integer` (FK).
+| Id `integer` (PK) | Nazwa `varchar` | ... | Producent id `integer` (FK) |
+| ----------------- | --------------- | --- | --------------------------- |
+| ...               | ...             | ... | ...                         |
 
-`hurtownicy`: 
-- Id `integer` (PK),
-- Nazwa hurtowni `varchar`.
+`hurtownicy`
 
-`towary_hurtownicy`:
-- Towar id `integer` (FK),
-- Hurtownik id `integer` (FK).
+| Id `integer` (PK) | Nazwa hurtowni `varchar` |
+| ----------------- | ------------------------ |
+| ...               | ...                      |
+
+`towary_hurtownicy`
+
+| Towar id `integer` (FK) | Hurtownik id `integer` (FK) |
+| ----------------------- | --------------------------- |
+| ...                     | ...                         |
 
 W tym przypadku tabela `towary_hurtownicy` ma dwa klucze obce. Jeden z nich pokazuje na tabelę `towary` drugi na `hurtownicy`. Zauważ, że w przypadku tej tabeli kluczem głównym, który identyfikuje każdy wiersz może być para tych kolumn. Jest to tak zwany klucz złożony.
 
 Zależność tego typu określa się także jako n do m.
 
+## Dodatkowe materiały do nauki
+
+- [Bazy danych - wykłady na UW](http://wazniak.mimuw.edu.pl/index.php?title=Bazy_danych),
+- [Model relacyjny - artykuł na Wikipedii](https://pl.wikipedia.org/wiki/Model_relacyjny),
+- [Model relacyjny - wykład na AGH](http://www.metal.agh.edu.pl/~regulski/bd-podyp/00-wyklady/05_model_relacyjny.pdf).
+
 ## Zadanie do wykonania
 
-Dasz radę zaprojektować bazę danych, do przechowania informacji o wykładach w trakcie konferencji? Spróbuj zrobić to na podstawie agendy znajdującej się na stronie [infoShare](https://infoshare.pl/#outline-agenda). 
+Dasz radę zaprojektować bazę danych, do przechowania informacji o wykładach w trakcie konferencji? Spróbuj zrobić to na podstawie agendy znajdującej się na stronie [infoShare](https://infoshare.pl/#outline-agenda).
 
 ## Podsumowanie
 
