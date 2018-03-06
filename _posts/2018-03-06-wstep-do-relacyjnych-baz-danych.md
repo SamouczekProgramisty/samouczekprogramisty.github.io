@@ -27,10 +27,10 @@ Możesz spotkać się z wieloma implementacjami relacyjnych baz danych. Kilka na
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2017),
 - [HyperSQL](http://hsqldb.org/).
 
-Bazy danych różnią się między sobą implementacją. Nieznacznie różnią się także wersją SQL, którą osbługują. Chociaż istnieje standard opisujący język SQL istnieją drobne różnice pomiędzy SQL obsługiwanym przez poszczególne bazy danych. Różne wersje SQL nazywane są dialektami.
+Bazy danych różnią się między sobą implementacją. Nieznacznie różnią się także wersją SQL, którą obsługują. Chociaż istnieje standard opisujący język SQL istnieją drobne różnice pomiędzy SQL obsługiwanym przez poszczególne bazy danych. Różne wersje SQL nazywane są dialektami.
 
 {% capture infoshare %}
-SamouczekProgramisty jest jednym z partnerów konferencji [infoShare 2018](https://infoshare.pl).
+Samouczek Programisty jest jednym z partnerów konferencji [infoShare 2018](https://infoshare.pl).
 
 infoShare 2018 to konferencja, która odbywa się 22-23 maja w Gdańsku. 6000+ uczestników, 150+ prelegentów na 6 scenach wraz z 250+ startupami, 150+ inwestorami. Ja na pewno tam będę ;). To jak, spotkamy się na miejscu?
 
@@ -59,7 +59,7 @@ Do obsługi takiego połączenia klient potrzebuje odpowiedniego sterownika. Ste
 
 Klienty używając języka SQL wysyłają żądania do serwera. Dotyczą one dostępu do danych zapisanych w bazie. Wcześniej wspomniany sterownik obsługuje komunikację pomiędzy klientem a serwerem.
 
-Serwer interpretuje te zapytania i pobiera dane z plików zachowanych na dysku serwera[^uproszczenie]. Następnie dane te są zwracane do klienta. Następnie sterownik inerpretuje dane przekazane przez protokół, np. JDBC.
+Serwer interpretuje te zapytania i pobiera dane z plików zachowanych na dysku serwera[^uproszczenie]. Następnie dane te są zwracane do klienta. Następnie sterownik interpretuje dane przekazane przez protokół, np. JDBC.
 
 Bardzo często zapytanie SQL zwraca przetworzone dane do klienta. Przetwarzanie surowych danych odbywa się wówczas po stronie serwera relacyjnej bazy danych.
 
@@ -74,7 +74,7 @@ Na potrzeby tego artykułu posłużę się wcześniej wspomnianym przykładem ma
 - W magazynie przechowujemy różne rodzaje towarów,
 - Poszczególne towary produkowane są przez różnych producentów,
 - Różni hurtownicy pobierają różne towary z magazynu,
-- Każdy procucent ma jednego opiekuna handlowego.
+- Każdy producent ma jednego opiekuna handlowego.
 
 ### Encja
 
@@ -86,7 +86,7 @@ Zrób proste ćwiczenie. Wybierz wszystkie rzeczowniki z listy, którą umieści
 - hurtownik,
 - opiekun handlowy.
 
-Można powiedzieć, że encje to rzeczowniki wyjęte z opisu bazy danych ;). Encje to rodzaje "obiektów" przechowywanych w bazie. Na przykład towar, czy producent. Odpowiednikiem encji w programowaniu obiektowym jest klasa. Zatem w przypadku bazy danych opisuącej magazyn występuje pięć rodzaji encji.
+Można powiedzieć, że encje to rzeczowniki wyjęte z opisu bazy danych ;). Encje to rodzaje "obiektów" przechowywanych w bazie. Na przykład towar, czy producent. Odpowiednikiem encji w programowaniu obiektowym jest klasa. Zatem w przypadku bazy danych opisującej magazyn występuje pięć rodzai encji.
 
 Sama encja nie jest ściśle związana z modelem relacyjnym. Definicja ta jest jednak używana w trakcie projektowania baz danych.
 
@@ -94,7 +94,7 @@ Sama encja nie jest ściśle związana z modelem relacyjnym. Definicja ta jest j
 
 Każda z encji ma swoje właściwości. Na przykład opiekun handlowy ma numer telefonu, imię czy nazwisko. Każdy z tych elementów to atrybut. Podobnie jak w programowaniu obiektowym instancje mają swoje atrybuty.
 
-Podobnie jak w języku programowania tak i tutaj atrybuty mają swoje typy. Relacyjne bazy danych obsługują różne typy. W większoścy przypadków typy z języków programowania mają swoje odpowiedniki w typach w bazie danych. Na przykład:
+Podobnie jak w języku programowania tak i tutaj atrybuty mają swoje typy. Relacyjne bazy danych obsługują różne typy. W większości przypadków typy z języków programowania mają swoje odpowiedniki w typach w bazie danych. Na przykład:
 
 | Typ w języku Java | Typ w PostgreSQL   |
 | ----------------- | ------------------ |
@@ -161,7 +161,7 @@ Bazy danych optymalizują dostęp do danych przy pomocy klucza głównego. Oznac
 
 ### Klucz obcy
 
-Wspomniałem wyżej, że tabele mogą być ze sobą powiązane. Te zależności pomiędzy tabelami pokazane są przez klucze obce (ang. _foreign key_). Klucz obcy to dodatkowa kolumna (lub kolumny), która pokazuje zaleźność. Na przykład tabela `producenci` może wyglądać następująco:
+Wspomniałem wyżej, że tabele mogą być ze sobą powiązane. Te zależności pomiędzy tabelami pokazane są przez klucze obce (ang. _foreign key_). Klucz obcy to dodatkowa kolumna (lub kolumny), która pokazuje zależność. Na przykład tabela `producenci` może wyglądać następująco:
 
 | Id `integer` (PK) | Siedziba `varchar` | Rok założenia `integer` |
 | ----------------- | ------------------ | ----------------------- |
@@ -169,7 +169,7 @@ Wspomniałem wyżej, że tabele mogą być ze sobą powiązane. Te zależności 
 | 2                 | Warszawa           | 1980                    |
 | 3                 | Kraków             | 1948                    |
 
-Dodatokowa kolumna `producent_id` znajdująca się wewnątrz tabeli `towary` pokazuje zależność pomiędzy towarami a producentami:
+Dodatkowa kolumna `producent_id` znajdująca się wewnątrz tabeli `towary` pokazuje zależność pomiędzy towarami a producentami:
 
 | Id `integer` (PK) | Nazwa `varchar` | Producent id `integer` (FK) | ... |
 | ----------------- | --------------- | --------------------------- | --- |
@@ -186,7 +186,7 @@ Tabele mogą mieć trzy rodzaje zależności. Każdą z nich opiszę w osobnym p
 
 ### Jeden do jednego
 
-Przykładem takiej zależności może być samochód - numer rejestracyjny. Każdy numer rejestracyjny przypisany jest do jednego samochodu, podobnie każdy samochód ma tylko jeden numer rejetracyjny. W przypadku magazynu relacją tego typu może być opiekun handlowy - producent. Zależność tego typu reprezentuje dodatkowa kolumna w tabeli:
+Przykładem takiej zależności może być samochód - numer rejestracyjny. Każdy numer rejestracyjny przypisany jest do jednego samochodu, podobnie każdy samochód ma tylko jeden numer rejestracyjny. W przypadku magazynu relacją tego typu może być opiekun handlowy - producent. Zależność tego typu reprezentuje dodatkowa kolumna w tabeli:
 
 `producenci`:
 
@@ -201,7 +201,7 @@ Przykładem takiej zależności może być samochód - numer rejestracyjny. Każ
 
 ### Jeden do wielu
 
-Przykładem takiej zależności może być towar - producent. Każdy towar produkowany jest przez jednego producenta. Podobnie jak w przypadku rekacji jeden do jednego zależność tego typu uzyskuje się poprzez dodanie odpowiedniej kolumny:
+Przykładem takiej zależności może być towar - producent. Każdy towar produkowany jest przez jednego producenta. Podobnie jak w przypadku reakcji jeden do jednego zależność tego typu uzyskuje się poprzez dodanie odpowiedniej kolumny:
 
 `producenci`:
 - Id `integer` (PK),
@@ -215,13 +215,13 @@ Przykładem takiej zależności może być towar - producent. Każdy towar produ
 - Cena `double precision`,
 - Producent id `integer` (FK).
 
-Zauważ, że zarówno zależnośc jeden do wielu, jak i jeden do jednego możliwa jest przy pomocy pojedynczej kolumny.
+Zauważ, że zarówno zależność jeden do wielu, jak i jeden do jednego możliwa jest przy pomocy pojedynczej kolumny.
 
 Zależność tego typu określa się także jako 1 do n.
 
 ### Wiele do wielu
 
-Zależność wiele do wielu może występować pomiędzy hurtownikami i towarami. Oznacza ona tyle, że wielu hurtowników zaopatuje się w wiele towarów. Ten sam towar pobierany jest przez wielu hurtowników. W przypadku takiej zależności niezbędna jest dodatkowa tabela, która połączy ze sobą dwie tabele:
+Zależność wiele do wielu może występować pomiędzy hurtownikami i towarami. Oznacza ona tyle, że wielu hurtowników zaopatruje się w wiele towarów. Ten sam towar pobierany jest przez wielu hurtowników. W przypadku takiej zależności niezbędna jest dodatkowa tabela, która połączy ze sobą dwie tabele:
 
 
 `towary`:
@@ -239,7 +239,7 @@ Zależność wiele do wielu może występować pomiędzy hurtownikami i towarami
 - Towar id `integer` (FK),
 - Hurtownik id `integer` (FK).
 
-W tym praypadku tabela `towary_hurtownicy` ma dwa klucze obce. Jeden z nich pokazuje na tabelę `towary` drugi na `hurtownicy`. Zauważ, że w przypadku tej tabeli kluczem głównym, który identyfikuje każdy wiersz może być para tych kolumn. Jest to tak zwany klucz złożony.
+W tym przypadku tabela `towary_hurtownicy` ma dwa klucze obce. Jeden z nich pokazuje na tabelę `towary` drugi na `hurtownicy`. Zauważ, że w przypadku tej tabeli kluczem głównym, który identyfikuje każdy wiersz może być para tych kolumn. Jest to tak zwany klucz złożony.
 
 Zależność tego typu określa się także jako n do m.
 
