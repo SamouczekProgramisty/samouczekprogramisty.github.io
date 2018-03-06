@@ -1,0 +1,1067 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Wstęp do relacyjnych baz danych - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="W artykule tym przeczytasz o tym czym jest relacyjny model baz danych. Dowiesz się o tym jak wygląda komunikacja pomiędzy klientem a serwerem bazy danych. Poznasz pojęcia krotki, relacji i atrybutu w kontekście relacyjnych baz danych. Dowiesz się czym jest klucz główny i klucz obcy. Artykuł zawiera podstawy niezbędne do zrozumienia relacyjnych baz danych. Zapraszam do lektury.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wstęp do relacyjnych baz danych">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/wstep-do-relacyjnych-baz-danych/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/wstep-do-relacyjnych-baz-danych/">
+
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o tym czym jest relacyjny model baz danych. Dowiesz się o tym jak wygląda komunikacja pomiędzy klientem a serwerem bazy danych. Poznasz pojęcia krotki, relacji i atrybutu w kontekście relacyjnych baz danych. Dowiesz się czym jest klucz główny i klucz obcy. Artykuł zawiera podstawy niezbędne do zrozumienia relacyjnych baz danych. Zapraszam do lektury.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-03-06T00:00:00+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Wstęp do relacyjnych baz danych
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o tym czym jest relacyjny model baz danych. Dowiesz się o tym jak wygląda komunikacja pomiędzy klientem a serwerem bazy danych. Poznasz pojęcia krotki, relacji i atrybutu w kontekście relacyjnych baz danych. Dowiesz się czym jest klucz główny i klucz obcy. Artykuł zawiera podstawy niezbędne do zrozumienia relacyjnych baz danych. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/liquene/3802773731/sizes/l">© liquene</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wstęp do relacyjnych baz danych</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wstęp do relacyjnych baz danych">
+    <meta itemprop="description" content="W artykule tym przeczytasz o tym czym jest relacyjny model baz danych. Dowiesz się o tym jak wygląda komunikacja pomiędzy klientem a serwerem bazy danych. Poznasz pojęcia krotki, relacji i atrybutu w kontekście relacyjnych baz danych. Dowiesz się czym jest klucz główny i klucz obcy. Artykuł zawiera podstawy niezbędne do zrozumienia relacyjnych baz danych. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="March 06, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#czym-jest-baza-danych">Czym jest baza danych</a></li>
+<li class="toc-entry toc-h2"><a href="#jak-działa-relacyjna-baza-danych">Jak działa relacyjna baza danych</a></li>
+<li class="toc-entry toc-h2"><a href="#model-relacyjny">Model relacyjny</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#encja">Encja</a></li>
+<li class="toc-entry toc-h3"><a href="#atrybut">Atrybut</a></li>
+<li class="toc-entry toc-h3"><a href="#krotka">Krotka</a></li>
+<li class="toc-entry toc-h3"><a href="#relacja">Relacja</a></li>
+<li class="toc-entry toc-h3"><a href="#klucz-główny">Klucz główny</a></li>
+<li class="toc-entry toc-h3"><a href="#klucz-obcy">Klucz obcy</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#rodzaje-powiązań">Rodzaje powiązań</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#jeden-do-jednego">Jeden do jednego</a></li>
+<li class="toc-entry toc-h3"><a href="#jeden-do-wielu">Jeden do wielu</a></li>
+<li class="toc-entry toc-h3"><a href="#wiele-do-wielu">Wiele do wielu</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#zadanie-do-wykonania">Zadanie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        <h2 id="czym-jest-baza-danych">Czym jest baza danych</h2>
+
+<p>Baza danych to zbiór danych zapisanych w odpowiednim formacie. Format zapisu danych pozwala na dostęp do danych. W zależności od zastosowania dane zapisywane są w różny sposób. Sposób zapisu danych ma wpływ na wydajność poszczególnych operacji (zapisu, odczytu, usunięcia i modyfikacji danych).</p>
+
+<p>Istnieje wiele rodzai baz danych. Jednym z najbardziej popularnych jest relacyjna baza danych. Określenie relacyjna baza danych opisuje bazę danych, w której dane zapisane są w postaci tak zwanych krotek. Krotki mają swoje atrybuty. Każda krotka zapisana jest w relacji.</p>
+
+<p>Operacje w relacyjnych bazach danych oparte są o <a href="https://en.wikipedia.org/wiki/Relational_algebra">algebrę relacji</a>. Dostęp do danych możliwy jest dzięki użyciu <a href="https://en.wikipedia.org/wiki/SQL">SQL</a> (ang. <em>Structured Query Language</em>). SQL to język charakterystyczny dla baz danych.</p>
+
+<p>Możesz spotkać się z wieloma implementacjami relacyjnych baz danych. Kilka najczęściej używanych implementacji możesz znaleźć poniżej:</p>
+
+<ul>
+  <li><a href="https://www.postgresql.org/">PostgreSQL</a>,</li>
+  <li><a href="https://www.mysql.com/">MySQL</a>,</li>
+  <li><a href="https://www.sqlite.org/index.html">SQLite</a>,</li>
+  <li><a href="https://www.oracle.com/database/index.html">Oracle</a>,</li>
+  <li><a href="https://www.microsoft.com/en-us/sql-server/sql-server-2017">SQL Server</a>,</li>
+  <li><a href="http://hsqldb.org/">HyperSQL</a>.</li>
+</ul>
+
+<p>Bazy danych różnią się między sobą implementacją. Różnią się także wersją SQL, którą obsługują. Chociaż istnieje standard opisujący język SQL występują drobne różnice pomiędzy SQL obsługiwanym przez poszczególne bazy danych. Różne wersje SQL nazywane są dialektami.</p>
+
+<div class="notice--success">
+
+<p>Samouczek Programisty jest jednym z partnerów konferencji <a href="https://infoshare.pl">infoShare 2018</a>.</p>
+
+<p>infoShare 2018 to konferencja, która odbywa się 22-23 maja w Gdańsku. 6000+ uczestników, 150+ prelegentów na 6 scenach wraz z 250+ startupami, 150+ inwestorami. Ja na pewno tam będę ;). To jak, spotkamy się na miejscu?</p>
+
+<p><a href="https://infoshare.pl"><img src="/assets/images/2018/03/06_infoshare_logo.png" /></a></p>
+
+</div>
+
+<h2 id="jak-działa-relacyjna-baza-danych">Jak działa relacyjna baza danych</h2>
+
+<p>Bazy danych używane w środowiskach produkcyjnych składają się z wielu komponentów. W dużym uproszczeniu można powiedzieć, że zawsze występują dwa: klient bazy danych i serwer bazy danych. Serwer bazy danych to program, który potrafi obsłużyć żądania wysyłane przez klienty. Serwer odpowiedzialny jest za zapisywanie i udostępnianie danych przechowywanych w bazie.</p>
+
+<p>Serwer używa pewnego portu, na którym nasłuchuje żądań od klientów. Na przykład <a href="https://www.postgresql.org/">PostgreSQL</a> domyślnie używa portu 5432.</p>
+
+<p>W większości znanych mi przypadków serwery używają protokołu <a href="https://en.wikipedia.org/wiki/Open_Database_Connectivity">ODBC</a> (ang. <em>Open Database Connectivity</em>) do komunikacji z klientami. Jest to protokół, który zapewnia spójny dostęp do danych, niezależny od serwera bazy danych. Sewery udostępniają także protokół <a href="https://en.wikipedia.org/wiki/Java_Database_Connectivity">JDBC</a> (ang. <em>Java Database Connectivity</em>).</p>
+
+<p>Klienty wskazują serwer, z którym chcą się połączyć za pomocą URL. W przypadku bazy danych PostgreSQL URL może wyglądać następująco:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jdbc:postgresql://some.server.host:5432/database_name
+</code></pre></div></div>
+
+<p>URL ten służy do połączenia się do serwera <code class="highlighter-rouge">some.server.host</code> na porcie <code class="highlighter-rouge">5432</code> używając protokołu <code class="highlighter-rouge">jdbc:postgresql</code>. <code class="highlighter-rouge">database_name</code> wskazuje bazę danych do której chcemy się połączyć. Jeśli chcesz przeczytać więcej o URL odsyłam Cię do artykułu na temat <a href="% post_url 2018-02-08-protokol-http %">protokołu HTTP</a>.</p>
+
+<p>Do obsługi takiego połączenia klient potrzebuje odpowiedniego sterownika. Sterownik to klasa obsługująca połączenie. Producenci bazy danych <a href="https://jdbc.postgresql.org/">udostępniają</a> takie sterowniki.</p>
+
+<p>Klienty używając języka SQL wysyłają żądania do serwera. Dotyczą one dostępu do danych zapisanych w bazie. Wcześniej wspomniany sterownik obsługuje komunikację pomiędzy klientem a serwerem.</p>
+
+<p>Serwer interpretuje te zapytania i pobiera dane z plików zachowanych na dysku serwera<sup id="fnref:uproszczenie"><a href="#fn:uproszczenie" class="footnote">1</a></sup>. Następnie dane te są zwracane do klienta, po czym sterownik interpretuje dane przekazane zgodnie z protokołem, np. JDBC.</p>
+
+<p>Bardzo często zapytanie SQL zwraca przetworzone dane do klienta. Przetwarzanie surowych danych odbywa się po stronie serwera relacyjnej bazy danych.</p>
+
+<h2 id="model-relacyjny">Model relacyjny</h2>
+
+<p>Za modelem relacyjnym stoi <a href="https://en.wikipedia.org/wiki/Relational_algebra">algebra relacji</a>. Jest to matematyczny opis operacji wykonywanych na danych zachowanych w bazie. Możesz w nim przeczytać o sumie zbiorów, iloczynie kartezjańskim etc. Postaram się wytłumaczyć sposób działa baz bez użycia takich pojęć.</p>
+
+<p>Na potrzeby tego artykułu posłużę się wcześniej wspomnianym przykładem magazynu. Załóżmy, że w tym przypadku bazę danych możemy opisać kilkoma zdaniami:</p>
+
+<ul>
+  <li>W magazynie przechowujemy różne rodzaje towarów,</li>
+  <li>Poszczególne towary produkowane są przez różnych producentów,</li>
+  <li>Różni hurtownicy pobierają różne towary z magazynu,</li>
+  <li>Każdy producent ma jednego opiekuna handlowego.</li>
+</ul>
+
+<h3 id="encja">Encja</h3>
+
+<p>Zrób proste ćwiczenie. Wybierz wszystkie rzeczowniki z listy, którą umieściłem wyżej. Możesz ją porównać z tą listą:</p>
+
+<ul>
+  <li>magazyn,</li>
+  <li>towar,</li>
+  <li>producent,</li>
+  <li>hurtownik,</li>
+  <li>opiekun handlowy.</li>
+</ul>
+
+<p>Można powiedzieć, że encje to rzeczowniki wyjęte z opisu bazy danych ;). Encje to rodzaje “obiektów” przechowywanych w bazie. Na przykład towar, czy producent. Odpowiednikiem encji w programowaniu obiektowym jest klasa. Zatem w przypadku bazy danych opisującej magazyn występuje pięć rodzai encji.</p>
+
+<p>Sama encja nie jest ściśle związana z modelem relacyjnym. Definicja ta jest jednak używana w trakcie projektowania baz danych.</p>
+
+<h3 id="atrybut">Atrybut</h3>
+
+<p>Każda z encji ma swoje właściwości. Na przykład opiekun handlowy ma numer telefonu, imię czy nazwisko. Każdy z tych elementów to atrybut. Podobnie jak w programowaniu obiektowym instancje mają swoje atrybuty.</p>
+
+<p>Podobnie jak w języku programowania tak i tutaj atrybuty mają swoje typy. Relacyjne bazy danych obsługują różne typy. W większości przypadków typy z języków programowania mają swoje odpowiedniki w typach w bazie danych. Na przykład:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Typ w języku Java</th>
+      <th>Typ w PostgreSQL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">String</code></td>
+      <td><code class="highlighter-rouge">varchar</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">boolean</code></td>
+      <td><code class="highlighter-rouge">boolean</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">double</code></td>
+      <td><code class="highlighter-rouge">double precision</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">byte[]</code></td>
+      <td><code class="highlighter-rouge">bytea</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">int</code></td>
+      <td><code class="highlighter-rouge">integer</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Istnieją jednak typy, które nie mają swojego dokładnego odwzorowania w niektórych językach programowania, na przykład:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">box</code>,</li>
+  <li><code class="highlighter-rouge">decimal(p, s)</code>,</li>
+  <li><code class="highlighter-rouge">polygon</code>.</li>
+</ul>
+
+<p>Te różnice pokazują, że nie zawsze da się przenieść świat relacyjnej bazy danych do świata programowania obiektowego. Tematyce mapowania obiektowo-relacyjnego (ang. <em>object-relational mapping</em>) poświęcę osobny artykuł.</p>
+
+<h3 id="krotka">Krotka</h3>
+
+<p>Krotka to zbiór atrybutów. Upraszczając można powiedzieć, że krotka w modelu relacyjnym odpowiada instancji obiektu w programowaniu obiektowym<sup id="fnref:mapowanie"><a href="#fn:mapowanie" class="footnote">2</a></sup>. Krotki często prezentowane są w postaci wiersza w tabeli gdzie każda kolumna odpowiada poszczególnym atrybutom.</p>
+
+<p>Przykładem krotki zawierającej towar może być:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nazwa <code class="highlighter-rouge">varchar</code></th>
+      <th>Stan magazynowy <code class="highlighter-rouge">integer</code></th>
+      <th>Cena <code class="highlighter-rouge">double precision</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>trampki</td>
+      <td>10</td>
+      <td>99.99</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="relacja">Relacja</h3>
+
+<p>W relacyjnym modelu bazy danych relacją określamy zbiór krotek. Skoro pojedyncza krotka to wiersz w tabeli, to zbiór krotek to cała tabela :). Istnieją różne konwencje nazywania relacji. W dalszej części artykułu będę używał liczby mnogiej od nazwy encji. Dla przykładu relacja przechowująca krotki <code class="highlighter-rouge">towar</code> będzie nazywała się <code class="highlighter-rouge">towary</code>.</p>
+
+<p class="notice--info">Musisz także wiedzieć, że relacją także możemy określać zależności jakie występują pomiędzy poszczególnymi tabelami. Na przykład tabela <code class="highlighter-rouge">towary</code> jest powiązana z tabelą <code class="highlighter-rouge">producenci</code>. Producent produkuje różne towary. Zatem pomiędzy <code class="highlighter-rouge">producenci</code> a <code class="highlighter-rouge">towary</code> występuje relacja jeden do wielu - jeden producent produkuje wiele towarów.</p>
+
+<p>Zbierając kilka krotek, relacja <code class="highlighter-rouge">towary</code> może wyglądać następująco:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nazwa <code class="highlighter-rouge">varchar</code></th>
+      <th>Stan magazynowy <code class="highlighter-rouge">integer</code></th>
+      <th>Cena <code class="highlighter-rouge">double precision</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>trampki</td>
+      <td>10</td>
+      <td>99.99</td>
+    </tr>
+    <tr>
+      <td>sweter</td>
+      <td>0</td>
+      <td>299.99</td>
+    </tr>
+    <tr>
+      <td>lizak</td>
+      <td>2500</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <td>spinacz</td>
+      <td>500</td>
+      <td>0.01</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>W modelu relacyjnym krotki w relacji nie mogą się powtarzać (elementy w zbiorze są unikalne). W praktyce relacyjne bazy danych posługujące się SQL pozwalają na duplikaty wierszy w tabelach. Sam język SQL pozwala na pobranie unikalnych elementów z danej tabeli.</p>
+
+<h3 id="klucz-główny">Klucz główny</h3>
+
+<p>Zbiór atrybutów (kolumn w tabeli) tworzy klucz główny. Klucz główny to unikalny identyfikator dla każdego wiersza w tabeli. W większości przypadków tabele zawierają dodatkową kolumnę, która zawiera identyfikator w postaci liczby:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id <code class="highlighter-rouge">integer</code> (PK)</th>
+      <th>Nazwa <code class="highlighter-rouge">varchar</code></th>
+      <th>…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>trampki</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>sweter</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>lizak</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>spinacz</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>W tabeli wyżej kolumna <code class="highlighter-rouge">Id</code> jest kluczem głównym (ang. <em>primary key</em>). Tworzenie kluczy głównych przy pomocy liczby pozwala na automatyczne tworzenie nowej wartości klucza dla nowego wiersza. Wystarczy podnieść o 1 największą wartość klucza głównego. Klucze główne składające się z wielu kolumn nazywa się kluczami złożonymi.</p>
+
+<p>Bazy danych optymalizują dostęp do danych przy pomocy klucza głównego. Oznacza to tyle, że pobranie wiersza z tabeli <code class="highlighter-rouge">towary</code> na podstawie kolumny <code class="highlighter-rouge">Id</code> będącej kluczem głównym może być bardziej wydajne niż pobranie tego samego wiersza na podstawie wartości kolumny <code class="highlighter-rouge">Nazwa</code>.</p>
+
+<h3 id="klucz-obcy">Klucz obcy</h3>
+
+<p>Wspomniałem wyżej, że tabele mogą być ze sobą powiązane. Te zależności pomiędzy tabelami pokazane są przez klucze obce (ang. <em>foreign key</em>). Klucz obcy to dodatkowa kolumna (lub kolumny), która pokazuje zależność. Na przykład tabela <code class="highlighter-rouge">producenci</code> może wyglądać następująco:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id <code class="highlighter-rouge">integer</code> (PK)</th>
+      <th>Siedziba <code class="highlighter-rouge">varchar</code></th>
+      <th>Rok założenia <code class="highlighter-rouge">integer</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Wrocław</td>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Warszawa</td>
+      <td>1980</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Kraków</td>
+      <td>1948</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Dodatkowa kolumna <code class="highlighter-rouge">producent_id</code> znajdująca się wewnątrz tabeli <code class="highlighter-rouge">towary</code> pokazuje zależność pomiędzy towarami a producentami:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id <code class="highlighter-rouge">integer</code> (PK)</th>
+      <th>Nazwa <code class="highlighter-rouge">varchar</code></th>
+      <th>Producent id <code class="highlighter-rouge">integer</code> (FK)</th>
+      <th>…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>trampki</td>
+      <td>1</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>sweter</td>
+      <td>2</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>lizak</td>
+      <td>3</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>spinacz</td>
+      <td>3</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taka tabela pokazuje, że trampki produkowane są przez producenta z Wrocławia, swetry przez producenta z Warszawy. Producent z Krakowa produkuje lizaki i spinacze.</p>
+
+<h2 id="rodzaje-powiązań">Rodzaje powiązań</h2>
+
+<p>Tabele mogą mieć trzy rodzaje zależności. Każdą z nich opiszę w osobnym podpunkcie.</p>
+
+<h3 id="jeden-do-jednego">Jeden do jednego</h3>
+
+<p>Przykładem takiej zależności może być samochód - numer rejestracyjny. Każdy numer rejestracyjny przypisany jest do jednego samochodu, podobnie każdy samochód ma tylko jeden numer rejestracyjny. W przypadku magazynu relacją tego typu może być opiekun handlowy - producent. Zależność tego typu reprezentuje dodatkowa kolumna w tabeli:</p>
+
+<p><code class="highlighter-rouge">producenci</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id <code class="highlighter-rouge">integer</code> (PK)</th>
+      <th>Siedziba <code class="highlighter-rouge">varchar</code></th>
+      <th>Rok założenia <code class="highlighter-rouge">integer</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="highlighter-rouge">opiekunowie</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id <code class="highlighter-rouge">integer</code> (PK)</th>
+      <th>Nazwisko <code class="highlighter-rouge">varchar</code></th>
+      <th>Producent id <code class="highlighter-rouge">integer</code> (FK)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Kolumna <code class="highlighter-rouge">Producent id</code> w tabeli <code class="highlighter-rouge">opiekunowie</code> wskazuje na producenta, za którego jest odpowiedzialny dany opiekun.</p>
+
+<h3 id="jeden-do-wielu">Jeden do wielu</h3>
+
+<p>Przykładem takiej zależności może być towar - producent. Każdy towar produkowany jest przez jednego producenta. Podobnie jak w przypadku reakcji jeden do jednego zależność tego typu uzyskuje się poprzez dodanie odpowiedniej kolumny:</p>
+
+<p><code class="highlighter-rouge">producenci</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id <code class="highlighter-rouge">integer</code> (PK)</th>
+      <th>Siedziba <code class="highlighter-rouge">varchar</code></th>
+      <th>Rok założenia <code class="highlighter-rouge">integer</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="highlighter-rouge">towary</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id <code class="highlighter-rouge">integer</code> (PK)</th>
+      <th>Nazwa <code class="highlighter-rouge">varchar</code></th>
+      <th>…</th>
+      <th>Producent id <code class="highlighter-rouge">integer</code> (FK)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Zauważ, że zarówno zależność jeden do wielu, jak i jeden do jednego możliwa jest przy pomocy pojedynczej kolumny.</p>
+
+<p>Zależność tego typu określa się także jako 1 do n.</p>
+
+<h3 id="wiele-do-wielu">Wiele do wielu</h3>
+
+<p>Zależność wiele do wielu może występować pomiędzy hurtownikami i towarami. Oznacza ona tyle, że wielu hurtowników zaopatruje się w wiele towarów. Ten sam towar pobierany jest przez wielu hurtowników. W przypadku takiej zależności niezbędna jest dodatkowa tabela, która połączy ze sobą dwie tabele:</p>
+
+<p><code class="highlighter-rouge">towary</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id <code class="highlighter-rouge">integer</code> (PK)</th>
+      <th>Nazwa <code class="highlighter-rouge">varchar</code></th>
+      <th>…</th>
+      <th>Producent id <code class="highlighter-rouge">integer</code> (FK)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="highlighter-rouge">hurtownicy</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id <code class="highlighter-rouge">integer</code> (PK)</th>
+      <th>Nazwa hurtowni <code class="highlighter-rouge">varchar</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="highlighter-rouge">towary_hurtownicy</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Towar id <code class="highlighter-rouge">integer</code> (FK)</th>
+      <th>Hurtownik id <code class="highlighter-rouge">integer</code> (FK)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>W tym przypadku tabela <code class="highlighter-rouge">towary_hurtownicy</code> ma dwa klucze obce. Jeden z nich pokazuje na tabelę <code class="highlighter-rouge">towary</code> drugi na <code class="highlighter-rouge">hurtownicy</code>. Zauważ, że w przypadku tej tabeli kluczem głównym, który identyfikuje każdy wiersz może być para tych kolumn. Jest to tak zwany klucz złożony.</p>
+
+<p>Zależność tego typu określa się także jako n do m.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<ul>
+  <li><a href="http://wazniak.mimuw.edu.pl/index.php?title=Bazy_danych">Bazy danych - wykłady na UW</a>,</li>
+  <li><a href="https://pl.wikipedia.org/wiki/Model_relacyjny">Model relacyjny - artykuł na Wikipedii</a>,</li>
+  <li><a href="http://www.metal.agh.edu.pl/~regulski/bd-podyp/00-wyklady/05_model_relacyjny.pdf">Model relacyjny - wykład na AGH</a>.</li>
+</ul>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>Dasz radę zaprojektować bazę danych, do przechowania informacji o wykładach w trakcie konferencji? Spróbuj zrobić to na podstawie agendy znajdującej się na stronie <a href="https://infoshare.pl/#outline-agenda">infoShare</a>.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>W dzisiejszym artykule przeczytałeś o bazach danych. Poznałeś sposób komunikacji pomiędzy klientem a serwerem. Dowiedziałeś się czym jest model relacyjny. Wiesz czym jest relacja, krotka czy atrybut w kontekście modelu relacyjnego. Zdobytą wiedzę mogłeś przećwiczyć rozwiązując zadanie do wykonania. Te postawy pozwolą Ci lepiej zrozumieć SQL i mapowanie obiektowo relacyjne.</p>
+
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Trzymaj się i do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:uproszczenie">
+      <p>Jest to duże uproszczenie. Bazy danych są programami, które są przystosowane do obsługi dużej liczby zapytań. Znane mi relacyjne bazy danych wspierają <a href="https://en.wikipedia.org/wiki/ACID">ACID</a>. Zapytania często podlegają optymalizacji. Przetwarzanie danych zgodnie z zapytaniem SQL to także robota serwera. Czynniki te sprawiają, że dostęp do danych to coś więcej niż zwykłe “pobieranie danych z dysku”. <a href="#fnref:uproszczenie" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:mapowanie">
+      <p>Nie jest to do końca prawda, na przykład w przypadku relacji wiele do wielu krotki w relacji łączącej nie muszą mieć odpowiadającego im obiektu w języku programowania. <a href="#fnref:mapowanie" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        <div class="mailerlite__form">
+            <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+        </div>
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#bazy-danych" class="page__taxonomy-item" rel="tag">Bazy danych</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-03-06T00:00:00+01:00">March 06, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwstep-do-relacyjnych-baz-danych%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwstep-do-relacyjnych-baz-danych%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-czy-liczba-jest-cykliczna/" class="pagination--pager" title="Samouczek na rozmowie - czy liczba jest cykliczna
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2018/02/08_protokol_http_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/protokol-http/" rel="permalink">Protokół HTTP
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2018/01/22_rest_web_service_2_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-2/" rel="permalink">REST web service z Java EE część 2
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzys...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/" rel="permalink">Struktury danych - tablica asocjacyjna
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  12 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację ...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/wstep-do-relacyjnych-baz-danych/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
