@@ -28,6 +28,21 @@ O tym czym jest JDK i czym różni się od JRE pisałem w jednym z pierwszych ar
 - `javac` to kompilator, który jest w stanie utworzyć plik class z pliku java,
 - `jar` to narzędzie, które jest w stanie tworzyć pliki jar.
 
+{% capture zmienna %}
+Programy `javac`, `java` czy `jar` dostępne są w katalogu, w którym zainstalowałeś JDK. W zależności od systemu operacyjnego katalog ten może być różny. W niektórych systemach operacyjnych po instalacji programy te od razu dostępne są na ścieżce przeszukiwania. Innymi słowy dostępne są w jednym z katalogów wkazanych przez zmienną środowiskową `PATH`. 
+
+Jeśli w Twoim przypadku katalog gdzie zainstalowałeś JDK nie znajduje się w zmiennej środowiskowej `PATH` wówczas każdy z tych programów bedziesz musiał pprzedzać pełną ścieżką. Na przykład:
+
+* `C:\Program Files\Java\jdk1.8.0_162\bin\javac`
+* `/home/mapi/custom/path/jdk/bin/javac`
+
+Na dłuższą metę wygodniej jest ustawić odpowiednią wartość zmiennej `PATH`. Szczegółową instrukcję jak to zrobić znajdziesz pod [tym adresem](https://www.java.com/pl/download/help/path.xml).
+{% endcapture %}
+
+<div class="notice--info">
+    {{ zmienna | markdownify }}
+</div>
+
 ## Pierwsza klasa w notatniku
 
 Zacznijmy od początku, od programu wyświetlającego Twoje imię na konsoli. Będzie to zwykła klasa o nazwie `DisplayName` w pakiecie domyślnym, która będzie miała metodę `public static void main(String ... args)`. Wewnątrz tej metody wpisz instrukcję, która wypisze Twoje imię. Spróbuj napisać ten program bez IDE i zapisz go w pliku z rozszerzeniem java.
