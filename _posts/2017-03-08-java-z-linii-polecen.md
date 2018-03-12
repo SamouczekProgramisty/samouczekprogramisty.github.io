@@ -15,7 +15,7 @@ disqus_page_identifier: 770 http://www.samouczekprogramisty.pl/?p=770
 
 ## Java z poziomu linii poleceń
 
-Dzisiaj na przekór moim wszystkim radom, proszę Cie nie korzystaj z IDE. Wyłącz InteliJ Idea czy Eclipsa. Przejdź przez cały artykuł używając wyłącznie podstawowego edytora tekstu. Moim celem jest przeprowadzenie Cię przez cały proces pisania kodu w Javie używając podstawowych narzędzi.
+Dzisiaj na przekór moim wszystkim radom, proszę Cie nie korzystaj z IDE. Wyłącz IntelliJ Idea czy Eclipse. Przejdź przez cały artykuł używając wyłącznie podstawowego edytora tekstu. Moim celem jest przeprowadzenie Cię przez cały proces pisania kodu w Javie używając podstawowych narzędzi.
 
 Moim zdaniem takie podejście pozwoli Ci zrozumieć te podstawy, na których opiera się cała reszta. Osobiście dużo łatwiej jest mi pojąć bardziej skomplikowane rzeczy jeśli dokładnie wiem jak działają podstawowe klocki, których używa się do budowania tych bardziej skomplikowanych elementów.
 
@@ -29,9 +29,9 @@ O tym czym jest JDK i czym różni się od JRE pisałem w jednym z pierwszych ar
 - `jar` to narzędzie, które jest w stanie tworzyć pliki jar.
 
 {% capture zmienna %}
-Programy `javac`, `java` czy `jar` dostępne są w katalogu, w którym zainstalowałeś JDK. W zależności od systemu operacyjnego katalog ten może być różny. W niektórych systemach operacyjnych po instalacji programy te od razu dostępne są na ścieżce przeszukiwania. Innymi słowy dostępne są w jednym z katalogów wkazanych przez zmienną środowiskową `PATH`. 
+Programy `javac`, `java` czy `jar` dostępne są w katalogu, w którym zainstalowałeś JDK. W zależności od systemu operacyjnego katalog ten może być różny. W niektórych systemach operacyjnych po instalacji programy te od razu dostępne są na ścieżce przeszukiwania. Innymi słowy dostępne są w jednym z katalogów wskazanych przez zmienną środowiskową `PATH`. 
 
-Jeśli w Twoim przypadku katalog gdzie zainstalowałeś JDK nie znajduje się w zmiennej środowiskowej `PATH` wówczas każdy z tych programów bedziesz musiał pprzedzać pełną ścieżką. Na przykład:
+Jeśli w Twoim przypadku katalog gdzie zainstalowałeś JDK nie znajduje się w zmiennej środowiskowej `PATH` wówczas każdy z tych programów będziesz musiał poprzedzać pełną ścieżką. Na przykład:
 
 * `C:\Program Files\Java\jdk1.8.0_162\bin\javac`
 * `/home/mapi/custom/path/jdk/bin/javac`
