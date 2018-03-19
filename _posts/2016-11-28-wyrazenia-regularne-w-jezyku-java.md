@@ -151,7 +151,7 @@ public void testSymbolAsterix() {
 
 #### Znak `+`
 
-Znak `+` jest podobny do `*`. Oznacza on, że występujący po nim element musi być powtórzony 1 lub więcej razy. Na przykład wyrażenie regularne `trampo+lina` może dopasować następujące łańcuchy znaków: `"trampolina"`, `"trampooolina"` ale nie pasuje do `"tramplina"`.
+Znak `+` jest podobny do `*`. Oznacza on, że występujący przed nim element musi być powtórzony 1 lub więcej razy. Na przykład wyrażenie regularne `trampo+lina` może dopasować następujące łańcuchy znaków: `"trampolina"`, `"trampooolina"` ale nie pasuje do `"tramplina"`.
 
 ```java
 @Test
