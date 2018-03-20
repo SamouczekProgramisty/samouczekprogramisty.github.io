@@ -29,17 +29,7 @@ Możesz spotkać się z wieloma implementacjami relacyjnych baz danych. Kilka na
 
 Bazy danych różnią się między sobą implementacją. Różnią się także wersją SQL, którą obsługują. Chociaż istnieje standard opisujący język SQL występują drobne różnice pomiędzy SQL obsługiwanym przez poszczególne bazy danych. Różne wersje SQL nazywane są dialektami.
 
-{% capture infoshare %}
-Samouczek Programisty jest jednym z partnerów konferencji [infoShare 2018](https://infoshare.pl).
-
-infoShare 2018 to konferencja, która odbywa się 22-23 maja w Gdańsku. 6000+ uczestników, 150+ prelegentów na 6 scenach wraz z 250+ startupami, 150+ inwestorami. Ja na pewno tam będę ;). To jak, spotkamy się na miejscu?
-
-[<img src="/assets/images/2018/03/06_infoshare_logo.png">](https://infoshare.pl)
-{% endcapture %}
-
-<div class="notice--success">
-{{ infoshare | markdownify }}
-</div>
+{% include wspolpraca-infoshare-2018.md %}
 
 ## Jak działa relacyjna baza danych
 
