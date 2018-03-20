@@ -188,7 +188,7 @@ public void shouldReuseGroupsInsideRegexp() {
     Matcher matcher = pattern.matcher("<p>Some paragraph <em>emphasized</em></p><p>Other paragraph</p>");
     assertTrue(matcher.find());
     assertEquals("p", matcher.group(1));
-    assertEquals("Akapit tekstu <em>coś innego</em>", matcher.group(2));
+    assertEquals("Some paragraph <em>emphasized</em>", matcher.group(2));
 }
 ```
 
