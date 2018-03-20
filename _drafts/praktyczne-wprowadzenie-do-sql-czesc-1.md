@@ -1,13 +1,13 @@
 ---
-title: Praktyczne wprowadzenie do SQL
+title: Praktyczne wprowadzenie do SQL część 1.
 categories:
 - Bazy danych
-permalink: /praktyczne-wprowadzenie-do-sql/
+permalink: /praktyczne-wprowadzenie-do-sql-czesc-1/
 header:
     teaser: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
     overlay_image: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
     caption: "[&copy; liquene](https://www.flickr.com/photos/liquene/3802773731/sizes/l)"
-excerpt: W artykule tym przeczytasz o tym czym jest SQL. Poznasz podstawowe rodzaje zapytań. Dowiesz się jak pobierać, dodawać, modyfikowac i usuwać dane z bazy danych. Cały artykuł oparty jest o  ćwiczenia, w których będziesz mógł w praktyczny sposób sprawdzić zdobytą wiedzę.
+excerpt: W artykule tym przeczytasz o tym czym jest SQL. Poznasz podstawowe rodzaje zapytań. Przeczytasz o tym jak tworzyć tabele. Dowiesz się jak pobierać, dodawać, modyfikowac i usuwać dane z bazy danych. W artykule znajdziesz sporo praktycznych ćwiczeń, w których będziesz mógł sprawdzić zdobytą wiedzę.
 ---
 
 {% capture wstep %}
@@ -15,9 +15,9 @@ Artykuł ten zakłada, że wiesz czym są relacyjne bazy danych. O podstawach do
 
 Dodatkowo do ćwiczeń praktycznych będziesz potrzebował bazy danych SQLite. Najnowszą wersję dla Twojego systemu operacyjnego możesz [pobrać ze strony projektu](https://www.sqlite.org/download.html).
 
-Wewnątrz pobranego pliku będzie znajdował się plik wykonywalny `sqlite` (lub `sqlite.exe`. Jest to prosty silnik bazy danych, który obsługuje standard SQL.
+Wewnątrz pobranego pliku będzie znajdował się plik wykonywalny `sqlite` (lub `sqlite.exe`). Jest to prosty silnik bazy danych, który obsługuje standard SQL.
 
-Na temat SQL powstają osobne książki. Artykuł ten nie wyczerpuje tematu, wprowadza jedynie niezbędne podstawy niezbędne przy pracy z produkcyjnymi projektami.
+Na temat SQL powstają obszerne książki. Artykuł ten nie wyczerpuje tematu, wprowadza jedynie podstawy niezbędne przy pracy z produkcyjnymi projektami.
 {% endcapture %}
 
 <div class="notice--info">
@@ -35,11 +35,11 @@ SELECT *
    AND description IS NOT NULL;
 ```
 
-SQL posiada wiele wersji i jest opisywany przez wiele standardów. Najnowszy standard języka SQL to SQL:2003, który został zaktualizowany przez SQL:2006[^aktualny]. Niestety treść standardów nie jest dostępna bezpłatnie. Jeśli będziesz chciał uzupełnić swoją wiedzę to dokumentacja bazy danych jest bardzo dobrym źródłem. Silniki baz danych dokładnie opisują swoją implementację standardu SQL.
+SQL posiada wiele wersji i jest opisywany przez wiele standardów. Najnowszy standard języka SQL to SQL:2003, który został zaktualizowany przez SQL:2006[^aktualny]. Niestety treść standardów nie jest dostępna bezpłatnie. Jeśli będziesz chciał uzupełnić swoją wiedzę to dokumentacja bazy danych, której używasz jest bardzo dobrym źródłem. Popularne bazy danych dokładnie opisują swoją implementację standardu SQL.
 
 [^aktualny]: Stan na 19.03.2018.
 
-W tym artykule postaram się opisać podstawowe elementy, które są wspólne dla różnych silników baz danych. Istnieją drobne różnice pomiędzy językami obsługiwanymi przez różne silniki. Te różne wersje nazywa się dialektami.
+W tym artykule postaram się opisać podstawowe elementy, które są wspólne dla różnych silników baz danych. Istnieją drobne różnice pomiędzy językami obsługiwanymi przez różne silniki. Te różne wersje języka SQL nazywa się dialektami.
 
 {% include wspolpraca-infoshare-2018.md %}
 
@@ -53,9 +53,9 @@ Sam język SQL wykorzystywany jest do wielu zadań. Są to:
 
 SQL używany jest także do zarządzania trasakcjami i zarządznia dostępem do danych. Te dwa aspekty pominę w tym artykule. Jeśli chcesz przeczytać o nich więcej odsyłam cię do punktu "Materiały dodatkowe".
 
-### DDL 
+### DDL
 
-Zanim pokażę Ci ćwiczenia, na których poznawał będziesz język SQL musisz wiedzieć jak utworzyć, zmodyfikować czy usunąć tabelę. DDL służy także do definiowania innych obiektów bazy danych takich jak indeksy, ograniczenia czy klucze obce.
+Zanim pokażę Ci ćwiczenia, na których poznawał będziesz język SQL musisz wiedzieć jak utworzyć, zmodyfikować czy usunąć tabelę. DDL służy także do definiowania innych obiektów bazy danych takich jak indeksy, ograniczenia czy klucze obce. O tych elementach przeczytasz w kolejnej części wprowadzenia do SQL.
 
 #### Tworzenie tabeli
 
@@ -76,7 +76,7 @@ CREATE TABLE speakers (
 );
 ```
 
-W przykładzie powyżej tworzę tabelę o nazwie `speakers`, która zawiera cztery kolumny. Pierwsza z nich o nazwie `id` zawiera dane liczbowe. Kolumna ta jest [kluczem głównym tabeli]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}#klucz-główny). Do oznaczenia kolumny, która jest kluczem głównym służą słowa kluczowe `PRIMARY KEY`. Pozostałe trzy kolumny zawierają odpowiednio imię, nazwisko i opis prowadzącego. 
+W przykładzie powyżej tworzę tabelę o nazwie `speakers`, która zawiera cztery kolumny. Pierwsza z nich o nazwie `id` zawiera dane liczbowe. Kolumna ta jest [kluczem głównym tabeli]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}#klucz-główny). Do oznaczenia kolumny, która jest kluczem głównym służą słowa kluczowe `PRIMARY KEY`. Pozostałe trzy kolumny zawierają odpowiednio imię, nazwisko i opis prowadzącego.
 
 Spróbuj uruchomić sqlite i użyć powyższego zapytania do utworzenia tabeli.
 {:.notice--info}
@@ -111,7 +111,7 @@ Do modyfikacji tabel służy zapytanie `ALTER TABLE`.
 #### Usuwanie tabeli
 
 
-### 
+###
 
 ### DML
 
