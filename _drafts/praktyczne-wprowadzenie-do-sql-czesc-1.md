@@ -1,7 +1,9 @@
 ---
-title: Praktyczne wprowadzenie do SQL część 1.
+title: Praktyczne wprowadzenie do SQL .
 categories:
 - Bazy danych
+- Praktyczne wprowadzenie do SQL
+permalink: /praktyczne-wprowadzenie-do-sql/
 permalink: /praktyczne-wprowadzenie-do-sql-czesc-1/
 header:
     teaser: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg

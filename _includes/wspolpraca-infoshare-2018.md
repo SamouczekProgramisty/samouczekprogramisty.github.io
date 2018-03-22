@@ -1,7 +1,7 @@
 {% capture infoshare %}
-Samouczek Programisty jest jednym z partnerów konferencji [infoShare 2018](https://infoshare.pl).
+Samouczek Programisty jest jednym z partnerów konferencji infoShare 2018.
 
-infoShare 2018 to konferencja, która odbywa się 22-23 maja w Gdańsku. 6000+ uczestników, 150+ prelegentów na 6 scenach wraz z 250+ startupami, 150+ inwestorami. Ja na pewno tam będę ;). To jak, spotkamy się na miejscu?
+infoShare 2018 to konferencja technologiczna odbywająca się 22-23 maja w Gdańsku. Na developerów czekają m.in. prelekcje z obszaru cybersecurity i machine learning, live coding oraz spotkania ze specjalistami, takimi jak: Filip Wolski, Trent McConaghy, Piotr Konieczny, Zbigniew Wojna czy Scott Helme. infoShare to także okazja do networkingu i udziału w imprezach towarzyszących. Sprawdź agendę i zarejestruj się na [www.infoshare.pl](https://infoshare.pl).
 
 [<img src="/assets/images/2018/03/06_infoshare_logo.png">](https://infoshare.pl)
 {% endcapture %}
