@@ -43,7 +43,7 @@ Klienty wskazują serwer, z którym chcą się połączyć za pomocą URL. W prz
 
     jdbc:postgresql://some.server.host:5432/database_name
 
-URL ten służy do połączenia się do serwera `some.server.host` na porcie `5432` używając protokołu `jdbc:postgresql`. `database_name` wskazuje bazę danych do której chcemy się połączyć. Jeśli chcesz przeczytać więcej o URL odsyłam Cię do artykułu na temat [protokołu HTTP](% post_url 2018-02-08-protokol-http %).
+URL ten służy do połączenia się do serwera `some.server.host` na porcie `5432` używając protokołu `jdbc:postgresql`. `database_name` wskazuje bazę danych do której chcemy się połączyć. Jeśli chcesz przeczytać więcej o URL odsyłam Cię do artykułu na temat [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}).
 
 Do obsługi takiego połączenia klient potrzebuje odpowiedniego sterownika. Sterownik to klasa obsługująca połączenie. Producenci bazy danych [udostępniają](https://jdbc.postgresql.org/) takie sterowniki.
 
