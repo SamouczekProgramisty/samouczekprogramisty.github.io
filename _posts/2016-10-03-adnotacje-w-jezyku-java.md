@@ -120,7 +120,7 @@ Akurat tę adnotację możemy przypisać do typu, atrybutu, metody, parametru me
 ```java
 public static void main(String[] args) {
     List listOfUndefinedObjects = new ArrayList();
-    @SuppressWarnings("uncecked")
+    @SuppressWarnings("unchecked")
     List<Integer> listOfIntegers = (List<Integer>) listOfUndefinedObjects;
 }
 ```
