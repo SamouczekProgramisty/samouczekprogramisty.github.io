@@ -1,0 +1,767 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Projekt Informator wdrożenie w chmurze - Samouczek Programisty</title>
+
+
+
+
+<meta name="description" content="Artykuł ten szczegółowo opisuje sposób wdrożenia aplikacji opartej o Spring i Hibernate w chmurze. W przykładzie używam bazy danych Postgresql i uruchamiam aplikację na Heroku.">
+
+
+
+
+<meta name="author" content="Marcin Pietraszek">
+
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Projekt Informator wdrożenie w chmurze">
+
+
+  <link rel="canonical" href="http://www.samouczekprogramisty.pl/projekt-informator-wdrozenie-w-chmurze/">
+  <meta property="og:url" content="http://www.samouczekprogramisty.pl/projekt-informator-wdrozenie-w-chmurze/">
+
+
+
+  <meta property="og:description" content="Artykuł ten szczegółowo opisuje sposób wdrożenia aplikacji opartej o Spring i Hibernate w chmurze. W przykładzie używam bazy danych Postgresql i uruchamiam aplikację na Heroku.">
+
+
+
+
+
+  
+
+  
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/04/03_projekt_informator_wdrozenie_w_chmurze.jpg">
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-04-03T00:00:00+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Marcin Pietraszek",
+      "url" : "http://www.samouczekprogramisty.pl",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://www.samouczekprogramisty.pl/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://www.samouczekprogramisty.pl/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://www.samouczekprogramisty.pl/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/">Kurs programowania java</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.samouczekprogramisty.pl/dodatkowe-materialy-do-nauki/">Dodatkowe materiały do nauki</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.samouczekprogramisty.pl/assets/images/2018/04/03_projekt_informator_wdrozenie_w_chmurze.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Projekt Informator wdrożenie w chmurze
+
+        
+      </h1>
+      
+        <p class="page__lead">Artykuł ten szczegółowo opisuje sposób wdrożenia aplikacji opartej o Spring i Hibernate w chmurze. W przykładzie używam bazy danych Postgresql i uruchamiam aplikację na Heroku.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.flickr.com/photos/befuddledsenses/16378019525/sizes/l">© befuddledsenses</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Projekt Informator wdrożenie w chmurze</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Projekt Informator wdrożenie w chmurze">
+    <meta itemprop="description" content="Artykuł ten szczegółowo opisuje sposób wdrożenia aplikacji opartej o Spring i Hibernate w chmurze. W przykładzie używam bazy danych Postgresql i uruchamiam aplikację na Heroku.">
+    <meta itemprop="datePublished" content="April 03, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fa fa-file-text"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#projekt-informator">Projekt Informator</a></li>
+<li class="toc-entry toc-h2"><a href="#czym-jest-chmura">Czym jest chmura</a></li>
+<li class="toc-entry toc-h2"><a href="#dostawca-rozwiązań-chmurowych">Dostawca rozwiązań chmurowych</a></li>
+<li class="toc-entry toc-h2"><a href="#informator---stan-projektu">Informator - stan projektu</a></li>
+<li class="toc-entry toc-h2"><a href="#heroku">Heroku</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#wdrożenie-aplikacji-na-heroku">Wdrożenie aplikacji na Heroku</a></li>
+<li class="toc-entry toc-h3"><a href="#przygotowanie-aplikacji-do-heroku">Przygotowanie aplikacji do Heroku</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#gradle">Gradle</a></li>
+<li class="toc-entry toc-h4"><a href="#plik-procfile">Plik Procfile</a></li>
+<li class="toc-entry toc-h4"><a href="#połączenie-z-bazą-danych">Połączenie z bazą danych</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page" data-href="https://www.facebook.com/SamouczekProgramisty/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SamouczekProgramisty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SamouczekProgramisty/">SamouczekProgramisty</a></blockquote></div>
+        </aside>
+        <h2 id="projekt-informator">Projekt Informator</h2>
+
+<p>Projekt informator to REST’owy web service, działający w oparciu o Spring i Hibernate. Jeśli chcesz przeczytać więcej o projekcie i jego założeniach zapraszam do <a href="/projekt-informator-wprowadzenie/">wprowadzenia</a>.</p>
+
+<div class="notice--success">
+
+<p>Samouczek Programisty jest jednym z partnerów konferencji infoShare 2018.</p>
+
+<p>infoShare 2018 to konferencja technologiczna odbywająca się 22-23 maja w Gdańsku. Na developerów czekają m.in. prelekcje z obszaru cybersecurity i machine learning, live coding oraz spotkania ze specjalistami, takimi jak: Filip Wolski, Trent McConaghy, Piotr Konieczny, Zbigniew Wojna czy Scott Helme. infoShare to także okazja do networkingu i udziału w imprezach towarzyszących. Sprawdź agendę i zarejestruj się na <a href="https://infoshare.pl">www.infoshare.pl</a>.</p>
+
+<p><img src="/assets/images/2018/03/06_infoshare_logo.png" /></p>
+
+</div>
+
+<h2 id="czym-jest-chmura">Czym jest chmura</h2>
+
+<p>W uproszczeniu można powiedzieć, że chmura to środowisko, w którym uruchamia się aplikacje. Chmura to zestaw dużej liczby maszyn, które można “wynająć” na potrzeby swoich aplikacji.</p>
+
+<p>W takim środowisku dostawca zapewnia mechanizmy administrowania maszynami i aplikacjami, które są na nich wdrażane (ang. <em>deployed</em>). We wszystkich znanych mi chmurach dostawca pobiera opłaty za wykorzystywane zasoby. To znaczy, że jeśli nasza aplikacja potrzebuje większej liczby maszyn/mocniejszych maszyn, wówczas dostaniemy większy rachunek do zapłacenia.</p>
+
+<p>Dostawcy “rozwiązań chmurowych” oferują różne usługi. W przypadku Informatora używał będę wyłącznie podstawowych maszyn. Dodatkowo aplikacja korzystała będzie z bazy danych udostępnionej w chmurze.</p>
+
+<h2 id="dostawca-rozwiązań-chmurowych">Dostawca rozwiązań chmurowych</h2>
+
+<p>W przypadku Informatora, zależało mi wyłącznie na cenie. Chciałem, żeby do moich zastosowań chmura była darmowa :). Jednym z dostawców, który udostępnia maszyny za darmo<sup id="fnref:ograniczenia"><a href="#fn:ograniczenia" class="footnote">1</a></sup> jest Heroku.</p>
+
+<p>Oczywiście istnieją też inni dostawcy. Najwięksi z nich to:</p>
+<ul>
+  <li>Google Cloud Platform,</li>
+  <li>Amazon Web Services<sup id="fnref:heroku"><a href="#fn:heroku" class="footnote">2</a></sup>,</li>
+  <li>Microsoft Azure Cloud Computing Platform.</li>
+</ul>
+
+<h2 id="informator---stan-projektu">Informator - stan projektu</h2>
+
+<p>Aplikacja używa najnowszych wersji biblioteki Spring MVC i Hibernate. W trakcie pisania tego artykułu najnowszymi wersjami były:</p>
+
+<ul>
+  <li>Spring 5.0.4</li>
+  <li>Hibernate 5.2.16</li>
+</ul>
+
+<p><a href="https://github.com/SamouczekProgramisty/Informator/commit/06041e2633fc494b4c1437adcc250b8faa90447a">Aktualnie</a> aplikacja to wyłącznie szkielet, który pozwala na pobranie encji z bazy danych i wyświetlenie jej w formacie JSON w odpowiedzi. Zachęcam do sprawdzenia źródeł projektu, pozwolą one zobaczyć przykładową konfigurację bez użycia Spring Boot.</p>
+
+<p>Obecnie aplikacja zawiera jeden endpoint , który pozwala na pobranie informacji o prelegencie <a href="https://github.com/SamouczekProgramisty/Informator/blob/master/src/main/java/pl/samouczekprogramisty/informator/controller/SpeakerController.java">na podstawie identyfikatora</a>. Aby aplikacja mogła pobrać dane z bazy muszą one być do niej wrzucone ręcznie. Na potrzeby testów utworzyłem kilka wierszy w tabeli uzupełniając je przykładowymi danymi:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/04/03_sample_request.png" alt="" />
+  
+    <figcaption>Przykładowe zapytanie do Informatora
+</figcaption>
+  
+</figure>
+
+<h2 id="heroku">Heroku</h2>
+
+<p>Nigdy wcześniej nie wdrażałem aplikacji w Javie na Heroku i muszę powiedzieć, że dostawca ten przygotował bardzo dobrą dokumentację. Poniżej postaram się pokazać jak wygląda proces instalacji aplikacji krok po kroku.</p>
+
+<p>Jak wspomniałem wcześniej, Informator to projekt “hobbystyczny”. W związku z tym, używam wyłącznie darmowe usługi Heroku. Na pewno nie sprawdziłyby się one w przypadku produkcyjnych aplikacji.</p>
+
+<h3 id="wdrożenie-aplikacji-na-heroku">Wdrożenie aplikacji na Heroku</h3>
+
+<p>Cały proces należy zacząć od utworzenia konta na Heroku. Następnie można dodawać nowe aplikacje:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/04/03_heroku_new_app_monit.png" alt="" />
+  
+    <figcaption>Dodawanie nowej aplikacji w Heroku
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/04/03_heroku_new_app.png" alt="" />
+  
+    <figcaption>Nazwanie nowej aplikacji
+</figcaption>
+  
+</figure>
+
+<p>Następnie w zakładce <em>Resources</em> należy dodać komponent bazy danych. W przypadku Informatora jest to <a href="https://www.postgresql.org/">PostgreSQL</a>.</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/04/03_heroku_postgres.png" alt="" />
+  
+    <figcaption>Aktywacja PostgreSQL na Heroku
+</figcaption>
+  
+</figure>
+
+<p>Zdecydowałem się na instalowanie aplikacji prosto z <a href="https://github.com/SamouczekProgramisty/Informator">GitHub’a</a>. Heroku domyślnie pozwala na taką integrację. Wymaga to zezwolenia na GitHub’ie do pobierania informacji o repozytoriach przez Heroku:</p>
+
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/04/03_heroku_connect_to_git.png" alt="" />
+  
+    <figcaption>Połączenie Heroku z GitHub’em
+</figcaption>
+  
+</figure>
+
+<p>Sam proces instalacji aplikacji sprowadza się do naciśnięcia przycisku <em>Deploy Branch</em>. Wówczas Heroku pobiera aktualną wersję kodu i próbuje go uruchomić. Aby projekt mógł być uruchomiony na Heroku musi być odpowiednio przygotowany. O tym przygotowaniu przeczytasz w jednym z punktów poniżej:</p>
+<figure class="">
+  <img src="http://www.samouczekprogramisty.pl/assets/images/2018/04/03_heroku_deploy_from_branch.png" alt="" />
+  
+    <figcaption>Instalacja z gałęzi Git’a
+</figcaption>
+  
+</figure>
+
+<h3 id="przygotowanie-aplikacji-do-heroku">Przygotowanie aplikacji do Heroku</h3>
+
+<h4 id="gradle">Gradle</h4>
+
+<p>Do budowania Informatora używam <a href="/wstep-do-gradle/">Gradle</a>. W przypadku tego projektu użyłem także <a href="https://github.com/jsimone/webapp-runner">webapp-runner</a>. Dzięki tej bibliotece można uruchomić aplikację przy pomocy komendy <code class="highlighter-rouge">java -jar webapp-runner.jar Informator.war</code>. Właśnie ta komenda uruchamiana jest przez Heroku.</p>
+
+<p>Heroku w trakcie instalowania aplikacji<sup id="fnref:uproszczenie"><a href="#fn:uproszczenie" class="footnote">3</a></sup> wywołuje zadanie <code class="highlighter-rouge">stage</code>. Definicja tego zadania w <code class="highlighter-rouge">build.gradle</code> wygląda następująco:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">task</span> <span class="nf">stage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">dependsOn</span> <span class="n">clean</span><span class="o">,</span> <span class="n">war</span>
+<span class="o">}</span>
+<span class="n">war</span><span class="o">.</span><span class="na">mustRunAfter</span> <span class="n">clean</span>
+
+<span class="n">task</span> <span class="nf">copyToLib</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Copy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">into</span> <span class="s2">"$buildDir/server"</span>
+    <span class="n">from</span><span class="o">(</span><span class="n">configurations</span><span class="o">.</span><span class="na">compile</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">include</span> <span class="s2">"webapp-runner*"</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">stage</span><span class="o">.</span><span class="na">dependsOn</span><span class="o">(</span><span class="n">copyToLib</span><span class="o">)</span>
+
+<span class="n">tasks</span><span class="o">.</span><span class="na">stage</span><span class="o">.</span><span class="na">doLast</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">delete</span> <span class="nf">fileTree</span><span class="o">(</span><span class="nl">dir:</span> <span class="s2">"build/distributions"</span><span class="o">)</span>
+    <span class="n">delete</span> <span class="nf">fileTree</span><span class="o">(</span><span class="nl">dir:</span> <span class="s2">"build/assetCompile"</span><span class="o">)</span>
+    <span class="n">delete</span> <span class="nf">fileTree</span><span class="o">(</span><span class="nl">dir:</span> <span class="s2">"build/distributions"</span><span class="o">)</span>
+    <span class="n">delete</span> <span class="nf">fileTree</span><span class="o">(</span><span class="nl">dir:</span> <span class="s2">"build/libs"</span><span class="o">,</span> <span class="nl">exclude:</span> <span class="s2">"*.war"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><a href="https://github.com/SamouczekProgramisty/Informator/blob/master/build.gradle">Konfiguracja</a> ta zapewnia, że plik <code class="highlighter-rouge">webapp-runner.jar</code> będzie znajdował się w katalogu <code class="highlighter-rouge">build/server</code>. Dodatkowo każde uruchomienie <code class="highlighter-rouge">stage</code> zapewni zbudowanie pliku war na nowo. Aby biblioteka <code class="highlighter-rouge">webapp-runner</code> była dostępna trzeba dodać ją do zależności:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="s1">'com.github.jsimone:webapp-runner:8.5.29.0'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="plik-procfile">Plik <code class="highlighter-rouge">Procfile</code></h4>
+
+<p><a href="https://devcenter.heroku.com/articles/procfile">Procfile</a> to plik konfiguracyjny wymagany przez Heroku. Wewnątrz tego pliku znajdują się komendy, które określają jak mają zachować się maszyny w trakcie instalowania aplikacji. Heroku działa w oparciu o tak zwane kontenery nazywane “dynosami”. Plik Procfile pokazuje komendy jakie mają być uruchomione na poszczególnych kontenerach.</p>
+
+<p>Dla przykładu, kontener odpowiedzialny za serwer <a href="/protokol-http/">HTTP</a> uruchamia następujące polecenie:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd build ; java -jar server/webapp-runner-*.jar --expand-war --port $PORT libs/*.war
+</code></pre></div></div>
+
+<p>Polecenie to wywoływane jest po uruchomieniu zadania <code class="highlighter-rouge">stage</code>, które opisałem wcześniej. Dzięki tej kolejności na “dynosie” zbudowana jest aplikacja, którą można uruchomić przy użyciu wspomnianego wyżej webapp-runner’a.</p>
+
+<h4 id="połączenie-z-bazą-danych">Połączenie z bazą danych</h4>
+
+<p>Heroku dynamiczne tworzy bazy danych. Informacja gdzie dokładnie ta baza danych się znajduje przechowywana jest w zmiennej środowiskowej. Zmienna środowiskowa, która zawiera URL do bazy danych nazywa się <code class="highlighter-rouge">JDBC_DATABASE_URL</code><sup id="fnref:kilka"><a href="#fn:kilka" class="footnote">4</a></sup>. Zmienna ta powinna być użyta do utworzenia instancji <code class="highlighter-rouge">DataSource</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="n">DataSource</span> <span class="nf">dataSource</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">DriverManagerDataSource</span> <span class="n">dataSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DriverManagerDataSource</span><span class="o">();</span>
+    <span class="n">dataSource</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="s">"org.postgresql.Driver"</span><span class="o">);</span>
+    <span class="n">dataSource</span><span class="o">.</span><span class="na">setUrl</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">"JDBC_DATABASE_URL"</span><span class="o">));</span>
+
+    <span class="k">return</span> <span class="n">dataSource</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="podsumowanie">Podsumowanie</h1>
+
+<p>Aktualnie aplikacja to szkielet, na którym będę dobudowywał kolejne funkcjonalności. Główny etap konfiguracji jest już ukończony. Po przeczytaniu tego artykułu i przejrzeniu kodu źródłowego wiesz w jaki sposób zainstalować aplikację opartą o Spring MVC i Hibernate na Heroku. Jeśli nie robiłeś tego nigdy wcześniej zachęcam do samodzielnych prób, wtedy nauczysz się najwięcej.</p>
+
+<p>Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Proszę podziel się linkiem do artykułu ze znajomymi, którym może on pomóc. Może to dzięki Tobie uda mi się dotrzeć do nowych czytelników? ;)</p>
+
+<p>Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:ograniczenia">
+      <p>Oczywiście są tu ograniczenia, firma też musi na czymś zarabiać ;). <a href="#fnref:ograniczenia" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:heroku">
+      <p>Tak właściwie to Heroku używa AWS do oferowania swoich usług. <a href="#fnref:heroku" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:uproszczenie">
+      <p>Dokładny sposób uruchamiania zależy m.in. od narzędzia użytego do budowania projektu. <a href="#fnref:uproszczenie" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:kilka">
+      <p>W zależności od sposobu łączenia się z bazą danych można użyć jednej z kilku zmiennych, na przykład <code class="highlighter-rouge">DATABASE_URL</code> czy <code class="highlighter-rouge">SPRING_DATASOURCE_URL</code>. <a href="#fnref:kilka" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        <div class="mailerlite__form">
+            <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+        </div>
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#projekt-informator" class="page__taxonomy-item" rel="tag">Projekt Informator</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://www.samouczekprogramisty.pl/kategorie/#projekty" class="page__taxonomy-item" rel="tag">Projekty</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-04-03T00:00:00+02:00">April 03, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fprojekt-informator-wdrozenie-w-chmurze%2F" class="btn btn--facebook" title="Udostępnij Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fprojekt-informator-wdrozenie-w-chmurze%2F" class="btn btn--linkedin" title="Udostępnij LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://www.samouczekprogramisty.pl/projekt-informator-wprowadzenie/" class="pagination--pager" title="Projekt Informator wprowadzenie
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+    
+        <h4 class="page__comments-title">Zostaw komentarz</h4>
+        <section id="disqus_thread"></section>
+      
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/01/19_wstep_do_gradle_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/wstep-do-gradle/" rel="permalink">Wstęp do Gradle
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używane...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2017/11/20_rest_web_service_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-1/" rel="permalink">REST web service z Java EE część 1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstaluj...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2018/01/22_rest_web_service_2_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-2/" rel="permalink">REST web service z Java EE część 2
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzys...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2018/02/08_protokol_http_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/protokol-http/" rel="permalink">Protokół HTTP
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.samouczekprogramisty.pl/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://www.samouczekprogramisty.pl/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+  
+      
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/projekt-informator-wdrozenie-w-chmurze/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    
+
+
+
+  </body>
+</html>
