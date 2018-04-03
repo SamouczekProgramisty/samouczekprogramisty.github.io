@@ -149,7 +149,7 @@ public class JPAConfigration {
 
 ## Podsumowanie
 
-Na dzień dzisiejszy mam “gotową” aplikację webową, która wystawia dwa adresy URL. Pozwalają one na utworzenie nowej instancji pomiaru temperatury i pobrania wszystkich istniejących pomiarów. Kolejnym krokiem będzie zaimplementowanie “logowania” użytkowników i wystawienia takiej aplikacji na świat. Następnie będę mógł zintegrować czujnik z tak działającą aplikacją.
+Dzisiaj mam “gotową” aplikację webową, która wystawia dwa adresy URL. Pozwalają one na utworzenie nowej instancji pomiaru temperatury i pobrania wszystkich istniejących pomiarów. Kolejnym krokiem będzie zaimplementowanie “logowania” użytkowników i wystawienia takiej aplikacji na świat. Następnie będę mógł zintegrować czujnik z tak działającą aplikacją.
 
 Po kilku dniach działania aplikacji będę miał wystarczająco dużo rzeczywistych pomiarów temperatury, które pozwolą mi na pracę nad interfejsem użytkownika.
 

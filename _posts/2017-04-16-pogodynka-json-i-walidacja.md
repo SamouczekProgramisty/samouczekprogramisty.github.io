@@ -51,7 +51,7 @@ Cała konwersja możliwa jest dzięki klasie [CustomDateTimeAdapter](https://git
 
 Nie można ufać użytkownikom. Nawet jeśli jedynym użytkownikiem w trym przypadku jest aplikacja, którą ja napisałem. Zakrawa to trochę o schizofrenię, ale takie są “dobre praktyki” pisania aplikacji. Dane wejściowe trzeba walidować, koniec i kropka.
 
-Specyfikacja [Bean Validation 1.0](https://jcp.org/en/jsr/detail?id=303) doczekała się swojego następcy [Bean Validation 1.1](https://jcp.org/en/jsr/detail?id=349) i [Bean Validation 2.0](https://jcp.org/en/jsr/detail?id=380). Na dzień dzisiejszy wersja 1.1 jest “obowiązującą”. Jako implementację walidatora wybrałem [Hibernate](http://hibernate.org/validator/).
+Specyfikacja [Bean Validation 1.0](https://jcp.org/en/jsr/detail?id=303) doczekała się swojego następcy [Bean Validation 1.1](https://jcp.org/en/jsr/detail?id=349) i [Bean Validation 2.0](https://jcp.org/en/jsr/detail?id=380). Aktualnie wersja 1.1 jest “obowiązującą”. Jako implementację walidatora wybrałem [Hibernate](http://hibernate.org/validator/).
 
 Proste dołączenie biblioteki w pliku [datavault.gradle](https://github.com/SamouczekProgramisty/Pogodynka/blob/master/datavault/datavault.gradle) wraz z użyciem adnotacji [@NotNull](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/NotNull.html) i [@Valid](http://docs.oracle.com/javaee/7/api/javax/validation/Valid.html) pokazuje siłę Springa:
 

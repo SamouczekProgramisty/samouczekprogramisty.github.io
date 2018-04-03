@@ -18,7 +18,7 @@ Informator to kolejny większy projekt (po [Pogodynce]({% post_url 2017-03-04-pr
 
 ## Czym będzie Informator
 
-Informator to projekt, którego głównym celem będzie napisanie webservice'u. Webservice ten będzie miał za zadanie informować o szczegółach konferencji infoShare 2018. Informator za pośrednictwem [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}) będzie udostępniał dane o wydarzeniu w formacie JSON. Na dzień dzisiejszy planuję, że będzie on zawierał trzy niezależne "endpoint'y":
+Informator to projekt, którego głównym celem będzie napisanie webservice'u. Webservice ten będzie miał za zadanie informować o szczegółach konferencji infoShare 2018. Informator za pośrednictwem [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}) będzie udostępniał dane o wydarzeniu w formacie JSON. Planuję, że będzie on zawierał trzy niezależne "endpoint'y":
 
 - prelegenci,
 - wykłady/rozmowy/wydarzenia,
