@@ -387,6 +387,6 @@ Odsyłam Cię głównie do źródeł. Mam wrażenie, że artykuł jest na tyle s
 
 Jeśli przeczytałeś i zrozumiałeś ten artykuł to śmiało możesz powiedzieć, że znasz protokół HTTP. Wiesz jak działa ten protokół, wiesz czym są zasoby. Poznałeś różnicę pomiędzy URI a URL. Znasz mechanizm działania nagłówków, poznałeś też główne statusy odpowiedzi. Moim zdaniem, poznając to wszystko wyszedłeś poza podstawową wiedzę na temat tego protokołu.
 
-Zapowiadało się niewinnie a wyszedł taziemiec. Sporo napracowałem się przy tym artykule, więc będę Ci bardzo wdzięczny za udostępnienie go dalej :).
+Zapowiadało się niewinnie a wyszedł tasiemiec. Sporo napracowałem się przy tym artykule, więc będę Ci bardzo wdzięczny za udostępnienie go dalej :).
 
 Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Trzymaj się! :)
