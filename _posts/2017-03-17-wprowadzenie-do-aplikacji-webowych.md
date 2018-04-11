@@ -9,7 +9,7 @@ header:
     teaser: /assets/images/2017/03/17_wprowadzenie_do_aplikacji_webowych_artykul.jpg
     overlay_image: /assets/images/2017/03/17_wprowadzenie_do_aplikacji_webowych_artykul.jpg
     caption: "[&copy; redbuckley](https://www.flickr.com/photos/redbuckley/5885481290/sizes/l)"
-excerpt: W artykule tym przeczytasz o aplikacjach webowych. Dowiesz się czym są aplikacje webowe i jak działają. Dowiesz się czym jest serwer, sewlet czy kontener serwletów. Poznasz podstawy mechanizmu działania aplikacji webowych. Przeczytasz też o modelu aplikacji klient serwer. Poznasz różnicę pomiędzy aplikacjami “desktopowymi” a aplikacjami “webowymi”. Dowiesz się o tym czym jest HTML, CSS czy JavaScript. Innymi słowy czeka Cię spora dawka wiedzy wprowadzająca w świat aplikacji webowych i Java Enterprise Edition. Zapraszam do lektury.
+excerpt: W artykule tym przeczytasz o aplikacjach webowych. Dowiesz się czym są aplikacje webowe i jak działają. Dowiesz się czym jest serwer, serwlet czy kontener serwletów. Poznasz podstawy mechanizmu działania aplikacji webowych. Przeczytasz też o modelu aplikacji klient serwer. Poznasz różnicę pomiędzy aplikacjami “desktopowymi” a aplikacjami “webowymi”. Dowiesz się o tym czym jest HTML, CSS czy JavaScript. Innymi słowy czeka Cię spora dawka wiedzy wprowadzająca w świat aplikacji webowych i Java Enterprise Edition. Zapraszam do lektury.
 disqus_page_identifier: 783 http://www.samouczekprogramisty.pl/?p=783
 ---
 
@@ -62,7 +62,7 @@ Częścią specyfikacji JEE jest specyfikacja serwletów.
 
 ## Serwlety w aplikacjach webowych
 
-Serlwet to serce aplikacji webowych napisanych w Javie. Serwlet to klasa, która wie w jaki sposób obsłużyć zapytanie wysłane do serwera. Potrafi też odpowiedzieć na to zapytanie.
+Serwlet to serce aplikacji webowych napisanych w Javie. Serwlet to klasa, która wie w jaki sposób obsłużyć zapytanie wysłane do serwera. Potrafi też odpowiedzieć na to zapytanie.
 
 W artykule opisującym [Javę z linii poleceń]({% post_url 2017-03-08-java-z-linii-polecen %}) mogłeś przeczytać o plikach JAR. W przypadku aplikacji webowych wprowadzono dodatkowy plik, plik WAR (ang. _Web Archive_). Wewnątrz tego pliku znajduje się kod (skompilowane klasy) potrzebny do uruchomienia aplikacji webowej. Między innymi są to serwlety. Dodatkowo wewnątrz pliku WAR znajdować się mogą pliki JAR zawierające zależności niezbędne do działania aplikacji webowej.
 
@@ -95,6 +95,6 @@ Równie istotna jest łatwość poprawiania błędów. W aplikacjach desktopowyc
 
 Aplikacje webowe to coś dzięki czemu moim zdaniem Java zyskała tak dużą popularność. Ogromna większość ofert pracy na rynku związana z technologią Java dotyczy aplikacji webowych. Artykuł ten jedynie musnął ich tematykę. Mam nadzieję, że po jego lekturze będzie Ci łatwiej zrozumieć zasadę działania tego typu aplikacji.
 
-Zapisz się do mojego newslettera i polub stronę na facebooku jeśli nie chcesz pominąć kolejnych artykułów. Jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzu :).
+Zapisz się do mojego newslettera i polub stronę na Facebooku jeśli nie chcesz pominąć kolejnych artykułów. Jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzu :).
 
 Do następnego razu!
