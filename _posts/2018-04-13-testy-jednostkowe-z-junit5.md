@@ -282,7 +282,7 @@ JUnit 5 pozwala na ignorowanie testów. Najprostszym sposobem jest dodanie adnot
 
 JUnit 5 w odróżnieniu od JUnit 4 nie posiada `@Rule`, `@ClassRule` czy `@RunWith`. JUnit5 łączy te funkcjonalności w jedną. Ta funkcjonalność nazywa się rozszerzeniami. Główną adnotacją, która zarządza rozszerzeniami jest [`@ExtendWith`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/ExtendWith.html).
 
-Adnotacja jako element akceptuje klasę implementującą interfejs [`@Extension`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/Extension.html).
+Adnotacja jako element akceptuje klasę implementującą interfejs [`Extension`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/Extension.html).
 
 Mechanizm rozszerzeń jest głównie wykorzystywany wraz z innymi bibliotekami. Na przykład przez Spring do umożliwienia wstrzykiwania zależności czy przez Mockito do tworznia mocków.
 
