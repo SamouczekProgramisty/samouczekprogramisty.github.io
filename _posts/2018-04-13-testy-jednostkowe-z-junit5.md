@@ -14,10 +14,10 @@ excerpt: W artykule tym przeczytasz o JUnit 5. Dowiesz się co jest nowego w tes
 {% capture intro %}
 Jest to kolejny artykuł poświęcony tematyce testów, który napisałem na Samouczku. Zachęcam Cię także do przeczytania poprzednich artykułów:
 
-- [Testy jednostkowe z JUnit 4]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}) - artykuł wprowadza w świat testów. Przeczytasz w nim między innymi o tym czym są asercje czy po co piszemy testy. Jeśli nie pisałeś wczesniej testów to tutaj powinieneś zacząć,
-- [_Test driven development_ na przykładzie]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}) - artyku o podejściu do pisania testów nazywanym _test driven development_. Opisuję w nim cały cykl _RED, GREEN, REFACTOR_ popierając go przykładami.
+- [Testy jednostkowe z JUnit 4]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}) - artykuł wprowadza w świat testów. Przeczytasz w nim między innymi o tym czym są asercje czy po co piszemy testy. Jeśli nie pisałeś wcześniej testów to tutaj powinieneś zacząć,
+- [_Test driven development_ na przykładzie]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}) - artykuł o podejściu do pisania testów nazywanym _test driven development_. Opisuję w nim cały cykl _RED, GREEN, REFACTOR_ popierając go przykładami.
 
-W tym artykule będę zakładał, że wiesz czym są testy. W treści artykułu czasami będę porówywał wersję JUnit 5 z poprzednią, jednak znajomość JUnit 4 nie jest niezbędna.
+W tym artykule będę zakładał, że wiesz czym są testy. W treści artykułu czasami będę porównywał wersję JUnit 5 z poprzednią, jednak znajomość JUnit 4 nie jest niezbędna.
 {% endcapture %}
 
 <div class="notice--info">
@@ -36,7 +36,7 @@ JUnit 4 to monolit. Jeden plik JAR (ang. _Java Archive_), który zawiera całą 
 
 Jak widzisz łamie to jedną z podstawowych reguł dobrego podejścia do tworzenia kodu obiektowego: rób jedną rzecz i rób ją dobrze[^solid].
 
-[^solid]: W orginale SRP (ang. _Single Responsibility Principle_) to pierwsza literka z akronimu [SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}).
+[^solid]: W oryginale SRP (ang. _Single Responsibility Principle_) to pierwsza literka z akronimu [SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}).
 
 Poza tym IDE do uruchamiania testów i wyświetlania wyników używały prywatnej implementacji. Między innymi z tych powodów ewolucyjne rozwijanie biblioteki JUnit nie było możliwe. Nawet zmiana niektórych atrybutów powodowała, że IDE błędnie wyświetlało wyniki testów. Z tego powodu powstała inicjatywa rozwijania kolejnej wersji tej biblioteki.
 
@@ -149,7 +149,7 @@ Wewnątrz testów używa się asercji. Asercje dostarczone przez JUnit zgrupowan
 
 Podobnie jak w poprzedniej wersji JUnit 5 określa cykl życia testów. Dzięki temu możesz odpowiednio przygotować warunki do uruchomienia testów. JUnit tworzy nową instancję klasy przed każdym uruchomieniem testu.
 
-Jeśli chcesz zmienić to zachowanie możeszy użyć adnotacji [`@TestInstance`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/TestInstance.html), dzięki tej adnotacji możesz wymusić współdzielenie instancji klasy pomiędzy testami. Moim zdaniem, w większości przypadków nie powinieneś jednak tego robić. Dobrą praktyką jest pisanie testów, które są od siebie niezależne.
+Jeśli chcesz zmienić to zachowanie możesz użyć adnotacji [`@TestInstance`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/TestInstance.html), dzięki tej adnotacji możesz wymusić współdzielenie instancji klasy pomiędzy testami. Moim zdaniem, w większości przypadków nie powinieneś jednak tego robić. Dobrą praktyką jest pisanie testów, które są od siebie niezależne.
 
 Do zarządzania cyklem życia służą następujące [adnotacje]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}):
 
@@ -236,14 +236,14 @@ class UnitConverterTest {
 
 ### Łączenie kilku asercji
 
-Dobrą praktyką pisania testów jest używanie jednej asercji na każdy test. Takie podejście pozwala zobaczyć wszytkie asercje, które nie zostały spełnione. Prosty przykład poniżej pokazuje tę sytuację. Test jednostkowy, który zawiera te dwie linijki nigdy nie dojdzie do uruchomienia drugiej z nich:
+Dobrą praktyką pisania testów jest używanie jednej asercji na każdy test. Takie podejście pozwala zobaczyć wszystkie asercje, które nie zostały spełnione. Prosty przykład poniżej pokazuje tę sytuację. Test jednostkowy, który zawiera te dwie linijki nigdy nie dojdzie do uruchomienia drugiej z nich:
 
 ```java
 assertTrue(false);
 assertFalse(true);
 ```
 
-Przez to zachowanie nie zobaczysz od razu wszystkich błędnych asercji. JUnit 5 pozwala na obejście tego problemu dzięki użyciu assercji [`assertAll`]():
+Przez to zachowanie nie zobaczysz od razu wszystkich błędnych asercji. JUnit 5 pozwala na obejście tego problemu dzięki użyciu asercji [`assertAll`]():
 
 ```java
 @Test
@@ -276,7 +276,7 @@ JUnit 5 pozwala na ignorowanie testów. Najprostszym sposobem jest dodanie adnot
 
 ## Uruchamianie testów JUnit 5
 
-Jak wspomniałem wyżej różne narzędzia używały wewnętrznego API biblioteki JUnit to uruchamiania i wyświetlania wyników testów. W związku z tym zmiana wersji biblioteki JUnit wymaga taże zmiany w różnych narzędziach. Aby używać JUnit 5 w IDE musi się ono poprawnie integrować z nową wersją biblioteki. Od jakiegoś już czasu główne IDE mają takie wsparcie:
+Jak wspomniałem wyżej różne narzędzia używały wewnętrznego API biblioteki JUnit to uruchamiania i wyświetlania wyników testów. W związku z tym zmiana wersji biblioteki JUnit wymaga także zmiany w różnych narzędziach. Aby używać JUnit 5 w IDE musi się ono poprawnie integrować z nową wersją biblioteki. Od jakiegoś już czasu główne IDE mają takie wsparcie:
 
 - IntelliJ Idea 2016.2
 - Eclipse Oxygen
@@ -299,7 +299,7 @@ Gradle od wersji 4.6 wspiera natywnie uruchamianie testów przy pomocy _JUnit Pl
 JUnit 5 ma bardzo dobrą dokumentację. Na YouTube znajdziesz też całkiem sporo prezentacji, które opisują nowe podejście. Poniżej zebrałem dla Ciebie materiały, które są dobrym uzupełnieniem dla treści artykułu:
 
 - [Dokumentacja biblioteki JUnit](https://junit.org/junit5/docs/current/user-guide/),
-- [Prezentacja z Devoxx prowadzona przez Lead Developer'a bibltioteki JUnit](https://www.youtube.com/watch?v=0qI6_NKFQsY),
+- [Prezentacja z Devoxx prowadzona przez Lead Developer'a biblioteki JUnit](https://www.youtube.com/watch?v=0qI6_NKFQsY),
 - [JUnit 5 z innej perspektywy, integracja ze Spring 5](https://www.youtube.com/watch?v=-mIrA5cVfZ4),
 - [Kampania na Indiegogo sponsorująca rozwój JUnit 5](https://www.indiegogo.com/projects/junit-lambda#/),
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/31_testy_jednostkowe_junit5).
@@ -310,7 +310,7 @@ JUnit 5 ma bardzo dobrą dokumentację. Na YouTube znajdziesz też całkiem spor
 - PLN - EUR,
 - PLN - USD,
 - EUR - USD.
-Właściciel kantoru z góry określa przelicznik referencyjny i spread dla każdej pary walutowej. W bardziej rozwiniętej wersji kantor powinien pobierać przelicznik referencyjny używająć API NBP.
+Właściciel kantoru z góry określa przelicznik referencyjny i spread dla każdej pary walutowej. W bardziej rozwiniętej wersji kantor powinien pobierać przelicznik referencyjny używając API NBP.
 Napisz ten program używając podejścia [TDD]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}).
 1. Zrefaktoryzuj kod źródłowy przykładów użytych w artykule tak aby `Weight` było klasą, której konstruktor akceptuje dwa parametry:
 - `WeightUnit unit` - [typ wyliczeniowy]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) określający rodzaj jednostki. Powinien mieć wartości `POUND` i `KILOGRAM`,
