@@ -310,7 +310,7 @@ void shouldConvertZeroPoundValue() {
 
 ### Tworzenie własnych adnotacji
 
-JUnit 5 pozwala na tworzenie własnych adnotacji poprzez łączenie tych dostarczonych przez bibliotekę. W przykładzie poniżej możesz zobaczyć rozszerzenie, które przytoczyłem wyżej. Tym razem rozszerzenie to jest aplikowane przez dodanie własnej adnotacji `@SamouczekBefore` do metody z testem:
+JUnit 5 pozwala na [tworzenie własnych adnotacji]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}) poprzez łączenie tych dostarczonych przez bibliotekę. W przykładzie poniżej możesz zobaczyć rozszerzenie, które przytoczyłem wyżej. Tym razem rozszerzenie to jest aplikowane przez dodanie własnej adnotacji `@SamouczekBefore` do metody z testem:
 
 ```java
 @Target({ ElementType.TYPE, ElementType.METHOD })
@@ -363,21 +363,26 @@ JUnit 5 ma bardzo dobrą dokumentację. Na YouTube znajdziesz też całkiem spor
 ## Zadania do wykonania
 
 1. Napisz program, który będzie pomagał w prowadzeniu kantoru. Kantor powinien obsługiwać wymianę trzech par walutowych:
-- PLN - EUR,
-- PLN - USD,
-- EUR - USD.
-Właściciel kantoru z góry określa przelicznik referencyjny i spread dla każdej pary walutowej. W bardziej rozwiniętej wersji kantor powinien pobierać przelicznik referencyjny używając API NBP.
-Napisz ten program używając podejścia [TDD]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}).
-1. Zrefaktoryzuj kod źródłowy przykładów użytych w artykule tak aby `Weight` było klasą, której konstruktor akceptuje dwa parametry:
-- `WeightUnit unit` - [typ wyliczeniowy]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) określający rodzaj jednostki. Powinien mieć wartości `POUND` i `KILOGRAM`,
-- `BigDecimal value` - wartość wagi w danej jednostce.
+  - PLN - EUR,
+  - PLN - USD,
+  - EUR - USD.
 
-Dodatkowo klasa ta powinna zawierać metody:
-- `Weight convert(WeightUnit convertTo)` - zwraca instancję `Weight` reprezentującą wagę w nowej jednostce,
-- `BigDecimal getValue()` - zwaraca wagę,
-- `WeightUnit getUnit()` - zwaraca jednostkę, w której wyrażona jest waga.
+  Właściciel kantoru z góry określa przelicznik referencyjny i spread dla każdej pary walutowej. W bardziej rozwiniętej wersji kantor powinien pobierać przelicznik referencyjny używając API NBP.
 
-Użyj istniejących testów i metodyki TDD do przeprowadzenia refaktoringu kodu.
+  Napisz ten program używając podejścia [TDD]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}).
+
+2. Zrefaktoryzuj kod źródłowy przykładów użytych w artykule tak aby `Weight` było klasą, której konstruktor akceptuje dwa parametry:
+
+  - `WeightUnit unit` - [typ wyliczeniowy]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) określający rodzaj jednostki. Powinien mieć wartości `POUND` i `KILOGRAM`,
+  - `BigDecimal value` - wartość wagi w danej jednostce.
+
+  Dodatkowo klasa ta powinna zawierać metody:
+
+  - `Weight convert(WeightUnit convertTo)` - zwraca instancję `Weight` reprezentującą wagę w nowej jednostce,
+  - `BigDecimal getValue()` - zwaraca wagę,
+  - `WeightUnit getUnit()` - zwaraca jednostkę, w której wyrażona jest waga.
+
+  Użyj istniejących testów i metodyki TDD do przeprowadzenia refaktoringu kodu.
 
 Zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Podziel się linkiem do swojego rozwiązania w komentarzu :).
 
