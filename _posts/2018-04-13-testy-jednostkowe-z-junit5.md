@@ -255,8 +255,9 @@ void shouldntAcceptNullValue() {
 }
 ```
 
-`assertAll` przyjmuje listę[^typy] implementacji interfejsu `Executable`, podobnie jak poprzednio zazwyczaj są to wyrażenia lambda.
-[^typy] metoda ta jest przeciążona i akceptuje różne rodzaje parametrów, zaczynając od "varargs" a na [strumieniach]({% post_url 2018-01-30-strumienie-w-jezyku-java %}) kończąc.
+`assertAll` przyjmuje listę[^typy] implementacji interfejsu `Executable`. Podobnie jak poprzednio zazwyczaj są to wyrażenia lambda.
+
+[^typy]: metoda ta jest przeciążona i akceptuje różne rodzaje parametrów, zaczynając od "varargs" a na [strumieniach]({% post_url 2018-01-30-strumienie-w-jezyku-java %}) kończąc.
 
 W przykładzie powyżej niezależnie od wyniku pierwszej asercji druga także zostanie wywołana. Obie zostaną uwzględnione w wynikach działania testów.
 
@@ -276,6 +277,58 @@ W przykładzie powyżej test zostanie wywołany trzy razy.
 ### Ignorowanie testów
 
 JUnit 5 pozwala na ignorowanie testów. Najprostszym sposobem jest dodanie adnotacji [`@Disabled`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Disabled.html).
+
+### Mechanizm rozszerzeń
+
+JUnit 5 w odróżnieniu od JUnit 4 nie posiada `@Rule`, `@ClassRule` czy `@RunWith`. JUnit5 łączy te funkcjonalności w jedną. Ta funkcjonalność nazywa się rozszerzeniami. Główną adnotacją, która zarządza rozszerzeniami jest [`@ExtendWith`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/ExtendWith.html).
+
+Adnotacja jako element akceptuje klasę implementującą interfejs [`@Extension`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/Extension.html).
+
+Mechanizm rozszerzeń jest głównie wykorzystywany wraz z innymi bibliotekami. Na przykład przez Spring do umożliwienia wstrzykiwania zależności czy przez Mockito do tworznia mocków.
+
+#### Przykładowe rozszerzenie
+
+Przykład poniżej pokazuje rozszerzenie, które wyświetla na konsoli napis `Samouczek extension :)`. Rozszerzenie to zostało zaaplikowane do jednego z testów:
+
+```java
+public class SamouczekExtension implements BeforeEachCallback {
+    @Override
+    public void beforeEach(ExtensionContext context) {
+        System.out.println("Samouczek extension :)");
+    }
+}
+```
+
+```java
+@Test
+@ExtendWith(SamouczekExtension.class)
+void shouldConvertZeroPoundValue() {
+    Kilogram kilograms = new Pound(BigDecimal.ZERO).toKilograms();
+    assertEquals(BigDecimal.ZERO.setScale(4), kilograms.value);
+}
+```
+
+### Tworzenie własnych adnotacji
+
+JUnit 5 pozwala na tworzenie własnych adnotacji poprzez łączenie tych dostarczonych przez bibliotekę. W przykładzie poniżej możesz zobaczyć rozszerzenie, które przytoczyłem wyżej. Tym razem rozszerzenie to jest aplikowane przez dodanie własnej adnotacji `@SamouczekBefore` do metody z testem:
+
+```java
+@Target({ ElementType.TYPE, ElementType.METHOD })
+@Retention(RetentionPolicy.RUNTIME)
+@ExtendWith(SamouczekExtension.class)
+public @interface SamouczekBefore {
+}
+```
+
+```java
+@Test
+@SamouczekBefore
+void shouldConvert1Pound() {
+    assertEquals(new BigDecimal("0.4536"), new Pound(BigDecimal.ONE).toKilograms().value);
+}
+```
+
+Takie podejście pozwala na tworzenie bardziej czytelnych testów. Moim zdaniem jednak nie powinno się przesadzać z używaniem tej funkcjonalności. Może ona powodować trudności w zrozumieniu kodu przez programistów, którzy są nowi w danym projekcie.
 
 ## Uruchamianie testów JUnit 5
 
