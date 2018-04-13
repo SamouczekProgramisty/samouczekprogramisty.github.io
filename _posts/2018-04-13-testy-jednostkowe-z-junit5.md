@@ -135,7 +135,7 @@ class UnitConverterTest {
 }
 ```
 
-Zwróć uwagę na to, że zarówno klasa `UnitConverterTest` jak i wszystkie metody nie są publiczne. JUnit 5, w odróżnieniu od swojego poprzednika, nie wymaga aby klasa/metody z testami były publicznie dostępne.
+Zwróć uwagę na to, że zarówno klasa `UnitConverterTest` jak i wszystkie metody nie są publiczne. JUnit 5, w odróżnieniu od swojego poprzednika, nie wymaga aby klasa/metody z testami były dostępne publicznie.
 
 Kolejną różnicą jest pakiet, w którym znajdują się klasy użyte do tworzenia testów: `org.junit.jupiter.api`. Jest to bazowy pakiet zawierający wszystkie elementy niezbędne do pisania testów.
 
@@ -172,7 +172,7 @@ void shouldConvertFractions() {
 
 ### Testowanie wyjątków
 
-W odróżnieniu od JUnit 4, JUnit 5 nie pozwala na określenie oczekiwanego wyjątku w elemencie adnotacji `@Test`. W nowym podejściu użyte są [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}). Blok, który ma rzucić wyjątek powinien implementować interfejs funkcyjny [`Executable`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/function/Executable.html). W najprostszym przypadku jest to wyrażenie lambda.
+W odróżnieniu od JUnit 4, JUnit 5 nie pozwala na określenie oczekiwanego wyjątku w elemencie adnotacji `@Test`. W nowym podejściu użyte są [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}). Kod, który ma rzucić wyjątek powinien implementować interfejs funkcyjny [`Executable`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/function/Executable.html). W najprostszym przypadku jest to wyrażenie lambda.
 
 Metoda [`assertThrows`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertThrows-java.lang.Class-org.junit.jupiter.api.function.Executable-) przyjmuje:
 - klasę wyjątku, który powinien być rzucony
@@ -243,7 +243,7 @@ assertTrue(false);
 assertFalse(true);
 ```
 
-Przez to zachowanie nie zobaczysz od razu wszystkich błędnych asercji. JUnit 5 pozwala na obejście tego problemu dzięki użyciu asercji [`assertAll`]():
+Przez to zachowanie nie zobaczysz od razu wszystkich błędnych asercji. JUnit 5 pozwala na obejście tego problemu dzięki użyciu asercji [`assertAll`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertAll-org.junit.jupiter.api.function.Executable...-):
 
 ```java
 @Test
@@ -254,6 +254,9 @@ void shouldntAcceptNullValue() {
     );
 }
 ```
+
+`assertAll` przyjmuje listę[^typy] implementacji interfejsu `Executable`, podobnie jak poprzednio zazwyczaj są to wyrażenia lambda.
+[^typy] metoda ta jest przeciążona i akceptuje różne rodzaje parametrów, zaczynając od "varargs" a na [strumieniach]({% post_url 2018-01-30-strumienie-w-jezyku-java %}) kończąc.
 
 W przykładzie powyżej niezależnie od wyniku pierwszej asercji druga także zostanie wywołana. Obie zostaną uwzględnione w wynikach działania testów.
 
@@ -315,7 +318,13 @@ Napisz ten program używając podejścia [TDD]({% post_url 2016-11-21-test-drive
 1. Zrefaktoryzuj kod źródłowy przykładów użytych w artykule tak aby `Weight` było klasą, której konstruktor akceptuje dwa parametry:
 - `WeightUnit unit` - [typ wyliczeniowy]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) określający rodzaj jednostki. Powinien mieć wartości `POUND` i `KILOGRAM`,
 - `BigDecimal value` - wartość wagi w danej jednostce.
-Dodatkowo klasa ta powinna zawierać metodę `Weight convert(WeightUnit convertTo)`. Użyj istniejących testów i metodyki TDD do przeprowadzenia refaktoringu kodu.
+
+Dodatkowo klasa ta powinna zawierać metody:
+- `Weight convert(WeightUnit convertTo)` - zwraca instancję `Weight` reprezentującą wagę w nowej jednostce,
+- `BigDecimal getValue()` - zwaraca wagę,
+- `WeightUnit getUnit()` - zwaraca jednostkę, w której wyrażona jest waga.
+
+Użyj istniejących testów i metodyki TDD do przeprowadzenia refaktoringu kodu.
 
 Zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Podziel się linkiem do swojego rozwiązania w komentarzu :).
 
