@@ -48,7 +48,7 @@ Aplikacja używa najnowszych wersji biblioteki Spring MVC i Hibernate. W trakcie
 
 [Aktualnie](https://github.com/SamouczekProgramisty/Informator/commit/06041e2633fc494b4c1437adcc250b8faa90447a) aplikacja to wyłącznie szkielet, który pozwala na pobranie encji z bazy danych i wyświetlenie jej w formacie JSON w odpowiedzi. Zachęcam do sprawdzenia źródeł projektu, pozwolą one zobaczyć przykładową konfigurację bez użycia Spring Boot.
 
-Obecnie aplikacja zawiera jeden endpoint {{/speakers}}, który pozwala na pobranie informacji o prelegencie [na podstawie identyfikatora](https://github.com/SamouczekProgramisty/Informator/blob/master/src/main/java/pl/samouczekprogramisty/informator/controller/SpeakerController.java). Aby aplikacja mogła pobrać dane z bazy muszą one być do niej wrzucone ręcznie. Na potrzeby testów utworzyłem kilka wierszy w tabeli uzupełniając je przykładowymi danymi:
+Obecnie aplikacja zawiera jeden endpoint `/speakers`, który pozwala na pobranie informacji o prelegencie [na podstawie identyfikatora](https://github.com/SamouczekProgramisty/Informator/blob/master/src/main/java/pl/samouczekprogramisty/informator/controller/SpeakerController.java). Aby aplikacja mogła pobrać dane z bazy muszą one być do niej wrzucone ręcznie. Na potrzeby testów utworzyłem kilka wierszy w tabeli uzupełniając je przykładowymi danymi:
 
 {% include figure image_path="/assets/images/2018/04/03_sample_request.png" caption="Przykładowe zapytanie do Informatora" %}
 
