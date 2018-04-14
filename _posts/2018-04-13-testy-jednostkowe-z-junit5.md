@@ -257,7 +257,7 @@ void shouldntAcceptNullValue() {
 
 `assertAll` przyjmuje listę[^typy] implementacji interfejsu `Executable`. Podobnie jak poprzednio zazwyczaj są to wyrażenia lambda.
 
-[^typy]: metoda ta jest przeciążona i akceptuje różne rodzaje parametrów, zaczynając od "varargs" a na [strumieniach]({% post_url 2018-01-30-strumienie-w-jezyku-java %}) kończąc.
+[^typy]: Metoda `assertAll` jest przeciążona i akceptuje różne rodzaje parametrów, zaczynając od "varargs" a na [strumieniach]({% post_url 2018-01-30-strumienie-w-jezyku-java %}) kończąc.
 
 W przykładzie powyżej niezależnie od wyniku pierwszej asercji druga także zostanie wywołana. Obie zostaną uwzględnione w wynikach działania testów.
 
