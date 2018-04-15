@@ -250,7 +250,7 @@
                 <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#metoda">Metoda</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#deklaracja-metody">Deklaracja metody</a></li>
+<li class="toc-entry toc-h2"><a href="#wywołanie-metody">Wywołanie metody</a></li>
 <li class="toc-entry toc-h2"><a href="#typy-danych">Typy danych</a></li>
 <li class="toc-entry toc-h2"><a href="#nazewnictwo">Nazewnictwo</a></li>
 <li class="toc-entry toc-h2"><a href="#argument-metody">Argument metody</a></li>
@@ -258,6 +258,7 @@
 <li class="toc-entry toc-h2"><a href="#ciało-metody">Ciało metody</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#konstrukcja-if">Konstrukcja if</a></li>
 <li class="toc-entry toc-h1"><a href="#ćwiczenie">Ćwiczenie</a></li>
 <li class="toc-entry toc-h1"><a href="#podsumowanie">Podsumowanie</a></li>
 </ul>
@@ -281,26 +282,42 @@
 
 <p>Więc jesteś już po przeczytaniu swojego pierwszego fragmentu kodu! Brawo! Programowanie to nie tylko pisanie, ale także czytanie kodu własnego czy innych programistów. Ale do rzeczy…</p>
 
-<p>Metoda to nic innego jak „worek” grupujący zestaw instrukcji. Kod grupujemy w ten sposób z kilku powodów. Wymienię dwa, które moim zdaniem są najważniejsze:</p>
+<p>Metoda to nic innego jak “worek” grupujący zestaw instrukcji. Kod grupujemy w ten sposób z kilku powodów. Wymienię dwa, które moim zdaniem są najważniejsze:</p>
 
 <ul>
   <li>jeśli jakiś fragment kodu ma być wykonany w wielu miejscach zdecydowanie lepiej jest utworzyć metodę i ją uruchomić (wywołać), niż kopiować ten sam fragment kodu wielokrotnie. Jest to istotne ponieważ w przypadku błędu trzeba go poprawić w jednym miejscu a nie kilku<sup id="fnref:dry"><a href="#fn:dry" class="footnote">1</a></sup>,</li>
   <li>programy są duże, bez odpowiedniego podziału opanowanie całego projektu/programu jest bardzo czasochłonne. Sensowny podział na metody pozwala szybciej zrozumieć kod.</li>
 </ul>
 
-<h2 id="deklaracja-metody">Deklaracja metody</h2>
+<h2 id="wywołanie-metody">Wywołanie metody</h2>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">isBig</span><span class="o">(</span><span class="kt">int</span> <span class="n">someNumber</span><span class="o">)</span>
+<p>Samo utworzenie metody nic nie daje. Metodę trzeba wywołać, aby została wykonana. Zwróć uwagę na ten fragment kodu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">someNumber</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
+<span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="n">isBig</span><span class="o">(</span><span class="n">someNumber</span><span class="o">);</span>
 </code></pre></div></div>
-<p>Linijka ta zawiera kolejno:</p>
+
+<p>Ten fragment kodu zawiera kolejno:</p>
 <ol>
-  <li>typ zwracany przez metodę,</li>
-  <li>nazwę metody,</li>
-  <li>typ argumentu,</li>
-  <li>nazwę zmiennej, argumentu.</li>
+  <li>Pierwsza linijka to utworzenie zmiennej i przypisanie do niej wartości:
+    <ol>
+      <li><code class="highlighter-rouge">int</code> określający typ zmiennej,</li>
+      <li><code class="highlighter-rouge">someNumber</code> nazwa zmiennej,</li>
+      <li>znak <code class="highlighter-rouge">=</code>, który oznacza przypisanie do zmiennej,</li>
+      <li>wartość <code class="highlighter-rouge">123</code>, tak zwany literał.</li>
+    </ol>
+  </li>
+  <li>Druga linijka to wywołanie metody i przypisanie wyniku do zmiennej:
+    <ol>
+      <li><code class="highlighter-rouge">boolean</code> określający typ zmiennej,</li>
+      <li><code class="highlighter-rouge">result</code> nazwę zmiennej,</li>
+      <li>znak przypisania,</li>
+      <li>wywołanie metody <code class="highlighter-rouge">isBig</code>, jako argument do jej wywołania przekazałem wartość zmiennej <code class="highlighter-rouge">someNumber</code>.</li>
+    </ol>
+  </li>
 </ol>
 
-<p>Teraz po kolei postaram się wytłumaczyć każdy z tych elementów.</p>
+<p>Zauważ, że linijki z kodem kończą się znakiem <code class="highlighter-rouge">;</code>. Teraz po kolei postaram się wytłumaczyć każdy z tych elementów.</p>
 
 <h2 id="typy-danych">Typy danych</h2>
 
@@ -317,7 +334,7 @@
   <li><code class="highlighter-rouge">int</code> – typ przechowujący liczby całkowite. Liczby te możesz zapisać na wiele sposobów, skupimy się na najprostszym – ciąg cyfr ewentualnie poprzedzony znakiem. Ten typ może nam posłużyć do przechowywania informacji o aktualnej temperaturze, wzroście, odległości z miasta A do B itp.</li>
 </ul>
 
-<p>Tutaj muszę też powiedzieć o pewnych ograniczeniach. <code class="highlighter-rouge">int</code> podobnie jak każda inna wartość reprezentowana jest w pamięci komputera. Każda z wartości zajmuje określony rozmiar pamięci. Przez to ograniczenie nie jesteśmy w stanie przechowywać wszystkich liczb w zmiennej. Np. w przypadku Javy w zmiennej typu <code class="highlighter-rouge">int</code> możemy przechowywać numery od -2,147,483,648 do 2,147,483,647. Jak widzisz są do dość duże liczby jednak do pewnych zastosowań potrzebujemy innych typów danych.</p>
+<p>Tutaj muszę też powiedzieć o pewnych ograniczeniach. <code class="highlighter-rouge">int</code> podobnie jak każda inna wartość reprezentowana jest w pamięci komputera. Każda z wartości zajmuje określony rozmiar pamięci. Przez to ograniczenie nie jesteśmy w stanie przechowywać wszystkich liczb w zmiennej. Np. w przypadku Javy w zmiennej typu <code class="highlighter-rouge">int</code> możemy przechowywać liczby od -2,147,483,648 do 2,147,483,647. Jak widzisz są do dość duże liczby jednak do pewnych zastosowań potrzebujemy innych typów danych.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">temperature</span> <span class="o">=</span> <span class="o">-</span><span class="mi">12</span><span class="o">;</span>
 <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">186</span><span class="o">;</span>
@@ -347,27 +364,94 @@
 
 <h2 id="argument-metody">Argument metody</h2>
 
-<p>Metody mogą przyjmować jeden argument. Równie dobrze mogą nie przyjmować żadnego argumentuj, właściwie to w języku Java mogą mieć ich dowolnie dużo. To, że jest to możliwe nie oznacza, że tak powinno się robić. W większości przypadków metody zawierające dużą liczbę argumentów są oznaką złych praktyk (ang. <em>code smell</em>). Duża liczba argumentów w metodzie pogarsza czytelność kodu.</p>
+<p>Metody mogą przyjmować jeden argument. Równie dobrze mogą nie przyjmować żadnego argumentu, właściwie to w języku Java mogą mieć ich dowolnie dużo. To, że jest to możliwe nie oznacza, że tak powinno się robić. W większości przypadków metody zawierające dużą liczbę argumentów są oznaką złych praktyk (ang. <em>code smell</em>). Duża liczba argumentów w metodzie pogarsza czytelność kodu.</p>
+
+<p>Przykłady poniżej pokazują metody, z różnymi liczbami argumentów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">sayHello</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kt">int</span> <span class="nf">addNumbers</span><span class="o">(</span><span class="kt">int</span> <span class="n">number1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">number2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">number1</span> <span class="o">+</span> <span class="n">number2</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
 <h2 id="wynik-metody">Wynik metody</h2>
 
 <p>Metoda w języku Java może nie zwracać żadnej wartości, ma wówczas typ <code class="highlighter-rouge">void</code> jako typ zwracany. Możesz też napisać metodę, która zwraca dokładnie jedną wartość (obiekt lub typ prosty). Nie możesz natomiast napisać metody, która zwraca dwie lub więcej wartości. Można to obejść poprzez metody, które zwracają kolekcje obiektów (lista, tablica, zbiór, para etc.).</p>
+
+<p>Metoda <code class="highlighter-rouge">sayHello</code> z poprzedniego przykładu nie zwraca żadnej wartości. Metody <code class="highlighter-rouge">isBig</code> i <code class="highlighter-rouge">addNumbers</code> zwracają odpowiednio wartość typu <code class="highlighter-rouge">boolean</code> i <code class="highlighter-rouge">int</code>.</p>
+
 <h2 id="ciało-metody">Ciało metody</h2>
 
-<p>Ciało metody to kod zawarty pomiędzy nawiasami klamrowymi <code class="highlighter-rouge">{}</code>. W naszym przykładzie ciałem metody jest</p>
+<p>Ciało metody to kod zawarty pomiędzy nawiasami klamrowymi <code class="highlighter-rouge">{}</code>. Przeanalizuję teraz ciała trzech metod pokazanych powyżej.</p>
+
+<p>Metoda <code class="highlighter-rouge">sayHello</code> nie zwraca żadnej wartości. W środku zawiera wyłącznie fragment kodu. W tym przypadku zawiera wywołanie metody <code class="highlighter-rouge">System.out.println</code>. Ta metoda wyświetla przekazany argument na konsoli:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Metoda <code class="highlighter-rouge">addNumbers</code> dodaje dwie zmienne <code class="highlighter-rouge">number1</code> i <code class="highlighter-rouge">number2</code>. Wynik dodawania jest zwracany jako wynik metody. Słowo kluczowe <code class="highlighter-rouge">return</code> wskazuje wynik metody:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="n">number1</span> <span class="o">+</span> <span class="n">number2</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Podobnie w przypadku metody <code class="highlighter-rouge">isBig</code> słowo kluczowe <code class="highlighter-rouge">return</code> wskazuje wynik:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="n">someNumber</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="o">;</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">someNumber &gt; 100</code> może zwrócić wartość logiczną. W zależności od wartości argumentu <code class="highlighter-rouge">someNumber</code> wartość ta będzie różna:</p>
+<p>Ciało tej metody zawiera operator porównania <code class="highlighter-rouge">&gt;</code>. <code class="highlighter-rouge">someNumber &gt; 100</code> może zwrócić wartość logiczną. W zależności od wartości zmiennej <code class="highlighter-rouge">someNumber</code> wartość ta będzie różna:</p>
 <ul>
   <li>jeśli <code class="highlighter-rouge">someNumber</code> równa się 10 wówczas <code class="highlighter-rouge">someNumber &gt; 100</code> oznacza fałsz - <code class="highlighter-rouge">false</code></li>
   <li>jeśli <code class="highlighter-rouge">someNumber</code> równa się 100 wówczas <code class="highlighter-rouge">someNumber &gt; 100</code> oznacza fałsz - <code class="highlighter-rouge">false</code></li>
   <li>jeśli <code class="highlighter-rouge">someNumber</code> równa się 101 wówczas <code class="highlighter-rouge">someNumber &gt; 100</code> oznacza prawdę - <code class="highlighter-rouge">true</code></li>
 </ul>
 
+<div class="notice--info">
+    
+<p>Słowo kluczowe <code class="highlighter-rouge">return</code> może występować w metodach, które nie zwracają żadnej wartości:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">saySomethingElse</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Something else"</span><span class="o">);</span>
+    <span class="k">return</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+</div>
+
+<h1 id="konstrukcja-if">Konstrukcja <code class="highlighter-rouge">if</code></h1>
+
+<p class="notice--info">Tę konstrukcję wprowadzam teraz tylko abyś mógł użyć jej w rozwiązaniu ćwiczenia. Szerzej opisałem ją w <a href="/petle-i-instrukcje-warunkowe-w-jezyku-java/">osobnym artykule</a>.</p>
+
+<p>Zacznę od fragmentu kodu:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="n">isBig</span><span class="o">(</span><span class="mi">123</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Liczba jest duza."</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Liczba nie jest duza."</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pierwszą linijkę już znasz. To wywołanie metody <code class="highlighter-rouge">isBig</code> i przypisanie wyniku do zmiennej o nazwie <code class="highlighter-rouge">result</code>. Kolejna linijka to konstrukcja <code class="highlighter-rouge">if</code>. Konstrukcja ta sprawdza czy <code class="highlighter-rouge">result</code> ma wartość <code class="highlighter-rouge">true</code>. Jeśli tak, to zostanie wywołany kod, który jest w bloku otoczonym <code class="highlighter-rouge">{}</code>. Jeśli <code class="highlighter-rouge">result</code> ma wartość <code class="highlighter-rouge">false</code> wówczas zostanie wywołany kod znajdujący się w bloku po <code class="highlighter-rouge">else</code>.</p>
+
+<p>Więc jeśli <code class="highlighter-rouge">result</code> ma wartość <code class="highlighter-rouge">true</code> wówczas zostanie wywołany kod:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Liczba jest duza."</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Jeśli <code class="highlighter-rouge">result</code> ma wartość <code class="highlighter-rouge">false</code> to wywołany zostanie kod:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Liczba nie jest duza."</span><span class="o">);</span>
+</code></pre></div></div>
+
 <h1 id="ćwiczenie">Ćwiczenie</h1>
 
 <p>Na koniec mam dla Ciebie małe ćwiczenie. Napisz metodę, która sprawdzi czy temperatura przekazana jako argument jest dodatnia. Po rozwiązaniu zadania możesz rzucić okiem na <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/01_metody/src/main/java/pl/samouczekprogramisty/kursjava/methods/TemperatureCheck.java">przykładowe rozwiązanie</a>.</p>
+
+<p class="notice--warning">Jeszcze nie wiesz jak uruchomić tę metodę w działającym programie. Dowiesz się jak to zrobić w kolejnych etapach kursu.</p>
 
 <h1 id="podsumowanie">Podsumowanie</h1>
 
@@ -476,40 +560,6 @@
       <div class="archive__item-teaser">
         <img src=
           
-            "http://www.samouczekprogramisty.pl/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
-          
-          alt="">
-      </div>
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="http://www.samouczekprogramisty.pl/obiekty-w-jezyku-java/" rel="permalink">Obiekty w języku Java
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  10 minut(y)
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka...</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-      <div class="archive__item-teaser">
-        <img src=
-          
             "http://www.samouczekprogramisty.pl/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
           
           alt="">
@@ -531,6 +581,40 @@
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://www.samouczekprogramisty.pl/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/obiekty-w-jezyku-java/" rel="permalink">Obiekty w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka...</p>
   </article>
 </div>
         
@@ -578,14 +662,14 @@
       <div class="archive__item-teaser">
         <img src=
           
-            "http://www.samouczekprogramisty.pl/assets/images/2016/08/09_kolekcje_w_jezyku_java_artykul.jpg"
+            "http://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
           
           alt="">
       </div>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://www.samouczekprogramisty.pl/kolekcje-w-jezyku-java/" rel="permalink">Kolekcje w języku Java
+        <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/" rel="permalink">Wyrażenia lambda w języku Java
 </a>
       
     </h2>
@@ -595,10 +679,10 @@
 
 
 
-  10 minut(y)
+  8 minut(y)
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o kolekcjach w języku Java. Dowiesz się czym są kolekcje, kiedy można ich używać. Poznasz podstawowe kolekcje takie jak mapa, zbió...</p>
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym poznasz mechanizm tworzenia wyrażeń lambda. Dowiesz się jak ich używać. Poznasz też praktyczne zastosowania. Dowiesz się też jak działa operat...</p>
   </article>
 </div>
         
