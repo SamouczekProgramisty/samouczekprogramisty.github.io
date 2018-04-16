@@ -411,7 +411,7 @@ Mówi się, że strumienie pozwalają w deklaratywny sposób opisać operacje na
 
 Na koniec przygotowałem dla Ciebie kilka zadań do rozwiązania, które pomogą Ci utrwalić wiedzę zdobytą w tym artykule:
 
-- Przerób poniższa fragment kodu tak żeby używał strumieni:
+1. Przerób poniższa fragment kodu tak żeby używał strumieni:
 ```java
 double highestRanking = 0;
 BoardGame bestGame = null;
@@ -425,8 +425,10 @@ for (BoardGame game : BoardGame.GAMES) {
 }
 System.out.println(bestGame.name);
 ```
-- Znajdź minimalny element w kolekcji używając strumieni i funkcji [`reduce`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#reduce-java.util.function.BinaryOperator-). Twoja funkcja powinna działać jak istniejąca funkcja [`min`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#min-java.util.Comparator-).
-- Używając metody [`flatMap`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#flatMap-java.util.function.Function-) napisz strumień, który "spłaszczy" listę list.
+2. Znajdź minimalny element w kolekcji używając strumieni i funkcji [`reduce`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#reduce-java.util.function.BinaryOperator-). Twoja funkcja powinna działać jak istniejąca funkcja [`min`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#min-java.util.Comparator-).
+3. Używając metody [`flatMap`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#flatMap-java.util.function.Function-) napisz strumień, który "spłaszczy" listę list.
+
+Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Jeśli jednak będziesz miał z czymś kłopot możesz rzucić okiem do [przykładowych rozwiązań](https://github.com/SamouczekProgramisty/KursJava/tree/master/30_strumienie/src/main/java/pl/samouczekprogramisty/kursjava/streams/exercise), które przygotowałem.
 
 ## Dodatkowe materiały do nauki
 
