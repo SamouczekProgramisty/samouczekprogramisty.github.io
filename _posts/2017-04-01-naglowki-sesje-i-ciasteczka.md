@@ -124,7 +124,7 @@ Nagłówki możesz pobierać z obiektu żądania używając metod:
 - [`getHeader()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#getHeader-java.lang.String-)
 - [`getHeaders()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getHeaders-java.lang.String-)
 
-Poniższy serwlet używa tych metod aby ustawić kilka nagłówków. W odpowiedzi na żadanie tworzy stronę, która zawiera listę ustawionych nagłówków. Jak zwykle mocno zachęcam do eksperymentowania, sam zobacz jak taki serwlet działa.
+Poniższy serwlet używa tych metod aby ustawić kilka nagłówków. W odpowiedzi na żądanie tworzy stronę, która zawiera listę ustawionych nagłówków. Jak zwykle mocno zachęcam do eksperymentowania, sam zobacz jak taki serwlet działa.
 
 ```java
 @Override
