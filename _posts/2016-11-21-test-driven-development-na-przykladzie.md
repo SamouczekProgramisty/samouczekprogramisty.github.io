@@ -74,7 +74,7 @@ Jest on bardzo pomocny przy fazie refaktoryzacji. Będąc wewnątrz klasy, któr
 
 ## Dodatkowe materiały do nauki
 
-Bez najmniejszego wahania mogę polecić książkę autorstwa Kent’a Beck’a, [Test Driven Development by Example](https://www.amazon.com/gp/product/0321146530/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0321146530&linkCode=as2&tag=samouczekprog-20&linkId=acc6d4c00d70964abceb73c5ba706dd8)[^afiliacja]. W książce tej autor na podstawie problemu do rozwiązania pokazuje krok po kroku jak wygląda technika TDD. Chociaż książka nie jest zbyt obszerna, zawiera także sporo informacji związanych z tematyką testów jednostkowych.
+Bez najmniejszego wahania mogę polecić książkę autorstwa Kent’a Beck’a, [Test Driven Development by Example](https://www.amazon.com/gp/product/0321146530/ref=as_li_tl?ie=UTF8&tag=samouczek-20&camp=1789&creative=9325&linkCode=as2&creativeASIN=0321146530&linkId=fc14e3327fd30c05161005f1757e782f)[^afiliacja]. W książce tej autor na podstawie problemu do rozwiązania pokazuje krok po kroku jak wygląda technika TDD. Chociaż książka nie jest zbyt obszerna, zawiera także sporo informacji związanych z tematyką testów jednostkowych.
 
 [^afiliacja]: To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :)
 
