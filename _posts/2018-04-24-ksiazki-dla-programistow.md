@@ -103,7 +103,7 @@ Moim zdaniem ta książka przyda się głównie początkującym programistom. Je
 
 ## Książki dotyczące Javy
 
-Tych książek nie mam już w swojej prywatnej biblioteczce. Głównie dlatego, że nie były mi przydatne na etapie uczenia się języka Java. Drugim powodem jest to, że się przeterminowały. Jak ja czytałem te książki Java 5 to była nowość ;). Niemniej jednak, opiszę Ci książki, które mi pomogły - może znajdziesz inne pozycje tych samych autorów.
+Poniższych książek nie mam już w swojej prywatnej biblioteczce. Głównie dlatego, że były mi przydatne na etapie uczenia się języka Java, teraz już nie są. Drugim powodem jest to, że się przeterminowały. Jak ja czytałem te książki Java 5 to była nowość ;). Niemniej jednak, opiszę Ci książki, które mi pomogły - może znajdziesz inne pozycje tych samych autorów.
 
 - Head First Servlets and JSP - Basham, Sierra, Bates - Książka jest przegadana, ma ponad 900 stron. Przepraszam, przerysowana ;). Jeśli szukasz "łopatologicznego" wytłumaczenia jak działają strony JSP czy serwlety to może to być dobre źródło. Jeśli nie lubisz rysunków w książce pomiń tę pozycję.
 
@@ -129,4 +129,4 @@ Aktualnie w wolnych chwilach uczę się nowego języka, tym razem padło na Go. 
 
 W jednym zdaniu: książki warto czytać.
 
-Jeśli Twoim zdaniem pominąłem jakieś ważne pozycję proszę daj znać w komentarzach. Twoja rekomentacja na pewno przyda się nie tylko mi. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!
+Jeśli Twoim zdaniem pominąłem jakieś ważne pozycje proszę daj znać w komentarzach. Twoja rekomendacja na pewno przyda się nie tylko mi. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!
