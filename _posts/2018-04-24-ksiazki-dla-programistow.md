@@ -7,7 +7,7 @@ header:
     teaser: /assets/images/2018/04/23_ksiazki_dla_programistow.jpg
     overlay_image: /assets/images/2018/04/23_ksiazki_dla_programistow.jpg
     caption: "[&copy; gotovan](https://www.flickr.com/photos/gotovan/23725338058/sizes/l)"
-excerpt: Artykuł zawiera zestawienie kilkunastu książek dotyczących programowania. Przeczytałem każdą z tych książek i mogę je polecić z czystym sumieniem. Co więcej część z nich to "klasyki", które moim zdaniem powinien przeczytać każdy programista.
+excerpt: Artykuł zawiera zestawienie kilkunastu książek dotyczących programowania. Przeczytałem każdą z tych książek i mogę je polecić z czystym sumieniem. Co więcej, część z nich to "klasyki", które moim zdaniem powinien przeczytać każdy programista.
 ---
 
 # Dlaczego warto czytać książki
@@ -18,7 +18,7 @@ Książki są przydatne, jednak nie powinieneś na nich poprzestawać. Blogi, do
 
 # Po polsku czy po angielsku
 
-Książki techniczne mają to do siebie, że w oryginale pisane są po angielsku (w ogromnej większości). Angielski to język, którego używa się na co dzień w pracy w branży IT. Często książki, które są tłumaczone na język polski są nieaktualne[^ponadczasowe]. W Polsce wychodzi pierwsza edycja po polsku a po angielsku jest już jej nowsza wersja. Moim zdaniem, właśnie z tego powodu, książki techniczne warto czytać po angielsku. Dodatkowo w trakcie lektury można podszlifować trochę znajomość tego języka i poznać słownictwo techniczne.
+Książki techniczne mają to do siebie, że w oryginale pisane są po angielsku (w ogromnej większości). Angielski to język, którego używa się na co dzień w pracy w branży IT. Często książki, które są tłumaczone na język polski są nieaktualne[^ponadczasowe]. W Polsce wychodzi pierwsza edycja po polsku, a po angielsku jest już jej nowsza wersja. Moim zdaniem, właśnie z tego powodu, książki techniczne warto czytać po angielsku. Dodatkowo w trakcie lektury można podszlifować trochę znajomość tego języka i poznać słownictwo techniczne.
 
 [^ponadczasowe]: Oczywiście nie jest to prawda dla niektórych tytułów, które są "ponadczasowe" ;).
 
@@ -129,4 +129,4 @@ Aktualnie w wolnych chwilach uczę się nowego języka, tym razem padło na Go. 
 
 W jednym zdaniu: książki warto czytać.
 
-Jeśli Twoim zdaniem pominąłem jakieś ważne pozycję proszę daj znać w komentarzach. Takie polecenie na pewno przyda się nie tylko mi. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!
+Jeśli Twoim zdaniem pominąłem jakieś ważne pozycję proszę daj znać w komentarzach. Twoja rekomentacja na pewno przyda się nie tylko mi. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!
