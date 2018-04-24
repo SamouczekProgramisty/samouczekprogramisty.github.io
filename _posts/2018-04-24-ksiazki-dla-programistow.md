@@ -18,7 +18,7 @@ Książki są przydatne, jednak nie powinieneś na nich poprzestawać. Blogi, do
 
 # Po polsku czy po angielsku
 
-Książki techniczne mają to do siebie, że w oryginale pisane sa po angielsku (w ogromnej większości). Angielski to język, którego używa się na co dzień w pracy w branży IT. Często książki, które są tłumaczone na język polski są nieaktualne[^ponadczasowe]. W Polsce wychodzi pierwsza ecdycja po polsku a po angielsku jest już jej nowsza wersja. Moim zdaniem, właśnie z tego powodu, książki techniczne warto czytać po angielsku. Dodatkowo w trakcie lektury można podszlifować trochę znajomość tego języka i poznać słownictwo techniczne.
+Książki techniczne mają to do siebie, że w oryginale pisane są po angielsku (w ogromnej większości). Angielski to język, którego używa się na co dzień w pracy w branży IT. Często książki, które są tłumaczone na język polski są nieaktualne[^ponadczasowe]. W Polsce wychodzi pierwsza edycja po polsku a po angielsku jest już jej nowsza wersja. Moim zdaniem, właśnie z tego powodu, książki techniczne warto czytać po angielsku. Dodatkowo w trakcie lektury można podszlifować trochę znajomość tego języka i poznać słownictwo techniczne.
 
 [^ponadczasowe]: Oczywiście nie jest to prawda dla niektórych tytułów, które są "ponadczasowe" ;).
 
@@ -37,13 +37,13 @@ Część z linków do książek to tak zwane linki afiliacyjne. Oznacza to tyle,
 
 Zgadnij, ile ta książka ma lat?
 
-Przedmowa do pierwszego wydania była napisana w 1974 roku. Bez mała pół wieku. Tak, to książka o IT, gdzie bilbioteki i narządzia zmieniają się częściej niż pory roku. A ta książka cały czas ma rację bytu. To w niej przeczytałem o tym, że dokładanie ludzi do już spóźnionego projektu opóźni go jeszcze bardziej. Przykłady odnoszące się do technologii mogą być przeterminowane, jednak książkę nadal warto przeczytać.
+Przedmowa do pierwszego wydania była napisana w 1974 roku. Bez mała pół wieku. Tak, to książka o IT, gdzie biblioteki i narzędzia zmieniają się częściej niż pory roku. A ta książka cały czas ma rację bytu. To w niej przeczytałem o tym, że dokładanie ludzi do już spóźnionego projektu opóźni go jeszcze bardziej. Przykłady odnoszące się do technologii mogą być przeterminowane, jednak książkę nadal warto przeczytać.
 
 ### [Death March - Edward Yourdon](https://www.amazon.com/gp/product/013143635X/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=samouczek-20&creative=9325&linkCode=as2&creativeASIN=013143635X&linkId=8b0a6ff1986166d61813f03970eda75b)
 
 {% include figure image_path="/assets/images/2018/04/23_ksiazka_death_march.jpg" caption="Death March - Edward Yourdon" %}
 
-Do tej książki mam sentyment :). Opisuje projekt, w którym pracowałem. Tytułowy marsz śmierci, wszyscy wiedzą o nieralnych terminach, wymaganiach itp. a i tak brną dalej.
+Do tej książki mam sentyment :). Opisuje projekt, w którym pracowałem. Tytułowy marsz śmierci, wszyscy wiedzą o nierealnych terminach, wymaganiach itp. a i tak brną dalej.
 
 ## Architektura i wzorce projektowe
 
@@ -67,7 +67,7 @@ W tej książce przeczytasz o wzorcach, których używasz na co dzień w wielu p
 
 {% include figure image_path="/assets/images/2018/04/23_ksiazka_clean_code.jpg" caption="Clean Code - Robert C. Martin" %}
 
-Książka, która pozwala spojrzeć inaczej na swój kod. Niezależnie od tego jak długo programujesz na pewno znajdziesz w niej opis błędów, które popełniasz. Ja znalazłem sporo swoich. Jeśli _Design Patterns_ to encyklpedia wzorców projektowych, to tę książkę nazwałbym encyklopedią dobrych praktych przy pracy z kodem źródłowym. Chociaż przykłady pokazane są w języku Java mam wrażenie, że programiści innych języków też mogą z tej książki bardzo dużo wynieść. 
+Książka, która pozwala spojrzeć inaczej na swój kod. Niezależnie od tego jak długo programujesz na pewno znajdziesz w niej opis błędów, które popełniasz. Ja znalazłem sporo swoich. Jeśli _Design Patterns_ to encyklopedia wzorców projektowych, to tę książkę nazwałbym encyklopedią dobrych praktyk przy pracy z kodem źródłowym. Chociaż przykłady pokazane są w języku Java mam wrażenie, że programiści innych języków też mogą z tej książki bardzo dużo wynieść. 
 
 Jeśli miałbym Ci wskazać wyłącznie jedną książkę spośród wszystkich, które tu wymieniłem to wybór padłby właśnie na _Clean Code_.
 
@@ -81,7 +81,7 @@ Ta książka otworzyła mi oczy ;). Przerabiając przykłady z tej książki nau
 
 {% include figure image_path="/assets/images/2018/04/23_ksiazka_refactoring.jpg" caption="Refactoring - Martin Fowler" %}
 
-Kolejne encyklopedyczne zestawienie. Książka zawiera zbiór możliwych refaktoryzacji. Dodatkowo zobaczysz refaktoryzację przykładowej aplikacji, gdzie autor sukcesywnie poprawia jakość kodu. Po przeczytaniiu tej książki praca ze starym kodem nie jest już taka straszna, teraz mam wielką frajdę z polepszania jakości kodu :).
+Kolejne encyklopedyczne zestawienie. Książka zawiera zbiór możliwych refaktoryzacji. Dodatkowo zobaczysz refaktoryzację przykładowej aplikacji, gdzie autor sukcesywnie poprawia jakość kodu. Po przeczytaniu tej książki praca ze starym kodem nie jest już taka straszna, teraz mam wielką frajdę z polepszania jakości kodu :).
 
 Autor na swoim blogu [zapowiedział](https://martinfowler.com/articles/201803-refactoring-2nd-ed.html) [drugą edycję](https://www.amazon.com/gp/product/0134757599/ref=as_li_tl?ie=UTF8&tag=samouczek-20&camp=1789&creative=9325&linkCode=as2&creativeASIN=0134757599&linkId=f1f42a535236c76e809547ede7030814) tej książki. Przykłady w drugiej mają być napisane w JavaScript. Autor planuje poświęcić więcej uwagi refaktoryzacji funkcji[^firstclass].
 
