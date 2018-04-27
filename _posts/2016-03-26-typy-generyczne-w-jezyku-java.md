@@ -381,7 +381,7 @@ Nie zostały one dodane do Javy od samego początku. W związku z tym, że twór
 
 ## Materiały dodatkowe
 
-Wszystkie przykłady użyte w tym artykule dostępne są na githubie. Poniżej zebrałem dla Ciebie zestaw dodatkowy materiałów, jeśli chciałbyś poszerzyć swoją wiedzę na temat typów generycznych w języku Java.
+Wszystkie przykłady użyte w tym artykule dostępne są na [githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/13_typy_generyczne/src/main/java/pl/samouczekprogramisty/kursjava/generics). Poniżej zebrałem dla Ciebie zestaw dodatkowy materiałów, jeśli chciałbyś poszerzyć swoją wiedzę na temat typów generycznych w języku Java.
 
 - <https://docs.oracle.com/javase/tutorial/java/generics/index.html>
 - <https://docs.oracle.com/javase/tutorial/extra/generics/index.html>
