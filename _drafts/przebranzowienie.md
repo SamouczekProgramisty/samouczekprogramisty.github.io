@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
     overlay_image: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
     caption: "[&copy; liquene](https://www.flickr.com/photos/liquene/3802773731/sizes/l)"
-excerpt: W artykule tym przeczytasz o tym czym jest SQL. Poznasz podstawowe rodzaje zapytań. Przeczytasz o tym jak tworzyć tabele. Dowiesz się jak pobierać, dodawać, modyfikowac i usuwać dane z bazy danych. W artykule znajdziesz sporo praktycznych ćwiczeń, w których będziesz mógł sprawdzić zdobytą wiedzę.
+excerpt: W artykule tym przeczytasz o tym czym jest SQL. Poznasz podstawowe rodzaje zapytań. Przeczytasz o tym jak tworzyć tabele. Dowiesz się jak pobierać, dodawać, modyfikować i usuwać dane z bazy danych. W artykule znajdziesz sporo praktycznych ćwiczeń, w których będziesz mógł sprawdzić zdobytą wiedzę.
 ---
 
 # Zmiana branży, czyli jak zostać programistą
@@ -32,7 +32,7 @@ Czasami znajdziesz też mój komentarz dotyczący punktu widzenia prezentowanego
 
 ## Tomek
 
-Tomek ma 32 lata, zanim został programistą był marynarzem z wykształcenia. Skończył Szkołę Morską w Gdyni. Sfrustrowany dorywczymy pracami po odejściu z morza zdecydował się zostać programistą. Zaczął od C#, aktualnie pracuje z JavaScript.
+Tomek ma 32 lata, zanim został programistą był marynarzem z wykształcenia. Skończył Szkołę Morską w Gdyni. Sfrustrowany dorywczymi pracami po odejściu z morza zdecydował się zostać programistą. Zaczął od C#, aktualnie pracuje z JavaScript.
 
 ### O tym jak marynarz został programistą
 
@@ -59,7 +59,7 @@ W ogóle. Pełen żywioł. Zadanie rekrutacyjne robiłem trzy dni, poznając prz
 {% capture dangling %}
 Tutaj Tomek miał na myśli prosty błąd, jeden przecinek za dużo. Takie błędy to zmora początkujących programistów. Chociaż bardziej zaawansowani też czasami na coś takiego trafią.
 
-Upór i wytrwałość to cechy, które moim zdaniem są bardzo porządane u każdego programisty. Przykład Tomka właśnie to pokazuje. Szukanie przecinka przez dwa dni potrafi na prawdę wkurzyć. Znam to, byłem tam...
+Upór i wytrwałość to cechy, które moim zdaniem są bardzo pożądane u każdego programisty. Przykład Tomka właśnie to pokazuje. Szukanie przecinka przez dwa dni potrafi na prawdę wkurzyć. Znam to, byłem tam...
 {% endcapture %}
 
 <div class="notice--info">
@@ -76,19 +76,19 @@ Po odejściu z morza podejmowałem się każdej pracy, w tym śmieciowej. Pracuj
 
 > Od czego zacząłeś naukę programowania?
 
-Robiłem to bardzo chaotycznie. Od podjęcia decyzji o zmianie branży do faktycznego podjęcia pierwszej pracy minęło siedem i pół miesiąca. Zaczynałem chcąc nauczyć się C#[^csharp] i ekosystemu .NET, który miał mi dać podstawy do nauki Javy. Poświęcałem na to od 4 do 12 godzin dziennie, codziennie przez 5 miesięcy. Wybrałem te języki, bo bardzo wzbraniałem się przed programowaniem aplikacji webowych, zupełnie nie znając realiów branży, chciałem pisać aplikacje desktop'owe[^desktop] i zupełnie nie miałem pojęcia co robię. Nie wiedziałem, że Java to backend[^backend]. Wtedy nie wiedziałem nawet co to backend!
+Robiłem to bardzo chaotycznie. Od podjęcia decyzji o zmianie branży do faktycznego podjęcia pierwszej pracy minęło siedem i pół miesiąca. Zaczynałem chcąc nauczyć się C#[^csharp] i ekosystemu .NET, który miał mi dać podstawy do nauki Javy. Poświęcałem na to od 4 do 12 godzin dziennie, codziennie przez 5 miesięcy. Wybrałem te języki, bo bardzo wzbraniałem się przed programowaniem aplikacji webowych, zupełnie nie znając realiów branży, chciałem pisać aplikacje desktop'owe[^desktop] i zupełnie nie miałem pojęcia co robię. Nie wiedziałem, że Java to back-end[^backend]. Wtedy nie wiedziałem nawet co to back-end!
 
 [^desktop]: Aplikacje okienkowe, na przykład przeglądarka internetowa może być aplikacją desktop'ową.
 
 [^csharp]: Język programowania składniowo bardzo podobny do Javy wypuszczony przez Microsoft.
 
-[^backend]: Backend to programowanie po stronie serwera. Pisanie programów, które będą uruchamiane na serwerze. Dla odróżnienia _frontend_ to część aplikacji, która uruchamiana jest przez klienty. W kontekście aplikacji webowych do frontendu używa się głównie HTML, CSS i JavaScript. Osoba pracująca zarówno z backend'em i frontend'em często określana jest mianem _full stack'a_.
+[^backend]: Back-end to programowanie po stronie serwera. Pisanie programów, które będą uruchamiane na serwerze. Dla odróżnienia _front-end_ to część aplikacji, która uruchamiana jest przez klienty. W kontekście aplikacji webowych do front-endu używa się głównie HTML, CSS i JavaScript. Osoba pracująca zarówno z back-end'em i front-end'em często określana jest mianem _full stack'a_.
 
 Myślałem, że rynek jest przesycony, a JavaScript to nie jest "prawdziwe" programowanie. Pech chciał, że mniej więcej po trzech miesiącach nauki znalazłem ogłoszenie na Junior Support Developera ze znajomością [jQuery](http://jquery.com)[^jquery]. Jedno z zadań wymagało użycia jQuery. Pracy nie dostałem, ale spojrzałem na język. 
 
-[^jquery]: jQuery to jedna z popularnych bibliotek napisana w JavaScript, która ułatwia pracę z frontend'em.
+[^jquery]: jQuery to jedna z popularnych bibliotek napisana w JavaScript, która ułatwia pracę z front-end'em.
 
-Później pojechałem na wspomniany kurs Javy, absolutne podstawy z linią poleceń. Tak naprawdę nic, czego nie przerobiłem już w C#. Tam też dowiedziałem się, jak rynek wygląda naprawdę i że web, czy to na frontend'zie, czy to na backend'zie, jest najbardziej rozwojową gałęzią. Dowiedziałem się również, że Javą gardzę absolutnie i nie zamierzam ruszać jej długim kijem. Zostałem przy .NET ;).
+Później pojechałem na wspomniany kurs Javy, absolutne podstawy z linią poleceń. Tak naprawdę nic, czego nie przerobiłem już w C#. Tam też dowiedziałem się, jak rynek wygląda naprawdę i że web, czy to na front-end'zie, czy to na back-end'zie, jest najbardziej rozwojową gałęzią. Dowiedziałem się również, że Javą gardzę absolutnie i nie zamierzam ruszać jej długim kijem. Zostałem przy .NET ;).
 
 Tak szczerze to tego rodzaju "święte wojny" w IT zdarzają się bardzo często. Na początku mojej drogi miałem podobnie jak Tomek, z tym, że odwrotnie. Nie chciałem dotykać niczego co wypuścił Microsoft. Teraz już nie podchodzę do tego tak restrykcyjnie, ale stare przyzwyczajenia zostały.
 {:.notice--info}
@@ -100,9 +100,9 @@ Ta podróż trwa około sześciu godzin. To pokazuje, że po zdobyciu podstaw w 
 
 > Z jakimi technologiami aktualnie pracujesz?
 
-Jestem Fullstack JavaScript Developerem. Pracuję z JavaScript w dialekcie ES2015+. Znam i nie znoszę [TypeScript](https://en.wikipedia.org/wiki/TypeScript).  Technologie i biblioteki, które używam to: 
- - frontend - [React](https://reactjs.org/)/[Redux](https://redux.js.org/) + Native, [AngularJS](https://angularjs.org/), [Angular](https://angular.io/) (2+), [Cordova](https://cordova.apache.org/), [Electron](https://electronjs.org/),
- - backend - [Node.js](https://nodejs.org/en/) + [Express](https://expressjs.com/), [Hapi](https://hapijs.com/), [Sails](https://sailsjs.com/). Ruszam [GraphQL](https://graphql.org/).
+Jestem Full-stack JavaScript Developerem. Pracuję z JavaScript w dialekcie ES2015+. Znam i nie znoszę [TypeScript](https://en.wikipedia.org/wiki/TypeScript).  Technologie i biblioteki, które używam to: 
+ - front-end - [React](https://reactjs.org/)/[Redux](https://redux.js.org/) + Native, [AngularJS](https://angularjs.org/), [Angular](https://angular.io/) (2+), [Cordova](https://cordova.apache.org/), [Electron](https://electronjs.org/),
+ - back-end - [Node.js](https://nodejs.org/en/) + [Express](https://expressjs.com/), [Hapi](https://hapijs.com/), [Sails](https://sailsjs.com/). Ruszam [GraphQL](https://graphql.org/).
 
 Oprócz tego staram się pozostać na bieżąco z katalogiem [NPM](https://www.npmjs.com/) i miałem różnego rodzaju przygody z [rxJS](http://reactivex.io/rxjs/), [D3](https://d3js.org/) czy nawet [Phaser](http://phaser.io/).
 
@@ -139,7 +139,7 @@ Nie miałem wówczas konta na LinkedIn, więc wrzuciłem swoje CV na Monster Pol
 
 W swojej karierze wysłałem CV na JEDNO ogłoszenie - to z zadaniem rekrutacyjnym w jQuery.
 
-Wiele firm wykorzytuje LinkedIn jako bazę kandydatów. Bardzo często wyszukują potencjalnych pracowników na tym portalu. Otrzymywanie ofert zatrudnienia w ten sposób to norma w branży IT.
+Wiele firm wykorzystuje LinkedIn jako bazę kandydatów. Bardzo często wyszukują potencjalnych pracowników na tym portalu. Otrzymywanie ofert zatrudnienia w ten sposób to norma w branży IT.
 {:.notice--info}
 
 > Jakie masz wskazówki, rady dla osób, które chcą się przekwalifikować?
@@ -165,11 +165,11 @@ Szymon ma 28 lat. Z wykształcenia jest matematykiem, jednak postanowił spróbo
 
 > Czym zajmowałeś się wcześniej? W jakim zawodzie pracowałeś?
 
-Wcześniej pracowałem 11 miesięcy jako informatyk, totalny wyzysk. Zdecydowałem sie przez to przebranżowić.
+Wcześniej pracowałem 11 miesięcy jako informatyk, totalny wyzysk. Zdecydowałem się przez to przebranżowić.
 
 > Kim jesteś z wykształcenia?
 
-Z wyksztalcenia jestem matematykiem. Studiowałem matematykę na Politechnice.
+Z wykształcenia jestem matematykiem. Studiowałem matematykę na Politechnice.
 
 > Miałeś wcześniej styczność z programowaniem?
   
@@ -181,11 +181,11 @@ Po studiach zacząłem pracę jako informatyk taki _à la_ helpdesk. Pół roku 
 
 > Ile czasu poświęciłeś na przekwalifikowanie się (ile godzin dziennie/tygodniowo się uczyłeś)?
 
-Na naukę programowania starałem sie poświecić minimum godzinne dziennie co nie zawsze mi wychodziło.
+Na naukę programowania starałem się poświecić minimum godzinne dziennie co nie zawsze mi wychodziło.
 
 > Jak długo przygotowywałeś się przed wysłaniem pierwszego CV?
 
-Do wysłania pierwszego CV nie przygotowałem sie zbyt długo. Przez co myślę, że nie byłem na zbyt wysokim poziomie, co skutkowało negatywnymi decyzjami na rozmowach.
+Do wysłania pierwszego CV nie przygotowałem się zbyt długo. Przez co myślę, że nie byłem na zbyt wysokim poziomie, co skutkowało negatywnymi decyzjami na rozmowach.
 
 > Kiedy zacząłeś pracować jako programista?
 
@@ -224,7 +224,7 @@ Powtarzam to wszystkim, którzy pytają się czy łatwo jest znaleźć pierwszą
 
 Drugi etap rozmowy trwał około dwóch godzin. Różne zadania na kartce, pytania o moje wcześniejsze doświadczenie. Na rozmowie okazało się tak samo jak na wcześniejszych rozmowach, że za mało umiem między innymi  z Javy, ale nie dyskredytowało mnie to. Firma bowiem oferuje staże dla świeżych absolwentów oraz studentów ostatnich lat studiów. 
 
-Sporo firm początkujących programistów zatrudnia nie za posiadaną wiedzę, a za potencjał. Jeśli pracodawca zobaczy, że kandydat ma braki, ale ma też chęć do nauki, to może przymknąć oko na niektóre niedociągnięcia. Technologii można się nauczyć. Szególnie jeśli w zespole będzie osoba, która chętnie dzieli się wiedzą.
+Sporo firm początkujących programistów zatrudnia nie za posiadaną wiedzę, a za potencjał. Jeśli pracodawca zobaczy, że kandydat ma braki, ale ma też chęć do nauki, to może przymknąć oko na niektóre niedociągnięcia. Technologii można się nauczyć. Szczególnie jeśli w zespole będzie osoba, która chętnie dzieli się wiedzą.
 {:.notice--info}
 
 Po sześciu miesiącach opuściłem swoją pierwszą firmę, w której pracowałem jako programista na rzecz obiecująco zapowiadającego się stażu. Java, AngularJS to było coś.
@@ -235,27 +235,27 @@ Po trzech miesiącach płatnego stażu przyjęli mnie na umowę o prace. Jednak 
 
 Zacząłem wysyłać CV do różnych firm, które poszukiwały młodszego programisty Java. Niestety poza znajomością Javy wymagana była ode mnie np. znajomość baz danych.
 
-Między innymi tę umiejętność wspomniałem w artykule [Od zera do developera]({% post_url 2017-07-09-od-zera-do-developera-czyli-jak-zostac-programista %}). Duża liczba pracodawców szuka początkujących programistów, którzy znają coś więcej niż tylko składnię języka programiania.
+Między innymi tę umiejętność wspomniałem w artykule [Od zera do developera]({% post_url 2017-07-09-od-zera-do-developera-czyli-jak-zostac-programista %}). Duża liczba pracodawców szuka początkujących programistów, którzy znają coś więcej niż tylko składnię języka programowania.
 {:.notice--info}
 
-Odezwał się do mnie mój przyszły pracodawca. Mała firemka, wówczas trzyosobowa wliczając szefa. Na rozmowie kwalifikacyjnej nie weryfikował specjalnie mojej wiedzy technicznej. Przyjął mnie do pracy. Po 2 tygodniach opanowałem podstawy Hibernate (konfiguracja w XML). Po czasie widziałem, ze nie nauczę sie tutaj za dużo i szukałem dalej.
+Odezwał się do mnie mój przyszły pracodawca. Mała firemka, wówczas trzyosobowa wliczając szefa. Na rozmowie kwalifikacyjnej nie weryfikował specjalnie mojej wiedzy technicznej. Przyjął mnie do pracy. Po 2 tygodniach opanowałem podstawy Hibernate (konfiguracja w XML). Po czasie widziałem, że nie nauczę się tutaj za dużo i szukałem dalej.
 
 > Jakie masz wskazówki, rady dla osób, które chcą się przekwalifikować?
 
-Młodszym kolegom mogę polecić wybór studiów informatycznych. Sam poszedłem na matematykę, ale jak miałbym możliwość ponownego wyboru to wybrałbym informatykę.  Kolegom, którzy chcą sie przekwalifikować/dokwalifikować tak jak ja, systematyczną naukę, wytrwałości i cierpliwości. Mi niestety brakowało cierpliwości. Gdybym był bardziej cierpliwy z tym co robiłem, uniknąłbym rozczarowań związanych z nieudanymi rozmowami.
+Młodszym kolegom mogę polecić wybór studiów informatycznych. Sam poszedłem na matematykę, ale jak miałbym możliwość ponownego wyboru to wybrałbym informatykę.  Kolegom, którzy chcą się przekwalifikować, systematyczną naukę, wytrwałoś i cierpliwoś. Mi niestety brakowało cierpliwości. Gdybym był bardziej cierpliwy z tym co robiłem, uniknąłbym rozczarowań związanych z nieudanymi rozmowami.
 
 Zauważyłeś tu wzorzec? Szymon podobnie jak Tomek polecają cierpliwość i systematyczną naukę. To naprawdę jest klucz. Ja zawsze powtarzam, że nic "samo się nie zrobi". Do przekwalifikowania potrzebna jest Twoja ciężka i systematyczna praca.
 {:.notice--info}
 
 > Jakie masz plany dotyczące dalszej nauki/rozwoju?
 
-Na chwilę obecną pracuję jako Fullstack Developer. W przyszłości chciałbym powrócić do większego wykorzystania tego, czego się nauczyłem na studiach więc coś z Big Data: [Scala](https://www.scala-lang.org) i [Apache Spark](https://spark.apache.org). Chyba, że do tego czasu trendy się zmienią. Może już się zmieniły?
+Na chwilę obecną pracuję jako Full-stack Developer. W przyszłości chciałbym powrócić do większego wykorzystania tego, czego się nauczyłem na studiach więc coś z Big Data: [Scala](https://www.scala-lang.org) i [Apache Spark](https://spark.apache.org). Chyba, że do tego czasu trendy się zmienią. Może już się zmieniły?
 
 > Jak oceniasz pracę jako programista?
 
 Pracę jako programista oceniam bardzo pozytywnie. Nie ma co jej porównywać do poprzedniego stanowiska jakim było informatyk na helpdesku. Dużo przeróżnych i ciekawych zadań, nowe wyzwania i nieustanna nauka.
 
-Programista to zawód, w którym moim zdaniem musisz się ciągle rozwijać. Jesli oczekujesz, że nauczysz się "programować" i masz spokój to jesteś w błędzie. Pracuję ponad dziesięć lat i bez przerwy widzę braki w swojej wiedzy, bez przerwy uczę się czegoś nowego.
+Programista to zawód, w którym moim zdaniem musisz się ciągle rozwijać. Jeśli oczekujesz, że nauczysz się "programować" i masz spokój to jesteś w błędzie. Pracuję ponad dziesięć lat i bez przerwy widzę braki w swojej wiedzy, bez przerwy uczę się czegoś nowego.
 {:.notice--info}
 
 ## Marek
@@ -268,7 +268,7 @@ Jako programista zacząłem pracować w styczniu 2017 roku. Wcześniej ukończy�
 
 Warto powiedzieć, że na Mechanice i Budowie Maszyn styczności z programowaniem nie miałem praktycznie żadnej. Mogę nawet powiedzieć, że kiedy jako przedmiot dodatkowy miałem na pierwszym roku programowanie C++, to go nie zaliczyłem. Totalnie nie ogarniałem o co chodzi w programowaniu.
 
-Właściwie moje jedyne doświadczenie z programowaniem czegokolwiek to było tworzenie prostych programow do sterowników PLC w graficznym interfejsie. Czyli coś takiego jak [Scratch](https://scratch.mit.edu), tylko że wersja bardziej "inżynierska". Czyli zamiast funkcji do wykonania, zawory do zamknięcia. A zamiast zmiennych podanych przez użytkownika, jakieś czujniki, które pobierały dane. Oczywiście bez żadnego wnikania w sprzętowe szczegóły, po prostu kwadracik który podaje bieżące wyniki pomiarów.
+Właściwie moje jedyne doświadczenie z programowaniem czegokolwiek to było tworzenie prostych programów do sterowników PLC w graficznym interfejsie. Czyli coś takiego jak [Scratch](https://scratch.mit.edu), tylko że wersja bardziej "inżynierska". Czyli zamiast funkcji do wykonania, zawory do zamknięcia. A zamiast zmiennych podanych przez użytkownika, jakieś czujniki, które pobierały dane. Oczywiście bez żadnego wnikania w sprzętowe szczegóły, po prostu kwadracik który podaje bieżące wyniki pomiarów.
 
 Na zmianę ścieżki zawodowej zdecydowałem się po prawie dwóch latach pracy w zawodzie. Najpierw pracowałem jako pracownik (stażysta) działu R&D[^rd]. A potem jako projektant-konstruktor.
 
