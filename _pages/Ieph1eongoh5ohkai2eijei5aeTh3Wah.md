@@ -1,14 +1,13 @@
 ---
-title: Praktyczne wprowadzenie do SQL .
+title: Zmiana branży - zostań programistą
 categories:
-- Bazy danych
-- Praktyczne wprowadzenie do SQL
-permalink: /xxx/
+- Różne
+permalink: /Ieph1eongoh5ohkai2eijei5aeTh3Wah/
 header:
-    teaser: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
-    overlay_image: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
-    caption: "[&copy; liquene](https://www.flickr.com/photos/liquene/3802773731/sizes/l)"
-excerpt: W artykule tym przeczytasz o tym czym jest SQL. Poznasz podstawowe rodzaje zapytań. Przeczytasz o tym jak tworzyć tabele. Dowiesz się jak pobierać, dodawać, modyfikować i usuwać dane z bazy danych. W artykule znajdziesz sporo praktycznych ćwiczeń, w których będziesz mógł sprawdzić zdobytą wiedzę.
+    teaser: /assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg
+    overlay_image: /assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg
+    caption: "[&copy; kwarz](https://www.flickr.com/photos/kwarz/13974382668/sizes/l)"
+excerpt: Na rynku IT brakuje pracowników. Uczelnie nie nadążają z dostarczaniem nowych specjalistów. Popyt znacząco przewyższa podaż przez co rynek IT jest rynkiem pracownika. Tę sytuację, bardzo słusznie, chcą wykorzystać pracownicy z innych branż. W artykule tym przeczytasz historie kilku ludzi, którym taka sztuka się udała. Przeczytasz o tym jak można zmienić zawód na zawód programisty. Poznasz historię czterech osób, które dzięki swojej ciężkiej pracy dziś pracują jako programiści.
 ---
 
 # Zmiana branży, czyli jak zostać programistą
@@ -23,7 +22,7 @@ Niestety na pytania tego typu nie mam dobrych odpowiedzi. Głównie dlatego, że
 
 [^domysly]: Tak swoją drogą, moje domysły okazały się słuszne ;).
 
-Artykuł jest bardzo długi, jednak gorąco zachęcam do przeczytania całości. Chłopaki mają na prawdę ciekawe historie, którymi chcieli się anonimowo podzielić. 
+Artykuł jest bardzo długi, jednak gorąco zachęcam do przeczytania całości. Chłopaki mają naprawdę ciekawe historie, którymi chcieli się anonimowo podzielić. 
 
 Czasami znajdziesz też mój komentarz dotyczący punktu widzenia prezentowanego przez chłopaków. Będzie on umieszczony w ramce takiej jak ta.
 {:.notice--info}
@@ -59,7 +58,7 @@ W ogóle. Pełen żywioł. Zadanie rekrutacyjne robiłem trzy dni, poznając prz
 {% capture dangling %}
 Tutaj Tomek miał na myśli prosty błąd, jeden przecinek za dużo. Takie błędy to zmora początkujących programistów. Chociaż bardziej zaawansowani też czasami na coś takiego trafią.
 
-Upór i wytrwałość to cechy, które moim zdaniem są bardzo pożądane u każdego programisty. Przykład Tomka właśnie to pokazuje. Szukanie przecinka przez dwa dni potrafi na prawdę wkurzyć. Znam to, byłem tam...
+Upór i wytrwałość to cechy, które moim zdaniem są bardzo pożądane u każdego programisty. Przykład Tomka właśnie to pokazuje. Szukanie przecinka przez dwa dni potrafi naprawdę wkurzyć. Znam to, byłem tam...
 {% endcapture %}
 
 <div class="notice--info">
@@ -108,7 +107,7 @@ Oprócz tego staram się pozostać na bieżąco z katalogiem [NPM](https://www.n
 
 > Co sprawiało Ci największe problemy w trakcie przekwalifikowania się? Jak te problemy rozwiązałeś?
 
-Brak kierunku i mentoringu. Nie miałem nikogo, kto by mi powiedział co dalej. Również tak dość metafizycznie. Stack Overflow wszystkiego nie załatwi, a z doświadczenia wiem, że nic nie zastąpi [gumowej kaczki](https://pl.wikipedia.org/wiki/Metoda_gumowej_kaczuszki), [programowania w parach](https://en.wikipedia.org/wiki/Pair_programming) i code review.
+Brak kierunku i mentora. Nie miałem nikogo, kto by mi powiedział co dalej. Również tak dość metafizycznie. Stack Overflow wszystkiego nie załatwi, a z doświadczenia wiem, że nic nie zastąpi [gumowej kaczki](https://pl.wikipedia.org/wiki/Metoda_gumowej_kaczuszki), [programowania w parach](https://en.wikipedia.org/wiki/Pair_programming) i sprawdzania kodu (ang. _code review_).
 
 > Jak i gdzie zdobywałeś materiały do nauki? Czy możesz polecić źródła z których korzystałeś? Dlaczego akurat te?
 
@@ -201,7 +200,7 @@ Samodzielną naukę programowania zacząłem od przerabiania zagadnień ze szkol
 
 > Z jakimi technologiami aktualnie pracujesz?
 
-Obecnie pracuję z Java 8, JavaEE, HTML, CSS, JavaScript, TypeScript, Angular, EclipseLink, PostgreSQL, Oracle, tak w skrócie. Jako środowiska używam IntelliJ Idea.
+Obecnie pracuję z Java 8, Java EE, HTML, CSS, JavaScript, TypeScript, Angular, EclipseLink, PostgreSQL, Oracle, tak w skrócie. Jako środowiska używam IntelliJ Idea.
 
 > Co sprawiało Ci największe problemy w trakcie przekwalifikowania się?
 
@@ -242,7 +241,7 @@ Odezwał się do mnie mój przyszły pracodawca. Mała firemka, wówczas trzyoso
 
 > Jakie masz wskazówki, rady dla osób, które chcą się przekwalifikować?
 
-Młodszym kolegom mogę polecić wybór studiów informatycznych. Sam poszedłem na matematykę, ale jak miałbym możliwość ponownego wyboru to wybrałbym informatykę.  Kolegom, którzy chcą się przekwalifikować, systematyczną naukę, wytrwałoś i cierpliwoś. Mi niestety brakowało cierpliwości. Gdybym był bardziej cierpliwy z tym co robiłem, uniknąłbym rozczarowań związanych z nieudanymi rozmowami.
+Młodszym kolegom mogę polecić wybór studiów informatycznych. Sam poszedłem na matematykę, ale jak miałbym możliwość ponownego wyboru to wybrałbym informatykę.  Kolegom, którzy chcą się przekwalifikować, systematyczną naukę, wytrwałość i cierpliwość. Mi niestety brakowało cierpliwości. Gdybym był bardziej cierpliwy z tym co robiłem, uniknąłbym rozczarowań związanych z nieudanymi rozmowami.
 
 Zauważyłeś tu wzorzec? Szymon podobnie jak Tomek polecają cierpliwość i systematyczną naukę. To naprawdę jest klucz. Ja zawsze powtarzam, że nic "samo się nie zrobi". Do przekwalifikowania potrzebna jest Twoja ciężka i systematyczna praca.
 {:.notice--info}
@@ -276,8 +275,8 @@ Na zmianę ścieżki zawodowej zdecydowałem się po prawie dwóch latach pracy 
 
 Na podjecie decyzji o zmianie zawodu zebrało się kilka czynników. Między innymi to, że podczas poszukiwania nowej pracy (dalej jako mechanik) kilka razy odbiłem się od oferty pracy poprzez swoje wymagania finansowe, które nie były jakoś specjalnie wygórowane.
 
-{% capture benefity %}
-Praca jako programista rzeczywiście jest dość dobrze płatna. Co więcej w miastach gdzie jest duża konkurencja pracownicy dostają szereg dodatkowych benefitów. Na przykład firma Opera Softwate, w której pracuję oferuje swoim pracownikom:
+{% capture profity %}
+Praca jako programista rzeczywiście jest dość dobrze płatna. Co więcej w miastach gdzie jest duża konkurencja pracownicy dostają szereg dodatkowych profitów. Na przykład firma Opera Softwate, w której pracuję oferuje swoim pracownikom:
 
 - dostęp do piłkarzyków, bilarda, konsol do gier, flippera, planszówek etc. w trakcie pracy,
 - fundusze na materiały do nauki (książki, konferencje),
@@ -290,63 +289,63 @@ Praca jako programista rzeczywiście jest dość dobrze płatna. Co więcej w mi
 - masaże w trakcie pracy,
 - owoce w pracy,
 - soki/napoje energetyczne w pracy,
-- różne rodzeje darmowych kaw, herbat, ziół, płatków, mleko, wodę etc.
+- różne rodzaje darmowych kaw, herbat, ziół, płatków, mleko, wodę etc.
 {% endcapture %}
 
 <div class="notice--info">
-  {{ benefity | markdownify }}
+  {{ profity | markdownify }}
 </div>
 
 Więc podjąłem decyzję, że spróbuję się przebranżowić. Na samym początku głównie ze względu na zarobki i perspektywy rozwoju,
-które dla inżynierow mechanikow w naszym kraju niestety są dość mizerne i obarczone dużą odpowiedzialnością. Na sam początek chciałem zacząć dość klasycznie, czyli od C++.
+które dla inżynierów mechaników w naszym kraju niestety są dość mizerne i obarczone dużą odpowiedzialnością. Na sam początek chciałem zacząć dość klasycznie, czyli od C++.
 
-Tutaj znowu pojawiła się dla mnie pewna bariera poznawcza. Warto powiedzieć, że na samym początku nie potrafiłem rozróżnić `int` od `float`, a samo wykonywanie czegokolwiek w IDE stanowiło dla mnie czarną magię, serio. Byłem totalnym programistycznym tłukiem. Umiałem obchodzić się z komputerem, ale cokolwiek związanego z programowaniem bylo dla mnie czarną magią.
+Tutaj znowu pojawiła się dla mnie pewna bariera poznawcza. Warto powiedzieć, że na samym początku nie potrafiłem rozróżnić `int` od `float`, a samo wykonywanie czegokolwiek w IDE stanowiło dla mnie czarną magię, serio. Byłem totalnym programistycznym tłukiem. Umiałem obchodzić się z komputerem, ale cokolwiek związanego z programowaniem było dla mnie czarną magią.
 
 Wiedza wymagana do efektywnej pracy jako programista jest olbrzymia. Często początkujący nie wiedzą nawet od czego zacząć. W jednym z artykułów zebrałem [listę wymaganych umiejętności aby rozpocząć pracę]({% post_url 2017-07-09-od-zera-do-developera-czyli-jak-zostac-programista %}).
 {:.notice--info}
 
 Na całe szczęście na weselu mojego kolegi udało mi się trafić na kogoś, kto siedział w branży IT przez kilka lat. Tak od słowa do słowa polecił mi, żeby zamiast uczyć się C++ spróbować Javy. I dzięki Bogu za to!
 
-Nie dosć, że Java ma dużo niższy próg wejścia (niż C czy C++), to jeszcze na chwilę obecną jest dużo więcej ofert pracy z nią zwiazanych. A tym samym dużo większe szanse na staż czy jakikolwiek start.
+Nie dość, że Java ma dużo niższy próg wejścia (niż C czy C++), to jeszcze na chwilę obecną jest dużo więcej ofert pracy z nią związanych. A tym samym dużo większe szanse na staż czy jakikolwiek start.
 
-Doszło więc do tego że musiałem zdecydować z czego się uczyć. Oczywiście google.pl "best sources to learn Java" i wertowanie Quory, Stack Overflow etc.. Na tym etapie cały czas jeszcze zastanawiałem się nad jakimś bootcamp'em czy ewentualnie studiami z zakresu programowania. Całe (nie)szczęscie na jedno i drugie nie było mnie w danym momencie stać. Zacząłem więc od darmowych kursów Javy dostępnych w internecie. Z tego co pamiętam pierwszy z kursów dostępny był chyba na stronie [Coursea](https://www.coursera.org) - beznadziejny. Wystarczy nadmienić, że programowania uczono w nim w IDE (werble...) [BlueJ](https://www.bluej.org), co było totalną masakrą.
+Doszło więc do tego że musiałem zdecydować z czego się uczyć. Oczywiście Google.pl "best sources to learn Java" i wertowanie Quory, Stack Overflow etc.. Na tym etapie cały czas jeszcze zastanawiałem się nad jakimś bootcamp'em czy ewentualnie studiami z zakresu programowania. Całe (nie)szczęście na jedno i drugie nie było mnie w danym momencie stać. Zacząłem więc od darmowych kursów Javy dostępnych w internecie. Z tego co pamiętam pierwszy z kursów dostępny był chyba na stronie [Coursera](https://www.coursera.org) - beznadziejny. Wystarczy nadmienić, że programowania uczono w nim w IDE (werble...) [BlueJ](https://www.bluej.org), co było totalną masakrą.
 
-Jednak i tym razem miałem farta i po chwili trafiłem na kurs Javy na [Udemy](https://www.udemy.com) od Johna Purcella, który zresztą cały czas polecam wszystkim znajomym próbującym zacząć przygodę z programowaniem. Tutaj było już o niebo lepiej. Starałem się programować 3-4 godziny dziennie. Miałem zamiar jak najszybciej zacząć pracować w zawodzie. Siedziałem więc w domu i w wolych chwilach w pracy ogladajac jego filmiki i próbując pisać własne programy.
+Jednak i tym razem miałem farta i po chwili trafiłem na kurs Javy na [Udemy](https://www.udemy.com) od Johna Purcella, który zresztą cały czas polecam wszystkim znajomym próbującym zacząć przygodę z programowaniem. Tutaj było już o niebo lepiej. Starałem się programować 3-4 godziny dziennie. Miałem zamiar jak najszybciej zacząć pracować w zawodzie. Siedziałem więc w domu i w wolnych chwilach w pracy oglądając jego filmiki i próbując pisać własne programy.
 
-Takie pisanie programów równo z prowadzącym kurs, pomagało mi to zapamietać to, co robiłem. Dodatkowo robiłem sobie jakieś małe zadania, żeby przypomnieć sobie co było na poprzednich lekcjach. Po tym pierwszym kursie było juz tylko lepiej. Od tego samego autora znalazłem więcej kursów, które dotyczyły innych zagadnien w Javie.
+Takie pisanie programów równo z prowadzącym kurs, pomagało mi to zapamiętać to, co robiłem. Dodatkowo robiłem sobie jakieś małe zadania, żeby przypomnieć sobie co było na poprzednich lekcjach. Po tym pierwszym kursie było już tylko lepiej. Od tego samego autora znalazłem więcej kursów, które dotyczyły innych zagadnień w Javie.
 
-Wystarczy powidziec chociażby o Spring'u, Swing'u, wielowątkowości, wzorcach projektowych. Dodatkowo okazało się, że sam autor kursów jest bardzo pomocną osobą. Zawsze odpowiadał na maile i pomagał w sprawach, w których miałem problemy. Ba, nawet raz dał mi darmowy dostęp do jednego ze swoich kursów, gdy nie miałem kasy, aby go wykupić. Za to do dzisiaj wysyłam mu donate'y na PayPal'a.
+Wystarczy powiedzieć chociażby o Spring'u, Swing'u, wielowątkowości, wzorcach projektowych. Dodatkowo okazało się, że sam autor kursów jest bardzo pomocną osobą. Zawsze odpowiadał na maile i pomagał w sprawach, w których miałem problemy. Ba, nawet raz dał mi darmowy dostęp do jednego ze swoich kursów, gdy nie miałem kasy, aby go wykupić. Za to do dzisiaj wysyłam mu donate'y na PayPal'a.
 
 Starałem się też jak najwięcej czytać o programowaniu. Nie tylko o samej Javie, ale ogólnie o architekturze komputera etc.. Wiadomo, trochę pomogła elektronika, która była na studiach, ale ogólnie to i tak jak uczenie od zera. Pomocny okazał się też darmowy kurs [Harvardu CS50](https://www.edx.org/course/cs50s-introduction-computer-science-harvardx-cs50x). Serio, świetnie są tam omówione podstawowe zagadnienia.
 
 Jeśli szukasz [książek dla programistów]({% post_url 2018-04-24-ksiazki-dla-programistow %}) zapraszam do artykułu. Znajdziesz w nim listę kilkunastu książek, które przydadzą się na różnych poziomach zaawansowania.
 {:.notice--info}
 
-Po jakichś 5 miesiącach takiej nauki podjąłem decyzję, że czas zacząc próbować startować na staż/juniorskie pozycje. Mimo, iż w sumie moja wiedza nie była jakaś zabójcza. Poprzeglądałem oferty pracy z Javy i słałem CV gdzie popadnie, gdzie w miarę spełniałem wymagania.
+Po jakichś 5 miesiącach takiej nauki podjąłem decyzję, że czas zacząć próbować startować na staż/juniorskie pozycje. Mimo, iż w sumie moja wiedza nie była jakaś zabójcza. Poprzeglądałem oferty pracy z Javy i słałem CV gdzie popadnie, gdzie w miarę spełniałem wymagania.
 
 Dodatkowo zauważyłem, że do programowania jest mi potrzebne coś więcej niż Java. Czyli np. [SQL]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}), [XML]({% post_url 2017-03-02-xml-dla-poczatkujacych %}), HTML, CSS, JavaScript. Starałem się więc dodatkowo ogarnąć coś, chociaż powierzchownie, z tych tematów, aby na rozmowach nie wychodzić na totalnego ignoranta.
 
-Wcześniej wspomniałem o tym, że pracodawczy często patrzą na potencjał. Własnie takie przygotowywanie się do rozmowy przez liźnięcie tematu może pomóc. Pokazujesz w ten sposób, że zależy Ci na tej pozycji. Powinieneś jasno powiedzieć, że nie znasz tematu, ale niedawno zacząłeś się go uczyć.
+Wcześniej wspomniałem o tym, że pracodawcy często patrzą na potencjał. Właśnie takie przygotowywanie się do rozmowy przez liźnięcie tematu może pomóc. Pokazujesz w ten sposób, że zależy Ci na tej pozycji. Powinieneś jasno powiedzieć, że nie znasz tematu, ale niedawno zacząłeś się go uczyć.
 {:.notice--info}
 
-W międzyczasie podjąłem też studia informatyczne na prywatnej uczelni, ale okazały się one totalną stratą czasu i pieniędzy. Dobra rada dla przekwalifikujących się, olejcie uczelnie, ogarnijcie dobrze jeden język. Znajdźcie jakąś pracę i dopiero potem idźcie na studia.
+W międzyczasie podjąłem też studia informatyczne na prywatnej uczelni, ale okazały się one totalną stratą czasu i pieniędzy. Dobra rada dla przekwalifikowujących się, olejcie uczelnie, ogarnijcie dobrze jeden język. Znajdźcie jakąś pracę i dopiero potem idźcie na studia.
 
-Szczerze to nie wiem czy wyciągnąłby tak ogólne wnioski na podstawie jednej uczelni. Zgadzam się z Markiem, co do tego, że "sprzedawcy marzeń" to strata czasu i pieniędzy. Jeśli ktoś mówi Ci, że po trzymiesięcznym kursie będziesz programistą, nie mając wczesniej doświadczenia, to moim zdaniem kłamie.
+Szczerze to nie wiem czy wyciągnąłby tak ogólne wnioski na podstawie jednej uczelni. Zgadzam się z Markiem, co do tego, że "sprzedawcy marzeń" to strata czasu i pieniędzy. Jeśli ktoś mówi Ci, że po trzymiesięcznym kursie będziesz programistą, nie mając wcześniej doświadczenia, to moim zdaniem kłamie.
 {:.notice--info}
 
 Udało mi się dostać na kilka rozmów kwalifikacyjnych. Tutaj poszło już w miarę z górki. Z trzech rozmów, na których byłem, jedna zakończyła się propozycją pracy, drugą propozycją stażu. Doszedł do tego jeszcze świetny szef, który rzeczywiście chciał dać mi szansę i pomagał mi przy rozwoju w początkowych fazach mojej pracy.
 
-Chociaż większośc programistów to introwertycy, to staramy się być na prawdę pomocni. Jest spora szansa, że w pracy znajdziesz kogoś kto chętnie odpowie na Twoje pytania.
+Chociaż większość programistów to introwertycy, to staramy się być naprawdę pomocni. Jest spora szansa, że w pracy znajdziesz kogoś kto chętnie odpowie na Twoje pytania.
 {:.notice--info}
 
-No i w tej pierwszej pracy siędzę do dzisiaj. Projektuję wewnętrzny system banku w nowej Javie EE, w oparciu o [REST]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}) i utrzymując jeszcze starą wersję zbudowaną na [Struts](https://struts.apache.org/).
+No i w tej pierwszej pracy siedzę do dzisiaj. Projektuję wewnętrzny system banku w nowej Javie EE, w oparciu o [REST]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}) i utrzymując jeszcze starą wersję zbudowaną na [Struts](https://struts.apache.org/).
 
-Cały czas uczę się dodatkowych rzeczy. Łyknąłem trochę uczenia maszynowego, uczę sie Androida. W tym momencie staram się ogarnąć [libGDX](https://libgdx.badlogicgames.com), żeby zacząć robić proste gierki na Androida. Jako następne na celowniku mam [Unity](https://store.unity.com/products/unity-personal) i naukę C# przy okazji. W miedzyczasie pogłębiam wiedzę z Javy i ogarniam Springa 5.
+Cały czas uczę się dodatkowych rzeczy. Łyknąłem trochę uczenia maszynowego, uczę się Androida. W tym momencie staram się ogarnąć [libGDX](https://libgdx.badlogicgames.com), żeby zacząć robić proste gierki na Androida. Jako następne na celowniku mam [Unity](https://store.unity.com/products/unity-personal) i naukę C# przy okazji. W międzyczasie pogłębiam wiedzę z Javy i ogarniam Springa 5.
 
 Już wspominałem, że programowanie to ciągła nauka. Jak tylko dowiesz się więcej z jednego zakresu zauważysz braki w innym miejscu.
 {:.notice--info}
 
-Mogę powiedzieć, że znalazłem w programowaniu coś dla siebie. Mimo, że poczatkowo do zmiany branży skłoniły mnie zarobki. Jako konstruktor z perspektywy czasu mogę powiedzieć, że byłem dosyć kiepski. Jako programista czuję się zdecydowanie pewniej w zawodzie. Rozwinęło się to w pewien rodzaj pasji. Sam w wolnych chwilach piszę artykuły o programowaniu i rzeczach związanych z programowaniem na blogu it-leaders.
+Mogę powiedzieć, że znalazłem w programowaniu coś dla siebie. Mimo, że początkowo do zmiany branży skłoniły mnie zarobki. Jako konstruktor z perspektywy czasu mogę powiedzieć, że byłem dosyć kiepski. Jako programista czuję się zdecydowanie pewniej w zawodzie. Rozwinęło się to w pewien rodzaj pasji. Sam w wolnych chwilach piszę artykuły o programowaniu i rzeczach związanych z programowaniem na blogu it-leaders.
 
 ## Tomasz
 
@@ -386,7 +385,7 @@ Chyba do końca życia nie zapomnę tej książki. Gwiazdkolot do tłumaczenia w
  
 > Z jakimi technologiami aktualnie pracujesz?
 
-Obecnie pracuję z takimi technologiami jak C# i SQL do ogarniania backend'u aplikacji webowej oraz React z TypeScript'em po stronie frontend'u.
+Obecnie pracuję z takimi technologiami jak C# i SQL do ogarniania backend'u aplikacji webowej oraz React z TypeScript'em po stronie front-end'u.
 
 > Co sprawiało Ci największe problemy w trakcie przekwalifikowania się?
 
@@ -442,12 +441,12 @@ Mam nadzieję, że historie, które przeczytałeś przypadły Ci do gustu. Posta
 
 A teraz jeszcze kilka łyżek dziegdziu, tak żeby zgasić "hura optymizm":
 
-- nikt nie potrafi przewidzieć jak ta branża będzie wyglądała za 5, 10 czy 15 lat. Może uczenia maszynowe i sztuczna iteligencja rozwiną się na tyle, że praca niektórych programistów będzie zbędna i koniunktura się odwróci? 
+- nikt nie potrafi przewidzieć jak ta branża będzie wyglądała za 5, 10 czy 15 lat. Może uczenia maszynowe i sztuczna inteligencja rozwiną się na tyle, że praca niektórych programistów będzie zbędna i koniunktura się odwróci? 
 - pamiętaj, że przebranżawiając się rywalizujesz z osobami, które kształcą/kształciły się w tym kierunku,
-- często jest tak, że osoby będące na studiach nie mają tak dużych zobowiązań jak osoba, która chce się przebranżowić. Studenci przeważnie nie mają rodziny na utrzymaniu, czy dużych zobowiązań finansowych[^generalizuje]. Innymi słowy przebrażawiając się możesz sporo ryzykować.
+- często jest tak, że osoby będące na studiach nie mają tak dużych zobowiązań jak osoba, która chce się przebranżowić. Studenci przeważnie nie mają rodziny na utrzymaniu, czy dużych zobowiązań finansowych[^generalizuje]. Innymi słowy przebranżawiając się możesz sporo ryzykować.
 
 [^generalizuje]: Mam świadomość, że tu mocno generalizuję. Wydaje mi się jednak, że "statystycznie" tak to właśnie wygląda. Tak jak piszę - wydaje mi się, więc będę wdzięczny jeśli pokażesz dane, które wyprowadzą mnie z błędu.
 
-Jeśli myślisz, że chcę Cię odwieść od przebranżowienia, to masz rację. Jeśli mimo tego zostaniesz, to osiągniesz to co sobie założyłeś. Tylko będąc wystarczająco zdeterminowanem możesz to osiągnąć. To jak będzie? Dasz radę przekwalifikować się na programistę? Wiesz już, że to nie jest łatwe. Wiesz, że wymaga to sporo wysiłku. Podejmiesz wyzwanie? Jakąkolwiek decyzję podejmiesz gratuluję wyboru :). Nikt tej decyzji nie podejmie za Ciebie. Podziel się swoją opinią w komentarzu, a może Tobie już udało się przekwalifikować?
+Jeśli myślisz, że chcę Cię odwieść od przebranżowienia, to masz rację. Jeśli mimo tego zostaniesz, to osiągniesz to co sobie założyłeś. Tylko będąc wystarczająco zdeterminowanym możesz to osiągnąć. To jak będzie? Dasz radę przekwalifikować się na programistę? Wiesz już, że to nie jest łatwe. Wiesz, że wymaga to sporo wysiłku. Podejmiesz wyzwanie? Jakąkolwiek decyzję podejmiesz gratuluję wyboru :). Nikt tej decyzji nie podejmie za Ciebie. Podziel się swoją opinią w komentarzu, a może Tobie już udało się przekwalifikować?
 
 Na koniec mam do Ciebie prośbę. Jeśli artykuł przypadł Ci do gustu proszę podziel się nim ze swoimi znajomymi. W ten sposób pomożesz mi dotrzeć do nowych czytelników - z góry dziękuję. Jeśli chcesz otrzymywać informacje o nowych artykułach proszę dopisz się do samouczkowego newslettera i polub Samouczka na [Facebooku](https://www.facebook.com/SamouczekProgramisty). Do następnego razu!
