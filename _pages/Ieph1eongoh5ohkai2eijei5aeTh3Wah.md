@@ -95,7 +95,7 @@ Tak szczerze to tego rodzaju "święte wojny" w IT zdarzają się bardzo często
 
 Następne dwa miesiące spędziłem na dużo mniej intensywnej nauce, około 20 godzin tygodniowo. Nie byłem pewien tego C#, brakowało mi kierunku i miałem wrażenie, że niczego się nie nauczyłem. Poza tym jednym zadaniem rekrutacyjnym w jQuery, nie ruszałem JavaScript'u w ogóle. Podstaw potrzebnych na przebrnięcie rozmowy kwalifikacyjnej nauczyłem się w pociągu relacji Toruń - Szczecin.
 
-Ta podróż trwa około sześciu godzin. To pokazuje, że po zdobyciu podstaw w jednym języku nauka kolejnych jest dużo łatwiejsza. Oczywiście Tomek po tych pięciu godzinach nie był biegłym w JavaScript, ale znał podstawy.
+Ta podróż trwa około sześciu godzin. To pokazuje, że po zdobyciu podstaw w jednym języku nauka kolejnych jest dużo łatwiejsza. Oczywiście Tomek po tych sześciu godzinach nie był biegłym w JavaScript, ale znał podstawy.
 {:.notice--info}
 
 > Z jakimi technologiami aktualnie pracujesz?
