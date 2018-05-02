@@ -195,8 +195,13 @@ W przykładzie tym tworzony jest obiekt klasy `Pair`, który parametryzowany jes
 
 Typy generyczne zostały wprowadzone w wersji Javy 1.5. Nie były dostępne od początku jej istnienia. Zatem istnieją sytuacje, w których nawet ich stosowanie może prowadzić do wystąpienia błędów w trakcie wykonywania programu. Proszę spójrz na przykład poniżej:
 
-    BoxOnSteroids boxWithoutType = new BoxOnSteroids(new Apple());BoxOnSteroids boxWithApple = boxWithoutType;BoxOnSteroids boxWithOrange = boxWithoutType;Apple apple = boxWithApple.getFruit();Orange orange = boxWithOrange.getFruit(); // ClassCastException
-
+```java
+BoxOnSteroids boxWithoutType = new BoxOnSteroids(new Apple());
+BoxOnSteroids boxWithApple = boxWithoutType;
+BoxOnSteroids boxWithOrange = boxWithoutType;
+Apple apple = boxWithApple.getFruit();
+Orange orange = boxWithOrange.getFruit(); // ClassCastException
+```
 
 W przykładzie tym tworzona jest instancja klasy generycznej `BoxOnSteroids` bez wyspecyfikowania klasy, która znajduje się "w środku". Następnie tą instancję przypisujemy do zmiennych typu `BoxOnSteroids<Apple>` i `BoxOnSteroids<Orange>`. O ile w pierwszym przypadku typ owocu trzymanego w środku się zgadza to ostatnia linia nie jest poprawna – generuje błąd typu `ClassCastException`. Obiekt typu `Apple` jest rzutowany przez kompilator do typu `Orange`[^rzutowanie].
 
