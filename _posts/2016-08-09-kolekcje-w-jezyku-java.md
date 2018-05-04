@@ -271,7 +271,7 @@ Na koniec dla ułatwienia przygotowałem dla Ciebie tabelkę, która grupuje wł
 1. Napisz program, który będzie pobierał od użytkownika imiona. Program powinien pozwolić użytkownikowi na wprowadzenie dowolnej liczby imion (wprowadzenie „-” jako imienia przerwie wprowadzanie). Na zakończenie wypisz liczbę unikalnych imion.
 2. Napisz program, który będzie pobierał od użytkownika imiona par dopóki nie wprowadzi imienia „-”, następnie poproś użytkownika o podanie jednego z wcześniej wprowadzonych imion i wyświetl imię odpowiadającego mu partnera.
 
-Jeśli będziesz miał problemy z rozwiązaniem któregokolwiek z zadań na githubie umieściłem przykładowe rozwiązania. Zachęcam do ich sprawdzenia dopiero po przygotowaniu swojej wersji :)
+Jeśli będziesz miał problemy z rozwiązaniem któregokolwiek z zadań na githubie umieściłem [przykładowe rozwiązania](https://github.com/SamouczekProgramisty/KursJava/tree/master/15_kolekcje/src/main/java/pl/samouczekprogramisty/kursjava/exercise). Zachęcam do ich sprawdzenia dopiero po przygotowaniu swojej wersji :)
 
 ## Dodatkowe materiały do nauki
 
@@ -293,6 +293,6 @@ No i zestaw pozostałych materiałów :)
 
 ## Podsumowanie
 
-Cieszę się, że dotrwałeś do końca. Musisz wiedzieć, że bez kolekcji nie ma programowania, ten artykuł jest naprawdę ważny :). Na koniec mam do Ciebie prośbę, proszę pomóż mi dotrzeć do kolejnych samouków, podziel się z nimi adresem tego bloga, polub stronkę na fb, z góry wielkie dzięki!
+Cieszę się, że dotrwałeś do końca. Musisz wiedzieć, że bez kolekcji nie ma programowania, ten artykuł jest naprawdę ważny :). Na koniec mam do Ciebie prośbę, proszę pomóż mi dotrzeć do kolejnych Samouków, podziel się z nimi adresem tego bloga i polub stronkę na Facebooku. Z góry wielkie dzięki!
 
 Do następnego razu!

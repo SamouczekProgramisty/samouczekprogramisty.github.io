@@ -3,7 +3,7 @@ layout: single
 title: Zmiana branży - zostań programistą
 categories:
 - Różne
-permalink: /Ieph1eongoh5ohkai2eijei5aeTh3Wah/
+permalink: /zmiana-branzy-zostan-programista/
 header:
     teaser: /assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg
     overlay_image: /assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg
