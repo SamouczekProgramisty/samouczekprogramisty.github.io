@@ -30,7 +30,7 @@ Chociaż serializacja dostępna jest automatycznie dla większości obiektów z 
 
 ### Interfejs [`java.io.Serializable`](https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html)
 
-Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serilizowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu [`NotSerializableException`](https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html).
+Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serializowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu [`NotSerializableException`](https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html).
 ### Konstruktor bezparametrowy
 
 Tutaj reguła niestety nie jest trywialna. Pierwsza klasa w hierarchii dziedziczenia, która nie jest serializowalna musi mieć dostępny konstruktor bezparametrowy. Łatwiej to będzie zrozumieć na przykładzie:
@@ -51,7 +51,7 @@ Ten krok jest opcjonalny, jednak w bardziej zaawansowanych przypadkach niezbędn
 
 Tutaj dochodzimy do słowa kluczowego `transient`. Otóż słowo to może być stosowane przed atrybutami klasy. Oznacza ono, że dany atrybut nie jest serializowalny i zostanie pominięty przez mechanizm serializacji[^serializacja].
 
-[^serializacja]: Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacjim– użycie pola `serialPersistentFields` (jest ono dokładniej opisane w [specyfikacji](http://docs.oracle.com/javase/8/docs/platform/serialization/spec/serial-arch.html#a6250)).
+[^serializacja]: Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacji– użycie pola `serialPersistentFields` (jest ono dokładniej opisane w [specyfikacji](http://docs.oracle.com/javase/8/docs/platform/serialization/spec/serial-arch.html#a6250)).
 
 ## Przykład serializacji obiektu
 
@@ -109,7 +109,7 @@ Zaraz, jak to? Przecież kilka akapitów wyżej napisałem, że atrybuty poprzed
 
 ```java
 public class Human implements Serializable {
-    private static final long serialVersionUI<code>D = 1L;
+    private static final long serialVersionUID = 1L;
 
     private transient Integer age;
     private String name;
@@ -182,10 +182,10 @@ private void readObject(java.io.ObjectInputStream stream) throws IOException, Cl
 private void writeObject(java.io.ObjectOutputStream stream) throws IOException
 ```
 
-Metoda `readObject(java.io.ObjectInputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momenie odczytywania obiektu ze strumienia, czyli w trakcie wywołania metody
+Metoda `readObject(java.io.ObjectInputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momencie odczytywania obiektu ze strumienia, czyli w trakcie wywołania metody
 [`ObjectInputStream.readObject()`](https://docs.oracle.com/javase/9/docs/api/java/io/ObjectInputStream.html#readObject--).
 
-Mechanizm ten wygląda podobnie w przypadku zapisu obiektu. Metoda `writeObject(java.io.ObjectOutputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momenie zapisywania obiektu do strumienia, czyli w trakcie wywołania metody [`ObjectOutputStream.writeObject()`](https://docs.oracle.com/javase/9/docs/api/java/io/ObjectOutputStream.html#writeObject-java.lang.Object-).
+Mechanizm ten wygląda podobnie w przypadku zapisu obiektu. Metoda `writeObject(java.io.ObjectOutputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momencie zapisywania obiektu do strumienia, czyli w trakcie wywołania metody [`ObjectOutputStream.writeObject()`](https://docs.oracle.com/javase/9/docs/api/java/io/ObjectOutputStream.html#writeObject-java.lang.Object-).
 
 Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu
 
@@ -330,4 +330,4 @@ Przygotowałem też dla Ciebie [przykładowe rozwiązania](https://github.com/Sa
 
 Po przeczytaniu tego artykułu wiesz już czym są klasy `ObjectOutputStream` i `ObjectInputStream`. Znasz zasady serializacji, poznałeś słowo kluczowe `transient`. Teraz jesteś w stanie zapisać i odczytać każdą instancję klasy, którą stworzysz.
 
-Bardzo się cieszę, że przeczytałeś cały artykuł. Na koniec mam do Ciebie prośbę. Proszę przekaż adres bloga swoim znajomym, w grupie uczy się raźniej ;) Jeśli nie chcesz ominąć nowych artykułów dopisz się do newslettera i polub stronę Samouczka na facebooku. Miłego dnia i do następnego razu :)
+Bardzo się cieszę, że przeczytałeś cały artykuł. Na koniec mam do Ciebie prośbę. Proszę przekaż adres bloga swoim znajomym, w grupie uczy się raźniej ;) Jeśli nie chcesz ominąć nowych artykułów dopisz się do newslettera i polub stronę Samouczka na Facebooku. Miłego dnia i do następnego razu :)
