@@ -298,7 +298,7 @@
 
 <h3 id="interfejs-javaioserializable">Interfejs <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html"><code class="highlighter-rouge">java.io.Serializable</code></a></h3>
 
-<p>Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serilizowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu <a href="https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html"><code class="highlighter-rouge">NotSerializableException</code></a>.</p>
+<p>Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serializowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu <a href="https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html"><code class="highlighter-rouge">NotSerializableException</code></a>.</p>
 <h3 id="konstruktor-bezparametrowy">Konstruktor bezparametrowy</h3>
 
 <p>Tutaj reguła niestety nie jest trywialna. Pierwsza klasa w hierarchii dziedziczenia, która nie jest serializowalna musi mieć dostępny konstruktor bezparametrowy. Łatwiej to będzie zrozumieć na przykładzie:</p>
@@ -373,7 +373,7 @@
 </ul>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Human</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUI</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">D</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
 
     <span class="kd">private</span> <span class="kd">transient</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">;</span>
     <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
@@ -442,6 +442,11 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectInputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span>
 <span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectOutputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span>
 </code></pre></div></div>
+
+<p>Metoda <code class="highlighter-rouge">readObject(java.io.ObjectInputStream stream)</code>, którą zaimplementujesz jest automatycznie wywoływana w momencie odczytywania obiektu ze strumienia, czyli w trakcie wywołania metody
+<a href="https://docs.oracle.com/javase/9/docs/api/java/io/ObjectInputStream.html#readObject--"><code class="highlighter-rouge">ObjectInputStream.readObject()</code></a>.</p>
+
+<p>Mechanizm ten wygląda podobnie w przypadku zapisu obiektu. Metoda <code class="highlighter-rouge">writeObject(java.io.ObjectOutputStream stream)</code>, którą zaimplementujesz jest automatycznie wywoływana w momencie zapisywania obiektu do strumienia, czyli w trakcie wywołania metody <a href="https://docs.oracle.com/javase/9/docs/api/java/io/ObjectOutputStream.html#writeObject-java.lang.Object-"><code class="highlighter-rouge">ObjectOutputStream.writeObject()</code></a>.</p>
 
 <p>Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu</p>
 
@@ -586,11 +591,11 @@
 
 <p>Po przeczytaniu tego artykułu wiesz już czym są klasy <code class="highlighter-rouge">ObjectOutputStream</code> i <code class="highlighter-rouge">ObjectInputStream</code>. Znasz zasady serializacji, poznałeś słowo kluczowe <code class="highlighter-rouge">transient</code>. Teraz jesteś w stanie zapisać i odczytać każdą instancję klasy, którą stworzysz.</p>
 
-<p>Bardzo się cieszę, że przeczytałeś cały artykuł. Na koniec mam do Ciebie prośbę. Proszę przekaż adres bloga swoim znajomym, w grupie uczy się raźniej ;) Jeśli nie chcesz ominąć nowych artykułów dopisz się do newslettera i polub stronę Samouczka na facebooku. Miłego dnia i do następnego razu :)</p>
+<p>Bardzo się cieszę, że przeczytałeś cały artykuł. Na koniec mam do Ciebie prośbę. Proszę przekaż adres bloga swoim znajomym, w grupie uczy się raźniej ;) Jeśli nie chcesz ominąć nowych artykułów dopisz się do newslettera i polub stronę Samouczka na Facebooku. Miłego dnia i do następnego razu :)</p>
 <div class="footnotes">
   <ol>
     <li id="fn:serializacja">
-      <p>Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacjim– użycie pola <code class="highlighter-rouge">serialPersistentFields</code> (jest ono dokładniej opisane w <a href="http://docs.oracle.com/javase/8/docs/platform/serialization/spec/serial-arch.html#a6250">specyfikacji</a>). <a href="#fnref:serializacja" class="reversefootnote">&#8617;</a></p>
+      <p>Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacji– użycie pola <code class="highlighter-rouge">serialPersistentFields</code> (jest ono dokładniej opisane w <a href="http://docs.oracle.com/javase/8/docs/platform/serialization/spec/serial-arch.html#a6250">specyfikacji</a>). <a href="#fnref:serializacja" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
