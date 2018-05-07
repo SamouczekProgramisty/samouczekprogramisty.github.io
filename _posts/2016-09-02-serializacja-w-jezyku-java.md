@@ -182,6 +182,11 @@ private void readObject(java.io.ObjectInputStream stream) throws IOException, Cl
 private void writeObject(java.io.ObjectOutputStream stream) throws IOException
 ```
 
+Metoda `readObject(java.io.ObjectInputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momenie odczytywania obiektu ze strumienia, czyli w trakcie wywołania metody
+[`ObjectInputStream.readObject()`](https://docs.oracle.com/javase/9/docs/api/java/io/ObjectInputStream.html#readObject--).
+
+Mechanizm ten wygląda podobnie w przypadku zapisu obiektu. Metoda `writeObject(java.io.ObjectOutputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momenie zapisywania obiektu do strumienia, czyli w trakcie wywołania metody [`ObjectOutputStream.writeObject()`](https://docs.oracle.com/javase/9/docs/api/java/io/ObjectOutputStream.html#writeObject-java.lang.Object-).
+
 Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu
 
 ```java
