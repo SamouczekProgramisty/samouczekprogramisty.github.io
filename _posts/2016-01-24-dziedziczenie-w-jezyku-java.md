@@ -18,7 +18,7 @@ disqus_page_identifier: 200 http://www.samouczekprogramisty.pl/?p=200
   
 Na początku postaram się wyjaśnić czym właściwie jest dziedziczenie. Nie jest to nic skomplikowanego.
 
-Niektóre obiekty mogą mieć między sobą dużo wspólnego. Na przykład zarówno samochód osobowy jak i samochód ciężarowy mają silnik, kierownicę, drzwi, światła itd. Co prawda każdy z tych elementów może być różny, jednak bez wątpienia oba te pojazdy mają wiele wspólnego. Oba są pojazdami. Możemy powiedzieć, że samochód ciężarowy rozszerza (ang. _extends_) funkcjonalność pojazdu.
+Niektóre obiekty mogą mieć między sobą dużo wspólnego. Na przykład zarówno samochód osobowy jak i samochód ciężarowy mają silnik, kierownicę, drzwi, światła itd. Co prawda każdy z tych elementów może być różny, jednak bez wątpienia oba te pojazdy mają wiele wspólnego. Przede wszystkim oba są pojazdami. Możemy powiedzieć, że samochód ciężarowy rozszerza (ang. _extends_) funkcjonalność pojazdu.
 
 W naszym przykładzie pojazd możemy uznać, za tak zwaną klasę bazową (lub nadklasę). Natomiast samochód osobowy i samochód ciężarowy rozszerzają funkcjonalność pojazdu. Możemy też powiedzieć, że każda z nich jest klasą pochodną (lub „podklasą”). Proszę spójrz na przykład:
 
@@ -59,11 +59,28 @@ Do tej pory poznałeś modyfikatory dostępu takie jak:
 - `public` - element oznaczony tym modyfikatorem dostępny jest "z zewnątrz" obiektu, stanowi jego interfejs,
 - `private` - element oznaczony tym modyfikatorem jest dostępna wyłącznie wewnątrz obiektu, także klasy pochodne nie mają do niego dostępu.
   
-W przypadku dziedziczenia znaczenie ma także modyfikator `protected`. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę która po niej dziedziczy[^dziedziczenie].
+W przypadku dziedziczenia znaczenie ma także modyfikator `protected`. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę która po niej dziedziczy.
 
-[^dziedziczenie]:  Istnieje też "brak modyfikatora dostępu" jednak na początek możemy tą sytuację pominąć. Opiszę to w osobnym artykule.
+Przygotowałem osobny artykuł poświęcony [modyfikatorom dostępu]({% post_url 2017-10-29-modyfikatory-dostepu-w-jezyku-java %}). Jeśli chcesz dowiedzieć się więcej o modyfikatorach powinieneś go przeczytać.
+{:.notice--info}
 
-## Przesłonięcie metody
+## Przesłonięcie i przeciążenie metody
+
+Pytanie o to, czym różni się przesłonięcie od przeciążenia metody często trafia się na rozmowach o pracę. Pamiętam je jako jedno z obowiązkowych pytań na stanowiska początkujących programistów. Warto znać tę różnicę.
+{:.notice--info}
+
+### Sygnatura metody
+
+Zanim wytłumaczę Ci te pojęcia musisz wiedzieć czym jest sygnatura metody. Specyfikacja języka Java określa sygnaturę metody jako jej nazwę wraz z listą argumentów. W szczególności w skład sygnatury metody nie wchodzi typ zwracany przez daną metodę.
+
+W poniższym przykładzie sygnaturą metody jest `main(String[])` (nazwy parametrów nie są istotne):
+```java
+public static void main(String[] args) throws Exception {
+    System.out.println("something important");
+}
+```
+
+### Przesłonięcie metody
   
 Łatwo sobie wyobrazić sytuację, w której metoda o tej samej sygnaturze występuje zarówno w klasie bazowej jak i klasie pochodnej. W tej sytuacji mówimy o tym, że klasa pochodna przesłania metodę z klasy bazowej (ang. _override_). Proszę spójrz na przykład poniżej.
 
@@ -95,6 +112,28 @@ public class Car extends Vehicle {
 ```
   
 W takim przypadku wywołanie metody `startEngine` na instancji obiektu `Car` na początku wywoła tą metodę z klasy bazowej (wyświetli się komunikat `Engine starts...`) następnie pokazany zostanie komunikat `Force driver...` (zachęcam do eksperymentowania z IDE).
+
+[Adnotacja]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}) [`@Override`](https://docs.oracle.com/javase/9/docs/api/java/lang/Override.html) informuje kompilator o tym, że dana metoda powinna przesłaniać inną metodę w klasie bazowej. Jeśli warunek ten nie będzie spełniony możesz spodziewać się błędu kompilacji.
+{:.notice--info}
+
+### Przeciążenie metody
+
+Przeciążenie (ang. _overload_) metody nie jest związane z dziedziczeniem. Mówimy o tym, że metoda jest przeciążona jeśli w ramach jednej klasy występuje wiele metod o tej samej nazwie. W tym przypadku każda z tych metod, mimo tej samej nazwy, ma różną sygnaturę. Metody te różnią się między sobą listą argumentów.
+
+Częstą praktyką jest przeciążanie konstruktorów. Dzięki temu pozwalasz na tworzenie danego obiektu na wiele różnych sposobów:
+
+```java
+public class Car extends Vehicle {
+    private final String model;
+
+    public Car() {
+        this("unknown");
+    }
+    public Car(String model) {
+        this.model = model;
+    }
+}
+```
 
 ## Konstruktory a dziedziczenie
   
