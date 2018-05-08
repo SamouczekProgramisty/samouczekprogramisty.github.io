@@ -253,7 +253,13 @@
                 <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#dziedziczenie">Dziedziczenie</a></li>
 <li class="toc-entry toc-h2"><a href="#modyfikatory-dostępu">Modyfikatory dostępu</a></li>
-<li class="toc-entry toc-h2"><a href="#przesłonięcie-metody">Przesłonięcie metody</a></li>
+<li class="toc-entry toc-h2"><a href="#przesłonięcie-i-przeciążenie-metody">Przesłonięcie i przeciążenie metody</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sygnatura-metody">Sygnatura metody</a></li>
+<li class="toc-entry toc-h3"><a href="#przesłonięcie-metody">Przesłonięcie metody</a></li>
+<li class="toc-entry toc-h3"><a href="#przeciążenie-metody">Przeciążenie metody</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#konstruktory-a-dziedziczenie">Konstruktory a dziedziczenie</a></li>
 <li class="toc-entry toc-h2"><a href="#klasy-abstrakcyjne">Klasy abstrakcyjne</a></li>
 <li class="toc-entry toc-h2"><a href="#klasy-i-metody-finalne">Klasy i metody finalne</a></li>
@@ -278,9 +284,9 @@
 
 <p>Na początku postaram się wyjaśnić czym właściwie jest dziedziczenie. Nie jest to nic skomplikowanego.</p>
 
-<p>Niektóre obiekty mogą mieć między sobą dużo wspólnego. Na przykład zarówno samochód osobowy jak i samochód ciężarowy mają silnik, kierownicę, drzwi, światła itd. Co prawda każdy z tych elementów może być różny, jednak bez wątpienia oba te pojazdy mają wiele wspólnego. Oba są pojazdami. Możemy powiedzieć, że samochód ciężarowy rozszerza (ang. <em>extends</em>) funkcjonalność pojazdu.</p>
+<p>Niektóre obiekty mogą mieć między sobą dużo wspólnego. Na przykład zarówno samochód osobowy jak i samochód ciężarowy mają silnik, kierownicę, drzwi, światła itd. Co prawda każdy z tych elementów może być różny, jednak bez wątpienia oba te pojazdy mają wiele wspólnego. Przede wszystkim oba są pojazdami. Możemy powiedzieć, że samochód ciężarowy rozszerza (ang. <em>extends</em>) funkcjonalność pojazdu.</p>
 
-<p>W naszym przykładzie pojazd możemy uznać, za tak zwaną klasę bazową (lub „nadklasę”). Natomiast samochód osobowy i samochód ciężarowy rozszerzają funkcjonalność pojazdu. Możemy też powiedzieć, że każda z nich jest klasą pochodną (lub „podklasą”). Proszę spójrz na przykład:</p>
+<p>W naszym przykładzie pojazd możemy uznać, za tak zwaną klasę bazową (lub nadklasę). Natomiast samochód osobowy i samochód ciężarowy rozszerzają funkcjonalność pojazdu. Możemy też powiedzieć, że każda z nich jest klasą pochodną (lub „podklasą”). Proszę spójrz na przykład:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vehicle</span> <span class="o">{</span>
 <span class="o">}</span>
@@ -292,7 +298,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Dziedziczenie jest jedną z podstaw programowania obiektowego (nie tylko w języku Java). Dzięki dziedziczeniu możemy ograniczyć ilość zduplikowanego kodu poprzez definiowanie atrybutów, konstruktorów, metod w klasach bazowych.</p>
+<p>Dziedziczenie jest jedną z podstaw programowania obiektowego (nie tylko w języku Java). Dzięki dziedziczeniu możemy ograniczyć ilość powielonego kodu poprzez definiowanie atrybutów, konstruktorów, metod w klasach bazowych.</p>
 
 <p>Dziedziczenie może być wielopoziomowe, jednak w języku Java zawsze bezpośrednio możemy dziedziczyć od jednej klasy.</p>
 
@@ -319,9 +325,25 @@
   <li><code class="highlighter-rouge">private</code> - element oznaczony tym modyfikatorem jest dostępna wyłącznie wewnątrz obiektu, także klasy pochodne nie mają do niego dostępu.</li>
 </ul>
 
-<p>W przypadku dziedziczenia znaczenie ma także modyfikator <code class="highlighter-rouge">protected</code>. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę która po niej dziedziczy<sup id="fnref:dziedziczenie"><a href="#fn:dziedziczenie" class="footnote">1</a></sup>.</p>
+<p>W przypadku dziedziczenia znaczenie ma także modyfikator <code class="highlighter-rouge">protected</code>. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę która po niej dziedziczy.</p>
 
-<h2 id="przesłonięcie-metody">Przesłonięcie metody</h2>
+<p class="notice--info">Przygotowałem osobny artykuł poświęcony <a href="/modyfikatory-dostepu-w-jezyku-java/">modyfikatorom dostępu</a>. Jeśli chcesz dowiedzieć się więcej o modyfikatorach powinieneś go przeczytać.</p>
+
+<h2 id="przesłonięcie-i-przeciążenie-metody">Przesłonięcie i przeciążenie metody</h2>
+
+<p class="notice--info">Pytanie o to, czym różni się przesłonięcie od przeciążenia metody często trafia się na rozmowach o pracę. Pamiętam je jako jedno z obowiązkowych pytań na stanowiska początkujących programistów. Warto znać tę różnicę.</p>
+
+<h3 id="sygnatura-metody">Sygnatura metody</h3>
+
+<p>Zanim wytłumaczę Ci te pojęcia musisz wiedzieć czym jest sygnatura metody. Specyfikacja języka Java określa sygnaturę metody jako jej nazwę wraz z listą argumentów. W szczególności w skład sygnatury metody nie wchodzi typ zwracany przez daną metodę.</p>
+
+<p>W poniższym przykładzie sygnaturą metody jest <code class="highlighter-rouge">main(String[])</code> (nazwy parametrów nie są istotne):</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"something important"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="przesłonięcie-metody">Przesłonięcie metody</h3>
 
 <p>Łatwo sobie wyobrazić sytuację, w której metoda o tej samej sygnaturze występuje zarówno w klasie bazowej jak i klasie pochodnej. W tej sytuacji mówimy o tym, że klasa pochodna przesłania metodę z klasy bazowej (ang. <em>override</em>). Proszę spójrz na przykład poniżej.</p>
 
@@ -351,6 +373,26 @@
 </code></pre></div></div>
 
 <p>W takim przypadku wywołanie metody <code class="highlighter-rouge">startEngine</code> na instancji obiektu <code class="highlighter-rouge">Car</code> na początku wywoła tą metodę z klasy bazowej (wyświetli się komunikat <code class="highlighter-rouge">Engine starts...</code>) następnie pokazany zostanie komunikat <code class="highlighter-rouge">Force driver...</code> (zachęcam do eksperymentowania z IDE).</p>
+
+<p class="notice--info"><a href="/adnotacje-w-jezyku-java/">Adnotacja</a> <a href="https://docs.oracle.com/javase/9/docs/api/java/lang/Override.html"><code class="highlighter-rouge">@Override</code></a> informuje kompilator o tym, że dana metoda powinna przesłaniać inną metodę w klasie bazowej. Jeśli warunek ten nie będzie spełniony możesz spodziewać się błędu kompilacji.</p>
+
+<h3 id="przeciążenie-metody">Przeciążenie metody</h3>
+
+<p>Przeciążenie (ang. <em>overload</em>) metody nie jest związane z dziedziczeniem. Mówimy o tym, że metoda jest przeciążona jeśli w ramach jednej klasy występuje wiele metod o tej samej nazwie. W tym przypadku każda z tych metod, mimo tej samej nazwy, ma różną sygnaturę. Metody te różnią się między sobą listą argumentów.</p>
+
+<p>Częstą praktyką jest przeciążanie konstruktorów. Dzięki temu pozwalasz na tworzenie danego obiektu na wiele różnych sposobów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">model</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Car</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="s">"unknown"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">Car</span><span class="o">(</span><span class="n">String</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
 <h2 id="konstruktory-a-dziedziczenie">Konstruktory a dziedziczenie</h2>
 
@@ -460,7 +502,7 @@
 
 <p>Z jednego z poprzednich artykułów wiesz o tym, że kompilator dodaje automatycznie konstruktor bezparametrowy jeśli nie zdefiniujesz żadnego w swojej klasie. Podobnie jest z dziedziczeniem, każda klasa domyślnie dziedziczy po klasie <code class="highlighter-rouge">java.lang.Object</code> (chyba, że zdefiniujesz inną klasę po której dziedziczysz).</p>
 
-<p>Dzięki tej klasie masz dostęp do zestawu metod, które zdefiniowane są w ciele klasy Object. Na przykład metoda <code class="highlighter-rouge">String toString()</code> ma swoją podstawową implementację w klasie <code class="highlighter-rouge">Object</code><sup id="fnref:tostring"><a href="#fn:tostring" class="footnote">2</a></sup>.</p>
+<p>Dzięki tej klasie masz dostęp do zestawu metod, które zdefiniowane są w ciele klasy Object. Na przykład metoda <code class="highlighter-rouge">String toString()</code> ma swoją podstawową implementację w klasie <code class="highlighter-rouge">Object</code><sup id="fnref:tostring"><a href="#fn:tostring" class="footnote">1</a></sup>.</p>
 
 <h2 id="dobre-praktyki">Dobre praktyki</h2>
 
@@ -493,14 +535,11 @@
 
 <p>Bardzo się cieszę, że przeczytałeś artykuł do końca. Dzisiaj dowiedziałeś się czegoś więcej o dziedziczeniu. Poznałeś słowa kluczowe <code class="highlighter-rouge">abstract</code> i <code class="highlighter-rouge">final</code>. Wiesz już czym jest nadpisywanie metod czy klasa bazowa. Innymi słowy poznałeś kolejny zestaw narzędzi niezbędnych dla każdego programisty. Tak trzymaj! :)</p>
 
-<p>Na koniec bardzo proszę Cię o podzielenie się artykułem ze swoimi znajomymi, którzy są zainteresowani taką tematyką. Jak zwykle zależy mi na tym, żeby z blogiem i jego zawartością dotrzeć do jak największej liczby czytelników takich jak Ty :) Jeśli jeszcze tego nie zrobiłeś prosiłbym o polubienie strony na facebooku.</p>
+<p>Na koniec bardzo proszę Cię o podzielenie się artykułem ze swoimi znajomymi, którzy są zainteresowani taką tematyką. Jak zwykle zależy mi na tym, żeby z blogiem i jego zawartością dotrzeć do jak największej liczby czytelników takich jak Ty :) Jeśli jeszcze tego nie zrobiłeś prosiłbym o polubienie strony na Facebooku.</p>
 
 <p>Do następnego razu!</p>
 <div class="footnotes">
   <ol>
-    <li id="fn:dziedziczenie">
-      <p>Istnieje też “brak modyfikatora dostępu” jednak na początek możemy tą sytuację pominąć. Opiszę to w osobnym artykule. <a href="#fnref:dziedziczenie" class="reversefootnote">&#8617;</a></p>
-    </li>
     <li id="fn:tostring">
       <p>Domyślna implementacja pokazuje nazwę klasy wraz z pakietem oraz jej adres w pamięci np. <code class="highlighter-rouge">pl.samouczekprogramisty.kursjava.cars.X@14ae5a5</code>. <a href="#fnref:tostring" class="reversefootnote">&#8617;</a></p>
     </li>
@@ -594,6 +633,40 @@
       <div class="archive__item-teaser">
         <img src=
           
+            "http://www.samouczekprogramisty.pl/assets/images/2016/03/23_java_typy_generyczne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://www.samouczekprogramisty.pl/typy-generyczne-w-jezyku-java/" rel="permalink">Typy generyczne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Dzień dobry! Nadszedł czas na poznanie typów generycznych. Dowiesz się o “szablonach” w języku Java, które pozwalają na tworzenie bardziej uniwersalnych typó...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
             "http://www.samouczekprogramisty.pl/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"
           
           alt="">
@@ -649,40 +722,6 @@
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory public, protected i private. Poznasz ...</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-      <div class="archive__item-teaser">
-        <img src=
-          
-            "http://www.samouczekprogramisty.pl/assets/images/2016/03/23_java_typy_generyczne_artykul.jpg"
-          
-          alt="">
-      </div>
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="http://www.samouczekprogramisty.pl/typy-generyczne-w-jezyku-java/" rel="permalink">Typy generyczne w języku Java
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  11 minut(y)
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Dzień dobry! Nadszedł czas na poznanie typów generycznych. Dowiesz się o “szablonach” w języku Java, które pozwalają na tworzenie bardziej uniwersalnych typó...</p>
   </article>
 </div>
         
