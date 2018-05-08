@@ -20,7 +20,7 @@ Na początku postaram się wyjaśnić czym właściwie jest dziedziczenie. Nie j
 
 Niektóre obiekty mogą mieć między sobą dużo wspólnego. Na przykład zarówno samochód osobowy jak i samochód ciężarowy mają silnik, kierownicę, drzwi, światła itd. Co prawda każdy z tych elementów może być różny, jednak bez wątpienia oba te pojazdy mają wiele wspólnego. Oba są pojazdami. Możemy powiedzieć, że samochód ciężarowy rozszerza (ang. _extends_) funkcjonalność pojazdu.
 
-W naszym przykładzie pojazd możemy uznać, za tak zwaną klasę bazową (lub „nadklasę”). Natomiast samochód osobowy i samochód ciężarowy rozszerzają funkcjonalność pojazdu. Możemy też powiedzieć, że każda z nich jest klasą pochodną (lub „podklasą”). Proszę spójrz na przykład:
+W naszym przykładzie pojazd możemy uznać, za tak zwaną klasę bazową (lub nadklasę). Natomiast samochód osobowy i samochód ciężarowy rozszerzają funkcjonalność pojazdu. Możemy też powiedzieć, że każda z nich jest klasą pochodną (lub „podklasą”). Proszę spójrz na przykład:
 
 ```java
 public class Vehicle {
@@ -33,7 +33,7 @@ public class Truck extends Vehicle {
 }
 ```
   
-Dziedziczenie jest jedną z podstaw programowania obiektowego (nie tylko w języku Java). Dzięki dziedziczeniu możemy ograniczyć ilość zduplikowanego kodu poprzez definiowanie atrybutów, konstruktorów, metod w klasach bazowych.
+Dziedziczenie jest jedną z podstaw programowania obiektowego (nie tylko w języku Java). Dzięki dziedziczeniu możemy ograniczyć ilość powielonego kodu poprzez definiowanie atrybutów, konstruktorów, metod w klasach bazowych.
 
 Dziedziczenie może być wielopoziomowe, jednak w języku Java zawsze bezpośrednio możemy dziedziczyć od jednej klasy.
 
@@ -242,6 +242,6 @@ Poniżej przygotowałem dla Ciebie zestaw linków z dodatkowymi materiałami, cz
   
 Bardzo się cieszę, że przeczytałeś artykuł do końca. Dzisiaj dowiedziałeś się czegoś więcej o dziedziczeniu. Poznałeś słowa kluczowe `abstract` i `final`. Wiesz już czym jest nadpisywanie metod czy klasa bazowa. Innymi słowy poznałeś kolejny zestaw narzędzi niezbędnych dla każdego programisty. Tak trzymaj! :)
 
-Na koniec bardzo proszę Cię o podzielenie się artykułem ze swoimi znajomymi, którzy są zainteresowani taką tematyką. Jak zwykle zależy mi na tym, żeby z blogiem i jego zawartością dotrzeć do jak największej liczby czytelników takich jak Ty :) Jeśli jeszcze tego nie zrobiłeś prosiłbym o polubienie strony na facebooku.
+Na koniec bardzo proszę Cię o podzielenie się artykułem ze swoimi znajomymi, którzy są zainteresowani taką tematyką. Jak zwykle zależy mi na tym, żeby z blogiem i jego zawartością dotrzeć do jak największej liczby czytelników takich jak Ty :) Jeśli jeszcze tego nie zrobiłeś prosiłbym o polubienie strony na Facebooku.
 
 Do następnego razu!
