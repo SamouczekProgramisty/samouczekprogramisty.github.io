@@ -80,6 +80,8 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
+{% include newsletter-srodek.md %}
+
 ### Przesłonięcie metody
   
 Łatwo sobie wyobrazić sytuację, w której metoda o tej samej sygnaturze występuje zarówno w klasie bazowej jak i klasie pochodnej. W tej sytuacji mówimy o tym, że klasa pochodna przesłania metodę z klasy bazowej (ang. _override_). Proszę spójrz na przykład poniżej.
@@ -118,22 +120,52 @@ W takim przypadku wywołanie metody `startEngine` na instancji obiektu `Car` na 
 
 ### Przeciążenie metody
 
-Przeciążenie (ang. _overload_) metody nie jest związane z dziedziczeniem. Mówimy o tym, że metoda jest przeciążona jeśli w ramach jednej klasy występuje wiele metod o tej samej nazwie. W tym przypadku każda z tych metod, mimo tej samej nazwy, ma różną sygnaturę. Metody te różnią się między sobą listą argumentów.
-
-Częstą praktyką jest przeciążanie konstruktorów. Dzięki temu pozwalasz na tworzenie danego obiektu na wiele różnych sposobów:
+Przeciążenie (ang. _overload_) metody nie jest związane z dziedziczeniem. Mówimy o tym, że metoda jest przeciążona jeśli w ramach jednej klasy występuje wiele metod o tej samej nazwie. W tym przypadku każda z tych metod, mimo tej samej nazwy, ma różną sygnaturę. Metody te różnią się między sobą listą argumentów. Spójrz na przykład poniżej:
 
 ```java
-public class Car extends Vehicle {
-    private final String model;
+public abstract class Vehicle {
+    protected final int tankCapacity = 60;
+    protected int fuelLevel = tankCapacity;
 
-    public Car() {
-        this("unknown");
+    public void fillTank() {
+        int toFill = tankCapacity - fuelLevel;
+        fillTank(toFill);
     }
-    public Car(String model) {
-        this.model = model;
+
+    public void fillTank(int toFill) {
+        if (toFill + fuelLevel > tankCapacity) {
+            System.out.println("I can't fill tank with " + toFill + " litres.");
+        }
+        else {
+            fuelLevel += toFill;
+            System.out.println("I've filled the tank with " + toFill + " litres.");
+        }
     }
 }
 ```
+W przykładzie tym metoda `fillTank` jest przeciążona. Pierwsza jej wersja nie pobiera żadnych artgumentów. Druga liczbę typu `int`. Obie służą do napełnienia zbiornika paliwem.
+
+Częstą praktyką jest używanie wewnątrz przeciążonej metody wywołania jej innego odpowiednika. Zazwyczaj metody z mniejszą liczbą argumentów wywołują te z większą. W takim przypadku możesz nadać domyślne wartości parametrów dla metod z większą ich liczbą.
+
+W przykładzie powyżej bezargumentowa metoda `fillTank` wylicza ile paliwa brakuje do pełnego zbiornika. Następnie wywołuje przeciążoną metodę przekazując jej liczbę brakujących litrów
+
+Przeciążać można także metody statyczne. Jako przykład może tu posłużyć metoda z biblioteki standardowej [`LocalDateTime.of`](https://docs.oracle.com/javase/9/docs/api/java/time/LocalDateTime.html#of-int-int-int-int-int-). Metoda ta jest przeciążona aż siedem razy.
+
+Konstruktory nie są wyjątkiem, także można je przeciążać. Dzięki temu pozwalasz na tworzenie danego obiektu na wiele różnych sposobów:
+
+```java
+public class Car extends Vehicle {
+    public Car() {
+        this(new DiselEngine());
+    }
+
+    public Car(Engine engine) {
+        super(engine, NUMBER_OF_WHEELS);
+    }
+}
+```
+
+Podobnie jak w zwykłym przeciążeniu także i tutaj często odwojue się do innego konstruktora. Służy do tego słowo kluczowe `this`. W przykładzie powyżej bezparametrowy konstruktor wywołuje konstruktor przyjmujący instancję klasy implementującą interfejs `Engine`. W tym przypadku nowa instancja `DieselEngine` tworzona jest wewnątrz konstruktora bezparametrowego.
 
 ## Konstruktory a dziedziczenie
   
