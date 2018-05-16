@@ -143,7 +143,7 @@ public abstract class Vehicle {
     }
 }
 ```
-W przykładzie tym metoda `fillTank` jest przeciążona. Pierwsza jej wersja nie pobiera żadnych artgumentów. Druga liczbę typu `int`. Obie służą do napełnienia zbiornika paliwem.
+W przykładzie tym metoda `fillTank` jest przeciążona. Pierwsza jej wersja nie pobiera żadnych argumentów. Druga liczbę typu `int`. Obie służą do napełnienia zbiornika paliwem.
 
 Częstą praktyką jest używanie wewnątrz przeciążonej metody wywołania jej innego odpowiednika. Zazwyczaj metody z mniejszą liczbą argumentów wywołują te z większą. W takim przypadku możesz nadać domyślne wartości parametrów dla metod z większą ich liczbą.
 
@@ -165,7 +165,7 @@ public class Car extends Vehicle {
 }
 ```
 
-Podobnie jak w zwykłym przeciążeniu także i tutaj często odwojue się do innego konstruktora. Służy do tego słowo kluczowe `this`. W przykładzie powyżej bezparametrowy konstruktor wywołuje konstruktor przyjmujący instancję klasy implementującą interfejs `Engine`. W tym przypadku nowa instancja `DieselEngine` tworzona jest wewnątrz konstruktora bezparametrowego.
+Podobnie jak w zwykłym przeciążeniu także i tutaj często odwołuje się do innego konstruktora. Służy do tego słowo kluczowe `this`. W przykładzie powyżej bezparametrowy konstruktor wywołuje konstruktor przyjmujący instancję klasy implementującą interfejs `Engine`. W tym przypadku nowa instancja `DieselEngine` tworzona jest wewnątrz konstruktora bezparametrowego.
 
 ## Konstruktory a dziedziczenie
   
