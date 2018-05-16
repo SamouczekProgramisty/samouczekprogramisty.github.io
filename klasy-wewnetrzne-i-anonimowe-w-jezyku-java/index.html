@@ -269,7 +269,7 @@
 <li class="toc-entry toc-h3"><a href="#klasa-anonimowa-to-nie-instancja-interfejsu">Klasa anonimowa to nie instancja interfejsu</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#używanie-zmiennych-z-klas-zewnętrznych">Używanie zmiennych z klas zewnętrznych</a></li>
+<li class="toc-entry toc-h2"><a href="#używanie-zmiennych-lokalnych-w-klasach-wewnętrznych">Używanie zmiennych lokalnych w klasach wewnętrznych</a></li>
 <li class="toc-entry toc-h2"><a href="#zadania">Zadania</a></li>
 <li class="toc-entry toc-h2"><a href="#materiały-dodatkowe">Materiały dodatkowe</a></li>
 <li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
@@ -338,6 +338,15 @@
 <p>Proszę zwróć uwagę, że wewnątrz metody <code class="highlighter-rouge">instantiate</code> nie musimy podawać pełnej nazwy klasy, samo <code class="highlighter-rouge">new InnerClass()</code> wystarczy (jest to odpowiednik <code class="highlighter-rouge">this.new InnerClass()</code>).</p>
 
 <p><code class="highlighter-rouge">instance2</code> tworzymy posługując się instancją klasy <code class="highlighter-rouge">OuterClass</code>. Taka konstrukcja jest niezbędna w przypadku standardowych klas wewnętrznych.</p>
+
+<div class="notice--success text-center">
+  
+<p>Jeśli chcesz, mogę powiadamiać Cię o nowych treściach na blogu. Dołącz do grupy Samouków, którzy jako pierwsi dowiadują się o nowościach.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
 
 <h2 id="statyczne-klasy-wewnętrzne">Statyczne klasy wewnętrzne</h2>
 
@@ -426,13 +435,13 @@
     <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">();</span>
 <span class="o">}</span>
  
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">someMethod</span><span class="o">()</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">someMethod</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">GreetingModule</span> <span class="n">greeting</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GreetingModule</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">()</span> <span class="o">{</span>
             <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"good morning"</span><span class="o">);</span>
         <span class="o">}</span>
-    <span class="o">}</span>
+    <span class="o">};</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -455,8 +464,7 @@
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"good morning"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
- 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">someMethod</span><span class="o">()</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">someMethod</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">GreetingModule</span> <span class="n">greeting</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GreetingModuleImpl</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -539,9 +547,9 @@ class pl.samouczekprogramisty.kursjava.inner.AnonymousCheating$1
 
 <p>Jak myślisz, jaką nazwę będzie miała kolejna klasa anonimowa stworzona wewnątrz <code class="highlighter-rouge">AnonymousCheating</code> ;) ?</p>
 
-<h2 id="używanie-zmiennych-z-klas-zewnętrznych">Używanie zmiennych z klas zewnętrznych</h2>
+<h2 id="używanie-zmiennych-lokalnych-w-klasach-wewnętrznych">Używanie zmiennych lokalnych w klasach wewnętrznych</h2>
 
-<p>Wewnątrz definicji klas wewnętrznych (także klas anonimowych) możemy używać zmiennych z otaczającego je kontekstu. Spójrz na przykład poniżej:</p>
+<p>Wewnątrz definicji klas wewnętrznych (także klas anonimowych) możemy używać zmiennych lokalnych z otaczającego je kontekstu. Spójrz na przykład poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someMethod</span><span class="o">()</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="n">String</span> <span class="n">finalVariable</span> <span class="o">=</span> <span class="s">"final variable"</span><span class="o">;</span>
@@ -562,7 +570,7 @@ class pl.samouczekprogramisty.kursjava.inner.AnonymousCheating$1
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W metodzie <code class="highlighter-rouge">saySomething</code> używamy dwóch zmiennych z klasy otaczającej <code class="highlighter-rouge">finalVariable</code> i <code class="highlighter-rouge">effectivelyFinalVariable</code>. Jest jednak jedno ograniczenie. Zmienna z „zewnątrz” użyta w klasie wewnętrznej musi być finalna albo „właściwie finalna”.</p>
+<p>W metodzie <code class="highlighter-rouge">saySomething</code> używamy dwóch zmiennych lokalnych metody otaczającej <code class="highlighter-rouge">finalVariable</code> i <code class="highlighter-rouge">effectivelyFinalVariable</code>. Jest jednak jedno ograniczenie. Zmienna z “zewnątrz” użyta w klasie wewnętrznej musi być finalna albo „właściwie finalna”.</p>
 
 <p>Zmienna jest finalna jeśli poprzedza ją słowo kluczowe <code class="highlighter-rouge">final</code>. Kiedy jest „właściwie finalna”? Kiedy nie zmieniamy jej wartości i kompilator za nas wstawia brakujące słowo final ;).</p>
 
