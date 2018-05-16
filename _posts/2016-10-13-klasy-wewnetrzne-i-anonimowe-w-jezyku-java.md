@@ -68,6 +68,8 @@ Proszę zwróć uwagę, że wewnątrz metody `instantiate` nie musimy podawać p
 
 `instance2` tworzymy posługując się instancją klasy `OuterClass`. Taka konstrukcja jest niezbędna w przypadku standardowych klas wewnętrznych.
 
+{% include newsletter-srodek.md %}
+
 ## Statyczne klasy wewnętrzne
 
 W języku Java istnieją także statyczne klasy wewnętrzne. Są to klasy wewnętrzne poprzedzone modyfikatorem `static`. Proszę spójrz na przykład poniżej.
@@ -162,13 +164,13 @@ public interface GreetingModule {
     void sayHello();
 }
  
-public void someMethod()
+public void someMethod() {
     GreetingModule greeting = new GreetingModule() {
         @Override
         public void sayHello() {
             System.out.println("good morning");
         }
-    }
+    };
 }
 ```
 
@@ -191,8 +193,7 @@ public class GreetingModuleImpl implements GreetingModule {
         System.out.println("good morning");
     }
 }
- 
-public void someMethod()
+ public void someMethod() {
     GreetingModule greeting = new GreetingModuleImpl();
 }
 ```
@@ -277,9 +278,9 @@ Zatem `anonymousInstance` jest instancją klasy `pl.samouczekprogramisty.kursjav
 
 Jak myślisz, jaką nazwę będzie miała kolejna klasa anonimowa stworzona wewnątrz `AnonymousCheating` ;) ?
 
-## Używanie zmiennych z klas zewnętrznych
+## Używanie zmiennych lokalnych w klasach wewnętrznych
 
-Wewnątrz definicji klas wewnętrznych (także klas anonimowych) możemy używać zmiennych z otaczającego je kontekstu. Spójrz na przykład poniżej:
+Wewnątrz definicji klas wewnętrznych (także klas anonimowych) możemy używać zmiennych lokalnych z otaczającego je kontekstu. Spójrz na przykład poniżej:
 
 ```java
 public void someMethod() {
@@ -301,7 +302,7 @@ public void someMethod() {
 }
 ```
 
-W metodzie `saySomething` używamy dwóch zmiennych z klasy otaczającej `finalVariable` i `effectivelyFinalVariable`. Jest jednak jedno ograniczenie. Zmienna z „zewnątrz” użyta w klasie wewnętrznej musi być finalna albo „właściwie finalna”.
+W metodzie `saySomething` używamy dwóch zmiennych lokalnych metody otaczającej `finalVariable` i `effectivelyFinalVariable`. Jest jednak jedno ograniczenie. Zmienna z "zewnątrz" użyta w klasie wewnętrznej musi być finalna albo „właściwie finalna”.
 
 Zmienna jest finalna jeśli poprzedza ją słowo kluczowe `final`. Kiedy jest „właściwie finalna”? Kiedy nie zmieniamy jej wartości i kompilator za nas wstawia brakujące słowo final ;).
 
