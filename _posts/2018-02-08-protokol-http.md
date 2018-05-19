@@ -89,7 +89,7 @@ W przypadku protokołu HTTP sprowadza się to do nazwy domeny internetowej lub a
 
 ### `port`
 
-Port to numer. Numer ten jest wykorzystywany przez serwer. Serwer nasłuchuje ruch na danym porcie. To tak jak z numerem w bloku, domena do numer klatki a port to numer mieszkania ;).
+Port to numer. Numer ten jest wykorzystywany przez serwer. Serwer nasłuchuje ruch na danym porcie. To tak jak z numerem w bloku, domena to numer klatki a port to numer mieszkania ;).
 
 Protokoły mają swoje standardowe porty. Na przykład standardowym portem protokołu HTTP jest 80. Protokół HTTPS natomiast używa portu 443. W praktyce, ze względu na domyślne wartości, porty te często się pomija. Odpowiednia wartość pola `scheme` pozwala na określenie czy użytkownikowi chodzi o port 80 czy 443.
 
