@@ -411,7 +411,7 @@ Mówi się, że strumienie pozwalają w deklaratywny sposób opisać operacje na
 
 Na koniec przygotowałem dla Ciebie kilka zadań do rozwiązania, które pomogą Ci utrwalić wiedzę zdobytą w tym artykule:
 
-1. Przerób poniższa fragment kodu tak żeby używał strumieni:
+1. Przerób poniższy fragment kodu tak żeby używał strumieni:
 ```java
 double highestRanking = 0;
 BoardGame bestGame = null;
