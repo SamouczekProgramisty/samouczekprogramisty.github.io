@@ -103,6 +103,8 @@ Oba sposoby pozwalają na uzyskanie tych samych wyników. Drugi sposób wykorzys
 
 Rozłożę teraz ten strumień na części pierwsze.
 
+{% include newsletter-srodek.md %}
+
 ## Analiza przykładowego strumienia
 
 Aby w ogóle mówić o operacjach na strumieniu należy go na początku utworzyć. W poprzednim przykładzie użyłem metody [`stream`](https://docs.oracle.com/javase/9/docs/api/java/util/Collection.html#stream--). Metoda ta jest [metodą domyślną]({% post_url 2015-12-16-interfejsy-w-jezyku-java %}/#metody-domyślne) zaimplementowaną w interfejsie [`Collection`](https://docs.oracle.com/javase/9/docs/api/java/util/Collection.html). Pozwala ona na utworzenie strumienia na podstawie danych znajdujących się w danej kolekcji.
@@ -437,7 +439,7 @@ Poniżej zebrałem dla Ciebie kilka dodatkowych źródeł, które pozwolą spojr
 - [Bardzo dobra dokumentacja pakietu `java.util.stream`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/package-summary.html),
 - [Część I tutoriala dotyczącego strumieni na stronie Oracle](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html),
 - [Część II tutoriala dotyczącego strumieni na stronie Oracle](http://www.oracle.com/technetwork/articles/java/architect-streams-pt2-2227132.html),
-- [Szczegółowy opis strumieni - Baeldung](www.baeldung.com/java-8-streams),
+- [Szczegółowy opis strumieni - Baeldung](http://www.baeldung.com/java-8-streams),
 - [Kod źródłowy użyty w tym artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/30_strumienie/src/main/java/pl/samouczekprogramisty/kursjava/streams).
 
 ## Podsumowanie
