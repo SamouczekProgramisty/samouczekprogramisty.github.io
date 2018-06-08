@@ -73,6 +73,8 @@ x <= y || z <= x; // true || false => true
 
 Operatory w języku Java mają swój priorytet. Dzięki temu mnożenie jest wykonywane przed dodawaniem. Podobnie jest tutaj, operatory `<`, `==`, `<` itp. mają wyższy priorytet niż `&&` czy `||`.
 
+{% include newsletter-srodek.md %}
+
 ## Instrukcje warunkowe
 
 ### Instrukcja `if`, `else if`, `else`

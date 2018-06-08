@@ -35,6 +35,8 @@ public int getNumberOfSeconds(int hour) {
 
 W przykładzie powyżej użyliśmy wyjątku występującego w standardowej bibliotece języka Java: `java.lang.IllegalArgumentException`. Do rzucania wyjątku używamy słowa kluczowego `throw`.
 
+{% include newsletter-srodek.md %}
+
 ### Co się dzieje po rzuceniu wyjątku?
 
 Wyobraź sobie kilka metod, które wywołują siebie nawzajem. Te kilka wywołań nazywamy stosem wywołań. Proszę zwróć uwagę na przykład poniżej:
@@ -70,7 +72,6 @@ Tą listę metod wywołujących siebie nawzajem nazywamy stosem wywołań. W nas
 2. `method1`
 3. `method2`
 4. `method3`
-
 
 A co stanie się po uruchomieniu tego programu? Oczywiście zostanie rzucony wyjątek a programista zobaczy stos wywołań metod (ang. _stacktrace_), jak w przykładzie poniżej:
 

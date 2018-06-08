@@ -59,6 +59,9 @@ Tablicę można też od razu zainicjalizować wartościami. Oba sposoby inicjali
 ```java
 String[] wintersMonths = new String[] {"grudzień", "styczeń", "luty"};
 ```
+
+{% include newsletter-srodek.md %}
+
 ### Atrybut length
   
 Tablica to obiekt. Podobnie jak inne obiekty posiada swoje atrybuty i metody. Jedynym publicznie dostępnym atrybutem metody jest `length`. Atrybut ten przechowuje rozmiar tablicy

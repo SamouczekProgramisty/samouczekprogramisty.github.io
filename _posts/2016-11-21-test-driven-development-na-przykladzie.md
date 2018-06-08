@@ -18,13 +18,17 @@ Jeśli tematyka testów, jest dla Ciebie nowa zachęcam Cię do przeczytania pop
 
 ## Czym jest TDD
 
-TDD to podejście do tworzenia oprogramowania, które zostało ponownie odkryte przez Kent’a Beck’a. Podejście to zakłada, że przed napisaniem właściwej funkcjonalności programista zaczyna od utworzenia testu. Test ten powinien testować funkcjonalność, którą dopiero chcemy napisać.
+TDD to podejście do tworzenia oprogramowania. Na taki sposób tworzenia oprogramowania uwagę zwrócił Kent Beck[^ksiazki]. Podejście to zakłada, że przed napisaniem właściwej funkcjonalności programista zaczyna od utworzenia testu. Test ten powinien testować funkcjonalność, którą dopiero chcemy napisać.
+
+[^ksiazki]: W artykule, w którym wymieniam [książki dla programistów]({% post_url 2018-04-24-ksiazki-dla-programistow %}) jest też pozycja napisana przez tego autora.
 
 TDD to podejście, które składa się z trzech faz. Te trzy fazy łączą się w cykl. Cały proces pisania kodu składa się z właśnie takich cykli, które powtarzasz jeden po drugim. Cykl to trzy fazy:
 
 1. red,
 2. green,
 3. refactor.
+
+{% include newsletter-srodek.md %}
 
 ### Faza Red
 
@@ -40,11 +44,11 @@ Następnie potwierdzamy to, że nasza implementacja działa jak powinna uruchami
 
 ### Faza Refactor
 
-Refaktoryzacja (ang. _refactor_) to proces, w którym zmieniamy kod w taki sposób, że nie zostaje zmieniona jego funkcjonalność. Mówi się o „oczyszczaniu” kodu, doprowadzaniu go do lepszego stanu. Przykładem refaktoryzacji może być wydzielenie oddzielnej metody, która usuwa zduplikowany kod czy stworzenie zupełnie nowej klasy odpowiedzialnej za pewną część zadań danej klasy.
+Refaktoryzacja (ang. _refactor_) to proces, w którym zmieniamy kod w taki sposób, że nie zostaje zmieniona jego funkcjonalność. Mówi się o „oczyszczaniu” kodu, doprowadzaniu go do lepszego stanu. Przykładem refaktoryzacji może być wydzielenie oddzielnej metody, która usuwa powielony kod czy stworzenie zupełnie nowej klasy odpowiedzialnej za pewną część zadań danej klasy.
 
 Jest to ostatnia z trzech faz cyklu TDD. Faza refaktoryzacji jest bardzo istotna. Nawet doświadczeni programiści bardzo często pomijają tę fazę. Jej brak może w dłuższej perspektywie prowadzić do kodu programu, który jest trudny w utrzymaniu. Praca z takim kodem może być wówczas dużo cięższa, proste zmiany mogą zajmować bardzo dużo czasu.
 
-Dzięki testom, które napisałeś w fazie Red czy wcześniejszych cyklach TDD, możesz czuć się swobodnie zmieniając istniejący kod. Z większą pewnością możesz zmieniać kod, po każdej zmianie uruchamiając istniejące testy jednostkowe. Takie podejście pozwala Ci bardzo szybko wychwycić potencjalne błędy, które mógłbyś wprowadzić refaktoryzacją.
+Dzięki testom, które napisałeś w fazie Red czy wcześniejszych cyklach TDD, możesz czuć się swobodnie zmieniając istniejący kod. Z większą pewnością możesz zmieniać kod, po każdej zmianie uruchamiając istniejące testy jednostkowe. Takie podejście pozwala Ci bardzo szybko wychwycić potencjalne błędy, które mógłbyś wprowadzić refaktoryzując kod.
 
 Może się zdarzyć, że faza refaktoryzacji nie zawsze jest konieczna. Usprawnianie dobrego kodu na siłę nie koniecznie może prowadzić do dobrych rezultatów.
 
@@ -113,4 +117,4 @@ Wiesz czym jest TDD. Jesteś praktykiem TDD, rozwiązałeś zadanie przy użyciu
 
 Dodam po raz kolejny. Testowanie kodu jest bardzo istotnie, nie zapominaj o nim.
 
-Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi, może ktoś z nich chce poznać TDD od praktycznej strony?. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na facebooku i zapisać się do mojego newslettera ;). Do następnego razu!
+Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi, może ktoś z nich chce poznać TDD od praktycznej strony?. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na Facebooku i zapisać się do mojego newslettera ;). Do następnego razu!

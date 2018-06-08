@@ -50,6 +50,8 @@ public class SUV extends Car {
   
 W przykładzie powyżej `SUV` dziedziczy po klasie `Car`. Klasa `Car` jest podklasą klasy `Vehicle`. Zatem pośrednio `SUV` także dziedziczy po klasie `Vehicle`.
 
+{% include newsletter-srodek.md %}
+
 ## Modyfikatory dostępu
   
 Dzięki dziedziczeniu możemy mieć dostęp do metod, atrybutów, konstruktorów klas po których dziedziczymy. Do określenia czy dany element może być dostępny w ramach podklasy służą modyfikatory dostępu.

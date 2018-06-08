@@ -37,6 +37,8 @@ long veryLargeNumber = 72036854775807L;
   
 Proszę zwróć uwagę na zmienną `veryLargeNumber`. Zauważyłeś `L` na końcu? Dołączenie `L` na końcu sprawia, że używamy literału innego typu.
 
+{% include newsletter-srodek.md %}
+
 ### Czym jest literał?
   
 Zaraz, zaraz! Czym jest literał!? To nic skomplikowanego, jest to po prostu fragment kodu programu, który może być przypisany do zmiennej i nie jest wywołaniem konstruktora ani złożoną instrukcją. Przykładowe literały, które przechowują liczby:

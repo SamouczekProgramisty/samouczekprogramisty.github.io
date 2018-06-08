@@ -49,6 +49,8 @@ Z okienka wybierz _"Create local variable..."_. IDE utworzy nam zmienną, musimy
 String message = "To jest mój pierwszy łańcuch znaków! Potocznie \"string\".";
 ```
 
+{% include newsletter-srodek.md %}
+
 ## Uruchomienie programu
   
 Może nie uwierzysz, ale przy pomocy tych kilku skrótów klawiaturowych napisałeś swój pierwszy program, który możemy uruchomić! Jak to zrobić? Naciśnij skrót `Alt + Shift + F10`.

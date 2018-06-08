@@ -42,6 +42,8 @@ W pliku źródłowym może znajdować się wyłącznie jedna linia z pakietem. M
 
 Nazwy pakietów powinny odwzorowywać ich zawartość. Np pakiet `pl.samouczekprogramisty.animals` mógłby zawierać klasę `Dog`, ale już klasa `Owner` powinna znaleźć się prawdopodobnie w innym miejscu.
 
+{% include newsletter-srodek.md %}
+
 ## Klasa
 
 Klasy służą do grupowania atrybutów i metod, pakietów używamy do grupowania klas. Zanim pokażę Wam przykład kodu przejdziemy przez parę funkcji IDE, które na pewno przydadzą się w przyszłości.

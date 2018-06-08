@@ -32,6 +32,8 @@ Pojęcia te można ze sobą łączyć opisując dłuższe równania.
 
 Zanim przejdziemy do systemu binarnego omówmy trochę dokładniej system dziesiętny. Będzie tu trochę matematyki, jednak to nic trudnego i zupełnie nie ma się czego bać :).
 
+{% include newsletter-srodek.md %}
+
 ## Potęgi
 
 - 10<sup>0</sup> = 1 (10 do potęgi 0 równa się 1) właściwie to każda liczba większa od zera podniesiona do „zerowej potęgi” równa się 1.

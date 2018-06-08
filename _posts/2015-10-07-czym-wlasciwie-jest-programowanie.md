@@ -38,6 +38,8 @@ Języki programowania możemy podzielić na języki niskopoziomowe i wysokopozio
 
 Tego typu ograniczenia sprawiają, że języków niskiego poziomu nie używa się powszechnie a jedynie do bardzo specyficznych zastosowań, które są bardzo odległe od podstaw i nauki programowania :) Dzięki tym samym ograniczeniom języki wysokiego poziomu zyskują na popularności.
 
+{% include newsletter-srodek.md %}
+
 ## Polski? Angielski? Niemiecki? Rosyjski? Francuski?
 
 F? Erlang? JavaScript? Java? Perl? Ruby? Podobnie jak istnieje wiele języków, którymi mówią ludzie istnieje także wiele języków programowania. Każdy z tych języków charakteryzuje się specyficzną składnią (ang. _syntax_). Każdy z nich ma również specyficzny zakres zastosowań. Po prostu jego właściwości sprawiają, że lepiej nadaje się np. do pisania gier komputerowych niż tworzenia interaktywnych stron internetowych.

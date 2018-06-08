@@ -46,6 +46,8 @@ Poza zwykłymi metodami w interfejsie mogą się znajdować
 
 Więcej o metodach statycznych możesz przeczytać w [artykule opisującym pierwszy program w języku Java]({% post_url 2015-11-08-pierwszy-program-w-java %}). Nie jest to dla Ciebie nic nowego. Metody domyślne i stałe wymagają dodatkowego wyjaśnienia.
 
+{% include newsletter-srodek.md %}
+
 ### Metody domyślne
 
 Istnieje możliwość zdefiniowania tak zwanych metod domyślnych. Metody te mogą mieć właściwą implementacje w ciele interfejsu. Metody takie poprzedzone są słowem kluczowym `default` jak w przykładzie poniżej

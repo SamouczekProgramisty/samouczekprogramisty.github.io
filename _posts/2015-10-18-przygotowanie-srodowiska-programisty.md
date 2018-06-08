@@ -42,6 +42,7 @@ A teraz kilka przykładów:
 - Wersja 1.8.0 wprowadza nową funkcjonalność kompatybilną z 1.7.5,
 - Wersja 1.7.5 wprowadza poprawki funkcjonalności względem wersji 1.7.4.
   
+{% include newsletter-srodek.md %}
 
 ## Instalacja niezbędnych narzędzi
   

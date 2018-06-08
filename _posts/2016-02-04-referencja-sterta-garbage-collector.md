@@ -24,6 +24,8 @@ Maszyna wirtualna Javy startuje zapewniając sobie miejsce na stertę w pamięci
 >
 > Dzięki temu krótkiemu czasowi dostępu do pamięci RAM programy mogły być bardziej wydajne – działać "szybciej". Załóżmy że przeczytanie 1MB z pamięci ram zajmuje 1 sekundę (w rzeczywistości jest to około 250 nanosekundy więc cztery miliony razy krócej!), w takiej skali przeczytanie 1MB z dysku HDD zajmuje 1 minutę i 20 sekund a przesłanie pakietu (paczki danych mniejszej niż 1MB) przez internet z Kalifornii do Holandii i z powrotem aż 10 minut!
 
+{% include newsletter-srodek.md %}
+
 ## Czym różni się obiekt od referencji i zmiennej?
 
 Każdy obiekt w Javie zajmuje jakiś obszar na wspomnianej stercie. Zmienne, które wskazują na obiekty na stercie zawierają referencje. Referencje możemy przedstawić jako „sznurki” łączące zmienną z właściwym obiektem na stercie (obszarem pamięci na stercie gdzie znajduje się obiekt). Referencji (sznurków) do obiektu może być wiele. Proszę spójrz na przykład:

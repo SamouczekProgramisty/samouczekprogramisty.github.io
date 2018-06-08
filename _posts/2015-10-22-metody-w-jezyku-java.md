@@ -54,6 +54,8 @@ Ten fragment kodu zawiera kolejno:
 
 Zauważ, że linijki z kodem kończą się znakiem `;`. Teraz po kolei postaram się wytłumaczyć każdy z tych elementów.
 
+{% include newsletter-srodek.md %}
+
 ## Typy danych
 
 Metoda wyżej przyjmuje argument `someNumber`. Argument ten ma swój typ `int`. Typ w języku programowania opisuje rodzaj danych. Np. w kodzie powyżej widoczne są 2 typy:
