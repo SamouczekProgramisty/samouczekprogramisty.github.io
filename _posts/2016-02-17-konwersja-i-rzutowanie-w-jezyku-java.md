@@ -63,6 +63,8 @@ Wyjątek mówi tyle, że obiektu typu `java.lang.Object` nie możemy rzutować d
 
 W jednym z kolejnych artykułów przeczytasz o typach generycznych, które pomagają rozwiązać część sytuacji, kiedy rzutowanie jest potrzebne. W codziennym programowaniu radziłbym unikać tego typu operacji. Z pewnością istnieje inny sposób napisania programu, który pozwoli na uniknięcie rzutowania.
 
+{% include newsletter-srodek.md %}
+
 ## Konwersja
 
 Rzutowanie to specyficzny przypadek konwersji, jest to konwersja jawna, wymuszona przez programistę. W trakcie niektórych operacji może dochodzić do automatycznej konwersji, konwersji niejawnej. Konwersja niejawna może wystąpić np. podczas wywołania metod czy operacji arytmetycznych. Poniżej przykład konwersji automatycznej, która zachodzi w trakcie wywołania metody:

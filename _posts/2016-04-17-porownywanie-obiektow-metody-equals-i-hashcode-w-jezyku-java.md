@@ -64,6 +64,8 @@ Po tym wstępie mogę wyjaśnić dlaczego w przykładzie poniżej potrzebujemy n
 
 Bez dodatkowej pary nawiasów pierwszeństwo miałby operator `+`. `"10 == 10: " + 10 == 10` inaczej możemy zapisać jako `"10 == 10: 10"  == 10` a taki zapis nie jest poprawny, ponieważ operatorem `==` nie możemy porównać instancji typu `String` i wartości typu `int`.
 
+{% include newsletter-srodek.md %}
+
 ## Porównywanie zmiennoprzecinkowych typów prostych
 
 O ile sprawdzanie równości wartości liczb całkowitych nie jest trudne to ta sama operacja dla typów zmiennoprzecinkowych jest trochę bardziej skomplikowana. W związku ze sposobem reprezentacji liczb zmiennoprzecinkowych typu `float` i `double` w pamięci komputera nie jest możliwe ich dokładne porównywanie. Operacja taka jest dopuszczalna ale może prowadzić do dziwnych rezultatów (na przykład, liczby, które teoretycznie powinny być równe według komputera nie są).

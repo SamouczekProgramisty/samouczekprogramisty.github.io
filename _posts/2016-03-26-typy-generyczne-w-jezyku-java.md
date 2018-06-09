@@ -21,6 +21,7 @@ W uproszczeniu można powiedzieć, że typy generyczne są "szablonami". Dzięki
 [^dygresja]: Mała dygresja. Każdy błąd w kodzie kosztuje. Ktoś w końcu płaci za pracę testerów, programistów, administratorów. Im wcześniej wykryjemy błąd tym tańsze jest jego naprawienie. Poprawienie programu działającego na środowisku produkcyjnym może być bardzo drogie. Wykrywanie błędów w trakcie kompilacji, chociaż może być frustrujące dla programisty jest najtańszym rozwiązaniem :)
 
 Poza tym dzięki typom generycznym możemy konstruować bardziej złożone klasy, które możemy używać w wielu kontekstach, łatwiej będzie Ci to zrozumieć na przykładzie.
+
 ## Porównanie typów generycznych i standardowych
 
 Znasz już zwykłe klasy i interfejsy, zostały one omówione we wcześniejszych artykułach. Klasy mają swoje atrybuty, których typy znasz pisząc program.
@@ -114,6 +115,8 @@ public class Main {
 W trakcie tworzenia instancji obiektu `BoxOnSteroids` podajemy informację o typie, który chcielibyśmy wstawić w miejsce `T`. W naszym przykładzie są to klasy `Apple` lub `Orange`. Dzięki takiej konstrukcji kompilator dokładnie wie jakiego typu obiekt zostanie zwrócony przez metodę `getFruit` w związku z tym rzutowanie nie jest konieczne[^rzutowanie2].
 
 [^rzutowanie2]: W praktyce rzutowanie tam występuje jednak jest wykonywane automatycznie przez kompilator generujący bytecode.
+
+{% include newsletter-srodek.md %}
 
 ### Klasy generyczne i parametryzowanie
 

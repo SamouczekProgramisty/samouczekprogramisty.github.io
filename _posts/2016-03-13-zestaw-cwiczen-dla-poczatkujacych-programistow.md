@@ -43,6 +43,8 @@ Operator ten może się przydać na przykład do sprawdzenia czy liczba jest par
 boolean isEven = someNumber % 2 == 0;
 ```
 
+{% include newsletter-srodek.md %}
+
 ## Zadania
 
 ### [Metody w języku Java]({% post_url 2015-10-22-metody-w-jezyku-java %})
