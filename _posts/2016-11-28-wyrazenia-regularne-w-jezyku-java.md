@@ -359,7 +359,7 @@ Weźmy za przykład zdanie `"Ala ma kota. Kot ma na imię --Zygmunt--. Kot jest 
 - `\w+` - znak użyty w słowach występujący co najmniej raz,
 - `)` - zamknięcie grupy,
 - `--` - dwa minusy,
-- `.*` - dowolny znak występujący co najmniej raz.
+- `.*` - dowolny znak występujący 0 lub więcej razy.
 
 W naszym przykładzie imię Zygmunt znajdujące się pomiędzy podwójnymi minusami zostanie przypisane do grupy. Grupowanie oznaczamy nawiasami `()`. W wyrażeniu regularnym może być kilka grup, numerowane są one zawsze od jedynki.
 
