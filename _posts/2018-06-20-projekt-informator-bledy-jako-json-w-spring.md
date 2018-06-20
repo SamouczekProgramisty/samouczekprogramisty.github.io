@@ -9,7 +9,7 @@ header:
     teaser: /assets/images/2018/06/20_projekt_informator_zasilenie_bazy_spring_i_bledy_jako_json.jpeg
     overlay_image: /assets/images/2018/06/20_projekt_informator_zasilenie_bazy_spring_i_bledy_jako_json.jpeg
     caption: "[&copy; hengstream](https://unsplash.com/photos/pjJdOE2XBRU)"
-excerpt: Odpowiedzi z błędami z webserwice'ów powinny być formatowane podobnie jak oczekiwane dane. Oznacza to, że w większości przypadków także komunikaty błędów powinny być reprezentowane w formacie JSON. Artykuł ten na przykładzie pokazuje konfigurację, która pozwala na otrzymanie spójnych odpowiedzi z webservice'u. W artykule opisuję też sposób zasilenia bazy danych rzeczywistymi danymi.
+excerpt: Odpowiedzi z błędami z webservice'ów powinny być formatowane podobnie jak oczekiwane dane. Oznacza to, że w większości przypadków także komunikaty błędów powinny być reprezentowane w formacie JSON. Artykuł ten na przykładzie pokazuje konfigurację, która pozwala na otrzymanie spójnych odpowiedzi z webservice'u. W artykule opisuję też sposób zasilenia bazy danych rzeczywistymi danymi.
 ---
 
 ## Projekt Informator
@@ -79,9 +79,9 @@ Analizując [zapytania HTTP]({% post_url 2018-02-08-protokol-http %}), które s�
 
     https://infoshare.pl/speaker2.php?cid=48&id=XXX&year=2018&agenda_id=99999&fancybox=true
 
-W adresie tym `XXX` zastąpione jest identyfikatorem prelegenta. Strona z prelegentami zawiera listę wszystkich osób występujących na każdej ze scen. Żeby wyciągnąć infmracje o wyszystkich prelegentach potrzeba ponad 200 zapytań.
+W adresie tym `XXX` zastąpione jest identyfikatorem prelegenta. Strona z prelegentami zawiera listę wszystkich osób występujących na każdej ze scen. Żeby wyciągnąć informacje o wszystkich prelegentach potrzeba ponad 200 zapytań.
 
-Z racji tego, że jest to dość żmudne i czasochłonne zadanie napisałem [skrypt](https://github.com/kbl/gopher_exercises/blob/master/infoparse/infoparse.go)[^go], który wyciąga niezbędne dane. W wyniku działania tego skryput powstał plik [`speakers.sql`](https://github.com/SamouczekProgramisty/Informator/blob/master/src/main/resources/speakers.sql). Wewnątrz tego pliku znajduą się instrukcje SQL (ang. _Structured Query Language_), które dodają wiersze do tabeli `speaker`. Przykładowe zapytanie z tego pliku wygląda następująco:
+Z racji tego, że jest to dość żmudne i czasochłonne zadanie napisałem [skrypt](https://github.com/kbl/gopher_exercises/blob/master/infoparse/infoparse.go)[^go], który wyciąga niezbędne dane. W wyniku działania tego skryptu powstał plik [`speakers.sql`](https://github.com/SamouczekProgramisty/Informator/blob/master/src/main/resources/speakers.sql). Wewnątrz tego pliku znajdują się instrukcje SQL (ang. _Structured Query Language_), które dodają wiersze do tabeli `speaker`. Przykładowe zapytanie z tego pliku wygląda następująco:
 
 [^go]: Po godzinach pracy, w wolnym czasie uczę się [języka Go](https://golang.org/). Wiem, że najlepszy sposób na naukę to praktyka. Dlatego właśnie napisałem ten skrypt używając tego języka. Mam świadomość, że nie jest idealny i wymaga sporo poprawek, ale jak na początek nauki jest OK ;).
 
@@ -223,7 +223,7 @@ Niestety w tym przypadku Spring nie deserializuje obiektu odpowiedzi do żądane
 
 # Podsumowanie
 
-Aplikacja aktualnie jest w stanie wyświetlić informacje o prelegencie na podstawie rzeczywistych danych pobranch ze strony organizatora konferencji. Dodatkwo aplikacja poprawnie reguje na różnego rodzaju błędy odpowiadając w formacie JSON. Zachęcam Cię do przeanalizowania [kodu źródłowego aplikacji](https://github.com/SamouczekProgramisty/Informator), w ten sposób utrwalisz zdobytą wiedzę.
+Aplikacja aktualnie jest w stanie wyświetlić informacje o prelegencie na podstawie rzeczywistych danych pobranych ze strony organizatora konferencji. Dodatkowo aplikacja poprawnie reaguje na różnego rodzaju błędy odpowiadając w formacie JSON. Zachęcam Cię do przeanalizowania [kodu źródłowego aplikacji](https://github.com/SamouczekProgramisty/Informator), w ten sposób utrwalisz zdobytą wiedzę.
 
 Po przeczytaniu tego artykułu i przejrzeniu kodu źródłowego wiesz w jaki sposób można obsługiwać błędy w webservice'ach. Poznałeś też sposób na zasilanie bazy danych na podstawie informacji umieszczonych na innych stronach.
 
