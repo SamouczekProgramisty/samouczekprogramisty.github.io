@@ -1,7 +1,6 @@
 ---
 title: Projekt Informator wprowadzenie
 categories:
-categories:
 - Projekty
 - Projekt Informator
 permalink: /projekt-informator-wprowadzenie/

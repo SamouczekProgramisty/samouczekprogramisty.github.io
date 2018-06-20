@@ -64,6 +64,8 @@ W naszym przykładzie, jeśli metoda `isInRange` zwróci `false`, wówczas aserc
 
 Testy jednostkowe łączymy w klasy z testami, bardzo często nazywamy je tak samo jak klasy, które testujemy dodając do nich `Test` na końcu. W naszym przypadku klasa z testami dla klasy `Range` nazywa się `RangeTest`.
 
+{% include newsletter-srodek.md %}
+
 ### Przykłady użycia asercji
 
 Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie testów jednostkowych), które ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek [`AssertionError`](https://docs.oracle.com/javase/8/docs/api/java/lang/AssertionError.html)[^assert].

@@ -31,6 +31,8 @@ Twoim zadaniem jest napisanie programu, który pobierze od użytkownika dwa argu
 
 Program powinien wczytać zawartość pliku, wyłuskać adresy email a następnie wśród tych adresów wylosować N wygranych. Dla uproszczenia zakładamy, że format pliku jest poprawny oraz, że uczestnicy konkursu nie oszukiwali (nie było podwójnych losów). Sytuacja w której jeden uczestnik wygrywa dwie książki jest dopuszczalna.
 
+{% include newsletter-srodek.md %}
+
 ## Wskazówki
 
 Dla uproszczenia pokażę Ci parę fragmentów kodu czy metod, które mogą Ci się przydać w rozwiązaniu tego zadania.

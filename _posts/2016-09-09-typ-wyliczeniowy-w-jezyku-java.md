@@ -53,6 +53,8 @@ Jak widzisz w przykładzie wyżej mamy klasę `Tshirt`, reprezentującą koszulk
 
 Do wartości typu wyliczeniowego odnosimy się jak do pól statycznych klasy, zatem w naszym przypadku do rozmiaru L możemy odwołać się jako `TshirtSize.L`. Dzieję się tak ponieważ w rzeczywistości wartości typu wyliczeniowego mają automatycznie dodane modyfikatory `public static final`.
 
+{% include newsletter-srodek.md %}
+
 ### Typ wyliczeniowy a blok `switch`
 
 W jednym z [poprzednich artykułów]({% post_url 2015-11-18-petle-i-instrukcje-warunkowe-w-jezyku-java %}) poznałeś konstrukcję `switch`. W tamtej części wspomniałem, o tym, że wewnątrz tej konstrukcji możemy używać liczb całkowitych czy łańcuchów znaków. Pominąłem wówczas jedną z dodatkowych wartości konstrukcji `switch`. Otóż wewnątrz możemy użyć także typu wyliczeniowego jak w przykładzie poniżej:

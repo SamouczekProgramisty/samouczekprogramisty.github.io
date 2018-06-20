@@ -70,6 +70,8 @@ try(
 
 Taka struktura tłumaczona jest przez kompilator na sekwencję zagnieżdżonych bloków `try`/`catch`/`finally`. W każdym z tych zagnieżdżonych bloków zarządza kolejną zmienną. Zmienne zamykane są w odwrotnej kolejności niż są deklarowane, zatem w naszym przykładzie pierwszy zostanie zamknięty `fileWriter` po nim `fileReader`.
 
+{% include newsletter-srodek.md %}
+
 ## Własne menadżery kontekstu
 
 Całość działa, ponieważ klasy takie jak `BufferedFileWriter` czy `BufferedFileReader` implementują interfejs [`java.lang.AutoCloseable`](https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html). Właściwie to wszystkie znane mi klasy do obsługi strumieni wejściowych/wyjściowych w standardowej bibliotece Javy implementują ten interfejs. To jest właśnie główne wymaganie, które musi być spełnione przez zmienne definiowane wewnątrz `()` gdy używamy konstrukcji try-with-resources.

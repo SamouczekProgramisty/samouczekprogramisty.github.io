@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Zmiana branży - zostań programistą
 categories:
 - Różne

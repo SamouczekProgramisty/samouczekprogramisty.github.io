@@ -47,6 +47,8 @@ Adnotacje, w odróżnieniu od dyrektyw JavaDoc, nie są umieszczane wewnątrz ko
 
 Taka ilość informacji w zupełności wystarczy Ci aby odróżnić adnotacje od dyrektyw JavaDoc, przejdźmy zatem do zastosowania adnotacji.
 
+{% include newsletter-srodek.md %}
+
 ### Zakres adnotacji – dozwolone miejsca gdzie możemy stosować adnotacje
 
 Każda adnotacja określa, w którym miejscu możemy ją stosować. Mamy kilka standardowych miejsc, gdzie możemy wstawić adnotację.

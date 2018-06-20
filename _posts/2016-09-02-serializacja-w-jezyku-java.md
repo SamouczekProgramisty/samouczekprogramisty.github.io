@@ -24,6 +24,8 @@ Tak zapisany obiekt możesz później otworzyć przy kolejnym uruchomieniu progr
 
 Dzięki temu mechanizmowi można na przykład przesyłać obiekty przez sieć. Obiekt, który stworzyliśmy na jednym komputerze (wewnątrz pamięci jednej wirtualnej maszyny Java) może być zserializowany, przesłany przez sieć i zdeserializowany na drugim komputerze tworząc nową instancję obiektu (wewnątrz pamięci drugiej wirtualnej maszyny Javy). Na obu tych komputerach wirtualna maszyna Javy musi mieć dostęp do skompilowanej wersji klasy.
 
+{% include newsletter-srodek.md %}
+
 ## Warunki wymagane do serializacji
 
 Chociaż serializacja dostępna jest automatycznie dla większości obiektów z biblioteki standardowej to jeśli chcesz móc serializować instancje klas, które sam napiszesz musisz spełnić kilka warunków.

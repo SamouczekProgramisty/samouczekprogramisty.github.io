@@ -31,6 +31,8 @@ Gra sprowadza się do przygotowania kolejnych generacji planszy na podstawie jej
 
 Zobacz jak te zasady wyglądają na kilku przykładach.
 
+{% include newsletter-srodek.md %}
+
 ### Przykład 1.
 
 W tym przykładzie pierwsza generacja planszy zawiera wyłącznie żywą komórkę na pozycji (1, 3). W kolejnej generacji komórka ta ginie ponieważ nie ma dwóch żywych sąsiadów.

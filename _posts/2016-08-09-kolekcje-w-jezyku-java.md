@@ -38,6 +38,8 @@ Lista (ang. _list_) podobnie jak tablica, grupuje elementy. Jej główną przewa
 
 Bez wdawania się w zbędne szczegóły, proszę zapamiętaj, że `LinkedList` lepiej jest używać jeśli często usuwasz elementy z listy a `ArrayList` lepiej jest używać jeśli często chcesz mieć dostęp do losowych elementów w liście. Obiecuje, że dokładne wytłumaczenie dlaczego tak się dzieje znajdziesz w jednym z kolejnych artykułów.
 
+{% include newsletter-srodek.md %}
+
 ### Przydatne metody w `java.util.List`
 
 Chciałbym pokazać Ci parę metod, które mogą Ci się przydać przy pracy z listami. Jeśli jesteś zainteresowany pełną listą zachęcam do przeczytania [dokumentacji dla interfejsu `List`](https://docs.oracle.com/javase/8/docs/api/java/util/List.html), tam znajdziesz wszystkie niezbędne szczegóły.

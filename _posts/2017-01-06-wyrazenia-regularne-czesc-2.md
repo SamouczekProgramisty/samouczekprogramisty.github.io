@@ -100,6 +100,8 @@ public void shouldTurnOffGreadinessForCurlyBraces() {
 }
 ```
 
+{% include newsletter-srodek.md %}
+
 ## Alternatywa
 
 Załóżmy, że program, który piszesz musi przetworzyć zestaw instrukcji dla samochodu, którym kieruje. Niektóre z instrukcji mówią w którą stronę należy skręcić

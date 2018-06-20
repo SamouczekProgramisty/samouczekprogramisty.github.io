@@ -48,6 +48,8 @@ Sam etap kompilacji wyrażenia jest procesem relatywnie długim[^dlugi]. Z tego 
 
 W wyrażeniach regularnych poza „dziwnymi znaczkami” używa się także zwyczajnych liter. Domyślnie w wyrażeniach regularnych wielkość liter ma znaczenie. Wyrażenie regularne `Kawa` to nie to samo co `kawa`.
 
+{% include newsletter-srodek.md %}
+
 ## Kiedy używamy wyrażeń regularnych
 
 No właśnie, do czego używamy wyrażeń regularnych? Ogólnie można powiedzieć, że wyrażeń regularnych używamy do pracy z łańcuchami znaków. Wyszukiwanie, dzielenie, czy modyfikacja łańcuchów znaków, to wszystko można zrobić przy pomocy wyrażeń regularnych.

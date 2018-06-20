@@ -27,6 +27,8 @@ Istnieje kilka typów klas wewnętrznych:
 
 Często mówimy po prostu o klasie wewnętrznej odwołując się do którejkolwiek z powyższych. W kolejnych akapitach postaram się pokazać różnice pomiędzy tymi typami klas.
 
+{% include newsletter-srodek.md %}
+
 ## Klasy wewnętrzne
 
 Standardowe klasy już znasz. Ot zwykłe `public class Example {}` i już mamy klasę. A czym jest klasa wewnętrzna? Zacznijmy od przykładu:

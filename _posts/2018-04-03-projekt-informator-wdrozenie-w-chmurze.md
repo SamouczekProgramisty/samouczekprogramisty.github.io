@@ -1,7 +1,6 @@
 ---
 title: Projekt Informator wdrożenie w chmurze
 categories:
-categories:
 - Projekty
 - Projekt Informator
 permalink: /projekt-informator-wdrozenie-w-chmurze/

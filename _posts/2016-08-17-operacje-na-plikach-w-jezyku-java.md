@@ -35,6 +35,8 @@ Sposób zapisu danych ma istotny wpływ na rozmiar pliku. Na przykład zapisanie
 
 Niestety wiąże się to z pewnymi ograniczeniami. Otóż pliki binarne nie są czytelne dla ludzi (ang. _human-readable_). Czy zdarzyło Ci się kiedyś otworzyć plik binarny w notatniku? Zobaczyłbyś wtedy przysłowiowe „krzaki”, ponieważ notatnik interpretował dane binarne jako tekst.
 
+{% include newsletter-srodek.md %}
+
 ### Ścieżka do pliku
 
 System plików organizuje dane na dysku w hierarchiczną strukturę katalogów wewnątrz których znajdują się pliki. Każdy plik czy katalog ma ścieżkę, która jednoznacznie wskazuje jego miejsce w tej strukturze.
