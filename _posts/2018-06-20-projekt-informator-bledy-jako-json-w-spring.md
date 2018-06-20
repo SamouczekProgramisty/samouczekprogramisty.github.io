@@ -45,6 +45,8 @@ LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 }
 ```
 
+{% include newsletter-srodek.md %}
+
 ### Zasilenie bazy danych
 
 Niestety organizatorzy konferencji nie przygotowali źródła danych, które w łatwy sposób można użyć do zasilenia bazy danych. Jedyne źródło to oficjalna strona www konferencji. Na początku skupiłem się nad zasileniem tabeli zawierającej dane dotyczące prelegentów. W projekcie Informator prelegent reprezentowany jest przez instancję klasy `Speaker`:
@@ -71,7 +73,7 @@ public class Speaker {
     @Column(columnDefinition = "text")
     private String description;
 
-    // metody dostępowe
+    // getters/setters
 }
 ```
 
@@ -124,7 +126,7 @@ Mając rzeczywiste dane w bazie danych webservice może odpowiadać bardziej sen
        "linkedinProfile" : "https://www.linkedin.com/in/kamila-wincenciak-27560130/"
     }
 
-Zabrałem się za kolejny etap, czyli obsługę błędów. Przykładowymi przypadkami, które trzeba obsłużyć jest brak rekordu w bazie i złe dane wprowadzone przez użytkownika. Oba przypadki pokazane są poniżej. Proszę zwróć uwagę na zwracane nagłówki i status odpowiedzi:
+Zabrałem się za kolejny etap, czyli obsługę błędów. Przypadkami, które trzeba obsłużyć są brak rekordu w bazie i złe dane wprowadzone przez użytkownika. Oba przypadki pokazane są poniżej. Proszę zwróć uwagę na zwracane [nagłówki]({% post_url 2018-02-08-protokol-http %}#nag%C5%82%C3%B3wki-http) i [status odpowiedzi]({% post_url 2018-02-08-protokol-http %}#statusy-http):
 
     $ curl http://localhost:8080/speakers/-1 -vs | json_pp
     *   Trying 127.0.0.1...
@@ -172,7 +174,7 @@ Zabrałem się za kolejny etap, czyli obsługę błędów. Przykładowymi przypa
 
 ### Konfiguracja Spring a obsługa błędów
 
-Aby móc w ten sposób formatować błędy użyłem kombinacji adnotacji [`ControllerAdvice`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html) i [`ExceptionHandler`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html)
+Aby móc w ten sposób formatować błędy użyłem kombinacji adnotacji [`ControllerAdvice`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html) i [`ExceptionHandler`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html):
 
 ```java
 @ControllerAdvice
