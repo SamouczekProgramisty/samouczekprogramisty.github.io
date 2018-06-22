@@ -13,7 +13,7 @@ Nazywam się Marcin Pietraszek, na tym blogu staram się zarazić Cię pasją do
 
 Przygodę z Javą zacząłem na studiach i pracowałem przy kilku projektach używając tego języka. Do tej pory pracowałem także z innymi językami takimi jak Ruby, JavaScript czy Python. W miarę możliwości staram się pomagać nie tylko na blogu, swego czasu pomagałem przy organizacji [konferencji Ruby we Wrocławiu](http://www.wrocloverb.com/), brałem udział jako wykładowca i wolontariusz na [Devoxx4Kids we Wrocławiu](http://www.devoxx4kids.pl/miasta/wroclaw.html). Obecnie pracuję programując głównie w Pythonie.
 
-Mam nadzięję, że publikowane przeze mnie treści będą dla Ciebie ciekawe i pomocne, gdybyś jednak miał jakiekolwiek pytania, propozycje czy uwagi proszę skontaktuj się ze mną. Postaram się pomóc. Mój email to `marcin małpka samouczekprogramisty.pl` :).
+Mam nadzięję, że publikowane przeze mnie treści będą dla Ciebie ciekawe i pomocne, gdybyś jednak miał jakiekolwiek pytania, propozycje czy uwagi proszę skontaktuj się ze mną. Postaram się pomóc. Mój e-mail to `marcin małpka samouczekprogramisty.pl` :).
 
 _Marcin_
 {% endcapture %}

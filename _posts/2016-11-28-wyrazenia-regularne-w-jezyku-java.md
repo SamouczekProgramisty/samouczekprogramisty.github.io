@@ -56,9 +56,9 @@ No właśnie, do czego używamy wyrażeń regularnych? Ogólnie można powiedzie
 
 W praktyce jednym z głównych zastosowań jest weryfikacja czy dany łańcuch znaków pasuje do wzorca. Wzorcem tym jest wyrażenie regularne.
 
-To czy łańcuch znaków pasuje do wzorca wykorzystywane jest w trakcie walidacji danych wejściowych. Dzięki wyrażeniom regularnym możemy sprawdzić, czy dane pochodzące od użytkownika mają poprawny format. Na przykład następujące wyrażenie regularne pozwala sprawdzić czy użytkownik podał poprawne imię `[A-Z][a-z]+`, czy rzeczywiście adres email może być poprawny `.+@.+\.pl`[^email], czy format daty, który prowadził użytkownik jest w porządku `\d{4}-\d{2}-\d{2}`.
+To czy łańcuch znaków pasuje do wzorca wykorzystywane jest w trakcie walidacji danych wejściowych. Dzięki wyrażeniom regularnym możemy sprawdzić, czy dane pochodzące od użytkownika mają poprawny format. Na przykład następujące wyrażenie regularne pozwala sprawdzić czy użytkownik podał poprawne imię `[A-Z][a-z]+`, czy rzeczywiście adres e-mail może być poprawny `.+@.+\.pl`[^email], czy format daty, który prowadził użytkownik jest w porządku `\d{4}-\d{2}-\d{2}`.
 
-[^email]: Oczywiście to wyrażenie regularne można "oszukać". Nawet jeśli łańcuch znaków pasuje do wzorca nie musi być poprawnym adresem email.
+[^email]: Oczywiście to wyrażenie regularne można "oszukać". Nawet jeśli łańcuch znaków pasuje do wzorca nie musi być poprawnym adresem e-mail.
 
 Ponadto, wyrażeń regularnych możemy używać do „parsowania” łańcuchów znaków. Jeśli mamy większy łańcuch, z którego chcemy wyciągnąć jakąś część wyrażenia regularne mogą nam w tym pomóc. Na przykład jeśli w telefonie zapisujemy znajomych jako "imię (pseudonim) nazwisko", wyrażenie regularne `\w+ \((\w+)\) \w+` pomoże nam wyciągnąć pseudonim.
 
@@ -213,7 +213,7 @@ public void testSymbolDotWithOthers() {
 ```
 
 {% capture noticeemail %}
-Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego mogą pasować poprawne adresy email `.+@.+\.pl.` Rozkładając je na czynniki pierwsze mamy:
+Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego mogą pasować poprawne adresy e-mail `.+@.+\.pl.` Rozkładając je na czynniki pierwsze mamy:
 
 - `.+` - dowolny symbol użyty co najmniej raz,
 - `@` - małpka,

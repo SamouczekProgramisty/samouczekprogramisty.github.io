@@ -29,7 +29,7 @@ Twoim zadaniem jest napisanie programu, który pobierze od użytkownika dwa argu
 - ścieżkę do pliku wejściowego w formacie CSV na dysku opisanym powyżej (możesz ściągnąć [przykładowy plik]({{ "/assets/misc/2016/08/22_zadanie_maszyna_losujaca_input.csv" | absolute_url }}), który dla Ciebie przygotowałem),
 - liczbę N \>= 1 przedstawiającą liczbę wygrywających.
 
-Program powinien wczytać zawartość pliku, wyłuskać adresy email a następnie wśród tych adresów wylosować N wygranych. Dla uproszczenia zakładamy, że format pliku jest poprawny oraz, że uczestnicy konkursu nie oszukiwali (nie było podwójnych losów). Sytuacja w której jeden uczestnik wygrywa dwie książki jest dopuszczalna.
+Program powinien wczytać zawartość pliku, wyłuskać adresy e-mail, a następnie wśród tych adresów wylosować N wygranych. Dla uproszczenia zakładamy, że format pliku jest poprawny oraz, że uczestnicy konkursu nie oszukiwali (nie było podwójnych losów). Sytuacja w której jeden uczestnik wygrywa dwie książki jest dopuszczalna.
 
 {% include newsletter-srodek.md %}
 
@@ -49,7 +49,7 @@ Aby z pola otoczonego znakami `""` uzyskać wyłącznie jego zawartość możesz
 
 Metoda ta jako argument przyjmuje wartość pola i zwraca to co znajduje się wewnątrz `""` bądź `null` jeśli pole nie było uzupełnione.
 
-Aby wybrać losowo X wartości musisz losowo rozłożyć adresy email z pliku. Pomóc Ci w tym może metoda [`Collections.shuffle`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#shuffle-java.util.List-), która w losowy sposób miesza elementy listy.
+Aby wybrać losowo X wartości musisz losowo rozłożyć adresy e-mail z pliku. Pomóc Ci w tym może metoda [`Collections.shuffle`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#shuffle-java.util.List-), która w losowy sposób miesza elementy listy.
 
 Z tymi narzędziami jesteś przygotowany do napisania swojej pierwszej maszyny losującej :) Jeśli będziesz miał jakiekolwiek pytania możesz zasugerować się [przykładowym rozwiązaniem](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/01_lottery_machine/src/main/java/pl/samouczekprogramisty/szs/LotteryMachine.java), które dla Ciebie przygotowałem. Jak zwykle zachęcam jednak do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej.
 
