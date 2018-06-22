@@ -101,8 +101,8 @@ Chociaż zadania wymagają wiedzy z zakresu podstaw języka Java nie są bardzo 
 
 W tej sekcji znajdują się głównie zadania, które wymagają znajomości klasy `Scanner` opisanej w artykule dotyczącym typów prostych.
 1. Jeśli w klasie `Human` użyłeś typów prostych zamień je na odpowiadające im klasy (`int` =\> `Integer`),
-2. Napisz program, który pobierze od użytkownika liczbę całkowitą a następnie wyświetli jej binarną reprezentację na ekranie,
-3. Napisz program, który pobierze od użytkownika liczbę całkowitą N reprezentującą długość tablicy a następnie poprosi o N kolejnych liczb uzupełniając nimi wcześniej stworzoną tablicę. Wyświetl na konsoli tablicę posortowaną w kolejności od najmniejszej do największej liczby,
+2. Napisz program, który pobierze od użytkownika liczbę całkowitą, a następnie wyświetli jej binarną reprezentację na ekranie,
+3. Napisz program, który pobierze od użytkownika liczbę całkowitą N reprezentującą długość tablicy, a następnie poprosi o N kolejnych liczb uzupełniając nimi wcześniej stworzoną tablicę. Wyświetl na konsoli tablicę posortowaną w kolejności od najmniejszej do największej liczby,
 4. Napisz program, który pobierze od użytkownika łańcuch znaków i wyświetli na konsoli jego długość, informację czy jest to palindrom czy nie oraz jego odwróconą wartość.
 
 ### [Interfejsy]({% post_url 2015-12-16-interfejsy-w-jezyku-java %})

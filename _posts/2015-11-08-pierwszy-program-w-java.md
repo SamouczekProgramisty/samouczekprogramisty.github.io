@@ -31,7 +31,7 @@ To już znasz, teraz czas na nowe rzeczy. Wszystkie elementy zostały opisane w 
   
 W ciele klasy, która została stworzona w poprzednim punkcie naciśnij `Ctrl + J`. Pokaże się okienko z podpowiedziami. To jest bardzo przydatna funkcja IDE pozwalająca bardzo szybki sposób pisać kod programiście.
 
-Z okienka, które się pokazało wybierz `psvm`. Bum! Cała metoda już "się napisała" :) Teraz w edytorze wpisz `sout` i naciśnij Enter. Bum! Znów cała linijka jest gotowa. Napisaliśmy tylko kilka znaków a całe ciało metody zostało stworzone za nas.
+Z okienka, które się pokazało wybierz `psvm`. Bum! Cała metoda już "się napisała" :) Teraz w edytorze wpisz `sout` i naciśnij Enter. Bum! Znów cała linijka jest gotowa. Napisaliśmy tylko kilka znaków, a całe ciało metody zostało stworzone za nas.
 
 Poprzednie dwa akapity to nic innego jak funkcja _Live templates_ IDE (dosłownie przetłumaczyć można to na żywe szablony). W trakcie kursu będziemy poznawali kolejne szablony pomagające w pisaniu kodu.
 

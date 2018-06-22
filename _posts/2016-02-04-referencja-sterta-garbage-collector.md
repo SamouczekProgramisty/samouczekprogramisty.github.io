@@ -22,7 +22,7 @@ Maszyna wirtualna Javy startuje zapewniając sobie miejsce na stertę w pamięci
 
 > Tutaj drobna dygresja na temat dysku i pamięci operacyjnej. W czasach dysków HDD (ang. _Hard Disk Drive_) czas dostępu do pamięci RAM był znacząco krótszy. Obecnie przy dyskach SSD (ang. _Solid State Drive_) różnica nadal istnieje jednak nie jest tak duża.
 >
-> Dzięki temu krótkiemu czasowi dostępu do pamięci RAM programy mogły być bardziej wydajne – działać "szybciej". Załóżmy że przeczytanie 1MB z pamięci ram zajmuje 1 sekundę (w rzeczywistości jest to około 250 nanosekundy więc cztery miliony razy krócej!), w takiej skali przeczytanie 1MB z dysku HDD zajmuje 1 minutę i 20 sekund a przesłanie pakietu (paczki danych mniejszej niż 1MB) przez internet z Kalifornii do Holandii i z powrotem aż 10 minut!
+> Dzięki temu krótkiemu czasowi dostępu do pamięci RAM programy mogły być bardziej wydajne – działać "szybciej". Załóżmy że przeczytanie 1MB z pamięci ram zajmuje 1 sekundę (w rzeczywistości jest to około 250 nanosekundy więc cztery miliony razy krócej!), w takiej skali przeczytanie 1MB z dysku HDD zajmuje 1 minutę i 20 sekund, a przesłanie pakietu (paczki danych mniejszej niż 1MB) przez internet z Kalifornii do Holandii i z powrotem aż 10 minut!
 
 {% include newsletter-srodek.md %}
 

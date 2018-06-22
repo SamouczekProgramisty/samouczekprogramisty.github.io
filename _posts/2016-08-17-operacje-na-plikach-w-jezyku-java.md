@@ -75,7 +75,7 @@ Zakładając że znajdujemy się w katalogu `folder_2` wówczas nasza relatywna 
 
 Musisz wiedzieć, że plik możemy otworzyć „do odczytu”, „do zapisu” czy „w trybie dołączania”. Tryb ten jest bardzo istotny, otworzenie do zapisu pliku, który już istnieje i zapisanie choćby jednego znaku kasuje całą dotychczasową zawartość. Podobnie otworzenie do zapisu pliku, który jeszcze nie istnieje powoduje jego utworzenie (jeśli katalog w którym ma znaleźć się plik istnieje).
 
-Tryb „dołączania” nie kasuje zawartości istniejącego pliku a jedynie dopisuje na końcu nową treść.
+Tryb „dołączania” nie kasuje zawartości istniejącego pliku, a jedynie dopisuje na końcu nową treść.
 
 Otwierając jakikolwiek plik w języku Java otwieramy go w pewnym trybie. Tryb ten określamy wprost, bądź jest określony domyślnie w zależności od klasy, którą użyjemy do tego celu. Klasy służące do pisania do pliku domyślnie otwierają go „do zapisu”.
 
@@ -216,8 +216,8 @@ Podobnie jak poprzednio kod poza klauzulą `try` już znasz. Nowa tutaj dla Cieb
 Na koniec kilka zadań dla Ciebie:
 1. Napisz program, który pobierze od użytkownika ścieżkę do pliku tekstowego oraz kilka linijek tekstu (dopóki użytkownik nie wprowadzi „-” jako linijki) i zapisze je do pliku tekstowego. Do wykonania tego zadania może Ci się przydać metoda [`System.lineSeparator()`](http://docs.oracle.com/javase/8/docs/api/java/lang/System.html#lineSeparator--) zwracająca znak nowej linii (jeśli chciałbyś oddzielić linie wprowadzone przez użytkownika).
 2. Napisz program, który pobierze od użytkownika ścieżkę do pliku i wyświetli zawartość pliku na ekranie wraz z informacją ile linii znajduje się w pliku.
-3. Napisz program, który poprosi użytkownika nazwę pliku wyjściowego oraz o podanie swojej daty urodzenia (osobno dzień, miesiąc i rok) a następnie zapisze te dane jako trzy osobne liczby binarnie.
-4. Napisz program, który pobierze od użytkownika ścieżkę do pliku binarnego z datą urodzenia a następnie wyświetli ją na ekranie.
+3. Napisz program, który poprosi użytkownika nazwę pliku wyjściowego oraz o podanie swojej daty urodzenia (osobno dzień, miesiąc i rok), a następnie zapisze te dane jako trzy osobne liczby binarnie.
+4. Napisz program, który pobierze od użytkownika ścieżkę do pliku binarnego z datą urodzenia, a następnie wyświetli ją na ekranie.
 
 Jak zwykle przykładowe rozwiązania zadań znajdują się na [githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/16_operacje_na_plikach/src/main/java/pl/samouczekprogramisty/kursjava/files), jednak zachęcam do samodzielnej próby rozwiązania zadań, wtedy nauczysz się najwięcej.
 

@@ -73,7 +73,7 @@ Tą listę metod wywołujących siebie nawzajem nazywamy stosem wywołań. W nas
 3. `method2`
 4. `method3`
 
-A co stanie się po uruchomieniu tego programu? Oczywiście zostanie rzucony wyjątek a programista zobaczy stos wywołań metod (ang. _stacktrace_), jak w przykładzie poniżej:
+A co stanie się po uruchomieniu tego programu? Oczywiście zostanie rzucony wyjątek, a programista zobaczy stos wywołań metod (ang. _stacktrace_), jak w przykładzie poniżej:
 
     Exception in thread "main" java.lang.RuntimeException: BUM! BUM! BUM!
         at pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method3(StackTraceExample.java:18)

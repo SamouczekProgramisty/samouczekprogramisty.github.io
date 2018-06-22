@@ -61,7 +61,7 @@ Zaraz, zaraz! Czym jest literał!? To nic skomplikowanego, jest to po prostu fra
 
 ### Domyślna konwersja
   
-Możesz zadać sobie teraz pytanie. Po co musimy dodawać `L` na końcu liczby typu `long` a nie musimy dodawać nic dla liczby typu `short` czy `int`? Okazuje się, że kompilator wykonuje za nas automatycznej konwersji typu.
+Możesz zadać sobie teraz pytanie. Dlaczego musimy dodawać `L` na końcu liczby typu `long`, a nie musimy nic dodawać dla liczby typu `short` czy `int`? Okazuje się, że kompilator wykonuje za nas automatycznej konwersji typu.
 
 ```java
 short daysInYear = (short) 365;
@@ -85,7 +85,7 @@ System.out.println(overflow);
   
 Jak myślisz co zostanie wyświetlone na konsoli? Nie, nie będzie to 1'111'111. Komputer wyświetli -3001 :) Dzieje się tak dlatego, że liczba 1'111'111 jest większa od maksymalnej wartości jaką może przechowywać `short`.
 
-To co musisz zapamiętać z tego podrozdziału to fakt, że część konwersji wykonywana jest automatycznie a część spada na programistę. Te drugie są bardziej niebezpieczne bo mogą prowadzić do niespodziewanych rezultatów.
+To co musisz zapamiętać z tego podrozdziału to fakt, że część konwersji wykonywana jest automatycznie, a część spada na programistę. Te drugie są bardziej niebezpieczne bo mogą prowadzić do niespodziewanych rezultatów.
 
 ### Znak
   

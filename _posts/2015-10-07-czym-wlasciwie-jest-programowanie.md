@@ -36,7 +36,7 @@ Języki programowania możemy podzielić na języki niskopoziomowe i wysokopozio
 
 [^architektura]: Jest to duże uproszczenie, chodzi tu o tak zwaną architekturę procesora. Każda architektura ma swój specyficzny zestaw komend tzw. assembler, która czasami nie może być uruchamiana na różnych procesorach.
 
-Tego typu ograniczenia sprawiają, że języków niskiego poziomu nie używa się powszechnie a jedynie do bardzo specyficznych zastosowań, które są bardzo odległe od podstaw i nauki programowania :) Dzięki tym samym ograniczeniom języki wysokiego poziomu zyskują na popularności.
+Tego typu ograniczenia sprawiają, że języków niskiego poziomu nie używa się powszechnie, a jedynie do bardzo specyficznych zastosowań, które są bardzo odległe od podstaw i nauki programowania :) Dzięki tym samym ograniczeniom języki wysokiego poziomu zyskują na popularności.
 
 {% include newsletter-srodek.md %}
 

@@ -36,7 +36,7 @@ Lista (ang. _list_) podobnie jak tablica, grupuje elementy. Jej główną przewa
 
 [^oom]: Oczywiście w granicach rozsądku, w skrajnych przypadkach utworzenie listy ze zbyt dużą liczbą elementów może prowadzić do wystąpienia błędu `OutOfMemoryError`.
 
-Bez wdawania się w zbędne szczegóły, proszę zapamiętaj, że `LinkedList` lepiej jest używać jeśli często usuwasz elementy z listy a `ArrayList` lepiej jest używać jeśli często chcesz mieć dostęp do losowych elementów w liście. Obiecuje, że dokładne wytłumaczenie dlaczego tak się dzieje znajdziesz w jednym z kolejnych artykułów.
+Bez wdawania się w zbędne szczegóły, proszę zapamiętaj, że `LinkedList` lepiej jest używać jeśli często usuwasz elementy z listy, a `ArrayList` lepiej jest używać jeśli często chcesz mieć dostęp do losowych elementów w liście. Obiecuje, że dokładne wytłumaczenie dlaczego tak się dzieje znajdziesz w jednym z kolejnych artykułów.
 
 {% include newsletter-srodek.md %}
 
@@ -125,7 +125,7 @@ Mapa (ang. _map_) jest kolekcją, która pozwala przechować odwzorowanie zbioru
 
 Czytając inne źródła możesz natknąć się na inne nazwy. Słownik, tablica asocjacyjna, mapa – to pojęcia opisujące dokładnie tę samą strukturę danych.
 
-Kluczami w mapie powinny być obiekty, których nie można zmodyfikować (ang. _immutable_). Np dobrymi kandydatami na klucze są instancje takich klas jak `String` czy `Integer` – są to obiekty, których po zainicjalizowaniu nie możemy zmodyfikować. Ponadto klasy kluczy muszą poprawnie implementować metody `hashCode`/`equals`. Jeśli jakaś para (klucz, wartość1) istnieje jest w mapie a ty spróbujesz dodać kolejną (klucz, wartość2) (ten sam klucz). Wówczas ta ostatnia para będzie przechowywana przez mapę, nadpisze ona poprzedni element.
+Kluczami w mapie powinny być obiekty, których nie można zmodyfikować (ang. _immutable_). Np dobrymi kandydatami na klucze są instancje takich klas jak `String` czy `Integer` – są to obiekty, których po zainicjalizowaniu nie możemy zmodyfikować. Ponadto klasy kluczy muszą poprawnie implementować metody `hashCode`/`equals`. Jeśli jakaś para (klucz, wartość1) istnieje jest w mapie, a Ty spróbujesz dodać kolejną (klucz, wartość2) (ten sam klucz). Wówczas ta ostatnia para będzie przechowywana przez mapę, nadpisze ona poprzedni element.
 
 Podobnie jak `Set` i `List`, `Map` jest interfejsem generycznym, jednak w tym przypadku wymaga on dwóch klas – pierwsza z nich definiuje typ kluczy, druga typ wartości przechowywanych w mapie.
 

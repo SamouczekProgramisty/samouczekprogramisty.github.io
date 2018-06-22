@@ -62,7 +62,7 @@ Po tym wstępie mogę wyjaśnić dlaczego w przykładzie poniżej potrzebujemy n
 "10 == 10: " + (10 == 10)
 ```
 
-Bez dodatkowej pary nawiasów pierwszeństwo miałby operator `+`. `"10 == 10: " + 10 == 10` inaczej możemy zapisać jako `"10 == 10: 10"  == 10` a taki zapis nie jest poprawny, ponieważ operatorem `==` nie możemy porównać instancji typu `String` i wartości typu `int`.
+Bez dodatkowej pary nawiasów pierwszeństwo miałby operator `+`. `"10 == 10: " + 10 == 10` inaczej możemy zapisać jako `"10 == 10: 10"  == 10`, a taki zapis nie jest poprawny. Jest błędny, ponieważ operatorem `==` nie możemy porównać instancji typu `String` i wartości typu `int`.
 
 {% include newsletter-srodek.md %}
 

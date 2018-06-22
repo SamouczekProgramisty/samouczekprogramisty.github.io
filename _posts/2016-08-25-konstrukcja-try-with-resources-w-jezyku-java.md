@@ -108,7 +108,7 @@ public class MyContextManagerMain {
     Wlasnie cos robie :)
     Ktos mnie teraz zamyka!
 
-Widzisz? Metody `close` nie wywoływałem nigdzie a mimo to została automatycznie wykonana podczas działania programu. Stało się tak właśnie dzięki kompilatorowi, który przetłumaczył konstrukcję try-with-resources na kod, który poprawnie zamyka zmienne.
+Widzisz? Metody `close` nie wywoływałem nigdzie, a mimo to została automatycznie wykonana podczas działania programu. Stało się tak właśnie dzięki kompilatorowi, który przetłumaczył konstrukcję try-with-resources na kod, który poprawnie zamyka zmienne.
 
 ## Zadanie
 

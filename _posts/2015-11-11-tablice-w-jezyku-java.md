@@ -118,7 +118,7 @@ Spróbuj narysować sobie na kartce powyższy przebieg gry. Kto ma szanse na wyg
 
 ### Magiczne liczby
   
-Przykład z planszą do gry świetnie nadaje się do wytłumaczenia czym właściwie są magiczne liczby (ang. _magic numbers_). W kodzie programu bardzo często występują liczby. Liczby te w rzeczywistości mają jakieś znaczenie. W naszym przykładzie 1 to nie zwykła jedynka a wartość oznaczająca kółko. Dobrą praktyką jest przypisanie takich „magicznych wartości” do zmiennych/stałych[^stale] i używanie ich w kodzie. Na dłuższą metę kod używający nazwanych zmiennych w miejscu „magic numbers” jest bardziej czytelny i łatwiejszy w utrzymaniu.
+Przykład z planszą do gry świetnie nadaje się do wytłumaczenia czym właściwie są magiczne liczby (ang. _magic numbers_). W kodzie programu bardzo często występują liczby. Liczby te w rzeczywistości mają jakieś znaczenie. W naszym przykładzie 1 to nie zwykła jedynka, a wartość oznaczająca kółko. Dobrą praktyką jest przypisanie takich „magicznych wartości” do zmiennych/stałych[^stale] i używanie ich w kodzie. Na dłuższą metę kod używający nazwanych zmiennych w miejscu „magic numbers” jest bardziej czytelny i łatwiejszy w utrzymaniu.
 
 [^stale]: O stałych przeczytasz w innym artykule.
 
@@ -182,4 +182,4 @@ Zachęcam Cię, do samodzielnego rozwiązania zadań, jeśli jednak miałbyś ja
   
 Bardzo się cieszę, że przeczytałeś artykuł aż do końca. Jeśli masz jakiekolwiek uwagi proszę podziel się nimi w komentarzach. Byłbym także bardzo wdzięczny gdybyś przekazał swoim znajomym informację o blogu – jak zawsze zależy mi na dotarciu do jak największej grupy ludzi, którzy chcą uczyć się programować.
 
-Jak zwykle informacje o artykule prezentuję na stronie na Facebooku, polub ją a będziesz otrzymywał informacje o nowych artykułach.
+Jak zwykle informacje o artykule prezentuję na stronie na Facebooku. Polub ją, a będziesz otrzymywał informacje o nowych artykułach.
