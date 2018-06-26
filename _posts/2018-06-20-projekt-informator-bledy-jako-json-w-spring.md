@@ -1,7 +1,6 @@
 ---
 title: Projekt Informator zasilenie bazy, Spring i błędy jako JSON
 categories:
-categories:
 - Projekty
 - Projekt Informator
 permalink: /projekt-informator-zasilenie-bazy-spring-i-bledy-jako-json/
