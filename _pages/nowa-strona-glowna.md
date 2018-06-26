@@ -48,10 +48,10 @@ frwstep:
   {% endfor %}
 </div>
 
-<div class="page__hero--overlay" style="">
+<div class="page__hero--overlay" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ '/assets/images/archiwum.jpg' | absolute_url }}');">
   <div class="wrapper">
     <h2 class="page__title">Archiwum Samouczka Programisty</h2>
-    <p class="page__lead">Tutaj znajdziesz wszystkie archiwalne artykuły, które ukazały się na blogu.<p>
+    <p class="page__lead">Tutaj znajdziesz wszystkie archiwalne artykuły, które ukazały się na blogu.</p>
     <p><a href="{{ '/archiwum/' | absolute_url }}" class="btn btn--light-outline btn--large"><i class="fa fa-archive"></i> Przejdz do archiwum</a></p>
   </div>
 </div>
