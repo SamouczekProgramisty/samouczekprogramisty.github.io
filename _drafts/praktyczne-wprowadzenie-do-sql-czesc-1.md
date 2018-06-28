@@ -26,16 +26,6 @@ Na temat SQL powstają obszerne książki. Artykuł ten nie wyczerpuje tematu, w
   {{ wstep | markdownify }}
 </div>
 
-## Czym jest SQL
-
-SQL (ang. _Standard Query Language_) to język, który jest wykorzystywany podczas pracy z relacyjnymi bazami danych. Język ten oparty jest na zapytaniach. Przykładowe zapytanie może wyglądać tak:
-
-```sql
-SELECT *
-  FROM spekers
- WHERE name = 'Marcin'
-   AND description IS NOT NULL;
-```
 
 SQL posiada wiele wersji i jest opisywany przez wiele standardów. Najnowszy standard języka SQL to SQL:2003, który został zaktualizowany przez SQL:2006[^aktualny]. Niestety treść standardów nie jest dostępna bezpłatnie. Jeśli będziesz chciał uzupełnić swoją wiedzę to dokumentacja bazy danych, której używasz jest bardzo dobrym źródłem. Popularne bazy danych dokładnie opisują swoją implementację standardu SQL.
 
@@ -46,14 +36,6 @@ W tym artykule postaram się opisać podstawowe elementy, które są wspólne dl
 {% include wspolpraca-infoshare-2018.md %}
 
 ## Elementy SQL
-
-Sam język SQL wykorzystywany jest do wielu zadań. Są to:
-
-- tworzenie, modyfikowanie i usuwanie danych. Podzbiór języka SQL zawierający zapytania tego typu to DML (ang. _Data Manipulation Language_),
-- pobieranie danych, jest to tak zwany DQL (ang. _Data Query Language_), ta część języka SQL jest najczęściej używana,
-- definiowanie obiektów bazy danych, na przykład tworzenie tabel, jest to tak zwany DDL (ang. _Data Definition Language_).
-
-SQL używany jest także do zarządzania trasakcjami i zarządznia dostępem do danych. Te dwa aspekty pominę w tym artykule. Jeśli chcesz przeczytać o nich więcej odsyłam cię do punktu "Materiały dodatkowe".
 
 ### DDL
 
@@ -112,13 +94,6 @@ Do modyfikacji tabel służy zapytanie `ALTER TABLE`.
 
 #### Usuwanie tabeli
 
-
-###
-
-### DML
-
-### DTL
-
 ## Pobieranie krotek
 
 ### SELECT
@@ -152,12 +127,3 @@ dElEtE frOM speKERs wherE ID = 1;
 ```
 
 Chociaż wielkość liter nie ma znaczenia, moim zdaniem dobrą praktyką jest pisanie słów kluczowych wielkimi literami. W codziennej pracy także starałem się unikać nadawania nazw, które wymagają otoczenia `"`.
-
-## Materiały dodatkowe
-
-
-
-## Podsumowanie
-
-
-
