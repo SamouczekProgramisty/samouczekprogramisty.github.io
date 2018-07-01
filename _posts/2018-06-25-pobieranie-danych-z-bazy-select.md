@@ -147,7 +147,7 @@ SELECT *
 
 # Przygotowanie środowiska
 
-Moim zdaniem najlepszym sposobem na naukę jest praktyka. Właśnie z tego powodu chcę pomóc przygotować Ci środowisko, w którym możliwe będzie przetestowanie zapytań.
+Moim zdaniem najlepszym sposobem na naukę jest praktyka. Właśnie z tego powodu chcę pomóc przygotować Ci środowisko, w którym możliwe będzie testowanie zapytań.
 
 Aby móc ćwiczyć na bieżąco wszystkie zagadnienia, które będę opisywał będziesz potrzebować serwera bazy danych. Jak wspomniałem w artykule opisującym [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) jest wiele silników baz danych. 
 
@@ -185,6 +185,46 @@ Komendy zaczynające się od `.` (na przykład `.open` czy `.tables`) to wewnęt
 
 Założeniem tego kursu jest to, że będzie on praktyczny od samego początku do końca. Wszystkie zapytania, które tutaj pokazuję możesz wykonać samodzielnie używając środowiska, które wcześniej opisałem.
 {:.notice--info}
+
+## Schemat tabeli
+
+Zanim przejdę do tłumaczenia zapytań `SELECT` chciałbym zwrócić Twoją uwagę na "budowę" tabeli. Wiesz już, że tabela skłąda się z wierszy i kolumn. Można powiedzieć, że tabela ma swój schemat. SQLite ma wewnętrzne polecenie, które pozwala pokazać schemat tabeli - `.schema`. Na przykład schemat tabeli `Invoice` wygląda tak:
+
+    sqlite> .schema Invoice
+    CREATE TABLE [Invoice]
+    (
+        [InvoiceId] INTEGER  NOT NULL,
+        [CustomerId] INTEGER  NOT NULL,
+        [InvoiceDate] DATETIME  NOT NULL,
+        [BillingAddress] NVARCHAR(70),
+        [BillingCity] NVARCHAR(40),
+        [BillingState] NVARCHAR(40),
+        [BillingCountry] NVARCHAR(40),
+        [BillingPostalCode] NVARCHAR(10),
+        [Total] NUMERIC(10,2)  NOT NULL,
+        CONSTRAINT [PK_Invoice] PRIMARY KEY  ([InvoiceId]),
+        FOREIGN KEY ([CustomerId]) REFERENCES [Customer] ([CustomerId]) 
+    		ON DELETE NO ACTION ON UPDATE NO ACTION
+    );
+    CREATE UNIQUE INDEX [IPK_Invoice] ON [Invoice]([InvoiceId]);
+    CREATE INDEX [IFK_InvoiceCustomerId] ON [Invoice] ([CustomerId]);
+
+
+To co widzisz, to zapytania typu DDL, które tworzą tabelę i obiekty z nią powiązane. Powyższe zapytana poza tabelą tworzą indeksy, klucze obce i klucz główny. 
+
+Tabela `Invoice` składa się z dziewięciu kolumn. Kolumna `InvoiceId` jest kluczem głównym tabeli. Każda z kolumn ma przypisany typ[^typy_sqlite]. Typ określa rodzaj danych przechowywanych w danej kolumnie. Na przykład kolumna `InvoiceDate` jest typu `DATETIME`, kolumny tego typu służą do przechowywania daty i czasu.
+
+Innymi typami, które występują w tej tabeli są:
+
+- `INTEGER` - służy on do przechowywania liczb całkowitych,
+- `NVARCHAR(x)` - służy on do przechowywania łańcuchów znakód do długości X,
+- `NUMERIC(
+
+[^typy_sqlite]: To stwierdzenie nie jest do końca prawdziwe dla SQLite, jednak ma zastosowanie w silnikach innych baz danych. Po szczegóły odsyłam Cię do [dokumentacji SQLite](https://www.sqlite.org/datatype3.html#datatypes_in_sqlite).
+
+Typy obsługiwanych danych mogą znacznie różnić się pomiędzy różnymi silnikami baz danych. Róźnice te jednak nie przeszkadzają w nauce języka SQL.
+{:.notice--info}
+
 
 # Dodatkowe materiały do nauki
 
