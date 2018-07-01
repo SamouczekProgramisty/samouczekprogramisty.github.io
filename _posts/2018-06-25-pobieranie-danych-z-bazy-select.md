@@ -1,9 +1,9 @@
 ---
-title: Pobieranie danych z bazy - SELECT 
+title: Pobieranie danych z bazy - SELECT
 categories:
 - Bazy danych
 - Kurs SQL
-permalink: /pobieranie-danych-z-bazy-select/ 
+permalink: /pobieranie-danych-z-bazy-select/
 header:
     teaser: /assets/images/2018/06/28_pobieranie_danych_z_bazy_select_artykul.jpeg
     overlay_image: /assets/images/2018/06/28_pobieranie_danych_z_bazy_select_artykul.jpeg
@@ -13,7 +13,7 @@ excerpt: Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących
 
 {% include kurs-sql-notice.md %}
 
-# Wprowadzenie do języka SQL 
+# Wprowadzenie do języka SQL
 
 Język SQL (ang. _Structured Query Language_) powstał kilkadziesiąt lat temu. Służy do pobierania i przetwarzania danych zapisanych w bazie danych. Język ten został ustandaryzowany i na przestrzeni kilkudziesięciu lat powstało wiele wersji tego standardu.
 
@@ -36,9 +36,9 @@ Język SQL oparty jest na zapytaniach. Przykładowe zapytanie SQL może wygląda
 
 ```sql
 SELECT *
-  FROM spekers
- WHERE name = 'Marcin'
-   AND description IS NOT NULL;
+  FROM genre
+ WHERE name = 'Rock'
+   AND genreid < 20;
 ```
 
 ## SQL to nie baza danych
@@ -47,14 +47,14 @@ Definicji bazy danych może być wiele. Jednak nie znam żadnej, która mówiła
 
 SQL to język, który pomaga dogadać się z bazą danych. Baza danych to dane, to ich zbiór. W relacyjnych bazach danych są one zorganizowane w tabele. W jednej bazie danych przeważnie znajduje się wiele tabel.
 
-Tabele zawierają wiersze i kolumny. Na przykład tabela `speakers` zawiera informacje o prelegentach:
+Tabele zawierają wiersze i kolumny. Na przykład tabela `genre` zawiera nazwy gatunków muzycznych:
 
-    | id | name      | description        | 
-    |----|-----------|--------------------|
-    | 1  | 'Marcin'  | 'some description' |
-    | 2  | 'Piotrek' | NULL               |
+    | genreid | name   |
+    |---------|--------|
+    | 1       | 'Rock' |
+    | 2       | 'Jazz' |
 
-Tabela, którą pokazałem wyżej zawiera dwa wiersze i trzy kolumny: `id`, `name` i `description`. Można powiedzieć, że baza danych to zbiór tabel zawierających dane. Język SQL pomaga w łatwym operowaniu na danych. SQL ukrywa w sobie sposób w jaki dane są przetwarzane, zwraca wyłącznie finalny wynik.
+Tabela, którą pokazałem wyżej zawiera dwa wiersze i dwie kolumny: `gnreid` i `name`. Można powiedzieć, że baza danych to zbiór tabel zawierających dane. Język SQL pomaga w łatwym operowaniu na danych. SQL ukrywa w sobie sposób w jaki dane są przetwarzane, zwraca wyłącznie finalny wynik.
 
 Bazy danych także ukrywają sposób przechowywania danych. Użytkownika nie interesuje sposób ich zapisu a jedynie to, co chce uzyskać przy pomocy zapytania SQL[^wydajnosc].
 
@@ -75,11 +75,11 @@ Dodatkowo czasami wyróżnia się też grupy:
 
 ### DQL
 
-DQL składa się wyłącznie z zapytań typu `SELECT`. Zapytania te służą do odpytywania (ang. _query_) bazy danych. Innymi słowy służą do pobierania danych z bazy danych. Zapytania typu `SELECT` są najczęściej używane. Poniżej możesz zobaczyć zapytanie, które pobiera wszystkie kolumny i wiersze z tabeli `speakers`.
+DQL składa się wyłącznie z zapytań typu `SELECT`. Zapytania te służą do odpytywania (ang. _query_) bazy danych. Innymi słowy służą do pobierania danych z bazy danych. Zapytania typu `SELECT` są najczęściej używane. Poniżej możesz zobaczyć zapytanie, które pobiera wszystkie kolumny i wiersze z tabeli `genre`.
 
 ```sql
 SELECT *
-  FROM spekers
+  FROM genre;
 ```
 
 Na razie nie przejmuj się składnią zapytania, omówię ją szczegółowo poniżej.
@@ -94,7 +94,7 @@ DML służy do tworzenie, modyfikowania i usuwania danych. W skład tej grupy wc
 
 ### DDL
 
-Wiesz już, że [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) składają się z tabel. Dodatkowo w bazach występują inne obiekty jak indeksy (ang. _index_), klucze obce (ang. _foreign key_), klucze główne (ang. _primary key_), ograniczenia (ang. _Constantin_), wyzwalacze (ang. _triggers_) czy widoki (ang. _view_). Część języka odpowiedzialna za tworzenie tych obiektów to DDL. Zapytania należące do DDL to:
+Wiesz już, że [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) składają się z tabel. Dodatkowo w bazach występują inne obiekty jak indeksy (ang. _index_), klucze obce (ang. _foreign key_), klucze główne (ang. _primary key_), ograniczenia (ang. _constraint_), wyzwalacze (ang. _trigger_) czy widoki (ang. _view_). Część języka odpowiedzialna za zarządzanie tymi obiektami to DDL. Zapytania należące do DDL to:
 
 - `CREATE` - tworzą obiekty bazy danych,
 - `ALTER` - modyfikują tabele bazy danych,
@@ -105,7 +105,7 @@ Wiesz już, że [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjn
 
 ### DCL
 
-Bazy danych często pozwalają na zarządzanie dostępem do danych. Z mojego doświadczenia zawsze realizowane jest to przy pomocy kont użytkowników[^hba]. DCL służy do manipulacji prawami dostępu do danych przypisanych do poszczególnych kont. 
+Bazy danych często pozwalają na zarządzanie dostępem do danych. Realizowane jest to przy pomocy kont użytkowników[^hba]. DCL służy do manipulacji prawami dostępu do danych przypisanych do poszczególnych kont:
 
 [^hba]: Pomijam tu ustawienia na poziomie konfiguracji silnika bazy danych. Te ustawienia mogą wymagać restartu silnika. Przykładem może tu być plik konfiguracyjny [`pg_hba.conf`](https://www.postgresql.org/docs/10/static/auth-pg-hba-conf.html) istniejący w bazie danych PostgreSQL.
 
@@ -128,19 +128,19 @@ SQL jest językiem, w którym wielkość liter w słowach kluczowych i identyfik
 [^zalezy]: To zachowanie zależy od silnika bazy danych. Niektóre silnik respektują identyfikatory otoczone `"`, inne nie.
 
 ```sql
-SELECT * FROM speakers WHERE id = 1;
+SELECT * FROM genre WHERE genreid = 1;
 ```
 
 ```sql
-SELECT * frOM speKERs wherE ID = 1;
+SELECT * frOM geNRe wherE GenReID = 1;
 ```
 
 Chociaż wielkość liter nie ma znaczenia, moim zdaniem dobrą praktyką jest pisanie słów kluczowych wielkimi literami. W codziennej pracy także starałem się unikać nadawania nazw, które wymagają otoczenia `"`. Dodatkowo zawsze staram się formatować zapytania żeby były bardziej czytelne:
 
 ```sql
-SELECT * 
-  FROM speakers
- WHERE id = 1;
+SELECT *
+  FROM genre
+ WHERE genreid = 1;
 ```
 
 {% include newsletter-srodek.md %}
@@ -149,7 +149,7 @@ SELECT *
 
 Moim zdaniem najlepszym sposobem na naukę jest praktyka. Właśnie z tego powodu chcę pomóc przygotować Ci środowisko, w którym możliwe będzie testowanie zapytań.
 
-Aby móc ćwiczyć na bieżąco wszystkie zagadnienia, które będę opisywał będziesz potrzebować serwera bazy danych. Jak wspomniałem w artykule opisującym [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) jest wiele silników baz danych. 
+Aby móc ćwiczyć na bieżąco wszystkie zagadnienia, które będę opisywał będziesz potrzebować serwera bazy danych. Jak wspomniałem w artykule opisującym [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) jest wiele silników baz danych.
 
 Ze względu na łatwą instalację (właściwie to jej brak), w kursie używał będę bazy danych [SQLite](https://www.sqlite.org/). Baza ta jest w zupełności wystarczająca na potrzeby kursu. Oczywiście, jeśli chcesz wykonywać ćwiczenia używając bardziej zaawansowanych baz danych możesz to zrobić ;).
 
@@ -188,7 +188,9 @@ Założeniem tego kursu jest to, że będzie on praktyczny od samego początku d
 
 ## Schemat tabeli
 
-Zanim przejdę do tłumaczenia zapytań `SELECT` chciałbym zwrócić Twoją uwagę na "budowę" tabeli. Wiesz już, że tabela skłąda się z wierszy i kolumn. Można powiedzieć, że tabela ma swój schemat. SQLite ma wewnętrzne polecenie, które pozwala pokazać schemat tabeli - `.schema`. Na przykład schemat tabeli `Invoice` wygląda tak:
+Zanim przejdę do tłumaczenia zapytań `SELECT` chciałbym zwrócić Twoją uwagę na budowę tabeli. Wiesz już, że tabela składa się z wierszy i kolumn. Każda kolumna przechowuje dane pewnego typu. Mogą to być na przykład łańcuchy znaków czy liczby.
+
+Można powiedzieć, że tabela ma swój schemat. SQLite ma wewnętrzne polecenie, które pozwala pokazać schemat tabeli - `.schema`. Na przykład schemat tabeli `Invoice` wygląda tak:
 
     sqlite> .schema Invoice
     CREATE TABLE [Invoice]
@@ -203,22 +205,69 @@ Zanim przejdę do tłumaczenia zapytań `SELECT` chciałbym zwrócić Twoją uwa
         [BillingPostalCode] NVARCHAR(10),
         [Total] NUMERIC(10,2)  NOT NULL,
         CONSTRAINT [PK_Invoice] PRIMARY KEY  ([InvoiceId]),
-        FOREIGN KEY ([CustomerId]) REFERENCES [Customer] ([CustomerId]) 
-    		ON DELETE NO ACTION ON UPDATE NO ACTION
+        FOREIGN KEY ([CustomerId]) REFERENCES [Customer] ([CustomerId])
+                    ON DELETE NO ACTION ON UPDATE NO ACTION
     );
     CREATE UNIQUE INDEX [IPK_Invoice] ON [Invoice]([InvoiceId]);
     CREATE INDEX [IFK_InvoiceCustomerId] ON [Invoice] ([CustomerId]);
 
-
-To co widzisz, to zapytania typu DDL, które tworzą tabelę i obiekty z nią powiązane. Powyższe zapytana poza tabelą tworzą indeksy, klucze obce i klucz główny. 
+To co widzisz, to zapytania typu DDL, które tworzą tabelę i obiekty z nią powiązane. Powyższe zapytana poza tabelą tworzą indeksy, klucze obce i klucz główny.
 
 Tabela `Invoice` składa się z dziewięciu kolumn. Kolumna `InvoiceId` jest kluczem głównym tabeli. Każda z kolumn ma przypisany typ[^typy_sqlite]. Typ określa rodzaj danych przechowywanych w danej kolumnie. Na przykład kolumna `InvoiceDate` jest typu `DATETIME`, kolumny tego typu służą do przechowywania daty i czasu.
 
 Innymi typami, które występują w tej tabeli są:
 
 - `INTEGER` - służy on do przechowywania liczb całkowitych,
-- `NVARCHAR(x)` - służy on do przechowywania łańcuchów znakód do długości X,
-- `NUMERIC(
+- `NVARCHAR(x)` - służy on do przechowywania łańcuchów znakód do długości `x`,
+- `NUMERIC(x, y)` - służy do przechowywania liczb rzeczywistych, które mają do `x` cyfr z `y` po przecinku.
+
+## Składnia zapytania `SELECT`
+
+Zapytanie `SELECT` w swojej najrostrzej formie wygląda tak:
+
+```sql
+SELECT *
+  FROM invoice;
+```
+
+To Zapytanie zawiera dwa słowa kluczowe: `SELECT` i `FROM`. Pomiędzy tymi słowami znajduje się lista kolum, które powinny zostać zwrócone. Znak `*` oznacza "pobierz wszystie". Po słowie kluczowym from występuje nazwa tabeli - `invoice`. Całe zpytanie jest zakończone średnikiem. Spróbuj wykonać to zapytanie na swojej kopii bazy danych:
+
+    sqlite> SELECT * FROM invoice;
+    1|2|2009-01-01 00:00:00|Theodor-Heuss-Straße 34|Stuttgart||Germany|70174|1.98
+    2|4|2009-01-02 00:00:00|Ullevålsveien 14|Oslo||Norway|0171|3.96
+    (...)
+
+### Filtrowanie `WHERE`
+
+Pobieranie całej tabeli nie zawsze jest przydatne. Bardzo często zapytania `SELECT` filtrują pobierane dane. Aby filtrować dane zwracane przez zapytanie musisz użyć słowa kluczowego `WHERE` i warunków, które filtrują dane:
+
+```sql
+SELECT *
+  FROM invoice
+ WHERE billingcity = 'Dublin' AND total > 5
+    OR billingcity = 'Boston' AND total < 3 AND total > 1;
+```
+
+Zapytanie wyżej ma kilka warunków. Każdy z nich oddzielony jest słowem kluczowym `OR` (logiczne lub) i `AND` (logiczne i). W tym przypadku zostaną zwrócone wszystkie wiersze dla których spełniony jest jeden z warunków (słowo kluczowe `OR`):
+
+- kolumna `billingcity` ma wartość Dublin i kolumna `total` zawiera liczbę większą od 5,
+- kolumna `billingcity` ma wartość Boston i kolumna `total` zawiera liczbę z przedziału (1, 3).
+
+Spróbuj wywołać to zapytanie na swojej kopii bazy danych:
+
+    sqlite> select * from invoice where billingcity = 'Dublin' and total > 5 or billingcity = 'Boston' and total < 3 and total > 1;
+    10|46|2009-02-03 00:00:00|3 Chatham Street|Dublin|Dublin|Ireland||5.94
+    189|23|2011-04-18 00:00:00|69 Salem Street|Boston|MA|USA|2113|1.98
+    194|46|2011-04-28 00:00:00|3 Chatham Street|Dublin|Dublin|Ireland||21.86
+    249|46|2011-12-27 00:00:00|3 Chatham Street|Dublin|Dublin|Ireland||8.91
+    407|23|2013-12-04 00:00:00|69 Salem Street|Boston|MA|USA|2113|1.98
+
+
+### Magiczna wartość `NULL`
+
+
+{% include figure image_path="/assets/images/2018/06/28_select-stmt.gif"  caption="Składania zapytania `SELECT`" %}
+
 
 [^typy_sqlite]: To stwierdzenie nie jest do końca prawdziwe dla SQLite, jednak ma zastosowanie w silnikach innych baz danych. Po szczegóły odsyłam Cię do [dokumentacji SQLite](https://www.sqlite.org/datatype3.html#datatypes_in_sqlite).
 
@@ -235,7 +284,7 @@ Jeśli chcesz spojrzeć na temat z innej perspektywy polecam przeczytanie poniż
 
 # Podsumowanie
 
-Po przeczytaniu tego artykułu wiesz czym jest język SQL. Potrafisz podzielić zapytania języka SQl na grupy. Znasz podstawy zapytania typu `SELECT`. Potrafisz zastosować w praktyce zapytania tego typu do pobrania danych z bazy. Innymi słowy masz solidne podstawy, dzięki którym możesz przejść do kolejnego etapu nauki języka SQL. 
+Po przeczytaniu tego artykułu wiesz czym jest język SQL. Potrafisz podzielić zapytania języka SQl na grupy. Znasz podstawy zapytania typu `SELECT`. Potrafisz zastosować w praktyce zapytania tego typu do pobrania danych z bazy. Innymi słowy masz solidne podstawy, dzięki którym możesz przejść do kolejnego etapu nauki języka SQL.
 
 Na koniec proszę Cię o polecenie tego artykułu Twoim znajomym, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Z góry dziękuję ;). Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polub Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera. Do następnego razu! ;)
 
