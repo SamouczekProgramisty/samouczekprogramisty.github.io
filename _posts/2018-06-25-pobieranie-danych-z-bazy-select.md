@@ -54,7 +54,7 @@ Tabele zawierają wiersze i kolumny. Na przykład tabela `genre` zawiera nazwy g
     | 1       | 'Rock' |
     | 2       | 'Jazz' |
 
-Tabela, którą pokazałem wyżej zawiera dwa wiersze i dwie kolumny: `gnreid` i `name`. Można powiedzieć, że baza danych to zbiór tabel zawierających dane. Język SQL pomaga w łatwym operowaniu na danych. SQL ukrywa w sobie sposób w jaki dane są przetwarzane, zwraca wyłącznie finalny wynik.
+Tabela, którą pokazałem wyżej zawiera dwa wiersze i dwie kolumny: `genreid` i `name`. Można powiedzieć, że baza danych to zbiór tabel zawierających dane. Język SQL pomaga w łatwym operowaniu na danych. SQL ukrywa w sobie sposób w jaki dane są przetwarzane, zwraca wyłącznie finalny wynik.
 
 Bazy danych także ukrywają sposób przechowywania danych. Użytkownika nie interesuje sposób ich zapisu a jedynie to, co chce uzyskać przy pomocy zapytania SQL[^wydajnosc].
 
@@ -213,12 +213,12 @@ Można powiedzieć, że tabela ma swój schemat. SQLite ma wewnętrzne polecenie
 
 To co widzisz, to zapytania typu DDL, które tworzą tabelę i obiekty z nią powiązane. Powyższe zapytana poza tabelą tworzą indeksy, klucze obce i klucz główny.
 
-Istnieją także bazy danych, które pozwalają przechowywać dane w strukturze, któa nie ma sztywno określonego schematu. Podnie jak [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) mają one swoje wady i zalety.
+Istnieją także bazy danych, które pozwalają przechowywać dane w strukturze, która nie ma sztywno określonego schematu. Podobnie jak [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) mają one swoje wady i zalety.
 {:.notice--info}
 
 ### Typy danych
 
-Typy obsługiwanych danych mogą znacznie różnić się pomiędzy różnymi silnikami baz danych. Róźnice te jednak nie przeszkadzają w nauce języka SQL.
+Typy obsługiwanych danych mogą znacznie różnić się pomiędzy różnymi silnikami baz danych. Różnice te jednak nie przeszkadzają w nauce języka SQL.
 {:.notice--info}
 
 Tabela `Invoice` składa się z dziewięciu kolumn. Kolumna `InvoiceId` jest kluczem głównym tabeli. Każda z kolumn ma przypisany typ. Typ określa rodzaj danych przechowywanych w danej kolumnie[^typy_sqlite]. Na przykład kolumna `InvoiceDate` jest typu `DATETIME`, kolumny tego typu służą do przechowywania daty i czasu.
@@ -228,7 +228,7 @@ Tabela `Invoice` składa się z dziewięciu kolumn. Kolumna `InvoiceId` jest klu
 Innymi typami, które występują w tej tabeli są:
 
 - `INTEGER` - służy on do przechowywania liczb całkowitych,
-- `NVARCHAR(x)` - służy on do przechowywania łańcuchów znakód do długości `x`,
+- `NVARCHAR(x)` - służy on do przechowywania łańcuchów znaków do długości `x`,
 - `NUMERIC(x, y)` - służy do przechowywania liczb rzeczywistych, które mają do `x` cyfr z `y` po przecinku.
 
 Innymi popularnymi typami są[^storage_type]:
@@ -237,20 +237,20 @@ Innymi popularnymi typami są[^storage_type]:
 - `DATETIME` - służy do przechowywania daty i czasu,
 - `DATE` - służy do przechowywania daty,
 - `BOOLEAN` - służy do przechowywania wartości logicznych,
-- `TEXT` - służy do przechowyania łańcuchów znaków gdzie ciężko jest oszacować maksymalną długość tekstu, lub wahania długości tekstu są duże.
+- `TEXT` - służy do przechowywania łańcuchów znaków gdzie ciężko jest oszacować maksymalną długość tekstu, lub wahania długości tekstu są duże.
 
-[^storage_type]: W przypadku SQLite wysztkie typy danych są przekształcane na "typy pierwotne": `NULL`, `INTEGER`, `REAL`, `TEXT`, `BLOB`. Dane na dysku zawsze zapisane są jako jeden z typów pierwotnych.
+[^storage_type]: W przypadku SQLite wszystkie typy danych są przekształcane na "typy pierwotne": `NULL`, `INTEGER`, `REAL`, `TEXT`, `BLOB`. Dane na dysku zawsze zapisane są jako jeden z typów pierwotnych.
 
 ## Składnia zapytania `SELECT`
 
-Zapytanie `SELECT` w swojej najrostrzej formie wygląda tak:
+Zapytanie `SELECT` w swojej najprostszej formie wygląda tak:
 
 ```sql
 SELECT *
   FROM invoice;
 ```
 
-To Zapytanie zawiera dwa słowa kluczowe: `SELECT` i `FROM`. Pomiędzy tymi słowami znajduje się lista kolum, które powinny zostać zwrócone. Znak `*` w tym kontekście oznacza "pobierz wszystie". Po słowie kluczowym `FROM` występuje nazwa tabeli - `invoice`. Całe zpytanie jest zakończone średnikiem. Spróbuj wykonać to zapytanie na swojej kopii bazy danych:
+To Zapytanie zawiera dwa słowa kluczowe: `SELECT` i `FROM`. Pomiędzy tymi słowami znajduje się lista kolumn, które powinny zostać zwrócone. Znak `*` w tym kontekście oznacza "pobierz wszystkie". Po słowie kluczowym `FROM` występuje nazwa tabeli - `invoice`. Całe zapytanie jest zakończone średnikiem. Spróbuj wykonać to zapytanie na swojej kopii bazy danych:
 
     sqlite> SELECT * FROM invoice;
     1|2|2009-01-01 00:00:00|Theodor-Heuss-Straße 34|Stuttgart||Germany|70174|1.98
@@ -295,7 +295,7 @@ Każdy wiersz w tabeli może mieć wartość, która pasuje do typu przechowywan
 
 Istotne jest rozróżnienie pomiędzy pustą wartością a `NULL`. Na przykład pusty łańcuch znaków to zupełnie coś innego niż `NULL`.
 
-Wartość ta jest traktowana w specyficzny sposób w przypadku porównań. Do sprawdzania czy kolumna w wierszu ma wartość `NULL` służy wyrażenie `IS NULL`. Aby sprawdzić, czy dana kolmna nie ma wartości `NULL` używa się wyrażenia `IS NOT NULL`.
+Wartość ta jest traktowana w specyficzny sposób w przypadku porównań. Do sprawdzania czy kolumna w wierszu ma wartość `NULL` służy wyrażenie `IS NULL`. Aby sprawdzić, czy dana kolumna nie ma wartości `NULL` używa się wyrażenia `IS NOT NULL`.
 
 Na przykład poniższe zapytanie zwróci jedynie te wiersze dla których kolumna `billingcountry` ma wartość inną niż USA i `billingstate` nie ma wartości `NULL`:
 
@@ -308,7 +308,7 @@ SELECT *
 
 ### Wybór kolumn
 
-Użycie klauzuli `WHERE` pozwala na odfiltrowanie części wierszy. W przypadku kolumn mechanizm jest podobny. Jeśli chcesz wybrać podzbiór kolumn, a nie wszystkie, to musisz wskazać te, które Cię iteresują:
+Użycie klauzuli `WHERE` pozwala na odfiltrowanie części wierszy. W przypadku kolumn mechanizm jest podobny. Jeśli chcesz wybrać podzbiór kolumn, a nie wszystkie, to musisz wskazać te, które Cię interesują:
 
 ```sql
 SELECT invoicedate
@@ -321,7 +321,7 @@ Powyższe zapytanie zwróci wyłącznie te faktury, które zostały wystawione w
 
 ### To dopiero początek
 
-Rysunek poniżej pokazuje skłądnię zapytania `SELECT` w SQLite. W artykule tym omówiłem wyłącznie podstawowe elementy.
+Rysunek poniżej pokazuje składnię zapytania `SELECT` w SQLite. W artykule tym omówiłem wyłącznie podstawowe elementy.
 
 {% include figure image_path="/assets/images/2018/06/28_select-stmt.gif"  caption="Składania zapytania `SELECT`" %}
 
@@ -333,8 +333,8 @@ Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego
 
 - Napisz zapytanie, które zwróci wszystkie gatunki muzyczne z tabeli `genre`, 
 - Napisz zapytanie, które zwróci wszystkie stany w USA, w których wystawiono fakturę na kwotę większą niż 15,
-- Napisz zapytanie, które zwróci wszytkie kraje, w których wystawiono fakturę pomiędzy na kwotę mniejszą niż 10 pomiędzy '2013-12-05 00:00:00' i '2013-12-09 00:00:00',
-- Napisz zapytanie, które zwróci wszytkie miasta i kraje gdzie wartość kolumy `billingstate` równa się `NULL` i wartość zamówienia jest większa niż 17 oraz te gdzie wartość zamówienia jest mniejsza niż 1, `billingstate` nie ma wartości `NULL` i zostały wystawione po '2013-09-20 00:00:00'.
+- Napisz zapytanie, które zwróci wszystkie kraje, w których wystawiono fakturę pomiędzy na kwotę mniejszą niż 10 pomiędzy '2013-12-05 00:00:00' i '2013-12-09 00:00:00',
+- Napisz zapytanie, które zwróci wszystkie miasta i kraje gdzie wartość kolumny `billingstate` równa się `NULL` i wartość zamówienia jest większa niż 17 oraz te gdzie wartość zamówienia jest mniejsza niż 1, `billingstate` nie ma wartości `NULL` i zostały wystawione po '2013-09-20 00:00:00'.
 
 # Dodatkowe materiały do nauki
 
@@ -347,7 +347,7 @@ Jeśli chcesz spojrzeć na temat z innej perspektywy polecam przeczytanie poniż
 
 Po przeczytaniu tego artykułu wiesz czym jest język SQL. Potrafisz podzielić zapytania języka SQl na grupy. Znasz podstawy zapytania typu `SELECT`. Potrafisz zastosować w praktyce zapytania tego typu do pobrania danych z bazy. Innymi słowy masz solidne podstawy, dzięki którym możesz przejść do kolejnego etapu nauki języka SQL.
 
-Przyznam Ci się, że miałem problem z zakończeniem tego artykułu. Mam świadomość, że nie jest kompletny, ale postanowiłem podzielić go na mniejsze, łatwiejsze do przyswojena części. W kolejnych artykułach z cyklu możesz spodziewać się pogłębienia tematu :).
+Przyznam Ci się, że miałem problem z zakończeniem tego artykułu. Mam świadomość, że nie jest kompletny, ale postanowiłem podzielić go na mniejsze, łatwiejsze do przyswojenia części. W kolejnych artykułach z cyklu możesz spodziewać się pogłębienia tematu :).
 
 Na koniec proszę Cię o polecenie tego artykułu Twoim znajomym, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Z góry dziękuję ;). Jeśli cokolwiek nie będzie dla Ciebie jasne proszę daj znać w komentarzach, postaram się pomóc. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polub Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera. Do następnego razu! ;)
 
