@@ -119,13 +119,13 @@ Na początku przygody z SQL nie musisz przejmować się transakcjami. Opiszę je
 - `BEGIN` - rozpoczyna transakcję,
 - `COMMIT` - zatwierdza transakcję,
 - `ROLLBACK` - wycofuje transakcję,
-- `SAVEPOINT` - zapisuje "punkt przywracania" aktualnej transakcji.
+- `SAVEPOINT` - zapisuje punkt przywracania aktualnej transakcji.
 
 ## SQL a wielkość liter
 
 SQL jest językiem, w którym wielkość liter w słowach kluczowych i identyfikatorach nie ma znaczenia. Wyjątkiem są tu identyfikatory, które są otoczone znakiem cudzysłowu `"`[^zalezy]. Na przykład oba poniższe zapytania są równoważne:
 
-[^zalezy]: To zachowanie zależy od silnika bazy danych. Niektóre silnik respektują identyfikatory otoczone `"`, inne nie.
+[^zalezy]: To zachowanie zależy od silnika bazy danych. Niektóre silniki inaczej interpretują identyfikatory otoczone `"`, inne nie.
 
 ```sql
 SELECT * FROM genre WHERE genreid = 1;
@@ -135,7 +135,7 @@ SELECT * FROM genre WHERE genreid = 1;
 SELECT * frOM geNRe wherE GenReID = 1;
 ```
 
-Chociaż wielkość liter nie ma znaczenia, moim zdaniem dobrą praktyką jest pisanie słów kluczowych wielkimi literami. W codziennej pracy także starałem się unikać nadawania nazw, które wymagają otoczenia `"`. Dodatkowo zawsze staram się formatować zapytania żeby były bardziej czytelne:
+Chociaż wielkość liter nie ma znaczenia, moim zdaniem dobrą praktyką jest pisanie słów kluczowych wielkimi literami. W codziennej pracy także staram się unikać nadawania nazw, które wymagają otoczenia `"`. Dodatkowo zawsze staram się formatować zapytania żeby były bardziej czytelne:
 
 ```sql
 SELECT *
@@ -250,7 +250,7 @@ SELECT *
   FROM invoice;
 ```
 
-To Zapytanie zawiera dwa słowa kluczowe: `SELECT` i `FROM`. Pomiędzy tymi słowami znajduje się lista kolumn, które powinny zostać zwrócone. Znak `*` w tym kontekście oznacza "pobierz wszystkie". Po słowie kluczowym `FROM` występuje nazwa tabeli - `invoice`. Całe zapytanie jest zakończone średnikiem. Spróbuj wykonać to zapytanie na swojej kopii bazy danych:
+To zapytanie zawiera dwa słowa kluczowe: `SELECT` i `FROM`. Pomiędzy tymi słowami znajduje się lista kolumn, które powinny zostać zwrócone. Znak `*` w tym kontekście oznacza "pobierz wszystkie". Po słowie kluczowym `FROM` występuje nazwa tabeli - `invoice`. Całe zapytanie jest zakończone średnikiem. Spróbuj wykonać to zapytanie na swojej kopii bazy danych:
 
     sqlite> SELECT * FROM invoice;
     1|2|2009-01-01 00:00:00|Theodor-Heuss-Straße 34|Stuttgart||Germany|70174|1.98
@@ -273,7 +273,7 @@ Zapytanie wyżej ma kilka warunków. Każdy z nich oddzielony jest słowem klucz
 - kolumna `billingcity` ma wartość Dublin i kolumna `total` zawiera liczbę większą od 5,
 - kolumna `billingcity` ma wartość Boston i kolumna `total` zawiera liczbę z przedziału (1, 3).
 
-Słowo kluczowe `AND` ma wyższy priorytet niż `OR`, dla pewności możesz użyć nawiasów. Poniższe zapytanie da dokładnie ten sam wynik co poprzednie:
+Słowo kluczowe `AND` ma wyższy priorytet niż `OR`. Czasami dla większej czytelności możesz użyć nawiasów. Poniższe zapytanie da dokładnie ten sam wynik co poprzednie:
 
 ```sql
 SELECT *
@@ -317,7 +317,7 @@ SELECT invoicedate
   FROM invoice
  WHERE billingcountry = 'Poland';
 ```
-Powyższe zapytanie zwróci wyłącznie te faktury, które zostały wystawione w Polsce. Wynik będzie zawierał tylko trzy wskazane kolumny. Zwróć uwagę, że klauzula `WHERE` używa kolumn, które nie są zwracane w wyniku wykonania zapytania.
+Powyższe zapytanie zwróci wyłącznie te faktury, które zostały wystawione w Polsce. Wynik będzie zawierał tylko trzy wskazane kolumny. Zwróć uwagę, że klauzula `WHERE` może używać kolumn, które nie są zwracane w wyniku wykonania zapytania.
 
 ### To dopiero początek
 
@@ -329,11 +329,11 @@ W kolejnych artykułach omówię między innymi pozostałe elementy składni zap
 
 # Zadania do wykonania
 
-Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się rozwiązać zapytania samodzielnie, wtedy nauczysz się najwięcej:
+Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się napisać zapytania samodzielnie, wtedy nauczysz się najwięcej:
 
 - Napisz zapytanie, które zwróci wszystkie gatunki muzyczne z tabeli `genre`, 
 - Napisz zapytanie, które zwróci wszystkie stany w USA, w których wystawiono fakturę na kwotę większą niż 15,
-- Napisz zapytanie, które zwróci wszystkie kraje, w których wystawiono fakturę pomiędzy na kwotę mniejszą niż 10 pomiędzy '2013-12-05 00:00:00' i '2013-12-09 00:00:00',
+- Napisz zapytanie, które zwróci wszystkie kraje, w których wystawiono fakturę na kwotę mniejszą niż 10 pomiędzy '2013-12-05 00:00:00' i '2013-12-09 00:00:00',
 - Napisz zapytanie, które zwróci wszystkie miasta i kraje gdzie wartość kolumny `billingstate` równa się `NULL` i wartość zamówienia jest większa niż 17 oraz te gdzie wartość zamówienia jest mniejsza niż 1, `billingstate` nie ma wartości `NULL` i zostały wystawione po '2013-09-20 00:00:00'.
 
 # Dodatkowe materiały do nauki
@@ -345,9 +345,9 @@ Jeśli chcesz spojrzeć na temat z innej perspektywy polecam przeczytanie poniż
 
 # Podsumowanie
 
-Po przeczytaniu tego artykułu wiesz czym jest język SQL. Potrafisz podzielić zapytania języka SQl na grupy. Znasz podstawy zapytania typu `SELECT`. Potrafisz zastosować w praktyce zapytania tego typu do pobrania danych z bazy. Innymi słowy masz solidne podstawy, dzięki którym możesz przejść do kolejnego etapu nauki języka SQL.
+Po przeczytaniu tego artykułu wiesz czym jest język SQL. Potrafisz podzielić zapytania języka SQL na grupy. Znasz podstawy zapytania typu `SELECT`. Potrafisz zastosować w praktyce zapytania tego typu do pobrania danych z bazy. Innymi słowy masz solidne podstawy, dzięki którym możesz przejść do kolejnego etapu nauki języka SQL.
 
-Przyznam Ci się, że miałem problem z zakończeniem tego artykułu. Mam świadomość, że nie jest kompletny, ale postanowiłem podzielić go na mniejsze, łatwiejsze do przyswojenia części. W kolejnych artykułach z cyklu możesz spodziewać się pogłębienia tematu :).
+Przyznam Ci się, że miałem problem z zakończeniem tego artykułu. Mam świadomość, że nie jest kompletny, ale postanowiłem podzielić go na mniejsze, łatwiejsze do przyswojenia części. W kolejnych artykułach z cyklu możesz spodziewać się pogłębienia tematu.
 
-Na koniec proszę Cię o polecenie tego artykułu Twoim znajomym, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Z góry dziękuję ;). Jeśli cokolwiek nie będzie dla Ciebie jasne proszę daj znać w komentarzach, postaram się pomóc. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polub Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera. Do następnego razu! ;)
+Na koniec proszę Cię o polecenie tego artykułu Twoim znajomym, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Z góry dziękuję ;). Jeśli cokolwiek nie będzie dla Ciebie jasne proszę daj znać w komentarzach, postaram się pomóc. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polub Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera. Do następnego razu!
 
