@@ -1,0 +1,996 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Pobieranie danych z bazy - SELECT - Samouczek Programisty</title>
+<meta name="description" content="Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest język SQL. Dowiesz się jak wygląda podstawowe zapytanie SELECT. Artykuł opisuje także przygotowanie środowiska pozwalającego przećwiczyć zdobytą wiedzę. Na końcu artykułu czeka na Ciebie zestaw zadań do samodzielnego wykonania.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Pobieranie danych z bazy - SELECT">
+<meta property="og:url" content="http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select/">
+
+
+  <meta property="og:description" content="Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest język SQL. Dowiesz się jak wygląda podstawowe zapytanie SELECT. Artykuł opisuje także przygotowanie środowiska pozwalającego przećwiczyć zdobytą wiedzę. Na końcu artykułu czeka na Ciebie zestaw zadań do samodzielnego wykonania.">
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/06/28_pobieranie_danych_z_bazy_select_artykul.jpeg">
+
+
+
+
+
+  <meta property="article:published_time" content="2018-06-25T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "http://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/o-mnie/" >O mnie</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2018/06/28_pobieranie_danych_z_bazy_select_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Pobieranie danych z bazy - SELECT
+
+        
+      </h1>
+      
+        <p class="page__lead">Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest język SQL. Dowiesz się jak wygląda podstawowe zapytanie <code class="highlighter-rouge">SELECT</code>. Artykuł opisuje także przygotowanie środowiska pozwalającego przećwiczyć zdobytą wiedzę. Na końcu artykułu czeka na Ciebie zestaw zadań do samodzielnego wykonania.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://unsplash.com/photos/OiiThC8Wf68">© whale</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Pobieranie danych z bazy - SELECT</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Pobieranie danych z bazy - SELECT">
+    <meta itemprop="description" content="Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest język SQL. Dowiesz się jak wygląda podstawowe zapytanie SELECT. Artykuł opisuje także przygotowanie środowiska pozwalającego przećwiczyć zdobytą wiedzę. Na końcu artykułu czeka na Ciebie zestaw zadań do samodzielnego wykonania.">
+    <meta itemprop="datePublished" content="June 25, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#wprowadzenie-do-języka-sql">Wprowadzenie do języka SQL</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#sql-to-nie-baza-danych">SQL to nie baza danych</a></li>
+<li class="toc-entry toc-h2"><a href="#podział-sql">Podział SQL</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#dql">DQL</a></li>
+<li class="toc-entry toc-h3"><a href="#dml">DML</a></li>
+<li class="toc-entry toc-h3"><a href="#ddl">DDL</a></li>
+<li class="toc-entry toc-h3"><a href="#dcl">DCL</a></li>
+<li class="toc-entry toc-h3"><a href="#tcl">TCL</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#sql-a-wielkość-liter">SQL a wielkość liter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#przygotowanie-środowiska">Przygotowanie środowiska</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#instalacja-bazy-danych">Instalacja bazy danych</a></li>
+<li class="toc-entry toc-h2"><a href="#import-gotowej-bazy-danych">Import gotowej bazy danych</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#zapytania-select">Zapytania SELECT</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#schemat-tabeli">Schemat tabeli</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#typy-danych">Typy danych</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#składnia-zapytania-select">Składnia zapytania SELECT</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#filtrowanie-przy-pomocy-where">Filtrowanie przy pomocy WHERE</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#magiczna-wartość-null">Magiczna wartość NULL</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#wybór-kolumn">Wybór kolumn</a></li>
+<li class="toc-entry toc-h3"><a href="#to-dopiero-początek">To dopiero początek</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#zadania-do-wykonania">Zadania do wykonania</a></li>
+<li class="toc-entry toc-h1"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h1"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        <p class="notice--info">To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-sql">praktycznego kursu SQL</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<h1 id="wprowadzenie-do-języka-sql">Wprowadzenie do języka SQL</h1>
+
+<p>Język SQL (ang. <em>Structured Query Language</em>) powstał kilkadziesiąt lat temu. Służy do pobierania i przetwarzania danych zapisanych w bazie danych. Język ten został ustandaryzowany i na przestrzeni kilkudziesięciu lat powstało wiele wersji tego standardu.</p>
+
+<div class="notice--info">
+  
+<p>Niestety treść standardów nie jest dostępna bezpłatnie. Jeśli będziesz chcieć uzupełnić swoją wiedzę, to dokumentacja bazy danych, której używasz jest bardzo dobrym źródłem. Popularne bazy danych dokładnie opisują swoją implementację standardu SQL:</p>
+
+<ul>
+  <li><a href="https://www.sqlite.org/lang.html">SQL implementowany przez SQLite</a>,</li>
+  <li><a href="https://www.postgresql.org/docs/10/static/sql.html">SQL implementowany przez PostgreSQL</a>,</li>
+  <li><a href="https://dev.mysql.com/doc/refman/8.0/en/sql-syntax.html">SQL implementowany przez MySQL</a>,</li>
+  <li><a href="https://docs.oracle.com/database/121/SQLRF/toc.htm">SQL implementowany przez Oracle</a>.</li>
+</ul>
+
+</div>
+
+<p>Język SQL jest językiem deklaratywnym. Oznacza to tyle, że instrukcje tego języka opisują co chcemy osiągnąć, a nie jak to zrobić. Dla porównania można powiedzieć, że język Java nie jest językiem deklaratywnym. Programując w <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java">języku Java</a> mówisz o tym jak chcesz coś zrobić.</p>
+
+<p>Język SQL oparty jest na zapytaniach. Przykładowe zapytanie SQL może wyglądać tak:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">genre</span>
+ <span class="k">WHERE</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'Rock'</span>
+   <span class="k">AND</span> <span class="n">genreid</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="sql-to-nie-baza-danych">SQL to nie baza danych</h2>
+
+<p>Definicji bazy danych może być wiele. Jednak nie znam żadnej, która mówiłaby, że baza danych to SQL.</p>
+
+<p>SQL to język, który pomaga dogadać się z bazą danych. Baza danych to dane, to ich zbiór. W relacyjnych bazach danych są one zorganizowane w tabele. W jednej bazie danych przeważnie znajduje się wiele tabel.</p>
+
+<p>Tabele zawierają wiersze i kolumny. Na przykład tabela <code class="highlighter-rouge">genre</code> zawiera nazwy gatunków muzycznych:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| genreid | name   |
+|---------|--------|
+| 1       | 'Rock' |
+| 2       | 'Jazz' |
+</code></pre></div></div>
+
+<p>Tabela, którą pokazałem wyżej zawiera dwa wiersze i dwie kolumny: <code class="highlighter-rouge">genreid</code> i <code class="highlighter-rouge">name</code>. Można powiedzieć, że baza danych to zbiór tabel zawierających dane. Język SQL pomaga w łatwym operowaniu na danych. SQL ukrywa w sobie sposób w jaki dane są przetwarzane, zwraca wyłącznie finalny wynik.</p>
+
+<p>Bazy danych także ukrywają sposób przechowywania danych. Użytkownika nie interesuje sposób ich zapisu a jedynie to, co chce uzyskać przy pomocy zapytania SQL<sup id="fnref:wydajnosc"><a href="#fn:wydajnosc" class="footnote">1</a></sup>.</p>
+
+<h2 id="podział-sql">Podział SQL</h2>
+
+<p>Zapytania w SQL możemy podzielić na kilka rozłącznych grup. Każda z tych grup zawiera różne rodzaje zapytań. Grupy zostały wydzielone na podstawie zadań realizowanych przez poszczególne zapytania. Możemy wyszczególnić następujące grupy:</p>
+
+<ul>
+  <li>DQL (ang. <em>Data Query Language</em>)</li>
+  <li>DML (ang. <em>Data Manipulation Language</em>)</li>
+  <li>DDL (ang. <em>Data Definition Language</em>)</li>
+</ul>
+
+<p>Dodatkowo czasami wyróżnia się też grupy:</p>
+
+<ul>
+  <li>DCL (ang. <em>Data Control Language</em>)</li>
+  <li>TCL (ang. <em>Transaction Control Language</em>)</li>
+</ul>
+
+<h3 id="dql">DQL</h3>
+
+<p>DQL składa się wyłącznie z zapytań typu <code class="highlighter-rouge">SELECT</code>. Zapytania te służą do odpytywania (ang. <em>query</em>) bazy danych. Innymi słowy służą do pobierania danych z bazy danych. Zapytania typu <code class="highlighter-rouge">SELECT</code> są najczęściej używane. Poniżej możesz zobaczyć zapytanie, które pobiera wszystkie kolumny i wiersze z tabeli <code class="highlighter-rouge">genre</code>.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">genre</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Na razie nie przejmuj się składnią zapytania, omówię ją szczegółowo poniżej.</p>
+
+<h3 id="dml">DML</h3>
+
+<p>DML służy do tworzenie, modyfikowania i usuwania danych. W skład tej grupy wchodzą zapytania:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">INSERT</code> - dodaje wiersze do tabeli,</li>
+  <li><code class="highlighter-rouge">UPDATE</code> - aktualizuje wiersze w tabeli,</li>
+  <li><code class="highlighter-rouge">DELETE</code> - usuwa wiersze z tabeli.</li>
+</ul>
+
+<h3 id="ddl">DDL</h3>
+
+<p>Wiesz już, że <a href="/wstep-do-relacyjnych-baz-danych/">relacyjne bazy danych</a> składają się z tabel. Dodatkowo w bazach występują inne obiekty jak indeksy (ang. <em>index</em>), klucze obce (ang. <em>foreign key</em>), klucze główne (ang. <em>primary key</em>), ograniczenia (ang. <em>constraint</em>), wyzwalacze (ang. <em>trigger</em>) czy widoki (ang. <em>view</em>). Część języka odpowiedzialna za zarządzanie tymi obiektami to DDL. Zapytania należące do DDL to:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">CREATE</code> - tworzą obiekty bazy danych,</li>
+  <li><code class="highlighter-rouge">ALTER</code> - modyfikują tabele bazy danych,</li>
+  <li><code class="highlighter-rouge">DROP</code> - usuwają obiekty bazy danych,</li>
+  <li><code class="highlighter-rouge">TRUNCATE</code> - usuwa wszystkie dane z tabeli<sup id="fnref:niedml"><a href="#fn:niedml" class="footnote">2</a></sup>.</li>
+</ul>
+
+<h3 id="dcl">DCL</h3>
+
+<p>Bazy danych często pozwalają na zarządzanie dostępem do danych. Realizowane jest to przy pomocy kont użytkowników<sup id="fnref:hba"><a href="#fn:hba" class="footnote">3</a></sup>. DCL służy do manipulacji prawami dostępu do danych przypisanych do poszczególnych kont:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">GRANT</code> - nadaje uprawnienia,</li>
+  <li><code class="highlighter-rouge">REVOKE</code> - usuwa uprawnienia.</li>
+</ul>
+
+<h3 id="tcl">TCL</h3>
+
+<p>Na początku przygody z SQL nie musisz przejmować się transakcjami. Opiszę je dokładniej w kolejnych artykułach w ramach kursu. Teraz w zupełności wystarczy wiedza o tym, że istnieje coś takiego jak transakcja. Do zarządzania transakcjami służą zapytania:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">BEGIN</code> - rozpoczyna transakcję,</li>
+  <li><code class="highlighter-rouge">COMMIT</code> - zatwierdza transakcję,</li>
+  <li><code class="highlighter-rouge">ROLLBACK</code> - wycofuje transakcję,</li>
+  <li><code class="highlighter-rouge">SAVEPOINT</code> - zapisuje punkt przywracania aktualnej transakcji.</li>
+</ul>
+
+<h2 id="sql-a-wielkość-liter">SQL a wielkość liter</h2>
+
+<p>SQL jest językiem, w którym wielkość liter w słowach kluczowych i identyfikatorach nie ma znaczenia. Wyjątkiem są tu identyfikatory, które są otoczone znakiem cudzysłowu <code class="highlighter-rouge">"</code><sup id="fnref:zalezy"><a href="#fn:zalezy" class="footnote">4</a></sup>. Na przykład oba poniższe zapytania są równoważne:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">genre</span> <span class="k">WHERE</span> <span class="n">genreid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">frOM</span> <span class="n">geNRe</span> <span class="k">wherE</span> <span class="n">GenReID</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Chociaż wielkość liter nie ma znaczenia, moim zdaniem dobrą praktyką jest pisanie słów kluczowych wielkimi literami. W codziennej pracy także staram się unikać nadawania nazw, które wymagają otoczenia <code class="highlighter-rouge">"</code>. Dodatkowo zawsze staram się formatować zapytania żeby były bardziej czytelne:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">genre</span>
+ <span class="k">WHERE</span> <span class="n">genreid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy Samouków, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h1 id="przygotowanie-środowiska">Przygotowanie środowiska</h1>
+
+<p>Moim zdaniem najlepszym sposobem na naukę jest praktyka. Właśnie z tego powodu chcę pomóc przygotować Ci środowisko, w którym możliwe będzie testowanie zapytań.</p>
+
+<p>Aby móc ćwiczyć na bieżąco wszystkie zagadnienia, które będę opisywał będziesz potrzebować serwera bazy danych. Jak wspomniałem w artykule opisującym <a href="/wstep-do-relacyjnych-baz-danych/">relacyjne bazy danych</a> jest wiele silników baz danych.</p>
+
+<p>Ze względu na łatwą instalację (właściwie to jej brak), w kursie używał będę bazy danych <a href="https://www.sqlite.org/">SQLite</a>. Baza ta jest w zupełności wystarczająca na potrzeby kursu. Oczywiście, jeśli chcesz wykonywać ćwiczenia używając bardziej zaawansowanych baz danych możesz to zrobić ;).</p>
+
+<h2 id="instalacja-bazy-danych">Instalacja bazy danych</h2>
+
+<p>Zacznij od <a href="https://www.sqlite.org/download.html">pobrania narzędzi SQLite</a>. W zależności od systemu operacyjnego, na którym pracujesz pobierz odpowiednią wersję:</p>
+
+<ul>
+  <li>Windows - <em>Precompiled Binaries for Windows</em>,</li>
+  <li>Linux - <em>Precompiled Binaries for Linux</em>,</li>
+  <li>Mac OS X - <em>Precompiled Binaries for Mac OS X (x86)</em>.</li>
+</ul>
+
+<p>Plik do pobrania to archiwum zip rozpoczynające się od <em>sqlite-tools-</em>. Wewnątrz tego archiwum znajduje się program <code class="highlighter-rouge">sqlite.exe</code> (lub <code class="highlighter-rouge">sqlite</code>, w zależności od Twojego systemu operacyjnego). Program ten pozwala na pracę z bazą danych SQLite.</p>
+
+<p>Jak widzisz w tym przypadku właściwie nie ma potrzeby instalacji żadnego programu, wystarczy rozpakować archiwum zip. W przypadku baz danych używanych w środowiskach produkcyjnych proces ten jest dużo bardziej skomplikowany.</p>
+
+<h2 id="import-gotowej-bazy-danych">Import gotowej bazy danych</h2>
+
+<p>W internecie istnieje wiele zbiorów danych. Jednym z nich jest ten udostępniony przez projekt <a href="https://github.com/SamouczekProgramisty/chinook-database">Chinook</a>. Jest to testowa baza danych reprezentująca sklep z muzyką. Sama baza nie jest duża, jednak w zupełności wystarczy na omówienie podstawowych możliwości SQL.</p>
+
+<p>Pobierz <a href="https://github.com/SamouczekProgramisty/chinook-database/blob/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite?raw=true">przykładową bazę danych</a>
+i zachowaj ją w pliku <code class="highlighter-rouge">Chinook_Sqlite.sqlite</code>, następnie uruchom program <code class="highlighter-rouge">sqlite3</code>. Po uruchomieniu wpisz komendę, która otworzy pobraną bazę danych:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.open &lt;ścieżka do pobranego pliku&gt;
+</code></pre></div></div>
+
+<p>Żeby sprawdzić, czy wszystko działa poprawnie możesz wpisać komendę <code class="highlighter-rouge">.tables</code>, powinna ona wypisać wszystkie tabele znajdujące się bazie danych.</p>
+
+<figure class="">
+  <img src="/assets/images/2018/06/28_sqlite_open_database.gif" alt="" />
+  
+    <figcaption>Otworzenie bazy danych w sqlite
+</figcaption>
+  
+</figure>
+
+<p class="notice--info">Komendy zaczynające się od <code class="highlighter-rouge">.</code> (na przykład <code class="highlighter-rouge">.open</code> czy <code class="highlighter-rouge">.tables</code>) to wewnętrzne polecenia SQLite. Jest ich dużo więcej. Jeśli chcesz je zobaczyć użyj polecenia <code class="highlighter-rouge">.help</code>.</p>
+
+<h1 id="zapytania-select">Zapytania <code class="highlighter-rouge">SELECT</code></h1>
+
+<p class="notice--info">Założeniem tego kursu jest to, że będzie on praktyczny od samego początku do końca. Wszystkie zapytania, które tutaj pokazuję możesz wykonać samodzielnie używając środowiska, które wcześniej opisałem.</p>
+
+<h2 id="schemat-tabeli">Schemat tabeli</h2>
+
+<p>Zanim przejdę do tłumaczenia zapytań <code class="highlighter-rouge">SELECT</code> chciałbym zwrócić Twoją uwagę na budowę tabeli. Wiesz już, że tabela składa się z wierszy i kolumn. Każda kolumna przechowuje dane pewnego typu. Mogą to być na przykład łańcuchy znaków czy liczby.</p>
+
+<p>Można powiedzieć, że tabela ma swój schemat. SQLite ma wewnętrzne polecenie, które pozwala pokazać schemat tabeli - <code class="highlighter-rouge">.schema</code>. Na przykład schemat tabeli <code class="highlighter-rouge">Invoice</code> wygląda tak:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlite&gt; .schema Invoice
+CREATE TABLE [Invoice]
+(
+    [InvoiceId] INTEGER  NOT NULL,
+    [CustomerId] INTEGER  NOT NULL,
+    [InvoiceDate] DATETIME  NOT NULL,
+    [BillingAddress] NVARCHAR(70),
+    [BillingCity] NVARCHAR(40),
+    [BillingState] NVARCHAR(40),
+    [BillingCountry] NVARCHAR(40),
+    [BillingPostalCode] NVARCHAR(10),
+    [Total] NUMERIC(10,2)  NOT NULL,
+    CONSTRAINT [PK_Invoice] PRIMARY KEY  ([InvoiceId]),
+    FOREIGN KEY ([CustomerId]) REFERENCES [Customer] ([CustomerId])
+                ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+CREATE UNIQUE INDEX [IPK_Invoice] ON [Invoice]([InvoiceId]);
+CREATE INDEX [IFK_InvoiceCustomerId] ON [Invoice] ([CustomerId]);
+</code></pre></div></div>
+
+<p>To co widzisz, to zapytania typu DDL, które tworzą tabelę i obiekty z nią powiązane. Powyższe zapytana poza tabelą tworzą indeksy, klucze obce i klucz główny.</p>
+
+<p class="notice--info">Istnieją także bazy danych, które pozwalają przechowywać dane w strukturze, która nie ma sztywno określonego schematu. Podobnie jak <a href="/wstep-do-relacyjnych-baz-danych/">relacyjne bazy danych</a> mają one swoje wady i zalety.</p>
+
+<h3 id="typy-danych">Typy danych</h3>
+
+<p class="notice--info">Typy obsługiwanych danych mogą znacznie różnić się pomiędzy różnymi silnikami baz danych. Różnice te jednak nie przeszkadzają w nauce języka SQL.</p>
+
+<p>Tabela <code class="highlighter-rouge">Invoice</code> składa się z dziewięciu kolumn. Kolumna <code class="highlighter-rouge">InvoiceId</code> jest kluczem głównym tabeli. Każda z kolumn ma przypisany typ. Typ określa rodzaj danych przechowywanych w danej kolumnie<sup id="fnref:typy_sqlite"><a href="#fn:typy_sqlite" class="footnote">5</a></sup>. Na przykład kolumna <code class="highlighter-rouge">InvoiceDate</code> jest typu <code class="highlighter-rouge">DATETIME</code>, kolumny tego typu służą do przechowywania daty i czasu.</p>
+
+<p>Innymi typami, które występują w tej tabeli są:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">INTEGER</code> - służy on do przechowywania liczb całkowitych,</li>
+  <li><code class="highlighter-rouge">NVARCHAR(x)</code> - służy on do przechowywania łańcuchów znaków do długości <code class="highlighter-rouge">x</code>,</li>
+  <li><code class="highlighter-rouge">NUMERIC(x, y)</code> - służy do przechowywania liczb rzeczywistych, które mają do <code class="highlighter-rouge">x</code> cyfr z <code class="highlighter-rouge">y</code> po przecinku.</li>
+</ul>
+
+<p>Innymi popularnymi typami są<sup id="fnref:storage_type"><a href="#fn:storage_type" class="footnote">6</a></sup>:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">BLOB</code> - służy do przechowywania danych binarnych (ang. <em>binary large object</em>),</li>
+  <li><code class="highlighter-rouge">DATETIME</code> - służy do przechowywania daty i czasu,</li>
+  <li><code class="highlighter-rouge">DATE</code> - służy do przechowywania daty,</li>
+  <li><code class="highlighter-rouge">BOOLEAN</code> - służy do przechowywania wartości logicznych,</li>
+  <li><code class="highlighter-rouge">TEXT</code> - służy do przechowywania łańcuchów znaków gdzie ciężko jest oszacować maksymalną długość tekstu, lub wahania długości tekstu są duże.</li>
+</ul>
+
+<h2 id="składnia-zapytania-select">Składnia zapytania <code class="highlighter-rouge">SELECT</code></h2>
+
+<p>Zapytanie <code class="highlighter-rouge">SELECT</code> w swojej najprostszej formie wygląda tak:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>To zapytanie zawiera dwa słowa kluczowe: <code class="highlighter-rouge">SELECT</code> i <code class="highlighter-rouge">FROM</code>. Pomiędzy tymi słowami znajduje się lista kolumn, które powinny zostać zwrócone. Znak <code class="highlighter-rouge">*</code> w tym kontekście oznacza “pobierz wszystkie”. Po słowie kluczowym <code class="highlighter-rouge">FROM</code> występuje nazwa tabeli - <code class="highlighter-rouge">invoice</code>. Całe zapytanie jest zakończone średnikiem. Spróbuj wykonać to zapytanie na swojej kopii bazy danych:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlite&gt; SELECT * FROM invoice;
+1|2|2009-01-01 00:00:00|Theodor-Heuss-Straße 34|Stuttgart||Germany|70174|1.98
+2|4|2009-01-02 00:00:00|Ullevålsveien 14|Oslo||Norway|0171|3.96
+(...)
+</code></pre></div></div>
+
+<h3 id="filtrowanie-przy-pomocy-where">Filtrowanie przy pomocy <code class="highlighter-rouge">WHERE</code></h3>
+
+<p>Pobieranie całej tabeli nie zawsze jest przydatne. Bardzo często zapytania <code class="highlighter-rouge">SELECT</code> filtrują pobierane dane. Aby filtrować dane zwracane przez zapytanie musisz użyć słowa kluczowego <code class="highlighter-rouge">WHERE</code> i warunków, które filtrują dane:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">WHERE</span> <span class="n">billingcity</span> <span class="o">=</span> <span class="s1">'Dublin'</span> <span class="k">AND</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">5</span>
+    <span class="k">OR</span> <span class="n">billingcity</span> <span class="o">=</span> <span class="s1">'Boston'</span> <span class="k">AND</span> <span class="n">total</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">AND</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Zapytanie wyżej ma kilka warunków. Każdy z nich oddzielony jest słowem kluczowym <code class="highlighter-rouge">OR</code> (logiczne lub) i <code class="highlighter-rouge">AND</code> (logiczne i). W tym przypadku zostaną zwrócone wszystkie wiersze dla których spełniony jest jeden z warunków:</p>
+
+<ul>
+  <li>kolumna <code class="highlighter-rouge">billingcity</code> ma wartość Dublin i kolumna <code class="highlighter-rouge">total</code> zawiera liczbę większą od 5,</li>
+  <li>kolumna <code class="highlighter-rouge">billingcity</code> ma wartość Boston i kolumna <code class="highlighter-rouge">total</code> zawiera liczbę z przedziału (1, 3).</li>
+</ul>
+
+<p>Słowo kluczowe <code class="highlighter-rouge">AND</code> ma wyższy priorytet niż <code class="highlighter-rouge">OR</code>. Czasami dla większej czytelności możesz użyć nawiasów. Poniższe zapytanie da dokładnie ten sam wynik co poprzednie:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">WHERE</span> <span class="p">(</span><span class="n">billingcity</span> <span class="o">=</span> <span class="s1">'Dublin'</span> <span class="k">AND</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="k">OR</span> <span class="p">(</span><span class="n">billingcity</span> <span class="o">=</span> <span class="s1">'Boston'</span> <span class="k">AND</span> <span class="n">total</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">AND</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Spróbuj wywołać to zapytanie na swojej kopii bazy danych:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlite&gt; SELECT * FROM invoice WHERE billingcity = 'Dublin' AND total &gt; 5 OR billingcity = 'Boston' AND total &lt; 3 AND total &gt; 1;
+10|46|2009-02-03 00:00:00|3 Chatham Street|Dublin|Dublin|Ireland||5.94
+189|23|2011-04-18 00:00:00|69 Salem Street|Boston|MA|USA|2113|1.98
+(...)
+</code></pre></div></div>
+
+<h4 id="magiczna-wartość-null">Magiczna wartość <code class="highlighter-rouge">NULL</code></h4>
+
+<p>Każdy wiersz w tabeli może mieć wartość, która pasuje do typu przechowywanego przez daną kolumnę. W SQL jest jeszcze specjalna wartość. Jest nią <code class="highlighter-rouge">NULL</code>. Możesz ją porównać do pustej wartości w językach programowania. W Javie i JavaScript byłby to <code class="highlighter-rouge">null</code>, w Pythonie <code class="highlighter-rouge">None</code>, w Ruby i Go <code class="highlighter-rouge">nil</code> itd.</p>
+
+<p>Istotne jest rozróżnienie pomiędzy pustą wartością a <code class="highlighter-rouge">NULL</code>. Na przykład pusty łańcuch znaków to zupełnie coś innego niż <code class="highlighter-rouge">NULL</code>.</p>
+
+<p>Wartość ta jest traktowana w specyficzny sposób w przypadku porównań. Do sprawdzania czy kolumna w wierszu ma wartość <code class="highlighter-rouge">NULL</code> służy wyrażenie <code class="highlighter-rouge">IS NULL</code>. Aby sprawdzić, czy dana kolumna nie ma wartości <code class="highlighter-rouge">NULL</code> używa się wyrażenia <code class="highlighter-rouge">IS NOT NULL</code>.</p>
+
+<p>Na przykład poniższe zapytanie zwróci jedynie te wiersze dla których kolumna <code class="highlighter-rouge">billingcountry</code> ma wartość inną niż USA i <code class="highlighter-rouge">billingstate</code> nie ma wartości <code class="highlighter-rouge">NULL</code>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">WHERE</span> <span class="n">billingstate</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
+   <span class="k">AND</span> <span class="n">billingcountry</span> <span class="o">!=</span> <span class="s1">'USA'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="wybór-kolumn">Wybór kolumn</h3>
+
+<p>Użycie klauzuli <code class="highlighter-rouge">WHERE</code> pozwala na odfiltrowanie części wierszy. W przypadku kolumn mechanizm jest podobny. Jeśli chcesz wybrać podzbiór kolumn, a nie wszystkie, to musisz wskazać te, które Cię interesują:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">invoicedate</span>
+      <span class="p">,</span><span class="n">billingcity</span>
+      <span class="p">,</span><span class="n">total</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">WHERE</span> <span class="n">billingcountry</span> <span class="o">=</span> <span class="s1">'Poland'</span><span class="p">;</span>
+</code></pre></div></div>
+<p>Powyższe zapytanie zwróci wyłącznie te faktury, które zostały wystawione w Polsce. Wynik będzie zawierał tylko trzy wskazane kolumny. Zwróć uwagę, że klauzula <code class="highlighter-rouge">WHERE</code> może używać kolumn, które nie są zwracane w wyniku wykonania zapytania.</p>
+
+<h3 id="to-dopiero-początek">To dopiero początek</h3>
+
+<p>Rysunek poniżej pokazuje składnię zapytania <code class="highlighter-rouge">SELECT</code> w SQLite. W artykule tym omówiłem wyłącznie podstawowe elementy.</p>
+
+<figure class="">
+  <img src="/assets/images/2018/06/28_select-stmt.gif" alt="" />
+  
+    <figcaption>Składania zapytania <code class="highlighter-rouge">SELECT</code>
+</figcaption>
+  
+</figure>
+
+<p>W kolejnych artykułach omówię między innymi pozostałe elementy składni zapytania <code class="highlighter-rouge">SELECT</code>.</p>
+
+<h1 id="zadania-do-wykonania">Zadania do wykonania</h1>
+
+<p>Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się napisać zapytania samodzielnie, wtedy nauczysz się najwięcej:</p>
+
+<ul>
+  <li>Napisz zapytanie, które zwróci wszystkie gatunki muzyczne z tabeli <code class="highlighter-rouge">genre</code>,</li>
+  <li>Napisz zapytanie, które zwróci wszystkie stany w USA, w których wystawiono fakturę na kwotę większą niż 15,</li>
+  <li>Napisz zapytanie, które zwróci wszystkie kraje, w których wystawiono fakturę na kwotę mniejszą niż 10 pomiędzy ‘2013-12-05 00:00:00’ i ‘2013-12-09 00:00:00’,</li>
+  <li>Napisz zapytanie, które zwróci wszystkie miasta i kraje gdzie wartość kolumny <code class="highlighter-rouge">billingstate</code> równa się <code class="highlighter-rouge">NULL</code> i wartość zamówienia jest większa niż 17 oraz te gdzie wartość zamówienia jest mniejsza niż 1, <code class="highlighter-rouge">billingstate</code> nie ma wartości <code class="highlighter-rouge">NULL</code> i zostały wystawione po ‘2013-09-20 00:00:00’.</li>
+</ul>
+
+<h1 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h1>
+
+<p>Jeśli chcesz spojrzeć na temat z innej perspektywy polecam przeczytanie poniższych materiałów. Pozwoli Ci to poszerzyć swoją wiedzę związaną z językiem SQL i jego składnią.</p>
+
+<ul>
+  <li><a href="https://pl.wikipedia.org/wiki/SQL">Artykuł na temat SQL na Wikipedii</a>,</li>
+  <li><a href="https://www.sqlite.org/docs.html">Dokumentacja SQLite</a>.</li>
+</ul>
+
+<h1 id="podsumowanie">Podsumowanie</h1>
+
+<p>Po przeczytaniu tego artykułu wiesz czym jest język SQL. Potrafisz podzielić zapytania języka SQL na grupy. Znasz podstawy zapytania typu <code class="highlighter-rouge">SELECT</code>. Potrafisz zastosować w praktyce zapytania tego typu do pobrania danych z bazy. Innymi słowy masz solidne podstawy, dzięki którym możesz przejść do kolejnego etapu nauki języka SQL.</p>
+
+<p>Przyznam Ci się, że miałem problem z zakończeniem tego artykułu. Mam świadomość, że nie jest kompletny, ale postanowiłem podzielić go na mniejsze, łatwiejsze do przyswojenia części. W kolejnych artykułach z cyklu możesz spodziewać się pogłębienia tematu.</p>
+
+<p>Na koniec proszę Cię o polecenie tego artykułu Twoim znajomym, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Z góry dziękuję ;). Jeśli cokolwiek nie będzie dla Ciebie jasne proszę daj znać w komentarzach, postaram się pomóc. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polub Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera. Do następnego razu!</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:wydajnosc">
+      <p>Na pewnym etapie zaawansowania znajomość wewnętrznych mechanizmów działania bazy danych jest bardzo ważna. Pozwala ona na tworzenie zapytań, które są bardziej wydajne. <a href="#fnref:wydajnosc" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:niedml">
+      <p>Chociaż <code class="highlighter-rouge">TRUNCATE</code> jest podobne do zapytania typu <code class="highlighter-rouge">DELETE</code> jest klasyfikowane jako DDL. Wynika to z faktu, że zapytania <code class="highlighter-rouge">TRUNCATE</code> nie mogą być cofnięte. Zapytania typu <code class="highlighter-rouge">DELETE</code> mogą być cofnięte w ramach trwającej transakcji. <a href="#fnref:niedml" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:hba">
+      <p>Pomijam tu ustawienia na poziomie konfiguracji silnika bazy danych. Te ustawienia mogą wymagać restartu silnika. Przykładem może tu być plik konfiguracyjny <a href="https://www.postgresql.org/docs/10/static/auth-pg-hba-conf.html"><code class="highlighter-rouge">pg_hba.conf</code></a> istniejący w bazie danych PostgreSQL. <a href="#fnref:hba" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:zalezy">
+      <p>To zachowanie zależy od silnika bazy danych. Niektóre silniki inaczej interpretują identyfikatory otoczone <code class="highlighter-rouge">"</code>, inne nie. <a href="#fnref:zalezy" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:typy_sqlite">
+      <p>To stwierdzenie nie jest do końca prawdziwe dla SQLite, jednak ma zastosowanie w innych silnikach baz danych. W przypadku SQLite typ danych określany jest na podstawie zawartości a nie typu kolumny. To zachowanie jest raczej wyjątkiem w świecie relacyjnych baz danych. Po szczegóły odsyłam Cię do <a href="https://www.sqlite.org/datatype3.html#datatypes_in_sqlite">dokumentacji SQLite</a>. <a href="#fnref:typy_sqlite" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:storage_type">
+      <p>W przypadku SQLite wszystkie typy danych są przekształcane na “typy pierwotne”: <code class="highlighter-rouge">NULL</code>, <code class="highlighter-rouge">INTEGER</code>, <code class="highlighter-rouge">REAL</code>, <code class="highlighter-rouge">TEXT</code>, <code class="highlighter-rouge">BLOB</code>. Dane na dysku zawsze zapisane są jako jeden z typów pierwotnych. <a href="#fnref:storage_type" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy Samouków, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#bazy-danych" class="page__taxonomy-item" rel="tag">Bazy danych</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/kategorie/#kurs-sql" class="page__taxonomy-item" rel="tag">Kurs SQL</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-06-25T00:00:00+02:00">June 25, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpobieranie-danych-z-bazy-select%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpobieranie-danych-z-bazy-select%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/projekt-informator-zasilenie-bazy-spring-i-bledy-jako-json/" class="pagination--pager" title="Projekt Informator zasilenie bazy, Spring i błędy jako JSON
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/02/08_protokol_http_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/protokol-http/" rel="permalink">Protokół HTTP
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/zmiana-branzy-zostan-programista/" rel="permalink">Zmiana branży - zostań programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  25 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Na rynku IT brakuje pracowników. Uczelnie nie nadążają z dostarczaniem nowych specjalistów. Popyt znacząco przewyższa podaż przez co rynek IT jest rynkiem pr...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/wstep-do-relacyjnych-baz-danych/" rel="permalink">Wstęp do relacyjnych baz danych
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o tym czym jest relacyjny model baz danych. Dowiesz się o tym jak wygląda komunikacja pomiędzy klientem a serwerem bazy danych. Po...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+    
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Marcin Pietraszek.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>
