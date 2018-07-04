@@ -288,4 +288,4 @@ Najwyższy czas na Twoje ćwiczenie. W ramach ćwiczenia utwórz nowy projekt, w
 
 ## Podsumowanie
 
-Bardzo się cieszę, że doczytałeś do tego miejsca! Jak poszło Ci z ćwiczeniem? Proszę daj znać w komentarzach. Jeśli podobają Ci się artykuły na blogu byłbym bardzo wdzięczny gdybyś polecił bloga swoim znajomym. Jak już powtarzałem - w grupie łatwiej się uczy :) Polub stronę na Facebooku, a nie przegapisz żadnego nowego artykułu. Do zobaczenia!
+Bardzo się cieszę, że doczytałeś do tego miejsca! Jak poszło Ci z ćwiczeniem? Proszę daj znać w komentarzach. Jeśli podobają Ci się artykuły na blogu byłbym bardzo wdzięczny gdybyś polecił blog swoim znajomym. Jak już powtarzałem - w grupie łatwiej się uczy :) Polub stronę na Facebooku, a nie przegapisz żadnego nowego artykułu. Do zobaczenia!

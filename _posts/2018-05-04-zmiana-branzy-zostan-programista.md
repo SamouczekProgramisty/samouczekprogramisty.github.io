@@ -424,7 +424,7 @@ Jak dla mnie nie ma lepszej pracy, niż praca jako programista. Codziennie uczys
 
 ## Ania
 
-Nie rozmawiałem z Anią na temat przekwalifikowania. Jednak jej historia jest dostępna w internecie ;). Jeśli chcesz ją przeczytać to zapraszam na bloga, którego prowadzi razem z Jakubem [Kobiety do kodu](https://kobietydokodu.pl/moje-przebranzowienie-z-perspektywy-2-lat-pracy-w-zawodzie/). Jeśli nie znałeś go wcześniej to znajdziesz tam sporo artykułów wartych przeczytania.
+Nie rozmawiałem z Anią na temat przekwalifikowania. Jednak jej historia jest dostępna w internecie ;). Jeśli chcesz ją przeczytać to zapraszam na blog, którego prowadzi razem z Jakubem [Kobiety do kodu](https://kobietydokodu.pl/moje-przebranzowienie-z-perspektywy-2-lat-pracy-w-zawodzie/). Jeśli nie znałeś go wcześniej to znajdziesz tam sporo artykułów wartych przeczytania.
 
 # Podsumowanie
 

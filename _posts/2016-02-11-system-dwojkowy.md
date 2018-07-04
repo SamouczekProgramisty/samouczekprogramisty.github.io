@@ -134,6 +134,6 @@ Jeśli chcesz wyższego poziomu trudności zapisz liczby 1024 i 321 w systemie �
 
 I jak? Trudne? Jeśli masz pytania zadaj je w komentarzach, postaram się pomóc. Bardzo dziękuję Ci za przeczytanie artykułu, jeśli chcesz wiedzieć o najnowszych wpisach polub stronę na Facebooku.
 
-Na koniec mam do Ciebie jeszcze jedną prośbę. Zależy mi na tym, żeby dotrzeć do jak największej liczby czytelników więc jeśli mógłbyś polecić bloga swoim znajomym byłbym wdzięczny. Z góry dziękuję i do następnego razu!
+Na koniec mam do Ciebie jeszcze jedną prośbę. Zależy mi na tym, żeby dotrzeć do jak największej liczby czytelników więc jeśli mógłbyś polecić blog swoim znajomym byłbym wdzięczny. Z góry dziękuję i do następnego razu!
 
 PS. Autorem zdjęcia z tytułem artykułu jest mój kolega Wojtek, inne zdjęcia jego autorstwa możecie zobaczyć na [https://www.flickr.com/photos/koniu\_87/](https://www.flickr.com/photos/koniu_87/).
