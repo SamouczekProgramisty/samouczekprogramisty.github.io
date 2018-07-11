@@ -7,6 +7,7 @@ excerpt: Twój mentor na drodze do programowania
 ---
 
 {% include feature_row id="frwstep" type="center" %}
+
 {% assign newest = site.posts.first %}
 
 <div class="feature__wrapper">
@@ -34,7 +35,7 @@ excerpt: Twój mentor na drodze do programowania
         {{ newest.excerpt | markdownify }}
       </div>
 
-      <p><a href="{{ post.url | absolute_url }}" class="btn btn--info">Czytaj dalej</a></p>
+      <p><a href="{{ post.url | absolute_url }}" class="btn btn--info">Czytaj dalej <i class="fa fa-caret-square-right"></i></a></p>
     </div>
   </div>
 </div>
@@ -61,15 +62,82 @@ excerpt: Twój mentor na drodze do programowania
         {{ post.excerpt | truncatewords: 20 | markdownify }}
       </div>
 
-      <p><a href="{{ post.url | absolute_url }}" class="btn btn--primary">Czytaj dalej</a></p>
+      <p><a href="{{ post.url | absolute_url }}" class="btn">Czytaj dalej</a></p>
     </div>
   {% endfor %}
+
+  <div class="feature__item--center">
+    <div class="archive__item">
+      <div class="archive__item-excerpt">
+        <p>Starsze artykuły możesz znaleźć w <a href="{{ '/archiwum/' | absolute_url }}"><i class="fa fa-archive"></i> archiwum Samouczka Programisty</a></p>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="page__hero--overlay" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ '/assets/images/archiwum.jpg' | absolute_url }}');">
-  <div class="wrapper">
-    <h2 class="page__title">Archiwum Samouczka Programisty</h2>
-    <p class="page__lead">Tutaj znajdziesz wszystkie archiwalne artykuły, które ukazały się na blogu. Zaczynając od najmłodszego do najstarszego, który opublikowałem w październiku 2015 roku.</p>
-    <p><a href="{{ '/archiwum/' | absolute_url }}" class="btn btn--light-outline btn--large"><i class="fa fa-archive"></i> Przejdz do archiwum</a></p>
+<div class="feature__wrapper">
+  <div class="feature__item--center">
+    <div class="archive__item">
+      <div class="archive__item-body">
+        <h2 class="archive__item-title">Strefa kursów</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feature__wrapper">
+  <div class="feature__item">
+    <div class="archive__item">
+      <div class="archive__item-teaser c_item-teaser">
+        <a href="{{ '/kurs-programowania-java/' | absolute_url }}">
+          <img src="{{ '/assets/images/temp/missing.png' | absolute_url }}">
+          <h3 class="c_item-teaser-title">Kurs programowania Java</h3>
+        </a>
+      </div>
+    </div>
+    <div class="archive__item-excerpt">
+Java jest jednym z najbardziej popularnych języków programowania. Cykl artykułów poświęconych programowaniu
+    </div>
+
+    <p><a href="{{ '/kurs-programowania-java/' | absolute_url }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
+  </div>
+  <div class="feature__item">
+    <div class="archive__item">
+      <div class="archive__item-teaser c_item-teaser">
+        <a href="{{ '/kurs-aplikacji-webowych/' | absolute_url }}">
+          <img src="{{ '/assets/images/temp/missing.png' | absolute_url }}">
+          <h3 class="c_item-teaser-title">Kurs programowania aplikacji webowych</h3>
+        </a>
+      </div>
+    </div>
+    <div class="archive__item-excerpt">
+      Tutaj znajdziesz wszystkie archiwalne artykuły, które ukazały się na blogu. Zaczynając od najmłodszego do najstarszego, który opublikowałem w październiku 2015 roku.
+    </div>
+    <p><a href="{{ '/kurs-aplikacji-webowych/' | absolute_url }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
+  </div>
+  <div class="feature__item">
+    <div class="archive__item">
+      <div class="archive__item-teaser c_item-teaser">
+        <a href="{{ '/kurs-sql/' | absolute_url }}">
+          <img src="{{ '/assets/images/temp/missing.png' | absolute_url }}">
+          <h3 class="c_item-teaser-title">Kurs SQL</h3>
+        </a>
+      </div>
+    </div>
+    <div class="archive__item-excerpt">
+      Tutaj znajdziesz wszystkie archiwalne artykuły, które ukazały się na blogu. Zaczynając od najmłodszego do najstarszego, który opublikowałem w październiku 2015 roku.
+    </div>
+
+    <p><a href="{{ '/kurs-sql/' | absolute_url }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
+  </div>
+</div>
+
+<div class="feature__wrapper">
+  <div class="feature__item--center">
+    <div class="archive__item">
+      <div class="archive__item-body">
+        <h2 class="archive__item-title">Kategorie wpisów</h2>
+      </div>
+    </div>
   </div>
 </div>
