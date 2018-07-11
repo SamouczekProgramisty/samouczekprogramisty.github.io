@@ -18,7 +18,7 @@ disqus_page_identifier: 207 http://www.samouczekprogramisty.pl/?p=207
 
 ## Czym jest wyjątek?
 
-Wyjątek (ang. _exception_) jest specjalną klasą. Jest ona specyficzna ponieważ w swoim łańcuchu dziedziczenia ma klasę `java.lang.Throwable`. Instancje, które w swojej hierarchii dziedziczenia mają tą klasę mogą zostać „rzucone” (ang. _throw_) przerywając standardowe wykonanie programu.
+Wyjątek (ang. _exception_) jest specjalną klasą. Jest ona specyficzna ponieważ w swoim łańcuchu dziedziczenia ma klasę `java.lang.Throwable`. Instancje, które w swojej hierarchii dziedziczenia mają tę klasę mogą zostać „rzucone” (ang. _throw_) przerywając standardowe wykonanie programu.
 
 Przykładem może być tutaj walidacja argumentów metody. Załóżmy, że nasza metoda jako argument przyjmuje liczbę godzin i zwraca liczbę sekund, odpowiadających przekazanemu argumentowi. Możemy założyć, że akceptujemy wyłącznie argumenty dodatnie lub 0.
 

@@ -41,7 +41,7 @@ Poprzednie dwa akapity to nic innego jak funkcja _Live templates_ IDE (dosłowni
   
 Następnie wewnątrz `()` wpisz `message`, bądź cokolwiek innego co nadaje się na nazwę zmiennej.
 
-Jak widzisz IDE zaznacza tą nazwę na czerwono pokazując nam błąd. Oczywiście zmienna nie została jeszcze utworzona. Po naciśnięciu `Alt + Enter` pokaże nam okienko z możliwymi sposobami rozwiązania problemu.
+Jak widzisz IDE zaznacza tę nazwę na czerwono pokazując nam błąd. Oczywiście zmienna nie została jeszcze utworzona. Po naciśnięciu `Alt + Enter` pokaże nam okienko z możliwymi sposobami rozwiązania problemu.
 
 Z okienka wybierz _"Create local variable..."_. IDE utworzy nam zmienną, musimy wybrać jej typ. Z dostępnej listy wybierz `String` i przypisz do niego jakiekolwiek zdanie otoczone `""`, jak w przykładzie:
 

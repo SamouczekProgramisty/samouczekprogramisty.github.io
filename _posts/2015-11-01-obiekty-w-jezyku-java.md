@@ -24,7 +24,7 @@ Więc czym jest pakiet? Pakiet wraz z nazwą klasy tworzy swego rodzaju “unika
 package pl.samouczekprogramisty.kursjava;
 ```
 
-Rozbijmy tą linię kodu na części pierwsze:
+Rozbijmy tę linię kodu na części pierwsze:
 - `package` - to słowo kluczowe podobnie jak `class` czy `if`, informuje kompilator o tym w jakim pakiecie znajduje się plik,
 - `pl.samouczekprogramisty.kursjava` - właściwa nazwa pakietu. Podobnie jak w przypadku omówionego w poprzednim artykule nazewnictwa metod tutaj obowiązują podobne zasady. Dla uproszczenia możemy powiedzieć, że dozwolone są małe litery oraz znak kropki.
 
@@ -195,7 +195,7 @@ public class Engine {
 }
 ```
 
-Poza używaniem typów, które już znasz, możesz używać już istniejących klas. Właśnie w ten sposób klasa `Engine` ma atrybut typu `Cogwheel`. Zwróć uwagę, że klasa `Engine` znajduje się w innym pakiecie niż klasa `Cogwheel`. Kompilator musi wiedzieć gdzie szukać tej klasy, właśnie z tego powodu dodajemy linijkę importującą tą klasę:
+Poza używaniem typów, które już znasz, możesz używać już istniejących klas. Właśnie w ten sposób klasa `Engine` ma atrybut typu `Cogwheel`. Zwróć uwagę, że klasa `Engine` znajduje się w innym pakiecie niż klasa `Cogwheel`. Kompilator musi wiedzieć gdzie szukać tej klasy, właśnie z tego powodu dodajemy linijkę importującą tę klasę:
 
 ```java
 import pl.samouczekprogramisty.kursjava.engine.Cogwheel;

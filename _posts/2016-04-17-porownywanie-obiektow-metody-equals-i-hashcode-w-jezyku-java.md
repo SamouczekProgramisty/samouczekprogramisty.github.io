@@ -77,7 +77,7 @@ System.out.println("0.3 == 0.1 + 0.2: " + (0.3 == 0.1 + 0.2)); // !!!
 System.out.println("0.3 == 0.1 + 0.2: " + (Math.abs(0.3 - (0.1 + 0.2)) < 0.000001));
 ```
 
-W przykładzie powyżej została użyta metoda `Math.abs()`. Metoda ta zwraca [wartość bezwzględną](https://pl.wikipedia.org/wiki/Warto%C5%9B%C4%87_bezwzgl%C4%99dna) danej liczby. Następnie wartość tą porównujemy z bardzo małą liczbą. Liczba ta reprezentuje dokładność porównania. Jeśli różnica liczb jest mniejsza niż nasza założona dokładność uznajemy, że porównywane liczby są równe.
+W przykładzie powyżej została użyta metoda `Math.abs()`. Metoda ta zwraca [wartość bezwzględną](https://pl.wikipedia.org/wiki/Warto%C5%9B%C4%87_bezwzgl%C4%99dna) danej liczby. Następnie wartość tę porównujemy z bardzo małą liczbą. Liczba ta reprezentuje dokładność porównania. Jeśli różnica liczb jest mniejsza niż nasza założona dokładność uznajemy, że porównywane liczby są równe.
 
 ## Porównanie obiektów
 
@@ -98,9 +98,9 @@ System.out.println("reference1 == reference2: " + (reference1 == reference2));
 
 ## Metoda `equals`
 
-Metoda `equals` jest jedną z metod dostępnych w klasie `Object`. W związku z tym, że każdy obiekt w języku Java ma tą klasę w swojej hierarchii dziedziczenia możemy tą metodą wywołać na każdym obiekcie.
+Metoda `equals` jest jedną z metod dostępnych w klasie `Object`. W związku z tym, że każdy obiekt w języku Java ma tę klasę w swojej hierarchii dziedziczenia możemy tą metodą wywołać na każdym obiekcie.
 
-W większości przypadków domyślna implementacja metody `equals` nie jest odpowiednia[^porownanie] w związku z tym programista tworzący nowy obiekt musi tą metodę zaimplementować jeśli chce sprawdzać czy instancje tej klasy są równe.
+W większości przypadków domyślna implementacja metody `equals` nie jest odpowiednia[^porownanie] w związku z tym programista tworzący nowy obiekt musi tę metodę zaimplementować jeśli chce sprawdzać czy instancje tej klasy są równe.
 
 [^porownanie]: Domyślna implementacja zachowuje się jak operator `==`, porównuje adresy obiektów.
 

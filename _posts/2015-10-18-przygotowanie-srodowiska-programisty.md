@@ -86,7 +86,7 @@ Po ściągnięciu pliku uruchom go i postępuj zgodnie z instrukcją instalacji.
 
 ### Czego używają programiści do pisania kodu
 
-W najprostszym przypadku wystarczy zwykły edytor tekstu. W systemie operacyjnym Windows funkcję tą spełnia Notatnik. Większość języków programowania nie wymaga innego narzędzia do pisania kodu.
+W najprostszym przypadku wystarczy zwykły edytor tekstu. W systemie operacyjnym Windows tę funkcję spełnia Notatnik. Większość języków programowania nie wymaga innego narzędzia do pisania kodu.
 
 Chociaż takie narzędzie w zupełności wystarczy do efektywnej pracy przydają się bardziej zaawansowane narzędzia. Jednym z nich jest „zintegrowane środowisko programistyczne” – IDE (ang. Integrated Development Environment). IDE poza bardziej zaawansowanym edytorem zawiera zestaw dodatkowych narzędzi przydatnych programiście. Np. „profiler”, „debuger”, zestaw narzędzi do refaktoryzacji itp. Jeśli jesteś zainteresowany, którymkolwiek z tych zagadnień daj znać, na pewno napiszę artykuł na jego temat ;)
 

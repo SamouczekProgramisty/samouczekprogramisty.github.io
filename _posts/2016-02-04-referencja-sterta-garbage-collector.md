@@ -44,7 +44,7 @@ public class ObjectVersusReference {
 }
 ```
 
-W pierszej linijce metody `main` tworzona jest nowa zmienna typu `Object` o nazwie `referenceToObjectX`. W kolejnej linijce tworzona jest kolejna zmienna, która jest kopią isteniejącej już zmiennej. Trzecia linijka to wywołanie konstruktora, czyli utworzenie nowego obiektu i przypisanie go do zmiennej `referenceToObjectY`. Innymi słowy zmienne `referenceToObjectX` oraz `anotherReferenceToObjectX` zawierają tą samą referencję do tego samego obiektu na stercie.
+W pierszej linijce metody `main` tworzona jest nowa zmienna typu `Object` o nazwie `referenceToObjectX`. W kolejnej linijce tworzona jest kolejna zmienna, która jest kopią isteniejącej już zmiennej. Trzecia linijka to wywołanie konstruktora, czyli utworzenie nowego obiektu i przypisanie go do zmiennej `referenceToObjectY`. Innymi słowy zmienne `referenceToObjectX` oraz `anotherReferenceToObjectX` zawierają tę samą referencję do tego samego obiektu na stercie.
 
 Poniżej pokazałem to co zostanie wypisane na konsoli po uruchomieniu powyższego przykładu
 

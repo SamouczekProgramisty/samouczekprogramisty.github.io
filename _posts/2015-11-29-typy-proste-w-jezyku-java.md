@@ -67,7 +67,7 @@ Możesz zadać sobie teraz pytanie. Dlaczego musimy dodawać `L` na końcu liczb
 short daysInYear = (short) 365;
 ```
   
-Wartość w nawiasie mówi o tym na jaki typ chcemy rzutować 365 będące typu `int`. W tym przypadku rzutowanie nie jest potrzebne bo kompilator wykona tą konwersję za nas. Jeśli jednak będziesz chciał przypisać wartość typu `int` do wartości typu `short` musisz takiej konwersji dokonać.
+Wartość w nawiasie mówi o tym na jaki typ chcemy rzutować 365 będące typu `int`. W tym przypadku rzutowanie nie jest potrzebne bo kompilator wykona tę konwersję za nas. Jeśli jednak będziesz chciał przypisać wartość typu `int` do wartości typu `short` musisz takiej konwersji dokonać.
 
 ```java
 int someSmallNumber = 356;

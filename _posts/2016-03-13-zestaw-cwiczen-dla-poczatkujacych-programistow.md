@@ -82,7 +82,7 @@ Dużo zadań dotyczących tablic wymaga znajmości pętli, dlatego w następnym 
 ### [Pętle i instrukcje warunkowe]({% post_url 2015-11-18-petle-i-instrukcje-warunkowe-w-jezyku-java %})
 
 1. Utwórz metodę pobierającą dodatnią liczbę całkowitą X, która wyświetli na ekranie liczby od zera do X,
-2. Jeśli w zadaniu 1. użyłeś pętli `for` przerób tą metodę na `while` (lub odwrotnie),
+2. Jeśli w zadaniu 1. użyłeś pętli `for` przerób tę metodę na `while` (lub odwrotnie),
 3. Napisz klasę `ArrayFactory`, która w konstruktorze pobierze liczbę całkowitą X większą od zera. Klasa powinna mieć 2 metody:
   1. `int[] oneDimension` - zwróci instancję tablicy jednowymiarowej o długości X,
   2. `int[][] twoDimension` - zwróci instację tablicy dwuwymiarowej gdzie liczba wierszy i liczba kolumn równa się X,

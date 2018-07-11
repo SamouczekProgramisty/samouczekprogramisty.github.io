@@ -15,7 +15,7 @@ disqus_page_identifier: 118 http://www.samouczekprogramisty.pl/?p=118
 
 ## Czym różni się cyfra od liczby?
 
-Cyfra i liczba to dwie różne rzeczy. Cyfra to reprezentacja graficzna liczby np. znak 9. Cyfra to znak graficzny podobnie jak litera. Liczba to wartość, która może składać się z wielu cyfr. Wyjaśniłem tą różnicę na początku ponieważ przyda się ona do zrozumienia pozostałej części artykułu.
+Cyfra i liczba to dwie różne rzeczy. Cyfra to reprezentacja graficzna liczby np. znak 9. Cyfra to znak graficzny podobnie jak litera. Liczba to wartość, która może składać się z wielu cyfr. Wyjaśniłem tę różnicę na początku ponieważ przyda się ona do zrozumienia pozostałej części artykułu.
 
 ## Suma i iloczyn
 
@@ -54,7 +54,7 @@ Teraz zapiszmy trochę inaczej naszą liczbę z przykładu:
 
 Innymi słowy każdą liczbę w systemie dziesiętnym możemy zapisać przy pomocy sumy iloczynów potęg liczby 10. Może się to wydawać trochę skomplikowane jednak to nic trudnego, po prostu słownie opisałem 1 \* 10<sup>3</sup> + 2 \* 10<sup>2</sup> + 3 \* 10<sup>1</sup> + 4 \* 10<sup>0</sup>.
 
-Jeśli 10 nazwiemy bazą systemu dziesiętnego to cyfry, które służą do zapisywania liczb w tym systemie są z zakresu 0 do 9. Zapamiętaj, że własność tą można uogólnić. Innymi słowy jeśli bazę systemu zapisu liczb zastąpimy X wówczas możemy powiedzieć, że liczbę w tym systemie można zapisać przy pomocy cyfr od 0 do X-1[^umowa].
+Jeśli 10 nazwiemy bazą systemu dziesiętnego to cyfry, które służą do zapisywania liczb w tym systemie są z zakresu 0 do 9. Zapamiętaj, że tę własność można uogólnić. Innymi słowy jeśli bazę systemu zapisu liczb zastąpimy X wówczas możemy powiedzieć, że liczbę w tym systemie można zapisać przy pomocy cyfr od 0 do X-1[^umowa].
 
 [^umowa]: Oczywiście to jest umowne, równie dobrze można używać innych symboli. Np w systemie szesnastkowym stosujemy cyfry 0-9 oraz litery a-f.
 

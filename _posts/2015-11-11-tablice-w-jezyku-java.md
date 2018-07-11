@@ -135,7 +135,7 @@ Poza czytelnością zyskujemy kolejną rzecz. Nie łamiemy zasady DRY (ang. _Don
 
 ## Metody o zmiennej liczbie argumentów
   
-Znasz już metodę `main`, domyślnie przyjmuje ona tablicę łańcuchów znaków. Równie dobrze metodę tą możemy zapisać jako
+Znasz już metodę `main`, domyślnie przyjmuje ona tablicę łańcuchów znaków. Równie dobrze tę metodę możemy zapisać jako:
 
 ```java
 public static void main(String ... args);
