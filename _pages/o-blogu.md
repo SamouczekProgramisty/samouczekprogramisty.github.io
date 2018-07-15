@@ -1,7 +1,10 @@
 ---
-layout: default
+layout: single_page
 title: O blogu
 permalink: /o-blogu/
+header:
+  overlay_image: /assets/images/splash/o_blogu_splash.jpg
+  caption: "[&copy; mali maeder](https://www.pexels.com/photo/vintage-letters-typo-vintage-typewriter-101710/)"
 ---
 {% capture opinia1 %}
 ![Adrian Galus]({{ "/assets/images/opinie/adrian.jpeg" | absolute_url }}){: .align-left} 
@@ -16,9 +19,6 @@ permalink: /o-blogu/
 
 > Łukasz Chojnowski
 {% endcapture %}
-
-{% capture content %}
-## O blogu
 
 Blog Samouczek Programisty prowadzę od października 2015 roku. Samouczkowy Newsletter zacząłem budować w połowie 2017 roku. Kilka statystyk dotyczących Samouczka Programisty (stan na 05.07.2018):
 - na liście subskrybentów Samouczkowego Newslettera znajduje się 484 Czytelników,
@@ -42,8 +42,3 @@ Od czasu do czasu dostaję wiadomości od Was, Czytelników bloga. To właśnie 
   {{ opinia2 | markdownify }}
 </p>
 <hr class="cf">
-{% endcapture %}
-
-<div id="main" role="main">
-  {{ content | markdownify }}
-</div>
