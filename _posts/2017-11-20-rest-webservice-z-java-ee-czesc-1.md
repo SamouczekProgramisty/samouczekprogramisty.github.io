@@ -59,6 +59,8 @@ Teraz należy Ci się rozwinięcie. Język Java już znasz. Java wraz z zestawem
 
 Java Servlets jest specyfikacją, którą można używać w kontenerach serwletów. Niestety nie wszystkie ze wspomnianych 41 specyfikacji można używać w kontenerze serwletów. Java API for RESTful Web Services (w skrócie JAX-RS) jest tu dobrym przykładem. Aby móc używać tej technologii potrzebujemy kontenera aplikacji.
 
+{% include newsletter-srodek.md %}
+
 ### Kontener aplikacji a kontener serwletów
 
 Apache Tomcat, którego używałem do tej pory w ramach kursu jest kontenerem serwletów. Umożliwia on uruchamianie aplikacji webowych, które używają podzbioru specyfikacji Java EE (na przykład specyfikacji serwletów).

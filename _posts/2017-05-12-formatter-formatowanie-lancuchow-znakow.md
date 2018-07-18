@@ -57,6 +57,8 @@ System.out.format("Samouczek Programisty istnieje od %d roku. Wszystkie artykuł
 
 W dalszej części artykułu posługiwał będę się tą uproszczoną wersją. Ważne jest żebyś miał jednak świadomość, że pod spodem używana jest instancji klasy `Formatter`.
 
+{% include newsletter-srodek.md %}
+
 ## Znaczniki konwersji
 
 Wcześniej użyty łańcuch formatujący to zwykły `String`, wewnątrz którego znajdują się sekwencje interpretowane w specjalny sposób. Sekwencje te zawsze mają format:

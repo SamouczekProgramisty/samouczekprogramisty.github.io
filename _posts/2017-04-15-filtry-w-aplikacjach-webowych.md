@@ -44,6 +44,8 @@ Każdy z filtrów ma swój cykl życia. Podobnie jak w serwletach mamy tu metody
 - [`doFilter`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-javax.servlet.FilterChain-) - tu odbywa się właściwa praca filtra. Metoda ta wywołana jest przed przekazaniem żądania do klasy serwletu,
 - [`destroy`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#destroy--) - metoda, w które filtr ma szansę “posprzątać” po sobie :)
 
+{% include newsletter-srodek.md %}
+
 ## Mapowanie filtrów
 
 Adnotacja `@WebFilter` posiada kilka elementów. Opiszę te, które pozwalają na przypisywanie filtrów do poszczególnych serwletów/zasobów:

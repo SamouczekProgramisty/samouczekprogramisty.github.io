@@ -134,6 +134,8 @@ Dlatego właśnie zmienna `table` jest tablicą [list wiązanych]({% post_url 20
 
 {% include figure image_path="/assets/images/2018/01/08_tablica_z_trzema_parami.jpg" caption="Tablica z trzema parami" %}
 
+{% include newsletter-srodek.md %}
+
 ### Lepsza wydajność dostępu do danych
 
 Jednak nawet takie zachowanie nie rozwiązuje problemu. Pamiętasz domyślną wielkość tablicy? W przykładzie powyżej było to 4. Oznacza to tyle, że wszystkie możliwe wartości `hashCode` podzielone są na 4 przedziały. Jeśli w naszej mapie będzie odpowiednio dużo elementów znacząco wydłuży to czas pobierania elementu po kluczu. Poniższy rysunek pokazuje sytuację, w której aż 8 par trafiło do pierwszego przedziału.

@@ -133,7 +133,7 @@ Poza czytelnością zyskujemy kolejną rzecz. Nie łamiemy zasady DRY (ang. _Don
 
 [^dry]: W uproszczeniu zasada mówi o nie powtarzaniu tego samego kodu wielokrotnie, przeczytasz o tym w jednym z kolejnych artykułów. Poprę to lepszym przykładem niż ten w tym artykule.
 
-## Metody o zmiennej liczbie argumentów
+## Metody o zmiennej liczbie argumentów (ang. _varargs_)
   
 Znasz już metodę `main`, domyślnie przyjmuje ona tablicę łańcuchów znaków. Równie dobrze tę metodę możemy zapisać jako:
 
@@ -147,7 +147,7 @@ Inny przykład metody z wieloma argumentami to metoda sumująca wszystkie przeka
 int sum(int ... numbers);
 ```
   
-Magiczny wielokropek to coś w rodzaju wzbogacenia składni (ang. _syntactic sugar_). Nasza metoda z przykładu może przyjąć dowolną liczbę argumentów. W szczególności może też nie przyjąć żadnego.
+Magiczny wielokropek to coś w rodzaju wzbogacenia składni (ang. _syntactic sugar_). Nasza metoda z przykładu może przyjąć dowolną liczbę argumentów typu `int` (ang. _varargs_). W szczególności może też nie przyjąć żadnego.
 
 ```java
 sum();

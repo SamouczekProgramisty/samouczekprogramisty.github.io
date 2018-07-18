@@ -55,6 +55,8 @@ Bardzo często zapytanie SQL zwraca przetworzone dane do klienta. Przetwarzanie 
 
 [^uproszczenie]: Jest to duże uproszczenie. Bazy danych są programami, które są przystosowane do obsługi dużej liczby zapytań. Znane mi relacyjne bazy danych wspierają [ACID](https://en.wikipedia.org/wiki/ACID). Zapytania często podlegają optymalizacji. Przetwarzanie danych zgodnie z zapytaniem SQL to także robota serwera. Czynniki te sprawiają, że dostęp do danych to coś więcej niż zwykłe "pobieranie danych z dysku".
 
+{% include newsletter-srodek.md %}
+
 ## Model relacyjny
 
 Za modelem relacyjnym stoi [algebra relacji](https://en.wikipedia.org/wiki/Relational_algebra). Jest to matematyczny opis operacji wykonywanych na danych zachowanych w bazie. Możesz w nim przeczytać o sumie zbiorów, iloczynie kartezjańskim etc. Postaram się wytłumaczyć sposób działa baz bez użycia takich pojęć.

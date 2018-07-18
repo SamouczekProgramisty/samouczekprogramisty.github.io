@@ -109,6 +109,8 @@ Zawiera dodatkowe dane identyfikujące dany zasób. Ta część oddzielona jest 
 
 Ostatnia część adresu URL. W praktyce wykorzystywana jest do określenia fragmentu strony HTML, która powinna zostać pokazana użytkownikowi. Na przykład adres [http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni](http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni) przeniesie Cię do sekcji opisującej właściwości strumieni.
 
+{% include newsletter-srodek.md %}
+
 ## Żądanie i odpowiedź
 
 {% capture devtools %}

@@ -33,6 +33,8 @@ Jeśli wszystko działa poprawnie Malinka wykryje czujnik i w katalogu `/sys/bus
 
 Odczytanie temperatury sprowadza się do poprawnego parsowania zawartości tego pliku. Przykład realizacji możesz znaleźć we wcześniej wspomnianej klasie `FromFileThermometer`.
 
+{% include newsletter-srodek.md %}
+
 ## Zmiany w Gradle
 
 Sporo też zmieniło się w samej strukturze projektu. Od teraz pogodynka to projekt, który składa się z wielu modułów. Jest to możliwe dzięki dodaniu pliku [`settings.gradle`](https://github.com/SamouczekProgramisty/Pogodynka/blob/master/settings.gradle), który opisuje strukturę takiego projektu.

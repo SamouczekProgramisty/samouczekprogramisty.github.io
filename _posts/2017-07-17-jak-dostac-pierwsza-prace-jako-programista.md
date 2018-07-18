@@ -27,6 +27,8 @@ Kiedyś usłyszałem ciekawy termin dotyczący masowego wysyłania ofert do kand
 
 Znajdź firmę, na której Ci zależy. Dopracuj swoje CV w ten sposób aby odpowiadało wymaganiom stawianym w tej firmie. Rekruterzy sprawdzają czy miałeś już jakiekolwiek doświadczenie z technologiami wykorzystywanym w danym projekcie. Jeśli takiego doświadczenia nie masz to zacznij dziubać projekt, który te technologie wykorzystuje.
 
+{% include newsletter-srodek.md %}
+
 ## Nie ma idealnego kandydata
 
 Duża część ogłoszeń opisuje idealnego kandydata. Nie zrażaj się jeśli nie znasz części technologii wykorzystywanych w danym projekcie. Często pracodawca opisuje kogoś kto jest idealny dla danego stanowiska. Ideałów nie ma. Wszyscy jesteśmy ludźmi i mamy prawo nie wiedzieć wszystkiego. Ponadto jeśli pracodawca od początkującego programisty wymaga znajomości szeregu technologii jest oderwany od rzeczywistości. Zapomniał wół jak cielęciem był...

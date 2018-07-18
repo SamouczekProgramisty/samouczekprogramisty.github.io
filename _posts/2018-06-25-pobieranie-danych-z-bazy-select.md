@@ -13,7 +13,7 @@ excerpt: Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących
 
 {% include kurs-sql-notice.md %}
 
-# Wprowadzenie do języka SQL
+## Wprowadzenie do języka SQL
 
 Język SQL (ang. _Structured Query Language_) powstał kilkadziesiąt lat temu. Służy do pobierania i przetwarzania danych zapisanych w bazie danych. Język ten został ustandaryzowany i na przestrzeni kilkudziesięciu lat powstało wiele wersji tego standardu.
 
@@ -41,7 +41,7 @@ SELECT *
    AND genreid < 20;
 ```
 
-## SQL to nie baza danych
+### SQL to nie baza danych
 
 Definicji bazy danych może być wiele. Jednak nie znam żadnej, która mówiłaby, że baza danych to SQL.
 
@@ -60,7 +60,7 @@ Bazy danych także ukrywają sposób przechowywania danych. Użytkownika nie int
 
 [^wydajnosc]: Na pewnym etapie zaawansowania znajomość wewnętrznych mechanizmów działania bazy danych jest bardzo ważna. Pozwala ona na tworzenie zapytań, które są bardziej wydajne.
 
-## Podział SQL
+### Podział SQL
 
 Zapytania w SQL możemy podzielić na kilka rozłącznych grup. Każda z tych grup zawiera różne rodzaje zapytań. Grupy zostały wydzielone na podstawie zadań realizowanych przez poszczególne zapytania. Możemy wyszczególnić następujące grupy:
 
@@ -73,7 +73,7 @@ Dodatkowo czasami wyróżnia się też grupy:
 - DCL (ang. _Data Control Language_)
 - TCL (ang. _Transaction Control Language_)
 
-### DQL
+#### DQL
 
 DQL składa się wyłącznie z zapytań typu `SELECT`. Zapytania te służą do odpytywania (ang. _query_) bazy danych. Innymi słowy służą do pobierania danych z bazy danych. Zapytania typu `SELECT` są najczęściej używane. Poniżej możesz zobaczyć zapytanie, które pobiera wszystkie kolumny i wiersze z tabeli `genre`.
 
@@ -84,7 +84,7 @@ SELECT *
 
 Na razie nie przejmuj się składnią zapytania, omówię ją szczegółowo poniżej.
 
-### DML
+#### DML
 
 DML służy do tworzenie, modyfikowania i usuwania danych. W skład tej grupy wchodzą zapytania:
 
@@ -92,7 +92,7 @@ DML służy do tworzenie, modyfikowania i usuwania danych. W skład tej grupy wc
 - `UPDATE` - aktualizuje wiersze w tabeli,
 - `DELETE` - usuwa wiersze z tabeli.
 
-### DDL
+#### DDL
 
 Wiesz już, że [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) składają się z tabel. Dodatkowo w bazach występują inne obiekty jak indeksy (ang. _index_), klucze obce (ang. _foreign key_), klucze główne (ang. _primary key_), ograniczenia (ang. _constraint_), wyzwalacze (ang. _trigger_) czy widoki (ang. _view_). Część języka odpowiedzialna za zarządzanie tymi obiektami to DDL. Zapytania należące do DDL to:
 
@@ -103,7 +103,7 @@ Wiesz już, że [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjn
 
 [^niedml]: Chociaż `TRUNCATE` jest podobne do zapytania typu `DELETE` jest klasyfikowane jako DDL. Wynika to z faktu, że zapytania `TRUNCATE` nie mogą być cofnięte. Zapytania typu `DELETE` mogą być cofnięte w ramach trwającej transakcji.
 
-### DCL
+#### DCL
 
 Bazy danych często pozwalają na zarządzanie dostępem do danych. Realizowane jest to przy pomocy kont użytkowników[^hba]. DCL służy do manipulacji prawami dostępu do danych przypisanych do poszczególnych kont:
 
@@ -112,7 +112,7 @@ Bazy danych często pozwalają na zarządzanie dostępem do danych. Realizowane 
 - `GRANT` - nadaje uprawnienia,
 - `REVOKE` - usuwa uprawnienia.
 
-### TCL
+#### TCL
 
 Na początku przygody z SQL nie musisz przejmować się transakcjami. Opiszę je dokładniej w kolejnych artykułach w ramach kursu. Teraz w zupełności wystarczy wiedza o tym, że istnieje coś takiego jak transakcja. Do zarządzania transakcjami służą zapytania:
 
@@ -121,7 +121,7 @@ Na początku przygody z SQL nie musisz przejmować się transakcjami. Opiszę je
 - `ROLLBACK` - wycofuje transakcję,
 - `SAVEPOINT` - zapisuje punkt przywracania aktualnej transakcji.
 
-## SQL a wielkość liter
+### SQL a wielkość liter
 
 SQL jest językiem, w którym wielkość liter w słowach kluczowych i identyfikatorach nie ma znaczenia. Wyjątkiem są tu identyfikatory, które są otoczone znakiem cudzysłowu `"`[^zalezy]. Na przykład oba poniższe zapytania są równoważne:
 
@@ -145,7 +145,7 @@ SELECT *
 
 {% include newsletter-srodek.md %}
 
-# Przygotowanie środowiska
+## Przygotowanie środowiska
 
 Moim zdaniem najlepszym sposobem na naukę jest praktyka. Właśnie z tego powodu chcę pomóc przygotować Ci środowisko, w którym możliwe będzie testowanie zapytań.
 
@@ -153,7 +153,7 @@ Aby móc ćwiczyć na bieżąco wszystkie zagadnienia, które będę opisywał b
 
 Ze względu na łatwą instalację (właściwie to jej brak), w kursie używał będę bazy danych [SQLite](https://www.sqlite.org/). Baza ta jest w zupełności wystarczająca na potrzeby kursu. Oczywiście, jeśli chcesz wykonywać ćwiczenia używając bardziej zaawansowanych baz danych możesz to zrobić ;).
 
-## Instalacja bazy danych
+### Instalacja bazy danych
 
 Zacznij od [pobrania narzędzi SQLite](https://www.sqlite.org/download.html). W zależności od systemu operacyjnego, na którym pracujesz pobierz odpowiednią wersję:
 
@@ -165,7 +165,7 @@ Plik do pobrania to archiwum zip rozpoczynające się od _sqlite-tools-_. Wewną
 
 Jak widzisz w tym przypadku właściwie nie ma potrzeby instalacji żadnego programu, wystarczy rozpakować archiwum zip. W przypadku baz danych używanych w środowiskach produkcyjnych proces ten jest dużo bardziej skomplikowany.
 
-## Import gotowej bazy danych
+### Import gotowej bazy danych
 
 W internecie istnieje wiele zbiorów danych. Jednym z nich jest ten udostępniony przez projekt [Chinook](https://github.com/SamouczekProgramisty/chinook-database). Jest to testowa baza danych reprezentująca sklep z muzyką. Sama baza nie jest duża, jednak w zupełności wystarczy na omówienie podstawowych możliwości SQL.
 
@@ -181,12 +181,12 @@ i zachowaj ją w pliku `Chinook_Sqlite.sqlite`, następnie uruchom program `sqli
 Komendy zaczynające się od `.` (na przykład `.open` czy `.tables`) to wewnętrzne polecenia SQLite. Jest ich dużo więcej. Jeśli chcesz je zobaczyć użyj polecenia `.help`.
 {:.notice--info}
 
-# Zapytania `SELECT`
+## Zapytania `SELECT`
 
 Założeniem tego kursu jest to, że będzie on praktyczny od samego początku do końca. Wszystkie zapytania, które tutaj pokazuję możesz wykonać samodzielnie używając środowiska, które wcześniej opisałem.
 {:.notice--info}
 
-## Schemat tabeli
+### Schemat tabeli
 
 Zanim przejdę do tłumaczenia zapytań `SELECT` chciałbym zwrócić Twoją uwagę na budowę tabeli. Wiesz już, że tabela składa się z wierszy i kolumn. Każda kolumna przechowuje dane pewnego typu. Mogą to być na przykład łańcuchy znaków czy liczby.
 
@@ -216,7 +216,7 @@ To co widzisz, to zapytania typu DDL, które tworzą tabelę i obiekty z nią po
 Istnieją także bazy danych, które pozwalają przechowywać dane w strukturze, która nie ma sztywno określonego schematu. Podobnie jak [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) mają one swoje wady i zalety.
 {:.notice--info}
 
-### Typy danych
+#### Typy danych
 
 Typy obsługiwanych danych mogą znacznie różnić się pomiędzy różnymi silnikami baz danych. Różnice te jednak nie przeszkadzają w nauce języka SQL.
 {:.notice--info}
@@ -241,7 +241,7 @@ Innymi popularnymi typami są[^storage_type]:
 
 [^storage_type]: W przypadku SQLite wszystkie typy danych są przekształcane na "typy pierwotne": `NULL`, `INTEGER`, `REAL`, `TEXT`, `BLOB`. Dane na dysku zawsze zapisane są jako jeden z typów pierwotnych.
 
-## Składnia zapytania `SELECT`
+### Składnia zapytania `SELECT`
 
 Zapytanie `SELECT` w swojej najprostszej formie wygląda tak:
 
@@ -257,7 +257,7 @@ To zapytanie zawiera dwa słowa kluczowe: `SELECT` i `FROM`. Pomiędzy tymi sło
     2|4|2009-01-02 00:00:00|Ullevålsveien 14|Oslo||Norway|0171|3.96
     (...)
 
-### Filtrowanie przy pomocy `WHERE`
+#### Filtrowanie przy pomocy `WHERE`
 
 Pobieranie całej tabeli nie zawsze jest przydatne. Bardzo często zapytania `SELECT` filtrują pobierane dane. Aby filtrować dane zwracane przez zapytanie musisz użyć słowa kluczowego `WHERE` i warunków, które filtrują dane:
 
@@ -289,7 +289,7 @@ Spróbuj wywołać to zapytanie na swojej kopii bazy danych:
     189|23|2011-04-18 00:00:00|69 Salem Street|Boston|MA|USA|2113|1.98
     (...)
 
-#### Magiczna wartość `NULL`
+##### Magiczna wartość `NULL`
 
 Każdy wiersz w tabeli może mieć wartość, która pasuje do typu przechowywanego przez daną kolumnę. W SQL jest jeszcze specjalna wartość. Jest nią `NULL`. Możesz ją porównać do pustej wartości w językach programowania. W Javie i JavaScript byłby to `null`, w Pythonie `None`, w Ruby i Go `nil` itd.
 
@@ -306,7 +306,7 @@ SELECT *
    AND billingcountry != 'USA';
 ```
 
-### Wybór kolumn
+#### Wybór kolumn
 
 Użycie klauzuli `WHERE` pozwala na odfiltrowanie części wierszy. W przypadku kolumn mechanizm jest podobny. Jeśli chcesz wybrać podzbiór kolumn, a nie wszystkie, to musisz wskazać te, które Cię interesują:
 
@@ -319,7 +319,7 @@ SELECT invoicedate
 ```
 Powyższe zapytanie zwróci wyłącznie te faktury, które zostały wystawione w Polsce. Wynik będzie zawierał tylko trzy wskazane kolumny. Zwróć uwagę, że klauzula `WHERE` może używać kolumn, które nie są zwracane w wyniku wykonania zapytania.
 
-### To dopiero początek
+#### To dopiero początek
 
 Rysunek poniżej pokazuje składnię zapytania `SELECT` w SQLite. W artykule tym omówiłem wyłącznie podstawowe elementy.
 
@@ -327,7 +327,7 @@ Rysunek poniżej pokazuje składnię zapytania `SELECT` w SQLite. W artykule tym
 
 W kolejnych artykułach omówię między innymi pozostałe elementy składni zapytania `SELECT`.
 
-# Zadania do wykonania
+## Zadania do wykonania
 
 Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się napisać zapytania samodzielnie, wtedy nauczysz się najwięcej:
 
@@ -336,14 +336,14 @@ Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego
 - Napisz zapytanie, które zwróci wszystkie kraje, w których wystawiono fakturę na kwotę mniejszą niż 10 pomiędzy '2013-12-05 00:00:00' i '2013-12-09 00:00:00',
 - Napisz zapytanie, które zwróci wszystkie miasta i kraje gdzie wartość kolumny `billingstate` równa się `NULL` i wartość zamówienia jest większa niż 17 oraz te gdzie wartość zamówienia jest mniejsza niż 1, `billingstate` nie ma wartości `NULL` i zostały wystawione po '2013-09-20 00:00:00'.
 
-# Dodatkowe materiały do nauki
+## Dodatkowe materiały do nauki
 
 Jeśli chcesz spojrzeć na temat z innej perspektywy polecam przeczytanie poniższych materiałów. Pozwoli Ci to poszerzyć swoją wiedzę związaną z językiem SQL i jego składnią.
 
 - [Artykuł na temat SQL na Wikipedii](https://pl.wikipedia.org/wiki/SQL),
 - [Dokumentacja SQLite](https://www.sqlite.org/docs.html).
 
-# Podsumowanie
+## Podsumowanie
 
 Po przeczytaniu tego artykułu wiesz czym jest język SQL. Potrafisz podzielić zapytania języka SQL na grupy. Znasz podstawy zapytania typu `SELECT`. Potrafisz zastosować w praktyce zapytania tego typu do pobrania danych z bazy. Innymi słowy masz solidne podstawy, dzięki którym możesz przejść do kolejnego etapu nauki języka SQL.
 

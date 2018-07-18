@@ -65,6 +65,8 @@ Nazwy elementów elementów i atrybutów mogą zawierać tak zwaną “przestrze
 
 Przestrzenie nazw stosuje się aby móc odróżnić znaczenie elementów o tej samej nazwie. W przykładzie elementy `<opis>` i `<wydawca:opis>` mogą zawierać zupełnie różne dane - różne rodzaje opisów.
 
+{% include newsletter-srodek.md %}
+
 ### Komentarze
 
 Wewnątrz dokumentu XML możesz umieszczać komentarze. W przykładzie powyżej komentarz to `<!-- do uzupelnienia -->`. Wszystko co znajduje się pomiędzy `<!--` i `-->` uważane jest jako komentarz.
@@ -156,7 +158,6 @@ Lista poniżej to specyfikacje/narzędzia pozwalające na parsowanie i tworzenie
 - [SAX](http://www.saxproject.org/) (ang. _Simple API for XML_),
 - StAX (ang. _Streaming API for XML_),
 - [JAXB](https://jaxb.java.net/) (ang. _Java Architecture for XML Binding_).
-
 
 W jednym z klejnych artykułów skupię się na praktycznym wykorzystaniu powyższych narzędzi.
 

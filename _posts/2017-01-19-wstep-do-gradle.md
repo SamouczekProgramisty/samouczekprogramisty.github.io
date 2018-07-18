@@ -28,13 +28,15 @@ Dodatkowo „problem budowania” projektu występuje w każdym języku programo
 
 ## Instalacja gradle
 
-Gradle sam w sobie jest programem, abyś mógł go używać musisz „zainstalować” go na swoim komputerze. Najnowszą wersję Gradle możesz ściągnąć z [tej strony](https://gradle.org/gradle-download/). Następnie rozpakuj ściągnięty plik, ustaw zmienną środowiskową `GRALE_HOME`, która będzie wskazywała na katalog, w którym rozpakowałeś wcześniej ściągniętą paczkę.
+Gradle sam w sobie jest programem, abyś mógł go używać musisz „zainstalować” go na swoim komputerze. Najnowszą wersję Gradle możesz ściągnąć z [tej strony](https://gradle.org/gradle-download/). Następnie rozpakuj ściągnięty plik, ustaw zmienną środowiskową `GRADLE_HOME`, która będzie wskazywała na katalog, w którym rozpakowałeś wcześniej ściągniętą paczkę.
 
 Następnie zmodyfikuj zmienną `PATH` (linux/macos) lub `Path` (windows), tak żeby zawierała katalog `bin` znajdujący się wewnątrz wcześniej ustawionego `GRADLE_HOME`.
 
 [Tutaj](https://www.youtube.com/watch?v=QtmuSBVF8Nw) znajdziesz krótki filmik, pokazujący jak zmodyfikować zmienną `Path` w systemie Windows, w podobny sposób możesz dodać zmienną `GRADLE_HOME`.
 
 Po takim zestawie ustawień i ponownym uruchomieniu terminala powinieneś móc wywołać polecenie `gradle --version`, które wypisze na konsolę informacje o Twojej wersji Gradle.
+
+{% include newsletter-srodek.md %}
 
 ## W czym może pomóc Gradle
 

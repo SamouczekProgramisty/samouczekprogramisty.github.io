@@ -74,6 +74,8 @@ Dokumentacja zaleca aby nazwy atrybutów były zapisane w podobnej konwencji jak
 
 Ponadto twórcy bibliotek dzięki dostępowi do obiektu `ServletContext` mogą dynamicznie tworzyć serwlety, filtry czy obiekty nasłuchujące zdarzenia (ang. _listener_). Funkcjonalność ta raczej nie jest wykorzystywana w innych przypadkach.
 
+{% include newsletter-srodek.md %}
+
 ## Obiekty nasłuchujące
 
 Szczerze mówiąc miałem tu problem z tłumaczeniem :). Chodzi tu o obiekty, które potocznie nazywamy "listenerami". Obiekty nasłuchujące nie są specyficzne dla aplikacji webowych. Koncept tego typu używany jest także w innych miejscach. Jest to jeden z szeroko znanych wzorców projektowych. Wzorzec ten nazywany jest obserwatorem (ang. _observer_).

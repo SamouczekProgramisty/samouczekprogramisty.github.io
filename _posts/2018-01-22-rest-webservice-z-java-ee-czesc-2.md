@@ -139,6 +139,8 @@ Kontener na podstawie zapytania wysłanego przez użytkownika tworzy instancję 
 
 W akapicie opisującym instancje oznaczone adnotacją [`@Provider`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Provider.html) opiszę ten mechanizm dokładniej.
 
+{% include newsletter-srodek.md %}
+
 ### Dostęp do danych
 
 W normalnej wersji aplikacji dane zapisywane są w dedykowanej bazie danych[^baza]. Na potrzeby tej aplikacji symuluję bazę danych przy pomocy [mapy]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %}) przechowywanej w pamięci. Oczywistym minusem jest to, że dane nie są zachowywane po wyłączeniu aplikacji. Na potrzeby tego artykułu taki mechanizm jest wystarczający:

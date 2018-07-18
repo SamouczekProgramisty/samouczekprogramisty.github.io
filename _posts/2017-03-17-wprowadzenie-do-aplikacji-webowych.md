@@ -35,6 +35,8 @@ W najprostszym przykładzie jakim jest serwer HTTP, serwer (aplikacja) w odpowie
 
 Aplikacje webowe pokazują zawartość, która jest zmienna. Nie można jej uzyskać wyłącznie z plików statycznych znajdujących się na dysku serwera. Przykładem takiej aplikacji może być ten blog - masz wpływ na zawartość strony na przykład przez dodawanie komentarzy.
 
+{% include newsletter-srodek.md %}
+
 ## Język aplikacji webowej
 
 Aplikacje webowe mogą być napisane w wielu językach. Może to być Ruby, Python, PHP czy Java. Bynajmniej nie jest to kompletna lista :). Języków jest bardzo dużo, jednak mechanizm działania jest zawsze ten sam.

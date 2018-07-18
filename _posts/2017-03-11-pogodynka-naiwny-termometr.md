@@ -27,6 +27,8 @@ Pchnąłem do przodu moduł termometru. Kilka nowych linijek kodu się pojawiło
 
 Przy okazji tego wpisu przybliżę Ci trochę narzędzia, które są niezbędne do realizacji tej części projektu. Zacznę od `crontab'a`.
 
+{% include newsletter-srodek.md %}
+
 ## `crontab`
 
 W systemach operacyjnych są programy, które działają w tle. Programy tego typu nazywa się serwisami lub demonami. Jednym z takich demonów w systemach z rodziny Linux jest cron. Jest to demon, który odpowiada za uruchamianie poleceń zdefiniowanych przez użytkownika z odpowiednią częstotliwością.

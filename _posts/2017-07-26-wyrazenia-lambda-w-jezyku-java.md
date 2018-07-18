@@ -132,6 +132,8 @@ Prawda, że ładniej :)?
 
 Dochodzimy teraz do momentu, w którym muszę Ci powiedzieć o typach w wyrażeniach lambda. Każde wyrażenie lambda jest instancją dowolnego interfejsu funkcyjnego. Jest to bardzo ważne, dlatego też musisz dokładnie wiedzieć czym jest interfejs funkcyjny.
 
+{% include newsletter-srodek.md %}
+
 ## Interfejs funkcyjny
 
 Interfejs funkcyjny to interfejs, który ma jedną abstrakcyjną metodę[^efektywnie_abstrakcyjna]. Wprowadzono adnotację [`@FunctionalInterface`](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html), którą możesz dodać do interfejsów tego typu.

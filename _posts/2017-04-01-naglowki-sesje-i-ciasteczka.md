@@ -69,6 +69,8 @@ Powyżej opisałem sytuację, w której parametry przesyłane są jako fragment 
 
 Mimo tego, że parametry przesyłane są w inny sposób możesz z nimi pracować używając tego samego zestawu metod.
 
+{% include newsletter-srodek.md %}
+
 ### Adres URL
 
 Obiekt opakowujący żądanie pozwala także na pracę z adresem URL, którego żądanie dotyczy. Zestaw metod pozwala na pobranie informacji na temat adresu żądania:

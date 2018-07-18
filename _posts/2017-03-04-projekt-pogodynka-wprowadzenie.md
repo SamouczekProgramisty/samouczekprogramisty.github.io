@@ -30,6 +30,8 @@ Jak widzisz czujnik jest całkiem drobny.
 
 Całość na początku połączę kabelkami, może jak starczy czasu pobawię sę w lutowanie a może nawet w wytrwawienie swojej płytki. Czas pokaże :)
 
+{% include newsletter-srodek.md %}
+
 ### Software
 
 Kolejnym krokiem będzie napisanie prostego programu, który będzie odpalany na Malince. Nazwijmy go Termometrem. Zadaniem programu będzie pobieranie odczytu czujnika - odczytanie aktualnego poziomu temperatury. Następnie to wskazanie chcę wysłać do aplikacji webowej, która doda dany odczyt do bazy.

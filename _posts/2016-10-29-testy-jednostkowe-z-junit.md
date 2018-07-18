@@ -12,6 +12,9 @@ excerpt: Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego 
 disqus_page_identifier: 478 http://www.samouczekprogramisty.pl/?p=478
 ---
 
+Artykuł ten opisuje podstawy testów jednostkowych z wykorzystaniem biblioteki JUnit 4. Jeśli zapoznasz się już z JUnit 4 zapraszam Cię do artykułu na temat [testów z JUnit 5]({% post_url 2018-04-13-testy-jednostkowe-z-junit5 %}).
+{:.notice--info}
+
 ## Po co testujemy oprogramowanie
 
 Oczywista odpowiedź jest prosta – żeby nie było błędów :). Błędy powodują frustrację użytkowników, a to jest coś czego chcemy uniknąć. Ile razy chciałeś rzucić myszką/klawiaturą/laptopem jak coś nie działało jak powinno? Brzmi znajomo? ;)

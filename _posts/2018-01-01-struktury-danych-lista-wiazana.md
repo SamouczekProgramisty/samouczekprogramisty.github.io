@@ -114,6 +114,8 @@ Przechodząc po wszystkich elementach listy otrzymuję złożoność `Ο(n)`[^le
 
 [^lepiej]: Metodę tę można zaimplementować uzyskując złożoność `Ο(1)`, to będzie Twoim zadaniem na koniec artykułu ;). Uzyskanie takiej złożoności wymaga zmian we wszystkich metodach modyfikujących zawartość listy.
 
+{% include newsletter-srodek.md %}
+
 ### Pobieranie elementu z listy
 
 Wspomniałem wyżej, że lista wiązana jest strukturą, w której kolejność elementów jest istotna. Każdy z elementów ma swój indeks, podobnie jak w tablicy. Przydałaby się w takim razie metoda, która pozwoli pobrać element znajdujący się pod danym indeksem:

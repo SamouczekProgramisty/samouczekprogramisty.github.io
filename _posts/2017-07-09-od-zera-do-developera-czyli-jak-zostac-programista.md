@@ -35,6 +35,8 @@ Rzeczy, które opiszę poniżej dotyczą profilu idealnego kandydata. Jest tego 
 
 Podstawą jest znajomość składni języka Java. Obsługa wyjątków, pętle, instrukcje warunkowe, adnotacje czy “lambdy” - wszystko co związane jest z samym językiem programowania. Wiedzę z tego zakresu możesz zdobyć przerabiając artykuły zebrane w ramach [kursu języka Java]({{ "/kurs-programowania-java/" | absolute_url }}).
 
+{% include newsletter-srodek.md %}
+
 ### Biblioteka standardowa
 
 Bez znajomości biblioteki standardowej nie będziesz mógł efektywnie pracować z kodem źródłowym. Znajomość kolekcji czy wyrażeń regularnych świetnie pasuje do tej kategorii. Dobrym sposobem na ćwiczenie tej umiejętności jest rozwiązywanie zadań. Sporo [zadań z przykładowymi rozwiązaniami]({{ "/strefa-zadaniowa/" | absolute_url }}) znajdziesz na blogu.

@@ -45,6 +45,8 @@ Przedmowa do pierwszego wydania była napisana w 1974 roku. Bez mała pół wiek
 
 Do tej książki mam sentyment :). Opisuje projekt, w którym pracowałem. Tytułowy marsz śmierci, wszyscy wiedzą o nierealnych terminach, wymaganiach itp. a i tak brną dalej.
 
+{% include newsletter-srodek.md %}
+
 ## Architektura i wzorce projektowe
 
 ### [Design Patterns - Gamma, Helm, Johnson, Vlissides](https://www.amazon.com/gp/product/0201633612/ref=as_li_tl?ie=UTF8&tag=samouczek-20&camp=1789&creative=9325&linkCode=as2&creativeASIN=0201633612&linkId=c94e9fffeb43a9083a73ae795b2360d3)

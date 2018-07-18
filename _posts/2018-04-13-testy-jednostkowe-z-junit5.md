@@ -143,6 +143,8 @@ Metody oznaczone adnotacją [`@Test`](https://junit.org/junit5/docs/current/api/
 
 Wewnątrz testów używa się asercji. Asercje dostarczone przez JUnit zgrupowane są wewnątrz klasy [`Assertions`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html). W przykładach powyżej użyłem asercji [`assertEquals`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertEquals-java.lang.Object-java.lang.Object-).
 
+{% include newsletter-srodek.md %}
+
 ## Możliwości JUnit 5
 
 ### Cykl życia testów

@@ -30,6 +30,8 @@ Artykuł ten bazuje na specyfikacji serwletów w wersji 3.1, która jest częśc
 
 ## Wprowadzenie do protokołu HTTP
 
+Napisałem osobny artykuł na temat [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}). Tutaj przedstawię jedynie niezbędne podstawy.
+
 Aby zacząć poważnie myśleć o tworzeniu aplikacji webowych niezbędna jest wiedza dotycząca protokołu HTTP (ang. Hypertext Transfer Protocol). Poniżej znajdziesz kilka podstawowych informacji, które będą Ci potrzebne w pracy z aplikacją webową.
 - Protokół HTTP jest oparty na komunikacji pomiędzy klientem a serwerem. Klientem może być na przykład przeglądarka internetowa. Serwer to aplikacja, która odpowiada na żądania klienta.
 - Komunikacja pomiędzy klientem a serwerem oparta jest na żądaniach (ang. _request_) i odpowiedziach (ang. _response_). Klient wysyła żądanie, na które serwer udziela odpowiedzi.
@@ -51,6 +53,8 @@ W ogromnej większości przypadków część z użytkownikiem i hasłem jest pom
     http://www.samouczekprogramisty.pl:80/kurs-programowania-java?parametr=wartosc&innyParametr=wartosc
 
 Mamy tutaj informację o protokole (http), serwerze (www.samouczekprogramisty.pl), ścieżce (/kurs-programowania-java) i parametrach (parametr=wartosc&innyParametr=wartosc).
+
+{% include newsletter-srodek.md %}
 
 ## Czym jest serwlet
 

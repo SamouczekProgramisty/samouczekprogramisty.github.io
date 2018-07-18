@@ -102,6 +102,8 @@ Notacja Ο jest oszacowaniem z góry. Zatem można powiedzieć, że jeśli algor
 Z racji tego, że jest to oszacowanie pomijamy w nim wszelkiego rodzaju stałe. Zatem `Ο(2n + 123)`, `Ο(2n)` i `Ο(n)` to ta sama złożoność obliczeniowa. Stałe te i tak nie mają znaczenia przy odpowiednio dużych wartościach `n`.
 {: .notice--info}
 
+{% include newsletter-srodek.md %}
+
 ### Notacja Ω (omega)
 
 Notacja ta różni się od poprzedniej własnością, którą spełnia nowa funkcja:

@@ -156,6 +156,8 @@ Nic odkrywczego. Cierpliwość i wytrwałość. Jeśli masz ten komfort, który 
 
 Nie wyobrażam sobie robić nic innego.
 
+{% include newsletter-srodek.md %}
+
 ## Szymon
 
 Szymon ma 28 lat. Z wykształcenia jest matematykiem, jednak postanowił spróbować swoich sił jako programista. Pracuje jako programista od trzech lat. Zrezygnował ze swojej pierwszej pracy jako programista na rzecz bardziej rozwojowego stażu.

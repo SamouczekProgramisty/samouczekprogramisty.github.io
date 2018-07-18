@@ -31,8 +31,7 @@ Instancje klasy `String` są niemutowalne. Oznacza to tyle, że po stworzeniu in
 - [`toUpperCase`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--) - zamienia łańcuch znaków na wielkie litery,
 - [`trim`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#trim--) - zwraca nową instancję bez początkowych i końcowych białych znaków.
 
-
-## Co jeśli String nie ma metody, której potrzebuję?
+## Co jeśli `String` nie ma metody, której potrzebuję?
 
 Chociaż klasa `String` zawiera spory zestaw metod, nie jest to lista kompletna. Jeśli trafisz na taki przypadek nie próbuj wynaleźć koła na nowo. Lepiej rzuć okiem na istniejące biblioteki. Na przykład na [commons-lang](https://commons.apache.org/proper/commons-lang/) . Biblioteka ta zawiera klasę [`StringUtils`](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html), w której znajdziesz masę przydatnych metod operujących na łańcuchach znaków.
 ## Konkatenacja łańcuchów znaków
@@ -67,6 +66,8 @@ W pierwszym przypadku do liczby 1 dodajemy liczbę 2, następnie "dodajemy" do n
 Klasa `String` posiada także metodę `concat`, która działa w podobny sposób do operatora `+`[^operator].
 
 [^operator]: Istnieją oczywiście drobne różnice, na przykład zachowanie w odniesieniu do zmiennych o wartości `null`.
+
+{% include newsletter-srodek.md %}
 
 ## Wydajność a konkatenacja
 

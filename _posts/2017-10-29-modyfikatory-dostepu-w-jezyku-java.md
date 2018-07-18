@@ -136,6 +136,8 @@ public class PenOwner {
 
 W tym przypadku `PenOwner` ma dostęp do pola `color` ponieważ obie klasy znajdują się w tym samym pakiecie `pl.samouczekprogramisty.kursjava.accessmodifiers.protected_keyword`.
 
+{% include newsletter-srodek.md %}
+
 ### Brak modyfikatora dostępu
 
 Brak modyfikatora dostępu również ma znaczenie. W przypadku gdy pominiemy modyfikator dostępu wówczas dana klasa czy element jest dostępna wyłącznie wewnątrz tego samego pakietu. Jest to podzbiór uprawnień, które nadaje modyfikator `protected`. Proszę spójrz na przykład poniżej:

@@ -92,6 +92,8 @@ public class AnnotationConfiguredServlet extends HttpServlet
 
 W przypadku adnotacji sprawa jest prostsza. Tutaj nie muszę podawać dokładnej nazwy klasy wraz z pakietem. Adnotacja znajduje się właśnie w nad tą klasą.
 
+{% include newsletter-srodek.md %}
+
 ### Konfiguracja filtra
 
 Aby skonfigurować podstawowy filtr należy nadać mu nazwę i podpiąć go pod serwlet czy adres URL. Poniżej możesz porównać oba sposoby konfiguracji.

@@ -139,6 +139,8 @@ public class Address {
 
 W przykładzie powyżej użyłem własnej adnotacji `@ZipCodeCityCoherent`. Adnotacja ta pozwala na sprawdzenie czy kod pocztowy i miasto są spójne. O tym jak tworzyć swoje własne adnotacje do walidacji przeczytasz w dalszej części artykułu.
 
+{% include newsletter-srodek.md %}
+
 ### Dlaczego używa się walidacji
 
 Odpowiedź jest prosta ;). Walidacji używa się, aby mieć pewność, że dany obiekt wypełniony jest poprawnymi danymi. Takie podejście pozwala na stosowanie praktyki "Psuj się szybko, psuj się często" (ang. [_Fail fast, fail often_](https://en.wikipedia.org/wiki/Fail-fast)). Można powiedzieć, że programy napisane przy takim założeniu szybko raportują błędy. Dzięki temu łatwiej jest znaleźć potencjalny błąd - informacja o błędzie pochodzi z miejsca jego wystąpienia, a nie z odległego miejsca w systemie.

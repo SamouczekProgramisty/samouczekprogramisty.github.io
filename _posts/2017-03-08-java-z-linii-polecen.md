@@ -87,6 +87,8 @@ A oto jak wygląda katalog, w którym aktualnie znajduje się kod źródłowy ra
     
     0 directories, 2 files
 
+{% include newsletter-srodek.md %}
+
 ## `java` - uruchom swoją klasę
 
 Skoro mamy już kod, mamy też skompilowaną klasę przydałoby się ją jakoś uruchomić :). Z pomocą przychodzi kolejny bardzo ważny program - `java`. Program ten uruchamia wirtualną maszynę Javy. Wpisując w konsoli `java -help` ponownie pokażą się dostępne opcje (skróciłem je także tutaj):
