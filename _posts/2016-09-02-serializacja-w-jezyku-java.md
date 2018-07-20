@@ -189,51 +189,49 @@ Metoda `readObject(java.io.ObjectInputStream stream)`, którą zaimplementujesz 
 
 Mechanizm ten wygląda podobnie w przypadku zapisu obiektu. Metoda `writeObject(java.io.ObjectOutputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momencie zapisywania obiektu do strumienia, czyli w trakcie wywołania metody [`ObjectOutputStream.writeObject()`](https://docs.oracle.com/javase/9/docs/api/java/io/ObjectOutputStream.html#writeObject-java.lang.Object-).
 
-Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu
+Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu:
 
 ```java
 public class CustomSerialization implements Serializable {
     private static final long serialVersionUID = 1L;
- 
+
     private transient int someField;
     private String otherField;
- 
+
     public CustomSerialization(int someField, String otherField) {
         this.someField = someField;
         this.otherField = otherField;
     }
- 
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         CustomSerialization writtenObject = new CustomSerialization(10, "something");
- 
+
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("custom-serialization.bin"))) {
             outputStream.writeObject(writtenObject);
         }
- 
+
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("custom-serialization.bin"   ))) {
             CustomSerialization readObject = (CustomSerialization) inputStream.readObject();
             System.out.println(readObject.someField);
             System.out.println(readObject.otherField);
         }
     }
- 
+
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
         someField = stream.readInt();
-        otherField = stream.readUTF();
     }
- 
+
     private void writeObject(ObjectOutputStream stream) throws IOException {
-        stream.writeInt(someField);
-        stream.writeUTF(otherField + " SERIALIZED!");
+        stream.defaultWriteObject();
+        stream.writeInt(someField + 1000);
     }
 }
 ```
 
-Jak widzisz obie metody są tu zaimplementowane. `writeObject` jako argument dostaje strumień, do którego powinniśmy zapisać nasz obiekt. W przykładzie zapisuję zarówno wartość pola z modyfikatorem `transient` jak i delikatnie zmienioną wartość atrybutu `otherField`.
+Jak widzisz obie metody są tu zaimplementowane. `writeObject` jako argument dostaje strumień, do którego powinniśmy zapisać nasz obiekt. Metoda `readObject` jako jedyny argument przyjmuje strumień, z którego powinniśmy odczytać stan obiektu.
 
-Metoda `readObject` jako jedyny argument przyjmuje strumień, z którego powinniśmy odczytać stan obiektu. Podobnie jak w przypadku samej serializacji, pola odczytujemy w tej samej kolejności w której je wcześniej zapisywaliśmy.
-
-Warto tutaj zwrócić uwagę na to, że klasa `ObjectInputStream` posiada metodę [`defaultReadObject`](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html#defaultReadObject—), która przeprowadza standardową deserializację, którą możesz rozszerzyć. Podobnie wygląda to w przypadku klasy `ObjectOutputStream` i metody [`defaultWriteObject`](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html#defaultWriteObject--). Metody te mogą być wywołane wyłącznie w trakcie (de)serializacji obiektu.
+Warto tutaj zwrócić uwagę na to, że klasa `ObjectInputStream` posiada metodę [`defaultReadObject`](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html#defaultReadObject—), która przeprowadza standardową deserializację, którą możesz rozszerzyć. Podobnie wygląda to w przypadku klasy `ObjectOutputStream` i metody [`defaultWriteObject`](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html#defaultWriteObject--). Metody te mogą być wywołane wyłącznie w trakcie (de)serializacji obiektu. Zajmują się one (de)serializacją atrybutów klasy, które nie są oznaczone jako `static` lub `transient`.
 
 ## Serializacja a dziedziczenie
 
