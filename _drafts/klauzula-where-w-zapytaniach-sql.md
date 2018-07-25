@@ -17,13 +17,15 @@ excerpt: W tym artykule przeczytasz o możliwościach klauzuli `WHERE`. Na prakt
 
 W artykule opisującym podstawy zapytania `SELECT` wspomniałem o klauzyli `WHERE`. Po przeczytaniu tamtego artykułu wiesz, że klauzula `WHERE` służy do filtrowania danych zwróconych przez zapytania typu `SELECT`.
 
-Klauzula `WHERE` używana jest także w zapytaniach typu `UPDATE`, `INSERT` i `DELETE`. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu `DELETE` ogranicza zbiór wierszy, który powinien zotać usunięty. W zapytaniach typu `INSERT` używany jest z podzapytaniami (o podzapytaniach przeczytasz w jednym z kolejnych artykułów). Informacje, które przeczytasz w tym artykule można odnieść do wszystkich czterech rodzai zapytań.
+Klauzula `WHERE` używana jest także w zapytaniach typu `UPDATE`, `INSERT` i `DELETE`. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu `DELETE` ogranicza zbiór wierszy, który powinien zotać usunięty. W zapytaniach typu `INSERT` używany jest z podzapytaniami (o podzapytaniach przeczytasz w jednym z kolejnych artykułów).
+
+Informacje, które przeczytasz w tym artykule można odnieść do wszystkich czterech rodzai zapytań.
 
 ## Literały w SQL
 
 Zanim przejdę do omawiania warunków musisz poznać literały. Używalem ich już w [poprzednim artykule]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}) bez dodatkowego wyjaśnienia. Tutaj poświęcę im osobny paragraf.
 
-Najprostszym rodzajem literałów są liczby, zapisuje się je podobnie jak w językach programowania: `42`, `12.34`. Liczby mogą być zapisane także w [notacji naukowej]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}#notacja-naukowa-a-liczby-wymierne)[^zalezyodbazy] `1.34E-5` lub [szesnastkowo]({% post_url 2016-02-11-system-dwojkowy %}) `0xBACA`.
+Najprostszym rodzajem literałów są liczby, zapisuje się je podobnie jak w językach programowania: `42`, `12.34`. Liczby mogą być zapisane także w [notacji naukowej]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}#notacja-naukowa-a-liczby-wymierne) `1.34E-5` lub [szesnastkowo]({% post_url 2016-02-11-system-dwojkowy %}) `0xBACA`[^zalezyodbazy].
 
 Często będziesz także używać łańcuchów znaków. Łańcuch znaków powinien być ototoczony apostrofami, na przykład `'Samouczek Programisty'`.
 
@@ -54,7 +56,7 @@ Nawiasy w przykładzie poniżej zmieniają kolejność wykonywania operacji, wi�
 
 ### Negacja warunków
 
-Poza operatorami łączenia, które już znasz istnieje także operacja negacji warunku. Służy do tego słowo kluczowe `NOT`. To słowo kluczowe ma wyższy priorytet niż `OR` czy `AND`. Także i w tym przypadku możesz użyć nawiasów aby zmienić kolejność wykonywanych operacji. Poniższy przykład pokazuje przypadek, w którym nawiasy nie mają wpływu na kolejność wykonywanych porównań:
+Poza operatorami łączenia, które już znasz, istnieje także operator negacji warunku. Służy do tego słowo kluczowe `NOT`. To słowo kluczowe ma wyższy priorytet niż `OR` czy `AND`. Także i w tym przypadku możesz użyć nawiasów aby zmienić kolejność wykonywanych operacji. Poniższy przykład pokazuje przypadek, w którym nawiasy nie mają wpływu na kolejność wykonywanych porównań:
 
     (NOT x) OR y
     NOT x OR y
@@ -84,7 +86,7 @@ SELECT invoiceid
    AND total < 15;
 ```
 
-W odróżnieniu od języków programowania operator porównania ma postać pojedynczego znaku równości `=`. Następne zapytanie zwróci jedynie te wiersze, dla których kolumna `total` ma wartość `21.68`:
+Następne zapytanie zwróci jedynie te wiersze, dla których kolumna `total` ma wartość `21.68`:
 
 ```sql
 SELECT invoiceid
@@ -93,6 +95,8 @@ SELECT invoiceid
   FROM invoice
  WHERE total = 21.86;
 ```
+
+Operatory `=` i `!=` mają dwie postacie. W tym samym celu możesz także użyć odpowiednio `==` i `<>`.
 
 #### Porównywanie łańcuchów znaków
 
@@ -107,7 +111,7 @@ SELECT *
 
 #### Porównywanie dat
 
-SQLlite nie ma specjalnego typu do przechowywania dat. Do tego celu używane mogą być łańcuchy znaków lub liczby. W związku z tym porównywanie dat sprowadza się do porównywania tych typów danych. Na przykład zapytanie poniżej zwróci wszystkie wiersze, które zawierają faktury wystawione w Polsce po 26 maja 2012 roku.
+SQLlite nie ma specjalnego typu do przechowywania dat. Do tego celu używane mogą być łańcuchy znaków lub liczby. W związku z tym porównywanie dat sprowadza się do porównywania tych typów danych. Na przykład zapytanie poniżej zwróci wszystkie wiersze, które zawierają faktury wystawione w Polsce od 26 maja 2012 roku.
 
 ```sql
 SELECT *
@@ -116,11 +120,11 @@ SELECT *
    AND invoicedate > '2012-05-26';
 ```
 
-Przy porównaniach tego typu musisz uważać. Powyższe zapytanie zwróci wiersz, który zawiera datę `2012-05-26 00:00:00`. Jeśli zmieniłbym warunek na `invoicedate > '2012-05-26 00:00:00' wówczas ten wiersz zostanie pominięty.
+Przy porównaniach tego typu musisz uważać. Powyższe zapytanie zwróci wiersz, który zawiera datę `2012-05-26 00:00:00`. Jeśli zmieniłbym warunek na `invoicedate > '2012-05-26 00:00:00'` wówczas ten wiersz zostałby pominięty.
 
 ### BETWEEN
 
-Do określienia zakresu, w którym powinna znaleźć się wartość kolumny możesz użyć `BETWEEN`. Zapytanie poniżej zwróci wszystkie wiersze, dla których wartość kolumny `total` jest większa bądź równa 10 i mniejsza bądź równa 20:
+Do określienia zakresu, w którym powinna znaleźć się wartość kolumny możesz użyć `BETWEEN`. Zapytanie poniżej zwróci wszystkie wiersze, dla których wartość kolumny `total` jest większa bądź równa `10.91` i mniejsza bądź równa `11.96`:
 
 ```sql
 SELECT *
@@ -174,7 +178,7 @@ Literał po `ESCAPE` może zawierać pojedynczy znak. Symbol ten jest użyty do 
 
 ### IS NULL
 
-Niektóre wiersze mogą mieć puste kolumny. Puste, czyli takie, które nie są uzupełnione żadną wartością. W takim przypadku mówi się, że kolumna ma wartość `NULL`. Aby filtrować wiersze na podstawie tej wartości należy użyć wyrażenia `IS NULL`. Na przykład zapytanie poniżej pokazuje tylko te kraje, dla których wartosć kolumny 'billingstate' ma wartość `NULL`:
+Niektóre wiersze mogą mieć puste kolumny. Puste, czyli takie, które nie są uzupełnione żadną wartością. W takim przypadku mówi się, że kolumna ma wartość `NULL`. Aby filtrować wiersze na podstawie tej wartości należy użyć wyrażenia `IS NULL`. Na przykład zapytanie poniżej pokazuje tylko te kraje, dla których wartosć kolumny `billingstate` ma wartość `NULL`:
 
 ```sql
 SELECT *
@@ -199,31 +203,49 @@ SELECT *
 
 Użycie `IN` jest tożsame odpowiedniej liczbie warunków połączonych `OR`. 
 
-## Czym jest SQL Injection
+## Czym jest wstrzykiwanie SQL (ang. _SQL Injection_)
 
-SQL Injection jest jednym z podstawowych ataków na aplikacje używające baz danych. Polega on na odpowiednim spreparowaniu danych wejściowych użytkownika.
+Wstrzykiwanie SQL jest jednym z podstawowych ataków na aplikacje używające baz danych. Polega on na odpowiednim spreparowaniu danych wejściowych. W takim przypadku poza zapytaniem, które przygotuje programista wykonywane może być także to wprowadzone przez użytkownika.
 
-W takim przypadku poza zapytaniem, które przygotuje programista wykonywane może być także to wprowadzone przez użytkownika.
-
-Proszę spójrz na przykład. W ten sposób na pewno będzie Ci łatwiej zrozumieć ten typ ataku.
+Proszę spójrz na przykład w języku Java. W ten sposób na pewno będzie Ci łatwiej zrozumieć ten typ ataku.
 
 Załóżmy, że w aplikacji próbujesz zaimplementować moduł logowania[^nierobtego]. Użytkownik w formularzu wprowadza swój email i hasło.
 
-[^nierobtego]: Do tej pory nie spotkałem się jeszcze z sytuacją, mechanizm logowania musiałbym pisać od podstaw samemu. Nie rób tego samodzielnie, użyj gotowego, sprawdzonego rozwiązania. ↩
+[^nierobtego]: Do tej pory nie spotkałem się jeszcze z sytuacją, mechanizm logowania musiałbym pisać od podstaw samemu. Nie rób tego samodzielnie, użyj gotowego, sprawdzonego rozwiązania.
 
-Aby upewni
+Aby upewnić się, że podane dane są prawidłowe pobierane są wiersze, które pasują do przekazanych danych logowania. Programista napisał szablon zapytania, który następnie uzupełniany jest danymi od użytkownika:
 
-programista napisał takie zapytanie:
+```java
+String emailProvidedByUser = "...";
+String passwordProvidedByUser = "...";
+String queryTemplate = "SELECT password_hash FROM users WHERE email = '%s';"
+String query = String.format(queryTemplate, emailProvidedByUser);
 
-```sql
-SELECT password_hash
-  FROM users
- WHERE email = '%s';
+String paswordHashInDatabase = executeQuery(query);
+boolean loginSuccessfull = magicHash(passwordProvidedByUser).equals(paswordHashInDatabase);
 ```
 
-Następinie w programie pobiera dane wprowadzone w formularzu
+Jeśli użytkownik wprowadzi email `zenek@parapet.pl` i hasło `tajnehaslo` to logowanie przebiegnie pomyślnie :). Problem zacznie się jeśli użytkownik zacznie być złośliwy. Co stanie się jeśli użytkownik wprowadzi email `'; DELETE FROM users WHERE 1 = 1 OR email = '` i dowolne hasło?
 
-1=1 i SQL injection
+Do bazy zostanie wysłane następujące zapytanie:
+
+```java
+SELECT password_hash
+  FROM users
+ WHERE email = '';
+ 
+DELETE FROM users
+ WHERE 1 = 1
+    OR email = '';
+```
+
+Właściwie są to dwa zapytania. Bardziej istotne jest drugie z nich. Po jego wykonaniu z tabeli `users` zostaną usunięte wszystkie wiersze. To raczej nie jest efekt, którego spodziewał się programista ;). 
+
+### Zapobieganie _SQL Injection_
+
+Ręczne budowanie zapytań SQL poprzez łączenie łańcuchów znaków przeważnie nie jest dobrym rozwiązaniem. Używaj do tego celu dedykowanych bibliotek. W Języku Java może to być na przykład Hibernate. W Pythonie SQLalchemy też świetnie daje sobie z tym radę. Jestem pewien, że w innych językach programowania istnieją podobne rozwiązania. Biblioteki te domyślnie odpowiednio traktują dane, które służą do wypełniania szablonów zapytań.
+
+Jeśli chcesz budować zapytania "ręcznie". Pamiętaj o odpowiednim traktowaniu danych pochodzących od użytkownika. Takim danym nigdy nie można ufać. Musisz założyć, że każdy użytkownik jest złośliwy i będzie chciał zepsuć Twoją aplikację. W najprostrzym scenariuszu użycie `''` w miejscu każdego znaku `'` w danych pochodzących od użytkownika powinno pomóc.
 
 ## Zadania do wykonania
 
