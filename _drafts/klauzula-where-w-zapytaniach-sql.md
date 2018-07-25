@@ -8,14 +8,14 @@ header:
     teaser: /assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg
     overlay_image: /assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg
     caption: "[&copy; SplitShire](https://www.pexels.com/photo/binocular-country-lane-filter-focus-1421/)"
-excerpt: W tym artykule przeczytasz o możliwościach klauzuli `WHERE`. Na praktycznych przykładach pokażę Ci jak filtrować dane w zapytaniach SQL. Także na przykładzie pokażę Ci czym jest atak SQL injection i jak można się przed nim bronić. Dowiesz się także czegoś więcej o znakach specjalnych w SQL. Na końcu jak zwykle czekają na Ciebie zadania do samodzielnego rozwiązania.
+excerpt: W tym artykule przeczytasz o możliwościach klauzuli `WHERE`. Na praktycznych przykładach pokażę Ci jak filtrować dane w zapytaniach SQL. Także na przykładzie pokażę Ci czym jest atak _SQL injection_ i jak można się przed nim bronić. Dowiesz się także czegoś więcej o znakach specjalnych w SQL. Na końcu jak zwykle czekają na Ciebie zadania do samodzielnego rozwiązania.
 ---
 
 {% include kurs-sql-notice.md %}
 
 ## Klauzula `WHERE`
 
-W artykule opisującym podstawy zapytania `SELECT` wspomniałem o klauzyli `WHERE`. Po przeczytaniu tamtego artykułu wiesz, że klauzula `WHERE` służy do filtrowania danych zwróconych przez zapytania typu `SELECT`.
+W artykule opisującym [podstawy zapytania `SELECT`]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}) wspomniałem o klauzyli `WHERE`. Po przeczytaniu tamtego artykułu wiesz, że klauzula `WHERE` służy do filtrowania danych zwróconych przez zapytania typu `SELECT`.
 
 Klauzula `WHERE` używana jest także w zapytaniach typu `UPDATE`, `INSERT` i `DELETE`. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu `DELETE` ogranicza zbiór wierszy, który powinien zotać usunięty. W zapytaniach typu `INSERT` używany jest z podzapytaniami (o podzapytaniach przeczytasz w jednym z kolejnych artykułów).
 
@@ -31,9 +31,11 @@ Często będziesz także używać łańcuchów znaków. Łańcuch znaków powini
 
 [^zalezyodbazy]: To zależy od silnika bazy danych. SQLite wspiera literały tego typu.
 
+Innym przykładem literału jest `NULL`, który określa pustą wartość.
+
 ### Znaki specjalne w SQL
 
-W SQL występują znaki specjalne. Najczęściej spotykanym jest `'`. Jeśli chcesz aby Twoje zapytanie dotyczyło wierszy, które zawierają `'` musisz poprzedzić go drugim znakiem `'`. Spójrz na przykład poniżej, posługuję się w nim konstrukcją `LIKE`, którą opisuję w jednym z kolejnych akapitów. Zapytanie zwraca wszystkie wiersze, w których kolumna `title` zawiera znak `'`:
+W SQL występują znaki specjalne. Do tej pory wprowadziłem `'`. Jeśli chcesz aby Twoje zapytanie dotyczyło wierszy, które zawierają `'` musisz poprzedzić go drugim znakiem `'`. Spójrz na przykład poniżej, posługuję się w nim konstrukcją `LIKE`, którą opisuję w jednym z kolejnych akapitów. Zapytanie zwraca wszystkie wiersze, w których kolumna `title` zawiera znak `'`:
 
 ```sql
 SELECT *
@@ -45,7 +47,7 @@ SELECT *
 
 ### Łączenie warunków
 
-Każdy z warunków, który opopiszę można ze sobą łączyć używając operatorów `AND` lub `OR`. `AND` ma pierwszeństwo przed `OR`. Można także użyć nawiasów `()`, aby określić pierwszeństwo wykonania warunków. Używanie nawiasów nie jest obowiązkowe. Jednak moim zdaniem często warto ich używać. Dzięki nim bardziej skomplikowane zapytania mogą być bardziej czytelne. Nawiasy w przykładzie poniżej są zbędne, nie mają wpływu na kolejność wykonywania operacji:
+Każdy z warunków, który opopiszę można ze sobą łączyć używając operatorów `AND` lub `OR`. `AND` ma pierwszeństwo przed `OR`. Można także użyć nawiasów `()`, aby określić pierwszeństwo wykonania warunków. Używanie nawiasów nie zawsze jest obowiązkowe. Jednak moim zdaniem często warto ich używać. Dzięki nim bardziej skomplikowane zapytania mogą być bardziej czytelne. Nawiasy w przykładzie poniżej są zbędne, nie mają wpływu na kolejność wykonywania operacji:
 
     x OR y AND z
     x OR (y AND z)
@@ -56,7 +58,7 @@ Nawiasy w przykładzie poniżej zmieniają kolejność wykonywania operacji, wi�
 
 ### Negacja warunków
 
-Poza operatorami łączenia, które już znasz, istnieje także operator negacji warunku. Służy do tego słowo kluczowe `NOT`. To słowo kluczowe ma wyższy priorytet niż `OR` czy `AND`. Także i w tym przypadku możesz użyć nawiasów aby zmienić kolejność wykonywanych operacji. Poniższy przykład pokazuje przypadek, w którym nawiasy nie mają wpływu na kolejność wykonywanych porównań:
+Poza operatorami łączenia, które już znasz, istnieje także operator negacji warunku. Służy do tego operator `NOT`. Ten operator ma wyższy priorytet niż `OR` czy `AND`. Także i w tym przypadku możesz użyć nawiasów aby zmienić kolejność wykonywanych operacji. Poniższy przykład pokazuje przypadek, w którym nawiasy nie mają wpływu na kolejność wykonywanych porównań:
 
     (NOT x) OR y
     NOT x OR y
@@ -174,7 +176,7 @@ SELECT *
  WHERE name LIKE '%e%%' ESCAPE 'e';
 ```
 
-Literał po `ESCAPE` może zawierać pojedynczy znak. Symbol ten jest użyty do poprzedzenia symbolu, który powinien być traktowany dosłownie. W przykładzie powyżej użyłem `e`.
+Literał po `ESCAPE` może zawierać pojedynczy znak. Symbol ten jest użyty do poprzedzenia symbolu, który powinien być traktowany dosłownie. W przykładzie powyżej użyłem `'e'`.
 
 ### IS NULL
 
@@ -192,7 +194,7 @@ Podobnie jak w przypadku `LIKE` także tutaj możesz użyć słowa kluczowego `N
 
 ### IN
 
-Jeśli chcesz zwrócić wiersze, dla których kolumna przyjmuje jedną z określonych wartości możesz użyć `IN`. Zapytanie poniżej zwróci wszystkie wiersze z tabeli `invoice`, dla których `billingcountry` ma wartość `USA` i `billingstate` jedną z wartości `CA` lub `TX`:
+Jeśli chcesz zwrócić wiersze, dla których kolumna przyjmuje jedną z określonych wartości możesz użyć `IN`. Zapytanie poniżej zwróci wszystkie wiersze z tabeli `invoice`, dla których `billingcountry` ma wartość `'USA'` i `billingstate` jedną z wartości `'CA'` lub `'TX'`:
 
 ```sql
 SELECT *
@@ -211,7 +213,7 @@ Proszę spójrz na przykład w języku Java. W ten sposób na pewno będzie Ci �
 
 Załóżmy, że w aplikacji próbujesz zaimplementować moduł logowania[^nierobtego]. Użytkownik w formularzu wprowadza swój email i hasło.
 
-[^nierobtego]: Do tej pory nie spotkałem się jeszcze z sytuacją, mechanizm logowania musiałbym pisać od podstaw samemu. Nie rób tego samodzielnie, użyj gotowego, sprawdzonego rozwiązania.
+[^nierobtego]: Do tej pory nie spotkałem się jeszcze z sytuacją, w której mechanizm logowania musiałbym pisać od podstaw samemu. Nie rób tego samodzielnie, użyj gotowego, sprawdzonego rozwiązania.
 
 Aby upewnić się, że podane dane są prawidłowe pobierane są wiersze, które pasują do przekazanych danych logowania. Programista napisał szablon zapytania, który następnie uzupełniany jest danymi od użytkownika:
 
@@ -229,7 +231,7 @@ Jeśli użytkownik wprowadzi email `zenek@parapet.pl` i hasło `tajnehaslo` to l
 
 Do bazy zostanie wysłane następujące zapytanie:
 
-```java
+```sql
 SELECT password_hash
   FROM users
  WHERE email = '';
@@ -257,8 +259,8 @@ Napisz zapytanie, które:
 
 ## Podsumowanie
 
-Warunki masz już za sobą. Po rozwiązaniu zadań potrafisz sprawnie posługiwać się różnymi warunkami w języku SQL. Wiesz jak wygląda atak SQL injection i jak można się przed nim bronić. Jeśli znasz kogoś komu ten artykuł może się przydać proszę przekaż odnośnik do tego artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników, z góry dziękuję :).
+Warunki masz już za sobą. Po rozwiązaniu zadań potrafisz sprawnie posługiwać się różnymi warunkami w języku SQL. Wiesz jak wygląda atak _SQL injection_ i jak można się przed nim bronić. Jeśli znasz kogoś komu ta wiedza może się przydać proszę przekaż odnośnik do tego artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników a na tym właśnie mi zależy. Z góry dziękuję :).
 
-Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polób Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera.
+Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polub Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera.
 
 Trzymaj się i do następnego razu!
