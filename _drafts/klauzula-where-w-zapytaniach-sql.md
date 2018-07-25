@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg
     overlay_image: /assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg
     caption: "[&copy; SplitShire](https://www.pexels.com/photo/binocular-country-lane-filter-focus-1421/)"
-excerpt: W tym artykule przeczytasz o możliwościach klauzuli `WHERE`. Na praktycznych przykładach pokażę Ci jak filtrować dane w zapytaniach SQL. Także na przykładzie pokażę Ci czym jest atak SQL injection i jak można się przed nim bronić. Na końcu jak zwykle czekają na Ciebie zadania do samodzielnego rozwiązania.
+excerpt: W tym artykule przeczytasz o możliwościach klauzuli `WHERE`. Na praktycznych przykładach pokażę Ci jak filtrować dane w zapytaniach SQL. Także na przykładzie pokażę Ci czym jest atak SQL injection i jak można się przed nim bronić. Dowiesz się także czegoś więcej o znakach specjalnych w SQL. Na końcu jak zwykle czekają na Ciebie zadania do samodzielnego rozwiązania.
 ---
 
 {% include kurs-sql-notice.md %}
@@ -17,31 +17,60 @@ excerpt: W tym artykule przeczytasz o możliwościach klauzuli `WHERE`. Na prakt
 
 W artykule opisującym podstawy zapytania `SELECT` wspomniałem o klauzyli `WHERE`. Po przeczytaniu tamtego artykułu wiesz, że klauzula `WHERE` służy do filtrowania danych zwróconych przez zapytania typu `SELECT`.
 
-Klauzula `WHERE` używana jest także w zapytaniach typu `UPDATE` i `DELETE`. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu `DELETE` ogranicza zbiór wierszy, który powinien zotać usunięty. Informacje, które przeczytasz w tym artykule można odnieść do wszystkich trzech rodzai zapytań.
+Klauzula `WHERE` używana jest także w zapytaniach typu `UPDATE`, `INSERT` i `DELETE`. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu `DELETE` ogranicza zbiór wierszy, który powinien zotać usunięty. W zapytaniach typu `INSERT` używany jest z podzapytaniami (o podzapytaniach przeczytasz w jednym z kolejnych artykułów). Informacje, które przeczytasz w tym artykule można odnieść do wszystkich czterech rodzai zapytań.
 
 ## Literały w SQL
 
-Zanim przejdę do omawiania warunków musisz poznać literały. Używalem ich już w [poprzednim artykule]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}), jednak tutaj poświęcę im osobny paragraf.
+Zanim przejdę do omawiania warunków musisz poznać literały. Używalem ich już w [poprzednim artykule]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}) bez dodatkowego wyjaśnienia. Tutaj poświęcę im osobny paragraf.
 
+Najprostszym rodzajem literałów są liczby, zapisuje się je podobnie jak w językach programowania: `42`, `12.34`. Liczby mogą być zapisane także w [notacji naukowej]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}#notacja-naukowa-a-liczby-wymierne)[^zalezyodbazy] `1.34E-5` lub [szesnastkowo]({% post_url 2016-02-11-system-dwojkowy %}) `0xBACA`.
+
+Często będziesz także używać łańcuchów znaków. Łańcuch znaków powinien być ototoczony apostrofami, na przykład `'Samouczek Programisty'`.
+
+[^zalezyodbazy]: To zależy od silnika bazy danych. SQLite wspiera literały tego typu.
+
+### Znaki specjalne w SQL
+
+W SQL występują znaki specjalne. Najczęściej spotykanym jest `'`. Jeśli chcesz aby Twoje zapytanie dotyczyło wierszy, które zawierają `'` musisz poprzedzić go drugim znakiem `'`. Spójrz na przykład poniżej, posługuję się w nim konstrukcją `LIKE`, którą opisuję w jednym z kolejnych akapitów. Zapytanie zwraca wszystkie wiersze, w których kolumna `title` zawiera znak `'`:
+
+```sql
+SELECT *
+  FROM album
+ WHERE title LIKE '%''%';
+```
 
 ## Warunki
 
-Każdy z warunków, który opopiszę można ze sobą łączyć używając operatorów `AND` lub `OR`. `AND` ma pierwszeństwo przed `OR`. Można także użyć nawiasów `()`, aby określić pierwszeństwo wykonania warunków. Używanie nawiasów nie jest obowiązkowe. Jednak moim zdaniem często warto ich używać. Dzięki nim bardziej skomplikowane zapytania mogą być bardziej czytelne. Na przykład nawiasy w przykładzie poniżej są zbędne, nie mają wpływu na kolejność wykonywania operacji:
-   
+### Łączenie warunków
+
+Każdy z warunków, który opopiszę można ze sobą łączyć używając operatorów `AND` lub `OR`. `AND` ma pierwszeństwo przed `OR`. Można także użyć nawiasów `()`, aby określić pierwszeństwo wykonania warunków. Używanie nawiasów nie jest obowiązkowe. Jednak moim zdaniem często warto ich używać. Dzięki nim bardziej skomplikowane zapytania mogą być bardziej czytelne. Nawiasy w przykładzie poniżej są zbędne, nie mają wpływu na kolejność wykonywania operacji:
+
     x OR y AND z
     x OR (y AND z)
 
-Nawiasy w przykładzie poniżej zmieniają kolejność wykonywania operacji więc nie można ich pominąć bez zmiany znaczenia zapytania:
+Nawiasy w przykładzie poniżej zmieniają kolejność wykonywania operacji, więc nie można ich pominąć bez zmiany znaczenia zapytania:
 
     (x OR y) AND z
 
-### `<`, `<=`, `=`, `>`, `>=`
+### Negacja warunków
+
+Poza operatorami łączenia, które już znasz istnieje także operacja negacji warunku. Służy do tego słowo kluczowe `NOT`. To słowo kluczowe ma wyższy priorytet niż `OR` czy `AND`. Także i w tym przypadku możesz użyć nawiasów aby zmienić kolejność wykonywanych operacji. Poniższy przykład pokazuje przypadek, w którym nawiasy nie mają wpływu na kolejność wykonywanych porównań:
+
+    (NOT x) OR y
+    NOT x OR y
+
+Jednak umieszczenie nawiasów w innym miejscu zupełnie zmienia warunek, który musi zostać spełniony przez zwracane wiersze:
+
+    NOT (x OR y)
+
+### `<`, `<=`, `=`, `!=, `>`, `>=`
 
 Zacznę od najprostszych typów porównań. Podobne operatory występują także w językach programowania. Operatory porównują ze sobą wartości po obu stronach.
 
 * `A < B` - wiersz spełnia warunek jeśli A jest mniejsze od B,
 * `A <= B` - wiersz spałnia warunek jeśli A jest mniejsze bądź równe B,
 * `A = B` - wiersz spełnia warunek jeśli A jest równe B,
+* `A != B` - wiersz spełnia warunek jeśli A jest różne od B,
 * `A > B` - wiersz spełnia warunek jeśli A jest większe od B,
 * `A >= B` - wiersz spełnia warunek jeśli A jest większe bądź równe B.
 
@@ -65,19 +94,112 @@ SELECT invoiceid
  WHERE total = 21.86;
 ```
 
+#### Porównywanie łańcuchów znaków
+
 W przypadku języka SQL operatory służą one do porównywania wartości kolumn. Mogą być użyte nie tylko do typów liczbowych. Dzięki tym operatorom można na przykład porównywać łańcuchy znaków. Zapytanie poniżej zwróci tylko te wiersze dla których kolumna `billingcountry` będzie większa niż `A` i mniejsza niż `C`. Innymi słowy zapytanie to zwróci wiersze, dla których `billingcountry` zawiera kraje zaczynające się na literę A albo B:
 
-select * from invoice where billingcountry > 'A' and billingcountry < 'B';
+```sql
+SELECT *
+  FROM invoice
+ WHERE billingcountry > 'A'
+   AND billingcountry < 'B';
+```
 
-### NOT BETWEEN
-### NOT LIKE
+#### Porównywanie dat
+
+SQLlite nie ma specjalnego typu do przechowywania dat. Do tego celu używane mogą być łańcuchy znaków lub liczby. W związku z tym porównywanie dat sprowadza się do porównywania tych typów danych. Na przykład zapytanie poniżej zwróci wszystkie wiersze, które zawierają faktury wystawione w Polsce po 26 maja 2012 roku.
+
+```sql
+SELECT *
+  FROM invoice
+ WHERE billingcountry = 'Poland'
+   AND invoicedate > '2012-05-26';
+```
+
+Przy porównaniach tego typu musisz uważać. Powyższe zapytanie zwróci wiersz, który zawiera datę `2012-05-26 00:00:00`. Jeśli zmieniłbym warunek na `invoicedate > '2012-05-26 00:00:00' wówczas ten wiersz zostanie pominięty.
+
+### BETWEEN
+
+Do określienia zakresu, w którym powinna znaleźć się wartość kolumny możesz użyć `BETWEEN`. Zapytanie poniżej zwróci wszystkie wiersze, dla których wartość kolumny `total` jest większa bądź równa 10 i mniejsza bądź równa 20:
+
+```sql
+SELECT *
+  FROM invoice
+ WHERE total BETWEEN 10.91 AND 11.96;
+```
+
+Porównanie `total BETWEEN 10.91 AND 11.96` jest tożzame porównaniu `total >= 10.91 AND total <= 11.96`. Warunek `BETWEEN` można poprzedzić `NOT`
+
+### LIKE
+
+SQL pozwala także na bardziej swobodne porównywanie łańcuchów znaków. Do tego celu używa się konstrukcji `LIKE`. W tym przypadku możesz użyć dwóch symboli, które mają specjalne znaczenie:
+
+* `%` - oznacza dowolną liczbę znaków,
+* `_` - oznacza jeden znak.
+
+Mechanizm ten można porównać do bardzo uproszczonych [wyrażeń regularnych]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}):
+
+* `%` odpowiada `.*` w wyrażeniach regularnych,
+* `_` odpowiada `.` w wyrażeniach regularnych.
+
+Proszę spójrz na przykład poniżej. W przykładzie tym wyświetlam wyłącznie wiersze, w których wartość kolumny `billingcountry` pasuje do określenia `%land`. Innymi słowy wyświetlam wyłącznie te wiersze, które kończą się na `land`:
+
+```sql
+SELECT *
+  FROM invoice
+ WHERE billingcountry
+  LIKE '%land';
+```
+
+Poniższe zapytanie jest lekką modyfikacją powyższego. Jak widzisz użyłem w nim `%` dwa razy. W tym przypadku wyświetlone zostaną wiersze, w których kolumna `billingcountry` zawiera ciąg znaków `land`:
+
+```sql
+SELECT *
+  FROM invoice
+ WHERE billingcountry
+  LIKE '%land%';
+```
+
+Słowo kluczowe `LIKE` możesz poprzedzić `NOT`. Warunek `NOT x LIKE y` jest tożsamy warunkowi `x NOT LIKE y`.
+
+Jeśli chcesz aby znaki `_` czy `%` były traktowane dosłownie musisz posłużyć się wyrażeniem `ESCAPE`. Proszę spójrz na przykład poniżej. Zapytanie zwraca wszystkie wiersze, dla których wewnątrz kolumny `track` występuje znak `%`:
+
+```sql
+SELECT *
+  FROM track
+ WHERE name LIKE '%e%%' ESCAPE 'e';
+```
+
+Literał po `ESCAPE` może zawierać pojedynczy znak. Symbol ten jest użyty do poprzedzenia symbolu, który powinien być traktowany dosłownie. W przykładzie powyżej użyłem `e`.
+
 ### IS NULL
-### NOT IN
 
-## Łączenie warunków
+Niektóre wiersze mogą mieć puste kolumny. Puste, czyli takie, które nie są uzupełnione żadną wartością. W takim przypadku mówi się, że kolumna ma wartość `NULL`. Aby filtrować wiersze na podstawie tej wartości należy użyć wyrażenia `IS NULL`. Na przykład zapytanie poniżej pokazuje tylko te kraje, dla których wartosć kolumny 'billingstate' ma wartość `NULL`:
 
+```sql
+SELECT *
+  FROM invoice
+ WHERE billingstate IS NULL;
+```
 
-# Czym jest SQL Injection
+Zwróć uwagę na to, że kolumna zawierająca łańcuch znaków `''` (pusty łańcuch znaków) i wartość `NULL` to dwie zupełne różne rzeczy.
+
+Podobnie jak w przypadku `LIKE` także tutaj możesz użyć słowa kluczowego `NOT`. Warunki `NOT x IS NULL` i `x IS NOT NULL` są tożsame.
+
+### IN
+
+Jeśli chcesz zwrócić wiersze, dla których kolumna przyjmuje jedną z określonych wartości możesz użyć `IN`. Zapytanie poniżej zwróci wszystkie wiersze z tabeli `invoice`, dla których `billingcountry` ma wartość `USA` i `billingstate` jedną z wartości `CA` lub `TX`:
+
+```sql
+SELECT *
+  FROM invoice
+ WHERE billingcountry = 'USA'
+   AND billingstate IN ('CA', 'TX');
+```
+
+Użycie `IN` jest tożsame odpowiedniej liczbie warunków połączonych `OR`. 
+
+## Czym jest SQL Injection
 
 SQL Injection jest jednym z podstawowych ataków na aplikacje używające baz danych. Polega on na odpowiednim spreparowaniu danych wejściowych użytkownika.
 
@@ -94,7 +216,7 @@ Aby upewni
 programista napisał takie zapytanie:
 
 ```sql
-SELECT password_hash 
+SELECT password_hash
   FROM users
  WHERE email = '%s';
 ```
@@ -103,6 +225,18 @@ Następinie w programie pobiera dane wprowadzone w formularzu
 
 1=1 i SQL injection
 
-# Zadania do wykonania
+## Zadania do wykonania
 
-# Podsumowanie
+Poniżej znajdziesz zestaw zadań, które pomogą Ci przećwiczyć materiał omówiony w tym arytkule.
+
+Napisz zapytanie, które:
+
+* Zwróci wszystkie wiersze z tabeli `track`, dla których: `unitprice` jest mniejsze niż `1` i znak `%` zawarty jest w kolumnie `name` oraz kolumna `name` kończy się na `e`,
+
+## Podsumowanie
+
+Warunki masz już za sobą. Po rozwiązaniu zadań potrafisz sprawnie posługiwać się różnymi warunkami w języku SQL. Wiesz jak wygląda atak SQL injection i jak można się przed nim bronić. Jeśli znasz kogoś komu ten artykuł może się przydać proszę przekaż odnośnik do tego artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników, z góry dziękuję :).
+
+Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polób Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera.
+
+Trzymaj się i do następnego razu!
