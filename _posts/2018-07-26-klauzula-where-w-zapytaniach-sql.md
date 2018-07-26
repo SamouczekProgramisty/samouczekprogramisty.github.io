@@ -108,7 +108,7 @@ W przypadku języka SQL operatory służą one do porównywania wartości kolumn
 SELECT *
   FROM invoice
  WHERE billingcountry > 'A'
-   AND billingcountry < 'B';
+   AND billingcountry < 'C';
 ```
 
 #### Porównywanie dat
