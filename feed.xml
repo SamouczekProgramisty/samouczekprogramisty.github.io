@@ -1,8 +1,274 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-07-18T20:44:26+02:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Pobieranie danych z bazy - SELECT</title><link href="http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select/" rel="alternate" type="text/html" title="Pobieranie danych z bazy - SELECT" /><published>2018-06-25T00:00:00+02:00</published><updated>2018-06-25T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select/">&lt;div class=&quot;notice--info&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-07-26T09:26:07+02:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Klauzula WHERE w zapytaniach SQL</title><link href="http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/" rel="alternate" type="text/html" title="Klauzula WHERE w zapytaniach SQL" /><published>2018-07-26T00:00:00+02:00</published><updated>2018-07-26T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/">&lt;div class=&quot;notice--info&quot;&gt;
   
 &lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-sql&quot;&gt;praktycznego kursu SQL&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
 
-&lt;p&gt;Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;pierwszym artykule kursu&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;pierwszym artykule kursu&lt;/a&gt;. Bardzo mocno Cię do tego zachęcam. Moim zdaniem najwięcej nauczysz się samodzielnie eksperymentując z zapytaniami.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;klauzula-where&quot;&gt;Klauzula &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;W artykule opisującym &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;podstawy zapytania &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt;&lt;/a&gt; wspomniałem o klauzuli &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt;. Po przeczytaniu tamtego artykułu wiesz, że klauzula &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt; służy do filtrowania danych zwróconych przez zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Klauzula &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt; używana jest także w zapytaniach typu &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;INSERT&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt; ogranicza zbiór wierszy, który powinien zostać usunięty. W zapytaniach typu &lt;code class=&quot;highlighter-rouge&quot;&gt;INSERT&lt;/code&gt; używany jest z podzapytaniami (o podzapytaniach przeczytasz w jednym z kolejnych artykułów).&lt;/p&gt;
+
+&lt;p&gt;Informacje, które przeczytasz w tym artykule można odnieść do wszystkich czterech rodzai zapytań.&lt;/p&gt;
+
+&lt;h2 id=&quot;literały-w-sql&quot;&gt;Literały w SQL&lt;/h2&gt;
+
+&lt;p&gt;Zanim przejdę do omawiania warunków musisz poznać literały. Używałem ich już w &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;poprzednim artykule&lt;/a&gt; bez dodatkowego wyjaśnienia. Tutaj poświęcę im osobny paragraf.&lt;/p&gt;
+
+&lt;p&gt;Najprostszym rodzajem literałów są liczby, zapisuje się je podobnie jak w językach programowania: &lt;code class=&quot;highlighter-rouge&quot;&gt;42&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;12.34&lt;/code&gt;. Liczby mogą być zapisane także w &lt;a href=&quot;/liczby-zmiennoprzecinkowe/#notacja-naukowa-a-liczby-wymierne&quot;&gt;notacji naukowej&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;1.34E-5&lt;/code&gt; lub &lt;a href=&quot;/system-dwojkowy/&quot;&gt;szesnastkowo&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;0xBACA&lt;/code&gt;&lt;sup id=&quot;fnref:zalezyodbazy&quot;&gt;&lt;a href=&quot;#fn:zalezyodbazy&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Często będziesz także używać łańcuchów znaków. Łańcuch znaków powinien być otoczony apostrofami, na przykład &lt;code class=&quot;highlighter-rouge&quot;&gt;'Samouczek Programisty'&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Innym przykładem literału jest &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;, który określa pustą wartość.&lt;/p&gt;
+
+&lt;h3 id=&quot;znaki-specjalne-w-sql&quot;&gt;Znaki specjalne w SQL&lt;/h3&gt;
+
+&lt;p&gt;W SQL występują znaki specjalne. Do tej pory wprowadziłem &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt;. Jeśli chcesz aby Twoje zapytanie dotyczyło wierszy, które zawierają &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt; musisz poprzedzić go drugim znakiem &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt;. Spójrz na przykład poniżej, posługuję się w nim konstrukcją &lt;code class=&quot;highlighter-rouge&quot;&gt;LIKE&lt;/code&gt;, którą opisuję w jednym z kolejnych akapitów. Zapytanie zwraca wszystkie wiersze, w których kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;title&lt;/code&gt; zawiera znak &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;%'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;warunki&quot;&gt;Warunki&lt;/h2&gt;
+
+&lt;h3 id=&quot;łączenie-warunków&quot;&gt;Łączenie warunków&lt;/h3&gt;
+
+&lt;p&gt;Każdy z warunków, który opiszę można ze sobą łączyć używając operatorów &lt;code class=&quot;highlighter-rouge&quot;&gt;AND&lt;/code&gt; lub &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;AND&lt;/code&gt; ma pierwszeństwo przed &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt;. Można także użyć nawiasów &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;, aby określić pierwszeństwo wykonania warunków. Używanie nawiasów nie zawsze jest obowiązkowe. Jednak moim zdaniem często warto ich używać. Dzięki nim bardziej skomplikowane zapytania mogą być bardziej czytelne. Nawiasy w przykładzie poniżej są zbędne, nie mają wpływu na kolejność wykonywania operacji:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x OR y AND z
+x OR (y AND z)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Nawiasy w przykładzie poniżej zmieniają kolejność wykonywania operacji, więc nie można ich pominąć bez zmiany znaczenia zapytania:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(x OR y) AND z
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;negacja-warunków&quot;&gt;Negacja warunków&lt;/h3&gt;
+
+&lt;p&gt;Poza operatorami łączenia, które już znasz, istnieje także operator negacji warunku. Służy do tego operator &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT&lt;/code&gt;. Ten operator ma wyższy priorytet niż &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;AND&lt;/code&gt;. Także i w tym przypadku możesz użyć nawiasów aby zmienić kolejność wykonywanych operacji. Poniższy przykład pokazuje przypadek, w którym nawiasy nie mają wpływu na kolejność wykonywanych porównań:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(NOT x) OR y
+NOT x OR y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jednak umieszczenie nawiasów w innym miejscu zupełnie zmienia warunek, który musi zostać spełniony przez zwracane wiersze:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NOT (x OR y)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;-----&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;=&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;!=, &lt;/code&gt;&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;, &lt;/code&gt;&amp;gt;=`&lt;/h3&gt;
+
+&lt;p&gt;Zacznę od najprostszych typów porównań. Podobne operatory występują także w językach programowania. Operatory porównują ze sobą wartości po obu stronach.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A &amp;lt; B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest mniejsze od B,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A &amp;lt;= B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest mniejsze bądź równe B,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A = B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest równe B,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A != B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest różne od B,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A &amp;gt; B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest większe od B,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A &amp;gt;= B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest większe bądź równe B.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Na przykład zapytanie poniżej wyświetli tylko te wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;, których wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;total&lt;/code&gt; będzie większa niż 14 i mniejsza niż 15:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoiceid&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Następne zapytanie zwróci jedynie te wiersze, dla których kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;total&lt;/code&gt; ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;21.68&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoiceid&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;86&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Operatory &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;!=&lt;/code&gt; mają dwie postacie. W tym samym celu możesz także użyć odpowiednio &lt;code class=&quot;highlighter-rouge&quot;&gt;==&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;porównywanie-łańcuchów-znaków&quot;&gt;Porównywanie łańcuchów znaków&lt;/h4&gt;
+
+&lt;p&gt;W przypadku języka SQL operatory służą one do porównywania wartości kolumn. Mogą być użyte nie tylko do typów liczbowych. Dzięki tym operatorom można na przykład porównywać łańcuchy znaków. Zapytanie poniżej zwróci tylko te wiersze dla których kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; będzie większa niż &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; i mniejsza niż &lt;code class=&quot;highlighter-rouge&quot;&gt;C&lt;/code&gt;. Innymi słowy zapytanie to zwróci wiersze, dla których &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; zawiera kraje zaczynające się na literę A albo B:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'A'&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'B'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;porównywanie-dat&quot;&gt;Porównywanie dat&lt;/h4&gt;
+
+&lt;p&gt;SQLite nie ma specjalnego typu do przechowywania dat. Do tego celu używane mogą być łańcuchy znaków lub liczby. W związku z tym porównywanie dat sprowadza się do porównywania tych typów danych. Na przykład zapytanie poniżej zwróci wszystkie wiersze, które zawierają faktury wystawione w Polsce od 26 maja 2012 roku.&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Poland'&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoicedate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2012-05-26'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Przy porównaniach tego typu musisz uważać. Powyższe zapytanie zwróci wiersz, który zawiera datę &lt;code class=&quot;highlighter-rouge&quot;&gt;2012-05-26 00:00:00&lt;/code&gt;. Jeśli zmieniłbym warunek na &lt;code class=&quot;highlighter-rouge&quot;&gt;invoicedate &amp;gt; '2012-05-26 00:00:00'&lt;/code&gt; wówczas ten wiersz zostałby pominięty.&lt;/p&gt;
+
+&lt;h3 id=&quot;between&quot;&gt;BETWEEN&lt;/h3&gt;
+
+&lt;p&gt;Do określenia zakresu, w którym powinna znaleźć się wartość kolumny możesz użyć &lt;code class=&quot;highlighter-rouge&quot;&gt;BETWEEN&lt;/code&gt;. Zapytanie poniżej zwróci wszystkie wiersze, dla których wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;total&lt;/code&gt; jest większa bądź równa &lt;code class=&quot;highlighter-rouge&quot;&gt;10.91&lt;/code&gt; i mniejsza bądź równa &lt;code class=&quot;highlighter-rouge&quot;&gt;11.96&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;91&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Porównanie &lt;code class=&quot;highlighter-rouge&quot;&gt;total BETWEEN 10.91 AND 11.96&lt;/code&gt; jest tożsame porównaniu &lt;code class=&quot;highlighter-rouge&quot;&gt;total &amp;gt;= 10.91 AND total &amp;lt;= 11.96&lt;/code&gt;. Warunek &lt;code class=&quot;highlighter-rouge&quot;&gt;BETWEEN&lt;/code&gt; można poprzedzić &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;like&quot;&gt;LIKE&lt;/h3&gt;
+
+&lt;p&gt;SQL pozwala także na bardziej swobodne porównywanie łańcuchów znaków. Do tego celu używa się konstrukcji &lt;code class=&quot;highlighter-rouge&quot;&gt;LIKE&lt;/code&gt;. W tym przypadku możesz użyć dwóch symboli, które mają specjalne znaczenie:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; - oznacza dowolną liczbę znaków,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt; - oznacza jeden znak.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Mechanizm ten można porównać do bardzo uproszczonych &lt;a href=&quot;/wyrazenia-regularne-w-jezyku-java/&quot;&gt;wyrażeń regularnych&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; odpowiada &lt;code class=&quot;highlighter-rouge&quot;&gt;.*&lt;/code&gt; w wyrażeniach regularnych,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt; odpowiada &lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt; w wyrażeniach regularnych.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Proszę spójrz na przykład poniżej. W przykładzie tym wyświetlam wyłącznie wiersze, w których wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; pasuje do określenia &lt;code class=&quot;highlighter-rouge&quot;&gt;%land&lt;/code&gt;. Innymi słowy wyświetlam wyłącznie te wiersze, które kończą się na &lt;code class=&quot;highlighter-rouge&quot;&gt;land&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%land'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Poniższe zapytanie jest lekką modyfikacją powyższego. Jak widzisz użyłem w nim &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; dwa razy. W tym przypadku wyświetlone zostaną wiersze, w których kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; zawiera ciąg znaków &lt;code class=&quot;highlighter-rouge&quot;&gt;land&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%land%'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Słowo kluczowe &lt;code class=&quot;highlighter-rouge&quot;&gt;LIKE&lt;/code&gt; możesz poprzedzić &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT&lt;/code&gt;. Warunek &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT x LIKE y&lt;/code&gt; jest tożsamy warunkowi &lt;code class=&quot;highlighter-rouge&quot;&gt;x NOT LIKE y&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Jeśli chcesz aby znaki &lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; były traktowane dosłownie musisz posłużyć się wyrażeniem &lt;code class=&quot;highlighter-rouge&quot;&gt;ESCAPE&lt;/code&gt;. Proszę spójrz na przykład poniżej. Zapytanie zwraca wszystkie wiersze, dla których wewnątrz kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;track&lt;/code&gt; występuje znak &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%e%%'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ESCAPE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'e'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Literał po &lt;code class=&quot;highlighter-rouge&quot;&gt;ESCAPE&lt;/code&gt; może zawierać pojedynczy znak. Symbol ten jest użyty do poprzedzenia symbolu, który powinien być traktowany dosłownie. W przykładzie powyżej użyłem &lt;code class=&quot;highlighter-rouge&quot;&gt;'e'&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;is-null&quot;&gt;IS NULL&lt;/h3&gt;
+
+&lt;p&gt;Niektóre wiersze mogą mieć puste kolumny. Puste, czyli takie, które nie są uzupełnione żadną wartością. W takim przypadku mówi się, że kolumna ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;. Aby filtrować wiersze na podstawie tej wartości należy użyć wyrażenia &lt;code class=&quot;highlighter-rouge&quot;&gt;IS NULL&lt;/code&gt;. Na przykład zapytanie poniżej pokazuje tylko te kraje, dla których wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt; ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Zwróć uwagę na to, że kolumna zawierająca łańcuch znaków &lt;code class=&quot;highlighter-rouge&quot;&gt;''&lt;/code&gt; (pusty łańcuch znaków) i wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; to dwie zupełne różne rzeczy.&lt;/p&gt;
+
+&lt;p&gt;Podobnie jak w przypadku &lt;code class=&quot;highlighter-rouge&quot;&gt;LIKE&lt;/code&gt; także tutaj możesz użyć słowa kluczowego &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT&lt;/code&gt;. Warunki &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT x IS NULL&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;x IS NOT NULL&lt;/code&gt; są tożsame.&lt;/p&gt;
+
+&lt;h3 id=&quot;in&quot;&gt;IN&lt;/h3&gt;
+
+&lt;p&gt;Jeśli chcesz zwrócić wiersze, dla których kolumna przyjmuje jedną z określonych wartości możesz użyć &lt;code class=&quot;highlighter-rouge&quot;&gt;IN&lt;/code&gt;. Zapytanie poniżej zwróci wszystkie wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;, dla których &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;'USA'&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt; jedną z wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;'CA'&lt;/code&gt; lub &lt;code class=&quot;highlighter-rouge&quot;&gt;'TX'&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'USA'&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'CA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'TX'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Użycie &lt;code class=&quot;highlighter-rouge&quot;&gt;IN&lt;/code&gt; jest tożsame odpowiedniej liczbie warunków połączonych &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;czym-jest-wstrzykiwanie-sql-ang-sql-injection&quot;&gt;Czym jest wstrzykiwanie SQL (ang. &lt;em&gt;SQL Injection&lt;/em&gt;)&lt;/h2&gt;
+
+&lt;p&gt;Wstrzykiwanie SQL jest jednym z podstawowych ataków na aplikacje używające baz danych. Polega on na odpowiednim spreparowaniu danych wejściowych. W takim przypadku poza zapytaniem, które przygotuje programista wykonywane może być także to wprowadzone przez użytkownika.&lt;/p&gt;
+
+&lt;p&gt;Proszę spójrz na przykład w języku Java. W ten sposób na pewno będzie Ci łatwiej zrozumieć ten typ ataku.&lt;/p&gt;
+
+&lt;p&gt;Załóżmy, że w aplikacji próbujesz zaimplementować moduł logowania&lt;sup id=&quot;fnref:nierobtego&quot;&gt;&lt;a href=&quot;#fn:nierobtego&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Użytkownik w formularzu wprowadza swój e-mail i hasło.&lt;/p&gt;
+
+&lt;p&gt;Aby upewnić się, że podane dane są prawidłowe pobierane są wiersze, które pasują do przekazanych danych logowania. Programista napisał szablon zapytania, który następnie uzupełniany jest danymi od użytkownika:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emailProvidedByUser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;...&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;passwordProvidedByUser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;...&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queryTemplate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;SELECT password_hash FROM users WHERE email = '%s';&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emailProvidedByUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paswordHashInDatabase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;executeQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loginSuccessfull&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;magicHash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;passwordProvidedByUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paswordHashInDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jeśli użytkownik wprowadzi email &lt;code class=&quot;highlighter-rouge&quot;&gt;zenek@parapet.pl&lt;/code&gt; i hasło &lt;code class=&quot;highlighter-rouge&quot;&gt;tajnehaslo&lt;/code&gt; to logowanie przebiegnie pomyślnie :). Problem zacznie się jeśli użytkownik zacznie być złośliwy. Co stanie się jeśli użytkownik wprowadzi email &lt;code class=&quot;highlighter-rouge&quot;&gt;'; DELETE FROM users WHERE 1 = 1 OR email = '&lt;/code&gt; i dowolne hasło?&lt;/p&gt;
+
+&lt;p&gt;Do bazy zostanie wysłane następujące zapytanie:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password_hash&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+ 
+&lt;span class=&quot;k&quot;&gt;DELETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;OR&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Właściwie są to dwa zapytania. Bardziej istotne jest drugie z nich. Po jego wykonaniu z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;users&lt;/code&gt; zostaną usunięte wszystkie wiersze. To raczej nie jest efekt, którego spodziewał się programista ;).&lt;/p&gt;
+
+&lt;h3 id=&quot;zapobieganie-sql-injection&quot;&gt;Zapobieganie &lt;em&gt;SQL Injection&lt;/em&gt;&lt;/h3&gt;
+
+&lt;p&gt;Ręczne budowanie zapytań SQL poprzez łączenie łańcuchów znaków przeważnie nie jest dobrym rozwiązaniem. Używaj do tego celu dedykowanych bibliotek. W Języku Java może to być na przykład Hibernate. W Pythonie SQLalchemy też świetnie daje sobie z tym radę. Jestem pewien, że w innych językach programowania istnieją podobne rozwiązania. Biblioteki te domyślnie odpowiednio traktują dane, które służą do wypełniania szablonów zapytań.&lt;/p&gt;
+
+&lt;p&gt;Jeśli chcesz budować zapytania “ręcznie”. Pamiętaj o odpowiednim traktowaniu danych pochodzących od użytkownika. Takim danym nigdy nie można ufać. Musisz założyć, że każdy użytkownik jest złośliwy i będzie chciał zepsuć Twoją aplikację. W najprostszym scenariuszu użycie &lt;code class=&quot;highlighter-rouge&quot;&gt;''&lt;/code&gt; w miejscu każdego znaku &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt; w danych pochodzących od użytkownika powinno pomóc.&lt;/p&gt;
+
+&lt;h2 id=&quot;zadania-do-wykonania&quot;&gt;Zadania do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Poniżej znajdziesz zestaw zadań, które pomogą Ci przećwiczyć materiał omówiony w tym artykule.&lt;/p&gt;
+
+&lt;p&gt;Napisz zapytanie, które:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;zwróci wszystkie wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;track&lt;/code&gt;, dla których: &lt;code class=&quot;highlighter-rouge&quot;&gt;unitprice&lt;/code&gt; jest mniejsze niż &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; i znak &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; zawarty jest w kolumnie &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; oraz kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; kończy się na &lt;code class=&quot;highlighter-rouge&quot;&gt;e&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;zwróci wszystkie wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;, które mają uzupełnioną kolumnę &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt; i nie są ze Stanów Zjednoczonych,&lt;/li&gt;
+  &lt;li&gt;zwróci wszystkie wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;, które dotyczą Polski, Czech albo Węgier dla których wartość faktury przekracza 10,&lt;/li&gt;
+  &lt;li&gt;zwróci imiona pracowników z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;employee&lt;/code&gt;, które dotyczą pracowników urodzonych w latach 60.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Warunki masz już za sobą. Po rozwiązaniu zadań potrafisz sprawnie posługiwać się różnymi warunkami w języku SQL. Wiesz jak wygląda atak &lt;em&gt;SQL injection&lt;/em&gt; i jak można się przed nim bronić. Jeśli znasz kogoś komu ta wiedza może się przydać proszę przekaż odnośnik do tego artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników a na tym właśnie mi zależy. Z góry dziękuję :).&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polub Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera.&lt;/p&gt;
+
+&lt;p&gt;Trzymaj się i do następnego razu!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:zalezyodbazy&quot;&gt;
+      &lt;p&gt;To zależy od silnika bazy danych. SQLite wspiera literały tego typu. &lt;a href=&quot;#fnref:zalezyodbazy&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:nierobtego&quot;&gt;
+      &lt;p&gt;Do tej pory nie spotkałem się jeszcze z sytuacją, w której mechanizm logowania musiałbym pisać od podstaw samemu. Nie rób tego samodzielnie, użyj gotowego, sprawdzonego rozwiązania. &lt;a href=&quot;#fnref:nierobtego&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule przeczytasz o możliwościach klauzuli `WHERE`. Na praktycznych przykładach pokażę Ci jak filtrować dane w zapytaniach SQL. Także na przykładzie pokażę Ci czym jest atak _SQL injection_ i jak można się przed nim bronić. Dowiesz się także czegoś więcej o znakach specjalnych w SQL. Na końcu jak zwykle czekają na Ciebie zadania do samodzielnego rozwiązania.</summary></entry><entry><title type="html">Pobieranie danych z bazy - SELECT</title><link href="http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select/" rel="alternate" type="text/html" title="Pobieranie danych z bazy - SELECT" /><published>2018-06-25T00:00:00+02:00</published><updated>2018-06-25T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select/">&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-sql&quot;&gt;praktycznego kursu SQL&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
+
+&lt;p&gt;Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;pierwszym artykule kursu&lt;/a&gt;. Bardzo mocno Cię do tego zachęcam. Moim zdaniem najwięcej nauczysz się samodzielnie eksperymentując z zapytaniami.&lt;/p&gt;
 
 &lt;/div&gt;
 
@@ -2699,521 +2965,4 @@ isCyclic(&quot;012233&quot;) == false
 
 &lt;p&gt;Przykładowe rozwiązania, przedstawione w artykule znajdziesz na &lt;a href=&quot;https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/08_cyclic_number/src&quot;&gt;samouczkowym githubie&lt;/a&gt;. Kod zawiera także &lt;a href=&quot;/testy-jednostkowe-z-junit/&quot;&gt;testy jednostkowe&lt;/a&gt;, których użyłem do weryfikacji poprawności działania algorytmów.&lt;/p&gt;
 
-&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów z tej serii dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Jak zwykle, jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzach. Postaram się pomóc ;). Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cykliczne i w jaki sposób sprawdzić czy dana liczba jest cykliczna. Zapraszam do lektury.</summary></entry><entry><title type="html">Protokół HTTP</title><link href="http://www.samouczekprogramisty.pl/protokol-http/" rel="alternate" type="text/html" title="Protokół HTTP" /><published>2018-02-08T00:00:00+01:00</published><updated>2018-02-08T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/protokol-http</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/protokol-http/">&lt;h2 id=&quot;czym-jest-protokół-http&quot;&gt;Czym jest protokół HTTP&lt;/h2&gt;
-
-&lt;p&gt;Według &lt;a href=&quot;https://sjp.pwn.pl/sjp/protokol;2572786.html&quot;&gt;słownika języka polskiego&lt;/a&gt; protokół to:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;zasady wymiany informacji i współpracy programów i urządzeń komputerowych&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Zatem protokół HTTP (ang. &lt;em&gt;Hypertext Transfer Protocol&lt;/em&gt;) to zasady wymiany informacji i współpracy programów. Programami są serwery i klienty. Programy te wysyłają żądania (klienty) lub odpowiedzi (serwery). Przykładem klienta HTTP może być &lt;a href=&quot;https://www.opera.com/&quot;&gt;przeglądarka internetowa&lt;/a&gt;&lt;sup id=&quot;fnref:praca&quot;&gt;&lt;a href=&quot;#fn:praca&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Klienty mogą interpretować uzyskane odpowiedzi, na przykład przeglądarka internetowa potrafi wyświetlić stronę internetową, która została przesłana przez serwer.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Nawiasem mówiąc przeglądarka robi całkiem sporo rzeczy w tle… Wiesz, że do wyświetlania strony www.amazon.com przeglądarka wykonuje około 300 żądań HTTP? W końcowej części artykułu pokażę Ci jak to się dzieje.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Komunikacja pomiędzy serwerem a klientem oparta jest na wielu innych protokołach. Ten zestaw protokołów nazywa się modelem &lt;a href=&quot;https://pl.wikipedia.org/wiki/Model_OSI&quot;&gt;ISO/OSI&lt;/a&gt;. Model ten zawiera warstwy. Każda warstwa, na bazie poprzednich, udostępnia dodatkowe funkcjonalności. Protokół HTTP znajduje się w najwyższej warstwie modelu, &lt;a href=&quot;https://pl.wikipedia.org/wiki/Model_OSI#Warstwa_7:_aplikacji&quot;&gt;warstwie aplikacji&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Klienty wysyłają żądania. Każde żądanie powiązane jest z zasobem. Zasobem może być obrazek, strona HTML czy plik z kodem JavaScript. Sam protokół HTTP nie określa czym dokładnie jest zasób. Określa jedynie sposób w jaki można dostać się do zasobów. Każdy zasób ma swój unikalny identyfikator. Ten identyfikator to URI (ang. &lt;em&gt;Uniform Resource Identifier&lt;/em&gt;).&lt;/p&gt;
-
-&lt;p&gt;Protokół HTTP dokładnie określa format komunikacji pomiędzy klientami i serwerami. Komunikacja ta oparta jest na wspomnianych już żądaniach i odpowiedziach. Protokół HTTP określa format tych wiadomości.&lt;/p&gt;
-
-&lt;p&gt;Protokół HTTP jest bezstanowy. Oznacza to tyle, że każde zapytanie może być interpretowane w oderwaniu od pozostałych.&lt;/p&gt;
-
-&lt;p&gt;Poza klientami i serwerami w komunikacji występują dodatkowe węzły. Na przykład mogą to być serwery, które zachowują kopię odpowiedzi przyspieszając komunikację. Mogą to być także elementy sieciowe pozwalające na sprawne dotarcie żądania do serwera. W tym artykule pominę te kwestie, moim zdaniem ich znajomość nie jest niezbędna do tworzenia aplikacji webowych.&lt;/p&gt;
-
-&lt;p&gt;Teraz wprowadzę Cię w poszczególne elementy składające się na protokół HTTP.&lt;/p&gt;
-
-&lt;h2 id=&quot;adres-czyli-url&quot;&gt;Adres czyli URL&lt;/h2&gt;
-
-&lt;p&gt;Wspomniałem wcześniej o URI. Podzbiorem URI są URL (ang. &lt;em&gt;Uniform Resource Locator&lt;/em&gt;). URI można traktować jako zbiór znaków który pozwala na unikalną identyfikację zasobu. URL natomiast poza tym unikalnym identyfikatorem zawiera informację dotyczącą “położenia” danego zasobu. Często określenia te stosowane są zamiennie.&lt;/p&gt;
-
-&lt;p&gt;Adres URL ma postać:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scheme:[//[user[:password]@]host[:port]][/path][?query][#fragment]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Przykładowy adres URL może wyglądać następująco:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://marcin:tajne@www.samouczekprogramisty.pl:80/nie/ma/tej?strony=1#identyfikator
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Część adresu&lt;/th&gt;
-      &lt;th&gt;Przykładowa wartość&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scheme&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;http&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;user&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;marcin&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;tajne&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;www.samouczekprogramisty.pl&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;port&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;80&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/path&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;/nie/ma/tej&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;?query&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;?strony=1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;#fragment&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;#identyfikator&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Zgodnie ze specyfikacją HTTP wielkość liter nie ma znaczenia w częściach &lt;code class=&quot;highlighter-rouge&quot;&gt;scheme&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt;. Wielkość liter w pozostałych elementach ma znaczenie&lt;sup id=&quot;fnref:litery&quot;&gt;&lt;a href=&quot;#fn:litery&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;Poniżej opiszę poszczególne części adresu URL.&lt;/p&gt;
-
-&lt;h3 id=&quot;scheme&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scheme&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;W praktyce ta część adresu używana jest do określenia protokołu, najczęściej zobaczysz tu &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;https&lt;/code&gt;. W uproszczeniu można powiedzieć, że HTTPS (ang. &lt;em&gt;Hypertext Transfer Protocol Secure&lt;/em&gt;) jest rozszerzeniem protokołu HTTP. To rozszerzenie pozwala na szyfrowanie połączenia pomiędzy klientem a serwerem.&lt;/p&gt;
-
-&lt;h3 id=&quot;userpassword&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;user:password&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;user:password&lt;/code&gt; służą do uwierzytelniania. Uwierzytelnianie to proces, który polega na udowodnieniu, że klient wysyłający dane żądanie jest tym za kogo się podaje. Mechanizmu uwierzytelniania używasz praktycznie w każdym serwisie gdzie masz założone konto.&lt;/p&gt;
-
-&lt;p&gt;W tym przypadku nazwa użytkownika i hasło przesyłane są jako część URL. Nie jest to bezpieczne w przypadku używania protokołu HTTP. Nawet przy komunikacji protokołem HTTPS adres URL może być zapamiętany przez przeglądarkę. Daje to możliwość przechwycenia nazwy użytkownika i hasła. W związku z tym nie jest to bezpieczny sposób na przesyłanie hasła czy nazwy użytkownika i należy go unikać&lt;sup id=&quot;fnref:wewnetrzna&quot;&gt;&lt;a href=&quot;#fn:wewnetrzna&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;host&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;W przypadku protokołu HTTP sprowadza się to do nazwy domeny internetowej lub adresu IP. Przykładem domeny może być &lt;a href=&quot;http://www.samouczekprogramisty.pl&quot;&gt;www.samouczekprogramisty.pl&lt;/a&gt;. Przykładowy adres IPv4 to &lt;code class=&quot;highlighter-rouge&quot;&gt;192.30.253.112&lt;/code&gt;. Jaka strona kryje się pod tym adresem :)?&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;&lt;a href=&quot;https://pl.wikipedia.org/wiki/Domain_Name_System&quot;&gt;DNS&lt;/a&gt; (ang. &lt;em&gt;Domain Name System&lt;/em&gt;) jest protokołem, który pozwala na tłumaczenie &lt;a href=&quot;https://pl.wikipedia.org/wiki/Adres_IP&quot;&gt;adresów IP&lt;/a&gt; na nazwy domen.&lt;/p&gt;
-
-&lt;h3 id=&quot;port&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;port&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Port to numer. Numer ten jest wykorzystywany przez serwer. Serwer nasłuchuje ruch na danym porcie. To tak jak z numerem w bloku, domena to numer klatki a port to numer mieszkania ;).&lt;/p&gt;
-
-&lt;p&gt;Protokoły mają swoje standardowe porty. Na przykład standardowym portem protokołu HTTP jest 80. Protokół HTTPS natomiast używa portu 443. W praktyce, ze względu na domyślne wartości, porty te często się pomija. Odpowiednia wartość pola &lt;code class=&quot;highlighter-rouge&quot;&gt;scheme&lt;/code&gt; pozwala na określenie czy użytkownikowi chodzi o port 80 czy 443.&lt;/p&gt;
-
-&lt;p&gt;Możesz także uruchomić serwer, który nasłuchuje na innym porcie. Przykładem może tu być Tomcat, który domyślnie uruchamia się na porcie 8080. W takim przypadku podanie portu jest konieczne.&lt;/p&gt;
-
-&lt;h3 id=&quot;path&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;path&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Ta część adresu URL jest ścieżką, która określa zasób. Na przykład w adresie &lt;code class=&quot;highlighter-rouge&quot;&gt;www.samouczekprogramisty.pl/kurs-programowania-java&lt;/code&gt; ścieżką jest &lt;code class=&quot;highlighter-rouge&quot;&gt;/kurs-programowania-java&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;query&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;query&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Zawiera dodatkowe dane identyfikujące dany zasób. Ta część oddzielona jest od ścieżki znakiem &lt;code class=&quot;highlighter-rouge&quot;&gt;?&lt;/code&gt;. W praktyce zawiera pary &lt;code class=&quot;highlighter-rouge&quot;&gt;klucz=wartość&lt;/code&gt; połączone znakiem &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt;. Na przykład:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?parametr=wartosc&amp;amp;format=json
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;fragment&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fragment&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Ostatnia część adresu URL. W praktyce wykorzystywana jest do określenia fragmentu strony HTML, która powinna zostać pokazana użytkownikowi. Na przykład adres &lt;a href=&quot;http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni&quot;&gt;http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni&lt;/a&gt; przeniesie Cię do sekcji opisującej właściwości strumieni.&lt;/p&gt;
-
-&lt;div class=&quot;notice--success text-center&quot;&gt;
-  
-&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy ponad 600 Samouków, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
-
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;żądanie-i-odpowiedź&quot;&gt;Żądanie i odpowiedź&lt;/h2&gt;
-
-&lt;div class=&quot;notice--info&quot;&gt;
-    
-&lt;p&gt;W dalszej części artykułu będę używał programu &lt;a href=&quot;https://curl.haxx.se/&quot;&gt;curl&lt;/a&gt; jako klienta HTTP. Jest to program, który pozwala na łatwe wysyłanie zapytań do serwerów z linii poleceń.&lt;/p&gt;
-
-&lt;p&gt;Jeśli nie chcesz używać tego programu możesz użyć narzędzi dla programistów dostępnych w Twojej przeglądarce:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developer.chrome.com/devtools&quot;&gt;Chrome&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org/son/docs/Tools&quot;&gt;Firefox&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developer.apple.com/safari/tools/&quot;&gt;Safari&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.opera.com/dragonfly/&quot;&gt;Opera&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide&quot;&gt;Edge&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/div&gt;
-
-&lt;p&gt;Teraz przeanalizuję przykładowe zapytanie wraz z odesłaną odpowiedzią. Użyję do tego publicznego API Github’a. Github używa HTTPS, w analizie żądania/odpowiedzi pominę fragmenty dotyczące HTTPS.&lt;/p&gt;
-
-&lt;h3 id=&quot;żądanie-http&quot;&gt;Żądanie HTTP&lt;/h3&gt;
-
-&lt;p&gt;Klient wysyła żądanie do serwera w formie wiadomości. Wiadomość ta ma dokładnie zdefiniowany format:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;linia określająca czasownik HTTP, zasób i wersję protokołu,&lt;/li&gt;
-  &lt;li&gt;linie zawierające nagłówki,&lt;/li&gt;
-  &lt;li&gt;pustą linię określającą koniec nagłówków,&lt;/li&gt;
-  &lt;li&gt;ciało wiadomości (jeśli istnieje).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Jak wspomniałem wyżej użyję programu curl. Dodatkowo użyję przełącznika &lt;code class=&quot;highlighter-rouge&quot;&gt;-v&lt;/code&gt;. Włącza on tryb lania wody ;). Wtedy curl raportuje dużo więcej informacji. Dane wysłane do serwera poprzedzone są znakiem &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;. Odpowiedź poprzedzona jest &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt;. Poniżej pokazuję zapytanie do API Githuba. Wysyłam żądanie na adres &lt;code class=&quot;highlighter-rouge&quot;&gt;https://api.github.com/users/kbl&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ curl -v https://api.github.com/users/kbl
-// ciach usunąłem część związaną z HTTPS
-&amp;gt; GET /users/kbl HTTP/1.1
-&amp;gt; Host: api.github.com
-&amp;gt; User-Agent: curl/7.52.1
-&amp;gt; Accept: */*
-&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Zacznę od analizowania pierwszej linijki &lt;code class=&quot;highlighter-rouge&quot;&gt;GET /users/kbl HTTP/1.1&lt;/code&gt;. Na początku zawiera ona czasownik HTTP - &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; (czasowniki opiszę dokładniej poniżej). Następnie zawiera część adresu URL, wszystko od części &lt;code class=&quot;highlighter-rouge&quot;&gt;path&lt;/code&gt;. W moim przypadku jest to &lt;code class=&quot;highlighter-rouge&quot;&gt;/users/kbl&lt;/code&gt;. Kolejną częścią jest protokół wraz z wersją &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP/1.1&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Trzy kolejne linijki zawierają tak zwane nagłówki HTTP, nagłówkom także poświęcę osobny podpunkt poniżej.&lt;/p&gt;
-
-&lt;p&gt;W przypadku tego żądania, ciało wiadomości jest puste. Widzisz więc tylko pustą linię oddzielającą nagłówki od pominiętego ciała wiadomości.&lt;/p&gt;
-
-&lt;h3 id=&quot;odpowiedź-http&quot;&gt;Odpowiedź HTTP&lt;/h3&gt;
-
-&lt;p&gt;Serwer odpowiada na żądanie klienta wysyłając odpowiedź&lt;sup id=&quot;fnref:kilka&quot;&gt;&lt;a href=&quot;#fn:kilka&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;. Podobnie jak w przypadku zapytania format jest dokładnie określony:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;linijka z wersją protokołu i statusem odpowiedzi,&lt;/li&gt;
-  &lt;li&gt;linie zawierające nagłówki,&lt;/li&gt;
-  &lt;li&gt;pustą linię określającą koniec nagłówków,&lt;/li&gt;
-  &lt;li&gt;ciało wiadomości (jeśli istnieje).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Tym razem odpowiedź, jest dużo dłuższa:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt; HTTP/1.1 200 OK
-&amp;lt; Server: GitHub.com
-&amp;lt; Date: Tue, 06 Feb 2018 19:36:28 GMT
-&amp;lt; Content-Type: application/json; charset=utf-8
-&amp;lt; Content-Length: 1218
-&amp;lt; Status: 200 OK
-&amp;lt; X-RateLimit-Limit: 60
-&amp;lt; X-RateLimit-Remaining: 55
-&amp;lt; X-RateLimit-Reset: 1517949218
-&amp;lt; Cache-Control: public, max-age=60, s-maxage=60
-&amp;lt; Vary: Accept
-&amp;lt; ETag: &quot;268c03d98e6e20c7824364d61b3f51b0&quot;
-&amp;lt; Last-Modified: Mon, 09 Oct 2017 19:42:33 GMT
-&amp;lt; X-GitHub-Media-Type: github.v3; format=json
-&amp;lt; Access-Control-Expose-Headers: ETag, Link, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
-&amp;lt; Access-Control-Allow-Origin: *
-&amp;lt; Content-Security-Policy: default-src 'none'
-&amp;lt; Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
-&amp;lt; X-Content-Type-Options: nosniff
-&amp;lt; X-Frame-Options: deny
-&amp;lt; X-XSS-Protection: 1; mode=block
-&amp;lt; X-Runtime-rack: 0.030276
-&amp;lt; X-GitHub-Request-Id: 8AAA:602C:92D77:140069:5A7A03BC
-&amp;lt;
-{
-  &quot;login&quot;: &quot;kbl&quot;,
-  // ciach
-  &quot;created_at&quot;: &quot;2009-04-14T08:28:56Z&quot;,
-  &quot;updated_at&quot;: &quot;2017-10-09T19:42:33Z&quot;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Pierwsza linijka to wspomniany wcześniej protokół &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP/1.1&lt;/code&gt;. Następnie status odpowiedzi &lt;code class=&quot;highlighter-rouge&quot;&gt;200 OK&lt;/code&gt;, podobnie jak w przypadku nagłówków i czasowników więcej o statusie przeczytasz w osobnym podpunkcie.&lt;/p&gt;
-
-&lt;p&gt;Kolejne 22 linijki to nagłówki, po których występuje pusta linia. Podobnie jak przy żądaniu oddziela ona nagłówki od ciała wiadomości.&lt;/p&gt;
-
-&lt;p&gt;W przypadku odpowiedzi ciało wiadomości zawiera dane w formacie JSON - zasób. Dla czytelności pominąłem tu większość ciała odpowiedzi. Zachęcam Cię do eksperymentowania z własnymi zapytaniami :). Do tych eksperymentów może Ci się przydać &lt;a href=&quot;https://developer.github.com/v3/&quot;&gt;dokumentacja API&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;czasowniki-http&quot;&gt;Czasowniki HTTP&lt;/h2&gt;
-
-&lt;p&gt;Specyfikacja HTTP definiuje 8 czasowników&lt;sup id=&quot;fnref:rozszerzenie&quot;&gt;&lt;a href=&quot;#fn:rozszerzenie&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;. Każdy z tych czasowników powiązany jest z żądaniem wysyłanym przez klienta. Każde z żądań ma swoje zastosowania.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Zanim przejdę do omówienia poszczególnych czasowników musisz wiedzieć czym jest cache&lt;sup id=&quot;fnref:polski&quot;&gt;&lt;a href=&quot;#fn:polski&quot; class=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;. Cache to mechanizm, który pozwala na zmniejszenie czasu oczekiwania na odpowiedź. Zakładając, że wykonasz dwa zapytania z rzędu o ten sam zasób wynik pierwszego zapytania może być zapisany w cache’u. W związku z tym drugie zapytanie może nie dotrzeć do serwera, odpowiedź może zostać pobrana z cache’a.&lt;/p&gt;
-
-&lt;h3 id=&quot;get&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Jest to podstawowe żądanie. Każde otworzenie strony internetowej zaczyna się od zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;. Przeglądarka wysyła żądanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; żeby otworzyć stronę internetową. Specyfikacja mówi, że żądanie to służy do pobrania aktualnej reprezentacji zasobu. W praktyce może to oznaczać pobranie aktualnej wersji strony znajdującej się pod danym adresem. Zakłada się, że żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; nie posiadają dołączonego ciała wiadomości.&lt;/p&gt;
-
-&lt;p&gt;Odpowiedź na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; może być przechowywana w cache’u.&lt;/p&gt;
-
-&lt;h3 id=&quot;head&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Zapytanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt; jest podobne do &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;. Różni się jednym ważnym szczegółem. W przypadku tego zapytania odpowiedź serwera nie może zawierać ciała wiadomości. Zapytania tego typu są używane do sprawdzenia czy dany zasób się zmienił, czy do sprawdzania poprawności odnośników. Zysk z używania tego zapytania polega na tym, że ciało wiadomości nie jest przesyłane. Wyobraź sobie plik PDF, który zawiera 10MB danych. Można wysłać zapytanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt;, żeby sprawdzić czy zawartość tego pliku uległa zmianie. To czy plik jest nowszy można określić na podstawie nagłówków, które będą dołączone do odpowiedzi.&lt;/p&gt;
-
-&lt;p&gt;Odpowiedź na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt; może być przechowywana w cache’u.&lt;/p&gt;
-
-&lt;h3 id=&quot;post&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Specyfikacja mówi, że żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; są przetwarzane przez serwer zgodnie z założeniami dla danego zasobu. Taki skomplikowany opis sprowadza się do:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;używania &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; do przesyłania zawartości formularzy,&lt;/li&gt;
-  &lt;li&gt;dodawania nowego zasobu,&lt;/li&gt;
-  &lt;li&gt;dodawanie danych do istniejącego zasobu.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Odpowiedzi na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; nie jest przechowywana w cache’u&lt;sup id=&quot;fnref:wyjatek&quot;&gt;&lt;a href=&quot;#fn:wyjatek&quot; class=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;put&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;W codziennym użytkowaniu żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; służą do aktualizacji danego zasobu. Zgodnie ze specyfikacją ciało wiadomości powinno posłużyć do ustawienia stanu zasobu na serwerze. Zatem w przypadku gdy zasób nie istniał żądanie tego typu powinno go utworzyć. Jeśli zasób istnieje wówczas jego stan powinien być ustawiony na ten przekazany w ciele wiadomości.&lt;/p&gt;
-
-&lt;p&gt;W większości znanych mi przypadków ten pierwszy aspekt jest pomijany, prawdopodobnie dla uproszczenia logiki aplikacji.&lt;/p&gt;
-
-&lt;p&gt;Główna różnica pomiędzy zapytaniami &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; polega na sposobie interpretowania ciała wiadomości. W przypadku zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; to zasób decyduje jak przetworzyć otrzymaną wiadomość. W przypadku żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; otrzymana wiadomość powinna posłużyć do ustawienia wartość zasobu.&lt;/p&gt;
-
-&lt;p&gt;Odpowiedzi na żądanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; nie powinny być przechowywane w cache’u.&lt;/p&gt;
-
-&lt;h4 id=&quot;idempotentność&quot;&gt;Idempotentność&lt;/h4&gt;
-
-&lt;p&gt;Oznacza to tyle, że zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; są idempotentne. Zapytania, które są idempotentne można powtarzać wielokrotnie i zawsze doprowadzą one do tego samego stanu danego zasobu.&lt;/p&gt;
-
-&lt;h3 id=&quot;delete&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Zapytania tego typu służą do usuwania zasobów. Na przykład w którymś z wcześniejszych zapytań dany zasób może być utworzony przy pomocy żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;. Następnie może on być usunięty przy pomocy &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;. Odpowiedzi na żądania tego typu nie powinny zawierać ciała wiadomości.&lt;/p&gt;
-
-&lt;p&gt;Odpowiedzi na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt; nie powinny być umieszczane w cache’u.&lt;/p&gt;
-
-&lt;h3 id=&quot;connect&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CONNECT&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Żądania tego typu służą do utworzenia połączenia pomiędzy klientem a serwerem docelowym (za pomocą węzłów pośrednich). W praktyce nie będziesz używał tego typu żądań w trakcie pisania aplikacji webowych. Mi się to nigdy do tej pory nie zdarzyło :).&lt;/p&gt;
-
-&lt;h3 id=&quot;options&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;OPTIONS&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;OPTIONS&lt;/code&gt; używane są do pobrania informacji na temat możliwości komunikacji dla danego zasobu. W praktyce żądania tego typu używane są do sprawdzenia jakie żądania są obsługiwane przez serwer. Żądanie tego typu także wykorzystywane jest w mechanizmie &lt;a href=&quot;https://pl.wikipedia.org/wiki/Cross-Origin_Resource_Sharing&quot;&gt;CORS&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Odpowiedzi na żądania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;OPTIONS&lt;/code&gt; nie powinny być przechowywane w cache’u.&lt;/p&gt;
-
-&lt;h3 id=&quot;trace&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TRACE&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Żądanie tego typu służy do testowania. W odpowiedzi na to żądanie serwer powinien wysłać zapytanie, które otrzymał. Możliwa jest drobna modyfikacja otrzymanych nagłówków, na przykład serwer może usunąć nagłówki zawierające dane wrażliwe (na przykład ciasteczka). Żądanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;TRACE&lt;/code&gt; nie może zawierać ciała wiadomości.&lt;/p&gt;
-
-&lt;p&gt;Odpowiedzi na żądanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;TRACE&lt;/code&gt; nie powinny być umieszczane w cache’u.&lt;/p&gt;
-
-&lt;h2 id=&quot;nagłówki-http&quot;&gt;Nagłówki HTTP&lt;/h2&gt;
-
-&lt;p&gt;Nagłówki dołączane są przez klienty do wysyłanych zapytań i przez serwery do wysyłanych odpowiedzi. Mają one postać &lt;code class=&quot;highlighter-rouge&quot;&gt;nazwa-nagłówka: wartość-nagłówka&lt;/code&gt;. Zgodnie ze specyfikacją wielkość liter w nazwach nagłówków nie ma znaczenia. Wielkość liter w wartości nagłówka może mieć znaczenie, zależy to od aplikacji. Chociaż istnieje &lt;a href=&quot;https://www.iana.org/assignments/message-headers/message-headers.xhtml&quot;&gt;cała masa standardowych nagłówków&lt;/a&gt; możesz tworzyć swoje własne.&lt;/p&gt;
-
-&lt;p&gt;Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mogą zawierać na przykład informacje o formacie, statusie odpowiedzi czy dacie. Poniżej postaram się wyjaśnić kilka najczęściej spotykanych nagłówków:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Nagłówek&lt;/th&gt;
-      &lt;th&gt;Znaczenie&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Accept&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Klient informuje serwer o tym jaki format jest w stanie zrozumieć, może to być na przykład JSON: &lt;code class=&quot;highlighter-rouge&quot;&gt;application/json&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Accept-Encoding&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Klient informuje serwer o tym jakie sposoby kodowania ciała wiadomości rozumie, może być użyty do określenia pożądanego algorytmu kompresji odpowiedzi&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Access-Control-Allow-Methods&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;W odpowiedzi na zapytanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;OPTIONS&lt;/code&gt; serwer informuje jakie inne czasowniki HTTP są dozwolone&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Access-Control-Allow-Origin&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Serwer informuje klienta jakie domeny uprawnione są do użycia odpowiedzi&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Cache-Control&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Nagłówek służący do zarządzania cache’owaniem. Dotyczy zarówno żądań jak i odpowiedzi&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Connection&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Zawiera informacje na temat połączenia pomiędzy klientem a serwerem&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Encoding&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Serwer informuje klienta o sposobie kodowania ciała wiadomości&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Type&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Odpowiednik nagłówka &lt;code class=&quot;highlighter-rouge&quot;&gt;Accept&lt;/code&gt; wysyłany przez serwer informujący o formacie odpowiedzi&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Cookie&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Nagłówek służący do przesłania ciasteczka przez klienty do serwera&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Date&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Zawiera datę mówiącą od czasie wygenerowania żądania/odwiedzi&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ETag&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Zawiera identyfikator zasobu zwróconego przez serwer. Używany przez cache&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Host&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Zawiera domenę, do której wysyłane jest żądanie&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Location&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Zawiera informacje o położeniu zasobu, może być użyty na przykład przy przekierowaniach i tworzeniu nowych zasobów&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Server&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Serwer informuje klienty jakiego oprogramowania używa do obsługi odpowiedzi&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Set-Cookie&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Nagłówek służący do ustawienia ciasteczka&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;User-Agent&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Nagłówek dołączany do zapytania informujący o tym jaki klient został użyty to jego wysłania&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;ciasteczka&quot;&gt;Ciasteczka&lt;/h2&gt;
-
-&lt;p&gt;Co prawda ciasteczka to nic innego jak nagłówki, jednak poświęcę im osobny podpunkt. W osobnym artykule możesz przeczytać o &lt;a href=&quot;/naglowki-sesje-i-ciasteczka/&quot;&gt;ciasteczkach w kontekście specyfikacji serwletów&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Wiesz już, że protokół HTTP jest bezstanowy. Serwer HTTP nie może powiązać ze sobą zapytać pochodzących od tego samego klienta w jedną paczkę. Z pomocą przychodzą ciasteczka. Ciasteczka to specyficzne nagłówki, które są obsługiwane przez klienty.&lt;/p&gt;
-
-&lt;p&gt;Serwer w odpowiedzi może wysłać nagłówek, który utworzy ciasteczko. Ciasteczko to jest przypisane do domeny (część &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;path&lt;/code&gt; adresu URL). Przykładowy nagłówek do ustawienia ciasteczka może wyglądać następująco:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Set-Cookie: &amp;lt;nazwa ciasteczka&amp;gt;=&amp;lt;wartość ciasteczka&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W każdym kolejnym zapytaniu do tej domeny klient dołącza nagłówki ciasteczek. Dzięki temu aplikacja na serwerze może połączyć pojedyncze zapytania w sesje. Przykładowe ciasteczko w odpowiedzi dołączane jest przy pomocy nagłówka:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Cookie: &amp;lt;nazwa ciasteczka&amp;gt;=&amp;lt;wartość ciasteczka&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć “zapamiętaj mnie”. Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek &lt;code class=&quot;highlighter-rouge&quot;&gt;Set-Cookie&lt;/code&gt;). To ciasteczko zawiera unikalny klucz, który później jest dotłaczany przez klienta do każdego żądania do danej domeny (nagłówek &lt;code class=&quot;highlighter-rouge&quot;&gt;Cookie&lt;/code&gt;). Dzięki temu każde kolejne zapytanie ma nagłówek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.&lt;/p&gt;
-
-&lt;p&gt;Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą być wykorzystywane jako jeden ze sposobów do śledzenia Twojego ruchu w sieci. Zdarzyło Ci się kliknąć na reklamę a później ta reklama pokazywała Ci się bez przerwy? Ciasteczka także mogły się do tego przyczynić&lt;sup id=&quot;fnref:zaawansowane&quot;&gt;&lt;a href=&quot;#fn:zaawansowane&quot; class=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;statusy-http&quot;&gt;Statusy HTTP&lt;/h2&gt;
-
-&lt;p&gt;Wiesz już, że każda odpowiedź od serwera zawiera między innymi informacje o statusie. Status ten jest podstawową informacją o tym czy żądanie się powiodło. Wszystkie statusy podzielone są na pięć grup.&lt;/p&gt;
-
-&lt;h3 id=&quot;statusy-1xx&quot;&gt;Statusy 1xx&lt;/h3&gt;
-
-&lt;p&gt;Szczerze nigdy w praktyce nie spotkałem się z użyciem tych statusów. Ta grupa statusów to statusy informacyjne. Informują klienty o tym, że zapytanie zostało otrzymane i jest przetwarzane.&lt;/p&gt;
-
-&lt;h3 id=&quot;statusy-2xx&quot;&gt;Statusy 2xx&lt;/h3&gt;
-
-&lt;p&gt;Statusy z tej grupy informują o tym, że zapytanie zostało poprawnie przetworzone. W zależności od kodu odpowiedzi wynik tego przetwarzania może być różny. Najczęściej używane statusy z tej grupy to:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;200 OK&lt;/code&gt; - zapytanie zostało przetworzone poprawnie,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;201 Created&lt;/code&gt; - zapytanie zostało przetworzone poprawnie i zasób został utworzony,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;202 Accepted&lt;/code&gt; - zapytanie zostało przyjęte przez serwer, jednak jego przetwarzanie nie jest jeszcze ukończone,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;204 No Content&lt;/code&gt; - zapytanie zostało przetworzone, ciało wiadomości jest puste.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;statusy-3xx&quot;&gt;Statusy 3xx&lt;/h3&gt;
-
-&lt;p&gt;Statusy zaczynające się o 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetwarzania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;301 Moved Permanently&lt;/code&gt; - informuje klienta, że zasób został przeniesiony na stałe w inne miejsce. Ten status ma znaczenie duże dla twórców stron, którzy bazują na ruchu z wyszukiwarek. Taki status informuje wyszukiwarki o tym, że strona, która wcześniej była pod adresem X znajduje się w nowym miejscu.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;statusy-4xx&quot;&gt;Statusy 4xx&lt;/h3&gt;
-
-&lt;p&gt;Statusy z tej grupy informują o błędzie klienta. Pewnie nie raz widziałeś błąd 404 ;). Serwer tymi statusami informuje o tym, że żądanie nie może być poprawnie przetworzone:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;400 Bad Request&lt;/code&gt; - serwer informuje klienta o błędnym zapytaniu, które nie będzie przetworzone,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;403 Forbidden&lt;/code&gt; - zasób wymaga uwierzytelnienia, po potwierdzeniu tożsamości może być dostępny,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;404 Not Found&lt;/code&gt; - to pewnie znasz i widziałeś wielokrotnie, żądany zasób nie istnieje.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;statusy-5xx&quot;&gt;Statusy 5xx&lt;/h3&gt;
-
-&lt;p&gt;Tutaj sprawa jest poważna. Serwer informuje klienty o błędzie po stronie serwera, które uniemożliwiają przetworzenie zapytania:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;500 Internal Server Error&lt;/code&gt; - informacja dla klienta o tym, że serwer znalazł się w stanie, który uniemożliwia poprawne przetworzenie żądania,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;502 Bad Gateway&lt;/code&gt; - na początku artykułu wspomniałem o tym, że może być wiele węzłów, które będą przekazywały zapytanie do serwera, który je finalnie obsłuży. Ten status informuje klienta o tym, że jeden z tych pośrednich węzłów dostał błędną odpowiedź od poprzedniego węzła,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;503 Service Unavailable&lt;/code&gt; - ten błąd może informować klienta o tym, że serwer jest przeciążony. Ponowna próba może kończyć się poprawną odpowiedzią.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;prawie-300-zapytań-aby-wyświetlić-stronę&quot;&gt;Prawie 300 zapytań aby wyświetlić stronę&lt;/h2&gt;
-
-&lt;p&gt;Teraz jak już wiesz czym jest protokół HTTP wyjaśnię “tajemnicę” około 300 zapytań.&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;/assets/images/2018/02/08_amazon_zapytania.jpeg&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Do wyświetlenia www.amazon.com potrzeba około 300 zapytań
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Przeglądarka jest klientem HTTP. Klienty mogą interpretować odpowiedź wysyłaną od serwera. Wpisując w pasek adresu &lt;code class=&quot;highlighter-rouge&quot;&gt;www.amazon.com&lt;/code&gt; i naciskając ENTER wysyłasz jedno zapytanie. Jest to zapytanie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; o zasób &lt;code class=&quot;highlighter-rouge&quot;&gt;www.amazon.com&lt;/code&gt;. W odpowiedzi serwer zwraca dokument HTML.&lt;/p&gt;
-
-&lt;p&gt;Dokument ten jest interpretowany przez przeglądarkę, zawiera on znaczniki HTML. Takie jak &lt;code class=&quot;highlighter-rouge&quot;&gt;img&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;script&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;style&lt;/code&gt;. Każdy z tych znaczników może kończyć się kolejnym zapytaniem typu &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;. Dodatkowo kod JavaScript interpretowany przez przeglądarkę może wykonywać dodatkowe zapytania. W sumie do wyświetlenia strony głównej sklepu Amazon potrzeba tych zapytań około 300. A wszystko zaczęło się od jednego, niewinnego &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; :).&lt;/p&gt;
-
-&lt;h2 id=&quot;dodatkowe-materiały&quot;&gt;Dodatkowe materiały&lt;/h2&gt;
-
-&lt;p&gt;Odsyłam Cię głównie do źródeł. Mam wrażenie, że artykuł jest na tyle szczegółowy, że bardziej dokładne informacje znajdziesz właśnie tam:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP&quot;&gt;Zbiór materiałów fundacji Mozilla dotyczących HTTP&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;Zbiór RFC dla HTTP 1.1:
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7230&quot;&gt;RFC 7230&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7231&quot;&gt;RFC 7231&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7232&quot;&gt;RFC 7232&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7233&quot;&gt;RFC 7233&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7234&quot;&gt;RFC 7234&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7235&quot;&gt;RFC 7235&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc3986&quot;&gt;RFC dla URI&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h1&gt;
-
-&lt;p&gt;Jeśli przeczytałeś i zrozumiałeś ten artykuł to śmiało możesz powiedzieć, że znasz protokół HTTP. Wiesz jak działa ten protokół, wiesz czym są zasoby. Poznałeś różnicę pomiędzy URI a URL. Znasz mechanizm działania nagłówków, poznałeś też główne statusy odpowiedzi. Moim zdaniem, poznając to wszystko wyszedłeś poza podstawową wiedzę na temat tego protokołu.&lt;/p&gt;
-
-&lt;p&gt;Zapowiadało się niewinnie a wyszedł tasiemiec. Sporo napracowałem się przy tym artykule, więc będę Ci bardzo wdzięczny za udostępnienie go dalej :).&lt;/p&gt;
-
-&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Trzymaj się! :)&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:praca&quot;&gt;
-      &lt;p&gt;Ot, taki “patriotyzm lokalny” - aktualnie pracuję w firmie Opera Software ;). &lt;a href=&quot;#fnref:praca&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:litery&quot;&gt;
-      &lt;p&gt;To czy wielkość liter jest rozróżniana zależy od aplikacji obsługującej dane żądanie. &lt;a href=&quot;#fnref:litery&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:wewnetrzna&quot;&gt;
-      &lt;p&gt;Potrafię sobie wyobrazić wyjątki od tej reguły. Na przykład w komunikacji, w której adres URL jest przesyłany zaszyfrowanym kanałem. &lt;a href=&quot;#fnref:wewnetrzna&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:kilka&quot;&gt;
-      &lt;p&gt;Na jedno żądanie serwer może wysłać kilka odpowiedzi, na przykład dzieląc dużą odpowiedź na kilka mniejszych. &lt;a href=&quot;#fnref:kilka&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:rozszerzenie&quot;&gt;
-      &lt;p&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc5789&quot;&gt;RFC5789&lt;/a&gt; rozszerza tę grupę o czasownik PATCH. &lt;a href=&quot;#fnref:rozszerzenie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:polski&quot;&gt;
-      &lt;p&gt;Tutaj podobnie jak z webservice’em postanowiłem nie tłumaczyć tego określenia. Jest ono na tyle powszechne, że nawet nie wiem jakie byłoby dobre tłumaczenie. Schowek? Skrytka? ;) &lt;a href=&quot;#fnref:polski&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:wyjatek&quot;&gt;
-      &lt;p&gt;W większości przypadków, specyfikacja dopuszcza wyjątki od tej reguły. &lt;a href=&quot;#fnref:wyjatek&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:zaawansowane&quot;&gt;
-      &lt;p&gt;Ciasteczka nie są jedynym narzędziem używanym do śledzenia użytkownika. Podobnie sprawa wygląda z reklamami, to nie tylko ciasteczka mogą służyć do wybierania tych do wyświetlenia dla Ciebie. &lt;a href=&quot;#fnref:zaawansowane&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem wiedzę na temat protokołu HTTP niezbędną do tworzenia aplikacji webowych.</summary></entry></feed>
+&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów z tej serii dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Jak zwykle, jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzach. Postaram się pomóc ;). Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cykliczne i w jaki sposób sprawdzić czy dana liczba jest cykliczna. Zapraszam do lektury.</summary></entry></feed>
