@@ -9,7 +9,7 @@ header:
     teaser: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
     overlay_image: /assets/images/2018/03/06_wstep_do_relacyjnych_baz_danych.jpg
     caption: "[&copy; liquene](https://www.flickr.com/photos/liquene/3802773731/sizes/l)"
-excerpt: W artykule tym przeczytasz o tym czym jest SQL. Poznasz podstawowe rodzaje zapytań. Przeczytasz o tym jak tworzyć tabele. Dowiesz się jak pobierać, dodawać, modyfikowac i usuwać dane z bazy danych. W artykule znajdziesz sporo praktycznych ćwiczeń, w których będziesz mógł sprawdzić zdobytą wiedzę.
+excerpt: W artykule tym przeczytasz o tym czym jest SQL. Poznasz podstawowe rodzaje zapytań. Przeczytasz o tym jak tworzyć tabele. Dowiesz się jak pobierać, dodawać, modyfikować i usuwać dane z bazy danych. W artykule znajdziesz sporo praktycznych ćwiczeń, w których będziesz mógł sprawdzić zdobytą wiedzę.
 ---
 
 {% capture wstep %}
@@ -43,7 +43,7 @@ Zanim pokażę Ci ćwiczenia, na których poznawał będziesz język SQL musisz 
 
 #### Tworzenie tabeli
 
-Wspomniałem już, że DDL to części SQL pozwalająca między innymi na tworzenie tabel w bazie danych. Zapytanie SQL pozwalające na tworznie tabeli ma format:
+Wspomniałem już, że DDL to części SQL pozwalająca między innymi na tworzenie tabel w bazie danych. Zapytanie SQL pozwalające na tworzenie tabeli ma format:
 
     CREATE TABLE <nazwa tabeli> (
         <nazwa kolumny> <typ kolumny>

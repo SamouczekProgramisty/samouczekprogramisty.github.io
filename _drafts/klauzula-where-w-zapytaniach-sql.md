@@ -15,19 +15,19 @@ excerpt: W tym artykule przeczytasz o możliwościach klauzuli `WHERE`. Na prakt
 
 ## Klauzula `WHERE`
 
-W artykule opisującym [podstawy zapytania `SELECT`]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}) wspomniałem o klauzyli `WHERE`. Po przeczytaniu tamtego artykułu wiesz, że klauzula `WHERE` służy do filtrowania danych zwróconych przez zapytania typu `SELECT`.
+W artykule opisującym [podstawy zapytania `SELECT`]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}) wspomniałem o klauzuli `WHERE`. Po przeczytaniu tamtego artykułu wiesz, że klauzula `WHERE` służy do filtrowania danych zwróconych przez zapytania typu `SELECT`.
 
-Klauzula `WHERE` używana jest także w zapytaniach typu `UPDATE`, `INSERT` i `DELETE`. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu `DELETE` ogranicza zbiór wierszy, który powinien zotać usunięty. W zapytaniach typu `INSERT` używany jest z podzapytaniami (o podzapytaniach przeczytasz w jednym z kolejnych artykułów).
+Klauzula `WHERE` używana jest także w zapytaniach typu `UPDATE`, `INSERT` i `DELETE`. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu `DELETE` ogranicza zbiór wierszy, który powinien zostać usunięty. W zapytaniach typu `INSERT` używany jest z podzapytaniami (o podzapytaniach przeczytasz w jednym z kolejnych artykułów).
 
 Informacje, które przeczytasz w tym artykule można odnieść do wszystkich czterech rodzai zapytań.
 
 ## Literały w SQL
 
-Zanim przejdę do omawiania warunków musisz poznać literały. Używalem ich już w [poprzednim artykule]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}) bez dodatkowego wyjaśnienia. Tutaj poświęcę im osobny paragraf.
+Zanim przejdę do omawiania warunków musisz poznać literały. Używałem ich już w [poprzednim artykule]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}) bez dodatkowego wyjaśnienia. Tutaj poświęcę im osobny paragraf.
 
 Najprostszym rodzajem literałów są liczby, zapisuje się je podobnie jak w językach programowania: `42`, `12.34`. Liczby mogą być zapisane także w [notacji naukowej]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}#notacja-naukowa-a-liczby-wymierne) `1.34E-5` lub [szesnastkowo]({% post_url 2016-02-11-system-dwojkowy %}) `0xBACA`[^zalezyodbazy].
 
-Często będziesz także używać łańcuchów znaków. Łańcuch znaków powinien być ototoczony apostrofami, na przykład `'Samouczek Programisty'`.
+Często będziesz także używać łańcuchów znaków. Łańcuch znaków powinien być otoczony apostrofami, na przykład `'Samouczek Programisty'`.
 
 [^zalezyodbazy]: To zależy od silnika bazy danych. SQLite wspiera literały tego typu.
 
@@ -47,7 +47,7 @@ SELECT *
 
 ### Łączenie warunków
 
-Każdy z warunków, który opopiszę można ze sobą łączyć używając operatorów `AND` lub `OR`. `AND` ma pierwszeństwo przed `OR`. Można także użyć nawiasów `()`, aby określić pierwszeństwo wykonania warunków. Używanie nawiasów nie zawsze jest obowiązkowe. Jednak moim zdaniem często warto ich używać. Dzięki nim bardziej skomplikowane zapytania mogą być bardziej czytelne. Nawiasy w przykładzie poniżej są zbędne, nie mają wpływu na kolejność wykonywania operacji:
+Każdy z warunków, który opiszę można ze sobą łączyć używając operatorów `AND` lub `OR`. `AND` ma pierwszeństwo przed `OR`. Można także użyć nawiasów `()`, aby określić pierwszeństwo wykonania warunków. Używanie nawiasów nie zawsze jest obowiązkowe. Jednak moim zdaniem często warto ich używać. Dzięki nim bardziej skomplikowane zapytania mogą być bardziej czytelne. Nawiasy w przykładzie poniżej są zbędne, nie mają wpływu na kolejność wykonywania operacji:
 
     x OR y AND z
     x OR (y AND z)
@@ -72,7 +72,7 @@ Jednak umieszczenie nawiasów w innym miejscu zupełnie zmienia warunek, który 
 Zacznę od najprostszych typów porównań. Podobne operatory występują także w językach programowania. Operatory porównują ze sobą wartości po obu stronach.
 
 * `A < B` - wiersz spełnia warunek jeśli A jest mniejsze od B,
-* `A <= B` - wiersz spałnia warunek jeśli A jest mniejsze bądź równe B,
+* `A <= B` - wiersz spełnia warunek jeśli A jest mniejsze bądź równe B,
 * `A = B` - wiersz spełnia warunek jeśli A jest równe B,
 * `A != B` - wiersz spełnia warunek jeśli A jest różne od B,
 * `A > B` - wiersz spełnia warunek jeśli A jest większe od B,
@@ -113,7 +113,7 @@ SELECT *
 
 #### Porównywanie dat
 
-SQLlite nie ma specjalnego typu do przechowywania dat. Do tego celu używane mogą być łańcuchy znaków lub liczby. W związku z tym porównywanie dat sprowadza się do porównywania tych typów danych. Na przykład zapytanie poniżej zwróci wszystkie wiersze, które zawierają faktury wystawione w Polsce od 26 maja 2012 roku.
+SQLite nie ma specjalnego typu do przechowywania dat. Do tego celu używane mogą być łańcuchy znaków lub liczby. W związku z tym porównywanie dat sprowadza się do porównywania tych typów danych. Na przykład zapytanie poniżej zwróci wszystkie wiersze, które zawierają faktury wystawione w Polsce od 26 maja 2012 roku.
 
 ```sql
 SELECT *
@@ -126,7 +126,7 @@ Przy porównaniach tego typu musisz uważać. Powyższe zapytanie zwróci wiersz
 
 ### BETWEEN
 
-Do określienia zakresu, w którym powinna znaleźć się wartość kolumny możesz użyć `BETWEEN`. Zapytanie poniżej zwróci wszystkie wiersze, dla których wartość kolumny `total` jest większa bądź równa `10.91` i mniejsza bądź równa `11.96`:
+Do określenia zakresu, w którym powinna znaleźć się wartość kolumny możesz użyć `BETWEEN`. Zapytanie poniżej zwróci wszystkie wiersze, dla których wartość kolumny `total` jest większa bądź równa `10.91` i mniejsza bądź równa `11.96`:
 
 ```sql
 SELECT *
@@ -134,7 +134,7 @@ SELECT *
  WHERE total BETWEEN 10.91 AND 11.96;
 ```
 
-Porównanie `total BETWEEN 10.91 AND 11.96` jest tożzame porównaniu `total >= 10.91 AND total <= 11.96`. Warunek `BETWEEN` można poprzedzić `NOT`
+Porównanie `total BETWEEN 10.91 AND 11.96` jest tożsame porównaniu `total >= 10.91 AND total <= 11.96`. Warunek `BETWEEN` można poprzedzić `NOT`
 
 ### LIKE
 
@@ -180,7 +180,7 @@ Literał po `ESCAPE` może zawierać pojedynczy znak. Symbol ten jest użyty do 
 
 ### IS NULL
 
-Niektóre wiersze mogą mieć puste kolumny. Puste, czyli takie, które nie są uzupełnione żadną wartością. W takim przypadku mówi się, że kolumna ma wartość `NULL`. Aby filtrować wiersze na podstawie tej wartości należy użyć wyrażenia `IS NULL`. Na przykład zapytanie poniżej pokazuje tylko te kraje, dla których wartosć kolumny `billingstate` ma wartość `NULL`:
+Niektóre wiersze mogą mieć puste kolumny. Puste, czyli takie, które nie są uzupełnione żadną wartością. W takim przypadku mówi się, że kolumna ma wartość `NULL`. Aby filtrować wiersze na podstawie tej wartości należy użyć wyrażenia `IS NULL`. Na przykład zapytanie poniżej pokazuje tylko te kraje, dla których wartość kolumny `billingstate` ma wartość `NULL`:
 
 ```sql
 SELECT *
@@ -211,7 +211,7 @@ Wstrzykiwanie SQL jest jednym z podstawowych ataków na aplikacje używające ba
 
 Proszę spójrz na przykład w języku Java. W ten sposób na pewno będzie Ci łatwiej zrozumieć ten typ ataku.
 
-Załóżmy, że w aplikacji próbujesz zaimplementować moduł logowania[^nierobtego]. Użytkownik w formularzu wprowadza swój email i hasło.
+Załóżmy, że w aplikacji próbujesz zaimplementować moduł logowania[^nierobtego]. Użytkownik w formularzu wprowadza swój e-mail i hasło.
 
 [^nierobtego]: Do tej pory nie spotkałem się jeszcze z sytuacją, w której mechanizm logowania musiałbym pisać od podstaw samemu. Nie rób tego samodzielnie, użyj gotowego, sprawdzonego rozwiązania.
 
@@ -247,17 +247,17 @@ Właściwie są to dwa zapytania. Bardziej istotne jest drugie z nich. Po jego w
 
 Ręczne budowanie zapytań SQL poprzez łączenie łańcuchów znaków przeważnie nie jest dobrym rozwiązaniem. Używaj do tego celu dedykowanych bibliotek. W Języku Java może to być na przykład Hibernate. W Pythonie SQLalchemy też świetnie daje sobie z tym radę. Jestem pewien, że w innych językach programowania istnieją podobne rozwiązania. Biblioteki te domyślnie odpowiednio traktują dane, które służą do wypełniania szablonów zapytań.
 
-Jeśli chcesz budować zapytania "ręcznie". Pamiętaj o odpowiednim traktowaniu danych pochodzących od użytkownika. Takim danym nigdy nie można ufać. Musisz założyć, że każdy użytkownik jest złośliwy i będzie chciał zepsuć Twoją aplikację. W najprostrzym scenariuszu użycie `''` w miejscu każdego znaku `'` w danych pochodzących od użytkownika powinno pomóc.
+Jeśli chcesz budować zapytania "ręcznie". Pamiętaj o odpowiednim traktowaniu danych pochodzących od użytkownika. Takim danym nigdy nie można ufać. Musisz założyć, że każdy użytkownik jest złośliwy i będzie chciał zepsuć Twoją aplikację. W najprostszym scenariuszu użycie `''` w miejscu każdego znaku `'` w danych pochodzących od użytkownika powinno pomóc.
 
 ## Zadania do wykonania
 
-Poniżej znajdziesz zestaw zadań, które pomogą Ci przećwiczyć materiał omówiony w tym arytkule.
+Poniżej znajdziesz zestaw zadań, które pomogą Ci przećwiczyć materiał omówiony w tym artykule.
 
 Napisz zapytanie, które:
 
 - zwróci wszystkie wiersze z tabeli `track`, dla których: `unitprice` jest mniejsze niż `1` i znak `%` zawarty jest w kolumnie `name` oraz kolumna `name` kończy się na `e`,
 - zwróci wszystkie wiersze z tabeli `invoice`, które mają uzupełnioną kolumnę `billingstate` i nie są ze Stanów Zjednoczonych,
-- zwróci wszystkie wiersze z tabeli `invoice`, które dotyczą Polski, Czech i Węgier dla których warość faktury przekracza 10,
+- zwróci wszystkie wiersze z tabeli `invoice`, które dotyczą Polski, Czech i Węgier dla których wartość faktury przekracza 10,
 - zwróci imiona pracowników z tabeli `employee`, które dotyczą pracowników urodzonych w latach 60. 
 
 ## Podsumowanie
