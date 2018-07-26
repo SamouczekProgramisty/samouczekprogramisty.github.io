@@ -255,7 +255,10 @@ Poniżej znajdziesz zestaw zadań, które pomogą Ci przećwiczyć materiał om�
 
 Napisz zapytanie, które:
 
-* Zwróci wszystkie wiersze z tabeli `track`, dla których: `unitprice` jest mniejsze niż `1` i znak `%` zawarty jest w kolumnie `name` oraz kolumna `name` kończy się na `e`,
+- zwróci wszystkie wiersze z tabeli `track`, dla których: `unitprice` jest mniejsze niż `1` i znak `%` zawarty jest w kolumnie `name` oraz kolumna `name` kończy się na `e`,
+- zwróci wszystkie wiersze z tabeli `invoice`, które mają uzupełnioną kolumnę `billingstate` i nie są ze Stanów Zjednoczonych,
+- zwróci wszystkie wiersze z tabeli `invoice`, które dotyczą Polski, Czech i Węgier dla których warość faktury przekracza 10,
+- zwróci imiona pracowników z tabeli `employee`, które dotyczą pracowników urodzonych w latach 60. 
 
 ## Podsumowanie
 
