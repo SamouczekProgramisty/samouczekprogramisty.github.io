@@ -61,7 +61,7 @@ public void shouldSayThat15rIsInRange() {
 
 Test jednostkowy to metoda testująca naszą jednostkę, metodę w innej klasie z dodaną adnotacją [`@Test`](http://junit.org/junit4/javadoc/latest/org/junit/Test.html). `shouldSayThat15IsInRange` jest testem, wewnątrz którego tworzę instancję klasy `Range` i wywołuję metodę sprawdzającą czy 15 jest wewnątrz zakresu.
 
-Wynik tej metody jest przekazywany do metody [`Asssert.assertTrue()`](http://junit.org/junit4/javadoc/latest/org/junit/Assert.html#assertTrue(boolean)), jest to tak zwana asercja. Asercje to metody dostarczone przez bibliotekę JUnit, które pomagają przy testowaniu.
+Wynik tej metody jest przekazywany do metody [`Assert.assertTrue()`](http://junit.org/junit4/javadoc/latest/org/junit/Assert.html#assertTrue(boolean)), jest to tak zwana asercja. Asercje to metody dostarczone przez bibliotekę JUnit, które pomagają przy testowaniu.
 
 W naszym przykładzie, jeśli metoda `isInRange` zwróci `false`, wówczas asercja `assertTrue` rzuci wyjątek, który przez IDE zostanie zinterpretowany jak test jednostkowy, który pokazuje błąd działania testowanego kodu. Mówimy wówczas, że „test nie przeszedł”, „wywalił się” :).
 

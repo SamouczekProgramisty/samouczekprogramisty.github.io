@@ -313,7 +313,7 @@ Takie często używane klasy zostały wbudowane w wyrażenia regularne pod posta
 - `\d` - jakakolwiek cyfra `[0-9]`,
 - `\D` - jakikolwiek znak, który nie jest cyfrą `[^0-9]`,
 - `\w` - znak używany w słowach `[a-zA-Z0-9_]` (zauważ, że mamy tu znak `_`),
-- `\w` - jakikolwiek znak, który nie jest używany w słowach `[^a-zA-Z0-9_]`,
+- `\W` - jakikolwiek znak, który nie jest używany w słowach `[^a-zA-Z0-9_]`,
 - `\s` - tak zwane białe znaki czyli znak spacji czy tabulacji `[ \t\n\r\f\x0B]`. Możesz je opisać jako znaki, które nie są widoczne podczas wydruku,
 - `\S` - negacja grupy `\s` czyli `[^ \t\n\r\f\x0B]`.
 
