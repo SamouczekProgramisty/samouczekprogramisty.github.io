@@ -329,12 +329,45 @@ W kolejnych artykułach omówię między innymi pozostałe elementy składni zap
 
 ## Zadania do wykonania
 
-Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się napisać zapytania samodzielnie, wtedy nauczysz się najwięcej:
+Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się napisać zapytania samodzielnie, wtedy nauczysz się najwięcej. Żadne z zapytań nie musi zwrócić unikalnych wyników[^distinct]:
 
-- Napisz zapytanie, które zwróci wszystkie gatunki muzyczne z tabeli `genre`, 
-- Napisz zapytanie, które zwróci wszystkie stany w USA, w których wystawiono fakturę na kwotę większą niż 15,
-- Napisz zapytanie, które zwróci wszystkie kraje, w których wystawiono fakturę na kwotę mniejszą niż 10 pomiędzy '2013-12-05 00:00:00' i '2013-12-09 00:00:00',
-- Napisz zapytanie, które zwróci wszystkie miasta i kraje gdzie wartość kolumny `billingstate` równa się `NULL` i wartość zamówienia jest większa niż 17 oraz te gdzie wartość zamówienia jest mniejsza niż 1, `billingstate` nie ma wartości `NULL` i zostały wystawione po '2013-09-20 00:00:00'.
+[^distinct]: Mechanizmy, które pozwalają na zwracanie unikalnych wyników omówię w kolejnych artykułach.
+
+1. Napisz zapytanie, które zwróci wszystkie gatunki muzyczne z tabeli `genre`,
+1. Napisz zapytanie, które zwróci wszystkie stany w USA, w których wystawiono fakturę na kwotę większą niż 15,
+1. Napisz zapytanie, które zwróci wszystkie kraje, w których wystawiono fakturę na kwotę mniejszą niż 10 pomiędzy '2013-12-05 00:00:00' i '2013-12-09 00:00:00',
+1. Napisz zapytanie, które zwróci wszystkie miasta i kraje gdzie wartość kolumny `billingstate` równa się `NULL` i wartość zamówienia jest większa niż 17 oraz te gdzie wartość zamówienia jest mniejsza niż 1, `billingstate` nie ma wartości `NULL` i zostały wystawione po '2013-09-20 00:00:00'.
+
+### Przykładowe rozwiązania zadań
+
+```sql
+SELECT name
+  FROM genre;
+```
+
+```sql
+SELECT billingstate
+  FROM invoice
+ WHERE billingcountry = 'USA'
+      AND total > 15;
+```
+
+```sql
+SELECT billingcountry
+  FROM invoice
+ WHERE total < 10
+      AND invoicedate > '2013-12-05 00:00:00'
+      AND invoicedate < '2013-12-09 00:00:00';
+```
+
+```sql
+SELECT billingcity, billingcountry
+  FROM invoice
+ WHERE (billingstate IS NULL AND total > 17)
+       OR (total < 1
+           AND billingstate IS NOT NULL
+           AND invoicedate > '2013-09-20 00:00:00');
+```
 
 ## Dodatkowe materiały do nauki
 
