@@ -281,7 +281,11 @@
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#zadania-do-wykonania">Zadania do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#zadania-do-wykonania">Zadania do wykonania</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#przykładowe-rozwiązania-zadań">Przykładowe rozwiązania zadań</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
 <li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
 </ul>
@@ -641,14 +645,41 @@ CREATE INDEX [IFK_InvoiceCustomerId] ON [Invoice] ([CustomerId]);
 
 <h2 id="zadania-do-wykonania">Zadania do wykonania</h2>
 
-<p>Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się napisać zapytania samodzielnie, wtedy nauczysz się najwięcej:</p>
+<p>Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się napisać zapytania samodzielnie, wtedy nauczysz się najwięcej. Żadne z zapytań nie musi zwrócić unikalnych wyników<sup id="fnref:distinct"><a href="#fn:distinct" class="footnote">7</a></sup>:</p>
 
-<ul>
+<ol>
   <li>Napisz zapytanie, które zwróci wszystkie gatunki muzyczne z tabeli <code class="highlighter-rouge">genre</code>,</li>
   <li>Napisz zapytanie, które zwróci wszystkie stany w USA, w których wystawiono fakturę na kwotę większą niż 15,</li>
   <li>Napisz zapytanie, które zwróci wszystkie kraje, w których wystawiono fakturę na kwotę mniejszą niż 10 pomiędzy ‘2013-12-05 00:00:00’ i ‘2013-12-09 00:00:00’,</li>
   <li>Napisz zapytanie, które zwróci wszystkie miasta i kraje gdzie wartość kolumny <code class="highlighter-rouge">billingstate</code> równa się <code class="highlighter-rouge">NULL</code> i wartość zamówienia jest większa niż 17 oraz te gdzie wartość zamówienia jest mniejsza niż 1, <code class="highlighter-rouge">billingstate</code> nie ma wartości <code class="highlighter-rouge">NULL</code> i zostały wystawione po ‘2013-09-20 00:00:00’.</li>
-</ul>
+</ol>
+
+<h3 id="przykładowe-rozwiązania-zadań">Przykładowe rozwiązania zadań</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span>
+  <span class="k">FROM</span> <span class="n">genre</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">billingstate</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">WHERE</span> <span class="n">billingcountry</span> <span class="o">=</span> <span class="s1">'USA'</span>
+      <span class="k">AND</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">billingcountry</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">WHERE</span> <span class="n">total</span> <span class="o">&lt;</span> <span class="mi">10</span>
+      <span class="k">AND</span> <span class="n">invoicedate</span> <span class="o">&gt;</span> <span class="s1">'2013-12-05 00:00:00'</span>
+      <span class="k">AND</span> <span class="n">invoicedate</span> <span class="o">&lt;</span> <span class="s1">'2013-12-09 00:00:00'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">billingcity</span><span class="p">,</span> <span class="n">billingcountry</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">WHERE</span> <span class="p">(</span><span class="n">billingstate</span> <span class="k">IS</span> <span class="k">NULL</span> <span class="k">AND</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">17</span><span class="p">)</span>
+       <span class="k">OR</span> <span class="p">(</span><span class="n">total</span> <span class="o">&lt;</span> <span class="mi">1</span>
+           <span class="k">AND</span> <span class="n">billingstate</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
+           <span class="k">AND</span> <span class="n">invoicedate</span> <span class="o">&gt;</span> <span class="s1">'2013-09-20 00:00:00'</span><span class="p">);</span>
+</code></pre></div></div>
 
 <h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
 
@@ -686,6 +717,9 @@ CREATE INDEX [IFK_InvoiceCustomerId] ON [Invoice] ([CustomerId]);
     </li>
     <li id="fn:storage_type">
       <p>W przypadku SQLite wszystkie typy danych są przekształcane na “typy pierwotne”: <code class="highlighter-rouge">NULL</code>, <code class="highlighter-rouge">INTEGER</code>, <code class="highlighter-rouge">REAL</code>, <code class="highlighter-rouge">TEXT</code>, <code class="highlighter-rouge">BLOB</code>. Dane na dysku zawsze zapisane są jako jeden z typów pierwotnych. <a href="#fnref:storage_type" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:distinct">
+      <p>Mechanizmy, które pozwalają na zwracanie unikalnych wyników omówię w kolejnych artykułach. <a href="#fnref:distinct" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>

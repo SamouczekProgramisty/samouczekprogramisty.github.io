@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-07-26T18:30:44+02:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Klauzula WHERE w zapytaniach SQL</title><link href="http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/" rel="alternate" type="text/html" title="Klauzula WHERE w zapytaniach SQL" /><published>2018-07-26T00:00:00+02:00</published><updated>2018-07-26T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/">&lt;div class=&quot;notice--info&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-08-08T12:58:01+02:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Klauzula WHERE w zapytaniach SQL</title><link href="http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/" rel="alternate" type="text/html" title="Klauzula WHERE w zapytaniach SQL" /><published>2018-07-26T00:00:00+02:00</published><updated>2018-07-26T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/">&lt;div class=&quot;notice--info&quot;&gt;
   
 &lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-sql&quot;&gt;praktycznego kursu SQL&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
 
@@ -608,14 +608,41 @@ CREATE INDEX [IFK_InvoiceCustomerId] ON [Invoice] ([CustomerId]);
 
 &lt;h2 id=&quot;zadania-do-wykonania&quot;&gt;Zadania do wykonania&lt;/h2&gt;
 
-&lt;p&gt;Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się napisać zapytania samodzielnie, wtedy nauczysz się najwięcej:&lt;/p&gt;
+&lt;p&gt;Na koniec mam dla Ciebie kilka zadań, w których przećwiczysz materiał z tego artykułu. Postaraj się napisać zapytania samodzielnie, wtedy nauczysz się najwięcej. Żadne z zapytań nie musi zwrócić unikalnych wyników&lt;sup id=&quot;fnref:distinct&quot;&gt;&lt;a href=&quot;#fn:distinct&quot; class=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
 
-&lt;ul&gt;
+&lt;ol&gt;
   &lt;li&gt;Napisz zapytanie, które zwróci wszystkie gatunki muzyczne z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;genre&lt;/code&gt;,&lt;/li&gt;
   &lt;li&gt;Napisz zapytanie, które zwróci wszystkie stany w USA, w których wystawiono fakturę na kwotę większą niż 15,&lt;/li&gt;
   &lt;li&gt;Napisz zapytanie, które zwróci wszystkie kraje, w których wystawiono fakturę na kwotę mniejszą niż 10 pomiędzy ‘2013-12-05 00:00:00’ i ‘2013-12-09 00:00:00’,&lt;/li&gt;
   &lt;li&gt;Napisz zapytanie, które zwróci wszystkie miasta i kraje gdzie wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt; równa się &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; i wartość zamówienia jest większa niż 17 oraz te gdzie wartość zamówienia jest mniejsza niż 1, &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt; nie ma wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; i zostały wystawione po ‘2013-09-20 00:00:00’.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;przykładowe-rozwiązania-zadań&quot;&gt;Przykładowe rozwiązania zadań&lt;/h3&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'USA'&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoicedate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2013-12-05 00:00:00'&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoicedate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2013-12-09 00:00:00'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;k&quot;&gt;OR&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoicedate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2013-09-20 00:00:00'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
 
@@ -653,6 +680,9 @@ CREATE INDEX [IFK_InvoiceCustomerId] ON [Invoice] ([CustomerId]);
     &lt;/li&gt;
     &lt;li id=&quot;fn:storage_type&quot;&gt;
       &lt;p&gt;W przypadku SQLite wszystkie typy danych są przekształcane na “typy pierwotne”: &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;INTEGER&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;REAL&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;TEXT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;BLOB&lt;/code&gt;. Dane na dysku zawsze zapisane są jako jeden z typów pierwotnych. &lt;a href=&quot;#fnref:storage_type&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:distinct&quot;&gt;
+      &lt;p&gt;Mechanizmy, które pozwalają na zwracanie unikalnych wyników omówię w kolejnych artykułach. &lt;a href=&quot;#fnref:distinct&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest język SQL. Dowiesz się jak wygląda podstawowe zapytanie `SELECT`. Artykuł opisuje także przygotowanie środowiska pozwalającego przećwiczyć zdobytą wiedzę. Na końcu artykułu czeka na Ciebie zestaw zadań do samodzielnego wykonania.</summary></entry><entry><title type="html">Projekt Informator zasilenie bazy, Spring i błędy jako JSON</title><link href="http://www.samouczekprogramisty.pl/projekt-informator-zasilenie-bazy-spring-i-bledy-jako-json/" rel="alternate" type="text/html" title="Projekt Informator zasilenie bazy, Spring i błędy jako JSON" /><published>2018-06-20T00:00:00+02:00</published><updated>2018-06-20T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/projekt-informator-bledy-jako-json-w-spring</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/projekt-informator-zasilenie-bazy-spring-i-bledy-jako-json/">&lt;h2 id=&quot;projekt-informator&quot;&gt;Projekt Informator&lt;/h2&gt;
