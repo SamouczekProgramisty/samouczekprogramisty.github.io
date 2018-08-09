@@ -2,7 +2,7 @@
 layout: start_page
 permalink: /nowa-strona-glowna/
 header:
-  overlay_image: /assets/images/splash.jpg
+  overlay_image: /assets/images/splash/main_page_splash.jpg
 excerpt: Twój mentor na drodze do programowania
 ---
 
@@ -85,50 +85,54 @@ excerpt: Twój mentor na drodze do programowania
   </div>
 </div>
 
+{% assign kursJava = site.pages | where: "course_id", "java" | first %}
+{% assign kursWeb = site.pages | where: "course_id", "web" | first %}
+{% assign kursSQL = site.pages | where: "course_id", "sql" | first %}
+
 <div class="feature__wrapper">
   <div class="feature__item">
     <div class="archive__item">
       <div class="archive__item-teaser c_item-teaser">
-        <a href="{{ '/kurs-programowania-java/' | absolute_url }}">
-          <img src="{{ '/assets/images/temp/missing.png' | absolute_url }}">
-          <h3 class="c_item-teaser-title">Kurs programowania Java</h3>
+        <a href="{{ kursJava.permalink }}">
+          <img src="{{ kursJava.header.overlay_image }}">
+          <h3 class="c_item-teaser-title">{{ kursJava.title }}</h3>
         </a>
       </div>
     </div>
     <div class="archive__item-excerpt">
-Java jest jednym z najbardziej popularnych języków programowania. Cykl artykułów poświęconych programowaniu
+      Java jest jednym z najbardziej popularnych języków programowania. Kurs ten pomoże Ci poznać składnię języka Java jak i część funkcjonalności dostępnych w bibliotece standardowej.
     </div>
 
-    <p><a href="{{ '/kurs-programowania-java/' | absolute_url }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
+    <p><a href="{{ kursJava.permalink }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
+  </div>
+
+  <div class="feature__item">
+    <div class="archive__item">
+      <div class="archive__item-teaser c_item-teaser">
+        <a href="{{ kursWeb.permalink }}">
+          <img src="{{ kursWeb.header.overlay_image }}">
+          <h3 class="c_item-teaser-title">{{ kursWeb.title }}</h3>
+        </a>
+      </div>
+    </div>
+    <div class="archive__item-excerpt">
+      W kursie tym poznasz podstawy programowania aplikacji webowych opartych o Java EE.
+    </div>
+    <p><a href="{{ kursWeb.permalink }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
   </div>
   <div class="feature__item">
     <div class="archive__item">
       <div class="archive__item-teaser c_item-teaser">
-        <a href="{{ '/kurs-aplikacji-webowych/' | absolute_url }}">
-          <img src="{{ '/assets/images/temp/missing.png' | absolute_url }}">
-          <h3 class="c_item-teaser-title">Kurs programowania aplikacji webowych</h3>
+        <a href="{{ kursSQL.permalink }}">
+          <img src="{{ kursSQL.header.overlay_image }}">
+          <h3 class="c_item-teaser-title">{{ kursSQL.title }}</h3>
         </a>
       </div>
     </div>
     <div class="archive__item-excerpt">
-      Tutaj znajdziesz wszystkie archiwalne artykuły, które ukazały się na blogu. Zaczynając od najmłodszego do najstarszego, który opublikowałem w październiku 2015 roku.
+      W kursie tym omawiam składnię języka SQL. Po przerobieniu tego kursu będziesz wiedzieć czym jest SQL i jak go używać do pracy z bazami danych.
     </div>
-    <p><a href="{{ '/kurs-aplikacji-webowych/' | absolute_url }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
-  </div>
-  <div class="feature__item">
-    <div class="archive__item">
-      <div class="archive__item-teaser c_item-teaser">
-        <a href="{{ '/kurs-sql/' | absolute_url }}">
-          <img src="{{ '/assets/images/temp/missing.png' | absolute_url }}">
-          <h3 class="c_item-teaser-title">Kurs SQL</h3>
-        </a>
-      </div>
-    </div>
-    <div class="archive__item-excerpt">
-      Tutaj znajdziesz wszystkie archiwalne artykuły, które ukazały się na blogu. Zaczynając od najmłodszego do najstarszego, który opublikowałem w październiku 2015 roku.
-    </div>
-
-    <p><a href="{{ '/kurs-sql/' | absolute_url }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
+    <p><a href="{{ kursSQL.permalink }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
   </div>
 </div>
 

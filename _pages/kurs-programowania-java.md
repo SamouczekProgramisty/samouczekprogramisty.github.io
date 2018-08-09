@@ -2,6 +2,7 @@
 layout: single_page
 title: Kurs programowania Java
 permalink: /kurs-programowania-java/
+course_id: java
 header:
   overlay_image: /assets/images/splash/kurs_java_splash.gif
 ---
