@@ -273,7 +273,11 @@ Zapytanie wyżej ma kilka warunków. Każdy z nich oddzielony jest słowem klucz
 - kolumna `billingcity` ma wartość Dublin i kolumna `total` zawiera liczbę większą od 5,
 - kolumna `billingcity` ma wartość Boston i kolumna `total` zawiera liczbę z przedziału (1, 3).
 
-Słowo kluczowe `AND` ma wyższy priorytet niż `OR`. Czasami dla większej czytelności możesz użyć nawiasów. Poniższe zapytanie da dokładnie ten sam wynik co poprzednie:
+Słowo kluczowe `AND` ma wyższy priorytet niż `OR`. Oznacza to, że warunki pomiędzy `AND` wykonywane są wcześniej niż `OR`. Dla przykładu w konstrukcji:
+
+    warunek1 OR warunek2 AND warunek3
+
+Na początku zostanie wykonany fragment `warunek2 AND warunek3` dając `wynik1`, następnie `warunek1 OR wynik1`.  Czasami dla większej czytelności możesz użyć nawiasów. Poniższe zapytanie da dokładnie ten sam wynik co poprzednie:
 
 ```sql
 SELECT *
