@@ -40,7 +40,10 @@ Powoli nie możesz już wytrzymać więc decydujesz się odgadnąć kod w drodze
 
 Zakładając, że instrukcje są następujące:
 
-    ULLRRDDDLURDLUUUUD
+    ULL
+    RRDDD
+    LURDL
+    UUUUD
 
 - Zaczysznasz na 5, idziesz do góry (2), w lewo (1) i w lewo (nie możesz wykonać tego ruchu więc zostajesz na 1), pierwszą cyfrą kodu jest 1,
 - Zaczynając z poprzedniego przycisku (1), poruszasz się w prawo dwa razy (3) i trzy razy w dół (9) (zatrzymujesz się na 9 po dwóch ruchach, ignorując trzeci), drugą cyfrą kodu jest 9,
