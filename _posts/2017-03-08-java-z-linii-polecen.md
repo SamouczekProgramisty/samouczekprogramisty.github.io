@@ -260,7 +260,7 @@ Tworzenie pliku JAR jest dość proste. Wystarczy podać odpowiedni zestaw param
 
 W przypadku przykładu używanego poprzednio cały zestaw komend wyglądałby następująco:
 
-    $ tree .
+    tree .
     .
     └── pl
         └── samouczekprogramisty
@@ -287,7 +287,13 @@ Jak widzisz, pliki znajdujące się w katalogu zostały dodane do pliku JAR. Pro
 
 Dodatkowo wewnątrz pliku JAR znajduje się też plik MANIFEST.MF, który zawiera metadane na temat tego archiwum. Wewnątrz tego pliku możemy skonfigurować na przykład domyślną klasę, która powinna być uruchamiana podczas wykonania polecenia
 
-    $ java -jar <ścieżka do pliku JAR>
+    java -jar <ścieżka do pliku JAR>
+
+Odpowiedni wpis w tym pliku może zostać utworzony[^nadpisany] automatycznie w trakcie tworzenia pliku jar. Możesz to tego użyć przełącznika `e`:
+
+    jar cfe <nazwa pliku wyjściowego> <klasa z metodą main> <lista katalogów, klas do umieszczenia w pliku JAR>
+
+[^nadpisany]: Bądź nadpisany, jeśli plik MANIFEST.MF miał już określoną klasę z metodą main.
 
 ## Dodatkowe materiały do nauki
 
