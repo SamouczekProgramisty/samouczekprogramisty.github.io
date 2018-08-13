@@ -293,6 +293,10 @@ Odpowiedni wpis w tym pliku może zostać utworzony[^nadpisany] automatycznie w 
 
     jar cfe <nazwa pliku wyjściowego> <klasa z metodą main> <lista katalogów, klas do umieszczenia w pliku JAR>
 
+Na przykład aby utworzyć plik `output.jar`, który będzie zawierał wszystkie pliki z aktualnego katalogu i wskaże `pl.samouczekprogramisty.commandline.MainClass` jako klasę z metodą `main` możesz wywołać taką komendę:
+
+    jar cfe output.jar pl.samouczekprogramisty.commandline.MainClass .
+
 [^nadpisany]: Bądź nadpisany, jeśli plik MANIFEST.MF miał już określoną klasę z metodą main.
 
 ## Dodatkowe materiały do nauki
