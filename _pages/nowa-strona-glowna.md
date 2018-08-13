@@ -85,16 +85,16 @@ excerpt: Twój mentor na drodze do programowania
   </div>
 </div>
 
-{% assign kursJava = site.pages | where: "course_id", "java" | first %}
-{% assign kursWeb = site.pages | where: "course_id", "web" | first %}
-{% assign kursSQL = site.pages | where: "course_id", "sql" | first %}
+{% assign kursJava = site.courses | where: "course_id", "java" | first %}
+{% assign kursWeb = site.courses | where: "course_id", "web" | first %}
+{% assign kursSQL = site.courses | where: "course_id", "sql" | first %}
 
 <div class="feature__wrapper">
   <div class="feature__item">
     <div class="archive__item">
       <div class="archive__item-teaser c_item-teaser">
         <a href="{{ kursJava.permalink }}">
-          <img src="{{ kursJava.header.overlay_image }}">
+          <img src="{{ kursJava.header.teaser }}">
           <h3 class="c_item-teaser-title">{{ kursJava.title }}</h3>
         </a>
       </div>
@@ -110,7 +110,7 @@ excerpt: Twój mentor na drodze do programowania
     <div class="archive__item">
       <div class="archive__item-teaser c_item-teaser">
         <a href="{{ kursWeb.permalink }}">
-          <img src="{{ kursWeb.header.overlay_image }}">
+          <img src="{{ kursWeb.header.teaser }}">
           <h3 class="c_item-teaser-title">{{ kursWeb.title }}</h3>
         </a>
       </div>
@@ -124,7 +124,7 @@ excerpt: Twój mentor na drodze do programowania
     <div class="archive__item">
       <div class="archive__item-teaser c_item-teaser">
         <a href="{{ kursSQL.permalink }}">
-          <img src="{{ kursSQL.header.overlay_image }}">
+          <img src="{{ kursSQL.header.teaser }}">
           <h3 class="c_item-teaser-title">{{ kursSQL.title }}</h3>
         </a>
       </div>
@@ -144,4 +144,26 @@ excerpt: Twój mentor na drodze do programowania
       </div>
     </div>
   </div>
+</div>
+
+<div class="feature__wrapper">
+  {% for section in site.sections %}
+    <div class="feature__item">
+      <div class="archive__item">
+        {% if section.header.teaser contains "://" %}
+          {% assign img_url = section.header.teaser %}
+        {% else %}
+          {% assign img_url = section.header.teaser | absolute_url %}
+        {% endif %}
+        <div class="archive__item-teaser c_item-teaser">
+          <a href="{{ section.url | absolute_url }}">
+            <img src="{{ img_url }}" alt="{% if section.alt %}{{ section.alt }}{% endif %}">
+            <h3 class="c_item-teaser-title">
+              {{ section.title }}
+            </h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
 </div>

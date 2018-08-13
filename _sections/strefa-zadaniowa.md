@@ -1,7 +1,11 @@
 ---
-layout: default
-title: Strefa Zadaniowa Samouka
-permalink: "/strefa-zadaniowa/"
+layout: single_page
+title: Strefa Zadaniowa
+permalink: /strefa-zadaniowa/
+header:
+  teaser: /assets/images/splash/dzial_strefa_zadaniowa.jpg
+  overlay_image: /assets/images/splash/dzial_strefa_zadaniowa.jpg
+  caption: "[&copy; startupstockphotos](http://startupstockphotos.com/post/143841899156)"
 ---
 
 {% assign posts = site.categories["Strefa zadaniowa"] | sorted %}

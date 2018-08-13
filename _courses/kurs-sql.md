@@ -4,6 +4,7 @@ title: Kurs SQL
 permalink: /kurs-sql/
 course_id: sql
 header:
+  teaser: /assets/images/splash/kurs_sql_splash.jpeg
   overlay_image: /assets/images/splash/kurs_sql_splash.jpeg
   caption: "[&copy; pixmart](https://unsplash.com/photos/PkbZahEG2Ng)"
 ---

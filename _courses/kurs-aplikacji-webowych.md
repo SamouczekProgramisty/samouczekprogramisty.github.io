@@ -4,6 +4,7 @@ title: Kurs aplikacji webowych
 permalink: /kurs-aplikacji-webowych/
 course_id: web
 header:
+  teaser: /assets/images/splash/kurs_aplikacji_webowych_splash.jpeg
   overlay_image: /assets/images/splash/kurs_aplikacji_webowych_splash.jpeg
   caption: "[&copy; pixmart](https://pixabay.com/en/spider-web-green-spider-web-nature-1012353/)"
 ---

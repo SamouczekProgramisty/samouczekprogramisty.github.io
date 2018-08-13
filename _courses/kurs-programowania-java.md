@@ -4,6 +4,7 @@ title: Kurs programowania Java
 permalink: /kurs-programowania-java/
 course_id: java
 header:
+  teaser: /assets/images/splash/kurs_java_splash.gif
   overlay_image: /assets/images/splash/kurs_java_splash.gif
 ---
 {% assign posts = site.categories["Kurs programowania Java"] | reverse %}
