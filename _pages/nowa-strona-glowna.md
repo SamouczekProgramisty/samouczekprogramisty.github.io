@@ -85,55 +85,24 @@ excerpt: Twój mentor na drodze do programowania
   </div>
 </div>
 
-{% assign kursJava = site.courses | where: "course_id", "java" | first %}
-{% assign kursWeb = site.courses | where: "course_id", "web" | first %}
-{% assign kursSQL = site.courses | where: "course_id", "sql" | first %}
-
 <div class="feature__wrapper">
+{% for course in site.courses %}
   <div class="feature__item">
     <div class="archive__item">
       <div class="archive__item-teaser c_item-teaser">
-        <a href="{{ kursJava.permalink }}">
-          <img src="{{ kursJava.header.teaser }}">
-          <h3 class="c_item-teaser-title">{{ kursJava.title }}</h3>
+        <a href="{{ course.permalink }}">
+          <img src="{{ course.header.teaser }}">
+          <h3 class="c_item-teaser-title">{{ course.title }}</h3>
         </a>
       </div>
     </div>
     <div class="archive__item-excerpt">
-      Java jest jednym z najbardziej popularnych języków programowania. Kurs ten pomoże Ci poznać składnię języka Java jak i część funkcjonalności dostępnych w bibliotece standardowej.
+      {{ course.description }}
     </div>
 
-    <p><a href="{{ kursJava.permalink }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
+    <p><a href="{{ course.permalink }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
   </div>
-
-  <div class="feature__item">
-    <div class="archive__item">
-      <div class="archive__item-teaser c_item-teaser">
-        <a href="{{ kursWeb.permalink }}">
-          <img src="{{ kursWeb.header.teaser }}">
-          <h3 class="c_item-teaser-title">{{ kursWeb.title }}</h3>
-        </a>
-      </div>
-    </div>
-    <div class="archive__item-excerpt">
-      W kursie tym poznasz podstawy programowania aplikacji webowych opartych o Java EE.
-    </div>
-    <p><a href="{{ kursWeb.permalink }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
-  </div>
-  <div class="feature__item">
-    <div class="archive__item">
-      <div class="archive__item-teaser c_item-teaser">
-        <a href="{{ kursSQL.permalink }}">
-          <img src="{{ kursSQL.header.teaser }}">
-          <h3 class="c_item-teaser-title">{{ kursSQL.title }}</h3>
-        </a>
-      </div>
-    </div>
-    <div class="archive__item-excerpt">
-      W kursie tym omawiam składnię języka SQL. Po przerobieniu tego kursu będziesz wiedzieć czym jest SQL i jak go używać do pracy z bazami danych.
-    </div>
-    <p><a href="{{ kursSQL.permalink }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
-  </div>
+{% endfor %}
 </div>
 
 <div class="feature__wrapper">

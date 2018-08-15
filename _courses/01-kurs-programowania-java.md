@@ -2,7 +2,7 @@
 layout: single_page
 title: Kurs programowania Java
 permalink: /kurs-programowania-java/
-course_id: java
+description: Java jest jednym z najbardziej popularnych języków programowania. Kurs ten pomoże Ci poznać składnię języka Java jak i część funkcjonalności dostępnych w bibliotece standardowej.
 header:
   teaser: /assets/images/splash/kurs_java_splash.gif
   overlay_image: /assets/images/splash/kurs_java_splash.gif

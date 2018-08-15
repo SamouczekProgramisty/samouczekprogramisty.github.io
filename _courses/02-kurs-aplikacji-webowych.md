@@ -2,7 +2,7 @@
 layout: single_page
 title: Kurs aplikacji webowych
 permalink: /kurs-aplikacji-webowych/
-course_id: web
+description: W kursie tym poznasz podstawy programowania aplikacji webowych opartych o Java EE.
 header:
   teaser: /assets/images/splash/kurs_aplikacji_webowych_splash.jpeg
   overlay_image: /assets/images/splash/kurs_aplikacji_webowych_splash.jpeg

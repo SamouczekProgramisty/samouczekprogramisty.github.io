@@ -2,7 +2,7 @@
 layout: single_page
 title: Kurs SQL
 permalink: /kurs-sql/
-course_id: sql
+description: W kursie tym omawiam składnię języka SQL. Po przerobieniu tego kursu będziesz wiedzieć czym jest SQL i jak go używać do pracy z bazami danych.
 header:
   teaser: /assets/images/splash/kurs_sql_splash.jpeg
   overlay_image: /assets/images/splash/kurs_sql_splash.jpeg
