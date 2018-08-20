@@ -76,7 +76,7 @@ public void shouldTurnOffGreedinessForPlus() {
 }
 ```
 
-Jak widzisz, tym razem `.+` nie pochłonął nam prawie całego łańcucha. Grupa zawiera najmniej tekstu jak to możliwe. W posobny sposób `?` wyłącza zachłanność dla `*`:
+Jak widzisz, tym razem `.+` nie pochłonął nam prawie całego łańcucha. Grupa zawiera najmniej tekstu jak to możliwe. W podobny sposób `?` wyłącza zachłanność dla `*`:
 
 ```java
 @Test
