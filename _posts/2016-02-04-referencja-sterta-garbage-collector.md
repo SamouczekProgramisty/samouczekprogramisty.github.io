@@ -1,6 +1,7 @@
 ---
 title: Referencja, sterta i garbage collector - obiektów w Javie ciąg dalszy
-date: '2016-02-04 21:13:16 +0100'
+sections:
+- Kurs programowania Java
 categories:
 - Kurs programowania Java
 permalink: /referencja-sterta-garbage-collector/

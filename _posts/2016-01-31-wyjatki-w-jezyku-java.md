@@ -1,6 +1,5 @@
 ---
 title: Wyjątki w języku Java
-date: '2016-01-31 12:02:17 +0100'
 categories:
 - Kurs programowania Java
 permalink: /wyjatki-w-jezyku-java/

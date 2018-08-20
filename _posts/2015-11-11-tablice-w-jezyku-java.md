@@ -1,6 +1,5 @@
 ---
 title: Tablice w języku Java
-date: '2015-11-11 08:39:54 +0100'
 categories:
 - Kurs programowania Java
 permalink: /tablice-w-jezyku-java/

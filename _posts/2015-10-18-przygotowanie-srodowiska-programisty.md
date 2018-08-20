@@ -1,6 +1,5 @@
 ---
 title: Przygotowanie środowiska programisty
-date: '2015-10-18 22:33:58 +0200'
 categories:
 - Kurs programowania Java
 - Programowanie

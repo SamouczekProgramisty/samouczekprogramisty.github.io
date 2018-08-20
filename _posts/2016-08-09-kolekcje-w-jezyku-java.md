@@ -1,6 +1,5 @@
 ---
 title: Kolekcje w języku Java
-date: '2016-08-09 19:55:30 +0200'
 categories:
 - Kurs programowania Java
 - Programowanie

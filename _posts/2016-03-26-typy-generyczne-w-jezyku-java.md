@@ -1,6 +1,5 @@
 ---
 title: Typy generyczne w języku Java
-date: '2016-03-26 21:27:50 +0100'
 categories:
 - Kurs programowania Java
 permalink: /typy-generyczne-w-jezyku-java/

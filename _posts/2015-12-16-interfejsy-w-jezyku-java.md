@@ -1,6 +1,5 @@
 ---
 title: Interfejsy w języku Java
-date: '2015-12-16 19:54:10 +0100'
 categories:
 - Kurs programowania Java
 permalink: /interfejsy-w-jezyku-java/
