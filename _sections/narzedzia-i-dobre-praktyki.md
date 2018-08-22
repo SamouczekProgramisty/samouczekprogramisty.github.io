@@ -1,11 +1,11 @@
 ---
 layout: single_page
-title: Strefa zadaniowa
-permalink: /strefa-zadaniowa/
+title: Narzędzia i dobre praktyki
+permalink: /narzedzia-i-dobre-praktyki/
 header:
-  teaser: /assets/images/splash/dzial_strefa_zadaniowa.jpg
-  overlay_image: /assets/images/splash/dzial_strefa_zadaniowa.jpg
-  caption: "[&copy; startupstockphotos](http://startupstockphotos.com/post/143841899156)"
+  teaser: /assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg
+  overlay_image: /assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg
+  caption: "[&copy; Nicolas Hoizey](https://unsplash.com/photos/2MuZ23gkFKo)"
 ---
 
 {% assign posts = site.categories["Strefa zadaniowa"] | sorted %}

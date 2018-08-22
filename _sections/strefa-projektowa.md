@@ -1,11 +1,11 @@
 ---
 layout: single_page
-title: Strefa zadaniowa
-permalink: /strefa-zadaniowa/
+title: Strefa projektowa
+permalink: /strefa-projektowa/
 header:
-  teaser: /assets/images/splash/dzial_strefa_zadaniowa.jpg
-  overlay_image: /assets/images/splash/dzial_strefa_zadaniowa.jpg
-  caption: "[&copy; startupstockphotos](http://startupstockphotos.com/post/143841899156)"
+  teaser: /assets/images/splash/dzial_strefa_projektowa.jpg
+  overlay_image: /assets/images/splash/dzial_strefa_projektowa.jpg
+  caption: "[&copy; MustangJoe](https://pixabay.com/en/gears-cogs-machine-machinery-1236578/)"
 ---
 
 {% assign posts = site.categories["Strefa zadaniowa"] | sorted %}
