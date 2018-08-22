@@ -52,7 +52,7 @@ Z tego właśnie powodu zachęcam Cię do przeczytania artykułów poświęconyc
 
 Języka programowania uczy się dokładnie w ten sam sposób jak zwykłego języka. Najlepszą nauką jest praktyka. Właśnie z tego powodu każdy z artykułów kończy się ćwiczeniami do wykonania.
 
-Przygotowałem też osobny artykuł zawierający [zestaw ćwiczeń dla początkujących programistów]({% post_url 2016-03-13-zestaw-cwiczen-dla-poczatkujacych-programistow %}). Jeśli przerobisz ćwiczenia z tego artykułu zapraszam Cię do osobnej sekcji z [przykładowymi zadaniami do rozwiązania]({{ '/strefa-zadaniowa/' | absolute_url }}). Znajdziesz tam zadania o różnym poziomie trudności, zawsze z przykładowym rozwiązaniem.
+Przygotowałem też osobny artykuł zawierający [zestaw ćwiczeń dla początkujących programistów]({% post_url 2016-03-13-zestaw-cwiczen-dla-poczatkujacych-programistow %}). Jeśli przerobisz ćwiczenia z tego artykułu zapraszam Cię do osobnego działu z [przykładowymi zadaniami do rozwiązania]({{ '/strefa-zadaniowa/' | absolute_url }}). Znajdziesz tam zadania o różnym poziomie trudności, zawsze z przykładowym rozwiązaniem.
 
 ## Bardziej zaawansowane elementy składni
 

@@ -143,8 +143,7 @@ Masz jakiś pomysł? Z chęcią poznam Twoje podejście do rozwiązania tego pro
 
 Zadanie omówione w tym artykule zostało przesłane przez jednego z czytelników. Jeśli chcesz abym spróbował omówić zadanie, na które Ty trafiłeś daj znać. Zastrzegam jednak, że nie jestem alfą i omegą. Potrafię sobie wyobrazić problemy, na które nie znajdę najlepszego rozwiązania. Niemniej jednak postaram się rozwiązać to zadanie w najlepszy znany mi sposób. Zadania możesz wysłać na mój adres e-mail _marcin [małpka] samouczekprogramisty.pl_.
 
-Często firmy zastrzegają sobie to, żeby nie rozpowszechniać zadań, które były na rozmowie kwalifikacyjnej. Jeśli tak było w Twoim przypadku proszę uszanuj wolę danej firmy i nie przesyłaj mi takiego zadania. 
-{: .notice--warning}
+{% include zadanie-z-rozmowy-notice.md %}
 
 ## Podsumowanie
 
