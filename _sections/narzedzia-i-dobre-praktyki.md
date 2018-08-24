@@ -34,3 +34,5 @@ Jak poznasz już bibliotekę pomagającą w pisaniu testów jednostkowych koniec
 ## Co dalej?
 
 Skoro udało Ci się już poznać kilka użytecznych narzędzi i dobrych praktyk warto je wykorzystać. Proponuję Ci rozpoczęcie swojego projektu lub przećwiczenie ich w trakcie rozwiązywania zadań. Oba te tematy poruszam na blogu. Znajdziesz tu [projekty realizowane od początku do końca]({{ '/strefa-projektowa/' | absolute_url}}) jak i [zadania dla programistów z przykładowymi rozwiązaniami]({{ '/strefa-zadaniowa/' | absolute_url }}).
+
+Kolejnym krokiem może być także poszerzenie swojej wiedzy związaną z [teorią informatyki]({{ '/wprowadzenie-do-informatyki/' | absolute_url }}).

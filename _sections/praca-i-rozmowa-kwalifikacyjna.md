@@ -37,3 +37,5 @@ Może zadanie z Twojej rozmowy sprawiło Ci trochę problemów? Proszę daj mi o
 {% include zadanie-z-rozmowy-notice.md %}
 
 Jeśli chcesz lepiej przygotować się do rozmowy kwalifikacyjnej zapraszam Cię do strony gdzie pogrupowałem [zadania dla programistów z rozwiązaniami]({{ '/strefa-zadaniowa/' | absolute_url }}) i [przykładowe projekty programistyczne]({{ '/strefa-projektowa/' | absolute_url }}), które realizowałem na blogu.
+
+Zachęcam Cię także do poszerzenie swojej wiedzy związanej z [teorią informatyki]({{ '/wprowadzenie-do-informatyki/' | absolute_url }}). Niektóre zagadnienia tam poruszane dość często zdarzają się na rozmowach kwalifikacyjnych.
