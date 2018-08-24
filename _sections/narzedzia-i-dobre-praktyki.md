@@ -8,19 +8,26 @@ header:
   caption: "[&copy; Nicolas Hoizey](https://unsplash.com/photos/2MuZ23gkFKo)"
 ---
 
-{% assign posts = site.categories["Strefa zadaniowa"] | sorted %}
+Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować w codziennej pracy.
 
-{% capture content %}
+## Narzędzia
 
-Do tej pory w Strefie Zadaniowej ukazały się następujące artykuły:
+[Wstęp do Gradle]({% post_url 2017-01-19-wstep-do-gradle %})
+[Walidacja obiektów w języku Java]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-java %})
 
-{% for post in posts %}
- 1. [{{post.title}}]({{post.url}})
-{% endfor %}
+## Dobre praktyki
 
-Jeśli jakikolwiek temat nie jest dla Ciebie wystarczająco jasno opisany proszę daj znać, postaram się go rozwinąć w kolejnym artykule.
-{% endcapture %}
+* [Zasady SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %})
 
-<div id="main" role="main">
-  {{ content | markdownify }}
-</div>
+### Testowanie kodu
+
+Testowanie kodu to temat rzeka. Na początek polecam Ci artykuły, które opisują tematykę testów jednostkowych i opisują bilbliotekę JUnit:
+
+* [Testy jednostkowe z JUnit]({% post_url 2016-10-29-testy-jednostkowe-z-junit %})
+* [Testy jednostkowe z JUnit 5]({% post_url 2018-04-13-testy-jednostkowe-z-junit5 %})
+
+Jak poznasz już bibliotekę pomagającą w pisaniu testów jednostkowych koniecznie musisz poznać podejście [_Test Driven Development_]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}). W arykule tym na przykładzie pokazuję jak TDD wygląda w praktyce.
+
+## Co dalej?
+
+Skoro udało Ci się już poznać kilka użytecznych narzędzi i dobrych praktyk warto je wykorzystać. Proponuję Ci rozpoczęcie swojego projektu lub przećwiczenie ich w trakcie rozwiązywania zadań. Oba te tematy poruszam na blogu. Znajdziesz tu [projekty realizowane od początku do końca]({{ '/strefa-projektowa/' | absolute_url}}) jak i [zadania dla programistów z przykładowymi rozwiązaniami]({{ '/strefa-zadaniowa/' | absolute_url }}).
