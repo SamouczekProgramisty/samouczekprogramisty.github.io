@@ -1,4 +1,19 @@
 var store = [{
+        "title": "Kurs programowania Java",
+        "excerpt":"Na tej stronie znajdziesz zestaw odnośników do artykułów, które pomogą Ci poznać Javę od podstaw. Artykuły podzieliłem na sekcje. Każda z nich zawiera artykuły, które pomogą Ci poszerzyć wiedzę na temat programowania w języku Java. Kurs starałem się tworzyć dla zupełnie początkujących. Jeśli jednak jakikolwiek temat nie jest dla Ciebie...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/kurs-programowania-java/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/kurs_java_splash.gif"},{
+        "title": "Kurs aplikacji webowych",
+        "excerpt":"Jeśli znasz już język programowania Java możesz zabrać się za pisanie aplikacji webowych. W przypadku gdy jest to Twoja pierwsza styczność z aplikacjami tego typu zachęcam do przeczytania wprowadzenia do aplikacji webowych. Nie zapominaj też o poznaniu narzędzi do budowania, które opisałem w dziale opisującym narzędzia. Jeśli jakiekolwiek zagadnienie nie...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/kurs_aplikacji_webowych_splash.jpeg"},{
+        "title": "Kurs SQL",
+        "excerpt":"Na tej stronie znajdziesz zestaw artykułów, który pozwoli Ci w praktyczny sposób nauczyć się podstaw języka SQL. Jest to solidna baza, która pozwoli Ci rozbudowywać swoją wiedzę związaną z tym językiem. W kursie staram się pokazywać najczęściej używane elementy SQL, które wspierane są przez większość znanych mi baz danych. Jeśli...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/kurs-sql/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/kurs_sql_splash.jpeg"},{
         "title": "Czym właściwie jest programowanie",
         "excerpt":"Kto może zostać programistą Programowanie to zajęcie, które wymaga znajomości wielu zagadnień. To wiedza, którą zdobywa się przez kilka ładnych lat. Nie znam żadnego programisty, który nauczył się wszystkiego w jeden wieczór. To jest po prostu niemożliwe. Tak i na tym blogu będziemy razem przechodzili przez serię artykułów, które pomogą...","categories": ["Programowanie"],
         "tags": [],
@@ -305,7 +320,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/pogodynka-naiwny-termometr/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/11_pogodynka_02_artykul.jpeg"},{
         "title": "Wprowadzenie do aplikacji webowych",
-        "excerpt":"Z przeglądarką czy bez? Używając przeglądarki czy programów z pakietu Office1 używasz aplikacji zainstalowanych na komputerze. Potocznie o takich programach czy aplikacjach mówi się “aplikacje desktopowe”. Możesz je zainstalować pobierając odpowiednie pliki z internetu lub z innego nośnika jak na przykład płyta CD. Podczas takiej instalacji pliki niezbędne do działania...","categories": ["Kurs programowania Java","DSP2017"],
+        "excerpt":"Z przeglądarką czy bez? Używając przeglądarki czy programów z pakietu Office1 używasz aplikacji zainstalowanych na komputerze. Potocznie o takich programach czy aplikacjach mówi się “aplikacje desktopowe”. Możesz je zainstalować pobierając odpowiednie pliki z internetu lub z innego nośnika jak na przykład płyta CD. Podczas takiej instalacji pliki niezbędne do działania...","categories": ["Kurs aplikacji webowych","DSP2017"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/wprowadzenie-do-aplikacji-webowych/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/17_wprowadzenie_do_aplikacji_webowych_artykul.jpg"},{
@@ -320,7 +335,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/serwlety-w-aplikacjach-webowych/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/25_serwlety_w_aplikacjach_webowych_artykul.jpeg"},{
         "title": "Pogodynka - szkielet aplikacji webowej",
-        "excerpt":"W tym tygodniu przygotowałem dla Was dość obszerny wpis dotyczący serwletów w aplikacjach Java. Jego przygotowanie zajęło mi sporo czasu więc automatycznie zostało go mniej na samą Pogodynkę. Jednak i tutaj udało się pchnąć sprawy do przodu. W tym momencie datavault jest już “działającą” aplikacją webową opartą o Spring MVC....","categories": ["DSP2017","Pogodynka"],
+        "excerpt":"W tym tygodniu przygotowałem dla Was dość obszerny wpis dotyczący serwletów w aplikacjach Java. Jego przygotowanie zajęło mi sporo czasu więc automatycznie zostało go mniej na samą Pogodynkę. Jednak i tutaj udało się pchnąć sprawy do przodu. W tym momencie datavault jest już “działającą” aplikacją webową opartą o Spring MVC....","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-szkielet-aplikacji-webowej/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/26_pogodynka_04_artykul.jpg"},{
@@ -513,4 +528,29 @@ var store = [{
         "excerpt":"To jest jeden z artykułów w ramach praktycznego kursu SQL. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w pierwszym artykule kursu. Bardzo mocno Cię do tego zachęcam. Moim zdaniem...","categories": ["Bazy danych","Kurs SQL"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/",
-        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg"}]
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg"},{
+        "title": "Praca i rozmowa kwalifikacyjna",
+        "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/praca-i-rozmowa-kwalifikacyjna/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_praca_i_rozmowa_kwalifikacyjna.jpg"},{
+        "title": "Wprowadzenie do informatyki",
+        "excerpt":"Studiowałem Informatykę na Politechnice Wrocławskiej. Nie jestem wykładowcą akademickim, więc nie oczekuj ode mnie akademickiej teorii ;). W artykułach teorię staram się pokazać w przyjazny i zrozumiały sposób, poparty przykładami. Tematy, które opisałem w artykułach znajdujących się na tej stronie to materiał, który moim zdaniem powinien znać każdy programista. Jeśli...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/wprowadzenie-do-informatyki/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_wprowadzenie_do_informatyki.jpeg"},{
+        "title": "Strefa zadaniowa",
+        "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/strefa-zadaniowa/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_strefa_zadaniowa.jpg"},{
+        "title": "Strefa projektowa",
+        "excerpt":"Na blogu staram się pokazywać, że nauka powinna odbywać się poprzez praktykę. Właśnie z tego powodu realizuję projekty “od początku do końca”. Na tej stronie znajdziesz zestaw artykułów, które związane są z większymi projektami programistycznymi. Projekty Pogodynka Pogodynka to projekt, który polegał na udostępnieniu odczytów temperatury na żywo. Termometr cały...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/strefa-projektowa/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_strefa_projektowa.jpg"},{
+        "title": "Narzędzia i dobre praktyki",
+        "excerpt":"Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować na co dzień. Narzędzia Wstęp do Gradle Walidacja obiektów w języku JavaDobre praktyki Bez...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg"}]
