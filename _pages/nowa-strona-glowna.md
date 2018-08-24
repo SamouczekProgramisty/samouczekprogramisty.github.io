@@ -132,6 +132,9 @@ excerpt: Twój mentor na drodze do programowania
             </h3>
           </a>
         </div>
+        <div class="archive__item-body">
+          <p></p>
+        </div>
       </div>
     </div>
   {% endfor %}

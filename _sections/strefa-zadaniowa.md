@@ -65,6 +65,8 @@ Manualne testowanie swoich rozwiązań na dłuższą metę nie jest dobre. Nie z
 
 Udało Ci się przerobić zadania, które zebrałem na tej stronie i chcesz więcej? Bardzo dobrze! :). Rzuć okiem na odpowiedź na [to pytanie na portalu StackExchange](https://softwareengineering.stackexchange.com/questions/756/where-can-i-find-programming-puzzles-and-challenges). Znajdziesz tam całą masę innych stron, które zbierają programistyczne zadania do rozwiązania.
 
+Możesz też zabrać się za większe zadania. Na blogu opisałem kilka [projektów zrealizowany od początku do końca]({{ '/strefa-projektowa/' | absolute_url }}).
+
 A może masz zadanie z rozmowy kwalifikacyjnej, które sprawiło Ci problem? Jeśli tylko dam radę je rozwiązać z chęcią napiszę o nim kolejny artykuł :). Możesz mi je podesłać na mój adres e-mail `marcin małpka samouczekprogramisty.pl`.
 
 {% include zadanie-z-rozmowy-notice.md %}
