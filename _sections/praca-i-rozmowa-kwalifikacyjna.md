@@ -9,11 +9,11 @@ header:
 excerpt: ""
 ---
 
-Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo tę praktykę można odbyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista.
+Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista.
 
 ## Pierwsza praca
 
-Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem ponad 40 CV zanim dostałem swoją pierwszą pracę. Było to w 2007 roku kiedy firm na rynku było dużo mniej niż dzisiaj. Jeśli dobrze pamiętam to odpowiedzi dostałem raptem z kilku firm.
+Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem ponad czterdzieści CV zanim dostałem swoją pierwszą pracę. Było to w 2007 roku kiedy firm na rynku było dużo mniej niż dzisiaj. Jeśli dobrze pamiętam to odpowiedzi dostałem raptem z trzech firm.
 
 Nie wiem czy dzisiaj jest łatwiej, czy trudniej zdobyć pracę niż w 2007 roku. Na pewno wiem, że to nie jest proste. Właśnie dlatego napisałem kilka artykułów, które mogą pomóc Ci przejść ten etap.
 
@@ -23,7 +23,7 @@ Nie wiem czy dzisiaj jest łatwiej, czy trudniej zdobyć pracę niż w 2007 roku
 
 ## Zadania z rozmów o pracę
 
-Od czytelników czasami dostaję zadania, które otrzymali do rozwiązania w trakcie rozmowy kwalifikacyjnej. Każde z tych zadań rozbieram na części pierwsze i pokazuję w jaki sposób można je rozwiązać. Artykuły często zawierają klika przykładowych sposobów rozwiązania danego problemu.
+Czasami dostaję od czytelników zadania, które otrzymali do rozwiązania w trakcie rozmowy kwalifikacyjnej. Każde z tych zadań rozbieram na części pierwsze i pokazuję w jaki sposób można je rozwiązać. Artykuły często zawierają klika przykładowych sposobów rozwiązania danego problemu.
 
 Zależy mi na tym, żeby materiały te traktować jako coś co pomoże Ci w poprawieniu swoich umiejętności. Właśnie dlatego zawsze zachęcam do samodzielnego rozwiązania zadań i porównania rozwiązań. W ten sposób nauczysz się najwięcej.
 
@@ -34,6 +34,6 @@ Zależy mi na tym, żeby materiały te traktować jako coś co pomoże Ci w popr
 
 Może zadanie z Twojej rozmowy sprawiło Ci trochę problemów? Proszę daj mi o nim znać, jeśli tylko będę potrafił je rozwiązać z chęcią umieszczę je na blogu. Możesz mi je wysłać na mój adres e-mail `marcin małpka samouczekprogramisty.pl`.
 
-{% include zadanie-z-rozmowy-notice %}
+{% include zadanie-z-rozmowy-notice.md %}
 
 Jeśli chcesz lepiej przygotować się do rozmowy kwalifikacyjnej zapraszam Cię do strony gdzie pogrupowałem [zadania dla programistów z rozwiązaniami]({{ '/strefa-zadaniowa/' | absolute_url }}) i [przykładowe projekty programistyczne]({{ '/strefa-projektowa/' | absolute_url }}), które realizowałem na blogu.
