@@ -3,57 +3,138 @@ layout: start_page
 header:
   overlay_image: /assets/images/splash/main_page_splash.jpg
 excerpt: Twój mentor na drodze do programowania
-frwstep:
-  - title: 'Najnowsze artykuły'
-frarchiwum:
-  - title: 'Archiwum bloga'
-  - url: '/archiwum/'
-  - btn_class: btn-primary
-  - btn_label: 'Wszystkie archiwalne artykuły' 
 ---
 
 {% include feature_row id="frwstep" type="center" %}
 
+{% assign newest = site.posts.first %}
+
 <div class="feature__wrapper">
-  {% for post in site.posts limit:3 %}
-    <div class="feature__item{% if include.type %}--{{ include.type }}{% endif %}">
-      <div class="archive__item">
-        {% if post.header.teaser %}
-          <div class="archive__item-teaser">
-              <a href="{{ post.url | absolute_url }}"><img src=
-              {% if post.header.teaser contains "://" %}
-                "{{ post.header.teaser }}"
-              {% else %}
-                "{{ post.header.teaser | absolute_url }}"
+  <div class="feature__item--left">
+    <div class="archive__item">
+      {% if newest.header.teaser contains "://" %}
+        {% assign img_url = newest.header.teaser %}
+      {% else %}
+        {% assign img_url = newest.header.teaser | absolute_url %}
+      {% endif %}
+      <div class="archive__item-teaser c_item-teaser">
+          <a href="{{ newest.url | absolute_url }}">
+              <img src="{{ img_url }}" alt="{% if newest.alt %}{{ newest.alt }}{% endif %}">
+              {% if newest.title %}
+                  <h3 class="c_item-teaser-title">
+                      {{ newest.title }}
+                  </h3>
               {% endif %}
-                 alt="{% if post.alt %}{{ post.alt }}{% endif %}"></a>
-          </div>
+          </a>
+      </div>
+    </div>
+	<div class="archive__item-body">
+      <h2 class="archive__item-title c_item-title">Najnowszy artykuł</h2>
+      <div class="archive__item-excerpt">
+        {{ newest.excerpt | markdownify }}
+      </div>
+
+      <p><a href="{{ post.url | absolute_url }}" class="btn btn--info">Czytaj dalej <i class="fa fa-caret-square-right"></i></a></p>
+    </div>
+  </div>
+</div>
+
+<div class="feature__wrapper">
+  {% for post in site.posts limit:6 offset:1 %}
+    <div class="feature__item">
+      <div class="archive__item">
+        {% if post.header.teaser contains "://" %}
+          {% assign img_url = post.header.teaser %}
+        {% else %}
+          {% assign img_url = post.header.teaser | absolute_url %}
         {% endif %}
+        <div class="archive__item-teaser c_item-teaser">
+          <a href="{{ post.url | absolute_url }}">
+            <img src="{{ img_url }}" alt="{% if post.alt %}{{ post.alt }}{% endif %}">
+            <h3 class="c_item-teaser-title">
+              {{ post.title }}
+            </h3>
+          </a>
+        </div>
+      </div>
+      <div class="archive__item-excerpt">
+        {{ post.excerpt | truncatewords: 20 | markdownify }}
+      </div>
 
+      <p><a href="{{ post.url | absolute_url }}" class="btn">Czytaj dalej</a></p>
+    </div>
+  {% endfor %}
+
+  <div class="feature__item--center">
+    <div class="archive__item">
+      <div class="archive__item-excerpt">
+        <p>Starsze artykuły możesz znaleźć w <a href="{{ '/archiwum/' | absolute_url }}"><i class="fa fa-archive"></i> archiwum Samouczka Programisty</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feature__wrapper">
+  <div class="feature__item--center">
+    <div class="archive__item">
+      <div class="archive__item-body">
+        <h2 class="archive__item-title">Kategorie wpisów</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feature__wrapper">
+  {% for section in site.sections %}
+    <div class="feature__item">
+      <div class="archive__item">
+        {% if section.header.teaser contains "://" %}
+          {% assign img_url = section.header.teaser %}
+        {% else %}
+          {% assign img_url = section.header.teaser | absolute_url %}
+        {% endif %}
+        <div class="archive__item-teaser c_item-teaser">
+          <a href="{{ section.url | absolute_url }}">
+            <img src="{{ img_url }}" alt="{% if section.alt %}{{ section.alt }}{% endif %}">
+            <h3 class="c_item-teaser-title">
+              {{ section.title }}
+            </h3>
+          </a>
+        </div>
         <div class="archive__item-body">
-          {% if post.title %}
-            <a href="{{ post.url | absolute_url }}"><h2 class="archive__item-title">{{ post.title }}</h2></a>
-          {% endif %}
-
-          {% if post.excerpt %}
-            <div class="archive__item-excerpt">
-              {{ post.excerpt | markdownify }}
-            </div>
-          {% endif %}
-
-          {% if post.url %}
-            <p><a href="{{ post.url | absolute_url }}" class="btn {{ post.btn_class }}">Czytaj dalej</a></p>
-          {% endif %}
+          <p></p>
         </div>
       </div>
     </div>
   {% endfor %}
 </div>
 
-<div class="page__hero--overlay" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ '/assets/images/archiwum.jpg' | absolute_url }}');">
-  <div class="wrapper">
-    <h2 class="page__title">Archiwum Samouczka Programisty</h2>
-    <p class="page__lead">Tutaj znajdziesz wszystkie archiwalne artykuły, które ukazały się na blogu.<p>
-    <p><a href="{{ '/archiwum/' | absolute_url }}" class="btn btn--light-outline btn--large"><i class="fa fa-archive"></i> Przejdz do archiwum</a></p>
+<div class="feature__wrapper">
+  <div class="feature__item--center">
+    <div class="archive__item">
+      <div class="archive__item-body">
+        <h2 class="archive__item-title">Strefa kursów</h2>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="feature__wrapper">
+{% for course in site.courses %}
+  <div class="feature__item">
+    <div class="archive__item">
+      <div class="archive__item-teaser c_item-teaser">
+        <a href="{{ course.permalink }}">
+          <img src="{{ course.header.teaser }}">
+          <h3 class="c_item-teaser-title">{{ course.title }}</h3>
+        </a>
+      </div>
+    </div>
+    <div class="archive__item-excerpt">
+      {{ course.description }}
+    </div>
+
+    <p><a href="{{ course.permalink }}" class="btn btn--primary">Przejdź do kursu <i class="fa fa-caret-square-right"></i></a></p>
+  </div>
+{% endfor %}
 </div>
