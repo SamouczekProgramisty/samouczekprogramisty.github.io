@@ -19,6 +19,7 @@ Czasami od czytelników dostaję zadania z ich rozmów kwalifikacyjnych. Poniże
 
 * [Czy liczba jest cykliczna]({% post_url 2018-02-16-zadanie-czy-liczba-jest-cykliczna %})
 * [Znajdź brakujący element]({% post_url 2017-12-10-zadanie-znajdz-brakujacy-element %})
+* [Zagnieżdżona struktura]({% post_url 2018-08-26-zadanie-zagniezdzona-struktura %})
 
 ## Zadania różne
 

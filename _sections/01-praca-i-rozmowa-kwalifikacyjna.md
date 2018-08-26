@@ -29,6 +29,7 @@ Zależy mi na tym, żeby materiały te traktować jako coś co pomoże Ci w popr
 
 * [Zadanie z rozmowy - znajdź brakujący element]({% post_url 2017-12-10-zadanie-znajdz-brakujacy-element %})
 * [Zadanie z rozmowy - czy liczba jest cykliczna]({% post_url 2018-02-16-zadanie-czy-liczba-jest-cykliczna %})
+* [Zadanie z rozmowy - zagnieżdżona struktura]({% post_url 2018-08-26-zadanie-zagniezdzona-struktura %})
 
 ## Co dalej?
 

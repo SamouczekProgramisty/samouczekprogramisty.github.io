@@ -1,9 +1,9 @@
 ---
-title: Samouczek na rozmowie - xxx
+title: Samouczek na rozmowie - zagnieżdżona struktura
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa
-permalink: /samouczek-na-rozmowie-xxx/
+permalink: /samouczek-na-rozmowie-zagniezdzona-struktura/
 header:
     teaser: /assets/images/2018/08/26_zadanie_z_rozmowy_kwalifikacyjnej.jpeg
     overlay_image: /assets/images/2018/08/26_zadanie_z_rozmowy_kwalifikacyjnej.jpeg
@@ -21,7 +21,7 @@ Rozwiązując zadania tego typu możesz także pokazać zestaw innych przydatnyc
 
 ## Zadanie do wykonania
 
-Zacznę jednak od pokazania Ci zadania do wykonania. Jak już wiesz zadanie to dostałem od jednego z czytelników. Treść zadania przekazana Mateuszowi byłą następująca:
+Zacznę od pokazania zadania do wykonania. Jak już wiesz to zadanie dostałem od jednego z czytelników. Treść zadania przekazana Mateuszowi byłą następująca:
 
 > Przekazuję zadanie z prośbą o analizę poniższego kodu i zaimplementowanie metod `findByCode`, `findByRenderer`, `count` w klasie `MyStructure` - najchętniej unikając powielania kodu. Proszę uwzględnić w analizie i implementacji interfejs `ICompositeNode`!
  
@@ -49,7 +49,7 @@ interface ICompositeNode extends INode {
 }
 ```
 
-W żaden sposób nie modyfikowałem przekazanego kodu, ani nie zmieniałem znacząco treści zadania. Zgodnie z tym co powiedział Mateusz to było wszystko co dostał w ramach zadania do rozwiązania.
+W żaden sposób nie modyfikowałem przekazanego kodu, ani nie zmieniałem treści zadania. Zgodnie z tym co powiedział Mateusz to było wszystko co dostał w ramach zadania do rozwiązania.
 
 ## Jak rozwiązać takie zadanie
 
@@ -75,7 +75,7 @@ Podejście z przyjęciem pewnych założeń moim zdaniem jest najlepszym rozwią
 
 Oczywiście w codziennej pracy to klient decyduje o ostatecznym zachowaniu programu, jednak na potrzeby zadania na rozmowie kwalifikacyjnej taki kompromis wydaje mi się najlepszy.
 
-#### Konwencja nazewnicza
+### Konwencja nazewnicza
 
 Przyznam, że tutaj mam ciężki orzech do zgryzienia. Konwencja nazewnicza stosowana w kodzie przekazanym Mateuszowi nie jest typowa. Zakłada ona, że interfejsy poprzedzone są wielką literą `I`. 
 
@@ -95,7 +95,7 @@ Dokumentacja jest ważna. Nie pytaj czy masz dostarczyć rozwiązanie z dokument
 
 Czy poprzedni akapit brzmi znajomo ;)? W przypadku zadań tego typu dokumentacja jest podobna do testów[^testy]. Pokaż pracodawcy, że wiesz jak ważna jest dokumentacja. Nie chodzi mi tu o dokumentowanie każdej linijki kodu. Mam na myśli kilka akapitów, które opiszą dostarczony program. Jeśli opis zadania nie był kompletny i trzeba było przyjąć pewne założenia, to dokumentacja jest świetnym miejscem na ich opisanie.
 
-[^testy]: Przy okazji testy można także traktować jako dokumentację, jednak to temat na osobny artykuł.
+[^testy]: Testy także można traktować jako dokumentację, jednak jest to temat na osobny artykuł.
 
 Dokumentację możesz dostaczyć jako osobny dokument, albo zaszyć ją w kodzie. W języku Java do tego celu używa się notacji _javadoc_.
 
@@ -122,7 +122,7 @@ public Stream<INode> toStream() {
     );
 }
 ```
-Te kilka linijek zapewnia poprawne obsłużenie wielokrotnie zagnieżdżonych struktur. 
+Te kilka linijek zapewnia poprawne obsłużenie wielokrotnie zagnieżdżonych struktur.
 
 ### Usunięcie duplikacji w metodach wyszukujących
 
@@ -145,7 +145,7 @@ private INode findByPredicate(Predicate<INode> predicate) {
             .orElse(null);
 }
 ```
-Rzuć okiem na metodę `findByPredicate`. Jej użycie pozwoli na uniknięcie duplikacji, na którą zwracał uwagę autor zadania.
+Rzuć okiem na metodę `findByPredicate`. Jej użycie pozwoli na uniknięcie duplikacji, na którą zwracał uwagę autor zadania. Jak widzisz w kodzie używałem wyłącznie [strumieni]({% post_url 2018-01-30-strumienie-w-jezyku-java %}), zadanie oczywiście można także rozwiązać używając [pętli]({% post_url 2015-11-18-petle-i-instrukcje-warunkowe-w-jezyku-java %}).
 
 ## Wyślij mi swoje zadanie
 
@@ -155,7 +155,7 @@ Jak już wiesz zadanie to dostałem od jednego z czytelników, od Mateusza. Jeś
 
 ## Podsumowanie
 
-Po przeczytaniu tego artykułu wiesz na co zwracać uwagę przy rozwiązywaniu zadań rekrutacyjnych, które nie są związane z napisaniem wydajnego algorytmu. Wiesz jak ważne są testy jednostkowe i dokumentacja. Artykuł także pokazał Ci jak ważne jest przyjmowanie założeń dotyczących treści zadania. Artykuł pozwolił Ci także na porównanie swojego zadania z przykładowym. Innymi słowy udało Ci się przygotować "o jedno zadanie lepiej" do następnej rozmowy rekrutacyjnej.
+Po przeczytaniu tego artykułu wiesz na co zwracać uwagę przy rozwiązywaniu zadań rekrutacyjnych, które nie są związane z napisaniem wydajnego algorytmu. Wiesz jak ważne są testy jednostkowe i dokumentacja. Artykuł także pokazał Ci, jak ważne jest przyjmowanie założeń dotyczących treści zadania. Innymi słowy udało Ci się przygotować "o jedno zadanie lepiej" do następnej rozmowy kwalifikacyjnej.
 
 Na koniec mam dla Ciebie prośbę. Zależy mi na dotarciu do jak największej grupy czytelników. Jeśli znasz kogoś, komu ten artykuł może się przydać proszę podziel się linkiem do tego artykułu. Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku dopisz się do newslettera i polub samouczkowy profil na Facebook'u.
 
