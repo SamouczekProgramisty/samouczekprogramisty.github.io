@@ -15,7 +15,7 @@ excerpt: W tym artykule rozkładam na części pierwsze zadanie podesłane przez
 
 Do tej pory w ramach zadań rozwiązywanych na rozmowach kwalifikacyjnych pokazywałem wyłącznie problemy algorytmiczne. To zadanie jest inne. W tym przypadku zadaniem nie jest znalezienie wydajnego algorytmu rozwiązującego problem. Tym razem należy napisać program, który realizuje pewną funkcjonalność.
 
-W tym przypadku przyszły pracodawca chce sprawdzić czy znasz skłądnię języka. Czy potrafisz pisać kod, który jest czytelny, łatwy do rozszerzenia i testowania. Może sprawdzić znajomość [zasad SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}) w praktyce. Przy zadaniach tego typu umiejętność pisania wydajnych algorytmów nie jest tak istotna.
+W tym przypadku przyszły pracodawca chce sprawdzić czy znasz składnię języka. Czy potrafisz pisać kod, który jest czytelny, łatwy do rozszerzenia i testowania. Może sprawdzić znajomość [zasad SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}) w praktyce. Przy zadaniach tego typu umiejętność pisania wydajnych algorytmów nie jest tak istotna.
 
 Rozwiązując zadania tego typu możesz także pokazać zestaw innych przydatnych umiejętności. Przeczytasz o tym w dalszej części artykułu.
 
@@ -63,7 +63,7 @@ Jak powinna zachować się metoda `count` jeśli zawiera instancję implementuj�
 
 Takie pytania można mnożyć. W takim przypadku moim zdaniem kandydat powinien zrobić jedną z dwóch rzeczy. Pierwszą opcją jest dopytanie się o te szczegóły i czekanie na odpowiedź od potencjalnego pracodawcy. Drugim podejściem jest założenie, co autor zadania miał na myśli.
 
-Oba rozwiązania mają swoje wady i zalety. Zwrócenie się z pytaniem o doszczegółowienie pozwoli zrealizować zadanie dokładnie w taki sposób jak oczekiwał autor zadania. Jednak minusem tutaj jest dodatkowy czas oczekiwania. Dodatkowo takich pytań może pojawić się wiele w trakcie rozwiązywania zadania. 
+Oba rozwiązania mają swoje wady i zalety. Zwrócenie się z pytaniem o uszczegółowienie pozwoli zrealizować zadanie dokładnie w taki sposób jak oczekiwał autor zadania. Jednak minusem tutaj jest dodatkowy czas oczekiwania. Dodatkowo takich pytań może pojawić się wiele w trakcie rozwiązywania zadania. 
 
 #### Założenia są dobre
 
@@ -87,7 +87,7 @@ Przy rozwiązywaniu zadań tego typu staram się stosować do konwencji narzucon
 
 Testy są ważne. Nie pytaj czy masz dostarczyć rozwiązanie z testami. Traktuj testy automatyczne jako część dostarczanego rozwiązania. Rozwiązanie zadania bez testów nie jest kompletne.
 
-Rozwiązujac zadania tego typu staraj się rozwiązywać je używając [_Test Driven Development_]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}). Dzięki takiemu podejściu skrócisz czas testowania gotowego rozwiązania. Dodatkowo pokażesz potencjalnemu pracodawcy, że potrafisz pisać testy jednostkowe. 
+Rozwiązując zadania tego typu staraj się rozwiązywać je używając [_Test Driven Development_]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}). Dzięki takiemu podejściu skrócisz czas testowania gotowego rozwiązania. Dodatkowo pokażesz potencjalnemu pracodawcy, że potrafisz pisać testy jednostkowe. 
 
 ### Dokumentacja
 
@@ -97,7 +97,7 @@ Czy poprzedni akapit brzmi znajomo ;)? W przypadku zadań tego typu dokumentacja
 
 [^testy]: Testy także można traktować jako dokumentację, jednak jest to temat na osobny artykuł.
 
-Dokumentację możesz dostaczyć jako osobny dokument, albo zaszyć ją w kodzie. W języku Java do tego celu używa się notacji _javadoc_.
+Dokumentację możesz dostarczyć jako osobny dokument, albo zaszyć ją w kodzie. W języku Java do tego celu używa się notacji _javadoc_.
 
 ## Rozwiązanie zadania
 
@@ -108,7 +108,7 @@ Możesz później użyć mojego zestawu testów jednostkowych żeby sprawdzić c
 [^zalozenia]: Testy powinny przejść u Ciebie. Chyba, że Twoje założenia dotyczące niejasnych wymagań były inne ;).
 
 
-### Rozszerenie interfejsu `INode`
+### Rozszerzenie interfejsu `INode`
 
 Żeby poprawnie obsłużyć zagnieżdżone elementy rozszerzyłem interfejs `INode` o dodatkową metodę `Stream<INode> toStream()`. To jedno z tych założeń, o których pisałem wcześniej. Założyłem, że takie rozszerzenie interfejsu jest dopuszczalne. Jeśli nie byłoby to możliwe, problem można byłoby rozwiązać w inny sposób. Jednak ta droga prowadziła do kodu, który jest bardziej czytelny.
 
