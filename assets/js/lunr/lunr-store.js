@@ -529,6 +529,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg"},{
+        "title": "Samouczek na rozmowie - zagnieżdżona struktura",
+        "excerpt":"To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych. W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-zagniezdzona-struktura/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/08/26_zadanie_z_rozmowy_kwalifikacyjnej.jpeg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],
