@@ -7,11 +7,11 @@ header:
     teaser: /assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg
     overlay_image: /assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg
     caption: "[&copy; horiavarlan](https://www.flickr.com/photos/horiavarlan/4332381194/sizes/l)"
-excerpt: W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację tablicy asocjacyjnej. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Na przykładzie zobaczysz dlaczego dobra funkcja skrótu jest bardzo istotna w przypadku tablicy asocjacyjnej. W przystępny sposób opiszę optymalizacje wprowadzone w implementacji tej struktury w języku Java. Zadania do rozwiązania pomogą Ci utrwalić zdobytą wiedzę.
+excerpt: W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację tablicy asocjacyjnej. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Na przykładzie zobaczysz dlaczego dobra funkcja skrótu jest bardzo istotna w przypadku pewnych implementacji tablicy asocjacyjnej. W przystępny sposób opiszę optymalizacje wprowadzone w implementacji tej struktury w języku Java. Zadania do rozwiązania pomogą Ci utrwalić zdobytą wiedzę.
 ---
 
 {% capture wprowadzenie %}
-Artykuł ten opisuje strukturę danych określaną jako tablica asocjacyjna. Tę strukturę nazywa się też słownikiem czy mapą. Sama struktura występuje w wielu językach programowania. Zasada działania tej struktury jest niezależnie od języka programowania.
+Artykuł ten opisuje przykładową implementację struktury danych określanej jako tablica asocjacyjna. Tę strukturę nazywa się też słownikiem czy mapą. Sama struktura występuje w wielu językach programowania. Zasada działania tej struktury jest niezależnie od języka programowania.
 
 Przykładową implementację przygotowałem w Javie. Aby wynieść jak najwięcej z tego artykułu powinieneś wiedzieć czym są metody `hashCode` i `equals`. Powinieneś też znać [kontrakt pomiędzy metodami `equals` i `hashCode`]({% post_url 2016-04-17-porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java %}).
 
