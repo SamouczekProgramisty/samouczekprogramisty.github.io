@@ -347,7 +347,9 @@ Jest to złożoność typu silnia.  Dla przypomnienia silnia `n`, albo inaczej `
 
 > Na wejściu programu jest `n` miast oraz odległości pomiędzy każdą parą miast. Zakładając, że komiwojażer zaczyna z miasta A i ma dojść do miasta B jaką trasę powinien pokonać aby była ona najkrótsza?
 
-Nie silę się nawet na naiwny algorytm dla tego problemu, nie jest on możliwy do uruchomienia na dzisiejszych komputerach dla problemów odpowiednio dużych. Wyobraź sobie, skalę możliwych rozwiązań. `60! ~= 8,3 * 10^81`. Szacowana liczba atomów wodoru w widzialnym wszechświecie to około [`10^80`](https://en.wikipedia.org/wiki/Observable_universe#Matter_content_.E2.80.93_number_of_atoms). Przekładając to na problem wyżej. Możliwych dróg pomiędzy 60 miastami jest więcej niż atomów wodoru w widzialnym wszechświecie ;).
+Nie silę się nawet na naiwny algorytm dla tego problemu, nie jest on możliwy do uruchomienia na dzisiejszych komputerach dla problemów odpowiednio dużych. Wyobraź sobie, skalę możliwych rozwiązań. `(60 - 1)!/2 ~= 6,9 * 10^79`[^wyjasnienie]. Szacowana liczba atomów wodoru w widzialnym wszechświecie to około [`10^80`](https://en.wikipedia.org/wiki/Observable_universe#Matter_content_.E2.80.93_number_of_atoms). Przekładając to na problem wyżej, możliwych dróg pomiędzy 60 miastami jest tylko 31% mniej niż atomów wodoru w widzialnym wszechświecie ;).
+
+[^wyjasnienie]: Z pierwszego miasta mamy możliwość pójść do 59 miast, następnie możemy wybrać 58 miast, itd. Wynik dzielony jest przez 2 ponieważ nie ma znaczenia czy pójdziemy z miasta A do miasta B czy odwrotnie.
 
 ## Najlepszy, średni i najgorszy przypadek
 
