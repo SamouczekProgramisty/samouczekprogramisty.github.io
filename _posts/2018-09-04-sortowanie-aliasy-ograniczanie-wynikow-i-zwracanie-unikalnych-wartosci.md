@@ -13,7 +13,7 @@ excerpt: Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będ
 
 {% include kurs-sql-notice.md %}
 
-W poprzednich częściach kursu opisałem [klazulę `WHERE`]({% post_url 2018-07-26-klauzula-where-w-zapytaniach-sql %}) wraz z [podstawami zapytania typu `SELECT`]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}). Ten artykuł opisuje kilka dodatkowych mechanizmów, które możesz wykorzystać przy pracy z zapytaniami tego typu.
+W poprzednich częściach kursu opisałem [klauzulę `WHERE`]({% post_url 2018-07-26-klauzula-where-w-zapytaniach-sql %}) wraz z [podstawami zapytania typu `SELECT`]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}). Ten artykuł opisuje kilka dodatkowych mechanizmów, które możesz wykorzystać przy pracy z zapytaniami tego typu.
 
 ## Kolejność wyrażeń
 
@@ -31,7 +31,7 @@ Elementy otoczone nawiasami `()` są opcjonalne i mogą być pominięte.
 
 ## Ograniczanie liczby wyników
 
-Często w trakcie pracy z danymi w [bazach relacyjnych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) chcemy podejrzeć dane zwracane przez zapytanie. W takm przypadku ważnych jest tylko kilka wynikowych wierszy. W takim przypadku z pomocą przychodzi wyrażenie `LIMIT`, które pozwala na ograniczenie liczby zwracanych wierszy. Na przykład poniższe zapytanie zwróci jedynie pięć wierszy z tabeli `genre`:
+Często w trakcie pracy z danymi w [bazach relacyjnych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) chcemy podejrzeć dane zwracane przez zapytanie. W takim przypadku ważnych jest tylko kilka wynikowych wierszy. W takim przypadku z pomocą przychodzi wyrażenie `LIMIT`, które pozwala na ograniczenie liczby zwracanych wierszy. Na przykład poniższe zapytanie zwróci jedynie pięć wierszy z tabeli `genre`:
 
 ```sql
 SELECT * 
@@ -170,7 +170,7 @@ Tym razem pierwsze pięć wierszy wygląda zupełnie inaczej:
     Science Fiction
     Sci Fi & Fantasy
 
-Istnieje wyrażenie `ASC`, które mówi o tym, żeby wynik był sortowany rosnąco. Często jest ono pomijane ponieważ, takie własnie jest domyślne zachowanie `ORDER BY`. Przykładowe zapytanie bez pominięcia `ASC` może wyglądać tak:
+Istnieje wyrażenie `ASC`, które mówi o tym, żeby wynik był sortowany rosnąco. Często jest ono pomijane ponieważ, takie właśnie jest domyślne zachowanie `ORDER BY`. Przykładowe zapytanie bez pominięcia `ASC` może wyglądać tak:
 
 ```sql
   SELECT name
@@ -192,7 +192,7 @@ ORDER BY billingcountry DESC
         ,billingstate;
 ```
 
-To zapytanie zwraca unikalne wartości `billingcountry` i `billingstate`. Wynik posortowany jest malejąco po `billingcountry` i rosnąco po `billingstate`. Pierwsze pięć wierszy wyniku zapytania wygląda natępująco:
+To zapytanie zwraca unikalne wartości `billingcountry` i `billingstate`. Wynik posortowany jest malejąco po `billingcountry` i rosnąco po `billingstate`. Pierwsze pięć wierszy wyniku zapytania wygląda następująco:
 
     United Kingdom|
     USA|AZ
@@ -242,7 +242,7 @@ Spójrz na pierwsze pięć wierszy w tabeli `genre`:
     4           Alternativ
     5           Rock And R
 
-W tym przypadku pierwszy wiersz wyników pokazuje nazwy zwracanych kolumn. Nazwy pod którymi zwracane są wyniki można zmienić używając wyrażenia `AS`. Sprójrz na przykład:
+W tym przypadku pierwszy wiersz wyników pokazuje nazwy zwracanych kolumn. Nazwy pod którymi zwracane są wyniki można zmienić używając wyrażenia `AS`. Spójrz na przykład:
 
 ```sql
 SELECT genreid AS id
