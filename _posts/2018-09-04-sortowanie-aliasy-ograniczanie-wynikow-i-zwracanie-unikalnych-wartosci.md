@@ -8,12 +8,12 @@ header:
     teaser: /assets/images/2018/09/04_sql.jpg
     overlay_image: /assets/images/2018/09/04_sql.jpg
     caption: "[&copy; Micheile Henderson](https://unsplash.com/photos/1SjD5ZEiUsA)"
-excerpt: Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą `DISTINCT`, `AS` czy `UNION`. Poznasz także sposoby na sortowanie i ograniczanie wyników przy użyciu `ORDER BY` i `LIMIT`. Na końcu artykułu czekają na Ciebie zadania, które pomogą utrwalić zdobytą wiedzę.
+excerpt: Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą `DISTINCT`, `AS` czy `UNION`. Poznasz także sposoby na sortowanie i ograniczanie wyników przy użyciu `ORDER BY` i `LIMIT`. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami, które pomogą Ci utrwalić zdobytą wiedzę.
 ---
 
 {% include kurs-sql-notice.md %}
 
-W poprzednich częściach kursu opisałem klazulę `WHERE` wraz z podstawami zapytania typu `SELECT`. Ten artykuł opisuje kilka dodatkowych mechanizmów, które możesz wykorzystać przy pracy z zapytaniami tego typu.
+W poprzednich częściach kursu opisałem [klazulę `WHERE`]({% post_url 2018-07-26-klauzula-where-w-zapytaniach-sql %}) wraz z [podstawami zapytania typu `SELECT`]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}). Ten artykuł opisuje kilka dodatkowych mechanizmów, które możesz wykorzystać przy pracy z zapytaniami tego typu.
 
 ## Kolejność wyrażeń
 
@@ -31,7 +31,7 @@ Elementy otoczone nawiasami `()` są opcjonalne i mogą być pominięte.
 
 ## Ograniczanie liczby wyników
 
-Często w trakcie pracy z danymi w bazach relacyjnych chcemy podejrzeć dane zwracane przez zapytanie. W takm przypadku ważnych jest tylko kilka wynikowych wierszy. W takim przypadku z pomocą przychodzi wyrażenie `LIMIT`, które pozwala na ograniczenie liczby zwracanych wierszy. Na przykład poniższe zapytanie zwróci jedynie pięć wierszy z tabeli `genre`:
+Często w trakcie pracy z danymi w [bazach relacyjnych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) chcemy podejrzeć dane zwracane przez zapytanie. W takm przypadku ważnych jest tylko kilka wynikowych wierszy. W takim przypadku z pomocą przychodzi wyrażenie `LIMIT`, które pozwala na ograniczenie liczby zwracanych wierszy. Na przykład poniższe zapytanie zwróci jedynie pięć wierszy z tabeli `genre`:
 
 ```sql
 SELECT * 
@@ -208,7 +208,7 @@ Możesz także sortować po kolumnie, która nie jest uwzględniona w finalnym w
 ORDER BY billingcity;
 ```
 
-Wynik tego zapytania może wydawać się losowy, jednak podejrzenie miast skojarzonych z wyświetlonymi państwami pozwoli rozwiązać zagadę sortowania :)
+Wynik tego zapytania może wydawać się losowy, jednak podejrzenie miast skojarzonych z wyświetlonymi państwami pozwoli rozwiązać zagadkę sortowania:
 
     Netherlands
     India
@@ -296,8 +296,12 @@ Podzapytania, które są scalane przy użyciu wyrażeń `UNION` albo `UNION ALL`
 
 [^typ]: Nie jest to do końca prawda. W przypadku relacyjnych baz danych, które znam SQLite jest najbardziej pobłażliwy. SQLite pozwala na łączenie ze sobą różnych typów przy użyciu `UNION` czy `UNION ALL`. Na przykład w bazie danych PostgreSQL użycie `UNION` do złączenia zapytań zwracających różne typy danych kończy się wyjątkiem.
 
-Wyrażenia `LIMIT` i `ORDER BY` mogą być użyte tylko do scalonych zapytań.
+Wyrażenia `LIMIT` i `ORDER BY` mogą być użyte tylko do scalonych zapytań. Nie możesz ich użyć wewnątrz zapytań, które są scalane.
 {:.notice--info}
+
+### Różnica pomiędzy `UNION` a `UNION ALL`
+
+Oba wyrażenia służą do scalenia wyników wielu zapytań. Mają jednak jedną znaczącą różnicę. `UNION` zwróci unikalną listę wierszy. `UNION ALL` zwróci wszystkie wiersze, w wyniku mogą być duplikaty.
 
 ### Wiele podzapytań
 
@@ -321,10 +325,6 @@ UNION ALL
 
 Zwraca ono dwie kolumny, których zawartość pochodzi z trzech różnych tabel.
 
-### Różnica pomiędzy `UNION` a `UNION ALL`
-
-Oba wyrażenia służą do scalenia wyników wielu zapytań. Mają jednak jedną znaczącą różnicę. `UNION` zwróci unikalną listę wierszy. `UNION ALL` zwróci wszystkie wiersze, w wyniku mogą być duplikaty.
-
 ### Czy `UNION` jest potrzebne?
 
 Niektóre wyrażenia `UNION` mogą być zastąpione przy pomocy `OR`. Zatem kiedy stosować `UNION` albo `UNION ALL`? Te klauzule możesz stosować jeśli w wynikowej kolumnie powinny znaleźć się dane z różnych źródeł. Są też inne przypadki, związane z optymalizacją wydajności zapytań. Pominę te drugie bo znacząco wykraczają poza zakres tego kursu i są specyficzne dla różnych silników baz danych.
@@ -336,7 +336,8 @@ Poniżej znajdziesz kilka zadań do wykonania. Każde z nich wymaga napisania je
 - zwróci dziesięć najdłuższych ścieżek (tabela `track`), weź pod uwagę tylko te, których kompozytor (kolumna `composer`) zawiera literę `b`,
 - zwróci pięć najtańszych ścieżek (tabela `track`) dłuższych niż minuta,
 - zwróci unikalną listę dwudziestu kompozytorów których ścieżki kosztują mniej niż 2$ posortowanych malejąco według identyfikatora gatunku (kolumna `genreid`) i rosnąco według rozmiaru (kolumna `bytes`),
-- zwróci dwie kolumny. Pierwsza z nich powinna zawierać ścieżki droższe niż 1$ i poprawnych kompozytorów pod nazwą `magic thingy`. Druga powinna zawierać liczbę bajtów. Wynik powinien zawierać dziesięć wierszy i być posortowany rosnąco po liczbie bajtów.
+- zwróci dwie kolumny. Pierwsza z nich powinna zawierać ścieżki droższe niż 1$ i poprawnych kompozytorów pod nazwą `magic thingy`. Druga powinna zawierać liczbę bajtów. Wynik powinien zawierać dziesięć wierszy i być posortowany rosnąco po liczbie bajtów,
+- zwróci piątą stronę z fakturami (tabela `invoice`) zakładając, że na stronie znajduje się dziesięć faktur i sortowane są według identyfikatora (kolumna `invoiceid`).
 
 ### Przykładowe rozwiązania zadań
 
@@ -381,10 +382,18 @@ ORDER BY bytes ASC
    LIMIT 10;
 ```
 
+```sql
+  SELECT *
+    FROM invoice
+   WHERE invoiceid > 40
+ORDER BY invoiceid
+   LIMIT 10;
+```
+
 ## Podsumowanie
 
 Kolejną część kursu SQL masz już za sobą. W tym artykule udało Ci się przeczytać o kilku przydatnych konstrukcjach. Wiesz jak sortować wyniki, jak ograniczać liczbę zwracanych wierszy, potrafisz łączyć ze sobą wyniki kilku zapytań i wiesz jak zwracać wyłącznie unikalne wartości. Po rozwiązaniu zadań  wiesz, że potrafisz wykorzystać tę wiedzę w praktyce. Gratulacje! :)
 
 Które z zadań sprawiło Ci największą trudność? Może masz jakiekolwiek pytania dotyczące materiału, który opisałem w tym artykule? Daj znać w komentarzach pod artykułem.
 
-Na koniec mam do Ciebie prośbę. Jeśli znasz kogoś dla kogo treść tego artykułu będzie przydatna proszę podziel się nim. Pomożesz mi w ten sposób dotrzeć do nowych czytelników a właśnie na tym mi zależy. Jeśli nie chcesz ominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebook'u. Do następnego razu!
+Na koniec mam do Ciebie prośbę. Jeśli znasz kogoś dla kogo treść tego artykułu będzie przydatna proszę podziel się nim z tą osobą. Pomożesz mi w ten sposób dotrzeć do nowych czytelników. Jeśli nie chcesz ominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebook'u. Do następnego razu!
