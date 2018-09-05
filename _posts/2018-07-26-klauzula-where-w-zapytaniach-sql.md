@@ -56,6 +56,8 @@ Nawiasy w przykładzie poniżej zmieniają kolejność wykonywania operacji, wi�
 
     (x OR y) AND z
 
+{% include newsletter-srodek.md %}
+
 ### Negacja warunków
 
 Poza operatorami łączenia, które już znasz, istnieje także operator negacji warunku. Służy do tego operator `NOT`. Ten operator ma wyższy priorytet niż `OR` czy `AND`. Także i w tym przypadku możesz użyć nawiasów aby zmienić kolejność wykonywanych operacji. Poniższy przykład pokazuje przypadek, w którym nawiasy nie mają wpływu na kolejność wykonywanych porównań:
@@ -259,6 +261,35 @@ Napisz zapytanie, które:
 - zwróci wszystkie wiersze z tabeli `invoice`, które mają uzupełnioną kolumnę `billingstate` i nie są ze Stanów Zjednoczonych,
 - zwróci wszystkie wiersze z tabeli `invoice`, które dotyczą Polski, Czech albo Węgier dla których wartość faktury przekracza 10,
 - zwróci imiona pracowników z tabeli `employee`, które dotyczą pracowników urodzonych w latach 60. 
+
+### Przykładowe rozwiązania zadań
+
+```sql
+SELECT *
+  FROM track
+ WHERE unitprice < 1
+   AND name LIKE '%x%%e' ESCAPE 'x';
+```
+
+```sql
+SELECT *
+  FROM invoice
+ WHERE billingstate IS NOT NULL
+   AND billingcountry != 'USA';
+```
+
+```sql
+SELECT *
+  FROM invoice
+ WHERE billingcountry IN ('Poland', 'Czech Republic', 'Hungary')
+   AND total > 10;
+```
+
+```sql
+SELECT firstname 
+  FROM employee
+ WHERE birthdate BETWEEN '1960-' AND '1970-';
+```
 
 ## Podsumowanie
 
