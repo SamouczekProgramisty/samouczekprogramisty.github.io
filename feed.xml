@@ -1,4 +1,401 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-08-26T22:42:01+02:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Samouczek na rozmowie - zagnieżdżona struktura</title><link href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-zagniezdzona-struktura/" rel="alternate" type="text/html" title="Samouczek na rozmowie - zagnieżdżona struktura" /><published>2018-08-26T00:00:00+02:00</published><updated>2018-08-26T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/zadanie-zagniezdzona-struktura</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-zagniezdzona-struktura/">&lt;div class=&quot;notice--info&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-09-06T01:02:20+02:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości</title><link href="http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/" rel="alternate" type="text/html" title="Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości" /><published>2018-09-04T00:00:00+02:00</published><updated>2018-09-04T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/">&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-sql&quot;&gt;praktycznego kursu SQL&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
+
+&lt;p&gt;Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;pierwszym artykule kursu&lt;/a&gt;. Bardzo mocno Cię do tego zachęcam. Moim zdaniem najwięcej nauczysz się samodzielnie eksperymentując z zapytaniami.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;W poprzednich częściach kursu opisałem &lt;a href=&quot;/klauzula-where-w-zapytaniach-sql/&quot;&gt;klauzulę &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt;&lt;/a&gt; wraz z &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;podstawami zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt;&lt;/a&gt;. Ten artykuł opisuje kilka dodatkowych mechanizmów, które możesz wykorzystać przy pracy z zapytaniami tego typu.&lt;/p&gt;
+
+&lt;h2 id=&quot;kolejność-wyrażeń&quot;&gt;Kolejność wyrażeń&lt;/h2&gt;
+
+&lt;p&gt;Zanim przejdę do wyjaśnienia poszczególnych wyrażeń chciałbym zwrócić Twoją uwagę na ich kolejność. Język SQL określa w jakiej kolejności powinny być one używane w zapytaniach. Kolejność ta zawsze wygląda następująco:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Elementy otoczone nawiasami &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt; są opcjonalne i mogą być pominięte.&lt;/p&gt;
+
+&lt;h2 id=&quot;ograniczanie-liczby-wyników&quot;&gt;Ograniczanie liczby wyników&lt;/h2&gt;
+
+&lt;p&gt;Często w trakcie pracy z danymi w &lt;a href=&quot;/wstep-do-relacyjnych-baz-danych/&quot;&gt;bazach relacyjnych&lt;/a&gt; chcemy podejrzeć dane zwracane przez zapytanie. W takim przypadku ważnych jest tylko kilka wynikowych wierszy. W takim przypadku z pomocą przychodzi wyrażenie &lt;code class=&quot;highlighter-rouge&quot;&gt;LIMIT&lt;/code&gt;, które pozwala na ograniczenie liczby zwracanych wierszy. Na przykład poniższe zapytanie zwróci jedynie pięć wierszy z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;genre&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To wyrażenie często jest używane do stronicowania. Wyobraź sobie sytuację, w której sklep na stronie wyświetla dziesięć produktów. Odpowiednio skonstruowane zapytanie z wyrażeniem &lt;code class=&quot;highlighter-rouge&quot;&gt;LIMIT 10&lt;/code&gt; zwróci dokładne te produkty, które powinny być wyświetlone.&lt;/p&gt;
+
+&lt;h2 id=&quot;wyłącznie-unikalne-wiersze&quot;&gt;Wyłącznie unikalne wiersze&lt;/h2&gt;
+
+&lt;p&gt;W niektórych przypadkach zapytanie SQL powinno zwrócić wyłącznie unikalne wartości. Tabela &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt; zawiera między innymi kolumnę &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt;. W tej kolumnie zawarty jest kraj, w którym wystawiono fakturę. Załóżmy, że Twoim zadaniem jest pobranie listy krajów, w których dokonano jakiegokolwiek zakupu. Tę listę zwróci takie zapytanie:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To zapytanie ma jednak pewną wadę. Zwróć uwagę na to, że zwraca ono wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; dla każdego wiersza znajdującego się w tabeli źródłowej. W tym przypadku tabela źródłowa zawiera wiele faktur dla tego samego kraju. Wystarczy spojrzeć na wynik zapytania. Poniżej możesz zobaczyć pierwsze dziesięć wierszy:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Germany
+Norway
+Belgium
+Canada
+USA
+Germany
+Germany
+France
+France
+Ireland
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jak widzisz lista zawiera duplikaty. &lt;code class=&quot;highlighter-rouge&quot;&gt;Germany&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;France&lt;/code&gt; są powielone. Cała lista krajów zawiera jeszcze więcej duplikatów, możesz to sprawdzić uruchamiając zapytanie samodzielnie.&lt;/p&gt;
+
+&lt;p&gt;W przypadku tego typu zapytań z pomocą przychodzi wyrażenie &lt;code class=&quot;highlighter-rouge&quot;&gt;DISTINCT&lt;/code&gt;. Pozwala ono na odfiltrowanie powielonych wierszy. Proszę spójrz na przykład:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Tym razem pierwsze dziesięć wierszy wygląda inaczej. Zwróć uwagę, że tym razem dzięki &lt;code class=&quot;highlighter-rouge&quot;&gt;DISTINCT&lt;/code&gt; żaden wiersz nie jest powielony:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Germany
+Norway
+Belgium
+Canada
+USA
+France
+Ireland
+United Kingdom
+Australia
+Chile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;wiele-kolumn-z-wyrażeniem-distinct&quot;&gt;Wiele kolumn z wyrażeniem &lt;code class=&quot;highlighter-rouge&quot;&gt;DISTINCT&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Klauzulę &lt;code class=&quot;highlighter-rouge&quot;&gt;DISTINCT&lt;/code&gt; możesz stosować także w przypadku wielu kolumn. Załóżmy, że chcesz uzyskać listę wszystkich krajów i miejscowości, w których dokonano zakupu. Aby uzyskać taki wynik wystarczy nieznacznie zmodyfikować poprzednie zapytanie:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billingcity&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Pierwsze dziesięć wierszy zwrócone przez to zapytanie wygląda tak (znak &lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt; służy do oddzielenia kolumn):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Germany|Stuttgart
+Norway|Oslo
+Belgium|Brussels
+Canada|Edmonton
+USA|Boston
+Germany|Frankfurt
+Germany|Berlin
+France|Paris
+France|Bordeaux
+Ireland|Dublin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Zwróć uwagę na to, że kraje się powtarzają. Tym razem to para &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcity&lt;/code&gt; jest unikalna.&lt;/p&gt;
+
+&lt;h3 id=&quot;null-a-distinct&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; a &lt;code class=&quot;highlighter-rouge&quot;&gt;DISTINCT&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Aby określić czy wartości są unikalne trzeba je ze sobą porównać. Dzięki takiemu porównaniu zwracany wynik nie zawiera duplikatów. Porównywane są wszystkie wartości, &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; nie jest tu wyjątkiem. Proszę rzuć okiem na wynik tego zapytania, zwraca ono unikalne wartości dla pary &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Pierwsze dziesięć wierszy zwrócone przez to zapytanie wygląda następująco:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Germany|
+Norway|
+Belgium|
+Canada|AB
+USA|MA
+France|
+Ireland|Dublin
+United Kingdom|
+USA|CA
+USA|WA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Istnieją faktury wystawione w Niemczech, które nie mają uzupełnionej kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt;. Widać to w pierwszym wierszu wyników. Oznacza to tyle, że &lt;code class=&quot;highlighter-rouge&quot;&gt;DISTINCT&lt;/code&gt; wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; traktuje jako równe sobie.&lt;/p&gt;
+
+&lt;h2 id=&quot;sortowanie-wyników&quot;&gt;Sortowanie wyników&lt;/h2&gt;
+
+&lt;p&gt;Język SQL bardzo często używany jest do generowania różnego rodzaju raportów. Raporty te lepiej przegląda się jeśli są odpowiednio uporządkowane. W języku SQL do sortowania wyników używa się wyrażenia &lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt;. Proszę spójrz na przykład poniżej:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To zapytanie pobiera wszystkie wartości kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;genre&lt;/code&gt;. Zwrócony wynik posortowany jest rosnąco według kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;. Pierwsze pięć wierszy zwróconych przez to zapytanie wygląda tak:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Alternative
+Alternative &amp;amp; Punk
+Blues
+Bossa Nova
+Classical
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;zmiana-kierunku-sortowania&quot;&gt;Zmiana kierunku sortowania&lt;/h3&gt;
+
+&lt;p&gt;Domyślnie &lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt; sortuje wyniki w porządku rosnącym. Możesz jednak to zmienić używając wyrażenia &lt;code class=&quot;highlighter-rouge&quot;&gt;DESC&lt;/code&gt; po nazwie kolumny, która powinna być sortowana. Lekka modyfikacja poprzedniego zapytania zwraca gatunki muzyczne w kolejności malejącej:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Tym razem pierwsze pięć wierszy wygląda zupełnie inaczej:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;World
+TV Shows
+Soundtrack
+Science Fiction
+Sci Fi &amp;amp; Fantasy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Istnieje wyrażenie &lt;code class=&quot;highlighter-rouge&quot;&gt;ASC&lt;/code&gt;, które mówi o tym, żeby wynik był sortowany rosnąco. Często jest ono pomijane ponieważ, takie właśnie jest domyślne zachowanie &lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt;. Przykładowe zapytanie bez pominięcia &lt;code class=&quot;highlighter-rouge&quot;&gt;ASC&lt;/code&gt; może wyglądać tak:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ASC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;notice--success text-center&quot;&gt;
+  
+&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 1000 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
+
+
+&lt;/div&gt;
+
+&lt;h3 id=&quot;sortowanie-po-wielu-kolumnach&quot;&gt;Sortowanie po wielu kolumnach&lt;/h3&gt;
+
+&lt;p&gt;Klauzula &lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt; pozwala na sortowanie po wielu kolumnach jednocześnie. Na początku wynik sortowany jest po pierwszym wyrażeniu. Jeśli występują w nim duplikaty są one sortowane po drugim wyrażeniu, i tak dalej… Proszę spójrz na przykład:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To zapytanie zwraca unikalne wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt;. Wynik posortowany jest malejąco po &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; i rosnąco po &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt;. Pierwsze pięć wierszy wyniku zapytania wygląda następująco:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;United Kingdom|
+USA|AZ
+USA|CA
+USA|FL
+USA|IL
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Możesz także sortować po kolumnie, która nie jest uwzględniona w finalnym wyniku. Na przykład zapytanie poniżej zwraca wyłącznie unikalne wartości kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; sortując je po kolumnie &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcity&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Wynik tego zapytania może wydawać się losowy, jednak podejrzenie miast skojarzonych z wyświetlonymi państwami pozwoli rozwiązać zagadkę sortowania:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Netherlands
+India
+USA
+Belgium
+Hungary
+Argentina
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;aliasy-dla-kolumn&quot;&gt;Aliasy dla kolumn&lt;/h2&gt;
+
+&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;W jednym z poprzednich artykułów opisałem &lt;a href=&quot;/pobieranie-danych-z-bazy-select/#przygotowanie-%C5%9Brodowiska&quot;&gt;przygotowanie środowiska&lt;/a&gt;. Zakładam, że w trakcie kursu używasz SQLite.&lt;/p&gt;
+
+&lt;p&gt;W przypadku tej bazy danych, klient domyślnie nie wyświetla nazw zwracanych kolumn. Możesz je włączyć używając polecenia &lt;code class=&quot;highlighter-rouge&quot;&gt;.headers on&lt;/code&gt;. Polecam także zmianę sposobu prezentacji wyników przy użyciu &lt;code class=&quot;highlighter-rouge&quot;&gt;.mode column&lt;/code&gt;. Dzięki temu zwracane dane będą bardziej czytelne.&lt;/p&gt;
+
+&lt;p&gt;W tej sekcji kursu będę pokazywał wyniki w postaci kolumn z nagłówkiem zawierającym ich nazwy.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Spójrz na pierwsze pięć wierszy w tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;genre&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sqlite&amp;gt; SELECT * FROM genre LIMIT 5;
+GenreId     Name      
+----------  ----------
+1           Rock      
+2           Jazz      
+3           Metal     
+4           Alternativ
+5           Rock And R
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W tym przypadku pierwszy wiersz wyników pokazuje nazwy zwracanych kolumn. Nazwy pod którymi zwracane są wyniki można zmienić używając wyrażenia &lt;code class=&quot;highlighter-rouge&quot;&gt;AS&lt;/code&gt;. Spójrz na przykład:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genreid&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'genre name'&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Tym razem wyniki poprzedzone są innymi nazwami kolumn, mimo tego, że pochodzą z tego samego źródła.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          genre name
+----------  ----------
+1           Rock      
+2           Jazz      
+3           Metal     
+4           Alternativ
+5           Rock And R
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Wyrażenie &lt;code class=&quot;highlighter-rouge&quot;&gt;AS&lt;/code&gt; najczęściej używane jest przy bardziej skomplikowanych zapytaniach. Na przykład jeśli do otrzymania pewnego wyniku potrzeba złączyć tabelę z samą sobą.  O zapytaniach tego typu przeczytasz w dalszej części kursu.&lt;/p&gt;
+
+&lt;h2 id=&quot;scalanie-wyników-wielu-zapytań&quot;&gt;Scalanie wyników wielu zapytań&lt;/h2&gt;
+
+&lt;p&gt;Do scalania&lt;sup id=&quot;fnref:zlaczenie&quot;&gt;&lt;a href=&quot;#fn:zlaczenie&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; wyników wielu zapytań służy wyrażenie &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION ALL&lt;/code&gt; albo &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt;. Tym razem zacznę od przykładu:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xxx&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcity&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xxx&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To zapytanie zwraca w jednej kolumnie o nazwie &lt;code class=&quot;highlighter-rouge&quot;&gt;xxx&lt;/code&gt; wszystkie wartości kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;genre&lt;/code&gt; połączone z unikalnymi wartościami kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcity&lt;/code&gt; z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;. Połączone wyniki tych dwóch zapytań posortowane są po kolumnie &lt;code class=&quot;highlighter-rouge&quot;&gt;xxx&lt;/code&gt;. Zapytanie zwraca tylko dziesięć pierwszych wartości:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Alternative
+Alternative &amp;amp; Punk
+Amsterdam
+Bangalore
+Berlin
+Blues
+Bordeaux
+Bossa Nova
+Boston
+Brasília
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Podzapytania, które są scalane przy użyciu wyrażeń &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; albo &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION ALL&lt;/code&gt; muszą zwracać tę samą liczbę kolumn o tym samym typie&lt;sup id=&quot;fnref:typ&quot;&gt;&lt;a href=&quot;#fn:typ&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Wyrażenia &lt;code class=&quot;highlighter-rouge&quot;&gt;LIMIT&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt; mogą być użyte tylko do scalonych zapytań. Nie możesz ich użyć wewnątrz zapytań, które są scalane.&lt;/p&gt;
+
+&lt;h3 id=&quot;różnica-pomiędzy-union-a-union-all&quot;&gt;Różnica pomiędzy &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; a &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION ALL&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Oba wyrażenia służą do scalenia wyników wielu zapytań. Mają jednak jedną znaczącą różnicę. &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; zwróci unikalną listę wierszy. &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION ALL&lt;/code&gt; zwróci wszystkie wiersze, w wyniku mogą być duplikaty.&lt;/p&gt;
+
+&lt;h3 id=&quot;wiele-podzapytań&quot;&gt;Wiele podzapytań&lt;/h3&gt;
+
+&lt;p&gt;W przykładzie powyżej użyłem &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION ALL&lt;/code&gt; do scalania wyników dwóch zapytań. Jednak nie jest to koniec możliwości tego wyrażenia. Pozwala ono na scalanie wyników wielu zapytań. Na przykład zapytanie poniżej jest także poprawne:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genreid&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xxx&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoiceid&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billingcity&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;albumid&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xxx&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Zwraca ono dwie kolumny, których zawartość pochodzi z trzech różnych tabel.&lt;/p&gt;
+
+&lt;h3 id=&quot;czy-union-jest-potrzebne&quot;&gt;Czy &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; jest potrzebne?&lt;/h3&gt;
+
+&lt;p&gt;Niektóre wyrażenia &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; mogą być zastąpione przy pomocy &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt;. Zatem kiedy stosować &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; albo &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION ALL&lt;/code&gt;? Te klauzule możesz stosować jeśli w wynikowej kolumnie powinny znaleźć się dane z różnych źródeł. Są też inne przypadki, związane z optymalizacją wydajności zapytań. Pominę te drugie bo znacząco wykraczają poza zakres tego kursu i są specyficzne dla różnych silników baz danych.&lt;/p&gt;
+
+&lt;h2 id=&quot;zadania-do-wykonania&quot;&gt;Zadania do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Poniżej znajdziesz kilka zadań do wykonania. Każde z nich wymaga napisania jednego zapytania. Napisz zapytanie, które:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;zwróci dziesięć najdłuższych ścieżek (tabela &lt;code class=&quot;highlighter-rouge&quot;&gt;track&lt;/code&gt;), weź pod uwagę tylko te, których kompozytor (kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;composer&lt;/code&gt;) zawiera literę &lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;zwróci pięć najtańszych ścieżek (tabela &lt;code class=&quot;highlighter-rouge&quot;&gt;track&lt;/code&gt;) dłuższych niż minuta,&lt;/li&gt;
+  &lt;li&gt;zwróci unikalną listę dwudziestu kompozytorów których ścieżki kosztują mniej niż 2$ posortowanych malejąco według identyfikatora gatunku (kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;genreid&lt;/code&gt;) i rosnąco według rozmiaru (kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;bytes&lt;/code&gt;),&lt;/li&gt;
+  &lt;li&gt;zwróci dwie kolumny. Pierwsza z nich powinna zawierać ścieżki droższe niż 1$ i poprawnych kompozytorów pod nazwą &lt;code class=&quot;highlighter-rouge&quot;&gt;magic thingy&lt;/code&gt;. Druga powinna zawierać liczbę bajtów. Wynik powinien zawierać dziesięć wierszy i być posortowany rosnąco po liczbie bajtów,&lt;/li&gt;
+  &lt;li&gt;zwróci piątą stronę z fakturami (tabela &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;) zakładając, że na stronie znajduje się dziesięć faktur i sortowane są według identyfikatora (kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;invoiceid&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;przykładowe-rozwiązania-zadań&quot;&gt;Przykładowe rozwiązania zadań&lt;/h3&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;composer&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%b%'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;milliseconds&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unitprice&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;milliseconds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60000&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unitprice&lt;/span&gt; 
+   &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;composer&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unitprice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genreid&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'magic thingy'&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unitprice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;composer&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unitprice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;composer&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ASC&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoiceid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoiceid&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Kolejną część kursu SQL masz już za sobą. W tym artykule udało Ci się przeczytać o kilku przydatnych konstrukcjach. Wiesz jak sortować wyniki, jak ograniczać liczbę zwracanych wierszy, potrafisz łączyć ze sobą wyniki kilku zapytań i wiesz jak zwracać wyłącznie unikalne wartości. Po rozwiązaniu zadań  wiesz, że potrafisz wykorzystać tę wiedzę w praktyce. Gratulacje! :)&lt;/p&gt;
+
+&lt;p&gt;Które z zadań sprawiło Ci największą trudność? Może masz jakiekolwiek pytania dotyczące materiału, który opisałem w tym artykule? Daj znać w komentarzach pod artykułem.&lt;/p&gt;
+
+&lt;p&gt;Na koniec mam do Ciebie prośbę. Jeśli znasz kogoś dla kogo treść tego artykułu będzie przydatna proszę podziel się nim z tą osobą. Pomożesz mi w ten sposób dotrzeć do nowych czytelników. Jeśli nie chcesz ominąć kolejnych artykułów na blogu proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebook’u. Do następnego razu!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:zlaczenie&quot;&gt;
+      &lt;p&gt;Celowo unikam tu słowa złączenie, które bardziej kojarzy mi się z wyrażeniem typu &lt;code class=&quot;highlighter-rouge&quot;&gt;JOIN&lt;/code&gt;, które opiszę w jednym z kolejnych artykułów. &lt;a href=&quot;#fnref:zlaczenie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:typ&quot;&gt;
+      &lt;p&gt;Nie jest to do końca prawda. W przypadku relacyjnych baz danych, które znam SQLite jest najbardziej pobłażliwy. SQLite pozwala na łączenie ze sobą różnych typów przy użyciu &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION ALL&lt;/code&gt;. Na przykład w bazie danych PostgreSQL użycie &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; do złączenia zapytań zwracających różne typy danych kończy się wyjątkiem. &lt;a href=&quot;#fnref:typ&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą `DISTINCT`, `AS` czy `UNION`. Poznasz także sposoby na sortowanie i ograniczanie wyników przy użyciu `ORDER BY` i `LIMIT`. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami, które pomogą Ci utrwalić zdobytą wiedzę.</summary></entry><entry><title type="html">Samouczek na rozmowie - zagnieżdżona struktura</title><link href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-zagniezdzona-struktura/" rel="alternate" type="text/html" title="Samouczek na rozmowie - zagnieżdżona struktura" /><published>2018-08-26T00:00:00+02:00</published><updated>2018-08-26T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/zadanie-zagniezdzona-struktura</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-zagniezdzona-struktura/">&lt;div class=&quot;notice--info&quot;&gt;
   
 &lt;p&gt;To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych.&lt;/p&gt;
 
@@ -220,6 +617,17 @@ x OR (y AND z)
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(x OR y) AND z
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;div class=&quot;notice--success text-center&quot;&gt;
+  
+&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 1000 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
+
+
+&lt;/div&gt;
+
 &lt;h3 id=&quot;negacja-warunków&quot;&gt;Negacja warunków&lt;/h3&gt;
 
 &lt;p&gt;Poza operatorami łączenia, które już znasz, istnieje także operator negacji warunku. Służy do tego operator &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT&lt;/code&gt;. Ten operator ma wyższy priorytet niż &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;AND&lt;/code&gt;. Także i w tym przypadku możesz użyć nawiasów aby zmienić kolejność wykonywanych operacji. Poniższy przykład pokazuje przypadek, w którym nawiasy nie mają wpływu na kolejność wykonywanych porównań:&lt;/p&gt;
@@ -419,6 +827,31 @@ NOT x OR y
   &lt;li&gt;zwróci wszystkie wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;, które dotyczą Polski, Czech albo Węgier dla których wartość faktury przekracza 10,&lt;/li&gt;
   &lt;li&gt;zwróci imiona pracowników z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;employee&lt;/code&gt;, które dotyczą pracowników urodzonych w latach 60.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;przykładowe-rozwiązania-zadań&quot;&gt;Przykładowe rozwiązania zadań&lt;/h3&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unitprice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%x%%e'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ESCAPE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'x'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'USA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Poland'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Czech Republic'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hungary'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;firstname&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;employee&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;birthdate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1960-'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1970-'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
 
@@ -2509,507 +2942,4 @@ test {
 
 &lt;p&gt;Projekt Informator jest w powijakach, dopiero zacząłem nad nim pracę. Mam nadzieję, że tym krótkim artykułem zachęciłem Cię do śledzenia rozwoju projektu. Narzędzia i biblioteki, których użyję w trakcie pracy nad Informatorem są bardzo często wykorzystywane w projektach produkcyjnych.&lt;/p&gt;
 
-&lt;p&gt;Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Na blogu pojawia się drugi projekt. Projekt Informator, bo o nim mowa, łączył będzie w sobie najczęściej używane biblioteki do tworzenia aplikacji webowych - Spring i Hibernate.</summary></entry><entry><title type="html">Wstęp do relacyjnych baz danych</title><link href="http://www.samouczekprogramisty.pl/wstep-do-relacyjnych-baz-danych/" rel="alternate" type="text/html" title="Wstęp do relacyjnych baz danych" /><published>2018-03-06T00:00:00+01:00</published><updated>2018-03-06T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/wstep-do-relacyjnych-baz-danych</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/wstep-do-relacyjnych-baz-danych/">&lt;h2 id=&quot;czym-jest-baza-danych&quot;&gt;Czym jest baza danych&lt;/h2&gt;
-
-&lt;p&gt;Baza danych to zbiór danych zapisanych w odpowiednim formacie. Format zapisu danych pozwala na dostęp do danych. W zależności od zastosowania dane zapisywane są w różny sposób. Sposób zapisu danych ma wpływ na wydajność poszczególnych operacji (zapisu, odczytu, usunięcia i modyfikacji danych).&lt;/p&gt;
-
-&lt;p&gt;Istnieje wiele rodzai baz danych. Jednym z najbardziej popularnych jest relacyjna baza danych. Określenie relacyjna baza danych opisuje bazę danych, w której dane zapisane są w postaci tak zwanych krotek. Krotki mają swoje atrybuty. Każda krotka zapisana jest w relacji.&lt;/p&gt;
-
-&lt;p&gt;Operacje w relacyjnych bazach danych oparte są o &lt;a href=&quot;https://en.wikipedia.org/wiki/Relational_algebra&quot;&gt;algebrę relacji&lt;/a&gt;. Dostęp do danych możliwy jest dzięki użyciu &lt;a href=&quot;https://en.wikipedia.org/wiki/SQL&quot;&gt;SQL&lt;/a&gt; (ang. &lt;em&gt;Structured Query Language&lt;/em&gt;). SQL to język charakterystyczny dla baz danych.&lt;/p&gt;
-
-&lt;p&gt;Możesz spotkać się z wieloma implementacjami relacyjnych baz danych. Kilka najczęściej używanych implementacji możesz znaleźć poniżej:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.postgresql.org/&quot;&gt;PostgreSQL&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.mysql.com/&quot;&gt;MySQL&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.sqlite.org/index.html&quot;&gt;SQLite&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.oracle.com/database/index.html&quot;&gt;Oracle&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.microsoft.com/en-us/sql-server/sql-server-2017&quot;&gt;SQL Server&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://hsqldb.org/&quot;&gt;HyperSQL&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Bazy danych różnią się między sobą implementacją. Różnią się także wersją SQL, którą obsługują. Chociaż istnieje standard opisujący język SQL występują drobne różnice pomiędzy SQL obsługiwanym przez poszczególne bazy danych. Różne wersje SQL nazywane są dialektami.&lt;/p&gt;
-
-&lt;div class=&quot;notice--success&quot;&gt;
-
-&lt;p&gt;Samouczek Programisty jest jednym z partnerów konferencji infoShare 2018.&lt;/p&gt;
-
-&lt;p&gt;infoShare 2018 to konferencja technologiczna odbywająca się 22-23 maja w Gdańsku. Na developerów czekają m.in. prelekcje z obszaru cybersecurity i machine learning, live coding oraz spotkania ze specjalistami, takimi jak: Filip Wolski, Trent McConaghy, Piotr Konieczny, Zbigniew Wojna czy Scott Helme. infoShare to także okazja do networkingu i udziału w imprezach towarzyszących. Sprawdź agendę i zarejestruj się na &lt;a href=&quot;https://infoshare.pl&quot;&gt;www.infoshare.pl&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/2018/03/06_infoshare_logo.png&quot; /&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;jak-działa-relacyjna-baza-danych&quot;&gt;Jak działa relacyjna baza danych&lt;/h2&gt;
-
-&lt;p&gt;Bazy danych używane w środowiskach produkcyjnych składają się z wielu komponentów. W dużym uproszczeniu można powiedzieć, że zawsze występują dwa: klient bazy danych i serwer bazy danych. Serwer bazy danych to program, który potrafi obsłużyć żądania wysyłane przez klienty. Serwer odpowiedzialny jest za zapisywanie i udostępnianie danych przechowywanych w bazie.&lt;/p&gt;
-
-&lt;p&gt;Serwer używa pewnego portu, na którym nasłuchuje żądań od klientów. Na przykład &lt;a href=&quot;https://www.postgresql.org/&quot;&gt;PostgreSQL&lt;/a&gt; domyślnie używa portu 5432.&lt;/p&gt;
-
-&lt;p&gt;W większości znanych mi przypadków serwery używają protokołu &lt;a href=&quot;https://en.wikipedia.org/wiki/Open_Database_Connectivity&quot;&gt;ODBC&lt;/a&gt; (ang. &lt;em&gt;Open Database Connectivity&lt;/em&gt;) do komunikacji z klientami. Jest to protokół, który zapewnia spójny dostęp do danych, niezależny od serwera bazy danych. Sewery udostępniają także protokół &lt;a href=&quot;https://en.wikipedia.org/wiki/Java_Database_Connectivity&quot;&gt;JDBC&lt;/a&gt; (ang. &lt;em&gt;Java Database Connectivity&lt;/em&gt;).&lt;/p&gt;
-
-&lt;p&gt;Klienty wskazują serwer, z którym chcą się połączyć za pomocą URL. W przypadku bazy danych PostgreSQL URL może wyglądać następująco:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jdbc:postgresql://some.server.host:5432/database_name
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;URL ten służy do połączenia się do serwera &lt;code class=&quot;highlighter-rouge&quot;&gt;some.server.host&lt;/code&gt; na porcie &lt;code class=&quot;highlighter-rouge&quot;&gt;5432&lt;/code&gt; używając protokołu &lt;code class=&quot;highlighter-rouge&quot;&gt;jdbc:postgresql&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;database_name&lt;/code&gt; wskazuje bazę danych do której chcemy się połączyć. Jeśli chcesz przeczytać więcej o URL odsyłam Cię do artykułu na temat &lt;a href=&quot;/protokol-http/&quot;&gt;protokołu HTTP&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Do obsługi takiego połączenia klient potrzebuje odpowiedniego sterownika. Sterownik to klasa obsługująca połączenie. Producenci bazy danych &lt;a href=&quot;https://jdbc.postgresql.org/&quot;&gt;udostępniają&lt;/a&gt; takie sterowniki.&lt;/p&gt;
-
-&lt;p&gt;Klienty używając języka SQL wysyłają żądania do serwera. Dotyczą one dostępu do danych zapisanych w bazie. Wcześniej wspomniany sterownik obsługuje komunikację pomiędzy klientem a serwerem.&lt;/p&gt;
-
-&lt;p&gt;Serwer interpretuje te zapytania i pobiera dane z plików zachowanych na dysku serwera&lt;sup id=&quot;fnref:uproszczenie&quot;&gt;&lt;a href=&quot;#fn:uproszczenie&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Następnie dane te są zwracane do klienta, po czym sterownik interpretuje dane przekazane zgodnie z protokołem, np. JDBC.&lt;/p&gt;
-
-&lt;p&gt;Bardzo często zapytanie SQL zwraca przetworzone dane do klienta. Przetwarzanie surowych danych odbywa się po stronie serwera relacyjnej bazy danych.&lt;/p&gt;
-
-&lt;div class=&quot;notice--success text-center&quot;&gt;
-  
-&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 1000 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
-
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;model-relacyjny&quot;&gt;Model relacyjny&lt;/h2&gt;
-
-&lt;p&gt;Za modelem relacyjnym stoi &lt;a href=&quot;https://en.wikipedia.org/wiki/Relational_algebra&quot;&gt;algebra relacji&lt;/a&gt;. Jest to matematyczny opis operacji wykonywanych na danych zachowanych w bazie. Możesz w nim przeczytać o sumie zbiorów, iloczynie kartezjańskim etc. Postaram się wytłumaczyć sposób działa baz bez użycia takich pojęć.&lt;/p&gt;
-
-&lt;p&gt;Na potrzeby tego artykułu posłużę się wcześniej wspomnianym przykładem magazynu. Załóżmy, że w tym przypadku bazę danych możemy opisać kilkoma zdaniami:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;W magazynie przechowujemy różne rodzaje towarów,&lt;/li&gt;
-  &lt;li&gt;Poszczególne towary produkowane są przez różnych producentów,&lt;/li&gt;
-  &lt;li&gt;Różni hurtownicy pobierają różne towary z magazynu,&lt;/li&gt;
-  &lt;li&gt;Każdy producent ma jednego opiekuna handlowego.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;encja&quot;&gt;Encja&lt;/h3&gt;
-
-&lt;p&gt;Zrób proste ćwiczenie. Wybierz wszystkie rzeczowniki z listy, którą umieściłem wyżej. Możesz ją porównać z tą listą:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;magazyn,&lt;/li&gt;
-  &lt;li&gt;towar,&lt;/li&gt;
-  &lt;li&gt;producent,&lt;/li&gt;
-  &lt;li&gt;hurtownik,&lt;/li&gt;
-  &lt;li&gt;opiekun handlowy.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Można powiedzieć, że encje to rzeczowniki wyjęte z opisu bazy danych ;). Encje to rodzaje “obiektów” przechowywanych w bazie. Na przykład towar, czy producent. Odpowiednikiem encji w programowaniu obiektowym jest klasa. Zatem w przypadku bazy danych opisującej magazyn występuje pięć rodzai encji.&lt;/p&gt;
-
-&lt;p&gt;Sama encja nie jest ściśle związana z modelem relacyjnym. Definicja ta jest jednak używana w trakcie projektowania baz danych.&lt;/p&gt;
-
-&lt;h3 id=&quot;atrybut&quot;&gt;Atrybut&lt;/h3&gt;
-
-&lt;p&gt;Każda z encji ma swoje właściwości. Na przykład opiekun handlowy ma numer telefonu, imię czy nazwisko. Każdy z tych elementów to atrybut. Podobnie jak w programowaniu obiektowym instancje mają swoje atrybuty.&lt;/p&gt;
-
-&lt;p&gt;Podobnie jak w języku programowania tak i tutaj atrybuty mają swoje typy. Relacyjne bazy danych obsługują różne typy. W większości przypadków typy z języków programowania mają swoje odpowiedniki w typach w bazie danych. Na przykład:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Typ w języku Java&lt;/th&gt;
-      &lt;th&gt;Typ w PostgreSQL&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;boolean&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;boolean&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;double&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;double precision&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;byte[]&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bytea&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Istnieją jednak typy, które nie mają swojego dokładnego odwzorowania w niektórych językach programowania, na przykład:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;box&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;decimal(p, s)&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;polygon&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Te różnice pokazują, że nie zawsze da się przenieść świat relacyjnej bazy danych do świata programowania obiektowego. Tematyce mapowania obiektowo-relacyjnego (ang. &lt;em&gt;object-relational mapping&lt;/em&gt;) poświęcę osobny artykuł.&lt;/p&gt;
-
-&lt;h3 id=&quot;krotka&quot;&gt;Krotka&lt;/h3&gt;
-
-&lt;p&gt;Krotka to zbiór atrybutów. Upraszczając można powiedzieć, że krotka w modelu relacyjnym odpowiada instancji obiektu w programowaniu obiektowym&lt;sup id=&quot;fnref:mapowanie&quot;&gt;&lt;a href=&quot;#fn:mapowanie&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Krotki często prezentowane są w postaci wiersza w tabeli gdzie każda kolumna odpowiada poszczególnym atrybutom.&lt;/p&gt;
-
-&lt;p&gt;Przykładem krotki zawierającej towar może być:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Nazwa &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Stan magazynowy &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Cena &lt;code class=&quot;highlighter-rouge&quot;&gt;double precision&lt;/code&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;trampki&lt;/td&gt;
-      &lt;td&gt;10&lt;/td&gt;
-      &lt;td&gt;99.99&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;relacja&quot;&gt;Relacja&lt;/h3&gt;
-
-&lt;p&gt;W relacyjnym modelu bazy danych relacją określamy zbiór krotek. Skoro pojedyncza krotka to wiersz w tabeli, to zbiór krotek to cała tabela :). Istnieją różne konwencje nazywania relacji. W dalszej części artykułu będę używał liczby mnogiej od nazwy encji. Dla przykładu relacja przechowująca krotki &lt;code class=&quot;highlighter-rouge&quot;&gt;towar&lt;/code&gt; będzie nazywała się &lt;code class=&quot;highlighter-rouge&quot;&gt;towary&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Musisz także wiedzieć, że relacją także możemy określać zależności jakie występują pomiędzy poszczególnymi tabelami. Na przykład tabela &lt;code class=&quot;highlighter-rouge&quot;&gt;towary&lt;/code&gt; jest powiązana z tabelą &lt;code class=&quot;highlighter-rouge&quot;&gt;producenci&lt;/code&gt;. Producent produkuje różne towary. Zatem pomiędzy &lt;code class=&quot;highlighter-rouge&quot;&gt;producenci&lt;/code&gt; a &lt;code class=&quot;highlighter-rouge&quot;&gt;towary&lt;/code&gt; występuje relacja jeden do wielu - jeden producent produkuje wiele towarów.&lt;/p&gt;
-
-&lt;p&gt;Zbierając kilka krotek, relacja &lt;code class=&quot;highlighter-rouge&quot;&gt;towary&lt;/code&gt; może wyglądać następująco:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Nazwa &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Stan magazynowy &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Cena &lt;code class=&quot;highlighter-rouge&quot;&gt;double precision&lt;/code&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;trampki&lt;/td&gt;
-      &lt;td&gt;10&lt;/td&gt;
-      &lt;td&gt;99.99&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;sweter&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;299.99&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;lizak&lt;/td&gt;
-      &lt;td&gt;2500&lt;/td&gt;
-      &lt;td&gt;0.5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;spinacz&lt;/td&gt;
-      &lt;td&gt;500&lt;/td&gt;
-      &lt;td&gt;0.01&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;W modelu relacyjnym krotki w relacji nie mogą się powtarzać (elementy w zbiorze są unikalne). W praktyce relacyjne bazy danych posługujące się SQL pozwalają na duplikaty wierszy w tabelach. Sam język SQL pozwala na pobranie unikalnych elementów z danej tabeli.&lt;/p&gt;
-
-&lt;h3 id=&quot;klucz-główny&quot;&gt;Klucz główny&lt;/h3&gt;
-
-&lt;p&gt;Zbiór atrybutów (kolumn w tabeli) tworzy klucz główny. Klucz główny to unikalny identyfikator dla każdego wiersza w tabeli. W większości przypadków tabele zawierają dodatkową kolumnę, która zawiera identyfikator w postaci liczby:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (PK)&lt;/th&gt;
-      &lt;th&gt;Nazwa &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;…&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;trampki&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;sweter&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;lizak&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;spinacz&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;W tabeli wyżej kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;Id&lt;/code&gt; jest kluczem głównym (ang. &lt;em&gt;primary key&lt;/em&gt;). Tworzenie kluczy głównych przy pomocy liczby pozwala na automatyczne tworzenie nowej wartości klucza dla nowego wiersza. Wystarczy podnieść o 1 największą wartość klucza głównego. Klucze główne składające się z wielu kolumn nazywa się kluczami złożonymi.&lt;/p&gt;
-
-&lt;p&gt;Bazy danych optymalizują dostęp do danych przy pomocy klucza głównego. Oznacza to tyle, że pobranie wiersza z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;towary&lt;/code&gt; na podstawie kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;Id&lt;/code&gt; będącej kluczem głównym może być bardziej wydajne niż pobranie tego samego wiersza na podstawie wartości kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;Nazwa&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;klucz-obcy&quot;&gt;Klucz obcy&lt;/h3&gt;
-
-&lt;p&gt;Wspomniałem wyżej, że tabele mogą być ze sobą powiązane. Te zależności pomiędzy tabelami pokazane są przez klucze obce (ang. &lt;em&gt;foreign key&lt;/em&gt;). Klucz obcy to dodatkowa kolumna (lub kolumny), która pokazuje zależność. Na przykład tabela &lt;code class=&quot;highlighter-rouge&quot;&gt;producenci&lt;/code&gt; może wyglądać następująco:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (PK)&lt;/th&gt;
-      &lt;th&gt;Siedziba &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Rok założenia &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Wrocław&lt;/td&gt;
-      &lt;td&gt;2007&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;Warszawa&lt;/td&gt;
-      &lt;td&gt;1980&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;Kraków&lt;/td&gt;
-      &lt;td&gt;1948&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Dodatkowa kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;producent_id&lt;/code&gt; znajdująca się wewnątrz tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;towary&lt;/code&gt; pokazuje zależność pomiędzy towarami a producentami:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (PK)&lt;/th&gt;
-      &lt;th&gt;Nazwa &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Producent id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (FK)&lt;/th&gt;
-      &lt;th&gt;…&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;trampki&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;sweter&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;lizak&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;spinacz&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Taka tabela pokazuje, że trampki produkowane są przez producenta z Wrocławia, swetry przez producenta z Warszawy. Producent z Krakowa produkuje lizaki i spinacze.&lt;/p&gt;
-
-&lt;h2 id=&quot;rodzaje-powiązań&quot;&gt;Rodzaje powiązań&lt;/h2&gt;
-
-&lt;p&gt;Tabele mogą mieć trzy rodzaje zależności. Każdą z nich opiszę w osobnym podpunkcie.&lt;/p&gt;
-
-&lt;h3 id=&quot;jeden-do-jednego&quot;&gt;Jeden do jednego&lt;/h3&gt;
-
-&lt;p&gt;Przykładem takiej zależności może być samochód - numer rejestracyjny. Każdy numer rejestracyjny przypisany jest do jednego samochodu, podobnie każdy samochód ma tylko jeden numer rejestracyjny. W przypadku magazynu relacją tego typu może być opiekun handlowy - producent. Zależność tego typu reprezentuje dodatkowa kolumna w tabeli:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;producenci&lt;/code&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (PK)&lt;/th&gt;
-      &lt;th&gt;Siedziba &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Rok założenia &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;opiekunowie&lt;/code&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (PK)&lt;/th&gt;
-      &lt;th&gt;Nazwisko &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Producent id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (FK)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;Producent id&lt;/code&gt; w tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;opiekunowie&lt;/code&gt; wskazuje na producenta, za którego jest odpowiedzialny dany opiekun.&lt;/p&gt;
-
-&lt;h3 id=&quot;jeden-do-wielu&quot;&gt;Jeden do wielu&lt;/h3&gt;
-
-&lt;p&gt;Przykładem takiej zależności może być towar - producent. Każdy towar produkowany jest przez jednego producenta. Podobnie jak w przypadku reakcji jeden do jednego zależność tego typu uzyskuje się poprzez dodanie odpowiedniej kolumny:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;producenci&lt;/code&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (PK)&lt;/th&gt;
-      &lt;th&gt;Siedziba &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Rok założenia &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;towary&lt;/code&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (PK)&lt;/th&gt;
-      &lt;th&gt;Nazwa &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;…&lt;/th&gt;
-      &lt;th&gt;Producent id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (FK)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Zauważ, że zarówno zależność jeden do wielu, jak i jeden do jednego możliwa jest przy pomocy pojedynczej kolumny.&lt;/p&gt;
-
-&lt;p&gt;Zależność tego typu określa się także jako 1 do n.&lt;/p&gt;
-
-&lt;h3 id=&quot;wiele-do-wielu&quot;&gt;Wiele do wielu&lt;/h3&gt;
-
-&lt;p&gt;Zależność wiele do wielu może występować pomiędzy hurtownikami i towarami. Oznacza ona tyle, że wielu hurtowników zaopatruje się w wiele towarów. Ten sam towar pobierany jest przez wielu hurtowników. W przypadku takiej zależności niezbędna jest dodatkowa tabela, która połączy ze sobą dwie tabele:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;towary&lt;/code&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (PK)&lt;/th&gt;
-      &lt;th&gt;Nazwa &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;…&lt;/th&gt;
-      &lt;th&gt;Producent id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (FK)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hurtownicy&lt;/code&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (PK)&lt;/th&gt;
-      &lt;th&gt;Nazwa hurtowni &lt;code class=&quot;highlighter-rouge&quot;&gt;varchar&lt;/code&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;towary_hurtownicy&lt;/code&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Towar id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (FK)&lt;/th&gt;
-      &lt;th&gt;Hurtownik id &lt;code class=&quot;highlighter-rouge&quot;&gt;integer&lt;/code&gt; (FK)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;W tym przypadku tabela &lt;code class=&quot;highlighter-rouge&quot;&gt;towary_hurtownicy&lt;/code&gt; ma dwa klucze obce. Jeden z nich pokazuje na tabelę &lt;code class=&quot;highlighter-rouge&quot;&gt;towary&lt;/code&gt; drugi na &lt;code class=&quot;highlighter-rouge&quot;&gt;hurtownicy&lt;/code&gt;. Zauważ, że w przypadku tej tabeli kluczem głównym, który identyfikuje każdy wiersz może być para tych kolumn. Jest to tak zwany klucz złożony.&lt;/p&gt;
-
-&lt;p&gt;Zależność tego typu określa się także jako n do m.&lt;/p&gt;
-
-&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://wazniak.mimuw.edu.pl/index.php?title=Bazy_danych&quot;&gt;Bazy danych - wykłady na UW&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pl.wikipedia.org/wiki/Model_relacyjny&quot;&gt;Model relacyjny - artykuł na Wikipedii&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.metal.agh.edu.pl/~regulski/bd-podyp/00-wyklady/05_model_relacyjny.pdf&quot;&gt;Model relacyjny - wykład na AGH&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;zadanie-do-wykonania&quot;&gt;Zadanie do wykonania&lt;/h2&gt;
-
-&lt;p&gt;Dasz radę zaprojektować bazę danych, do przechowania informacji o wykładach w trakcie konferencji? Spróbuj zrobić to na podstawie agendy znajdującej się na stronie &lt;a href=&quot;https://infoshare.pl/#outline-agenda&quot;&gt;infoShare&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;W dzisiejszym artykule przeczytałeś o bazach danych. Poznałeś sposób komunikacji pomiędzy klientem a serwerem. Dowiedziałeś się czym jest model relacyjny. Wiesz czym jest relacja, krotka czy atrybut w kontekście modelu relacyjnego. Zdobytą wiedzę mogłeś przećwiczyć rozwiązując zadanie do wykonania. Te postawy pozwolą Ci lepiej zrozumieć SQL i mapowanie obiektowo relacyjne.&lt;/p&gt;
-
-&lt;p&gt;Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Trzymaj się i do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:uproszczenie&quot;&gt;
-      &lt;p&gt;Jest to duże uproszczenie. Bazy danych są programami, które są przystosowane do obsługi dużej liczby zapytań. Znane mi relacyjne bazy danych wspierają &lt;a href=&quot;https://en.wikipedia.org/wiki/ACID&quot;&gt;ACID&lt;/a&gt;. Zapytania często podlegają optymalizacji. Przetwarzanie danych zgodnie z zapytaniem SQL to także robota serwera. Czynniki te sprawiają, że dostęp do danych to coś więcej niż zwykłe “pobieranie danych z dysku”. &lt;a href=&quot;#fnref:uproszczenie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:mapowanie&quot;&gt;
-      &lt;p&gt;Nie jest to do końca prawda, na przykład w przypadku relacji wiele do wielu krotki w relacji łączącej nie muszą mieć odpowiadającego im obiektu w języku programowania. &lt;a href=&quot;#fnref:mapowanie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym przeczytasz o tym czym jest relacyjny model baz danych. Dowiesz się o tym jak wygląda komunikacja pomiędzy klientem a serwerem bazy danych. Poznasz pojęcia krotki, relacji i atrybutu w kontekście relacyjnych baz danych. Dowiesz się czym jest klucz główny i klucz obcy. Artykuł zawiera podstawy niezbędne do zrozumienia relacyjnych baz danych. Zapraszam do lektury.</summary></entry></feed>
+&lt;p&gt;Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Na blogu pojawia się drugi projekt. Projekt Informator, bo o nim mowa, łączył będzie w sobie najczęściej używane biblioteki do tworzenia aplikacji webowych - Spring i Hibernate.</summary></entry></feed>

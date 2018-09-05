@@ -460,7 +460,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/struktury-danych-lista-wiazana/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg"},{
         "title": "Struktury danych - tablica asocjacyjna",
-        "excerpt":"Artykuł ten opisuje strukturę danych określaną jako tablica asocjacyjna. Tę strukturę nazywa się też słownikiem czy mapą. Sama struktura występuje w wielu językach programowania. Zasada działania tej struktury jest niezależnie od języka programowania. Przykładową implementację przygotowałem w Javie. Aby wynieść jak najwięcej z tego artykułu powinieneś wiedzieć czym są metody...","categories": ["Programista rzemieślnik"],
+        "excerpt":"Artykuł ten opisuje przykładową implementację struktury danych określanej jako tablica asocjacyjna. Tę strukturę nazywa się też słownikiem czy mapą. Sama struktura występuje w wielu językach programowania. Zasada działania tej struktury jest niezależnie od języka programowania. Przykładową implementację przygotowałem w Javie. Aby wynieść jak najwięcej z tego artykułu powinieneś wiedzieć czym...","categories": ["Programista rzemieślnik"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg"},{
@@ -534,6 +534,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-zagniezdzona-struktura/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/08/26_zadanie_z_rozmowy_kwalifikacyjnej.jpeg"},{
+        "title": "Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości",
+        "excerpt":"To jest jeden z artykułów w ramach praktycznego kursu SQL. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w pierwszym artykule kursu. Bardzo mocno Cię do tego zachęcam. Moim zdaniem...","categories": ["Bazy danych","Kurs SQL"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/04_sql.jpg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],
