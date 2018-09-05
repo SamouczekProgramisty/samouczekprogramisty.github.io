@@ -1,9 +1,9 @@
 ---
-title: Sortowanie, ograniczanie wyników i zwracanie unikalnych wartości
+title: Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości
 categories:
 - Bazy danych
 - Kurs SQL
-permalink: /sortowanie-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/
+permalink: /sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/
 header:
     teaser: /assets/images/2018/09/04_sql.jpg
     overlay_image: /assets/images/2018/09/04_sql.jpg
