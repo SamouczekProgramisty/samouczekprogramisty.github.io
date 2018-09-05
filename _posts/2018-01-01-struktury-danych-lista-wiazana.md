@@ -436,9 +436,7 @@ Na początku mojej przygody z programowaniem mówiono mi, że listy powinno uży
 
 ### Czy można odwrócić listę wiązaną
 
-W przypadku listy dwukierunkowej jest to proste. Wystarczy przechodzić po liście od ostatniego elementu do początku. Operacja ta ma złożoność `Ο(n)`. W przypadku listy jednokierunkowej jest to trochę trudniejsze. Aby uzyskać złożoność `Ο(n)` należy użyć nowej struktury listy jednokierunkowej. Przechodząc po kolejnych elementach listy należy dodawać je na początek nowej instancji listy. Po przejściu wszystkich elementów nowa instancja będzie zawierała odwróconą oryginalną listę.
-
-Chociaż złożoność obliczeniowa jest taka sama to złożoność pamięciowa jest już gorsza. Odwrócenie listy jednokierunkowej w ten sposób ma złożoność pamięciową `Ο(n)`.
+W przypadku listy dwukierunkowej jest to proste. Wystarczy przechodzić po liście od ostatniego elementu do początku. Operacja ta ma złożoność `Ο(n)`. W przypadku listy jednokierunkowej jest to trochę trudniejsze, jednak nadal możliwe do wykonania przy złożoności `Ο(n)`.
 
 ### Co się dzieje z pominiętymi elementami
 
