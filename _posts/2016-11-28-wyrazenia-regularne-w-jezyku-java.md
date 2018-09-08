@@ -169,10 +169,8 @@ public void testSymbolPlus() {
 
 Poza znakami `?`, `+` i `*`, które określają dopuszczalną liczbę powtórzeń możesz też użyć `{}`. Jednak `{}` ma większe możliwości:
 - `{x}` - oznacza że element poprzedzający musi wystąpić dokładnie x razy,
-- `{x,y}` - oznacza, że element poprzedzający musi wystąpić od x do y razy,
 - `{x,}` - oznacza, że element poprzedzający musi wystąpić co najmniej x razy,
-- `{,y}` - oznacza, że element poprzedzający musi wystąpić co najwyżej y razy.
-
+- `{x,y}` - oznacza, że element poprzedzający musi wystąpić od x do y razy.
 
 Zauważ, że symbole `?`, `*` i `+` możemy zastąpić `{}`. Na przykład wyrażenia regularne `al*a` i `al{0,}a` czy `al+a` i `al{1,}a` są sobie równoznaczne. Jednak zapis z `?`, `+` czy `*` jest krótszy przez co częściej stosowany.
 
