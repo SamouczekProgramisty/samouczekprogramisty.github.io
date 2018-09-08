@@ -41,6 +41,14 @@ SELECT *
 
 To wyrażenie często jest używane do stronicowania. Wyobraź sobie sytuację, w której sklep na stronie wyświetla dziesięć produktów. Odpowiednio skonstruowane zapytanie z wyrażeniem `LIMIT 10` zwróci dokładne te produkty, które powinny być wyświetlone.
 
+Do poprawnego stronicowania używa się także wyrażenia `OFFSET`, które pozwala na przeskoczenie odpowiedniej liczby wyników. Na przykład wyrażenie poniżej wyświetli pięć wierszy pomijając pierwsze dziesięć. Pamiętaj, że w "produkcyjnych" zapytaniach tego typu powinno używać się sortowania, które opiszę niżej:
+
+```sql
+SELECT *
+  FROM genre
+ LIMIT 5 OFFSET 10;
+```
+
 ## Wyłącznie unikalne wiersze
 
 W niektórych przypadkach zapytanie SQL powinno zwrócić wyłącznie unikalne wartości. Tabela `invoice` zawiera między innymi kolumnę `billingcountry`. W tej kolumnie zawarty jest kraj, w którym wystawiono fakturę. Załóżmy, że Twoim zadaniem jest pobranie listy krajów, w których dokonano jakiegokolwiek zakupu. Tę listę zwróci takie zapytanie:
@@ -385,9 +393,8 @@ ORDER BY bytes ASC
 ```sql
   SELECT *
     FROM invoice
-   WHERE invoiceid > 40
 ORDER BY invoiceid
-   LIMIT 10;
+   LIMIT 10 OFFSET 40;
 ```
 
 ## Podsumowanie
