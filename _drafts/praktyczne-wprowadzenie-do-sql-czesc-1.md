@@ -12,34 +12,7 @@ header:
 excerpt: W artykule tym przeczytasz o tym czym jest SQL. Poznasz podstawowe rodzaje zapytań. Przeczytasz o tym jak tworzyć tabele. Dowiesz się jak pobierać, dodawać, modyfikować i usuwać dane z bazy danych. W artykule znajdziesz sporo praktycznych ćwiczeń, w których będziesz mógł sprawdzić zdobytą wiedzę.
 ---
 
-{% capture wstep %}
-Artykuł ten zakłada, że wiesz czym są relacyjne bazy danych. O podstawach dotyczące tego tematu przeczytasz w ostatnim [artykule opisującym relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}).
-
-Dodatkowo do ćwiczeń praktycznych będziesz potrzebował bazy danych SQLite. Najnowszą wersję dla Twojego systemu operacyjnego możesz [pobrać ze strony projektu](https://www.sqlite.org/download.html).
-
-Wewnątrz pobranego pliku będzie znajdował się plik wykonywalny `sqlite` (lub `sqlite.exe`). Jest to prosty silnik bazy danych, który obsługuje standard SQL.
-
-Na temat SQL powstają obszerne książki. Artykuł ten nie wyczerpuje tematu, wprowadza jedynie podstawy niezbędne przy pracy z produkcyjnymi projektami.
-{% endcapture %}
-
-<div class="notice--info">
-  {{ wstep | markdownify }}
-</div>
-
-
-SQL posiada wiele wersji i jest opisywany przez wiele standardów. Najnowszy standard języka SQL to SQL:2003, który został zaktualizowany przez SQL:2006[^aktualny]. Niestety treść standardów nie jest dostępna bezpłatnie. Jeśli będziesz chciał uzupełnić swoją wiedzę to dokumentacja bazy danych, której używasz jest bardzo dobrym źródłem. Popularne bazy danych dokładnie opisują swoją implementację standardu SQL.
-
-[^aktualny]: Stan na 19.03.2018.
-
-W tym artykule postaram się opisać podstawowe elementy, które są wspólne dla różnych silników baz danych. Istnieją drobne różnice pomiędzy językami obsługiwanymi przez różne silniki. Te różne wersje języka SQL nazywa się dialektami.
-
-{% include wspolpraca-infoshare-2018.md %}
-
 ## Elementy SQL
-
-### DDL
-
-Zanim pokażę Ci ćwiczenia, na których poznawał będziesz język SQL musisz wiedzieć jak utworzyć, zmodyfikować czy usunąć tabelę. DDL służy także do definiowania innych obiektów bazy danych takich jak indeksy, ograniczenia czy klucze obce. O tych elementach przeczytasz w kolejnej części wprowadzenia do SQL.
 
 #### Tworzenie tabeli
 
