@@ -38,7 +38,7 @@ Funkcja skrótu to funkcja, która z wartości może wyprodukować klucz. Klucz 
 
 Funkcja ta zwyczaj zwraca liczbę typu `int`. Jest ona bardzo ważna dla wydajnego działania tej implementacji mapy. Powinna ona zwracać wartości, które są dobrze rozdystrybuowane. Innymi słowy, funkcja skrótu, która zawsze zwraca wartość 1 nie jest najlepszym pomysłem. Zwracane wartości powinny być równomiernie rozrzucone po wszystkich liczbach. W dalszej części artykułu przeczytasz o tym dlaczego jest to ważne.
 
-Wspomniałem już wyżej, że tablicę asocjacyjną nazywa się także słownikiem czy mapą. Od teraz będę posługiwał się określeniem mapa.
+Wspomniałem już wyżej, że tablicę asocjacyjną nazywa się także słownikiem czy mapą. Od teraz będę posługiwał się określeniem mapa. Dalsza część artykułu opisuje implementację mapy opartą o funkcję skrótu.
 
 ## Jak działa `HashMap`
 
