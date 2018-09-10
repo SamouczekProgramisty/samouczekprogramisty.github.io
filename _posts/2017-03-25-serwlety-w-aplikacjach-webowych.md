@@ -70,7 +70,7 @@ Chociaż specyfikacja serwletów, nie wymaga użycia serwletów z protokołem HT
 
 ## Interfejs serwletów
 
-Wcześniej wspomniałem Ci już o metodzie `service`. Metodę tę musiałbyś zaimplementować jeśli utworzyłbyś klasę, która implementuje interfejs `Servlet` bezpośrednio. W przypadku klasy, która dziedziczy po `HttpServlet` wystarczy nadpis odpowiednie metody. Na przykład, jeśli twój serwlet ma obsłużyć żądania typu GET musisz zaimplementować metodę `doGet`. Istnieją też metody dla pozostałych “czasowników”, na przykład `doPost` czy `doPut`.
+Wcześniej wspomniałem Ci już o metodzie `service`. Metodę tę musiałbyś zaimplementować jeśli utworzyłbyś klasę, która implementuje interfejs `Servlet` bezpośrednio. W przypadku klasy, która dziedziczy po `HttpServlet` wystarczy nadpisanie odpowiedniej metody. Na przykład, jeśli twój serwlet ma obsłużyć żądania typu GET musisz zaimplementować metodę `doGet`. Istnieją też metody dla pozostałych “czasowników”, na przykład `doPost` czy `doPut`.
 
 W interfejsie serwletów znajdują się też metody, które są wykorzystywane w trakcie cyklu życia serwletu. Jak wspomniałem wyżej kontener odpowiedzialny jest za tworzenie instancji serwletu. Ponadto kontener zarządza cyklem życia serwletu używając metod z tego interfejsu.
 
@@ -90,7 +90,7 @@ Z racji tego, że to kontener serwletów odpowiedzialny jest za tworzenie instan
 
 ### Obsługa żądań
 
-W trakcie tego etapu kontener serwletów może wielokrotnie użyć tej samej instancji to obsługi wielu żądań. Pociąga to za sobą dość poważne konsekwencje. Możliwa jest sytuacja, w której w tym samym czasie instancja serwletu będzie obsługiwała kilka żądań jednocześnie. Na przykład jest to możliwe gdy kilku użytkowników wejdzie na ten sam adres. Obsługa każdego żądania do wywołanie przez kontener metody [`service`](https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-).
+W trakcie tego etapu kontener serwletów może wielokrotnie użyć tej samej instancji to obsługi wielu żądań. Pociąga to za sobą dość poważne konsekwencje. Możliwa jest sytuacja, w której w tym samym czasie instancja serwletu będzie obsługiwała kilka żądań jednocześnie. Na przykład jest to możliwe, gdy kilku użytkowników wejdzie na ten sam adres. Obsługa każdego żądania to wywołanie przez kontener metody [`service`](https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-).
 
 ### Zniszczenie serwletu
 

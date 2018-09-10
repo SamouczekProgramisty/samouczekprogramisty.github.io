@@ -306,7 +306,7 @@ Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mog�
 
 Co prawda ciasteczka to nic innego jak nagłówki, jednak poświęcę im osobny podpunkt. W osobnym artykule możesz przeczytać o [ciasteczkach w kontekście specyfikacji serwletów]({% post_url 2017-04-01-naglowki-sesje-i-ciasteczka %}).
 
-Wiesz już, że protokół HTTP jest bezstanowy. Serwer HTTP nie może powiązać ze sobą zapytać pochodzących od tego samego klienta w jedną paczkę. Z pomocą przychodzą ciasteczka. Ciasteczka to specyficzne nagłówki, które są obsługiwane przez klienty.
+Wiesz już, że protokół HTTP jest bezstanowy. Serwer HTTP nie może powiązać ze sobą zapytań pochodzących od tego samego klienta w jedną paczkę. Z pomocą przychodzą ciasteczka. Ciasteczka to specyficzne nagłówki, które są obsługiwane przez klienty.
 
 Serwer w odpowiedzi może wysłać nagłówek, który utworzy ciasteczko. Ciasteczko to jest przypisane do domeny (część `host` i `path` adresu URL). Przykładowy nagłówek do ustawienia ciasteczka może wyglądać następująco:
 
