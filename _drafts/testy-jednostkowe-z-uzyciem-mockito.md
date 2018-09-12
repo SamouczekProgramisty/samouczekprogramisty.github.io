@@ -45,7 +45,7 @@ Na przykład, żeby pobrać kurs dla dolara amerykańskiego (kod waluty `USD`) d
 }
 ```
 
-Do parsowania odpowiedzi tego typu przydatna jest biblioteka, która obsługuje [parsowanie formatu JSON]({% post_url json-p-i-json-b TODO %}).
+Do parsowania odpowiedzi tego typu przydatna jest biblioteka, która obsługuje [parsowanie formatu JSON]().
 
 ## Czy jest mock
 
