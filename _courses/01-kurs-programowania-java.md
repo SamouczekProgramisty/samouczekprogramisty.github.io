@@ -76,6 +76,11 @@ Język Java posiada tak zwaną bibliotekę standardową. Biblioteka standardowa 
 * [String cache i StringBuilder w praktyce]({% post_url 2017-05-06-string-cache-i-stringbuilder-w-praktyce %})
 * [Formatter - formatowanie łańcuchów znaków]({% post_url 2017-05-12-formatter-formatowanie-lancuchow-znakow %})
 
+## Przydatne narzędzia i biblioteki
+
+* [Walidacja obiektów w języku Java]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-java %})
+* [Format JSON w języku Java]({% post_url 2018-09-14-format-json-w-jezyku-java %})
+
 ## Co dalej?
 
 Koniecznie zapoznaj się z tym jak używać języka [Java z linii poleceń]({% post_url 2017-03-08-java-z-linii-polecen %}). Pozwoli Ci to lepiej zrozumieć robotę jaką odwala za nas IDE. 

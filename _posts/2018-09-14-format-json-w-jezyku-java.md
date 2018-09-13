@@ -168,9 +168,10 @@ Mimo braku takiego wymogu przyjęło się, że elementem głównym dokumentu w t
 }
 ```
 
-{% include newsletter-srodek.md %}
-
 ## JSON-P
+
+Wszystkie fragmenty kodu użyte w tym artykule udostępnione są na [Samouczkowym Githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/32_format_json/src/main/java/pl/samouczekprogramisty/kursjava/json). Zachęcam Cię do eksperymentów i uruchomienia kodu samodzielnie.
+{:.notice--info}
 
 JSON-P jest specyfikacją, która opisuje przetważanie formatu JSON. Zakłada przetwarzanie dokumentów JSON zarówno w całości jak i w trybie strumieniowym (nie trzeba załadować całego dokumentu do pamięci). Pozwala na parsowanie i generowanie dokumentów w formacie JSON. Specyfikacja JSON-P 1.1 jest częścią JEE 8.
 
@@ -252,6 +253,8 @@ Dzięki takiemu podejściu wynik wypisywany na konsoli jest sformatowany w bardz
     }                                                                                                                                    
 }
 ```
+
+{% include newsletter-srodek.md %}
 
 #### Odczyt
 
@@ -339,11 +342,77 @@ generator
 
 #### Odczyt
 
-W przypadku 
+W przypadku czytania dokumentu w trybie strumieniowym przydadzą się klasy [`JsonParserFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.html) i [`JsonParser`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.htm://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonFactory.html). Instancja tej ostatniej pozwala na sprawdzenie czy w strumieniu znajduje się kolejny token. Jeśli tak można go pobać i odpowiednio na niego zareagować. Poniżej możesz zobacyć przykład odczytywania dokumentu JSON w trybie strumieniowym:
+
+```java
+JsonParserFactory parserFactory = Json.createParserFactory(Collections.emptyMap());
+JsonParser parser = parserFactory.createParser(buildObject());
+
+while (parser.hasNext()) {
+    JsonParser.Event event = parser.next();
+    switch (event) {
+        case START_OBJECT:
+            System.out.println("{");
+            break;
+        case END_OBJECT:
+            System.out.println("}");
+            break;
+        case START_ARRAY:
+            System.out.println("[");
+            break;
+        case END_ARRAY:
+            System.out.println("]");
+            break;
+        case KEY_NAME:
+            System.out.print(String.format("\"%s\": ", parser.getString()));
+            break;
+        case VALUE_NUMBER:
+            System.out.println(parser.getBigDecimal());
+            break;
+        case VALUE_STRING:
+            System.out.println(String.format("\"%s\"", parser.getString()));
+            break;
+        default:
+            System.out.println("true, false or null");
+    }
+}
+```
+
+W wyniku działania tego kodu na konsoli wyświetli się dokument:
+
+```json
+{
+"imię": "Marcin"
+"nazwisko": "Pietraszek"
+"strona": {
+"adres www": "http://www.samouczekprogramisty.pl"
+"artykuły": [
+{
+"tytuł": "Format JSON w języku Java"
+"data publikacji": {
+"rok": 2018
+"miesiąc": 9
+"dzień": 13
+}
+}
+]
+}
+}
+```
+
+Jak widzisz formatowanie tu kuleje :). Może spróbujesz napisać to w taki sposób, żeby dokument był bardziej czytelny?
 
 ## JSON-B
 
 JSON-B to specyfikacja, która pozwala na mapowanie dokumentów w formacie JSON i obietów w języku Java. Pozwala na konfigurowanie sposobu mapowania obiektów na dokumenty przy pomocy [adnotacji]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}). Specyfikacja JSON-B 1.0 jest częścią JEE 8.
+
+### Zapis obiektu
+
+Na potrzeby zapisu obiektu 
+
+
+
+### Odczyt obiektu
 
 ## `json_pp`
 
@@ -360,10 +429,20 @@ Nie mogę tu pominąć `json_pp`. Jest to narzędzie używane w linii poleceń, 
 
 Jeśli chcesz dowiedzieć się czegoś więcej na temat formatu JSON zachęcam Cię do sięgnięcia po materiały dodatkowe:
 
-* [Specyfikacja JSON](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf) specyfikacja ma kod 404 - kod odpowiedzi Not Found w specyfikacji [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}#statusy-4xx),
+* [Specyfikacja JSON](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf) specyfikacja ma kod 404 - kod odpowiedzi Not Found w specyfikacji [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}#statusy-4xx) :),
 * [Artykuł o JSON na Wikipedii](https://en.wikipedia.org/wiki/JSON),
 * [Specyfikacja JSON-P](https://jcp.org/aboutJava/communityprocess/final/jsr374/index.html),
 * [Dokumentacja API JSON-P](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/overview-summary.html).
 * [Specyfikacja JSON-B](https://jcp.org/aboutJava/communityprocess/final/jsr367/index.html),
 
+Na pewno przyda Ci się też [kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/32_format_json/src/main/java/pl/samouczekprogramisty/kursjava/json).
+
+## Zadanie do wykonania
+
+Znajdź API udostępnione za pośrednictwem [protokołu HTTP]({% post_url 2018-02-08-protokol-http %})(S), które używa formatu JSON. Napisz program, który wyśle zapytanie do wybranego przez Ciebie API i przetworzy otrzymaną odpowiedź. Proszę daj znać w komentarzach, które API chcesz użyć. Jeśli masz problem ze znalezieniem API możesz użyć jednego z tych, które są zebrane na [Samouczkowym Githubie](https://github.com/SamouczekProgramisty/public-apis).
+
 ## Podsumowanie
+
+Po przeczytaniu tego artykułu wiesz już czym jest JSON. Potrafisz stworzyć poprawny dokument w tym formacie. Wiesz jak używać specyfikacji z parasola JEE odpowiedzialnych za pracę z formatem JSON. Obecnie większość znanych mi API udostępnionych za pośrednictwem [HTTP]({% post_url 2018-02-08-protokol-http %}) używa formatu JSON do wymiany danych. Po lekturze możesz swobodnie używać tych api z poziomu języka Java. Gratulacje! :)
+
+Na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze znajomymi, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Jeśli nie chcesz ominąć kolejnych artykułów proszę dopisz się do samouczkowego newslettera i polub stronę samouczka na Facebook'u. Do następnego razu!

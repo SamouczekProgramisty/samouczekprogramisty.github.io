@@ -15,6 +15,7 @@ Znajomość składni języka programowania to dopiero początek. Programista w s
 
 * [Wstęp do Gradle]({% post_url 2017-01-19-wstep-do-gradle %})
 * [Walidacja obiektów w języku Java]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-java %})
+* [Format JSON w języku Java]({% post_url 2018-09-14-format-json-w-jezyku-java %})
 
 ## Dobre praktyki
 

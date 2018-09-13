@@ -37,6 +37,7 @@ Skoro udało Ci się poznać specyfikację serwletów nadszedł czas na kolejne 
 * [REST web service z Java EE część 1]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %})
 * [REST web service z Java EE część 2]({% post_url 2018-01-22-rest-webservice-z-java-ee-czesc-2 %})
 * [Walidacja obiektów w języku Java]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-java %})
+* [Format JSON w języku Java]({% post_url 2018-09-14-format-json-w-jezyku-java %})
 
 ## Pamiętaj o praktyce
 
