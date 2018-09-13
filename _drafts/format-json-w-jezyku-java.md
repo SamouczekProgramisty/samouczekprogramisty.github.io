@@ -5,9 +5,9 @@ categories:
 - Kurs aplikacji webowych
 permalink: /format-json-w-jezyku-java/
 header:
-    teaser: /assets/images/2018/09/04_sql.jpg
-    overlay_image: /assets/images/2018/09/04_sql.jpg
-    caption: "[&copy; Micheile Henderson](https://unsplash.com/photos/1SjD5ZEiUsA)"
+    teaser: /assets/images/2018/09/13_format_json_w_jezyku_java.jpg
+    overlay_image: /assets/images/2018/09/13_format_json_w_jezyku_java.jpg
+    caption: "[&copy; xresch](https://pixabay.com/en/analytics-information-innovation-3088958/)"
 excerpt: Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lekturze będziesz wiedzieć czym jest format JSON, gdzie jest używany i dlaczego zyskał na popularności. Poznasz dwie specyfikacje z parasola JEE - JSON-P i JSON-B i dowiesz się jak ich używać. Zapraszam do lektury.
 ---
 
@@ -113,6 +113,7 @@ Element tego typu grupuje uporządkowaną listę wartości. Składa się on z na
 ```json
 [1, true, "true"]
 ```
+
 #### Numer
 
 Numery w formacie JSON to ciąg cyfr. Opcjonalnie poprzedzony znakiem `-`. Do odzielenia części ułamkowej od całkowitej służy `.`. Notacja naukowa jest dopuszczalna. Oto kilka prawidłowych liczb w formacie JSON:
@@ -169,21 +170,186 @@ Mimo braku takiego wymogu przyjęło się, że elementem głównym dokumentu w t
 
 {% include newsletter-srodek.md %}
 
-## JSON w języku Java
+## JSON-P
 
-### JSON-P
+JSON-P jest specyfikacją, która opisuje przetważanie formatu JSON. Zakłada przetwarzanie dokumentów JSON zarówno w całości jak i w trybie strumieniowym (nie trzeba załadować całego dokumentu do pamięci). Pozwala na parsowanie i generowanie dokumentów w formacie JSON. Specyfikacja JSON-P 1.1 jest częścią JEE 8.
 
-JSON-P jest specyfikacją, która opisuje przetważanie formatu JSON. Zakłada przetwarzanie dokumentów JSON w trybie strumieniowym (nie trzeba załadować całego dokumentu do pamięci). Pozwala na parsowanie i generowanie dokumentów w formacie JSON. Specyfikacja JSON-P 1.1 jest częścią JEE 8.
+### Tryb "obiektowy"
 
-### JSON-B
+Decydując się na tryb obiektowy musisz zbudować cały obiekt przed przekształcaniem go do formatu JSON. 
 
-JSON-B to specyfikacja, która pozwala na mapowanie dokumentów w formacie JSON i obietów w języku Java. Pozwala na konfigurowanie sposobu mapowania obiektów na dokumenty przy pomocy [adnotacji]({% 2016-10-03-adnotacje-w-jezyku-java %}). Specyfikacja JSON-B 1.0 jest częścią JEE 8.
+#### Zapis
+
+Tworzenie instancji klas odpowiadających typom formatu JSON polega na wywołaniu odpowiednich metod udostępnionych przez klasy [`JsonArrayBuilder`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonArrayBuilder.html) i [`JsonObjectBuilder`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonObjectBuilder.html). Instancje tych klas tworzone są przez [`JsonBuilderFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonBuilderFactory.html). Proszę spójrz na przykład poniżej:
+
+```java
+JsonBuilderFactory builderFactory = Json.createBuilderFactory(Collections.emptyMap());
+JsonObject publicationDateObject = builderFactory.createObjectBuilder()
+        .add("rok", 2018)
+        .add("miesiąc", 9)
+        .add("dzień", 13).build();
+
+System.out.println(publicationDateObject.toString());
+```
+
+W przykładzie tym tworzę obiekt, który ma trzy atrybuty: `rok`, `miesiąc` i `dzień`. Po uruchomieniu takiego fragmentu kodu na konsoli wyświetli się dokument w formacie JSON:
+
+```json
+{"rok":2018,"miesiąc":9,"dzień":13}
+````
+
+Bardziej skomplikowany przykład możesz zobaczyć poniżej. Używam w nim dokładnie tego samego API łącząc ze sobą różne obiekty. W wyniu działania tego kodu powstaje zagniedżona struktura obiektów:
+
+```java
+JsonBuilderFactory builderFactory = Json.createBuilderFactory(Collections.emptyMap());
+JsonObject publicationDateObject = builderFactory.createObjectBuilder()
+        .add("rok", 2018)
+        .add("miesiąc", 9)
+        .add("dzień", 13).build();
+
+JsonObject articleObject = builderFactory.createObjectBuilder()
+        .add("tytuł", "Format JSON w języku Java")
+        .add("data publikacji", publicationDateObject).build();
+
+JsonArray articlesArray = builderFactory.createArrayBuilder().add(articleObject).build();
+
+JsonObject webPageObject = builderFactory.createObjectBuilder()
+        .add("adres www", "http://www.samouczekprogramisty.pl")
+        .add("artykuły", articlesArray).build();
+
+JsonObject authorObject = builderFactory.createObjectBuilder()
+        .add("imię", "Marcin")
+        .add("nazwisko", "Pietraszek")
+        .add("strona", webPageObject).build();
+```
+
+Tym razem użyję trochę innej metody wypisywania obiektu. Tworząc instancję [`JsonWriterFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonWriterFactory.html) mogę przekazać konfigurację. Konfiguracja wpływa na zachowanie tej klasy. 
+
+```java
+Map<String, ?> config = Collections.singletonMap(JsonGenerator.PRETTY_PRINTING, true);
+JsonWriterFactory writerFactory = Json.createWriterFactory(config);
+writerFactory.createWriter(System.out).write(authorObject);
+```
+
+Dzięki takiemu podejściu wynik wypisywany na konsoli jest sformatowany w bardziej czytelny sposób:
+
+```json
+{
+    "imię": "Marcin",
+    "nazwisko": "Pietraszek",
+    "strona": {
+        "adres www": "http://www.samouczekprogramisty.pl",
+        "artykuły": [
+            {
+                "tytuł": "Format JSON w języku Java",
+                "data publikacji": {
+                    "rok": 2018,
+                    "miesiąc": 9,
+                    "dzień": 13
+                }
+            }
+        ]
+    }                                                                                                                                    
+}
+```
+
+#### Odczyt
+
+Każdy z przykładów poniżej używa instancji `InputStream`, którą tworzę sposób pokazany poniżej. Metoda `buildObject` zwraca `JsonObject`, który pokazałem w poprzednim paragrafie:
+
+```java
+String jsonObject = buildObject().toString();
+InputStream inputStream = new ByteArrayInputStream(jsonObject.getBytes());
+```
+
+Odczyt dokumentów w formacie JSON używa podobnego API. Tym razem tworzę instancję klasy [`JsonReaderFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReaderFactory.html). Używam jej do utworzenia instancji [`JsonReader`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReader.html):
+
+```java
+JsonReaderFactory readerFactory = Json.createReaderFactory(Collections.emptyMap());
+JsonReader jsonReader = readerFactory.createReader(inputStream);
+```
+
+Klasa `JsonReader` udostępnia kilka metod, które pozwalają na odczyt danych w formacie JSON:
+
+* `readObject`,
+* `readArray`,
+* `readValue`,
+* `read`.
+
+Używając publicznych metod udostępnionych w klasach `JsonObject` i `JsonArray` poruszam się po dokumencie JSON:
+
+```java
+try (JsonReader jsonReader = readerFactory.createReader(new ByteArrayInputStream(jsonDocument.getBytes()))) {
+    JsonObject jsonObject = jsonReader.readObject();
+    System.out.println(jsonObject
+                    .getJsonObject("strona")
+                    .getJsonArray("artykuły")
+                    .get(0).asJsonObject()
+                    .getJsonObject("data publikacji")
+    );
+}
+```
+
+Powyższy fragment kodu wyświetli na konsoli jeden z zagnieżdzonych obiektów:
+
+```java
+{"rok":2018,"miesiąc":9,"dzień":13}
+```
+
+Istnieje jednak prostszy sposób na dotarcie do tego samego obiektu. Można posłużyć się ścieżką jak w przykładzie poniżej:
+
+```java
+JsonReaderFactory readerFactory = Json.createReaderFactory(Collections.emptyMap());
+try (JsonReader jsonReader = readerFactory.createReader(new ByteArrayInputStream(jsonDocument.getBytes()))) {
+    JsonStructure jsonStructure = jsonReader.read();
+    System.out.println(jsonStructure.getValue("/strona/artykuły/0/data publikacji"));
+}
+```
+
+### Tryb strumieniowy
+
+Tryb strumieniowy pozwala na odczyt/zapis dokumentów w formacie JSON bez ładowania ich w całości do pamięci. Dane są odczytywane lub zapisywane na bieżąco.
+
+#### Zapis
+
+W przypadku zapisu fabryka [`JsonGeneratorFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGeneratorFactory.html) pomaga w tworzeniu [`JsonGenerator`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGenerator.html). Instancja tej klasy pisze do strumienia poszczególne tokeny (elmenty składowe dokumentu w formacie JSON). metody `write*` pozwalają na zapis danych do strumienia. Przykład poniżej zapisuje do strumienia dokładnie ten sam dokument JSON jaki użyłem w podejściu obiektowym:
+
+```java
+JsonGeneratorFactory generatorFactory = Json.createGeneratorFactory(Collections.singletonMap(JsonGenerator.PRETTY_PRINTING, true));
+JsonGenerator generator = generatorFactory.createGenerator(System.out);
+generator
+    .writeStartObject()
+        .write("imię", "Marcin")
+        .write("nazwisko", "Pietraszek")
+        .writeStartObject("strona")
+            .write("adres www", "http://www.samouczekprogramisty.pl")
+            .writeStartArray("artykuły")
+                .writeStartObject()
+                    .write("tytuł", "Format JSON w języku Java")
+                    .writeStartObject("data publikacji")
+                        .write("rok", 2018)
+                        .write("miesiąc", 9)
+                        .write("dzień", 13)
+                    .writeEnd()
+                .writeEnd()
+            .writeEnd()
+        .writeEnd()
+    .writeEnd().flush();
+```
+
+#### Odczyt
+
+W przypadku 
+
+## JSON-B
+
+JSON-B to specyfikacja, która pozwala na mapowanie dokumentów w formacie JSON i obietów w języku Java. Pozwala na konfigurowanie sposobu mapowania obiektów na dokumenty przy pomocy [adnotacji]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}). Specyfikacja JSON-B 1.0 jest częścią JEE 8.
 
 ## `json_pp`
 
 Nie mogę tu pominąć `json_pp`. Jest to narzędzie używane w linii poleceń, które formatuje dokument JSON wyświetlając go w bardziej czytelnej formie. Nie raz pomogło mi przy pracy z tym formatem:
 
-    $ echo '{"some": "magic", "json": true, "values": 123}' | json_pp
+    $ echo '{"some":"magic","json":true,"values":123}' | json_pp
     {
        "json" : true,
        "values" : 123,
@@ -196,7 +362,8 @@ Jeśli chcesz dowiedzieć się czegoś więcej na temat formatu JSON zachęcam C
 
 * [Specyfikacja JSON](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf) specyfikacja ma kod 404 - kod odpowiedzi Not Found w specyfikacji [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}#statusy-4xx),
 * [Artykuł o JSON na Wikipedii](https://en.wikipedia.org/wiki/JSON),
+* [Specyfikacja JSON-P](https://jcp.org/aboutJava/communityprocess/final/jsr374/index.html),
+* [Dokumentacja API JSON-P](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/overview-summary.html).
 * [Specyfikacja JSON-B](https://jcp.org/aboutJava/communityprocess/final/jsr367/index.html),
-* [Specyfikacja JSON-P](https://jcp.org/aboutJava/communityprocess/final/jsr374/index.html).
 
 ## Podsumowanie
