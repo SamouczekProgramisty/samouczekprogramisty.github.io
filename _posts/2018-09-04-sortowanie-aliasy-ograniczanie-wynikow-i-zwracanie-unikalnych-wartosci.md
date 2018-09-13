@@ -5,8 +5,8 @@ categories:
 - Kurs SQL
 permalink: /sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/
 header:
-    teaser: /assets/images/2018/09/04_sql.jpg
-    overlay_image: /assets/images/2018/09/04_sql.jpg
+    teaser: /assets/images/2018/09/04_sortowanie_aliasy_distinct_sql.jpg
+    overlay_image: /assets/images/2018/09/04_sortowanie_aliasy_distinct_sql.jpg
     caption: "[&copy; Micheile Henderson](https://unsplash.com/photos/1SjD5ZEiUsA)"
 excerpt: Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą `DISTINCT`, `AS` czy `UNION`. Poznasz także sposoby na sortowanie i ograniczanie wyników przy użyciu `ORDER BY` i `LIMIT`. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami, które pomogą Ci utrwalić zdobytą wiedzę.
 ---
