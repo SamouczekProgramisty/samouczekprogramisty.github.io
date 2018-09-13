@@ -15,7 +15,7 @@ excerpt: Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lektu
 
 JSON (ang. _JavaScript Object Notation_) to format zapisu i wymiany danych. Jest to format tekstowy. Uważany jest za format czytelny zarówno dla maszyn jak i dla ludzi. 
 
-Dane formatowane przy użyciu JSON określa się jako [`application/json`](https://www.iana.org/assignments/media-types/application/json). Ta wartość może być zawarta w [nagłówkach HTTP]({% post_url 2018-02-08-protokol-http %}#nag%C5%82%C3%B3wki-http) określając typ akceptowanych/wysyłanych danych.
+Dane formatowane przy użyciu JSON mogą być określane się jako [`application/json`](https://www.iana.org/assignments/media-types/application/json). Ta wartość może być zawarta w [nagłówkach HTTP]({% post_url 2018-02-08-protokol-http %}#nag%C5%82%C3%B3wki-http) określając typ akceptowanych/wysyłanych danych.
 
 Poniżej możesz zobaczyć prawidłowy dokument w formacie JSON:
 
@@ -52,7 +52,7 @@ To co widzisz powyżej to część zapytania, które wysyłane jest w trakcie wy
 - `event_type`, którego wartością jest łańcuch znaków,
 - `measures` i `dimensions`, których wartościami są inne obiekty.
 
- W związku ze swoją prostotą JSON nie pozwala na opisywanie schematu dokumentu. Nie wspiera także przestrzeni nazw (ang. _namespace_). JSON często porównywany jest z [formatem XML]({% post_url 2017-03-02-xml-dla-poczatkujacych %}) gdzie zarówno schemat jak przestrzenie nazw są wspierane. Mimo tych braków JSON zawojował Internet. Stało się to między innymi dzięki popularności języka JavaScript.
+ W związku ze swoją prostotą JSON nie pozwala na opisywanie schematu dokumentu. Nie wspiera także przestrzeni nazw (ang. _namespace_). JSON często porównywany jest z [formatem XML]({% post_url 2017-03-02-xml-dla-poczatkujacych %}) gdzie zarówno schemat jak przestrzenie nazw są wspierane. Mimo tych braków JSON zawojował Internet. Stało się to między innymi dzięki popularności języka JavaScript, z którego ten format się wywodzi.
 
 ## Opis formatu JSON
 
@@ -108,15 +108,17 @@ Element tego typu składa się z nawiasów `{` i `}`. Wewnątrz nawiasów umiesz
 
 #### Lista
 
-Element tego typu grupuje uporządkowaną listę wartości. Składa się on z nawiasów `[` i `]`. Wewnątrz nich znajdują się wartości oddzielone `,`. Wartości wewnątrz listy mogą być różnych typów
+Element tego typu grupuje uporządkowaną listę wartości. Składa się on z nawiasów `[` i `]`. Wewnątrz nich znajdują się wartości oddzielone `,`. Wartości wewnątrz listy mogą być różnych typów[^podobnie]:
+
+[^podobnie]: Tutaj sprawa wygląda podobnie jak w obiektach, specyfikacja dopuszcza takie zachowanie jednak w praktyce nie jest to często spotykane.
 
 ```json
 [1, true, "true"]
 ```
 
-#### Numer
+#### Liczba
 
-Numery w formacie JSON to ciąg cyfr. Opcjonalnie poprzedzony znakiem `-`. Do odzielenia części ułamkowej od całkowitej służy `.`. Notacja naukowa jest dopuszczalna. Oto kilka prawidłowych liczb w formacie JSON:
+Liczby w formacie JSON to ciąg cyfr. Opcjonalnie poprzedzony znakiem `-`. Do odzielenia części ułamkowej od całkowitej służy `.`. Notacja naukowa jest dopuszczalna. Oto kilka prawidłowych liczb w formacie JSON:
 
 - `123`,
 - `123.123`,
@@ -199,7 +201,7 @@ W przykładzie tym tworzę obiekt, który ma trzy atrybuty: `rok`, `miesiąc` i 
 {"rok":2018,"miesiąc":9,"dzień":13}
 ````
 
-Bardziej skomplikowany przykład możesz zobaczyć poniżej. Używam w nim dokładnie tego samego API łącząc ze sobą różne obiekty. W wyniu działania tego kodu powstaje zagniedżona struktura obiektów:
+Bardziej skomplikowany przykład możesz zobaczyć poniżej. Używam w nim dokładnie tego samego API łącząc ze sobą różne obiekty. W wyniku działania tego kodu powstaje zagniedżona struktura obiektów:
 
 ```java
 JsonBuilderFactory builderFactory = Json.createBuilderFactory(Collections.emptyMap());
@@ -258,7 +260,7 @@ Dzięki takiemu podejściu wynik wypisywany na konsoli jest sformatowany w bardz
 
 #### Odczyt
 
-Każdy z przykładów poniżej używa instancji `InputStream`, którą tworzę sposób pokazany poniżej. Metoda `buildObject` zwraca `JsonObject`, który pokazałem w poprzednim paragrafie:
+Każdy z przykładów poniżej używa instancji `InputStream`, którą tworzę w sposób pokazany poniżej. Metoda `buildObject` zwraca `JsonObject`, który pokazałem w poprzednim paragrafie:
 
 ```java
 String jsonObject = buildObject().toString();
@@ -342,7 +344,7 @@ generator
 
 #### Odczyt
 
-W przypadku czytania dokumentu w trybie strumieniowym przydadzą się klasy [`JsonParserFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.html) i [`JsonParser`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.htm://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonFactory.html). Instancja tej ostatniej pozwala na sprawdzenie czy w strumieniu znajduje się kolejny token. Jeśli tak można go pobać i odpowiednio na niego zareagować. Poniżej możesz zobacyć przykład odczytywania dokumentu JSON w trybie strumieniowym:
+W przypadku czytania dokumentu w trybie strumieniowym przydadzą się klasy [`JsonParserFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.html) i [`JsonParser`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.htm://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonFactory.html). Instancja tej ostatniej pozwala na sprawdzenie czy w strumieniu znajduje się kolejny token. Jeśli tak, można go pobrać i odpowiednio na niego zareagować. Poniżej możesz zobacyć przykład odczytywania dokumentu JSON w trybie strumieniowym:
 
 ```java
 JsonParserFactory parserFactory = Json.createParserFactory(Collections.emptyMap());
@@ -406,17 +408,135 @@ Jak widzisz formatowanie tu kuleje :). Może spróbujesz napisać to w taki spos
 
 JSON-B to specyfikacja, która pozwala na mapowanie dokumentów w formacie JSON i obietów w języku Java. Pozwala na konfigurowanie sposobu mapowania obiektów na dokumenty przy pomocy [adnotacji]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}). Specyfikacja JSON-B 1.0 jest częścią JEE 8.
 
+JSON-B pozwala na [serializację i deserializację]({% post_url 2016-09-02-serializacja-w-jezyku-java %}) stanu obiektu używając formatu JSON.
+
 ### Zapis obiektu
 
-Na potrzeby zapisu obiektu 
+Zacznę od zwykłej klasy, dla czytelności usunąłem metody dostępowe (gettery i settery):
+
+```java
+public class Newspaper {
+    private String title;
+    private int circulation;
+    private LocalDate issueDate;
+
+    @SuppressWarnings("unused")
+    public Newspaper() {
+    }
+
+    public Newspaper(String title, int circulation, LocalDate issueDate) {
+        this.title = title;
+        this.circulation = circulation;
+        this.issueDate = issueDate;
+    }
+
+    // getters & setters
+}
+```
+
+Aby zapisać instancję tego obiektu do formatu JSON należy użyć [`JsonBuilder`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/JsonbBuilder.html) do stworzenia instancji klasy [`Jsonb`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/Jsonb.html). W większości przypadków ta instancja powinna być współdzielona w całej aplikacji. 
+
+Klasa `Jsonb` posiada zestaw przeciążonych metod `toJson`, które pozwalają na serializację obiektu. Przykład poniżej używa jednej z tych metod:
+
+```java
+Newspaper newspaper = new Newspaper("Samouczek Programisty", 100_000, LocalDate.of(2018, 9, 13));
+Jsonb jsonb = JsonbBuilder.create();
+String newspaperRepresentation = jsonb.toJson(newspaper);
+System.out.println(newspaperRepresentation);
+```
+
+Po wykonaniu tego fragmentu kodu na konsoli wyświetli się tekst:
 
 
+```json
+{"circulation":100000,"issueDate":"2018-09-13","title":"Samouczek Programisty"}
+```
 
 ### Odczyt obiektu
 
+Odczyt (deserializacja) przebiega w podobny sposób. Tym razem należy użyć metody `fromJson` do odczytania dokumentu JSON. Zauważ, że drugim parametrem przekazywanym do tej metody jest klasa/typ nowotworzonego obiektu:
+
+```java
+Newspaper newspaper = new Newspaper("Samouczek Programisty", 100_000, LocalDate.of(2018, 9, 13));
+Jsonb jsonb = JsonbBuilder.create();
+String newspaperRepresentation = jsonb.toJson(newspaper);
+
+Newspaper otherNewspaper = jsonb.fromJson(newspaperRepresentation, Newspaper.class);
+System.out.println(otherNewspaper.getIssueDate());
+```
+
+W wyniku działania tego kodu na konsoli wyświetli się data pobrana z dokumentu JSON:
+
+    2018-09-13
+
+### Modyfikacja zachowania JSON-B
+
+JSON-B pozwala na modyfikację jego zachowania. Dzięki temu dokument, który jest tworzony/czytany może różnić się od obiektu w języku Java. Klasa `AnnotationExamples` zawiera kilka adnotacji wpływających na kształt dokumentu JSON:
+
+```java
+@JsonbPropertyOrder({"ccc", "bbb"})
+public class AnnotationExamples {
+    @JsonbTransient
+    private String skipped;
+
+    @JsonbProperty(nillable=true)
+    private String a1;
+
+    private String a2;
+
+    @JsonbNumberFormat("0.0000")
+    private double bbb;
+
+    @JsonbProperty("other_name")
+    private String ccc;
+
+    // getters & setters
+}
+```
+
+* [`@JsonbTransient`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbTransient.html) - atrybut powinien zostać pomięty,
+* [`@JsonbProperty`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html) - pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość `null` (domyślnie takie wartości są pomijane),
+* [`@JsonbNumberFormat`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbNumberFormat.html) - określa format w jakim powinna być zapisana liczba,
+* [`@JsonbDateFormat`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbDateFormat.html) - określa format w jakim powinna być zapisana data.
+* [`@JsonbPropertyOrder`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbPropertyOrder.html) - określa kolejność w jakiej atrybuty powinny być serializowane.
+
+Pozostale adnotacje znajdzeisz w [dokumentacji](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/package-summary.html).
+
+Miejsce umieszczenia adnotacji ma znaczenie:
+
+- adnotacja nad atrybutem - ma wpływ zarówno na serializację jak i deserializację atrybutu,
+- adnotacja nad getterem - ma wpływ wyłącznie na serializację atrybutu,
+- adnotacja nad setterem - ma wpływ wyłącznie na deserializację atrybutu.
+
+Proszę spójrz jak adnotacje wpływają na kształ generowanego dokumentu:
+
+```java
+AnnotationExamples annotationExamples = new AnnotationExamples();
+annotationExamples.setBbb(123.45);
+annotationExamples.setCcc("ccc");
+annotationExamples.setSkipped("skipped");
+
+WithoutAnnotationExamples withoutAnnotationExamples = new WithoutAnnotationExamples();
+withoutAnnotationExamples.setBbb(123.45);
+withoutAnnotationExamples.setCcc("ccc");
+withoutAnnotationExamples.setSkipped("skipped");
+```
+
+Klasa z adnotacjami:
+```json
+{"other_name":"ccc","bbb":"123.4500","a1":null}
+```
+
+Klasa bez adnotacji:
+```json
+{"bbb":123.45,"ccc":"ccc","skipped":"skipped"}
+```
+
+Adnotacje pozwalają na zmianę zachowana JSON-B w trakcie kompilacji. Istnieje także metoda na wprowadzenie takich zmian wyłącznie w trakcie uruchomienia programu.
+
 ## `json_pp`
 
-Nie mogę tu pominąć `json_pp`. Jest to narzędzie używane w linii poleceń, które formatuje dokument JSON wyświetlając go w bardziej czytelnej formie. Nie raz pomogło mi przy pracy z tym formatem:
+Nie mogę tu pominąć `json_pp`. Jest to narzędzie używane w linii poleceń. Co prawda nie jest ono bezpośrednio związane z Javą ani specyfikacjiami, które tu opisałem, jednak jest bardzo przydatne. Program ten formatuje dokument JSON wyświetlając go w bardziej czytelnej formie. Nie raz pomogło mi przy pracy z tym formatem:
 
     $ echo '{"some":"magic","json":true,"values":123}' | json_pp
     {
@@ -432,17 +552,18 @@ Jeśli chcesz dowiedzieć się czegoś więcej na temat formatu JSON zachęcam C
 * [Specyfikacja JSON](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf) specyfikacja ma kod 404 - kod odpowiedzi Not Found w specyfikacji [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}#statusy-4xx) :),
 * [Artykuł o JSON na Wikipedii](https://en.wikipedia.org/wiki/JSON),
 * [Specyfikacja JSON-P](https://jcp.org/aboutJava/communityprocess/final/jsr374/index.html),
-* [Dokumentacja API JSON-P](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/overview-summary.html).
+* [Dokumentacja API JSON-P](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/overview-summary.html),
 * [Specyfikacja JSON-B](https://jcp.org/aboutJava/communityprocess/final/jsr367/index.html),
+* [Dokumentacja API JSON-B](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/overview-summary.html).
 
 Na pewno przyda Ci się też [kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/32_format_json/src/main/java/pl/samouczekprogramisty/kursjava/json).
 
 ## Zadanie do wykonania
 
-Znajdź API udostępnione za pośrednictwem [protokołu HTTP]({% post_url 2018-02-08-protokol-http %})(S), które używa formatu JSON. Napisz program, który wyśle zapytanie do wybranego przez Ciebie API i przetworzy otrzymaną odpowiedź. Proszę daj znać w komentarzach, które API chcesz użyć. Jeśli masz problem ze znalezieniem API możesz użyć jednego z tych, które są zebrane na [Samouczkowym Githubie](https://github.com/SamouczekProgramisty/public-apis).
+Znajdź API udostępnione za pośrednictwem [protokołu HTTP]({% post_url 2018-02-08-protokol-http %})(S), które używa formatu JSON. Napisz program, który wyśle zapytanie do wybranego przez Ciebie API i przetworzy otrzymaną odpowiedź. Proszę daj znać w komentarzach, które API chcesz użyć. Jeśli masz problem ze znalezieniem API możesz użyć jednego z tych, które są zebrane na [samouczkowym Github'ie](https://github.com/SamouczekProgramisty/public-apis).
 
 ## Podsumowanie
 
-Po przeczytaniu tego artykułu wiesz już czym jest JSON. Potrafisz stworzyć poprawny dokument w tym formacie. Wiesz jak używać specyfikacji z parasola JEE odpowiedzialnych za pracę z formatem JSON. Obecnie większość znanych mi API udostępnionych za pośrednictwem [HTTP]({% post_url 2018-02-08-protokol-http %}) używa formatu JSON do wymiany danych. Po lekturze możesz swobodnie używać tych api z poziomu języka Java. Gratulacje! :)
+Po przeczytaniu tego artykułu wiesz już czym jest JSON. Potrafisz stworzyć poprawny dokument w tym formacie. Wiesz jak używać specyfikacji z parasola JEE odpowiedzialnych za pracę z formatem JSON. Obecnie większość znanych mi API udostępnionych za pośrednictwem [HTTP]({% post_url 2018-02-08-protokol-http %}) używa formatu JSON do wymiany danych. Po lekturze możesz swobodnie używać tych API z poziomu języka Java. Gratulacje! :)
 
-Na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze znajomymi, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Jeśli nie chcesz ominąć kolejnych artykułów proszę dopisz się do samouczkowego newslettera i polub stronę samouczka na Facebook'u. Do następnego razu!
+Na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze znajomymi, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Jeśli nie chcesz ominąć kolejnych artykułów proszę dopisz się do samouczkowego newslettera i polub stronę Samouczka na Facebook'u. Do następnego razu!
