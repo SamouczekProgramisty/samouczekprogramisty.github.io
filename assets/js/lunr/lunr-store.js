@@ -538,7 +538,12 @@ var store = [{
         "excerpt":"To jest jeden z artykułów w ramach praktycznego kursu SQL. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w pierwszym artykule kursu. Bardzo mocno Cię do tego zachęcam. Moim zdaniem...","categories": ["Bazy danych","Kurs SQL"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/",
-        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/04_sql.jpg"},{
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/04_sortowanie_aliasy_distinct_sql.jpg"},{
+        "title": "Format JSON w języku Java",
+        "excerpt":"Czym jest JSON JSON (ang. JavaScript Object Notation) to format zapisu i wymiany danych. Jest to format tekstowy. Uważany jest za format czytelny zarówno dla maszyn jak i dla ludzi. Dane formatowane przy użyciu JSON mogą być określane się jako application/json. Ta wartość może być zawarta w nagłówkach HTTP określając...","categories": ["Narzędzia","Kurs aplikacji webowych"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/format-json-w-jezyku-java/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/13_format_json_w_jezyku_java.jpg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],
@@ -560,7 +565,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/strefa-projektowa/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_strefa_projektowa.jpg"},{
         "title": "Narzędzia i dobre praktyki",
-        "excerpt":"Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować na co dzień. Narzędzia Wstęp do Gradle Walidacja obiektów w języku JavaDobre praktyki Bez...","categories": [],
+        "excerpt":"Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować na co dzień. Narzędzia Wstęp do Gradle Walidacja obiektów w języku Java Format JSON...","categories": [],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg"}]

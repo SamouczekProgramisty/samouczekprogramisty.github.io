@@ -1,0 +1,1178 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Format JSON w języku Java - Samouczek Programisty</title>
+<meta name="description" content="Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lekturze będziesz wiedzieć czym jest format JSON, gdzie jest używany i dlaczego zyskał na popularności. Poznasz dwie specyfikacje z parasola JEE - JSON-P i JSON-B i dowiesz się jak ich używać. Zapraszam do lektury.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Format JSON w języku Java">
+<meta property="og:url" content="http://www.samouczekprogramisty.pl/format-json-w-jezyku-java/">
+
+
+  <meta property="og:description" content="Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lekturze będziesz wiedzieć czym jest format JSON, gdzie jest używany i dlaczego zyskał na popularności. Poznasz dwie specyfikacje z parasola JEE - JSON-P i JSON-B i dowiesz się jak ich używać. Zapraszam do lektury.">
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/09/13_format_json_w_jezyku_java.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2018-09-14T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://www.samouczekprogramisty.pl/format-json-w-jezyku-java/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "http://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2018/09/13_format_json_w_jezyku_java.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Format JSON w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lekturze będziesz wiedzieć czym jest format JSON, gdzie jest używany i dlaczego zyskał na popularności. Poznasz dwie specyfikacje z parasola JEE - JSON-P i JSON-B i dowiesz się jak ich używać. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://pixabay.com/en/analytics-information-innovation-3088958/">© xresch</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Format JSON w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Format JSON w języku Java">
+    <meta itemprop="description" content="Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lekturze będziesz wiedzieć czym jest format JSON, gdzie jest używany i dlaczego zyskał na popularności. Poznasz dwie specyfikacje z parasola JEE - JSON-P i JSON-B i dowiesz się jak ich używać. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="September 14, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#czym-jest-json">Czym jest JSON</a></li>
+<li class="toc-entry toc-h2"><a href="#opis-formatu-json">Opis formatu JSON</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#wspierane-typy-danych">Wspierane typy danych</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#łańcuch-znaków">Łańcuch znaków</a></li>
+<li class="toc-entry toc-h4"><a href="#obiekt">Obiekt</a></li>
+<li class="toc-entry toc-h4"><a href="#lista">Lista</a></li>
+<li class="toc-entry toc-h4"><a href="#liczba">Liczba</a></li>
+<li class="toc-entry toc-h4"><a href="#literały">Literały</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#element-główny">Element główny</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#json-p">JSON-P</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#tryb-obiektowy">Tryb “obiektowy”</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#zapis">Zapis</a></li>
+<li class="toc-entry toc-h4"><a href="#odczyt">Odczyt</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#tryb-strumieniowy">Tryb strumieniowy</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#zapis-1">Zapis</a></li>
+<li class="toc-entry toc-h4"><a href="#odczyt-1">Odczyt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#json-b">JSON-B</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#zapis-obiektu">Zapis obiektu</a></li>
+<li class="toc-entry toc-h3"><a href="#odczyt-obiektu">Odczyt obiektu</a></li>
+<li class="toc-entry toc-h3"><a href="#modyfikacja-zachowania-json-b">Modyfikacja zachowania JSON-B</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#json_pp">json_pp</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#zadanie-do-wykonania">Zadanie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        <h2 id="czym-jest-json">Czym jest JSON</h2>
+
+<p>JSON (ang. <em>JavaScript Object Notation</em>) to format zapisu i wymiany danych. Jest to format tekstowy. Uważany jest za format czytelny zarówno dla maszyn jak i dla ludzi.</p>
+
+<p>Dane formatowane przy użyciu JSON mogą być określane się jako <a href="https://www.iana.org/assignments/media-types/application/json"><code class="highlighter-rouge">application/json</code></a>. Ta wartość może być zawarta w <a href="/protokol-http/#nag%C5%82%C3%B3wki-http">nagłówkach HTTP</a> określając typ akceptowanych/wysyłanych danych.</p>
+
+<p>Poniżej możesz zobaczyć prawidłowy dokument w formacie JSON:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1536731522</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"event_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"jump-to-menu-activation"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"measures"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"filter_count"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">77</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"result_count"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"display_count"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="s2">"dimensions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"query"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"actor_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">73585</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"session_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"b5c50e56-75ce-50cb-9d44-7cbba93b00e5"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"display_set"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"Repository"</span><span class="p">,</span><span class="w">
+            </span><span class="mi">106327483</span><span class="w">
+         </span><span class="p">],</span><span class="w">
+         </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"Repository"</span><span class="p">,</span><span class="w">
+            </span><span class="mi">42456996</span><span class="w">
+         </span><span class="p">]</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>To co widzisz powyżej to część zapytania, które wysyłane jest w trakcie wyszukiwania na Github’ie. W momencie wpisywania czegokolwiek w wyszukiwarkę strona wysyła zapytanie, którego ciało jest w formacie JSON. Fragment powyżej zawiera obiekt, który ma 4 atrybuty:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">timestamp</code>, którego wartością jest liczba,</li>
+  <li><code class="highlighter-rouge">event_type</code>, którego wartością jest łańcuch znaków,</li>
+  <li><code class="highlighter-rouge">measures</code> i <code class="highlighter-rouge">dimensions</code>, których wartościami są inne obiekty.</li>
+</ul>
+
+<p>W związku ze swoją prostotą JSON nie pozwala na opisywanie schematu dokumentu. Nie wspiera także przestrzeni nazw (ang. <em>namespace</em>). JSON często porównywany jest z <a href="/xml-dla-poczatkujacych/">formatem XML</a> gdzie zarówno schemat jak przestrzenie nazw są wspierane. Mimo tych braków JSON zawojował Internet. Stało się to między innymi dzięki popularności języka JavaScript, z którego ten format się wywodzi.</p>
+
+<h2 id="opis-formatu-json">Opis formatu JSON</h2>
+
+<p>JSON to bardzo prosty format zapisu/wymiany danych. Specyfikacja formatu JSON to jedna z przyjemniejszych specyfikacji jakie czytałem, jest przyjemna bo zawiera jedynie 5 stron tekstu ;). W formacie występuje sześć symboli, które określają strukturę dokumentu:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">{</code> i <code class="highlighter-rouge">}</code>,</li>
+  <li><code class="highlighter-rouge">[</code> i <code class="highlighter-rouge">]</code>,</li>
+  <li><code class="highlighter-rouge">:</code>,</li>
+  <li><code class="highlighter-rouge">,</code>.</li>
+</ul>
+
+<p>W formacie tym występują tylko trzy “słowa kluczowe”, literały:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">true</code>,</li>
+  <li><code class="highlighter-rouge">false</code>,</li>
+  <li><code class="highlighter-rouge">null</code>.</li>
+</ul>
+
+<p>Białe znaki (tabulator, znak nowej linii<sup id="fnref:nowalinia"><a href="#fn:nowalinia" class="footnote">1</a></sup> czy spacja) są ignorowane. Zatem dwa poniższe dokumenty JSON są równoważne:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"coś"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jeszcze coś"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="s2">"coś"</span><span class="p">:</span><span class="s2">"jeszcze coś"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="wspierane-typy-danych">Wspierane typy danych</h3>
+
+<h4 id="łańcuch-znaków">Łańcuch znaków</h4>
+
+<p>Łańcuchy znaków jakie są każdy widzi ;). Łańcuch znaków to ciąg znaków otoczony <code class="highlighter-rouge">"</code>. Dodatkowo znak <code class="highlighter-rouge">\</code> pozwala na wprowadzenie znaków specjalnych. Na przykład <code class="highlighter-rouge">\"</code> oznacza cudzysłów, a <code class="highlighter-rouge">\\</code> ukośnik. Kilka przykładowych wartości:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">"some value"</code>,</li>
+  <li><code class="highlighter-rouge">"zażółć gęślą jaźń"</code>,</li>
+  <li><code class="highlighter-rouge">"true"</code>,</li>
+  <li><code class="highlighter-rouge">"\\\""</code>, reprezentuje łańcuch znaków <code class="highlighter-rouge">\"</code>.</li>
+</ul>
+
+<h4 id="obiekt">Obiekt</h4>
+
+<p>Element tego typu składa się z nawiasów <code class="highlighter-rouge">{</code> i <code class="highlighter-rouge">}</code>. Wewnątrz nawiasów umieszczone są pary w postaci: <code class="highlighter-rouge">"nazwa atrybutu": &lt;wartość atrybutu&gt;</code>. <code class="highlighter-rouge">&lt;wartość atrybutu&gt;</code> może być dowolną wspieraną wartością. Nazwa atrybutu przedstawiona jest jako łańcuch znaków. Pary oddzielone są od siebie <code class="highlighter-rouge">,</code>. Kolejność par nie ma znaczenia. Specyfikacja nie narzuca unikalności kluczy<sup id="fnref:praktyka"><a href="#fn:praktyka" class="footnote">2</a></sup>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"attribute"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"other attribute"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="lista">Lista</h4>
+
+<p>Element tego typu grupuje uporządkowaną listę wartości. Składa się on z nawiasów <code class="highlighter-rouge">[</code> i <code class="highlighter-rouge">]</code>. Wewnątrz nich znajdują się wartości oddzielone <code class="highlighter-rouge">,</code>. Wartości wewnątrz listy mogą być różnych typów<sup id="fnref:podobnie"><a href="#fn:podobnie" class="footnote">3</a></sup>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="s2">"true"</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="liczba">Liczba</h4>
+
+<p>Liczby w formacie JSON to ciąg cyfr. Opcjonalnie poprzedzony znakiem <code class="highlighter-rouge">-</code>. Do oddzielenia części ułamkowej od całkowitej służy <code class="highlighter-rouge">.</code>. Notacja naukowa jest dopuszczalna. Oto kilka prawidłowych liczb w formacie JSON:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">123</code>,</li>
+  <li><code class="highlighter-rouge">123.123</code>,</li>
+  <li><code class="highlighter-rouge">-123</code>,</li>
+  <li><code class="highlighter-rouge">1.23123e2</code>,</li>
+  <li><code class="highlighter-rouge">1.23123E-2</code>.</li>
+</ul>
+
+<h4 id="literały">Literały</h4>
+
+<p>W formacie JSON występują trzy literały:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">true</code> - reprezentuje wartość logiczną - prawdę,</li>
+  <li><code class="highlighter-rouge">false</code> - reprezentuje wartość logiczną - fałsz,</li>
+  <li><code class="highlighter-rouge">null</code> - reprezentuje wartość pustą, brak wartości.</li>
+</ul>
+
+<h3 id="element-główny">Element główny</h3>
+
+<p>Specyfikacja formatu JSON nie narzuca typu elementu głównego. Oznacza to tyle, że zgodnie ze specyfikacją poniższe dokumenty są poprawne:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">true</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"some string"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Mimo braku takiego wymogu przyjęło się, że elementem głównym dokumentu w tym formacie zawsze jest obiekt. Poniżej znajdziesz “poprawną” reprezentację przykładów, które przytoczyłem wyżej:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"x"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"y"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"z"</span><span class="p">:</span><span class="w"> </span><span class="s2">"some string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="json-p">JSON-P</h2>
+
+<p class="notice--info">Wszystkie fragmenty kodu użyte w tym artykule udostępnione są na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/32_format_json/src/main/java/pl/samouczekprogramisty/kursjava/json">Samouczkowym Githubie</a>. Zachęcam Cię do eksperymentów i uruchomienia kodu samodzielnie.</p>
+
+<p>JSON-P jest specyfikacją, która opisuje przetwarzanie formatu JSON. Zakłada przetwarzanie dokumentów JSON zarówno w całości jak i w trybie strumieniowym (nie trzeba załadować całego dokumentu do pamięci). Pozwala na parsowanie i generowanie dokumentów w formacie JSON. Specyfikacja JSON-P 1.1 jest częścią JEE 8.</p>
+
+<h3 id="tryb-obiektowy">Tryb “obiektowy”</h3>
+
+<p>Decydując się na tryb obiektowy musisz zbudować cały obiekt przed przekształcaniem go do formatu JSON.</p>
+
+<h4 id="zapis">Zapis</h4>
+
+<p>Tworzenie instancji klas odpowiadających typom formatu JSON polega na wywołaniu odpowiednich metod udostępnionych przez klasy <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonArrayBuilder.html"><code class="highlighter-rouge">JsonArrayBuilder</code></a> i <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonObjectBuilder.html"><code class="highlighter-rouge">JsonObjectBuilder</code></a>. Instancje tych klas tworzone są przez <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonBuilderFactory.html"><code class="highlighter-rouge">JsonBuilderFactory</code></a>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">JsonBuilderFactory</span> <span class="n">builderFactory</span> <span class="o">=</span> <span class="n">Json</span><span class="o">.</span><span class="na">createBuilderFactory</span><span class="o">(</span><span class="n">Collections</span><span class="o">.</span><span class="na">emptyMap</span><span class="o">());</span>
+<span class="n">JsonObject</span> <span class="n">publicationDateObject</span> <span class="o">=</span> <span class="n">builderFactory</span><span class="o">.</span><span class="na">createObjectBuilder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"rok"</span><span class="o">,</span> <span class="mi">2018</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"miesiąc"</span><span class="o">,</span> <span class="mi">9</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"dzień"</span><span class="o">,</span> <span class="mi">13</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">publicationDateObject</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>W przykładzie tym tworzę obiekt, który ma trzy atrybuty: <code class="highlighter-rouge">rok</code>, <code class="highlighter-rouge">miesiąc</code> i <code class="highlighter-rouge">dzień</code>. Po uruchomieniu takiego fragmentu kodu na konsoli wyświetli się dokument w formacie JSON:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="s2">"rok"</span><span class="p">:</span><span class="mi">2018</span><span class="p">,</span><span class="s2">"miesiąc"</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span><span class="s2">"dzień"</span><span class="p">:</span><span class="mi">13</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Bardziej skomplikowany przykład możesz zobaczyć poniżej. Używam w nim dokładnie tego samego API łącząc ze sobą różne obiekty. W wyniku działania tego kodu powstaje zagnieżdżona struktura obiektów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">JsonBuilderFactory</span> <span class="n">builderFactory</span> <span class="o">=</span> <span class="n">Json</span><span class="o">.</span><span class="na">createBuilderFactory</span><span class="o">(</span><span class="n">Collections</span><span class="o">.</span><span class="na">emptyMap</span><span class="o">());</span>
+<span class="n">JsonObject</span> <span class="n">publicationDateObject</span> <span class="o">=</span> <span class="n">builderFactory</span><span class="o">.</span><span class="na">createObjectBuilder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"rok"</span><span class="o">,</span> <span class="mi">2018</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"miesiąc"</span><span class="o">,</span> <span class="mi">9</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"dzień"</span><span class="o">,</span> <span class="mi">13</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">JsonObject</span> <span class="n">articleObject</span> <span class="o">=</span> <span class="n">builderFactory</span><span class="o">.</span><span class="na">createObjectBuilder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"tytuł"</span><span class="o">,</span> <span class="s">"Format JSON w języku Java"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"data publikacji"</span><span class="o">,</span> <span class="n">publicationDateObject</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">JsonArray</span> <span class="n">articlesArray</span> <span class="o">=</span> <span class="n">builderFactory</span><span class="o">.</span><span class="na">createArrayBuilder</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">articleObject</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">JsonObject</span> <span class="n">webPageObject</span> <span class="o">=</span> <span class="n">builderFactory</span><span class="o">.</span><span class="na">createObjectBuilder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"adres www"</span><span class="o">,</span> <span class="s">"http://www.samouczekprogramisty.pl"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"artykuły"</span><span class="o">,</span> <span class="n">articlesArray</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">JsonObject</span> <span class="n">authorObject</span> <span class="o">=</span> <span class="n">builderFactory</span><span class="o">.</span><span class="na">createObjectBuilder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"imię"</span><span class="o">,</span> <span class="s">"Marcin"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"nazwisko"</span><span class="o">,</span> <span class="s">"Pietraszek"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"strona"</span><span class="o">,</span> <span class="n">webPageObject</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Tym razem użyję trochę innej metody wypisywania obiektu. Tworząc instancję <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonWriterFactory.html"><code class="highlighter-rouge">JsonWriterFactory</code></a> mogę przekazać konfigurację. Konfiguracja wpływa na zachowanie tej klasy.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="o">?&gt;</span> <span class="n">config</span> <span class="o">=</span> <span class="n">Collections</span><span class="o">.</span><span class="na">singletonMap</span><span class="o">(</span><span class="n">JsonGenerator</span><span class="o">.</span><span class="na">PRETTY_PRINTING</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+<span class="n">JsonWriterFactory</span> <span class="n">writerFactory</span> <span class="o">=</span> <span class="n">Json</span><span class="o">.</span><span class="na">createWriterFactory</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+<span class="n">writerFactory</span><span class="o">.</span><span class="na">createWriter</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">).</span><span class="na">write</span><span class="o">(</span><span class="n">authorObject</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Dzięki takiemu podejściu wynik wypisywany na konsoli jest sformatowany w bardziej czytelny sposób:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"imię"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marcin"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"nazwisko"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pietraszek"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"strona"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"adres www"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.samouczekprogramisty.pl"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"artykuły"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"tytuł"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Format JSON w języku Java"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"data publikacji"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"rok"</span><span class="p">:</span><span class="w"> </span><span class="mi">2018</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"miesiąc"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"dzień"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">                                                                                                                                    
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1000 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h4 id="odczyt">Odczyt</h4>
+
+<p>Każdy z przykładów poniżej używa instancji <code class="highlighter-rouge">InputStream</code>, którą tworzę w sposób pokazany poniżej. Metoda <code class="highlighter-rouge">buildObject</code> zwraca <code class="highlighter-rouge">JsonObject</code>, który pokazałem w poprzednim paragrafie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">jsonObject</span> <span class="o">=</span> <span class="n">buildObject</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+<span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">jsonObject</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>Odczyt dokumentów w formacie JSON używa podobnego API. Tym razem tworzę instancję klasy <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReaderFactory.html"><code class="highlighter-rouge">JsonReaderFactory</code></a>. Używam jej do utworzenia instancji <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReader.html"><code class="highlighter-rouge">JsonReader</code></a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">JsonReaderFactory</span> <span class="n">readerFactory</span> <span class="o">=</span> <span class="n">Json</span><span class="o">.</span><span class="na">createReaderFactory</span><span class="o">(</span><span class="n">Collections</span><span class="o">.</span><span class="na">emptyMap</span><span class="o">());</span>
+<span class="n">JsonReader</span> <span class="n">jsonReader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">.</span><span class="na">createReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Klasa <code class="highlighter-rouge">JsonReader</code> udostępnia kilka metod, które pozwalają na odczyt danych w formacie JSON:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">readObject</code>,</li>
+  <li><code class="highlighter-rouge">readArray</code>,</li>
+  <li><code class="highlighter-rouge">readValue</code>,</li>
+  <li><code class="highlighter-rouge">read</code>.</li>
+</ul>
+
+<p>Używając publicznych metod udostępnionych w klasach <code class="highlighter-rouge">JsonObject</code> i <code class="highlighter-rouge">JsonArray</code> poruszam się po dokumencie JSON:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="n">JsonReader</span> <span class="n">jsonReader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">.</span><span class="na">createReader</span><span class="o">(</span><span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">jsonDocument</span><span class="o">.</span><span class="na">getBytes</span><span class="o">())))</span> <span class="o">{</span>
+    <span class="n">JsonObject</span> <span class="n">jsonObject</span> <span class="o">=</span> <span class="n">jsonReader</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">jsonObject</span>
+                    <span class="o">.</span><span class="na">getJsonObject</span><span class="o">(</span><span class="s">"strona"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">getJsonArray</span><span class="o">(</span><span class="s">"artykuły"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">asJsonObject</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">getJsonObject</span><span class="o">(</span><span class="s">"data publikacji"</span><span class="o">)</span>
+    <span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Powyższy fragment kodu wyświetli na konsoli jeden z zagnieżdżonych obiektów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span><span class="s">"rok"</span><span class="o">:</span><span class="mi">2018</span><span class="o">,</span><span class="s">"miesiąc"</span><span class="o">:</span><span class="mi">9</span><span class="o">,</span><span class="s">"dzień"</span><span class="o">:</span><span class="mi">13</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p>Istnieje jednak prostszy sposób na dotarcie do tego samego obiektu. Można posłużyć się ścieżką jak w przykładzie poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">JsonReaderFactory</span> <span class="n">readerFactory</span> <span class="o">=</span> <span class="n">Json</span><span class="o">.</span><span class="na">createReaderFactory</span><span class="o">(</span><span class="n">Collections</span><span class="o">.</span><span class="na">emptyMap</span><span class="o">());</span>
+<span class="k">try</span> <span class="o">(</span><span class="n">JsonReader</span> <span class="n">jsonReader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">.</span><span class="na">createReader</span><span class="o">(</span><span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">jsonDocument</span><span class="o">.</span><span class="na">getBytes</span><span class="o">())))</span> <span class="o">{</span>
+    <span class="n">JsonStructure</span> <span class="n">jsonStructure</span> <span class="o">=</span> <span class="n">jsonReader</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">jsonStructure</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="s">"/strona/artykuły/0/data publikacji"</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="tryb-strumieniowy">Tryb strumieniowy</h3>
+
+<p>Tryb strumieniowy pozwala na odczyt/zapis dokumentów w formacie JSON bez ładowania ich w całości do pamięci. Dane są odczytywane lub zapisywane na bieżąco.</p>
+
+<h4 id="zapis-1">Zapis</h4>
+
+<p>W przypadku zapisu fabryka <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGeneratorFactory.html"><code class="highlighter-rouge">JsonGeneratorFactory</code></a> pomaga w tworzeniu <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGenerator.html"><code class="highlighter-rouge">JsonGenerator</code></a>. Instancja tej klasy pisze do strumienia poszczególne tokeny (elementy składowe dokumentu w formacie JSON). metody <code class="highlighter-rouge">write*</code> pozwalają na zapis danych do strumienia. Przykład poniżej zapisuje do strumienia dokładnie ten sam dokument JSON jaki użyłem w podejściu obiektowym:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">JsonGeneratorFactory</span> <span class="n">generatorFactory</span> <span class="o">=</span> <span class="n">Json</span><span class="o">.</span><span class="na">createGeneratorFactory</span><span class="o">(</span><span class="n">Collections</span><span class="o">.</span><span class="na">singletonMap</span><span class="o">(</span><span class="n">JsonGenerator</span><span class="o">.</span><span class="na">PRETTY_PRINTING</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
+<span class="n">JsonGenerator</span> <span class="n">generator</span> <span class="o">=</span> <span class="n">generatorFactory</span><span class="o">.</span><span class="na">createGenerator</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">);</span>
+<span class="n">generator</span>
+    <span class="o">.</span><span class="na">writeStartObject</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"imię"</span><span class="o">,</span> <span class="s">"Marcin"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"nazwisko"</span><span class="o">,</span> <span class="s">"Pietraszek"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">writeStartObject</span><span class="o">(</span><span class="s">"strona"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"adres www"</span><span class="o">,</span> <span class="s">"http://www.samouczekprogramisty.pl"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">writeStartArray</span><span class="o">(</span><span class="s">"artykuły"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">writeStartObject</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"tytuł"</span><span class="o">,</span> <span class="s">"Format JSON w języku Java"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">writeStartObject</span><span class="o">(</span><span class="s">"data publikacji"</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"rok"</span><span class="o">,</span> <span class="mi">2018</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"miesiąc"</span><span class="o">,</span> <span class="mi">9</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"dzień"</span><span class="o">,</span> <span class="mi">13</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">writeEnd</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">writeEnd</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">writeEnd</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">writeEnd</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">writeEnd</span><span class="o">().</span><span class="na">flush</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h4 id="odczyt-1">Odczyt</h4>
+
+<p>W przypadku czytania dokumentu w trybie strumieniowym przydadzą się klasy <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.html"><code class="highlighter-rouge">JsonParserFactory</code></a> i <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.htm://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonFactory.html"><code class="highlighter-rouge">JsonParser</code></a>. Instancja tej ostatniej pozwala na sprawdzenie czy w strumieniu znajduje się kolejny token. Jeśli tak, można go pobrać i odpowiednio na niego zareagować. Poniżej możesz zobaczyć przykład odczytywania dokumentu JSON w trybie strumieniowym:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">JsonParserFactory</span> <span class="n">parserFactory</span> <span class="o">=</span> <span class="n">Json</span><span class="o">.</span><span class="na">createParserFactory</span><span class="o">(</span><span class="n">Collections</span><span class="o">.</span><span class="na">emptyMap</span><span class="o">());</span>
+<span class="n">JsonParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">parserFactory</span><span class="o">.</span><span class="na">createParser</span><span class="o">(</span><span class="n">buildObject</span><span class="o">());</span>
+
+<span class="k">while</span> <span class="o">(</span><span class="n">parser</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">JsonParser</span><span class="o">.</span><span class="na">Event</span> <span class="n">event</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="k">switch</span> <span class="o">(</span><span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nl">START_OBJECT:</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"{"</span><span class="o">);</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="k">case</span> <span class="nl">END_OBJECT:</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"}"</span><span class="o">);</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="k">case</span> <span class="nl">START_ARRAY:</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"["</span><span class="o">);</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="k">case</span> <span class="nl">END_ARRAY:</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"]"</span><span class="o">);</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="k">case</span> <span class="nl">KEY_NAME:</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"\"%s\": "</span><span class="o">,</span> <span class="n">parser</span><span class="o">.</span><span class="na">getString</span><span class="o">()));</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="k">case</span> <span class="nl">VALUE_NUMBER:</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">parser</span><span class="o">.</span><span class="na">getBigDecimal</span><span class="o">());</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="k">case</span> <span class="nl">VALUE_STRING:</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"\"%s\""</span><span class="o">,</span> <span class="n">parser</span><span class="o">.</span><span class="na">getString</span><span class="o">()));</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="k">default</span><span class="o">:</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"true, false or null"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W wyniku działania tego kodu na konsoli wyświetli się dokument:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="s2">"imię"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marcin"</span><span class="w">
+</span><span class="s2">"nazwisko"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pietraszek"</span><span class="w">
+</span><span class="s2">"strona"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="s2">"adres www"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.samouczekprogramisty.pl"</span><span class="w">
+</span><span class="s2">"artykuły"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="s2">"tytuł"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Format JSON w języku Java"</span><span class="w">
+</span><span class="s2">"data publikacji"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="s2">"rok"</span><span class="p">:</span><span class="w"> </span><span class="mi">2018</span><span class="w">
+</span><span class="s2">"miesiąc"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="w">
+</span><span class="s2">"dzień"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Jak widzisz formatowanie tu kuleje :). Może spróbujesz napisać to w taki sposób, żeby dokument był bardziej czytelny?</p>
+
+<h2 id="json-b">JSON-B</h2>
+
+<p>JSON-B to specyfikacja, która pozwala na mapowanie dokumentów w formacie JSON i obiektów w języku Java. Pozwala na konfigurowanie sposobu mapowania obiektów na dokumenty przy pomocy <a href="/adnotacje-w-jezyku-java/">adnotacji</a>. Specyfikacja JSON-B 1.0 jest częścią JEE 8.</p>
+
+<p>JSON-B pozwala na <a href="/serializacja-w-jezyku-java/">serializację i deserializację</a> stanu obiektu używając formatu JSON.</p>
+
+<h3 id="zapis-obiektu">Zapis obiektu</h3>
+
+<p>Zacznę od zwykłej klasy, dla czytelności usunąłem metody dostępowe (gettery i settery):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Newspaper</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">circulation</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">LocalDate</span> <span class="n">issueDate</span><span class="o">;</span>
+
+    <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"unused"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nf">Newspaper</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Newspaper</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">,</span> <span class="kt">int</span> <span class="n">circulation</span><span class="o">,</span> <span class="n">LocalDate</span> <span class="n">issueDate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">circulation</span> <span class="o">=</span> <span class="n">circulation</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">issueDate</span> <span class="o">=</span> <span class="n">issueDate</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// getters &amp; setters</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Aby zapisać instancję tego obiektu do formatu JSON należy użyć <a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/JsonbBuilder.html"><code class="highlighter-rouge">JsonBuilder</code></a> do stworzenia instancji klasy <a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/Jsonb.html"><code class="highlighter-rouge">Jsonb</code></a>. W większości przypadków ta instancja powinna być współdzielona w całej aplikacji.</p>
+
+<p>Klasa <code class="highlighter-rouge">Jsonb</code> posiada zestaw przeciążonych metod <code class="highlighter-rouge">toJson</code>, które pozwalają na serializację obiektu. Przykład poniżej używa jednej z tych metod:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Newspaper</span> <span class="n">newspaper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Newspaper</span><span class="o">(</span><span class="s">"Samouczek Programisty"</span><span class="o">,</span> <span class="mi">100_000</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2018</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">13</span><span class="o">));</span>
+<span class="n">Jsonb</span> <span class="n">jsonb</span> <span class="o">=</span> <span class="n">JsonbBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">newspaperRepresentation</span> <span class="o">=</span> <span class="n">jsonb</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">newspaper</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">newspaperRepresentation</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Po wykonaniu tego fragmentu kodu na konsoli wyświetli się tekst:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="s2">"circulation"</span><span class="p">:</span><span class="mi">100000</span><span class="p">,</span><span class="s2">"issueDate"</span><span class="p">:</span><span class="s2">"2018-09-13"</span><span class="p">,</span><span class="s2">"title"</span><span class="p">:</span><span class="s2">"Samouczek Programisty"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="odczyt-obiektu">Odczyt obiektu</h3>
+
+<p>Odczyt (deserializacja) przebiega w podobny sposób. Tym razem należy użyć metody <code class="highlighter-rouge">fromJson</code> do odczytania dokumentu JSON. Zauważ, że drugim parametrem przekazywanym do tej metody jest klasa/typ nowotworzonego obiektu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Newspaper</span> <span class="n">newspaper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Newspaper</span><span class="o">(</span><span class="s">"Samouczek Programisty"</span><span class="o">,</span> <span class="mi">100_000</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2018</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">13</span><span class="o">));</span>
+<span class="n">Jsonb</span> <span class="n">jsonb</span> <span class="o">=</span> <span class="n">JsonbBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">newspaperRepresentation</span> <span class="o">=</span> <span class="n">jsonb</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">newspaper</span><span class="o">);</span>
+
+<span class="n">Newspaper</span> <span class="n">otherNewspaper</span> <span class="o">=</span> <span class="n">jsonb</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">newspaperRepresentation</span><span class="o">,</span> <span class="n">Newspaper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">otherNewspaper</span><span class="o">.</span><span class="na">getIssueDate</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>W wyniku działania tego kodu na konsoli wyświetli się data pobrana z dokumentu JSON:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2018-09-13
+</code></pre></div></div>
+
+<h3 id="modyfikacja-zachowania-json-b">Modyfikacja zachowania JSON-B</h3>
+
+<p>JSON-B pozwala na modyfikację jego zachowania. Dzięki temu dokument, który jest tworzony/czytany może różnić się od obiektu w języku Java. Klasa <code class="highlighter-rouge">AnnotationExamples</code> zawiera kilka adnotacji wpływających na kształt dokumentu JSON:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@JsonbPropertyOrder</span><span class="o">({</span><span class="s">"ccc"</span><span class="o">,</span> <span class="s">"bbb"</span><span class="o">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationExamples</span> <span class="o">{</span>
+    <span class="nd">@JsonbTransient</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">skipped</span><span class="o">;</span>
+
+    <span class="nd">@JsonbProperty</span><span class="o">(</span><span class="n">nillable</span><span class="o">=</span><span class="kc">true</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">a1</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">a2</span><span class="o">;</span>
+
+    <span class="nd">@JsonbNumberFormat</span><span class="o">(</span><span class="s">"0.0000"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">bbb</span><span class="o">;</span>
+
+    <span class="nd">@JsonbProperty</span><span class="o">(</span><span class="s">"other_name"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">ccc</span><span class="o">;</span>
+
+    <span class="c1">// getters &amp; setters</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbTransient.html"><code class="highlighter-rouge">@JsonbTransient</code></a> - atrybut powinien zostać pomięty,</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html"><code class="highlighter-rouge">@JsonbProperty</code></a> - pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość <code class="highlighter-rouge">null</code> (domyślnie takie wartości są pomijane),</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbNumberFormat.html"><code class="highlighter-rouge">@JsonbNumberFormat</code></a> - określa format w jakim powinna być zapisana liczba,</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbDateFormat.html"><code class="highlighter-rouge">@JsonbDateFormat</code></a> - określa format w jakim powinna być zapisana data.</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbPropertyOrder.html"><code class="highlighter-rouge">@JsonbPropertyOrder</code></a> - określa kolejność w jakiej atrybuty powinny być serializowane.</li>
+</ul>
+
+<p>Pozostałe adnotacje znajdziesz w <a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/package-summary.html">dokumentacji</a>.</p>
+
+<p>Miejsce umieszczenia adnotacji ma znaczenie:</p>
+
+<ul>
+  <li>adnotacja nad atrybutem - ma wpływ zarówno na serializację jak i deserializację atrybutu,</li>
+  <li>adnotacja nad getterem - ma wpływ wyłącznie na serializację atrybutu,</li>
+  <li>adnotacja nad setterem - ma wpływ wyłącznie na deserializację atrybutu.</li>
+</ul>
+
+<p>Proszę spójrz jak adnotacje wpływają na kształt generowanego dokumentu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AnnotationExamples</span> <span class="n">annotationExamples</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationExamples</span><span class="o">();</span>
+<span class="n">annotationExamples</span><span class="o">.</span><span class="na">setBbb</span><span class="o">(</span><span class="mf">123.45</span><span class="o">);</span>
+<span class="n">annotationExamples</span><span class="o">.</span><span class="na">setCcc</span><span class="o">(</span><span class="s">"ccc"</span><span class="o">);</span>
+<span class="n">annotationExamples</span><span class="o">.</span><span class="na">setSkipped</span><span class="o">(</span><span class="s">"skipped"</span><span class="o">);</span>
+
+<span class="n">WithoutAnnotationExamples</span> <span class="n">withoutAnnotationExamples</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WithoutAnnotationExamples</span><span class="o">();</span>
+<span class="n">withoutAnnotationExamples</span><span class="o">.</span><span class="na">setBbb</span><span class="o">(</span><span class="mf">123.45</span><span class="o">);</span>
+<span class="n">withoutAnnotationExamples</span><span class="o">.</span><span class="na">setCcc</span><span class="o">(</span><span class="s">"ccc"</span><span class="o">);</span>
+<span class="n">withoutAnnotationExamples</span><span class="o">.</span><span class="na">setSkipped</span><span class="o">(</span><span class="s">"skipped"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Klasa z adnotacjami:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="s2">"other_name"</span><span class="p">:</span><span class="s2">"ccc"</span><span class="p">,</span><span class="s2">"bbb"</span><span class="p">:</span><span class="s2">"123.4500"</span><span class="p">,</span><span class="s2">"a1"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Klasa bez adnotacji:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="s2">"bbb"</span><span class="p">:</span><span class="mf">123.45</span><span class="p">,</span><span class="s2">"ccc"</span><span class="p">:</span><span class="s2">"ccc"</span><span class="p">,</span><span class="s2">"skipped"</span><span class="p">:</span><span class="s2">"skipped"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Adnotacje pozwalają na zmianę zachowana JSON-B w trakcie kompilacji. Istnieje także metoda na wprowadzenie takich zmian wyłącznie w trakcie uruchomienia programu.</p>
+
+<h2 id="json_pp"><code class="highlighter-rouge">json_pp</code></h2>
+
+<p>Nie mogę tu pominąć <code class="highlighter-rouge">json_pp</code>. Jest to narzędzie używane w linii poleceń. Co prawda nie jest ono bezpośrednio związane z Javą ani specyfikacjami, które tu opisałem, jednak jest bardzo przydatne. Program ten formatuje dokument JSON wyświetlając go w bardziej czytelnej formie. Nie raz pomogło mi przy pracy z tym formatem:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo '{"some":"magic","json":true,"values":123}' | json_pp
+{
+   "json" : true,
+   "values" : 123,
+   "some" : "magic"
+}
+</code></pre></div></div>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Jeśli chcesz dowiedzieć się czegoś więcej na temat formatu JSON zachęcam Cię do sięgnięcia po materiały dodatkowe:</p>
+
+<ul>
+  <li><a href="http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf">Specyfikacja JSON</a> specyfikacja ma kod 404 - kod odpowiedzi Not Found w specyfikacji <a href="/protokol-http/#statusy-4xx">protokołu HTTP</a> :),</li>
+  <li><a href="https://en.wikipedia.org/wiki/JSON">Artykuł o JSON na Wikipedii</a>,</li>
+  <li><a href="https://jcp.org/aboutJava/communityprocess/final/jsr374/index.html">Specyfikacja JSON-P</a>,</li>
+  <li><a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/overview-summary.html">Dokumentacja API JSON-P</a>,</li>
+  <li><a href="https://jcp.org/aboutJava/communityprocess/final/jsr367/index.html">Specyfikacja JSON-B</a>,</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/overview-summary.html">Dokumentacja API JSON-B</a>.</li>
+</ul>
+
+<p>Na pewno przyda Ci się też <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/32_format_json/src/main/java/pl/samouczekprogramisty/kursjava/json">kod źródłowy przykładów użytych w artykule</a>.</p>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>Znajdź API udostępnione za pośrednictwem <a href="/protokol-http/">protokołu HTTP</a>(S), które używa formatu JSON. Napisz program, który wyśle zapytanie do wybranego przez Ciebie API i przetworzy otrzymaną odpowiedź. Proszę daj znać w komentarzach, które API chcesz użyć. Jeśli masz problem ze znalezieniem API możesz użyć jednego z tych, które są zebrane na <a href="https://github.com/SamouczekProgramisty/public-apis">samouczkowym Github’ie</a>.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu tego artykułu wiesz już czym jest JSON. Potrafisz stworzyć poprawny dokument w tym formacie. Wiesz jak używać specyfikacji z parasola JEE odpowiedzialnych za pracę z formatem JSON. Obecnie większość znanych mi API udostępnionych za pośrednictwem <a href="/protokol-http/">HTTP</a> używa formatu JSON do wymiany danych. Po lekturze możesz swobodnie używać tych API z poziomu języka Java. Gratulacje! :)</p>
+
+<p>Na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze znajomymi, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Jeśli nie chcesz ominąć kolejnych artykułów proszę dopisz się do samouczkowego newslettera i polub stronę Samouczka na Facebook’u. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:nowalinia">
+      <p>Chodzi tu o dwa osobne znaki: nową linię i powrót karetki. <a href="#fnref:nowalinia" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:praktyka">
+      <p>W praktyce nie spotkałem się ze zduplikowanymi kluczami. <a href="#fnref:praktyka" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:podobnie">
+      <p>Tutaj sprawa wygląda podobnie jak w obiektach, specyfikacja dopuszcza takie zachowanie jednak w praktyce nie jest to często spotykane. <a href="#fnref:podobnie" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1000 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#kurs-aplikacji-webowych" class="page__taxonomy-item" rel="tag">Kurs aplikacji webowych</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/kategorie/#narz%C4%99dzia" class="page__taxonomy-item" rel="tag">Narzędzia</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-09-14">2018-09-14</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fformat-json-w-jezyku-java%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fformat-json-w-jezyku-java%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/" class="pagination--pager" title="Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/01/22_rest_web_service_2_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/rest-web-service-z-java-ee-czesc-2/" rel="permalink">REST web service z Java EE część 2
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  12 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzys...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/02/08_protokol_http_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/protokol-http/" rel="permalink">Protokół HTTP
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/walidacja-obiektow-w-jezyku-java/" rel="permalink">Walidacja obiektów w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguł...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="http://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2018 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/format-json-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>
