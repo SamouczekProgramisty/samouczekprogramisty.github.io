@@ -1,26 +1,31 @@
 ---
-title: Testy jednostkowe z użyciem Mockito
+title: Testy jednostkowe z użyciem mock, stub i spy
 categories:
 - Testy jednostkowe
 - Dobre praktyki
-permalink: /testy-jednostkowe-z-uzyciem-mockito/
+permalink: /testy-jednostkowe-z-uzyciem-mock-stub-i-spy/
 header:
-    teaser: /assets/images/2018/09/04_sql.jpg
-    overlay_image: /assets/images/2018/09/04_sql.jpg
-    caption: "[&copy; Micheile Henderson](https://unsplash.com/photos/1SjD5ZEiUsA)"
-excerpt: Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą `DISTINCT`, `AS` czy `UNION`. Poznasz także sposoby na sortowanie i ograniczanie wyników przy użyciu `ORDER BY` i `LIMIT`. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami, które pomogą Ci utrwalić zdobytą wiedzę.
+    teaser: /assets/images/2018/09/22_testy_z_mock_stub_i_spy_w_jezyku_java.jpeg
+    overlay_image: /assets/images/2018/09/22_testy_z_mock_stub_i_spy_w_jezyku_java.jpeg
+    caption: "[&copy; Sebastian Molina](https://unsplash.com/photos/gYo3B_9So3Y)"
+excerpt: >
+    W artykule tym przeczytasz o różnicy pomiędzy obiektami pomocniczymi użwanymi w testach jednostkowych\: _mock_, _stub_ i _spy_. Zobaczysz przykłady takich obiektów. Dowiesz się dlaczego obiekty tego typu używane są w testach jednostkowych. Poznasz też bibliorekę Mockito, która pozwala na pisanie testów jednostkowych wykorzystujących te abstrakcje. Zapraszam do lektury.
 ---
 
 Nie podoba mi się używanie nazw anglojęzycznych w branży IT. Zawsze staram się znaleźć polskie odpowiedniki używanych słów. Są jednak takie sytuacje, w których terminy angielskie są tak rozpowszechnione, że nawet nie silę się na znajdowanie polskich odpowiedników. Przykładem takich słów są _mock_ (atrapa?), _stub_ (zaślepka?) czy _spy_ (szpieg?). Jeśli znasz dobre tłumaczenia tych określeń proszę podziel się nimi w komentarzach. Z chęcią zacznę stosować polskie słowa, które będą zrozumiałe w branżowych rozmowach.
 {:.notice--info}
 
-## Muszkieterowie testów jednostkowych - _mock_, _stub_ i _spy_
+## Jednostka w testach jednostkowych
 
-Czasami na rozmowach kwalifikacyjnhych może pojawić się pytanie _czym różni się mock od stub?_. W sumie pamiętam kilka takich rozmów, gdzie takie pytanie padło. C
+W artykule [wprowadzającym do testów jednostkowych]({% post_url 2016-10-29-testy-jednostkowe-z-junit %})
 
-Jeśli chcesz dowiedzieć się więcej na ten temat mogę polecić Ci, artykuł autorstwa Martin'a Fowler'a, który można traktować już jako klasykę [Mocks aren't stubs](https://martinfowler.com/articles/mocksArentStubs.html).
+## Trzej muszkieterowie testów jednostkowych - _mock_, _stub_ i _spy_
 
-## 
+Czasami na rozmowach kwalifikacyjnhych może pojawić się pytanie _czym różni się mock od stub?_.
+
+Jeśli chcesz dowiedzieć się więcej na ten temat mogę polecić Ci, artykuł autorstwa Martin'a Fowler'a, który można traktować już jako klasykę [Mocks aren't stubs](https://martinfowler.com/articles/mocksArentStubs.html). Fowler podaje w nim przykłady używając [JUnit4]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}) wraz z jMock i EasyMock.
+
+### Mock
 
 Napisz program, który będzie implementował następujący interfejs:
 
