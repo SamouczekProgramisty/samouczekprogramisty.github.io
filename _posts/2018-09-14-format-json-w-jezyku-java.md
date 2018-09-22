@@ -562,6 +562,8 @@ Na pewno przyda Ci się też [kod źródłowy przykładów użytych w artykule](
 
 Znajdź API udostępnione za pośrednictwem [protokołu HTTP]({% post_url 2018-02-08-protokol-http %})(S), które używa formatu JSON. Napisz program, który wyśle zapytanie do wybranego przez Ciebie API i przetworzy otrzymaną odpowiedź. Proszę daj znać w komentarzach, które API chcesz użyć. Jeśli masz problem ze znalezieniem API możesz użyć jednego z tych, które są zebrane na [samouczkowym Github'ie](https://github.com/SamouczekProgramisty/public-apis).
 
+Możesz także rzucić okiem na [przykładowe rozwiązanie](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/blob/master/10_currency/src/main/java/pl/samouczekprogramisty/szs/currency/NbpApi.java), w którym użyłem [API NBP](http://api.nbp.pl/). Program, który napisałem pobiera średni kurs wymiany waluty dla zadanego dnia. Dzięki niemu możesz na przykład sprawdzić jaki był średni kurs USD/PLN w zadanym dniu.
+
 ## Podsumowanie
 
 Po przeczytaniu tego artykułu wiesz już czym jest JSON. Potrafisz stworzyć poprawny dokument w tym formacie. Wiesz jak używać specyfikacji z parasola JEE odpowiedzialnych za pracę z formatem JSON. Obecnie większość znanych mi API udostępnionych za pośrednictwem [HTTP]({% post_url 2018-02-08-protokol-http %}) używa formatu JSON do wymiany danych. Po lekturze możesz swobodnie używać tych API z poziomu języka Java. Gratulacje! :)
