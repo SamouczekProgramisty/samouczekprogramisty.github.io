@@ -29,6 +29,7 @@ Testowanie kodu to temat rzeka. Na początek polecam Ci artykuły, które opisuj
 
 * [Testy jednostkowe z JUnit]({% post_url 2016-10-29-testy-jednostkowe-z-junit %})
 * [Testy jednostkowe z JUnit 5]({% post_url 2018-04-13-testy-jednostkowe-z-junit5 %})
+* [Testy jednostkowe z Mockito]({% post_url 2018-09-22-testy-jednostkowe-z-uzyciem-mock-i-stub %})
 
 Jak poznasz już bibliotekę pomagającą w pisaniu testów jednostkowych koniecznie musisz poznać podejście [_Test Driven Development_]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}). W artykule tym na przykładzie pokazuję jak TDD wygląda w praktyce.
 

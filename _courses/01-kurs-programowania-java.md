@@ -47,6 +47,7 @@ Z tego właśnie powodu zachęcam Cię do przeczytania artykułów poświęconyc
 * [Testy jednostkowe z JUnit]({% post_url 2016-10-29-testy-jednostkowe-z-junit %})
 * [Testy jednostkowe z JUnit 5]({% post_url 2018-04-13-testy-jednostkowe-z-junit5 %})
 * [Test Driven Development na przykładzie]({% post_url 2016-11-21-test-driven-development-na-przykladzie %})
+* [Testy jednostkowe z Mockito]({% post_url 2018-09-22-testy-jednostkowe-z-uzyciem-mock-i-stub %})
 
 ## Pamiętaj o praktyce
 
