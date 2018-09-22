@@ -150,7 +150,7 @@ Jak wspomniałem wcześniej w praktyce nie potrzebujemy tak dokładnego wzoru wy
 
 Jak widzisz, przy odpowiednio dużych wartościach `n` część "elementów równania" jest mniej istotna. W przypadku funkcji powyżej najszybciej rosnącym elementem jest `n^3`. Ma on największy wpływ na ostateczny wynik funkcji.
 
-Wiesz już z powyższych rozważań, że funkcja f(n) ma złożoność `Ο(n^3)`. Jest to tak zwana złożoność wykładnicza, specyficzny przypadek złożoności wielomianowej. Istnieje kilka popularnych rzędów złożoności obliczeniowej.
+Wiesz już z powyższych rozważań, że funkcja f(n) ma złożoność `Ο(n^3)`. Jest to tak zwana złożoność wielomianowa. Istnieje kilka popularnych rzędów złożoności obliczeniowej.
 
 ### `Ο(1)`
 
