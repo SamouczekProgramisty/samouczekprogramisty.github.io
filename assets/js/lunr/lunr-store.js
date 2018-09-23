@@ -544,6 +544,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/format-json-w-jezyku-java/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/13_format_json_w_jezyku_java.jpg"},{
+        "title": "Testy jednostkowe z użyciem mock i stub",
+        "excerpt":"Wprowadzenie Zanim przejdę do omówienia obiektów pomocniczych mock1 i stub, muszę wyjaśnić kilka pojęć związanych z testami jednostkowymi. Jednostka w testach jednostkowych W artykule wprowadzającym do testów jednostkowych wspomniałem o definicji jednostki. Jednostka to fragment kodu, który testowany jest przy pomocy testów jednostkowych. W większości przypadków jest to pojedyncza klasa....","categories": ["Testy jednostkowe","Dobre praktyki"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/22_testy_z_mock_i_stub_w_jezyku_java.jpeg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],

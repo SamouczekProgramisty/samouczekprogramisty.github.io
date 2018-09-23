@@ -1,0 +1,1064 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Testy jednostkowe z użyciem mock i stub - Samouczek Programisty</title>
+<meta name="description" content="W artykule tym przeczytasz o obiektach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady takich obiektów. Dowiesz się dlaczego obiekty tego typu używane są w testach jednostkowych. Poznasz też bibliotekę Mockito, która pozwala na pisanie testów jednostkowych wykorzystujących te abstrakcje. Zapraszam do lektury.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Testy jednostkowe z użyciem mock i stub">
+<meta property="og:url" content="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/">
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o obiektach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady takich obiektów. Dowiesz się dlaczego obiekty tego typu używane są w testach jednostkowych. Poznasz też bibliotekę Mockito, która pozwala na pisanie testów jednostkowych wykorzystujących te abstrakcje. Zapraszam do lektury.">
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/09/22_testy_z_mock_i_stub_w_jezyku_java.jpeg">
+
+
+
+
+
+  <meta property="article:published_time" content="2018-09-22T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "http://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2018/09/22_testy_z_mock_i_stub_w_jezyku_java.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Testy jednostkowe z użyciem mock i stub
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o obiektach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady takich obiektów. Dowiesz się dlaczego obiekty tego typu używane są w testach jednostkowych. Poznasz też bibliotekę Mockito, która pozwala na pisanie testów jednostkowych wykorzystujących te abstrakcje. Zapraszam do lektury.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://unsplash.com/photos/gYo3B_9So3Y">© Sebastian Molina</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Testy jednostkowe z użyciem mock i stub</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Testy jednostkowe z użyciem mock i stub">
+    <meta itemprop="description" content="W artykule tym przeczytasz o obiektach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady takich obiektów. Dowiesz się dlaczego obiekty tego typu używane są w testach jednostkowych. Poznasz też bibliotekę Mockito, która pozwala na pisanie testów jednostkowych wykorzystujących te abstrakcje. Zapraszam do lektury.">
+    <meta itemprop="datePublished" content="September 22, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#wprowadzenie">Wprowadzenie</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#jednostka-w-testach-jednostkowych">Jednostka w testach jednostkowych</a></li>
+<li class="toc-entry toc-h3"><a href="#granice-jednostki">Granice jednostki</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#bohaterowie-testów-jednostkowych---mock-i-stub">Bohaterowie testów jednostkowych - mock i stub</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#czym-jest-stub">Czym jest stub?</a></li>
+<li class="toc-entry toc-h3"><a href="#czym-jest-mock">Czym jest mock?</a></li>
+<li class="toc-entry toc-h3"><a href="#jaka-jest-różnica-pomiędzy-mock-i-stub">Jaka jest różnica pomiędzy mock i stub?</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#biblioteka-mockito">Biblioteka Mockito</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#tworzenie-mocków">Tworzenie mock’ów</a></li>
+<li class="toc-entry toc-h3"><a href="#weryfikacja-wywołań-metod">Weryfikacja wywołań metod</a></li>
+<li class="toc-entry toc-h3"><a href="#stub-czy-mock">Stub czy mock?</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#używanie-mocków-a-higiena">Używanie mock’ów a higiena</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#zadanie-do-wykonania">Zadanie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        <h2 id="wprowadzenie">Wprowadzenie</h2>
+
+<p>Zanim przejdę do omówienia obiektów pomocniczych mock<sup id="fnref:polski"><a href="#fn:polski" class="footnote">1</a></sup> i stub, muszę wyjaśnić kilka pojęć związanych z testami jednostkowymi.</p>
+
+<h3 id="jednostka-w-testach-jednostkowych">Jednostka w testach jednostkowych</h3>
+
+<p>W artykule <a href="/testy-jednostkowe-z-junit/">wprowadzającym do testów jednostkowych</a> wspomniałem o definicji jednostki. Jednostka to fragment kodu, który testowany jest przy pomocy testów jednostkowych. W większości przypadków jest to pojedyncza klasa.</p>
+
+<p>Projekty programistyczne zawierają wiele klas. Klasy te, zgodnie z zasadą pojedynczej odpowiedzialności (ang. <em>Single Responsibility Principle</em>) będącą częścią <a href="/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/">SOLID</a>, powinny być odpowiedzialne za jedną funkcjonalność. W praktyce sprowadza się to do tego, że klasa posiada zależności, które pomagają tę funkcjonalność wykonać.</p>
+
+<p>Na przykład klasa odpowiedzialna za wyszukanie najtańszego połączenia lotniczego pomiędzy Wrocławiem a Barceloną zależna jest od innych klas, które udostępniają ceny połączeń u różnych operatorów.</p>
+
+<p>Klasa odpowiedzialna za wyszukanie najtańszego samochodu do wynajęcia porównuje oferty różnych agencji zajmujących się wynajmem.</p>
+
+<p>Z kolei klasa odpowiedzialna za znalezienie najtańszej podróży może korzystać z obu wcześniej wspomnianych klas. Może to prowadzić do skomplikowanej sieci zależności.</p>
+
+<figure class="">
+  <img src="/assets/images/2018/09/22_hierarchia_klas.jpg" alt="" />
+  
+    <figcaption>Przykładowy diagram zależności klas
+</figcaption>
+  
+</figure>
+
+<h3 id="granice-jednostki">Granice jednostki</h3>
+
+<p>W takiej sieci każda klasa może być jednostką, która ma swój zestaw testów jednostkowych. Zależności klasy są poza granicami jednostki.</p>
+
+<p>Szczególnie jeśli wymagają dostępu do zewnętrznych źródeł danych, takich jak <a href="http://www.samouczekprogramisty.pl/kurs-sql">baza danych</a>, pliki na dysku twardym czy zewnętrze API udostępniane przez <a href="/protokol-http/">HTTP</a>.</p>
+
+<p>Test jednostkowy powinien testować wyłącznie jednostkę. Zależności będące poza nią nie powinny być testowane w testach jednostkowych <sup id="fnref:inne"><a href="#fn:inne" class="footnote">2</a></sup>. Innymi słowy wszystko co jest poza granicami jednostki powinno być w trakcie testów “wyłączone”.</p>
+
+<p>Biorąc pod uwagę diagram, który pokazałem wcześniej testy jednostkowe klasy <code class="highlighter-rouge">TripPlanner</code> powinny odpowiednio obsłużyć zależność od klas <code class="highlighter-rouge">FlightScanner</code> i <code class="highlighter-rouge">CarRental</code>. Do odpowiedniego obsłużenia tego typu zależności w testach jednostkowych służą obiekty typu mock czy stub.</p>
+
+<h2 id="bohaterowie-testów-jednostkowych---mock-i-stub">Bohaterowie testów jednostkowych - mock i stub</h2>
+
+<p>Poniżej możesz zobaczyć przykładową klasę, która może być użyta do agregowania lotów udostępnianych przez różnych przewoźników:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Airline</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Flight</span><span class="o">&gt;</span> <span class="nf">findFlight</span><span class="o">(</span><span class="n">String</span> <span class="n">departureAirport</span><span class="o">,</span>
+                            <span class="n">String</span> <span class="n">destinationAirport</span><span class="o">,</span>
+                            <span class="n">LocalDate</span> <span class="n">flightDate</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">FlightException</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlightScanner</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Airline</span><span class="o">[]</span> <span class="n">airlines</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">FlightScanner</span><span class="o">(</span><span class="n">Airline</span><span class="o">...</span> <span class="n">airlines</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">airlines</span> <span class="o">=</span> <span class="n">airlines</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Flight</span> <span class="nf">findCheapestFlight</span><span class="o">(</span><span class="n">String</span> <span class="n">departure</span><span class="o">,</span> <span class="n">String</span> <span class="n">destination</span><span class="o">,</span> <span class="n">LocalDate</span> <span class="n">flightDate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Flight</span><span class="o">&gt;</span> <span class="n">cheapestFlight</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">airlines</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                    <span class="k">try</span> <span class="o">{</span>
+                        <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="na">findFlight</span><span class="o">(</span><span class="n">departure</span><span class="o">,</span> <span class="n">destination</span><span class="o">,</span> <span class="n">flightDate</span><span class="o">);</span>
+                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FlightException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="c1">// log</span>
+                        <span class="n">List</span><span class="o">&lt;</span><span class="n">Flight</span><span class="o">&gt;</span> <span class="n">empty</span> <span class="o">=</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
+                        <span class="k">return</span> <span class="n">empty</span><span class="o">;</span>
+                    <span class="o">}</span>
+                <span class="o">})</span>
+                <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="nl">List:</span><span class="o">:</span><span class="n">stream</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Flight:</span><span class="o">:</span><span class="n">getPrice</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="n">cheapestFlight</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Klasa <code class="highlighter-rouge">FlightScanner</code> używa wielu przewoźników. Zależność ta dostarczona jest w konstruktorze w formie tablicy obiektów implementujących interfejs <code class="highlighter-rouge">Airline</code>. Następnie w metodzie <code class="highlighter-rouge">findCheapestFlight</code> loty zwracane przez różnych przewoźników są agregowane. Metoda zwraca najtańszy lot spełniający warunki, albo <code class="highlighter-rouge">null</code> jeśli lot nie zostanie znaleziony.</p>
+
+<p>Do utworzenia testów jednostkowych dla klasy <code class="highlighter-rouge">FlightScanner</code> potrzebne są instancje implementujące interfejs <code class="highlighter-rouge">Airline</code>. Rzeczywiste obiekty, które pobierają dane z linii lotniczych nie są dobrym pomysłem z kilku powodów:</p>
+
+<ul>
+  <li>testy jednostkowe stają się testami integracyjnymi,</li>
+  <li>testy jednostkowe zależą od stanu zewnętrznych usług, które czasami mogą nie działać,</li>
+  <li>zewnętrzne usługi mogą zwracać różne dane w zależności od czasu ich wywołania,</li>
+  <li>wydłuża się czas trwania testów jednostkowych (odpytywanie zewnętrznego API zabiera czas).</li>
+</ul>
+
+<p>W związku z tymi wadami powstaje potrzeba zastąpienia rzeczywistej implementacji interfejsu <code class="highlighter-rouge">Airline</code> obiektem pomocniczym używanym wyłącznie w trakcie testów.</p>
+
+<p class="notice--warning">Samodzielne pisanie klas stub’ów czy mock’ów nie jest potrzebne. Przykłady, które tu pokazuję mają służyć wyłącznie zrozumieniu co dzieje się w trakcie użycia obiektów tego typu. W praktyce klasy te tworzone są w dużo prostszy sposób przy użyciu dedykowanych bibliotek. Jedną z nich, Mockito, opisuję w dalszej części artykułu.</p>
+
+<h3 id="czym-jest-stub">Czym jest stub?</h3>
+
+<p>Stub to obiekt, który w testach służy do imitowania właściwej implementacji. Jego zadaniem jest wyłącznie zwrócenie zadanej wartości. Przykładowy test jednostkowy używający kilku obiektów typu stub może wyglądać następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">FlightScannerTestStubs</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Airline</span> <span class="n">stub1</span> <span class="o">=</span> <span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">flightDate</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span>
+        <span class="k">new</span> <span class="nf">Flight</span><span class="o">(</span><span class="s">"AB1234"</span><span class="o">,</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="mi">100</span><span class="o">),</span> <span class="s">"WRO"</span><span class="o">,</span> <span class="s">"BCN"</span><span class="o">)</span>
+    <span class="o">);</span>
+
+    <span class="kd">private</span> <span class="n">Airline</span> <span class="n">stub2</span> <span class="o">=</span> <span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">flightDate</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span>
+        <span class="k">new</span> <span class="nf">Flight</span><span class="o">(</span><span class="s">"AB2345"</span><span class="o">,</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="mi">200</span><span class="o">),</span> <span class="s">"WRO"</span><span class="o">,</span> <span class="s">"BCN"</span><span class="o">)</span>
+    <span class="o">);</span>
+
+    <span class="kd">private</span> <span class="n">Airline</span> <span class="n">stub3</span> <span class="o">=</span> <span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">flightDate</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">FlightException</span><span class="o">(</span><span class="s">"BOOM!"</span><span class="o">);</span> <span class="o">};</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">shouldFindLowestPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">FlightScanner</span> <span class="n">flightScanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FlightScanner</span><span class="o">(</span><span class="n">stub1</span><span class="o">,</span> <span class="n">stub2</span><span class="o">,</span> <span class="n">stub3</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">flightScanner</span><span class="o">.</span><span class="na">findCheapestFlight</span><span class="o">(</span><span class="s">"not"</span><span class="o">,</span> <span class="s">"important"</span><span class="o">,</span> <span class="kc">null</span><span class="o">).</span><span class="na">getFlightNumber</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">"AB1234"</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Interfejs <code class="highlighter-rouge">Airline</code> jest <a href="/wyrazenia-lambda-w-jezyku-java/#interfejs-funkcyjny">interfejsem funkcyjnym</a>. Dzięki temu w przykładzie mogłem użyć wyrażeń lambda. Instancje <code class="highlighter-rouge">stub1</code>, <code class="highlighter-rouge">stub2</code> i <code class="highlighter-rouge">stub3</code> zachowują się w ten sam sposób przy każdym ich wywołaniu.</p>
+
+<p>Dzięki tym obiektom zastąpiłem zależności klasy <code class="highlighter-rouge">FlightScanner</code>. Wartości zwracane przez te obiekty użyte są do wyszukania najtańszego lotu. W tym przypadku kod najtańszego lotu to AB1234. Lot ten zwrócony jest przez obiekt <code class="highlighter-rouge">stub1</code>.</p>
+
+<h3 id="czym-jest-mock">Czym jest mock?</h3>
+
+<p>Mock to obiekt, którego używa się zamiast rzeczywistej implementacji w trakcie testów jednostkowych. Pozwala on na określenie jakich interakcji spodziewamy się w trakcie testów. Następnie można sprawdzić czy spodziewane interakcje rzeczywiście wystąpiły.</p>
+
+<p>Przykładowa implementacja mock’a interfejsu <code class="highlighter-rouge">Airline</code> może wyglądać następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">AirlineMock</span> <span class="kd">implements</span> <span class="n">Airline</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">MethodInvocation</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">departureAirport</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">arrivalAirport</span><span class="o">;</span>
+        <span class="n">LocalDate</span> <span class="n">flightDate</span><span class="o">;</span>
+
+        <span class="n">MethodInvocation</span><span class="o">(</span><span class="n">String</span> <span class="n">departureAirport</span><span class="o">,</span> <span class="n">String</span> <span class="n">arrivalAirport</span><span class="o">,</span> <span class="n">LocalDate</span> <span class="n">flightDate</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">departureAirport</span> <span class="o">=</span> <span class="n">departureAirport</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">arrivalAirport</span> <span class="o">=</span> <span class="n">arrivalAirport</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">flightDate</span> <span class="o">=</span> <span class="n">flightDate</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">o</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">getClass</span><span class="o">()</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">MethodInvocation</span> <span class="n">methodInvocation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MethodInvocation</span><span class="o">)</span> <span class="n">o</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">methodInvocation</span><span class="o">.</span><span class="na">departureAirport</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+                    <span class="n">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">arrivalAirport</span><span class="o">,</span> <span class="n">methodInvocation</span><span class="o">.</span><span class="na">arrivalAirport</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+                    <span class="n">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">flightDate</span><span class="o">,</span> <span class="n">methodInvocation</span><span class="o">.</span><span class="na">flightDate</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">Objects</span><span class="o">.</span><span class="na">hash</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">arrivalAirport</span><span class="o">,</span> <span class="n">flightDate</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">MethodInvocation</span><span class="o">&gt;</span> <span class="n">invocations</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kt">void</span> <span class="nf">verifyCalled</span><span class="o">(</span><span class="n">String</span> <span class="n">departureAirport</span><span class="o">,</span> <span class="n">String</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">LocalDate</span> <span class="n">flightDate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">boolean</span> <span class="n">wasCalled</span> <span class="o">=</span> <span class="n">invocations</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="k">new</span> <span class="n">MethodInvocation</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">flightDate</span><span class="o">));</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">wasCalled</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">(</span><span class="s">"One of the expected invocations wasn't called!"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Flight</span><span class="o">&gt;</span> <span class="nf">findFlight</span><span class="o">(</span><span class="n">String</span> <span class="n">departureAirport</span><span class="o">,</span> <span class="n">String</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">LocalDate</span> <span class="n">flightDate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">invocations</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">MethodInvocation</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">flightDate</span><span class="o">));</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Teraz rozbiję ten kod na mniejsze fragmenty.</p>
+
+<p>Klasa <code class="highlighter-rouge">AirlineMock</code> reprezentująca mock’a zwiera jeden atrybut - zbiór. Wewnątrz tego zbioru trzymane są parametry wywołań mock’a. Wartości zbioru reprezentowane są przez <a href="/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/">klasę wewnętrzną</a> <code class="highlighter-rouge">MethodInvocation</code>. Ta klasa grupuje parametry przekazywane do metody <code class="highlighter-rouge">findFlight</code> interfejsu <code class="highlighter-rouge">Airline</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">final</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">MethodInvocation</span><span class="o">&gt;</span> <span class="n">invocations</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+</code></pre></div></div>
+
+<p>Klasa <code class="highlighter-rouge">AirlineMock</code> implementuje interfejs <code class="highlighter-rouge">Airline</code>. Implementacja metody interfejsu <code class="highlighter-rouge">Airline</code> bazuje na wcześniej opisanym zbiorze. Każde wywołanie metody dodaje do tego zbioru parametry wywołania metody:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Flight</span><span class="o">&gt;</span> <span class="nf">findFlight</span><span class="o">(</span><span class="n">String</span> <span class="n">departureAirport</span><span class="o">,</span> <span class="n">String</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">LocalDate</span> <span class="n">flightDate</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">invocations</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">MethodInvocation</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">flightDate</span><span class="o">));</span>
+    <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Kluczowa w tej klasie jest metoda <code class="highlighter-rouge">verifyCalled</code>. To właśnie możliwość weryfikowania wywołań odróżnia mock’i od stub’ów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">verifyCalled</span><span class="o">(</span><span class="n">String</span> <span class="n">departureAirport</span><span class="o">,</span> <span class="n">String</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">LocalDate</span> <span class="n">flightDate</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="n">wasCalled</span> <span class="o">=</span> <span class="n">invocations</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="k">new</span> <span class="n">MethodInvocation</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">flightDate</span><span class="o">));</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">wasCalled</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">(</span><span class="s">"One of the expected invocations wasn't called!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Użycie mock’a w kodzie testu może wyglądać następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">shouldFindLowestPrice</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">departureAirport</span> <span class="o">=</span> <span class="s">"departure"</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">destinationAirport</span> <span class="o">=</span> <span class="s">"arrival"</span><span class="o">;</span>
+    <span class="n">LocalDate</span> <span class="n">day</span> <span class="o">=</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2018</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">22</span><span class="o">);</span>
+    <span class="n">AirlineMock</span> <span class="n">mock1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AirlineMock</span><span class="o">();</span>
+    <span class="n">AirlineMock</span> <span class="n">mock2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AirlineMock</span><span class="o">();</span>
+
+    <span class="n">FlightScanner</span> <span class="n">flightScanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FlightScanner</span><span class="o">(</span><span class="n">mock1</span><span class="o">,</span> <span class="n">mock2</span><span class="o">);</span>
+    <span class="n">flightScanner</span><span class="o">.</span><span class="na">findCheapestFlight</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">day</span><span class="o">);</span>
+
+    <span class="n">mock1</span><span class="o">.</span><span class="na">verifyCalled</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">day</span><span class="o">);</span>
+    <span class="n">mock2</span><span class="o">.</span><span class="na">verifyCalled</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">day</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Jak widzisz w teście sprawdzam czy zależności klasy <code class="highlighter-rouge">FlightScanner</code> zostały wywołane z odpowiednimi parametrami. Zależności w tym przypadku zastąpione były mock’ami:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mock1</span><span class="o">.</span><span class="na">verifyCalled</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">day</span><span class="o">);</span>
+<span class="n">mock2</span><span class="o">.</span><span class="na">verifyCalled</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">day</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Musisz wiedzieć, że ta implementacja mock’a jest uproszczona. Biblioteki takie jak Mockito dostarczają implementacji mock’ów, która ma dużo większe możliwości. Przeczytasz o nich w dalszej części artykułu.</p>
+
+<h3 id="jaka-jest-różnica-pomiędzy-mock-i-stub">Jaka jest różnica pomiędzy mock i stub?</h3>
+
+<p>Mock to stub na sterydach ;).</p>
+
+<p>Wiesz już, że stub to obiekt, który podstawiasz w teście za właściwą implementację. Stub pozwala jedynie na określenie zachowania obiektu, który imituje.</p>
+
+<p>Mock to  także obiekt, który podstawiasz w teście za właściwą implementację. W tym przypadku, poza określeniem zachowania<sup id="fnref:uproszczenie"><a href="#fn:uproszczenie" class="footnote">3</a></sup> masz możliwość jego weryfikacji. Innymi słowy mock’i pozwalają sprawdzać czy dany obiekt został użyty, jakie metody były wywołane w trakcie testu, jakie parametry były użyte w trakcie tych wywołań.</p>
+
+<p>Te informacje pozwalają na pisanie testów, które sprawdzają otoczenie testowanej jednostki. Na przykład w trakcie wyszukiwania najtańszego lotu mock, który reprezentuje dostawcę połączeń pozwoli sprawdzić czy rzeczywiście dany dostawca został użyty, jakie parametry zostały mu przekazane.</p>
+
+<p>Samodzielne pisanie klas mock’ów czy stub’ów jest uciążliwe, z pomocą przychodzą liczne biblioteki, które robią to automatycznie. Jedną z takich bibliotek jest Mockito.</p>
+
+<h2 id="biblioteka-mockito">Biblioteka Mockito</h2>
+
+<p>Zanim przejdę do omówienia możliwości biblioteki Mockito proszę spójrz na ten sam test z jej wykorzystaniem:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">FlightScannerTestMockito</span> <span class="o">{</span>
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">shouldFindLowestPrice</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">FlightException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">departureAirport</span> <span class="o">=</span> <span class="s">"departure"</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">destinationAirport</span> <span class="o">=</span> <span class="s">"arrival"</span><span class="o">;</span>
+        <span class="n">LocalDate</span> <span class="n">day</span> <span class="o">=</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2018</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">22</span><span class="o">);</span>
+        <span class="n">Airline</span> <span class="n">mock1</span> <span class="o">=</span> <span class="n">Mockito</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">Airline</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">Airline</span> <span class="n">mock2</span> <span class="o">=</span> <span class="n">Mockito</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">Airline</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="n">FlightScanner</span> <span class="n">flightScanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FlightScanner</span><span class="o">(</span><span class="n">mock1</span><span class="o">,</span> <span class="n">mock2</span><span class="o">);</span>
+        <span class="n">flightScanner</span><span class="o">.</span><span class="na">findCheapestFlight</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">day</span><span class="o">);</span>
+
+        <span class="n">Mockito</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">mock1</span><span class="o">).</span><span class="na">findFlight</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">day</span><span class="o">);</span>
+        <span class="n">Mockito</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">mock2</span><span class="o">).</span><span class="na">findFlight</span><span class="o">(</span><span class="n">departureAirport</span><span class="o">,</span> <span class="n">destinationAirport</span><span class="o">,</span> <span class="n">day</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Celowo nie zastosowałem tu importów statycznych. W praktyce, po ich zastosowaniu test jest jeszcze krótszy. Cały narzut pisania dedykowanych klas spada na bibliotekę Mockito.</p>
+
+<h3 id="tworzenie-mocków">Tworzenie mock’ów</h3>
+
+<p>Tworzenie mock’ów sprowadza się do wywołania metody metodę <a href="https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#mock-java.lang.Class-"><code class="highlighter-rouge">Mockito.mock()</code></a>. Metoda ta przyjmuje klasę albo interfejs. Utworzony mock będzie miał typ przekazanej klasy albo interfejsu. Na przykład utworzenie mock’a dla interfejsu <code class="highlighter-rouge">Airline</code> sprowadza się do jednej linijki kodu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Airline</span> <span class="n">mockedAirline</span> <span class="o">=</span> <span class="n">Mockito</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">Airline</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Mockito wspiera także tworzenie mocków używając adnotacji <a href="https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mock.html"><code class="highlighter-rouge">@Mock</code></a>. W zależności od wersji biblioteki JUnit do poprawnego działania tej adnotacji potrzebne są:</p>
+
+<ul>
+  <li>JUnit 4: <code class="highlighter-rouge">@RunWith(MockitoJUnitRunner.class)</code> albo <code class="highlighter-rouge">@Rule</code> wraz z <code class="highlighter-rouge">MockitoJUnit.rule()</code>,</li>
+  <li>Junit 5: <code class="highlighter-rouge">@ExtendWith(MockitoExtension.class)</code>.</li>
+</ul>
+
+<p>W przykładzie poniżej Mockito automatycznie utworzy mock’a interfejsu <code class="highlighter-rouge">Airline</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ExtendWith</span><span class="o">(</span><span class="n">MockitoExtension</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">MockitoExamplesTest</span> <span class="o">{</span>
+
+    <span class="nd">@Mock</span>
+    <span class="n">Airline</span> <span class="n">airlineMock</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">shouldCreateMockInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">airlineMock</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="n">notNullValue</span><span class="o">()));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="weryfikacja-wywołań-metod">Weryfikacja wywołań metod</h3>
+
+<p>Mockito pozwala na weryfikację wywołań utworzonych mock’ów. Służy do tego metoda <a href="https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#verify-T-"><code class="highlighter-rouge">Mockito.verify</code></a>.  Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">verifyExamples1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">FlightException</span> <span class="o">{</span>
+    <span class="n">airlineMock</span><span class="o">.</span><span class="na">findFlight</span><span class="o">(</span><span class="s">"exactValue"</span><span class="o">,</span> <span class="s">"exactValue"</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+
+    <span class="n">verify</span><span class="o">(</span><span class="n">airlineMock</span><span class="o">).</span><span class="na">findFlight</span><span class="o">(</span><span class="s">"exactValue"</span><span class="o">,</span> <span class="s">"exactValue"</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Wewnątrz testu wywołuję metodę <code class="highlighter-rouge">findFlight</code>. Następnie weryfikuję wywołanie tej metody przekazując konkretny zestaw parametrów. Ten test się powiedzie ponieważ metoda z takimi parametrami została wywołana. Mockito pozwala na dużą dowolność w specyfikowaniu parametrów akceptowanych przez mock’i.</p>
+
+<p>W tym przykładzie sprawdzam, czy metoda <code class="highlighter-rouge">findFlight</code> została wykonana co najwyżej 10 razy z dowolnymi argumentami:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">verifyExamples2</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">FlightException</span> <span class="o">{</span>
+    <span class="n">airlineMock</span><span class="o">.</span><span class="na">findFlight</span><span class="o">(</span><span class="s">"exactValue"</span><span class="o">,</span> <span class="s">"exactValue"</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+
+    <span class="n">verify</span><span class="o">(</span><span class="n">airlineMock</span><span class="o">,</span> <span class="n">atMost</span><span class="o">(</span><span class="mi">10</span><span class="o">)).</span><span class="na">findFlight</span><span class="o">(</span><span class="n">anyString</span><span class="o">(),</span> <span class="n">any</span><span class="o">(),</span> <span class="n">any</span><span class="o">(</span><span class="n">LocalDate</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Tym razem sprawdzam, czy metoda <code class="highlighter-rouge">findFlight</code> została wywołana co najmniej raz z parametrami, które pasują do wymagań:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">verifyExamples3</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">FlightException</span> <span class="o">{</span>
+    <span class="n">airlineMock</span><span class="o">.</span><span class="na">findFlight</span><span class="o">(</span><span class="s">"exactValue"</span><span class="o">,</span> <span class="s">"exactValue"</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+
+    <span class="n">verify</span><span class="o">(</span><span class="n">airlineMock</span><span class="o">,</span> <span class="n">atLeastOnce</span><span class="o">()).</span><span class="na">findFlight</span><span class="o">(</span><span class="n">contains</span><span class="o">(</span><span class="s">"Val"</span><span class="o">),</span> <span class="n">startsWith</span><span class="o">(</span><span class="s">"ex"</span><span class="o">),</span> <span class="n">eq</span><span class="o">(</span><span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">()));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Do weryfikacji liczby wywołań mogą służyć następujące metody:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Mockito.atMost</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.atLeastOnce</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.atLeast</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.never</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.times</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.calls</code>.</li>
+</ul>
+
+<p>Do weryfikacji parametrów mogą służyć następujące metody:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Mockito.anyString</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.any</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.contains</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.matches</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.startsWith</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.anyCollection</code>,</li>
+  <li><code class="highlighter-rouge">Mockito.anyIterable</code>.</li>
+</ul>
+
+<p>Metod tego typu jest dużo więcej. Po ich pełną listę odsyłam Cię do <a href="https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html">dokumentacji biblioteki Mockito</a>.</p>
+
+<h3 id="stub-czy-mock">Stub czy mock?</h3>
+
+<p>Wiesz już, że mock to stub na sterydach. Mockito pozwala także na określanie zachowania mocków, nie tylko weryfikację wywołań. Mockito domyślnie tworzy stub’y dla wszystkich metod. Domyślnie zwracają one “wartości zerowe” (pusta kolekcja, 0, <code class="highlighter-rouge">null</code>). Przykład poniżej, pokazuje domyślne zachowanie Mockito:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">whenExamples1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">FlightException</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Flight</span><span class="o">&gt;</span> <span class="n">flight</span> <span class="o">=</span> <span class="n">airlineMock</span><span class="o">.</span><span class="na">findFlight</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">flight</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="n">notNullValue</span><span class="o">()));</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">flight</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="n">empty</span><span class="o">()));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Możesz zmienić to w jaki sposób mock ma zareagować na wywołanie metody używając <a href="https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#when-T-"><code class="highlighter-rouge">Mockito.when</code></a>. Poniższy przykład pokazuje jak przekonać Mockito do rzucenia wyjątku w odpowiednim momencie. Zwróć uwagę, że także tutaj użyłem metod do określania parametrów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">whenExamples2</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">FlightException</span> <span class="o">{</span>
+    <span class="n">when</span><span class="o">(</span><span class="n">airlineMock</span><span class="o">.</span><span class="na">findFlight</span><span class="o">(</span><span class="n">any</span><span class="o">(),</span> <span class="n">any</span><span class="o">(),</span> <span class="n">any</span><span class="o">())).</span><span class="na">thenThrow</span><span class="o">(</span><span class="k">new</span> <span class="n">FlightException</span><span class="o">(</span><span class="s">"some message"</span><span class="o">));</span>
+
+    <span class="n">assertThrows</span><span class="o">(</span><span class="n">FlightException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">airlineMock</span><span class="o">.</span><span class="na">findFlight</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">()));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Poza rzucaniem wyjątków możesz określić właściwą wartość zwróconą po wywołaniu metody:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">whenExamples3</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">FlightException</span> <span class="o">{</span>
+    <span class="n">Flight</span> <span class="n">someFlight</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Flight</span><span class="o">(</span><span class="s">"ABC123"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">TEN</span><span class="o">,</span> <span class="s">"departure"</span><span class="o">,</span> <span class="s">"arriva"</span><span class="o">);</span>
+    <span class="n">when</span><span class="o">(</span><span class="n">airlineMock</span><span class="o">.</span><span class="na">findFlight</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">()))</span>
+            <span class="o">.</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="n">someFlight</span><span class="o">));</span>
+
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Flight</span><span class="o">&gt;</span> <span class="n">flight</span> <span class="o">=</span> <span class="n">airlineMock</span><span class="o">.</span><span class="na">findFlight</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">flight</span><span class="o">.</span><span class="na">size</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">flight</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">is</span><span class="o">(</span><span class="n">someFlight</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Do określenia zachowania mock’a możesz także użyć metod:</p>
+<ul>
+  <li><a href="https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#doReturn-java.lang.Object-"><code class="highlighter-rouge">Mockito.doReturn</code></a>,</li>
+  <li><a href="https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#doThrow-java.lang.Class-"><code class="highlighter-rouge">Mockito.doThrow</code></a>,</li>
+  <li><a href="https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#doNothing--"><code class="highlighter-rouge">Mockito.doNothing</code></a>,</li>
+  <li><a href="https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#doAnswer-org.mockito.stubbing.Answer-"><code class="highlighter-rouge">Mockito.doAnswer</code></a>.</li>
+</ul>
+
+<h2 id="używanie-mocków-a-higiena">Używanie mock’ów a higiena</h2>
+
+<p>Wszystko jest dla ludzi, jeśli stosowane jest w rozsądnych ilościach. Jeśli Twój test jednostkowy w przerażającej większości składa się z przygotowania obiektów typu mock czy stub to warto się mu bliżej przyjrzeć. Może jest tak, że Twoja klasa ma zbyt szeroką odpowiedzialność? Może warto wprowadzić dodatkowy typ, który będzie grupował część tych zadań? Może liczba zależności klasy jest zbyt duża?</p>
+
+<p>Niestety nie potrafię podać Ci jasnej reguły, która mówi: jeśli obiektów mock masz więcej niż X to jest coś źle. Wydaje mi się, że takiej reguły nie ma. Jednak wiem, że testy jednostkowe, które naszpikowane są obiektami tego typu mogą być ciężkie w utrzymaniu.</p>
+
+<p>Dlatego właśnie stosuj zasady higieny w pracy z mock’ami :). Jeśli Twoim subiektywnym zdaniem przygotowanie testu jednostkowego jest zbyt pracochłonne, wymaga zbyt dużo przygotowania, to zabierz się za refaktoring. Oczywiście sam refaktoring będzie łatwiejszy jeśli kod, który chcesz zmienić będzie już pokryty testami.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Jeśli chcesz poszerzyć wiedzę zdobytą po przeczytaniu tego artykułu zachęcam Cię do zajrzenia do tych źródeł:</p>
+
+<ul>
+  <li><a href="https://junit.org/junit5/">Strona biblioteki JUnit</a>,</li>
+  <li><a href="https://site.mockito.org/">Strona biblioteki Mockito</a>,</li>
+  <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/33_testy_z_mock_stub_spy">Kod źródłowy przykładów użytych w artykule</a>.</li>
+</ul>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>Napisz program, który będzie implementował następujący <a href="/interfejsy-w-jezyku-java/">interfejs</a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ExchangeApi</span> <span class="o">{</span>
+    <span class="cm">/**
+     * @param date date for which exchange rate should be returned
+     * @param currencyCode currency code that should be checked, for example USD
+     * @return exchange rate between PLN and currencyCode on date
+     */</span>
+    <span class="n">BigDecimal</span> <span class="nf">exchangeRate</span><span class="o">(</span><span class="n">LocalDate</span> <span class="n">date</span><span class="o">,</span> <span class="n">String</span> <span class="n">currencyCode</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Twój program powinien używać API z historycznymi kursami walut udostępnionymi przez NBP. Dokumentacja API dostępna jest na <a href="http://api.nbp.pl/#kursyWalut">stronie NBP</a>. W praktyce potrzebny będzie wyłącznie ten adres: <code class="highlighter-rouge">http://api.nbp.pl/api/exchangerates/rates/a/&lt;kod&gt;/&lt;data&gt;/?format=json</code></p>
+
+<p>Na przykład, żeby pobrać kurs dla dolara amerykańskiego (kod waluty <code class="highlighter-rouge">USD</code>) dla 5 IV 2016 trzeba wysłać <a href="/protokol-http/">zapytanie typu <code class="highlighter-rouge">GET</code></a> pod adres <code class="highlighter-rouge">http://api.nbp.pl/api/exchangerates/rates/a/usd/2016-04-05/?format=json</code>. Odpowiedź, którą dostaniesz będzie wyglądać następująco:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dolar amerykański"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rates"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="s2">"no"</span><span class="p">:</span><span class="w"> </span><span class="s2">"065/A/NBP/2016"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"effectiveDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-05"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"mid"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.7337</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Do parsowania odpowiedzi tego typu przydatna jest biblioteka, która obsługuje <a href="/format-json-w-jezyku-java/">parsowanie formatu JSON</a>.</p>
+
+<p>Postaraj się napisać program używając <a href="/test-driven-development-na-przykladzie/">TDD</a>. Testy jednostkowe powinny używać obiektów typu mock i stub do symulowania zachowania API.</p>
+
+<p>Jeśli będziesz mieć jakiekolwiek problemy zawsze możesz rzucić okiem na <a href="https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/10_currency">przykładowe rozwiązanie</a>.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu tego artykułu wiesz czym jest mock i stub. Na przykładzie potrafisz pokazać różnicę pomiędzy obiektami tego typu. Po rozwiązaniu zadania udało Ci się w praktyce sprawdzić swoją wiedzę zdobytą w tym artykule.</p>
+
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu, daj znać w komentarzach jak użycie mock’ów i stub’ów wpływa na Twoje testy jednostkowe. Jeśli nie chcesz pominąć kolejnych wpisów proszę dopisz się do Samouczkowego Newslettera i polub Samouczka na Facebook’u.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:polski">
+      <p>Nie podoba mi się nadużywanie nazw anglojęzycznych w branży IT. Zawsze staram się znaleźć polskie odpowiedniki używanych słów. Są jednak takie sytuacje, w których terminy angielskie są tak rozpowszechnione, że nawet nie silę się na znajdowanie polskich odpowiedników. Przykładem takich słów są mock (atrapa?) czy stub (zaślepka?). Jeśli znasz dobre tłumaczenia tych określeń proszę podziel się nimi w komentarzach. Z chęcią zacznę stosować polskie słowa, które będą zrozumiałe w branżowych rozmowach. <a href="#fnref:polski" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:inne">
+      <p>Służą do tego inne rodzaje testów, na przykład testy integracyjne czy systemowe. <a href="#fnref:inne" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:uproszczenie">
+      <p>Przykładowa implementacja mock’a zawiera jedynie możliwość weryfikacji wywołania metody. W ramach ćwiczeń możesz napisać klasę mock’a, która będzie pozwalała zarówno na określenie zachowania jak i sprawdzenie wywołań. <a href="#fnref:uproszczenie" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1000 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#dobre-praktyki" class="page__taxonomy-item" rel="tag">Dobre praktyki</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/kategorie/#testy-jednostkowe" class="page__taxonomy-item" rel="tag">Testy jednostkowe</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-09-22">2018-09-22</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Ftesty-jednostkowe-z-uzyciem-mock-i-stub%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Ftesty-jednostkowe-z-uzyciem-mock-i-stub%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/format-json-w-jezyku-java/" class="pagination--pager" title="Format JSON w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/10/29_testy_jednostkowe_junit_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/testy-jednostkowe-z-junit/" rel="permalink">Testy jednostkowe z JUnit
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz pods...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/04/13_testy_jednostkowe_z_junit5.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/testy-jednostkowe-z-junit5/" rel="permalink">Testy jednostkowe z JUnit 5
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o JUnit 5. Dowiesz się co jest nowego w testowaniu przy użyciu JUnit 5. Poznasz sposoby na użycie wyrażeń lambda w testach. Zdobyt...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/walidacja-obiektow-w-jezyku-java/" rel="permalink">Walidacja obiektów w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguł...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/01/22_rest_web_service_2_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/rest-web-service-z-java-ee-czesc-2/" rel="permalink">REST web service z Java EE część 2
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  12 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzys...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="http://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2018 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>
