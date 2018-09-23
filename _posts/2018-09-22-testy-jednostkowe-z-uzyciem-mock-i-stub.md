@@ -9,12 +9,8 @@ header:
     overlay_image: /assets/images/2018/09/22_testy_z_mock_i_stub_w_jezyku_java.jpeg
     caption: "[&copy; Sebastian Molina](https://unsplash.com/photos/gYo3B_9So3Y)"
 excerpt: >
-    W artykule tym przeczytasz o obiekach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady takich obiektów. Dowiesz się dlaczego obiekty tego typu używane są w testach jednostkowych. Poznasz też bibliotekę Mockito, która pozwala na pisanie testów jednostkowych wykorzystujących te abstrakcje. Zapraszam do lektury.
+    W artykule tym przeczytasz o obiektach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady takich obiektów. Dowiesz się dlaczego obiekty tego typu używane są w testach jednostkowych. Poznasz też bibliotekę Mockito, która pozwala na pisanie testów jednostkowych wykorzystujących te abstrakcje. Zapraszam do lektury.
 ---
-
-<div class="notice--info">
-    {{ popolsku | markdownify }}
-</div>
 
 ## Wprowadzenie
 
@@ -26,11 +22,11 @@ Zanim przejdę do omówienia obiektów pomocniczych mock[^polski] i stub, muszę
 
 W artykule [wprowadzającym do testów jednostkowych]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}) wspomniałem o definicji jednostki. Jednostka to fragment kodu, który testowany jest przy pomocy testów jednostkowych. W większości przypadków jest to pojedyncza klasa. 
 
-Projekty programistyczne zawierają wiele klas. Klasy te, zgodnie z zasadą pojedynczej odpowiedzialności (ang. _Single Responsibility Principle_) będącą częścią [SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}), powinny być odpowiedzialne za jedną funkcjonalność. W praktyce sprowadza się to do tego, że klasa posiada zależności, które pomagają tę funkjonalność wykonać.
+Projekty programistyczne zawierają wiele klas. Klasy te, zgodnie z zasadą pojedynczej odpowiedzialności (ang. _Single Responsibility Principle_) będącą częścią [SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}), powinny być odpowiedzialne za jedną funkcjonalność. W praktyce sprowadza się to do tego, że klasa posiada zależności, które pomagają tę funkcjonalność wykonać.
 
 Na przykład klasa odpowiedzialna za wyszukanie najtańszego połączenia lotniczego pomiędzy Wrocławiem a Barceloną zależna jest od innych klas, które udostępniają ceny połączeń u różnych operatorów.
 
-Klasa odpowiedzialna za wyszukanie najtańszego samochodu do wynajęcia porównuje oferty różnych agencji zamjmujących się wynajmem.
+Klasa odpowiedzialna za wyszukanie najtańszego samochodu do wynajęcia porównuje oferty różnych agencji zajmujących się wynajmem.
 
 Z kolei klasa odpowiedzialna za znalezienie najtańszej podróży może korzystać z obu wcześniej wspomnianych klas. Może to prowadzić do skomplikowanej sieci zależności.
 
@@ -42,11 +38,11 @@ W takiej sieci każda klasa może być jednostką, która ma swój zestaw testó
 
 Szczególnie jeśli wymagają dostępu do zewnętrznych źródeł danych, takich jak [baza danych]( {{ '/kurs-sql' | absolute_url }}), pliki na dysku twardym czy zewnętrze API udostępniane przez [HTTP]({% post_url 2018-02-08-protokol-http %}).
 
-Test jednostkowy powinien testować wyłącznie jednostkę. Zależności będącę poza nią nie powinny być testowane w testach jednostkowych [^inne]. Innymi słowy wszystko co jest poza granicami jednostki powinno być w trakcie testów "wyłączone".
+Test jednostkowy powinien testować wyłącznie jednostkę. Zależności będące poza nią nie powinny być testowane w testach jednostkowych [^inne]. Innymi słowy wszystko co jest poza granicami jednostki powinno być w trakcie testów "wyłączone".
 
 [^inne]: Służą do tego inne rodzaje testów, na przykład testy integracyjne czy systemowe. 
 
-Biorąc pod uwagę diagram, który pokazałem wcześniej testy jednostkowe klasy `TripPlanner` powinny odpowiednio osbsłużyć zależność od klas `FlightScanner` i `CarRental`. Do odpowiedniego obsłużenia tego typu zależności w testach jednostkowych służą obiekty typu mock czy stub.
+Biorąc pod uwagę diagram, który pokazałem wcześniej testy jednostkowe klasy `TripPlanner` powinny odpowiednio obsłużyć zależność od klas `FlightScanner` i `CarRental`. Do odpowiedniego obsłużenia tego typu zależności w testach jednostkowych służą obiekty typu mock czy stub.
 
 ## Bohaterowie testów jednostkowych - mock i stub
 
@@ -94,10 +90,10 @@ Do utworzenia testów jednostkowych dla klasy `FlightScanner` potrzebne są inst
 
 - testy jednostkowe stają się testami integracyjnymi,
 - testy jednostkowe zależą od stanu zewnętrznych usług, które czasami mogą nie działać,
-- zewętrzne usługi mogą zwracać różne dane w zależności od czasu ich wywołania,
+- zewnętrzne usługi mogą zwracać różne dane w zależności od czasu ich wywołania,
 - wydłuża się czas trwania testów jednostkowych (odpytywanie zewnętrznego API zabiera czas).
 
-W związku z tymi wadami powstaje potrzeba zastąpienienia rzeczywisej implementacji interfejsu `Airline` obiektem pomocniczym używanym wyłącznie w trakcie testów.
+W związku z tymi wadami powstaje potrzeba zastąpienia rzeczywistej implementacji interfejsu `Airline` obiektem pomocniczym używanym wyłącznie w trakcie testów.
 
 Samodzielne pisanie klas stub'ów czy mock'ów nie jest potrzebne. Przykłady, które tu pokazuję mają służyć wyłącznie zrozumieniu co dzieje się w trakcie użycia obiektów tego typu. W praktyce klasy te tworzone są w dużo prostszy sposób przy użyciu dedykowanych bibliotek. Jedną z nich, Mockito, opisuję w dalszej części artykułu.
 {:.notice--warning}
@@ -133,7 +129,7 @@ Dzięki tym obiektom zastąpiłem zależności klasy `FlightScanner`. Wartości 
 
 ### Czym jest mock?
 
-Mock to obiekt, którego używa się zamiast rzeczywistej implementacji w trakcie testów jednostkowych. Pozwala on na określenie jakich interakcji spodziewamy się w trakcie testów. Następnie można sprawdzić czy spodziewane interakcje rzeczywiście wytąpiły.
+Mock to obiekt, którego używa się zamiast rzeczywistej implementacji w trakcie testów jednostkowych. Pozwala on na określenie jakich interakcji spodziewamy się w trakcie testów. Następnie można sprawdzić czy spodziewane interakcje rzeczywiście wystąpiły.
 
 Przykładowa implementacja mock'a interfejsu `Airline` może wyglądać następująco:
 
@@ -190,7 +186,7 @@ private static final class AirlineMock implements Airline {
 
 Teraz rozbiję ten kod na mniejsze fragmenty.
 
-Klasa `AirlineMock` reprezentująca mock'a zwiera jeden atrybut - zbiór. Wewnątrz tego zbioru trzymane są parametry wywołań mock'a. Wartości zbioru reprezentowane są przez [klasę wewnętrzną]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %}) `MethodInvocation`. Ta klasa grupuje parametry przekazywane do metody `findFlights` interfejsu `Airline`.
+Klasa `AirlineMock` reprezentująca mock'a zwiera jeden atrybut - zbiór. Wewnątrz tego zbioru trzymane są parametry wywołań mock'a. Wartości zbioru reprezentowane są przez [klasę wewnętrzną]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %}) `MethodInvocation`. Ta klasa grupuje parametry przekazywane do metody `findFlight` interfejsu `Airline`.
 
 ```java
 private final Set<MethodInvocation> invocations = new HashSet<>();
@@ -236,7 +232,7 @@ void shouldFindLowestPrice() {
 }
 ```
 
-Jak widzisz w teście sprawdzam czy zależności klasy `FlightScanner` zostały wywołane z odpowiednimi prametrami. Zależności w tym przypadku zastąpione były mock'ami:
+Jak widzisz w teście sprawdzam czy zależności klasy `FlightScanner` zostały wywołane z odpowiednimi parametrami. Zależności w tym przypadku zastąpione były mock'ami:
 
 ```java
 mock1.verifyCalled(departureAirport, destinationAirport, day);
@@ -257,11 +253,11 @@ Mock to  także obiekt, który podstawiasz w teście za właściwą implementacj
 
 Te informacje pozwalają na pisanie testów, które sprawdzają otoczenie testowanej jednostki. Na przykład w trakcie wyszukiwania najtańszego lotu mock, który reprezentuje dostawcę połączeń pozwoli sprawdzić czy rzeczywiście dany dostawca został użyty, jakie parametry zostały mu przekazane.
 
-Samodzielne pisanie klas mock'ów czy stub'ów jest uciążliwe, z pomocą przychodzą liczne bibltioteki, które robią to automatycznie. Jedną z takich bibliotek jest Mockito.
+Samodzielne pisanie klas mock'ów czy stub'ów jest uciążliwe, z pomocą przychodzą liczne biblioteki, które robią to automatycznie. Jedną z takich bibliotek jest Mockito.
 
 ## Biblioteka Mockito
 
-Zanim przejdę do omówienia możliwośći biblioteki Mockito proszę spójrz na ten sam test z jej wykorzystaniem:
+Zanim przejdę do omówienia możliwości biblioteki Mockito proszę spójrz na ten sam test z jej wykorzystaniem:
 
 ```java
 class FlightScannerTestMockito {
@@ -286,7 +282,7 @@ Celowo nie zastosowałem tu importów statycznych. W praktyce, po ich zastosowan
 
 ### Tworzenie mock'ów
 
-Tworznie mock'ów sprowadza się do wywołania metody metodę [`Mockito.mock()`](https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#mock-java.lang.Class-). Metoda ta przyjmuje klasę albo interfejs. Utworzony mock będzie miał typ przekazanej klasy albo interfejsu. Na przykład utworzenie mock'a dla interfejsu `Airline` sprowadza się do jednej linijki kodu:
+Tworzenie mock'ów sprowadza się do wywołania metody metodę [`Mockito.mock()`](https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#mock-java.lang.Class-). Metoda ta przyjmuje klasę albo interfejs. Utworzony mock będzie miał typ przekazanej klasy albo interfejsu. Na przykład utworzenie mock'a dla interfejsu `Airline` sprowadza się do jednej linijki kodu:
 
 ```java
 Airline mockedAirline = Mockito.mock(Airline.class);
@@ -326,9 +322,9 @@ void verifyExamples1() throws FlightException {
 }
 ```
 
-Wewnątrz testu wywołuję metodę `findFlight`. Następnie weryfikuję wywołanie tej metody przekazując konkretny zestaw parametrów. Ten test się powiedzie ponieważ metoda z takimi parametramim została wywołana. Mockito pozwala na dużą dowolność w specyfikowaniu parametrów akceptowanych przez mock'i.
+Wewnątrz testu wywołuję metodę `findFlight`. Następnie weryfikuję wywołanie tej metody przekazując konkretny zestaw parametrów. Ten test się powiedzie ponieważ metoda z takimi parametrami została wywołana. Mockito pozwala na dużą dowolność w specyfikowaniu parametrów akceptowanych przez mock'i.
 
-W tym przykładzie sprawdzam, czy metoda `findFligt` została wykonana co najwyżej 10 razy z dowolnymi argumentami:
+W tym przykładzie sprawdzam, czy metoda `findFlight` została wykonana co najwyżej 10 razy z dowolnymi argumentami:
 
 ```java
 @Test
@@ -369,7 +365,7 @@ Do weryfikacji parametrów mogą służyć następujące metody:
 - `Mockito.anyCollection`,
 - `Mockito.anyIterable`.
 
-Metod tego typu jest dużo więcej. Po ich pełną listę odsyłam Cię do [dokumentacji bibltioteki Mockito](https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html).
+Metod tego typu jest dużo więcej. Po ich pełną listę odsyłam Cię do [dokumentacji biblioteki Mockito](https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html).
 
 ### Stub czy mock?
 
@@ -384,7 +380,7 @@ void whenExamples1() throws FlightException {
 }
 ```
 
-Możesz zmienić to w jaki sposób mock ma zareagować na wywołanie metody używając [`Mockito.when`](https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#when-T-). Na przykład poniższy przykład pokazuje jak przekonać Mockito do rzucenia wyjątku w odpowiednim momencie. Zwróć uwagę, że także tutaj użyłem metod do określania parametrów:
+Możesz zmienić to w jaki sposób mock ma zareagować na wywołanie metody używając [`Mockito.when`](https://static.javadoc.io/org.mockito/mockito-core/2.22.0/org/mockito/Mockito.html#when-T-). Poniższy przykład pokazuje jak przekonać Mockito do rzucenia wyjątku w odpowiednim momencie. Zwróć uwagę, że także tutaj użyłem metod do określania parametrów:
 
 ```java
 @Test
@@ -418,11 +414,11 @@ Do określenia zachowania mock'a możesz także użyć metod:
 
 ## Używanie mock'ów a higiena
 
-Wszystko jest dla ludzi, jeśli stosowane jest w rozsądnych ilościach. Jeśli Twój test jednostkowy w przerażającej większości składa się z przygotowania obiektów typu mock czy stub to warto się mu bliżej przyjrzeć. Może jest tak, że Twoja klasa ma zbyt szeroką odpowiedzialność? Może warto wprowadzić dodatkowy typ, który będzie grupował część tych zadań. Może liczba zależności klasy jest zbyt duża?
+Wszystko jest dla ludzi, jeśli stosowane jest w rozsądnych ilościach. Jeśli Twój test jednostkowy w przerażającej większości składa się z przygotowania obiektów typu mock czy stub to warto się mu bliżej przyjrzeć. Może jest tak, że Twoja klasa ma zbyt szeroką odpowiedzialność? Może warto wprowadzić dodatkowy typ, który będzie grupował część tych zadań? Może liczba zależności klasy jest zbyt duża?
 
-Niestety nie potrafię podać Ci jasnej reguły, która mówi: jeśli obiektów mock masz więcej niż X to jest coś źle. Wydaje mi się, że takiej reguły nie ma. Jednak wiem, że testy jednostkowe, które naszpikowane są obiektami tego typu mogą być ciężke w utrzymaniu.
+Niestety nie potrafię podać Ci jasnej reguły, która mówi: jeśli obiektów mock masz więcej niż X to jest coś źle. Wydaje mi się, że takiej reguły nie ma. Jednak wiem, że testy jednostkowe, które naszpikowane są obiektami tego typu mogą być ciężkie w utrzymaniu.
 
-Dlatego właśnie stosuj zasady higieny w pracy z mock'ami :). Jeśli Twoim subektywnym zdaniem przygotowanie testu jednostkowego jest zbyt pracochłonne, wymaga zbyt dużo przygotowania, to zabierz się za refaktoring. Oczywiście sam refaktoring będzie łatwiejszy jeśli kod, który chcesz zmienić będzie już pokryty testami.
+Dlatego właśnie stosuj zasady higieny w pracy z mock'ami :). Jeśli Twoim subiektywnym zdaniem przygotowanie testu jednostkowego jest zbyt pracochłonne, wymaga zbyt dużo przygotowania, to zabierz się za refaktoring. Oczywiście sam refaktoring będzie łatwiejszy jeśli kod, który chcesz zmienić będzie już pokryty testami.
 
 ## Dodatkowe materiały do nauki
 
@@ -466,11 +462,13 @@ Na przykład, żeby pobrać kurs dla dolara amerykańskiego (kod waluty `USD`) d
 
 Do parsowania odpowiedzi tego typu przydatna jest biblioteka, która obsługuje [parsowanie formatu JSON]({% post_url 2018-09-14-format-json-w-jezyku-java %}).
 
-Postaraj się napisać program używająć [TDD]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}). Testy jednostkowe powinny używać obiektów typu mock i stub do symulowania zachowania API.
+Postaraj się napisać program używając [TDD]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}). Testy jednostkowe powinny używać obiektów typu mock i stub do symulowania zachowania API.
 
 Jeśli będziesz mieć jakiekolwiek problemy zawsze możesz rzucić okiem na [przykładowe rozwiązanie](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/10_currency).
 
 ## Podsumowanie
 
 Po przeczytaniu tego artykułu wiesz czym jest mock i stub. Na przykładzie potrafisz pokazać różnicę pomiędzy obiektami tego typu. Po rozwiązaniu zadania udało Ci się w praktyce sprawdzić swoją wiedzę zdobytą w tym artykule. 
+
+Mam nadzieję, że artykuł przypadł Ci do gustu, daj znać w komentarzach jak użycie mock'ów i stub'ów wpływa na Twoje testy jednostkowe. Jeśli nie chcesz pominąć kolejnych wpisów proszę dopisz się do Samouczkowego Newslettera i polub Samouczka na Facebook'u.
 
