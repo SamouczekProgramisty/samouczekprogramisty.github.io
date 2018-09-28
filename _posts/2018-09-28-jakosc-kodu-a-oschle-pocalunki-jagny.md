@@ -72,7 +72,6 @@ YAF
 ## Materiały dodatkowe
 
 - [Artykuł o YAGNI](https://www.martinfowler.com/bliki/Yagni.html) na stronie Martin'a Fowler'a,
-- 
 
 ## Podsumowanie
 

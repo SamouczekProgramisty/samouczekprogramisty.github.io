@@ -15,8 +15,8 @@ Będzie to kurs z materiałami w formie:
 
 * filmów wideo,
 * plików pdf:
-** z materiałami omówionymi z filmach,
-** ściągawek z komendami Git'a,
+  * z materiałami omówionymi z filmach,
+  * ściągawek z komendami Git'a,
 * ćwiczeń do samodzielnego wykonania,
 
 Mam nadzieję, że udało Ci się już poznać sposób w jaki tworzę treści do nauki. Jeśli tak to wiesz, że możesz spodziewać się praktycznych ćwiczeń które pomogą Ci utrwalić zdobytą wiedzę.
@@ -33,7 +33,7 @@ Kurs będzie dostępny jak tylko jego jakość i zawartość będzie odpowiadać
 
 ## To jak? Jesteś ze mną?
 
-Jeśli chcesz żebym powiadamiał Cię o postępach prac nad kursem dopisz się do Samouczkowego Newslettera. Jeśli zapiszesz się na listę na pewno będę miał dla Ciebie ofertę specjalną jeszcze przed wypuszczeniem kursu:
+Jeśli chcesz żebym powiadamiał Cię o postępach prac nad kursem dopisz się do Samouczkowego Newslettera. Jeśli zapiszesz się na listę na pewno będę miał dla Ciebie ofertę specjalną jeszcze przed wypuszczeniem kursu.
 
 <div class="notice--success text-center">
     <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/1056656/o2g2b2.js?v5"></script>

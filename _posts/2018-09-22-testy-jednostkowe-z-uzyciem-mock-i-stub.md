@@ -44,6 +44,8 @@ Test jednostkowy powinien testować wyłącznie jednostkę. Zależności będąc
 
 Biorąc pod uwagę diagram, który pokazałem wcześniej testy jednostkowe klasy `TripPlanner` powinny odpowiednio obsłużyć zależność od klas `FlightScanner` i `CarRental`. Do odpowiedniego obsłużenia tego typu zależności w testach jednostkowych służą obiekty typu mock czy stub.
 
+{% include newsletter-srodek.md %}
+
 ## Bohaterowie testów jednostkowych - mock i stub
 
 Poniżej możesz zobaczyć przykładową klasę, która może być użyta do agregowania lotów udostępnianych przez różnych przewoźników:
