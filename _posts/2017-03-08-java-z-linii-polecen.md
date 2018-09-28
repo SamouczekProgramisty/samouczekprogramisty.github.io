@@ -17,7 +17,7 @@ disqus_page_identifier: 770 http://www.samouczekprogramisty.pl/?p=770
 
 Dzisiaj na przekór moim wszystkim radom, proszę Cie nie korzystaj z IDE. Wyłącz IntelliJ Idea czy Eclipse. Przejdź przez cały artykuł używając wyłącznie podstawowego edytora tekstu. Moim celem jest przeprowadzenie Cię przez cały proces pisania kodu w Javie używając podstawowych narzędzi.
 
-Moim zdaniem takie podejście pozwoli Ci zrozumieć te podstawy, na których opiera się cała reszta. Osobiście dużo łatwiej jest mi pojąć bardziej skomplikowane rzeczy jeśli dokładnie wiem jak działają podstawowe klocki, których używa się do budowania tych bardziej skomplikowanych elementów.
+Moim zdaniem takie podejście pozwoli Ci zrozumieć te podstawy, na których opiera się cała reszta. W moim przypadku, dużo łatwiej jest mi pojąć bardziej skomplikowane rzeczy jeśli dokładnie wiem jak działają podstawowe klocki, których używa się do budowania tych bardziej skomplikowanych elementów.
 
 Dzisiaj używał będę programu [gedit](https://wiki.gnome.org/Apps/Gedit), pracując w systemie Windows możesz użyć standardowego systemowego notatnika. Istotne jest to, aby program ten był w stanie utworzyć zwykły plik tekstowy, któremu nadasz rozszerzenie java.
 
@@ -29,7 +29,7 @@ O tym czym jest JDK i czym różni się od JRE pisałem w jednym z pierwszych ar
 - `jar` to narzędzie, które jest w stanie tworzyć pliki jar.
 
 {% capture zmienna %}
-Programy `javac`, `java` czy `jar` dostępne są w katalogu, w którym zainstalowałeś JDK. W zależności od systemu operacyjnego katalog ten może być różny. W niektórych systemach operacyjnych po instalacji programy te od razu dostępne są na ścieżce przeszukiwania. Innymi słowy dostępne są w jednym z katalogów wskazanych przez zmienną środowiskową `PATH`. 
+Programy `javac`, `java` czy `jar` dostępne są w katalogu, w którym jest zainstalowane JDK. W zależności od systemu operacyjnego katalog ten może być różny. W niektórych systemach operacyjnych po instalacji programy te od razu dostępne są na ścieżce przeszukiwania. Innymi słowy dostępne są w jednym z katalogów wskazanych przez zmienną środowiskową `PATH`. 
 
 Jeśli w Twoim przypadku katalog gdzie zainstalowałeś JDK nie znajduje się w zmiennej środowiskowej `PATH` wówczas każdy z tych programów będziesz musiał poprzedzać pełną ścieżką. Na przykład:
 
@@ -116,13 +116,13 @@ Teraz masz już wszystkie potrzebne składniki do uruchomienia programu. Możesz
 
 ## Pracowity skrzat, IDE
 
-Niby prosty program, a do jego uruchomienia trzeba użyć 2 magicznych programów, jak tak można? ;). Okazuje się, że właśnie podobne czynności robi za nas IDE. Za każdym razem[^wyjatki] gdy w InteliJ użyjesz klawiszy `Ctr+Schift+F10` (uruchom program) InteliJ Idea robi podobne rzeczy. Kompiluje kod używając do tego programu `javac` a następnie uruchamia w odpowiedni sposób JRE używając programu `java`.
+Niby prosty program, a do jego uruchomienia trzeba użyć dwóch magicznych programów. Takie właśnie czynności robi za nas IDE. Za każdym razem[^wyjatki] gdy w IntelliJ użyjesz klawiszy `Ctr+Schift+F10` (uruchom program) IntelliJ Idea robi podobne rzeczy. Kompiluje kod używając do tego programu `javac` a następnie uruchamia w odpowiedni sposób JRE używając programu `java`.
 
 [^wyjatki]: Jak zwykle są wyjątki, ale nie są one istotne w tym przypadku.
 
 ## Pakiety
 
-A teraz zrób krok do przodu - utwórz tę samą klasę w pakiecie `pl.samouczekprogramisty.commandline` i skompiluj ją przy pomocy `javac`. Przykład poniżej pokazuje poprawna strukturę katalogów dla klasy w takim pakiecie
+A teraz zrób krok do przodu - utwórz tę samą klasę w pakiecie `pl.samouczekprogramisty.commandline` i skompiluj ją przy pomocy `javac`. Przykład poniżej pokazuje poprawna strukturę katalogów dla klasy w takim pakiecie:
 
     $ tree .
     .
@@ -150,15 +150,18 @@ Następinie używając programów `javac` i `java` mogę skompilować i uruchomi
     javac pl/samouczekprogramisty/commandline/DisplayName.java
     java pl.samouczekprogramisty.commandline.DisplayName
 
-Jak widzisz `javac` przyjmuje jako parametr ścieżkę do pliku, który chcesz skompilować. Program `java` natomiast przyjmuje pełną nazwę klasy (wraz z pakietem) wewnątrz której znajduje się metoda `main`. Dochodzimy tutaj do pewnej istotnej rzeczy, gdzie program `java` ma “szukać” tej klasy? Odpowiedzią na to pytanie jest `classpath`. Po polsku będę to nazywał ścieżką przeszukiwania.
-
 W przypadku systemów z rodziny Windows katalogi w ścieżce do klasy, którą kompilujesz oddzielone są znakiem `\` a nie `/` jak w przykładzie.
+{:.notice--info}
+
+Jak widzisz `javac` przyjmuje jako parametr ścieżkę do pliku, który chcesz skompilować. Program `java` natomiast przyjmuje pełną nazwę klasy (wraz z pakietem) wewnątrz której znajduje się metoda `main`. W moim przypadku oba programy uruchomiłem z katalogu, w którym jest katalog `pl`. Katalog `pl` odpowiada pierwszemu członowi pakietu. 
+
+Dochodzimy tutaj do pewnej istotnej rzeczy, gdzie program `java` ma "szukać" tej klasy? Odpowiedzią na to pytanie jest `classpath`. Po polsku będę to nazywał ścieżką przeszukiwania.
 
 ## Czym jest classpath
 
 No właśnie, czym jest classpath, magiczna ścieżka przeszukiwania? Wyjaśniając to pojęcie w jednym zdaniu - classpath to ścieżka, gdzie program `java` szuka klas, które potrzebne są w trakcie uruchomienia programu.
 
-Możesz zatem zapytać “dlaczego poprzednio `java DisplayName` działało?" Działało, ponieważ jeśli nie ustawisz żadnej wartości, ścieżka przeszukiwania przyjmuje wartość domyślną - `.`. Ta kropka oznacza katalog, w którym aktualnie się znajdujesz.
+Możesz zatem zapytać "dlaczego poprzednio `java DisplayName` działało?" Działało, ponieważ jeśli nie ustawisz żadnej wartości, ścieżka przeszukiwania przyjmuje wartość domyślną - `.`. Ta kropka oznacza katalog, w którym aktualnie się znajdujesz.
 
 Jako ćwiczenie możesz spróbować przejść do innego katalogu i uruchomić to samo polecenie, przykład poniżej pokazuje zachowanie jakie możesz uzyskać:
 
@@ -179,15 +182,16 @@ Jako ćwiczenie możesz spróbować przejść do innego katalogu i uruchomić to
 
 Jak widzisz w ostatniej linii program `java` wyświetlił błąd informujący, że nie może znaleźć klasy `pl.samouczekprogramisty.commandline.DisplayName` na aktualnej ścieżce przeszukiwania. Program szukał struktury pakietów pl/samouczekrogramisty/commandline, a w katalogu pl był jedynie katalog samouczekprogramisty, nie było katalogu pl.
 
-Ścieżka przeszukiwania to lista katalogów oddzielonych odpowiednim znakiem gdzie program `java` powinien szukać klas. Na tej ścieżce poza katalogami mogą znajdować się też pliki zip czy pliki jar[^format]. Przykład poniżej pokazuje ścieżkę przeszukiwania na której znajdują się 3 elementy:
+Ścieżka przeszukiwania to lista katalogów oddzielonych odpowiednim znakiem gdzie program `java` powinien szukać klas. Na tej ścieżce poza katalogami mogą znajdować się też pliki zip czy pliki jar[^format]. Przykład poniżej pokazuje ścieżkę przeszukiwania na której znajdują się trzy elementy:
 
     some/path:.:other/path/file.jar
 
 [^format]: Tak na prawdę plik jar to plik zip z innym rozszerzeniem.
 
-Pierwszy z nich to katalog some/path. Drugi z nich to katalog bieżący oznaczony znakiem `.`. Ostatni to ścieżka do pliku jar, wewnątrz którego znajdują się skompilowane klasy.
-
 W przypadku sytemów z rodziny Windows do rozdzielenia elementów na ścieżce przeszukiwania używa się znaku `;`. W pozostałych znanych mi systemach jest to znak `:` jak widzisz w przykładzie powyżej.
+{:.notice--info}
+
+Pierwszy z nich to katalog some/path. Drugi z nich to katalog bieżący oznaczony znakiem `.`. Ostatni to ścieżka do pliku jar, wewnątrz którego znajdują się skompilowane klasy.
 
 ## Jak ustawić classpath
 
@@ -229,7 +233,7 @@ public class CheckName {
 }
 ```
 
-Jak widzisz, użyłem tu klasy wcześniej wspomnianej klasy `Scanner` i `StringUtils`. Pierwsza z nich znajduje się w bibliotece standardowej Javy. Jest ona domyślnie dostępna w trakcie uruchomienia i kompilacji. Jednak w przypadku klasy `StringUtils` jest inaczej.
+Jak widzisz, użyłem tu wcześniej wspomnianej klasy `Scanner` i `StringUtils`. Pierwsza z nich znajduje się w bibliotece standardowej Javy. Jest ona domyślnie dostępna w trakcie uruchomienia i kompilacji. Jednak w przypadku klasy `StringUtils` jest inaczej.
 
 Jest to klasa zewnętrza więc musi być dostarczona zarówno w trakcie kompilacji jak i uruchomienia programu. Spójrz proszę na komendy użyte do kompilacji i uruchomienia programu:
 
@@ -240,23 +244,23 @@ W pierwszej linii jako ścieżkę przeszukiwania ustawiamy plik jar zawierający
 
 Kolejna linijka to właśnie to uruchomienie. Zauważ, że w tym przypadku ścieżka przeszukiwania zawiera zarówno aktualny katalog jak i plik jar. Aktualny katalog jest niezbędny żeby znaleźć klasę `CheckName`. Plik jar natomiast jest wymagany do odnalezienia klasy `StringUtils`.
 
-Teraz czas na Twoje eksperymenty. Co się stanie jeśli uruchomisz swój program bez z `-cp`? :)
+Teraz czas na Twoje eksperymenty. Co się stanie jeśli uruchomisz swój program bez `-cp`? :)
 
 ## Pliki JAR
 
-No dobrze, a co jeśli chcemy w łatwy sposób przekazać komuś skompilowany kod? Bardzo dobrze do tego celu nadają się pliki JAR. JAR czyli Java Archive to nic innego jak plik zip, wewnątrz którego znajduje się zestaw plików class ze skompilowanymi klasami[^zawartosc].
+No dobrze, a co jeśli chcemy w łatwy sposób przekazać komuś skompilowany kod? Bardzo dobrze do tego celu nadają się pliki JAR. JAR (ang. _Java Archive_) to nic innego jak plik zip, wewnątrz którego znajduje się zestaw plików class ze skompilowanymi klasami[^zawartosc].
 
 [^zawartosc]: Oczywiście pliki jar mogą zawierać także pliki innego rodzaju, jednak na tym etapie wystarczy wiedza o class i pliku tekstowym Manifest.
 
-Klasy wewnątrz archiwum znajdują się w odpowiednich katalogach, które odzwierciedlają strukturę pakietów. Spróbujmy teraz przygotować Twój pierwszy jar z linii poleceń.
-
-Program `jar` ma także inne zastosowania. Na przykład przy jego pomocy możesz wyświetlić zawartość istniejącego pliku JAR. Służy do tego komenda pokazana poniżej:
-
-    jar tf commons-lang3-3.5.jar
+Klasy wewnątrz archiwum znajdują się w odpowiednich katalogach, które odzwierciedlają strukturę pakietów. Spróbujmy teraz przygotować Twój pierwszy plik jar z linii poleceń.
 
 Tworzenie pliku JAR jest dość proste. Wystarczy podać odpowiedni zestaw parametrów jak w przykładzie poniżej:
 
     jar cf <nazwa pliku wyjściowego> <lista katalogów, klas do umieszczenia w pliku JAR>
+
+Program `jar` ma także inne zastosowania. Na przykład przy jego pomocy możesz wyświetlić zawartość istniejącego pliku JAR. Służy do tego komenda pokazana poniżej:
+
+    jar tf <ścieżka pliku JAR>
 
 W przypadku przykładu używanego poprzednio cały zestaw komend wyglądałby następująco:
 
@@ -301,7 +305,7 @@ Na przykład aby utworzyć plik `output.jar`, który będzie zawierał wszystkie
 
 ## Dodatkowe materiały do nauki
 
-Artykuł ten był wybitnie praktyczny. Zależało mi na tym abyś krok po kroku realizował poszczególne etapy. Jeśli tego nie zrobiłeś, bardzo proszę spróbuj. Jeśli chciałbyś dowiedzieć się więcej o narzędziach, które opisałem w artykule mam dla Ciebie zestaw kilku dodatkowych dokumentów:
+Ten artykuł był wybitnie praktyczny. Zależało mi na tym żeby krok po kroku pozwolił Ci realizować poszczególne etapy. Jeśli tego nie zrobiłeś, bardzo proszę spróbuj. Jeśli chciałbyś dowiedzieć się więcej o narzędziach, które opisałem w artykule mam dla Ciebie zestaw kilku dodatkowych dokumentów:
 - [dokumentacja programu `java`](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html),
 - [dokumentacja programu `javac`](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/javac.html),
 - [dokumentacja programu `jar`](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/jar.html),
