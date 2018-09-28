@@ -14,6 +14,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/kurs-sql/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/kurs_sql_splash.jpeg"},{
+        "title": "Kurs Git",
+        "excerpt":"Pracuję nad pierwszym komercyjnym kursem na stronie. Jakiś czas temu zdecydowałem, że będzie to kurs związany z systemem kontroli wersji Git. Będzie to kurs z materiałami w formie: filmów wideo, plików pdf:** z materiałami omówionymi z filmach,** ściągawek z komendami Git’a, ćwiczeń do samodzielnego wykonania,Mam nadzieję, że udało Ci się...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/kurs-git/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/kurs_git.png"},{
         "title": "Czym właściwie jest programowanie",
         "excerpt":"Kto może zostać programistą Programowanie to zajęcie, które wymaga znajomości wielu zagadnień. To wiedza, którą zdobywa się przez kilka ładnych lat. Nie znam żadnego programisty, który nauczył się wszystkiego w jeden wieczór. To jest po prostu niemożliwe. Tak i na tym blogu będziemy razem przechodzili przez serię artykułów, które pomogą...","categories": ["Programowanie"],
         "tags": [],
