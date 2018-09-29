@@ -2,6 +2,7 @@
 title: Jakość kodu a oschłe pocałunki Jagny
 categories:
 - Dobre praktyki
+- Programista rzemieślnik
 permalink: /jakosc-kodu-a-oschle-pocalunki-jagny/
 header:
     teaser: /assets/images/2018/09/28_jakosc_kodu_a_oschle_pocalunki_jagny_artykul.jpeg

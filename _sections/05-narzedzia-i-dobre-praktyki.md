@@ -22,6 +22,7 @@ Znajomość składni języka programowania to dopiero początek. Programista w s
 Bez tego się nie obejdzie. Jeśli chcesz tworzyć kod, który będzie łatwy w utrzymaniu, możliwy do rozszerzenia i testowania stosuj dobre praktyki opracowane przez bardziej doświadczonych programistów. Ta lista zawiera artykuły, które opisują takie praktyki.
 
 * [Zasady SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %})
+* [Reguły DRY, KISS i YAGNI]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %})
 
 ### Testowanie kodu
 
