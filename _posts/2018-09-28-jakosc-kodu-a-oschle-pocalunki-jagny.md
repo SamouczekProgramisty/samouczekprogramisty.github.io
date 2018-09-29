@@ -28,7 +28,7 @@ Reguła DRY ma zastosowanie zarówno do mniejszych fragmentów kodu jak i dużyc
 
 ### Przykład zastosowania reguły
 
-Załóżmy, że zadaniem jest napisanie algorytmu, który liczbę w notacji dziesiętnej zapisze w innym systemie, na przykład binarnie. Akurat to zadanie jest do wykonia w artykule opisującym [system binarny]({% post_url 2016-02-11-system-dwojkowy %}). Jeden z czytelników zaproponował takie rozwiązanie (jeszcze raz dziękuję za pozwolenie na jego publikację ;)):
+Załóżmy, że zadaniem jest napisanie algorytmu, który liczbę w notacji dziesiętnej zapisze w innym systemie, na przykład binarnie. Akurat to zadanie jest do wykonania w artykule opisującym [system binarny]({% post_url 2016-02-11-system-dwojkowy %}). Jeden z czytelników zaproponował takie rozwiązanie (jeszcze raz dziękuję za pozwolenie na jego publikację ;)):
 
 ```java
 public static String convert(int decimalNumber, int toBase) {
@@ -90,11 +90,11 @@ Według [Wikipedii](https://en.wikipedia.org/wiki/KISS_principle) reguła KISS (
 
 KISS sprowadza się do unikania złożoności projektów informatycznych. Im mniej ruszających się części tym mniej rzeczy może się zepsuć. Wychodzę z założenia, że kod, który ma mniej linijek przeważnie jest lepszym rozwiązaniem. Głośno mówię o tym, że bardzo lubię usuwać kod. Im go mniej, tym lepiej. Nie jest sztuką napisać obszerny kod, który realizuje wymagania. Sztuką jest napisanie czytelnego fragmentu kodu z którego nic nie można usunąć. Nie można nic usunąć, ponieważ każdy element jest potrzebny i realizuje część funkcjonalności.
 
-Podobnie jak przy regule DRY. Jeśli zobaczysz coś co można uprościć, zrób to. Powtarzam też z uoporem maniaka, operacje tego typu powinno się przeprowadzać mając pod sobą siatkę bezpieczeństwa w postaci [testów jednostkowych]({% post_url 2018-04-13-testy-jednostkowe-z-junit5 %}).
+Podobnie jak przy regule DRY. Jeśli zobaczysz coś co można uprościć, zrób to. Powtarzam też z uporem maniaka, operacje tego typu powinno się przeprowadzać mając pod sobą siatkę bezpieczeństwa w postaci [testów jednostkowych]({% post_url 2018-04-13-testy-jednostkowe-z-junit5 %}).
 
 ### KISS a Python
 
-Python idzie o krok dalej. Istnieje coś takiego jak "manifest Python'a"[^zen]. Jest to kilka regół, które opisują w jaki sposób powinno się pisać kod. Całość sprowadza się do 19 linijek tekstu. Aż cztery z nich powiązane są regułą KISS:
+Python idzie o krok dalej. Istnieje coś takiego jak "manifest Python'a"[^zen]. Jest to kilka reguł, które opisują w jaki sposób powinno się pisać kod. Całość sprowadza się do 19 linijek tekstu. Aż cztery z nich powiązane są regułą KISS:
 
 [^zen]: Możesz go zobaczyć wpisując `import this` w interpreterze.
 
@@ -115,7 +115,7 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
 
 Podejście tego typu znane było długo przed KISS używanym przez amerykańską marynarkę wojenną. Istnieje zasada nazywana [brzytwą Ockhama](https://pl.wikipedia.org/wiki/Brzytwa_Ockhama). Mówi ona o tym żeby nie mnożyć bytów ponad potrzebę.
 
-W kontekście oprogramowania mniej bytów sprowadza się do mniejszej ilości kodu. Mniej kodu to mniej potencjalnych błędów do popełnienia. Mniej kodu to mniejszy sytem, który prawodobnie będzie łatwiejszy do zrozumienia i utrzymania.
+W kontekście oprogramowania mniej bytów sprowadza się do mniejszej ilości kodu. Mniej kodu to mniej potencjalnych błędów do popełnienia. Mniej kodu to mniejszy system, który prawdopodobnie będzie łatwiejszy do zrozumienia i utrzymania.
 
 ## Coś o wyobraźni - YAGNI
 
@@ -125,11 +125,11 @@ Każda ewentualność jest obsłużona. Wszystkie ekstremalne przypadki zaimplem
 
 Całość zajęła Ci trzy miesiące. Przez ten czas nawet nie miałeś czasu porozmawiać z klientem o jego wymaganiach. Przecież Twoja wyobraźnia wie lepiej. Wszystkie funkcjonalności, o których klient jeszcze nie pomyślał są gotowe. Wiesz co? YAGNI (ang. _You Aren't Gonna Need It_). Nie będziesz tego potrzebować.
 
-### Łatwo rozszerzalny kod a nowe fukcjonalności
+### Łatwo rozszerzalny kod a nowe funkcjonalności
 
 Oczywiście nie mam nic przeciwko pisaniu solidnego kodu, który spełnia wymagania użytkownika. Nie mam nic przeciwko temu, żeby przewidywać sytuacje, o których nie poinformował klient. W pełni zgadzam się na sugerowanie przydatnych funkcjonalności. Do tego uważam, że pisanie kodu łatwego do rozszerzenia zgodnie z zasadami [SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}) jest dobrym posunięciem.
 
-Jest jednak jedno małe "ale". Z doświadczenia wiem, że wymyślanie czegoś na siłę nie ma sensu. Klient nie chciał funkcjonalności X? Jeśli Twoim zdaniem to głupi pomysł to z nim o tym porozmaiwaj. Przekonaj go do swojego zdania. Jeśli uda Ci się go przekonać - brawo! Jeśli nie, to pogódź się z faktem, że nie możesz wiedzieć wszystkiego najlepiej.
+Jest jednak jedno małe "ale". Z doświadczenia wiem, że wymyślanie czegoś na siłę nie ma sensu. Klient nie chciał funkcjonalności X? Jeśli Twoim zdaniem to głupi pomysł to z nim o tym porozmawiaj. Przekonaj go do swojego zdania. Jeśli uda Ci się go przekonać - brawo! Jeśli nie, to pogódź się z faktem, że nie możesz wiedzieć wszystkiego najlepiej.
 
 YAGNI sprowadza się do hamowania swojej fantazji. Nie wprowadzaj bytów, funkcjonalności, metod, itp., które nie są w danym momencie potrzebne. Dodawanie zbędnych elementów komplikuje kod. Do tego podnosi koszty realizacji projektu. Dodatkowo może stawiać Cię w złym świetle jako programistę. Po płodnej sesji pisania kodu może okazać się, że udało Ci się wykonać kawał solidnej, porządnej i nikomu niepotrzebnej pracy.
 
