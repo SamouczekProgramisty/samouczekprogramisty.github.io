@@ -1,4 +1,172 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-09-28T16:39:52+02:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Testy jednostkowe z użyciem mock i stub</title><link href="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/" rel="alternate" type="text/html" title="Testy jednostkowe z użyciem mock i stub" /><published>2018-09-22T00:00:00+02:00</published><updated>2018-09-22T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/">&lt;h2 id=&quot;wprowadzenie&quot;&gt;Wprowadzenie&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-09-30T20:42:19+02:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Jakość kodu a oschłe pocałunki Jagny</title><link href="http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/" rel="alternate" type="text/html" title="Jakość kodu a oschłe pocałunki Jagny" /><published>2018-09-28T00:00:00+02:00</published><updated>2018-09-28T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/">&lt;h2 id=&quot;coś-o-powtarzaniu---dry&quot;&gt;Coś o powtarzaniu - DRY&lt;/h2&gt;
+
+&lt;p&gt;Reguła DRY (ang. &lt;em&gt;Don’t Repeat Yourself&lt;/em&gt;) zostało opisana w książce “The Pragmatic Programmer” autorstwa Andrew’a Hunt’a i David’a Thomas’a. Autorzy wprowadzają regułę, która mówi, że każdy fragment wiedzy powinien mieć pojedynczą, jednoznaczną i uznaną reprezentację w systemie. Regułę tę można zastosować zarówno do konfiguracji jak i kodu programu.&lt;/p&gt;
+
+&lt;p&gt;Utrzymywanie kodu kosztuje. Kod, wraz z dodawaniem nowych funkcjonalności koroduje, psuje się z czasem. Im więcej kodu tym więcej potencjalnych błędów. A jeśli kod jest powielany w wielu miejscach, to jest to dobry przepis na tragedię. Wyobraź sobie sytuację, w której podobny fragment kodu jest kopiowany wielokrotnie. Po pewnym czasie okazuje się, że w tym właśnie fragmencie jest błąd, lub trzeba wprowadzić w nim pewną zmianę.&lt;/p&gt;
+
+&lt;p&gt;Taka sytuacja prosi się o popełnienie błędu w trakcie wprowadzania niezbędnej zmiany. Wystarczy ominąć jedną z kopii kodu i błąd gotowy. Przypomina mi się mem z piosenką:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;99 little bugs in the code.&lt;br /&gt;
+99 little bugs in the code.&lt;br /&gt;
+Take one down, patch it around.&lt;br /&gt;
+127 little bugs in the code.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Reguła DRY ma zastosowanie zarówno do mniejszych fragmentów kodu jak i dużych części systemu. Jeśli widzisz duplikację, którą można wyeliminować, zrób to :). Zanim jednak zajmiesz się refaktoryzacją kodu upewnij się, że posiadasz dobry zestaw &lt;a href=&quot;/testy-jednostkowe-z-junit5/&quot;&gt;testów jednostkowych&lt;/a&gt;. Testy pomogą Ci upewnić się, że po zlikwidowaniu duplikacji kod nadal działa jak powinien.&lt;/p&gt;
+
+&lt;h3 id=&quot;przykład-zastosowania-reguły&quot;&gt;Przykład zastosowania reguły&lt;/h3&gt;
+
+&lt;p&gt;Załóżmy, że zadaniem jest napisanie algorytmu, który liczbę w notacji dziesiętnej zapisze w innym systemie, na przykład binarnie. Akurat to zadanie jest do wykonania w artykule opisującym &lt;a href=&quot;/system-dwojkowy/&quot;&gt;system binarny&lt;/a&gt;. Jeden z czytelników zaproponował takie rozwiązanie (jeszcze raz dziękuję za pozwolenie na jego publikację):&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;convert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+   
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;    
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reverse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Można powiedzieć, że rozwiązanie spełnia wymagania. Poprawnie przekształca liczby na wartość binarną&lt;sup id=&quot;fnref:ujemne&quot;&gt;&lt;a href=&quot;#fn:ujemne&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Jednak od razu można zwrócić uwagę na duplikację. Proszę spójrz na moją propozycję refaktoringu tego kodu gdzie duplikacja została usunięta. Algorytm zachowuje się dokładanie tak samo, jednak moim zdaniem jest o wiele bardziej przejrzysty. Do tego nie łamie zasady DRY.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;convert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divisionReminder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;divisionReminder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reverse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jeśli widzisz duplikację w kodzie, warto zastanowić się nad jej usunięciem. Zastanów się czy sesja refaktoringu kodu nie byłaby potrzebna. Może proste wydzielenie metody rozwiąże problem? Może fragment kodu jest na tyle rozbudowany, że potrzeba osobnej klasy? Ta klasa będzie miała wtedy swój zakres odpowiedzialności i koniecznie swój zestaw &lt;a href=&quot;/testy-jednostkowe-z-junit5/&quot;&gt;testów jednostkowych&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Nie pamiętam gdzie, ale usłyszałem kiedyś, że przeciwnością DRY jest WET (ang. &lt;em&gt;We Enjoy Typing&lt;/em&gt;, &lt;em&gt;We Edit Terribly&lt;/em&gt;, etc.). W moim przypadku często łączę te akronimy ;). Na początku piszę coś co spełnia wymagania, powtarzając niektóre fragmenty. Taki początkowy kod jest brzydki, ale działa. Jednak po tym etapie przychodzi czas na chwilę zastanowienia. Nie bez powodu pojedyncza runda &lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;TDD&lt;/a&gt; nie jest kompletna bez refaktoringu. Właśnie wtedy można uprościć kod usuwając zbędną duplikację. Zestaw wcześniej napisanych testów jednostkowych pozwala na swobodną zmianę struktury kodu.&lt;/p&gt;
+
+&lt;div class=&quot;notice--success text-center&quot;&gt;
+  
+&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 1000 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
+
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;coś-o-prostocie---kiss&quot;&gt;Coś o prostocie - KISS&lt;/h2&gt;
+
+&lt;p&gt;Według &lt;a href=&quot;https://en.wikipedia.org/wiki/KISS_principle&quot;&gt;Wikipedii&lt;/a&gt; reguła KISS (ang. &lt;em&gt;Keep It Simple, Stupid&lt;/em&gt;) wspomniana została już w 1960 roku przez marynarkę Stanów Zjednoczonych jako wytyczna dotycząca projektowania. Ja poznałem ją w kontekście projektów informatycznych.&lt;/p&gt;
+
+&lt;p&gt;KISS sprowadza się do unikania złożoności projektów informatycznych. Im mniej ruszających się części tym mniej rzeczy może się zepsuć. Wychodzę z założenia, że kod, który ma mniej linijek przeważnie jest lepszym rozwiązaniem. Głośno mówię o tym, że bardzo lubię usuwać kod. Im go mniej, tym lepiej. Nie jest sztuką napisać obszerny kod, który realizuje wymagania. Sztuką jest napisanie czytelnego fragmentu kodu, z którego nic nie można usunąć. Nie można nic usunąć, ponieważ każdy element jest potrzebny i realizuje część funkcjonalności.&lt;/p&gt;
+
+&lt;p&gt;Podobnie jak przy regule DRY. Jeśli zobaczysz coś co można uprościć, zrób to. Powtarzam też z uporem maniaka, operacje tego typu powinno się przeprowadzać mając pod sobą siatkę bezpieczeństwa w postaci &lt;a href=&quot;/testy-jednostkowe-z-junit5/&quot;&gt;testów jednostkowych&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;kiss-a-python&quot;&gt;KISS a Python&lt;/h3&gt;
+
+&lt;p&gt;Python idzie o krok dalej. Istnieje coś takiego jak “manifest Python’a”&lt;sup id=&quot;fnref:zen&quot;&gt;&lt;a href=&quot;#fn:zen&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Jest to kilka reguł, które opisują w jaki sposób powinno się pisać kod. Całość sprowadza się do 19 linijek tekstu. Aż cztery z nich powiązane są regułą KISS:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Simple is better than complex.&lt;br /&gt;
+Complex is better than complicated.&lt;br /&gt;
+(…)&lt;br /&gt;
+If the implementation is hard to explain, it’s a bad idea.&lt;br /&gt;
+If the implementation is easy to explain, it may be a good idea.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Tłumaczę to jako:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Proste jest lepsze od złożonego.&lt;br /&gt;
+Złożone jest lepsze od skomplikowanego.&lt;br /&gt;
+Jeśli implementacja jest trudna do wytłumaczenia, to jest to zły pomysł.&lt;br /&gt;
+Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomysł.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;inne-spojrzenie-na-kiss&quot;&gt;Inne spojrzenie na KISS&lt;/h3&gt;
+
+&lt;p&gt;Podejście tego typu znane było długo przed KISS używanym przez amerykańską marynarkę wojenną. Istnieje zasada nazywana &lt;a href=&quot;https://pl.wikipedia.org/wiki/Brzytwa_Ockhama&quot;&gt;brzytwą Ockhama&lt;/a&gt;. Mówi ona o tym żeby nie mnożyć bytów ponad potrzebę.&lt;/p&gt;
+
+&lt;p&gt;W kontekście oprogramowania mniej bytów sprowadza się do mniejszej ilości kodu. Mniej kodu to mniej potencjalnych błędów do popełnienia. Mniej kodu to mniejszy system, który prawdopodobnie będzie łatwiejszy do zrozumienia i utrzymania.&lt;/p&gt;
+
+&lt;h2 id=&quot;coś-o-wyobraźni---yagni&quot;&gt;Coś o wyobraźni - YAGNI&lt;/h2&gt;
+
+&lt;p&gt;Na pewno zdarzyło Ci się kiedyś zastanawiać się nad tym jak zaimplementować jakieś rozwiązanie. Wpadasz wtedy w wir tworzenia. Potrafisz wymyślić piękne struktury danych. Algorytmy takie, że płaczesz jak &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-git/&quot;&gt;commit&lt;/a&gt;‘ujesz. Tutaj nowy &lt;em&gt;manager&lt;/em&gt;, tam kolejny &lt;em&gt;helper&lt;/em&gt;. Oczywiście Twoje rozwiązanie przewiduje to, że klient będzie chciał obsługiwać kwoty reprezentowane w liczbach urojonych.&lt;/p&gt;
+
+&lt;p&gt;Każda ewentualność jest obsłużona. Wszystkie ekstremalne przypadki zaimplementowane. Po prostu niezatapialny fragment kodu. Kod tag generyczny, że jak zostawisz go przez noc to w wyniku ewolucji przejmie władzę nad światem…&lt;/p&gt;
+
+&lt;p&gt;Całość zajęła Ci trzy miesiące. Przez ten czas nawet nie było kiedy porozmawiać z klientem o jego wymaganiach. Przecież Twoja wyobraźnia wie lepiej. Wszystkie funkcjonalności, o których klient jeszcze nie pomyślał są gotowe. Wiesz co? YAGNI (ang. &lt;em&gt;You Aren’t Gonna Need It&lt;/em&gt;). Nie będziesz tego potrzebować.&lt;/p&gt;
+
+&lt;h3 id=&quot;łatwo-rozszerzalny-kod-a-nowe-funkcjonalności&quot;&gt;Łatwo rozszerzalny kod a nowe funkcjonalności&lt;/h3&gt;
+
+&lt;p&gt;Oczywiście nie mam nic przeciwko pisaniu solidnego kodu, który spełnia wymagania użytkownika. Nie mam nic przeciwko temu, żeby przewidywać sytuacje, o których nie poinformował klient. W pełni zgadzam się na sugerowanie przydatnych funkcjonalności. Do tego uważam, że pisanie kodu łatwego do rozszerzenia zgodnie z zasadami &lt;a href=&quot;/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/&quot;&gt;SOLID&lt;/a&gt; jest dobrym posunięciem.&lt;/p&gt;
+
+&lt;p&gt;Jest jednak jedno małe “ale”. Z doświadczenia wiem, że wymyślanie czegoś na siłę nie ma sensu. Klient nie chciał funkcjonalności X? Jeśli Twoim zdaniem to głupi pomysł to z nim o tym porozmawiaj. Przekonaj go do swojego zdania. Jeśli uda Ci się go przekonać - brawo! Jeśli nie, to pogódź się z faktem, że nie możesz wiedzieć wszystkiego najlepiej.&lt;/p&gt;
+
+&lt;p&gt;YAGNI sprowadza się do hamowania swojej fantazji. Nie wprowadzaj bytów, funkcjonalności, metod, itp., które nie są w danym momencie potrzebne. Dodawanie zbędnych elementów komplikuje kod. Do tego podnosi koszty realizacji projektu. Dodatkowo może stawiać Cię w złym świetle jako programistę. Po płodnej sesji pisania kodu może okazać się, że udało Ci się wykonać kawał solidnej, porządnej i nikomu niepotrzebnej pracy.&lt;/p&gt;
+
+&lt;h2 id=&quot;akronimy-na-ratunek&quot;&gt;Akronimy na ratunek&lt;/h2&gt;
+
+&lt;p&gt;Żaden akronim nie sprawi, że Twój kod automatycznie będzie lepszy. Nie ważne czy jest to &lt;a href=&quot;/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/&quot;&gt;SOLID&lt;/a&gt;, KISS, YAGNI czy DRY. Dobry kod to moim zdaniem efekt wielu sesji refaktoringu, ciągłej pracy nad jego polepszaniem.&lt;/p&gt;
+
+&lt;p&gt;Spotkałem się też z zasadą, którą opisuje się jako zasadę “amerykańskiego skauta”. Sprowadza się ona do tego, żeby kod, który zastaliśmy zostawić chociaż odrobinę lepszym kiedy kończymy z nim pracę. W ten sposób małymi kroczkami można dążyć do polepszenia jakości kodu.&lt;/p&gt;
+
+&lt;p&gt;Pamiętaj też, że “lepszy kod” jest określeniem czysto subiektywnym. Dla jednej osoby kod podzielony na malutkie metody będzie lepszy. Inna powie, że metody mające jedną linijkę kodu to przesada.&lt;/p&gt;
+
+&lt;h2 id=&quot;materiały-dodatkowe&quot;&gt;Materiały dodatkowe&lt;/h2&gt;
+
+&lt;p&gt;Jeśli masz ochotę spojrzeć na temat z innej strony zachęcam Cię do rzucenia okiem na poniższe materiały:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Don%27t_repeat_yourself&quot;&gt;Definicja DRY na Wikipedii&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/KISS_principle&quot;&gt;Definicja KISS na Wikipedii&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it&quot;&gt;Definicja YAGNI na Wikipedii&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.martinfowler.com/bliki/Yagni.html&quot;&gt;Artykuł o YAGNI&lt;/a&gt; na stronie Martin’a Fowler’a.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Po lekturze tego artykułu wiesz czym jest DRY, KISS i YAGNI. Wiesz, że powtórzenia należy eliminować. Wiesz, że zbędne komplikowanie implementacji jest złym podejściem. W końcu, wiesz też, że funkcjonalności powinny być implementowane nie wcześniej niż są potrzebne.&lt;/p&gt;
+
+&lt;p&gt;Opisane tu akronimy KISS i YAGNI odnoszą się do zwinnego sposobu wytwarzania oprogramowania, które moim zdaniem jest lepszym podejściem w większości przypadków. A Ty co o tym sądzisz? Który z tych akronimów stosujesz najczęściej?&lt;/p&gt;
+
+&lt;p&gt;Na koniec mam do Ciebie prośbę, jeśli znasz kogoś komu ten tekst może być pomocny proszę podeślij mu adres tego artykułu. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Pamiętaj też, że dopisanie się do samouczkowego newslettera i polubienie Samouczka na Facebooku pomoże Ci śledzić nowe artykuły na blogu.&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:ujemne&quot;&gt;
+      &lt;p&gt;Pominę tu kodowanie liczb ujemnych, załóżmy, ze znak &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt; jest dopuszczalny. &lt;a href=&quot;#fnref:ujemne&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:zen&quot;&gt;
+      &lt;p&gt;Możesz go zobaczyć wpisując &lt;code class=&quot;highlighter-rouge&quot;&gt;import this&lt;/code&gt; w interpreterze. &lt;a href=&quot;#fnref:zen&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł ten przedstawia kilka akronimów, które opisują praktyki pomagające w tworzeniu kodu wysokiej jakości. Po przeczytaniu tego artykułu dowiesz się czym jest DRY, KISS czy YAGNI. Opisuję w nim każdy z tych akronimów, pokazując ich zastosowanie nie tylko w projektach informatycznych.</summary></entry><entry><title type="html">Testy jednostkowe z użyciem mock i stub</title><link href="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/" rel="alternate" type="text/html" title="Testy jednostkowe z użyciem mock i stub" /><published>2018-09-22T00:00:00+02:00</published><updated>2018-09-22T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/">&lt;h2 id=&quot;wprowadzenie&quot;&gt;Wprowadzenie&lt;/h2&gt;
 
 &lt;p&gt;Zanim przejdę do omówienia obiektów pomocniczych mock&lt;sup id=&quot;fnref:polski&quot;&gt;&lt;a href=&quot;#fn:polski&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; i stub, muszę wyjaśnić kilka pojęć związanych z testami jednostkowymi.&lt;/p&gt;
 
@@ -31,6 +199,17 @@
 &lt;p&gt;Test jednostkowy powinien testować wyłącznie jednostkę. Zależności będące poza nią nie powinny być testowane w testach jednostkowych &lt;sup id=&quot;fnref:inne&quot;&gt;&lt;a href=&quot;#fn:inne&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Innymi słowy wszystko co jest poza granicami jednostki powinno być w trakcie testów “wyłączone”.&lt;/p&gt;
 
 &lt;p&gt;Biorąc pod uwagę diagram, który pokazałem wcześniej testy jednostkowe klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;TripPlanner&lt;/code&gt; powinny odpowiednio obsłużyć zależność od klas &lt;code class=&quot;highlighter-rouge&quot;&gt;FlightScanner&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;CarRental&lt;/code&gt;. Do odpowiedniego obsłużenia tego typu zależności w testach jednostkowych służą obiekty typu mock czy stub.&lt;/p&gt;
+
+&lt;div class=&quot;notice--success text-center&quot;&gt;
+  
+&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 1000 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
+
+
+&lt;/div&gt;
 
 &lt;h2 id=&quot;bohaterowie-testów-jednostkowych---mock-i-stub&quot;&gt;Bohaterowie testów jednostkowych - mock i stub&lt;/h2&gt;
 
@@ -3310,415 +3489,4 @@ które dla inżynierów mechaników w naszym kraju niestety są dość mizerne i
       &lt;p&gt;W JavaScript funkcje są tak zwanymi obiektami &lt;em&gt;first class&lt;/em&gt;, w Javie można porównać je do &lt;a href=&quot;/wyrazenia-lambda-w-jezyku-java/&quot;&gt;wyrażeń lambda&lt;/a&gt;. &lt;a href=&quot;#fnref:firstclass&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł zawiera zestawienie kilkunastu książek dotyczących programowania. Przeczytałem każdą z tych książek i mogę je polecić z czystym sumieniem. Co więcej, część z nich to &quot;klasyki&quot;, które moim zdaniem powinien przeczytać każdy programista.</summary></entry><entry><title type="html">Testy jednostkowe z JUnit 5</title><link href="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit5/" rel="alternate" type="text/html" title="Testy jednostkowe z JUnit 5" /><published>2018-04-13T00:00:00+02:00</published><updated>2018-04-13T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit5</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit5/">&lt;div class=&quot;notice--info&quot;&gt;
-  
-&lt;p&gt;Jest to kolejny artykuł poświęcony tematyce testów, który napisałem na Samouczku. Zachęcam Cię także do przeczytania poprzednich artykułów:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/testy-jednostkowe-z-junit/&quot;&gt;Testy jednostkowe z JUnit 4&lt;/a&gt; - artykuł wprowadza w świat testów. Przeczytasz w nim między innymi o tym czym są asercje czy po co piszemy testy. Jeśli nie pisałeś wcześniej testów to tutaj powinieneś zacząć,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;&lt;em&gt;Test driven development&lt;/em&gt; na przykładzie&lt;/a&gt; - artykuł o podejściu do pisania testów nazywanym &lt;em&gt;test driven development&lt;/em&gt;. Opisuję w nim cały cykl &lt;em&gt;RED, GREEN, REFACTOR&lt;/em&gt; popierając go przykładami.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;W tym artykule będę zakładał, że wiesz czym są testy. W treści artykułu czasami będę porównywał wersję JUnit 5 z poprzednią, jednak znajomość JUnit 4 nie jest niezbędna.&lt;/p&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;testy-jednostkowe-z-junit-5&quot;&gt;Testy jednostkowe z JUnit 5&lt;/h2&gt;
-
-&lt;h3 id=&quot;powody-powstania-junit-5&quot;&gt;Powody powstania JUnit 5&lt;/h3&gt;
-
-&lt;p&gt;JUnit 4 to monolit. Jeden plik JAR (ang. &lt;em&gt;Java Archive&lt;/em&gt;), który zawiera całą bibliotekę. Ten plik zawiera między innymi:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;klasy odpowiedzialne za wyszukiwanie testów,&lt;/li&gt;
-  &lt;li&gt;klasy odpowiedzialna za uruchamianie testów,&lt;/li&gt;
-  &lt;li&gt;klasy zawierające API do pisania testów (np. &lt;code class=&quot;highlighter-rouge&quot;&gt;@Test&lt;/code&gt; czy implementacje asercji).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Jak widzisz łamie to jedną z podstawowych reguł dobrego podejścia do tworzenia kodu obiektowego: rób jedną rzecz i rób ją dobrze&lt;sup id=&quot;fnref:solid&quot;&gt;&lt;a href=&quot;#fn:solid&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;Poza tym IDE do uruchamiania testów i wyświetlania wyników używały prywatnej implementacji. Między innymi z tych powodów ewolucyjne rozwijanie biblioteki JUnit nie było możliwe. Nawet zmiana niektórych atrybutów powodowała, że IDE błędnie wyświetlało wyniki testów. Z tego powodu powstała inicjatywa rozwijania kolejnej wersji tej biblioteki.&lt;/p&gt;
-
-&lt;h3 id=&quot;junit-5-jako-platforma&quot;&gt;JUnit 5 jako platforma&lt;/h3&gt;
-
-&lt;p&gt;JUnit 5 to trzy niezależne komponenty&lt;sup id=&quot;fnref:podzielone&quot;&gt;&lt;a href=&quot;#fn:podzielone&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;platforma do uruchamiania testów: &lt;em&gt;JUnit Platform&lt;/em&gt;,&lt;/li&gt;
-  &lt;li&gt;API używane do pisania testów: &lt;em&gt;JUnit Jupiter&lt;/em&gt;,&lt;/li&gt;
-  &lt;li&gt;API używane do uruchamia testów napisanych w starszych wersjach JUnit na platformie JUnit 5: &lt;em&gt;JUnit Vintage&lt;/em&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;W swojej codziennej pracy używa się &lt;em&gt;JUnit Jupiter&lt;/em&gt;, czyli samego API, które pozwala na tworzenie testów. To właśnie &lt;em&gt;JUnit Jupiter&lt;/em&gt; zawiera adnotacje, który są niezbędne w trakcie pisania testów. W trakcie uruchamiania testów pośrednio używa się też &lt;em&gt;JUnit Platform&lt;/em&gt;, na przykład uruchamiając testy w IDE.&lt;/p&gt;
-
-&lt;h2 id=&quot;pierwszy-test-jednostkowy-z-junit-5&quot;&gt;Pierwszy test jednostkowy z JUnit 5&lt;/h2&gt;
-
-&lt;p&gt;Projekt będę budował przy użyciu &lt;a href=&quot;/wstep-do-gradle/&quot;&gt;Gradle&lt;/a&gt;. Przykładowy test będzie służył do sprawdzenia, programu odpowiedzialnego za konwersję jednostek wagi. Każda z jednostek implementowała będzie &lt;a href=&quot;/interfejsy-w-jezyku-java/#interfejs-znacznikowy&quot;&gt;interfejs znacznikowy&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;WeightUnit&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WeightUnit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SCALE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;RoundingMode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROUNDING_MODE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RoundingMode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;CEILING&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;Pound&lt;/code&gt; reprezentuje funty:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Pound&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WeightUnit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;POUND_TO_KILOGRAM_RATIO&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0.453592&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setScale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SCALE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROUNDING_MODE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compareTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Weight can't be negative!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setScale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SCALE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROUNDING_MODE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Kilogram&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toKilograms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Kilogram&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;POUND_TO_KILOGRAM_RATIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setScale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SCALE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROUNDING_MODE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Jej odpowiednik dla kilogramów to klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;Kilogram&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Kilogram&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WeightUnit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Kilogram&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compareTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Weight can't be negative!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setScale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SCALE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROUNDING_MODE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toPounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;divide&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;POUND_TO_KILOGRAM_RATIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SCALE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROUNDING_MODE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Przykładowy zestaw testów może wyglądać następująco:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.junit.jupiter.api.Test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.math.BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Assertions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UnitConverterTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldConvertZeroKilogramValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pounds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Kilogram&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toPounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setScale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldConvertZeroPoundValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Kilogram&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kilograms&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toKilograms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setScale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kilograms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldConvert1Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0.4536&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toKilograms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldConvert1Kilogram&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;2.2046&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Kilogram&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toPounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Zwróć uwagę na to, że zarówno klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;UnitConverterTest&lt;/code&gt; jak i wszystkie metody nie są publiczne. JUnit 5, w odróżnieniu od swojego poprzednika, nie wymaga aby klasa/metody z testami były dostępne publicznie.&lt;/p&gt;
-
-&lt;p&gt;Kolejną różnicą jest pakiet, w którym znajdują się klasy użyte do tworzenia testów: &lt;code class=&quot;highlighter-rouge&quot;&gt;org.junit.jupiter.api&lt;/code&gt;. Jest to bazowy pakiet zawierający wszystkie elementy niezbędne do pisania testów.&lt;/p&gt;
-
-&lt;p&gt;Metody oznaczone adnotacją &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Test.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Test&lt;/code&gt;&lt;/a&gt; to testy. Metody te nie mogą zwracać żadnej wartości, nie mogą być prywatne ani statyczne.&lt;/p&gt;
-
-&lt;p&gt;Wewnątrz testów używa się asercji. Asercje dostarczone przez JUnit zgrupowane są wewnątrz klasy &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Assertions&lt;/code&gt;&lt;/a&gt;. W przykładach powyżej użyłem asercji &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertEquals-java.lang.Object-java.lang.Object-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assertEquals&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;notice--success text-center&quot;&gt;
-  
-&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 1000 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
-
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;możliwości-junit-5&quot;&gt;Możliwości JUnit 5&lt;/h2&gt;
-
-&lt;h3 id=&quot;cykl-życia-testów&quot;&gt;Cykl życia testów&lt;/h3&gt;
-
-&lt;p&gt;Podobnie jak w poprzedniej wersji JUnit 5 określa cykl życia testów. Dzięki temu możesz odpowiednio przygotować warunki do uruchomienia testów. JUnit tworzy nową instancję klasy przed każdym uruchomieniem testu.&lt;/p&gt;
-
-&lt;p&gt;Jeśli chcesz zmienić to zachowanie możesz użyć adnotacji &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/TestInstance.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@TestInstance&lt;/code&gt;&lt;/a&gt;, dzięki tej adnotacji możesz wymusić współdzielenie instancji klasy pomiędzy testami. Moim zdaniem, w większości przypadków nie powinieneś jednak tego robić. Dobrą praktyką jest pisanie testów, które są od siebie niezależne.&lt;/p&gt;
-
-&lt;p&gt;Do zarządzania cyklem życia służą następujące &lt;a href=&quot;/adnotacje-w-jezyku-java/&quot;&gt;adnotacje&lt;/a&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeEach.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@BeforeEach&lt;/code&gt;&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterEach.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@AfterEach&lt;/code&gt;&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeAll.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@BeforeAll&lt;/code&gt;&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterAll.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@AfterAll&lt;/code&gt;&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;zmiana-nazwy-testu&quot;&gt;Zmiana nazwy testu&lt;/h3&gt;
-
-&lt;p&gt;JUnit 5 pozwala na manipulowanie nazwą testu. Dzięki temu możesz opisać test używając znaków, które nie są dopuszczalne w nazwie metody. Służy do tego adnotacja &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/DisplayName.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@DisplayName&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@DisplayName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0.1 pounds to kilograms ♥ ♦ ♣ ♠&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldConvertFractions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0.0454&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0.1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toKilograms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;testowanie-wyjątków&quot;&gt;Testowanie wyjątków&lt;/h3&gt;
-
-&lt;p&gt;W odróżnieniu od JUnit 4, JUnit 5 nie pozwala na określenie oczekiwanego wyjątku w elemencie adnotacji &lt;code class=&quot;highlighter-rouge&quot;&gt;@Test&lt;/code&gt;. W nowym podejściu użyte są &lt;a href=&quot;/wyrazenia-lambda-w-jezyku-java/&quot;&gt;wyrażenia lambda&lt;/a&gt;. Kod, który ma rzucić wyjątek powinien implementować interfejs funkcyjny &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/function/Executable.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Executable&lt;/code&gt;&lt;/a&gt;. W najprostszym przypadku jest to wyrażenie lambda.&lt;/p&gt;
-
-&lt;p&gt;Metoda &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertThrows-java.lang.Class-org.junit.jupiter.api.function.Executable-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assertThrows&lt;/code&gt;&lt;/a&gt; przyjmuje:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;klasę wyjątku, który powinien być rzucony&lt;/li&gt;
-  &lt;li&gt;implementację interfejsu, która powinna ten wyjątek rzucić:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldntAcceptNegativeWeightInPounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;IllegalArgumentException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;assertThrows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Weight can't be negative!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assertThrows&lt;/code&gt; zwraca instancję wyjątku, który został rzucony.&lt;/p&gt;
-
-&lt;h3 id=&quot;ograniczanie-czasu-działania-testów&quot;&gt;Ograniczanie czasu działania testów&lt;/h3&gt;
-
-&lt;p&gt;JUnit 5 pozwala na testowanie czy wykonanie fragmentu kodu będzie trwało krócej niż założony z góry okres. Służą do tego asercje:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertTimeout-java.time.Duration-org.junit.jupiter.api.function.Executable-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assertTimeout&lt;/code&gt;&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertTimeoutPreemptively-java.time.Duration-org.junit.jupiter.api.function.Executable-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assertTimeoutPreemptively&lt;/code&gt;&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Obie asercje przyjmują argumenty:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;instancję klasy &lt;a href=&quot;https://docs.oracle.com/javase/10/docs/api/java/time/Duration.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Duration&lt;/code&gt;&lt;/a&gt; określającą maksymalny czas działania,&lt;/li&gt;
-  &lt;li&gt;implementację interfejsu funkcyjnego &lt;code class=&quot;highlighter-rouge&quot;&gt;Executable&lt;/code&gt;, to ten sam interfejs, który jest użyty w przypadku &lt;code class=&quot;highlighter-rouge&quot;&gt;assertThrows&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldTransalteUnitsBlazinglyFast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;assertTimeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Kilogram&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toPounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assertTimeout&lt;/code&gt; uruchamia przekazany fragment kodu w tym samym wątku i czeka na jego zakończenie. Po zakończeniu sprawdza czy założony czas został przekroczony. &lt;code class=&quot;highlighter-rouge&quot;&gt;assertTimeoutPreemptively&lt;/code&gt; uruchamia przekazany fragment kodu w innym wątku i kończy go natychmiast po przekroczeniu założonego czasu.&lt;/p&gt;
-
-&lt;h3 id=&quot;zagnieżdżanie-testów&quot;&gt;Zagnieżdżanie testów&lt;/h3&gt;
-
-&lt;p&gt;JUnit 5 pozwala na wykorzystywanie &lt;a href=&quot;/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/&quot;&gt;klas wewnętrznych&lt;/a&gt;. Wraz z adnotacjami do zarządzania cyklem życia pozwala to na lepszą organizację testów. Służy do tego adnotacja &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Nested.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Nested&lt;/code&gt;&lt;/a&gt;. Przykład poniżej pokazuje klasę &lt;code class=&quot;highlighter-rouge&quot;&gt;ExceptionHandling&lt;/code&gt;, która zawiera jeden test. Klasa ta jest zagnieżdżona wewnątrz &lt;code class=&quot;highlighter-rouge&quot;&gt;UnitConverterTest&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UnitConverterTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldConvertZeroKilogramValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pounds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Kilogram&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toPounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setScale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;44&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Nested&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExceptionHandling&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldntAcceptNegativeWeightInPounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;IllegalArgumentException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;assertThrows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Weight can't be negative!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;łączenie-kilku-asercji&quot;&gt;Łączenie kilku asercji&lt;/h3&gt;
-
-&lt;p&gt;Dobrą praktyką pisania testów jest używanie jednej asercji na każdy test. Takie podejście pozwala zobaczyć wszystkie asercje, które nie zostały spełnione. Prosty przykład poniżej pokazuje tę sytuację. Test jednostkowy, który zawiera te dwie linijki nigdy nie dojdzie do uruchomienia drugiej z nich:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;assertTrue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;assertFalse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Przez to zachowanie nie zobaczysz od razu wszystkich błędnych asercji. JUnit 5 pozwala na obejście tego problemu dzięki użyciu asercji &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertAll-org.junit.jupiter.api.function.Executable...-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assertAll&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldntAcceptNullValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;assertAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;assertThrows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NullPointerException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Kilogram&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)),&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;assertThrows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NullPointerException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assertAll&lt;/code&gt; przyjmuje listę&lt;sup id=&quot;fnref:typy&quot;&gt;&lt;a href=&quot;#fn:typy&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; implementacji interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Executable&lt;/code&gt;. Podobnie jak poprzednio zazwyczaj są to wyrażenia lambda.&lt;/p&gt;
-
-&lt;p&gt;W przykładzie powyżej niezależnie od wyniku pierwszej asercji druga także zostanie wywołana. Obie zostaną uwzględnione w wynikach działania testów.&lt;/p&gt;
-
-&lt;h3 id=&quot;powtarzanie-testów&quot;&gt;Powtarzanie testów&lt;/h3&gt;
-
-&lt;p&gt;Zdarzyło mi się pisać testy, które zawierały pętle. Pętle te służyły do powtórzenia dokładnie tego samego testu wielokrotnie. Pisałem takie testy w sytuacji gdy dochodziło do wyścigu i czasami dany test przechodził, czasami nie. JUnit 5 umożliwia pisanie tego typu testów bez użycia pętli. Służy do tego adnotacja &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/RepeatedTest.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@RepeatedTest&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RepeatedTest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldAlwaysReturnTheSameValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;29.4840&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setScale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;65&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toKilograms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W przykładzie powyżej test zostanie wywołany trzy razy.&lt;/p&gt;
-
-&lt;h3 id=&quot;ignorowanie-testów&quot;&gt;Ignorowanie testów&lt;/h3&gt;
-
-&lt;p&gt;JUnit 5 pozwala na ignorowanie testów. Najprostszym sposobem jest dodanie adnotacji &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Disabled.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Disabled&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;mechanizm-rozszerzeń&quot;&gt;Mechanizm rozszerzeń&lt;/h3&gt;
-
-&lt;p&gt;JUnit 5 w odróżnieniu od JUnit 4 nie posiada &lt;code class=&quot;highlighter-rouge&quot;&gt;@Rule&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;@ClassRule&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;@RunWith&lt;/code&gt;. JUnit5 łączy te funkcjonalności w jedną. Ta funkcjonalność nazywa się rozszerzeniami. Główną adnotacją, która zarządza rozszerzeniami jest &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/ExtendWith.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@ExtendWith&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Adnotacja jako element akceptuje klasę implementującą interfejs &lt;a href=&quot;https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/Extension.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Extension&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Mechanizm rozszerzeń jest głównie wykorzystywany wraz z innymi bibliotekami. Na przykład przez Spring do umożliwienia wstrzykiwania zależności czy przez Mockito do tworznia mocków.&lt;/p&gt;
-
-&lt;h4 id=&quot;przykładowe-rozszerzenie&quot;&gt;Przykładowe rozszerzenie&lt;/h4&gt;
-
-&lt;p&gt;Przykład poniżej pokazuje rozszerzenie, które wyświetla na konsoli napis &lt;code class=&quot;highlighter-rouge&quot;&gt;Samouczek extension :)&lt;/code&gt;. Rozszerzenie to zostało zaaplikowane do jednego z testów:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SamouczekExtension&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeforeEachCallback&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ExtensionContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Samouczek extension :)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@ExtendWith&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SamouczekExtension&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldConvertZeroPoundValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Kilogram&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kilograms&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toKilograms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setScale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kilograms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;tworzenie-własnych-adnotacji&quot;&gt;Tworzenie własnych adnotacji&lt;/h3&gt;
-
-&lt;p&gt;JUnit 5 pozwala na &lt;a href=&quot;/adnotacje-w-jezyku-java/&quot;&gt;tworzenie własnych adnotacji&lt;/a&gt; poprzez łączenie tych dostarczonych przez bibliotekę. W przykładzie poniżej możesz zobaczyć rozszerzenie, które przytoczyłem wyżej. Tym razem rozszerzenie to jest aplikowane przez dodanie własnej adnotacji &lt;code class=&quot;highlighter-rouge&quot;&gt;@SamouczekBefore&lt;/code&gt; do metody z testem:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ElementType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TYPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ElementType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;METHOD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Retention&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RetentionPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RUNTIME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@ExtendWith&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SamouczekExtension&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SamouczekBefore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@SamouczekBefore&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldConvert1Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0.4536&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toKilograms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Takie podejście pozwala na tworzenie bardziej czytelnych testów. Moim zdaniem jednak nie powinno się przesadzać z używaniem tej funkcjonalności. Może ona powodować trudności w zrozumieniu kodu przez programistów, którzy są nowi w danym projekcie.&lt;/p&gt;
-
-&lt;h2 id=&quot;uruchamianie-testów-junit-5&quot;&gt;Uruchamianie testów JUnit 5&lt;/h2&gt;
-
-&lt;p&gt;Jak wspomniałem wyżej różne narzędzia używały wewnętrznego API biblioteki JUnit to uruchamiania i wyświetlania wyników testów. W związku z tym zmiana wersji biblioteki JUnit wymaga także zmiany w różnych narzędziach. Aby używać JUnit 5 w IDE musi się ono poprawnie integrować z nową wersją biblioteki. Od jakiegoś już czasu główne IDE mają takie wsparcie:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;IntelliJ Idea 2016.2&lt;/li&gt;
-  &lt;li&gt;Eclipse Oxygen&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;junit-5-z-gradle&quot;&gt;JUnit 5 z Gradle&lt;/h3&gt;
-
-&lt;p&gt;Gradle od wersji 4.6 wspiera natywnie uruchamianie testów przy pomocy &lt;em&gt;JUnit Platform&lt;/em&gt;. Dodanie kilku linijek do &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; pozwala na uruchamianie testów przy pomocy Gradle:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.1.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.1.0'
-}
-
-test {
-    useJUnitPlatform()
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;materiały-dodatkowe&quot;&gt;Materiały dodatkowe&lt;/h2&gt;
-
-&lt;p&gt;JUnit 5 ma bardzo dobrą dokumentację. Na YouTube znajdziesz też całkiem sporo prezentacji, które opisują nowe podejście. Poniżej zebrałem dla Ciebie materiały, które są dobrym uzupełnieniem dla treści artykułu:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://junit.org/junit5/docs/current/user-guide/&quot;&gt;Dokumentacja biblioteki JUnit&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=0qI6_NKFQsY&quot;&gt;Prezentacja z Devoxx prowadzona przez Lead Developer’a biblioteki JUnit&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=-mIrA5cVfZ4&quot;&gt;JUnit 5 z innej perspektywy, integracja ze Spring 5&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.indiegogo.com/projects/junit-lambda#/&quot;&gt;Kampania na Indiegogo sponsorująca rozwój JUnit 5&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/KursJava/tree/master/31_testy_jednostkowe_junit5&quot;&gt;Kod źródłowy przykładów użytych w artykule&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;zadania-do-wykonania&quot;&gt;Zadania do wykonania&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Napisz program, który będzie pomagał w prowadzeniu kantoru. Kantor powinien obsługiwać wymianę trzech par walutowych:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;PLN - EUR,&lt;/li&gt;
-      &lt;li&gt;PLN - USD,&lt;/li&gt;
-      &lt;li&gt;EUR - USD.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;Właściciel kantoru z góry określa przelicznik referencyjny i spread dla każdej pary walutowej. W bardziej rozwiniętej wersji kantor powinien pobierać przelicznik referencyjny używając API. Możesz na przykład użyć &lt;a href=&quot;https://fixer.io/&quot;&gt;tego&lt;/a&gt;.&lt;/p&gt;
-
-    &lt;p&gt;Napisz ten program używając podejścia &lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;TDD&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Zrefaktoryzuj kod źródłowy przykładów użytych w artykule tak aby &lt;code class=&quot;highlighter-rouge&quot;&gt;Weight&lt;/code&gt; było klasą, której konstruktor akceptuje dwa parametry:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WeightUnit unit&lt;/code&gt; - &lt;a href=&quot;/typ-wyliczeniowy-w-jezyku-java/&quot;&gt;typ wyliczeniowy&lt;/a&gt; określający rodzaj jednostki. Powinien mieć wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;POUND&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;KILOGRAM&lt;/code&gt;,&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;BigDecimal value&lt;/code&gt; - wartość wagi w danej jednostce.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;Dodatkowo klasa ta powinna zawierać metody:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Weight convert(WeightUnit convertTo)&lt;/code&gt; - zwraca instancję &lt;code class=&quot;highlighter-rouge&quot;&gt;Weight&lt;/code&gt; reprezentującą wagę w nowej jednostce,&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;BigDecimal getValue()&lt;/code&gt; - zwaraca wagę,&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WeightUnit getUnit()&lt;/code&gt; - zwaraca jednostkę, w której wyrażona jest waga.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;Użyj istniejących testów i metodyki TDD do przeprowadzenia refaktoringu kodu.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Podziel się linkiem do swojego rozwiązania w komentarzu :).&lt;/p&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Po lekturze tego artykułu wiesz czym jest JUnit 5. Znasz komponenty składające się na tę bibliotekę. Rozwiązałeś zadanie, które pozwoliło Ci użyć JUnit 5 w praktyce. Od dzisiaj możesz zacząć pisać testy używając wyłącznie JUnit 5 ;). W artykule tym celowo pominąłem część funkcjonalności udostępnionych przez JUnit 5. Zachęcam Cię do zajrzenia do materiałów dodatkowych, szczególnie dokumentacji.&lt;/p&gt;
-
-&lt;p&gt;Jeśli masz jakiekolwiek pytania, proszę zadaj je w komentarzu. Jeśli nie chcesz ominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera i polub Samouczka na Facebook’u. Do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:solid&quot;&gt;
-      &lt;p&gt;W oryginale SRP (ang. &lt;em&gt;Single Responsibility Principle&lt;/em&gt;) to pierwsza literka z akronimu &lt;a href=&quot;/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/&quot;&gt;SOLID&lt;/a&gt;. &lt;a href=&quot;#fnref:solid&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:podzielone&quot;&gt;
-      &lt;p&gt;Komponenty te są także podzielone na mniejsze elementy dystrybuowane w osobnych plikach JAR. &lt;a href=&quot;#fnref:podzielone&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:typy&quot;&gt;
-      &lt;p&gt;Metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;assertAll&lt;/code&gt; jest przeciążona i akceptuje różne rodzaje parametrów, zaczynając od “varargs” a na &lt;a href=&quot;/strumienie-w-jezyku-java/&quot;&gt;strumieniach&lt;/a&gt; kończąc. &lt;a href=&quot;#fnref:typy&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym przeczytasz o JUnit 5. Dowiesz się co jest nowego w testowaniu przy użyciu JUnit 5. Poznasz sposoby na użycie wyrażeń lambda w testach. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując zadania umieszczone na końcu artykułu.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł zawiera zestawienie kilkunastu książek dotyczących programowania. Przeczytałem każdą z tych książek i mogę je polecić z czystym sumieniem. Co więcej, część z nich to &quot;klasyki&quot;, które moim zdaniem powinien przeczytać każdy programista.</summary></entry></feed>

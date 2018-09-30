@@ -15,7 +15,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/kurs-sql/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/kurs_sql_splash.jpeg"},{
         "title": "Kurs Git",
-        "excerpt":"Pracuję nad pierwszym komercyjnym kursem na stronie. Jakiś czas temu zdecydowałem, że będzie to kurs związany z systemem kontroli wersji Git. Będzie to kurs z materiałami w formie: filmów wideo, plików pdf:** z materiałami omówionymi z filmach,** ściągawek z komendami Git’a, ćwiczeń do samodzielnego wykonania,Mam nadzieję, że udało Ci się...","categories": [],
+        "excerpt":"Pracuję nad pierwszym komercyjnym kursem na stronie. Jakiś czas temu zdecydowałem, że będzie to kurs związany z systemem kontroli wersji Git. Będzie to kurs z materiałami w formie: filmów wideo, plików pdf: z materiałami omówionymi z filmach, ściągawek z komendami Git’a, ćwiczeń do samodzielnego wykonania,Mam nadzieję, że udało Ci się...","categories": [],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/kurs-git/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/kurs_git.png"},{
@@ -554,6 +554,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/22_testy_z_mock_i_stub_w_jezyku_java.jpeg"},{
+        "title": "Jakość kodu a oschłe pocałunki Jagny",
+        "excerpt":"Coś o powtarzaniu - DRY Reguła DRY (ang. Don’t Repeat Yourself) zostało opisana w książce “The Pragmatic Programmer” autorstwa Andrew’a Hunt’a i David’a Thomas’a. Autorzy wprowadzają regułę, która mówi, że każdy fragment wiedzy powinien mieć pojedynczą, jednoznaczną i uznaną reprezentację w systemie. Regułę tę można zastosować zarówno do konfiguracji jak...","categories": ["Dobre praktyki","Programista rzemieślnik"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/28_jakosc_kodu_a_oschle_pocalunki_jagny_artykul.jpeg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],
