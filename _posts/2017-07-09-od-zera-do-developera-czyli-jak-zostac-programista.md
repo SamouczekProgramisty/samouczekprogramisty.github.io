@@ -103,4 +103,4 @@ Jak wspomniałem na początku artykułu programowanie nie jest łatwe. Jego nauk
 
 Mam nadzieję, że artykuł przypadł Ci do gustu. Proszę podziel się nim ze swoimi znajomymi, może ktoś z nich zechce nauczyć się programowania?
 
-Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newsletera i polub stronę na facebooku. Do następnego razu!
+Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub stronę na Facebooku. Do następnego razu!
