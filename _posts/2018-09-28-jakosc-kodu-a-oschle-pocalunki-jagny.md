@@ -91,7 +91,7 @@ Nie pamiętam gdzie, ale usłyszałem kiedyś, że przeciwnością DRY jest WET 
 
 Według [Wikipedii](https://en.wikipedia.org/wiki/KISS_principle) reguła KISS (ang. _Keep It Simple, Stupid_) wspomniana została już w 1960 roku przez marynarkę Stanów Zjednoczonych jako wytyczna dotycząca projektowania. Ja poznałem ją w kontekście projektów informatycznych.
 
-KISS sprowadza się do unikania złożoności projektów informatycznych. Im mniej ruszających się części tym mniej rzeczy może się zepsuć. Wychodzę z założenia, że kod, który ma mniej linijek przeważnie jest lepszym rozwiązaniem. Głośno mówię o tym, że bardzo lubię usuwać kod. Im go mniej, tym lepiej. Nie jest sztuką napisać obszerny kod, który realizuje wymagania. Sztuką jest napisanie czytelnego fragmentu kodu z którego nic nie można usunąć. Nie można nic usunąć, ponieważ każdy element jest potrzebny i realizuje część funkcjonalności.
+KISS sprowadza się do unikania złożoności projektów informatycznych. Im mniej ruszających się części tym mniej rzeczy może się zepsuć. Wychodzę z założenia, że kod, który ma mniej linijek przeważnie jest lepszym rozwiązaniem. Głośno mówię o tym, że bardzo lubię usuwać kod. Im go mniej, tym lepiej. Nie jest sztuką napisać obszerny kod, który realizuje wymagania. Sztuką jest napisanie czytelnego fragmentu kodu, z którego nic nie można usunąć. Nie można nic usunąć, ponieważ każdy element jest potrzebny i realizuje część funkcjonalności.
 
 Podobnie jak przy regule DRY. Jeśli zobaczysz coś co można uprościć, zrób to. Powtarzam też z uporem maniaka, operacje tego typu powinno się przeprowadzać mając pod sobą siatkę bezpieczeństwa w postaci [testów jednostkowych]({% post_url 2018-04-13-testy-jednostkowe-z-junit5 %}).
 
@@ -126,7 +126,7 @@ Na pewno zdarzyło Ci się kiedyś zastanawiać się nad tym jak zaimplementowa�
 
 Każda ewentualność jest obsłużona. Wszystkie ekstremalne przypadki zaimplementowane. Po prostu niezatapialny fragment kodu. Kod tag generyczny, że jak zostawisz go przez noc to w wyniku ewolucji przejmie władzę nad światem...
 
-Całość zajęła Ci trzy miesiące. Przez ten czas nawet nie miałeś czasu porozmawiać z klientem o jego wymaganiach. Przecież Twoja wyobraźnia wie lepiej. Wszystkie funkcjonalności, o których klient jeszcze nie pomyślał są gotowe. Wiesz co? YAGNI (ang. _You Aren't Gonna Need It_). Nie będziesz tego potrzebować.
+Całość zajęła Ci trzy miesiące. Przez ten czas nawet nie było kiedy porozmawiać z klientem o jego wymaganiach. Przecież Twoja wyobraźnia wie lepiej. Wszystkie funkcjonalności, o których klient jeszcze nie pomyślał są gotowe. Wiesz co? YAGNI (ang. _You Aren't Gonna Need It_). Nie będziesz tego potrzebować.
 
 ### Łatwo rozszerzalny kod a nowe funkcjonalności
 
@@ -158,3 +158,5 @@ Jeśli masz ochotę spojrzeć na temat z innej strony zachęcam Cię do rzucenia
 Po lekturze tego artykułu wiesz czym jest DRY, KISS i YAGNI. Wiesz, że powtórzenia należy eliminować. Wiesz, że zbędne komplikowanie implementacji jest złym podejściem. W końcu, wiesz też, że funkcjonalności powinny być implementowane nie wcześniej niż są potrzebne.
 
 Opisane tu akronimy KISS i YAGNI odnoszą się do zwinnego sposobu wytwarzania oprogramowania, które moim zdaniem jest lepszym podejściem w większości przypadków. A Ty co o tym sądzisz? Który z tych akronimów stosujesz najczęściej?
+
+Na koniec mam do Ciebie prośbę, jeśli znasz kogoś komu ten tekst może być pomocny proszę podeślij mu adres tego artykułu. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Pamiętaj też, że dopisanie się do samouczkowego newslettera i polubienie Samouczka na Facebooku pomoże Ci śledzić nowe artykuły na blogu.
