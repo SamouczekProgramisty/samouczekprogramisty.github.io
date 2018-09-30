@@ -47,6 +47,8 @@ Powtarzam to bez przerwy. Najlepszym sposobem na naukę jest praktyka. Wybierz s
 
 Jeśli swobodnie tworzysz już aplikacje webowe nie zapominaj o [przydatnych narzędziach i dobrych praktykach]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}). Na tej samej stronie znajdziesz też spis artykułów dotyczących [testów automatycznych]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}).
 
+Na tym etapie system kontroli wersji nie powinien być dla Ciebie czymś nowym. Jeśli jednak jeszcze nie udało Ci się go poznać zapraszam do [kursu gita]({{ '/kurs-git/' | absolute_url }}) gdzie poznasz Git'a w praktyczny sposób od podstaw.
+
 Aplikacje webowe to studnia bez dna :). Proszę daj znać jaki temat powinienem dodatkowo opisać. Jeśli tylko będę miał wystarczającą wiedzę na ten temat postaram się naskrobać artykuł. A może chcesz poznać język SQL? Jeśli tak to świetnie, bo przygotowałem [darmowy kurs SQL]({{ '/kurs-sql/' | absolute_url }}) na blogu.
 
 Na koniec mam tę samą prośbę co zawsze. Jeśli znajdziesz chwilę, żeby napisać mi co sądzisz o kursie będę wdzięczny. Każda konstruktywna krytyka jest mile widziana. Mój adres e-mail to `marcin małpka samouczekprogramisty.pl`.

@@ -29,7 +29,7 @@ Reguła DRY ma zastosowanie zarówno do mniejszych fragmentów kodu jak i dużyc
 
 ### Przykład zastosowania reguły
 
-Załóżmy, że zadaniem jest napisanie algorytmu, który liczbę w notacji dziesiętnej zapisze w innym systemie, na przykład binarnie. Akurat to zadanie jest do wykonania w artykule opisującym [system binarny]({% post_url 2016-02-11-system-dwojkowy %}). Jeden z czytelników zaproponował takie rozwiązanie (jeszcze raz dziękuję za pozwolenie na jego publikację ;)):
+Załóżmy, że zadaniem jest napisanie algorytmu, który liczbę w notacji dziesiętnej zapisze w innym systemie, na przykład binarnie. Akurat to zadanie jest do wykonania w artykule opisującym [system binarny]({% post_url 2016-02-11-system-dwojkowy %}). Jeden z czytelników zaproponował takie rozwiązanie (jeszcze raz dziękuję za pozwolenie na jego publikację):
 
 ```java
 public static String convert(int decimalNumber, int toBase) {
@@ -84,6 +84,8 @@ public static String convert(int decimalNumber, int toBase) {
 Jeśli widzisz duplikację w kodzie, warto zastanowić się nad jej usunięciem. Zastanów się czy sesja refaktoringu kodu nie byłaby potrzebna. Może proste wydzielenie metody rozwiąże problem? Może fragment kodu jest na tyle rozbudowany, że potrzeba osobnej klasy? Ta klasa będzie miała wtedy swój zakres odpowiedzialności i koniecznie swój zestaw [testów jednostkowych]({% post_url 2018-04-13-testy-jednostkowe-z-junit5 %}).
 
 Nie pamiętam gdzie, ale usłyszałem kiedyś, że przeciwnością DRY jest WET (ang. _We Enjoy Typing_, _We Edit Terribly_, etc.). W moim przypadku często łączę te akronimy ;). Na początku piszę coś co spełnia wymagania, powtarzając niektóre fragmenty. Taki początkowy kod jest brzydki, ale działa. Jednak po tym etapie przychodzi czas na chwilę zastanowienia. Nie bez powodu pojedyncza runda [TDD]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}) nie jest kompletna bez refaktoringu. Właśnie wtedy można uprościć kod usuwając zbędną duplikację. Zestaw wcześniej napisanych testów jednostkowych pozwala na swobodną zmianę struktury kodu. 
+
+{% include newsletter-srodek.md %}
 
 ## Coś o prostocie - KISS
 
