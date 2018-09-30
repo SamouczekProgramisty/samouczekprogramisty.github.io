@@ -58,7 +58,7 @@ W poprzednim odcinku wspominałem o konfiguracji firewalla, niestety dalej nie u
 
 Jednym z mechanizmów dostępnych w Puppecie jest [hiera](https://docs.puppet.com/hiera/). Jest to swego rodzaju hierarchiczna konfiguracja dostępna dla manifestów puppeta. W moim przypadku nie używam hierarchii plików a jedynie jednego pliku `passwords.yaml`.
 
-Plik ten zawiera wszystkie hasła, które nie powinny być dostępne na gitubie ;). Na przykład zawarte jest tam hasło dla głównego użytkownika bazy danych. Dzięki takiemu podejściu mogę dzielić się z Tobą konfiguracją, zachowując jednocześnie odpowiedni poziom bezpieczeństwa[^bezpieczenstwo].
+Plik ten zawiera wszystkie hasła, które nie powinny być dostępne na Githubie ;). Na przykład zawarte jest tam hasło dla głównego użytkownika bazy danych. Dzięki takiemu podejściu mogę dzielić się z Tobą konfiguracją, zachowując jednocześnie odpowiedni poziom bezpieczeństwa[^bezpieczenstwo].
 
 [^bezpieczenstwo]: Jak na moją wiedzę z tego zakresu ;).
 

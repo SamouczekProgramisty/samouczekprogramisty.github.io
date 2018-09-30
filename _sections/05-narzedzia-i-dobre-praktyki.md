@@ -17,6 +17,8 @@ Znajomość składni języka programowania to dopiero początek. Programista w s
 * [Walidacja obiektów w języku Java]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-java %})
 * [Format JSON w języku Java]({% post_url 2018-09-14-format-json-w-jezyku-java %})
 
+Dodatkowo koniecznie musisz znać system kontroli wersji. Proponuję Ci zacząć od Git'a, który jest standardem w branży. [Kurs Gita]({{ '/kurs-git/' | absolute_url }}) dostępny na Samouczku powinien Ci pomóc go poznać.
+
 ## Dobre praktyki
 
 Bez tego się nie obejdzie. Jeśli chcesz tworzyć kod, który będzie łatwy w utrzymaniu, możliwy do rozszerzenia i testowania stosuj dobre praktyki opracowane przez bardziej doświadczonych programistów. Ta lista zawiera artykuły, które opisują takie praktyki.

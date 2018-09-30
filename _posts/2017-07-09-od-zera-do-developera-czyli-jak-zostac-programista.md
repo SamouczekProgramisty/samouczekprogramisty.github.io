@@ -51,13 +51,11 @@ Do efektywnej pracy z językiem Java niezbędne jest IDE. Czy to będzie Idea, E
 
 ### System kontroli wersji
 
-System kontroli wersji to mechanizm ułatwiający pracę z kodem. W systemie tym zapisuje się historyczne wersje plików, dzięki temu w łatwy sposób możemy śledzić zmiany. System ten pomaga także przy pracy zespołowej nad jednym fragmentem kodu. Standardem w większości firm jest Git, zdarzają się też firmy, które używają SVN czy innych bardziej “egzotycznych” systemów. Proponowałbym zacząć do Git’a. Jeśli jesteś początkującym zachęcam do zajrzenia na jeden z interaktywnych kursów gita:
-- [http://gitreal.codeschool.com](http://gitreal.codeschool.com),
-- [https://try.github.io/levels/1/challenges/1](https://try.github.io/levels/1/challenges/1).
+System kontroli wersji to mechanizm ułatwiający pracę z kodem. W systemie tym zapisuje się historyczne wersje plików, dzięki temu w łatwy sposób możemy śledzić zmiany. System ten pomaga także przy pracy zespołowej nad jednym fragmentem kodu. Standardem w większości firm jest Git, zdarzają się też firmy, które używają SVN czy innych bardziej “egzotycznych” systemów. Proponowałbym zacząć do Git’a. Jeśli dopiero zaczynasz przygodę z systemami kontroli wersji zachęcam do zajrzenia do [kursu gita]({{ '/kurs-git/' | absolute_url }}) dostępnego na Samouczku.
 
 ### Testy jednostkowe
 
-Umiejętność pisania testów jednostkowych jest bardzo przydatna. Jeśli będziesz mógł się pochwalić znajomością bibliotek takich jak [JUnit](http://junit.org/), [Mockito](http://site.mockito.org/) czy [Hamcrest](http://hamcrest.org/JavaHamcrest/) będzie bardzo dobrze. Sam używam tej trójki przy pisaniu testów. Jeśli ta tematyka Cię interesuje napisałem artykuł [wprowadzający do testów jednostkowych]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}) i [metodyki TDD]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}).
+Umiejętność pisania testów jednostkowych jest bardzo przydatna. Jeśli będziesz mógł się pochwalić znajomością bibliotek takich jak [JUnit](http://junit.org/), [Mockito](http://site.mockito.org/) czy [Hamcrest](http://hamcrest.org/JavaHamcrest/) będzie bardzo dobrze. Sam używam tej trójki przy pisaniu testów. Jeśli ta tematyka Cię interesuje napisałem serię artykułów dotyczących testów jednostkowych. Znajdziesz je na podstronie opisującej [narzędzia i dobre praktyki]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url}}).
 
 ## Biblioteki, specyfikacje i technologie
 
@@ -75,7 +73,7 @@ Spring MVC jest bardzo popularny. Używany jest w dużej liczbie projektów. Dok
 
 ### Bazy danych
 
-Większość aplikacji webowych zapisuje dane w bazach danych. Powinieneś wiedzieć czym są relacyjne bazy danych. Takie rzeczy jak klucz główny, klucz obcy, indeks czy rodzaje złączeń nie powinny Cię zaskakiwać. Powinieneś także konstruować proste zapytania z użyciem `GROUP BY`, `HAVING`, `ORDER BY` i `JOIN`.
+Większość aplikacji webowych zapisuje dane w bazach danych. Powinieneś wiedzieć czym są relacyjne bazy danych. Takie rzeczy jak klucz główny, klucz obcy, indeks czy rodzaje złączeń nie powinny Cię zaskakiwać. Powinieneś także konstruować proste zapytania z użyciem `GROUP BY`, `HAVING`, `ORDER BY` i `JOIN`. Pomoże Ci w tym [wstęp do relacyjnych baz danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}), który jest częścią [kursu SQL]({{ '/kurs-sql' | absolute_url }})
 
 ### ORM (ang. _Object-Relational Mapping_)
 

@@ -88,4 +88,6 @@ Koniecznie zapoznaj się z tym jak używać języka [Java z linii poleceń]({% p
 
 Jeśli nadal chcesz rozwijać swoją wiedzę związaną z językiem Java zachęcam Cię do przerobienia [kursu programowania aplikacji webowych]({{ '/kurs-aplikacji-webowych/' | absolute_url}}).
 
+Bez względu na to czy zdecydujesz się na rozwijanie wiedzy związanej z Javą koniecznie musisz zwrócić uwagę na Git'a. Pomoże Ci w tym [kurs git dla początkujących]({{ '/kurs-git/' | absolute_url }}).
+
 Jeśli znajdziesz chwilę, żeby napisać mi co sądzisz o kursie będę wdzięczny. Każda konstruktywna krytyka jest mile widziana. Mój adres e-mail to `marcin małpka samouczekprogramisty.pl`.
