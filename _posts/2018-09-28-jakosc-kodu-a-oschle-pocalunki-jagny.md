@@ -124,7 +124,7 @@ W kontekście oprogramowania mniej bytów sprowadza się do mniejszej ilości ko
 
 Na pewno zdarzyło Ci się kiedyś zastanawiać się nad tym jak zaimplementować jakieś rozwiązanie. Wpadasz wtedy w wir tworzenia. Potrafisz wymyślić piękne struktury danych. Algorytmy takie, że płaczesz jak [commit]({{ '/kurs-git/' | absolute_url }})'ujesz. Tutaj nowy _manager_, tam kolejny _helper_. Oczywiście Twoje rozwiązanie przewiduje to, że klient będzie chciał obsługiwać kwoty reprezentowane w liczbach urojonych.
 
-Każda ewentualność jest obsłużona. Wszystkie ekstremalne przypadki zaimplementowane. Po prostu niezatapialny fragment kodu. Kod tag generyczny, że jak zostawisz go przez noc to w wyniku ewolucji przejmie władzę nad światem...
+Każda ewentualność jest obsłużona. Wszystkie ekstremalne przypadki zaimplementowane. Po prostu niezatapialny fragment kodu. Kod tak generyczny, że jak zostawisz go przez noc to w wyniku ewolucji przejmie władzę nad światem...
 
 Całość zajęła Ci trzy miesiące. Przez ten czas nawet nie było kiedy porozmawiać z klientem o jego wymaganiach. Przecież Twoja wyobraźnia wie lepiej. Wszystkie funkcjonalności, o których klient jeszcze nie pomyślał są gotowe. Wiesz co? YAGNI (ang. _You Aren't Gonna Need It_). Nie będziesz tego potrzebować.
 
