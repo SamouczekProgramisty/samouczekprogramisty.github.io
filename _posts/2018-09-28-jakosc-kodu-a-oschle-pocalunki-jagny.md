@@ -68,11 +68,11 @@ public static String convert(int decimalNumber, int toBase) {
     StringBuilder representation = new StringBuilder();
     int numberToConvert = Math.abs(decimalNumber);
 
-    while (numberToConvert != 0) {
+    do {
         int divisionReminder = numberToConvert % toBase;
         numberToConvert = numberToConvert / toBase;
         representation.append(divisionReminder);
-    }
+    } while (numberToConvert != 0);
 
     if (decimalNumber < 0) {
         representation.append("-");
