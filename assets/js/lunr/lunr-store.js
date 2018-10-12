@@ -559,6 +559,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/28_jakosc_kodu_a_oschle_pocalunki_jagny_artykul.jpeg"},{
+        "title": "Trzy lata samouczka",
+        "excerpt":"Jak ten czas leci… Nawet się nie obejrzałem a minęły już ponad trzy lata od kiedy prowadzę Samouczka Programisty. Zaczęło się na Engineering seminar Opera, firma w której pracuję, organizuje od czasu do czasu spotkania dla całej firmy. Takie spotkania nazywane są engineering seminar. Jedno z nich miało miejsce w...","categories": ["Różne"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/trzy-lata-samouczka/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/10/10_trzy_lata_samouczka.jpeg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],
