@@ -102,7 +102,7 @@ ObjectFieldsChanging reference2 = reference1;
 reference2 = new ObjectFieldsChanging(3);
 ```
 
-> Kolejna dygresja, jeśli po powyższych wyjaśnieniach masz mętlik w głowie pomiń ten akapit przy pierwszym czytaniu. Obiekty trzymane są na stercie, zmienne trzymane są na stosie (ang. _stack_) :). "Niestety" nie wszystkie zmienne wskazują na obiekty na stosie. Jeśli utworzysz zmienną lokalną (nie będącą atrybutem klasy) typu prostego (np. `int` czy `double`) wylądują one bezpośrednio na stosie. Referencja to nic innego jak numer, adres w pamięci. W przypadku zmiennych przechowywanych na stosie ten adres zostaje zastąpiony właściwą wartością zmiennej (np. liczbą 123).
+> Kolejna dygresja, jeśli po powyższych wyjaśnieniach masz mętlik w głowie pomiń ten akapit przy pierwszym czytaniu. Obiekty trzymane są na stercie, zmienne trzymane są na stosie (ang. _stack_) :). "Niestety" nie wszystkie zmienne wskazują na obiekty na stercie. Jeśli utworzysz zmienną lokalną (nie będącą atrybutem klasy) typu prostego (np. `int` czy `double`) wylądują one bezpośrednio na stosie. Referencja to nic innego jak numer, adres w pamięci. W przypadku zmiennych przechowywanych na stosie ten adres zostaje zastąpiony właściwą wartością zmiennej (np. liczbą 123).
 
 ## Różnica między `"string"` a `new String("string")`
 
