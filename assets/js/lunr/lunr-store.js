@@ -564,6 +564,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/trzy-lata-samouczka/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/10/10_trzy_lata_samouczka.jpeg"},{
+        "title": "Funkcje i grupowanie wierszy w SQL",
+        "excerpt":"To jest jeden z artykułów w ramach praktycznego kursu SQL. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w pierwszym artykule kursu. Bardzo mocno Cię do tego zachęcam. Moim zdaniem...","categories": ["Bazy danych","Kurs SQL"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/funkcje-i-grupowanie-wierszy-w-sql/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/10/20_funkcje_i_grupowanie_wierszy_w_sql.jpeg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],

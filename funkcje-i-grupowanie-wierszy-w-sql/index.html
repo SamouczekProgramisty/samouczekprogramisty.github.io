@@ -1,0 +1,955 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Funkcje i grupowanie wierszy w SQL - Samouczek Programisty</title>
+<meta name="description" content="Artykuł ten opisuje podstawowe funkcje używane w zapytaniach SQL. Omawia także mechanizm grupowania. Po lekturze tego artykułu będziesz wiedzieć jak używać klauzuli GROUP BY i dowiesz się jaka jest różnica pomiędzy HAVING a WHERE. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Funkcje i grupowanie wierszy w SQL">
+<meta property="og:url" content="http://www.samouczekprogramisty.pl/funkcje-i-grupowanie-wierszy-w-sql/">
+
+
+  <meta property="og:description" content="Artykuł ten opisuje podstawowe funkcje używane w zapytaniach SQL. Omawia także mechanizm grupowania. Po lekturze tego artykułu będziesz wiedzieć jak używać klauzuli GROUP BY i dowiesz się jaka jest różnica pomiędzy HAVING a WHERE. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami.">
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/10/20_funkcje_i_grupowanie_wierszy_w_sql.jpeg">
+
+
+
+
+
+  <meta property="article:published_time" content="2018-10-20T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://www.samouczekprogramisty.pl/funkcje-i-grupowanie-wierszy-w-sql/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "http://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2018/10/20_funkcje_i_grupowanie_wierszy_w_sql.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Funkcje i grupowanie wierszy w SQL
+
+        
+      </h1>
+      
+        <p class="page__lead">Artykuł ten opisuje podstawowe funkcje używane w zapytaniach SQL. Omawia także mechanizm grupowania. Po lekturze tego artykułu będziesz wiedzieć jak używać klauzuli <code class="highlighter-rouge">GROUP BY</code> i dowiesz się jaka jest różnica pomiędzy <code class="highlighter-rouge">HAVING</code> a <code class="highlighter-rouge">WHERE</code>. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://pixabay.com/en/learn-mathematics-child-girl-2300141/">© geralt</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Funkcje i grupowanie wierszy w SQL</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Funkcje i grupowanie wierszy w SQL">
+    <meta itemprop="description" content="Artykuł ten opisuje podstawowe funkcje używane w zapytaniach SQL. Omawia także mechanizm grupowania. Po lekturze tego artykułu będziesz wiedzieć jak używać klauzuli GROUP BY i dowiesz się jaka jest różnica pomiędzy HAVING a WHERE. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami.">
+    <meta itemprop="datePublished" content="October 20, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#funkcje">Funkcje</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#funkcja-operująca-na-tabeli">Funkcja operująca na tabeli</a></li>
+<li class="toc-entry toc-h3"><a href="#użycie-wyniku-funkcji-w-wielu-miejscach">Użycie wyniku funkcji w wielu miejscach</a></li>
+<li class="toc-entry toc-h3"><a href="#funkcje-można-łączyć">Funkcje można łączyć</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#kilka-przykładowych-funkcji">Kilka przykładowych funkcji</a></li>
+<li class="toc-entry toc-h2"><a href="#grupowanie-wierszy-przy-pomocy-group-by">Grupowanie wierszy przy pomocy GROUP BY</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#grupowanie-kilku-kolumn">Grupowanie kilku kolumn</a></li>
+<li class="toc-entry toc-h3"><a href="#uważaj-na-grupowanie-w-sqlite">Uważaj na grupowanie w SQLite</a></li>
+<li class="toc-entry toc-h3"><a href="#funkcje-grupujące">Funkcje grupujące</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#funkcja-grupująca-count">Funkcja grupująca `COUNT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#klauzula-having">Klauzula HAVING</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#czym-różni-się-where-od-having">Czym różni się WHERE od HAVING?</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#zadania-do-wykonania">Zadania do wykonania</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#przykładowe-rozwiązania-zadań">Przykładowe rozwiązania zadań</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        
+<div class="notice--info">
+  
+<p>To jest jeden z artykułów w ramach <a href="http://www.samouczekprogramisty.pl/kurs-sql">praktycznego kursu SQL</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<p>Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w <a href="/pobieranie-danych-z-bazy-select/">pierwszym artykule kursu</a>. Bardzo mocno Cię do tego zachęcam. Moim zdaniem najwięcej nauczysz się samodzielnie eksperymentując z zapytaniami.</p>
+
+</div>
+
+<h2 id="funkcje">Funkcje</h2>
+
+<p>Na pewno znasz różne funkcje. Mogą kojarzyć Ci się z matematyką czy językami programowania. Okazuje się, że funkcje występują też w języku SQL. Funkcja w przypadku SQL zaimplementowana jest przez silnik bazy danych<sup id="fnref:swoje"><a href="#fn:swoje" class="footnote">1</a></sup>. Funkcje udostępnione przez silnik SQL możesz użyć w zapytaniach.</p>
+
+<p>Proszę spójrz na przykład:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">LENGTH</span><span class="p">(</span><span class="s1">'abcd'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p class="notice--info">Tak, to jest poprawne zapytanie SQL. Wyrażenia <code class="highlighter-rouge">FROM</code> czy <code class="highlighter-rouge">WHERE</code> są opcjonalne w <a href="/pobieranie-danych-z-bazy-select/">zapytaniach typu <code class="highlighter-rouge">SELECT</code></a>.</p>
+
+<p>W przykładzie tym wywołuję funkcję <code class="highlighter-rouge">LENGTH</code>, która jako parametr przyjmuje łańcuch znaków <code class="highlighter-rouge">abcd</code>. Wynikiem działania tego zapytania jest jeden wiersz, który zawiera długość przekazanego parametru:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
+</code></pre></div></div>
+
+<h3 id="funkcja-operująca-na-tabeli">Funkcja operująca na tabeli</h3>
+
+<p>Teraz zobacz jak wygląda wywołanie tej samej funkcji na wartościach kolumny z tabeli:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">LENGTH</span><span class="p">(</span><span class="n">billingstate</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>W wyniku zapytania możesz zobaczyć długość kolumny <code class="highlighter-rouge">billingstate</code> dla pięciu wierszy. Ograniczenie liczby wierszy jest możliwe dzięki <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#ograniczanie-liczby-wynik%C3%B3w">wyrażeniu <code class="highlighter-rouge">LIMIT</code></a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+
+2
+2
+</code></pre></div></div>
+
+<p>Dodam teraz kolejny element, który wprowadziłem poprzednio. Chodzi mi tu o <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#wy%C5%82%C4%85cznie-unikalne-wiersze">wyrażenie <code class="highlighter-rouge">DISTINCT</code></a>. Wiesz pewnie, że zapewnia ono zwrócenie unikalnych wartości. W następnym przykładzie zapytanie zwraca unikalne długości wartości w kolumnie <code class="highlighter-rouge">billingstate</code> w tabeli <code class="highlighter-rouge">invoice</code>. Wynikiem działania tego zapytania są cztery wiersze:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="k">LENGTH</span><span class="p">(</span><span class="n">billingstate</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+2
+6
+3
+</code></pre></div></div>
+
+<p>Pierwszy pusty wiersz zawiera kolumnę z wartością <a href="/pobieranie-danych-z-bazy-select/#magiczna-warto%C5%9B%C4%87-null"><code class="highlighter-rouge">NULL</code></a>. Odpowiada on wszystkim wierszom z tabeli <code class="highlighter-rouge">invoice</code>, które w kolumnie <code class="highlighter-rouge">billingstate</code> mają wartość <code class="highlighter-rouge">NULL</code>.</p>
+
+<p>Wyniki tego zapytania można zrozumieć jako: w tabeli <code class="highlighter-rouge">invoice</code> istnieją wiersze, których wartość kolumny <code class="highlighter-rouge">billingstate</code> jest pusta, ma długość 2, 6 albo 3.</p>
+
+<h3 id="użycie-wyniku-funkcji-w-wielu-miejscach">Użycie wyniku funkcji w wielu miejscach</h3>
+
+<p>A co jeśli chcesz uzyskać posortowany wynik? Możesz powtórzyć wywołanie funkcji w <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#sortowanie-wyników">wyrażeniu <code class="highlighter-rouge">ORDER BY</code></a>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="k">LENGTH</span><span class="p">(</span><span class="n">billingstate</span><span class="p">)</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="k">LENGTH</span><span class="p">(</span><span class="n">billingstate</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Jednak w tym przypadku lepszym rozwiązaniem jest <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#aliasy-dla-kolumn">użycie aliasów</a>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="k">LENGTH</span><span class="p">(</span><span class="n">billingstate</span><span class="p">)</span> <span class="k">AS</span> <span class="n">len</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">len</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>W obu przypadkach zapytania zwrócą cztery posortowane rosnąco wiersze:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+2
+3
+6
+</code></pre></div></div>
+
+<h3 id="funkcje-można-łączyć">Funkcje można łączyć</h3>
+
+<p>Funkcje przyjmują parametry. Wiesz już, że funkcja <code class="highlighter-rouge">LENGTH</code> przyjmuje łańcuch znaków. Przykładem innej funkcji może być <code class="highlighter-rouge">MAX</code>. Funkcja ta wybiera maksymalną wartość dla danej grupy (o grupach przeczytasz więcej w dalszej części artykułu):</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="k">LENGTH</span><span class="p">(</span><span class="n">billingstate</span><span class="p">))</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Przykład powyżej zwróci jeden wiersz, zawierający maksymalną wartość zwróconą przez funkcję <code class="highlighter-rouge">LENGTH</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>6
+</code></pre></div></div>
+
+<h2 id="kilka-przykładowych-funkcji">Kilka przykładowych funkcji</h2>
+
+<p>Do tej pory pokazałem Ci tylko dwie funkcje <code class="highlighter-rouge">MAX</code> i <code class="highlighter-rouge">LENGTH</code>. Niżej pokażę Ci kilka innych.  Proszę pamiętaj o tym, że dużo funkcji jest charakterystycznych dla poszczególnych silników baz danych. W artykule starałem się opisać wyłącznie te, które są dostępne powszechnie. Zachęcam Cię do sprawdzenia dokumentacji Twojej bazy danych, żeby sprawdzić całą listę dostępnych funkcji.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">ABS</code> - zwraca <a href="https://pl.wikipedia.org/wiki/Warto%C5%9B%C4%87_bezwzgl%C4%99dna">wartość bezwzględną</a> przyjmowanego argumentu,</li>
+  <li><code class="highlighter-rouge">LENGTH</code> - tę funkcję już znasz, zwraca długość łańcucha znaków,</li>
+  <li><code class="highlighter-rouge">LOWER</code> - zwraca kopię łańcucha znaków przekazanego jako parametr, w którym wszystkie litery zamienione są na małe<sup id="fnref:ascii"><a href="#fn:ascii" class="footnote">2</a></sup>,</li>
+  <li><code class="highlighter-rouge">RANDOM</code> - zwraca losową liczbę całkowitą,</li>
+  <li><code class="highlighter-rouge">SUBSTR</code><sup id="fnref:substring"><a href="#fn:substring" class="footnote">3</a></sup> - <code class="highlighter-rouge">SUBSTR(x, y, z)</code> pobiera podzbiór znaków parametru <code class="highlighter-rouge">x</code> od litery <code class="highlighter-rouge">y</code> do litery <code class="highlighter-rouge">z</code>. Parametr <code class="highlighter-rouge">z</code> może być pominięty, wtedy funkcja zwraca podzbiór znaków od znaku <code class="highlighter-rouge">y</code> do końca,</li>
+  <li><code class="highlighter-rouge">TRIM</code> - usuwa spacje z obu stron przekazanego parametru,</li>
+  <li><code class="highlighter-rouge">UPPER</code> - funkcja działa podobnie jak <code class="highlighter-rouge">LOWER</code>, tym razem zwracany łańcuch znaków składa się z wielkich liter.</li>
+</ul>
+
+<p>Poza funkcjami, które wspomniałem wyżej istnieją też funkcje, które operują na grupach. Zanim jednak je omówię muszę powiedzieć Ci coś więcej o grupowaniu wierszy w SQL.</p>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1000 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h2 id="grupowanie-wierszy-przy-pomocy-group-by">Grupowanie wierszy przy pomocy <code class="highlighter-rouge">GROUP BY</code></h2>
+
+<p>Wiesz już, że tabela <code class="highlighter-rouge">invoice</code> zawiera dane o fakturach. Załóżmy, że zadaniem jest przygotowanie raportu, w którym znajdzie się największa faktura dla każdego kraju. Żeby zrealizować takie wymaganie musisz pogrupować ze sobą wszystkie wiersze dotyczące danego kraju i znaleźć wśród nich ten, który ma największą wartość. W tym przypadku będziesz potrzebować wyrażenia <code class="highlighter-rouge">GROUP BY</code>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">billingcountry</span>
+        <span class="p">,</span><span class="k">MAX</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">billingcountry</span>
+   <span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>To zapytanie zwróci pięć wierszy. Każdy z nich zawierał będzie kraj i największą wartość faktury dla danego kraju:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Argentina 13.86
+Australia 13.86
+Austria   18.86
+Belgium   13.86
+Brazil    13.86
+</code></pre></div></div>
+
+<h3 id="grupowanie-kilku-kolumn">Grupowanie kilku kolumn</h3>
+
+<p>Podobnie jak w przypadku <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/">sortowania w SQL</a> tak i przy grupowaniu możesz określić wiele kolumn. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">billingcountry</span>
+        <span class="p">,</span><span class="n">billingstate</span>
+        <span class="p">,</span><span class="k">MAX</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">billingcountry</span>
+        <span class="p">,</span><span class="n">billingstate</span>
+   <span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Tym razem zapytanie zwróci pięć wierszy, które będą zawierały maksymalną wartość faktury dla pary <code class="highlighter-rouge">billingcountry</code> i <code class="highlighter-rouge">billingstate</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Argentina                     13.86
+Australia       NSW           13.86
+Austria                       18.86
+Belgium                       13.86
+Brazil          DF            13.86
+</code></pre></div></div>
+
+<h3 id="uważaj-na-grupowanie-w-sqlite">Uważaj na grupowanie w SQLite</h3>
+
+<p>Zachowanie SQLite w przypadku grupowania i brakującego wyrażenia <code class="highlighter-rouge">GROUP BY</code> jest dziwne. Oznacza to tyle, że poniższe zapytanie SQLite uzna za poprawne:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">billingcountry</span>
+      <span class="p">,</span><span class="k">MAX</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Wywołanie takiego zapytania w bazie PostgreSQL kończy się błędem:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ERROR:  column "invoice.billingcountry" must appear in the GROUP BY clause or be used in an aggregate function
+</code></pre></div></div>
+
+<p>Zapamiętaj, że każda kolumna, która jest zwracana powinna być albo uwzględniona w wyrażeniu <code class="highlighter-rouge">GROUP BY</code>, albo użyta w funkcji grupującej.</p>
+
+<h3 id="funkcje-grupujące">Funkcje grupujące</h3>
+
+<p>W artykule pokazałem Ci już kilka funkcji dostępnych w SQL. Istnieje odrębna grupa funkcji, która używana jest przy grupowaniu wartości. Znasz już jedną z nich, <code class="highlighter-rouge">MAX</code>. Nadszedł czas na poznanie kolejnych:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">AVG</code> - zwraca średnią wartość,</li>
+  <li><code class="highlighter-rouge">MIN</code> - zwraca minimalną wartość,</li>
+  <li><code class="highlighter-rouge">SUM</code> - zwraca sumę wartości,</li>
+  <li><code class="highlighter-rouge">TOTAL</code> - działa podobnie jak <code class="highlighter-rouge">SUM</code>, jedyna różnica polega na tym, że jeśli wszystkie wartości to <code class="highlighter-rouge">NULL</code>, wówczas <code class="highlighter-rouge">TOTAL</code> zwróci 0, a <code class="highlighter-rouge">SUM</code> zwróci <code class="highlighter-rouge">NULL</code>.</li>
+</ul>
+
+<p>Jest jeszcze jedna funkcja grupująca, która jest bardzo popularna. Jest nią <code class="highlighter-rouge">COUNT</code>.</p>
+
+<h4 id="funkcja-grupująca-count">Funkcja grupująca `COUNT</h4>
+
+<p>Funkcja <code class="highlighter-rouge">COUNT</code> służy do zliczania wierszy, które mają wartość inną niż <code class="highlighter-rouge">NULL</code>. Jej najprostsza postać może wyglądać jak w przykładzie poniżej. To zapytanie zwróci liczbę wierszy, dla których wartość kolumny <code class="highlighter-rouge">customerid</code> nie ma wartości <code class="highlighter-rouge">NULL</code>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">customerid</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+<p>Jeśli chcesz policzyć ogólną liczbę wierszy możesz użyć <code class="highlighter-rouge">*</code> jako argumentu:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>W obu przypadkach zapytanie zwróci jeden wiersz:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>412
+</code></pre></div></div>
+<p>W przypadku funkcji <code class="highlighter-rouge">COUNT</code>  możesz także użyć <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#wy%C5%82%C4%85cznie-unikalne-wiersze">wyrażenia <code class="highlighter-rouge">DISTINCT</code></a>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span> <span class="n">customerid</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>W tym przypadku zapytanie zwróci liczbę unikalnych wartości kolumny <code class="highlighter-rouge">customerid</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>59
+</code></pre></div></div>
+
+<h2 id="klauzula-having">Klauzula <code class="highlighter-rouge">HAVING</code></h2>
+
+<p>Załóżmy tym razem, że potrzebujesz raport, w którym pokażesz sumaryczny przychód dla poszczególnych krajów. Poniższe zapytanie da Ci odpowiednie wyniki:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">billingcountry</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">billingcountry</span><span class="p">;</span>
+</code></pre></div></div>
+<p>Może zdarzyć się sytuacja, w której nie potrzebujesz całej listy. W tym przypadku raport powinien zawierać wyłącznie te kraje, dla których suma sprzedaży była większa niż 100. Z pomocą w tego typu zapytaniach przychodzi klauzula <code class="highlighter-rouge">HAVING</code>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">billingcountry</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">summed_total</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">billingcountry</span>
+  <span class="k">HAVING</span> <span class="n">summed_total</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Wynikiem tego zapytania będzie poniższe sześć wierszy:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Brazil          190.1
+Canada          303.96
+France          195.1
+Germany         156.48
+USA             523.06
+United Kingdom  112.86
+</code></pre></div></div>
+
+<h3 id="czym-różni-się-where-od-having">Czym różni się <code class="highlighter-rouge">WHERE</code> od <code class="highlighter-rouge">HAVING</code>?</h3>
+
+<p>Jest to jedno z popularnych pytań, które pojawiają się na rozmowach rekrutacyjnych. Pomogę Ci na nie odpowiedzieć :). Odpowiadając jednym zdaniem możesz powiedzieć, że klauzula <code class="highlighter-rouge">WHERE</code> służy do filtrowania wyników zapytania biorąc pod uwagę pojedynczy wiersz, natomiast klauzula <code class="highlighter-rouge">HAVING</code> pozwala na filtrowanie wyników na podstawie zgrupowanych wartości.</p>
+
+<p>Jeśli otrzymasz tego typu pytanie na rozmowie kwalifikacyjnej posłuż się jakimś prostym przykładem, w którym pokażesz tę różnicę w praktyce.</p>
+
+<p>Połączenie <code class="highlighter-rouge">WHERE</code> i <code class="highlighter-rouge">HAVING</code> w jednym zapytaniu często pozwala lepiej zrozumieć różnicę pomiędzy nimi. W przykładzie poniżej zmodyfikowałem poprzednie zapytanie, tak żeby nie uwzględniało stolicy Kanady:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">billingcountry</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">summed_total</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+   <span class="k">WHERE</span> <span class="n">billingcity</span> <span class="o">!=</span> <span class="s1">'Ottawa'</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">billingcountry</span>
+  <span class="k">HAVING</span> <span class="n">summed_total</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Wyniki tym razem są inne. Proszę zwróć uwagę na sumę dla Kanady w obu przypadkach:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Brazil          190.1       
+Canada          266.34      
+France          195.1       
+Germany         156.48      
+USA             523.06      
+United Kingdom  112.86  
+</code></pre></div></div>
+
+<h2 id="zadania-do-wykonania">Zadania do wykonania</h2>
+
+<p>Przygotowałem dla Ciebie kilka zadań do wykonania. Każde z nich możesz wykonać używając wcześniej przygotowanego środowiska. Jak zawsze zachęcam Cię do eksperymentowania, wtedy nauczysz się najwięcej.</p>
+
+<p>Napisz zapytanie, które zwróci:</p>
+
+<ul>
+  <li>średnią, minimalną i maksymalną wartość kolumny <code class="highlighter-rouge">total</code> w tabeli <code class="highlighter-rouge">invoice</code>,</li>
+  <li>liczbę wierszy w tabeli <code class="highlighter-rouge">invoice</code> w których długość kolumny <code class="highlighter-rouge">billingcountry</code> jest większa niż 5,</li>
+  <li>liczbę unikalnych dat (kolumna <code class="highlighter-rouge">invoicedate</code>), w których wystawiono faktury (tabela <code class="highlighter-rouge">invoice</code>),</li>
+  <li>daty (kolumna <code class="highlighter-rouge">invoicedate</code>), w których wystawiono co najmniej dwie faktury (tabela <code class="highlighter-rouge">invoice</code>),</li>
+  <li>pięć losowych wierszy z tabeli <code class="highlighter-rouge">genre</code> (wywołania tego zapytania wiele razy powinno zwrócić różne wyniki),</li>
+  <li>miesięczną (kolumna <code class="highlighter-rouge">invoicedate</code>) sumę faktur (kolumna <code class="highlighter-rouge">total</code> w tabeli <code class="highlighter-rouge">invoice</code>) od kupujących z identyfikatorem (kolumna <code class="highlighter-rouge">customerid</code>) mniejszym niż 30, wynik powinien być posortowany po miesięcznej sumie faktur i zawierać jedynie te miesiące dla których suma jest większa od 40.</li>
+</ul>
+
+<h3 id="przykładowe-rozwiązania-zadań">Przykładowe rozwiązania zadań</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+      <span class="p">,</span><span class="k">MIN</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+      <span class="p">,</span><span class="k">MAX</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">WHERE</span> <span class="k">LENGTH</span><span class="p">(</span><span class="n">billingcountry</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span> <span class="n">invoicedate</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">invoicedate</span> 
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">invoicedate</span>
+  <span class="k">HAVING</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="o">*</span>
+    <span class="k">FROM</span> <span class="n">genre</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">RANDOM</span><span class="p">()</span>
+   <span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">SUBSTR</span><span class="p">(</span><span class="n">invoicedate</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="k">AS</span> <span class="n">invoice_month</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">monthly_total</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+   <span class="k">WHERE</span> <span class="n">customerid</span> <span class="o">&lt;</span> <span class="mi">30</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">invoice_month</span>
+  <span class="k">HAVING</span> <span class="n">monthly_total</span> <span class="o">&gt;</span> <span class="mi">40</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">monthly_total</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po lekturze artykułu wiesz czym jest grupowanie wierszy. Znasz kilka przydatnych funkcji w SQL. Potrafisz powiedzieć jaka jest różnica pomiędzy wyrażeniami <code class="highlighter-rouge">HAVING</code> i <code class="highlighter-rouge">WHERE</code>. Po rozwiązaniu zadań wiesz, że umiesz zastosować tę wiedzę w praktyce. Gratuluję! :)</p>
+
+<p>Daj znać w komentarzach jak udało Ci się rozwiązać zadania, może Twoje zapytania wyglądają trochę inaczej?</p>
+
+<p>Na koniec mam do Ciebie standardową prośbę. Jeśli znasz kogoś, komu ten artykuł może pomóc proszę przekaż tej osobie linka do artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników - z góry dziękuję za Twoją pomoc. Jeśli nie chcesz ominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:swoje">
+      <p>Różne silniki baz danych pozwalają na definiowanie własnych funkcji. Na przykład SQLite udostępnia tę funkcjonalność poprzez funkcję <a href="https://www.sqlite.org/c3ref/create_function.html"><code class="highlighter-rouge">sqlite3_create_function</code></a>. Odsyłam Cię do dokumentacji twojej bazy danych jeśli chcesz poznać więcej szczegółów. <a href="#fnref:swoje" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:ascii">
+      <p>W przypadku SQLite zamieniane są tylko litery kodowane w <a href="https://pl.wikipedia.org/wiki/ASCII">ASCII</a>, niestety funkcja ta nie działa poprawnie dla polskich znaków. <a href="#fnref:ascii" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:substring">
+      <p>Wspominałem, że funkcje mogą być specyficzne dla różnych silników baz danych. Na przykład odpowiednikiem <code class="highlighter-rouge">SUBSTR</code> w Postgresql jest <code class="highlighter-rouge">SUBSTRING</code>. <a href="#fnref:substring" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1000 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#bazy-danych" class="page__taxonomy-item" rel="tag">Bazy danych</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/kategorie/#kurs-sql" class="page__taxonomy-item" rel="tag">Kurs SQL</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-10-20">2018-10-20</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Ffunkcje-i-grupowanie-wierszy-w-sql%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Ffunkcje-i-grupowanie-wierszy-w-sql%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/trzy-lata-samouczka/" class="pagination--pager" title="Trzy lata samouczka
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/09/04_sortowanie_aliasy_distinct_sql.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/" rel="permalink">Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą DISTINCT, AS czy UNION. Poznasz także sposoby na...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/06/28_pobieranie_danych_z_bazy_select_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pobieranie-danych-z-bazy-select/" rel="permalink">Pobieranie danych z bazy - SELECT
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest język SQL. Dowiesz się jak wy...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/klauzula-where-w-zapytaniach-sql/" rel="permalink">Klauzula WHERE w zapytaniach SQL
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o możliwościach klauzuli WHERE. Na praktycznych przykładach pokażę Ci jak filtrować dane w zapytaniach SQL. Także na przykładzie p...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="http://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2018 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/funkcje-i-grupowanie-wierszy-w-sql/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>
