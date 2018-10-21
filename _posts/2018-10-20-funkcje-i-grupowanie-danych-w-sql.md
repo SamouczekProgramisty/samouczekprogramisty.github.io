@@ -141,7 +141,8 @@ Poza funkcjami, które wspomniałem wyżej istnieją też funkcje, które operuj
 Wiesz już, że tabela `invoice` zawiera dane o fakturach. Załóżmy, że zadaniem jest przygotowanie raportu, w którym znajdzie się największa faktura dla każdego kraju. Żeby zrealizować takie wymaganie musisz pogrupować ze sobą wszystkie wiersze dotyczące danego kraju i znaleźć wśród nich ten, który ma największą wartość. W tym przypadku będziesz potrzebować wyrażenia `GROUP BY`. Proszę spójrz na przykład poniżej:
 
 ```sql
-  SELECT billingcountry, MAX(total)
+  SELECT billingcountry
+        ,MAX(total)
     FROM invoice
 GROUP BY billingcountry
    LIMIT 5;
@@ -162,22 +163,35 @@ Brazil    13.86
 Podobnie jak w przypadku [sortowania w SQL]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}) tak i przy grupowaniu możesz określić wiele kolumn. Proszę spójrz na przykład poniżej:
 
 ```sql
-  SELECT billingcountry, billingstate, MAX(total)
+  SELECT billingcountry
+        ,billingstate
+        ,MAX(total)
     FROM invoice
 GROUP BY billingcountry, billingstate,
    LIMIT 5;
 ```
 
+Tym razem zapytanie zwróci pięć wierszy, które będą zawierały maksymalną wartość faktury dla pary `billingcountry` i `billingstate`:
+
+```
+Argentina                     13.86
+Australia       NSW           13.86
+Austria                       18.86
+Belgium                       13.86
+Brazil          DF            13.86
+```
+
 ### Uważaj na grupowanie w SQLite
 
-SQLite jest pobłażliwy. Oznacza to tyle, że poniższe zapytanie uzna za poprawne:
+Zachowanie SQLite w przypadku grupowania i brakującego wyrażenia `GROUP BY` jest dziwne. Oznacza to tyle, że poniższe zapytanie SQLite uzna za poprawne:
 
 ```sql
-SELECT billingcountry, MAX(total)
+SELECT billingcountry
+      ,MAX(total)
   FROM invoice;
 ```
 
-W innych znanych mi bazach danych wywołanie takiego zapytania skończy się błędem podobnym do tego:
+Wywołanie takiego zapytania skończy w bazie PostgreSQL kończy się błędem:
 
     ERROR:  column "invoice.billingcountry" must appear in the GROUP BY clause or be used in an aggregate function
 
@@ -185,66 +199,168 @@ Zapamiętaj, że każda kolumna, która jest zwracana powinna być albo uwzlędn
 
 ### Funkcje grupujące
 
-Znasz już jedną z nich, `MAX`. Nadszedł czas na poznanie kolejnych:
+W artykule pokazałem Ci już kilka funkcji dostępnywch w SQL. Istnieje odrębna grupa funkcji, która używana jest przy grupowaniu wartości. Znasz już jedną z nich, `MAX`. Nadszedł czas na poznanie kolejnych:
 
-- `AVG` - aa
-- `MIN` - aa
-- `SUM` - aa
-- `TOTAL` - aa
+- `AVG` - zwraca średnią wartość,
+- `MIN` - zwraca minimalną wartość,
+- `SUM` - zwraca sumę wartości,
+- `TOTAL` - działa podobnie jak `SUM`, jedyna różnica polega na tym, że jeśli wszystkie wartości to `NULL`, wówczas `TOTAL` zwróci 0, a `SUM` zwróci `NULL`.
 
 Jest jeszcze jedna funkcja grupująca, która jest bardzo popularna. Jest nią `COUNT`.
 
-#### Funkcja grupująca `COUNT`
+#### Funkcja grupująca `COUNT
+
+Funkcja `COUNT` służy do zliczania wierszy, które mają wartość inną niż `NULL`. Jej najprostrza postać może wyglądać jak w przykładzie poniżej. To zapytanie zwróci liczbę wierszy, dla których wartość kolumny `customerid` nie ma wartości `NULL`:
 
 ```sql
 SELECT COUNT(customerid)
   FROM invoice;
 ```
+Jeśli chcesz policzyć ogólną liczbę wierszy możesz użyć `*` jako argumentu:
 
 ```sql
 SELECT COUNT(*)
   FROM invoice;
 ```
 
+W obu przypadkach zapytanie zwróci jeden wiersz:
+
 ```
 412
 ```
+W przypadku funkcji `COUNT`  możesz także użyć [wyrażenia `DISTINCT`]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#wy%C5%82%C4%85cznie-unikalne-wiersze):
 
 ```sql
 SELECT COUNT(DISTINCT customerid)
   FROM invoice;
 ```
 
+W tym przypadku zapytanie zwróci liczbę unikalnych wartości kolumy `customerid`:
+
 ```
 59
 ```
 
-```sql
-SELECT COUNT(billingstate)
-  FROM invoice;
-```
+## Klauzula `HAVING`
 
-```
-210
-```
+Załóżmy tym razem, że potrzebujesz raport, w którym pokażesz sumaryczny przychód dla poszczególnych krajów. Poniższe zapytanie da Ci odpowiednie winiki:
 
 ```sql
-SELECT COUNT(DISTINCT billingstate)
-  FROM invoice;
+  SELECT billingcountry
+        ,SUM(total)
+    FROM invoice
+GROUP BY billingcountry;
+```
+Może zdażyć się sytuacja, w której nie potrzebujesz całej listy. W tym przypadku raport powinien zawierać wyłącznie te kraje dla których suma sprzedaży była większa niż 100. Z pomocą w tego typu zapytaniach przychodzi klauzula `HAVING`:
+
+```sql
+  SELECT billingcountry
+        ,SUM(total) AS summed_total
+    FROM invoice
+GROUP BY billingcountry
+  HAVING summed_total > 100;
 ```
 
+Wynikiem tego zapytania będzie poniższe sześć wierszy:
+
 ```
-25
+Brazil          190.1
+Canada          303.96
+France          195.1
+Germany         156.48
+USA             523.06
+United Kingdom  112.86
 ```
 
-### Klauzula `HAVING`
+### Czym różni się `WHERE` od `HAVING`?
 
-## Czym różni się `WHERE` od `HAVING`?
+Jest to jedno z popularnych pytań, które pojawiają się na rozmowach rekrutacyjnych. Pomogę Ci na nie odpowiedzieć :). Odpowiadając jednym zdaniem możesz powiedzieć, że klauzula `WHERE` służy do filtrowania wyników zapytania biorąc pod uwagę pojedynczy wiersz, natomiast klazula `HAVING` pozwala na filtrowanie wyników na podstawie zgrupowanych wartości.
 
-Jest to jedno z popularnych pytań, które pojawiają się na rozmowach rekrutacyjnych. Pomogę Ci na nie odpowiedzieć :).
+Jeśli otrzymasz tego typu pytanie na rozmowie kwalifikacyjnej posłuż się jakimś prostym przykładem, w którym pokażesz tę różnicę w praktyce.
+
+Połączenie `WHERE` i `HAVING` w jednym zapytaniu często pozwala lepiej zrozumieć różnicę pomiędzy nimi. W przykładzie poniżej zmodyfikowałem poprzednie zapytanie, tak żeby nie uwzględniało stolicy Kanady:
+
+```sql
+  SELECT billingcountry
+        ,SUM(total) AS summed_total
+    FROM invoice
+   WHERE billingcity != 'Ottawa'
+GROUP BY billingcountry
+  HAVING summed_total > 100;
+```
+
+Wyniki tym razem są inne. Proszę zwróć uwagę na sumę dla Kanaday w obu przypadkach:
+
+```
+Brazil          190.1       
+Canada          266.34      
+France          195.1       
+Germany         156.48      
+USA             523.06      
+United Kingdom  112.86  
+```
 
 ## Zadania do wykonania
 
+Przygotowałem dla Ciebie kilka zadań do wykonania. Każde z nich możesz wykonać używając wcześniej przygotowanego środowiska. Jak zawsze zachęcam Cię do eksperymentowania, wtedy nauczysz się najwięcej.
+
+Napisz zapytanie, które zwróci:
+
+- średnią, minimalną i maksymalną wartość kolumny `total` w tabeli `invoice`,
+- liczbę wierszy w tabeli `invoice` w których długość kolumny `billingcountry` jest większa niż 5,
+- liczbę unikalnych dat (kolumna `invoicedate`), w których wystawiono faktury (tabela `invoice`),
+- daty (kolumna `invoicedate`), w których wystawiono co najmniej dwie faktury (tabela `invoice`),
+- pięć losowych wierszy z tabeli `genre` (wywołania tego zapytania wiele razy powinno zwrócić różne wyniki),
+- miesięczną (kolumna `invoicedate`) sumę faktur (kolumna `total` w tabeli `invoice`) od kupunących z identyfikatorem (kolumna `customerid`) mniejszym niż 30, wynik powinien być posortowany po miesięcznej sumie faktur i zawierać jedynie te miesiące dla których suma jest większa od 40.
+
 ### Przykładowe rozwiązania zadań
 
+```sql
+SELECT AVG(total)
+      ,MIN(total)
+      ,MAX(total)
+  FROM invoice;
+```
+
+```sql
+SELECT count(*)
+  FROM invoice
+ WHERE LENGTH(billingcountry) > 5;
+```
+
+```sql
+SELECT COUNT(DISTINCT invoicedate)
+  FROM invoice;
+```
+
+```sql
+  SELECT invoicedate 
+    FROM invoice
+GROUP BY invoicedate
+  HAVING count(*) >= 2;
+```
+
+```sql
+  SELECT *
+    FROM genre
+ORDER BY RANDOM()
+   LIMIT 5;
+```
+
+```sql
+  SELECT SUBSTR(invoicedate, 0, 8) AS invoice_month
+        ,SUM(total) AS monthly_total
+    FROM invoice
+   WHERE customerid < 30
+GROUP BY invoice_month
+  HAVING monthly_total > 40
+ORDER BY monthly_total;
+```
+
 ## Podsumowanie
+
+Po lekturze artykułu wiesz czym jest grupowanie wierszy. Znasz kilka przydatnych funkcji w SQL. Potrafisz powiedzieć jaka jest różnica pomiędzy wyrażeniami `HAVING` i `WHERE`. Po rozwiązaniu zadań wiesz, że umiesz zastosować tę wiedzę w praktyce. Gratuluję! :)
+
+Daj znać w komentarzach jak udało Ci się rozwiązać zadania, może Twoje zapytania wyglądają trochę inaczej?
+
+Na koniec mam do Ciebie standardową prośbę. Jeśli znasz kogoś, komu ten artykuł może pomóc proszę przekaż tej osobie linka do artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników - z góry dziękuję za Twoją pomoc. Jeśli nie chesz ominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!
