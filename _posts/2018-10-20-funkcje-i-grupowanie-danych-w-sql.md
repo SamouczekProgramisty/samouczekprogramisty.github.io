@@ -16,7 +16,7 @@ excerpt: >
 
 ## Funkcje
 
-Na pewno znasz różne funkcje. Mogą kojarzyć Ci się z matemtatyką czy językami programowania. Okazuje się, że funkcje występują też w języku SQL. Funkcja w przypadku SQL zaimplementowana jest przez silnik bazy danych[^swoje]. Funkcje udostępnione przez silnik SQL możesz użyć w zapytaniach.
+Na pewno znasz różne funkcje. Mogą kojarzyć Ci się z matematyką czy językami programowania. Okazuje się, że funkcje występują też w języku SQL. Funkcja w przypadku SQL zaimplementowana jest przez silnik bazy danych[^swoje]. Funkcje udostępnione przez silnik SQL możesz użyć w zapytaniach.
 
 
 [^swoje]: Różne silniki baz danych pozwalają na definiowanie własnych funkcji. Na przykład SQLite udostępnia tę funkcjonalność poprzez funkcję [`sqlite3_create_function`](https://www.sqlite.org/c3ref/create_function.html). Odsyłam Cię do dokumentacji twojej bazy danych jeśli chcesz poznać więcej szczegółów.
@@ -36,9 +36,9 @@ W przykładzie tym wywołuję funkcję `LENGTH`, która jako parametr przyjmuje 
 4
 ```
 
-### Funckcja operująca na tabeli
+### Funkcja operująca na tabeli
 
-Teraz zobacz jak wygląda wywołanie tej samej funkcji na wartości kolumny z tabeli:
+Teraz zobacz jak wygląda wywołanie tej samej funkcji na wartościach kolumny z tabeli:
 
 ```sql
 SELECT LENGTH(billingstate)
@@ -46,7 +46,7 @@ SELECT LENGTH(billingstate)
  LIMIT 5;
 ```
 
-W wyniku zapytania możez zobaczyć długość kolumny `billingstate` dla pięciu wierszy. Ograniczelie liczby wierszy jest możliwe dzięki [wyrażeniu `LIMIT`]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#ograniczanie-liczby-wynik%C3%B3w):
+W wyniku zapytania możesz zobaczyć długość kolumny `billingstate` dla pięciu wierszy. Ograniczenie liczby wierszy jest możliwe dzięki [wyrażeniu `LIMIT`]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#ograniczanie-liczby-wynik%C3%B3w):
 
 ```
 
@@ -72,11 +72,11 @@ SELECT DISTINCT LENGTH(billingstate)
 
 Pierwszy pusty wiersz zawiera kolumnę z wartością [`NULL`]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}#magiczna-warto%C5%9B%C4%87-null). Odpowiada on wszystkim wierszom z tabeli `invoice`, które w kolumnie `billingstate` mają wartość `NULL`.
 
-Wyniki tego zapytania można zrozumieć jako: w tabeli `invoice` istnieją wiersze, których wartość kolumny `billingstate` jest pusta, ma długość 2, 6 lub 3.
+Wyniki tego zapytania można zrozumieć jako: w tabeli `invoice` istnieją wiersze, których wartość kolumny `billingstate` jest pusta, ma długość 2, 6 albo 3.
 
 ### Użycie wyniku funkcji w wielu miejscach
 
-A co jeśli chesz uzyskać posortowany wynik? Możesz powtórzyć wywołanie funkcji w [wyrażeniu `ORDER BY`](
+A co jeśli chcesz uzyskać posortowany wynik? Możesz powtórzyć wywołanie funkcji w [wyrażeniu `ORDER BY`](
 {% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#sortowanie-wyników):
 
 ```sql
@@ -85,7 +85,7 @@ A co jeśli chesz uzyskać posortowany wynik? Możesz powtórzyć wywołanie fun
 ORDER BY LENGTH(billingstate);
 ```
 
-Jendak w tym przypadku lepszym rowziązaniem jest [użycie aliasów]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#aliasy-dla-kolumn):
+Jednak w tym przypadku lepszym rozwiązaniem jest [użycie aliasów]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#aliasy-dla-kolumn):
 
 ```sql
   SELECT DISTINCT LENGTH(billingstate) AS len
@@ -167,7 +167,8 @@ Podobnie jak w przypadku [sortowania w SQL]({% post_url 2018-09-04-sortowanie-al
         ,billingstate
         ,MAX(total)
     FROM invoice
-GROUP BY billingcountry, billingstate,
+GROUP BY billingcountry
+        ,billingstate
    LIMIT 5;
 ```
 
@@ -191,15 +192,15 @@ SELECT billingcountry
   FROM invoice;
 ```
 
-Wywołanie takiego zapytania skończy w bazie PostgreSQL kończy się błędem:
+Wywołanie takiego zapytania w bazie PostgreSQL kończy się błędem:
 
     ERROR:  column "invoice.billingcountry" must appear in the GROUP BY clause or be used in an aggregate function
 
-Zapamiętaj, że każda kolumna, która jest zwracana powinna być albo uwzlędniona w wyrażeniu `GROUP BY`, albo przekazana do funkcji grupującej.
+Zapamiętaj, że każda kolumna, która jest zwracana powinna być albo uwzględniona w wyrażeniu `GROUP BY`, albo użyta w funkcji grupującej.
 
 ### Funkcje grupujące
 
-W artykule pokazałem Ci już kilka funkcji dostępnywch w SQL. Istnieje odrębna grupa funkcji, która używana jest przy grupowaniu wartości. Znasz już jedną z nich, `MAX`. Nadszedł czas na poznanie kolejnych:
+W artykule pokazałem Ci już kilka funkcji dostępnych w SQL. Istnieje odrębna grupa funkcji, która używana jest przy grupowaniu wartości. Znasz już jedną z nich, `MAX`. Nadszedł czas na poznanie kolejnych:
 
 - `AVG` - zwraca średnią wartość,
 - `MIN` - zwraca minimalną wartość,
@@ -210,7 +211,7 @@ Jest jeszcze jedna funkcja grupująca, która jest bardzo popularna. Jest nią `
 
 #### Funkcja grupująca `COUNT
 
-Funkcja `COUNT` służy do zliczania wierszy, które mają wartość inną niż `NULL`. Jej najprostrza postać może wyglądać jak w przykładzie poniżej. To zapytanie zwróci liczbę wierszy, dla których wartość kolumny `customerid` nie ma wartości `NULL`:
+Funkcja `COUNT` służy do zliczania wierszy, które mają wartość inną niż `NULL`. Jej najprostsza postać może wyglądać jak w przykładzie poniżej. To zapytanie zwróci liczbę wierszy, dla których wartość kolumny `customerid` nie ma wartości `NULL`:
 
 ```sql
 SELECT COUNT(customerid)
@@ -235,7 +236,7 @@ SELECT COUNT(DISTINCT customerid)
   FROM invoice;
 ```
 
-W tym przypadku zapytanie zwróci liczbę unikalnych wartości kolumy `customerid`:
+W tym przypadku zapytanie zwróci liczbę unikalnych wartości kolumny `customerid`:
 
 ```
 59
@@ -243,7 +244,7 @@ W tym przypadku zapytanie zwróci liczbę unikalnych wartości kolumy `customeri
 
 ## Klauzula `HAVING`
 
-Załóżmy tym razem, że potrzebujesz raport, w którym pokażesz sumaryczny przychód dla poszczególnych krajów. Poniższe zapytanie da Ci odpowiednie winiki:
+Załóżmy tym razem, że potrzebujesz raport, w którym pokażesz sumaryczny przychód dla poszczególnych krajów. Poniższe zapytanie da Ci odpowiednie wyniki:
 
 ```sql
   SELECT billingcountry
@@ -251,7 +252,7 @@ Załóżmy tym razem, że potrzebujesz raport, w którym pokażesz sumaryczny pr
     FROM invoice
 GROUP BY billingcountry;
 ```
-Może zdażyć się sytuacja, w której nie potrzebujesz całej listy. W tym przypadku raport powinien zawierać wyłącznie te kraje dla których suma sprzedaży była większa niż 100. Z pomocą w tego typu zapytaniach przychodzi klauzula `HAVING`:
+Może zdarzyć się sytuacja, w której nie potrzebujesz całej listy. W tym przypadku raport powinien zawierać wyłącznie te kraje, dla których suma sprzedaży była większa niż 100. Z pomocą w tego typu zapytaniach przychodzi klauzula `HAVING`:
 
 ```sql
   SELECT billingcountry
@@ -274,7 +275,7 @@ United Kingdom  112.86
 
 ### Czym różni się `WHERE` od `HAVING`?
 
-Jest to jedno z popularnych pytań, które pojawiają się na rozmowach rekrutacyjnych. Pomogę Ci na nie odpowiedzieć :). Odpowiadając jednym zdaniem możesz powiedzieć, że klauzula `WHERE` służy do filtrowania wyników zapytania biorąc pod uwagę pojedynczy wiersz, natomiast klazula `HAVING` pozwala na filtrowanie wyników na podstawie zgrupowanych wartości.
+Jest to jedno z popularnych pytań, które pojawiają się na rozmowach rekrutacyjnych. Pomogę Ci na nie odpowiedzieć :). Odpowiadając jednym zdaniem możesz powiedzieć, że klauzula `WHERE` służy do filtrowania wyników zapytania biorąc pod uwagę pojedynczy wiersz, natomiast klauzula `HAVING` pozwala na filtrowanie wyników na podstawie zgrupowanych wartości.
 
 Jeśli otrzymasz tego typu pytanie na rozmowie kwalifikacyjnej posłuż się jakimś prostym przykładem, w którym pokażesz tę różnicę w praktyce.
 
@@ -289,7 +290,7 @@ GROUP BY billingcountry
   HAVING summed_total > 100;
 ```
 
-Wyniki tym razem są inne. Proszę zwróć uwagę na sumę dla Kanaday w obu przypadkach:
+Wyniki tym razem są inne. Proszę zwróć uwagę na sumę dla Kanady w obu przypadkach:
 
 ```
 Brazil          190.1       
@@ -311,7 +312,7 @@ Napisz zapytanie, które zwróci:
 - liczbę unikalnych dat (kolumna `invoicedate`), w których wystawiono faktury (tabela `invoice`),
 - daty (kolumna `invoicedate`), w których wystawiono co najmniej dwie faktury (tabela `invoice`),
 - pięć losowych wierszy z tabeli `genre` (wywołania tego zapytania wiele razy powinno zwrócić różne wyniki),
-- miesięczną (kolumna `invoicedate`) sumę faktur (kolumna `total` w tabeli `invoice`) od kupunących z identyfikatorem (kolumna `customerid`) mniejszym niż 30, wynik powinien być posortowany po miesięcznej sumie faktur i zawierać jedynie te miesiące dla których suma jest większa od 40.
+- miesięczną (kolumna `invoicedate`) sumę faktur (kolumna `total` w tabeli `invoice`) od kupujących z identyfikatorem (kolumna `customerid`) mniejszym niż 30, wynik powinien być posortowany po miesięcznej sumie faktur i zawierać jedynie te miesiące dla których suma jest większa od 40.
 
 ### Przykładowe rozwiązania zadań
 
@@ -363,4 +364,4 @@ Po lekturze artykułu wiesz czym jest grupowanie wierszy. Znasz kilka przydatnyc
 
 Daj znać w komentarzach jak udało Ci się rozwiązać zadania, może Twoje zapytania wyglądają trochę inaczej?
 
-Na koniec mam do Ciebie standardową prośbę. Jeśli znasz kogoś, komu ten artykuł może pomóc proszę przekaż tej osobie linka do artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników - z góry dziękuję za Twoją pomoc. Jeśli nie chesz ominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!
+Na koniec mam do Ciebie standardową prośbę. Jeśli znasz kogoś, komu ten artykuł może pomóc proszę przekaż tej osobie linka do artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników - z góry dziękuję za Twoją pomoc. Jeśli nie chcesz ominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!
