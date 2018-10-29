@@ -426,7 +426,7 @@ private static void method4(FancyBox<? super Rectangle> box) {
 }
 ```
 
-Parametr `box` może być typu `FancyBox<Object>`, `FancyBox<Square>` i `FancyBox<Rectangle>`. Zatem w tym przypadku do pola `box.object` można przypisać `null` i każdy obiekt, który dziedziczy po `Rectangle`.
+Parametr `box` może być typu `FancyBox<Object>`, `FancyBox<Figure>` i `FancyBox<Rectangle>`. Zatem w tym przypadku do pola `box.object` można przypisać `null` i każdy obiekt, który dziedziczy po `Rectangle`.
 
 ## Typy generyczne są skomplikowane
 
