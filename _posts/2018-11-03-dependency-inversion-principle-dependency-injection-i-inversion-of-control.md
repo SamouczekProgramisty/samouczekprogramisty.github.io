@@ -12,14 +12,14 @@ excerpt: >
     W programowaniu obiektowym istnieje kilka wytycznych pomagających pisać kod wysokiej jakości. W tym artykule chciałbym skupić się na tych, które dotyczą zależności. Mam na myśli _Dependency Inversion Principle_, _Dependency Injection_ i _Inversion of Control_. Często dostaje pytania o to czym te pojęcia różnią się od siebie. W tym artykule postaram się to wyjaśnić.
 ---
 
-Moim zdaniem wokół tych pojęć narosło sporo różnchy teorii i wyjaśnień. Każdy na swój sposób stara się je przełożyć na praktykę programowania. W tym artykule postaram się pokazać Ci definicje możliwe najbliższe oryginałowi. Dla pełnego obrazu postaram się także cytować oryginalną definicję, dzięki czemu będziesz mieć okazję wyrobić sobie własne zdanie.
+Moim zdaniem wokół tych pojęć narosło sporo różnych teorii i wyjaśnień. Każdy na swój sposób stara się je przełożyć na praktykę programowania. W tym artykule postaram się pokazać Ci definicje możliwe najbliższe oryginałowi. Dla pełnego obrazu postaram się także cytować oryginalną definicję, dzięki czemu będziesz mieć okazję wyrobić sobie własne zdanie.
 {:.notice--info}
 
 ## _Dependency Inversion Principle_
 
-Zasada odwrócenia zależności (ang. _Dependency Inversion Principle_) to literka _D_ w akronimie [SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}). Akronim ten grupuje pięć różnych wytycznych pomagających pisać kod wysokiej jakości. W dalszej części artykułu będę się do niej odnośił także jako DIP.
+Zasada odwrócenia zależności (ang. _Dependency Inversion Principle_) to literka _D_ w akronimie [SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}). Akronim ten grupuje pięć różnych wytycznych pomagających pisać kod wysokiej jakości. W dalszej części artykułu będę się do niej odnosił także jako DIP.
 
-W 2002 roku Robert C. Martin, znany także jako Uncle Bob opublikował książkę [Agile Software Development, Principles, Patterns and Practices](https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/0135974445/) w 2013 książka doczekała się [nowego wydania](https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/1292025948). W książsce tej opisał wcześniej wspomniany akronim SOLID. Literka _D_ została opisana w osobnym rozdziale. Ogólną definicję tej zasady autor przedstawił jako:
+W 2002 roku Robert C. Martin, znany także jako Uncle Bob opublikował książkę [Agile Software Development, Principles, Patterns and Practices](https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/0135974445/) w 2013 książka doczekała się [nowego wydania](https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/1292025948). W książce tej opisał wcześniej wspomniany akronim SOLID. Literka _D_ została opisana w osobnym rozdziale. Ogólną definicję tej zasady autor przedstawił jako:
 
 > **The Dependency-Inversion Principle**<br />
 > A. High-level modules should not depend on low-level modules. Both should depend on abstractions.<br />
@@ -104,7 +104,7 @@ public class Thermometer implements Sensor {
 }
 ```
 
-Zachęcam Cię do rzuczenia okiem na [kod źródłowy na Github'ie](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty/dip). Pokazuję tam przykładowe sposoby rozdzielenia poszczególnych elmentów pomiędzy pliki jar.
+Zachęcam Cię do rzucenia okiem na [kod źródłowy na Github'ie](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty/dip). Pokazuję tam przykładowe sposoby rozdzielenia poszczególnych elementów pomiędzy pliki jar.
 
 ### Moje trzy grosze
 
@@ -116,7 +116,7 @@ Moim zdaniem, czasami jest tak, że nie ma sensu na siłę wprowadzać dodatkowe
 
 ## _Inversion of Control_
 
-W swoim [artykule](https://martinfowler.com/bliki/InversionOfControl.html) Martin Fowler wspomina, że pierwsza wzmianka o odwróceniu kontroli (ang. _Inversion of Control_) miała miejsce 1988 roku. Ten sam koncept opisany był także w 1985 roku w [artykule](http://www.digibarn.com/friends/curbow/star/XDEPaper.pdf) opisującym środowisko programowia Mesa chwaląc się tym, że posiada więcej niż 500 użytkowników :).
+W swoim [artykule](https://martinfowler.com/bliki/InversionOfControl.html) Martin Fowler wspomina, że pierwsza wzmianka o odwróceniu kontroli (ang. _Inversion of Control_) miała miejsce 1988 roku. Ten sam koncept opisany był także w 1985 roku w [artykule](http://www.digibarn.com/friends/curbow/star/XDEPaper.pdf) opisującym środowisko programomania Mesa chwaląc się tym, że posiada więcej niż 500 użytkowników :).
 
 Da druga wzmianka nazywa to podejście prawem Hollywood'u (ang. _Hollywod's Law_):
 
@@ -135,7 +135,7 @@ Ten dłuższy fragment można przetłumaczyć jako[^framework]:
 
 [^framework]: Mam świadomość, że _framework_ i _library_ to dwie różne rzeczy. Niestety nie znam lepszego tłumaczenia _framework_ niż biblioteka. Może powinienem użyć określenia rusztowanie? ;)
 
-> Bibltioteka (ang. framework) narzuca architekturę aplikacji. Definiuje także jej strukturę, podział na klasy i obiekty, ich zakres odpowiedzialności, jak klasy i obiekty współdziałają oraz sposób ich wywoływania. (...) Zatem biblioteka podkreśla wielokrotne użycie architektury a nie wielokrotne użycie kodu. Wielokrotne użycie na tym poziomie prowadzi do odwrócenia kontroli pomiędzy aplikacją i jej zależnościami. Kiedy używasz zestawu narzędzi, piszesz główne ciało aplikacji i wywołujesz kod, który chesz używać wielokrotnie. Kiedy używasz biblioteki, używasz jej mechanizmów, które wywołują kod, który napiszesz.
+> Biblioteka (ang. framework) narzuca architekturę aplikacji. Definiuje także jej strukturę, podział na klasy i obiekty, ich zakres odpowiedzialności, jak klasy i obiekty współdziałają oraz sposób ich wywoływania. (...) Zatem biblioteka podkreśla wielokrotne użycie architektury a nie wielokrotne użycie kodu. Wielokrotne użycie na tym poziomie prowadzi do odwrócenia kontroli pomiędzy aplikacją i jej zależnościami. Kiedy używasz zestawu narzędzi, piszesz główne ciało aplikacji i wywołujesz kod, który chcesz używać wielokrotnie. Kiedy używasz biblioteki, używasz jej mechanizmów, które wywołują kod, który napiszesz.
 
 W dalszej części artykułu czasami będę nazywał tę regułę jako IOC.
 
@@ -143,7 +143,7 @@ W dalszej części artykułu czasami będę nazywał tę regułę jako IOC.
 
 Przykładem takiego odwrócenia kontroli może być [cykl życia serwletu]({% post_url 2017-03-25-serwlety-w-aplikacjach-webowych %}#cykl-%C5%BCycia-serwletu). Bazując na specyfikacji serwletów masz pewność, że kontener wywoła odpowiednie metody w odpowiednim czasie. Nie ty je wywołujesz, robi to za Ciebie kontener serwletów. Na przykład nie Ty wywołujesz metodę `init`, robi to kontener serwletów wtedy, kiedy jest taka potrzeba.
 
-Innym przykładem odwrócenia kontroli są kontenery IoC, na przykład [Guice](https://github.com/google/guice) czy Spring[^wielki]. Nie Ty tworzysz zależności, te zależności tworzone są przez kontener i wstrzykiwane do Twoich obiektów.
+Innym przykładem odwrócenia kontroli są kontenery IOC, na przykład [Guice](https://github.com/google/guice) czy Spring[^wielki]. Nie Ty tworzysz zależności, te zależności tworzone są przez kontener i wstrzykiwane do Twoich obiektów.
 
 [^wielki]: Spring jest wielki. To słowo wytrych, które zawiera w sobie wszystko. Tutaj mam na myśli wyłącznie podzbiór Spring Core.
 
@@ -209,9 +209,9 @@ Niestety tutaj nie udało mi się dotrzeć do "pierwotnej" definicji tego pojęc
 
 Można powiedzieć, że wstrzykiwanie zależności (ang. _Dependency Injection_) to praktyka wspomagająca pisanie kodu lepszej jakości.
 
-Jest to mechanizm, który pozwala na dostarczenie zależności niezbędnych do poprawnego działania danego obiektu. Zależności mogą być dostarczane (wstrzykiwane) na wiele sposobów. Na przykład poprzez wywołanie "setterów", dostarczenie niezblędnych parametrów konstruktora czy korzystając z mechanizmu refleksji.
+Jest to mechanizm, który pozwala na dostarczenie zależności niezbędnych do poprawnego działania danego obiektu. Zależności mogą być dostarczane (wstrzykiwane) na wiele sposobów. Na przykład poprzez wywołanie "seterów", dostarczenie niezbędnych parametrów konstruktora czy korzystając z mechanizmu refleksji.
 
-Bez wstrzykiwania wszystkie zeleżności tworzone są przez obiekt, który ich wymaga[^uproszczenie]. Prowadzi to do kodu, który jest trudny do testowania i mocno związany z konkretną implementacją zależności.
+Bez wstrzykiwania wszystkie zależności tworzone są przez obiekt, który ich wymaga[^uproszczenie]. Prowadzi to do kodu, który jest trudny do testowania i mocno związany z konkretną implementacją zależności.
 
 [^uproszczenie]: Jest to pewne uproszczenie. Możliwa jest sytuacja, w której kod napisany jest w sposób pozwalający na użycie DI, jednak tego nie robi.
 
@@ -219,7 +219,7 @@ W dalszej części artykułu czasami będę nazywał tę praktykę jako DI.
 
 ### Przykład użycia _Dependency Injection_
 
-Proszę spójrz na przykład poniżej. Jest to klasa, która jest odpowiedzialna za tworzenie losowego łańcucha znaków o zadanej długości. Zauważ, że klasa `RandomString` wymaga generatora liczb losowych. W tym przykładzie tym generatorem jest instancja klasy `Random`. Głównym problemem tego kodu jest to, że używając klasy `RandomString` nie masz żadnego wpływu na sposób jej działania. Wszystkie jej zależności tworzone są w trakcie tworznie instancji.
+Proszę spójrz na przykład poniżej. Jest to klasa, która jest odpowiedzialna za tworzenie losowego łańcucha znaków o zadanej długości. Zauważ, że klasa `RandomString` wymaga generatora liczb losowych. W tym przykładzie tym generatorem jest instancja klasy `Random`. Głównym problemem tego kodu jest to, że używając klasy `RandomString` nie masz żadnego wpływu na sposób jej działania. Wszystkie jej zależności tworzone są w trakcie tworzenie instancji.
 
 ```java
 public class RandomString {
@@ -252,11 +252,11 @@ public class RandomString {
 
 Tak zwane kontenery DI odpowiedzialne są za tworzenie sieci obiektów. Taki kontener wstrzykuje poszczególne zależności. W naszym przykładzie to kontener stworzyłby instancję klasy `Random` i `RandomString`. Ta druga utworzona zostałaby przy pomocy wcześniej utworzonej instancji klasy `Random`. Innymi słowy instancja klasy `Random` byłaby wstrzyknięta do instancji klasy `RandomString`.
 
-## Porównanie DIP, IOP i DI
+## Porównanie DIP, IOC i DI
 
 ### Porównanie _Dependency Inversion Principle_ i _Inversion of Control_
 
-Zasada odwrócenia zależności sprowadza się do dodawania nowych abstrakcji, które pozwolą tworzyć kod wyższej jakości. Odwrocenie kontroli może być stosowane na różnych poziomach.
+Zasada odwrócenia zależności sprowadza się do dodawania nowych abstrakcji, które pozwolą tworzyć kod wyższej jakości. Odwrócenie kontroli może być stosowane na różnych poziomach.
 
 Zwróć uwagę na to, że DIP wspomina o interfejsach pomiędzy poszczególnymi modułami. Opisując tę zasadę wspomniałem także o tym, że to moduł wysokiego poziomu jest właścicielem tego interfejsu. 
 
@@ -270,7 +270,7 @@ Te dwa pojęcia są także podobne pod względem nazwy ;). Wydaje mi się, że t
 
 ### Porównanie _Inversion of Control_ i _Dependency Injection_
 
-IOC odwraca kontrolę. Objawia się to na wielu poziomach. Czasami może to być odrócenie tego kto jest właścicielem interfejsu. Czy odwrócenie kolejności, w której generowane są obiekty.
+IOC odwraca kontrolę. Objawia się to na wielu poziomach. Czasami może to być odwrócenie tego kto jest właścicielem interfejsu. Czy odwrócenie kolejności, w której generowane są obiekty.
 
 Kontenery DI to nic innego jak kontenery, które wspierają IOC. Istnieje także pojęcie kontenerów IOC. Z mojego punktu widzenia kontenery IOC i kontenery DI określają to samo. To samo czyli mechanizm, który w łatwy sposób pozwala na wstrzykiwanie zależności.
 
