@@ -27,8 +27,8 @@ W 2002 roku Robert C. Martin, znany także jako Uncle Bob opublikował książk�
 
 Punkty tej zasady można przetłumaczyć jako:
 
-- A. Moduły wysokiego poziomu nie powinny zależeć od modułów niskiego poziomu. Oba powinny zależeć od abstrakcji.
-- B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstrakcji.
+> A. Moduły wysokiego poziomu nie powinny zależeć od modułów niskiego poziomu. Oba powinny zależeć od abstrakcji.<br />
+> B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstrakcji.
 
 ### Przykład zastosowania _Dependency Inversion Principle_
 
@@ -39,7 +39,7 @@ public class AirConditioner {
     private static final float THRESHOLD = 3;
 
     private final float desiredTemperature;
-    private Thermometer thermometer;
+    private final Thermometer thermometer;
 
     public AirConditioner(float desiredTemperature, Thermometer thermometer) {
         this.desiredTemperature = desiredTemperature;
@@ -72,7 +72,7 @@ public class Thermometer {
 }
 ```
 
-W tym przypadku klasa `AirConditioner` jest "modułem wysokiego poziomu". Klasa `Thermometer` to "moduł niskiego poziomu". Zatem ten przykład nie spełnia DIP. To co proponuje Uncle Bob sprowadza się do wprowadzenia nowej abstrakcji. Istotne jest to, że to moduł wysokiego poziomu powinien być właścicielem tej abstrakcji [^osobna_paczka]. Jeśli moduł jest właścicielem abstrakcji, to kontroluje sposób w jaki ta abstrakcja jest zdefiniowana. W przypadku interfejsów oznacza to tyle, że moduł określa metody dostępne w tym interfejsie.
+W tym przypadku klasa `AirConditioner` jest "modułem wysokiego poziomu". Klasa `Thermometer` to "moduł niskiego poziomu". Zatem ten przykład nie spełnia DIP, bo klasa `AirConditioner` zależy bezpośrednio od `Thermometer`. To co proponuje Uncle Bob sprowadza się do wprowadzenia nowej abstrakcji. Istotne jest to, że to moduł wysokiego poziomu powinien być właścicielem tej abstrakcji [^osobna_paczka]. Jeśli moduł jest właścicielem abstrakcji, to kontroluje sposób w jaki ta abstrakcja jest zdefiniowana. W przypadku interfejsów oznacza to tyle, że moduł określa metody dostępne w tym interfejsie.
 
 [^osobna_paczka]: Alternatywą jest wprowadzenie oddzielnej "paczki", w której znajdował będzie się interfejs. Wówczas taka paczka jest zależnością zarówno dla modułów niskiego i wysokiego poziomu.
 
@@ -111,6 +111,8 @@ Zachęcam Cię do rzuczenia okiem na [kod źródłowy na Github'ie](https://gith
 Na początku chciałbym zaznaczyć, że nie dorastam do pięt Robert'owi C. Martin'owi. Po tym wstępie mogę dodać moje trzy grosze ;).
 
 Moim zdaniem, czasami jest tak, że nie ma sensu na siłę wprowadzać dodatkowego interfejsu. Czasami refaktoryzacja, która wydzieli dodatkową klasę, która opakowuje niskopoziomowe szczegóły jest wystarczająco dobra. Pozwala na uzyskanie kodu lepszej jakości. Bardzo mocno wierzę w zmiany wprowadzane małymi krokami. Dobrym pierwszym krokiem jest właśnie wydzielenie klas. Kolejnym etapem jest zastanowienie się na interfejsem pomiędzy nimi.
+
+{% include newsletter-srodek.md %}
 
 ## _Inversion of Control_
 
@@ -209,7 +211,9 @@ Można powiedzieć, że wstrzykiwanie zależności (ang. _Dependency Injection_)
 
 Jest to mechanizm, który pozwala na dostarczenie zależności niezbędnych do poprawnego działania danego obiektu. Zależności mogą być dostarczane (wstrzykiwane) na wiele sposobów. Na przykład poprzez wywołanie "setterów", dostarczenie niezblędnych parametrów konstruktora czy korzystając z mechanizmu refleksji.
 
-Bez wstrzykiwania wszystkie zeleżności tworzone są przez obiekt, który ich wymaga. Prowadzi to do kodu, który jest trudny do testowania i mocno związany z konkretną implementacją zależności.
+Bez wstrzykiwania wszystkie zeleżności tworzone są przez obiekt, który ich wymaga[^uproszczenie]. Prowadzi to do kodu, który jest trudny do testowania i mocno związany z konkretną implementacją zależności.
+
+[^uproszczenie]: Jest to pewne uproszczenie. Możliwa jest sytuacja, w której kod napisany jest w sposób pozwalający na użycie DI, jednak tego nie robi.
 
 W dalszej części artykułu czasami będę nazywał tę praktykę jako DI.
 
@@ -231,7 +235,7 @@ public class RandomString {
 }
 ```
 
-Pozornie niewielka zmiana bardzo mocno podnosi jakość kodu. Tą zmianą jest dodanie do konstruktora parametru, który inicjalizuje generator. Takie podejście pozwoli w łatwy sposób wstrzykiwać zależności tej klasy. Dzięki temu na przykład w trakcie testów możesz dostarczyć taką instancję `Random`, która za każdym razem będzie zwracała takie same wyniki:
+Pozornie niewielka zmiana bardzo mocno podnosi jakość kodu. Tą zmianą jest dodanie do konstruktora parametru, który inicjalizuje generator. Takie podejście pozwoli w łatwy sposób wstrzykiwać zależności tej klasy. Dzięki temu na przykład w trakcie [testów]({% post_url 2018-04-13-testy-jednostkowe-z-junit5 %}) możesz dostarczyć taką instancję `Random`, która za każdym razem będzie zwracała takie same wyniki:
 
 ```java
 public class RandomString {
@@ -252,11 +256,11 @@ Tak zwane kontenery DI odpowiedzialne są za tworzenie sieci obiektów. Taki kon
 
 ### Porównanie _Dependency Inversion Principle_ i _Inversion of Control_
 
-Zasada odwrócenia zależności sprowadza się do dodawania nowych abstrakcji, które pozwolą tworzenie kodu wyższej jakości. Odwrocenie kontroli może być stosowane na różnych poziomach.
+Zasada odwrócenia zależności sprowadza się do dodawania nowych abstrakcji, które pozwolą tworzyć kod wyższej jakości. Odwrocenie kontroli może być stosowane na różnych poziomach.
 
 Zwróć uwagę na to, że DIP wspomina o interfejsach pomiędzy poszczególnymi modułami. Opisując tę zasadę wspomniałem także o tym, że to moduł wysokiego poziomu jest właścicielem tego interfejsu. 
 
-Takie podejście Uncle Bob uznaje jako odwrócenie kontroli. Po zastosowaniu zasady odwrócenia zależności moduł wyższego poziomu staje się właścicielem interfejsu, dochodzi do odwrócenia kontroli.
+Takie podejście Uncle Bob uznaje jako odwrócenie kontroli. Po zastosowaniu zasady odwrócenia zależności moduł wyższego poziomu staje się właścicielem interfejsu. W przeciwnym przypadku to moduł niższego poziomu jest właścicielem tego interfejsu. Ta subtelna różnica prowadzi do odwrócenia kontroli. 
 
 ### Porównanie _Dependency Inversion Principle_ i _Dependency Injection_
 
@@ -268,13 +272,13 @@ Te dwa pojęcia są także podobne pod względem nazwy ;). Wydaje mi się, że t
 
 IOC odwraca kontrolę. Objawia się to na wielu poziomach. Czasami może to być odrócenie tego kto jest właścicielem interfejsu. Czy odwrócenie kolejności, w której generowane są obiekty.
 
-Kontenery DI to nic innego jak kontenery, które wspierają IOC. Istnieje także pojęcie kontenerów IOC. Z mojego punktu widzenia kontenery IOC i kontenery DI określają to samo. To samo, czyli mechanizm który w łatwy sposób pozwala na wstrzykiwanie zależności.
+Kontenery DI to nic innego jak kontenery, które wspierają IOC. Istnieje także pojęcie kontenerów IOC. Z mojego punktu widzenia kontenery IOC i kontenery DI określają to samo. To samo czyli mechanizm, który w łatwy sposób pozwala na wstrzykiwanie zależności.
 
 Zauważ, że w przypadku tych kontenerów odwrócona jest kolejność wywoływania konstruktorów obiektów. Muszę tu też dodać, że stosowanie IOC wcale nie wymaga użycia DI. Jednak użycie DI wymaga użycia IOC.
 
 ## Dodatkowe materiały do nauki
 
-Materiałów związanych z tymi trzema pojęciami jest sporo. Poniżej starałem się kilka z nich:
+Materiałów związanych z tymi trzema pojęciami jest sporo. Poniżej zebrałem kilka z nich:
 
 - [Artykuł dotyczący _Dependency Inversion Principle_ na Wikipedii](https://en.wikipedia.org/wiki/Dependency_inversion_principle),
 - [Artykuł dotyczący _Inversion of Control_ na Wikipedii](https://en.wikipedia.org/wiki/Inversion_of_control),
@@ -292,4 +296,4 @@ Dodatkowo odsyłam Cię do źródeł w postaci książek, o których pisałem w 
 
 Po przeczytaniu tego artykułu wiesz czym jest DIP, IOC i DI. Na przykładach pokazałem Ci jak wygląda kod przed i po zastosowaniu tych zasad. Mam nadzieję, że teraz nie będziesz już mieć problemu z wskazaniem różnic pomiędzy tymi pojęciami, które są często mylone.
 
-Na koniec proszę Cię o to, żebyś podzielił się tym artykułem ze swoimi znajomymi. Dzięki temu pozwolisz dotrzeć mi do szerszego grona Czytelników, a na tym właśnie mi zależy. Z góry dziękuję! Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na Facebook'u i dopisz się do samouczkowego newslettera. Do następnego razu!
+Na koniec proszę Cię o to, podzielenie się tym artykułem ze swoimi znajomymi. Dzięki temu pozwolisz dotrzeć mi do szerszego grona Czytelników, a na tym właśnie mi zależy. Z góry dziękuję! Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na Facebook'u i dopisz się do samouczkowego newslettera. Do następnego razu!
