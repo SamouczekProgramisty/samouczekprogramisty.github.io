@@ -19,7 +19,7 @@ Moim zdaniem wokół tych pojęć narosło sporo różnchy teorii i wyjaśnień.
 
 Zasada odwrócenia zależności (ang. _Dependency Inversion Principle_) to literka _D_ w akronimie [SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}). Akronim ten grupuje pięć różnych wytycznych pomagających pisać kod wysokiej jakości. W dalszej części artykułu będę się do niej odnośił także jako DIP.
 
-W 2002 roku Robert C. Martin, znany także jako Uncle Bob opublikował książkę [Agile Software Development, Principles, Patterns and Practices](https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/0135974445/) w 2013 książka doczekała się [nowego wydania](https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/1292025948). W książsce tej opisał wcześniej wspomniany akronim SOLID. Literka _D_ doczekła się osobnego rozdziału, jednak ogólną definicję tej zasady przedstawił jako:
+W 2002 roku Robert C. Martin, znany także jako Uncle Bob opublikował książkę [Agile Software Development, Principles, Patterns and Practices](https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/0135974445/) w 2013 książka doczekała się [nowego wydania](https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/1292025948). W książsce tej opisał wcześniej wspomniany akronim SOLID. Literka _D_ została opisana w osobnym rozdziale. Ogólną definicję tej zasady autor przedstawił jako:
 
 > **The Dependency-Inversion Principle**<br />
 > A. High-level modules should not depend on low-level modules. Both should depend on abstractions.<br />
@@ -76,7 +76,7 @@ W tym przypadku klasa `AirConditioner` jest "modułem wysokiego poziomu". Klasa 
 
 [^osobna_paczka]: Alternatywą jest wprowadzenie oddzielnej "paczki", w której znajdował będzie się interfejs. Wówczas taka paczka jest zależnością zarówno dla modułów niskiego i wysokiego poziomu.
 
-Rozwiązaniem w tym przypadku może być wprowadzenie abstrakcji, interfejsu `Sensor`. Interfejs ten byłby implementowany przez `Thermometer`. Aby reguła DIP była spełniona klasa `AirConditioner` powinna być właścicielem interfejsu `Sensor`. Kod spełniający DIP może wyglądać tak:
+Rozwiązaniem w tym przypadku może być wprowadzenie abstrakcji, interfejsu `Sensor`. Interfejs ten byłby implementowany przez `Thermometer`. Aby DIP była spełniona, klasa `AirConditioner` powinna być właścicielem interfejsu `Sensor`. Kod spełniający DIP może wyglądać tak:
 
 ```java
 public interface Sensor {
@@ -125,7 +125,7 @@ Można to przetłumaczyć jako:
 
 > Narzędzie powinno (...) wspierać użytkownika kiedy on chce wydać narzędziu polecenie, a nie stosować się do podejścia "zapytaj użytkownika o polecenie i wykonaj je".
 
-O odwróceniu kontroli wspomina też inna, klasyczna już książka [Design Patterns. Elements of Reusable Object-Oriented Software]({% post_url 2018-04-24-ksiazki-dla-programistow %}#design-patterns---gamma-helm-johnson-vlissides):
+O odwróceniu kontroli wspomina też inna, klasyczna już książka [Design Patterns: Elements of Reusable Object-Oriented Software]({% post_url 2018-04-24-ksiazki-dla-programistow %}#design-patterns---gamma-helm-johnson-vlissides):
 
 > A framework dictates the architecture of your application. It will define the overall structure, its partitioning into classes and objects, the key responsibilites thereof, how the clases and objects collaborate, and the thread of control. (...) Frameworks thus emphasize design reuse over code reuse (...). Reuse on this level leads to an inversion of control between the application and the software on which it's based. When you use a toolkit (...), you write the main body of the application and call the code you want to reuse. When you use a framework, you reuse the main body and write the code it calls.
 
@@ -133,11 +133,13 @@ Ten dłuższy fragment można przetłumaczyć jako[^framework]:
 
 [^framework]: Mam świadomość, że _framework_ i _library_ to dwie różne rzeczy. Niestety nie znam lepszego tłumaczenia _framework_ niż biblioteka. Może powinienem użyć określenia rusztowanie? ;)
 
-> Bibltioteka (ang. framework) narzuca architekturę aplikacji. Definiuje także jej strukturę, podział na klasy i obiekty, ich zakres odpowiedzialności, jak klasy i obiekty współdziałają i sposób ich wywoływania. (...) Zatem biblioteka podkreśla wielokrotne użycie architektury a nie wielokrotne użycie kodu. Wielokrotne użycie na tym poziomie prowadzi do odwrócenia kontroli pomiędzy aplikacją i jej zależnościami. Kiedy używasz zestawu narzędzi, piszesz główne ciało aplikacji i wywołujesz kod, który chesz używać wielokrotnie. Kiedy używasz biblioteki, używasz jej mechanizmów, które wywołują kod, który napiszesz.
+> Bibltioteka (ang. framework) narzuca architekturę aplikacji. Definiuje także jej strukturę, podział na klasy i obiekty, ich zakres odpowiedzialności, jak klasy i obiekty współdziałają oraz sposób ich wywoływania. (...) Zatem biblioteka podkreśla wielokrotne użycie architektury a nie wielokrotne użycie kodu. Wielokrotne użycie na tym poziomie prowadzi do odwrócenia kontroli pomiędzy aplikacją i jej zależnościami. Kiedy używasz zestawu narzędzi, piszesz główne ciało aplikacji i wywołujesz kod, który chesz używać wielokrotnie. Kiedy używasz biblioteki, używasz jej mechanizmów, które wywołują kod, który napiszesz.
+
+W dalszej części artykułu czasami będę nazywał tę regułę jako IOC.
 
 ### Przykłady odwrócenia kontroli
 
-Przykładem takiego odwrócenia kontroli może być [cykl życia serwletu]({% post_url 2017-03-25-serwlety-w-aplikacjach-webowych %}#cykl-%C5%BCycia-serwletu). Bazując na specyfikacji serwletów masz pewność, że kontener wywoła odpowiednie metody w odpowiednim czasie. Nie ty je wywołujesz, robi to za Ciebie kontener serwletów. Na przykład nie Ty wywołujesz metodę `init`, robi to kontener serwletów wtedy kiedy jest taka potrzeba.
+Przykładem takiego odwrócenia kontroli może być [cykl życia serwletu]({% post_url 2017-03-25-serwlety-w-aplikacjach-webowych %}#cykl-%C5%BCycia-serwletu). Bazując na specyfikacji serwletów masz pewność, że kontener wywoła odpowiednie metody w odpowiednim czasie. Nie ty je wywołujesz, robi to za Ciebie kontener serwletów. Na przykład nie Ty wywołujesz metodę `init`, robi to kontener serwletów wtedy, kiedy jest taka potrzeba.
 
 Innym przykładem odwrócenia kontroli są kontenery IoC, na przykład [Guice](https://github.com/google/guice) czy Spring[^wielki]. Nie Ty tworzysz zależności, te zależności tworzone są przez kontener i wstrzykiwane do Twoich obiektów.
 
@@ -163,10 +165,13 @@ public class HtmlTag {
 }
 ```
 
-W drugim zastosowałem wzorzec _template meethod_. Metoda stosuje odwrócenie kontroli, w tkracie swojego działania prosi o niezbędne informacje wywołując metody `getTag` i `getBody`:
+W drugim zastosowałem wzorzec _template meethod_. Metoda stosuje odwrócenie kontroli, w trakcie swojego działania prosi o niezbędne informacje wywołując metody `getTag` i `getBody`:
 
 ```java
 public abstract class HtmlTag {
+
+    protected abstract String getTag();
+    protected abstract String getBody();
 
     @Override
     public String toString() {
@@ -174,10 +179,6 @@ public abstract class HtmlTag {
         String body = getBody();
         return String.format("<%s>%s</%s>", tag, body, tag);
     }
-
-    protected abstract String getTag();
-
-    protected abstract String getBody();
 }
 
 public class EmTag extends HtmlTag {
@@ -204,11 +205,13 @@ public class EmTag extends HtmlTag {
 
 Niestety tutaj nie udało mi się dotrzeć do "pierwotnej" definicji tego pojęcia.
 
-Można powiedzieć, że wstrzykiwanie zależności (ang. _Dependency Injection_) to praktyka, wspomagająca pisanie kodu lepszej jakości.
+Można powiedzieć, że wstrzykiwanie zależności (ang. _Dependency Injection_) to praktyka wspomagająca pisanie kodu lepszej jakości.
 
 Jest to mechanizm, który pozwala na dostarczenie zależności niezbędnych do poprawnego działania danego obiektu. Zależności mogą być dostarczane (wstrzykiwane) na wiele sposobów. Na przykład poprzez wywołanie "setterów", dostarczenie niezblędnych parametrów konstruktora czy korzystając z mechanizmu refleksji.
 
 Bez wstrzykiwania wszystkie zeleżności tworzone są przez obiekt, który ich wymaga. Prowadzi to do kodu, który jest trudny do testowania i mocno związany z konkretną implementacją zależności.
+
+W dalszej części artykułu czasami będę nazywał tę praktykę jako DI.
 
 ### Przykład użycia _Dependency Injection_
 
@@ -243,9 +246,11 @@ public class RandomString {
 }
 ```
 
+Tak zwane kontenery DI odpowiedzialne są za tworzenie sieci obiektów. Taki kontener wstrzykuje poszczególne zależności. W naszym przykładzie to kontener stworzyłby instancję klasy `Random` i `RandomString`. Ta druga utworzona zostałaby przy pomocy wcześniej utworzonej instancji klasy `Random`. Innymi słowy instancja klasy `Random` byłaby wstrzyknięta do instancji klasy `RandomString`.
+
 ## Porównanie DIP, IOP i DI
 
-### _Dependency Inversion Principle_ a _Inversion of Control_
+### Porównanie _Dependency Inversion Principle_ i _Inversion of Control_
 
 Zasada odwrócenia zależności sprowadza się do dodawania nowych abstrakcji, które pozwolą tworzenie kodu wyższej jakości. Odwrocenie kontroli może być stosowane na różnych poziomach.
 
@@ -253,13 +258,19 @@ Zwróć uwagę na to, że DIP wspomina o interfejsach pomiędzy poszczególnymi 
 
 Takie podejście Uncle Bob uznaje jako odwrócenie kontroli. Po zastosowaniu zasady odwrócenia zależności moduł wyższego poziomu staje się właścicielem interfejsu, dochodzi do odwrócenia kontroli.
 
-### _Dependency Inversion Principle_ a _Dependency Injection_
+### Porównanie _Dependency Inversion Principle_ i _Dependency Injection_
 
-Zasada odwrócenia zależności wprowadza nowe abstrakcje. Można powiedzieć, że te abstrakcje to zależności. Zależności te mogą być wstrzykiwane. Zatem użycie DIP pozwala na łatwe zastosowanie DI.
+Zasada odwrócenia zależności wprowadza nowe abstrakcje. Można powiedzieć, że te nowe abstrakcje to zależności. Zależności te mogą być wstrzykiwane. Zatem użycie DIP pozwala na łatwe zastosowanie DI. 
 
-### _Inversion of Control_ a _Dependency Injection_
+Te dwa pojęcia są także podobne pod względem nazwy ;). Wydaje mi się, że to właśnie ta zbliżona nazwa powoduje tyle zamieszania i powoduje mieszanie tych dwóch pojęć.
 
+### Porównanie _Inversion of Control_ i _Dependency Injection_
 
+IOC odwraca kontrolę. Objawia się to na wielu poziomach. Czasami może to być odrócenie tego kto jest właścicielem interfejsu. Czy odwrócenie kolejności, w której generowane są obiekty.
+
+Kontenery DI to nic innego jak kontenery, które wspierają IOC. Istnieje także pojęcie kontenerów IOC. Z mojego punktu widzenia kontenery IOC i kontenery DI określają to samo. To samo, czyli mechanizm który w łatwy sposób pozwala na wstrzykiwanie zależności.
+
+Zauważ, że w przypadku tych kontenerów odwrócona jest kolejność wywoływania konstruktorów obiektów. Muszę tu też dodać, że stosowanie IOC wcale nie wymaga użycia DI. Jednak użycie DI wymaga użycia IOC.
 
 ## Dodatkowe materiały do nauki
 
@@ -270,7 +281,15 @@ Materiałów związanych z tymi trzema pojęciami jest sporo. Poniżej starałem
 - [Artykuł dotyczący _Inversion of Control_ na stronie Martin'a Fowler'a](https://martinfowler.com/bliki/InversionOfControl.html),
 - [Artykuł na temat _Inversion of Control_ i wzorca _Dependency Injection_ na stronie Martin'a Fowler'a](https://martinfowler.com/articles/injection.html).
 - [Ciekawostka, wzmianka z 1985 o Hollywood's Law](http://www.digibarn.com/friends/curbow/star/XDEPaper.pdf),
+- [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty)
+
+Dodatkowo odsyłam Cię do źródeł w postaci książek, o których pisałem w artykule. Niestety ich minusem jest wysoka cena:
+
+- [Agile Software Development, Principles, Patterns and Practices](https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/0135974445/),
+- [Design Patterns: Elements of Reusable Object-Oriented Software](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612).
 
 ## Podsumowanie
 
+Po przeczytaniu tego artykułu wiesz czym jest DIP, IOC i DI. Na przykładach pokazałem Ci jak wygląda kod przed i po zastosowaniu tych zasad. Mam nadzieję, że teraz nie będziesz już mieć problemu z wskazaniem różnic pomiędzy tymi pojęciami, które są często mylone.
 
+Na koniec proszę Cię o to, żebyś podzielił się tym artykułem ze swoimi znajomymi. Dzięki temu pozwolisz dotrzeć mi do szerszego grona Czytelników, a na tym właśnie mi zależy. Z góry dziękuję! Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na Facebook'u i dopisz się do samouczkowego newslettera. Do następnego razu!
