@@ -569,6 +569,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/funkcje-i-grupowanie-wierszy-w-sql/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/10/20_funkcje_i_grupowanie_wierszy_w_sql.jpeg"},{
+        "title": "Dependency Inversion Principle, Dependency Injection i Inversion of Control",
+        "excerpt":"Moim zdaniem wokół tych pojęć narosło sporo różnych teorii i wyjaśnień. Każdy na swój sposób stara się je przełożyć na praktykę programowania. W tym artykule postaram się pokazać Ci definicje możliwe najbliższe oryginałowi. Dla pełnego obrazu postaram się także cytować oryginalną definicję, dzięki czemu będziesz mieć okazję wyrobić sobie własne...","categories": ["Dobre praktyki","Programista rzemieślnik"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/dependency-inversion-principle-dependency-injection-i-inversion-of-control/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/11/03-dependency--inversion-principle-dependency-injection-inversion-of-control.jpg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],
