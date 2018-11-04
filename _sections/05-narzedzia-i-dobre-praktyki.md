@@ -25,6 +25,7 @@ Bez tego się nie obejdzie. Jeśli chcesz tworzyć kod, który będzie łatwy w 
 
 * [Zasady SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %})
 * [Reguły DRY, KISS i YAGNI]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %})
+* [Porównanie DIP, IOC i DI]({% post_url 2018-11-03-dependency-inversion-principle-dependency-injection-i-inversion-of-control %})
 
 ### Testowanie kodu
 
