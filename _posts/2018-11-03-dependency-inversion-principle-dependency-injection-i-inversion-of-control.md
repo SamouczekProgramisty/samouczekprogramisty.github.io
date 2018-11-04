@@ -12,7 +12,7 @@ excerpt: >
     W programowaniu obiektowym istnieje kilka wytycznych pomagających pisać kod wysokiej jakości. W tym artykule chciałbym skupić się na tych, które dotyczą zależności. Mam na myśli _Dependency Inversion Principle_, _Dependency Injection_ i _Inversion of Control_. Często dostaje pytania o to czym te pojęcia różnią się od siebie. W tym artykule postaram się to wyjaśnić.
 ---
 
-Moim zdaniem wokół tych pojęć narosło sporo różnchy teorii i wyjaśnień. Każdy na swój sposób stara się je przełożyć na praktykę programowania. W tym artykule postaram się pokazać Ci definicje możliwe najbliższe oryginałowi. Dla pełnego obrazu postaram się także pokzać oryginalną definicję, dzięki czemu będziesz mieć okazję wyrobić sobie własne zdanie.
+Moim zdaniem wokół tych pojęć narosło sporo różnchy teorii i wyjaśnień. Każdy na swój sposób stara się je przełożyć na praktykę programowania. W tym artykule postaram się pokazać Ci definicje możliwe najbliższe oryginałowi. Dla pełnego obrazu postaram się także cytować oryginalną definicję, dzięki czemu będziesz mieć okazję wyrobić sobie własne zdanie.
 {:.notice--info}
 
 ## _Dependency Inversion Principle_
@@ -25,7 +25,7 @@ W 2002 roku Robert C. Martin, znany także jako Uncle Bob opublikował książk�
 > A. High-level modules should not depend on low-level modules. Both should depend on abstractions.<br />
 > B. Abstractions should not depend upon details. Details should depend upon abstractions.<br />
 
-Punkty tej zasady można przetłumaczyć jako
+Punkty tej zasady można przetłumaczyć jako:
 
 - A. Moduły wysokiego poziomu nie powinny zależeć od modułów niskiego poziomu. Oba powinny zależeć od abstrakcji.
 - B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstrakcji.
@@ -33,7 +33,6 @@ Punkty tej zasady można przetłumaczyć jako
 ### Przykład zastosowania _Dependency Inversion Principle_
 
 Wyobraź sobie klimatyzator, który reaguje na temperaturę powietrza. Jeśli temperatura jest wyższa od założonego poziomu klimatyzator włącza się automatycznie. Wyłącza się, jeśli osiągnie temperaturę niższą o 3 stopnie niż założony poziom. Naiwna implementacja może wyglądać tak (zauważ, że tego klimatyzatora nie da się wyłączyć ;)):
-
 
 ```java
 public class AirConditioner {
@@ -105,7 +104,7 @@ public class Thermometer implements Sensor {
 }
 ```
 
-Zachęcam Cię do rzuczenia okiem na [kod źródłowy na Github'ie](TODO). Pokazuję tam przykładowe sposoby rozdzielenia poszczególnych elmentów pomiędzy pliki jar.
+Zachęcam Cię do rzuczenia okiem na [kod źródłowy na Github'ie](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty/dip). Pokazuję tam przykładowe sposoby rozdzielenia poszczególnych elmentów pomiędzy pliki jar.
 
 ### Moje trzy grosze
 
@@ -113,17 +112,165 @@ Na początku chciałbym zaznaczyć, że nie dorastam do pięt Robert'owi C. Mart
 
 Moim zdaniem, czasami jest tak, że nie ma sensu na siłę wprowadzać dodatkowego interfejsu. Czasami refaktoryzacja, która wydzieli dodatkową klasę, która opakowuje niskopoziomowe szczegóły jest wystarczająco dobra. Pozwala na uzyskanie kodu lepszej jakości. Bardzo mocno wierzę w zmiany wprowadzane małymi krokami. Dobrym pierwszym krokiem jest właśnie wydzielenie klas. Kolejnym etapem jest zastanowienie się na interfejsem pomiędzy nimi.
 
-## _Dependency Injection_
-
-Zasada wtrzykiwania zależności (ang. _Dependency Injection_)
-
 ## _Inversion of Control_
 
-Zasada odwrócenia kontroli (ang. _Inversion of Control_)
+W swoim [artykule](https://martinfowler.com/bliki/InversionOfControl.html) Martin Fowler wspomina, że pierwsza wzmianka o odwróceniu kontroli (ang. _Inversion of Control_) miała miejsce 1988 roku. Ten sam koncept opisany był także w 1985 roku w [artykule](http://www.digibarn.com/friends/curbow/star/XDEPaper.pdf) opisującym środowisko programowia Mesa chwaląc się tym, że posiada więcej niż 500 użytkowników :).
+
+Da druga wzmianka nazywa to podejście prawem Hollywood'u (ang. _Hollywod's Law_):
+
+> **Don‘t  call  us,  we’ll  call  you  (Hollywood’s  Law).**<br />
+> A tool should arrange for Tajo to notify it when the user wishes to communicate some event to the tool, rather than adopt an “ask the user for a command and execute it” model.
+
+Można to przetłumaczyć jako:
+
+> Narzędzie powinno (...) wspierać użytkownika kiedy on chce wydać narzędziu polecenie, a nie stosować się do podejścia "zapytaj użytkownika o polecenie i wykonaj je".
+
+O odwróceniu kontroli wspomina też inna, klasyczna już książka [Design Patterns. Elements of Reusable Object-Oriented Software]({% post_url 2018-04-24-ksiazki-dla-programistow %}#design-patterns---gamma-helm-johnson-vlissides):
+
+> A framework dictates the architecture of your application. It will define the overall structure, its partitioning into classes and objects, the key responsibilites thereof, how the clases and objects collaborate, and the thread of control. (...) Frameworks thus emphasize design reuse over code reuse (...). Reuse on this level leads to an inversion of control between the application and the software on which it's based. When you use a toolkit (...), you write the main body of the application and call the code you want to reuse. When you use a framework, you reuse the main body and write the code it calls.
+
+Ten dłuższy fragment można przetłumaczyć jako[^framework]:
+
+[^framework]: Mam świadomość, że _framework_ i _library_ to dwie różne rzeczy. Niestety nie znam lepszego tłumaczenia _framework_ niż biblioteka. Może powinienem użyć określenia rusztowanie? ;)
+
+> Bibltioteka (ang. framework) narzuca architekturę aplikacji. Definiuje także jej strukturę, podział na klasy i obiekty, ich zakres odpowiedzialności, jak klasy i obiekty współdziałają i sposób ich wywoływania. (...) Zatem biblioteka podkreśla wielokrotne użycie architektury a nie wielokrotne użycie kodu. Wielokrotne użycie na tym poziomie prowadzi do odwrócenia kontroli pomiędzy aplikacją i jej zależnościami. Kiedy używasz zestawu narzędzi, piszesz główne ciało aplikacji i wywołujesz kod, który chesz używać wielokrotnie. Kiedy używasz biblioteki, używasz jej mechanizmów, które wywołują kod, który napiszesz.
+
+### Przykłady odwrócenia kontroli
+
+Przykładem takiego odwrócenia kontroli może być [cykl życia serwletu]({% post_url 2017-03-25-serwlety-w-aplikacjach-webowych %}#cykl-%C5%BCycia-serwletu). Bazując na specyfikacji serwletów masz pewność, że kontener wywoła odpowiednie metody w odpowiednim czasie. Nie ty je wywołujesz, robi to za Ciebie kontener serwletów. Na przykład nie Ty wywołujesz metodę `init`, robi to kontener serwletów wtedy kiedy jest taka potrzeba.
+
+Innym przykładem odwrócenia kontroli są kontenery IoC, na przykład [Guice](https://github.com/google/guice) czy Spring[^wielki]. Nie Ty tworzysz zależności, te zależności tworzone są przez kontener i wstrzykiwane do Twoich obiektów.
+
+[^wielki]: Spring jest wielki. To słowo wytrych, które zawiera w sobie wszystko. Tutaj mam na myśli wyłącznie podzbiór Spring Core.
+
+Poniżej pokażę Ci też odwrócenie kontroli na trochę mniejszym fragmencie kodu. Zwróć uwagę na implementację metody `toString`. W pierwszym przykładzie klasa `HtmlTag` wymaga wszystkich informacji w trakcie tworzenia obiektu:
+
+```java
+public class HtmlTag {
+
+    private final String tag;
+    private final String body;
+
+    public HtmlTag(String tag, String body) {
+        this.tag = tag;
+        this.body = body;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("<%s>%s</%s>", tag, body, tag);
+    }
+}
+```
+
+W drugim zastosowałem wzorzec _template meethod_. Metoda stosuje odwrócenie kontroli, w tkracie swojego działania prosi o niezbędne informacje wywołując metody `getTag` i `getBody`:
+
+```java
+public abstract class HtmlTag {
+
+    @Override
+    public String toString() {
+        String tag = getTag();
+        String body = getBody();
+        return String.format("<%s>%s</%s>", tag, body, tag);
+    }
+
+    protected abstract String getTag();
+
+    protected abstract String getBody();
+}
+
+public class EmTag extends HtmlTag {
+
+    private String body;
+
+    public EmTag(String body) {
+        this.body = body;
+    }
+
+    @Override
+    protected String getTag() {
+        return "em";
+    }
+
+    @Override
+    protected String getBody() {
+        return body;
+    }
+}
+```
+
+## _Dependency Injection_
+
+Niestety tutaj nie udało mi się dotrzeć do "pierwotnej" definicji tego pojęcia.
+
+Można powiedzieć, że wstrzykiwanie zależności (ang. _Dependency Injection_) to praktyka, wspomagająca pisanie kodu lepszej jakości.
+
+Jest to mechanizm, który pozwala na dostarczenie zależności niezbędnych do poprawnego działania danego obiektu. Zależności mogą być dostarczane (wstrzykiwane) na wiele sposobów. Na przykład poprzez wywołanie "setterów", dostarczenie niezblędnych parametrów konstruktora czy korzystając z mechanizmu refleksji.
+
+Bez wstrzykiwania wszystkie zeleżności tworzone są przez obiekt, który ich wymaga. Prowadzi to do kodu, który jest trudny do testowania i mocno związany z konkretną implementacją zależności.
+
+### Przykład użycia _Dependency Injection_
+
+Proszę spójrz na przykład poniżej. Jest to klasa, która jest odpowiedzialna za tworzenie losowego łańcucha znaków o zadanej długości. Zauważ, że klasa `RandomString` wymaga generatora liczb losowych. W tym przykładzie tym generatorem jest instancja klasy `Random`. Głównym problemem tego kodu jest to, że używając klasy `RandomString` nie masz żadnego wpływu na sposób jej działania. Wszystkie jej zależności tworzone są w trakcie tworznie instancji.
+
+```java
+public class RandomString {
+
+    private final Random generator = new Random();
+
+    public String getString(int length) {
+        return generator.ints(length, 'a', 'z' + 1)
+                .mapToObj(i -> (char) i)
+                .reduce(new StringBuilder(), StringBuilder::append, StringBuilder::append)
+                .toString();
+    }
+}
+```
+
+Pozornie niewielka zmiana bardzo mocno podnosi jakość kodu. Tą zmianą jest dodanie do konstruktora parametru, który inicjalizuje generator. Takie podejście pozwoli w łatwy sposób wstrzykiwać zależności tej klasy. Dzięki temu na przykład w trakcie testów możesz dostarczyć taką instancję `Random`, która za każdym razem będzie zwracała takie same wyniki:
+
+```java
+public class RandomString {
+
+    private final Random generator;
+
+    public RandomString(Random generator) {
+        this.generator = generator;
+    }
+
+    // implementation of getString is the same
+}
+```
+
+## Porównanie DIP, IOP i DI
+
+### _Dependency Inversion Principle_ a _Inversion of Control_
+
+Zasada odwrócenia zależności sprowadza się do dodawania nowych abstrakcji, które pozwolą tworzenie kodu wyższej jakości. Odwrocenie kontroli może być stosowane na różnych poziomach.
+
+Zwróć uwagę na to, że DIP wspomina o interfejsach pomiędzy poszczególnymi modułami. Opisując tę zasadę wspomniałem także o tym, że to moduł wysokiego poziomu jest właścicielem tego interfejsu. 
+
+Takie podejście Uncle Bob uznaje jako odwrócenie kontroli. Po zastosowaniu zasady odwrócenia zależności moduł wyższego poziomu staje się właścicielem interfejsu, dochodzi do odwrócenia kontroli.
+
+### _Dependency Inversion Principle_ a _Dependency Injection_
+
+Zasada odwrócenia zależności wprowadza nowe abstrakcje. Można powiedzieć, że te abstrakcje to zależności. Zależności te mogą być wstrzykiwane. Zatem użycie DIP pozwala na łatwe zastosowanie DI.
+
+### _Inversion of Control_ a _Dependency Injection_
+
+
 
 ## Dodatkowe materiały do nauki
+
+Materiałów związanych z tymi trzema pojęciami jest sporo. Poniżej starałem się kilka z nich:
 
 - [Artykuł dotyczący _Dependency Inversion Principle_ na Wikipedii](https://en.wikipedia.org/wiki/Dependency_inversion_principle),
 - [Artykuł dotyczący _Inversion of Control_ na Wikipedii](https://en.wikipedia.org/wiki/Inversion_of_control),
 - [Artykuł dotyczący _Inversion of Control_ na stronie Martin'a Fowler'a](https://martinfowler.com/bliki/InversionOfControl.html),
+- [Artykuł na temat _Inversion of Control_ i wzorca _Dependency Injection_ na stronie Martin'a Fowler'a](https://martinfowler.com/articles/injection.html).
 - [Ciekawostka, wzmianka z 1985 o Hollywood's Law](http://www.digibarn.com/friends/curbow/star/XDEPaper.pdf),
+
+## Podsumowanie
+
+
