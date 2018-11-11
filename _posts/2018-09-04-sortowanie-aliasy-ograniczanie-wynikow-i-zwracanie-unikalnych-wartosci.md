@@ -344,8 +344,10 @@ Poniżej znajdziesz kilka zadań do wykonania. Każde z nich wymaga napisania je
 - zwróci dziesięć najdłuższych ścieżek (tabela `track`), weź pod uwagę tylko te, których kompozytor (kolumna `composer`) zawiera literę `b`,
 - zwróci pięć najtańszych ścieżek (tabela `track`) dłuższych niż minuta,
 - zwróci unikalną listę dwudziestu kompozytorów których ścieżki kosztują mniej niż 2$ posortowanych malejąco według identyfikatora gatunku (kolumna `genreid`) i rosnąco według rozmiaru (kolumna `bytes`),
-- zwróci dwie kolumny. Pierwsza z nich powinna zawierać ścieżki droższe niż 1$ i poprawnych kompozytorów pod nazwą `magic thingy`. Druga powinna zawierać liczbę bajtów. Wynik powinien zawierać dziesięć wierszy i być posortowany rosnąco po liczbie bajtów,
+- zwróci dwie kolumny. Pierwsza z nich powinna zawierać ścieżki (kolumna `name`) droższe niż 1$ i poprawnych kompozytorów (kolumna `composer` nie ma wartości `NULL`) pod nazwą `magic thingy`. Druga powinna zawierać liczbę bajtów. Wynik powinien zawierać dziesięć wierszy i być posortowany rosnąco po liczbie bajtów[^zle],
 - zwróci piątą stronę z fakturami (tabela `invoice`) zakładając, że na stronie znajduje się dziesięć faktur i sortowane są według identyfikatora (kolumna `invoiceid`).
+
+[^zle]: W codziennym programowaniu raczej nie zdarza się sytuacja, w której w jednej wynikowej kolumnie łączy się zupełnie różne dane.
 
 ### Przykładowe rozwiązania zadań
 
@@ -384,8 +386,7 @@ ORDER BY genreid DESC
   SELECT composer
         ,bytes
     FROM track
-   WHERE unitprice < 2
-     AND composer IS NOT NULL
+   WHERE composer IS NOT NULL
 ORDER BY bytes ASC
    LIMIT 10;
 ```
