@@ -7,7 +7,7 @@ W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności o
 - [Test Driven Development na przykładzie]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}),
 - [Testy jednostkowe z JUnit](% post_url 2016-10-29-testy-jednostkowe-z-junit %}),
 
-Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu będę używał "pseudo kodu". Przykładowe rozwiązania będą w języku Java.
+Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu czasami będę używał "pseudo kodu". Przykładowe rozwiązania będą w języku Java.
 
 - [Kurs programowania w języku Java]({{ "/kurs-programowania-java" | absolute_url }}).
 {% endcapture %}

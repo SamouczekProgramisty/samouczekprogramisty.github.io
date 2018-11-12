@@ -107,7 +107,6 @@ Możesz później użyć mojego zestawu testów jednostkowych żeby sprawdzić c
 
 [^zalozenia]: Testy powinny przejść u Ciebie. Chyba, że Twoje założenia dotyczące niejasnych wymagań były inne ;).
 
-
 ### Rozszerzenie interfejsu `INode`
 
 Żeby poprawnie obsłużyć zagnieżdżone elementy rozszerzyłem interfejs `INode` o dodatkową metodę `Stream<INode> toStream()`. To jedno z tych założeń, o których pisałem wcześniej. Założyłem, że takie rozszerzenie interfejsu jest dopuszczalne. Jeśli nie byłoby to możliwe, problem można byłoby rozwiązać w inny sposób. Jednak ta droga prowadziła do kodu, który jest bardziej czytelny.
