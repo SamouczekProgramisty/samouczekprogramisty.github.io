@@ -56,9 +56,9 @@ Może się zdarzyć, że faza refaktoryzacji nie zawsze jest konieczna. Usprawni
 
 Jedną z pierwszych wątpliwości, które mi się nasunęły gdy uczyłem się tego podejścia było – jak „długie” powinny być takie cykle? Jak duży fragment kodu powinienem testować pojedynczym testem?
 
-Na początku byłem zagorzałym fanem wyznawania możliwie jak najkrótszych cykli, wielkiej liczby testów, które testują bardzo mały wycinek kodu (w sumie takie jest jedno z założeń TDD). Takie podejście jest dobre, ma jednak swoje wady. Wymaga od programisty napisania bardzo dużej liczby testów jednostkowych. Dużej liczby cykli red-green-refactor. Nie jest to złe, wręcz przeciwnie. Jednak ja ze wszystkim nie możemy popadać w skrajności.
+Na początku byłem zagorzałym fanem wyznawania możliwie jak najkrótszych cykli, wielkiej liczby testów, które testują bardzo mały wycinek kodu (w sumie takie jest jedno z założeń TDD). Takie podejście jest dobre, ma jednak swoje wady. Wymaga od programisty napisania bardzo dużej liczby testów jednostkowych. Dużej liczby cykli red-green-refactor. Nie jest to złe, wręcz przeciwnie. Jednak uważam, że nie możemy popadać w skrajności.
 
-Uważam, że cykle powinny być na tyle długie, że Ty jako programista czujesz się swobodnie. Czujesz, że masz kontrolę nad tym co się dzieje. Ogarniasz to co trzeba napisać aby ten test przeszedł. I na końcu ale – powinny być na tyle długie, że programista czuje, że kontroluje całość ale ani trochę dłuższe ;). Innymi słowy, moim zdaniem wraz z doświadczeniem przychodzi swego rodzaju wyczucie jak "duży" powinien być cykl.
+Moim zdaniem cykle powinny być na tyle długie, że Ty jako programista czujesz się swobodnie. Czujesz, że masz kontrolę nad tym co się dzieje. Ogarniasz to co trzeba napisać aby ten test przeszedł. I na końcu ale – powinny być na tyle długie, że programista czuje, że kontroluje całość ale ani trochę dłuższe ;). Innymi słowy, moim zdaniem wraz z doświadczeniem przychodzi swego rodzaju wyczucie jak "duży" powinien być cykl.
 
 Nie możesz zapominać o uruchamianiu wszystkich testów jednostkowych podczas fazy refaktoryzacji. Może się zdarzyć tak, że drobna zmiana może powodować błędy w innej części programu. Uruchamianie wszystkich testów pomaga wykryć taką sytuację.
 

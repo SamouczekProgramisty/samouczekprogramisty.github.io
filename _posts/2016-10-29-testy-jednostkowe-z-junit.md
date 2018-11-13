@@ -29,7 +29,7 @@ W związku z tym programiści testują swój kod pisząc testy jednostkowe.
 
 Test jednostkowy (ang. _unit test_) to sposób testowania programu, w którym wydzielamy mniejszą jego część, jednostkę i testujemy ją w odosobnieniu. W naszym przypadku taką jednostką do testowania może być pojedyncza klasa czy metoda, którą napiszemy.
 
-Testy jednostkowe można pisać bez bibliotek zewnętrznych jednak jest to uciążliwe. Dodatkowo warto używać istniejących bibliotek ponieważ IDE dobrze integrują się tymi bibliotekami. W tym artykule użyłem biblioteki [JUnit](http://junit.org).
+Testy jednostkowe można pisać bez bibliotek zewnętrznych jednak jest to uciążliwe. Dodatkowo warto używać istniejących bibliotek ponieważ IDE dobrze się z nimi integrują. W tym artykule użyłem biblioteki [JUnit](http://junit.org).
 
 Spójrz na fragment kodu poniżej. Klasa ta reprezentuje zakres liczb, ma ona jedną metodę, która sprawdza czy liczba przekazana jako argument należy do danego zakresu.
 
@@ -148,7 +148,7 @@ public void shouldHaveProperErrorMessage() {
 }
 ```
 
-Użyta tu statyczna metoda `Assert.fail()` powoduje zakończenie testu niepowodzeniem. Zostanie ona wywołąna wyłącznie jeśli wyjątek nie zostanie rzucony.
+Użyta tu statyczna metoda `Assert.fail()` powoduje zakończenie testu niepowodzeniem. Zostanie ona wywołana wyłącznie jeśli wyjątek nie zostanie rzucony.
 
 ### Przygotowanie testów i cykl życia testów
 
@@ -266,7 +266,7 @@ Dzięki takim testom będziesz pewien, jak zachowuje się Twoja metoda w sytuacj
 - Testowany kod nie powinien być w tym samym miejscu, w którym są testy. Sprowadza się to do tego, że kod umieszczamy w katalogu np. `src`, testy natomiast w katalogu `test`. Oba katalogi pod spodem mają odpowiednią strukturę odzwierciedlającą pakiety. Jest to ważne ponieważ później przy większych projektach testy nie „mieszają się” z kodem programu.
 - Staraj się pisać testy, które są szybkie. Przy pierwszych programach nie jest to problemem, jednak przy większych projektach uruchamianie testów może być czasochłonne.
 - Uruchamiaj testy jednostkowe możliwie często. Uwierz mi, to Ci się opłaci :). Punkt ten jest powiązany z punktem poprzednim – nie będziesz uruchamiał często testów, które trwają długo.
-- Jeśli zauważysz, że część testów jednostkowych wymaga dokładnie takiego samego „przygotowania” wydziel je do osobnej klasy i użyć metod z adnotacją `@Before` lub `@BeforeClass`.
+- Jeśli zauważysz, że część testów jednostkowych wymaga dokładnie takiego samego „przygotowania” wydziel je do osobnej klasy i użyj metod z adnotacją `@Before` lub `@BeforeClass`.
 
 
 ## Testy jednostkowe w IntejiJ Idea
