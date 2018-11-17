@@ -37,7 +37,7 @@ Jak zauważyłeś nazwa pakietów jest specyficzna. Przyjęło się, że za paki
 
 W pliku źródłowym może znajdować się wyłącznie jedna linia z pakietem. Musi znajdować się na początku pliku. Co prawda nie jest to linia obowiązkowa, jednak używanie domyślnego pakietu nie jest dobrą praktyką[^pakiet].
 
-[^pakiet]: Jeśli nie umieścisz żadnej deklaracji pakietu dany typ (klasa, interfejs etc.) zostanie umieszczony w domyślnym, pustym pakiecie.
+[^pakiet]: Jeśli nie umieścisz żadnej deklaracji pakietu, dany typ (klasa, interfejs etc.) zostanie umieszczony w domyślnym, pustym pakiecie.
 
 Nazwy pakietów powinny odwzorowywać ich zawartość. Np pakiet `pl.samouczekprogramisty.animals` mógłby zawierać klasę `Dog`, ale już klasa `Owner` powinna znaleźć się prawdopodobnie w innym miejscu.
 
@@ -94,7 +94,7 @@ Kolejne 2 linijki to już właściwa definicja klasy. Opiszmy każdy z elementó
 - `public` - modyfikator dostępu. Temat modyfikatorów dostępu opiszę dokładniej w osobnym artykule. Na tym etapie możemy założyć, że przed klasą stawiamy słowo kluczowe public i oznacza ono, że jest ona widoczna dla innych klas,
 - `class` - słowo kluczowe informujące kompilator o tym, że mamy do czynienia z definicją klasy,
 - `Cogwheel` - nazwa klasy. Przyjęło się, że nazwę klasy zaczynamy wielką literą. Podobnie jak w przypadku pakietów nie możemy używać wszystkich znaków. Dla uproszczenia możemy założyć, że nazwa klasy musi zaczynać się wielką literą, później możemy używać wielkich/mały liter bądź cyfr,
-- `{}` - para nawiasów określająca tak zwany blok, podobnie ja w metodzie grupuje on kilka instrukcji. Wszystkie linie kodu znajdujące się między nawiasami klamrowymi składają się na pełną definicję klasy.
+- `{}` - para nawiasów określająca tak zwany blok, podobnie jak w metodzie grupuje on kilka instrukcji. Wszystkie linie kodu znajdujące się między nawiasami klamrowymi składają się na pełną definicję klasy.
 
 Poniżej ta sama klasa ale już trochę bardziej rozbudowana
 
@@ -273,7 +273,7 @@ public void setCogwheel(Cogwheel cogwheel) // ustawia wartość atrybutu cogwhee
 
 ### Generowanie getterów setterów
 
-Podobnie jak w przypadku generowania konstruktorów IDE pomaga w generowaniu getterów/setterów. W edytorze pomaga przy tym skrót `` naciśnięty gdy kursor znajduje się na nazwie atrybutu.
+Podobnie jak w przypadku generowania konstruktorów IDE pomaga w generowaniu getterów/setterów. W edytorze pomaga przy tym skrót `<Alt + Enter>` naciśnięty gdy kursor znajduje się na nazwie atrybutu.
 
 {% include figure image_path="/assets/images/2015/11/01_kurs_java_2_wybieranie_parametrow_konstruktora.png" caption="Wybieranie parametrów konstruktora" %}
 

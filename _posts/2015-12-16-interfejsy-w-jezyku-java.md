@@ -23,7 +23,7 @@ Interfejs w kontekście programowania w języku Java to zestaw metod bez ich imp
 
 [^domyslne]: Wyjątkiem tutaj są tak zwane metody domyślne, o których przeczytasz niżej.
 
-W języku Java do definiowani interfejsów używamy słowa kluczowego `interface`. Interfejsy, podobnie jak klasy, definiujemy w osobnych plikach. Nazwa pliku musi odpowiadać nazwie interfejsu.
+W języku Java do definiowania interfejsów używamy słowa kluczowego `interface`. Interfejsy, podobnie jak klasy, definiujemy w osobnych plikach. Nazwa pliku musi odpowiadać nazwie interfejsu.
 
 ```java
 public interface Clock {
