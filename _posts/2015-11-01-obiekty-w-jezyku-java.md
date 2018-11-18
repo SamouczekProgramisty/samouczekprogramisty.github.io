@@ -7,7 +7,7 @@ permalink: /obiekty-w-jezyku-java/
 header:
     teaser: /assets/images/2015/11/01_obiekty_w_jezyku_java.jpg
     overlay_image: /assets/images/2015/11/01_obiekty_w_jezyku_java.jpg
-excerpt: "Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle ćwiczenie dla Was. Do dzieła!"
+excerpt: "Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle czeka na Ciebie ćwiczenie. Do dzieła!"
 disqus_page_identifier: 75 http://www.samouczekprogramisty.pl/?p=75
 ---
 
@@ -15,7 +15,7 @@ disqus_page_identifier: 75 http://www.samouczekprogramisty.pl/?p=75
 
 ## Pakiet
 
-Programy komputerowe składają się z wielu plików. Przy dużym projekcie składającym się z kilkuset, kilku tysięcy plików kluczowe staje się odpowiednie zarządzanie plikami z kodem źródłowym programu. Bez takiego zarządzania wydajność programisty mocno spada.
+Programy komputerowe składają się z wielu plików. Przy dużym projekcie składającym się z kilku tysięcy plików kluczowe staje się odpowiednie zarządzanie plikami z kodem źródłowym programu. Bez takiego zarządzania wydajność programisty mocno spada.
 
 Więc czym jest pakiet? Pakiet wraz z nazwą klasy tworzy swego rodzaju “unikalny adres”. Podobnie jak ludzie mają swoje adresy tak klasy mają swoje pakiety, które pomagają zlokalizować klasy w trakcie działania programu.
 
@@ -25,17 +25,17 @@ package pl.samouczekprogramisty.kursjava;
 
 Rozbijmy tę linię kodu na części pierwsze:
 - `package` - to słowo kluczowe podobnie jak `class` czy `if`, informuje kompilator o tym w jakim pakiecie znajduje się plik,
-- `pl.samouczekprogramisty.kursjava` - właściwa nazwa pakietu. Podobnie jak w przypadku omówionego w poprzednim artykule nazewnictwa metod tutaj obowiązują podobne zasady. Dla uproszczenia możemy powiedzieć, że dozwolone są małe litery oraz znak kropki.
+- `pl.samouczekprogramisty.kursjava` - właściwa nazwa pakietu. Podobnie jak w przypadku omówionego w poprzednim artykule [nazewnictwa metod]({% post_url 2015-10-22-metody-w-jezyku-java %}) tutaj obowiązują podobne zasady. Dla uproszczenia możemy powiedzieć, że dozwolone są małe litery oraz znak kropki.
 
 Istnieje kilka zarezerwowanych nazw pakietów. Służą one do odróżnienia klas dostarczonych wraz z wirtualną maszyną Javy od klas tworzonych przez programistów. Innymi słowy pakiety tworzone przez Ciebie nie mogą zaczynać się od `java.` ani od `javax.`.
 
-Pakiety służą do grupowania klas, interfejsów, typów wyliczeniowych czy adnotacji (Jeśli czytasz artykuły chronologicznie te terminy prawdopodobnie są dla Ciebie nowe. Nie przejmuj się, opiszę je dokładnie w jednym z kolejnych artykułów.).
+Pakiety służą do grupowania klas, [interfejsów]({% post_url 2015-12-16-interfejsy-w-jezyku-java %}), [typów wyliczeniowych]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) czy [adnotacji]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}). Jeśli czytasz artykuły chronologicznie te terminy prawdopodobnie są dla Ciebie nowe. Nie przejmuj się, opisałem je dokładnie w kolejnych artykułach.
 
-Jak zauważyłeś nazwa pakietów jest specyficzna. Przyjęło się, że za pakiet używa się odwróconej nazwy domeny. Takie podejście pozwala na łatwiejsze uniknięcie konfliktów. W przypadku naszego kursu użyłem `pl.samouczekprogramisty.kursjava`. Istotne jest tutaj odwzorowanie struktury katalogów. Każdy człon pakietu odpowiada katalogowi na dysku.
+Jak udało Ci się zauważyć nazwy pakietów są specyficzne. Przyjęło się, że za pakiet używa się odwróconej nazwy domeny. Takie podejście pozwala na łatwiejsze uniknięcie konfliktów. W przypadku naszego kursu użyłem `pl.samouczekprogramisty.kursjava`. Istotne jest tutaj odwzorowanie struktury katalogów. Każdy człon pakietu odpowiada katalogowi na dysku.
 
 {% include figure image_path="/assets/images/2015/11/01_kurs_java2_pakiety.png" caption="Pakiety w języku Java" %}
 
-W pliku źródłowym może znajdować się wyłącznie jedna linia z pakietem. Musi znajdować się na początku pliku. Co prawda nie jest to linia obowiązkowa, jednak używanie domyślnego pakietu nie jest dobrą praktyką[^pakiet].
+W pliku źródłowym może znajdować się wyłącznie jedna linia z pakietem. Musi znajdować się na początku pliku. Nie jest to linia obowiązkowa, jednak używanie domyślnego pakietu nie jest dobrą praktyką[^pakiet].
 
 [^pakiet]: Jeśli nie umieścisz żadnej deklaracji pakietu, dany typ (klasa, interfejs etc.) zostanie umieszczony w domyślnym, pustym pakiecie.
 
@@ -45,13 +45,13 @@ Nazwy pakietów powinny odwzorowywać ich zawartość. Np pakiet `pl.samouczekpr
 
 ## Klasa
 
-Klasy służą do grupowania atrybutów i metod, pakietów używamy do grupowania klas. Zanim pokażę Wam przykład kodu przejdziemy przez parę funkcji IDE, które na pewno przydadzą się w przyszłości.
+Klasy służą do grupowania atrybutów i metod, pakietów używamy do grupowania klas. Zanim pokażę Ci przykład kodu przejdziemy przez parę funkcji IDE, które na pewno przydadzą się w przyszłości.
 
 ### Skróty klawiaturowe
 
 IDE czy zwykły edytor tekstu są narzędziami pracy programisty. Znajomość narzędzi pracy znacząco zwiększa wydajność pracy. Innymi słowy bardzo przydatne jest używanie skrótów klawiaturowych. Postaram się przybliżyć Wam kilka z nich.
 
-Po lewej stronie widzicie okno do przeglądania struktury projektu. To okienko możecie włączać/wyłączać używając skrótu `<Alt + 1>`[^notacja]. Po kliknięciu w obszar tego okienka przyda się skrót `<Alt + Ins>`. W tym kontekście przyda się on do stworzenia nowego pakietu oraz pliku z naszą pierwszą klasą. Po naciśnięciu tego skrótu pokaże się Wam takie okienko.
+Po lewej stronie widzisz okno do przeglądania struktury projektu. To okienko możecie włączać/wyłączać używając skrótu `<Alt + 1>`[^notacja]. Po kliknięciu w obszar tego okienka przyda się skrót `<Alt + Ins>`. W tym kontekście przyda się on do stworzenia nowego pakietu oraz pliku z naszą pierwszą klasą. Po naciśnięciu tego skrótu pokaże się Ci takie okienko.
 
 [^notacja]: Taka notacja oznacza jednoczesne naciśnięcie dwóch klawiszy, w tym przypadku jest to `Alt` i `1`.
 
@@ -73,7 +73,7 @@ public class Cogwheel {
 }
 ```
 
-Podobnie jak poprzednio teraz linijka po linijce przeanalizujemy przykładowy kod klasy w języku Java. Pierwsza linijka nie jest już dla Was niczym nowym, ot zwykła deklaracja pakietu. Ciekawsze są kolejne linie.
+Podobnie jak poprzednio teraz linijka po linijce przeanalizuję wygenerowany kod. Pierwsza linijka nie jest już dla Ciebie niczym nowym, ot zwykła deklaracja pakietu. Ciekawsze są kolejne linie.
 
 ## Komentarze w kodzie
 
@@ -81,8 +81,8 @@ Kolejne 3 linie to komentarz w kodzie. Komentarz w kodzie to dodatkowa wiadomoś
 
 W języku Java występują 2 typy komentarzy:
 
-- komentarze w kilku liniach - przykład widzicie powyżej, wszystko co znajduję się pomiędzy `/**` a `*/` traktowane jest jako komentarz.
-- komentarz jednoliniowy - wszystko co znajduje się za `//` do końca linii traktowane jest jako komentarz. Parę przykładów poniżej
+- komentarze w kilku liniach - przykład widzisz powyżej, wszystko co znajduję się pomiędzy `/**` a `*/` traktowane jest jako komentarz.
+- komentarz jednoliniowy - wszystko co znajduje się za `//` do końca linii traktowane jest jako komentarz. Parę przykładów pokazałem poniżej:
 
 ```java
 int count = 3; // number of already read books
@@ -90,10 +90,19 @@ int count = 3; // number of already read books
 boolean wasRead = false;
 ```
 
-Kolejne 2 linijki to już właściwa definicja klasy. Opiszmy każdy z elementów osobno:
-- `public` - modyfikator dostępu. Temat modyfikatorów dostępu opiszę dokładniej w osobnym artykule. Na tym etapie możemy założyć, że przed klasą stawiamy słowo kluczowe public i oznacza ono, że jest ona widoczna dla innych klas,
-- `class` - słowo kluczowe informujące kompilator o tym, że mamy do czynienia z definicją klasy,
-- `Cogwheel` - nazwa klasy. Przyjęło się, że nazwę klasy zaczynamy wielką literą. Podobnie jak w przypadku pakietów nie możemy używać wszystkich znaków. Dla uproszczenia możemy założyć, że nazwa klasy musi zaczynać się wielką literą, później możemy używać wielkich/mały liter bądź cyfr,
+## Definicja klasy
+
+Kolejne 2 linijki to już właściwa definicja klasy:
+
+```java
+public class Cogwheel {
+}
+```
+
+Poniżej opiszę każdy z elementów osobno:
+- `public` - modyfikator dostępu. Temat [modyfikatorów dostępu]({% post_url 2017-10-29-modyfikatory-dostepu-w-jezyku-java %}) opisałem dokładniej w osobnym artykule. Na tym etapie możesz założyć, że przed klasą stawiamy słowo kluczowe `public` i oznacza ono, że jest ona widoczna dla innych klas,
+- `class` - słowo kluczowe informujące kompilator o tym, że ma do czynienia z definicją klasy,
+- `Cogwheel` - nazwa klasy. Przyjęło się, że nazwę klasy zaczynamy wielką literą. Podobnie jak w przypadku pakietów nie możesz używać wszystkich znaków. Dla uproszczenia możesz założyć, że nazwa klasy musi zaczynać się wielką literą, później możesz używać wielkich/mały liter bądź cyfr,
 - `{}` - para nawiasów określająca tak zwany blok, podobnie jak w metodzie grupuje on kilka instrukcji. Wszystkie linie kodu znajdujące się między nawiasami klamrowymi składają się na pełną definicję klasy.
 
 Poniżej ta sama klasa ale już trochę bardziej rozbudowana
@@ -125,7 +134,7 @@ private int size;
 
 Kolejne dwie metody to tak zwane konstruktory. Zauważ, że ich definicje są specjalne - nie mają typu zwracanego. Konstruktor służy, jak sama nazwa wskazuje, do tworzenia nowych instancji klasy. Każda klasa musi mieć konstruktor. Konstruktory to specjalne metody, które inicjalizują instancje klas.
 
-Konstruktory wywołujemy dokładnie tak samo jak inne metody, dodatkowo używamy słowa kluczowego `new`:
+Konstruktory wywołuje się dokładnie tak samo jak inne metody, dodatkowo używamy słowa kluczowego `new`:
 
 ```java
 cogwheel = new Cogwheel();
@@ -151,7 +160,7 @@ W kolejnym można wybrać atrybuty klasy, które mają być przekazywane jako pa
 
 {% include figure image_path="/assets/images/2015/11/01_kurs_java_2_parametry_konstruktora.png" caption="Wybieranie parametrów konstruktora" %}
 
-Zauważ, że w poprzednim przykładzie klasy `Cogwheel` nie umieściłem definicji żadnego konstruktora. Kilka akapitów wcześniej napisałem, że każda klasa musi mieć konstruktor. Więc jak to właściwie jest z tym konstruktorem? Otóż kompilator tworzy domyślny konstruktor automatycznie jeśli nie zdefiniujemy żadnego innego konstruktora.
+Zauważ, że w poprzednim przykładzie klasy `Cogwheel` nie umieściłem definicji żadnego konstruktora. Kilka akapitów wcześniej napisałem, że każda klasa musi mieć konstruktor. Więc jak to właściwie jest z tym konstruktorem? Otóż kompilator tworzy domyślny konstruktor automatycznie jeśli programista nie zdefiniuje żadnego innego konstruktora.
 
 Jeśli utworzysz jakikolwiek inny konstruktor przyjmujący parametry kompilator nie doda domyślnego, bezparametrowego konstruktora.
 
@@ -194,7 +203,7 @@ public class Engine {
 }
 ```
 
-Poza używaniem typów, które już znasz, możesz używać już istniejących klas. Właśnie w ten sposób klasa `Engine` ma atrybut typu `Cogwheel`. Zwróć uwagę, że klasa `Engine` znajduje się w innym pakiecie niż klasa `Cogwheel`. Kompilator musi wiedzieć gdzie szukać tej klasy, właśnie z tego powodu dodajemy linijkę importującą tę klasę:
+Poza używaniem typów, które już znasz, możesz używać już istniejących klas. Właśnie w ten sposób klasa `Engine` ma atrybut typu `Cogwheel`. Zwróć uwagę, że klasa `Engine` znajduje się w innym pakiecie niż klasa `Cogwheel`. Kompilator musi wiedzieć gdzie szukać tej klasy, właśnie z tego powodu dodaje się linijkę importującą tę klasę:
 
 ```java
 import pl.samouczekprogramisty.kursjava.engine.Cogwheel;
@@ -202,7 +211,7 @@ import pl.samouczekprogramisty.kursjava.engine.Cogwheel;
 
 > Deklaracja importu to coś zupełnie innego niż deklaracja pakietu, importów w klasie może być wiele (możemy korzystać z wielu innych klas), natomiast nasza klasa może być wyłącznie w jednym pakiecie.
 >
-> Jeśli importujemy wiele klas z jednego pakietu zamiast wypisywać je wszystkie możemy użyć `*` np `import pl.samouczekprogramisty.kursjava.engine.*;`
+> Jeśli importujesz wiele klas z jednego pakietu zamiast wypisywać je wszystkie możemy użyć `*` np `import pl.samouczekprogramisty.kursjava.engine.*;`
 Tutaj przychodzi z pomocą IDE. Okazuje się, że programista używający IDE nie musi pisać tych linii, IDE dodaje te linijki automatycznie. IDE także pomaga przy pisaniu samego kodu. W trakcie pisania zobaczysz menu kontekstowe podpowiadające programiście fragmenty kodu. Skrótami klawiaturowymi, które jeszcze mogą przy tym pomóc są `<Ctrl + Space>` i `<Ctrl + Shift + Space>`. Oba z nich pomagają programiście, drugi jest bardziej „inteligenty” podpowiadając wyłącznie kod, który jest poprawny w danym kontekście.
 
 {% include figure image_path="/assets/images/2015/11/01_kurs_java_2_podpowiadanie.png" caption="Pomoc IDE" %}
@@ -217,7 +226,7 @@ public void start() {
 }
 ```
 
-Nowe dla Ciebie jest słowo kluczowe `void` w miejscu typu zwracanego. To słowo kluczowe informuje, że dana metoda nie zwraca żadnej wartości. W ciele tej metody do atrybutu started przypisujemy wartość zwróconą przez metodę `initiateStartingSequence`.
+Nowe dla Ciebie jest słowo kluczowe `void` w miejscu typu zwracanego. To słowo kluczowe informuje, że dana metoda nie zwraca żadnej wartości. W ciele tej metody do atrybutu `started` przypisuję wartość zwróconą przez metodę `initiateStartingSequence`.
 
 ### Słowo kluczowe `this`
 
