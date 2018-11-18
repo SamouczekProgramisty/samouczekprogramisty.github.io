@@ -25,7 +25,7 @@
 
 
 
-  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/11/03-dependency--inversion-principle-dependency-injection-inversion-of-control.jpg">
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2018/11/03-dependency-inversion-principle-dependency-injection-inversion-of-control.jpg">
 
 
 
@@ -164,7 +164,7 @@
 
 
 <div class="page__hero--overlay"
-  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2018/11/03-dependency--inversion-principle-dependency-injection-inversion-of-control.jpg');"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2018/11/03-dependency-inversion-principle-dependency-injection-inversion-of-control.jpg');"
 >
   
     <div class="wrapper">
@@ -242,7 +242,11 @@
                 <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#dependency-inversion-principle">Dependency Inversion Principle</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#przykład-zastosowania-dependency-inversion-principle">Przykład zastosowania Dependency Inversion Principle</a></li>
+<li class="toc-entry toc-h3"><a href="#przykład-zastosowania-dependency-inversion-principle">Przykład zastosowania Dependency Inversion Principle</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#co-to-znaczy-być-właścicielem-abstrakcji">Co to znaczy być właścicielem abstrakcji?</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h3"><a href="#moje-trzy-grosze">Moje trzy grosze</a></li>
 </ul>
 </li>
@@ -339,7 +343,7 @@ B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstr
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W tym przypadku klasa <code class="highlighter-rouge">AirConditioner</code> jest “modułem wysokiego poziomu”. Klasa <code class="highlighter-rouge">Thermometer</code> to “moduł niskiego poziomu”. Zatem ten przykład nie spełnia DIP, bo klasa <code class="highlighter-rouge">AirConditioner</code> zależy bezpośrednio od <code class="highlighter-rouge">Thermometer</code>. To co proponuje Uncle Bob sprowadza się do wprowadzenia nowej abstrakcji. Istotne jest to, że to moduł wysokiego poziomu powinien być właścicielem tej abstrakcji <sup id="fnref:osobna_paczka"><a href="#fn:osobna_paczka" class="footnote">1</a></sup>. Jeśli moduł jest właścicielem abstrakcji, to kontroluje sposób w jaki ta abstrakcja jest zdefiniowana. W przypadku interfejsów oznacza to tyle, że moduł określa metody dostępne w tym interfejsie.</p>
+<p>W tym przypadku klasa <code class="highlighter-rouge">AirConditioner</code> jest “modułem wysokiego poziomu”. Klasa <code class="highlighter-rouge">Thermometer</code> to “moduł niskiego poziomu”. Zatem ten przykład nie spełnia DIP, bo klasa <code class="highlighter-rouge">AirConditioner</code> zależy bezpośrednio od <code class="highlighter-rouge">Thermometer</code>. To co proponuje Uncle Bob sprowadza się do wprowadzenia nowej abstrakcji. Istotne jest to, że to moduł wysokiego poziomu powinien być właścicielem tej abstrakcji.</p>
 
 <p>Rozwiązaniem w tym przypadku może być wprowadzenie abstrakcji, interfejsu <code class="highlighter-rouge">Sensor</code>. Interfejs ten byłby implementowany przez <code class="highlighter-rouge">Thermometer</code>. Aby DIP była spełniona, klasa <code class="highlighter-rouge">AirConditioner</code> powinna być właścicielem interfejsu <code class="highlighter-rouge">Sensor</code>. Kod spełniający DIP może wyglądać tak:</p>
 
@@ -368,7 +372,31 @@ B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstr
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Zachęcam Cię do rzucenia okiem na <a href="https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty/dip">kod źródłowy na Github’ie</a>. Pokazuję tam przykładowe sposoby rozdzielenia poszczególnych elementów pomiędzy pliki jar.</p>
+<h4 id="co-to-znaczy-być-właścicielem-abstrakcji">Co to znaczy być właścicielem abstrakcji?</h4>
+
+<p>Można powiedzieć, że komponent jest właścicielem abstrakcji, jeśli kontroluje sposób w jaki ta abstrakcja jest zdefiniowana. W przypadku interfejsów oznacza to tyle, że moduł określa metody dostępne w tym interfejsie. Stosując to do przykładu wyżej, aby DIP była spełniona to <code class="highlighter-rouge">AirConditioner</code> musi być właścicielem interfejsu <code class="highlighter-rouge">Sensor</code>.</p>
+
+<p>W aplikacjach, które cały kod źródłowy mają w jednym <a href="/java-z-linii-polecen//#pliki-jar">pliku jar</a> jest to kwestia umowna. Zdarzają się jednak sytuacje, w których kod źródłowy rozdzielony jest pomiędzy kilka plików.</p>
+
+<p>Diagramy poniżej pokazują przykładowe sposoby podziału. Białe prostokąty reprezentują pliki JAR. Prostokąty z zaokrąglonymi rogami to klasy/interfejsy:</p>
+
+<figure class="">
+  <img src="/assets/images/2018/11/18_dip_approach_1.png" alt="" />
+  
+    <figcaption>Podział komponentów na osobne pliki JAR, sposób 1.
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="/assets/images/2018/11/18_dip_approach_2.png" alt="" />
+  
+    <figcaption>Podział komponentów na osobne pliki JAR, sposób 2.
+</figcaption>
+  
+</figure>
+
+<p>Zachęcam Cię do rzucenia okiem na <a href="https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty/dip">kod źródłowy na Github’ie</a>. Pokazuję tam przykładowe sposoby rozdzielenia poszczególnych elementów pomiędzy pliki JAR.</p>
 
 <h3 id="moje-trzy-grosze">Moje trzy grosze</h3>
 
@@ -380,7 +408,7 @@ B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstr
   
 <p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
 
-<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1000 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1800 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
 
 <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
 
@@ -410,7 +438,7 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
   <p>A framework dictates the architecture of your application. It will define the overall structure, its partitioning into classes and objects, the key responsibilites thereof, how the clases and objects collaborate, and the thread of control. (…) Frameworks thus emphasize design reuse over code reuse (…). Reuse on this level leads to an inversion of control between the application and the software on which it’s based. When you use a toolkit (…), you write the main body of the application and call the code you want to reuse. When you use a framework, you reuse the main body and write the code it calls.</p>
 </blockquote>
 
-<p>Ten dłuższy fragment można przetłumaczyć jako<sup id="fnref:framework"><a href="#fn:framework" class="footnote">2</a></sup>:</p>
+<p>Ten dłuższy fragment można przetłumaczyć jako<sup id="fnref:framework"><a href="#fn:framework" class="footnote">1</a></sup>:</p>
 
 <blockquote>
   <p>Biblioteka (ang. framework) narzuca architekturę aplikacji. Definiuje także jej strukturę, podział na klasy i obiekty, ich zakres odpowiedzialności, jak klasy i obiekty współdziałają oraz sposób ich wywoływania. (…) Zatem biblioteka podkreśla wielokrotne użycie architektury a nie wielokrotne użycie kodu. Wielokrotne użycie na tym poziomie prowadzi do odwrócenia kontroli pomiędzy aplikacją i jej zależnościami. Kiedy używasz zestawu narzędzi, piszesz główne ciało aplikacji i wywołujesz kod, który chcesz używać wielokrotnie. Kiedy używasz biblioteki, używasz jej mechanizmów, które wywołują kod, który napiszesz.</p>
@@ -422,7 +450,7 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
 
 <p>Przykładem takiego odwrócenia kontroli może być <a href="/serwlety-w-aplikacjach-webowych/#cykl-%C5%BCycia-serwletu">cykl życia serwletu</a>. Bazując na specyfikacji serwletów masz pewność, że kontener wywoła odpowiednie metody w odpowiednim czasie. Nie ty je wywołujesz, robi to za Ciebie kontener serwletów. Na przykład nie Ty wywołujesz metodę <code class="highlighter-rouge">init</code>, robi to kontener serwletów wtedy, kiedy jest taka potrzeba.</p>
 
-<p>Innym przykładem odwrócenia kontroli są kontenery IOC, na przykład <a href="https://github.com/google/guice">Guice</a> czy Spring<sup id="fnref:wielki"><a href="#fn:wielki" class="footnote">3</a></sup>. Nie Ty tworzysz zależności, te zależności tworzone są przez kontener i wstrzykiwane do Twoich obiektów.</p>
+<p>Innym przykładem odwrócenia kontroli są kontenery IOC, na przykład <a href="https://github.com/google/guice">Guice</a> czy Spring<sup id="fnref:wielki"><a href="#fn:wielki" class="footnote">2</a></sup>. Nie Ty tworzysz zależności, te zależności tworzone są przez kontener i wstrzykiwane do Twoich obiektów.</p>
 
 <p>Poniżej pokażę Ci też odwrócenie kontroli na trochę mniejszym fragmencie kodu. Zwróć uwagę na implementację metody <code class="highlighter-rouge">toString</code>. W pierwszym przykładzie klasa <code class="highlighter-rouge">HtmlTag</code> wymaga wszystkich informacji w trakcie tworzenia obiektu:</p>
 
@@ -486,7 +514,7 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
 
 <p>Jest to mechanizm, który pozwala na dostarczenie zależności niezbędnych do poprawnego działania danego obiektu. Zależności mogą być dostarczane (wstrzykiwane) na wiele sposobów. Na przykład poprzez wywołanie “seterów”, dostarczenie niezbędnych parametrów konstruktora czy korzystając z mechanizmu refleksji.</p>
 
-<p>Bez wstrzykiwania wszystkie zależności tworzone są przez obiekt, który ich wymaga<sup id="fnref:uproszczenie"><a href="#fn:uproszczenie" class="footnote">4</a></sup>. Prowadzi to do kodu, który jest trudny do testowania i mocno związany z konkretną implementacją zależności.</p>
+<p>Bez wstrzykiwania wszystkie zależności tworzone są przez obiekt, który ich wymaga<sup id="fnref:uproszczenie"><a href="#fn:uproszczenie" class="footnote">3</a></sup>. Prowadzi to do kodu, który jest trudny do testowania i mocno związany z konkretną implementacją zależności.</p>
 
 <p>W dalszej części artykułu czasami będę nazywał tę praktykę jako DI.</p>
 
@@ -574,9 +602,6 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
 <p>Na koniec proszę Cię o to, podzielenie się tym artykułem ze swoimi znajomymi. Dzięki temu pozwolisz dotrzeć mi do szerszego grona Czytelników, a na tym właśnie mi zależy. Z góry dziękuję! Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na Facebook’u i dopisz się do samouczkowego newslettera. Do następnego razu!</p>
 <div class="footnotes">
   <ol>
-    <li id="fn:osobna_paczka">
-      <p>Alternatywą jest wprowadzenie oddzielnej “paczki”, w której znajdował będzie się interfejs. Wówczas taka paczka jest zależnością zarówno dla modułów niskiego i wysokiego poziomu. <a href="#fnref:osobna_paczka" class="reversefootnote">&#8617;</a></p>
-    </li>
     <li id="fn:framework">
       <p>Mam świadomość, że <em>framework</em> i <em>library</em> to dwie różne rzeczy. Niestety nie znam lepszego tłumaczenia <em>framework</em> niż biblioteka. Może powinienem użyć określenia rusztowanie? ;) <a href="#fnref:framework" class="reversefootnote">&#8617;</a></p>
     </li>
@@ -595,7 +620,7 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
   
 <p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
 
-<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1000 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1800 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
 
 <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
 
@@ -657,7 +682,8 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
 ">Poprzednia</a>
     
     
-      <a href="#" class="pagination--pager disabled">Następna</a>
+      <a href="/samouczek-na-rozmowie-kalkulator/" class="pagination--pager" title="Samouczek na rozmowie - kalkulator
+">Następna</a>
     
   </nav>
 

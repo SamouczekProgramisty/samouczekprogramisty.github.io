@@ -35,7 +35,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/metody-w-jezyku-java/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2015/10/22_metody_w_jezyku_java.png"},{
         "title": "Obiekty w języku Java",
-        "excerpt":"To jest jeden z artykułów w ramach darmowego kursu programowania w Javie. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Pakiet Programy komputerowe składają się z wielu plików. Przy dużym projekcie składającym się z kilkuset, kilku tysięcy plików kluczowe staje się odpowiednie...","categories": ["Kurs programowania Java","Programowanie"],
+        "excerpt":"To jest jeden z artykułów w ramach darmowego kursu programowania w Javie. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Pakiet Programy komputerowe składają się z wielu plików. Przy dużym projekcie składającym się z kilku tysięcy plików kluczowe staje się odpowiednie zarządzanie...","categories": ["Kurs programowania Java","Programowanie"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/obiekty-w-jezyku-java/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2015/11/01_obiekty_w_jezyku_java.jpg"},{
@@ -573,7 +573,12 @@ var store = [{
         "excerpt":"Moim zdaniem wokół tych pojęć narosło sporo różnych teorii i wyjaśnień. Każdy na swój sposób stara się je przełożyć na praktykę programowania. W tym artykule postaram się pokazać Ci definicje możliwe najbliższe oryginałowi. Dla pełnego obrazu postaram się także cytować oryginalną definicję, dzięki czemu będziesz mieć okazję wyrobić sobie własne...","categories": ["Dobre praktyki","Programista rzemieślnik"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/dependency-inversion-principle-dependency-injection-i-inversion-of-control/",
-        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/11/03-dependency--inversion-principle-dependency-injection-inversion-of-control.jpg"},{
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/11/03-dependency-inversion-principle-dependency-injection-inversion-of-control.jpg"},{
+        "title": "Samouczek na rozmowie - kalkulator",
+        "excerpt":"To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych. W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/11/12_zadanie_z_rozmowy_kwalifikacyjnej_kalkulator.jpg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],
