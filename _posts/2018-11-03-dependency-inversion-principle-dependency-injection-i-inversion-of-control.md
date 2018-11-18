@@ -5,8 +5,8 @@ categories:
 - Programista rzemieślnik
 permalink: /dependency-inversion-principle-dependency-injection-i-inversion-of-control/
 header:
-    teaser: /assets/images/2018/11/03-dependency--inversion-principle-dependency-injection-inversion-of-control.jpg
-    overlay_image: /assets/images/2018/11/03-dependency--inversion-principle-dependency-injection-inversion-of-control.jpg
+    teaser: /assets/images/2018/11/03-dependency-inversion-principle-dependency-injection-inversion-of-control.jpg
+    overlay_image: /assets/images/2018/11/03-dependency-inversion-principle-dependency-injection-inversion-of-control.jpg
     caption: "[&copy; Randy Jacob](https://unsplash.com/photos/A1HC8M5DCQc)"
 excerpt: >
     W programowaniu obiektowym istnieje kilka wytycznych pomagających pisać kod wysokiej jakości. W tym artykule chciałbym skupić się na tych, które dotyczą zależności. Mam na myśli _Dependency Inversion Principle_, _Dependency Injection_ i _Inversion of Control_. Często dostaje pytania o to czym te pojęcia różnią się od siebie. W tym artykule postaram się to wyjaśnić.
@@ -72,9 +72,7 @@ public class Thermometer {
 }
 ```
 
-W tym przypadku klasa `AirConditioner` jest "modułem wysokiego poziomu". Klasa `Thermometer` to "moduł niskiego poziomu". Zatem ten przykład nie spełnia DIP, bo klasa `AirConditioner` zależy bezpośrednio od `Thermometer`. To co proponuje Uncle Bob sprowadza się do wprowadzenia nowej abstrakcji. Istotne jest to, że to moduł wysokiego poziomu powinien być właścicielem tej abstrakcji [^osobna_paczka]. Jeśli moduł jest właścicielem abstrakcji, to kontroluje sposób w jaki ta abstrakcja jest zdefiniowana. W przypadku interfejsów oznacza to tyle, że moduł określa metody dostępne w tym interfejsie.
-
-[^osobna_paczka]: Alternatywą jest wprowadzenie oddzielnej "paczki", w której znajdował będzie się interfejs. Wówczas taka paczka jest zależnością zarówno dla modułów niskiego i wysokiego poziomu.
+W tym przypadku klasa `AirConditioner` jest "modułem wysokiego poziomu". Klasa `Thermometer` to "moduł niskiego poziomu". Zatem ten przykład nie spełnia DIP, bo klasa `AirConditioner` zależy bezpośrednio od `Thermometer`. To co proponuje Uncle Bob sprowadza się do wprowadzenia nowej abstrakcji. Istotne jest to, że to moduł wysokiego poziomu powinien być właścicielem tej abstrakcji.
 
 Rozwiązaniem w tym przypadku może być wprowadzenie abstrakcji, interfejsu `Sensor`. Interfejs ten byłby implementowany przez `Thermometer`. Aby DIP była spełniona, klasa `AirConditioner` powinna być właścicielem interfejsu `Sensor`. Kod spełniający DIP może wyglądać tak:
 
@@ -104,7 +102,18 @@ public class Thermometer implements Sensor {
 }
 ```
 
-Zachęcam Cię do rzucenia okiem na [kod źródłowy na Github'ie](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty/dip). Pokazuję tam przykładowe sposoby rozdzielenia poszczególnych elementów pomiędzy pliki jar.
+#### Co to znaczy być właścicielem abstrakcji?
+
+Można powiedzieć, że komponent jest właścicielem abstrakcji, jeśli kontroluje sposób w jaki ta abstrakcja jest zdefiniowana. W przypadku interfejsów oznacza to tyle, że moduł określa metody dostępne w tym interfejsie. Stosując to do przykładu wyżej, aby DIP była spełniona to `AirConditioner` musi być właścicielem interfejsu `Sensor`.
+
+W aplikacjach, które cały kod źródłowy mają w jednym [pliku jar]({% post_url 2017-03-08-java-z-linii-polecen %}/#pliki-jar) jest to kwestia umowna. Zdarzają się jednak sytuacje, w których kod źródłowy rozdzielony jest pomiędzy kilka plików. 
+
+Diagramy poniżej pokazują przykładowe sposoby podziału. Białe prostokąty reprezentują pliki JAR. Prostokąty z zaokrąglonymi rogami to klasy/interfejsy:
+
+{% include figure image_path="/assets/images/2018/11/18_dip_approach_1.png" caption="Podział komponentów na osobne pliki JAR, sposób 1." %}
+{% include figure image_path="/assets/images/2018/11/18_dip_approach_2.png" caption="Podział komponentów na osobne pliki JAR, sposób 2." %}
+
+Zachęcam Cię do rzucenia okiem na [kod źródłowy na Github'ie](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty/dip). Pokazuję tam przykładowe sposoby rozdzielenia poszczególnych elementów pomiędzy pliki JAR.
 
 ### Moje trzy grosze
 
