@@ -31,7 +31,7 @@ Wiesz już, że dzisiejsze zadanie podesłał mi jeden z Czytelników - Łukasz 
 Poza ogólną instrukcją dostał także oczywiście treść zadania do wykonania:
 
 > Napisz program, który zwróci wynik otrzymany na podstawie zestawu instrukcji. Instrukcje składają się ze słowa kluczowego i liczby oddzielonych spacją. Instrukcje oddzielone są znakiem nowej linii.
-Zestaw instrukcji pobierany jest z pliku, a wynik obliczeń powinien być wypisany na ekranie. Plik może zawierać dowolną liczbę instrukcji. Instrukcje mogą być dowolną operacją przyjmującą dwa argumenty (np. `add`, `subtract`, `multiply`, `divide` itp.). Instrukcje powinny być intepretowane w kolejności wprowadzenia (kolejność operecji w matematyce powinna być ignorowana). Ostatnią instrukcją powinna być `apply` i liczba. Na przykład `apply 3`. Ta liczba powinna być użyta w trakcie tworzenia instancji kalkulatora. Następnie kalkulator powinien wykonać po kolei wszystkie wcześniej podane operacje.
+Zestaw instrukcji pobierany jest z pliku, a wynik obliczeń powinien być wypisany na ekranie. Plik może zawierać dowolną liczbę instrukcji. Instrukcje mogą być dowolną operacją przyjmującą dwa argumenty (np. `add`, `subtract`, `multiply`, `divide` itp.). Instrukcje powinny być interpretowane w kolejności wprowadzenia (kolejność operacji w matematyce powinna być ignorowana). Ostatnią instrukcją powinna być `apply` i liczba. Na przykład `apply 3`. Ta liczba powinna być użyta w trakcie tworzenia instancji kalkulatora. Następnie kalkulator powinien wykonać po kolei wszystkie wcześniej podane operacje.
 
 Tutaj pracodawca zachował się wzorowo, dostarczając dodatkowo przykłady działania programu:
 
@@ -151,10 +151,10 @@ Jeśli chcesz żebym spróbował rozwiązać Twoje zadanie proszę wyślij je na
 
 ## Podsumowanie
 
-Po lekturze tego artykłu i samodzielnej próbie rozwiązania zadania jesteś o krok bliżej do dobrego przygotowania do rozmowy kwalifikacyjnej.
+Po lekturze tego artykułu i samodzielnej próbie rozwiązania zadania jesteś o krok bliżej do dobrego przygotowania do rozmowy kwalifikacyjnej.
 
 Dzisiejszy artykuł pokazał Ci zadanie, które moim zdaniem jest jasno opisane. Zawiera wszystkie niezbędne informacje do jego rozwiązania. Dobrze jest trafić na zadania tego typu na rozmowach kwalifikacyjnych. Propozycja rozwiązania zawiera bardziej zaawansowane konstrukcje, dzięki którym możesz zobaczyć jak może wyglądać czytelny kod wysokiej jakości.
 
-Jeśli ktoś z Twoich znajomych przygotowuje się do rozmowy kwalifikacyjnej na stanowisku programisty możesz podzielić się linkiem do tego artykułu, z góry dziękuję. Jesli nie chcesz pomiąć kolejnych artykułów możesz dopisać się do samouczkowego newslettera i polubić Samouczka na Facebook'u.
+Jeśli ktoś z Twoich znajomych przygotowuje się do rozmowy kwalifikacyjnej na stanowisku programisty możesz podzielić się linkiem do tego artykułu, z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów możesz dopisać się do samouczkowego newslettera i polubić Samouczka na Facebook'u.
 
 Do następnego razu!
