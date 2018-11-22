@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2018/11/22_kauzula_join_w_zapytaniach_sql_artykul.jpg
     overlay_image: /assets/images/2018/11/22_kauzula_join_w_zapytaniach_sql_artykul.jpg
     caption: "[&copy; PublicDomainPictures](https://pixabay.com/pl/po%C5%82%C4%85czenia-po%C5%82%C4%85czenie-wsp%C3%B3%C5%82praca-316638/)"
-excerpt: W tym artykule opisuję klauzulę `JOIN`. Pozwala ona na łączenie ze sobą danych znajdujących się w różnych tabelach. Po lekturze tego artykułu będziesz wiedzieć jakie są rodzaje złączeń i jakie są między nimi różnice. Wszystkie opisy poparte są przykładami. Na końcu artykułu znajdziesz zadania z przykładowymi rozwiązaniami, które pomogą utrwalić Ci wiedzę dotyczącą klazuli `JOIN`.
+excerpt: W tym artykule opisuję klauzulę `JOIN`. Pozwala ona na łączenie ze sobą danych znajdujących się w różnych tabelach. Po lekturze tego artykułu będziesz wiedzieć jakie są rodzaje złączeń i jakie są między nimi różnice. Wszystkie opisy poparte są przykładami. Na końcu artykułu znajdziesz zadania z przykładowymi rozwiązaniami, które pomogą utrwalić Ci wiedzę dotyczącą klauzuli `JOIN`.
 ---
 
 {% include kurs-sql-notice.md %}
@@ -67,7 +67,7 @@ Iloczynem kartezjańskim będzie zbiór, w którym każdy wiersz z pierwszej tab
     3           Jan         12          Monika
     3           Jan         13          Zofia
 
-[^relacja]: W konteście modelu relacyjnego powinienem raczej użyć pojęcia relacja. Mam wrażenie, że tabela jest jednak łatwiejsze do zrozumienia.
+[^relacja]: W kontekście modelu relacyjnego powinienem raczej użyć pojęcia relacja. Mam wrażenie, że tabela jest jednak łatwiejsze do zrozumienia.
 
 Taki iloczyn kartezjański możesz wyprodukować używając zapytania:
 
@@ -103,7 +103,7 @@ SELECT imiona_meskie.id AS id_m
     3           Monika      12          Monika
     3           Zofia       13          Zofia
 
-W przykładzie tym użyłem także konstukcji `imiona_zenskie.*`, która zwraca wszystkie kolumny z tabeli `imiona_zenskie`.
+W przykładzie tym użyłem także konstrukcji `imiona_zenskie.*`, która zwraca wszystkie kolumny z tabeli `imiona_zenskie`.
 
 {% include newsletter-srodek.md %}
 
@@ -132,7 +132,7 @@ SELECT *
 `postac` to tabela z trzema kolumnami:
 
  - `id` identyfikator postaci, klucz główny,
- - `bajka_id` idytyfikator bajki, w której postać występuje, klucz obcy do tabeli `bajka`,
+ - `bajka_id` identyfikator bajki, w której postać występuje, klucz obcy do tabeli `bajka`,
  - `imie` imię postaci.
 
 ```sql
@@ -155,11 +155,11 @@ SELECT *
     11                      Fiona
     12                      Shrek
 
-W złączeniach tabel istotne są [klucze głowne]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}#klucz-g%C5%82%C3%B3wny) i [klucze obce]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}#klucz-obcy). Tutaj jeszcze raz odsyłam Cię do artykułu opisującego [model relacyjny]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %})[^niewymagane].
+W złączeniach tabel istotne są [klucze główne]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}#klucz-g%C5%82%C3%B3wny) i [klucze obce]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}#klucz-obcy). Tutaj jeszcze raz odsyłam Cię do artykułu opisującego [model relacyjny]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %})[^niewymagane].
 
-[^niewymagane]: Złączeń można dokonywać na tabelach, które nie są połaczone między sobą kluczami obcymi. W praktyce nie zdarza się to za często. Upraszczając można powiedzieć, że klucze główne i klucze obce pomagają silinikom baz danych wykonywać złączenia, które są bardziej wydajne.
+[^niewymagane]: Złączeń można dokonywać na tabelach, które nie są połączone między sobą kluczami obcymi. W praktyce nie zdarza się to za często. Upraszczając można powiedzieć, że klucze główne i klucze obce pomagają silnikom baz danych wykonywać złączenia, które są bardziej wydajne.
 
-Znasz już dwa sposoby łączenia danych z wielu tabel. Iloczyn kartezjański i klauzle [`UNION` oraz `UNION ALL`]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#scalanie-wynik%C3%B3w-wielu-zapyta%C5%84). O ile wyniki uzyskiwane przez złączenie wyników kilku zapytań przy pomocy `UNION` lub `UNION ALL` mogą być przydatne to iloczyn karteznański zbyt użyteczny nie jest. SQL daje możliwość łączenia danych z wielu tabel na kilka innych sposobów.
+Znasz już dwa sposoby łączenia danych z wielu tabel. Iloczyn kartezjański i klauzule [`UNION` oraz `UNION ALL`]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#scalanie-wynik%C3%B3w-wielu-zapyta%C5%84). O ile wyniki uzyskiwane przez złączenie wyników kilku zapytań przy pomocy `UNION` lub `UNION ALL` mogą być przydatne to iloczyn kartezjański zbyt użyteczny nie jest. SQL daje możliwość łączenia danych z wielu tabel na kilka innych sposobów.
 
 Do uzyskania wszystkich rodzai złączeń podstawą jest iloczyn kartezjański. Z takiego iloczynu odrzucane są następnie wiersze, które "nie pasują" do złączenia danego typu[^optymalizacja].
 
@@ -175,7 +175,7 @@ SELECT *
              ON bajka.id = postac.bajka_id;
 ```
 
-To zapytanie zwraca wszystkie kolumy z tabel `bajka` i `postac`. Zwrócone są tylko te wiersze, dla których wartość kolumn `bajka.id` i `postac.bajka_id` jest równa:
+To zapytanie zwraca wszystkie kolumny z tabel `bajka` i `postac`. Zwrócone są tylko te wiersze, dla których wartość kolumn `bajka.id` i `postac.bajka_id` jest równa:
 
     id          tytul                 id          bajka_id    imie      
     ----------  --------------------  ----------  ----------  ----------
@@ -300,7 +300,7 @@ Innymi słowy złączenie typu `LEFT OUTER JOIN` zwraca:
 
 #### Wybieranie kolumn
 
-Także tutaj ogrzniczenie liczby kolumn jest przydatne:
+Także tutaj ograniczenie liczby kolumn jest przydatne:
 
 ```sql
 SELECT bajka.tytul
@@ -356,7 +356,7 @@ SELECT *
                                       11                      Fiona     
                                       12                      Shrek   
 
-W tym przypadku zapytanie zwróciło wszystkie postaci. Zarówno te, dla których istnieją odpowiadające im bajki jak i te, które nie mają odpowiadających wierszy w tabeli `bajka`. W tym przypadku dla postaci "Maja", "Gucio", "Fiona" i "Shrek" nie udało znaleźc się odpowiadających bajek.
+W tym przypadku zapytanie zwróciło wszystkie postaci. Zarówno te, dla których istnieją odpowiadające im bajki jak i te, które nie mają odpowiadających wierszy w tabeli `bajka`. W tym przypadku dla postaci "Maja", "Gucio", "Fiona" i "Shrek" nie udało znaleźć się odpowiadających bajek.
 
 ##### Jak uzyskać `RIGHT OUTER JOIN` w SQLite 
 
@@ -406,7 +406,7 @@ SELECT *
     
 ##### Jak uzyskać `FULL OUTER JOIN` w SQLite 
 
-`FULL OUTER JOIN` jest złączeniem, która zwraca wiersze z połączenia `LEFT OUTER JOIN` i `RIGHT OUTER JOIN`. Klauzula `WHERE bajka.id IS NULL` odpowiada za odfiltrowanie części wspólnej. Bez tego warunku wynik zawierałbym zduplikowane wiersze wspólne dla `LEFT OUTER JOIN` i `RIGHT OUTER JOIN`:
+`FULL OUTER JOIN` jest złączeniem, która zwraca wiersze z połączenia `LEFT OUTER JOIN` i `RIGHT OUTER JOIN`. Klauzula `WHERE bajka.id IS NULL` odpowiada za odfiltrowanie części wspólnej. Bez tego warunku wynik zawierałby powielone wiersze wspólne dla `LEFT OUTER JOIN` i `RIGHT OUTER JOIN`:
 
 ```sql
 SELECT *
@@ -444,7 +444,7 @@ Napisz zapytanie, które zwróci:
 - nazwy trzech najczęściej występujących gatunków muzycznych wraz z odpowiadającą im liczbą utworów posortowaną malejąco po liczbie utworów,
 - tytuły pięciu najdłuższych albumów posortowanych malejąco po ich długości,
 - tytuły albumów, na których występują utwory z gatunku "Reggae",
-- pięc nazw list utworów, które są najdroższe (suma cen wszystkich ścieżek jest największa),
+- pięć nazw list utworów, które są najdroższe (suma cen wszystkich ścieżek jest największa),
 
 ### Przykładowe rozwiązania zadań
 
