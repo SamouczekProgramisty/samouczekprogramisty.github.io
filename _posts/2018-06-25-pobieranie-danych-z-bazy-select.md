@@ -169,7 +169,7 @@ Jak widzisz w tym przypadku właściwie nie ma potrzeby instalacji żadnego prog
 
 W internecie istnieje wiele zbiorów danych. Jednym z nich jest ten udostępniony przez projekt [Chinook](https://github.com/SamouczekProgramisty/chinook-database). Jest to testowa baza danych reprezentująca sklep z muzyką. Sama baza nie jest duża, jednak w zupełności wystarczy na omówienie podstawowych możliwości SQL.
 
-Pobierz [przykładową bazę danych](https://github.com/SamouczekProgramisty/chinook-database/blob/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite?raw=true)
+Pobierz [przykładową bazę danych](https://github.com/SamouczekProgramisty/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite)
 i zachowaj ją w pliku `Chinook_Sqlite.sqlite`, następnie uruchom program `sqlite3`. Po uruchomieniu wpisz komendę, która otworzy pobraną bazę danych:
 
     .open <ścieżka do pobranego pliku>
