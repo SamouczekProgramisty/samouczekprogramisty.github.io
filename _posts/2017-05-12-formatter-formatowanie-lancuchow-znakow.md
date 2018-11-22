@@ -55,7 +55,7 @@ Powyższy fragment można uprościć używając wcześniej wspomnianej metody `P
 System.out.format("Samouczek Programisty istnieje od %d roku. Wszystkie artykuły pisze %s.%n", 2015, "Marcin")
 ```
 
-W dalszej części artykułu posługiwał będę się tą uproszczoną wersją. Ważne jest żebyś miał jednak świadomość, że pod spodem używana jest instancji klasy `Formatter`.
+W dalszej części artykułu posługiwał będę się tą uproszczoną wersją. Ważne jest żebyś miał jednak świadomość, że pod spodem używana jest instancja klasy `Formatter`.
 
 {% include newsletter-srodek.md %}
 
@@ -131,15 +131,15 @@ Na konsoli pokażą się trzy liczby. Pierwsza z nich zawiera 10 liczb po przeci
 Flagi modyfikują zachowanie znaczników konwersji. Poniżej opiszę kilka dostępnych flag:
 - `-` element będzie wyrównany do lewej strony,
 - `+` liczba zawsze będzie zawierała znak (nawet jeśli jest dodatnia),
-- `0` liczba będzie uzupełniona 0 do żądanej szerokości,
-- `(` liczby ujemne nie będą prezentowane ze znakiem,
-- `,` użyj separatora do grupowania liczb. Separator ten zależy jest od lokalizacji.
+- `0` liczba będzie uzupełniona `0` do żądanej szerokości,
+- `(` liczby ujemne nie będą prezentowane ze znakiem, będą otoczone `()`,
+- `,` użyj separatora do grupowania liczb. Ten separator zależny jest od lokalizacji.
 
 Jeden znacznik może zawierać kilka flag. Dodatkowo wszystkie opisane wcześniej elementy mogą być połączone ze sobą.
 
 ## Lokalizacja
 
-W uproszczeniu lokalizacja to zbiór reguł, które określają w jaki sposób w należy prezentować dany łańcuch znaków. Można powiedzieć, że jest to swego rodzaju tłumaczenie na reguły obowiązujące w danym kraju/regionie. To lokalizacja ma wpływ na to jak na przykład wyświetlane są na daty czy liczby.
+W uproszczeniu lokalizacja to zbiór reguł, które określają w jaki sposób należy prezentować dany łańcuch znaków. Można powiedzieć, że jest to swego rodzaju tłumaczenie na reguły obowiązujące w danym kraju/regionie. To lokalizacja ma wpływ na to, jak na przykład wyświetlane są daty czy liczby.
 
 Do tej pory w całym artykule używałem metod, które używały domyślnej lokalizacji, możesz ją uzyskać odwołując się do metody [`Locale.getDefault`](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#getDefault-java.util.Locale.Category-). `Formatter` pozwala także na formatowanie łańcucha znaków używając innych ustawień lokalizacji.
 

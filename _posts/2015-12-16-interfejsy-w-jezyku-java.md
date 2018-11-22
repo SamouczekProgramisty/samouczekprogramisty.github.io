@@ -285,7 +285,7 @@ Po uruchomieniu tego fragmentu kodu na konsoli pokaże się:
 Użyłem tutaj mechanizmu formatowania łańcuchów znaków. Jeśli chcesz przeczytać o tym więcej zachęcam do przeczytania osobnego artykułu na temat [formatowania łańcuchów znaków w języku Java]({% post_url 2017-05-12-formatter-formatowanie-lancuchow-znakow %}).
 {: .notice--info}
 
-Interfejsy opisują spójny zakres funkcjonalności udostępniony przez dany obiekt. Metody, które są w nim zawarte powinny być ze sobą powiązane. Możesz porównać interfejsy do "widoku" na obiekt/klasę. Widzą obiekt przez pryzmat interfejsu możesz widzieć tylko podzbiór jego możliwości.
+Interfejsy opisują spójny zakres funkcjonalności udostępniony przez dany obiekt. Metody, które są w nim zawarte powinny być ze sobą powiązane. Możesz porównać interfejsy do "widoku" na obiekt/klasę. Widząc obiekt przez pryzmat interfejsu możesz widzieć tylko podzbiór jego możliwości.
 
 ## Zadanie
 

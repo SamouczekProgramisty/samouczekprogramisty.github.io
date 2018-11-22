@@ -83,7 +83,7 @@ public class EqualsOverride {
 
 Programista chciał nadpisać metodę `equals`. Brakujące `s` na końcu metody sprawia, że w momencie porównywania obiektów tej klasy używamy odziedziczonej metody `equals` z klasy `Object`, która ma zupełnie inną implementację.
 
-Jeśli dodalibyśmy adnotację `@Override` to tej metody kompilator już na etapie kompilacji znalazłby błąd. Kompilacja nie powiodłaby się ponieważ nasza metoda nie nadpisała żadnej metody z nadklasy. Poniżej przykład metody `equals` z adnotacją.
+Jeśli dodalibyśmy adnotację `@Override` do tej metody, kompilator już na etapie kompilacji znalazłby błąd. Kompilacja nie powiodłaby się ponieważ nasza metoda nie nadpisała żadnej metody z nadklasy. Poniżej przykład metody `equals` z adnotacją.
 
 ```java
 @Override
@@ -94,7 +94,7 @@ public boolean equals(Object obj) {
 
 ### Adnotacje przetwarzane w trakcie kompilacji
 
-W trakcie kompilacji także możemy przetwarzać adnotacj. Dzięki nim możemy na przykład automatycznie generować kod czy dać znać kompilatorowi aby zachowywał się trochę inaczej. Przykładem takiej adnotacji jest [`@SuppressWarnings`](https://docs.oracle.com/javase/8/docs/api/java/lang/SuppressWarnings.html) z biblioteki standardowej. Adnotacja ta pozwala nam wstrzymać pewne ostrzeżenie kompilatora.
+W trakcie kompilacji także możemy przetwarzać adnotacje. Dzięki nim możemy na przykład automatycznie generować kod czy dać znać kompilatorowi aby zachowywał się trochę inaczej. Przykładem takiej adnotacji jest [`@SuppressWarnings`](https://docs.oracle.com/javase/8/docs/api/java/lang/SuppressWarnings.html) z biblioteki standardowej. Adnotacja ta pozwala nam wstrzymać pewne ostrzeżenie kompilatora.
 
 Proszę spójrz na przykład kodu poniżej.
 
