@@ -1,4 +1,538 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-11-18T14:25:09+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Samouczek na rozmowie - kalkulator</title><link href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/" rel="alternate" type="text/html" title="Samouczek na rozmowie - kalkulator" /><published>2018-11-12T00:00:00+01:00</published><updated>2018-11-12T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/zadanie-kalkulator</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/">&lt;div class=&quot;notice--info&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2018-11-22T23:36:26+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Klauzula JOIN w zapytaniach SQL</title><link href="http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql/" rel="alternate" type="text/html" title="Klauzula JOIN w zapytaniach SQL" /><published>2018-11-20T00:00:00+01:00</published><updated>2018-11-20T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql/">&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-sql&quot;&gt;praktycznego kursu SQL&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
+
+&lt;p&gt;Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;pierwszym artykule kursu&lt;/a&gt;. Bardzo mocno Cię do tego zachęcam. Moim zdaniem najwięcej nauczysz się samodzielnie eksperymentując z zapytaniami.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;W tym artykule, jeśli wyraźnie nie zaznaczyłem inaczej, korzystam z bazy danych &lt;a href=&quot;https://github.com/SamouczekProgramisty/chinook-database/raw/master/SamouczekJoin.sqlite&quot;&gt;SamouczekJoin.sqlite&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;odrobina-teorii&quot;&gt;Odrobina teorii&lt;/h2&gt;
+
+&lt;p&gt;Zanim przejdę do omówienia klauzuli &lt;code class=&quot;highlighter-rouge&quot;&gt;JOIN&lt;/code&gt;. Muszę powiedzieć Ci coś więcej na temat modelu relacyjnego. Jeśli nie udało Ci się przeczytać artykułu dotyczącego &lt;a href=&quot;/wstep-do-relacyjnych-baz-danych/&quot;&gt;wprowadzenia do relacyjnych baz danych&lt;/a&gt; to najwyższy czas to nadrobić. Ten artykuł będzie wymagał materiału, który tam opisałem.&lt;/p&gt;
+
+&lt;p&gt;Poza materiałem z tamtego artykułu musisz poznać jeszcze jedno pojęcie. Mam na myśli iloczyn kartezjański.&lt;/p&gt;
+
+&lt;h2 id=&quot;iloczyn-kartezjański&quot;&gt;Iloczyn kartezjański&lt;/h2&gt;
+
+&lt;p&gt;Wyobraź sobie dwie tabele. Jedna zawiera imiona męskie:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imiona_meskie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          imie
+----------  ----------
+1           Piotr
+2           Tomasz
+3           Jan
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;SQLite pozwala na takie formatowanie wyników po użyciu &lt;code class=&quot;highlighter-rouge&quot;&gt;.header on&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;.mode column&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Druga żeńskie:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imiona_zenskie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          imie
+----------  ----------
+11          Anna
+12          Monika
+13          Zofia
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Iloczynem kartezjańskim będzie zbiór, w którym każdy wiersz z pierwszej tabeli połączony będzie z każdym wierszem w drugiej tabeli. W związku z tym, że w każdej z tabel są 3 wiersze, wynikowa tabela&lt;sup id=&quot;fnref:relacja&quot;&gt;&lt;a href=&quot;#fn:relacja&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; będzie miała ich 9:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          imie        id          imie
+----------  ----------  ----------  ----------
+1           Piotr       11          Anna
+1           Piotr       12          Monika
+1           Piotr       13          Zofia
+2           Tomasz      11          Anna
+2           Tomasz      12          Monika
+2           Tomasz      13          Zofia
+3           Jan         11          Anna
+3           Jan         12          Monika
+3           Jan         13          Zofia
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Taki iloczyn kartezjański możesz wyprodukować używając zapytania:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imiona_meskie&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imiona_zenskie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;nazwy-kolumn&quot;&gt;Nazwy kolumn&lt;/h3&gt;
+
+&lt;p&gt;Jak widzisz nazwy kolumn są w nim powtórzone. Pierwsze dwie &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;imie&lt;/code&gt; pochodzą z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;imiona_meskie&lt;/code&gt;. Dwie kolejne, o tych samych nazwach pochodzą z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;imiona_zenskie&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;W takim przypadku aby wybrać kolumnę, z konkretnej tabeli konieczne jest poprzedzenie jej nazwą tabeli. Na przykład:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imiona_meskie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id_m&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imiona_zenskie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imie&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imie_z&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imiona_zenskie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imiona_meskie&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imiona_zenskie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id_m        imie_z      id          imie
+----------  ----------  ----------  ----------
+1           Anna        11          Anna
+1           Monika      12          Monika
+1           Zofia       13          Zofia
+2           Anna        11          Anna
+2           Monika      12          Monika
+2           Zofia       13          Zofia
+3           Anna        11          Anna
+3           Monika      12          Monika
+3           Zofia       13          Zofia
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W przykładzie tym użyłem także konstrukcji &lt;code class=&quot;highlighter-rouge&quot;&gt;imiona_zenskie.*&lt;/code&gt;, która zwraca wszystkie kolumny z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;imiona_zenskie&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;notice--success text-center&quot;&gt;
+  
+&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 1800 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
+
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;typy-złączeń&quot;&gt;Typy złączeń&lt;/h2&gt;
+
+&lt;p&gt;Złączenia będę omawiał na przykładzie dwóch tabel &lt;code class=&quot;highlighter-rouge&quot;&gt;bajka&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;postac&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;bajka&lt;/code&gt; zwiera dwie kolumny:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; identyfikator bajki, klucz główny,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tytul&lt;/code&gt; tytuł bajki.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          tytul
+----------  --------------------
+1           101 Dalmatyńczyków
+2           Flinstonowie
+3           Jetsonowie
+4           Epoka lodowcowa
+5           Rozbójnik Rumcajs
+6           Muminki
+7           Smerfy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;postac&lt;/code&gt; to tabela z trzema kolumnami:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; identyfikator postaci, klucz główny,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bajka_id&lt;/code&gt; identyfikator bajki, w której postać występuje, klucz obcy do tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;bajka&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;imie&lt;/code&gt; imię postaci.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          bajka_id    imie
+----------  ----------  ----------
+1           1           Czika
+2           1           Pongo
+3           2           Wilma
+4           2           Fred
+5           4           Elka
+6           4           Maniek
+7           6           Migotka
+8           6           Muminek
+9                       Maja
+10                      Gucio
+11                      Fiona
+12                      Shrek
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W złączeniach tabel istotne są &lt;a href=&quot;/wstep-do-relacyjnych-baz-danych/#klucz-g%C5%82%C3%B3wny&quot;&gt;klucze główne&lt;/a&gt; i &lt;a href=&quot;/wstep-do-relacyjnych-baz-danych/#klucz-obcy&quot;&gt;klucze obce&lt;/a&gt;. Tutaj jeszcze raz odsyłam Cię do artykułu opisującego &lt;a href=&quot;/wstep-do-relacyjnych-baz-danych/&quot;&gt;model relacyjny&lt;/a&gt;&lt;sup id=&quot;fnref:niewymagane&quot;&gt;&lt;a href=&quot;#fn:niewymagane&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Znasz już dwa sposoby łączenia danych z wielu tabel. Iloczyn kartezjański i klauzule &lt;a href=&quot;/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#scalanie-wynik%C3%B3w-wielu-zapyta%C5%84&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; oraz &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION ALL&lt;/code&gt;&lt;/a&gt;. O ile wyniki uzyskiwane przez złączenie wyników kilku zapytań przy pomocy &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION&lt;/code&gt; lub &lt;code class=&quot;highlighter-rouge&quot;&gt;UNION ALL&lt;/code&gt; mogą być przydatne to iloczyn kartezjański zbyt użyteczny nie jest. SQL daje możliwość łączenia danych z wielu tabel na kilka innych sposobów.&lt;/p&gt;
+
+&lt;p&gt;Do uzyskania wszystkich rodzai złączeń podstawą jest iloczyn kartezjański. Z takiego iloczynu odrzucane są następnie wiersze, które “nie pasują” do złączenia danego typu&lt;sup id=&quot;fnref:optymalizacja&quot;&gt;&lt;a href=&quot;#fn:optymalizacja&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;inner-join&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;INNER JOIN&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Podstawowym rodzajem złączenia jest &lt;code class=&quot;highlighter-rouge&quot;&gt;INNER JOIN&lt;/code&gt;. Z iloczynu kartezjańskiego wybiera ono te wiersze, dla których warunek złączenia jest spełniony. W żadnej z łączonych tabel kolumna użyta do łączenia nie może mieć wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;. Na przykład:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;INNER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To zapytanie zwraca wszystkie kolumny z tabel &lt;code class=&quot;highlighter-rouge&quot;&gt;bajka&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;postac&lt;/code&gt;. Zwrócone są tylko te wiersze, dla których wartość kolumn &lt;code class=&quot;highlighter-rouge&quot;&gt;bajka.id&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;postac.bajka_id&lt;/code&gt; jest równa:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          tytul                 id          bajka_id    imie      
+----------  --------------------  ----------  ----------  ----------
+1           101 Dalmatyńczyków    1           1           Czika     
+1           101 Dalmatyńczyków    2           1           Pongo     
+2           Flinstonowie          3           2           Wilma     
+2           Flinstonowie          4           2           Fred      
+4           Epoka lodowcowa       5           4           Elka      
+4           Epoka lodowcowa       6           4           Maniek    
+6           Muminki               7           6           Migotka   
+6           Muminki               8           6           Muminek   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W zrozumieniu tego co się tutaj stało może pomóc rzucenie okiem na iloczyn kartezjański (jakie zapytanie wyprodukuje taki iloczyn kartezjański?):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          tytul                 id          bajka_id    imie      
+----------  --------------------  ----------  ----------  ----------
+1           101 Dalmatyńczyków    1           1           Czika     
+1           101 Dalmatyńczyków    2           1           Pongo     
+1           101 Dalmatyńczyków    3           2           Wilma     
+1           101 Dalmatyńczyków    4           2           Fred      
+1           101 Dalmatyńczyków    5           4           Elka      
+1           101 Dalmatyńczyków    6           4           Maniek    
+1           101 Dalmatyńczyków    7           6           Migotka   
+1           101 Dalmatyńczyków    8           6           Muminek   
+1           101 Dalmatyńczyków    9                       Maja      
+1           101 Dalmatyńczyków    10                      Gucio     
+1           101 Dalmatyńczyków    11                      Fiona     
+1           101 Dalmatyńczyków    12                      Shrek     
+2           Flinstonowie          1           1           Czika     
+2           Flinstonowie          2           1           Pongo     
+2           Flinstonowie          3           2           Wilma     
+2           Flinstonowie          4           2           Fred      
+2           Flinstonowie          5           4           Elka      
+2           Flinstonowie          6           4           Maniek   
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Wynik złączenia, zawiera tylko cztery wiersze z tych, które pokazałem wyżej:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          tytul                 id          bajka_id    imie      
+----------  --------------------  ----------  ----------  ----------
+1           101 Dalmatyńczyków    1           1           Czika     
+1           101 Dalmatyńczyków    2           1           Pongo     
+2           Flinstonowie          3           2           Wilma     
+2           Flinstonowie          4           2           Fred      
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Zwróć uwagę na wartości kolumn &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; (tej pierwszej, z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;bajka&lt;/code&gt;) i &lt;code class=&quot;highlighter-rouge&quot;&gt;bajka_id&lt;/code&gt; (z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;postac&lt;/code&gt;). Jak widzisz zapytanie używające złączenia typu &lt;code class=&quot;highlighter-rouge&quot;&gt;INNER JOIN&lt;/code&gt; zwraca wyłącznie te wiersze dla których kolumny użyte do złączenia mają tę samą wartość.&lt;/p&gt;
+
+&lt;p&gt;Innym sposobem na uzyskanie tego samego wyniku jest zapytanie:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;wybieranie-kolumn&quot;&gt;Wybieranie kolumn&lt;/h4&gt;
+
+&lt;p&gt;Rzadko pobranie wszystkich kolumn po złączeniu tabel jest potrzebne. Bardzo często zwracane wiersze zawierają tylko niezbędny podzbiór kolumn:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tytul&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imie&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;INNER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tytul                 imie      
+--------------------  ----------
+101 Dalmatyńczyków    Czika     
+101 Dalmatyńczyków    Pongo     
+Flinstonowie          Wilma     
+Flinstonowie          Fred      
+Epoka lodowcowa       Elka      
+Epoka lodowcowa       Maniek    
+Muminki               Migotka   
+Muminki               Muminek   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;A co z brakującymi postaciami i bajkami? Zauważ, że wynik nie zawiera bajek takich jak “Jetsonowie”, “Rozbójnik Rumcajs” czy “Smerfy”. Brakuje także postaci “Maja”, “Gucio”, “Fiona” i “Shrek”. Z pomocą przychodzą złączenia typu &lt;code class=&quot;highlighter-rouge&quot;&gt;OUTER JOIN&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;outer-join&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;OUTER JOIN&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Istnieją trzy rodzaje złączeń typu &lt;code class=&quot;highlighter-rouge&quot;&gt;OUTER&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT OUTER JOIN&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT OUTER JOIN&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FULL OUTER JOIN&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;left-outer-join&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT OUTER JOIN&lt;/code&gt;&lt;/h4&gt;
+
+&lt;p&gt;Tym razem zacznę od przykładu. Zapytanie używające złączenia tego typu może wyglądać tak:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OUTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W wyniku działania tego zapytania zwrócone zostaną następujące wiersze:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          tytul                 id          bajka_id    imie      
+----------  --------------------  ----------  ----------  ----------
+1           101 Dalmatyńczyków    1           1           Czika     
+1           101 Dalmatyńczyków    2           1           Pongo     
+2           Flinstonowie          3           2           Wilma     
+2           Flinstonowie          4           2           Fred      
+3           Jetsonowie                                              
+4           Epoka lodowcowa       5           4           Elka      
+4           Epoka lodowcowa       6           4           Maniek    
+5           Rozbójnik Rumcajs                                      
+6           Muminki               7           6           Migotka   
+6           Muminki               8           6           Muminek   
+7           Smerfy           
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W tym przypadku zapytanie zwróciło wszystkie bajki. Zarówno te, dla których istnieją odpowiadające im postaci jak i te, które nie mają odpowiadających wierszy w tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;postac&lt;/code&gt;. Widzisz różnicę? W złączeniu typu &lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT OUTER JOIN&lt;/code&gt; znajdują się dodatkowe wiersze. Te wiersze zawierają wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; w kolumnach tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;postac&lt;/code&gt;. Pokazuje to tyle, że dla bajek “Jetsonowie”, “Rozbójnik Rumcajs” i “Smerfy” nie udało się znaleźć odpowiadających wierszy w tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;postac&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Innymi słowy złączenie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT OUTER JOIN&lt;/code&gt; zwraca:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;wiersze dla których warunek złączenia jest spełniony,&lt;/li&gt;
+  &lt;li&gt;wiersze z “lewej tabeli” dla których nie ma odpowiedników w prawej (&lt;code class=&quot;highlighter-rouge&quot;&gt;*bajka* LEFT OUTER JOIN postac&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;wybieranie-kolumn-1&quot;&gt;Wybieranie kolumn&lt;/h4&gt;
+
+&lt;p&gt;Także tutaj ograniczenie liczby kolumn jest przydatne:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tytul&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imie&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;
+       &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OUTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To zapytanie zwróci następujące wiersze:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tytul                 imie      
+--------------------  ----------
+101 Dalmatyńczyków    Czika     
+101 Dalmatyńczyków    Pongo     
+Flinstonowie          Fred      
+Flinstonowie          Wilma     
+Jetsonowie                      
+Epoka lodowcowa       Elka      
+Epoka lodowcowa       Maniek    
+Rozbójnik Rumcajs              
+Muminki               Migotka   
+Muminki               Muminek   
+Smerfy                    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;right-outer-join&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT OUTER JOIN&lt;/code&gt;&lt;/h4&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;Niestety SQLite nie wspiera &lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT OUTER JOIN&lt;/code&gt;. Wyniki, które tu pokazuję możesz uzyskać w innych silnikach baz danych lub obchodząc ograniczenia SQLite.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT OUTER JOIN&lt;/code&gt; jest złączeniem podobnym do &lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT OUTER JOIN&lt;/code&gt;. Złączenie typu &lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT OUTER JOIN&lt;/code&gt; zwraca:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;wiersze dla których warunek złączenia jest spełniony,&lt;/li&gt;
+  &lt;li&gt;wiersze z “prawej tabeli” dla których nie ma odpowiedników w lewej (&lt;code class=&quot;highlighter-rouge&quot;&gt;bajka RIGHT OUTER JOIN *postac*&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;RIGHT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OUTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          tytul                 id          bajka_id    imie      
+----------  --------------------  ----------  ----------  ----------
+1           101 Dalmatyńczyków    1           1           Czika     
+1           101 Dalmatyńczyków    2           1           Pongo     
+2           Flinstonowie          3           2           Wilma     
+2           Flinstonowie          4           2           Fred      
+4           Epoka lodowcowa       5           4           Elka      
+4           Epoka lodowcowa       6           4           Maniek    
+6           Muminki               7           6           Migotka   
+6           Muminki               8           6           Muminek   
+                                  9                       Maja      
+                                  10                      Gucio     
+                                  11                      Fiona     
+                                  12                      Shrek   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W tym przypadku zapytanie zwróciło wszystkie postaci. Zarówno te, dla których istnieją odpowiadające im bajki jak i te, które nie mają odpowiadających wierszy w tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;bajka&lt;/code&gt;. W tym przypadku dla postaci “Maja”, “Gucio”, “Fiona” i “Shrek” nie udało znaleźć się odpowiadających bajek.&lt;/p&gt;
+
+&lt;h5 id=&quot;jak-uzyskać-right-outer-join-w-sqlite&quot;&gt;Jak uzyskać &lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT OUTER JOIN&lt;/code&gt; w SQLite&lt;/h5&gt;
+
+&lt;p&gt;Tutaj sprawa jest banalnie prosta &lt;code class=&quot;highlighter-rouge&quot;&gt;bajka RIGHT OUTER JOIN postac&lt;/code&gt; zwraca te same wyniki co &lt;code class=&quot;highlighter-rouge&quot;&gt;postac LEFT OUTER JOIN bajka&lt;/code&gt; :). Zatem zwykłe odwrócenie tabel wystarczy:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OUTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;full-outer-join&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FULL OUTER JOIN&lt;/code&gt;&lt;/h4&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;Niestety SQLite nie wspiera &lt;code class=&quot;highlighter-rouge&quot;&gt;FULL OUTER JOIN&lt;/code&gt;. Wyniki, które tu pokazuję możesz uzyskać w innych silnikach baz danych lub obchodząc ograniczenia SQLite.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FULL OUTER JOIN&lt;/code&gt; jest złączeniem które zwraca:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;wiersze dla których warunek złączenia jest spełniony,&lt;/li&gt;
+  &lt;li&gt;wiersze z “lewej tabeli” dla których nie ma odpowiedników w prawej (&lt;code class=&quot;highlighter-rouge&quot;&gt;*bajka* LEFT OUTER JOIN postac&lt;/code&gt;),&lt;/li&gt;
+  &lt;li&gt;wiersze z “prawej tabeli” dla których nie ma odpowiedników w lewej (&lt;code class=&quot;highlighter-rouge&quot;&gt;bajka RIGHT OUTER JOIN *postac*&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FULL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OUTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id          tytul                 id          bajka_id    imie      
+----------  --------------------  ----------  ----------  ----------
+1           101 Dalmatyńczyków    1           1           Czika     
+1           101 Dalmatyńczyków    2           1           Pongo     
+2           Flinstonowie          3           2           Wilma     
+2           Flinstonowie          4           2           Fred      
+3           Jetsonowie                                              
+4           Epoka lodowcowa       5           4           Elka      
+4           Epoka lodowcowa       6           4           Maniek    
+5           Rozbójnik Rumcajs                                      
+6           Muminki               7           6           Migotka   
+6           Muminki               8           6           Muminek   
+7           Smerfy                                                  
+                                  9                       Maja      
+                                  10                      Gucio     
+                                  11                      Fiona     
+                                  12                      Shrek   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;jak-uzyskać-full-outer-join-w-sqlite&quot;&gt;Jak uzyskać &lt;code class=&quot;highlighter-rouge&quot;&gt;FULL OUTER JOIN&lt;/code&gt; w SQLite&lt;/h5&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FULL OUTER JOIN&lt;/code&gt; jest złączeniem, która zwraca wiersze z połączenia &lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT OUTER JOIN&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT OUTER JOIN&lt;/code&gt;. Klauzula &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE bajka.id IS NULL&lt;/code&gt; odpowiada za odfiltrowanie części wspólnej. Bez tego warunku wynik zawierałby powielone wiersze wspólne dla &lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT OUTER JOIN&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT OUTER JOIN&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OUTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;UNION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OUTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bajka_id&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bajka&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;join-tu-join-tam&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;JOIN&lt;/code&gt; tu, &lt;code class=&quot;highlighter-rouge&quot;&gt;JOIN&lt;/code&gt; tam&lt;/h2&gt;
+
+&lt;p&gt;Pamiętam, że na początku mnogość pojęć robiła mi niezły mętlik w głowie. Do tego wszystkiego silniki bazy danych pozwalające na opuszczanie niektórych słów kluczowych nie pomagały. Lista niżej powinna Ci pomóc się w nich odnaleźć:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;JOIN&lt;/code&gt; to to samo co &lt;code class=&quot;highlighter-rouge&quot;&gt;INNER JOIN&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT JOIN&lt;/code&gt; to to samo co &lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT OUTER JOIN&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT JOIN&lt;/code&gt; to to samo co &lt;code class=&quot;highlighter-rouge&quot;&gt;RIGHT OUTER JOIN&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FULL JOIN&lt;/code&gt; to to samo co &lt;code class=&quot;highlighter-rouge&quot;&gt;FULL OUTER JOIN&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CROSS JOIN&lt;/code&gt; to to samo co iloczyn kartezjański.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;zadania-do-wykonania&quot;&gt;Zadania do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Poniżej przygotowałem dla Ciebie kilka zadań do wykonania. Pomogą Ci one przećwiczyć sporą część materiału opisanego w kursie do tej pory. Wszystkie zapytania powinny być wywołane na bazie danych &lt;a href=&quot;https://github.com/SamouczekProgramisty/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite&quot;&gt;Chinook&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Jak zwykle zachęcam Cię do samodzielnego eksperymentowania zanim rzucisz okiem na przykładowe rozwiązania.&lt;/p&gt;
+
+&lt;p&gt;Napisz zapytanie, które zwróci:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;liczbę wierszy w iloczynie kartezjańskim tabel &lt;code class=&quot;highlighter-rouge&quot;&gt;track&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;invoiceline&lt;/code&gt; (UWAGA! to zapytanie może trochę potrwać),&lt;/li&gt;
+  &lt;li&gt;tytuł albumu i nazwę artysty dla wszystkich nazw artystów zaczynających się od &lt;code class=&quot;highlighter-rouge&quot;&gt;s&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;identyfikator i nazwę list utworów, które są puste,&lt;/li&gt;
+  &lt;li&gt;nazwy trzech najczęściej występujących gatunków muzycznych wraz z odpowiadającą im liczbą utworów posortowaną malejąco po liczbie utworów,&lt;/li&gt;
+  &lt;li&gt;tytuły pięciu najdłuższych albumów posortowanych malejąco po ich długości,&lt;/li&gt;
+  &lt;li&gt;tytuły albumów, na których występują utwory z gatunku “Reggae”,&lt;/li&gt;
+  &lt;li&gt;pięć nazw list utworów, które są najdroższe (suma cen wszystkich ścieżek jest największa),&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;przykładowe-rozwiązania-zadań&quot;&gt;Przykładowe rozwiązania zadań&lt;/h3&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invoiceline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;artist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;artist&lt;/span&gt; 
+             &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;artistid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;artist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;artistid&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;artist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s%'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlist&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlisttrack&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlisttrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;playlistid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;playlistid&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlisttrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trackid&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;how_many&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;genreid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;genreid&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;how_many&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;albumid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;albumid&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;albumid&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;milliseconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;genreid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;genreid&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;albumid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;albumid&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;Reggae&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlist&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlisttrack&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;playlistid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlisttrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;playlistid&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlisttrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trackid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trackid&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unitprice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Po lekturze tego artykułu wiesz już czym są złączenia. Znasz wszystkie typy złączeń występujące w zapytaniach SQL. Po przerobieniu przykładowych zadań wiesz jak połączyć w całość wiedzę zdobytą do tej pory na kursie. Gratuluję!&lt;/p&gt;
+
+&lt;p&gt;Muszę, Ci powiedzieć, że moim zdaniem ta część materiału jest zdecydowanie najtrudniejsza dla początkujących, na pewno dla mnie taka była. Daj sobie trochę czasu na przetrawienie wiedzy z tego artykułu :). Jeśli nie wszystko jest dla Ciebie zrozumiałe daj znać w komentarzach, postaram się pomóc.&lt;/p&gt;
+
+&lt;p&gt;Jeśli uważasz, że artykuł może przydać się komuś z Twoich znajomych, proszę przekaż mu linka. W ten sposób pomożesz mi dotrzeć do nowych Czytelników, z góry dziękuję!&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz ominąć kolejnych artykułów polub Samouczka na Facebooku i dopisz się do samouczkowego newslettera.&lt;/p&gt;
+
+&lt;p&gt;Trzymaj się!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:relacja&quot;&gt;
+      &lt;p&gt;W kontekście modelu relacyjnego powinienem raczej użyć pojęcia relacja. Mam wrażenie, że tabela jest jednak łatwiejsze do zrozumienia. &lt;a href=&quot;#fnref:relacja&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:niewymagane&quot;&gt;
+      &lt;p&gt;Złączeń można dokonywać na tabelach, które nie są połączone między sobą kluczami obcymi. W praktyce nie zdarza się to za często. Upraszczając można powiedzieć, że klucze główne i klucze obce pomagają silnikom baz danych wykonywać złączenia, które są bardziej wydajne. &lt;a href=&quot;#fnref:niewymagane&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:optymalizacja&quot;&gt;
+      &lt;p&gt;Bazy danych mogą tu sporo optymalizować, dzięki czemu czasochłonne tworzenie iloczynu kartezjańskiego nie zawsze jest wykonywane. Jednak z punktu widzenia algebry relacji, podstawy modelu relacyjnego to właśnie iloczyn kartezjański jest punktem wyjścia. &lt;a href=&quot;#fnref:optymalizacja&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule opisuję klauzulę `JOIN`. Pozwala ona na łączenie ze sobą danych znajdujących się w różnych tabelach. Po lekturze tego artykułu będziesz wiedzieć jakie są rodzaje złączeń i jakie są między nimi różnice. Wszystkie opisy poparte są przykładami. Na końcu artykułu znajdziesz zadania z przykładowymi rozwiązaniami, które pomogą utrwalić Ci wiedzę dotyczącą klauzuli `JOIN`.</summary></entry><entry><title type="html">Samouczek na rozmowie - kalkulator</title><link href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/" rel="alternate" type="text/html" title="Samouczek na rozmowie - kalkulator" /><published>2018-11-12T00:00:00+01:00</published><updated>2018-11-12T00:00:00+01:00</updated><id>http://www.samouczekprogramisty.pl/zadanie-kalkulator</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/">&lt;div class=&quot;notice--info&quot;&gt;
   
 &lt;p&gt;To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych.&lt;/p&gt;
 
@@ -2784,306 +3318,4 @@ Brasília
       &lt;p&gt;Testy powinny przejść u Ciebie. Chyba, że Twoje założenia dotyczące niejasnych wymagań były inne ;). &lt;a href=&quot;#fnref:zalozenia&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule rozkładam na części pierwsze zadanie podesłane przez Mateusza. Po lekturze tego artykułu będziesz wiedzieć na co zwracać uwagę przy rozwiązywaniu tego typu zadań na rozmowach kwalifikacyjnych. Pokażę Ci też jak _Test Driven Development_ pozwala na tworzenie przejrzystego i czytelnego kodu.</summary></entry><entry><title type="html">Klauzula WHERE w zapytaniach SQL</title><link href="http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/" rel="alternate" type="text/html" title="Klauzula WHERE w zapytaniach SQL" /><published>2018-07-26T00:00:00+02:00</published><updated>2018-07-26T00:00:00+02:00</updated><id>http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/">&lt;div class=&quot;notice--info&quot;&gt;
-  
-&lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-sql&quot;&gt;praktycznego kursu SQL&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
-
-&lt;p&gt;Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;pierwszym artykule kursu&lt;/a&gt;. Bardzo mocno Cię do tego zachęcam. Moim zdaniem najwięcej nauczysz się samodzielnie eksperymentując z zapytaniami.&lt;/p&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;klauzula-where&quot;&gt;Klauzula &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;W artykule opisującym &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;podstawy zapytania &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt;&lt;/a&gt; wspomniałem o klauzuli &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt;. Po przeczytaniu tamtego artykułu wiesz, że klauzula &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt; służy do filtrowania danych zwróconych przez zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Klauzula &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt; używana jest także w zapytaniach typu &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;INSERT&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt; ogranicza zbiór wierszy, który powinien zostać usunięty. W zapytaniach typu &lt;code class=&quot;highlighter-rouge&quot;&gt;INSERT&lt;/code&gt; używany jest z podzapytaniami (o podzapytaniach przeczytasz w jednym z kolejnych artykułów).&lt;/p&gt;
-
-&lt;p&gt;Informacje, które przeczytasz w tym artykule można odnieść do wszystkich czterech rodzai zapytań.&lt;/p&gt;
-
-&lt;h2 id=&quot;literały-w-sql&quot;&gt;Literały w SQL&lt;/h2&gt;
-
-&lt;p&gt;Zanim przejdę do omawiania warunków musisz poznać literały. Używałem ich już w &lt;a href=&quot;/pobieranie-danych-z-bazy-select/&quot;&gt;poprzednim artykule&lt;/a&gt; bez dodatkowego wyjaśnienia. Tutaj poświęcę im osobny paragraf.&lt;/p&gt;
-
-&lt;p&gt;Najprostszym rodzajem literałów są liczby, zapisuje się je podobnie jak w językach programowania: &lt;code class=&quot;highlighter-rouge&quot;&gt;42&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;12.34&lt;/code&gt;. Liczby mogą być zapisane także w &lt;a href=&quot;/liczby-zmiennoprzecinkowe/#notacja-naukowa-a-liczby-wymierne&quot;&gt;notacji naukowej&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;1.34E-5&lt;/code&gt; lub &lt;a href=&quot;/system-dwojkowy/&quot;&gt;szesnastkowo&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;0xBACA&lt;/code&gt;&lt;sup id=&quot;fnref:zalezyodbazy&quot;&gt;&lt;a href=&quot;#fn:zalezyodbazy&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;Często będziesz także używać łańcuchów znaków. Łańcuch znaków powinien być otoczony apostrofami, na przykład &lt;code class=&quot;highlighter-rouge&quot;&gt;'Samouczek Programisty'&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Innym przykładem literału jest &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;, który określa pustą wartość.&lt;/p&gt;
-
-&lt;h3 id=&quot;znaki-specjalne-w-sql&quot;&gt;Znaki specjalne w SQL&lt;/h3&gt;
-
-&lt;p&gt;W SQL występują znaki specjalne. Do tej pory wprowadziłem &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt;. Jeśli chcesz aby Twoje zapytanie dotyczyło wierszy, które zawierają &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt; musisz poprzedzić go drugim znakiem &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt;. Spójrz na przykład poniżej, posługuję się w nim konstrukcją &lt;code class=&quot;highlighter-rouge&quot;&gt;LIKE&lt;/code&gt;, którą opisuję w jednym z kolejnych akapitów. Zapytanie zwraca wszystkie wiersze, w których kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;title&lt;/code&gt; zawiera znak &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;album&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;%'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;warunki&quot;&gt;Warunki&lt;/h2&gt;
-
-&lt;h3 id=&quot;łączenie-warunków&quot;&gt;Łączenie warunków&lt;/h3&gt;
-
-&lt;p&gt;Każdy z warunków, który opiszę można ze sobą łączyć używając operatorów &lt;code class=&quot;highlighter-rouge&quot;&gt;AND&lt;/code&gt; lub &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;AND&lt;/code&gt; ma pierwszeństwo przed &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt;. Można także użyć nawiasów &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;, aby określić pierwszeństwo wykonania warunków. Używanie nawiasów nie zawsze jest obowiązkowe. Jednak moim zdaniem często warto ich używać. Dzięki nim bardziej skomplikowane zapytania mogą być bardziej czytelne. Nawiasy w przykładzie poniżej są zbędne, nie mają wpływu na kolejność wykonywania operacji:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x OR y AND z
-x OR (y AND z)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Nawiasy w przykładzie poniżej zmieniają kolejność wykonywania operacji, więc nie można ich pominąć bez zmiany znaczenia zapytania:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(x OR y) AND z
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;notice--success text-center&quot;&gt;
-  
-&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 1800 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
-
-
-&lt;/div&gt;
-
-&lt;h3 id=&quot;negacja-warunków&quot;&gt;Negacja warunków&lt;/h3&gt;
-
-&lt;p&gt;Poza operatorami łączenia, które już znasz, istnieje także operator negacji warunku. Służy do tego operator &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT&lt;/code&gt;. Ten operator ma wyższy priorytet niż &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;AND&lt;/code&gt;. Także i w tym przypadku możesz użyć nawiasów aby zmienić kolejność wykonywanych operacji. Poniższy przykład pokazuje przypadek, w którym nawiasy nie mają wpływu na kolejność wykonywanych porównań:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(NOT x) OR y
-NOT x OR y
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Jednak umieszczenie nawiasów w innym miejscu zupełnie zmienia warunek, który musi zostać spełniony przez zwracane wiersze:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NOT (x OR y)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;-----&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;=&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;!=, &lt;/code&gt;&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;, &lt;/code&gt;&amp;gt;=`&lt;/h3&gt;
-
-&lt;p&gt;Zacznę od najprostszych typów porównań. Podobne operatory występują także w językach programowania. Operatory porównują ze sobą wartości po obu stronach.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A &amp;lt; B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest mniejsze od B,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A &amp;lt;= B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest mniejsze bądź równe B,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A = B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest równe B,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A != B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest różne od B,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A &amp;gt; B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest większe od B,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A &amp;gt;= B&lt;/code&gt; - wiersz spełnia warunek jeśli A jest większe bądź równe B.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Na przykład zapytanie poniżej wyświetli tylko te wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;, których wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;total&lt;/code&gt; będzie większa niż 14 i mniejsza niż 15:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoiceid&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;
-   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Następne zapytanie zwróci jedynie te wiersze, dla których kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;total&lt;/code&gt; ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;21.68&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoiceid&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;86&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Operatory &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;!=&lt;/code&gt; mają dwie postacie. W tym samym celu możesz także użyć odpowiednio &lt;code class=&quot;highlighter-rouge&quot;&gt;==&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;porównywanie-łańcuchów-znaków&quot;&gt;Porównywanie łańcuchów znaków&lt;/h4&gt;
-
-&lt;p&gt;W przypadku języka SQL operatory służą one do porównywania wartości kolumn. Mogą być użyte nie tylko do typów liczbowych. Dzięki tym operatorom można na przykład porównywać łańcuchy znaków. Zapytanie poniżej zwróci tylko te wiersze dla których kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; będzie większa niż &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; i mniejsza niż &lt;code class=&quot;highlighter-rouge&quot;&gt;C&lt;/code&gt;. Innymi słowy zapytanie to zwróci wiersze, dla których &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; zawiera kraje zaczynające się na literę A albo B:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'A'&lt;/span&gt;
-   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'C'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;porównywanie-dat&quot;&gt;Porównywanie dat&lt;/h4&gt;
-
-&lt;p&gt;SQLite nie ma specjalnego typu do przechowywania dat. Do tego celu używane mogą być łańcuchy znaków lub liczby. W związku z tym porównywanie dat sprowadza się do porównywania tych typów danych. Na przykład zapytanie poniżej zwróci wszystkie wiersze, które zawierają faktury wystawione w Polsce od 26 maja 2012 roku.&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Poland'&lt;/span&gt;
-   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoicedate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2012-05-26'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Przy porównaniach tego typu musisz uważać. Powyższe zapytanie zwróci wiersz, który zawiera datę &lt;code class=&quot;highlighter-rouge&quot;&gt;2012-05-26 00:00:00&lt;/code&gt;. Jeśli zmieniłbym warunek na &lt;code class=&quot;highlighter-rouge&quot;&gt;invoicedate &amp;gt; '2012-05-26 00:00:00'&lt;/code&gt; wówczas ten wiersz zostałby pominięty.&lt;/p&gt;
-
-&lt;h3 id=&quot;between&quot;&gt;BETWEEN&lt;/h3&gt;
-
-&lt;p&gt;Do określenia zakresu, w którym powinna znaleźć się wartość kolumny możesz użyć &lt;code class=&quot;highlighter-rouge&quot;&gt;BETWEEN&lt;/code&gt;. Zapytanie poniżej zwróci wszystkie wiersze, dla których wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;total&lt;/code&gt; jest większa bądź równa &lt;code class=&quot;highlighter-rouge&quot;&gt;10.91&lt;/code&gt; i mniejsza bądź równa &lt;code class=&quot;highlighter-rouge&quot;&gt;11.96&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;91&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Porównanie &lt;code class=&quot;highlighter-rouge&quot;&gt;total BETWEEN 10.91 AND 11.96&lt;/code&gt; jest tożsame porównaniu &lt;code class=&quot;highlighter-rouge&quot;&gt;total &amp;gt;= 10.91 AND total &amp;lt;= 11.96&lt;/code&gt;. Warunek &lt;code class=&quot;highlighter-rouge&quot;&gt;BETWEEN&lt;/code&gt; można poprzedzić &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;like&quot;&gt;LIKE&lt;/h3&gt;
-
-&lt;p&gt;SQL pozwala także na bardziej swobodne porównywanie łańcuchów znaków. Do tego celu używa się konstrukcji &lt;code class=&quot;highlighter-rouge&quot;&gt;LIKE&lt;/code&gt;. W tym przypadku możesz użyć dwóch symboli, które mają specjalne znaczenie:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; - oznacza dowolną liczbę znaków,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt; - oznacza jeden znak.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Mechanizm ten można porównać do bardzo uproszczonych &lt;a href=&quot;/wyrazenia-regularne-w-jezyku-java/&quot;&gt;wyrażeń regularnych&lt;/a&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; odpowiada &lt;code class=&quot;highlighter-rouge&quot;&gt;.*&lt;/code&gt; w wyrażeniach regularnych,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt; odpowiada &lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt; w wyrażeniach regularnych.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Proszę spójrz na przykład poniżej. W przykładzie tym wyświetlam wyłącznie wiersze, w których wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; pasuje do określenia &lt;code class=&quot;highlighter-rouge&quot;&gt;%land&lt;/code&gt;. Innymi słowy wyświetlam wyłącznie te wiersze, które kończą się na &lt;code class=&quot;highlighter-rouge&quot;&gt;land&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%land'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Poniższe zapytanie jest lekką modyfikacją powyższego. Jak widzisz użyłem w nim &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; dwa razy. W tym przypadku wyświetlone zostaną wiersze, w których kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; zawiera ciąg znaków &lt;code class=&quot;highlighter-rouge&quot;&gt;land&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%land%'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Słowo kluczowe &lt;code class=&quot;highlighter-rouge&quot;&gt;LIKE&lt;/code&gt; możesz poprzedzić &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT&lt;/code&gt;. Warunek &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT x LIKE y&lt;/code&gt; jest tożsamy warunkowi &lt;code class=&quot;highlighter-rouge&quot;&gt;x NOT LIKE y&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Jeśli chcesz aby znaki &lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; były traktowane dosłownie musisz posłużyć się wyrażeniem &lt;code class=&quot;highlighter-rouge&quot;&gt;ESCAPE&lt;/code&gt;. Proszę spójrz na przykład poniżej. Zapytanie zwraca wszystkie wiersze, dla których wewnątrz kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;track&lt;/code&gt; występuje znak &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%e%%'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ESCAPE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'e'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Literał po &lt;code class=&quot;highlighter-rouge&quot;&gt;ESCAPE&lt;/code&gt; może zawierać pojedynczy znak. Symbol ten jest użyty do poprzedzenia symbolu, który powinien być traktowany dosłownie. W przykładzie powyżej użyłem &lt;code class=&quot;highlighter-rouge&quot;&gt;'e'&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;is-null&quot;&gt;IS NULL&lt;/h3&gt;
-
-&lt;p&gt;Niektóre wiersze mogą mieć puste kolumny. Puste, czyli takie, które nie są uzupełnione żadną wartością. W takim przypadku mówi się, że kolumna ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;. Aby filtrować wiersze na podstawie tej wartości należy użyć wyrażenia &lt;code class=&quot;highlighter-rouge&quot;&gt;IS NULL&lt;/code&gt;. Na przykład zapytanie poniżej pokazuje tylko te kraje, dla których wartość kolumny &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt; ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Zwróć uwagę na to, że kolumna zawierająca łańcuch znaków &lt;code class=&quot;highlighter-rouge&quot;&gt;''&lt;/code&gt; (pusty łańcuch znaków) i wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; to dwie zupełne różne rzeczy.&lt;/p&gt;
-
-&lt;p&gt;Podobnie jak w przypadku &lt;code class=&quot;highlighter-rouge&quot;&gt;LIKE&lt;/code&gt; także tutaj możesz użyć słowa kluczowego &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT&lt;/code&gt;. Warunki &lt;code class=&quot;highlighter-rouge&quot;&gt;NOT x IS NULL&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;x IS NOT NULL&lt;/code&gt; są tożsame.&lt;/p&gt;
-
-&lt;h3 id=&quot;in&quot;&gt;IN&lt;/h3&gt;
-
-&lt;p&gt;Jeśli chcesz zwrócić wiersze, dla których kolumna przyjmuje jedną z określonych wartości możesz użyć &lt;code class=&quot;highlighter-rouge&quot;&gt;IN&lt;/code&gt;. Zapytanie poniżej zwróci wszystkie wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;, dla których &lt;code class=&quot;highlighter-rouge&quot;&gt;billingcountry&lt;/code&gt; ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;'USA'&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt; jedną z wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;'CA'&lt;/code&gt; lub &lt;code class=&quot;highlighter-rouge&quot;&gt;'TX'&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'USA'&lt;/span&gt;
-   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'CA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'TX'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Użycie &lt;code class=&quot;highlighter-rouge&quot;&gt;IN&lt;/code&gt; jest tożsame odpowiedniej liczbie warunków połączonych &lt;code class=&quot;highlighter-rouge&quot;&gt;OR&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;czym-jest-wstrzykiwanie-sql-ang-sql-injection&quot;&gt;Czym jest wstrzykiwanie SQL (ang. &lt;em&gt;SQL Injection&lt;/em&gt;)&lt;/h2&gt;
-
-&lt;p&gt;Wstrzykiwanie SQL jest jednym z podstawowych ataków na aplikacje używające baz danych. Polega on na odpowiednim spreparowaniu danych wejściowych. W takim przypadku poza zapytaniem, które przygotuje programista wykonywane może być także to wprowadzone przez użytkownika.&lt;/p&gt;
-
-&lt;p&gt;Proszę spójrz na przykład w języku Java. W ten sposób na pewno będzie Ci łatwiej zrozumieć ten typ ataku.&lt;/p&gt;
-
-&lt;p&gt;Załóżmy, że w aplikacji próbujesz zaimplementować moduł logowania&lt;sup id=&quot;fnref:nierobtego&quot;&gt;&lt;a href=&quot;#fn:nierobtego&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Użytkownik w formularzu wprowadza swój e-mail i hasło.&lt;/p&gt;
-
-&lt;p&gt;Aby upewnić się, że podane dane są prawidłowe pobierane są wiersze, które pasują do przekazanych danych logowania. Programista napisał szablon zapytania, który następnie uzupełniany jest danymi od użytkownika:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emailProvidedByUser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;...&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;passwordProvidedByUser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;...&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queryTemplate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;SELECT password_hash FROM users WHERE email = '%s';&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queryTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emailProvidedByUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paswordHashInDatabase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;executeQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loginSuccessfull&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;magicHash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;passwordProvidedByUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paswordHashInDatabase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Jeśli użytkownik wprowadzi email &lt;code class=&quot;highlighter-rouge&quot;&gt;zenek@parapet.pl&lt;/code&gt; i hasło &lt;code class=&quot;highlighter-rouge&quot;&gt;tajnehaslo&lt;/code&gt; to logowanie przebiegnie pomyślnie :). Problem zacznie się jeśli użytkownik zacznie być złośliwy. Co stanie się jeśli użytkownik wprowadzi email &lt;code class=&quot;highlighter-rouge&quot;&gt;'; DELETE FROM users WHERE 1 = 1 OR email = '&lt;/code&gt; i dowolne hasło?&lt;/p&gt;
-
-&lt;p&gt;Do bazy zostanie wysłane następujące zapytanie:&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password_hash&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
- 
-&lt;span class=&quot;k&quot;&gt;DELETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;OR&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Właściwie są to dwa zapytania. Bardziej istotne jest drugie z nich. Po jego wykonaniu z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;users&lt;/code&gt; zostaną usunięte wszystkie wiersze. To raczej nie jest efekt, którego spodziewał się programista ;).&lt;/p&gt;
-
-&lt;h3 id=&quot;zapobieganie-sql-injection&quot;&gt;Zapobieganie &lt;em&gt;SQL Injection&lt;/em&gt;&lt;/h3&gt;
-
-&lt;p&gt;Ręczne budowanie zapytań SQL poprzez łączenie łańcuchów znaków przeważnie nie jest dobrym rozwiązaniem. Używaj do tego celu dedykowanych bibliotek. W Języku Java może to być na przykład Hibernate. W Pythonie SQLalchemy też świetnie daje sobie z tym radę. Jestem pewien, że w innych językach programowania istnieją podobne rozwiązania. Biblioteki te domyślnie odpowiednio traktują dane, które służą do wypełniania szablonów zapytań.&lt;/p&gt;
-
-&lt;p&gt;Jeśli chcesz budować zapytania “ręcznie”. Pamiętaj o odpowiednim traktowaniu danych pochodzących od użytkownika. Takim danym nigdy nie można ufać. Musisz założyć, że każdy użytkownik jest złośliwy i będzie chciał zepsuć Twoją aplikację. W najprostszym scenariuszu użycie &lt;code class=&quot;highlighter-rouge&quot;&gt;''&lt;/code&gt; w miejscu każdego znaku &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt; w danych pochodzących od użytkownika powinno pomóc.&lt;/p&gt;
-
-&lt;h2 id=&quot;zadania-do-wykonania&quot;&gt;Zadania do wykonania&lt;/h2&gt;
-
-&lt;p&gt;Poniżej znajdziesz zestaw zadań, które pomogą Ci przećwiczyć materiał omówiony w tym artykule.&lt;/p&gt;
-
-&lt;p&gt;Napisz zapytanie, które:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;zwróci wszystkie wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;track&lt;/code&gt;, dla których: &lt;code class=&quot;highlighter-rouge&quot;&gt;unitprice&lt;/code&gt; jest mniejsze niż &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; i znak &lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt; zawarty jest w kolumnie &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; oraz kolumna &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; kończy się na &lt;code class=&quot;highlighter-rouge&quot;&gt;e&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;zwróci wszystkie wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;, które mają uzupełnioną kolumnę &lt;code class=&quot;highlighter-rouge&quot;&gt;billingstate&lt;/code&gt; i nie są ze Stanów Zjednoczonych,&lt;/li&gt;
-  &lt;li&gt;zwróci wszystkie wiersze z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;invoice&lt;/code&gt;, które dotyczą Polski, Czech albo Węgier dla których wartość faktury przekracza 10,&lt;/li&gt;
-  &lt;li&gt;zwróci imiona pracowników z tabeli &lt;code class=&quot;highlighter-rouge&quot;&gt;employee&lt;/code&gt;, które dotyczą pracowników urodzonych w latach 60.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;przykładowe-rozwiązania-zadań&quot;&gt;Przykładowe rozwiązania zadań&lt;/h3&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unitprice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%x%%e'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ESCAPE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'x'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingstate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
-   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'USA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billingcountry&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Poland'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Czech Republic'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hungary'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-   &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;firstname&lt;/span&gt; 
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;employee&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;birthdate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1960-'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1970-'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Warunki masz już za sobą. Po rozwiązaniu zadań potrafisz sprawnie posługiwać się różnymi warunkami w języku SQL. Wiesz jak wygląda atak &lt;em&gt;SQL injection&lt;/em&gt; i jak można się przed nim bronić. Jeśli znasz kogoś komu ta wiedza może się przydać proszę przekaż odnośnik do tego artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników a na tym właśnie mi zależy. Z góry dziękuję :).&lt;/p&gt;
-
-&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polub Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera.&lt;/p&gt;
-
-&lt;p&gt;Trzymaj się i do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:zalezyodbazy&quot;&gt;
-      &lt;p&gt;To zależy od silnika bazy danych. SQLite wspiera literały tego typu. &lt;a href=&quot;#fnref:zalezyodbazy&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:nierobtego&quot;&gt;
-      &lt;p&gt;Do tej pory nie spotkałem się jeszcze z sytuacją, w której mechanizm logowania musiałbym pisać od podstaw samemu. Nie rób tego samodzielnie, użyj gotowego, sprawdzonego rozwiązania. &lt;a href=&quot;#fnref:nierobtego&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule przeczytasz o możliwościach klauzuli `WHERE`. Na praktycznych przykładach pokażę Ci jak filtrować dane w zapytaniach SQL. Także na przykładzie pokażę Ci czym jest atak _SQL injection_ i jak można się przed nim bronić. Dowiesz się także czegoś więcej o znakach specjalnych w SQL. Na końcu jak zwykle czekają na Ciebie zadania do samodzielnego rozwiązania.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule rozkładam na części pierwsze zadanie podesłane przez Mateusza. Po lekturze tego artykułu będziesz wiedzieć na co zwracać uwagę przy rozwiązywaniu tego typu zadań na rozmowach kwalifikacyjnych. Pokażę Ci też jak _Test Driven Development_ pozwala na tworzenie przejrzystego i czytelnego kodu.</summary></entry></feed>
