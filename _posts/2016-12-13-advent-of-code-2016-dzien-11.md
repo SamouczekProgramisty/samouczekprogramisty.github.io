@@ -19,7 +19,7 @@ toc: false
 
 ## Dzień 11 zadanie 1
 
-[Wczoraj]({% post_url 2016-12-12-advent-of-code-2016-dzien-10 %}), dzięki Twojej pomocy udało się poprawnie sterować dronami, dziś czeka na Ciebie duuużo trudniejsze zadanie. Nie zrażaj się jeśli coś nie będzie szło po Twojej myśli, nie jest to trywialny problem :).
+[Wczoraj]({% post_url 2016-12-12-advent-of-code-2016-dzien-10 %}), dzięki Twojej pomocy udało się poprawnie sterować dronami, dziś czeka na Ciebie dużo trudniejsze zadanie. Nie zrażaj się jeśli coś nie będzie szło po Twojej myśli, nie jest to trywialny problem :).
 
 Dzisiaj doszedłeś do miejsca gdzie cztery piętra, poza małym korytarzem, zostały zupełnie odseparowane od reszty budynku. Przechodząc przez niego widzisz znaki ostrzegające o promieniowaniu i wielki znak na którym widnieje napis "Dział Badania Cząstek Radioaktywnych".
 
@@ -31,7 +31,7 @@ Innymi słowy, jeśli mikrochip jest pozostawiony w tym samym obszarze co inny R
 
 Mikrochipy wydają się być bardzo interesujące i przydatne do Twoich aktualnych planów, chciałbyś je zdobyć dla własnych celów. Na 4 piętrze znajduje się maszyna, która jest w stanie złożyć komputer z mikrochipów i generatorów, który będziesz mógł bezpiecznie zabrać ze sobą. Oczywiście aby działał musisz dostarczyć na 4 piętro wszystkie mikrochipy wraz z odpowiadającymi im generatorami.
 
-Wewnątrz części budynku osłonionej przed promieniowaniem (gdzie bezpiecznie jest przechowywać niezłożone RTG), jest winda, która może poruszać się pomiędzy czterema piętrami. Winda maksymalnie może przewozić Ciebie i dwa urządzenia (generatory czy mikrochipy). Jako środek bezpieczeństwa, winda działa wyłącznie jeśli przewozi co najmniej jeden generator lub mikrochip. Winda zawsze zatrzymuje się na każdym piętrze aby doładować swoje baterie. Ładowanie zajmuje tak dużo czasu, że elementy w windzie i elementy na piętrze oddziałują na siebie.
+Wewnątrz części budynku osłoniętej przed promieniowaniem (gdzie bezpiecznie jest przechowywać niezłożone RTG), jest winda, która może poruszać się pomiędzy czterema piętrami. Winda maksymalnie może przewozić Ciebie i dwa urządzenia (generatory czy mikrochipy). Jako środek bezpieczeństwa, winda działa wyłącznie jeśli przewozi co najmniej jeden generator lub mikrochip. Winda zawsze zatrzymuje się na każdym piętrze aby doładować swoje baterie. Ładowanie zajmuje tak dużo czasu, że elementy w windzie i elementy na piętrze oddziałują na siebie.
 
 Zrobiłeś notatki dotyczące położenia każdego z elementów (wejście do programu). Zanim założysz strój chroniący przed promieniowaniem i zaczniesz przenosić elementy warto opracować plan w jakiej kolejności należy przenosić poszczególne części.
 
@@ -161,4 +161,4 @@ Jaka jest minimalna liczba kroków potrzebna do przeniesienia wszystkich element
 
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day11), jednak zrób to raczej w ostateczności.
 
-Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
+Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!

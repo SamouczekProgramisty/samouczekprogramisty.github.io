@@ -45,7 +45,7 @@ Zakładając, że instrukcje są następujące:
     LURDL
     UUUUD
 
-- Zaczysznasz na 5, idziesz do góry (2), w lewo (1) i w lewo (nie możesz wykonać tego ruchu więc zostajesz na 1), pierwszą cyfrą kodu jest 1,
+- Zaczynasz na 5, idziesz do góry (2), w lewo (1) i w lewo (nie możesz wykonać tego ruchu więc zostajesz na 1), pierwszą cyfrą kodu jest 1,
 - Zaczynając z poprzedniego przycisku (1), poruszasz się w prawo dwa razy (3) i trzy razy w dół (9) (zatrzymujesz się na 9 po dwóch ruchach, ignorując trzeci), drugą cyfrą kodu jest 9,
 - Idąc dalej z 9 idziesz w lewo (8), do góry (5), w prawo (6), w dół (9) i w lewo (8), trzecią cyfrą kodu jest 8,
 - W końcu, z 8 idziesz do góry cztery razy (zatrzymując się na 2) i raz w dół kończąc na 5.
@@ -56,4 +56,4 @@ W tym przypadku kod do toalety to 1985. Jaki jest kod do toalety jeśli instrukc
 
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day02), jednak zrób to raczej w ostateczności.
 
-Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
+Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!

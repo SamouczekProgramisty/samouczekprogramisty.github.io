@@ -23,7 +23,7 @@ Rozwiązanie poprzedniego zadania pozwoliło Ci dostać się do [sejfu]({% post_
 
 Po dokładniejszym przyjrzeniu się, ułożenie pułapek i bezpiecznych kafli w pokoju wydaje się pasować do pewnego wzoru. Kafle ułożone są w rzędach o tej samej szerokości. Znalazłeś karteczkę z zapisem bezpiecznych kafli (`.`) i pułapek (`^`) w pierwszym rzędzie (wejście do programu).
 
-Rodzaj kafla (pułapka czy normalne, bezpieczne pole) w każdym rzędzie bazuje na typach kafli w rzędzie poprzednim. Z poprzedniego rzędu istotne są kafel w poprzedniej kolumnie, w tej samej kolumnie i w następnej kolumnie. Jeśli kafel jest w pierwszej lub ostatnie kolumnie jego odpowiedniki w poprzednim rzędzie znajdującie się "w ścianie" uznawane są za bezpieczne.
+Rodzaj kafla (pułapka czy normalne, bezpieczne pole) w każdym rzędzie bazuje na typach kafli w rzędzie poprzednim. Z poprzedniego rzędu istotne są kafel w poprzedniej kolumnie, w tej samej kolumnie i w następnej kolumnie. Jeśli kafel jest w pierwszej lub ostatnie kolumnie jego odpowiedniki w poprzednim rzędzie znajdujące się "w ścianie" uznawane są za bezpieczne.
 
 Na przykład, załóżmy, że znasz pierwszy rząd (oznaczony literami) i chciałbyś dowiedzieć się o kaflach w następnym rzędzie (oznaczonym liczbami):
 
@@ -42,7 +42,7 @@ Załóżmy, że pierwszy rząd to `..^^.`, stosując reguły przedstawione powy�
 
 - Pierwszy kafel w następnym rzędzie bierze pod uwagę "nieistniejący kafel ze ściany", środkowy (pierwsza `.` oznaczająca bezpieczny kafel) i prawy (druga `.`, także bezpieczny) kafel z poprzedniego rządu. Ponieważ żadna z reguł określająca pułapkę nie została spełniona, kafel jest bezpieczny,
 - kolejny kafel w następnym rzędzie bierze pod uwagę lewy (`.`), środkowy (`.`) i prawy (`^`) kafel z poprzedniego rzędu. Taki układ pasuje do czwartej reguły więc ten kafel to pułapka,
-- trzeci kafel bierze pod uwagę `.^^`, taki uład pasuje do drugiej reguły, ten kafel to także pułapka,
+- trzeci kafel bierze pod uwagę `.^^`, taki układ pasuje do drugiej reguły, ten kafel to także pułapka,
 - ostatnie dwa kafle pasują odpowiedni do pierwszej i trzeciej reguły dla pułapek - oba kafle to pułapki.
 
 Po zastosowaniu tych kroków poznałeś kolejny rząd kafli w pokoju `.^^^^`. Następnie używając tych samych reguł możesz poznać trzeci rząd `^^..^`. Układ kafli w pierwszych trzech rzędach wygląda następująco:
@@ -72,4 +72,4 @@ Zakładając, że pierwszy rząd dla pokoju, w którym się znajdujesz jest w [t
 
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day18), jednak zrób to raczej w ostateczności.
 
-Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
+Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!

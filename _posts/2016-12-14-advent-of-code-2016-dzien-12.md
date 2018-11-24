@@ -23,7 +23,7 @@ W końcu udało Ci się dotrzeć na ostatnie piętro budynku. Piękny ogród ze 
 
 Według tych dokumentów Kwatera Główna Królicza Wielkanocnego nie jest jednym budynkiem. Jest kompleksem budynków w okolicy. Wszystkie z nich połączone są kolejką i jeden z nich znajduje się całkiem niedaleko! Niestety, w nocy kolejka nie jeździ.
 
-Udało Ci się zdalnie połączyć do systemu sterującego kolejką i odkryłeś, że sekwencja początkowa wymaga hasła. Logika sprawdzagtjąca hasło (wejście dla Twojego programu) jest łatwa do pozyskania, jednak kod jest dość dziwny. Używa on specjalnego języka assembunny zaprojektowanego dla komputera, który złożyłeś [wczoraj]({% post_url 2016-12-13-advent-of-code-2016-dzien-11 %}). Musisz wywołać kod, żeby uzyskać hasło.
+Udało Ci się zdalnie połączyć do systemu sterującego kolejką i odkryłeś, że sekwencja początkowa wymaga hasła. Logika sprawdzająca hasło (wejście dla Twojego programu) jest łatwa do pozyskania, jednak kod jest dość dziwny. Używa on specjalnego języka assembunny zaprojektowanego dla komputera, który złożyłeś [wczoraj]({% post_url 2016-12-13-advent-of-code-2016-dzien-11 %}). Musisz wywołać kod, żeby uzyskać hasło.
 
 Kod assembunny, który udało Ci się zdobyć operuje na czterech rejestrach (a, b, c i d), które przechowują wartość początkową 0 i mogą trzymać dowolną liczbę całkowitą. Wygląda na to, że wykorzystywany jest dość ubogi zestaw instrukcji:
 
@@ -51,4 +51,4 @@ Zakładając, że kod assembunny znajduje się w [tym pliku](https://raw.githubu
   
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day12), jednak zrób to raczej w ostateczności.
 
-Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
+Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!

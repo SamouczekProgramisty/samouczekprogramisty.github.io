@@ -29,7 +29,7 @@ Pasek magnetyczny na karcie, której możesz użyć do otworzenia drzwi zawiera 
 
 - `rect AxB` włącza wszystkie piksele w prostokącie w lewym górnym rogu ekranu. Prostokąt jest szeroki na `A` pikseli i wysoki na `B` pikseli,
 - `rotate row y=A by B` przesuwa wszystkie piksele w rzędzie `A` (gdzie 0 to pierwszy wiersz od góry) w prawo o `B` pikseli. Piksele, które "wypadłyby" za ekran pokazują się po lewej stronie ekranu,
-- `rotate column x=A by B` przesuwa wszystkie piksele w kolumnie `A` (gdzie 0 to pierwsza kolumna od lewej strony) w dół o `B` pikseli. Pikseke, które "wypadłyby za ekran pokazują się na górze kolumny.
+- `rotate column x=A by B` przesuwa wszystkie piksele w kolumnie `A` (gdzie 0 to pierwsza kolumna od lewej strony) w dół o `B` pikseli. Piksele, które "wypadłyby za ekran pokazują się na górze kolumny.
 
 Dla przykładu poniższa sekwencja pokazuje operacje dla mniejszego ekranu o wymiarach 7 na 3 pikseli:
 - `rect 3x2` tworzy mały prostokąt w lewym górnym rogu,
@@ -72,4 +72,4 @@ Twoim zadaniem jest policzenie pikseli, które będą świeciły się na ekranie
 
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day08), jednak zrób to raczej w ostateczności.
 
-Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na facebooku. Do następnego razu!
+Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!
