@@ -52,7 +52,7 @@ To co widzisz powyżej to część zapytania, które wysyłane jest w trakcie wy
 - `event_type`, którego wartością jest łańcuch znaków,
 - `measures` i `dimensions`, których wartościami są inne obiekty.
 
- W związku ze swoją prostotą JSON nie pozwala na opisywanie schematu dokumentu. Nie wspiera także przestrzeni nazw (ang. _namespace_). JSON często porównywany jest z [formatem XML]({% post_url 2017-03-02-xml-dla-poczatkujacych %}) gdzie zarówno schemat jak przestrzenie nazw są wspierane. Mimo tych braków JSON zawojował Internet. Stało się to między innymi dzięki popularności języka JavaScript, z którego ten format się wywodzi.
+ W związku ze swoją prostotą JSON nie wspiera przestrzeni nazw (ang. _namespace_). Weryfikacja schematu dokumentu możliwa jest przy użyciu dodatkowych narzędzi: [JSON Schema](https://json-schema.org) lub [JSchema](http://jschema.org). JSON często porównywany jest z [formatem XML]({% post_url 2017-03-02-xml-dla-poczatkujacych %}) gdzie zarówno schemat jak przestrzenie nazw są wspierane. Faktem jest, że format JSON zawojował Internet. Stało się tak między innymi dzięki popularności języka JavaScript, z którego ten format się wywodzi.
 
 ## Opis formatu JSON
 
