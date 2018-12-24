@@ -188,7 +188,7 @@ Nowy może być także operator `instanceof`, służy on do sprawdzenia czy dana
 
 ## Metoda `hashCode`
 
-Podobnie jak w przypadku `equals` `hashCode` jest zaimplementowane w klasie `Object`. Zawsze kiedy programista implementuję metodę `hashCode` powinien też zaimplementować metodę`equals`.
+Podobnie jak w przypadku `equals` `hashCode` jest zaimplementowane w klasie `Object`. Zawsze kiedy programista implementuje metodę `hashCode` powinien też zaimplementować metodę`equals`.
 
 Metoda ta zwraca liczbę typu int, która służy do przyporządkowania danego obiektu do grupy. Dzięki metodzie `hashCode` jesteśmy w stanie podzielić wszystkie możliwe instancje danej klasy na rozdzielne grupy. Każda z tych grup reprezentowana jest przez liczbę zwracaną przez metodę `hashCode`.
 
