@@ -113,7 +113,7 @@ Zakładając, że nasza tablica ma wielkość 4 mapowanie wartości `hashCode` n
 | -5                 | 1                |
 | 17                 | 1                |
 
-Funkcja skrótu dzieli całą możliwy zakres liczb na przedziały. Przedziały te nazywa się wiadrami (ang. _bucket_). Dzięki temu, aby znaleźć interesujący nas element na podstawie klucza, musimy przejrzeć tylko jeden przedział.
+Funkcja skrótu dzieli cały możliwy zakres liczb na przedziały. Przedziały te nazywa się wiadrami (ang. _bucket_). Dzięki temu, aby znaleźć interesujący nas element na podstawie klucza, musimy przejrzeć tylko jeden przedział.
 
 Podział na przedziały ma istotny wpływ na wydajność pracy na mapie.
 
