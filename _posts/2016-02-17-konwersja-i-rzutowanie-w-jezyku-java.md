@@ -85,7 +85,7 @@ public class WideningConversion {
 }
 ```
 
-Dochodzi do konwersji ponieważ metoda `methodLongArgument` przyjmuje parametr typu `long`, a jedno z wywołań przyjmuje zmienną typu `int`. Jest to tak zwana konwersja rozszerzająca. Może być wykonana niejawnie ponieważ podczas takiej konwersji nie zachodzi ryzyko utracenia informacji (o tym dalej). Kompilator robi to automatycznie za programistę. W przykładzie powyżej zmienna `intVariable` zostałą automatycznie rozszerzone do typu `long`. Nie utraciliśmy żadnych informacji ponieważ typ `long` zawsze może pomieścić liczby które przechowuje `int`. W przykładzie używam zmiennych statycznych `MAX_VALUE`, które są typu `int` lub `long` i trzymają największą liczbę możliwą do przechowywania przez dany typ.
+Dochodzi do konwersji ponieważ metoda `methodLongArgument` przyjmuje parametr typu `long`, a jedno z wywołań przyjmuje zmienną typu `int`. Jest to tak zwana konwersja rozszerzająca. Może być wykonana niejawnie ponieważ podczas takiej konwersji nie zachodzi ryzyko utracenia informacji (o tym dalej). Kompilator robi to automatycznie za programistę. W przykładzie powyżej zmienna `intVariable` została automatycznie rozszerzona do typu `long`. Nie utraciliśmy żadnych informacji ponieważ typ `long` zawsze może pomieścić liczby które przechowuje `int`. W przykładzie używam zmiennych statycznych `MAX_VALUE`, które są typu `int` lub `long` i trzymają największą liczbę możliwą do przechowywania przez dany typ.
 
 Konwersja w odwrotną stronę wymaga już jawnego rzutowania. Taka konwersja może prowadzić do utraty informacji. Proszę spójrz na przykład:
 
