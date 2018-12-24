@@ -334,7 +334,7 @@ private static void plainWildcard() {
 }
 ```
 
-Jak widzisz w przykładzie powyżej metoda method1 może akceptować różne klasę `FancyBox` parametryzowaną dowolnym typem.
+Jak widzisz w przykładzie powyżej metoda method1 może akceptować różne klasy `FancyBox` parametryzowaną dowolnym typem.
 
 #### Przypisanie wartości
 
