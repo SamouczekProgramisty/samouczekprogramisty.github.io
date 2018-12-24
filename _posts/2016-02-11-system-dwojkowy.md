@@ -23,7 +23,7 @@ Każdy z nas miał to na matematyce, jednak dla przypomnienia wyjaśnię jeszcze
 2 \* 3 = 6. To jest operacja mnożenia. Wynikiem operacji mnożenia jest iloczyn.
 
 Pojęcia te można ze sobą łączyć opisując dłuższe równania.
-1 \* 2 + 3 \* 4 = 14 można opisać jako sumę iloczynów
+1 \* 2 + 3 \* 4 = 14 można opisać jako sumę iloczynów,
 (1 + 2) \* (3 + 4) = 21 można opisać jako iloczyn sum.
 
 ## System dziesiętny
@@ -63,7 +63,7 @@ A co stałoby się gdybyśmy potęgi 10 zamienili potęgami 2? Powstałby system
 ## System binarny, system dwójkowy
 
 System binarny jest bardzo podobny do systemu dziesiętnego:
-- podobnie jak podstawą w systemie dziesiętnym system binarny ma swoją podstawę. W systemie dziesiętnym jest to 10. W systemie binarnym podstawą jest 2,
+- podobnie jak podstawą w systemie dziesiętnym, system binarny ma swoją podstawę. W systemie dziesiętnym jest to 10. W systemie binarnym podstawą jest 2,
 - podobnie jak w systemie dziesiętnym cyframi, które można używać do zapisu liczb są cyfry z zakresu 0 do (podstawa – 1). Więc w systemie dziesiętnym mamy zakres od 0 do 9. W systemie binarnym są to tylko dwie cyfry 0 lub 1,
 - podobnie jak w systemie dziesiętnym każdą liczbę można wyrazić za pomocą dodawania kolejnych potęg pomnożonych przez liczbę (10<sup>3</sup> \* 1 + 10<sup>2</sup> \* 2 + …), podobnie jest w systemie dwójkowym.
 
@@ -102,7 +102,7 @@ Wiesz już czym jest postać binarna. Nadszedł czas na algorytm, który pozwoli
 
 Algorytm przekształcenia liczby w postaci dziesiętnej na binarną:
 
-1. Podzieli liczbę całkowitoliczbowo przez 2. Zapisz resztę z dzielenia jako pierwszą cyfrę w postaci binarnej. Przypisz do liczby wynik z dzielenia,
+1. Podziel liczbę całkowitoliczbowo przez 2. Zapisz resztę z dzielenia jako pierwszą cyfrę w postaci binarnej. Przypisz do liczby wynik z dzielenia,
 2. Jeśli wynik dzielenia jest większy od zera przejdź do pierwszego kroku.
 
 Poniżej przekształcenie liczby 21 na postać binarną:
