@@ -36,7 +36,7 @@ Istnieje wiele możliwych sposobów na zaimplementowanie tej struktury danych. J
 
 Funkcja skrótu to funkcja, która z wartości może wyprodukować klucz. Klucz ten jest zawsze ten sam dla danej wartości. Przykładem funkcji skrótu w języku Java jest funkcja [`hashCode`]({% post_url 2016-04-17-porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java %}).
 
-Funkcja ta zwyczaj zwraca liczbę typu `int`. Jest ona bardzo ważna dla wydajnego działania tej implementacji mapy. Powinna ona zwracać wartości, które są dobrze rozdystrybuowane. Innymi słowy, funkcja skrótu, która zawsze zwraca wartość 1 nie jest najlepszym pomysłem. Zwracane wartości powinny być równomiernie rozrzucone po wszystkich liczbach. W dalszej części artykułu przeczytasz o tym dlaczego jest to ważne.
+Funkcja ta zazwyczaj zwraca liczbę typu `int`. Jest ona bardzo ważna dla wydajnego działania tej implementacji mapy. Powinna ona zwracać wartości, które są dobrze rozdystrybuowane. Innymi słowy, funkcja skrótu, która zawsze zwraca wartość 1 nie jest najlepszym pomysłem. Zwracane wartości powinny być równomiernie rozrzucone po wszystkich liczbach. W dalszej części artykułu przeczytasz o tym dlaczego jest to ważne.
 
 Wspomniałem już wyżej, że tablicę asocjacyjną nazywa się także słownikiem czy mapą. Od teraz będę posługiwał się określeniem mapa. Dalsza część artykułu opisuje implementację mapy opartą o funkcję skrótu.
 
@@ -113,7 +113,7 @@ Zakładając, że nasza tablica ma wielkość 4 mapowanie wartości `hashCode` n
 | -5                 | 1                |
 | 17                 | 1                |
 
-Funkcja skrótu dzieli całą możliwy zakres liczb na przedziały. Przedziały te nazywa się wiadrami (ang. _bucket_). Dzięki temu, aby znaleźć interesujący nas element na podstawie klucza, musimy przejrzeć tylko jeden przedział.
+Funkcja skrótu dzieli cały możliwy zakres liczb na przedziały. Przedziały te nazywa się wiadrami (ang. _bucket_). Dzięki temu, aby znaleźć interesujący nas element na podstawie klucza, musimy przejrzeć tylko jeden przedział.
 
 Podział na przedziały ma istotny wpływ na wydajność pracy na mapie.
 

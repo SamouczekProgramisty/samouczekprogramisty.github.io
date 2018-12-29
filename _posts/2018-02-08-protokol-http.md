@@ -294,13 +294,13 @@ Nagłówki wykorzystywane są do przesyłania metadanych na temat zasobów. Mog�
 | `Content-Encoding`             | Serwer informuje klienta o sposobie kodowania ciała wiadomości                                                                                         |
 | `Content-Type`                 | Odpowiednik nagłówka `Accept` wysyłany przez serwer informujący o formacie odpowiedzi                                                                   |
 | `Cookie`                       | Nagłówek służący do przesłania ciasteczka przez klienty do serwera                                                                                     |
-| `Date`                         | Zawiera datę mówiącą od czasie wygenerowania żądania/odwiedzi                                                                                         |
+| `Date`                         | Zawiera datę mówiącą o czasie wygenerowania żądania/odwiedzi                                                                                         |
 | `ETag`                         | Zawiera identyfikator zasobu zwróconego przez serwer. Używany przez cache                                                                              |
 | `Host`                         | Zawiera domenę, do której wysyłane jest żądanie                                                                                                        |
 | `Location`                     | Zawiera informacje o położeniu zasobu, może być użyty na przykład przy przekierowaniach i tworzeniu nowych zasobów                                     |
 | `Server`                       | Serwer informuje klienty jakiego oprogramowania używa do obsługi odpowiedzi                                                                            |
 | `Set-Cookie`                   | Nagłówek służący do ustawienia ciasteczka                                                                                                              |
-| `User-Agent`                   | Nagłówek dołączany do zapytania informujący o tym jaki klient został użyty to jego wysłania                                                            |
+| `User-Agent`                   | Nagłówek dołączany do zapytania informujący o tym jaki klient został użyty do jego wysłania                                                            |
 
 ## Ciasteczka
 
@@ -316,7 +316,7 @@ W każdym kolejnym zapytaniu do tej domeny klient dołącza nagłówki ciastecze
 
     Cookie: <nazwa ciasteczka>=<wartość ciasteczka>
 
-Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć "zapamiętaj mnie". Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek `Set-Cookie`). To ciasteczko zawiera unikalny klucz, który później jest dotłaczany przez klienta do każdego żądania do danej domeny (nagłówek `Cookie`). Dzięki temu każde kolejne zapytanie ma nagłówek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.
+Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć "zapamiętaj mnie". Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek `Set-Cookie`). To ciasteczko zawiera unikalny klucz, który później jest dołączany przez klienta do każdego żądania do danej domeny (nagłówek `Cookie`). Dzięki temu każde kolejne zapytanie ma nagłówek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.
 
 Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą być wykorzystywane jako jeden ze sposobów do śledzenia Twojego ruchu w sieci. Zdarzyło Ci się kliknąć na reklamę a później ta reklama pokazywała Ci się bez przerwy? Ciasteczka także mogły się do tego przyczynić[^zaawansowane].
 
@@ -341,7 +341,7 @@ Statusy z tej grupy informują o tym, że zapytanie zostało poprawnie przetworz
 
 ### Statusy 3xx
 
-Statusy zaczynające się o 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetwarzania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx:
+Statusy zaczynające się od 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetwarzania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx:
 
  - `301 Moved Permanently` - informuje klienta, że zasób został przeniesiony na stałe w inne miejsce. Ten status ma znaczenie duże dla twórców stron, którzy bazują na ruchu z wyszukiwarek. Taki status informuje wyszukiwarki o tym, że strona, która wcześniej była pod adresem X znajduje się w nowym miejscu.
 
