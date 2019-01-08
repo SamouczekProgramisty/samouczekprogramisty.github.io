@@ -82,9 +82,9 @@ Dużo zadań dotyczących tablic wymaga znajmości pętli, dlatego w następnym 
 
 1. Utwórz metodę pobierającą dodatnią liczbę całkowitą X, która wyświetli na ekranie liczby od zera do X,
 2. Jeśli w zadaniu 1. użyłeś pętli `for` przerób tę metodę na `while` (lub odwrotnie),
-3. Napisz klasę `ArrayFactory`, która w konstruktorze pobierze liczbę całkowitą X większą od zera. Klasa powinna mieć 2 metody:
-  1. `int[] oneDimension` - zwróci instancję tablicy jednowymiarowej o długości X,
-  2. `int[][] twoDimension` - zwróci instację tablicy dwuwymiarowej gdzie liczba wierszy i liczba kolumn równa się X,
+3. Napisz klasę `ArrayFactory`, która w konstruktorze pobierze liczbę całkowitą X. Klasa powinna mieć 2 metody:
+  * `int[] oneDimension` - zwróci instancję tablicy jednowymiarowej o długości X,
+  * `int[][] twoDimension` - zwróci instację tablicy dwuwymiarowej gdzie liczba wierszy i liczba kolumn równa się X,
 
 4. Utwórz metodę, która pobierze liczbę i wypisze każdy znak w osobnej linii zaczynając od ostatniej cyfry (np. dla liczby 123 będą to trzy linie z 3, 2 i 1),
 5. Utwórz metodę, która jako argument pobierze obiekt klasy `String` i zwróci "odwrócony" argument. Na przykład "pies" przekształci w "seip",
