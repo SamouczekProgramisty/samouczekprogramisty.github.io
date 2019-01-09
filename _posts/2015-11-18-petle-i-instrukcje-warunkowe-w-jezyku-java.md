@@ -45,7 +45,7 @@ Proste operacje logiczne możesz ze sobą łączyć przy pomocy dodatkowych oper
   
 Pomocna przy tym może być następująca tabelka. Pokazuje ona podstawowe operacje logiczne[^algebra].
 
-[^algebra]: Tzw. [algebrę Boole'a](https://pl.wikipedia.org/wiki/Algebra_Boole%E2%80%99a)
+[^algebra]: Tak zwaną [algebrę Boole'a](https://pl.wikipedia.org/wiki/Algebra_Boole%E2%80%99a)
 
 | Operacja          | Wynik  |
 | :------:          | :---:  |
@@ -72,13 +72,38 @@ x <= y || z <= x; // true || false => true
 
 Operatory w języku Java mają swój priorytet. Dzięki temu mnożenie jest wykonywane przed dodawaniem. Podobnie jest tutaj, operatory `<`, `==`, `<` itp. mają wyższy priorytet niż `&&` czy `||`.
 
+### Skrócony cykl
+
+Operatory `&&` i `||` są operatorami, które czasami mogą pomiąć sprawdzanie drugiej części warunku. Proszę spójrz na przykład:
+
+```java
+public boolean metodaA() {
+    System.out.println("metodaA");
+    return true;
+}
+
+public boolean metodaB() {
+    System.out.println("metodaB");
+    return false;
+}
+
+metodaA() || metodaB();  // 1
+metodaB() && metodaA();  // 2
+```
+
+`metodaA` i `metodaB` to metody zwracające wartość logiczną. Dodatkowo każda z nich wypisuje na konsolę łańcuch znaków.
+
+W pierwszym przypadku wartość całego wyrażenia to `true` jeśli którykolwiek z członów ma wartość `true`. W związku z tym drugi człon (w tym przypadku `metodaB`) nie musi być sprawdzany, ponieważ pierwszy (w tym przypadku `metodaA`) zwraca `true`.
+
+W drugim przypadku wartość całego wyrażenia to `false` jeśli którykolwiek z członów ma wartość `false`. W związku z tym drugi człon (w tym przypadku `metodaA`) nie musi być sprawdzany,  ponieważ pierwszy (w tym przypadku `metodaB`) zwraca `false`.
+
 {% include newsletter-srodek.md %}
 
 ## Instrukcje warunkowe
 
 ### Instrukcja `if`, `else if`, `else`
   
-Do tej pory każda linijka kodu, którą napisałeś w działającym programie została wykonana. W większych programach często musimy decydować co powinno być wykonane. Np. jeśli jest temperatura jest większa niż 37°C[^zmiennyprzecinek] oznacza to, że możesz być chory. Jeśli jest mniejsza niż 36°C możesz być osłabiony.
+Do tej pory każda linijka kodu, którą napisałeś w działającym programie została wykonana. W większych programach często musimy decydować co powinno być wykonane. Na przykład jeśli jest temperatura jest większa niż 37°C[^zmiennyprzecinek] oznacza to, że możesz być chory. Jeśli jest mniejsza niż 36°C możesz być osłabiony.
 
  [^zmiennyprzecinek]: Tutaj lepszym pomysłem byłyby liczby "z przecinkiem", napisałem osobny artykuł na temat [liczb zmiennoprzecinkowych]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}).
 
@@ -174,7 +199,7 @@ W przykładzie powyżej `break` zostało pominięte przy `case 35` oraz `case 36
   
 Warunek `default` zostaje wykonany jeśli żadna gałąź `case` nie pasuje do wartości zmiennej. Zachęcam Cię do eksperymentowania :).
 
-Instrukcja `switch` jest trochę ograniczona. Sprawdzana zmienna może być zmienną kilku typów np. `int` czy `String`.
+Instrukcja `switch` jest trochę ograniczona. Sprawdzana zmienna może być zmienną kilku typów na przykład `int` czy `String`.
 
 ## Pętle w języku Java
 
@@ -213,9 +238,9 @@ for (int index = 0; index < primeNumbers.length; index++) {
 }
 ```
   
-W pierwszej linijce definiujemy tablicę z kilkoma liczbami pierwszymi (jeśli nie wiesz czym są liczby pierwsze możesz przeczytać o nich w [artykule na wikipedii](https://pl.wikipedia.org/wiki/Liczba_pierwsza)). Następnie w pętli wyświetlamy każdy element tej tablicy.
+W pierwszej linijce definiujemy tablicę z kilkoma liczbami pierwszymi (jeśli nie wiesz czym są liczby pierwsze możesz przeczytać o nich w [artykule na Wikipedii](https://pl.wikipedia.org/wiki/Liczba_pierwsza)). Następnie w pętli wyświetlamy każdy element tej tablicy.
 
-Istnieje też uproszczona wersja pętli `for`. Jeśli nie musisz mieć dostępu do zmiennej reprezentującej np. indeks tablicy możesz użyć poniżej wersji pętli.
+Istnieje też uproszczona wersja pętli `for`. Jeśli nie musisz mieć dostępu do zmiennej reprezentującej na przykład indeks tablicy możesz użyć poniżej wersji pętli.
 
 
 ```java
@@ -226,9 +251,8 @@ for (int primeNumber : primeNumbers) {
   
 Tutaj w pierwszej linijce do zmiennej `primeNumber` przypisujemy kolejne elementy tablicy `primenNumbers`, które następnie wyświetlamy na ekranie.
 
-#### Live templates
-  
-Obie wersje pętli for możesz utworzyć dużo łatwiej. Z jednego z poprzednich artykułów wiesz już o istnieniu live templates. Okazuje się, że IDE pomaga nam także w tworzeniu pętli. Wystarczy, że wpiszesz `fori` i naciśniesz `Enter`, IDE wstawi szablon pętli za Ciebie. Jeśli w ten sam sposób chcesz wstawić szablon uproszczonej pętli for możesz wpisać `I` i nacisnąć `Enter`.
+Obie wersje pętli for możesz utworzyć dużo łatwiej. Z jednego z poprzednich artykułów wiesz już o istnieniu live templates. Okazuje się, że IntelliJ Idea pomaga nam także w tworzeniu pętli. Wystarczy, że wpiszesz `fori` i naciśniesz `Enter`, IntelliJ Idea wstawi szablon pętli za Ciebie. Jeśli w ten sam sposób chcesz wstawić szablon uproszczonej pętli for możesz wpisać `I` i nacisnąć `Enter`.
+{:.notice--info}
 
 ### Pętla while
   
@@ -242,7 +266,7 @@ while (number < 10) {
 }
 ```
   
-Pętla `while` wykonuje swoje ciało (kod wewnątrz `{}`) tak długo jak spełniony jest warunek zapisany pomiędzy `()` (lub pętla nie zostanie przez nas przerwana). Podobnie jak w poprzenich przykładach pętla wyświetla zestaw liczb, tym razem liczby od 0 do 9.
+Pętla `while` wykonuje swoje ciało (kod wewnątrz `{}`) tak długo jak spełniony jest warunek zapisany pomiędzy `()` (lub pętla nie zostanie przez nas przerwana). Podobnie jak w poprzednich przykładach pętla wyświetla zestaw liczb, tym razem liczby od 0 do 9.
 
 Poniżej kolejny przykład pętli `while`. Tym razem warunek zakończenia pętli sprawdzany jest w jej ciele. Użyliśmy do tego celu instrukcji warunkowej `if`. Słowo kluczowe `break` napotkane wewnątrz pętli natychmiast przerywa jej wykonanie (dotyczy to także pętli `for`).
 
@@ -269,6 +293,23 @@ while(true) {
 }
 ```
 
+### Słowa kluczowe wewnątrz pętli
+
+Znasz już słowo kluczowe `break`. Powoduje ono zakończenie pętli w której aktualnie jesteś. Kolejna iteracja nie zostanie uruchomiona. Istnieje także słowo kluczowe `continue`, które także można użyć w ciele pętli (zarówno `for` jak i `while`).
+
+To słowo kluczowe powoduje przeskoczenie do kolejnej iteracji pętli. Proszę spójrz na przykład poniżej, który wypisuje liczby nieparzyste mniejsze od 10 używając pętli `while`:
+
+```java
+int i = 0;
+while (i < 10) {
+    i++;
+    if (i % 2 == 0) {
+        continue;
+    }
+    System.out.println(i);
+}
+```
+
 ## Zadania
 
 1. Poza poznanym dzisiaj operatorem `++` istnieje też jego odpowiednik zmniejszający wartość zmiennej o 1. Jest nim `--`. Napisz program, który wypisze na ekranie malejąco wszystkie liczby od 20 do 10.
@@ -276,10 +317,10 @@ while(true) {
 3. Napisz pętlę for, która wypisze na ekranie wszystkie liczby nieparzyste od -10 do 40.
 4. Przerób pętlę z zadania trzeciego na pętlę while.
 5. Napisz metodę, która jako jedyny argument przyjmie zmienną typu `int[]` i zwróci sumę wszystkich elementów tablicy.
-6. Przerób funkcję z zadania piątego tak, żeby metoda przymowała tablicę dwuwymiarową typu `int[][]`.
+6. Przerób funkcję z zadania piątego tak, żeby metoda przyjmowała tablicę dwuwymiarową typu `int[][]`.
   
 Przygotowałem też [zestaw przykładowych rozwiązań](https://github.com/SamouczekProgramisty/KursJava/tree/master/05_petle/src/main/java/pl/samouczekprogramisty/kursjava/loops/exercise) powyższych zadań. Zachęcam jednak do ich samodzielnego rozwiązania, wtedy nauczysz się najwięcej.
 
 ## Podsumowanie
   
-Dzisiaj znów nauczyłeś się paru nowych rzeczy dotyczących Javy. Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak będę wdzięczny jeśli podzielisz się nim ze swoimi znajomymi. Proszę polub stronę na facebooku jeśli nie chcesz pominąć żadnego nowego artykułu. Na dzisiaj już starczy wiedzy :) Miłego dnia i do następnego razu!
+Dzisiaj znów nauczyłeś się paru nowych rzeczy dotyczących Javy. Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak będę wdzięczny jeśli podzielisz się nim ze swoimi znajomymi. Proszę polub stronę na Facebooku jeśli nie chcesz pominąć żadnego nowego artykułu. Na dzisiaj już starczy wiedzy :) Miłego dnia i do następnego razu!
