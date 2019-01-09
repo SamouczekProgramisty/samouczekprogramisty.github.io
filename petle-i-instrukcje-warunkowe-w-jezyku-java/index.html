@@ -237,7 +237,11 @@
                     </h4>
                 </header>
                 <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#operatory-logiczne">Operatory logiczne</a></li>
+<li class="toc-entry toc-h2"><a href="#operatory-logiczne">Operatory logiczne</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#skrócony-cykl">Skrócony cykl</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#instrukcje-warunkowe">Instrukcje warunkowe</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#instrukcja-if-else-if-else">Instrukcja if, else if, else</a></li>
@@ -246,13 +250,10 @@
 </li>
 <li class="toc-entry toc-h2"><a href="#pętle-w-języku-java">Pętle w języku Java</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#pętla-for">Pętla for</a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#live-templates">Live templates</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h3"><a href="#pętla-for">Pętla for</a></li>
 <li class="toc-entry toc-h3"><a href="#pętla-while">Pętla while</a></li>
 <li class="toc-entry toc-h3"><a href="#nieskończona-pętla">Nieskończona pętla</a></li>
+<li class="toc-entry toc-h3"><a href="#słowa-kluczowe-wewnątrz-pętli">Słowa kluczowe wewnątrz pętli</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#zadania">Zadania</a></li>
@@ -363,6 +364,30 @@
 
 <p>Operatory w języku Java mają swój priorytet. Dzięki temu mnożenie jest wykonywane przed dodawaniem. Podobnie jest tutaj, operatory <code class="highlighter-rouge">&lt;</code>, <code class="highlighter-rouge">==</code>, <code class="highlighter-rouge">&lt;</code> itp. mają wyższy priorytet niż <code class="highlighter-rouge">&amp;&amp;</code> czy <code class="highlighter-rouge">||</code>.</p>
 
+<h3 id="skrócony-cykl">Skrócony cykl</h3>
+
+<p>Operatory <code class="highlighter-rouge">&amp;&amp;</code> i <code class="highlighter-rouge">||</code> są operatorami, które czasami mogą pomiąć sprawdzanie drugiej części warunku. Proszę spójrz na przykład:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">metodaA</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"metodaA"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">metodaB</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"metodaB"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="n">metodaA</span><span class="o">()</span> <span class="o">||</span> <span class="n">metodaB</span><span class="o">();</span>  <span class="c1">// 1</span>
+<span class="n">metodaB</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">metodaA</span><span class="o">();</span>  <span class="c1">// 2</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">metodaA</code> i <code class="highlighter-rouge">metodaB</code> to metody zwracające wartość logiczną. Dodatkowo każda z nich wypisuje na konsolę łańcuch znaków.</p>
+
+<p>W pierwszym przypadku wartość całego wyrażenia to <code class="highlighter-rouge">true</code> jeśli którykolwiek z członów ma wartość <code class="highlighter-rouge">true</code>. W związku z tym drugi człon (w tym przypadku <code class="highlighter-rouge">metodaB</code>) nie musi być sprawdzany, ponieważ pierwszy (w tym przypadku <code class="highlighter-rouge">metodaA</code>) zwraca <code class="highlighter-rouge">true</code>.</p>
+
+<p>W drugim przypadku wartość całego wyrażenia to <code class="highlighter-rouge">false</code> jeśli którykolwiek z członów ma wartość <code class="highlighter-rouge">false</code>. W związku z tym drugi człon (w tym przypadku <code class="highlighter-rouge">metodaA</code>) nie musi być sprawdzany,  ponieważ pierwszy (w tym przypadku <code class="highlighter-rouge">metodaB</code>) zwraca <code class="highlighter-rouge">false</code>.</p>
+
 <div class="notice--success text-center">
   
 <p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
@@ -378,7 +403,7 @@
 
 <h3 id="instrukcja-if-else-if-else">Instrukcja <code class="highlighter-rouge">if</code>, <code class="highlighter-rouge">else if</code>, <code class="highlighter-rouge">else</code></h3>
 
-<p>Do tej pory każda linijka kodu, którą napisałeś w działającym programie została wykonana. W większych programach często musimy decydować co powinno być wykonane. Np. jeśli jest temperatura jest większa niż 37°C<sup id="fnref:zmiennyprzecinek"><a href="#fn:zmiennyprzecinek" class="footnote">2</a></sup> oznacza to, że możesz być chory. Jeśli jest mniejsza niż 36°C możesz być osłabiony.</p>
+<p>Do tej pory każda linijka kodu, którą napisałeś w działającym programie została wykonana. W większych programach często musimy decydować co powinno być wykonane. Na przykład jeśli jest temperatura jest większa niż 37°C<sup id="fnref:zmiennyprzecinek"><a href="#fn:zmiennyprzecinek" class="footnote">2</a></sup> oznacza to, że możesz być chory. Jeśli jest mniejsza niż 36°C możesz być osłabiony.</p>
 
 <p>To jest najprostsza instrukcja warunkowa. Blok kodu zostanie wykonany jeśli wartość w nawiasie <code class="highlighter-rouge">()</code> będzie prawdą. W przykładzie sprawdzamy, czy temperatura jest mniejsza niż 36 stopni.</p>
 
@@ -468,7 +493,7 @@ Jesteś przeziębiony?
 
 <p>Warunek <code class="highlighter-rouge">default</code> zostaje wykonany jeśli żadna gałąź <code class="highlighter-rouge">case</code> nie pasuje do wartości zmiennej. Zachęcam Cię do eksperymentowania :).</p>
 
-<p>Instrukcja <code class="highlighter-rouge">switch</code> jest trochę ograniczona. Sprawdzana zmienna może być zmienną kilku typów np. <code class="highlighter-rouge">int</code> czy <code class="highlighter-rouge">String</code>.</p>
+<p>Instrukcja <code class="highlighter-rouge">switch</code> jest trochę ograniczona. Sprawdzana zmienna może być zmienną kilku typów na przykład <code class="highlighter-rouge">int</code> czy <code class="highlighter-rouge">String</code>.</p>
 
 <h2 id="pętle-w-języku-java">Pętle w języku Java</h2>
 
@@ -506,9 +531,9 @@ Jesteś przeziębiony?
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W pierwszej linijce definiujemy tablicę z kilkoma liczbami pierwszymi (jeśli nie wiesz czym są liczby pierwsze możesz przeczytać o nich w <a href="https://pl.wikipedia.org/wiki/Liczba_pierwsza">artykule na wikipedii</a>). Następnie w pętli wyświetlamy każdy element tej tablicy.</p>
+<p>W pierwszej linijce definiujemy tablicę z kilkoma liczbami pierwszymi (jeśli nie wiesz czym są liczby pierwsze możesz przeczytać o nich w <a href="https://pl.wikipedia.org/wiki/Liczba_pierwsza">artykule na Wikipedii</a>). Następnie w pętli wyświetlamy każdy element tej tablicy.</p>
 
-<p>Istnieje też uproszczona wersja pętli <code class="highlighter-rouge">for</code>. Jeśli nie musisz mieć dostępu do zmiennej reprezentującej np. indeks tablicy możesz użyć poniżej wersji pętli.</p>
+<p>Istnieje też uproszczona wersja pętli <code class="highlighter-rouge">for</code>. Jeśli nie musisz mieć dostępu do zmiennej reprezentującej na przykład indeks tablicy możesz użyć poniżej wersji pętli.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">primeNumber</span> <span class="o">:</span> <span class="n">primeNumbers</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">primeNumber</span><span class="o">);</span>
@@ -517,9 +542,7 @@ Jesteś przeziębiony?
 
 <p>Tutaj w pierwszej linijce do zmiennej <code class="highlighter-rouge">primeNumber</code> przypisujemy kolejne elementy tablicy <code class="highlighter-rouge">primenNumbers</code>, które następnie wyświetlamy na ekranie.</p>
 
-<h4 id="live-templates">Live templates</h4>
-
-<p>Obie wersje pętli for możesz utworzyć dużo łatwiej. Z jednego z poprzednich artykułów wiesz już o istnieniu live templates. Okazuje się, że IDE pomaga nam także w tworzeniu pętli. Wystarczy, że wpiszesz <code class="highlighter-rouge">fori</code> i naciśniesz <code class="highlighter-rouge">Enter</code>, IDE wstawi szablon pętli za Ciebie. Jeśli w ten sam sposób chcesz wstawić szablon uproszczonej pętli for możesz wpisać <code class="highlighter-rouge">I</code> i nacisnąć <code class="highlighter-rouge">Enter</code>.</p>
+<p class="notice--info">Obie wersje pętli for możesz utworzyć dużo łatwiej. Z jednego z poprzednich artykułów wiesz już o istnieniu live templates. Okazuje się, że IntelliJ Idea pomaga nam także w tworzeniu pętli. Wystarczy, że wpiszesz <code class="highlighter-rouge">fori</code> i naciśniesz <code class="highlighter-rouge">Enter</code>, IntelliJ Idea wstawi szablon pętli za Ciebie. Jeśli w ten sam sposób chcesz wstawić szablon uproszczonej pętli for możesz wpisać <code class="highlighter-rouge">I</code> i nacisnąć <code class="highlighter-rouge">Enter</code>.</p>
 
 <h3 id="pętla-while">Pętla while</h3>
 
@@ -532,7 +555,7 @@ Jesteś przeziębiony?
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Pętla <code class="highlighter-rouge">while</code> wykonuje swoje ciało (kod wewnątrz <code class="highlighter-rouge">{}</code>) tak długo jak spełniony jest warunek zapisany pomiędzy <code class="highlighter-rouge">()</code> (lub pętla nie zostanie przez nas przerwana). Podobnie jak w poprzenich przykładach pętla wyświetla zestaw liczb, tym razem liczby od 0 do 9.</p>
+<p>Pętla <code class="highlighter-rouge">while</code> wykonuje swoje ciało (kod wewnątrz <code class="highlighter-rouge">{}</code>) tak długo jak spełniony jest warunek zapisany pomiędzy <code class="highlighter-rouge">()</code> (lub pętla nie zostanie przez nas przerwana). Podobnie jak w poprzednich przykładach pętla wyświetla zestaw liczb, tym razem liczby od 0 do 9.</p>
 
 <p>Poniżej kolejny przykład pętli <code class="highlighter-rouge">while</code>. Tym razem warunek zakończenia pętli sprawdzany jest w jej ciele. Użyliśmy do tego celu instrukcji warunkowej <code class="highlighter-rouge">if</code>. Słowo kluczowe <code class="highlighter-rouge">break</code> napotkane wewnątrz pętli natychmiast przerywa jej wykonanie (dotyczy to także pętli <code class="highlighter-rouge">for</code>).</p>
 
@@ -557,6 +580,22 @@ Jesteś przeziębiony?
 <span class="o">}</span>
 </code></pre></div></div>
 
+<h3 id="słowa-kluczowe-wewnątrz-pętli">Słowa kluczowe wewnątrz pętli</h3>
+
+<p>Znasz już słowo kluczowe <code class="highlighter-rouge">break</code>. Powoduje ono zakończenie pętli w której aktualnie jesteś. Kolejna iteracja nie zostanie uruchomiona. Istnieje także słowo kluczowe <code class="highlighter-rouge">continue</code>, które także można użyć w ciele pętli (zarówno <code class="highlighter-rouge">for</code> jak i <code class="highlighter-rouge">while</code>).</p>
+
+<p>To słowo kluczowe powoduje przeskoczenie do kolejnej iteracji pętli. Proszę spójrz na przykład poniżej, który wypisuje liczby nieparzyste mniejsze od 10 używając pętli <code class="highlighter-rouge">while</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">i</span><span class="o">++;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">continue</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
 <h2 id="zadania">Zadania</h2>
 
 <ol>
@@ -565,18 +604,18 @@ Jesteś przeziębiony?
   <li>Napisz pętlę for, która wypisze na ekranie wszystkie liczby nieparzyste od -10 do 40.</li>
   <li>Przerób pętlę z zadania trzeciego na pętlę while.</li>
   <li>Napisz metodę, która jako jedyny argument przyjmie zmienną typu <code class="highlighter-rouge">int[]</code> i zwróci sumę wszystkich elementów tablicy.</li>
-  <li>Przerób funkcję z zadania piątego tak, żeby metoda przymowała tablicę dwuwymiarową typu <code class="highlighter-rouge">int[][]</code>.</li>
+  <li>Przerób funkcję z zadania piątego tak, żeby metoda przyjmowała tablicę dwuwymiarową typu <code class="highlighter-rouge">int[][]</code>.</li>
 </ol>
 
 <p>Przygotowałem też <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/05_petle/src/main/java/pl/samouczekprogramisty/kursjava/loops/exercise">zestaw przykładowych rozwiązań</a> powyższych zadań. Zachęcam jednak do ich samodzielnego rozwiązania, wtedy nauczysz się najwięcej.</p>
 
 <h2 id="podsumowanie">Podsumowanie</h2>
 
-<p>Dzisiaj znów nauczyłeś się paru nowych rzeczy dotyczących Javy. Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak będę wdzięczny jeśli podzielisz się nim ze swoimi znajomymi. Proszę polub stronę na facebooku jeśli nie chcesz pominąć żadnego nowego artykułu. Na dzisiaj już starczy wiedzy :) Miłego dnia i do następnego razu!</p>
+<p>Dzisiaj znów nauczyłeś się paru nowych rzeczy dotyczących Javy. Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak będę wdzięczny jeśli podzielisz się nim ze swoimi znajomymi. Proszę polub stronę na Facebooku jeśli nie chcesz pominąć żadnego nowego artykułu. Na dzisiaj już starczy wiedzy :) Miłego dnia i do następnego razu!</p>
 <div class="footnotes">
   <ol>
     <li id="fn:algebra">
-      <p>Tzw. <a href="https://pl.wikipedia.org/wiki/Algebra_Boole%E2%80%99a">algebrę Boole’a</a> <a href="#fnref:algebra" class="reversefootnote">&#8617;</a></p>
+      <p>Tak zwaną <a href="https://pl.wikipedia.org/wiki/Algebra_Boole%E2%80%99a">algebrę Boole’a</a> <a href="#fnref:algebra" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:zmiennyprzecinek">
       <p>Tutaj lepszym pomysłem byłyby liczby “z przecinkiem”, napisałem osobny artykuł na temat <a href="/liczby-zmiennoprzecinkowe/">liczb zmiennoprzecinkowych</a>. <a href="#fnref:zmiennyprzecinek" class="reversefootnote">&#8617;</a></p>
@@ -846,7 +885,7 @@ Jesteś przeziębiony?
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2015-2018 Marcin Pietraszek</div>
+<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
 
       </footer>
     </div>
