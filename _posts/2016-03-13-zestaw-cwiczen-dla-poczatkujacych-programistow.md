@@ -107,9 +107,9 @@ W tej sekcji znajdują się głównie zadania, które wymagają znajomości klas
 ### [Interfejsy]({% post_url 2015-12-16-interfejsy-w-jezyku-java %})
 
 1. Stwórz interfejs `Figure`. Interfejs powinien zawierać metody `getPerimeter` (zwracającą obwód) oraz `getArea` (zwracającą powierzchnię). Następnie utwórz klasy `Circle`, `Triangle` i `Rectangle`, niech każda z klas implementuje interfejs `Figure`. Napisz program, który pobierze od użytkownika:
-  1. długość promienia koła,
-  2. 2 długości boków trójkąta prostokątnego (boki przy kącie prostym),
-  3. długość boków prostokąta.
+  * długość promienia koła,
+  * 2 długości boków trójkąta prostokątnego (boki przy kącie prostym),
+  * długość boków prostokąta.
 
 Utworzy instancje tych obiektów i umieści je w tablicy `Figure[]`. Następnie iterując po obiektach wyświetl pole oraz obwód aktualnego obiektu.
 
