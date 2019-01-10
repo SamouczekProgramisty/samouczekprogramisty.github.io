@@ -22,7 +22,11 @@ W szczególności potrzebna będzie wiedza na temat [kolekcji]({% post_url 2016-
 
 ## Czym są strumienie
 
-Strumienie służą do przetwarzania danych. Dane mogą być przechowywane w kolekcji, mogą być wynikiem pracy z [wyrażeniami regularnymi]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}). W strumień możesz opakować praktycznie dowolny zestaw danych. Strumienie pozwalają w łatwy sposób zrównoleglić pracę na danych. Dzięki temu przetwarzanie dużych zbiorów danych może być dużo szybsze. Strumienie kładą nacisk na operacje jakie należy przeprowadzić na danych.
+Strumienie służą do przetwarzania danych. Zawierają[^really] dane i pozwalają na opisanie co chcesz zrobić tymi danymi.
+
+[^really]: To jest pewne uproszczenie. Strumienie nie muszą zwierać danych, które zwracają. Na przykład strumień generujący kolejne liczby pseudolosowe nie zawiera tych liczb, jedynie je generuje.
+
+Dane mogą być przechowywane w kolekcji, mogą być wynikiem pracy z [wyrażeniami regularnymi]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}). W strumień możesz opakować praktycznie dowolny zestaw danych. Strumienie pozwalają w łatwy sposób zrównoleglić pracę na danych. Dzięki temu przetwarzanie dużych zbiorów danych może być dużo szybsze. Strumienie kładą nacisk na operacje jakie należy przeprowadzić na danych.
 
 Niestety pojęcie strumienia jest dość szerokie. Możesz się z nim także spotkać w przypadku pracy z plikami. W tym artykule mówiąc o strumieniach mam na myśli klasy implementujące interfejs [`Stream`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html).
 {: .notice--warning}
