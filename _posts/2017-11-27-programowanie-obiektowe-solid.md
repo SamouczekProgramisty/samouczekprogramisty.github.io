@@ -1,5 +1,6 @@
 ---
 title: SOLID czyli dobre praktyki w programowaniu obiektowym
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Wiedza ogólna
 - Programista rzemieślnik
@@ -401,5 +402,3 @@ Dodatkowo poniżej mam dla Ciebie książkę autorstwa twórcy akronimu S.O.L.I.
 Dzisiejszy artykuł był mocno teoretyczny. Przeczytałeś nim o akronimie SOLID. Na przykładach zobaczyłeś jak wyglądają poszczególne składowe tego akronimu. Mam nadzieję, że zachęci Cię to do pisania solidnego kodu ;).
 
 Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku w przyszłości proszę dopisz się do newslettera i polub Samouczka na Facebooku. Jeśli będziesz miał jakiekolwiek pytania czy wątpliwości proszę zadaj je w komentarzu, postaram się pomóc. Do następnego razu :).
-
-

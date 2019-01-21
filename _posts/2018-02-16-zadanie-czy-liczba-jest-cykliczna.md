@@ -1,5 +1,6 @@
 ---
 title: Samouczek na rozmowie - czy liczba jest cykliczna
+date: 2018-08-22 21:47:58 +0200
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa

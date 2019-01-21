@@ -1,5 +1,6 @@
 ---
 title: Samouczek na rozmowie - znajdź brakujący element
+date: 2018-08-22 21:47:58 +0200
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa
@@ -102,11 +103,11 @@ Aby algorytm działał konieczna jest inicjalizacja tablicy z flagami. Jej rozmi
 
 Z opisu zadania wiesz, że szukamy brakującej liczby z zakresu `<0, N>`. Liczby 0, 1, 2, ..., N to [ciąg arytmetyczny](https://pl.wikipedia.org/wiki/Ci%C4%85g_arytmetyczny). Istnieje wzór, który pozwala na obliczenie sumy elementów ciągu arytmetycznego:
 
-$$S_n = \frac{n(2a_1 + (n - 1)r)}{2}$$
+$$S_n = rac{n(2a_1 + (n - 1)r)}{2}$$
 
 Załóżmy, że tablica wejściowa ma 100. Wiemy zatem, że szukamy liczby z zakresu 0 do 100. Liczb w tym zakresie jest 101, pierwszy element ma wartość 0 a różnica pomiędzy elementami wynosi 1. Podstawiając te wartości pod wzór otrzymujemy sumę elementów:
 
-$$S_n = \frac{101 * (2 * 0 + (101 - 1) * 1)}{2} = \frac{101 * 100}{2} = 5050$$
+$$S_n = rac{101 * (2 * 0 + (101 - 1) * 1)}{2} = rac{101 * 100}{2} = 5050$$
 
 Skoro znamy oczekiwaną sumę możemy zsumować zawartość przekazanej tablicy i odjąć tę wartość od oczekiwanej sumy. Wynik odejmowania to brakujący element:
 

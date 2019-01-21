@@ -1,5 +1,6 @@
 ---
 title: Pobieranie danych z bazy - SELECT
+date: 2018-11-22 23:16:05 +0100
 categories:
 - Bazy danych
 - Kurs SQL
@@ -387,4 +388,3 @@ Po przeczytaniu tego artykułu wiesz czym jest język SQL. Potrafisz podzielić 
 Przyznam Ci się, że miałem problem z zakończeniem tego artykułu. Mam świadomość, że nie jest kompletny, ale postanowiłem podzielić go na mniejsze, łatwiejsze do przyswojenia części. W kolejnych artykułach z cyklu możesz spodziewać się pogłębienia tematu.
 
 Na koniec proszę Cię o polecenie tego artykułu Twoim znajomym, którym może się on przydać. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Z góry dziękuję ;). Jeśli cokolwiek nie będzie dla Ciebie jasne proszę daj znać w komentarzach, postaram się pomóc. Jeśli nie chcesz pominąć kolejnych artykułów na blogu proszę polub Samouczka na Facebooku i dodaj swój adres e-mail do samouczkowego newslettera. Do następnego razu!
-

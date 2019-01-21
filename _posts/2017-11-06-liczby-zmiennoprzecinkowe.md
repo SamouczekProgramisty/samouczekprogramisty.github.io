@@ -1,5 +1,6 @@
 ---
 title: Liczby zmiennoprzecinkowe
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Programowanie
 - Wiedza ogólna
@@ -75,7 +76,7 @@ Aby zapisać liczbę wymierną, która ma zarówno część całkowitą i ułamk
 
 ### Notacja naukowa a liczby wymierne
 
-W matematyce poza standardowym zapisem liczb, który już znasz 10, 123,15 czy 0,00000827194 istnieje tak zwana notacja naukowa. Jest ona pomocna przy zapisywaniu bardzo dużych/małych liczb w stosunkowo zwięzłej formie. Na przykład liczbę 0,00000827194 można zapisać jako \\(8,27194 * 10^{-6}\\). Inna postać tej liczby to 8,27194e-6.
+W matematyce poza standardowym zapisem liczb, który już znasz 10, 123,15 czy 0,00000827194 istnieje tak zwana notacja naukowa. Jest ona pomocna przy zapisywaniu bardzo dużych/małych liczb w stosunkowo zwięzłej formie. Na przykład liczbę 0,00000827194 można zapisać jako \(8,27194 * 10^{-6}\). Inna postać tej liczby to 8,27194e-6.
 
 W języku Java możesz zobaczyć jak dana liczba wygląda w postaci naukowej:
 
@@ -132,7 +133,7 @@ Liczby mogą być dodanie, ujemne lub 0. Znak służy do określenia czy dana li
 
 ### Wykładnik
 
-Wykładnik to liczba zapisana na ośmiu bitach. Używa się tu tak zwanego kodowania z nadmiarem. W tym przypadku nadmiar wynosi -127. Oznacza to, że od zakodowanej liczby należy odjąć liczbę 127 aby uzyskać zakodowaną wartość. Standardowo na ośmiu bitach możemy zapisać liczbę \\(2^8 -1 == 255\\). Używając kodowania z nadmiarem -127 na ośmiu bitach możemy zakodować liczby z zakresu [-127, 128]. 
+Wykładnik to liczba zapisana na ośmiu bitach. Używa się tu tak zwanego kodowania z nadmiarem. W tym przypadku nadmiar wynosi -127. Oznacza to, że od zakodowanej liczby należy odjąć liczbę 127 aby uzyskać zakodowaną wartość. Standardowo na ośmiu bitach możemy zapisać liczbę \(2^8 -1 == 255\). Używając kodowania z nadmiarem -127 na ośmiu bitach możemy zakodować liczby z zakresu [-127, 128]. 
 
 Innymi słowy wykładnik w liczbie zmiennoprzecinkowej może być z zakresu -127 do 128[^precyzja].
 
@@ -142,9 +143,9 @@ Innymi słowy wykładnik w liczbie zmiennoprzecinkowej może być z zakresu -127
 
 Mantysa zapisana jest na 23 bitach. Zawiera ona właściwą liczbę, która zostanie pomnożona przez wykładnik zgodnie ze wzorem podanym wyżej.
 
-Mantysa w większości przypadków ma postać znormalizowaną. Najłatwiej będzie mi to wytłumaczyć na przykładzie. Załóżmy, że mamy liczbę zapisaną binarnie `1011,1101`. Znormalizowana postać tej liczby to \\(1,0111101 * 2^3\\). Jak widzisz przecinek przesunięty jest do pierwszej jedynki.
+Mantysa w większości przypadków ma postać znormalizowaną. Najłatwiej będzie mi to wytłumaczyć na przykładzie. Załóżmy, że mamy liczbę zapisaną binarnie `1011,1101`. Znormalizowana postać tej liczby to \(1,0111101 * 2^3\). Jak widzisz przecinek przesunięty jest do pierwszej jedynki.
 
-Inny przykład to `0,0001010110001`, która po normalizacji wygląda następująco \\(1,010110001 * 2^{-4}\\).
+Inny przykład to `0,0001010110001`, która po normalizacji wygląda następująco \(1,010110001 * 2^{-4}\).
 
 W znormalizowanej mantysie pierwszą cyfrą jest zawsze 1. W związku z tym jest pomijana. Zatem mając liczbę `1,010110001` mantysa będzie miała wartość (spacje dla czytelności):
 

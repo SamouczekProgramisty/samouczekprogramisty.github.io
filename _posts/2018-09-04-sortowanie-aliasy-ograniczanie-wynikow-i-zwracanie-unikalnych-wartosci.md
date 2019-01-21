@@ -1,5 +1,6 @@
 ---
 title: Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości
+date: 2018-11-11 21:07:14 +0100
 categories:
 - Bazy danych
 - Kurs SQL

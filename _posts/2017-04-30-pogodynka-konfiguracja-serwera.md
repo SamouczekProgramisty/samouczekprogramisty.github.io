@@ -1,6 +1,6 @@
 ---
 title: Pogodynka - konfiguracja serwera
-date: '2017-04-30 12:13:51 +0200'
+date: 2017-11-11 22:14:39 +0100
 categories:
 - DSP2017
 - Projekty
@@ -71,7 +71,8 @@ class pogodynka::java {
   file {
     'java-apt-list':
       path    => '/etc/apt/sources.list.d/webupd8team-java.list',
-      content => "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main\ndeb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main";
+      content => "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main
+deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main";
     
     'java-apt-key':
       path   => '/etc/apt/trusted.gpg.d/webupd8.gpg',

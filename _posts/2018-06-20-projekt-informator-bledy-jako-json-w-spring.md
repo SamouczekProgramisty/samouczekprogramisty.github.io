@@ -1,5 +1,6 @@
 ---
 title: Projekt Informator zasilenie bazy, Spring i błędy jako JSON
+date: 2018-06-27 00:20:03 +0200
 categories:
 - Projekty
 - Projekt Informator

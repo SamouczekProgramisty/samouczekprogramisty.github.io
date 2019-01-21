@@ -1,5 +1,6 @@
 ---
 title: Walidacja obiektów w języku Java
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Kurs aplikacji webowych
 permalink: /walidacja-obiektow-w-jezyku-java/
@@ -305,9 +306,9 @@ Te magiczne znaczki to nic innego ja próba interpretowania pliku `properties` z
 
 Przy takim ustawieniu możesz tworzyć pliki properties w normalny sposób. IntelliJ pod spodem zrobi za Ciebie odpowiednią konwersję znaków. Na przykład powyższy plik `properties` przerobiony przez IntelliJ wygląda następująco:
 
-    javax.validation.constraints.Size.message=musi by\u0107 d\u0142u\u017Csze ni\u017C {min}
-    javax.validation.constraints.NotNull.message=nie mo\u017Ce by\u0107 puste
-    javax.validation.constraints.Future.message=musi by\u0107 w przysz\u0142o\u015Bci
+    javax.validation.constraints.Size.message=musi być dłuższe niż {min}
+    javax.validation.constraints.NotNull.message=nie może być puste
+    javax.validation.constraints.Future.message=musi być w przyszłości
 
 Java 9 [rozwiązuje](http://openjdk.java.net/jeps/226) ten problem przez ustawienie domyślnego kodowania na UTF-8 co dużo lepiej odpowiada obecnym standardom.
 {% endcapture %}

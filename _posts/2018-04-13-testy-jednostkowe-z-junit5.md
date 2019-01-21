@@ -1,6 +1,6 @@
 ---
 title: Testy jednostkowe z JUnit 5
-categories:
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Programista rzemieślnik
 permalink: /testy-jednostkowe-z-junit5/

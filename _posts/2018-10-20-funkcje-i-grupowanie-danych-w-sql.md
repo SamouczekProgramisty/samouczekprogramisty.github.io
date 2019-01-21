@@ -1,5 +1,6 @@
 ---
 title: Funkcje i grupowanie wierszy w SQL
+date: 2018-10-22 00:40:25 +0200
 categories:
 - Bazy danych
 - Kurs SQL

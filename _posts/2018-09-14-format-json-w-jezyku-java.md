@@ -1,5 +1,6 @@
 ---
 title: Format JSON w języku Java
+date: 2018-11-27 20:44:29 +0100
 categories:
 - Narzędzia
 - Kurs aplikacji webowych
@@ -86,12 +87,12 @@ Białe znaki (tabulator, znak nowej linii[^nowalinia] czy spacja) są ignorowane
 
 #### Łańcuch znaków
 
-Łańcuchy znaków jakie są każdy widzi ;). Łańcuch znaków to ciąg znaków otoczony `"`. Dodatkowo znak `\` pozwala na wprowadzenie znaków specjalnych. Na przykład `\"` oznacza cudzysłów, a `\\` ukośnik. Kilka przykładowych wartości:
+Łańcuchy znaków jakie są każdy widzi ;). Łańcuch znaków to ciąg znaków otoczony `"`. Dodatkowo znak `\` pozwala na wprowadzenie znaków specjalnych. Na przykład `\"` oznacza cudzysłów, a `\` ukośnik. Kilka przykładowych wartości:
 
 - `"some value"`,
 - `"zażółć gęślą jaźń"`,
 - `"true"`,
-- `"\\\""`, reprezentuje łańcuch znaków `\"`.
+- `"\\""`, reprezentuje łańcuch znaków `\"`.
 
 #### Obiekt
 

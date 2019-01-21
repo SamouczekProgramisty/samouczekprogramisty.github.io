@@ -1,5 +1,6 @@
 ---
 title: Zmiana branży - zostań programistą
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Różne
 permalink: /zmiana-branzy-zostan-programista/

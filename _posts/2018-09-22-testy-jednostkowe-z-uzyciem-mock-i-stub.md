@@ -1,5 +1,6 @@
 ---
 title: Testy jednostkowe z użyciem mock i stub
+date: 2018-09-28 21:34:55 +0200
 categories:
 - Testy jednostkowe
 - Dobre praktyki
@@ -473,4 +474,3 @@ Jeśli będziesz mieć jakiekolwiek problemy zawsze możesz rzucić okiem na [pr
 Po przeczytaniu tego artykułu wiesz czym jest mock i stub. Na przykładzie potrafisz pokazać różnicę pomiędzy obiektami tego typu. Po rozwiązaniu zadania udało Ci się w praktyce sprawdzić swoją wiedzę zdobytą w tym artykule. 
 
 Mam nadzieję, że artykuł przypadł Ci do gustu, daj znać w komentarzach jak użycie mock'ów i stub'ów wpływa na Twoje testy jednostkowe. Jeśli nie chcesz pominąć kolejnych wpisów proszę dopisz się do Samouczkowego Newslettera i polub Samouczka na Facebook'u.
-

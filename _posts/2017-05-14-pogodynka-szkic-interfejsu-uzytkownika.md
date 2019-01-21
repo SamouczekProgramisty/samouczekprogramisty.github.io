@@ -1,6 +1,6 @@
 ---
 title: Pogodynka - szkic interfejsu użytkownika
-date: '2017-05-14 22:56:07 +0200'
+date: 2017-11-11 22:14:39 +0100
 categories:
 - DSP2017
 - Projekty

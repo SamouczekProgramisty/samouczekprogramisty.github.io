@@ -1,5 +1,6 @@
 ---
 title: Książki dla programistów
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Wiedza ogólna
 permalink: /ksiazki-dla-programistow/

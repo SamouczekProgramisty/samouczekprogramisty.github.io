@@ -1,5 +1,6 @@
 ---
 title: Strumienie w języku Java
+date: 2019-01-10 22:58:06 +0100
 categories:
 - Kurs programowania Java
 permalink: /strumienie-w-jezyku-java/
@@ -451,4 +452,3 @@ Poniżej zebrałem dla Ciebie kilka dodatkowych źródeł, które pozwolą spojr
 Strumienie wraz z wyrażeniami lambda to bardzo użyteczne narzędzie. Po lekturze artykułu wiesz już czym są strumienie i jak z nimi pracować. Potrafisz utworzyć strumień i zaaplikować do niego zestaw operacji. Znasz dobre praktyki pracy ze strumieniami. Rozwiązując ćwiczenia utrwaliłeś wiedzę z artykułu w praktyce.
 
 Na koniec mam do Ciebie prośbę. Podziel się linkiem do artykułu ze swoimi znajomymi jeśli ten artykuł był dla Ciebie wartościowy. Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera i polub profil Samouczka Programisty na Facebooku. Do następnego razu!
-

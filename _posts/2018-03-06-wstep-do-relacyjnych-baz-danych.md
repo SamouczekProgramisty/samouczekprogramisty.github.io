@@ -1,5 +1,6 @@
 ---
 title: Wstęp do relacyjnych baz danych
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Bazy danych
 permalink: /wstep-do-relacyjnych-baz-danych/

@@ -1,6 +1,6 @@
 ---
 title: Wyrażenia lambda w języku Java
-date: '2017-07-26 21:28:10 +0200'
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Kurs programowania Java
 permalink: /wyrazenia-lambda-w-jezyku-java/

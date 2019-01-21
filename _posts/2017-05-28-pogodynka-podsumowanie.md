@@ -1,6 +1,6 @@
 ---
 title: Pogodynka - podsumowanie
-date: '2017-05-28 18:38:50 +0200'
+date: 2017-11-11 22:14:39 +0100
 categories:
 - DSP2017
 - Projekty
@@ -75,4 +75,3 @@ Muszę też powiedzieć, że zdecydowanie nie doszacowałem części związanej 
 Podsumowując całość w jednym zdaniu. Bardzo się cieszę, że Pogodynka zakończyła się sukcesem :).
 
 W przyszłości planuję realizację innych projektów tego typu. Może chciałbyś zobaczyć konkretny projekt realizowany w ten sposób? Daj znać w komentarzac, razem na pewno uda się nam wybrać coś ciekawego :).
-

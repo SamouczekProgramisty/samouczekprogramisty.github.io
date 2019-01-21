@@ -1,5 +1,6 @@
 ---
 title: Dependency Inversion Principle, Dependency Injection i Inversion of Control
+date: 2018-11-18 13:05:47 +0100
 categories:
 - Dobre praktyki
 - Programista rzemieślnik

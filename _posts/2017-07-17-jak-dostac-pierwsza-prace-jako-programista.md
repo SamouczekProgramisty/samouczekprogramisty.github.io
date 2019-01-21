@@ -1,6 +1,6 @@
 ---
 title: Jak dostać pierwszą pracę jako programista
-date: '2017-07-17 19:17:59 +0200'
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Początkujący programista
 permalink: /jak-dostac-pierwsza-prace-jako-programista/
