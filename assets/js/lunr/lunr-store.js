@@ -475,7 +475,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/rest-web-service-z-java-ee-czesc-2/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/01/22_rest_web_service_2_artykul.jpg"},{
         "title": "Strumienie w języku Java",
-        "excerpt":"To jest jeden z artykułów w ramach darmowego kursu programowania w Javie. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. W szczególności potrzebna będzie wiedza na temat kolekcji, typów generycznych i wyrażeń lambda. Czym są strumienie Strumienie służą do przetwarzania danych. Dane...","categories": ["Kurs programowania Java"],
+        "excerpt":"To jest jeden z artykułów w ramach darmowego kursu programowania w Javie. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. W szczególności potrzebna będzie wiedza na temat kolekcji, typów generycznych i wyrażeń lambda. Czym są strumienie Strumienie służą do przetwarzania danych. Zawierają1...","categories": ["Kurs programowania Java"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/01/30_strumienie_w_jezyku_java_artykul.jpg"},{

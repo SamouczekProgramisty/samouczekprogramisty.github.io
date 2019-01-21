@@ -35,6 +35,8 @@
 
 
 
+  <meta property="article:modified_time" content="2019-01-10T22:58:06+01:00">
+
 
 
   
@@ -224,7 +226,7 @@
     <meta itemprop="headline" content="Strumienie w języku Java">
     <meta itemprop="description" content="W artykule tym przeczytasz o strumieniach w języku Java. Dowiesz się czym są strumienie, poznasz podstawowe operacje na strumieniach. Wszystko jak zwykle poparte przykładami kodu. Zdobytą wiedzę będziesz mógł przećwiczyć rozwiązując przykładowe ćwiczenia.">
     <meta itemprop="datePublished" content="January 30, 2018">
-    
+    <meta itemprop="dateModified" content="January 10, 2019">
 
     <div class="page__inner-wrap">
       
@@ -303,7 +305,9 @@
 
 <h2 id="czym-są-strumienie">Czym są strumienie</h2>
 
-<p>Strumienie służą do przetwarzania danych. Dane mogą być przechowywane w kolekcji, mogą być wynikiem pracy z <a href="/wyrazenia-regularne-w-jezyku-java/">wyrażeniami regularnymi</a>. W strumień możesz opakować praktycznie dowolny zestaw danych. Strumienie pozwalają w łatwy sposób zrównoleglić pracę na danych. Dzięki temu przetwarzanie dużych zbiorów danych może być dużo szybsze. Strumienie kładą nacisk na operacje jakie należy przeprowadzić na danych.</p>
+<p>Strumienie służą do przetwarzania danych. Zawierają<sup id="fnref:really"><a href="#fn:really" class="footnote">1</a></sup> dane i pozwalają na opisanie co chcesz zrobić tymi danymi.</p>
+
+<p>Dane mogą być przechowywane w kolekcji, mogą być wynikiem pracy z <a href="/wyrazenia-regularne-w-jezyku-java/">wyrażeniami regularnymi</a>. W strumień możesz opakować praktycznie dowolny zestaw danych. Strumienie pozwalają w łatwy sposób zrównoleglić pracę na danych. Dzięki temu przetwarzanie dużych zbiorów danych może być dużo szybsze. Strumienie kładą nacisk na operacje jakie należy przeprowadzić na danych.</p>
 
 <p class="notice--warning">Niestety pojęcie strumienia jest dość szerokie. Możesz się z nim także spotkać w przypadku pracy z plikami. W tym artykule mówiąc o strumieniach mam na myśli klasy implementujące interfejs <a href="https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html"><code class="highlighter-rouge">Stream</code></a>.</p>
 
@@ -344,7 +348,7 @@
 <span class="o">);</span>
 </code></pre></div></div>
 
-<p>Lista <code class="highlighter-rouge">games</code> zawiera 10 tytułów gier planszowych. Pochodzą one z listy najbardziej popularnych gier według portalu <a href="https://boardgamegeek.com/browse/boardgame">BGG</a><sup id="fnref:gry"><a href="#fn:gry" class="footnote">1</a></sup>. Załóżmy, że chciałbyś zrobić znajomemu prezent. Chcesz kupić grę, gra powinna spełniać następujące warunki:</p>
+<p>Lista <code class="highlighter-rouge">games</code> zawiera 10 tytułów gier planszowych. Pochodzą one z listy najbardziej popularnych gier według portalu <a href="https://boardgamegeek.com/browse/boardgame">BGG</a><sup id="fnref:gry"><a href="#fn:gry" class="footnote">2</a></sup>. Załóżmy, że chciałbyś zrobić znajomemu prezent. Chcesz kupić grę, gra powinna spełniać następujące warunki:</p>
 
 <ul>
   <li>powinna pozwolić na grę w więcej niż 4 osoby,</li>
@@ -383,7 +387,7 @@
   
 <p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
 
-<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1800 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2300 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
 
 <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
 
@@ -432,7 +436,7 @@
   <li>zakończenie strumienia.</li>
 </ul>
 
-<p>Każdy strumień ma dokładnie jedną metodę, która go tworzy na podstawie danych źródłowych<sup id="fnref:zrodlo"><a href="#fn:zrodlo" class="footnote">2</a></sup>. Następnie dane te są przetwarzane przez dowolną liczbę operacji. Każda z tych operacji tworzy nowy strumień danych wywodzący się z poprzedniego. Na samym końcu strumień może mieć dokładnie jedną metodę kończącą pracę ze strumieniem.</p>
+<p>Każdy strumień ma dokładnie jedną metodę, która go tworzy na podstawie danych źródłowych<sup id="fnref:zrodlo"><a href="#fn:zrodlo" class="footnote">3</a></sup>. Następnie dane te są przetwarzane przez dowolną liczbę operacji. Każda z tych operacji tworzy nowy strumień danych wywodzący się z poprzedniego. Na samym końcu strumień może mieć dokładnie jedną metodę kończącą pracę ze strumieniem.</p>
 
 <h3 id="wymagania-dla-operacji">Wymagania dla operacji</h3>
 
@@ -630,7 +634,7 @@ Po
 
 <h3 id="filtrowanie-na-początku">Filtrowanie na początku</h3>
 
-<p>W związku z tym, że operacje na strumieniach wykonywane są tylko wtedy gdy jest to konieczne warto ograniczyć liczbę elementów najwcześniej jak to możliwe. Dzięki takiej prostej operacji możemy znacząco ograniczyć liczbę elementów, na których wykonana będzie czasochłonna metoda. W przykładzie poniżej symuluję czasochłonne wykonanie przez <code class="highlighter-rouge">Thread.sleep(100)</code>. Wywołanie to “usypia” wątek na 100 milisekund <sup id="fnref:przyklad"><a href="#fn:przyklad" class="footnote">3</a></sup>:</p>
+<p>W związku z tym, że operacje na strumieniach wykonywane są tylko wtedy gdy jest to konieczne warto ograniczyć liczbę elementów najwcześniej jak to możliwe. Dzięki takiej prostej operacji możemy znacząco ograniczyć liczbę elementów, na których wykonana będzie czasochłonna metoda. W przykładzie poniżej symuluję czasochłonne wykonanie przez <code class="highlighter-rouge">Thread.sleep(100)</code>. Wywołanie to “usypia” wątek na 100 milisekund <sup id="fnref:przyklad"><a href="#fn:przyklad" class="footnote">4</a></sup>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">timeConsumingTransformation</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">try</span> <span class="o">{</span>
@@ -733,9 +737,11 @@ Po
 <p>Strumienie wraz z wyrażeniami lambda to bardzo użyteczne narzędzie. Po lekturze artykułu wiesz już czym są strumienie i jak z nimi pracować. Potrafisz utworzyć strumień i zaaplikować do niego zestaw operacji. Znasz dobre praktyki pracy ze strumieniami. Rozwiązując ćwiczenia utrwaliłeś wiedzę z artykułu w praktyce.</p>
 
 <p>Na koniec mam do Ciebie prośbę. Podziel się linkiem do artykułu ze swoimi znajomymi jeśli ten artykuł był dla Ciebie wartościowy. Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera i polub profil Samouczka Programisty na Facebooku. Do następnego razu!</p>
-
 <div class="footnotes">
   <ol>
+    <li id="fn:really">
+      <p>To jest pewne uproszczenie. Strumienie nie muszą zwierać danych, które zwracają. Na przykład strumień generujący kolejne liczby pseudolosowe nie zawiera tych liczb, jedynie je generuje. <a href="#fnref:really" class="reversefootnote">&#8617;</a></p>
+    </li>
     <li id="fn:gry">
       <p>Sam bardzo często gram w planszówki ;). Grałem w większość wymienionych tu gier - mogę je z czystym sumieniem polecić. <a href="#fnref:gry" class="reversefootnote">&#8617;</a></p>
     </li>
@@ -754,7 +760,7 @@ Po
   
 <p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
 
-<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 1800 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2300 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
 
 <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
 
@@ -789,7 +795,7 @@ Po
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-01-30">2018-01-30</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-01-10">2019-01-10</time></p>
         
         <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
       </footer>
@@ -880,40 +886,6 @@ Po
       <div class="archive__item-teaser">
         <img src=
           
-            "/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
-          
-          alt="">
-      </div>
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  16 minut(y)
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-      <div class="archive__item-teaser">
-        <img src=
-          
             "/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"
           
           alt="">
@@ -969,6 +941,40 @@ Po
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">Artykuł opisuje mechanizm walidacji obiektów. Po lekturze tego artykułu dowiesz się czym jest specyfikacja Bean Validation. Poznasz najczęściej używane reguł...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/zmiana-branzy-zostan-programista/" rel="permalink">Zmiana branży - zostań programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  26 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Na rynku IT brakuje pracowników. Uczelnie nie nadążają z dostarczaniem nowych specjalistów. Popyt znacząco przewyższa podaż przez co rynek IT jest rynkiem pr...</p>
   </article>
 </div>
         
