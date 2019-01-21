@@ -1,5 +1,5 @@
 ---
-date: 2018-11-18 13:09:11 +0100
+last_modified_at: 2018-11-18 13:09:11 +0100
 title: Obiekty w języku Java
 categories:
 - Kurs programowania Java

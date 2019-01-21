@@ -1,5 +1,5 @@
 ---
-date: 2018-11-22 23:33:36 +0100
+last_modified_at: 2018-11-22 23:33:36 +0100
 title: Interfejsy w języku Java
 categories:
 - Kurs programowania Java

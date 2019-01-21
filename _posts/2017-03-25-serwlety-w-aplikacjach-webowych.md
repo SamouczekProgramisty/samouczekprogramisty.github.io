@@ -1,6 +1,6 @@
 ---
 title: Serwlety w aplikacjach webowych
-date: 2018-09-10 22:37:19 +0200
+last_modified_at: 2018-09-10 22:37:19 +0200
 categories:
 - DSP2017
 - Kurs aplikacji webowych

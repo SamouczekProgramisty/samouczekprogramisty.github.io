@@ -1,6 +1,6 @@
 ---
 title: Od zera do developera, czyli jak zostać programistą
-date: 2018-09-30 20:21:44 +0200
+last_modified_at: 2018-09-30 20:21:44 +0200
 categories:
 - Programowanie
 - Początkujący programista

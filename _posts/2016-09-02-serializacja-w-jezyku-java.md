@@ -1,5 +1,5 @@
 ---
-date: 2018-07-20 20:38:35 +0200
+last_modified_at: 2018-07-20 20:38:35 +0200
 title: Serializacja w języku Java
 categories:
 - Kurs programowania Java

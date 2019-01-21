@@ -1,6 +1,6 @@
 ---
 title: Klauzula WHERE w zapytaniach SQL
-date: 2018-09-05 23:05:10 +0200
+last_modified_at: 2018-09-05 23:05:10 +0200
 categories:
 - Bazy danych
 - Kurs SQL

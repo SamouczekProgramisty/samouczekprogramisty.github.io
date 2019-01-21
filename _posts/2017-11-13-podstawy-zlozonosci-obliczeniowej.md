@@ -1,6 +1,6 @@
 ---
 title: Podstawy złożoności obliczeniowej
-date: 2018-09-22 06:08:45 +0200
+last_modified_at: 2018-09-22 06:08:45 +0200
 categories:
 - Programowanie
 - Wiedza ogólna

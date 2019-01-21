@@ -1,6 +1,6 @@
 ---
 title: Pobieranie danych z bazy - SELECT
-date: 2018-11-22 23:16:05 +0100
+last_modified_at: 2018-11-22 23:16:05 +0100
 categories:
 - Bazy danych
 - Kurs SQL

@@ -1,6 +1,6 @@
 ---
 title: Samouczek na rozmowie - zagnieżdżona struktura
-date: 2018-11-12 22:00:17 +0100
+last_modified_at: 2018-11-12 22:00:17 +0100
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa

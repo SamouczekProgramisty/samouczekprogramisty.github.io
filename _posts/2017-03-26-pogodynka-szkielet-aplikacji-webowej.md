@@ -1,6 +1,6 @@
 ---
 title: Pogodynka - szkielet aplikacji webowej
-date: 2018-08-24 22:22:38 +0200
+last_modified_at: 2018-08-24 22:22:38 +0200
 categories:
 - DSP2017
 - Projekty

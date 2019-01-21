@@ -1,5 +1,5 @@
 ---
-date: 2019-01-09 21:43:05 +0100
+last_modified_at: 2019-01-09 21:43:05 +0100
 title: Zestaw ćwiczeń dla początkujących programistów
 categories:
 - Kurs programowania Java

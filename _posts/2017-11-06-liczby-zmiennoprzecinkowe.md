@@ -1,6 +1,6 @@
 ---
 title: Liczby zmiennoprzecinkowe
-date: 2018-07-18 20:43:32 +0200
+last_modified_at: 2018-07-18 20:43:32 +0200
 categories:
 - Programowanie
 - Wiedza ogólna

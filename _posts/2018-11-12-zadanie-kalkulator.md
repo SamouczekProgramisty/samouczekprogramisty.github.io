@@ -1,6 +1,6 @@
 ---
 title: Samouczek na rozmowie - kalkulator
-date: 2018-11-18 14:00:20 +0100
+last_modified_at: 2018-11-18 14:00:20 +0100
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa

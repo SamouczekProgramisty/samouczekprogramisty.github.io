@@ -1,6 +1,6 @@
 ---
 title: Trzy lata samouczka
-date: 2018-10-12 10:17:53 +0200
+last_modified_at: 2018-10-12 10:17:53 +0200
 categories:
 - Różne
 permalink: /trzy-lata-samouczka/

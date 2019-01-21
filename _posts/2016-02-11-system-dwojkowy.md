@@ -1,7 +1,6 @@
 ---
-date: 2018-12-29 09:03:42 +0100
+last_modified_at: 2018-12-29 09:03:42 +0100
 title: System dwójkowy
-date: '2016-02-11 21:58:47 +0100'
 categories:
 - Programowanie
 - Wiedza ogólna

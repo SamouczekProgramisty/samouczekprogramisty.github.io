@@ -1,6 +1,6 @@
 ---
 title: Pogodynka - integracja
-date: 2017-11-11 22:14:39 +0100
+last_modified_at: 2017-11-11 22:14:39 +0100
 categories:
 - DSP2017
 - Projekty

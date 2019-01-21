@@ -1,5 +1,5 @@
 ---
-date: 2019-01-09 20:54:02 +0100
+last_modified_at: 2019-01-09 20:54:02 +0100
 title: Pętle i instrukcje warunkowe w języku Java
 categories:
 - Kurs programowania Java

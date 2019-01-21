@@ -1,6 +1,6 @@
 ---
 title: Projekt Informator wprowadzenie
-date: 2018-06-20 20:57:35 +0200
+last_modified_at: 2018-06-20 20:57:35 +0200
 categories:
 - Projekty
 - Projekt Informator

@@ -1,5 +1,5 @@
 ---
-date: 2018-12-29 09:03:42 +0100
+last_modified_at: 2018-12-29 09:03:42 +0100
 title: Porównywanie obiektów, metody equals i hashCode w języku Java
 categories:
 - Kurs programowania Java

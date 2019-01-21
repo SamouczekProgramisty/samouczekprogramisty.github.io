@@ -1,6 +1,6 @@
 ---
 title: Klauzula JOIN w zapytaniach SQL
-date: 2018-11-22 23:20:12 +0100
+last_modified_at: 2018-11-22 23:20:12 +0100
 categories:
 - Bazy danych
 - Kurs SQL

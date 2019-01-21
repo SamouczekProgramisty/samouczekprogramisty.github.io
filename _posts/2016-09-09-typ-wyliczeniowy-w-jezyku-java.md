@@ -1,5 +1,5 @@
 ---
-date: 2018-06-20 20:57:35 +0200
+last_modified_at: 2018-06-20 20:57:35 +0200
 title: Typ wyliczeniowy w języku Java
 categories:
 - Kurs programowania Java

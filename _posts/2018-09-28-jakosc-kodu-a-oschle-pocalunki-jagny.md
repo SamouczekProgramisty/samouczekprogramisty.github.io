@@ -1,6 +1,6 @@
 ---
 title: Jakość kodu a oschłe pocałunki Jagny
-date: 2018-10-09 23:24:54 +0200
+last_modified_at: 2018-10-09 23:24:54 +0200
 categories:
 - Dobre praktyki
 - Programista rzemieślnik

@@ -1,6 +1,6 @@
 ---
 title: Struktury danych - lista wiązana
-date: 2018-12-29 09:03:42 +0100
+last_modified_at: 2018-12-29 09:03:42 +0100
 categories:
 - Programista rzemieślnik
 permalink: /struktury-danych-lista-wiazana/

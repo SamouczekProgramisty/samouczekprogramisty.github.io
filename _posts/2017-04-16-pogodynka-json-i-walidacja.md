@@ -1,6 +1,6 @@
 ---
 title: Pogodynka - JSON i walidacja
-date: 2018-04-03 22:45:34 +0200
+last_modified_at: 2018-04-03 22:45:34 +0200
 categories:
 - DSP2017
 - Projekty

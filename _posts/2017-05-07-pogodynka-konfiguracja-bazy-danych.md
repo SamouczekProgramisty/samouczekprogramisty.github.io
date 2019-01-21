@@ -1,6 +1,6 @@
 ---
 title: Pogodynka - konfiguracja bazy danych
-date: 2018-09-30 20:17:41 +0200
+last_modified_at: 2018-09-30 20:17:41 +0200
 categories:
 - DSP2017
 - Projekty

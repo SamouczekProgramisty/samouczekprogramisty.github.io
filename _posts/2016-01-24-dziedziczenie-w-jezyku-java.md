@@ -1,5 +1,5 @@
 ---
-date: 2018-08-20 16:31:08 +0200
+last_modified_at: 2018-08-20 16:31:08 +0200
 title: Dziedziczenie w języku Java
 categories:
 - Kurs programowania Java

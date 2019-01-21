@@ -1,6 +1,6 @@
 ---
 title: Advent of Code 2016 dzień 6
-date: 2018-11-24 08:04:40 +0100
+last_modified_at: 2018-11-24 08:04:40 +0100
 categories:
 - Strefa zadaniowa
 permalink: /advent-of-code-2016-dzien-6/

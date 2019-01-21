@@ -1,6 +1,6 @@
 ---
 title: Testy jednostkowe z użyciem mock i stub
-date: 2018-09-28 21:34:55 +0200
+last_modified_at: 2018-09-28 21:34:55 +0200
 categories:
 - Testy jednostkowe
 - Dobre praktyki
