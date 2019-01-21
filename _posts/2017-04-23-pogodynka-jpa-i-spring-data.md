@@ -1,6 +1,6 @@
 ---
 title: Pogodynka - JPA i Spring Data
-date: '2017-04-23 20:45:31 +0200'
+date: 2018-04-03 22:45:34 +0200
 categories:
 - DSP2017
 - Projekty

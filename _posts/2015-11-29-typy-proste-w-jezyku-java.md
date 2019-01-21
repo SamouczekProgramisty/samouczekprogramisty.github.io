@@ -1,4 +1,5 @@
 ---
+date: 2018-08-20 16:31:08 +0200
 title: Typy proste w języku Java
 categories:
 - Kurs programowania Java

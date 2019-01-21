@@ -1,6 +1,6 @@
 ---
 title: Advent of Code 2016 dzień 24
-date: '2016-12-26 08:23:00 +0100'
+date: 2018-11-24 08:04:40 +0100
 categories:
 - Strefa zadaniowa
 permalink: /advent-of-code-2016-dzien-24/

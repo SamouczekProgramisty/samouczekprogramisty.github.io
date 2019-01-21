@@ -1,6 +1,6 @@
 ---
+date: 2018-07-20 20:38:35 +0200
 title: Serializacja w języku Java
-date: '2016-09-02 17:26:33 +0200'
 categories:
 - Kurs programowania Java
 permalink: /serializacja-w-jezyku-java/

@@ -1,6 +1,6 @@
 ---
 title: Nagłówki, sesje i ciasteczka
-date: '2017-04-01 15:57:24 +0200'
+date: 2018-07-18 20:43:32 +0200
 categories:
 - DSP2017
 - Kurs aplikacji webowych

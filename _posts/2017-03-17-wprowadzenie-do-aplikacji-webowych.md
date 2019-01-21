@@ -1,6 +1,6 @@
 ---
 title: Wprowadzenie do aplikacji webowych
-date: '2017-03-17 21:39:50 +0100'
+date: 2018-08-20 16:31:08 +0200
 categories:
 - Kurs aplikacji webowych
 - DSP2017

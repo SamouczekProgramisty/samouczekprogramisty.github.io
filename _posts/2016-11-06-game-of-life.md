@@ -1,6 +1,6 @@
 ---
+date: 2018-06-20 20:57:35 +0200
 title: Game of Life
-date: '2016-11-06 14:01:08 +0100'
 categories:
 - Strefa zadaniowa
 permalink: /game-of-life/

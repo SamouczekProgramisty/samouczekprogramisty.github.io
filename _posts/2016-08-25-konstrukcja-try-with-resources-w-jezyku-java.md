@@ -1,6 +1,6 @@
 ---
+date: 2018-10-29 21:15:09 +0100
 title: Konstrukcja try-with-resources w języku Java
-date: '2016-08-25 18:45:08 +0200'
 categories:
 - Kurs programowania Java
 permalink: /konstrukcja-try-with-resources-w-jezyku-java/

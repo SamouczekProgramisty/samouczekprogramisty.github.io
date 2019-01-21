@@ -1,7 +1,7 @@
 ---
+date: 2018-06-23 00:53:41 +0200
 permalink: /czym-wlasciwie-jest-programowanie/
 title: Czym właściwie jest programowanie
-date: '2015-10-07 16:03:15 +0200'
 categories:
 - Programowanie
 header: 

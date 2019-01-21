@@ -1,6 +1,6 @@
 ---
+date: 2018-06-20 20:57:35 +0200
 title: Klasy wewnętrzne i anonimowe w języku Java
-date: '2016-10-13 21:42:15 +0200'
 categories:
 - Kurs programowania Java
 permalink: /klasy-wewnetrzne-i-anonimowe-w-jezyku-java/

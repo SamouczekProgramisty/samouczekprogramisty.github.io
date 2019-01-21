@@ -1,6 +1,6 @@
 ---
+date: 2018-06-23 00:53:41 +0200
 title: Operacje na plikach w języku Java
-date: '2016-08-17 18:14:32 +0200'
 categories:
 - Kurs programowania Java
 - Programowanie
@@ -49,7 +49,7 @@ Analogiczna ścieżka w systemach z rodziny Linux/Unix wygląda trochę inaczej:
 
     /katalog/plik.txt
 
-W kontekście języka Java taka różnica ma pewne konsekwencje. Otóż jeśli chcemy użyć literału `String` wówczas znak `\` musimy poprzedzić kolejnym `\`. Dzieje się tak ponieważ symbol `\` jest wykorzystywany w specjalny sposób. Zatem ścieżka `C:\katalog\plik.txt` zapisana w Javie jako `String` wygląda następująco `"C:\\katalog\\plik.txt"`.
+W kontekście języka Java taka różnica ma pewne konsekwencje. Otóż jeśli chcemy użyć literału `String` wówczas znak `\` musimy poprzedzić kolejnym `\`. Dzieje się tak ponieważ symbol `\` jest wykorzystywany w specjalny sposób. Zatem ścieżka `C:\katalog\plik.txt` zapisana w Javie jako `String` wygląda następująco `"C:\katalog\plik.txt"`.
 
 ### Ścieżka absolutna i relatywna
 
@@ -67,7 +67,7 @@ Załóżmy, że dysk C ma strukturę jak przedstawiono poniżej:
      │ └── plik_2.txt
      └── plik.txt
 
-Ścieżka absolutna do pliku plik\_2\_a.txt wygląda następująco `C:\folder_2\folder_2_a\plik_2_a.txt`. Możemy mówić również o ścieżce relatywnej. Mówimy o niej relatywna ponieważ określa adres pliku/katalogu relatywnie do miejsca, w którym się aktualnie znajdujemy.
+Ścieżka absolutna do pliku plik\_2\_a.txt wygląda następująco `C:older_2older_2_a\plik_2_a.txt`. Możemy mówić również o ścieżce relatywnej. Mówimy o niej relatywna ponieważ określa adres pliku/katalogu relatywnie do miejsca, w którym się aktualnie znajdujemy.
 
 Zakładając że znajdujemy się w katalogu `folder_2` wówczas nasza relatywna ścieżka do pliku `plik_2_a.txt` jet następująca `folder_2_a\plik_2_a.txt`.
 

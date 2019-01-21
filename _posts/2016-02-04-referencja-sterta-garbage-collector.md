@@ -1,4 +1,5 @@
 ---
+date: 2018-10-17 19:50:39 +0200
 title: Referencja, sterta i garbage collector - obiektów w Javie ciąg dalszy
 sections:
 - Kurs programowania Java

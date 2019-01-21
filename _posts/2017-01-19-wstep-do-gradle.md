@@ -1,6 +1,6 @@
 ---
 title: Wstęp do Gradle
-date: '2017-01-19 21:21:55 +0100'
+date: 2018-07-18 20:43:32 +0200
 categories:
 - Programista rzemieślnik
 permalink: /wstep-do-gradle/
@@ -304,4 +304,3 @@ Temat bynajmniej nie jest wyczerpany. W kolejnych artykułach, bez wstępu, któ
 Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do mojego newslettera i polub Samouczka na facebooku.
 
 Na koniec mam do Ciebie standardową prośbę, podziel się linkiem do artykułu ze znajomymi, zależy mi na dotarciu do jak największej liczby zapaleńców chcących uczyć się i doskonalić w programowaniu :). Do następnego razu!
-

@@ -1,6 +1,6 @@
 ---
+date: 2018-11-22 23:33:36 +0100
 title: Adnotacje w języku Java
-date: '2016-10-03 15:55:30 +0200'
 categories:
 - Kurs programowania Java
 permalink: /adnotacje-w-jezyku-java/

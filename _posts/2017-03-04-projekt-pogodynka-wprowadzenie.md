@@ -1,6 +1,6 @@
 ---
 title: Projekt Pogodynka - wprowadzenie
-date: '2017-03-04 13:42:38 +0100'
+date: 2018-07-18 20:43:32 +0200
 categories:
 - DSP2017
 - Projekty

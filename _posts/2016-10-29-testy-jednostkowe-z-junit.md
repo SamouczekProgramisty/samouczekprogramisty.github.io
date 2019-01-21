@@ -1,6 +1,6 @@
 ---
+date: 2018-11-13 21:16:35 +0100
 title: Testy jednostkowe z JUnit
-date: '2016-10-29 10:48:40 +0200'
 categories:
 - Programista rzemieślnik
 permalink: /testy-jednostkowe-z-junit/

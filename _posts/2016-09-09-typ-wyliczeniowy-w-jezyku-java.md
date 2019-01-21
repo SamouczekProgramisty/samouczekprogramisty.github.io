@@ -1,6 +1,6 @@
 ---
+date: 2018-06-20 20:57:35 +0200
 title: Typ wyliczeniowy w języku Java
-date: '2016-09-09 15:30:32 +0200'
 categories:
 - Kurs programowania Java
 permalink: /typ-wyliczeniowy-w-jezyku-java/
