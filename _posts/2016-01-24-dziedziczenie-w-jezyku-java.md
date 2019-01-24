@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-08-20 16:31:08 +0200
+last_modified_at: 2019-01-24 16:52:00 +0100
 title: Dziedziczenie w języku Java
 categories:
 - Kurs programowania Java
@@ -65,6 +65,23 @@ W przypadku dziedziczenia znaczenie ma także modyfikator `protected`. Element p
 
 Przygotowałem osobny artykuł poświęcony [modyfikatorom dostępu]({% post_url 2017-10-29-modyfikatory-dostepu-w-jezyku-java %}). Jeśli chcesz dowiedzieć się więcej o modyfikatorach powinieneś go przeczytać.
 {:.notice--info}
+
+Niżej możesz zobaczyć publiczną klasę `Greeter`. Używa ona trzech modyfikatorów dostępu: `public`, `protected` i `private`:
+
+- klasa `Greeter` ma modyfikator `public`,
+- atrybut `message` ma modyfikator `private`,
+- metoda `sayHello` ma modyfikator `protected`.
+
+
+```java
+public class Greeter {
+    private String message = "Hello!"
+
+    protected void sayHello() {
+        System.out.println(message);
+    }
+}
+```
 
 ## Przesłonięcie i przeciążenie metody
 
