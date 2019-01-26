@@ -1,4 +1,6 @@
 ---
+date: 2017-10-20 01:17:28 +0200
+last_modified_at: 2018-09-30 20:29:40 +0200 
 layout: single_page
 title: Kurs aplikacji webowych
 permalink: /kurs-aplikacji-webowych/

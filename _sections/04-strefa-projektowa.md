@@ -1,4 +1,6 @@
 ---
+date: 2018-08-22 20:23:01 +0200
+last_modified_at: 2018-08-24 22:23:18 +0200
 layout: single_page
 title: Strefa projektowa
 permalink: /strefa-projektowa/

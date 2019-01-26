@@ -1,4 +1,6 @@
 ---
+date: 2018-08-24 22:23:05 +0200
+last_modified_at: 2018-08-25 00:23:49 +0200
 layout: single_page
 title: Praca i rozmowa kwalifikacyjna
 permalink: /praca-i-rozmowa-kwalifikacyjna/

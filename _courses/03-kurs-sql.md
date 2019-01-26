@@ -1,4 +1,6 @@
 ---
+date: 2017-10-20 01:17:28 +0200
+last_modified_at: 2018-08-22 20:41:11 +0200
 layout: single_page
 title: Kurs SQL
 permalink: /kurs-sql/

@@ -1,4 +1,6 @@
 ---
+date: 2017-10-13 19:23:50 +0200
+last_modified_at: 2018-09-30 20:17:41 +0200
 layout: single_page
 title: Kurs programowania Java
 permalink: /kurs-programowania-java/

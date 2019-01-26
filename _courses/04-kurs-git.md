@@ -1,4 +1,6 @@
 ---
+date: 2018-09-28 16:34:06 +0200
+last_modified_at: 2018-09-28 21:34:55 +0200
 layout: single_page
 title: Kurs Git
 permalink: /kurs-git/
