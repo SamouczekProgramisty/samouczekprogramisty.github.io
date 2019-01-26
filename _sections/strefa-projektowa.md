@@ -4,6 +4,7 @@ last_modified_at: 2018-08-24 22:23:18 +0200
 layout: single_page
 title: Strefa projektowa
 permalink: /strefa-projektowa/
+order: 4
 header:
   teaser: /assets/images/splash/dzial_strefa_projektowa.jpg
   overlay_image: /assets/images/splash/dzial_strefa_projektowa.jpg

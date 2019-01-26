@@ -4,6 +4,7 @@ last_modified_at: 2018-08-25 00:56:35 +0200
 layout: single_page
 title: Wprowadzenie do informatyki
 permalink: /wprowadzenie-do-informatyki/
+order: 2
 header:
   teaser: /assets/images/splash/dzial_wprowadzenie_do_informatyki.jpeg
   overlay_image: /assets/images/splash/dzial_wprowadzenie_do_informatyki.jpeg

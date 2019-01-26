@@ -4,6 +4,7 @@ last_modified_at: 2018-08-22 21:47:58 +0200
 layout: single_page
 title: Strefa zadaniowa
 permalink: /strefa-zadaniowa/
+order: 3
 header:
   teaser: /assets/images/splash/dzial_strefa_zadaniowa.jpg
   overlay_image: /assets/images/splash/dzial_strefa_zadaniowa.jpg

@@ -4,6 +4,7 @@ last_modified_at: 2018-08-25 00:23:49 +0200
 layout: single_page
 title: Narzędzia i dobre praktyki
 permalink: /narzedzia-i-dobre-praktyki/
+order: 5
 header:
   teaser: /assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg
   overlay_image: /assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg

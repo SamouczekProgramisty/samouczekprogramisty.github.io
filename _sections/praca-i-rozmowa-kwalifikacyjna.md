@@ -4,6 +4,7 @@ last_modified_at: 2018-08-25 00:23:49 +0200
 layout: single_page
 title: Praca i rozmowa kwalifikacyjna
 permalink: /praca-i-rozmowa-kwalifikacyjna/
+order: 1
 header:
   teaser: /assets/images/splash/dzial_praca_i_rozmowa_kwalifikacyjna.jpg
   overlay_image: /assets/images/splash/dzial_praca_i_rozmowa_kwalifikacyjna.jpg
