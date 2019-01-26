@@ -584,6 +584,21 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/11/22_kauzula_join_w_zapytaniach_sql_artykul.jpg"},{
+        "title": "Strefa zadaniowa",
+        "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/strefa-zadaniowa/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_strefa_zadaniowa.jpg"},{
+        "title": "Narzędzia i dobre praktyki",
+        "excerpt":"Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować na co dzień. Narzędzia Wstęp do Gradle Walidacja obiektów w języku Java Format JSON...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg"},{
+        "title": "Strefa projektowa",
+        "excerpt":"Na blogu staram się pokazywać, że nauka powinna odbywać się poprzez praktykę. Właśnie z tego powodu realizuję projekty “od początku do końca”. Na tej stronie znajdziesz zestaw artykułów, które związane są z większymi projektami programistycznymi. Projekty Pogodynka Pogodynka to projekt, który polegał na udostępnieniu odczytów temperatury na żywo. Termometr cały...","categories": [],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/strefa-projektowa/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_strefa_projektowa.jpg"},{
         "title": "Praca i rozmowa kwalifikacyjna",
         "excerpt":"Prezentowanie swojej wiedzy to też umiejętność. Umiejętności tej także uczy się przez praktykę. Częściowo można ją zdobyć także w domu. Na tej stronie starałem się pogrupować materiały, które pomogą Ci w zdobyciu pracy jako programista. Pierwsza praca Pierwsza praca i rozmowa kwalifikacyjna to spory stres dla początkujących programistów. Sam wysłałem...","categories": [],
         "tags": [],
@@ -593,19 +608,4 @@ var store = [{
         "excerpt":"Studiowałem Informatykę na Politechnice Wrocławskiej. Nie jestem wykładowcą akademickim, więc nie oczekuj ode mnie akademickiej teorii ;). W artykułach teorię staram się pokazać w przyjazny i zrozumiały sposób, poparty przykładami. Tematy, które opisałem w artykułach znajdujących się na tej stronie to materiał, który moim zdaniem powinien znać każdy programista. Jeśli...","categories": [],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/wprowadzenie-do-informatyki/",
-        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_wprowadzenie_do_informatyki.jpeg"},{
-        "title": "Strefa zadaniowa",
-        "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
-        "tags": [],
-        "url": "http://www.samouczekprogramisty.pl/strefa-zadaniowa/",
-        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_strefa_zadaniowa.jpg"},{
-        "title": "Strefa projektowa",
-        "excerpt":"Na blogu staram się pokazywać, że nauka powinna odbywać się poprzez praktykę. Właśnie z tego powodu realizuję projekty “od początku do końca”. Na tej stronie znajdziesz zestaw artykułów, które związane są z większymi projektami programistycznymi. Projekty Pogodynka Pogodynka to projekt, który polegał na udostępnieniu odczytów temperatury na żywo. Termometr cały...","categories": [],
-        "tags": [],
-        "url": "http://www.samouczekprogramisty.pl/strefa-projektowa/",
-        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_strefa_projektowa.jpg"},{
-        "title": "Narzędzia i dobre praktyki",
-        "excerpt":"Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować na co dzień. Narzędzia Wstęp do Gradle Walidacja obiektów w języku Java Format JSON...","categories": [],
-        "tags": [],
-        "url": "http://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/",
-        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg"}]
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/splash/dzial_wprowadzenie_do_informatyki.jpeg"}]
