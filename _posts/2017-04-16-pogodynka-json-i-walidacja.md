@@ -43,7 +43,7 @@ Na tym etapie funkcjonalność testowałem wyłącznie z linii poleceń używaj�
     * Connection #0 to host localhost left intact
     {"result":"Temperature added"}
 
-W wyniku widzimy “piękną” odpowiedź w formacie JSON. Oczywiście sama temperatura jeszcze się nigdzie nie zapisuje - nie podłączyłem do tego bazy danych. Zajmę się tym w najbliższym tygodniu.
+W wyniku widzimy “piękną” odpowiedź w formacie JSON. Oczywiście sama temperatura jeszcze się nigdzie nie zapisuje – nie podłączyłem do tego bazy danych. Zajmę się tym w najbliższym tygodniu.
 
 Cała konwersja możliwa jest dzięki klasie [CustomDateTimeAdapter](https://github.com/SamouczekProgramisty/Pogodynka/blob/master/datavault/src/main/java/pl/samouczekprogramisty/pogodynka/datavault/configuration/conversion/CustomDateTimeAdapter.java). Następnie do automatycznego mechanizmu konwersji Springa [dodaję](https://github.com/SamouczekProgramisty/Pogodynka/blob/master/datavault/src/main/java/pl/samouczekprogramisty/pogodynka/datavault/configuration/WebAppConfiguration.java#L27) to właśnie rozszerzenie. Dzięki takiej konfiguracji obiekty zawierające instancję DateTime poprawnie tworzone są na podstawie zapytań zawierających dane w formacie JSON.
 
@@ -75,7 +75,7 @@ Proste dołączenie biblioteki w pliku [datavault.gradle](https://github.com/Sam
     * Connection #0 to host localhost left intact
     {"errors":["Field whenMeasured must not be empty!"]}
 
-## Kontroler - serce aplikacji
+## Kontroler – serce aplikacji
 
 Ta aplikacja to w praktyce jeden kontroller. Dodatkowo aplikacja zawiera drobną konfigurację rozszerzającą domyślne ustawienia.
 

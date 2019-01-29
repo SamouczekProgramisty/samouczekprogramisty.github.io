@@ -1,5 +1,5 @@
 ---
-title: Pogodynka - JPA i Spring Data
+title: Pogodynka – JPA i Spring Data
 last_modified_at: 2018-04-03 22:45:34 +0200
 categories:
 - DSP2017
@@ -31,7 +31,7 @@ Jeśli chcesz dowiedzieć się czegoś więcej o samym Gradle zachęcam do przec
 
 I tu wchodzą nam dwie wielkie kobyły ;). JPA czyli _Java Persistence API_ i ORM czyli _Object-Relational Mapping_. JPA to specyfikacja, która została włączona do specyfikacji EJB (ang. _Enterprise Java Beans_). Specyfikacja ta określa mechanizmy, które pozwalają na "proste" zarządzanie zawartością bazy danych przez obiekty w Java.
 
-Innymi słowy instancje klas odpowiadają wierszom w bazie danych. Mapowanie zawartości bazy danych na obiekty Javy to “mapowanie obiektowo-relacyjne” - ORM. Najszerzej stosowaną implementacją JPA jest Hibernate. To właśnie tę implementację użyłem w Pogodynce. Aby uzyskać wsparcie Hibernate niezbędne są następujące zależności:
+Innymi słowy instancje klas odpowiadają wierszom w bazie danych. Mapowanie zawartości bazy danych na obiekty Javy to “mapowanie obiektowo-relacyjne” – ORM. Najszerzej stosowaną implementacją JPA jest Hibernate. To właśnie tę implementację użyłem w Pogodynce. Aby uzyskać wsparcie Hibernate niezbędne są następujące zależności:
 
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.10.Final'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'

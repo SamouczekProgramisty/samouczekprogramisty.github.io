@@ -25,11 +25,11 @@ Instancje klasy `String` reprezentują łańcuchy znaków. Wewnętrznie znaki te
 
 Instancje klasy `String` są niemutowalne. Oznacza to tyle, że po stworzeniu instancji nie ma możliwości jej modyfikacji. Kilka metod wymienionych poniżej zwraca nowe instancje, pozostawiając tę na której zostały wywołane bez zmian:
 
-- [`replace`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#replace-char-char) - podmienia znak w łańcuchu znaków,
-- [`substring`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#substring-int-) - zwraca pewną część łańcucha znaków określoną indeksami,
-- [`toLowerCase`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toLowerCase--) - zamienia wielkie litery na małe w nowej instancji,
-- [`toUpperCase`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--) - zamienia łańcuch znaków na wielkie litery,
-- [`trim`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#trim--) - zwraca nową instancję bez początkowych i końcowych białych znaków.
+- [`replace`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#replace-char-char) – podmienia znak w łańcuchu znaków,
+- [`substring`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#substring-int-) – zwraca pewną część łańcucha znaków określoną indeksami,
+- [`toLowerCase`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toLowerCase--) – zamienia wielkie litery na małe w nowej instancji,
+- [`toUpperCase`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--) – zamienia łańcuch znaków na wielkie litery,
+- [`trim`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#trim--) – zwraca nową instancję bez początkowych i końcowych białych znaków.
 
 ## Co jeśli `String` nie ma metody, której potrzebuję?
 

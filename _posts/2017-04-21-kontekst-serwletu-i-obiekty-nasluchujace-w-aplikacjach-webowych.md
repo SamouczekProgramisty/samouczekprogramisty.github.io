@@ -135,7 +135,7 @@ Napisz serwlet, który wyświetli wszystkie atrybuty kontekstu. Dodatkowo niech 
 
 Uzupełnij tę aplikację o implementację interfejsu `ServletContextAttributeListener`. Niech twój słuchacz w momencie dodawania nowego atrybuty kontekstu doda kolejny atrybut z datą jego dodania. Na przykład jeśli dodamy atrybut o nazwie `pl.parametr` to automatycznie powinien zostać dodany atrybut `pl.parametr.when`. Wartością nowego atrybutu powinna być data dodania atrybutu.
 
-Pamiętaj żeby zabepieczyć się przed "nieskończoną pętlą" - twój obiekt zostanie także powiadomiony o dodaniu atrybutu `pl.parametr.when` i wtedy spróbuje dodać kolejny `pl.pamrater.when.when`, o którym także byłby powiadomiony.
+Pamiętaj żeby zabepieczyć się przed "nieskończoną pętlą" – twój obiekt zostanie także powiadomiony o dodaniu atrybutu `pl.parametr.when` i wtedy spróbuje dodać kolejny `pl.pamrater.when.when`, o którym także byłby powiadomiony.
 
 Jeśli będziesz miał problem z rozwiązaniem zadania możesz rzucić okiem na [przykładowe rozwiązanie](https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/04_kontekst/src/main/java/pl/samouczekprogramisty/kursaplikacjewebowe/exercise). Jak zwykle jednak zachęcam do samodzielego rozwiązania zadania. Wtedy nauczysz się najwięcej.
 
