@@ -43,6 +43,12 @@ Jak poznasz już bibliotekę pomagającą w pisaniu testów jednostkowych koniec
 * [Zagnieżdżona struktura]({% post_url 2018-08-26-zadanie-zagniezdzona-struktura %})
 * [Kalkulator]({% post_url 2018-11-12-zadanie-kalkulator %})
 
+### Wzorce projektowe
+
+Nie bez znaczenia są także wzorce projektowe. Na blogu opisałem kilka z nich. Artykuły poniżej zawierają dokładny opis, przykłady zastosowania i implementację poszczególnych wzorców projektowych
+
+* [Wzorzec projektowy adapter]({% post_url 2019-01-26-wzorzec-projektowy-adapter %})
+
 ## Co dalej?
 
 Skoro udało Ci się już poznać kilka użytecznych narzędzi i dobrych praktyk warto je wykorzystać. Proponuję Ci rozpoczęcie swojego projektu lub przećwiczenie ich w trakcie rozwiązywania zadań. Oba te tematy poruszam na blogu. Znajdziesz tu [projekty realizowane od początku do końca]({{ '/strefa-projektowa/' | absolute_url}}) jak i [zadania dla programistów z przykładowymi rozwiązaniami]({{ '/strefa-zadaniowa/' | absolute_url }}).
