@@ -1,5 +1,5 @@
 ---
-title: Pogodynka - naiwny termometr
+title: Pogodynka – naiwny termometr
 last_modified_at: 2018-07-18 20:43:32 +0200
 categories:
 - DSP2017
@@ -17,7 +17,7 @@ toc: false
 
 ## Malinka padła
 
-Niestety poprzedni tydzień minął pod znakiem kolejnych nieudanych prób wskrzeszenia mojej Malinki. Leżała ona już prawie 5 lat w szafie, przerzucana z miejsca na miejsce. Miała prawo “wysiąść”. Idę na łatwiznę - nie próbuję jej teraz naprawić. Wczoraj kupiłem nowszą wersję płytki, tym razem jest to Rasperry Pi 3 B, więc jest to już dużo mocniejszy układ, niż poprzedni. Ta nowa wersja ma też więcej portów USB, czego przyznam brakowało mi w wersji poprzedniej (jeszcze 5 lat temu jak płytka działała...). Używa też wbudowanego modułu do komunikacji WiFi co też jest sporym ułatwieniem.
+Niestety poprzedni tydzień minął pod znakiem kolejnych nieudanych prób wskrzeszenia mojej Malinki. Leżała ona już prawie 5 lat w szafie, przerzucana z miejsca na miejsce. Miała prawo “wysiąść”. Idę na łatwiznę – nie próbuję jej teraz naprawić. Wczoraj kupiłem nowszą wersję płytki, tym razem jest to Rasperry Pi 3 B, więc jest to już dużo mocniejszy układ, niż poprzedni. Ta nowa wersja ma też więcej portów USB, czego przyznam brakowało mi w wersji poprzedniej (jeszcze 5 lat temu jak płytka działała...). Używa też wbudowanego modułu do komunikacji WiFi co też jest sporym ułatwieniem.
 
 Przesyłka jest już w drodze, więc jeśli wszystko dobrze pójdzie powinienem mieć nową malinkę w poniedziałek u siebie.
 
@@ -47,15 +47,15 @@ Dzięki temu demonowi możesz na przykład sprawdzić aktualną temperaturę co 
 
 
 Kilka przykładów, powinno pomóc Ci lepiej zrozumieć ustawienia crontab’a:
-- `* * * * * <komenda>` - uruchom komendę co minutę,
-- `* 0 * * * <komenda>` - uruchom komendę co minutę w trakcie godziny 0,
-- `30 17 * * * <komenda>` - uruchom komendę codziennie o 17:30,
-- `15 4 ? * 0 <komenda>` - uruchom komendę co sobotę o 4:15,
-- `0-15 * * * * <komenda>` - uruchom komendę co minutę w pierwszych 16 minutach każdej godziny,
-- `0,5,10 * * * * <komenda>` - uruchom komendę w zerowej, piątek i dziesiątej minucie każdej godziny,
-- `*/5 * * * * <komenda>` - uruchom komendę co pięć minut,
+- `* * * * * <komenda>` – uruchom komendę co minutę,
+- `* 0 * * * <komenda>` – uruchom komendę co minutę w trakcie godziny 0,
+- `30 17 * * * <komenda>` – uruchom komendę codziennie o 17:30,
+- `15 4 ? * 0 <komenda>` – uruchom komendę co sobotę o 4:15,
+- `0-15 * * * * <komenda>` – uruchom komendę co minutę w pierwszych 16 minutach każdej godziny,
+- `0,5,10 * * * * <komenda>` – uruchom komendę w zerowej, piątek i dziesiątej minucie każdej godziny,
+- `*/5 * * * * <komenda>` – uruchom komendę co pięć minut,
 
-Właśnie ta ostatnia linijka przyda się w przypadku pogodynki - co 5 minut będę chciał pobierać aktualne wskazanie temperatury.
+Właśnie ta ostatnia linijka przyda się w przypadku pogodynki – co 5 minut będę chciał pobierać aktualne wskazanie temperatury.
 
 ## Monitorowanie programu
 
@@ -110,7 +110,7 @@ Tak oto wygląda crontab po uruchomieniu tego skryptu:
 
 ## Efekt finalny
 
-Aktualnie moduł termometru jest popchnięty najdalej jak tylko mogłem. Teraz czas na pozostałe elementy o czym przeczytasz za tydzień. W przyszłym tygodniu skupię się na kolejnym elemencie - aplikacji webowej, która będzie przyjmowała odczyt temperatury.
+Aktualnie moduł termometru jest popchnięty najdalej jak tylko mogłem. Teraz czas na pozostałe elementy o czym przeczytasz za tydzień. W przyszłym tygodniu skupię się na kolejnym elemencie – aplikacji webowej, która będzie przyjmowała odczyt temperatury.
 
 ## Podsumowanie
 

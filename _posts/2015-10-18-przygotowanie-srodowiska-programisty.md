@@ -46,7 +46,7 @@ A teraz kilka przykładów:
 
 ## Instalacja niezbędnych narzędzi
   
-Naszą naukę zaczniemy od języka Java. Jest to język obiektowy, wymagający wirtualnej maszyny (oba pojęcia wyjaśniłem poprzednio - zachęcam do powtórki w razie wątpliwości). Istnieje wiele implementacji wirtualnej maszyny Javy. Mówiąc o wielu implementacjach mam tu na myśli różne firmy dostarczające JVM (ang. _Java Virtual Machine_). Najbardziej popularną z nich jest maszyna wirtualna firmy Oracle. Zanim jednak przejdziemy przez proces instalacji chciałbym wyjaśnić Ci jedną ważną kwestię..
+Naszą naukę zaczniemy od języka Java. Jest to język obiektowy, wymagający wirtualnej maszyny (oba pojęcia wyjaśniłem poprzednio – zachęcam do powtórki w razie wątpliwości). Istnieje wiele implementacji wirtualnej maszyny Javy. Mówiąc o wielu implementacjach mam tu na myśli różne firmy dostarczające JVM (ang. _Java Virtual Machine_). Najbardziej popularną z nich jest maszyna wirtualna firmy Oracle. Zanim jednak przejdziemy przez proces instalacji chciałbym wyjaśnić Ci jedną ważną kwestię..
 
 ### Czym różni się JDK od JRE?
   

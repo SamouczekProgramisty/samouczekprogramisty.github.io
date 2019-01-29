@@ -8,7 +8,7 @@ permalink: /obiekty-w-jezyku-java/
 header:
     teaser: /assets/images/2015/11/01_obiekty_w_jezyku_java.jpg
     overlay_image: /assets/images/2015/11/01_obiekty_w_jezyku_java.jpg
-excerpt: "Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie - obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle czeka na Ciebie ćwiczenie. Do dzieła!"
+excerpt: "Czas na kolejny etap kursu programowania języka Java. W dzisiejszym odcinku wystąpią nowi bohaterowie – obiekty i pakiety. Zobaczymy też starych gości: kilka dobrych praktyk i dokładne opisy poparte przykładami. Bez wątpienia przyda się wiedza z poprzednich artykułów. Na końcu jak zwykle czeka na Ciebie ćwiczenie. Do dzieła!"
 disqus_page_identifier: 75 http://www.samouczekprogramisty.pl/?p=75
 ---
 
@@ -25,8 +25,8 @@ package pl.samouczekprogramisty.kursjava;
 ```
 
 Rozbijmy tę linię kodu na części pierwsze:
-- `package` - to słowo kluczowe podobnie jak `class` czy `if`, informuje kompilator o tym w jakim pakiecie znajduje się plik,
-- `pl.samouczekprogramisty.kursjava` - właściwa nazwa pakietu. Podobnie jak w przypadku omówionego w poprzednim artykule [nazewnictwa metod]({% post_url 2015-10-22-metody-w-jezyku-java %}) tutaj obowiązują podobne zasady. Dla uproszczenia możemy powiedzieć, że dozwolone są małe litery oraz znak kropki.
+- `package` – to słowo kluczowe podobnie jak `class` czy `if`, informuje kompilator o tym w jakim pakiecie znajduje się plik,
+- `pl.samouczekprogramisty.kursjava` – właściwa nazwa pakietu. Podobnie jak w przypadku omówionego w poprzednim artykule [nazewnictwa metod]({% post_url 2015-10-22-metody-w-jezyku-java %}) tutaj obowiązują podobne zasady. Dla uproszczenia możemy powiedzieć, że dozwolone są małe litery oraz znak kropki.
 
 Istnieje kilka zarezerwowanych nazw pakietów. Służą one do odróżnienia klas dostarczonych wraz z wirtualną maszyną Javy od klas tworzonych przez programistów. Innymi słowy pakiety tworzone przez Ciebie nie mogą zaczynać się od `java.` ani od `javax.`.
 
@@ -82,8 +82,8 @@ Kolejne 3 linie to komentarz w kodzie. Komentarz w kodzie to dodatkowa wiadomoś
 
 W języku Java występują 2 typy komentarzy:
 
-- komentarze w kilku liniach - przykład widzisz powyżej, wszystko co znajduję się pomiędzy `/**` a `*/` traktowane jest jako komentarz.
-- komentarz jednoliniowy - wszystko co znajduje się za `//` do końca linii traktowane jest jako komentarz. Parę przykładów pokazałem poniżej:
+- komentarze w kilku liniach – przykład widzisz powyżej, wszystko co znajduję się pomiędzy `/**` a `*/` traktowane jest jako komentarz.
+- komentarz jednoliniowy – wszystko co znajduje się za `//` do końca linii traktowane jest jako komentarz. Parę przykładów pokazałem poniżej:
 
 ```java
 int count = 3; // number of already read books
@@ -101,10 +101,10 @@ public class Cogwheel {
 ```
 
 Poniżej opiszę każdy z elementów osobno:
-- `public` - modyfikator dostępu. Temat [modyfikatorów dostępu]({% post_url 2017-10-29-modyfikatory-dostepu-w-jezyku-java %}) opisałem dokładniej w osobnym artykule. Na tym etapie możesz założyć, że przed klasą stawiamy słowo kluczowe `public` i oznacza ono, że jest ona widoczna dla innych klas,
-- `class` - słowo kluczowe informujące kompilator o tym, że ma do czynienia z definicją klasy,
-- `Cogwheel` - nazwa klasy. Przyjęło się, że nazwę klasy zaczynamy wielką literą. Podobnie jak w przypadku pakietów nie możesz używać wszystkich znaków. Dla uproszczenia możesz założyć, że nazwa klasy musi zaczynać się wielką literą, później możesz używać wielkich/mały liter bądź cyfr,
-- `{}` - para nawiasów określająca tak zwany blok, podobnie jak w metodzie grupuje on kilka instrukcji. Wszystkie linie kodu znajdujące się między nawiasami klamrowymi składają się na pełną definicję klasy.
+- `public` – modyfikator dostępu. Temat [modyfikatorów dostępu]({% post_url 2017-10-29-modyfikatory-dostepu-w-jezyku-java %}) opisałem dokładniej w osobnym artykule. Na tym etapie możesz założyć, że przed klasą stawiamy słowo kluczowe `public` i oznacza ono, że jest ona widoczna dla innych klas,
+- `class` – słowo kluczowe informujące kompilator o tym, że ma do czynienia z definicją klasy,
+- `Cogwheel` – nazwa klasy. Przyjęło się, że nazwę klasy zaczynamy wielką literą. Podobnie jak w przypadku pakietów nie możesz używać wszystkich znaków. Dla uproszczenia możesz założyć, że nazwa klasy musi zaczynać się wielką literą, później możesz używać wielkich/mały liter bądź cyfr,
+- `{}` – para nawiasów określająca tak zwany blok, podobnie jak w metodzie grupuje on kilka instrukcji. Wszystkie linie kodu znajdujące się między nawiasami klamrowymi składają się na pełną definicję klasy.
 
 Poniżej ta sama klasa ale już trochę bardziej rozbudowana
 
@@ -129,11 +129,11 @@ Pierwszy nowy element to tak zwany atrybut klasy:
 private int size;
 ```
 
-- `private` - modyfikator dostępu. Tym razem jest to słowo kluczowe `private`. Oznacza tyle, że dany element (w tym przypadku atrybut) dostępny jest wyłącznie z wnętrza danej klasy,
-- `int` - znany już typ,
-- `size` - nazwa atrybutu. Konwencja nazewnicza zakłada, że nazwy atrybutów piszemy małą literą. Podobnie jak poprzednio w nazwach możemy używać małych liter, wielkich liter i cyfr.
+- `private` – modyfikator dostępu. Tym razem jest to słowo kluczowe `private`. Oznacza tyle, że dany element (w tym przypadku atrybut) dostępny jest wyłącznie z wnętrza danej klasy,
+- `int` – znany już typ,
+- `size` – nazwa atrybutu. Konwencja nazewnicza zakłada, że nazwy atrybutów piszemy małą literą. Podobnie jak poprzednio w nazwach możemy używać małych liter, wielkich liter i cyfr.
 
-Kolejne dwie metody to tak zwane konstruktory. Zauważ, że ich definicje są specjalne - nie mają typu zwracanego. Konstruktor służy, jak sama nazwa wskazuje, do tworzenia nowych instancji klasy. Każda klasa musi mieć konstruktor. Konstruktory to specjalne metody, które inicjalizują instancje klas.
+Kolejne dwie metody to tak zwane konstruktory. Zauważ, że ich definicje są specjalne – nie mają typu zwracanego. Konstruktor służy, jak sama nazwa wskazuje, do tworzenia nowych instancji klasy. Każda klasa musi mieć konstruktor. Konstruktory to specjalne metody, które inicjalizują instancje klas.
 
 Konstruktory wywołuje się dokładnie tak samo jak inne metody, dodatkowo używamy słowa kluczowego `new`:
 
@@ -253,7 +253,7 @@ public class Engine {
 }
 ```
 
-W pierwszym przypadku w konstruktorze zostało użyte słowo kluczowe `this`. Było ono potrzebne aby kompilator był w stanie odróżnić parametr `cogwheel` od atrybutu klasy `cogwheel`. W drugim przypadku słowo to nie było konieczne ponieważ w tym kontekście od razu wiadomo czym jest `cogwheel` - jest atrybutem klasy. Oba konstruktory robią dokładnie to samo, przypisują wartość parametru to atrybutu nowej instancji.
+W pierwszym przypadku w konstruktorze zostało użyte słowo kluczowe `this`. Było ono potrzebne aby kompilator był w stanie odróżnić parametr `cogwheel` od atrybutu klasy `cogwheel`. W drugim przypadku słowo to nie było konieczne ponieważ w tym kontekście od razu wiadomo czym jest `cogwheel` – jest atrybutem klasy. Oba konstruktory robią dokładnie to samo, przypisują wartość parametru to atrybutu nowej instancji.
 
 ## Gettery i settery
 
@@ -297,4 +297,4 @@ Najwyższy czas na Twoje ćwiczenie. W ramach ćwiczenia utwórz nowy projekt, w
 
 ## Podsumowanie
 
-Bardzo się cieszę, że doczytałeś do tego miejsca! Jak poszło Ci z ćwiczeniem? Proszę daj znać w komentarzach. Jeśli podobają Ci się artykuły na blogu byłbym bardzo wdzięczny gdybyś polecił blog swoim znajomym. Jak już powtarzałem - w grupie łatwiej się uczy :) Polub stronę na Facebooku, a nie przegapisz żadnego nowego artykułu. Do zobaczenia!
+Bardzo się cieszę, że doczytałeś do tego miejsca! Jak poszło Ci z ćwiczeniem? Proszę daj znać w komentarzach. Jeśli podobają Ci się artykuły na blogu byłbym bardzo wdzięczny gdybyś polecił blog swoim znajomym. Jak już powtarzałem – w grupie łatwiej się uczy :) Polub stronę na Facebooku, a nie przegapisz żadnego nowego artykułu. Do zobaczenia!

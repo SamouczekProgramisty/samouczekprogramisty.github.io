@@ -57,13 +57,13 @@ Elementy wewnątrz mogą zawierać kolejne elementy. Na przykład element `<arty
 
 ### Atrybuty
 
-Elementy mogą posiadać dowolną liczbę atrybutów. Za przykład mogą posłużyć tu element `<artykul>` zawierający atrybut `publikacja`. Zawartość atrybutu to zwykły tekst. W przeciwieństwie do elementów nie możemy stosować “zagnieżdżania” - wewnątrz atrybutu nie możemy umieścić niczego poza jego wartością.
+Elementy mogą posiadać dowolną liczbę atrybutów. Za przykład mogą posłużyć tu element `<artykul>` zawierający atrybut `publikacja`. Zawartość atrybutu to zwykły tekst. W przeciwieństwie do elementów nie możemy stosować “zagnieżdżania” – wewnątrz atrybutu nie możemy umieścić niczego poza jego wartością.
 
 ### Przestrzenie nazw
 
 Nazwy elementów elementów i atrybutów mogą zawierać tak zwaną “przestrzeń nazw” (ang. _namespace_). Do oddzielenia nazwy elementu czy atrybutu od przestrzeni nazw używa się dwukropka. W przykładzie powyżej element `<wydawca:opis>` pochodzi z przestrzeni nazw `wydawca`.
 
-Przestrzenie nazw stosuje się aby móc odróżnić znaczenie elementów o tej samej nazwie. W przykładzie elementy `<opis>` i `<wydawca:opis>` mogą zawierać zupełnie różne dane - różne rodzaje opisów.
+Przestrzenie nazw stosuje się aby móc odróżnić znaczenie elementów o tej samej nazwie. W przykładzie elementy `<opis>` i `<wydawca:opis>` mogą zawierać zupełnie różne dane – różne rodzaje opisów.
 
 {% include newsletter-srodek.md %}
 
@@ -98,7 +98,7 @@ Białe znaki pomiędzy elementami są ignorowane. W praktyce często używa się
 
 W przypadku poprawnie sformatowanych dokumentów XML możemy mówić o pewnych relacjach pomiędzy elementami. Specyfikacja XML mówi o rodzicach (ang. _parent_) i dzieciach (ang. _child_). W praktyce używa się także określenia rodzeństwo (ang. _sibling_).
 
-Element może mieć wiele dzieci, na przykład element `<kurs-java>` ma czworo dzieci - dwa elementy `<artykul>`, element `<opis>` i element `<wydawca:opis>`.
+Element może mieć wiele dzieci, na przykład element `<kurs-java>` ma czworo dzieci – dwa elementy `<artykul>`, element `<opis>` i element `<wydawca:opis>`.
 
 Każdy element, poza elementem głównym, posiada dokładne jednego rodzica. Na przykład element `<tytul>` ma rodzica `<artykul>`.
 
@@ -128,7 +128,7 @@ Z racji swojej dobrze zdefiniowanej struktury i ogromnego zestawu narzędzi doku
 
 Poniżej pokażę Ci kilka przykładowych zastosowań dokumentów w formacie XML:
 
-- "poprzednik" [opisanego przeze mnie Gradle’a]({% post_url 2017-01-19-wstep-do-gradle %}) - Maven używa XML w swoich plikach konfiguracyjnych - na przykład `settings.xml`, `profiles.xml` czy `plugin-registry.xml`. Główny plik konfiguracyjny dla projektu to także dokument XML - `pom.xml`,
+- "poprzednik" [opisanego przeze mnie Gradle’a]({% post_url 2017-01-19-wstep-do-gradle %}) – Maven używa XML w swoich plikach konfiguracyjnych - na przykład `settings.xml`, `profiles.xml` czy `plugin-registry.xml`. Główny plik konfiguracyjny dla projektu to także dokument XML – `pom.xml`,
 - w jednym z banków, w którym pracowałem dokumenty XML wraz z XSLT służyły do generowania wszystkich drukowanych dokumentów,
 - każda aplikacja na system Android używa plików XML. W uproszczeniu można powiedzieć, że opisują one wygląd ekranu aplikacji,
 - dokumenty ODT (format używany na przykład przez Open Office), czy DOCX (format używany przez Microsoft Word) to tak na prawdę pliki zip, które wewnątrz zawierają dokumenty XML opisujące zawartość pliku, rozpakuj je a sam się przekonasz :)
@@ -136,21 +136,21 @@ Poniżej pokażę Ci kilka przykładowych zastosowań dokumentów w formacie XML
 ## Na XML świat się nie kończy
 
 Oczywiście dokumenty XML nie są jedynym formatem, który może pomóc w wymianie danych. Poniżej wspominam o kilku innych formatach, które mogą być także użyte w tym celu.
-- CSV - (ang. _Comman Separated Values_) zwykły plik tekstowy, w którym każdy wiersz zawiera dane oddzielone przecinkami[^csv]. Z racji tego, że jest to plik tekstowy można go z łatwością odczytać używając edytora tekstu.
-- [YAML](http://www.yaml.org/) - (ang. _Yet Another Markup Language_ lub _YAML Ain’t Markup Language_) tekstowy format, w którym możemy zapisywać bardziej złożone struktury czy kolekcje.
-- [JSON](http://www.json.org/) - (ang. _JavaScript Object Notation_) podobnie jak YAML jest w stanie opisać listę elementów czy kolekcję par klucz-wartość. Format ten, jak jego nazwa wskazuje, powstał na potrzeby JavaScript, jednak obecne jest szeroko stosowany także w innych językach. Jest to format tekstowy.
+- CSV – (ang. _Comman Separated Values_) zwykły plik tekstowy, w którym każdy wiersz zawiera dane oddzielone przecinkami[^csv]. Z racji tego, że jest to plik tekstowy można go z łatwością odczytać używając edytora tekstu.
+- [YAML](http://www.yaml.org/) – (ang. _Yet Another Markup Language_ lub _YAML Ain’t Markup Language_) tekstowy format, w którym możemy zapisywać bardziej złożone struktury czy kolekcje.
+- [JSON](http://www.json.org/) – (ang. _JavaScript Object Notation_) podobnie jak YAML jest w stanie opisać listę elementów czy kolekcję par klucz-wartość. Format ten, jak jego nazwa wskazuje, powstał na potrzeby JavaScript, jednak obecne jest szeroko stosowany także w innych językach. Jest to format tekstowy.
 
 [^csv]: Istnieją też inne wersje gdzie przecinek zastąpiony jest średnikiem czy znakiem tabulacji.
 
 Oczywiście poza formatami tekstowymi istnieją też formaty binarne:
-- [ProtocolBuffers](https://developers.google.com/protocol-buffers/) - binarny format opracowany przez Google. Pozwala na zapisanie praktycznie dowolnych struktur. Z racji tego, że jest to format binarny jest bardziej “zwięzły” od wspomnianych powyżej. Oczywiście nie można odczytać tego formatu bez odpowiedniego “dekodowania” zawartości,
-- [Avro](https://avro.apache.org/) - binarny format serializacji danych, podobnie jak ProtoclBuffers zapewnia dużo bardziej zwięzłą reprezentację danych. Ma wbudowany mechanizm kompresji co pozwala na jeszcze większe zmniejszenie objętości dokumentów.
+- [ProtocolBuffers](https://developers.google.com/protocol-buffers/) – binarny format opracowany przez Google. Pozwala na zapisanie praktycznie dowolnych struktur. Z racji tego, że jest to format binarny jest bardziej “zwięzły” od wspomnianych powyżej. Oczywiście nie można odczytać tego formatu bez odpowiedniego “dekodowania” zawartości,
+- [Avro](https://avro.apache.org/) – binarny format serializacji danych, podobnie jak ProtoclBuffers zapewnia dużo bardziej zwięzłą reprezentację danych. Ma wbudowany mechanizm kompresji co pozwala na jeszcze większe zmniejszenie objętości dokumentów.
 
 Bynajmniej nie są to wszystkie dostępne formaty wymiany danych. Wspomniałem o tych kilku aby pokazać Ci, że na XML świat się nie kończy :) Każdy z tych formatów dorobił się szerokiego wsparcia w różnych językach programowania.
 
 ## Inne specyfikacje i narzędzia związane z XML
 
-XML jako dość dojrzały format zapisu danych “dorobił się” zestawu narzędzi i specyfikacji. Na początek ten zestaw może okazać się przytłaczający, ale spokojnie - nie wszystkich tych narzędzi używa się w każdym projekcie. W większości przypadków wystarczy wiedza o poprawnym formacie dokumentu XML i znajomość jednego z narzędzi do tworzenia/czytania plików XML.
+XML jako dość dojrzały format zapisu danych “dorobił się” zestawu narzędzi i specyfikacji. Na początek ten zestaw może okazać się przytłaczający, ale spokojnie – nie wszystkich tych narzędzi używa się w każdym projekcie. W większości przypadków wystarczy wiedza o poprawnym formacie dokumentu XML i znajomość jednego z narzędzi do tworzenia/czytania plików XML.
 
 Lista poniżej to specyfikacje/narzędzia pozwalające na parsowanie i tworzenie plików w formacie XML:
 
@@ -163,9 +163,9 @@ W jednym z klejnych artykułów skupię się na praktycznym wykorzystaniu powyż
 
 Dodatkowo możesz też zainteresować się następującymi specyfikacjami związanymi z XML. Przydają się one w bardziej zaawansowanej pracy z dokumentami XML:
 
-- [XSD](https://www.w3.org/TR/xmlschema-1/) (ang. _XML Schema Definition_) - wcześniej wspomniana specyfikacja pomagająca w walidacji poprawności dokumentów XML,
-- [XPath](https://www.w3.org/TR/xpath/) (ang _XML Path Language_) - język pozwalający na wskazywanie elementów czy atrybutów w dokumencie XML, przy jego pomocy możesz na przykład określić "zwróć mi wszystkie elementy X, które mają atrybut Y o wartości Z",
-- [XSLT](https://www.w3.org/TR/xslt) (ang. _Extensible Stylesheet Language Transformations_) - język służący do tranformowania dokumentów XML. Przy jego pomocy można przekształcić dokument XML do innych formatów, na przykład do pliku PDF.
+- [XSD](https://www.w3.org/TR/xmlschema-1/) (ang. _XML Schema Definition_) – wcześniej wspomniana specyfikacja pomagająca w walidacji poprawności dokumentów XML,
+- [XPath](https://www.w3.org/TR/xpath/) (ang _XML Path Language_) – język pozwalający na wskazywanie elementów czy atrybutów w dokumencie XML, przy jego pomocy możesz na przykład określić "zwróć mi wszystkie elementy X, które mają atrybut Y o wartości Z",
+- [XSLT](https://www.w3.org/TR/xslt) (ang. _Extensible Stylesheet Language Transformations_) – język służący do tranformowania dokumentów XML. Przy jego pomocy można przekształcić dokument XML do innych formatów, na przykład do pliku PDF.
 
 ## Podsumowanie
 

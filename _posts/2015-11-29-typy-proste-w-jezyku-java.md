@@ -51,11 +51,11 @@ Zaraz, zaraz! Czym jest literał!? To nic skomplikowanego, jest to po prostu fra
     45L
     45l
 
-- `18` - nic nowego, zwykła liczba, którą już znasz,
-- `0b11100` - też liczba, tylko zapisana binarnie, o tym typie zapisywania liczb przeczytasz w jednym z kolejnych artykułów,
-- `-0xFF00` - tym razem liczba zapisana w [systemie szesnastkowym](https://pl.wikipedia.org/wiki/Szesnastkowy_system_liczbowy),
-- `0777` - tak wygląda liczba zapisana w [systemie ósemkowym](https://pl.wikipedia.org/wiki/%C3%93semkowy_system_liczbowy),
-- `+78_123_898` - to nic innego jak `78123898`, tylko zapisane w troszkę inny sposób. Znak `+` na początku jest zbędny (domyślnie literały przechowują liczby dodatnie). Znaki `_` podobnie nie są obowiązkowe, służą jedynie do zwiększenia czytelności liczby.
+- `18` – nic nowego, zwykła liczba, którą już znasz,
+- `0b11100` – też liczba, tylko zapisana binarnie, o tym typie zapisywania liczb przeczytasz w jednym z kolejnych artykułów,
+- `-0xFF00` – tym razem liczba zapisana w [systemie szesnastkowym](https://pl.wikipedia.org/wiki/Szesnastkowy_system_liczbowy),
+- `0777` – tak wygląda liczba zapisana w [systemie ósemkowym](https://pl.wikipedia.org/wiki/%C3%93semkowy_system_liczbowy),
+- `+78_123_898` – to nic innego jak `78123898`, tylko zapisane w troszkę inny sposób. Znak `+` na początku jest zbędny (domyślnie literały przechowują liczby dodatnie). Znaki `_` podobnie nie są obowiązkowe, służą jedynie do zwiększenia czytelności liczby.
 - `45L` – domyślnie wszystkie literały liczb całkowitych mają typ `int`. Żeby dać znać kompilatorowi o tym, ze ten literał może przechowywać większe wartości musimy dodać `L` na końcu
 - `45l` – podobnie jak powyżej literał typu `long`, jednak tutaj na końcu widzimy małą literę `l`. Mimo tego, że taka konstrukcja jest dopuszczalna nie jest dobrą praktyką. `l` często może być pomylone z `1`, szczególnie jeśli używana jest czcionka o stałej szerokości.
 

@@ -31,7 +31,7 @@ Zacznij od poznania podstawowej składni języka Java. Poniższa lista artykuł�
 * [Interfejsy w języku Java]({% post_url 2015-12-16-interfejsy-w-jezyku-java %})
 * [Dziedziczenie w języku Java]({% post_url 2016-01-24-dziedziczenie-w-jezyku-java %})
 * [Wyjątki w języku Java]({% post_url 2016-01-31-wyjatki-w-jezyku-java %})
-* [Referencja, sterta i garbage collector - obiektów w Javie ciąg dalszy]({% post_url 2016-02-04-referencja-sterta-garbage-collector %})
+* [Referencja, sterta i garbage collector – obiektów w Javie ciąg dalszy]({% post_url 2016-02-04-referencja-sterta-garbage-collector %})
 * [Konwersja i rzutowanie w języku Java]({% post_url 2016-02-17-konwersja-i-rzutowanie-w-jezyku-java %})
 * [Porównywanie obiektów, metody equals i hashCode w języku Java]({% post_url 2016-04-17-porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java %})
 * [Typ wyliczeniowy w języku Java]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %})
@@ -77,7 +77,7 @@ Język Java posiada tak zwaną bibliotekę standardową. Biblioteka standardowa 
 * [Wyrażenia regularne w języku Java]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %})
 * [Wyrażenia regularne część 2]({% post_url 2017-01-06-wyrazenia-regularne-czesc-2 %})
 * [String cache i StringBuilder w praktyce]({% post_url 2017-05-06-string-cache-i-stringbuilder-w-praktyce %})
-* [Formatter - formatowanie łańcuchów znaków]({% post_url 2017-05-12-formatter-formatowanie-lancuchow-znakow %})
+* [Formatter – formatowanie łańcuchów znaków]({% post_url 2017-05-12-formatter-formatowanie-lancuchow-znakow %})
 
 ## Przydatne narzędzia i biblioteki
 

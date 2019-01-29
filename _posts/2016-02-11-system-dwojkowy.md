@@ -124,7 +124,7 @@ Spróbuj napisać program, który realizuje ten algorytm. Możesz sprawdzić pop
 
 > W komentarzu InfW4 wspomniał o ciekawych źródłach, dzięki za wskazówkę ;)
 
-Podobnie jak komentujący miałem przyjemność uczęszczać na kursy prof. Janusza Biernata na Politechnice Wrocławskiej, chociaż artykuł nie powstał w oparciu o materiały z Jego książek jeśli interesuje Cię ta tematyka i chciałbyś spojrzeć na temat z bardziej teoretycznej strony możesz zajrzeć do książki, którą pamiętam ze studiów (ostrzegam, jest mocno teoretyczna): _Metody i układy arytmetyki komputerowej - Janusz Biernat._
+Podobnie jak komentujący miałem przyjemność uczęszczać na kursy prof. Janusza Biernata na Politechnice Wrocławskiej, chociaż artykuł nie powstał w oparciu o materiały z Jego książek jeśli interesuje Cię ta tematyka i chciałbyś spojrzeć na temat z bardziej teoretycznej strony możesz zajrzeć do książki, którą pamiętam ze studiów (ostrzegam, jest mocno teoretyczna): _Metody i układy arytmetyki komputerowej – Janusz Biernat._
 
 ## Podsumowanie
 

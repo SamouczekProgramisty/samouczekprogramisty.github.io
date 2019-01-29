@@ -104,7 +104,7 @@ W pierwszych wersjach specyfikacji niezbędny był do tego plik `web.xml` (tak z
 
 Poza serwletami istnieją też inne komponenty aplikacji webowej opisane w specyfikacji serlwetów. Na przykład filtry czy “listnenery” (ang. _listener_) (ma ktoś z was pomysł jak przetłumaczyć to słowo na polski :)?). Także i tutaj kontener serwletów pełni kluczową rolę. Kontener zarządza cyklem życia tych elementów.
 
-Przy konstruowaniu odpowiedzi na żądania pomocne są pliki typu JSP (ang. _Java Server Pages_). Powtórzę się - kontener zarządza cyklem życia takich plików.
+Przy konstruowaniu odpowiedzi na żądania pomocne są pliki typu JSP (ang. _Java Server Pages_). Powtórzę się – kontener zarządza cyklem życia takich plików.
 
 W przypadku aplikacji webowych możemy mówić o kilku kontekstach. Możemy wyróżnić na przykład kontekst żądania czy kontekst aplikacji. Także tutaj kontener serwletów za nie odpowiada.
 
@@ -147,8 +147,8 @@ Pliki takie jak `index.html`, `publiczny_ktalog/strona.html` czy `style.css` są
 
 Sprawa wygląda zupełnie inaczej w przypadku katalogu `WEB-INF`. Jest to katalog, który zawiera dane, które nigdy nie mogą być bezpośrednio “serwowane” przez kontener. Wewnątrz `WEB-INF` znajdują się inne katalogi:
 
-- `classes` - zawiera on skompilowane klasy aplikacji webowej,
-- `lib` - zawiera on spakowane pliki jar potrzebne do działania aplikacji webowej.
+- `classes` – zawiera on skompilowane klasy aplikacji webowej,
+- `lib` – zawiera on spakowane pliki jar potrzebne do działania aplikacji webowej.
 
 Dodatkowo aplikacja webowa może zawierać tak zwany deskryptor wdrożenia (ang. _deployment descriptor_). Jest to plik `web.xml`, który konfiguruje działanie aplikacji webowej. W przypadku prostych aplikacji nie jest on wymagany, całą konfigurację można dostarczyć przy pomocy adnotacji.
 

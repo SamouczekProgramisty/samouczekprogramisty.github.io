@@ -111,7 +111,7 @@ Przeglądarki internetowe posiadają wbudowane “narzędzia developerskie”, k
 - [Opera](http://www.opera.com/dragonfly/)
 - [Internet Explorer](https://docs.microsoft.com/en-us/microsoft-edge/f12-devtools-guide)
 
-{% include figure image_path="/assets/images/2017/04/01_headers.jpg" caption="Narzędzia developerskie - nagłówki" %}
+{% include figure image_path="/assets/images/2017/04/01_headers.jpg" caption="Narzędzia developerskie – nagłówki" %}
 
 Obiekty `HttpServletResponse` i `HttpServletRequest` pozwalają na pracę z nagłówkami przy pomocy metod:
 
@@ -173,7 +173,7 @@ Użyłem do tego programu `curl`, który pozwala na wysyłanie żądań HTTP z l
 - Pozwalają na ustawianie ciasteczek (przeczytasz o nich w kolejnym akapicie) (`Set-Cookie`),
 - Pozwalają na określenie zawartości strony. To dzięki nim przeglądarka wie jak interpretować odpowiedź, którą dostanie. To nagłówek określa czy w odpowiedzi znajduje się plik HTML (`Content-Type: text/html; charset=UTF-8`). Czy może są dane binarne reprezentujące obrazek do wyświetlenia (`Content-Type: image/jpeg`),
 - Mogą przyspieszyć ładowanie strony w przeglądarce. Jeśli odwiedziłeś już jakąś stronę to przeglądarka mogła zapisać część danych, które wyświetliła (w tym część nagłówków). Następnym razem nie wyśle żądania typu GET (aby pobrać całą zawartość) a jedynie HEAD (aby pobrać nagłówki). Po sprawdzeniu nagłówków stwierdzi, że dane się nie zmieniły i wyświetli poprzednio zapamiętaną zawartość (`Cache-Control: public, max-age=63115200`, `Last-Modified: Thu, 16 Mar 2017 17:12:14 GMT`).
-- Takie sprawdzenie może odbyć się też w inny sposób. Przeglądarka może wysłać zapytanie typu GET dołączając odpowiednie nagłówki. Później żądanie z nagłówkami interpretowane jest przez serwer. Jeśli serwer stwierdzi, że przeglądarka ma aktualną treść (potwierdza to nagłówek), wówczas wysyła odpowiedź informującą przeglądarkę, że jej kopia treści jest najnowsza. W takim przypadku zamiast przesyłać przez sieć obrazek o wielkości 400kB wysyła odpowiedź, która ma dużo mniej danych - kilka kilobajtów (`ETag: "9db5f14aeaa00872"`,
+- Takie sprawdzenie może odbyć się też w inny sposób. Przeglądarka może wysłać zapytanie typu GET dołączając odpowiednie nagłówki. Później żądanie z nagłówkami interpretowane jest przez serwer. Jeśli serwer stwierdzi, że przeglądarka ma aktualną treść (potwierdza to nagłówek), wówczas wysyła odpowiedź informującą przeglądarkę, że jej kopia treści jest najnowsza. W takim przypadku zamiast przesyłać przez sieć obrazek o wielkości 400kB wysyła odpowiedź, która ma dużo mniej danych – kilka kilobajtów (`ETag: "9db5f14aeaa00872"`,
 - Nagłówki to metadane (dane o danych). Zdarza się, że są wykorzystywane do przesyłania dodatkowych informacji na temat danego żądania/odpowiedzi.
 
 Mimo tego, że nagłówki są powszechnie stosowane w codziennej pracy z aplikacjami webowymi (szczególnie na początku) nie są one "kluczowe". Większość z nich ustawiają za nas biblioteki zewnętrzne. Niemniej jednak dobrze jest wiedzieć o tym, że istnieją i do czego służą.
@@ -182,7 +182,7 @@ Mimo tego, że nagłówki są powszechnie stosowane w codziennej pracy z aplikac
 
 Ciasteczka to mechanizm opisany w specyfikacji protokołu HTTP. W uproszczeniu można powiedzieć, że ciasteczka to informacje, które dołączane są do żądania i mogą być ustawiane w odpowiedzi. Ciasteczka połączone są z adresem, pod który wysyłane jest żądanie. Przeglądarka internetowa wysyłając żądanie pod adres www.samouczekprogramisty.pl wyszukuje jakie ciasteczka ma zapisane dla tej domeny i dołącza je automatycznie do każdego żądania.
 
-{% include figure image_path="/assets/images/2017/04/01_ciasteczka-diagram.jpeg" caption="Ciasteczka - diagram" %}
+{% include figure image_path="/assets/images/2017/04/01_ciasteczka-diagram.jpeg" caption="Ciasteczka – diagram" %}
 
 Po stronie serwera, w odpowiedzi można ustawiać ciasteczka. Można to robić przy pomocy nagłówka `Set-Cookie`. Z racji tego, że jest to bardzo popularny mechanizm istnieje osobny zestaw metod, które pomagają pracować z ciasteczkami:
 
@@ -219,7 +219,7 @@ Przy drugim otworzeniu strony generowanej przez ten serwlet[^czas] zobaczysz cia
 
 Wcześniej opisane narzędzia developerskie dostępne w przeglądarkach internetowych pozwalają na podejrzenie zawartości ciasteczek.
 
-{% include figure image_path="/assets/images/2017/04/01_cookies.png" caption="Narzędzia developerskie - ciasteczka" %}
+{% include figure image_path="/assets/images/2017/04/01_cookies.png" caption="Narzędzia developerskie – ciasteczka" %}
 
 ### Zastosowanie ciasteczek
 
@@ -229,11 +229,11 @@ Po zalogowaniu aplikacja ustawia ciasteczko, które następnie dołączane jest 
 
 Użytkownik ma możliwość ustawienia przeglądarki internetowej w ten sposób aby nie zapamiętywała ciasteczek. Nie jest to popularne, ale warto wiedzieć, że jest taka możliwość.
 
-Podobnie jak w przypadku nagłówków - w codziennej pracy z aplikacjami webowymi często nie używa się ciasteczek bezpośrednio. Dzieje się to niejako "pod spodem" - zewnętrzne biblioteki wykorzystują ten mechanizm.
+Podobnie jak w przypadku nagłówków – w codziennej pracy z aplikacjami webowymi często nie używa się ciasteczek bezpośrednio. Dzieje się to niejako "pod spodem" - zewnętrzne biblioteki wykorzystują ten mechanizm.
 
 ## Sesja
 
-Można powiedzieć, że sesja to połączenie kilku żądań/odpowiedzi w jedną całość. Dzięki temu aplikacja webowa może powiązać te żądania z jednym użytkownikiem. Sesje najczęściej zaimplementowane są przy pomocy ciasteczek. Specyfikacja serwletów określa nawet domyślną nazwę takiego ciasteczka - jest to `JSESSIONID`.
+Można powiedzieć, że sesja to połączenie kilku żądań/odpowiedzi w jedną całość. Dzięki temu aplikacja webowa może powiązać te żądania z jednym użytkownikiem. Sesje najczęściej zaimplementowane są przy pomocy ciasteczek. Specyfikacja serwletów określa nawet domyślną nazwę takiego ciasteczka – jest to `JSESSIONID`.
 
 Innym mechanizmem, na którym może być oparta sesja jest przepisywanie adresu URL (ang. _URL rewriting_). Polega ono na dołączaniu identyfikatora sesji do adresu. W takim przypadku adres może wyglądać następująco `http://www.samouczekprogramisty.pl/kurs-programowania-java;jsessionid=1234`. To kontener serwletów decyduje o metodzie, która powinna być użyta do “podtrzymywania” sesji.
 

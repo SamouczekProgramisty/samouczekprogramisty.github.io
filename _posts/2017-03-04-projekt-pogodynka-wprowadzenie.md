@@ -1,5 +1,5 @@
 ---
-title: Projekt Pogodynka - wprowadzenie
+title: Projekt Pogodynka – wprowadzenie
 last_modified_at: 2018-07-18 20:43:32 +0200
 categories:
 - DSP2017
@@ -20,9 +20,9 @@ Więc pracę nad Pogodynką czas zacząć. Zacznę od tego, że przybliżę Ci m
 
 ### Hardware
 
-Stare Raspberry PI (nazwijmy je Malinką ;)) wygrzebane gdzieś z szafy ma posłużyć jako "mini komputer", do którego podłączę czujnik temperatury. Czujnik ten będę musiał sam oprogramować - kupiłem go jakiś czas temu w sklepie dla elektroników.
+Stare Raspberry PI (nazwijmy je Malinką ;)) wygrzebane gdzieś z szafy ma posłużyć jako "mini komputer", do którego podłączę czujnik temperatury. Czujnik ten będę musiał sam oprogramować – kupiłem go jakiś czas temu w sklepie dla elektroników.
 
-{% include figure image_path="/assets/images/2017/03/04_hardware03_web.jpeg" caption="Pogodynka - Raspberry Pi" %}
+{% include figure image_path="/assets/images/2017/03/04_hardware03_web.jpeg" caption="Pogodynka – Raspberry Pi" %}
 
 Jak widzisz czujnik jest całkiem drobny.
 
@@ -34,15 +34,15 @@ Całość na początku połączę kabelkami, może jak starczy czasu pobawię s�
 
 ### Software
 
-Kolejnym krokiem będzie napisanie prostego programu, który będzie odpalany na Malince. Nazwijmy go Termometrem. Zadaniem programu będzie pobieranie odczytu czujnika - odczytanie aktualnego poziomu temperatury. Następnie to wskazanie chcę wysłać do aplikacji webowej, która doda dany odczyt do bazy.
+Kolejnym krokiem będzie napisanie prostego programu, który będzie odpalany na Malince. Nazwijmy go Termometrem. Zadaniem programu będzie pobieranie odczytu czujnika – odczytanie aktualnego poziomu temperatury. Następnie to wskazanie chcę wysłać do aplikacji webowej, która doda dany odczyt do bazy.
 
 Ta sama aplikacja webowa odpowiedzialna będzie za udostępnienie dodatkowego interfejsu. Interfejs ten będzie udostępniał historię wskazań temperatury.Więc na tym etapie mamy dwie osobne aplikacje. Pierwsza z nich to Termometr uruchamiany z linii poleceń, bez żadnego interfejsu graficznego. Druga z nich to aplikacja webowa, która udostępni interfejs dodawania wskazania temperatury oraz pobrania historii odczytów. Tu także nie będzie żadnego interfejsu graficznego.
 
-Ostatnim etapem będzie interfejs użytkownika, który będzie prezentował historyczne odczyty w formie grafów. Tu też pojawią się trudności - ten etap to aplikacja napisana w JavaScript, za którym niestety nie przepadam ;)
+Ostatnim etapem będzie interfejs użytkownika, który będzie prezentował historyczne odczyty w formie grafów. Tu też pojawią się trudności – ten etap to aplikacja napisana w JavaScript, za którym niestety nie przepadam ;)
 
 Składając te klocki w całość projekt można pokazać na takim uproszczonym diagramie.
 
-{% include figure image_path="/assets/images/2017/03/04_pogodynka-diagram.png" caption="Pogodynka - diagram architektury" %}
+{% include figure image_path="/assets/images/2017/03/04_pogodynka-diagram.png" caption="Pogodynka – diagram architektury" %}
 
 Wymyśliłem taką architekturę, ponieważ nie mam publicznego IP i nie mógłbym aplikacji webowej "wystawić na świat" jeśli uruchomiona byłaby na Malince.
 
@@ -51,7 +51,7 @@ Tutaj drobna dygresja dla początkujących. Każda strona internetowa, na przyk�
 
 ## Baza danych
 
-Nasze dane to nic innego jak standardowe szeregi czasowe (ang. _time series_). Istnieją dedykowane bazy danych, które bardzo dobrze dają sobie radę z danymi tego typu. Jednak żeby niepotrzebnie nie komplikować samej aplikacji dane będą zapisywane w najzwyklejszej relacyjnej bazie danych. Zdaję sobie sprawę, że z czasem danych może być sporo - jednak baza relacyjna powinna dać sobie z taką ilością bez problemu radę.
+Nasze dane to nic innego jak standardowe szeregi czasowe (ang. _time series_). Istnieją dedykowane bazy danych, które bardzo dobrze dają sobie radę z danymi tego typu. Jednak żeby niepotrzebnie nie komplikować samej aplikacji dane będą zapisywane w najzwyklejszej relacyjnej bazie danych. Zdaję sobie sprawę, że z czasem danych może być sporo – jednak baza relacyjna powinna dać sobie z taką ilością bez problemu radę.
 
 Zakładając odczyty temperatury co 5 minut dopiero po prawie dziesięciu latach dojdziemy do miliona rekordów ;). Oczywiście interfejs zwracający historię, będzie musiał dokonywać pewnego rodzaju agregacji, ale o tym będę decydował później.
 
@@ -59,7 +59,7 @@ Zakładając odczyty temperatury co 5 minut dopiero po prawie dziesięciu latach
 
 Cały postęp prac nad projektem wraz z zadaniami, które będę realizował możesz śledzić w Trello: [https://trello.com/b/yqZHTqSN/pogodynka](https://trello.com/b/yqZHTqSN/pogodynka). Jest to proste narzędzie pomagające w śledzeniu zadań. W "prawdziwych" projektach programistycznych też używa się takich narzędzi, czasami dużo bardziej rozbudowanych.
 
-Zacząłem od tego, że pół nocy spędziłem na próbie zmuszenia Malinki do współpracy, oczywiście się to nie udało ;). Więc żeby pchnąć całość do przodu zacząłem od innego komponentu - Termometru.
+Zacząłem od tego, że pół nocy spędziłem na próbie zmuszenia Malinki do współpracy, oczywiście się to nie udało ;). Więc żeby pchnąć całość do przodu zacząłem od innego komponentu – Termometru.
 
 Jeśli jesteś zainteresowany postępem prac nad kodem zachęcam do zajrzenia do repozytorium: [https://github.com/SamouczekProgramisty/Pogodynka](https://github.com/SamouczekProgramisty/Pogodynka). Aktualnie znajduje się tam zestaw kilku obiektów, które reprezentują pomiar temperatury. Pomiar ten jest transformowany do formatu JSON i wysyłany jako żądanie HTTP.
 

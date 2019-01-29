@@ -78,15 +78,15 @@ W przykładzie tym w pierwszej linijce kompiluję wyrażenie regularne `Marcin` 
 
 Klasa `Matcher` posiada, między innymi, następujące metody:
 
-- `find()` - metoda zwraca `true` jeśli w łańcuchu znaków znajduje się coś co pasuje do wyrażenia regularnego,
-- `matches()` - metoda zwraca `true` jeśli łańcuch znaków pasuje w całości do wyrażenia regularnego.
+- `find()` – metoda zwraca `true` jeśli w łańcuchu znaków znajduje się coś co pasuje do wyrażenia regularnego,
+- `matches()` – metoda zwraca `true` jeśli łańcuch znaków pasuje w całości do wyrażenia regularnego.
 
 Proszę spójrz na poniższą tabelkę. W nagłówkach kolumn umieściłem łańcuchy znaków, które dopasowywane są do wyrażeń umieszczonych w pierwszej kolumnie.
 
 |              | Mam na imię Marcin                    | Marcinkowski                         | Marcin                                |
 | ---:         | :----------------:                    | :----------:                         | :----:                                |
-| Marcin       | `find - true`<br />`matches - false`  | `find - true`<br />`matches - false` | `find - true`<br />`matches - true`   |
-| Marcinkowski | `find - false`<br />`matches - false` | `find - true`<br />`matches - true`  | `find - false`<br />`matches - false` |
+| Marcin       | `find – true`<br />`matches – false`  | `find – true`<br />`matches – false` | `find – true`<br />`matches – true`   |
+| Marcinkowski | `find – false`<br />`matches – false` | `find – true`<br />`matches – true`  | `find – false`<br />`matches – false` |
 
 Jak widzisz wyrażenia regularne mogą wyglądać jak „normalne” łańcuchy znaków. Jednak takie raczej nie są ciekawe i zbytnio użyteczne. Prawdziwa siła wyrażeń regularnych tkwi w tych wszystkich magicznych znaczkach :). Postaram się je teraz omówić.
 
@@ -168,9 +168,9 @@ public void testSymbolPlus() {
 #### Powtórzenia inaczej
 
 Poza znakami `?`, `+` i `*`, które określają dopuszczalną liczbę powtórzeń możesz też użyć `{}`. Jednak `{}` ma większe możliwości:
-- `{x}` - oznacza że element poprzedzający musi wystąpić dokładnie x razy,
-- `{x,}` - oznacza, że element poprzedzający musi wystąpić co najmniej x razy,
-- `{x,y}` - oznacza, że element poprzedzający musi wystąpić od x do y razy.
+- `{x}` – oznacza że element poprzedzający musi wystąpić dokładnie x razy,
+- `{x,}` – oznacza, że element poprzedzający musi wystąpić co najmniej x razy,
+- `{x,y}` – oznacza, że element poprzedzający musi wystąpić od x do y razy.
 
 Zauważ, że symbole `?`, `*` i `+` możemy zastąpić `{}`. Na przykład wyrażenia regularne `al*a` i `al{0,}a` czy `al+a` i `al{1,}a` są sobie równoznaczne. Jednak zapis z `?`, `+` czy `*` jest krótszy przez co częściej stosowany.
 
@@ -190,10 +190,10 @@ public void testSymbolDot() {
 ```
 
 Zauważ, że wszystkie dotychczas omówione znaki możemy ze sobą połączyć uzyskując bardziej zaawansowane wyrażenie regularne. Na przykład `k+a.*ta`. Rozłóżmy to wyrażenie regularne na czynniki pierwsze:
-- `k+` - oznacza literę k powtórzoną co najmniej raz,
-- `a` - litera a,
-- `.*` - oznacza dowolny znak (poza znakiem nowej linii) powtórzony 0 lub więcej razy,
-- `ta` - litery ta.
+- `k+` – oznacza literę k powtórzoną co najmniej raz,
+- `a` – litera a,
+- `.*` – oznacza dowolny znak (poza znakiem nowej linii) powtórzony 0 lub więcej razy,
+- `ta` – litery ta.
 
 Do takiego wyrażenia regularnego pasują następujące łańcuchy znaków `"kata"`, `"katapulta"`, `"karta"`, `"kasia ma kota"` czy `"kkkka#$*&JHDFStatata` ale nie pasuje `"ata"` czy `"kta"`.
 
@@ -213,11 +213,11 @@ public void testSymbolDotWithOthers() {
 {% capture noticeemail %}
 Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego mogą pasować poprawne adresy e-mail `.+@.+\.pl.` Rozkładając je na czynniki pierwsze mamy:
 
-- `.+` - dowolny symbol użyty co najmniej raz,
-- `@` - małpka,
-- `.+` - ponownie dowolny symbol użyty co najmniej raz,
-- `\.` - kropka rozumiana dosłownie (nie jako specjalny znak wyrażenia regularnego),
-- `pl` - następujące po sobie litery p i l.
+- `.+` – dowolny symbol użyty co najmniej raz,
+- `@` – małpka,
+- `.+` – ponownie dowolny symbol użyty co najmniej raz,
+- `\.` – kropka rozumiana dosłownie (nie jako specjalny znak wyrażenia regularnego),
+- `pl` – następujące po sobie litery p i l.
 {% endcapture %}
 
 <div class="notice--info">
@@ -294,8 +294,8 @@ Jeśli chcesz aby `^` był rozumiany dosłownie wewnątrz klasy nie umieszczaj g
 {% capture noticeimiona %}
 Teraz już wiesz jak można odczytać wyrażenie regularne użyte na początku artykułu do którego pasują imiona: `[A-Z][a-z]+`. Rozłóżmy je na czynniki pierwszej
 
-- `[A-Z]` - znak z tej klasy znaków, wielka litera,
-- `[a-z]+` - mała litera użyta co najmniej raz.
+- `[A-Z]` – znak z tej klasy znaków, wielka litera,
+- `[a-z]+` – mała litera użyta co najmniej raz.
 {% endcapture %}
 
 <div class="notice--info">
@@ -308,13 +308,13 @@ Klasy poznałeś w poprzednich akapitach. Tak się składa, że mechanizm ten je
 
 Takie często używane klasy zostały wbudowane w wyrażenia regularne pod postacią predefiniowanych klas. Wszystkie predefiniowane klasy prezentuje lista poniżej:
 
-- `\d` - jakakolwiek cyfra `[0-9]`,
-- `\D` - jakikolwiek znak, który nie jest cyfrą `[^0-9]`,
-- `\w` - znak używany w słowach `[a-zA-Z0-9_]` (zauważ, że mamy tu znak `_`),
-- `\W` - jakikolwiek znak, który nie jest używany w słowach `[^a-zA-Z0-9_]`,
-- `\s` - tak zwane białe znaki czyli znak spacji czy tabulacji `[ 	
+- `\d` – jakakolwiek cyfra `[0-9]`,
+- `\D` – jakikolwiek znak, który nie jest cyfrą `[^0-9]`,
+- `\w` – znak używany w słowach `[a-zA-Z0-9_]` (zauważ, że mamy tu znak `_`),
+- `\W` – jakikolwiek znak, który nie jest używany w słowach `[^a-zA-Z0-9_]`,
+- `\s` – tak zwane białe znaki czyli znak spacji czy tabulacji `[ 	
 ]`. Możesz je opisać jako znaki, które nie są widoczne podczas wydruku,
-- `\S` - negacja grupy `\s` czyli `[^ 	
+- `\S` – negacja grupy `\s` czyli `[^ 	
 ]`.
 
 Dla przykładu do wyrażenia regularnego `\d\w\d` pasują łańcuchy znaków `"0_0"` czy `"0X1"` ale nie pasują `"a0b"` czy `"0 0"`.
@@ -336,11 +336,11 @@ Pamiętasz o ukośniku? Wyrażenie regularne `\d` zapisane jako `String` w języ
 {% capture noticedaty %}
 Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku artykułu, do którego pasują daty: `\d{4}-\d{2}-\d{2}`:
 
-- `\d{4}` - cztery cyfry oznaczające rok,
-- `-` - minus oddzielający rok od miesiąca,
-- `\d{2}` - dwie cyfry oznaczające miesiąc,
-- `-` - minus oddzielający miesiąc od dnia,
-- `\d{2}` - dwie cyfry oznaczające dzień.
+- `\d{4}` – cztery cyfry oznaczające rok,
+- `-` – minus oddzielający rok od miesiąca,
+- `\d{2}` – dwie cyfry oznaczające miesiąc,
+- `-` – minus oddzielający miesiąc od dnia,
+- `\d{2}` – dwie cyfry oznaczające dzień.
 
 Dasz też sobie radę z `\d{2}-\d{3}` opisującym kody pocztowe.
 {% endcapture %}
@@ -355,13 +355,13 @@ Do tej pory poznałeś mechanizmy wyrażeń regularnych które pozwalają na spr
 
 Weźmy za przykład zdanie `"Ala ma kota. Kot ma na imię --Zygmunt--. Kot jest czarny."`. Załóżmy, że chcielibyśmy wyciągnąć z tego zdania imię kota. Dla uproszczenia umieściłem je pomiędzy dwoma minusami. Następujące wyrażenie regularne może nam w tym pomóc: `[^-]*--(\w+)--.*`. Rozłóżmy je na czynniki pierwsze:
 
-- `[^-]*` - Jakikolwiek znak tylko nie minus powtórzony dowolną ilość razy,
-- `--` - dwa minusy,
-- `(` - rozpoczęcie grupy,
-- `\w+` - znak użyty w słowach występujący co najmniej raz,
-- `)` - zamknięcie grupy,
-- `--` - dwa minusy,
-- `.*` - dowolny znak występujący 0 lub więcej razy.
+- `[^-]*` – Jakikolwiek znak tylko nie minus powtórzony dowolną ilość razy,
+- `--` – dwa minusy,
+- `(` – rozpoczęcie grupy,
+- `\w+` – znak użyty w słowach występujący co najmniej raz,
+- `)` – zamknięcie grupy,
+- `--` – dwa minusy,
+- `.*` – dowolny znak występujący 0 lub więcej razy.
 
 W naszym przykładzie imię Zygmunt znajdujące się pomiędzy podwójnymi minusami zostanie przypisane do grupy. Grupowanie oznaczamy nawiasami `()`. W wyrażeniu regularnym może być kilka grup, numerowane są one zawsze od jedynki.
 
@@ -369,8 +369,8 @@ Jeśli dany łańcuch znaków pasuje do wyrażenia regularnego wówczas domyśln
 
 Obiekt klasy `Matcher` posiada zestaw metod, które operują na grupach. Skupimy się na dwóch z nich:
 
-- `groupCount()` - zwraca liczbę grup w wyrażeniu regularnym (pomijając tę domyślną z indeksem 0),
-- `group(int groupNumber)` - zwraca grupę pod konkretnym numerem.
+- `groupCount()` – zwraca liczbę grup w wyrażeniu regularnym (pomijając tę domyślną z indeksem 0),
+- `group(int groupNumber)` – zwraca grupę pod konkretnym numerem.
 
 ```java
 @Test
@@ -389,11 +389,11 @@ Operatory powtórzeń można stosować do grup. Wyrażenie regularne `(\w+ ){3}`
 {% capture noticepseudonim %}
 Teraz już wiesz, jak można odczytać wyrażenie regularne użyte na początku artykułu, do odczytywania pseudonimu z książki adresowej `\w+ \((\w+)\) \w+`. Rozkładając wyrażenie na czynniki pierwsze otrzymujemy:
 
-- `\w+` - cyfry, litery lub podkreślnik użyte co najmniej raz,
-- `\(` - znak nawiasów użyty dosłownie,
-- `(\w+)` - ponownie cyfry, litery lub podkreślnik użyte co najmniej raz ale tym razem złapane w grupę,
-- `\)` - znak nawiasów użyty dosłownie,
-- `\w+` - po raz kolejny fragment pasujący tym razem do nazwiska.
+- `\w+` – cyfry, litery lub podkreślnik użyte co najmniej raz,
+- `\(` – znak nawiasów użyty dosłownie,
+- `(\w+)` – ponownie cyfry, litery lub podkreślnik użyte co najmniej raz ale tym razem złapane w grupę,
+- `\)` – znak nawiasów użyty dosłownie,
+- `\w+` – po raz kolejny fragment pasujący tym razem do nazwiska.
 {% endcapture %}
 
 <div class="notice--info">

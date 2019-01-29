@@ -23,7 +23,7 @@ Dzisiaj używał będę programu [gedit](https://wiki.gnome.org/Apps/Gedit), pra
 
 ## Narzędzia dostępne w JDK
 
-O tym czym jest JDK i czym różni się od JRE pisałem w jednym z pierwszych artykułów na blogu - o [przygotowaniu środowiska programisty]({% post_url 2015-10-18-przygotowanie-srodowiska-programisty %}). Dowiesz się też tam jak zainstalować JDK. Dzisiaj będą dla Ciebie istotne trzy programy. `java` dostarczana jest wraz z JRE, `javac` i `jar` dostępne są wyłącznie w JDK:
+O tym czym jest JDK i czym różni się od JRE pisałem w jednym z pierwszych artykułów na blogu – o [przygotowaniu środowiska programisty]({% post_url 2015-10-18-przygotowanie-srodowiska-programisty %}). Dowiesz się też tam jak zainstalować JDK. Dzisiaj będą dla Ciebie istotne trzy programy. `java` dostarczana jest wraz z JRE, `javac` i `jar` dostępne są wyłącznie w JDK:
 - `java` uruchamia maszynę wirtualną, wywołując metodę `main` w odpowiedniej klasie,
 - `javac` to kompilator, który jest w stanie utworzyć plik class z pliku java,
 - `jar` to narzędzie, które jest w stanie tworzyć pliki jar.
@@ -59,9 +59,9 @@ public class DisplayName {
 }
 ```
 
-## `javac` - skompiluj swoją klasę
+## `javac` – skompiluj swoją klasę
 
-I teraz dochodzimy do sedna sprawy, jak uruchomić taki program? Otóż trzeba go na początku skompilować. Do tego celu służy jedno z podstawowych i najczęściej używanych narzędzi dostarczonych wraz z JDK - kompilator języka Java. Jest to program `javac`. Wpisując w konsoli polecenie `javac -help` pokaże Ci się taka lista opcji (tutaj pokazałem wyłącznie kilka pierwszych linijek):
+I teraz dochodzimy do sedna sprawy, jak uruchomić taki program? Otóż trzeba go na początku skompilować. Do tego celu służy jedno z podstawowych i najczęściej używanych narzędzi dostarczonych wraz z JDK – kompilator języka Java. Jest to program `javac`. Wpisując w konsoli polecenie `javac -help` pokaże Ci się taka lista opcji (tutaj pokazałem wyłącznie kilka pierwszych linijek):
 
     $ javac -help
     Usage: javac <options> <source files>
@@ -76,7 +76,7 @@ I teraz dochodzimy do sedna sprawy, jak uruchomić taki program? Otóż trzeba g
       -cp <path>                 Specify where to find user class files and annotation processors
     ...
 
-Więc skompilujmy tę pierwszą klasę :). Aby to zrobić należy uruchomić komendę `javac DisplayName.java`. Po jej uruchomieniu kompilator powinien utworzyć plik binarny z rozszerzeniem class - `DisplayName.class`. Plik ten zawiera instrukcje, które są zrozumiałe dla wirtualnej maszyny Javy.
+Więc skompilujmy tę pierwszą klasę :). Aby to zrobić należy uruchomić komendę `javac DisplayName.java`. Po jej uruchomieniu kompilator powinien utworzyć plik binarny z rozszerzeniem class – `DisplayName.class`. Plik ten zawiera instrukcje, które są zrozumiałe dla wirtualnej maszyny Javy.
 
 A oto jak wygląda katalog, w którym aktualnie znajduje się kod źródłowy razem ze skompilowaną klasą:
 
@@ -89,9 +89,9 @@ A oto jak wygląda katalog, w którym aktualnie znajduje się kod źródłowy ra
 
 {% include newsletter-srodek.md %}
 
-## `java` - uruchom swoją klasę
+## `java` – uruchom swoją klasę
 
-Skoro mamy już kod, mamy też skompilowaną klasę przydałoby się ją jakoś uruchomić :). Z pomocą przychodzi kolejny bardzo ważny program - `java`. Program ten uruchamia wirtualną maszynę Javy. Wpisując w konsoli `java -help` ponownie pokażą się dostępne opcje (skróciłem je także tutaj):
+Skoro mamy już kod, mamy też skompilowaną klasę przydałoby się ją jakoś uruchomić :). Z pomocą przychodzi kolejny bardzo ważny program – `java`. Program ten uruchamia wirtualną maszynę Javy. Wpisując w konsoli `java -help` ponownie pokażą się dostępne opcje (skróciłem je także tutaj):
 
     $ java -help
     Usage: java [-options] class [args...]
@@ -122,7 +122,7 @@ Niby prosty program, a do jego uruchomienia trzeba użyć dwóch magicznych prog
 
 ## Pakiety
 
-A teraz zrób krok do przodu - utwórz tę samą klasę w pakiecie `pl.samouczekprogramisty.commandline` i skompiluj ją przy pomocy `javac`. Przykład poniżej pokazuje poprawna strukturę katalogów dla klasy w takim pakiecie:
+A teraz zrób krok do przodu – utwórz tę samą klasę w pakiecie `pl.samouczekprogramisty.commandline` i skompiluj ją przy pomocy `javac`. Przykład poniżej pokazuje poprawna strukturę katalogów dla klasy w takim pakiecie:
 
     $ tree .
     .
@@ -159,9 +159,9 @@ Dochodzimy tutaj do pewnej istotnej rzeczy, gdzie program `java` ma "szukać" te
 
 ## Czym jest classpath
 
-No właśnie, czym jest classpath, magiczna ścieżka przeszukiwania? Wyjaśniając to pojęcie w jednym zdaniu - classpath to ścieżka, gdzie program `java` szuka klas, które potrzebne są w trakcie uruchomienia programu.
+No właśnie, czym jest classpath, magiczna ścieżka przeszukiwania? Wyjaśniając to pojęcie w jednym zdaniu – classpath to ścieżka, gdzie program `java` szuka klas, które potrzebne są w trakcie uruchomienia programu.
 
-Możesz zatem zapytać "dlaczego poprzednio `java DisplayName` działało?" Działało, ponieważ jeśli nie ustawisz żadnej wartości, ścieżka przeszukiwania przyjmuje wartość domyślną - `.`. Ta kropka oznacza katalog, w którym aktualnie się znajdujesz.
+Możesz zatem zapytać "dlaczego poprzednio `java DisplayName` działało?" Działało, ponieważ jeśli nie ustawisz żadnej wartości, ścieżka przeszukiwania przyjmuje wartość domyślną – `.`. Ta kropka oznacza katalog, w którym aktualnie się znajdujesz.
 
 Jako ćwiczenie możesz spróbować przejść do innego katalogu i uruchomić to samo polecenie, przykład poniżej pokazuje zachowanie jakie możesz uzyskać:
 
@@ -287,7 +287,7 @@ W przypadku przykładu używanego poprzednio cały zestaw komend wyglądałby na
     pl/samouczekprogramisty/commandline/CheckName.class
     pl/samouczekprogramisty/commandline/CheckName.java
 
-Jak widzisz, pliki znajdujące się w katalogu zostały dodane do pliku JAR. Program tutaj nie przeprowadził żadnego filtrowania - umieścił w archiwum także pliki java. Dlatego właśnie bardzo często pliki class umieszczamy w zupełnie innym katalogu niż pliki źródłowe.
+Jak widzisz, pliki znajdujące się w katalogu zostały dodane do pliku JAR. Program tutaj nie przeprowadził żadnego filtrowania – umieścił w archiwum także pliki java. Dlatego właśnie bardzo często pliki class umieszczamy w zupełnie innym katalogu niż pliki źródłowe.
 
 Dodatkowo wewnątrz pliku JAR znajduje się też plik MANIFEST.MF, który zawiera metadane na temat tego archiwum. Wewnątrz tego pliku możemy skonfigurować na przykład domyślną klasę, która powinna być uruchamiana podczas wykonania polecenia
 

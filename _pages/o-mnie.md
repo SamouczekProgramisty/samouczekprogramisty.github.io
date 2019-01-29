@@ -21,6 +21,6 @@ Zależy mi na tym, żeby Samouczek Programisty stał się miejscem, w którym pr
 
 Mam nadzieje, że publikowane przeze mnie treści będą dla Ciebie ciekawe i pomocne. Gdybyś miał(a) jakiekolwiek pytania, propozycje czy uwagi proszę skontaktuj się ze mną. Postaram się pomóc. Mam świadomość, że nie jestem alfą i omegą, dlatego każda konstruktywna krytyka jest mile widziana. Mój e-mail to `marcin małpka samouczekprogramisty.pl`.
 
-_Marcin - Samouk Naczelny ;)_
+_Marcin – Samouk Naczelny ;)_
 
 {% include figure image_path="/assets/images/samouczek.jpg" caption="Marcin programista" %}

@@ -97,7 +97,7 @@ public class Calculator {
 
 Wartości niezmienne, podobnie jak metody, mogą być przypisane do instancji bądź klasy. Jeśli taka wartość przypisana jest do klasy mówimy wówczas o stałej. Jeśli chcemy aby stała była przypisana do klasy poprzedzamy ją słowem kluczowym `static`.
 
-Do stałych wartość możemy przypisać wyłącznie raz - podczas inicjalizacji klasy. Zgodnie z konwencją nazewniczą stałe piszemy wielkimi literami.
+Do stałych wartość możemy przypisać wyłącznie raz – podczas inicjalizacji klasy. Zgodnie z konwencją nazewniczą stałe piszemy wielkimi literami.
 
 ```java
 public interface Cat {

@@ -15,13 +15,13 @@ disqus_page_identifier: 731 http://www.samouczekprogramisty.pl/?p=731
 {% capture notice-text %}
 To jest drugi artykuł na temat wyrażeń regularnych. Część zagadnień związanych z wyrażeniami regularnymi opisana jest w [pierwszej części]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}):
 
- - czym są wyrażenia regularne,
- - kiedy używamy wyrażeń regularnych, praktyczne wskazówki,
- - API wyrażeń regularnych w języku Java,
- - obsługa powtórzeń (`+`, `*`, `?`, `{}`),
- - klasy znaków (`.`, `[]`, `\d`, `\w`, itd.),
- - grupy (`()`),
- - wsparcie IDE dla wyrażeń regularnych.
+- czym są wyrażenia regularne,
+- kiedy używamy wyrażeń regularnych, praktyczne wskazówki,
+- API wyrażeń regularnych w języku Java,
+- obsługa powtórzeń (`+`, `*`, `?`, `{}`),
+- klasy znaków (`.`, `[]`, `\d`, `\w`, itd.),
+- grupy (`()`),
+- wsparcie IDE dla wyrażeń regularnych.
 
 Zachęcam do przeczytania pierwszej części jeśli chciałbyś dowiedzieć się czegoś więcej o punktach wspomnianych powyżej. Tutaj bez zbędnego wstępu przejdę do konkretów. Na pierwszy ogień idzie zachłanność wyrażeń regularnych.
 {% endcapture %}

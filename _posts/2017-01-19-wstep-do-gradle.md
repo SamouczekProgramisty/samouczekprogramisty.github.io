@@ -14,7 +14,7 @@ disqus_page_identifier: 738 http://www.samouczekprogramisty.pl/?p=738
 
 ## Czym jest Gradle
 
-Starając się opisać Gradle jednym zdaniem powiedziałbym, że Gradle jest narzędziem służącym do budowania projektów[^gradle]. Pozwala ono na zautomatyzowanie tego procesu. Używa się do tego tak zwanego języka domenowego - DSL (ang. _Domain Specific Language_), który ułatwia wykonywanie standardowych zadań związanych z budowaniem projektu.
+Starając się opisać Gradle jednym zdaniem powiedziałbym, że Gradle jest narzędziem służącym do budowania projektów[^gradle]. Pozwala ono na zautomatyzowanie tego procesu. Używa się do tego tak zwanego języka domenowego – DSL (ang. _Domain Specific Language_), który ułatwia wykonywanie standardowych zadań związanych z budowaniem projektu.
 
 [^gradle]: Oczywiście z racji swoje elastyczności Gradle może być użyte także w wielu innych przypadkach, jednak to budowanie projektów jest tym "standardowym".
 

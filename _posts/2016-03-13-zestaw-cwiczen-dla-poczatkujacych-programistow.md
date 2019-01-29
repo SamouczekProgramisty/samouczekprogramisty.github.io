@@ -63,12 +63,12 @@ boolean isEven = someNumber % 2 == 0;
 1. Utwórz klasę `Human` reprezentującą człowieka, musi posiadać atrybuty takie jak wiek, waga, wzrost, imię i płeć. Klasa powinna także zawierać metody `getAge`, `getWeight`, `getHeight`, `getName`, `isMale`.
 2. Utwórz klasę reprezentującą prostokąt, musi posiadać atrybuty długość i szerokość. Klasa powinna posiadać metody obliczające pole, obwód i długość przekątnej.
 3. Utwórz klasę o nazwie `MyNumber`, której jedyny konstruktor przyjmuje liczbę. Klasa powinna mieć następujące metody
-  1. `MyNumber isOdd()` - `true` jeśli atrybut jest nieparzysty,
-  2. `MyNumber isEven()` - `true` jeśli atrybut jest parzysty,
-  3. `MyNumber sqrt()` - pierwiastek z atrybutu,
-  4. `MyNumber pow(MyNumber x)` - atrybut podniesiony do potęgi x (przydatnej metody poszukaj w javadoc do klasy [Math](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html)),
-  5. `MyNumber add(MyNumber x)` - zwraca sumę atrybutu i x opakowaną w klasę `MyNumber`,
-  6. `MyNumber subtract(MyNumber x)` - zwraca różnicę atrybutu i x opakowaną w klasę `MyNumber`.
+  1. `MyNumber isOdd()` – `true` jeśli atrybut jest nieparzysty,
+  2. `MyNumber isEven()` – `true` jeśli atrybut jest parzysty,
+  3. `MyNumber sqrt()` – pierwiastek z atrybutu,
+  4. `MyNumber pow(MyNumber x)` – atrybut podniesiony do potęgi x (przydatnej metody poszukaj w javadoc do klasy [Math](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html)),
+  5. `MyNumber add(MyNumber x)` – zwraca sumę atrybutu i x opakowaną w klasę `MyNumber`,
+  6. `MyNumber subtract(MyNumber x)` – zwraca różnicę atrybutu i x opakowaną w klasę `MyNumber`.
 
 A teraz ciekawostka, jeśli rozwiązałeś zadanie 3. to muszę Ci zdradzić, że podobna klasa istnieje w standardowej bibliotece języka Java. Jest to klasa `BigInteger`/`BigDecimal`. Oczywiście jej możliwości są dużo bardziej rozbudowane, jednak zasada działania jest podobna.
 
@@ -84,8 +84,8 @@ Dużo zadań dotyczących tablic wymaga znajmości pętli, dlatego w następnym 
 1. Utwórz metodę pobierającą dodatnią liczbę całkowitą X, która wyświetli na ekranie liczby od zera do X,
 2. Jeśli w zadaniu 1. użyłeś pętli `for` przerób tę metodę na `while` (lub odwrotnie),
 3. Napisz klasę `ArrayFactory`, która w konstruktorze pobierze liczbę całkowitą X. Klasa powinna mieć 2 metody:
-  * `int[] oneDimension` - zwróci instancję tablicy jednowymiarowej o długości X,
-  * `int[][] twoDimension` - zwróci instację tablicy dwuwymiarowej gdzie liczba wierszy i liczba kolumn równa się X,
+  * `int[] oneDimension` – zwróci instancję tablicy jednowymiarowej o długości X,
+  * `int[][] twoDimension` – zwróci instację tablicy dwuwymiarowej gdzie liczba wierszy i liczba kolumn równa się X,
 
 4. Utwórz metodę, która pobierze liczbę i wypisze każdy znak w osobnej linii zaczynając od ostatniej cyfry (np. dla liczby 123 będą to trzy linie z 3, 2 i 1),
 5. Utwórz metodę, która jako argument pobierze obiekt klasy `String` i zwróci "odwrócony" argument. Na przykład "pies" przekształci w "seip",

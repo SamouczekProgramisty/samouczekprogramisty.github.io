@@ -25,7 +25,7 @@ header:
 
 ![Olga Snarska]({{ "/assets/images/opinie/olga.jpeg" | absolute_url }}){: .align-left} 
 > Od dłuższego czasu szukałam kursu java w celu odświeżenia swojej wiedzy na temat programowania po kilkuletniej przerwie. Według mnie Samouczek Programisty nadaje się do tego idealnie. Dzięki kursowi mogłam w szybki i efektywny sposób powtórzyć podstawowe zagadnienia. Najbardziej podobała mi się prosta i przejrzysta forma wraz z przykładami i zadaniem do wykonania dzięki czemu nauka była o wiele łatwiejsza.
-Jest jeszcze jedna rzecz, którą warto wspomnieć - to fantastyczny kontakt z autorem, który szybko odpowiada na maile i pomaga rozwiązywać problemy naprowadzając na rozwiązanie.
+Jest jeszcze jedna rzecz, którą warto wspomnieć – to fantastyczny kontakt z autorem, który szybko odpowiada na maile i pomaga rozwiązywać problemy naprowadzając na rozwiązanie.
 Bardzo polecam! 
 {% endcapture %}
 

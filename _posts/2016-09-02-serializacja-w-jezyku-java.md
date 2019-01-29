@@ -104,10 +104,10 @@ Zwróć proszę uwagę na ostatnią linię. W linijce tej porównywane są dwa a
 ## Deserializacja atrybutów `transient`
 
 Zaraz, jak to? Przecież kilka akapitów wyżej napisałem, że atrybuty poprzedzone słowem kluczowym transient nie są serializowane. Tak to prawda, jednak podczas deserializacji atrybuty tego typu należy zainicjalizować pewną wartością. Otóż dla każdego typu mamy taką domyślną wartość:
-- `boolean` - `false`,
-- liczby całkowite (`int`, `long`, itd.) - `0`,
-- liczby ułamkowe (`float`, `duble`) - `0.0`,
-- obiekty (`Integer`, `Float`, `String`, `CustomClass`, itd.) - `null`
+- `boolean` – `false`,
+- liczby całkowite (`int`, `long`, itd.) – `0`,
+- liczby ułamkowe (`float`, `duble`) – `0.0`,
+- obiekty (`Integer`, `Float`, `String`, `CustomClass`, itd.) – `null`
 
 ```java
 public class Human implements Serializable {

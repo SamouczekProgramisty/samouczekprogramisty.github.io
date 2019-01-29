@@ -33,7 +33,7 @@ Wpisując adres [www.samouczekprogramisty.pl](http://www.samouczekprogramisty.pl
 
 W najprostszym przykładzie jakim jest serwer HTTP, serwer (aplikacja) w odpowiedzi wysyła zawartość plików znajdujących się na dysku serwera (komputera). W takim przypadku możemy mówić o serwowaniu plików statycznych.
 
-Aplikacje webowe pokazują zawartość, która jest zmienna. Nie można jej uzyskać wyłącznie z plików statycznych znajdujących się na dysku serwera. Przykładem takiej aplikacji może być ten blog - masz wpływ na zawartość strony na przykład przez dodawanie komentarzy.
+Aplikacje webowe pokazują zawartość, która jest zmienna. Nie można jej uzyskać wyłącznie z plików statycznych znajdujących się na dysku serwera. Przykładem takiej aplikacji może być ten blog – masz wpływ na zawartość strony na przykład przez dodawanie komentarzy.
 
 {% include newsletter-srodek.md %}
 
@@ -50,9 +50,9 @@ Protokół ten używany jest w komunikacji pomiędzy klientem a serwerem. W tym 
 ## Język, który rozumie przeglądarka
 
 W dużym uproszczeniu przeglądarka internetowa to program, który wyświetla strony internetowe. Strony internetowe składają się z plików. Pliki te tworzone są przy pomocy różnych “języków”:
-- HTML (ang. _Hypertext Markup Language_) - język znaczników, można powiedzieć, że jest podzbiorem języka XML ([wprowadzenie do XML]({% post_url 2017-03-02-xml-dla-poczatkujacych %})). Znaczniki te opisują strukturę strony, to z jakich elementów się składa,
-- CSS (ang. Cascading Style Sheets) - język stylów, który pozwala na opisanie wyglądu strony internetowej. W połączeniu z HTML pozwala na tworzenie stron internetowych “przyjaznych dla oka”,
-- JavaScript - język programowania. Kod JavaScript jest interpretowany przez przeglądarkę. Pozwala na uruchamianie skryptów po stronie przeglądarki. Bardzo często animacje widoczne na stronach to właśnie wynik działania skryptów JavaScript.
+- HTML (ang. _Hypertext Markup Language_) – język znaczników, można powiedzieć, że jest podzbiorem języka XML ([wprowadzenie do XML]({% post_url 2017-03-02-xml-dla-poczatkujacych %})). Znaczniki te opisują strukturę strony, to z jakich elementów się składa,
+- CSS (ang. Cascading Style Sheets) – język stylów, który pozwala na opisanie wyglądu strony internetowej. W połączeniu z HTML pozwala na tworzenie stron internetowych “przyjaznych dla oka”,
+- JavaScript – język programowania. Kod JavaScript jest interpretowany przez przeglądarkę. Pozwala na uruchamianie skryptów po stronie przeglądarki. Bardzo często animacje widoczne na stronach to właśnie wynik działania skryptów JavaScript.
 
 ## Aplikacje webowe w Javie
 

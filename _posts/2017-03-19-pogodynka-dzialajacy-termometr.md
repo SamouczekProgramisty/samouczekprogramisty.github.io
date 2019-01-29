@@ -1,5 +1,5 @@
 ---
-title: Pogodynka - działający termometr
+title: Pogodynka – działający termometr
 last_modified_at: 2018-07-18 20:43:32 +0200
 categories:
 - DSP2017

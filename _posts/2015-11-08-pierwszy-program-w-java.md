@@ -23,9 +23,9 @@ Zaczynamy z grubej rury, bez patyczkowania się:
 - utwórz nową klasę (`Alt + Insert`).
   
 To już znasz, teraz czas na nowe rzeczy. Wszystkie elementy zostały opisane w poprzednich artykułach z cyklu:
-1. [Kurs programowania Java - przygotowanie środowiska]({% post_url 2015-10-18-przygotowanie-srodowiska-programisty %})
-2. [Kurs programowania Java - metody]({% post_url 2015-10-22-metody-w-jezyku-java %})
-3. [Kurs programowania Java - obiekty i pakiety]({% post_url 2015-11-01-obiekty-w-jezyku-java %})
+1. [Kurs programowania Java – przygotowanie środowiska]({% post_url 2015-10-18-przygotowanie-srodowiska-programisty %})
+2. [Kurs programowania Java – metody]({% post_url 2015-10-22-metody-w-jezyku-java %})
+3. [Kurs programowania Java – obiekty i pakiety]({% post_url 2015-11-01-obiekty-w-jezyku-java %})
 
 ## Live templates
   
@@ -141,20 +141,20 @@ String productName = "Coca" + "Cola";
 #### Kilka metod klasy `String`
   
 Podobnie jak inne klasy String ma zestaw metod, których możemy użyć. Poniżej kilka z nich:
-- `length` - zwraca długość łańcucha znaków
+- `length` – zwraca długość łańcucha znaków
 
 ```java
 int length = productName.length(); // w naszym przypadku zwraca 8
 ```
   
-- `contains` - sprawdza czy w łańcuchu znaków znajduje się ten przekazany jako parametr
+- `contains` – sprawdza czy w łańcuchu znaków znajduje się ten przekazany jako parametr
 
 ```java
 productName.contains(„ocaCol”); // w naszym przypadku zwraca true
 productName.contains(„Pepsi”); // w naszym przypadku zwraca false
 ```
   
-- `endsWith` - spradza czy łańcuch kończy się przekazanym argumentem
+- `endsWith` – spradza czy łańcuch kończy się przekazanym argumentem
 
 ```java
 productName.endsWith(„ola”); // w naszym przypadku zwraca true

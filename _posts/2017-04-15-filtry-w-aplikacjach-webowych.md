@@ -40,29 +40,29 @@ Filtry oznacza się adnotacją [`@WebFilter`](http://docs.oracle.com/javaee/7/ap
 ## Cykl życia filtrów
 
 Każdy z filtrów ma swój cykl życia. Podobnie jak w serwletach mamy tu metody `init` i `destroy`. Właściwa praca serwletu odbywa się wewnątrz metody `doFilter`.
-- [`init`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#init-javax.servlet.FilterConfig-) - metoda odpowiedzialna za inicjalizację serwletu. Musi się powieść aby kontener serwletów używał tego filtra,
-- [`doFilter`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-javax.servlet.FilterChain-) - tu odbywa się właściwa praca filtra. Metoda ta wywołana jest przed przekazaniem żądania do klasy serwletu,
-- [`destroy`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#destroy--) - metoda, w które filtr ma szansę “posprzątać” po sobie :)
+- [`init`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#init-javax.servlet.FilterConfig-) – metoda odpowiedzialna za inicjalizację serwletu. Musi się powieść aby kontener serwletów używał tego filtra,
+- [`doFilter`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-javax.servlet.FilterChain-) – tu odbywa się właściwa praca filtra. Metoda ta wywołana jest przed przekazaniem żądania do klasy serwletu,
+- [`destroy`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#destroy--) – metoda, w które filtr ma szansę “posprzątać” po sobie :)
 
 {% include newsletter-srodek.md %}
 
 ## Mapowanie filtrów
 
 Adnotacja `@WebFilter` posiada kilka elementów. Opiszę te, które pozwalają na przypisywanie filtrów do poszczególnych serwletów/zasobów:
-- `urlPatterns` - lista szablonów adresów URL do których filtr powinien być zaaplikowany,
-- `servletNames` - lista nazw serwletów. Każdy serwlet może mieć nazwę, którą możesz ustawić za pomocą elementu name adnotacji `@WebServlet`,
-- `value` - domyślny element, stosowany zamiennie z `urlPatterns`.
+- `urlPatterns` – lista szablonów adresów URL do których filtr powinien być zaaplikowany,
+- `servletNames` – lista nazw serwletów. Każdy serwlet może mieć nazwę, którą możesz ustawić za pomocą elementu name adnotacji `@WebServlet`,
+- `value` – domyślny element, stosowany zamiennie z `urlPatterns`.
 
 Szablony adresów URL pozwalają na mapowanie filtrów do adresów URL. Wewnątrz tych szablonów możesz używać znaku `*`, który pozwala na dopasowanie większej liczby adresów URL. Spójrz na kilka przykładów:
-- `/some/url/address` - szablon pasuje tylko do jednego adresu URL - `/some/url/pattern`,
-- `/some/other/resource.*` - szablon pasuje do wielu adresów URL różniących się rozszerzeniami. Na przykład `/some/other/resource.html` czy `/some/other/resource.jpeg`,
-- `/some/*/address` - szablon pasuje do wielu adresów URL. Na przykład `/some/url/address` czy `/some/picture/addresss`,
-- `*` - szablon pasuje do wszystkich adresów URL. Jeśli stworzysz filtr, który będzie miał taki szablon będzie on aplikowany do wszystkich zapytań.
+- `/some/url/address` – szablon pasuje tylko do jednego adresu URL - `/some/url/pattern`,
+- `/some/other/resource.*` – szablon pasuje do wielu adresów URL różniących się rozszerzeniami. Na przykład `/some/other/resource.html` czy `/some/other/resource.jpeg`,
+- `/some/*/address` – szablon pasuje do wielu adresów URL. Na przykład `/some/url/address` czy `/some/picture/addresss`,
+- `*` – szablon pasuje do wszystkich adresów URL. Jeśli stworzysz filtr, który będzie miał taki szablon będzie on aplikowany do wszystkich zapytań.
 
 Kilka przykładów z użyciem adnotacji:
-- `@WebFilter("/chainingServlet")` - filtr będzie zaaplikowany wyłącznie do żądań dotyczących adresu `/chainingServlet`,
-- `@WebFilter(urlPatterns = "/chainingServlet", servletNames = "someRandomServletName")` - filtr będzie zaaplikowany do żądań dotyczących adresu `/chainingServlet` i żądań obsługiwanych przez serwlet o nazwie someRandomServletName
-- `@WebFilter(urlPatterns = {"/some/*/thing", "/other/*/thing"})` - filtr będzie zaaplikowany do żądań dotyczących wielu adresów pasujących do jednego z wzorców.
+- `@WebFilter("/chainingServlet")` – filtr będzie zaaplikowany wyłącznie do żądań dotyczących adresu `/chainingServlet`,
+- `@WebFilter(urlPatterns = "/chainingServlet", servletNames = "someRandomServletName")` – filtr będzie zaaplikowany do żądań dotyczących adresu `/chainingServlet` i żądań obsługiwanych przez serwlet o nazwie someRandomServletName
+- `@WebFilter(urlPatterns = {"/some/*/thing", "/other/*/thing"})` – filtr będzie zaaplikowany do żądań dotyczących wielu adresów pasujących do jednego z wzorców.
 
 ## Łańcuch filtrów
 
@@ -128,9 +128,9 @@ Wiesz już, że do jednego zasobu/serwletu można aplikować wiele filtrów. Bar
 
 Mając zatem trzy filtry:
 
-- loggingFilter - loguje podstawowe informacje o żądaniu,
-- authenticationFilter - weryfikuje tożsamość użytkownika,
-- compressionFilter - kompresuje odpowiedź.
+- loggingFilter – loguje podstawowe informacje o żądaniu,
+- authenticationFilter – weryfikuje tożsamość użytkownika,
+- compressionFilter – kompresuje odpowiedź.
 
 Muszą one być uruchomione w dokładnej tej kolejności: loggingFilter, authenticationFilter, compressionFilter, aby aplikacja działa poprawnie.
 
@@ -146,10 +146,10 @@ Na tym etapie ważne jest żebyś wiedział o tym ograniczaniu. Sam plik `web.xm
 ## Zastosowanie filtrów
 
 Teraz jak już wiesz jak wyglądają filtry musisz dowiedzieć się o ich zastosowaniu. Filtry pozwalają na uniknięcie duplikacji kodu. Najczęściej to właśnie dzięki filtrom realizowane są następujące funkcjonalności:
-- uwierzytelnianie - sprawdzenie czy użytkownik ma prawo do uzyskania odpowiedzi na dane żądanie. Innymi słowy, sprawdzenie czy jest zalogowany,
-- logowanie, audyt - tworzenie logów aplikacji webowej, część informacji (na przykład URL żądania) można logować już na etapie filtrów,
-- kompresja - filtry kompresują odpowiedź. Dzięki zmniejszonej objętości przeglądarka szybciej dostaje odpowiedź,
-- cache - czasami przez uruchomieniem serwletu można stwierdzić, że odpowiedź się nie zmieniła.
+- uwierzytelnianie – sprawdzenie czy użytkownik ma prawo do uzyskania odpowiedzi na dane żądanie. Innymi słowy, sprawdzenie czy jest zalogowany,
+- logowanie, audyt – tworzenie logów aplikacji webowej, część informacji (na przykład URL żądania) można logować już na etapie filtrów,
+- kompresja – filtry kompresują odpowiedź. Dzięki zmniejszonej objętości przeglądarka szybciej dostaje odpowiedź,
+- cache – czasami przez uruchomieniem serwletu można stwierdzić, że odpowiedź się nie zmieniła.
 
 
 Poplularny Spring MVC także używa filtrów. Kilka z nich znajduje się w osobnym [pakiecie](https://github.com/spring-projects/spring-framework/tree/master/spring-web/src/main/java/org/springframework/web/filter). Na przykład:

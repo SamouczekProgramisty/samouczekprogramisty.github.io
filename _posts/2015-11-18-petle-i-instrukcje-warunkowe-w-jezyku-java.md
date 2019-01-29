@@ -149,7 +149,7 @@ Kod ten na początku sprawdza czy temperatura jest mniejsza niż 36°C. Jeśli t
 
 ### Instrukcja `switch`
   
-Jeśli mamy kilka warunków `if` następujących po sobie możemy zamienić je na inną konstrukcję - `switch`. Przejdźmy od razu do przykładu:
+Jeśli mamy kilka warunków `if` następujących po sobie możemy zamienić je na inną konstrukcję – `switch`. Przejdźmy od razu do przykładu:
 
 ```java
 int temperature = 37;

@@ -43,7 +43,7 @@ Załóżmy, że pierwszy rząd to `..^^.`, stosując reguły przedstawione powy�
 - Pierwszy kafel w następnym rzędzie bierze pod uwagę "nieistniejący kafel ze ściany", środkowy (pierwsza `.` oznaczająca bezpieczny kafel) i prawy (druga `.`, także bezpieczny) kafel z poprzedniego rządu. Ponieważ żadna z reguł określająca pułapkę nie została spełniona, kafel jest bezpieczny,
 - kolejny kafel w następnym rzędzie bierze pod uwagę lewy (`.`), środkowy (`.`) i prawy (`^`) kafel z poprzedniego rzędu. Taki układ pasuje do czwartej reguły więc ten kafel to pułapka,
 - trzeci kafel bierze pod uwagę `.^^`, taki układ pasuje do drugiej reguły, ten kafel to także pułapka,
-- ostatnie dwa kafle pasują odpowiedni do pierwszej i trzeciej reguły dla pułapek - oba kafle to pułapki.
+- ostatnie dwa kafle pasują odpowiedni do pierwszej i trzeciej reguły dla pułapek – oba kafle to pułapki.
 
 Po zastosowaniu tych kroków poznałeś kolejny rząd kafli w pokoju `.^^^^`. Następnie używając tych samych reguł możesz poznać trzeci rząd `^^..^`. Układ kafli w pierwszych trzech rzędach wygląda następująco:
 
@@ -66,10 +66,10 @@ Poniżej jest przykład z trochę większego pokoju o dziesięciu rzędach i kol
 
 W powyższym przykładzie, w dziesięciu rzędach jest 38 bezpiecznych kafli.
 
-Zakładając, że pierwszy rząd dla pokoju, w którym się znajdujesz jest w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day18_input.txt) - ile jest bezpiecznych kafli w pierwszych 40 rzędach (wliczając podany)?
+Zakładając, że pierwszy rząd dla pokoju, w którym się znajdujesz jest w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day18_input.txt) – ile jest bezpiecznych kafli w pierwszych 40 rzędach (wliczając podany)?
 
 ## Podsumowanie
 
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day18), jednak zrób to raczej w ostateczności.
 
-Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!
+Na koniec mam do Ciebie prośbę – podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!

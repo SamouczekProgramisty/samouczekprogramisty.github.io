@@ -8,7 +8,7 @@ permalink: /metody-w-jezyku-java/
 header:
     teaser: /assets/images/2015/10/22_metody_w_jezyku_java.png
     overlay_image: /assets/images/2015/10/22_metody_w_jezyku_java.png
-excerpt: Artykułem tym rozpoczynam serię artykułów - kurs programowania w języku Java. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest typ danych, dowiesz się czym jest metoda. Poznasz kilka podstawowych rodzajów danych (typów). Postaram się też przekazać Ci kilka dobrych praktyk. Zaczynamy!
+excerpt: Artykułem tym rozpoczynam serię artykułów – kurs programowania w języku Java. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest typ danych, dowiesz się czym jest metoda. Poznasz kilka podstawowych rodzajów danych (typów). Postaram się też przekazać Ci kilka dobrych praktyk. Zaczynamy!
 disqus_page_identifier: 63 http://www.samouczekprogramisty.pl/?p=63
 ---
 
@@ -146,9 +146,9 @@ return someNumber > 100;
 ```
 
 Ciało tej metody zawiera operator porównania `>`. `someNumber > 100` może zwrócić wartość logiczną. W zależności od wartości zmiennej `someNumber` wartość ta będzie różna:
-- jeśli `someNumber` równa się 10 wówczas `someNumber > 100` oznacza fałsz - `false`,
-- jeśli `someNumber` równa się 100 wówczas `someNumber > 100` oznacza fałsz - `false`,
-- jeśli `someNumber` równa się 101 wówczas `someNumber > 100` oznacza prawdę - `true`.
+- jeśli `someNumber` równa się 10 wówczas `someNumber > 100` oznacza fałsz – `false`,
+- jeśli `someNumber` równa się 100 wówczas `someNumber > 100` oznacza fałsz – `false`,
+- jeśli `someNumber` równa się 101 wówczas `someNumber > 100` oznacza prawdę – `true`.
 
 Pamiętaj o tym, że słowo kluczowe `return` może występować w metodach, które nie zwracają żadnej wartości.
 {:.notice--warning}
@@ -183,7 +183,7 @@ boolean isBig = isBig(10);
 Ta linijka to wywołanie metody `isBig`, która zwraca wartość i przypisuje ją do zmiennej o nazwie `isBig`. W tym przypadku `isBig` może oznaczać dwie różne rzeczy:
 
 - nazwę metody,
-- zmienną przechowującą typ `boolean` - w tym przypadku wynik działania metody `isBig`.
+- zmienną przechowującą typ `boolean` – w tym przypadku wynik działania metody `isBig`.
 
 ## Wywołanie metody
 
@@ -220,11 +220,11 @@ Swego rodzaju wyjątkiem są tu nazwy klas, które także zaczynają się od wie
 
 Nie każdy ciąg znaków może być użyty jako nazwy klasy/zmiennej/metody. Niektórych znaków nie można używać. Podobnie jest z niektórymi słowami. Java ma zestaw słów, które są zastrzeżone i nie mogą być użyte jako nazwa zmiennej. Kilka przykładów:
 
-- `boolean` - jest to typ danych, nie można tak nazwać zmiennej,
-- `class` - jest to słowo kluczowe użyte przy definicji klasy,
-- `return` - słowo kluczowe użyte w metodzie oznacza wartość zwracaną przez daną metodę,
-- `void` - słowo kluczowe pokazujące brak zwracanej wartości,
-- `#2someName!` - nie wszystkie znaki są dopuszczalne. Dla uproszczenia można przyjąć, że można używać wyłącznie małych i wielkich liter od a do z bez polskich znaków[^polskie_znaki].
+- `boolean` – jest to typ danych, nie można tak nazwać zmiennej,
+- `class` – jest to słowo kluczowe użyte przy definicji klasy,
+- `return` – słowo kluczowe użyte w metodzie oznacza wartość zwracaną przez daną metodę,
+- `void` – słowo kluczowe pokazujące brak zwracanej wartości,
+- `#2someName!` – nie wszystkie znaki są dopuszczalne. Dla uproszczenia można przyjąć, że można używać wyłącznie małych i wielkich liter od a do z bez polskich znaków[^polskie_znaki].
 
 [^polskie_znaki]: Reguły są oczywiście dużo bardziej rozbudowane, jednak dla naszych potrzeb takie uproszczenie w zupełności wystarczy.
 
@@ -269,4 +269,4 @@ Jeszcze nie wiesz jak uruchomić tę metodę w działającym programie. Dowiesz 
 
 I jak czujesz się po pierwszej lekcji? Udało Ci się wykonać ćwiczenie? Daj znać jak Ci poszło w komentarzach. W następnym artykule przeczytasz o klasach. Jeśli chcesz być na bieżąco proszę polub stronę Samouczka na Facebook'u.
 
-Naukę dobrze jest rozpocząć w gronie znajomych motywując się nawzajem, proszę poleć im tę stronę - razem zaczniecie uczyć się programowania.
+Naukę dobrze jest rozpocząć w gronie znajomych motywując się nawzajem, proszę poleć im tę stronę – razem zaczniecie uczyć się programowania.

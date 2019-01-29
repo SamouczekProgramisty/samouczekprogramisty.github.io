@@ -23,7 +23,7 @@ toc: false
 
 Format kompresuje sekwencje znaków. Białe znaki (spacje, znaki nowej linii itp.) są ignorowane. Aby zaznaczyć, że jakaś sekwencja powinna być powtórzona, umieszcza się przed nią odpowiedni znacznik, na przykład (10x2). Aby zdekompresować następującą po nim sekwencję należy wziąć kolejne 10 znaków i powtórzyć je dwa razy. Następnie należy kontynuować czytanie skompresowanej zawartości po powtórzonej sekwencji. Sam znacznik nie jest dołączany do zdekompresowanego wyjścia.
 
-Jeśli nawiasy, czy inne znaki wystąpią wewnątrz sekwencji, która powinna być powtórzona - wszystko jest w porządku. Należy traktować je jak normalne dane, nie znacznik i kontynuować poszukiwanie znaczników po sekcji, która została powtórzona.
+Jeśli nawiasy, czy inne znaki wystąpią wewnątrz sekwencji, która powinna być powtórzona – wszystko jest w porządku. Należy traktować je jak normalne dane, nie znacznik i kontynuować poszukiwanie znaczników po sekcji, która została powtórzona.
 
 Dla przykładu:
 
@@ -40,4 +40,4 @@ Jaka jest długość zdekompresowanej sekwencji jeśli skompresowane dane zapisa
 
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day09), jednak zrób to raczej w ostateczności.
 
-Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!
+Na koniec mam do Ciebie prośbę – podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!

@@ -20,7 +20,7 @@ Czasami mogłeś zobaczyć w kodzie dziwną konstrukcje z `@` np. `@Override` cz
 
 Adnotacje są konstrukcją, która pozwala na przekazywanie dodatkowych informacji na temat kodu. Informacje te mogą być wykorzystane później w kilku miejscach. Każde z tych zastosowań opiszę bardziej szczegółowo w kolejnych akapitach.
 
-Mówi się, że adnotacje służą do przekazywania metadanych. Innymi słowy przekazują one dane o danych - dane o kodzie źródłowym.
+Mówi się, że adnotacje służą do przekazywania metadanych. Innymi słowy przekazują one dane o danych – dane o kodzie źródłowym.
 
 "Pod spodem" adnotacja to nic innego jak specjalny rodzaj interfejsu.
 

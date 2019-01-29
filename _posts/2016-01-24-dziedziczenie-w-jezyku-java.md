@@ -58,8 +58,8 @@ Dzięki dziedziczeniu możemy mieć dostęp do metod, atrybutów, konstruktorów
 
 Do tej pory poznałeś modyfikatory dostępu takie jak:
 
-- `public` - element oznaczony tym modyfikatorem dostępny jest "z zewnątrz" obiektu, stanowi jego interfejs,
-- `private` - element oznaczony tym modyfikatorem jest dostępna wyłącznie wewnątrz obiektu, także klasy pochodne nie mają do niego dostępu.
+- `public` – element oznaczony tym modyfikatorem dostępny jest "z zewnątrz" obiektu, stanowi jego interfejs,
+- `private` – element oznaczony tym modyfikatorem jest dostępna wyłącznie wewnątrz obiektu, także klasy pochodne nie mają do niego dostępu.
   
 W przypadku dziedziczenia znaczenie ma także modyfikator `protected`. Element poprzedzony tym atrybutem może być dostępny wewnątrz klasy bądź przez każdą inną klasę która po niej dziedziczy.
 

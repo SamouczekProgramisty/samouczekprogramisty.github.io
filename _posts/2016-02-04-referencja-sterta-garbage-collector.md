@@ -1,6 +1,6 @@
 ---
 last_modified_at: 2018-10-17 19:50:39 +0200
-title: Referencja, sterta i garbage collector - obiektów w Javie ciąg dalszy
+title: Referencja, sterta i garbage collector – obiektów w Javie ciąg dalszy
 sections:
 - Kurs programowania Java
 categories:
@@ -149,7 +149,7 @@ A co się stanie jeśli wywołamy metodę na referencji wskazującej na `null`? 
 
 ## Dodatkowe materiały do nauki
 
-- [https://gist.github.com/jboner/2841832](https://gist.github.com/jboner/2841832) - zestawienie czasów na podstawie których przygotowałem jeden z akapitów
+- [https://gist.github.com/jboner/2841832](https://gist.github.com/jboner/2841832) – zestawienie czasów na podstawie których przygotowałem jeden z akapitów
 - [http://edu.pjwstk.edu.pl/wyklady/ppj/scb/ObRef/ObRef.html](http://edu.pjwstk.edu.pl/wyklady/ppj/scb/ObRef/ObRef.html)
 - [http://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.1 null](http://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.1 null)
 - [kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/10_obiekty/src/main/java/pl/samouczekprogramisty/kursjava)
@@ -161,7 +161,7 @@ Zadanie będzie nietypowe :) Spróbuj napisać program, który spowoduje przepe�
 
 ## Podsumowanie
 
-Bardzo się cieszę, że dotrwałeś do końca :) Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę - polub nasz profil na facebooku i podziel się artykułem ze znajomymi. Dzięki temu dotrę do większej grupy czytelników a właśnie na tym mi zależy.
+Bardzo się cieszę, że dotrwałeś do końca :) Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę – polub nasz profil na facebooku i podziel się artykułem ze znajomymi. Dzięki temu dotrę do większej grupy czytelników a właśnie na tym mi zależy.
 
 Jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzach, postaram się pomóc :)
 

@@ -46,7 +46,7 @@ Aby dotrzeć do sejfu, jedyne co musisz zrobić to dotrzeć do pokoju w prawym d
 
 Dla przykładu załóżmy, że hasło to `hijkl`. Początkowo, nie ruszyłeś się do żadnego pokoju więc aktualna ścieżka jest pusta. Po prostu znajdujesz sumę kontrolną MD5 z `hijkl`. Pierwsze cztery znaki tej sumy to `ced9`. Oznacza to, że góra jest otwarta (`c`), dół jest otwarty (`e`), lewa strona jest otwarta (`d`) i prawa strona jest zamknięta (`9`). Ponieważ zaczynasz w lewym górnym rogu nie ma drzwi u góry ani po lewej stronie więc możesz pójść tylko w dół.
 
-Następnie po jednym kroku (w dół), znajdujesz sumę kontrolną dla `hijklD`. Otrzymujesz sumę kontrolną `f2bc`, co oznacza, że możesz pójść z powrotem do góry, w lewo (tylko tam znów jest mur) lub w prawo. Pójście w prawo oznacza znajdowanie sumy z `hijklDR`, otrzymasz wtedy `5745` - wszystkie drzwi są zamknięte. Jednak gdy wrócisz do góry sytuacja wygląda inaczej. Mimo tego, że już w tym pokoju byłeś, teraz Twoja ścieżka jest inna, suma kontrolna też będzie inna więc też i inne drzwi mogą zostać otwarte.
+Następnie po jednym kroku (w dół), znajdujesz sumę kontrolną dla `hijklD`. Otrzymujesz sumę kontrolną `f2bc`, co oznacza, że możesz pójść z powrotem do góry, w lewo (tylko tam znów jest mur) lub w prawo. Pójście w prawo oznacza znajdowanie sumy z `hijklDR`, otrzymasz wtedy `5745` – wszystkie drzwi są zamknięte. Jednak gdy wrócisz do góry sytuacja wygląda inaczej. Mimo tego, że już w tym pokoju byłeś, teraz Twoja ścieżka jest inna, suma kontrolna też będzie inna więc też i inne drzwi mogą zostać otwarte.
 
 Po udaniu się `DU` (i policzeniu sumy kontrolnej z `hijklDU` aby otrzymać `528e`), tylko prawe drzwi są otwarte. Po udaniu się w prawo i policzeniu sumy kontrolne wszystkie drzwi są zamknięte... Na szczęście Twoje hasło to nie `hijkl` :).
 
@@ -62,4 +62,4 @@ Zakładając, że Twoje hasło to `udskfozm` jaka jest najkrótsza ścieżka, kt
 
 Zachęcam do dalszej zabawy z drugim zadaniem, jego treść pokaże się na stronie AoC2016 po rozwiązaniu pierwszego. Takie zadania pomagają w rozwijaniu umiejętności nie tylko początkujących programistów. Jeśli będziesz miał jakikolwiek problem z rozwiązaniem zadania możesz rzucić okiem do [przykładowego rozwiązania](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/05_aoc_2016/src/main/java/pl/samouczekprogramisty/szs/aoc2016/day17), jednak zrób to raczej w ostateczności.
 
-Na koniec mam do Ciebie prośbę - podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!
+Na koniec mam do Ciebie prośbę – podziel się linkiem do artykułu ze znajomymi, może Oni także będą chcieli pomóc Świętemu Mikołajowi ;) ? Jeśli nie chcesz ominąć kolejnych artykułów proszę zapisz się do mojego newslettera i polub stronę na Facebooku. Do następnego razu!
