@@ -1,6 +1,6 @@
 ---
 title: Podstawy złożoności obliczeniowej
-last_modified_at: 2018-09-22 06:08:45 +0200
+last_modified_at: 2019-01-29 22:45:00 +0200
 categories:
 - Programowanie
 - Wiedza ogólna
@@ -87,7 +87,7 @@ Możemy założyć, że funkcja ta dokładnie opisuje złożoność obliczeniow�
 
 Notacja ta zakłada, że istnieje funkcja `g(n)`, dla której spełniona jest poniższa własność:
 
-$$orall n \geqslant n_0 : f(n) \leqslant c * g(n)$$
+$$\forall n \geqslant n_0 : f(n) \leqslant c * g(n)$$
 
 Teraz przetłumaczę te matematyczne hieroglify :). Własność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie większy bądź równy wynikowi funkcji `f(n)`. Własność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Jeszcze łatwiej wygląda to na wykresie:
 
@@ -109,7 +109,7 @@ Z racji tego, że jest to oszacowanie pomijamy w nim wszelkiego rodzaju stałe. 
 
 Notacja ta różni się od poprzedniej własnością, którą spełnia nowa funkcja:
 
-$$orall n \geqslant n_0 : f(n) \geqslant c * g(n)$$
+$$\forall n \geqslant n_0 : f(n) \geqslant c * g(n)$$
 
 Własność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stałą `c` będzie mniejszy bądź równy wynikowi funkcji `f(n)`. Własność ta jest spełniona dla wszystkich `n`, które będą większe od `n0`. Ponownie wykres pomoże Ci to zrozumieć:
 
@@ -123,7 +123,7 @@ Na wykresie widoczne są dwie funkcje. Pierwszą znasz. Druga to wykres funkcji 
 
 Można powiedzieć, że notacja Θ to połączenie notacji Ο i Ω. W tym przypadku funkcja użyta do oszacowania musi spełniać zależność:
 
-$$orall n \geqslant n_0 : c_1 * g(n) \geqslant f(n) \geqslant c_2 * g(n)$$
+$$\forall n \geqslant n_0 : c_1 * g(n) \geqslant f(n) \geqslant c_2 * g(n)$$
 
 Tłumacząc to na polski można powiedzieć, że wynik funkcji `g(n)` pomnożony przez stałą `c1` będzie większy bądź równy wartości funkcji `f(n)`. Jednocześnie będzie mniejszy bądź równy wartości funkcji `f(n)` jeśli pomnożymy go przez stałą `c2`. Ponownie wykres może pomóc to zrozumieć:
 
