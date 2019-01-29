@@ -22,7 +22,7 @@ Nie wiem czy dzisiaj jest łatwiej, czy trudniej zdobyć pracę niż w 2007 roku
 
 * [Jak zostać programistą]({% post_url 2017-07-09-od-zera-do-developera-czyli-jak-zostac-programista %})
 * [Jak dostać pierwszą pracę jako programista]({% post_url 2017-07-17-jak-dostac-pierwsza-prace-jako-programista %})
-* [Zmiana branży na IT - wywiady z tymi, którym się udało]({% post_url 2018-05-04-zmiana-branzy-zostan-programista %})
+* [Zmiana branży na IT – wywiady z tymi, którym się udało]({% post_url 2018-05-04-zmiana-branzy-zostan-programista %})
 
 ## Zadania z rozmów o pracę
 
@@ -30,9 +30,9 @@ Czasami dostaję od czytelników zadania, które otrzymali do rozwiązania w tra
 
 Zależy mi na tym, żeby materiały te traktować jako coś co pomoże Ci w poprawieniu swoich umiejętności. Właśnie dlatego zawsze zachęcam do samodzielnego rozwiązania zadań i porównania rozwiązań. W ten sposób nauczysz się najwięcej.
 
-* [Zadanie z rozmowy - znajdź brakujący element]({% post_url 2017-12-10-zadanie-znajdz-brakujacy-element %})
-* [Zadanie z rozmowy - czy liczba jest cykliczna]({% post_url 2018-02-16-zadanie-czy-liczba-jest-cykliczna %})
-* [Zadanie z rozmowy - zagnieżdżona struktura]({% post_url 2018-08-26-zadanie-zagniezdzona-struktura %})
+* [Zadanie z rozmowy – znajdź brakujący element]({% post_url 2017-12-10-zadanie-znajdz-brakujacy-element %})
+* [Zadanie z rozmowy – czy liczba jest cykliczna]({% post_url 2018-02-16-zadanie-czy-liczba-jest-cykliczna %})
+* [Zadanie z rozmowy – zagnieżdżona struktura]({% post_url 2018-08-26-zadanie-zagniezdzona-struktura %})
 
 ## Co dalej?
 

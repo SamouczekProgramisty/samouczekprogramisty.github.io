@@ -112,8 +112,8 @@ W przykładzie tym użyłem także konstrukcji `imiona_zenskie.*`, która zwraca
 
 Złączenia będę omawiał na przykładzie dwóch tabel `bajka` i `postac`. `bajka` zwiera dwie kolumny:
 
- - `id` identyfikator bajki, klucz główny,
- - `tytul` tytuł bajki.
+- `id` identyfikator bajki, klucz główny,
+- `tytul` tytuł bajki.
 
 ```sql
 SELECT *
@@ -132,9 +132,9 @@ SELECT *
 
 `postac` to tabela z trzema kolumnami:
 
- - `id` identyfikator postaci, klucz główny,
- - `bajka_id` identyfikator bajki, w której postać występuje, klucz obcy do tabeli `bajka`,
- - `imie` imię postaci.
+- `id` identyfikator postaci, klucz główny,
+- `bajka_id` identyfikator bajki, w której postać występuje, klucz obcy do tabeli `bajka`,
+- `imie` imię postaci.
 
 ```sql
 SELECT *
@@ -262,9 +262,9 @@ A co z brakującymi postaciami i bajkami? Zauważ, że wynik nie zawiera bajek t
 
 Istnieją trzy rodzaje złączeń typu `OUTER`:
 
- - `LEFT OUTER JOIN`,
- - `RIGHT OUTER JOIN`,
- - `FULL OUTER JOIN`.
+- `LEFT OUTER JOIN`,
+- `RIGHT OUTER JOIN`,
+- `FULL OUTER JOIN`.
 
 #### `LEFT OUTER JOIN`
 
@@ -425,11 +425,11 @@ SELECT bajka.*
 
 Pamiętam, że na początku mnogość pojęć robiła mi niezły mętlik w głowie. Do tego wszystkiego silniki bazy danych pozwalające na opuszczanie niektórych słów kluczowych nie pomagały. Lista niżej powinna Ci pomóc się w nich odnaleźć:
 
- - `JOIN` to to samo co `INNER JOIN`,
- - `LEFT JOIN` to to samo co `LEFT OUTER JOIN`,
- - `RIGHT JOIN` to to samo co `RIGHT OUTER JOIN`,
- - `FULL JOIN` to to samo co `FULL OUTER JOIN`,
- - `CROSS JOIN` to to samo co iloczyn kartezjański.
+- `JOIN` to to samo co `INNER JOIN`,
+- `LEFT JOIN` to to samo co `LEFT OUTER JOIN`,
+- `RIGHT JOIN` to to samo co `RIGHT OUTER JOIN`,
+- `FULL JOIN` to to samo co `FULL OUTER JOIN`,
+- `CROSS JOIN` to to samo co iloczyn kartezjański.
 
 ## Zadania do wykonania
 

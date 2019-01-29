@@ -23,7 +23,7 @@ Nie jest to historia zmyślona na potrzeby artykułu. Tak rzeczywiście było. B
 
 ## Nie strzelaj ze śrutówki
 
-Kiedyś usłyszałem ciekawy termin dotyczący masowego wysyłania ofert do kandydatów - “shotgun recruiting”. Shotgun recruiting jest jak spam. Nikt tego nie lubi. Historia, którą przytoczyłem na początku to nic innego jak shotgun recruiting w wykonaniu kandydata. Masowe wysyłanie tego samego CV do całej masy firm moim zdaniem jest błędem. Lepiej będzie jak przejrzysz dostępne oferty i dopasujesz swoje umiejętności do firmy, w której chcesz pracować.
+Kiedyś usłyszałem ciekawy termin dotyczący masowego wysyłania ofert do kandydatów – “shotgun recruiting”. Shotgun recruiting jest jak spam. Nikt tego nie lubi. Historia, którą przytoczyłem na początku to nic innego jak shotgun recruiting w wykonaniu kandydata. Masowe wysyłanie tego samego CV do całej masy firm moim zdaniem jest błędem. Lepiej będzie jak przejrzysz dostępne oferty i dopasujesz swoje umiejętności do firmy, w której chcesz pracować.
 
 Znajdź firmę, na której Ci zależy. Dopracuj swoje CV w ten sposób aby odpowiadało wymaganiom stawianym w tej firmie. Rekruterzy sprawdzają czy miałeś już jakiekolwiek doświadczenie z technologiami wykorzystywanym w danym projekcie. Jeśli takiego doświadczenia nie masz to zacznij dziubać projekt, który te technologie wykorzystuje.
 

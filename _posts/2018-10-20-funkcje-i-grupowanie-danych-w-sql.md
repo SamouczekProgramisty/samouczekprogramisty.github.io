@@ -122,13 +122,13 @@ Przykład powyżej zwróci jeden wiersz, zawierający maksymalną wartość zwr�
 
 Do tej pory pokazałem Ci tylko dwie funkcje `MAX` i `LENGTH`. Niżej pokażę Ci kilka innych.  Proszę pamiętaj o tym, że dużo funkcji jest charakterystycznych dla poszczególnych silników baz danych. W artykule starałem się opisać wyłącznie te, które są dostępne powszechnie. Zachęcam Cię do sprawdzenia dokumentacji Twojej bazy danych, żeby sprawdzić całą listę dostępnych funkcji.
 
-- `ABS` - zwraca [wartość bezwzględną](https://pl.wikipedia.org/wiki/Warto%C5%9B%C4%87_bezwzgl%C4%99dna) przyjmowanego argumentu,
-- `LENGTH` - tę funkcję już znasz, zwraca długość łańcucha znaków,
-- `LOWER` - zwraca kopię łańcucha znaków przekazanego jako parametr, w którym wszystkie litery zamienione są na małe[^ascii],
-- `RANDOM` - zwraca losową liczbę całkowitą,
-- `SUBSTR`[^substring] - `SUBSTR(x, y, z)` pobiera podzbiór znaków parametru `x` od litery `y` do litery `z`. Parametr `z` może być pominięty, wtedy funkcja zwraca podzbiór znaków od znaku `y` do końca,
-- `TRIM` - usuwa spacje z obu stron przekazanego parametru,
-- `UPPER` - funkcja działa podobnie jak `LOWER`, tym razem zwracany łańcuch znaków składa się z wielkich liter.
+- `ABS` – zwraca [wartość bezwzględną](https://pl.wikipedia.org/wiki/Warto%C5%9B%C4%87_bezwzgl%C4%99dna) przyjmowanego argumentu,
+- `LENGTH` – tę funkcję już znasz, zwraca długość łańcucha znaków,
+- `LOWER` – zwraca kopię łańcucha znaków przekazanego jako parametr, w którym wszystkie litery zamienione są na małe[^ascii],
+- `RANDOM` – zwraca losową liczbę całkowitą,
+- `SUBSTR`[^substring] – `SUBSTR(x, y, z)` pobiera podzbiór znaków parametru `x` od litery `y` do litery `z`. Parametr `z` może być pominięty, wtedy funkcja zwraca podzbiór znaków od znaku `y` do końca,
+- `TRIM` – usuwa spacje z obu stron przekazanego parametru,
+- `UPPER` – funkcja działa podobnie jak `LOWER`, tym razem zwracany łańcuch znaków składa się z wielkich liter.
 
 [^ascii]: W przypadku SQLite zamieniane są tylko litery kodowane w [ASCII](https://pl.wikipedia.org/wiki/ASCII), niestety funkcja ta nie działa poprawnie dla polskich znaków.
 [^substring]: Wspominałem, że funkcje mogą być specyficzne dla różnych silników baz danych. Na przykład odpowiednikiem `SUBSTR` w Postgresql jest `SUBSTRING`.
@@ -203,10 +203,10 @@ Zapamiętaj, że każda kolumna, która jest zwracana powinna być albo uwzględ
 
 W artykule pokazałem Ci już kilka funkcji dostępnych w SQL. Istnieje odrębna grupa funkcji, która używana jest przy grupowaniu wartości. Znasz już jedną z nich, `MAX`. Nadszedł czas na poznanie kolejnych:
 
-- `AVG` - zwraca średnią wartość,
-- `MIN` - zwraca minimalną wartość,
-- `SUM` - zwraca sumę wartości,
-- `TOTAL` - działa podobnie jak `SUM`, jedyna różnica polega na tym, że jeśli wszystkie wartości to `NULL`, wówczas `TOTAL` zwróci 0, a `SUM` zwróci `NULL`.
+- `AVG` – zwraca średnią wartość,
+- `MIN` – zwraca minimalną wartość,
+- `SUM` – zwraca sumę wartości,
+- `TOTAL` – działa podobnie jak `SUM`, jedyna różnica polega na tym, że jeśli wszystkie wartości to `NULL`, wówczas `TOTAL` zwróci 0, a `SUM` zwróci `NULL`.
 
 Jest jeszcze jedna funkcja grupująca, która jest bardzo popularna. Jest nią `COUNT`.
 
@@ -365,4 +365,4 @@ Po lekturze artykułu wiesz czym jest grupowanie wierszy. Znasz kilka przydatnyc
 
 Daj znać w komentarzach jak udało Ci się rozwiązać zadania, może Twoje zapytania wyglądają trochę inaczej?
 
-Na koniec mam do Ciebie standardową prośbę. Jeśli znasz kogoś, komu ten artykuł może pomóc proszę przekaż tej osobie linka do artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników - z góry dziękuję za Twoją pomoc. Jeśli nie chcesz ominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!
+Na koniec mam do Ciebie standardową prośbę. Jeśli znasz kogoś, komu ten artykuł może pomóc proszę przekaż tej osobie linka do artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników – z góry dziękuję za Twoją pomoc. Jeśli nie chcesz ominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!

@@ -47,7 +47,7 @@ Biorąc pod uwagę diagram, który pokazałem wcześniej testy jednostkowe klasy
 
 {% include newsletter-srodek.md %}
 
-## Bohaterowie testów jednostkowych - mock i stub
+## Bohaterowie testów jednostkowych – mock i stub
 
 Poniżej możesz zobaczyć przykładową klasę, która może być użyta do agregowania lotów udostępnianych przez różnych przewoźników:
 
@@ -189,7 +189,7 @@ private static final class AirlineMock implements Airline {
 
 Teraz rozbiję ten kod na mniejsze fragmenty.
 
-Klasa `AirlineMock` reprezentująca mock'a zwiera jeden atrybut - zbiór. Wewnątrz tego zbioru trzymane są parametry wywołań mock'a. Wartości zbioru reprezentowane są przez [klasę wewnętrzną]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %}) `MethodInvocation`. Ta klasa grupuje parametry przekazywane do metody `findFlight` interfejsu `Airline`.
+Klasa `AirlineMock` reprezentująca mock'a zwiera jeden atrybut – zbiór. Wewnątrz tego zbioru trzymane są parametry wywołań mock'a. Wartości zbioru reprezentowane są przez [klasę wewnętrzną]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %}) `MethodInvocation`. Ta klasa grupuje parametry przekazywane do metody `findFlight` interfejsu `Airline`.
 
 ```java
 private final Set<MethodInvocation> invocations = new HashSet<>();

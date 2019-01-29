@@ -144,7 +144,7 @@ W przykładzie powyżej użyłem własnej adnotacji `@ZipCodeCityCoherent`. Adno
 
 ### Dlaczego używa się walidacji
 
-Odpowiedź jest prosta ;). Walidacji używa się, aby mieć pewność, że dany obiekt wypełniony jest poprawnymi danymi. Takie podejście pozwala na stosowanie praktyki "Psuj się szybko, psuj się często" (ang. [_Fail fast, fail often_](https://en.wikipedia.org/wiki/Fail-fast)). Można powiedzieć, że programy napisane przy takim założeniu szybko raportują błędy. Dzięki temu łatwiej jest znaleźć potencjalny błąd - informacja o błędzie pochodzi z miejsca jego wystąpienia, a nie z odległego miejsca w systemie.
+Odpowiedź jest prosta ;). Walidacji używa się, aby mieć pewność, że dany obiekt wypełniony jest poprawnymi danymi. Takie podejście pozwala na stosowanie praktyki "Psuj się szybko, psuj się często" (ang. [_Fail fast, fail often_](https://en.wikipedia.org/wiki/Fail-fast)). Można powiedzieć, że programy napisane przy takim założeniu szybko raportują błędy. Dzięki temu łatwiej jest znaleźć potencjalny błąd – informacja o błędzie pochodzi z miejsca jego wystąpienia, a nie z odległego miejsca w systemie.
 
 Nigdy nie ufaj danym pochodzącym od użytkownika Twojego kodu. Niezależnie czy jest to człowiek czy maszyna. Dane wejściowe trzeba walidować. Zawsze. Zdarza się, że [brak przecinka kosztuje kilka ładnych milionów dolarów](https://www.edn.com/electronics-blogs/edn-moments/4418667/Mariner-1-destroyed-due-to-code-error--July-22--1962). Walidacja danych nie gwarantuje wyeliminowania wszystkich błędów. Pozwala jednak odsiać znaczną ich część.
 
@@ -205,14 +205,14 @@ Mimo tego, że baza danych bardzo często pozwala na podstawową walidację prze
 
 Jak już wspomniałem specyfikacja zawiera adnotacje określające najczęściej używane reguły walidacji. Część z nich zebrałem dla Ciebie poniżej:
 
-- `@NotNull` - dany element nie może mieć wartości `null`,
-- `@NotBlank` - dany element nie może mieć wartości `null` i musi zawierać co najmniej jeden znak (nie może to być spacja, tabulator etc.),
-- `@NotEmpty` - dany element nie może mieć wartości `null` i musi zawierać co najmniej jeden znak,
-- `@Min(X)` - dany element musi być liczbą i jego wartość musi być większa bądź równa `X`,
-- `@Max(X)` - dany element musi być liczbą i jego wartość musi być mniejsza bądź równa `X`,
-- `@Email` - dane element musi zawierać poprawny adres e-mail,
-- `@Pattern(regexp=X)` - dany element musi pasować do [wyrażenia regularnego]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}) `X`.
-- `@Size(min=X, max=Y)` - dany element musi mieć rozmiar określony przez elementy adnotacji `min` i `max`. Obie wartości są opcjonalne.
+- `@NotNull` – dany element nie może mieć wartości `null`,
+- `@NotBlank` – dany element nie może mieć wartości `null` i musi zawierać co najmniej jeden znak (nie może to być spacja, tabulator etc.),
+- `@NotEmpty` – dany element nie może mieć wartości `null` i musi zawierać co najmniej jeden znak,
+- `@Min(X)` – dany element musi być liczbą i jego wartość musi być większa bądź równa `X`,
+- `@Max(X)` – dany element musi być liczbą i jego wartość musi być mniejsza bądź równa `X`,
+- `@Email` – dane element musi zawierać poprawny adres e-mail,
+- `@Pattern(regexp=X)` – dany element musi pasować do [wyrażenia regularnego]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}) `X`.
+- `@Size(min=X, max=Y)` – dany element musi mieć rozmiar określony przez elementy adnotacji `min` i `max`. Obie wartości są opcjonalne.
 
 Oczywiście lista reguł zapewniona przez specyfikację nie jest kompletna. Specyfikacja pozwala na rozszerzanie listy dostępnych reguł.
 
@@ -322,7 +322,7 @@ Java 9 [rozwiązuje](http://openjdk.java.net/jeps/226) ten problem przez ustawie
 Celem tego artykułu nie jest wyjaśnianie _Expression Language_, ma on dużo większe możliwości. Ten podpunkt ma Ci tylko pomóc zrozumieć użycie EL w komunikatach błędów.
 {: .notice--info}
 
-Zauważyłeś użycie `{min}` wewnątrz komunikatu błędu? To właśnie język EL. To właśnie ten element, który zmusił mnie do dodania dodatkowej zależności w pliku `build.gradle`. Składnia `{zmienna}` pozwala na odwołanie się do elementu adnotacji. W naszym przypadku jest to element `min`. W wynikowym komunikacie błędu znalazła się wartość 3 - wartość elementu `min`.
+Zauważyłeś użycie `{min}` wewnątrz komunikatu błędu? To właśnie język EL. To właśnie ten element, który zmusił mnie do dodania dodatkowej zależności w pliku `build.gradle`. Składnia `{zmienna}` pozwala na odwołanie się do elementu adnotacji. W naszym przypadku jest to element `min`. W wynikowym komunikacie błędu znalazła się wartość 3 – wartość elementu `min`.
 
 Te same szablony użyte są do odwołania się do wartości komunikatu błędu z plików `properties`.
 

@@ -1,5 +1,5 @@
 ---
-title: Samouczek na rozmowie - znajdź brakujący element
+title: Samouczek na rozmowie – znajdź brakujący element
 last_modified_at: 2018-08-22 21:47:58 +0200
 categories:
 - Samouczek na rozmowie

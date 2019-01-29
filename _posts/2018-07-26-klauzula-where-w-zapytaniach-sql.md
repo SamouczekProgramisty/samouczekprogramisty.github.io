@@ -74,12 +74,12 @@ Jednak umieszczenie nawiasów w innym miejscu zupełnie zmienia warunek, który 
 
 Zacznę od najprostszych typów porównań. Podobne operatory występują także w językach programowania. Operatory porównują ze sobą wartości po obu stronach.
 
-* `A < B` - wiersz spełnia warunek jeśli A jest mniejsze od B,
-* `A <= B` - wiersz spełnia warunek jeśli A jest mniejsze bądź równe B,
-* `A = B` - wiersz spełnia warunek jeśli A jest równe B,
-* `A != B` - wiersz spełnia warunek jeśli A jest różne od B,
-* `A > B` - wiersz spełnia warunek jeśli A jest większe od B,
-* `A >= B` - wiersz spełnia warunek jeśli A jest większe bądź równe B.
+* `A < B` – wiersz spełnia warunek jeśli A jest mniejsze od B,
+* `A <= B` – wiersz spełnia warunek jeśli A jest mniejsze bądź równe B,
+* `A = B` – wiersz spełnia warunek jeśli A jest równe B,
+* `A != B` – wiersz spełnia warunek jeśli A jest różne od B,
+* `A > B` – wiersz spełnia warunek jeśli A jest większe od B,
+* `A >= B` – wiersz spełnia warunek jeśli A jest większe bądź równe B.
 
 Na przykład zapytanie poniżej wyświetli tylko te wiersze z tabeli `invoice`, których wartość kolumny `total` będzie większa niż 14 i mniejsza niż 15:
 
@@ -143,8 +143,8 @@ Porównanie `total BETWEEN 10.91 AND 11.96` jest tożsame porównaniu `total >= 
 
 SQL pozwala także na bardziej swobodne porównywanie łańcuchów znaków. Do tego celu używa się konstrukcji `LIKE`. W tym przypadku możesz użyć dwóch symboli, które mają specjalne znaczenie:
 
-* `%` - oznacza dowolną liczbę znaków,
-* `_` - oznacza jeden znak.
+* `%` – oznacza dowolną liczbę znaków,
+* `_` – oznacza jeden znak.
 
 Mechanizm ten można porównać do bardzo uproszczonych [wyrażeń regularnych]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}):
 

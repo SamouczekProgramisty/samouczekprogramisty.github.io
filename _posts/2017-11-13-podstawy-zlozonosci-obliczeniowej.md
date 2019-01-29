@@ -36,7 +36,7 @@ Komputerów na świecie są miliony. Wiele z nich bardzo się od siebie różni.
 
 W związku z tą różnorodnością pojawia się potrzeba wspólnej miary. Miary, która jest niezależna od zmiennych czynników. Może ona pomóc zorientować się w wydajności danego algorytmu, przyporządkować go do zdefiniowanej klasy algorytmów. Tutaj w grę wkraczają modele, o których wspomniałem wcześniej. Modele te upraszczają zawiłości związane z różnorodnością sprzętu.
 
-Mamy zatem wspólną bazę - model. Dalej jednak pozostaje pytanie: w jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Na modelu nie możemy mierzyć czasu. Mierzenie czasu nie ma większego sensu na komputerze z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.
+Mamy zatem wspólną bazę – model. Dalej jednak pozostaje pytanie: w jaki sposób mierzyć wydajność poszczególnych algorytmów? Mierzenie czasu jest mało praktyczne. Na modelu nie możemy mierzyć czasu. Mierzenie czasu nie ma większego sensu na komputerze z powodu różnorodności sprzętu. Otrzymane wyniki nie byłby miarodajne w przypadku innego komputera.
 
 Mierzymy więc zatem liczbę operacji wykonanych na modelu. Następnie próbujemy znaleźć funkcję, która będzie opisywała liczbę operacji w zależności od wejścia algorytmu. Funkcje te możemy porównywać ze sobą.
 
@@ -67,7 +67,7 @@ Tak dla przypomnienia ;). Funkcje możesz pamiętać z matematyki. Na przykład 
 
 ## Złożoność obliczeniowa a funkcja
 
-Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Wyznacza się ją jak opisałem w poprzednim punkcie - licząc operacje.
+Złożoność obliczeniową określamy jako funkcję danych wejściowych algorytmu. Wyznacza się ją jak opisałem w poprzednim punkcie – licząc operacje.
 
 O ile dla naukowców znalezienie dokładnej funkcji może być bardzo istotne, to w praktyce wystarczą jej oszacowania. Takie oszacowania to notacja Ο (dużego O), notacja Ω (omega) i notacja Θ (theta).
 
@@ -117,7 +117,7 @@ Własność ta oznacza, że wynik funkcji `g(n)` pomnożony przez jakąś stał�
 
 Na wykresie widoczne są dwie funkcje. Pierwszą znasz. Druga to wykres funkcji `g(n) = n^2`. "Ostatni" punkt przecięcia tych dwóch wykresów, to `n0`[^punkt]. Od tego miejsca wykres funkcji `g(n)` jest zawsze pod wykresem funkcji `f(n)`. Możemy powiedzieć, że funkcja `f(n)` ma złożoność `Ω(n^2)`.
 
-[^punkt]: To oczywiście kolejne uproszczenie, punkt to para dwóch liczb. `n0` jest jedną z nich - tą na osi poziomej. Dasz radę wyznaczyć drugą współrzędną? ;)
+[^punkt]: To oczywiście kolejne uproszczenie, punkt to para dwóch liczb. `n0` jest jedną z nich – tą na osi poziomej. Dasz radę wyznaczyć drugą współrzędną? ;)
 
 ### Notacja Θ (theta)
 
@@ -273,7 +273,7 @@ Jak widzisz obliczanie złożoności obliczeniowej bardziej skomplikowanych algo
 
 ### `Ο(n^2)`
 
-Złożoność kwadratowa. Jest to specyficzny przypadek złożoności wielomianowej. Przykładowy problem może być ten, który użyłem wyżej - posortowanie tablicy. Tym razem jednak algorytm jest mniej wydajny. [Sortowanie bąbelkowe](https://pl.wikipedia.org/wiki/Sortowanie_b%C4%85belkowe) charakteryzuje się złożonością obliczeniową `Ο(n^2)`:
+Złożoność kwadratowa. Jest to specyficzny przypadek złożoności wielomianowej. Przykładowy problem może być ten, który użyłem wyżej – posortowanie tablicy. Tym razem jednak algorytm jest mniej wydajny. [Sortowanie bąbelkowe](https://pl.wikipedia.org/wiki/Sortowanie_b%C4%85belkowe) charakteryzuje się złożonością obliczeniową `Ο(n^2)`:
 
 ```java
 public int[] sort(int[] numbers) {
@@ -356,7 +356,7 @@ Nie silę się nawet na naiwny algorytm dla tego problemu, nie jest on możliwy 
 
 Ten sam algorytm może zachowywać się zupełnie inaczej w przypadku innych danych wejściowych. Nie mówię tu o wielkości problemu, wielkości danych wejściowych. A o instancji problemu.
 
-Jeśli algorytm jako dane wejściowe przyjmuje tablicę liczb to wielkością problemu może być 5 - tablica o długości 5. Natomiast instancji tego problemu jest nieskończenie wiele: `[1, 2, 3, 4, 5]`, `[-1, 2, -3, 4, -5]` czy `[5, 4, 3, 2, 1]`. Algorytm może mieć różną złożoność obliczeniową określoną w notacji `Ο` w zależności od instancji problemu. Są także algorytmy, których złożoność obliczeniowa jest niezależna od instancji problemu.
+Jeśli algorytm jako dane wejściowe przyjmuje tablicę liczb to wielkością problemu może być 5 – tablica o długości 5. Natomiast instancji tego problemu jest nieskończenie wiele: `[1, 2, 3, 4, 5]`, `[-1, 2, -3, 4, -5]` czy `[5, 4, 3, 2, 1]`. Algorytm może mieć różną złożoność obliczeniową określoną w notacji `Ο` w zależności od instancji problemu. Są także algorytmy, których złożoność obliczeniowa jest niezależna od instancji problemu.
 
 W zależności od wymagań w wyborze algorytmu bierze się pod uwagę złożoność odpowiedniego przypadku.
 

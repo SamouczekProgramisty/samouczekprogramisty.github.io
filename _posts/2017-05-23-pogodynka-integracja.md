@@ -1,5 +1,5 @@
 ---
-title: Pogodynka - integracja
+title: Pogodynka – integracja
 last_modified_at: 2017-11-11 22:14:39 +0100
 categories:
 - DSP2017
@@ -29,7 +29,7 @@ Na tej samej instancji uruchomiony jest serwer Tomcat. W związku z konfiguracj�
 
 W uproszczeniu konfiguracja ta podobna jest do tej pokazanej na diagramie poniżej:
 
-{% include figure image_path="/assets/images/2017/05/23_nginx_diagram.jpeg" caption="Nginx - reverse proxy." %}
+{% include figure image_path="/assets/images/2017/05/23_nginx_diagram.jpeg" caption="Nginx – reverse proxy." %}
 
 Interfejs użytkownika wykorzystywał będzie aplikację webową do pobrania informacji o dotychczasowych odczytach temperatury.
 

@@ -1,5 +1,5 @@
 ---
-title: Samouczek na rozmowie - kalkulator
+title: Samouczek na rozmowie – kalkulator
 last_modified_at: 2018-11-18 14:00:20 +0100
 categories:
 - Samouczek na rozmowie
@@ -25,7 +25,7 @@ W artykule dotyczącym [zadania z zagnieżdżoną strukturą]({% post_url 2018-0
 
 ## Zadanie do wykonania
 
-Wiesz już, że dzisiejsze zadanie podesłał mi jeden z Czytelników - Łukasz (jeszcze raz wielkie dzięki). Łukasz dostał następujące instrukcje:
+Wiesz już, że dzisiejsze zadanie podesłał mi jeden z Czytelników – Łukasz (jeszcze raz wielkie dzięki). Łukasz dostał następujące instrukcje:
 
 > Przygotowanie kompletnego rozwiązania powinno zająć około dwóch godzin. Dostarczone rozwiązanie powinno mieć jakość, którego możemy się spodziewać w trakcie normalnej pracy. Używanie narzędzi do budowania jest mile widziane, nie jest to wymóg konieczny. Dostarczenie testów jednostkowych także nie jest wymagane, jednak jest mile widziane i będzie wzięte pod uwagę podczas oceniania zadania. Rozwiązanie powinno zawierać także instrukcję jak uruchomić zadanie z linii poleceń. Rozwiązanie może założyć, że dane wejściowe są w poprawnym formacie. W przypadku niejasnych wymagań przyjęte założenia powinny być dostarczone razem z rozwiązaniem. Dopuszczalne jest użycie zewnętrznych bibliotek. Należy je dołączyć do dostarczonego rozwiązania. Jakość dostarczonego kodu jest równie istotna jak dostarczenie działającego rozwiązania.
 

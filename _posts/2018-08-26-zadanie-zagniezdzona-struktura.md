@@ -1,5 +1,5 @@
 ---
-title: Samouczek na rozmowie - zagnieżdżona struktura
+title: Samouczek na rozmowie – zagnieżdżona struktura
 last_modified_at: 2018-11-12 22:00:17 +0100
 categories:
 - Samouczek na rozmowie
@@ -24,7 +24,7 @@ Rozwiązując zadania tego typu możesz także pokazać zestaw innych przydatnyc
 
 Zacznę od pokazania zadania do wykonania. Jak już wiesz to zadanie dostałem od jednego z czytelników. Treść zadania przekazana Mateuszowi byłą następująca:
 
-> Przekazuję zadanie z prośbą o analizę poniższego kodu i zaimplementowanie metod `findByCode`, `findByRenderer`, `count` w klasie `MyStructure` - najchętniej unikając powielania kodu. Proszę uwzględnić w analizie i implementacji interfejs `ICompositeNode`!
+> Przekazuję zadanie z prośbą o analizę poniższego kodu i zaimplementowanie metod `findByCode`, `findByRenderer`, `count` w klasie `MyStructure` – najchętniej unikając powielania kodu. Proszę uwzględnić w analizie i implementacji interfejs `ICompositeNode`!
  
 ```java
 interface IMyStructure {

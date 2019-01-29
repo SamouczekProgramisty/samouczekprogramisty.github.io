@@ -1,5 +1,5 @@
 ---
-title: Pogodynka - podsumowanie
+title: Pogodynka – podsumowanie
 last_modified_at: 2017-11-11 22:14:39 +0100
 categories:
 - DSP2017
@@ -62,7 +62,7 @@ Kilka ostatnich dni poświęciłem na pracę nad [interfejsem użytkownika](http
 
 Finalny efekt pracy wygląda następująco:
 
-{% include figure image_path="/assets/images/2017/05/28_wykres_temperatury.jpeg" caption="Pogodynka - interfejs użytkownika." %}
+{% include figure image_path="/assets/images/2017/05/28_wykres_temperatury.jpeg" caption="Pogodynka – interfejs użytkownika." %}
 
 ## Podsumowanie projektu
 

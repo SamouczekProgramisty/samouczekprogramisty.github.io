@@ -1,5 +1,5 @@
 ---
-title: Formatter - formatowanie łańcuchów znaków
+title: Formatter – formatowanie łańcuchów znaków
 last_modified_at: 2018-11-22 23:33:36 +0100
 categories:
 - Kurs programowania Java
@@ -115,7 +115,7 @@ Dodatkowo dla liczb zmiennoprzecinkowych możesz określić precyzję. Dodając 
 
 [^precyzja]: Precyzję można także użyć na przykład wraz z `%s`, wtedy oznacza to maksymalną liczbę znaków do wyświetlenia.
 
-Jeśli precyzja zostanie pominięta użyta jest domyślna wartość - sześć miejsc po przecinku. Proszę spójrz na przykład poniżej:
+Jeśli precyzja zostanie pominięta użyta jest domyślna wartość – sześć miejsc po przecinku. Proszę spójrz na przykład poniżej:
 
 ```java
 double x = 1.1234567890123;

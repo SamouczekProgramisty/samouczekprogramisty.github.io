@@ -93,7 +93,7 @@ Obszedłem to poprzez dodanie pustego pliku [`beans.xml`](https://github.com/Sam
     {{ beans | markdownify }}
 </div>
 
-## Model - rezerwacja
+## Model – rezerwacja
 
 Rezerwacje, którymi zarządza webservice są reprezentowane przez osobną klasę `Reservation`:
 

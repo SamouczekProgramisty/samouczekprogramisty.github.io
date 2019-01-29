@@ -1,5 +1,5 @@
 ---
-title: Pobieranie danych z bazy - SELECT
+title: Pobieranie danych z bazy – SELECT
 last_modified_at: 2018-11-22 23:16:05 +0100
 categories:
 - Bazy danych
@@ -89,18 +89,18 @@ Na razie nie przejmuj się składnią zapytania, omówię ją szczegółowo poni
 
 DML służy do tworzenie, modyfikowania i usuwania danych. W skład tej grupy wchodzą zapytania:
 
-- `INSERT` - dodaje wiersze do tabeli,
-- `UPDATE` - aktualizuje wiersze w tabeli,
-- `DELETE` - usuwa wiersze z tabeli.
+- `INSERT` – dodaje wiersze do tabeli,
+- `UPDATE` – aktualizuje wiersze w tabeli,
+- `DELETE` – usuwa wiersze z tabeli.
 
 #### DDL
 
 Wiesz już, że [relacyjne bazy danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}) składają się z tabel. Dodatkowo w bazach występują inne obiekty jak indeksy (ang. _index_), klucze obce (ang. _foreign key_), klucze główne (ang. _primary key_), ograniczenia (ang. _constraint_), wyzwalacze (ang. _trigger_) czy widoki (ang. _view_). Część języka odpowiedzialna za zarządzanie tymi obiektami to DDL. Zapytania należące do DDL to:
 
-- `CREATE` - tworzą obiekty bazy danych,
-- `ALTER` - modyfikują tabele bazy danych,
-- `DROP` - usuwają obiekty bazy danych,
-- `TRUNCATE` - usuwa wszystkie dane z tabeli[^niedml].
+- `CREATE` – tworzą obiekty bazy danych,
+- `ALTER` – modyfikują tabele bazy danych,
+- `DROP` – usuwają obiekty bazy danych,
+- `TRUNCATE` – usuwa wszystkie dane z tabeli[^niedml].
 
 [^niedml]: Chociaż `TRUNCATE` jest podobne do zapytania typu `DELETE` jest klasyfikowane jako DDL. Wynika to z faktu, że zapytania `TRUNCATE` nie mogą być cofnięte. Zapytania typu `DELETE` mogą być cofnięte w ramach trwającej transakcji.
 
@@ -110,17 +110,17 @@ Bazy danych często pozwalają na zarządzanie dostępem do danych. Realizowane 
 
 [^hba]: Pomijam tu ustawienia na poziomie konfiguracji silnika bazy danych. Te ustawienia mogą wymagać restartu silnika. Przykładem może tu być plik konfiguracyjny [`pg_hba.conf`](https://www.postgresql.org/docs/10/static/auth-pg-hba-conf.html) istniejący w bazie danych PostgreSQL.
 
-- `GRANT` - nadaje uprawnienia,
-- `REVOKE` - usuwa uprawnienia.
+- `GRANT` – nadaje uprawnienia,
+- `REVOKE` – usuwa uprawnienia.
 
 #### TCL
 
 Na początku przygody z SQL nie musisz przejmować się transakcjami. Opiszę je dokładniej w kolejnych artykułach w ramach kursu. Teraz w zupełności wystarczy wiedza o tym, że istnieje coś takiego jak transakcja. Do zarządzania transakcjami służą zapytania:
 
-- `BEGIN` - rozpoczyna transakcję,
-- `COMMIT` - zatwierdza transakcję,
-- `ROLLBACK` - wycofuje transakcję,
-- `SAVEPOINT` - zapisuje punkt przywracania aktualnej transakcji.
+- `BEGIN` – rozpoczyna transakcję,
+- `COMMIT` – zatwierdza transakcję,
+- `ROLLBACK` – wycofuje transakcję,
+- `SAVEPOINT` – zapisuje punkt przywracania aktualnej transakcji.
 
 ### SQL a wielkość liter
 
@@ -158,9 +158,9 @@ Ze względu na łatwą instalację (właściwie to jej brak), w kursie używał 
 
 Zacznij od [pobrania narzędzi SQLite](https://www.sqlite.org/download.html). W zależności od systemu operacyjnego, na którym pracujesz pobierz odpowiednią wersję:
 
-- Windows - _Precompiled Binaries for Windows_,
-- Linux - _Precompiled Binaries for Linux_,
-- Mac OS X - _Precompiled Binaries for Mac OS X (x86)_.
+- Windows – _Precompiled Binaries for Windows_,
+- Linux – _Precompiled Binaries for Linux_,
+- Mac OS X – _Precompiled Binaries for Mac OS X (x86)_.
 
 Plik do pobrania to archiwum zip rozpoczynające się od _sqlite-tools-_. Wewnątrz tego archiwum znajduje się program `sqlite.exe` (lub `sqlite`, w zależności od Twojego systemu operacyjnego). Program ten pozwala na pracę z bazą danych SQLite.
 
@@ -191,7 +191,7 @@ Założeniem tego kursu jest to, że będzie on praktyczny od samego początku d
 
 Zanim przejdę do tłumaczenia zapytań `SELECT` chciałbym zwrócić Twoją uwagę na budowę tabeli. Wiesz już, że tabela składa się z wierszy i kolumn. Każda kolumna przechowuje dane pewnego typu. Mogą to być na przykład łańcuchy znaków czy liczby.
 
-Można powiedzieć, że tabela ma swój schemat. SQLite ma wewnętrzne polecenie, które pozwala pokazać schemat tabeli - `.schema`. Na przykład schemat tabeli `Invoice` wygląda tak:
+Można powiedzieć, że tabela ma swój schemat. SQLite ma wewnętrzne polecenie, które pozwala pokazać schemat tabeli – `.schema`. Na przykład schemat tabeli `Invoice` wygląda tak:
 
     sqlite> .schema Invoice
     CREATE TABLE [Invoice]
@@ -228,17 +228,17 @@ Tabela `Invoice` składa się z dziewięciu kolumn. Kolumna `InvoiceId` jest klu
 
 Innymi typami, które występują w tej tabeli są:
 
-- `INTEGER` - służy on do przechowywania liczb całkowitych,
-- `NVARCHAR(x)` - służy on do przechowywania łańcuchów znaków do długości `x`,
-- `NUMERIC(x, y)` - służy do przechowywania liczb rzeczywistych, które mają do `x` cyfr z `y` po przecinku.
+- `INTEGER` – służy on do przechowywania liczb całkowitych,
+- `NVARCHAR(x)` – służy on do przechowywania łańcuchów znaków do długości `x`,
+- `NUMERIC(x, y)` – służy do przechowywania liczb rzeczywistych, które mają do `x` cyfr z `y` po przecinku.
 
 Innymi popularnymi typami są[^storage_type]:
 
-- `BLOB` - służy do przechowywania danych binarnych (ang. _binary large object_),
-- `DATETIME` - służy do przechowywania daty i czasu,
-- `DATE` - służy do przechowywania daty,
-- `BOOLEAN` - służy do przechowywania wartości logicznych,
-- `TEXT` - służy do przechowywania łańcuchów znaków gdzie ciężko jest oszacować maksymalną długość tekstu, lub wahania długości tekstu są duże.
+- `BLOB` – służy do przechowywania danych binarnych (ang. _binary large object_),
+- `DATETIME` – służy do przechowywania daty i czasu,
+- `DATE` – służy do przechowywania daty,
+- `BOOLEAN` – służy do przechowywania wartości logicznych,
+- `TEXT` – służy do przechowywania łańcuchów znaków gdzie ciężko jest oszacować maksymalną długość tekstu, lub wahania długości tekstu są duże.
 
 [^storage_type]: W przypadku SQLite wszystkie typy danych są przekształcane na "typy pierwotne": `NULL`, `INTEGER`, `REAL`, `TEXT`, `BLOB`. Dane na dysku zawsze zapisane są jako jeden z typów pierwotnych.
 
@@ -251,7 +251,7 @@ SELECT *
   FROM invoice;
 ```
 
-To zapytanie zawiera dwa słowa kluczowe: `SELECT` i `FROM`. Pomiędzy tymi słowami znajduje się lista kolumn, które powinny zostać zwrócone. Znak `*` w tym kontekście oznacza "pobierz wszystkie". Po słowie kluczowym `FROM` występuje nazwa tabeli - `invoice`. Całe zapytanie jest zakończone średnikiem. Spróbuj wykonać to zapytanie na swojej kopii bazy danych:
+To zapytanie zawiera dwa słowa kluczowe: `SELECT` i `FROM`. Pomiędzy tymi słowami znajduje się lista kolumn, które powinny zostać zwrócone. Znak `*` w tym kontekście oznacza "pobierz wszystkie". Po słowie kluczowym `FROM` występuje nazwa tabeli – `invoice`. Całe zapytanie jest zakończone średnikiem. Spróbuj wykonać to zapytanie na swojej kopii bazy danych:
 
     sqlite> SELECT * FROM invoice;
     1|2|2009-01-01 00:00:00|Theodor-Heuss-Straße 34|Stuttgart||Germany|70174|1.98

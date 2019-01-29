@@ -14,8 +14,8 @@ excerpt: W artykule tym przeczytasz o JUnit 5. Dowiesz się co jest nowego w tes
 {% capture intro %}
 Jest to kolejny artykuł poświęcony tematyce testów, który napisałem na Samouczku. Zachęcam Cię także do przeczytania poprzednich artykułów:
 
-- [Testy jednostkowe z JUnit 4]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}) - artykuł wprowadza w świat testów. Przeczytasz w nim między innymi o tym czym są asercje czy po co piszemy testy. Jeśli nie pisałeś wcześniej testów to tutaj powinieneś zacząć,
-- [_Test driven development_ na przykładzie]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}) - artykuł o podejściu do pisania testów nazywanym _test driven development_. Opisuję w nim cały cykl _RED, GREEN, REFACTOR_ popierając go przykładami.
+- [Testy jednostkowe z JUnit 4]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}) – artykuł wprowadza w świat testów. Przeczytasz w nim między innymi o tym czym są asercje czy po co piszemy testy. Jeśli nie pisałeś wcześniej testów to tutaj powinieneś zacząć,
+- [_Test driven development_ na przykładzie]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}) – artykuł o podejściu do pisania testów nazywanym _test driven development_. Opisuję w nim cały cykl _RED, GREEN, REFACTOR_ popierając go przykładami.
 
 W tym artykule będę zakładał, że wiesz czym są testy. W treści artykułu czasami będę porównywał wersję JUnit 5 z poprzednią, jednak znajomość JUnit 4 nie jest niezbędna.
 {% endcapture %}
@@ -366,9 +366,9 @@ JUnit 5 ma bardzo dobrą dokumentację. Na YouTube znajdziesz też całkiem spor
 
 1. Napisz program, który będzie pomagał w prowadzeniu kantoru. Kantor powinien obsługiwać wymianę trzech par walutowych:
 
-    - PLN - EUR,
-    - PLN - USD,
-    - EUR - USD.
+    - PLN – EUR,
+    - PLN – USD,
+    - EUR – USD.
 
     Właściciel kantoru z góry określa przelicznik referencyjny i spread dla każdej pary walutowej. W bardziej rozwiniętej wersji kantor powinien pobierać przelicznik referencyjny używając API. Możesz na przykład użyć [tego](https://fixer.io/).
 
@@ -376,14 +376,14 @@ JUnit 5 ma bardzo dobrą dokumentację. Na YouTube znajdziesz też całkiem spor
 
 2. Zrefaktoryzuj kod źródłowy przykładów użytych w artykule tak aby `Weight` było klasą, której konstruktor akceptuje dwa parametry:
 
-    - `WeightUnit unit` - [typ wyliczeniowy]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) określający rodzaj jednostki. Powinien mieć wartości `POUND` i `KILOGRAM`,
-    - `BigDecimal value` - wartość wagi w danej jednostce.
+    - `WeightUnit unit` – [typ wyliczeniowy]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) określający rodzaj jednostki. Powinien mieć wartości `POUND` i `KILOGRAM`,
+    - `BigDecimal value` – wartość wagi w danej jednostce.
 
     Dodatkowo klasa ta powinna zawierać metody:
 
-    - `Weight convert(WeightUnit convertTo)` - zwraca instancję `Weight` reprezentującą wagę w nowej jednostce,
-    - `BigDecimal getValue()` - zwaraca wagę,
-    - `WeightUnit getUnit()` - zwaraca jednostkę, w której wyrażona jest waga.
+    - `Weight convert(WeightUnit convertTo)` – zwraca instancję `Weight` reprezentującą wagę w nowej jednostce,
+    - `BigDecimal getValue()` – zwaraca wagę,
+    - `WeightUnit getUnit()` – zwaraca jednostkę, w której wyrażona jest waga.
 
     Użyj istniejących testów i metodyki TDD do przeprowadzenia refaktoringu kodu.
 

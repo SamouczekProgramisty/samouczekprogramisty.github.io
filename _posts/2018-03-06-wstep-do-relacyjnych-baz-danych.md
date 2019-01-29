@@ -121,7 +121,7 @@ Przykładem krotki zawierającej towar może być:
 
 W relacyjnym modelu bazy danych relacją określamy zbiór krotek. Skoro pojedyncza krotka to wiersz w tabeli, to zbiór krotek to cała tabela :). Istnieją różne konwencje nazywania relacji. W dalszej części artykułu będę używał liczby mnogiej od nazwy encji. Dla przykładu relacja przechowująca krotki `towar` będzie nazywała się `towary`.
 
-Musisz także wiedzieć, że relacją także możemy określać zależności jakie występują pomiędzy poszczególnymi tabelami. Na przykład tabela `towary` jest powiązana z tabelą `producenci`. Producent produkuje różne towary. Zatem pomiędzy `producenci` a `towary` występuje relacja jeden do wielu - jeden producent produkuje wiele towarów.
+Musisz także wiedzieć, że relacją także możemy określać zależności jakie występują pomiędzy poszczególnymi tabelami. Na przykład tabela `towary` jest powiązana z tabelą `producenci`. Producent produkuje różne towary. Zatem pomiędzy `producenci` a `towary` występuje relacja jeden do wielu – jeden producent produkuje wiele towarów.
 {:.notice--info}
 
 Zbierając kilka krotek, relacja `towary` może wyglądać następująco:
@@ -177,7 +177,7 @@ Tabele mogą mieć trzy rodzaje zależności. Każdą z nich opiszę w osobnym p
 
 ### Jeden do jednego
 
-Przykładem takiej zależności może być samochód - numer rejestracyjny. Każdy numer rejestracyjny przypisany jest do jednego samochodu, podobnie każdy samochód ma tylko jeden numer rejestracyjny. W przypadku magazynu relacją tego typu może być opiekun handlowy - producent. Zależność tego typu reprezentuje dodatkowa kolumna w tabeli:
+Przykładem takiej zależności może być samochód – numer rejestracyjny. Każdy numer rejestracyjny przypisany jest do jednego samochodu, podobnie każdy samochód ma tylko jeden numer rejestracyjny. W przypadku magazynu relacją tego typu może być opiekun handlowy – producent. Zależność tego typu reprezentuje dodatkowa kolumna w tabeli:
 
 `producenci`
 
@@ -195,7 +195,7 @@ Kolumna `Producent id` w tabeli `opiekunowie` wskazuje na producenta, za któreg
 
 ### Jeden do wielu
 
-Przykładem takiej zależności może być towar - producent. Każdy towar produkowany jest przez jednego producenta. Podobnie jak w przypadku reakcji jeden do jednego zależność tego typu uzyskuje się poprzez dodanie odpowiedniej kolumny:
+Przykładem takiej zależności może być towar – producent. Każdy towar produkowany jest przez jednego producenta. Podobnie jak w przypadku reakcji jeden do jednego zależność tego typu uzyskuje się poprzez dodanie odpowiedniej kolumny:
 
 `producenci`
 
@@ -241,9 +241,9 @@ Zależność tego typu określa się także jako n do m.
 
 ## Dodatkowe materiały do nauki
 
-- [Bazy danych - wykłady na UW](http://wazniak.mimuw.edu.pl/index.php?title=Bazy_danych),
-- [Model relacyjny - artykuł na Wikipedii](https://pl.wikipedia.org/wiki/Model_relacyjny),
-- [Model relacyjny - wykład na AGH](http://www.metal.agh.edu.pl/~regulski/bd-podyp/00-wyklady/05_model_relacyjny.pdf).
+- [Bazy danych – wykłady na UW](http://wazniak.mimuw.edu.pl/index.php?title=Bazy_danych),
+- [Model relacyjny – artykuł na Wikipedii](https://pl.wikipedia.org/wiki/Model_relacyjny),
+- [Model relacyjny – wykład na AGH](http://www.metal.agh.edu.pl/~regulski/bd-podyp/00-wyklady/05_model_relacyjny.pdf).
 
 ## Zadanie do wykonania
 

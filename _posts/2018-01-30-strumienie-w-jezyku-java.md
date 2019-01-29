@@ -77,7 +77,7 @@ Lista `games` zawiera 10 tytułów gier planszowych. Pochodzą one z listy najba
 - powinna mieć ocenę wyższą niż 8,
 - powinna kosztować mniej niż 150 zł.
 
-[^gry]: Sam bardzo często gram w planszówki ;). Grałem w większość wymienionych tu gier - mogę je z czystym sumieniem polecić.
+[^gry]: Sam bardzo często gram w planszówki ;). Grałem w większość wymienionych tu gier – mogę je z czystym sumieniem polecić.
 
 Następnie chcesz wyświetlić nazwy gier spełniających takie wytyczne wielkimi literami. Warunki te możesz spełnić przy pomocy poniższego fragmentu kodu:
 
@@ -284,19 +284,19 @@ Strumień danych z pliku musi być zamknięty. W przykładzie powyżej użyłem 
 
 Nie opiszę tutaj wszystkich metod dostępnych na strumieniach. Jeśli chcesz poznać ich więcej zachęcam do zapoznania się z [dokumentacją interfejsu `Stream`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html).
 
-- [`filter`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-<S-Del>) - zwraca strumień zawierający tylko te elementy dla których filtr zwrócił wartość `true`,
-- [`map`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#map-java.util.function.Function-) - każdy z elementów może zostać zmieniony do innego typu, nowy obiekt zawarty jest w nowym strumieniu,
-- [`peek`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#peek-java.util.function.Consumer-) - pozwala przeprowadzić operację na każdym elemencie w strumieniu, zwraca strumień z tymi samymi elementami,
-- [`limit`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#limit-long-) - zwraca strumień ograniczony do zadanej liczby elementów, pozostałe są ignorowane.
+- [`filter`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-) – zwraca strumień zawierający tylko te elementy dla których filtr zwrócił wartość `true`,
+- [`map`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#map-java.util.function.Function-) – każdy z elementów może zostać zmieniony do innego typu, nowy obiekt zawarty jest w nowym strumieniu,
+- [`peek`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#peek-java.util.function.Consumer-) – pozwala przeprowadzić operację na każdym elemencie w strumieniu, zwraca strumień z tymi samymi elementami,
+- [`limit`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#limit-long-) – zwraca strumień ograniczony do zadanej liczby elementów, pozostałe są ignorowane.
 
 ### Kończenie strumienia
 
 Operacjami kończącymi są wszystkie, które zwracają typ inny niż `Stream`. Metody tego typu mogą także nie zwracać żadnych wartości.
 
-- [`forEach`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#forEach-java.util.function.Consumer-) - wykonuje zadaną operację dla każdego elementu,
-- [`count`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#count--) - zwraca liczbę elementów w strumieniu,
-- [`allMatch`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#allMatch-java.util.function.Predicate-) - zwraca flagę informującą czy wszystkie elementy spełniają warunek. Przestaje sprawdzać na pierwszym elemencie, który tego warunku nie spełnia,
-- [`collect`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-) - pozwala na utworzenie nowego typu na podstawie elementów strumienia. Przy pomocy tej metody można na przykład utworzyć listę. Klasa [`Collectors`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Collectors.html) zawiera sporo gotowych implementacji.
+- [`forEach`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#forEach-java.util.function.Consumer-) – wykonuje zadaną operację dla każdego elementu,
+- [`count`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#count--) – zwraca liczbę elementów w strumieniu,
+- [`allMatch`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#allMatch-java.util.function.Predicate-) – zwraca flagę informującą czy wszystkie elementy spełniają warunek. Przestaje sprawdzać na pierwszym elemencie, który tego warunku nie spełnia,
+- [`collect`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-) – pozwala na utworzenie nowego typu na podstawie elementów strumienia. Przy pomocy tej metody można na przykład utworzyć listę. Klasa [`Collectors`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Collectors.html) zawiera sporo gotowych implementacji.
 
 ## Właściwości strumieni
 
@@ -444,7 +444,7 @@ Poniżej zebrałem dla Ciebie kilka dodatkowych źródeł, które pozwolą spojr
 - [Bardzo dobra dokumentacja pakietu `java.util.stream`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/package-summary.html),
 - [Część I tutoriala dotyczącego strumieni na stronie Oracle](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html),
 - [Część II tutoriala dotyczącego strumieni na stronie Oracle](http://www.oracle.com/technetwork/articles/java/architect-streams-pt2-2227132.html),
-- [Szczegółowy opis strumieni - Baeldung](http://www.baeldung.com/java-8-streams),
+- [Szczegółowy opis strumieni – Baeldung](http://www.baeldung.com/java-8-streams),
 - [Kod źródłowy użyty w tym artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/30_strumienie/src/main/java/pl/samouczekprogramisty/kursjava/streams).
 
 ## Podsumowanie

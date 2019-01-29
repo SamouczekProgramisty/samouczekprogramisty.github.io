@@ -1,5 +1,5 @@
 ---
-title: Struktury danych - tablica asocjacyjna
+title: Struktury danych – tablica asocjacyjna
 last_modified_at: 2018-12-29 09:03:42 +0100
 categories:
 - Programista rzemieślnik
@@ -303,7 +303,7 @@ public V remove(K key) {
     return oldValue;
 }
 ```
-Zwróć uwagę na to, że w przypadku usuwania elementów nie zmniejszam wielkości tablicy z parami - `table` zostaje bez zmian.
+Zwróć uwagę na to, że w przypadku usuwania elementów nie zmniejszam wielkości tablicy z parami – `table` zostaje bez zmian.
 
 Złożoność obliczeniowa nie różni się od operacji dodawania/pobierania elementów. W zależności od funkcji skrótu i rozłożenia elementów wynosi ona `Ο(n)` lub `Ο(1)`.
 

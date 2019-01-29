@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2017/10/29_modyfikatory_dostepu_w_jezyku_java_artykul.jpg
     overlay_image: /assets/images/2017/10/29_modyfikatory_dostepu_w_jezyku_java_artykul.jpg
     caption: "[&copy; photophilde](https://www.flickr.com/photos/photophilde/6778009240/sizes/o/)"
-excerpt: W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory `public`, `protected` i `private`. Poznasz też zastosowanie czwartego modyfikatora dostępu - braku każdego z poprzednich. Zobaczysz różnice pomiędzy modyfikatorami na przykładowych fragmentach kodu. Na koniec będzie czekało na Ciebie zadanie do rozwiązania, w którym przećwiczysz wiedzę zdobytą po przeczytaniu.
+excerpt: W artykule tym przeczytasz o modyfikatorach dostępu w języku Java. Dowiesz się czym różnią się między sobą modyfikatory `public`, `protected` i `private`. Poznasz też zastosowanie czwartego modyfikatora dostępu – braku każdego z poprzednich. Zobaczysz różnice pomiędzy modyfikatorami na przykładowych fragmentach kodu. Na koniec będzie czekało na Ciebie zadanie do rozwiązania, w którym przećwiczysz wiedzę zdobytą po przeczytaniu.
 ---
 
 {% capture wymagania %}
@@ -206,7 +206,7 @@ Enkapsulacja (ang. _encapsulation_), czy inaczej hermetyzacja to sposób na ukry
 
 Dobrą praktyką jest stosowanie najbardziej restrykcyjnych modyfikatorów dostępu. Sprowadza się to do użycia `private` dla wszystkich pól i metod, które powinny być używane "wewnątrz". Pozostałe elementy, które stanowią interfejs komunikacji oznaczamy słowem kluczowym `public`. Brak modyfikatora dostępu czy `protected` mają znaczenie w przypadku bardziej złożonych relacji pomiędzy obiektami.
 
-Fragment kodu poniżej pokazuje licznik, który poprawnie ukrywa swój stan. Pozwala on na modyfikację czy dostęp do `userCount` wyłącznie poprzez publiczny interfejs - metody `increment` i `getUserCount`:
+Fragment kodu poniżej pokazuje licznik, który poprawnie ukrywa swój stan. Pozwala on na modyfikację czy dostęp do `userCount` wyłącznie poprzez publiczny interfejs – metody `increment` i `getUserCount`:
 
 ```java
 package pl.samouczekprogramisty.kursjava.accessmodifiers.encapsulated;
@@ -326,7 +326,7 @@ Dzięki mechanizmowi refleksji zmieniłem wartość pola prywatnego. Po uruchomi
     Stan konta: 100
     Stan konta: -5000
 
-Ogólna reguła brzmi - nie używaj mechanizmu refleksji w produkcyjnym kodzie. Chyba, że wiesz co robisz i rzeczywiście jest to potrzebne ;).
+Ogólna reguła brzmi – nie używaj mechanizmu refleksji w produkcyjnym kodzie. Chyba, że wiesz co robisz i rzeczywiście jest to potrzebne ;).
 {: .notice--warning}
 
 ## Zadanie
@@ -352,9 +352,9 @@ Pamiętaj, że nie ma jednego rozwiązania tego zadania. Jest ich nieskończenie
 ## Dodatkowe materiały do nauki
 
 Przygotowałem dla Ciebie zestaw kilku linków z materiałami dodatkowymi:
- - [fragment kursu na stronie Oracle opisujący modyfikatory dostępu](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html),
- - [artykuł na Wikipedii na temat hermetyzacji](https://pl.wikipedia.org/wiki/Hermetyzacja_(informatyka)),
- - [przykłady kodu użyte w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/29_modyfikatory_dostepu/src/main/java/pl/samouczekprogramisty/kursjava/accessmodifiers).
+- [fragment kursu na stronie Oracle opisujący modyfikatory dostępu](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html),
+- [artykuł na Wikipedii na temat hermetyzacji](https://pl.wikipedia.org/wiki/Hermetyzacja_(informatyka)),
+- [przykłady kodu użyte w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/29_modyfikatory_dostepu/src/main/java/pl/samouczekprogramisty/kursjava/accessmodifiers).
 
 ## Podsumowanie
 

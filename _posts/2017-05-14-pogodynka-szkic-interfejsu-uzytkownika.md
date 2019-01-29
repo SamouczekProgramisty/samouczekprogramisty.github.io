@@ -1,5 +1,5 @@
 ---
-title: Pogodynka - szkic interfejsu użytkownika
+title: Pogodynka – szkic interfejsu użytkownika
 last_modified_at: 2017-11-11 22:14:39 +0100
 categories:
 - DSP2017
@@ -21,14 +21,14 @@ Nadszedł czas na część, która sprawia mi najmniej frajdy. Mianowicie na pra
 
 Mam świadomość, tego, że “dzisiejsze strony www robi się inaczej”, ale nie to jest celem tego projektu. W moim przypadku użyłem:
 
-- [Highcharts](http://highcharts.com) - Rozbudowana biblioteka JavaScript do rysowania wykresów, świetnie nadaje się do mojego zastosowania. Licencja pozwala na darmowe użycie dla projektów niekomercyjnych,
-- [Bootstrap](http://getbootstrap.com/) - Ostylowanie strony, którego sam nie byłbym w stanie porządnie zrobić ;).
+- [Highcharts](http://highcharts.com) – Rozbudowana biblioteka JavaScript do rysowania wykresów, świetnie nadaje się do mojego zastosowania. Licencja pozwala na darmowe użycie dla projektów niekomercyjnych,
+- [Bootstrap](http://getbootstrap.com/) – Ostylowanie strony, którego sam nie byłbym w stanie porządnie zrobić ;).
 
 Po dodaniu odpowiednich wpisów w DNS podstawową wersję strony możesz zobaczyć pod adresem [http://pogodynka.pietraszek.pl](http://pogodynka.pietraszek.pl). Będzie to też adres, pod którym dostępna będzie finalna wersja strony.
 
 Aktualnie strona to jedynie szkic, to co się zmieni to głównie kod JavaScript konfigurujący wykres aby pobierał dane z odpowiedniego miejsca. Aktualnie dane są na stałe wpisane w źródło strony, co nie jest oczywiście docelowym rozwiązaniem ;).
 
-{% include figure image_path="/assets/images/2017/05/14_pogodynka_interfejs_uzytkownika.jpeg" caption="Pogodynka - interfejs użytkownika." %}
+{% include figure image_path="/assets/images/2017/05/14_pogodynka_interfejs_uzytkownika.jpeg" caption="Pogodynka – interfejs użytkownika." %}
 
 HTML i CSS znajdziesz na [samouczkowym githubie](https://github.com/SamouczekProgramisty/Pogodynka/tree/master/frontend). Sam wygląd strony do złudzenia przpomina jeden z [przykładów](http://getbootstrap.com/examples/dashboard/) ze strony Bootstrapa obcięty do moich potrzeb.
 

@@ -1,5 +1,5 @@
 ---
-title: Zmiana branży - zostań programistą
+title: Zmiana branży – zostań programistą
 last_modified_at: 2018-07-18 20:43:32 +0200
 categories:
 - Różne
@@ -93,7 +93,7 @@ Później pojechałem na wspomniany kurs Javy, absolutne podstawy z linią polec
 Tak szczerze to tego rodzaju "święte wojny" w IT zdarzają się bardzo często. Na początku mojej drogi miałem podobnie jak Tomek, z tym, że odwrotnie. Nie chciałem dotykać niczego co wypuścił Microsoft. Teraz już nie podchodzę do tego tak restrykcyjnie, ale stare przyzwyczajenia zostały.
 {:.notice--info}
 
-Następne dwa miesiące spędziłem na dużo mniej intensywnej nauce, około 20 godzin tygodniowo. Nie byłem pewien tego C#, brakowało mi kierunku i miałem wrażenie, że niczego się nie nauczyłem. Poza tym jednym zadaniem rekrutacyjnym w jQuery, nie ruszałem JavaScript'u w ogóle. Podstaw potrzebnych na przebrnięcie rozmowy kwalifikacyjnej nauczyłem się w pociągu relacji Toruń - Szczecin.
+Następne dwa miesiące spędziłem na dużo mniej intensywnej nauce, około 20 godzin tygodniowo. Nie byłem pewien tego C#, brakowało mi kierunku i miałem wrażenie, że niczego się nie nauczyłem. Poza tym jednym zadaniem rekrutacyjnym w jQuery, nie ruszałem JavaScript'u w ogóle. Podstaw potrzebnych na przebrnięcie rozmowy kwalifikacyjnej nauczyłem się w pociągu relacji Toruń – Szczecin.
 
 Ta podróż trwa około sześciu godzin. To pokazuje, że po zdobyciu podstaw w jednym języku nauka kolejnych jest dużo łatwiejsza. Oczywiście Tomek po tych sześciu godzinach nie był biegłym w JavaScript, ale znał podstawy.
 {:.notice--info}
@@ -101,8 +101,8 @@ Ta podróż trwa około sześciu godzin. To pokazuje, że po zdobyciu podstaw w 
 > Z jakimi technologiami aktualnie pracujesz?
 
 Jestem Full-stack JavaScript Developerem. Pracuję z JavaScript w dialekcie ES2015+. Znam i nie znoszę [TypeScript](https://en.wikipedia.org/wiki/TypeScript).  Technologie i biblioteki, które używam to: 
- - front-end - [React](https://reactjs.org/)/[Redux](https://redux.js.org/) + Native, [AngularJS](https://angularjs.org/), [Angular](https://angular.io/) (2+), [Cordova](https://cordova.apache.org/), [Electron](https://electronjs.org/),
- - back-end - [Node.js](https://nodejs.org/en/) + [Express](https://expressjs.com/), [Hapi](https://hapijs.com/), [Sails](https://sailsjs.com/). Ruszam [GraphQL](https://graphql.org/).
+- front-end – [React](https://reactjs.org/)/[Redux](https://redux.js.org/) + Native, [AngularJS](https://angularjs.org/), [Angular](https://angular.io/) (2+), [Cordova](https://cordova.apache.org/), [Electron](https://electronjs.org/),
+- back-end – [Node.js](https://nodejs.org/en/) + [Express](https://expressjs.com/), [Hapi](https://hapijs.com/), [Sails](https://sailsjs.com/). Ruszam [GraphQL](https://graphql.org/).
 
 Oprócz tego staram się pozostać na bieżąco z katalogiem [NPM](https://www.npmjs.com/) i miałem różnego rodzaju przygody z [rxJS](http://reactivex.io/rxjs/), [D3](https://d3js.org/) czy nawet [Phaser](http://phaser.io/).
 
@@ -128,7 +128,7 @@ Nie przyznam się ile godzin spędziłem na tej grze, albo na oglądaniu rozgryw
 
 > Jak poszły Ci pierwsze rozmowy? Co sprawiło Ci największy problem?
 
-Wyłganie jakiejkolwiek wiedzy. Nie oszukujmy się - nasza branża cierpi na krytyczny niedobór ludzi, więc samouków są masy. Możliwe, że większość. Praktycznie każdy z nas, prędzej czy później, będzie mieć syndrom oszusta. 90% CV Junior Developer'ów, które widziałem, to stek kłamstw. Sztuka tkwi w zamaskowaniu tego. Nauczysz się tego w trakcie.
+Wyłganie jakiejkolwiek wiedzy. Nie oszukujmy się – nasza branża cierpi na krytyczny niedobór ludzi, więc samouków są masy. Możliwe, że większość. Praktycznie każdy z nas, prędzej czy później, będzie mieć syndrom oszusta. 90% CV Junior Developer'ów, które widziałem, to stek kłamstw. Sztuka tkwi w zamaskowaniu tego. Nauczysz się tego w trakcie.
 
 To muszę jasno powiedzieć. Uważam, że nie można kłamać w CV. Kłamstwo ma krótkie nogi i nie popłaca. Masz za mało w CV? Popracuj solidnie kolejny miesiąc, dwa i dodaj projekt, który w tym czasie zrealizujesz. Dalej mało? Popracuj kolejny miesiąc, ukończ darmowy kurs na Coursera/Udemy. Dalej mało? Wystąp na lokalnym spotkaniu dla programistów i opowiedz o czymś, czego się nauczyłeś itp.
 {:.notice--info}
@@ -137,14 +137,14 @@ To muszę jasno powiedzieć. Uważam, że nie można kłamać w CV. Kłamstwo ma
 
 Nie miałem wówczas konta na LinkedIn, więc wrzuciłem swoje CV na Monster Polska. Dziś "szukam" pracy tylko za pomocą LinkedIn. W profilu mam zaznaczoną otwartość na oferty, więc oferty płyną wartkim strumieniem.
 
-W swojej karierze wysłałem CV na JEDNO ogłoszenie - to z zadaniem rekrutacyjnym w jQuery.
+W swojej karierze wysłałem CV na JEDNO ogłoszenie – to z zadaniem rekrutacyjnym w jQuery.
 
 Wiele firm wykorzystuje LinkedIn jako bazę kandydatów. Bardzo często wyszukują potencjalnych pracowników na tym portalu. Otrzymywanie ofert zatrudnienia w ten sposób to norma w branży IT.
 {:.notice--info}
 
 > Jakie masz wskazówki, rady dla osób, które chcą się przekwalifikować?
 
-Nic odkrywczego. Cierpliwość i wytrwałość. Jeśli masz ten komfort, który miałem ja - potraktuj naukę jak pracę i podchodź do niej tak, jak do etatu: określony z góry czas CODZIENNIE. Opanuj też słowa-klucze, żebyś chociaż brzmiał, że wiesz o co chodzi. Bo przez pierwszy rok i tak nie będziesz wiedział, a cała praca - czy to nauka, czy to etat - będzie przypominać błądzenie pijanego dziecka z nożem we mgle.
+Nic odkrywczego. Cierpliwość i wytrwałość. Jeśli masz ten komfort, który miałem ja – potraktuj naukę jak pracę i podchodź do niej tak, jak do etatu: określony z góry czas CODZIENNIE. Opanuj też słowa-klucze, żebyś chociaż brzmiał, że wiesz o co chodzi. Bo przez pierwszy rok i tak nie będziesz wiedział, a cała praca - czy to nauka, czy to etat - będzie przypominać błądzenie pijanego dziecka z nożem we mgle.
 
 > Jakie masz plany dotyczące dalszej nauki/rozwoju?
 
@@ -266,7 +266,7 @@ Marek postanowił zostać programistą w wieku 24 lat będąc już po studiach n
 
 ### O tym jak projektant-konstruktor został programistą
 
-Jako programista zacząłem pracować w styczniu 2017 roku. Wcześniej ukończyłem studia na Politechnice Wrocławskiej - Mechanikę i Budowę Maszyn. Zawód postanowiłem zmienić w wieku 24 lat. Czyli w sumie, ani specjalnie późno, ani specjalnie wcześnie.
+Jako programista zacząłem pracować w styczniu 2017 roku. Wcześniej ukończyłem studia na Politechnice Wrocławskiej – Mechanikę i Budowę Maszyn. Zawód postanowiłem zmienić w wieku 24 lat. Czyli w sumie, ani specjalnie późno, ani specjalnie wcześnie.
 
 Warto powiedzieć, że na Mechanice i Budowie Maszyn styczności z programowaniem nie miałem praktycznie żadnej. Mogę nawet powiedzieć, że kiedy jako przedmiot dodatkowy miałem na pierwszym roku programowanie C++, to go nie zaliczyłem. Totalnie nie ogarniałem o co chodzi w programowaniu.
 
@@ -311,7 +311,7 @@ Na całe szczęście na weselu mojego kolegi udało mi się trafić na kogoś, k
 
 Nie dość, że Java ma dużo niższy próg wejścia (niż C czy C++), to jeszcze na chwilę obecną jest dużo więcej ofert pracy z nią związanych. A tym samym dużo większe szanse na staż czy jakikolwiek start.
 
-Doszło więc do tego, że musiałem zdecydować z czego się uczyć. Oczywiście Google.pl "best sources to learn Java" i wertowanie Quory, Stack Overflow etc. Na tym etapie cały czas jeszcze zastanawiałem się nad jakimś bootcamp'em czy ewentualnie studiami z zakresu programowania. Całe (nie)szczęście na jedno i drugie nie było mnie w danym momencie stać. Zacząłem więc od darmowych kursów Javy dostępnych w internecie. Z tego co pamiętam pierwszy z kursów dostępny był chyba na stronie [Coursera](https://www.coursera.org) - beznadziejny. Wystarczy nadmienić, że programowania uczono w nim w IDE (werble...) [BlueJ](https://www.bluej.org), co było totalną masakrą.
+Doszło więc do tego, że musiałem zdecydować z czego się uczyć. Oczywiście Google.pl "best sources to learn Java" i wertowanie Quory, Stack Overflow etc. Na tym etapie cały czas jeszcze zastanawiałem się nad jakimś bootcamp'em czy ewentualnie studiami z zakresu programowania. Całe (nie)szczęście na jedno i drugie nie było mnie w danym momencie stać. Zacząłem więc od darmowych kursów Javy dostępnych w internecie. Z tego co pamiętam pierwszy z kursów dostępny był chyba na stronie [Coursera](https://www.coursera.org) – beznadziejny. Wystarczy nadmienić, że programowania uczono w nim w IDE (werble...) [BlueJ](https://www.bluej.org), co było totalną masakrą.
 
 Jednak i tym razem miałem farta i po chwili trafiłem na kurs Javy na [Udemy](https://www.udemy.com) od Johna Purcella, który zresztą cały czas polecam wszystkim znajomym próbującym zacząć przygodę z programowaniem. Tutaj było już o niebo lepiej. Starałem się programować 3-4 godziny dziennie. Miałem zamiar jak najszybciej zacząć pracować w zawodzie. Uczyłęm się w domu i w wolnych chwilach w pracy oglądałem jego filmiki i próbowałem pisać własne programy.
 
@@ -448,8 +448,8 @@ A teraz jeszcze kilka łyżek dziegdziu, tak żeby zgasić huraoptymizm:
 - pamiętaj, że przebranżawiając się rywalizujesz z osobami, które kształcą/kształciły się w tym kierunku,
 - często jest tak, że osoby będące na studiach nie mają tak dużych zobowiązań jak osoba, która chce się przebranżowić. Studenci przeważnie nie mają rodziny na utrzymaniu, czy dużych zobowiązań finansowych[^generalizuje]. Innymi słowy przebranżawiając się możesz sporo ryzykować.
 
-[^generalizuje]: Mam świadomość, że tu mocno generalizuję. Wydaje mi się jednak, że statystycznie tak to właśnie wygląda. Tak jak piszę - wydaje mi się, więc będę wdzięczny jeśli pokażesz dane, które wyprowadzą mnie z błędu.
+[^generalizuje]: Mam świadomość, że tu mocno generalizuję. Wydaje mi się jednak, że statystycznie tak to właśnie wygląda. Tak jak piszę – wydaje mi się, więc będę wdzięczny jeśli pokażesz dane, które wyprowadzą mnie z błędu.
 
 Jeśli myślisz, że chcę Cię odwieść od przebranżowienia, to masz rację. Jeśli mimo tego zostaniesz, to osiągniesz to co sobie założyłeś. Tylko będąc wystarczająco zdeterminowanym możesz to osiągnąć. To jak będzie? Dasz radę przekwalifikować się na programistę? Wiesz już, że to nie jest łatwe. Wiesz, że wymaga to sporo wysiłku. Podejmiesz wyzwanie? Jakąkolwiek decyzję podejmiesz gratuluję wyboru :). Nikt tej decyzji nie podejmie za Ciebie. Podziel się swoją opinią w komentarzu, a może Tobie już udało się przekwalifikować?
 
-Na koniec mam do Ciebie prośbę. Jeśli artykuł przypadł Ci do gustu proszę podziel się nim ze swoimi znajomymi. W ten sposób pomożesz mi dotrzeć do nowych czytelników - z góry dziękuję. Jeśli chcesz otrzymywać informacje o nowych artykułach proszę dopisz się do samouczkowego newslettera i polub Samouczka na [Facebooku](https://www.facebook.com/SamouczekProgramisty). Do następnego razu!
+Na koniec mam do Ciebie prośbę. Jeśli artykuł przypadł Ci do gustu proszę podziel się nim ze swoimi znajomymi. W ten sposób pomożesz mi dotrzeć do nowych czytelników – z góry dziękuję. Jeśli chcesz otrzymywać informacje o nowych artykułach proszę dopisz się do samouczkowego newslettera i polub Samouczka na [Facebooku](https://www.facebook.com/SamouczekProgramisty). Do następnego razu!

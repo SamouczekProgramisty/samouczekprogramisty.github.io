@@ -13,7 +13,7 @@ excerpt: >
     Artykuł ten przedstawia kilka akronimów, które opisują praktyki pomagające w tworzeniu kodu wysokiej jakości. Po przeczytaniu tego artykułu dowiesz się czym jest DRY, KISS czy YAGNI. Opisuję w nim każdy z tych akronimów, pokazując ich zastosowanie nie tylko w projektach informatycznych.
 ---
 
-## Coś o powtarzaniu - DRY
+## Coś o powtarzaniu – DRY
 
 Reguła DRY (ang. _Don't Repeat Yourself_) zostało opisana w książce "The Pragmatic Programmer" autorstwa Andrew'a Hunt'a i David'a Thomas'a. Autorzy wprowadzają regułę, która mówi, że każdy fragment wiedzy powinien mieć pojedynczą, jednoznaczną i uznaną reprezentację w systemie. Regułę tę można zastosować zarówno do konfiguracji jak i kodu programu.
 
@@ -88,7 +88,7 @@ Nie pamiętam gdzie, ale usłyszałem kiedyś, że przeciwnością DRY jest WET 
 
 {% include newsletter-srodek.md %}
 
-## Coś o prostocie - KISS
+## Coś o prostocie – KISS
 
 Według [Wikipedii](https://en.wikipedia.org/wiki/KISS_principle) reguła KISS (ang. _Keep It Simple, Stupid_) wspomniana została już w 1960 roku przez marynarkę Stanów Zjednoczonych jako wytyczna dotycząca projektowania. Ja poznałem ją w kontekście projektów informatycznych.
 
@@ -121,7 +121,7 @@ Podejście tego typu znane było długo przed KISS używanym przez amerykańską
 
 W kontekście oprogramowania mniej bytów sprowadza się do mniejszej ilości kodu. Mniej kodu to mniej potencjalnych błędów do popełnienia. Mniej kodu to mniejszy system, który prawdopodobnie będzie łatwiejszy do zrozumienia i utrzymania.
 
-## Coś o wyobraźni - YAGNI
+## Coś o wyobraźni – YAGNI
 
 Na pewno zdarzyło Ci się kiedyś zastanawiać się nad tym jak zaimplementować jakieś rozwiązanie. Wpadasz wtedy w wir tworzenia. Potrafisz wymyślić piękne struktury danych. Algorytmy takie, że płaczesz jak [commit]({{ '/kurs-git/' | absolute_url }})'ujesz. Tutaj nowy _manager_, tam kolejny _helper_. Oczywiście Twoje rozwiązanie przewiduje to, że klient będzie chciał obsługiwać kwoty reprezentowane w liczbach urojonych.
 
@@ -133,7 +133,7 @@ Całość zajęła Ci trzy miesiące. Przez ten czas nawet nie było kiedy poroz
 
 Oczywiście nie mam nic przeciwko pisaniu solidnego kodu, który spełnia wymagania użytkownika. Nie mam nic przeciwko temu, żeby przewidywać sytuacje, o których nie poinformował klient. W pełni zgadzam się na sugerowanie przydatnych funkcjonalności. Do tego uważam, że pisanie kodu łatwego do rozszerzenia zgodnie z zasadami [SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %}) jest dobrym posunięciem.
 
-Jest jednak jedno małe "ale". Z doświadczenia wiem, że wymyślanie czegoś na siłę nie ma sensu. Klient nie chciał funkcjonalności X? Jeśli Twoim zdaniem to głupi pomysł to z nim o tym porozmawiaj. Przekonaj go do swojego zdania. Jeśli uda Ci się go przekonać - brawo! Jeśli nie, to pogódź się z faktem, że nie możesz wiedzieć wszystkiego najlepiej.
+Jest jednak jedno małe "ale". Z doświadczenia wiem, że wymyślanie czegoś na siłę nie ma sensu. Klient nie chciał funkcjonalności X? Jeśli Twoim zdaniem to głupi pomysł to z nim o tym porozmawiaj. Przekonaj go do swojego zdania. Jeśli uda Ci się go przekonać – brawo! Jeśli nie, to pogódź się z faktem, że nie możesz wiedzieć wszystkiego najlepiej.
 
 YAGNI sprowadza się do hamowania swojej fantazji. Nie wprowadzaj bytów, funkcjonalności, metod, itp., które nie są w danym momencie potrzebne. Dodawanie zbędnych elementów komplikuje kod. Do tego podnosi koszty realizacji projektu. Dodatkowo może stawiać Cię w złym świetle jako programistę. Po płodnej sesji pisania kodu może okazać się, że udało Ci się wykonać kawał solidnej, porządnej i nikomu niepotrzebnej pracy.
 

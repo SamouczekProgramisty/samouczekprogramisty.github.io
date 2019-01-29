@@ -78,13 +78,13 @@ Mam świadomość, że nie dorastam Wikipedii do pięt, że ten podtytuł to lek
 
 W życiu nie pomyślałbym, że artykuł dotyczący liczb binarnych będzie tak wysoko na tej liście ;). Pominąłem tutaj sporo artykułów dotyczących Javy. Liczby nie są ważone, mam na myśli to, że pokazują liczbę odwiedzin od czasu publikacji. Siłą rzeczy artykuły, które są na blogu dłużej będą miały więcej odwiedzin, niż te publikowane ostatnio. Poniżej możesz zobaczyć część zestawienia popularnych stron wraz z liczbą odwiedzin:
 
-- [Kurs programowania Java]({{ '/kurs-programowania-java/' | absolute_url }}) - 184'929 odwiedzin,
-- [System binarny]({% post_url 2016-02-11-system-dwojkowy %}) - 55'580 odwiedzin,
-- [Zestaw ćwiczeń dla początkujących programistów]({% post_url 2016-03-13-zestaw-cwiczen-dla-poczatkujacych-programistow %}) - 31'421 odwiedzin,
-- [Testy jednostkowe z JUnit 4]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}) - 31'038 odwiedzin,
-- [Kurs aplikacji webowych]({{ '/kurs-aplikacji-webowych/' | absolute_url }}) - 23'200 odwiedzin,
-- [Złożoność obliczeniowa]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}) - 20'457 odwiedzin,
-- [Wstęp do Gradle]({% post_url 2017-01-19-wstep-do-gradle %}) - 16'279 odwiedzin,
+- [Kurs programowania Java]({{ '/kurs-programowania-java/' | absolute_url }}) – 184'929 odwiedzin,
+- [System binarny]({% post_url 2016-02-11-system-dwojkowy %}) – 55'580 odwiedzin,
+- [Zestaw ćwiczeń dla początkujących programistów]({% post_url 2016-03-13-zestaw-cwiczen-dla-poczatkujacych-programistow %}) – 31'421 odwiedzin,
+- [Testy jednostkowe z JUnit 4]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}) – 31'038 odwiedzin,
+- [Kurs aplikacji webowych]({{ '/kurs-aplikacji-webowych/' | absolute_url }}) – 23'200 odwiedzin,
+- [Złożoność obliczeniowa]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}) – 20'457 odwiedzin,
+- [Wstęp do Gradle]({% post_url 2017-01-19-wstep-do-gradle %}) – 16'279 odwiedzin,
 
 Mam nadzieję, że [kurs gita]({{ '/kurs-git/' | absolute_url }}) nad którym pracuję też niedługo znajdzie się w tym zestawieniu ;).
 

@@ -9,7 +9,7 @@ header:
     teaser: /assets/images/2018/09/13_format_json_w_jezyku_java.jpg
     overlay_image: /assets/images/2018/09/13_format_json_w_jezyku_java.jpg
     caption: "[&copy; xresch](https://pixabay.com/en/analytics-information-innovation-3088958/)"
-excerpt: Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lekturze będziesz wiedzieć czym jest format JSON, gdzie jest używany i dlaczego zyskał na popularności. Poznasz dwie specyfikacje z parasola JEE - JSON-P i JSON-B i dowiesz się jak ich używać. Zapraszam do lektury.
+excerpt: Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lekturze będziesz wiedzieć czym jest format JSON, gdzie jest używany i dlaczego zyskał na popularności. Poznasz dwie specyfikacje z parasola JEE – JSON-P i JSON-B i dowiesz się jak ich używać. Zapraszam do lektury.
 ---
 
 ## Czym jest JSON
@@ -131,9 +131,9 @@ Liczby w formacie JSON to ciąg cyfr. Opcjonalnie poprzedzony znakiem `-`. Do od
 
 W formacie JSON występują trzy literały:
 
-- `true` - reprezentuje wartość logiczną - prawdę,
-- `false` - reprezentuje wartość logiczną - fałsz,
-- `null` - reprezentuje wartość pustą, brak wartości.
+- `true` – reprezentuje wartość logiczną – prawdę,
+- `false` – reprezentuje wartość logiczną – fałsz,
+- `null` – reprezentuje wartość pustą, brak wartości.
 
 ### Element główny
 
@@ -495,19 +495,19 @@ public class AnnotationExamples {
 }
 ```
 
-* [`@JsonbTransient`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbTransient.html) - atrybut powinien zostać pomięty,
-* [`@JsonbProperty`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html) - pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość `null` (domyślnie takie wartości są pomijane),
-* [`@JsonbNumberFormat`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbNumberFormat.html) - określa format w jakim powinna być zapisana liczba,
-* [`@JsonbDateFormat`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbDateFormat.html) - określa format w jakim powinna być zapisana data.
-* [`@JsonbPropertyOrder`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbPropertyOrder.html) - określa kolejność w jakiej atrybuty powinny być serializowane.
+* [`@JsonbTransient`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbTransient.html) – atrybut powinien zostać pomięty,
+* [`@JsonbProperty`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html) – pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość `null` (domyślnie takie wartości są pomijane),
+* [`@JsonbNumberFormat`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbNumberFormat.html) – określa format w jakim powinna być zapisana liczba,
+* [`@JsonbDateFormat`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbDateFormat.html) – określa format w jakim powinna być zapisana data.
+* [`@JsonbPropertyOrder`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbPropertyOrder.html) – określa kolejność w jakiej atrybuty powinny być serializowane.
 
 Pozostałe adnotacje znajdziesz w [dokumentacji](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/package-summary.html).
 
 Miejsce umieszczenia adnotacji ma znaczenie:
 
-- adnotacja nad atrybutem - ma wpływ zarówno na serializację jak i deserializację atrybutu,
-- adnotacja nad getterem - ma wpływ wyłącznie na serializację atrybutu,
-- adnotacja nad setterem - ma wpływ wyłącznie na deserializację atrybutu.
+- adnotacja nad atrybutem – ma wpływ zarówno na serializację jak i deserializację atrybutu,
+- adnotacja nad getterem – ma wpływ wyłącznie na serializację atrybutu,
+- adnotacja nad setterem – ma wpływ wyłącznie na deserializację atrybutu.
 
 Proszę spójrz jak adnotacje wpływają na kształt generowanego dokumentu:
 
@@ -550,7 +550,7 @@ Nie mogę tu pominąć `json_pp`. Jest to narzędzie używane w linii poleceń. 
 
 Jeśli chcesz dowiedzieć się czegoś więcej na temat formatu JSON zachęcam Cię do sięgnięcia po materiały dodatkowe:
 
-* [Specyfikacja JSON](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf) specyfikacja ma kod 404 - kod odpowiedzi Not Found w specyfikacji [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}#statusy-4xx) :),
+* [Specyfikacja JSON](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf) specyfikacja ma kod 404 – kod odpowiedzi Not Found w specyfikacji [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}#statusy-4xx) :),
 * [Artykuł o JSON na Wikipedii](https://en.wikipedia.org/wiki/JSON),
 * [Specyfikacja JSON-P](https://jcp.org/aboutJava/communityprocess/final/jsr374/index.html),
 * [Dokumentacja API JSON-P](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/overview-summary.html),

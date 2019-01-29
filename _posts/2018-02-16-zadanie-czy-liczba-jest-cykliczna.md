@@ -1,5 +1,5 @@
 ---
-title: Samouczek na rozmowie - czy liczba jest cykliczna
+title: Samouczek na rozmowie – czy liczba jest cykliczna
 last_modified_at: 2018-08-22 21:47:58 +0200
 categories:
 - Samouczek na rozmowie
@@ -28,10 +28,10 @@ Zanim przejdę do treści zadania musisz wiedzieć czym jest [liczba cykliczna](
 {% capture permutacja %}
 Permutacja cykliczna może brzmieć jak coś skomplikowanego. W praktyce powstaje ona przez wstawianie pierwszego elementu danego łańcucha na koniec. Na przykład permutacjami cyklicznymi łańcucha znaków `abcd` są:
 
- - `abcd`
- - `bcda`
- - `cdab`
- - `dabc`
+- `abcd`
+- `bcda`
+- `cdab`
+- `dabc`
 {% endcapture %}
 
 <div class="notice--info">
@@ -95,9 +95,9 @@ W przypadku tego algorytmu przechowuję listę permutacji w tablicy. Tablica zaw
 
 Czytając o [liczbach cyklicznych](https://en.wikipedia.org/wiki/Cyclic_number) dowiedziałem się kilku istotnych rzeczy:
 
- - liczby cykliczne tworzone są na podstawie liczb pierwszych,
- - długość liczby cyklicznej jest o jeden większa niż liczba pierwsza użyta do generowania liczby cyklicznej,
- - liczba cykliczna jest cyklicznym rozwinięciem ułamka `1/liczba pierwsza do generacji`.
+- liczby cykliczne tworzone są na podstawie liczb pierwszych,
+- długość liczby cyklicznej jest o jeden większa niż liczba pierwsza użyta do generowania liczby cyklicznej,
+- liczba cykliczna jest cyklicznym rozwinięciem ułamka `1/liczba pierwsza do generacji`.
 
 Mając takie informacje podszedłem do problemu od drugiej strony. Zamiast sprawdzić czy dana liczba jest cykliczna wygenerowałem liczbę, która powstałaby na podstawie dzielenia `1/liczba pierwsza do generacji`. Następnie porównuję tak uzyskaną liczbę z tą przekazaną jako argument metody. Jeśli są sobie równe wówczas przekazana liczba jest liczbą cykliczną. Proszę spójrz na implementację:
 

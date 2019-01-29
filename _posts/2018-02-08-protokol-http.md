@@ -22,7 +22,7 @@ Zatem protokół HTTP (ang. _Hypertext Transfer Protocol_) to zasady wymiany inf
 Nawiasem mówiąc przeglądarka robi całkiem sporo rzeczy w tle... Wiesz, że do wyświetlania strony www.amazon.com przeglądarka wykonuje około 300 żądań HTTP? W końcowej części artykułu pokażę Ci jak to się dzieje.
 {: .notice--info}
 
-[^praca]: Ot, taki "patriotyzm lokalny" - aktualnie pracuję w firmie Opera Software ;).
+[^praca]: Ot, taki "patriotyzm lokalny" – aktualnie pracuję w firmie Opera Software ;).
 
 Komunikacja pomiędzy serwerem a klientem oparta jest na wielu innych protokołach. Ten zestaw protokołów nazywa się modelem [ISO/OSI](https://pl.wikipedia.org/wiki/Model_OSI). Model ten zawiera warstwy. Każda warstwa, na bazie poprzednich, udostępnia dodatkowe funkcjonalności. Protokół HTTP znajduje się w najwyższej warstwie modelu, [warstwie aplikacji](https://pl.wikipedia.org/wiki/Model_OSI#Warstwa_7:_aplikacji).
 {: .notice--info}
@@ -136,10 +136,10 @@ Teraz przeanalizuję przykładowe zapytanie wraz z odesłaną odpowiedzią. Uży
 
 Klient wysyła żądanie do serwera w formie wiadomości. Wiadomość ta ma dokładnie zdefiniowany format:
 
- - linia określająca czasownik HTTP, zasób i wersję protokołu,
- - linie zawierające nagłówki,
- - pustą linię określającą koniec nagłówków,
- - ciało wiadomości (jeśli istnieje).
+- linia określająca czasownik HTTP, zasób i wersję protokołu,
+- linie zawierające nagłówki,
+- pustą linię określającą koniec nagłówków,
+- ciało wiadomości (jeśli istnieje).
 
 Jak wspomniałem wyżej użyję programu curl. Dodatkowo użyję przełącznika `-v`. Włącza on tryb lania wody ;). Wtedy curl raportuje dużo więcej informacji. Dane wysłane do serwera poprzedzone są znakiem `>`. Odpowiedź poprzedzona jest `<`. Poniżej pokazuję zapytanie do API Githuba. Wysyłam żądanie na adres `https://api.github.com/users/kbl`:
 
@@ -161,10 +161,10 @@ W przypadku tego żądania, ciało wiadomości jest puste. Widzisz więc tylko p
 
 Serwer odpowiada na żądanie klienta wysyłając odpowiedź[^kilka]. Podobnie jak w przypadku zapytania format jest dokładnie określony:
 
- - linijka z wersją protokołu i statusem odpowiedzi,
- - linie zawierające nagłówki,
- - pustą linię określającą koniec nagłówków,
- - ciało wiadomości (jeśli istnieje).
+- linijka z wersją protokołu i statusem odpowiedzi,
+- linie zawierające nagłówki,
+- pustą linię określającą koniec nagłówków,
+- ciało wiadomości (jeśli istnieje).
 
 [^kilka]: Na jedno żądanie serwer może wysłać kilka odpowiedzi, na przykład dzieląc dużą odpowiedź na kilka mniejszych.
 
@@ -205,7 +205,7 @@ Pierwsza linijka to wspomniany wcześniej protokół `HTTP/1.1`. Następnie stat
 
 Kolejne 22 linijki to nagłówki, po których występuje pusta linia. Podobnie jak przy żądaniu oddziela ona nagłówki od ciała wiadomości.
 
-W przypadku odpowiedzi ciało wiadomości zawiera dane w formacie JSON - zasób. Dla czytelności pominąłem tu większość ciała odpowiedzi. Zachęcam Cię do eksperymentowania z własnymi zapytaniami :). Do tych eksperymentów może Ci się przydać [dokumentacja API](https://developer.github.com/v3/).
+W przypadku odpowiedzi ciało wiadomości zawiera dane w formacie JSON – zasób. Dla czytelności pominąłem tu większość ciała odpowiedzi. Zachęcam Cię do eksperymentowania z własnymi zapytaniami :). Do tych eksperymentów może Ci się przydać [dokumentacja API](https://developer.github.com/v3/).
 
 ## Czasowniki HTTP
 
@@ -234,9 +234,9 @@ Odpowiedź na żądania typu `HEAD` może być przechowywana w cache'u.
 
 Specyfikacja mówi, że żądania typu `POST` są przetwarzane przez serwer zgodnie z założeniami dla danego zasobu. Taki skomplikowany opis sprowadza się do:
 
- - używania `POST` do przesyłania zawartości formularzy,
- - dodawania nowego zasobu,
- - dodawanie danych do istniejącego zasobu.
+- używania `POST` do przesyłania zawartości formularzy,
+- dodawania nowego zasobu,
+- dodawanie danych do istniejącego zasobu.
 
 Odpowiedzi na żądania typu `POST` nie jest przechowywana w cache'u[^wyjatek].
 
@@ -335,32 +335,32 @@ Szczerze nigdy w praktyce nie spotkałem się z użyciem tych statusów. Ta grup
 
 Statusy z tej grupy informują o tym, że zapytanie zostało poprawnie przetworzone. W zależności od kodu odpowiedzi wynik tego przetwarzania może być różny. Najczęściej używane statusy z tej grupy to:
 
- - `200 OK` - zapytanie zostało przetworzone poprawnie,
- - `201 Created` - zapytanie zostało przetworzone poprawnie i zasób został utworzony,
- - `202 Accepted` - zapytanie zostało przyjęte przez serwer, jednak jego przetwarzanie nie jest jeszcze ukończone,
- - `204 No Content` - zapytanie zostało przetworzone, ciało wiadomości jest puste.
+- `200 OK` – zapytanie zostało przetworzone poprawnie,
+- `201 Created` – zapytanie zostało przetworzone poprawnie i zasób został utworzony,
+- `202 Accepted` – zapytanie zostało przyjęte przez serwer, jednak jego przetwarzanie nie jest jeszcze ukończone,
+- `204 No Content` – zapytanie zostało przetworzone, ciało wiadomości jest puste.
 
 ### Statusy 3xx
 
 Statusy zaczynające się od 3 informują klienty o tym, że musi być podjęta dodatkowa akcja w celu skończenia przetwarzania zapytania. Statusy te wykorzystywane są do ustawiania przekierowań. Na przykład jeśli zmieniłbym adres samouczka z www.samouczekprogramisty.pl na cokolwiek innego wówczas żądanie wysłane pod www.samouczekprogramisty.pl powinno skończyć się statusem z grupy 3xx:
 
- - `301 Moved Permanently` - informuje klienta, że zasób został przeniesiony na stałe w inne miejsce. Ten status ma znaczenie duże dla twórców stron, którzy bazują na ruchu z wyszukiwarek. Taki status informuje wyszukiwarki o tym, że strona, która wcześniej była pod adresem X znajduje się w nowym miejscu.
+- `301 Moved Permanently` – informuje klienta, że zasób został przeniesiony na stałe w inne miejsce. Ten status ma znaczenie duże dla twórców stron, którzy bazują na ruchu z wyszukiwarek. Taki status informuje wyszukiwarki o tym, że strona, która wcześniej była pod adresem X znajduje się w nowym miejscu.
 
 ### Statusy 4xx
 
 Statusy z tej grupy informują o błędzie klienta. Pewnie nie raz widziałeś błąd 404 ;). Serwer tymi statusami informuje o tym, że żądanie nie może być poprawnie przetworzone:
 
- - `400 Bad Request` - serwer informuje klienta o błędnym zapytaniu, które nie będzie przetworzone,
- - `403 Forbidden` - zasób wymaga uwierzytelnienia, po potwierdzeniu tożsamości może być dostępny,
- - `404 Not Found` - to pewnie znasz i widziałeś wielokrotnie, żądany zasób nie istnieje.
+- `400 Bad Request` – serwer informuje klienta o błędnym zapytaniu, które nie będzie przetworzone,
+- `403 Forbidden` – zasób wymaga uwierzytelnienia, po potwierdzeniu tożsamości może być dostępny,
+- `404 Not Found` – to pewnie znasz i widziałeś wielokrotnie, żądany zasób nie istnieje.
 
 ### Statusy 5xx
 
 Tutaj sprawa jest poważna. Serwer informuje klienty o błędzie po stronie serwera, które uniemożliwiają przetworzenie zapytania:
 
- - `500 Internal Server Error` - informacja dla klienta o tym, że serwer znalazł się w stanie, który uniemożliwia poprawne przetworzenie żądania,
- - `502 Bad Gateway` - na początku artykułu wspomniałem o tym, że może być wiele węzłów, które będą przekazywały zapytanie do serwera, który je finalnie obsłuży. Ten status informuje klienta o tym, że jeden z tych pośrednich węzłów dostał błędną odpowiedź od poprzedniego węzła,
- - `503 Service Unavailable` - ten błąd może informować klienta o tym, że serwer jest przeciążony. Ponowna próba może kończyć się poprawną odpowiedzią.
+- `500 Internal Server Error` – informacja dla klienta o tym, że serwer znalazł się w stanie, który uniemożliwia poprawne przetworzenie żądania,
+- `502 Bad Gateway` – na początku artykułu wspomniałem o tym, że może być wiele węzłów, które będą przekazywały zapytanie do serwera, który je finalnie obsłuży. Ten status informuje klienta o tym, że jeden z tych pośrednich węzłów dostał błędną odpowiedź od poprzedniego węzła,
+- `503 Service Unavailable` – ten błąd może informować klienta o tym, że serwer jest przeciążony. Ponowna próba może kończyć się poprawną odpowiedzią.
 
 ## Prawie 300 zapytań aby wyświetlić stronę
 
@@ -376,15 +376,15 @@ Dokument ten jest interpretowany przez przeglądarkę, zawiera on znaczniki HTML
 
 Odsyłam Cię głównie do źródeł. Mam wrażenie, że artykuł jest na tyle szczegółowy, że bardziej dokładne informacje znajdziesz właśnie tam:
 
- - [Zbiór materiałów fundacji Mozilla dotyczących HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP),
- - Zbiór RFC dla HTTP 1.1:
+- [Zbiór materiałów fundacji Mozilla dotyczących HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP),
+- Zbiór RFC dla HTTP 1.1:
    - [RFC 7230](https://tools.ietf.org/html/rfc7230)
    - [RFC 7231](https://tools.ietf.org/html/rfc7231)
    - [RFC 7232](https://tools.ietf.org/html/rfc7232)
    - [RFC 7233](https://tools.ietf.org/html/rfc7233)
    - [RFC 7234](https://tools.ietf.org/html/rfc7234)
    - [RFC 7235](https://tools.ietf.org/html/rfc7235)
- - [RFC dla URI](https://tools.ietf.org/html/rfc3986)
+- [RFC dla URI](https://tools.ietf.org/html/rfc3986)
 
 # Podsumowanie
 

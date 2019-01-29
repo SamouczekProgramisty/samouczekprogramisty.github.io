@@ -39,7 +39,7 @@ Oczywiście istnieją też inni dostawcy. Najwięksi z nich to:
 
 [^heroku]: Tak właściwie to Heroku używa AWS do oferowania swoich usług.
 
-## Informator - stan projektu
+## Informator – stan projektu
 
 Aplikacja używa najnowszych wersji biblioteki Spring MVC i Hibernate. W trakcie pisania tego artykułu najnowszymi wersjami były:
 

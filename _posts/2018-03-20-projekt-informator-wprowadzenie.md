@@ -9,7 +9,7 @@ header:
     teaser: /assets/images/2018/03/20_projekt_informator_wprowadzenie.jpg
     overlay_image: /assets/images/2018/03/20_projekt_informator_wprowadzenie.jpg
     caption: "[&copy; counselman](https://www.flickr.com/photos/counselman/4477748418/sizes/l)"
-excerpt: Na blogu pojawia się drugi projekt. Projekt Informator, bo o nim mowa, łączył będzie w sobie najczęściej używane biblioteki do tworzenia aplikacji webowych - Spring i Hibernate.
+excerpt: Na blogu pojawia się drugi projekt. Projekt Informator, bo o nim mowa, łączył będzie w sobie najczęściej używane biblioteki do tworzenia aplikacji webowych – Spring i Hibernate.
 ---
 
 ## Projekt Informator

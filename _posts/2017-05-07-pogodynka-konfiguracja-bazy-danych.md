@@ -1,5 +1,5 @@
 ---
-title: Pogodynka - konfiguracja bazy danych
+title: Pogodynka – konfiguracja bazy danych
 last_modified_at: 2018-09-30 20:17:41 +0200
 categories:
 - DSP2017

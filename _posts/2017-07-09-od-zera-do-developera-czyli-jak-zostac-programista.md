@@ -33,7 +33,7 @@ Rzeczy, które opiszę poniżej dotyczą profilu idealnego kandydata. Jest tego 
 
 ### Składnia języka Java
 
-Podstawą jest znajomość składni języka Java. Obsługa wyjątków, pętle, instrukcje warunkowe, adnotacje czy “lambdy” - wszystko co związane jest z samym językiem programowania. Wiedzę z tego zakresu możesz zdobyć przerabiając artykuły zebrane w ramach [kursu języka Java]({{ "/kurs-programowania-java/" | absolute_url }}).
+Podstawą jest znajomość składni języka Java. Obsługa wyjątków, pętle, instrukcje warunkowe, adnotacje czy “lambdy” – wszystko co związane jest z samym językiem programowania. Wiedzę z tego zakresu możesz zdobyć przerabiając artykuły zebrane w ramach [kursu języka Java]({{ "/kurs-programowania-java/" | absolute_url }}).
 
 {% include newsletter-srodek.md %}
 
@@ -47,7 +47,7 @@ Tutaj mam na myśli najczęściej używane biblioteki, które rozszerzają możl
 
 ### IDE
 
-Do efektywnej pracy z językiem Java niezbędne jest IDE. Czy to będzie Idea, Eclipse, Netbeans czy cokolwiek innego - nie ma to znaczenia. Istotne jest abyś swobodnie pracował z IDE. Znajomość skrótów klawiaturowych czy możliwości IDE są bardzo przydatne. Tę umiejętność także rozwiniesz przez praktykę. W większości IDE są wtyczki, które wspierają pracę ze skrótami klawiaturowymi. Pracując z Eclipse używałem wtyczki [mousefeed](https://marketplace.eclipse.org/content/mousefeed). Teraz z Ideą bardzo często używam funkcjonalności [Search Everywhere](https://www.jetbrains.com/help/idea/searching-everywhere.html#d392899e17) (`Shift + Shift`) lub [Navigate to Action](https://www.jetbrains.com/help/idea/2017.1/navigating-to-action.html) (`Ctrl + Shift + A`).
+Do efektywnej pracy z językiem Java niezbędne jest IDE. Czy to będzie Idea, Eclipse, Netbeans czy cokolwiek innego – nie ma to znaczenia. Istotne jest abyś swobodnie pracował z IDE. Znajomość skrótów klawiaturowych czy możliwości IDE są bardzo przydatne. Tę umiejętność także rozwiniesz przez praktykę. W większości IDE są wtyczki, które wspierają pracę ze skrótami klawiaturowymi. Pracując z Eclipse używałem wtyczki [mousefeed](https://marketplace.eclipse.org/content/mousefeed). Teraz z Ideą bardzo często używam funkcjonalności [Search Everywhere](https://www.jetbrains.com/help/idea/searching-everywhere.html#d392899e17) (`Shift + Shift`) lub [Navigate to Action](https://www.jetbrains.com/help/idea/2017.1/navigating-to-action.html) (`Ctrl + Shift + A`).
 
 ### System kontroli wersji
 
@@ -95,7 +95,7 @@ Programiści czasami potrafią być straszni. Część osób (w tym ja) ma probl
 
 ### Sprzedaż
 
-No tak... W końcu nadchodzi czas na pierwszą rozmowę kwalifikacyjną. Rozmowa to nic innego jak sprzedawanie swojego czasu przyszłemu pracodawcy. Jeśli potrafisz ten czas sprzedać i pasujesz do zespołu dostaniesz pracę.W tym punkcie można też zawrzeć CV i jego przygotowanie. Tutaj odsyłam Cię do materiałów w internecie - są ludzie, którzy poradzą Ci jak to zrobić dużo lepiej ode mnie ;).
+No tak... W końcu nadchodzi czas na pierwszą rozmowę kwalifikacyjną. Rozmowa to nic innego jak sprzedawanie swojego czasu przyszłemu pracodawcy. Jeśli potrafisz ten czas sprzedać i pasujesz do zespołu dostaniesz pracę.W tym punkcie można też zawrzeć CV i jego przygotowanie. Tutaj odsyłam Cię do materiałów w internecie – są ludzie, którzy poradzą Ci jak to zrobić dużo lepiej ode mnie ;).
 
 ## Podsumowanie
 
