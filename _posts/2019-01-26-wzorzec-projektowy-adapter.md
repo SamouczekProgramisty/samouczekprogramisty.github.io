@@ -1,6 +1,6 @@
 ---
 title: Wzorzec projektowy adapter
-last_modified_at: 2018-11-22 23:20:12 +0100
+last_modified_at: 2019-01-30 23:18:31 +0100
 categories:
 - Wzorce projektowe
 permalink: /wzorzec-projektowy-adapter/
@@ -134,7 +134,7 @@ W tym przypadku:
 * `Adapter` – `ArrayMatrix`,
 * `DoAdaptacji` – `int[][]`.
 
-Wszystko ładnie działa. Do czasu. Pojawiło się wymaganie, które zakłada, że musisz przechować bardzo dużą i [rzadką macierz](https://pl.wikipedia.org/wiki/Macierz_rzadka). Rzadka macierz to taka, w której większość elementów ma wartość `0`. Jest to problem, ponieważ `ArrayMatrix` wymaga ciągłych obszarów pamięci. Dodatkowo przechowuje wartości `0`, które można pominąć.
+Wszystko ładnie działa. Do czasu. Pojawiło się wymaganie, które zakłada, że musisz przechować bardzo dużą i [rzadką macierz](https://pl.wikipedia.org/wiki/Macierz_rzadka). Rzadka macierz to taka, w której większość elementów ma wartość `0`. Jest to problem, ponieważ `ArrayMatrix` wymaga ciągłych obszarów pamięci. Dodatkowo marnuje ją przechowuje wartości `0`, które można pominąć.
 
 Z pomocą przychodzi inna implementacja adaptera.
 
@@ -190,7 +190,7 @@ Zachęcam Cię też do zajrzenia do [kodu źródłowego](https://github.com/Samo
 
 ## Podsumowanie
 
-Po przeczytaniu tego artykułu wiesz czym jest wzorzec projektowy adapter. Znasz przykłady zastosowania tego wzorca. Rozwiązując ćwiczenie udało Ci się pokazać zrozumienie tego 
+Po przeczytaniu tego artykułu wiesz czym jest wzorzec projektowy adapter. Znasz przykłady zastosowania tego wzorca. Rozwiązując ćwiczenie udało Ci się zastosować tę wiedzę w praktyce.
 
 Mam nadzieje, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę. Jeśli ktoś z Twoich znajomych mógłby skorzystać z tego artykułu proszę przekaż mu linka. Dzięki temu pomożesz mi dotrzeć do nowych Czytelników. Z góry dziękuję!
 
