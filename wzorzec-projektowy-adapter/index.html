@@ -1,0 +1,803 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Wzorzec projektowy adapter - Samouczek Programisty</title>
+<meta name="description" content="W tym artykule przeczytasz o jednym z wzorców projektowych – o adapterze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wzorzec projektowy adapter">
+<meta property="og:url" content="http://www.samouczekprogramisty.pl/wzorzec-projektowy-adapter/">
+
+
+  <meta property="og:description" content="W tym artykule przeczytasz o jednym z wzorców projektowych – o adapterze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce">
+
+
+
+  <meta property="og:image" content="http://www.samouczekprogramisty.pl/assets/images/2019/01/26_wzorzec_projektowy_adapter_artykul.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-01-26T00:00:00+01:00">
+
+
+
+  <meta property="article:modified_time" content="2019-01-30T23:18:31+01:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://www.samouczekprogramisty.pl/wzorzec-projektowy-adapter/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "http://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2019/01/26_wzorzec_projektowy_adapter_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Wzorzec projektowy adapter
+
+        
+      </h1>
+      
+        <p class="page__lead">W tym artykule przeczytasz o jednym z wzorców projektowych – o adapterze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://pixabay.com/en/plug-jack-stereo-jack-plug-adapter-185031/">© AlexanderStein</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="http://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wzorzec projektowy adapter</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wzorzec projektowy adapter">
+    <meta itemprop="description" content="W tym artykule przeczytasz o jednym z wzorców projektowych – o adapterze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce">
+    <meta itemprop="datePublished" content="January 26, 2019">
+    <meta itemprop="dateModified" content="January 30, 2019">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#problem-do-rozwiązania">Problem do rozwiązania</a></li>
+<li class="toc-entry toc-h2"><a href="#błyskawiczny-kurs-uml">Błyskawiczny kurs UML</a></li>
+<li class="toc-entry toc-h2"><a href="#wzorzec-adapter">Wzorzec adapter</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#diagramy-klas">Diagramy klas</a></li>
+<li class="toc-entry toc-h3"><a href="#przykładowa-implementacja-adaptera">Przykładowa implementacja adaptera</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#adapter-przy-użyciu-kompozycji">Adapter przy użyciu kompozycji</a></li>
+<li class="toc-entry toc-h4"><a href="#adapter-przy-użyciu-dziedziczenia">Adapter przy użyciu dziedziczenia</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#ćwiczenie-do-wykonania">Ćwiczenie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        <p class="notice--info">Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – <a href="http://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/#wzorce-projektowe">wzorce projektowe</a></p>
+
+<h2 id="problem-do-rozwiązania">Problem do rozwiązania</h2>
+
+<p>Pewnie wiesz, że w różnych krajach gniazdka mogą wyglądać inaczej niż to, co możesz zobaczyć na co dzień. Charakterystyka prądu w takim gniazdku także może być różna. Załóżmy, że jedziesz do Wielkiej Brytanii, albo do Stanów Zjednoczonych. Zabierasz ze sobą laptopa i ładowarkę. Bateria wystarcza Ci na czas lotu. Po przylocie na miejsce chcesz uzupełnić baterię w pierwszym wolnym gniazdku na lotnisku.</p>
+
+<p>Tu pojawia się problem. Wtyczka z Twojej ładowarki nie pasuje do gniazdka. Można powiedzieć, że gniazdko i wtyczka nie są ze sobą kompatybilne. Przypominasz sobie jednak, że przezornie udało Ci się zapakować przejściówkę. Przejściówka sprawi, że możesz podłączyć swoją ładowarkę do gniazdka.</p>
+
+<p>Problem tego typu może także występować w projektach informatycznych. Przejściówka, która pozwala włączyć wtyczkę do innego gniazdka to nic innego jak adapter.</p>
+
+<p>Problemem do rozwiązania jest zatem użycie obiektu, w miejscu gdzie jego interfejs nie jest obsługiwany. Adapter rozwiązuje ten problem “tłumacząc” go na coś zrozumiałego dla klienta.</p>
+
+<h2 id="błyskawiczny-kurs-uml">Błyskawiczny kurs UML</h2>
+
+<p>Zanim przejdę do omówienia diagramów, które pokazują powiązania klas i interfejsów w tym wzorcu projektowym musisz dowiedzieć się czegoś o UML’u.</p>
+
+<p>UML (ang. <em>Unified Modeling Language</em>) składa się z kilkunastu rodzajów diagramów. Jest to zestaw, który pozwala na wizualną reprezentację projektu informatycznego. W ramach serii opisującej wzorce projektowe będę korzystał z zupełnych podstaw tej notacji. Będę używał głównie diagramów klas. Chociaż nie jestem wielkim fanem UML’a, to taki sposób prezentacji w tym przypadku wydaje mi się najlepszy.</p>
+
+<p>Do zrozumienia diagramów z tego artykuły wystarczy Ci ten przykład:</p>
+
+<figure class="">
+  <img src="/assets/images/2019/01/29_uml_diagram.svg" alt="" />
+  
+    <figcaption>Przykładowy diagram UML.
+</figcaption>
+  
+</figure>
+
+<p>Na tym diagramie możesz zobaczyć:</p>
+
+<ul>
+  <li>trzy klasy – prostokąty z napisami <code class="highlighter-rouge">User</code>, <code class="highlighter-rouge">LinkedList</code>, <code class="highlighter-rouge">Object</code>,</li>
+  <li>dwa interfejsy – prostokąty oznaczone adnotacją <code class="highlighter-rouge">&lt;&lt;interfejs&gt;&gt;</code> z napisami <code class="highlighter-rouge">List</code>, <code class="highlighter-rouge">Collection</code>,</li>
+  <li>dziedziczenie – strzałka z ciągłą linią i z pustym grotem, na przykład pomiędzy <code class="highlighter-rouge">LinkedList</code> a <code class="highlighter-rouge">Object</code> czy <code class="highlighter-rouge">List</code> a <code class="highlighter-rouge">Collection</code>,</li>
+  <li>implementację interfejsu – strzałka z przerywaną linią i z pustym grotem pomiędzy <code class="highlighter-rouge">LinkedList</code> a <code class="highlighter-rouge">List</code>,</li>
+  <li>zależność – strzałkę z ciągłą linią pomiędzy <code class="highlighter-rouge">User</code> a <code class="highlighter-rouge">LinkedList</code>.</li>
+</ul>
+
+<p>Kod w języku Java zgodny z tym diagramem może wyglądać tak (część diagramu dotycząca elementów biblioteki standardowej nie jest tu widoczna):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="kd">extends</span> <span class="n">Object</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">notes</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Te podstawy w zupełności wystarczą Ci do zrozumienia poniższych przykładów.</p>
+
+<h2 id="wzorzec-adapter">Wzorzec adapter</h2>
+
+<h3 id="diagramy-klas">Diagramy klas</h3>
+
+<p>Istnieją dwa sposoby implementacji adaptera. Jeden z nich używa kompozycji, drugi dziedziczenia. Diagramy poniżej pokazują tę subtelną różnicę:</p>
+
+<figure class="">
+  <img src="/assets/images/2019/01/29_adapter_kompozycja.svg" alt="" />
+  
+    <figcaption>Wzorzec adapter zaimplementowany przy pomocy kompozycji.
+</figcaption>
+  
+</figure>
+
+<figure class="">
+  <img src="/assets/images/2019/01/29_adapter_dziedziczenie.svg" alt="" />
+  
+    <figcaption>Wzorzec adapter zaimplementowany przy pomocy dziedziczenia.
+</figcaption>
+  
+</figure>
+
+<p>W obu przypadkach klasa <code class="highlighter-rouge">DoAdaptacji</code> nie implementuje bezpośrednio interfejsu <code class="highlighter-rouge">Zależność</code>. Ten interfejs implementuje klasa <code class="highlighter-rouge">Adapter</code>. Także w obu przypadkach <code class="highlighter-rouge">Klient</code> reprezentuje klasę, która używa interfejsu <code class="highlighter-rouge">Zależność</code>. Zatem użycie klasy <code class="highlighter-rouge">Adapter</code> pozwala na pośrednie użycie klasy <code class="highlighter-rouge">DoAdaptacji</code> przez klasę <code class="highlighter-rouge">Klient</code>.</p>
+
+<p>Zaletą stosowania tego wzorca projektowego jest to, że klasa <code class="highlighter-rouge">DoAdaptacji</code> nie musi być modyfikowana, aby spełnić interfejs wymagany przez klasę <code class="highlighter-rouge">Klient</code>. Czasami nawet taka modyfikacja nie jest możliwa.</p>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2379 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h3 id="przykładowa-implementacja-adaptera">Przykładowa implementacja adaptera</h3>
+
+<p>Wyobraź sobie sytuację, w której mamy macierz kwadratową. Macierz reprezentowana jest przez obiekt implementujący interfejs <code class="highlighter-rouge">Matrix</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Matrix</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="nf">get</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="nf">size</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Dodatkowo istnieje klasa <code class="highlighter-rouge">MatrixOperations</code>, która definiuje zestaw metod operujących na takich macierzach. Przykład poniżej pokazuje metodę <code class="highlighter-rouge">largest</code>, która zwraca największy element z macierzy:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MatrixOperations</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">largest</span><span class="o">(</span><span class="n">Matrix</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Matrix is empty!"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">largest</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">largest</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">largest</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">largest</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Przekładając to na diagramy, które pokazałem wyżej to:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Klient</code> – <code class="highlighter-rouge">MatrixOperations</code>,</li>
+  <li><code class="highlighter-rouge">Zależność</code> – <code class="highlighter-rouge">Matrix</code>.</li>
+</ul>
+
+<h4 id="adapter-przy-użyciu-kompozycji">Adapter przy użyciu kompozycji</h4>
+
+<p>Standardowo macierz można reprezentować przez tablicę dwuwymiarową. <code class="highlighter-rouge">ArrayMatrix</code> to adapter, który wykorzystuje kompozycję. W tym przypadku opakowuje on tablicę dwuwymiarową – <code class="highlighter-rouge">int[][]</code>, udostępniając interfejs <code class="highlighter-rouge">Matrix</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArrayMatrix</span> <span class="kd">implements</span> <span class="n">Matrix</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">matrix</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ArrayMatrix</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">matrix</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">matrix</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">matrix</span><span class="o">[</span><span class="n">y</span><span class="o">][</span><span class="n">x</span><span class="o">];</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Adapter</code> – <code class="highlighter-rouge">ArrayMatrix</code>,</li>
+  <li><code class="highlighter-rouge">DoAdaptacji</code> – <code class="highlighter-rouge">int[][]</code>.</li>
+</ul>
+
+<p>Wszystko ładnie działa. Do czasu. Pojawiło się wymaganie, które zakłada, że musisz przechować bardzo dużą i <a href="https://pl.wikipedia.org/wiki/Macierz_rzadka">rzadką macierz</a>. Rzadka macierz to taka, w której większość elementów ma wartość <code class="highlighter-rouge">0</code>. Jest to problem, ponieważ <code class="highlighter-rouge">ArrayMatrix</code> wymaga ciągłych obszarów pamięci. Dodatkowo marnuje ją przechowuje wartości <code class="highlighter-rouge">0</code>, które można pominąć.</p>
+
+<p>Z pomocą przychodzi inna implementacja adaptera.</p>
+
+<h4 id="adapter-przy-użyciu-dziedziczenia">Adapter przy użyciu dziedziczenia</h4>
+
+<p>Tym razem adapter wykorzystuje dziedziczenie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapMatrix</span> <span class="kd">extends</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Matrix</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MapMatrix</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="n">size</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">size</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="n">key</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">key</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">),</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">,</span> <span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">put</span><span class="o">(</span><span class="n">key</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">),</span> <span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">size</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">key</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">y</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>W tym przypadku:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Adapter</code> – <code class="highlighter-rouge">MapMatrix</code>,</li>
+  <li><code class="highlighter-rouge">DoAdaptacji</code> – <code class="highlighter-rouge">HashMap</code>.</li>
+</ul>
+
+<h2 id="ćwiczenie-do-wykonania">Ćwiczenie do wykonania</h2>
+
+<p>Ćwiczenie polega na zaimplementowaniu adaptera. Przerób adapter <code class="highlighter-rouge">MapMatrix</code> w taki sposób, aby wykorzystywał kompozycję.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Bez wątpienia klasyką tematu jest książka <a href="https://www.amazon.com/gp/product/0201633612/">Design Patterns – Gamma, Helm, Johnson, Vlissides</a>. Jeśli miałbym polecić wyłącznie jedno źródło to poprzestałbym na tej książce.</p>
+
+<p>Zachęcam Cię też do zajrzenia do <a href="https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/01_adapter/src/main/java/pl/samouczekprogramisty/patterns">kodu źródłowego</a>, który użyłem w tym artykule.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po przeczytaniu tego artykułu wiesz czym jest wzorzec projektowy adapter. Znasz przykłady zastosowania tego wzorca. Rozwiązując ćwiczenie udało Ci się zastosować tę wiedzę w praktyce.</p>
+
+<p>Mam nadzieje, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę. Jeśli ktoś z Twoich znajomych mógłby skorzystać z tego artykułu proszę przekaż mu linka. Dzięki temu pomożesz mi dotrzeć do nowych Czytelników. Z góry dziękuję!</p>
+
+<p>Jeśli nie chcesz pominąć nowych artykułów polub Samouczka na Facebook’u i zapisz się do samouczkowego newslettera. Trzymaj się!</p>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2379 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#wzorce-projektowe" class="page__taxonomy-item" rel="tag">Wzorce projektowe</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-01-30">2019-01-30</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwzorzec-projektowy-adapter%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.samouczekprogramisty.pl%2Fwzorzec-projektowy-adapter%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/klauzula-join-w-zapytaniach-sql/" class="pagination--pager" title="Klauzula JOIN w zapytaniach SQL
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/struktury-danych-tablica-asocjacyjna/" rel="permalink">Struktury danych – tablica asocjacyjna
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  12 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację ...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/09/22_testy_z_mock_i_stub_w_jezyku_java.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/testy-jednostkowe-z-uzyciem-mock-i-stub/" rel="permalink">Testy jednostkowe z użyciem mock i stub
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o obiektach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady ta...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/struktury-danych-lista-wiazana/" rel="permalink">Struktury danych – lista wiązana
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o liście wiązanej (ang. linked list). Pokażę Ci przykładową implementację takiej listy. Dowiesz się jaka jest złożoność obliczenio...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/03/23_java_typy_generyczne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/typy-generyczne-w-jezyku-java/" rel="permalink">Typy generyczne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Dzień dobry! Nadszedł czas na poznanie typów generycznych. Dowiesz się o “szablonach” w języku Java, które pozwalają na tworzenie bardziej uniwersalnych typó...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="http://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="http://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://www.samouczekprogramisty.pl/wzorzec-projektowy-adapter/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>

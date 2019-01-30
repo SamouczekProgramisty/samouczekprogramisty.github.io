@@ -1,4 +1,216 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-01-26T10:10:27+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Klauzula JOIN w zapytaniach SQL</title><link href="http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql/" rel="alternate" type="text/html" title="Klauzula JOIN w zapytaniach SQL" /><published>2018-11-20T00:00:00+01:00</published><updated>2018-11-22T23:20:12+01:00</updated><id>http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql/">&lt;div class=&quot;notice--info&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="http://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-01-30T23:26:32+01:00</updated><id>http://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Wzorzec projektowy adapter</title><link href="http://www.samouczekprogramisty.pl/wzorzec-projektowy-adapter/" rel="alternate" type="text/html" title="Wzorzec projektowy adapter" /><published>2019-01-26T00:00:00+01:00</published><updated>2019-01-30T23:18:31+01:00</updated><id>http://www.samouczekprogramisty.pl/wzorzec-projektowy-adapter</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/wzorzec-projektowy-adapter/">&lt;p class=&quot;notice--info&quot;&gt;Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – &lt;a href=&quot;http://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/#wzorce-projektowe&quot;&gt;wzorce projektowe&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;problem-do-rozwiązania&quot;&gt;Problem do rozwiązania&lt;/h2&gt;
+
+&lt;p&gt;Pewnie wiesz, że w różnych krajach gniazdka mogą wyglądać inaczej niż to, co możesz zobaczyć na co dzień. Charakterystyka prądu w takim gniazdku także może być różna. Załóżmy, że jedziesz do Wielkiej Brytanii, albo do Stanów Zjednoczonych. Zabierasz ze sobą laptopa i ładowarkę. Bateria wystarcza Ci na czas lotu. Po przylocie na miejsce chcesz uzupełnić baterię w pierwszym wolnym gniazdku na lotnisku.&lt;/p&gt;
+
+&lt;p&gt;Tu pojawia się problem. Wtyczka z Twojej ładowarki nie pasuje do gniazdka. Można powiedzieć, że gniazdko i wtyczka nie są ze sobą kompatybilne. Przypominasz sobie jednak, że przezornie udało Ci się zapakować przejściówkę. Przejściówka sprawi, że możesz podłączyć swoją ładowarkę do gniazdka.&lt;/p&gt;
+
+&lt;p&gt;Problem tego typu może także występować w projektach informatycznych. Przejściówka, która pozwala włączyć wtyczkę do innego gniazdka to nic innego jak adapter.&lt;/p&gt;
+
+&lt;p&gt;Problemem do rozwiązania jest zatem użycie obiektu, w miejscu gdzie jego interfejs nie jest obsługiwany. Adapter rozwiązuje ten problem “tłumacząc” go na coś zrozumiałego dla klienta.&lt;/p&gt;
+
+&lt;h2 id=&quot;błyskawiczny-kurs-uml&quot;&gt;Błyskawiczny kurs UML&lt;/h2&gt;
+
+&lt;p&gt;Zanim przejdę do omówienia diagramów, które pokazują powiązania klas i interfejsów w tym wzorcu projektowym musisz dowiedzieć się czegoś o UML’u.&lt;/p&gt;
+
+&lt;p&gt;UML (ang. &lt;em&gt;Unified Modeling Language&lt;/em&gt;) składa się z kilkunastu rodzajów diagramów. Jest to zestaw, który pozwala na wizualną reprezentację projektu informatycznego. W ramach serii opisującej wzorce projektowe będę korzystał z zupełnych podstaw tej notacji. Będę używał głównie diagramów klas. Chociaż nie jestem wielkim fanem UML’a, to taki sposób prezentacji w tym przypadku wydaje mi się najlepszy.&lt;/p&gt;
+
+&lt;p&gt;Do zrozumienia diagramów z tego artykuły wystarczy Ci ten przykład:&lt;/p&gt;
+
+&lt;figure class=&quot;&quot;&gt;
+  &lt;img src=&quot;/assets/images/2019/01/29_uml_diagram.svg&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Przykładowy diagram UML.
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;p&gt;Na tym diagramie możesz zobaczyć:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;trzy klasy – prostokąty z napisami &lt;code class=&quot;highlighter-rouge&quot;&gt;User&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;LinkedList&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;dwa interfejsy – prostokąty oznaczone adnotacją &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&amp;lt;interfejs&amp;gt;&amp;gt;&lt;/code&gt; z napisami &lt;code class=&quot;highlighter-rouge&quot;&gt;List&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Collection&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;dziedziczenie – strzałka z ciągłą linią i z pustym grotem, na przykład pomiędzy &lt;code class=&quot;highlighter-rouge&quot;&gt;LinkedList&lt;/code&gt; a &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;List&lt;/code&gt; a &lt;code class=&quot;highlighter-rouge&quot;&gt;Collection&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;implementację interfejsu – strzałka z przerywaną linią i z pustym grotem pomiędzy &lt;code class=&quot;highlighter-rouge&quot;&gt;LinkedList&lt;/code&gt; a &lt;code class=&quot;highlighter-rouge&quot;&gt;List&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;zależność – strzałkę z ciągłą linią pomiędzy &lt;code class=&quot;highlighter-rouge&quot;&gt;User&lt;/code&gt; a &lt;code class=&quot;highlighter-rouge&quot;&gt;LinkedList&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Kod w języku Java zgodny z tym diagramem może wyglądać tak (część diagramu dotycząca elementów biblioteki standardowej nie jest tu widoczna):&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;notes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Te podstawy w zupełności wystarczą Ci do zrozumienia poniższych przykładów.&lt;/p&gt;
+
+&lt;h2 id=&quot;wzorzec-adapter&quot;&gt;Wzorzec adapter&lt;/h2&gt;
+
+&lt;h3 id=&quot;diagramy-klas&quot;&gt;Diagramy klas&lt;/h3&gt;
+
+&lt;p&gt;Istnieją dwa sposoby implementacji adaptera. Jeden z nich używa kompozycji, drugi dziedziczenia. Diagramy poniżej pokazują tę subtelną różnicę:&lt;/p&gt;
+
+&lt;figure class=&quot;&quot;&gt;
+  &lt;img src=&quot;/assets/images/2019/01/29_adapter_kompozycja.svg&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Wzorzec adapter zaimplementowany przy pomocy kompozycji.
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;figure class=&quot;&quot;&gt;
+  &lt;img src=&quot;/assets/images/2019/01/29_adapter_dziedziczenie.svg&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Wzorzec adapter zaimplementowany przy pomocy dziedziczenia.
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;p&gt;W obu przypadkach klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;DoAdaptacji&lt;/code&gt; nie implementuje bezpośrednio interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Zależność&lt;/code&gt;. Ten interfejs implementuje klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;Adapter&lt;/code&gt;. Także w obu przypadkach &lt;code class=&quot;highlighter-rouge&quot;&gt;Klient&lt;/code&gt; reprezentuje klasę, która używa interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Zależność&lt;/code&gt;. Zatem użycie klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Adapter&lt;/code&gt; pozwala na pośrednie użycie klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;DoAdaptacji&lt;/code&gt; przez klasę &lt;code class=&quot;highlighter-rouge&quot;&gt;Klient&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Zaletą stosowania tego wzorca projektowego jest to, że klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;DoAdaptacji&lt;/code&gt; nie musi być modyfikowana, aby spełnić interfejs wymagany przez klasę &lt;code class=&quot;highlighter-rouge&quot;&gt;Klient&lt;/code&gt;. Czasami nawet taka modyfikacja nie jest możliwa.&lt;/p&gt;
+
+&lt;div class=&quot;notice--success text-center&quot;&gt;
+  
+&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
+
+
+&lt;/div&gt;
+
+&lt;h3 id=&quot;przykładowa-implementacja-adaptera&quot;&gt;Przykładowa implementacja adaptera&lt;/h3&gt;
+
+&lt;p&gt;Wyobraź sobie sytuację, w której mamy macierz kwadratową. Macierz reprezentowana jest przez obiekt implementujący interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Matrix&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Matrix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Dodatkowo istnieje klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;MatrixOperations&lt;/code&gt;, która definiuje zestaw metod operujących na takich macierzach. Przykład poniżej pokazuje metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;largest&lt;/code&gt;, która zwraca największy element z macierzy:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MatrixOperations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;largest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Matrix&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Matrix is empty!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;largest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;largest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;largest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;largest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Przekładając to na diagramy, które pokazałem wyżej to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Klient&lt;/code&gt; – &lt;code class=&quot;highlighter-rouge&quot;&gt;MatrixOperations&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Zależność&lt;/code&gt; – &lt;code class=&quot;highlighter-rouge&quot;&gt;Matrix&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;adapter-przy-użyciu-kompozycji&quot;&gt;Adapter przy użyciu kompozycji&lt;/h4&gt;
+
+&lt;p&gt;Standardowo macierz można reprezentować przez tablicę dwuwymiarową. &lt;code class=&quot;highlighter-rouge&quot;&gt;ArrayMatrix&lt;/code&gt; to adapter, który wykorzystuje kompozycję. W tym przypadku opakowuje on tablicę dwuwymiarową – &lt;code class=&quot;highlighter-rouge&quot;&gt;int[][]&lt;/code&gt;, udostępniając interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Matrix&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayMatrix&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Matrix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[][]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ArrayMatrix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[][]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;matrix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W tym przypadku:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Adapter&lt;/code&gt; – &lt;code class=&quot;highlighter-rouge&quot;&gt;ArrayMatrix&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DoAdaptacji&lt;/code&gt; – &lt;code class=&quot;highlighter-rouge&quot;&gt;int[][]&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Wszystko ładnie działa. Do czasu. Pojawiło się wymaganie, które zakłada, że musisz przechować bardzo dużą i &lt;a href=&quot;https://pl.wikipedia.org/wiki/Macierz_rzadka&quot;&gt;rzadką macierz&lt;/a&gt;. Rzadka macierz to taka, w której większość elementów ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;. Jest to problem, ponieważ &lt;code class=&quot;highlighter-rouge&quot;&gt;ArrayMatrix&lt;/code&gt; wymaga ciągłych obszarów pamięci. Dodatkowo marnuje ją przechowuje wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;, które można pominąć.&lt;/p&gt;
+
+&lt;p&gt;Z pomocą przychodzi inna implementacja adaptera.&lt;/p&gt;
+
+&lt;h4 id=&quot;adapter-przy-użyciu-dziedziczenia&quot;&gt;Adapter przy użyciu dziedziczenia&lt;/h4&gt;
+
+&lt;p&gt;Tym razem adapter wykorzystuje dziedziczenie:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MapMatrix&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HashMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Matrix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MapMatrix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getOrDefault&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;,&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W tym przypadku:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Adapter&lt;/code&gt; – &lt;code class=&quot;highlighter-rouge&quot;&gt;MapMatrix&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DoAdaptacji&lt;/code&gt; – &lt;code class=&quot;highlighter-rouge&quot;&gt;HashMap&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ćwiczenie-do-wykonania&quot;&gt;Ćwiczenie do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Ćwiczenie polega na zaimplementowaniu adaptera. Przerób adapter &lt;code class=&quot;highlighter-rouge&quot;&gt;MapMatrix&lt;/code&gt; w taki sposób, aby wykorzystywał kompozycję.&lt;/p&gt;
+
+&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
+
+&lt;p&gt;Bez wątpienia klasyką tematu jest książka &lt;a href=&quot;https://www.amazon.com/gp/product/0201633612/&quot;&gt;Design Patterns – Gamma, Helm, Johnson, Vlissides&lt;/a&gt;. Jeśli miałbym polecić wyłącznie jedno źródło to poprzestałbym na tej książce.&lt;/p&gt;
+
+&lt;p&gt;Zachęcam Cię też do zajrzenia do &lt;a href=&quot;https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/01_adapter/src/main/java/pl/samouczekprogramisty/patterns&quot;&gt;kodu źródłowego&lt;/a&gt;, który użyłem w tym artykule.&lt;/p&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Po przeczytaniu tego artykułu wiesz czym jest wzorzec projektowy adapter. Znasz przykłady zastosowania tego wzorca. Rozwiązując ćwiczenie udało Ci się zastosować tę wiedzę w praktyce.&lt;/p&gt;
+
+&lt;p&gt;Mam nadzieje, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę. Jeśli ktoś z Twoich znajomych mógłby skorzystać z tego artykułu proszę przekaż mu linka. Dzięki temu pomożesz mi dotrzeć do nowych Czytelników. Z góry dziękuję!&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz pominąć nowych artykułów polub Samouczka na Facebook’u i zapisz się do samouczkowego newslettera. Trzymaj się!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule przeczytasz o jednym z wzorców projektowych – o adapterze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce</summary></entry><entry><title type="html">Klauzula JOIN w zapytaniach SQL</title><link href="http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql/" rel="alternate" type="text/html" title="Klauzula JOIN w zapytaniach SQL" /><published>2018-11-20T00:00:00+01:00</published><updated>2018-11-22T23:20:12+01:00</updated><id>http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql/">&lt;div class=&quot;notice--info&quot;&gt;
   
 &lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-sql&quot;&gt;praktycznego kursu SQL&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
 
@@ -98,7 +310,7 @@
   
 &lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2300 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
 
@@ -532,7 +744,7 @@ Smerfy
       &lt;p&gt;Bazy danych mogą tu sporo optymalizować, dzięki czemu czasochłonne tworzenie iloczynu kartezjańskiego nie zawsze jest wykonywane. Jednak z punktu widzenia algebry relacji, podstawy modelu relacyjnego to właśnie iloczyn kartezjański jest punktem wyjścia. &lt;a href=&quot;#fnref:optymalizacja&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule opisuję klauzulę `JOIN`. Pozwala ona na łączenie ze sobą danych znajdujących się w różnych tabelach. Po lekturze tego artykułu będziesz wiedzieć jakie są rodzaje złączeń i jakie są między nimi różnice. Wszystkie opisy poparte są przykładami. Na końcu artykułu znajdziesz zadania z przykładowymi rozwiązaniami, które pomogą utrwalić Ci wiedzę dotyczącą klauzuli `JOIN`.</summary></entry><entry><title type="html">Samouczek na rozmowie - kalkulator</title><link href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/" rel="alternate" type="text/html" title="Samouczek na rozmowie - kalkulator" /><published>2018-11-12T00:00:00+01:00</published><updated>2018-11-18T14:00:20+01:00</updated><id>http://www.samouczekprogramisty.pl/zadanie-kalkulator</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/">&lt;div class=&quot;notice--info&quot;&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule opisuję klauzulę `JOIN`. Pozwala ona na łączenie ze sobą danych znajdujących się w różnych tabelach. Po lekturze tego artykułu będziesz wiedzieć jakie są rodzaje złączeń i jakie są między nimi różnice. Wszystkie opisy poparte są przykładami. Na końcu artykułu znajdziesz zadania z przykładowymi rozwiązaniami, które pomogą utrwalić Ci wiedzę dotyczącą klauzuli `JOIN`.</summary></entry><entry><title type="html">Samouczek na rozmowie – kalkulator</title><link href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/" rel="alternate" type="text/html" title="Samouczek na rozmowie – kalkulator" /><published>2018-11-12T00:00:00+01:00</published><updated>2018-11-18T14:00:20+01:00</updated><id>http://www.samouczekprogramisty.pl/zadanie-kalkulator</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/">&lt;div class=&quot;notice--info&quot;&gt;
   
 &lt;p&gt;To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych.&lt;/p&gt;
 
@@ -564,7 +776,7 @@ Smerfy
 
 &lt;h2 id=&quot;zadanie-do-wykonania&quot;&gt;Zadanie do wykonania&lt;/h2&gt;
 
-&lt;p&gt;Wiesz już, że dzisiejsze zadanie podesłał mi jeden z Czytelników - Łukasz (jeszcze raz wielkie dzięki). Łukasz dostał następujące instrukcje:&lt;/p&gt;
+&lt;p&gt;Wiesz już, że dzisiejsze zadanie podesłał mi jeden z Czytelników – Łukasz (jeszcze raz wielkie dzięki). Łukasz dostał następujące instrukcje:&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Przygotowanie kompletnego rozwiązania powinno zająć około dwóch godzin. Dostarczone rozwiązanie powinno mieć jakość, którego możemy się spodziewać w trakcie normalnej pracy. Używanie narzędzi do budowania jest mile widziane, nie jest to wymóg konieczny. Dostarczenie testów jednostkowych także nie jest wymagane, jednak jest mile widziane i będzie wzięte pod uwagę podczas oceniania zadania. Rozwiązanie powinno zawierać także instrukcję jak uruchomić zadanie z linii poleceń. Rozwiązanie może założyć, że dane wejściowe są w poprawnym formacie. W przypadku niejasnych wymagań przyjęte założenia powinny być dostarczone razem z rozwiązaniem. Dopuszczalne jest użycie zewnętrznych bibliotek. Należy je dołączyć do dostarczonego rozwiązania. Jakość dostarczonego kodu jest równie istotna jak dostarczenie działającego rozwiązania.&lt;/p&gt;
@@ -615,7 +827,7 @@ wyjście: 1&lt;/p&gt;
   
 &lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2300 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
 
@@ -852,7 +1064,7 @@ B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstr
   
 &lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2300 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
 
@@ -1156,13 +1368,13 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
 &lt;p&gt;Do tej pory pokazałem Ci tylko dwie funkcje &lt;code class=&quot;highlighter-rouge&quot;&gt;MAX&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;LENGTH&lt;/code&gt;. Niżej pokażę Ci kilka innych.  Proszę pamiętaj o tym, że dużo funkcji jest charakterystycznych dla poszczególnych silników baz danych. W artykule starałem się opisać wyłącznie te, które są dostępne powszechnie. Zachęcam Cię do sprawdzenia dokumentacji Twojej bazy danych, żeby sprawdzić całą listę dostępnych funkcji.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ABS&lt;/code&gt; - zwraca &lt;a href=&quot;https://pl.wikipedia.org/wiki/Warto%C5%9B%C4%87_bezwzgl%C4%99dna&quot;&gt;wartość bezwzględną&lt;/a&gt; przyjmowanego argumentu,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LENGTH&lt;/code&gt; - tę funkcję już znasz, zwraca długość łańcucha znaków,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LOWER&lt;/code&gt; - zwraca kopię łańcucha znaków przekazanego jako parametr, w którym wszystkie litery zamienione są na małe&lt;sup id=&quot;fnref:ascii&quot;&gt;&lt;a href=&quot;#fn:ascii&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RANDOM&lt;/code&gt; - zwraca losową liczbę całkowitą,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SUBSTR&lt;/code&gt;&lt;sup id=&quot;fnref:substring&quot;&gt;&lt;a href=&quot;#fn:substring&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;SUBSTR(x, y, z)&lt;/code&gt; pobiera podzbiór znaków parametru &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; od litery &lt;code class=&quot;highlighter-rouge&quot;&gt;y&lt;/code&gt; do litery &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt;. Parametr &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt; może być pominięty, wtedy funkcja zwraca podzbiór znaków od znaku &lt;code class=&quot;highlighter-rouge&quot;&gt;y&lt;/code&gt; do końca,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TRIM&lt;/code&gt; - usuwa spacje z obu stron przekazanego parametru,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UPPER&lt;/code&gt; - funkcja działa podobnie jak &lt;code class=&quot;highlighter-rouge&quot;&gt;LOWER&lt;/code&gt;, tym razem zwracany łańcuch znaków składa się z wielkich liter.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ABS&lt;/code&gt; – zwraca &lt;a href=&quot;https://pl.wikipedia.org/wiki/Warto%C5%9B%C4%87_bezwzgl%C4%99dna&quot;&gt;wartość bezwzględną&lt;/a&gt; przyjmowanego argumentu,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LENGTH&lt;/code&gt; – tę funkcję już znasz, zwraca długość łańcucha znaków,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LOWER&lt;/code&gt; – zwraca kopię łańcucha znaków przekazanego jako parametr, w którym wszystkie litery zamienione są na małe&lt;sup id=&quot;fnref:ascii&quot;&gt;&lt;a href=&quot;#fn:ascii&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RANDOM&lt;/code&gt; – zwraca losową liczbę całkowitą,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SUBSTR&lt;/code&gt;&lt;sup id=&quot;fnref:substring&quot;&gt;&lt;a href=&quot;#fn:substring&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; – &lt;code class=&quot;highlighter-rouge&quot;&gt;SUBSTR(x, y, z)&lt;/code&gt; pobiera podzbiór znaków parametru &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; od litery &lt;code class=&quot;highlighter-rouge&quot;&gt;y&lt;/code&gt; do litery &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt;. Parametr &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt; może być pominięty, wtedy funkcja zwraca podzbiór znaków od znaku &lt;code class=&quot;highlighter-rouge&quot;&gt;y&lt;/code&gt; do końca,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TRIM&lt;/code&gt; – usuwa spacje z obu stron przekazanego parametru,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UPPER&lt;/code&gt; – funkcja działa podobnie jak &lt;code class=&quot;highlighter-rouge&quot;&gt;LOWER&lt;/code&gt;, tym razem zwracany łańcuch znaków składa się z wielkich liter.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Poza funkcjami, które wspomniałem wyżej istnieją też funkcje, które operują na grupach. Zanim jednak je omówię muszę powiedzieć Ci coś więcej o grupowaniu wierszy w SQL.&lt;/p&gt;
@@ -1171,7 +1383,7 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
   
 &lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2300 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
 
@@ -1241,10 +1453,10 @@ Brazil          DF            13.86
 &lt;p&gt;W artykule pokazałem Ci już kilka funkcji dostępnych w SQL. Istnieje odrębna grupa funkcji, która używana jest przy grupowaniu wartości. Znasz już jedną z nich, &lt;code class=&quot;highlighter-rouge&quot;&gt;MAX&lt;/code&gt;. Nadszedł czas na poznanie kolejnych:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;AVG&lt;/code&gt; - zwraca średnią wartość,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;MIN&lt;/code&gt; - zwraca minimalną wartość,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SUM&lt;/code&gt; - zwraca sumę wartości,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TOTAL&lt;/code&gt; - działa podobnie jak &lt;code class=&quot;highlighter-rouge&quot;&gt;SUM&lt;/code&gt;, jedyna różnica polega na tym, że jeśli wszystkie wartości to &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;, wówczas &lt;code class=&quot;highlighter-rouge&quot;&gt;TOTAL&lt;/code&gt; zwróci 0, a &lt;code class=&quot;highlighter-rouge&quot;&gt;SUM&lt;/code&gt; zwróci &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;AVG&lt;/code&gt; – zwraca średnią wartość,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;MIN&lt;/code&gt; – zwraca minimalną wartość,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SUM&lt;/code&gt; – zwraca sumę wartości,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TOTAL&lt;/code&gt; – działa podobnie jak &lt;code class=&quot;highlighter-rouge&quot;&gt;SUM&lt;/code&gt;, jedyna różnica polega na tym, że jeśli wszystkie wartości to &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;, wówczas &lt;code class=&quot;highlighter-rouge&quot;&gt;TOTAL&lt;/code&gt; zwróci 0, a &lt;code class=&quot;highlighter-rouge&quot;&gt;SUM&lt;/code&gt; zwróci &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Jest jeszcze jedna funkcja grupująca, która jest bardzo popularna. Jest nią &lt;code class=&quot;highlighter-rouge&quot;&gt;COUNT&lt;/code&gt;.&lt;/p&gt;
@@ -1390,7 +1602,7 @@ United Kingdom  112.86
 
 &lt;p&gt;Daj znać w komentarzach jak udało Ci się rozwiązać zadania, może Twoje zapytania wyglądają trochę inaczej?&lt;/p&gt;
 
-&lt;p&gt;Na koniec mam do Ciebie standardową prośbę. Jeśli znasz kogoś, komu ten artykuł może pomóc proszę przekaż tej osobie linka do artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników - z góry dziękuję za Twoją pomoc. Jeśli nie chcesz ominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!&lt;/p&gt;
+&lt;p&gt;Na koniec mam do Ciebie standardową prośbę. Jeśli znasz kogoś, komu ten artykuł może pomóc proszę przekaż tej osobie linka do artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników – z góry dziękuję za Twoją pomoc. Jeśli nie chcesz ominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!&lt;/p&gt;
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:swoje&quot;&gt;
@@ -1452,7 +1664,7 @@ Pierwsze materiały dotyczyły języka Java, bo to właśnie ten język nadal ci
   
 &lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2300 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
 
@@ -1490,13 +1702,13 @@ Pierwsze materiały dotyczyły języka Java, bo to właśnie ten język nadal ci
 &lt;p&gt;W życiu nie pomyślałbym, że artykuł dotyczący liczb binarnych będzie tak wysoko na tej liście ;). Pominąłem tutaj sporo artykułów dotyczących Javy. Liczby nie są ważone, mam na myśli to, że pokazują liczbę odwiedzin od czasu publikacji. Siłą rzeczy artykuły, które są na blogu dłużej będą miały więcej odwiedzin, niż te publikowane ostatnio. Poniżej możesz zobaczyć część zestawienia popularnych stron wraz z liczbą odwiedzin:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java/&quot;&gt;Kurs programowania Java&lt;/a&gt; - 184’929 odwiedzin,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/system-dwojkowy/&quot;&gt;System binarny&lt;/a&gt; - 55’580 odwiedzin,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/zestaw-cwiczen-dla-poczatkujacych-programistow/&quot;&gt;Zestaw ćwiczeń dla początkujących programistów&lt;/a&gt; - 31’421 odwiedzin,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/testy-jednostkowe-z-junit/&quot;&gt;Testy jednostkowe z JUnit 4&lt;/a&gt; - 31’038 odwiedzin,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/&quot;&gt;Kurs aplikacji webowych&lt;/a&gt; - 23’200 odwiedzin,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/podstawy-zlozonosci-obliczeniowej/&quot;&gt;Złożoność obliczeniowa&lt;/a&gt; - 20’457 odwiedzin,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/wstep-do-gradle/&quot;&gt;Wstęp do Gradle&lt;/a&gt; - 16’279 odwiedzin,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java/&quot;&gt;Kurs programowania Java&lt;/a&gt; – 184’929 odwiedzin,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/system-dwojkowy/&quot;&gt;System binarny&lt;/a&gt; – 55’580 odwiedzin,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/zestaw-cwiczen-dla-poczatkujacych-programistow/&quot;&gt;Zestaw ćwiczeń dla początkujących programistów&lt;/a&gt; – 31’421 odwiedzin,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/testy-jednostkowe-z-junit/&quot;&gt;Testy jednostkowe z JUnit 4&lt;/a&gt; – 31’038 odwiedzin,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/&quot;&gt;Kurs aplikacji webowych&lt;/a&gt; – 23’200 odwiedzin,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/podstawy-zlozonosci-obliczeniowej/&quot;&gt;Złożoność obliczeniowa&lt;/a&gt; – 20’457 odwiedzin,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/wstep-do-gradle/&quot;&gt;Wstęp do Gradle&lt;/a&gt; – 16’279 odwiedzin,&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Mam nadzieję, że &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-git/&quot;&gt;kurs gita&lt;/a&gt; nad którym pracuję też niedługo znajdzie się w tym zestawieniu ;).&lt;/p&gt;
@@ -1532,7 +1744,7 @@ Pierwsze materiały dotyczyły języka Java, bo to właśnie ten język nadal ci
       &lt;p&gt;Oczywiście same artykuły nic nie dadzą, to tylko i wyłącznie ciężka praca tej osoby. &lt;a href=&quot;#fnref:praca&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Samouczek Programisty ma już trzy lata. Zaczynając prowadzić ten blog nie pomyślałbym, że dojdę z nim tak daleko. W artykule tym dzielę się kilkoma informacjami dotyczącymi historii bloga i planów jego rozwoju.</summary></entry><entry><title type="html">Jakość kodu a oschłe pocałunki Jagny</title><link href="http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/" rel="alternate" type="text/html" title="Jakość kodu a oschłe pocałunki Jagny" /><published>2018-09-28T00:00:00+02:00</published><updated>2018-10-09T23:24:54+02:00</updated><id>http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/">&lt;h2 id=&quot;coś-o-powtarzaniu---dry&quot;&gt;Coś o powtarzaniu - DRY&lt;/h2&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Samouczek Programisty ma już trzy lata. Zaczynając prowadzić ten blog nie pomyślałbym, że dojdę z nim tak daleko. W artykule tym dzielę się kilkoma informacjami dotyczącymi historii bloga i planów jego rozwoju.</summary></entry><entry><title type="html">Jakość kodu a oschłe pocałunki Jagny</title><link href="http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/" rel="alternate" type="text/html" title="Jakość kodu a oschłe pocałunki Jagny" /><published>2018-09-28T00:00:00+02:00</published><updated>2018-10-09T23:24:54+02:00</updated><id>http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/">&lt;h2 id=&quot;coś-o-powtarzaniu--dry&quot;&gt;Coś o powtarzaniu – DRY&lt;/h2&gt;
 
 &lt;p&gt;Reguła DRY (ang. &lt;em&gt;Don’t Repeat Yourself&lt;/em&gt;) zostało opisana w książce “The Pragmatic Programmer” autorstwa Andrew’a Hunt’a i David’a Thomas’a. Autorzy wprowadzają regułę, która mówi, że każdy fragment wiedzy powinien mieć pojedynczą, jednoznaczną i uznaną reprezentację w systemie. Regułę tę można zastosować zarówno do konfiguracji jak i kodu programu.&lt;/p&gt;
 
@@ -1607,14 +1819,14 @@ Take one down, patch it around.&lt;br /&gt;
   
 &lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2300 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
 
 
 &lt;/div&gt;
 
-&lt;h2 id=&quot;coś-o-prostocie---kiss&quot;&gt;Coś o prostocie - KISS&lt;/h2&gt;
+&lt;h2 id=&quot;coś-o-prostocie--kiss&quot;&gt;Coś o prostocie – KISS&lt;/h2&gt;
 
 &lt;p&gt;Według &lt;a href=&quot;https://en.wikipedia.org/wiki/KISS_principle&quot;&gt;Wikipedii&lt;/a&gt; reguła KISS (ang. &lt;em&gt;Keep It Simple, Stupid&lt;/em&gt;) wspomniana została już w 1960 roku przez marynarkę Stanów Zjednoczonych jako wytyczna dotycząca projektowania. Ja poznałem ją w kontekście projektów informatycznych.&lt;/p&gt;
 
@@ -1649,7 +1861,7 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
 
 &lt;p&gt;W kontekście oprogramowania mniej bytów sprowadza się do mniejszej ilości kodu. Mniej kodu to mniej potencjalnych błędów do popełnienia. Mniej kodu to mniejszy system, który prawdopodobnie będzie łatwiejszy do zrozumienia i utrzymania.&lt;/p&gt;
 
-&lt;h2 id=&quot;coś-o-wyobraźni---yagni&quot;&gt;Coś o wyobraźni - YAGNI&lt;/h2&gt;
+&lt;h2 id=&quot;coś-o-wyobraźni--yagni&quot;&gt;Coś o wyobraźni – YAGNI&lt;/h2&gt;
 
 &lt;p&gt;Na pewno zdarzyło Ci się kiedyś zastanawiać się nad tym jak zaimplementować jakieś rozwiązanie. Wpadasz wtedy w wir tworzenia. Potrafisz wymyślić piękne struktury danych. Algorytmy takie, że płaczesz jak &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-git/&quot;&gt;commit&lt;/a&gt;‘ujesz. Tutaj nowy &lt;em&gt;manager&lt;/em&gt;, tam kolejny &lt;em&gt;helper&lt;/em&gt;. Oczywiście Twoje rozwiązanie przewiduje to, że klient będzie chciał obsługiwać kwoty reprezentowane w liczbach urojonych.&lt;/p&gt;
 
@@ -1661,7 +1873,7 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
 
 &lt;p&gt;Oczywiście nie mam nic przeciwko pisaniu solidnego kodu, który spełnia wymagania użytkownika. Nie mam nic przeciwko temu, żeby przewidywać sytuacje, o których nie poinformował klient. W pełni zgadzam się na sugerowanie przydatnych funkcjonalności. Do tego uważam, że pisanie kodu łatwego do rozszerzenia zgodnie z zasadami &lt;a href=&quot;/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/&quot;&gt;SOLID&lt;/a&gt; jest dobrym posunięciem.&lt;/p&gt;
 
-&lt;p&gt;Jest jednak jedno małe “ale”. Z doświadczenia wiem, że wymyślanie czegoś na siłę nie ma sensu. Klient nie chciał funkcjonalności X? Jeśli Twoim zdaniem to głupi pomysł to z nim o tym porozmawiaj. Przekonaj go do swojego zdania. Jeśli uda Ci się go przekonać - brawo! Jeśli nie, to pogódź się z faktem, że nie możesz wiedzieć wszystkiego najlepiej.&lt;/p&gt;
+&lt;p&gt;Jest jednak jedno małe “ale”. Z doświadczenia wiem, że wymyślanie czegoś na siłę nie ma sensu. Klient nie chciał funkcjonalności X? Jeśli Twoim zdaniem to głupi pomysł to z nim o tym porozmawiaj. Przekonaj go do swojego zdania. Jeśli uda Ci się go przekonać – brawo! Jeśli nie, to pogódź się z faktem, że nie możesz wiedzieć wszystkiego najlepiej.&lt;/p&gt;
 
 &lt;p&gt;YAGNI sprowadza się do hamowania swojej fantazji. Nie wprowadzaj bytów, funkcjonalności, metod, itp., które nie są w danym momencie potrzebne. Dodawanie zbędnych elementów komplikuje kod. Do tego podnosi koszty realizacji projektu. Dodatkowo może stawiać Cię w złym świetle jako programistę. Po płodnej sesji pisania kodu może okazać się, że udało Ci się wykonać kawał solidnej, porządnej i nikomu niepotrzebnej pracy.&lt;/p&gt;
 
@@ -1738,14 +1950,14 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
   
 &lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2300 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
 
 
 &lt;/div&gt;
 
-&lt;h2 id=&quot;bohaterowie-testów-jednostkowych---mock-i-stub&quot;&gt;Bohaterowie testów jednostkowych - mock i stub&lt;/h2&gt;
+&lt;h2 id=&quot;bohaterowie-testów-jednostkowych--mock-i-stub&quot;&gt;Bohaterowie testów jednostkowych – mock i stub&lt;/h2&gt;
 
 &lt;p&gt;Poniżej możesz zobaczyć przykładową klasę, która może być użyta do agregowania lotów udostępnianych przez różnych przewoźników:&lt;/p&gt;
 
@@ -1884,7 +2096,7 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
 
 &lt;p&gt;Teraz rozbiję ten kod na mniejsze fragmenty.&lt;/p&gt;
 
-&lt;p&gt;Klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;AirlineMock&lt;/code&gt; reprezentująca mock’a zwiera jeden atrybut - zbiór. Wewnątrz tego zbioru trzymane są parametry wywołań mock’a. Wartości zbioru reprezentowane są przez &lt;a href=&quot;/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/&quot;&gt;klasę wewnętrzną&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;MethodInvocation&lt;/code&gt;. Ta klasa grupuje parametry przekazywane do metody &lt;code class=&quot;highlighter-rouge&quot;&gt;findFlight&lt;/code&gt; interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Airline&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;AirlineMock&lt;/code&gt; reprezentująca mock’a zwiera jeden atrybut – zbiór. Wewnątrz tego zbioru trzymane są parametry wywołań mock’a. Wartości zbioru reprezentowane są przez &lt;a href=&quot;/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/&quot;&gt;klasę wewnętrzną&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;MethodInvocation&lt;/code&gt;. Ta klasa grupuje parametry przekazywane do metody &lt;code class=&quot;highlighter-rouge&quot;&gt;findFlight&lt;/code&gt; interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Airline&lt;/code&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MethodInvocation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;invocations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HashSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -2292,9 +2504,9 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
 &lt;p&gt;W formacie JSON występują trzy literały:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; - reprezentuje wartość logiczną - prawdę,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; - reprezentuje wartość logiczną - fałsz,&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; - reprezentuje wartość pustą, brak wartości.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; – reprezentuje wartość logiczną – prawdę,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; – reprezentuje wartość logiczną – fałsz,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; – reprezentuje wartość pustą, brak wartości.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;element-główny&quot;&gt;Element główny&lt;/h3&gt;
@@ -2411,7 +2623,7 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
   
 &lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2300 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
 
@@ -2644,11 +2856,11 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbTransient.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbTransient&lt;/code&gt;&lt;/a&gt; - atrybut powinien zostać pomięty,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbProperty&lt;/code&gt;&lt;/a&gt; - pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; (domyślnie takie wartości są pomijane),&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbNumberFormat.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbNumberFormat&lt;/code&gt;&lt;/a&gt; - określa format w jakim powinna być zapisana liczba,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbDateFormat.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbDateFormat&lt;/code&gt;&lt;/a&gt; - określa format w jakim powinna być zapisana data.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbPropertyOrder.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbPropertyOrder&lt;/code&gt;&lt;/a&gt; - określa kolejność w jakiej atrybuty powinny być serializowane.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbTransient.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbTransient&lt;/code&gt;&lt;/a&gt; – atrybut powinien zostać pomięty,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbProperty&lt;/code&gt;&lt;/a&gt; – pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; (domyślnie takie wartości są pomijane),&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbNumberFormat.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbNumberFormat&lt;/code&gt;&lt;/a&gt; – określa format w jakim powinna być zapisana liczba,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbDateFormat.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbDateFormat&lt;/code&gt;&lt;/a&gt; – określa format w jakim powinna być zapisana data.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbPropertyOrder.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonbPropertyOrder&lt;/code&gt;&lt;/a&gt; – określa kolejność w jakiej atrybuty powinny być serializowane.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Pozostałe adnotacje znajdziesz w &lt;a href=&quot;https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/package-summary.html&quot;&gt;dokumentacji&lt;/a&gt;.&lt;/p&gt;
@@ -2656,9 +2868,9 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
 &lt;p&gt;Miejsce umieszczenia adnotacji ma znaczenie:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;adnotacja nad atrybutem - ma wpływ zarówno na serializację jak i deserializację atrybutu,&lt;/li&gt;
-  &lt;li&gt;adnotacja nad getterem - ma wpływ wyłącznie na serializację atrybutu,&lt;/li&gt;
-  &lt;li&gt;adnotacja nad setterem - ma wpływ wyłącznie na deserializację atrybutu.&lt;/li&gt;
+  &lt;li&gt;adnotacja nad atrybutem – ma wpływ zarówno na serializację jak i deserializację atrybutu,&lt;/li&gt;
+  &lt;li&gt;adnotacja nad getterem – ma wpływ wyłącznie na serializację atrybutu,&lt;/li&gt;
+  &lt;li&gt;adnotacja nad setterem – ma wpływ wyłącznie na deserializację atrybutu.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Proszę spójrz jak adnotacje wpływają na kształt generowanego dokumentu:&lt;/p&gt;
@@ -2701,7 +2913,7 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
 &lt;p&gt;Jeśli chcesz dowiedzieć się czegoś więcej na temat formatu JSON zachęcam Cię do sięgnięcia po materiały dodatkowe:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf&quot;&gt;Specyfikacja JSON&lt;/a&gt; specyfikacja ma kod 404 - kod odpowiedzi Not Found w specyfikacji &lt;a href=&quot;/protokol-http/#statusy-4xx&quot;&gt;protokołu HTTP&lt;/a&gt; :),&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf&quot;&gt;Specyfikacja JSON&lt;/a&gt; specyfikacja ma kod 404 – kod odpowiedzi Not Found w specyfikacji &lt;a href=&quot;/protokol-http/#statusy-4xx&quot;&gt;protokołu HTTP&lt;/a&gt; :),&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/JSON&quot;&gt;Artykuł o JSON na Wikipedii&lt;/a&gt;,&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://jcp.org/aboutJava/communityprocess/final/jsr374/index.html&quot;&gt;Specyfikacja JSON-P&lt;/a&gt;,&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://static.javadoc.io/javax.json/javax.json-api/1.1.2/overview-summary.html&quot;&gt;Dokumentacja API JSON-P&lt;/a&gt;,&lt;/li&gt;
@@ -2734,7 +2946,7 @@ Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomys
       &lt;p&gt;Tutaj sprawa wygląda podobnie jak w obiektach, specyfikacja dopuszcza takie zachowanie jednak w praktyce nie jest to często spotykane. &lt;a href=&quot;#fnref:podobnie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lekturze będziesz wiedzieć czym jest format JSON, gdzie jest używany i dlaczego zyskał na popularności. Poznasz dwie specyfikacje z parasola JEE - JSON-P i JSON-B i dowiesz się jak ich używać. Zapraszam do lektury.</summary></entry><entry><title type="html">Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości</title><link href="http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/" rel="alternate" type="text/html" title="Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości" /><published>2018-09-04T00:00:00+02:00</published><updated>2018-11-11T21:07:14+01:00</updated><id>http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/">&lt;div class=&quot;notice--info&quot;&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł opisuje sposoby pracy z formatem JSON w języku Java. Po lekturze będziesz wiedzieć czym jest format JSON, gdzie jest używany i dlaczego zyskał na popularności. Poznasz dwie specyfikacje z parasola JEE – JSON-P i JSON-B i dowiesz się jak ich używać. Zapraszam do lektury.</summary></entry><entry><title type="html">Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości</title><link href="http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/" rel="alternate" type="text/html" title="Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości" /><published>2018-09-04T00:00:00+02:00</published><updated>2018-11-11T21:07:14+01:00</updated><id>http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/">&lt;div class=&quot;notice--info&quot;&gt;
   
 &lt;p&gt;To jest jeden z artykułów w ramach &lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-sql&quot;&gt;praktycznego kursu SQL&lt;/a&gt;. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.&lt;/p&gt;
 
@@ -2915,7 +3127,7 @@ Sci Fi &amp;amp; Fantasy
   
 &lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2300 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2379 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
 
@@ -3139,182 +3351,4 @@ Brasília
       &lt;p&gt;W codziennym programowaniu raczej nie zdarza się sytuacja, w której w jednej wynikowej kolumnie łączy się zupełnie różne dane. &lt;a href=&quot;#fnref:zle&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą `DISTINCT`, `AS` czy `UNION`. Poznasz także sposoby na sortowanie i ograniczanie wyników przy użyciu `ORDER BY` i `LIMIT`. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami, które pomogą Ci utrwalić zdobytą wiedzę.</summary></entry><entry><title type="html">Samouczek na rozmowie - zagnieżdżona struktura</title><link href="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-zagniezdzona-struktura/" rel="alternate" type="text/html" title="Samouczek na rozmowie - zagnieżdżona struktura" /><published>2018-08-26T00:00:00+02:00</published><updated>2018-11-12T22:00:17+01:00</updated><id>http://www.samouczekprogramisty.pl/zadanie-zagniezdzona-struktura</id><content type="html" xml:base="http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-zagniezdzona-struktura/">&lt;div class=&quot;notice--info&quot;&gt;
-  
-&lt;p&gt;To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych.&lt;/p&gt;
-
-&lt;p&gt;W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz działanie algorytmu.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/podstawy-zlozonosci-obliczeniowej/&quot;&gt;Podstawy złożoności obliczeniowej&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;Test Driven Development na przykładzie&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;% post_url 2016-10-29-testy-jednostkowe-z-junit %}&quot;&gt;Testy jednostkowe z JUnit&lt;/a&gt;,&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu czasami będę używał “pseudo kodu”. Przykładowe rozwiązania będą w języku Java.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.samouczekprogramisty.pl/kurs-programowania-java&quot;&gt;Kurs programowania w języku Java&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/div&gt;
-
-&lt;p&gt;Do tej pory w ramach zadań rozwiązywanych na rozmowach kwalifikacyjnych pokazywałem wyłącznie problemy algorytmiczne. To zadanie jest inne. W tym przypadku zadaniem nie jest znalezienie wydajnego algorytmu rozwiązującego problem. Tym razem należy napisać program, który realizuje pewną funkcjonalność.&lt;/p&gt;
-
-&lt;p&gt;W tym przypadku przyszły pracodawca chce sprawdzić czy znasz składnię języka. Czy potrafisz pisać kod, który jest czytelny, łatwy do rozszerzenia i testowania. Może sprawdzić znajomość &lt;a href=&quot;/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/&quot;&gt;zasad SOLID&lt;/a&gt; w praktyce. Przy zadaniach tego typu umiejętność pisania wydajnych algorytmów nie jest tak istotna.&lt;/p&gt;
-
-&lt;p&gt;Rozwiązując zadania tego typu możesz także pokazać zestaw innych przydatnych umiejętności. Przeczytasz o tym w dalszej części artykułu.&lt;/p&gt;
-
-&lt;h2 id=&quot;zadanie-do-wykonania&quot;&gt;Zadanie do wykonania&lt;/h2&gt;
-
-&lt;p&gt;Zacznę od pokazania zadania do wykonania. Jak już wiesz to zadanie dostałem od jednego z czytelników. Treść zadania przekazana Mateuszowi byłą następująca:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Przekazuję zadanie z prośbą o analizę poniższego kodu i zaimplementowanie metod &lt;code class=&quot;highlighter-rouge&quot;&gt;findByCode&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;findByRenderer&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;count&lt;/code&gt; w klasie &lt;code class=&quot;highlighter-rouge&quot;&gt;MyStructure&lt;/code&gt; - najchętniej unikając powielania kodu. Proszę uwzględnić w analizie i implementacji interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;ICompositeNode&lt;/code&gt;!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IMyStructure&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// zwraca węzeł o podanym kodzie lub null&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;INode&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findByCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// zwraca węzeł o podanym rendererze lub null&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;INode&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findByRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;renderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// zwraca liczbę węzłów&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
- 
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyStructure&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IMyStructure&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
- 
-&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;INode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
- 
-&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ICompositeNode&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getNodes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W żaden sposób nie modyfikowałem przekazanego kodu, ani nie zmieniałem treści zadania. Zgodnie z tym co powiedział Mateusz to było wszystko co dostał w ramach zadania do rozwiązania.&lt;/p&gt;
-
-&lt;h2 id=&quot;jak-rozwiązać-takie-zadanie&quot;&gt;Jak rozwiązać takie zadanie&lt;/h2&gt;
-
-&lt;p&gt;Zanim przejdę do rozwiązania tego zadania chciałbym zwrócić Twoją uwagę na kilka elementów.&lt;/p&gt;
-
-&lt;h3 id=&quot;opis-nie-jest-wyczerpujący&quot;&gt;Opis nie jest wyczerpujący&lt;/h3&gt;
-
-&lt;p&gt;Opis tego zadania nie jest wyczerpujący. Nie znajdziesz w nim dokładnych wytycznych jak powinien zachować się kod. Na przykład nie wiesz jak powinna zachować się metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;findByCode&lt;/code&gt; jeśli atrybut &lt;code class=&quot;highlighter-rouge&quot;&gt;nodes&lt;/code&gt; zawiera więcej niż jeden element, który pasuje do wyszukiwania. Powinieneś zakończyć metodę wyjątkiem? Zwrócić ten, który został dodany jako pierwszy? Czy może ten, który jest najnowszy?&lt;/p&gt;
-
-&lt;p&gt;Jak powinna zachować się metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;count&lt;/code&gt; jeśli zawiera instancję implementującą &lt;code class=&quot;highlighter-rouge&quot;&gt;ICompositeNode&lt;/code&gt; zawierającą samą siebie?&lt;/p&gt;
-
-&lt;p&gt;Takie pytania można mnożyć. W takim przypadku moim zdaniem kandydat powinien zrobić jedną z dwóch rzeczy. Pierwszą opcją jest dopytanie się o te szczegóły i czekanie na odpowiedź od potencjalnego pracodawcy. Drugim podejściem jest założenie, co autor zadania miał na myśli.&lt;/p&gt;
-
-&lt;p&gt;Oba rozwiązania mają swoje wady i zalety. Zwrócenie się z pytaniem o uszczegółowienie pozwoli zrealizować zadanie dokładnie w taki sposób jak oczekiwał autor zadania. Jednak minusem tutaj jest dodatkowy czas oczekiwania. Dodatkowo takich pytań może pojawić się wiele w trakcie rozwiązywania zadania.&lt;/p&gt;
-
-&lt;h4 id=&quot;założenia-są-dobre&quot;&gt;Założenia są dobre&lt;/h4&gt;
-
-&lt;p&gt;Podejście z przyjęciem pewnych założeń moim zdaniem jest najlepszym rozwiązaniem. Działając w ten sposób pokazujesz pracodawcy wiele ważnych informacji:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;potrafisz przewidywać sytuacje, które nie są oczywiste i nie zdarzają się często,&lt;/li&gt;
-  &lt;li&gt;potrafisz samodzielnie podjąć decyzję i ją uargumentować,&lt;/li&gt;
-  &lt;li&gt;wyróżniasz się wśród innych kandydatów, którzy nie zapytali/nie przyjęli żadnych jasnych założeń przy rozwiązywaniu zadania.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Oczywiście w codziennej pracy to klient decyduje o ostatecznym zachowaniu programu, jednak na potrzeby zadania na rozmowie kwalifikacyjnej taki kompromis wydaje mi się najlepszy.&lt;/p&gt;
-
-&lt;h3 id=&quot;konwencja-nazewnicza&quot;&gt;Konwencja nazewnicza&lt;/h3&gt;
-
-&lt;p&gt;Przyznam, że tutaj mam ciężki orzech do zgryzienia. Konwencja nazewnicza stosowana w kodzie przekazanym Mateuszowi nie jest typowa. Zakłada ona, że interfejsy poprzedzone są wielką literą &lt;code class=&quot;highlighter-rouge&quot;&gt;I&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Są przypadki kiedy po nazwie klasy/interfejsu warto wiedzieć czy jest to interfejs czy klasa, jednak nie jest to częsta sytuacja. Z tego co wiem taka konwencja obowiązuje w C# i .NET. Jednak nie jest powszechnie stosowana w świecie języka Java.&lt;/p&gt;
-
-&lt;p&gt;Przy rozwiązywaniu zadań tego typu staram się stosować do konwencji narzuconych przez autora zadania. Czyli w tym przypadku nazwa każdego nowego interfejsu zaczynałaby się od &lt;code class=&quot;highlighter-rouge&quot;&gt;I&lt;/code&gt;. W takim przypadku podejrzewałbym, że system, który rozwija potencjalny pracodawca stosuje taką konwencję w swoim kodzie produkcyjnym.&lt;/p&gt;
-
-&lt;h3 id=&quot;testy-automatyczne&quot;&gt;Testy automatyczne&lt;/h3&gt;
-
-&lt;p&gt;Testy są ważne. Nie pytaj czy masz dostarczyć rozwiązanie z testami. Traktuj testy automatyczne jako część dostarczanego rozwiązania. Rozwiązanie zadania bez testów nie jest kompletne.&lt;/p&gt;
-
-&lt;p&gt;Rozwiązując zadania tego typu staraj się rozwiązywać je używając &lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;&lt;em&gt;Test Driven Development&lt;/em&gt;&lt;/a&gt;. Dzięki takiemu podejściu skrócisz czas testowania gotowego rozwiązania. Dodatkowo pokażesz potencjalnemu pracodawcy, że potrafisz pisać testy jednostkowe.&lt;/p&gt;
-
-&lt;h3 id=&quot;dokumentacja&quot;&gt;Dokumentacja&lt;/h3&gt;
-
-&lt;p&gt;Dokumentacja jest ważna. Nie pytaj czy masz dostarczyć rozwiązanie z dokumentacją. Traktuj dokumentację jako część dostarczanego rozwiązania. Rozwiązanie zadania bez dokumentacji nie jest kompletne.&lt;/p&gt;
-
-&lt;p&gt;Czy poprzedni akapit brzmi znajomo ;)? W przypadku zadań tego typu dokumentacja jest podobna do testów&lt;sup id=&quot;fnref:testy&quot;&gt;&lt;a href=&quot;#fn:testy&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Pokaż pracodawcy, że wiesz jak ważna jest dokumentacja. Nie chodzi mi tu o dokumentowanie każdej linijki kodu. Mam na myśli kilka akapitów, które opiszą dostarczony program. Jeśli opis zadania nie był kompletny i trzeba było przyjąć pewne założenia, to dokumentacja jest świetnym miejscem na ich opisanie.&lt;/p&gt;
-
-&lt;p&gt;Dokumentację możesz dostarczyć jako osobny dokument, albo zaszyć ją w kodzie. W języku Java do tego celu używa się notacji &lt;em&gt;javadoc&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;rozwiązanie-zadania&quot;&gt;Rozwiązanie zadania&lt;/h2&gt;
-
-&lt;p&gt;Zadanie rozwiązałem używając &lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;TDD&lt;/a&gt;. Starałem się dodawać zmiany po każdym cyklu więc patrząc w historię repozytorium możesz zobaczyć jak rozwijał się kod. Zanim jednak zajrzysz do &lt;a href=&quot;https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/09_structure_filtering/src&quot;&gt;przykładowego rozwiązania&lt;/a&gt; zachęcam Cię do samodzielnej próby rozwiązania tego zadania.&lt;/p&gt;
-
-&lt;p&gt;Możesz później użyć mojego zestawu testów jednostkowych żeby sprawdzić czy Twój kod działa poprawnie&lt;sup id=&quot;fnref:zalozenia&quot;&gt;&lt;a href=&quot;#fn:zalozenia&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;rozszerzenie-interfejsu-inode&quot;&gt;Rozszerzenie interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;INode&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Żeby poprawnie obsłużyć zagnieżdżone elementy rozszerzyłem interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;INode&lt;/code&gt; o dodatkową metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;Stream&amp;lt;INode&amp;gt; toStream()&lt;/code&gt;. To jedno z tych założeń, o których pisałem wcześniej. Założyłem, że takie rozszerzenie interfejsu jest dopuszczalne. Jeśli nie byłoby to możliwe, problem można byłoby rozwiązać w inny sposób. Jednak ta droga prowadziła do kodu, który jest bardziej czytelny.&lt;/p&gt;
-
-&lt;p&gt;Implementacja tej metody w klasie &lt;code class=&quot;highlighter-rouge&quot;&gt;CompositeNode&lt;/code&gt; wygląda następująco:&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Stream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Stream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-            &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;INode:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Te kilka linijek zapewnia poprawne obsłużenie wielokrotnie zagnieżdżonych struktur.&lt;/p&gt;
-
-&lt;h3 id=&quot;usunięcie-duplikacji-w-metodach-wyszukujących&quot;&gt;Usunięcie duplikacji w metodach wyszukujących&lt;/h3&gt;
-
-&lt;p&gt;Przykładowa metoda służąca do wyszukiwania po atrybucie &lt;code class=&quot;highlighter-rouge&quot;&gt;renderer&lt;/code&gt; wygląda następująco:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INode&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findByRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;renderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;renderer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Renderer is null!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findByPredicate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;renderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()));&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INode&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findByPredicate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Predicate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;predicate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;INode:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predicate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findFirst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;orElse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Rzuć okiem na metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;findByPredicate&lt;/code&gt;. Jej użycie pozwoli na uniknięcie duplikacji, na którą zwracał uwagę autor zadania. Jak widzisz w kodzie używałem wyłącznie &lt;a href=&quot;/strumienie-w-jezyku-java/&quot;&gt;strumieni&lt;/a&gt;, zadanie oczywiście można także rozwiązać używając &lt;a href=&quot;/petle-i-instrukcje-warunkowe-w-jezyku-java/&quot;&gt;pętli&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;wyślij-mi-swoje-zadanie&quot;&gt;Wyślij mi swoje zadanie&lt;/h2&gt;
-
-&lt;p&gt;Jak już wiesz zadanie to dostałem od jednego z czytelników, od Mateusza. Jeśli chcesz żebym spróbował rozwiązać Twoje zadanie proszę wyślij je na mój adres e-mail &lt;code class=&quot;highlighter-rouge&quot;&gt;marcin małpka samouczekprogramisty.pl&lt;/code&gt;. Jeśli tylko będę potrafił je rozwiązać to z chęcią napiszę o tym artykuł.&lt;/p&gt;
-
-&lt;div class=&quot;notice--warning&quot;&gt;
-
-&lt;p&gt;Często firmy zastrzegają sobie to, żeby nie rozpowszechniać zadań, które były na rozmowie kwalifikacyjnej. Jeśli tak było w Twoim przypadku proszę uszanuj wolę danej firmy i nie przesyłaj mi takiego zadania.&lt;/p&gt;
-
-&lt;p&gt;Dostając zadanie od Ciebie zakładam, że mogę je opublikować na blogu.&lt;/p&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Po przeczytaniu tego artykułu wiesz na co zwracać uwagę przy rozwiązywaniu zadań rekrutacyjnych, które nie są związane z napisaniem wydajnego algorytmu. Wiesz jak ważne są testy jednostkowe i dokumentacja. Artykuł także pokazał Ci, jak ważne jest przyjmowanie założeń dotyczących treści zadania. Innymi słowy udało Ci się przygotować “o jedno zadanie lepiej” do następnej rozmowy kwalifikacyjnej.&lt;/p&gt;
-
-&lt;p&gt;Na koniec mam dla Ciebie prośbę. Zależy mi na dotarciu do jak największej grupy czytelników. Jeśli znasz kogoś, komu ten artykuł może się przydać proszę podziel się linkiem do tego artykułu. Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku dopisz się do newslettera i polub samouczkowy profil na Facebook’u.&lt;/p&gt;
-
-&lt;p&gt;Do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:testy&quot;&gt;
-      &lt;p&gt;Testy także można traktować jako dokumentację, jednak jest to temat na osobny artykuł. &lt;a href=&quot;#fnref:testy&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:zalozenia&quot;&gt;
-      &lt;p&gt;Testy powinny przejść u Ciebie. Chyba, że Twoje założenia dotyczące niejasnych wymagań były inne ;). &lt;a href=&quot;#fnref:zalozenia&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule rozkładam na części pierwsze zadanie podesłane przez Mateusza. Po lekturze tego artykułu będziesz wiedzieć na co zwracać uwagę przy rozwiązywaniu tego typu zadań na rozmowach kwalifikacyjnych. Pokażę Ci też jak _Test Driven Development_ pozwala na tworzenie przejrzystego i czytelnego kodu.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą `DISTINCT`, `AS` czy `UNION`. Poznasz także sposoby na sortowanie i ograniczanie wyników przy użyciu `ORDER BY` i `LIMIT`. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami, które pomogą Ci utrwalić zdobytą wiedzę.</summary></entry></feed>

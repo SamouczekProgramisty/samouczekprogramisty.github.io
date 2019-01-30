@@ -79,7 +79,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/wyjatki-w-jezyku-java/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2016/01/31_wyjatki_w_jezyku_java_artykul.jpeg"},{
-        "title": "Referencja, sterta i garbage collector - obiektów w Javie ciąg dalszy",
+        "title": "Referencja, sterta i garbage collector – obiektów w Javie ciąg dalszy",
         "excerpt":"To jest jeden z artykułów w ramach darmowego kursu programowania w Javie. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Sterta i stos w wirtualnej maszynie Java Z poprzednich artykułów wiesz, że maszyna wirtualna Javy zarządza za Ciebie pamięcią. Oznacza to tyle,...","categories": ["Kurs programowania Java"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/referencja-sterta-garbage-collector/",
@@ -300,7 +300,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/wyrazenia-regularne-czesc-2/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/01/06_wyrazenia_regularne_2_artykul.jpg"},{
         "title": "Wstęp do Gradle",
-        "excerpt":"Czym jest Gradle Starając się opisać Gradle jednym zdaniem powiedziałbym, że Gradle jest narzędziem służącym do budowania projektów1. Pozwala ono na zautomatyzowanie tego procesu. Używa się do tego tak zwanego języka domenowego - DSL (ang. Domain Specific Language), który ułatwia wykonywanie standardowych zadań związanych z budowaniem projektu. Jeśli do tej...","categories": ["Programista rzemieślnik"],
+        "excerpt":"Czym jest Gradle Starając się opisać Gradle jednym zdaniem powiedziałbym, że Gradle jest narzędziem służącym do budowania projektów1. Pozwala ono na zautomatyzowanie tego procesu. Używa się do tego tak zwanego języka domenowego – DSL (ang. Domain Specific Language), który ułatwia wykonywanie standardowych zadań związanych z budowaniem projektu. Jeśli do tej...","categories": ["Programista rzemieślnik"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/wstep-do-gradle/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/01/19_wstep_do_gradle_artykul.jpg"},{
@@ -309,8 +309,8 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/xml-dla-poczatkujacych/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/02_xml_dla_poczatkujacych_artykul.jpg"},{
-        "title": "Projekt Pogodynka - wprowadzenie",
-        "excerpt":"Opis architektury Więc pracę nad Pogodynką czas zacząć. Zacznę od tego, że przybliżę Ci moje plany dotyczące zakresu projektu. Hardware Stare Raspberry PI (nazwijmy je Malinką ;)) wygrzebane gdzieś z szafy ma posłużyć jako “mini komputer”, do którego podłączę czujnik temperatury. Czujnik ten będę musiał sam oprogramować - kupiłem go...","categories": ["DSP2017","Projekty","Pogodynka"],
+        "title": "Projekt Pogodynka – wprowadzenie",
+        "excerpt":"Opis architektury Więc pracę nad Pogodynką czas zacząć. Zacznę od tego, że przybliżę Ci moje plany dotyczące zakresu projektu. Hardware Stare Raspberry PI (nazwijmy je Malinką ;)) wygrzebane gdzieś z szafy ma posłużyć jako “mini komputer”, do którego podłączę czujnik temperatury. Czujnik ten będę musiał sam oprogramować – kupiłem go...","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/projekt-pogodynka-wprowadzenie/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/04_pogodynka_01_artykul.jpeg"},{
@@ -319,8 +319,8 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/java-z-linii-polecen/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/08_java_z_linii_polecen_artykul.jpg"},{
-        "title": "Pogodynka - naiwny termometr",
-        "excerpt":"Malinka padła Niestety poprzedni tydzień minął pod znakiem kolejnych nieudanych prób wskrzeszenia mojej Malinki. Leżała ona już prawie 5 lat w szafie, przerzucana z miejsca na miejsce. Miała prawo “wysiąść”. Idę na łatwiznę - nie próbuję jej teraz naprawić. Wczoraj kupiłem nowszą wersję płytki, tym razem jest to Rasperry Pi...","categories": ["DSP2017","Projekty","Pogodynka"],
+        "title": "Pogodynka – naiwny termometr",
+        "excerpt":"Malinka padła Niestety poprzedni tydzień minął pod znakiem kolejnych nieudanych prób wskrzeszenia mojej Malinki. Leżała ona już prawie 5 lat w szafie, przerzucana z miejsca na miejsce. Miała prawo “wysiąść”. Idę na łatwiznę – nie próbuję jej teraz naprawić. Wczoraj kupiłem nowszą wersję płytki, tym razem jest to Rasperry Pi...","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-naiwny-termometr/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/11_pogodynka_02_artykul.jpeg"},{
@@ -329,7 +329,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/wprowadzenie-do-aplikacji-webowych/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/17_wprowadzenie_do_aplikacji_webowych_artykul.jpg"},{
-        "title": "Pogodynka - działający termometr",
+        "title": "Pogodynka – działający termometr",
         "excerpt":"Postęp w module Thermometer Mogę powiedzieć, że pierwszy moduł całej aplikacji jest “gotowy”. Podłączyłem czujnik temperatury do Malinki, udało mi się nawet odczytać wskazania temperatury. Klasa FromFileThermometer jest w stanie przeczytać zawartość takiego pliku i odpowiednio ją zinterpretować, udowadnia to test jednostkowy FromFileThermometerTest. Praca z czujnikiem DS18B20 na Malince Czujnik...","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-dzialajacy-termometr/",
@@ -339,7 +339,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/serwlety-w-aplikacjach-webowych/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/03/25_serwlety_w_aplikacjach_webowych_artykul.jpeg"},{
-        "title": "Pogodynka - szkielet aplikacji webowej",
+        "title": "Pogodynka – szkielet aplikacji webowej",
         "excerpt":"W tym tygodniu przygotowałem dla Was dość obszerny wpis dotyczący serwletów w aplikacjach Java. Jego przygotowanie zajęło mi sporo czasu więc automatycznie zostało go mniej na samą Pogodynkę. Jednak i tutaj udało się pchnąć sprawy do przodu. W tym momencie datavault jest już “działającą” aplikacją webową opartą o Spring MVC....","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-szkielet-aplikacji-webowej/",
@@ -364,7 +364,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/kontekst-serwletu-i-obiekty-nasluchujace-w-aplikacjach-webowych/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/04/21_listener_kontekst_servlet_context_artykul.jpeg"},{
-        "title": "Pogodynka - JPA i Spring Data",
+        "title": "Pogodynka – JPA i Spring Data",
         "excerpt":"Baza danych Dla celów testowych i na “środowisku developerskim” (czytaj moim własnym komputerze) używam prostej bazy danych. Mam tu na myśli HyperSQL. Jest to baza danych, której zawartość może być trzymana wyłącznie w pamięci. Tego typu rozwiązanie idealnie nadaje się do pracy na środowisku programistycznym. Często też bazy danych tego...","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-jpa-i-spring-data/",
@@ -374,7 +374,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/deskryptor-wdrozenia-w-aplikacjach-webowych/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/04/27_deskryptor_wdrozenia_artykul.jpeg"},{
-        "title": "Pogodynka - konfiguracja serwera",
+        "title": "Pogodynka – konfiguracja serwera",
         "excerpt":"Konfiguracja maszyny produkcyjnej Chociaż do konfiguracji produkcyjnej daleko, będę tutaj pisał o “serwerze produkcyjnym”. Mam tu na myśli VPS (ang. Virtual Private Server), na którym uruchomiona będzie baza danych oraz Tomcat. To właśnie do tej maszyny Malinka wysyłała będzie informacje o odczytach temperatury. Ta sama maszyna posłuży do uruchomienia aplikacji...","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-konfiguracja-serwera/",
@@ -384,27 +384,27 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/string-cache-i-stringbuilder-w-praktyce/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/05/06_string_cache_string_builder_artykul.jpeg"},{
-        "title": "Pogodynka - konfiguracja bazy danych",
+        "title": "Pogodynka – konfiguracja bazy danych",
         "excerpt":"Niestety moje plany kontynuacji konfiguracji od początku tygodnia spełzły na niczym. Założyłem, że to co zostało to już “pikuś” i powinno pójść prosto… O tym, jak strasznie się myliłem przeczytasz poniżej ;). Na początku chciałbym zastrzec, że nie jestem administratorem, więc jeśli masz jakiekolwiek uwagi mogące poprawić ustawienie środowiska bardzo...","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-konfiguracja-bazy-danych/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/05/07_konfiguracja_puppet_artykul.jpeg"},{
-        "title": "Formatter - formatowanie łańcuchów znaków",
+        "title": "Formatter – formatowanie łańcuchów znaków",
         "excerpt":"Formatowanie Wyobraź sobie, że chcesz pokazać użytkownikowi pewne zestawienie. Dane tego typu wygodnie jest prezentować w formie tabelarycznej. Tak dochodzimy do problemu formatowania. W jaki sposób można taki format uzyskać? Problem ten można rozwiązać posługując się klasą Formatter. Instancje właśnie tej klasy użyte są w wielu innych miejscach. Na przykład:...","categories": ["Kurs programowania Java","DSP2017"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/formatter-formatowanie-lancuchow-znakow/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/05/12_formwatowanie_lancuchow_znakow_artykul.jpeg"},{
-        "title": "Pogodynka - szkic interfejsu użytkownika",
+        "title": "Pogodynka – szkic interfejsu użytkownika",
         "excerpt":"Interfejs użytkownika Nadszedł czas na część, która sprawia mi najmniej frajdy. Mianowicie na pracę z interfejsem użytkownika. Odszedłem już od wprawy i nie śledzę do końca technologii/bibliotek związanych z fontendem. Dlatego też poszedłem tutaj po najmniejszej linii oporu. Mam świadomość, tego, że “dzisiejsze strony www robi się inaczej”, ale nie...","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-szkic-interfejsu-uzytkownika/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/05/14_pogodynka_09_artykul.jpeg"},{
-        "title": "Pogodynka - integracja",
+        "title": "Pogodynka – integracja",
         "excerpt":"Jak wspomniałem wyżej większość zmian związanych było z konfiguracją i integracją poszczególnych komponentów. Zacznę od serwera HTTP. nginx Jak wspomniałem w jednym z poprzednich raportów nie chcę rozdmuchiwać kosztów projektu. Nie chciałem też pisać warstwy widoku w oparciu o JSP. Mógłbym statyczne strony HTML zawrzeć w pliku WAR, jednak nie...","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-integracja/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/05/23_pogodynka_integracja_artykul.jpeg"},{
-        "title": "Pogodynka - podsumowanie",
+        "title": "Pogodynka – podsumowanie",
         "excerpt":"Jeśli chcesz przeczytać więcej na temat samego projektu i jego założeń zapraszam do przeczytania pozostałych artykułów opisujących projekt. Mistrz lutownicy ucieka Aby mieć sensowne odczyty temperatury musiałem użyć czujnika zewnętrznego. Jest on odporny na wilgoć więc nie powinno być problemu z odczytem temperatury w trakcie deszczu. Mistrzem lutownicy na pewno...","categories": ["DSP2017","Projekty","Pogodynka"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pogodynka-podsumowanie/",
@@ -454,17 +454,17 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg"},{
-        "title": "Samouczek na rozmowie - znajdź brakujący element",
+        "title": "Samouczek na rozmowie – znajdź brakujący element",
         "excerpt":"To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych. W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-znajdz-brakujacy-element/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2017/12/10_rozmowa_kwalifikacyjna_brakujacy_element_zadanie_artykul.jpg"},{
-        "title": "Struktury danych - lista wiązana",
+        "title": "Struktury danych – lista wiązana",
         "excerpt":"Struktury danych Lista wiązana to struktura danych. Struktury danych opisują sposób przechowywania danych w pamięci komputera. Przykładową strukturą danych jest tablica. Każda struktura danych ma charakterystyczne dla siebie właściwości. Na przykład dodanie elementu na początek tablicy ma złożoność obliczeniową Ο(n). Ta sama operacja dla listy wiązanej ma złożoność Ο(1)1. Te...","categories": ["Programista rzemieślnik"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/struktury-danych-lista-wiazana/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg"},{
-        "title": "Struktury danych - tablica asocjacyjna",
+        "title": "Struktury danych – tablica asocjacyjna",
         "excerpt":"Artykuł ten opisuje przykładową implementację struktury danych określanej jako tablica asocjacyjna. Tę strukturę nazywa się też słownikiem czy mapą. Sama struktura występuje w wielu językach programowania. Zasada działania tej struktury jest niezależnie od języka programowania. Przykładową implementację przygotowałem w Javie. Aby wynieść jak najwięcej z tego artykułu powinieneś wiedzieć czym...","categories": ["Programista rzemieślnik"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/struktury-danych-tablica-asocjacyjna/",
@@ -484,7 +484,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/protokol-http/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/02/08_protokol_http_artykul.jpg"},{
-        "title": "Samouczek na rozmowie - czy liczba jest cykliczna",
+        "title": "Samouczek na rozmowie – czy liczba jest cykliczna",
         "excerpt":"To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych. W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-czy-liczba-jest-cykliczna/",
@@ -505,7 +505,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/projekt-informator-wdrozenie-w-chmurze/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/04/03_projekt_informator_wdrozenie_w_chmurze.jpg"},{
         "title": "Testy jednostkowe z JUnit 5",
-        "excerpt":"Jest to kolejny artykuł poświęcony tematyce testów, który napisałem na Samouczku. Zachęcam Cię także do przeczytania poprzednich artykułów: Testy jednostkowe z JUnit 4 - artykuł wprowadza w świat testów. Przeczytasz w nim między innymi o tym czym są asercje czy po co piszemy testy. Jeśli nie pisałeś wcześniej testów to...","categories": ["Programista rzemieślnik"],
+        "excerpt":"Jest to kolejny artykuł poświęcony tematyce testów, który napisałem na Samouczku. Zachęcam Cię także do przeczytania poprzednich artykułów: Testy jednostkowe z JUnit 4 – artykuł wprowadza w świat testów. Przeczytasz w nim między innymi o tym czym są asercje czy po co piszemy testy. Jeśli nie pisałeś wcześniej testów to...","categories": ["Programista rzemieślnik"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/testy-jednostkowe-z-junit5/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/04/13_testy_jednostkowe_z_junit5.jpg"},{
@@ -514,7 +514,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/ksiazki-dla-programistow/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/04/23_ksiazki_dla_programistow.jpg"},{
-        "title": "Zmiana branży - zostań programistą",
+        "title": "Zmiana branży – zostań programistą",
         "excerpt":"Zmiana branży, czyli jak zostać programistą Oto kilka z najczęściej zadawanych mi pytań przez czytelnika Samouczka: Czy mogę się przebranżowić? Czy nie jestem na to za stary? Czy po ukończeniu kursu X będę mógł zostać programistą?Niestety na pytania tego typu nie mam dobrych odpowiedzi. Głównie dlatego, że sam jestem informatykiem...","categories": ["Różne"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/zmiana-branzy-zostan-programista/",
@@ -524,7 +524,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/projekt-informator-zasilenie-bazy-spring-i-bledy-jako-json/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/06/20_projekt_informator_zasilenie_bazy_spring_i_bledy_jako_json.jpeg"},{
-        "title": "Pobieranie danych z bazy - SELECT",
+        "title": "Pobieranie danych z bazy – SELECT",
         "excerpt":"To jest jeden z artykułów w ramach praktycznego kursu SQL. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w pierwszym artykule kursu. Bardzo mocno Cię do tego zachęcam. Moim zdaniem...","categories": ["Bazy danych","Kurs SQL"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/pobieranie-danych-z-bazy-select/",
@@ -534,7 +534,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/klauzula-where-w-zapytaniach-sql/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg"},{
-        "title": "Samouczek na rozmowie - zagnieżdżona struktura",
+        "title": "Samouczek na rozmowie – zagnieżdżona struktura",
         "excerpt":"To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych. W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-zagniezdzona-struktura/",
@@ -555,7 +555,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/testy-jednostkowe-z-uzyciem-mock-i-stub/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/22_testy_z_mock_i_stub_w_jezyku_java.jpeg"},{
         "title": "Jakość kodu a oschłe pocałunki Jagny",
-        "excerpt":"Coś o powtarzaniu - DRY Reguła DRY (ang. Don’t Repeat Yourself) zostało opisana w książce “The Pragmatic Programmer” autorstwa Andrew’a Hunt’a i David’a Thomas’a. Autorzy wprowadzają regułę, która mówi, że każdy fragment wiedzy powinien mieć pojedynczą, jednoznaczną i uznaną reprezentację w systemie. Regułę tę można zastosować zarówno do konfiguracji jak...","categories": ["Dobre praktyki","Programista rzemieślnik"],
+        "excerpt":"Coś o powtarzaniu – DRY Reguła DRY (ang. Don’t Repeat Yourself) zostało opisana w książce “The Pragmatic Programmer” autorstwa Andrew’a Hunt’a i David’a Thomas’a. Autorzy wprowadzają regułę, która mówi, że każdy fragment wiedzy powinien mieć pojedynczą, jednoznaczną i uznaną reprezentację w systemie. Regułę tę można zastosować zarówno do konfiguracji jak...","categories": ["Dobre praktyki","Programista rzemieślnik"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/09/28_jakosc_kodu_a_oschle_pocalunki_jagny_artykul.jpeg"},{
@@ -574,7 +574,7 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/dependency-inversion-principle-dependency-injection-i-inversion-of-control/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/11/03-dependency-inversion-principle-dependency-injection-inversion-of-control.jpg"},{
-        "title": "Samouczek na rozmowie - kalkulator",
+        "title": "Samouczek na rozmowie – kalkulator",
         "excerpt":"To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych. W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/",
@@ -584,6 +584,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/klauzula-join-w-zapytaniach-sql/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2018/11/22_kauzula_join_w_zapytaniach_sql_artykul.jpg"},{
+        "title": "Wzorzec projektowy adapter",
+        "excerpt":"Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – wzorce projektowe Problem do rozwiązania Pewnie wiesz, że w różnych krajach gniazdka mogą wyglądać inaczej niż to, co możesz zobaczyć na co dzień. Charakterystyka prądu...","categories": ["Wzorce projektowe"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/wzorzec-projektowy-adapter/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2019/01/26_wzorzec_projektowy_adapter_artykul.jpg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],
