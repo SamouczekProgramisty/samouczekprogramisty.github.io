@@ -52,7 +52,9 @@ public class User extends Object {
 
 Te podstawy w zupełności wystarczą Ci do zrozumienia poniższych przykładów.
 
-## Diagramy klas
+## Wzorzec adapter
+
+### Diagramy klas
 
 Istnieją dwa sposoby implementacji adaptera. Jeden z nich używa kompozycji, drugi dziedziczenia. Diagramy poniżej pokazują tę subtelną różnicę:
 
@@ -62,13 +64,11 @@ Istnieją dwa sposoby implementacji adaptera. Jeden z nich używa kompozycji, dr
 
 W obu przypadkach klasa `DoAdaptacji` nie implementuje bezpośrednio interfejsu `Zależność`. Ten interfejs implementuje klasa `Adapter`. Także w obu przypadkach `Klient` reprezentuje klasę, która używa interfejsu `Zależność`. Zatem użycie klasy `Adapter` pozwala na pośrednie użycie klasy `DoAdaptacji` przez klasę `Klient`.
 
-Zaletą stosowania tego wzorca projektowego jest to, że klasa `DoAdaptacji` nie musi być modyfikowana, aby spełnić interfejs wymagany przez klasę `Klient`. Taka modyfikacja czasami nawet może nie być możliwa.
-
-Pierwszy diagram pokazuje sposób połączenia elementów w przypadku adaptera, który używa kompozycji. W tym przypadku obiekt, który jest adaptowany zawarty jest wewnątrz adaptera.
+Zaletą stosowania tego wzorca projektowego jest to, że klasa `DoAdaptacji` nie musi być modyfikowana, aby spełnić interfejs wymagany przez klasę `Klient`. Czasami nawet taka modyfikacja nie jest możliwa.
 
 {% include newsletter-srodek.md %}
 
-## Przykładowa implementacja adaptera
+### Przykładowa implementacja adaptera
 
 Wyobraź sobie sytuację, w której mamy macierz kwadratową. Macierz reprezentowana jest przez obiekt implementujący interfejs `Matrix`:
 
@@ -105,7 +105,7 @@ Przekładając to na diagramy, które pokazałem wyżej to:
 * `Klient` – `MatrixOperations`,
 * `Zależność` – `Matrix`.
 
-### Adapter przy użyciu kompozycji
+#### Adapter przy użyciu kompozycji
 
 Standardowo macierz można reprezentować przez tablicę dwuwymiarową. `ArrayMatrix` to adapter, który wykorzystuje kompozycję. W tym przypadku opakowuje on tablicę dwuwymiarową – `int[][]`, udostępniając interfejs `Matrix`:
 
@@ -138,7 +138,7 @@ Wszystko ładnie działa. Do czasu. Pojawiło się wymaganie, które zakłada, �
 
 Z pomocą przychodzi inna implementacja adaptera.
 
-### Dziedziczenie
+#### Adapter przy użyciu dziedziczenia
 
 Tym razem adapter wykorzystuje dziedziczenie:
 
