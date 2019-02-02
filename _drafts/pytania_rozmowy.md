@@ -33,12 +33,9 @@ SQL
 
 --- HUBERT
 
-Jak wybrać element za pomocą JQuery?
 Co to jest DOM?
-Z jakiej wersji Angulara korzystasz i dlaczego?
 Do czego służy sekwencja w OracleDB?
 Podaj przykład zapytania, które wybierze wartość średnią kolumny z tabeli
-Rozmowa w języku Angielskim nt.: 1) Procesu wdrażania Aplikacji. 2) Pisanie testów
 Do czego służy final?
 Przechwytywanie i rzucanie exception oraz ich typy
 
