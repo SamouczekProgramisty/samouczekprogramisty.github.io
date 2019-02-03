@@ -65,7 +65,7 @@ Wyobraź sobie problem, którego rozwiązanie wymaga wykonania trzech zadań. Ud
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_1_cpu_3_tasks.svg" caption="Trzy zadania uruchomione sekwencyjne na jednym procesorze." %}
 
-Gwiazdka reprezentuje rdzeń procesora. Różnokolorowe prostokąciki reprezentują trzy zadania do wykonania. Długość prostokącików reprezentuje czas trwania poszczególnych zadań. Zadania uruchamiane są w po kolei. Po tym jak skończy się zadanie zielone rozpoczyna się zadanie niebieskie. Można powiedzieć, że zadania uruchamiane są sekwencyjnie. 
+Gwiazdka reprezentuje rdzeń procesora. Różnokolorowe prostokąciki reprezentują trzy zadania do wykonania. Długość prostokącików reprezentuje czas trwania poszczególnych zadań. Zadania uruchamiane są po kolei. Po tym jak skończy się zadanie zielone rozpoczyna się zadanie niebieskie. Można powiedzieć, że zadania uruchamiane są sekwencyjnie. 
 
 ### Program wielowątkowy
 
@@ -91,7 +91,7 @@ W takim przypadku zadania niebieskie i białe muszą czekać na zakończenie zad
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_1_cpu_3_uneven_tasks_threads.svg" %}
 
-"Szatkowanie czasu" daje wrażenie równoległej pracy wielu wątków, jednak w rzeczywistości w danym momencie czasu tylko jedno zadanie jest uruchomione. Inaczej wygląda sytuacja w przypadku procesorów mających wiele rdzeni.
+"Szatkowanie czasu" daje wrażenie równoległej pracy wielu wątków, jednak w rzeczywistości w danym momencie tylko jedno zadanie jest uruchomione. Inaczej wygląda sytuacja w przypadku procesorów mających wiele rdzeni.
 
 #### Procesory wielordzeniowe
 
@@ -101,7 +101,7 @@ Procesory wielordzeniowe dają rzeczywistą możliwość uruchamiania wielu zada
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_3_cpu_3_tasks_threads.svg" %}
 
-Uruchomienie programu bez wątków nie przyspieszyłoby jego działania – jeden rdzeń sekwencyjnie realizowałby każde z zadań.
+Uruchomienie programu bez wątków na komputerze z procesorem wielordzeniowym nie przyspieszyłoby jego działania – jeden rdzeń sekwencyjnie realizowałby każde z zadań.
 
 #### Połączenie obu podejść
 
