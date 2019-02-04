@@ -1,6 +1,6 @@
 ---
 title: REST web service z Java EE część 2
-last_modified_at: 2018-07-18 20:43:32 +0200
+last_modified_at: 2019-02-04 21:58:32 +0100
 categories:
 - Kurs aplikacji webowych
 permalink: /rest-web-service-z-java-ee-czesc-2/
@@ -35,23 +35,9 @@ W artykule tym rozszerzę przykładowy webservice do zarządzania rezerwacjami. 
 
 ## Serwer aplikacji dla JavaEE 8
 
-W poprzednim artykule posłużyłem się kontenerem aplikacji TomEE. Niestety aktualnie kontener ten nie wspiera JEE 8. W związku z tym w tym artykule bazuję na serwerze Glassfish 5.
+W poprzednim artykule posłużyłem się kontenerem aplikacji TomEE. Także i tym razem polecam użycie tego kontenera aplikacji. Jeśli chcesz wiedzieć więcej o jego instalacji zapraszam Cię do [poprzedniego artykułu]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}#instalacja-kontenera-aplikacji).  
 
-### Instalacja serwera aplikacji Glassfish                                                                                                                          
-
-Podobnie jak w przypadku serwera TomEE instalacja nie jest skomplikowana. W tym przypadku należy pobrać [najnowszą wersję](https://javaee.github.io/glassfish/download) serwera Glassfish. Następnie należy rozpakować ściągnięty plik do dowolnego folderu. W moim przypadku jest to `/home/mapi/opt/glassfish5`.
-
-Nie wchodząc zbytnio w szczegóły działania serwera Glassfish musisz wiedzieć o programie `asadmin`, który pomaga w administracji serwerem. Program ten znajduje się w katalogu `bin`.
-
-### Podstawowe komendy do zarządzania serwerem
-
-Aby uruchomić serwer musisz wywołać polecenie `asadmin start-domain`. Mając działający serwer aplikacji możesz przejść do następnego kroku.
-
-Możesz pobrać listę aplikacji, które są aktualnie zainstalowane na serwerze przy pomocy polecenia `asadmin list-applications`.
-
-Zainstalować aplikację możesz przy pomocy polecenia `asadmin deploy --contextroot / build/libs/07_rest_crud-1.0-SNAPSHOT.war`. Ścieżka na końcu odpowiada plikowi war z aplikacją webową.
-
-Jeśli chcesz usunąć zainstalowaną aplikację uruchom `asadmin undeploy 07_rest_crud-1.0-SNAPSHOT`. Nazwę aplikacji do usunięcia możesz uzyskać wcześniej wspomniane polecenie `asadmin list-applications`.
+curl -H "Content-Type: application/json" -X POST http://localhost:8080/rest/reservation -d '{"name": "abc", "tableNumber": 1, "start": "2019-09-20T18:00", "end": "2019-11-20T18:00"}' -v
 
 ## Wstrzykiwanie zależności
 
@@ -83,16 +69,6 @@ Klasa `ReservationDAO` poprzedzona jest adnotacją [`@ApplicationScoped`](https:
 
 [^serwery]: Mam na myśli tutaj jedną instancję klasy na każdą wirtualną maszynę Javy. Jeśli aplikacja uruchomiona jest w kliku kontenerach wówczas każdy z nich będzie miał osobną instancję.
 
-{% capture beans %}
-Mechanizm wstrzykiwania zależności powinien być domyślnie dostępny jak tylko kontener wykryje klasy, które powinien wstrzykiwać. Niestety jednak nie udało mi się zmusić do tego Glassfisha 5. 
-
-Obszedłem to poprzez dodanie pustego pliku [`beans.xml`](https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/07_rest_crud/src/main/webapp/WEB-INF/beans.xml), który także włącza ten mechanizm.
-{% endcapture %}
-
-<div class="notice--warning">
-    {{ beans | markdownify }}
-</div>
-
 ## Model – rezerwacja
 
 Rezerwacje, którymi zarządza webservice są reprezentowane przez osobną klasę `Reservation`:
@@ -123,7 +99,7 @@ Klasa ta zawiera atrybuty opisujące rezerwację takie jak nazwisko rezerwujące
 
 ### Walidacja
 
-Walidacja obiektów dostarczona jest przez implementację specyfikacji Bean Validation. Każdy kontener aplikacji, który jest kompatybilny z Java EE 8 (jak Glassfish 5 wspomniany wyżej), musi dostarczać implementację tej specyfikacji.
+Walidacja obiektów dostarczona jest przez implementację specyfikacji Bean Validation. Każdy kontener aplikacji, który jest kompatybilny z Java EE 8 (jak TomEE wspomniany wyżej), musi dostarczać implementację tej specyfikacji.
 
 Samą [walidację obiektów]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-java %}) omówiłem bardziej szczegółowo w osobnym artykule. Tutaj widzisz jej użycie w kontekście aplikacji webowej. 
 
@@ -186,14 +162,17 @@ Jak wspomniałem wyżej w akapicie opisującym wstrzykiwanie zależności, insta
 ## Aplikacja
 
 ```java
-@ApplicationPath("/rest")
+@ApplicationPath("/")
 public class RegistrationApplication extends Application {
 }
 ```
 
-Adnotacja [`@ApplicationPath`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ApplicationPath.html) informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice'ów w tej aplikacji poprzedzone są `/rest`. 
+Adnotacja [`@ApplicationPath`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ApplicationPath.html) informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice'ów w tej aplikacji poprzedzone są `/`. 
 
 Adnotacja ta może zostać dodana wyłącznie do instancji klasy [`Application`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Application.html). Klasa ta dostarcza dodatkowych metadanych o aplikacji. W moim przypadku jedyną wymaganą informacją dodatkową jest ta dostarczona przez adnotację.
+
+Podobnie jak w [poprzednim artykule]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}#pierwszy-web-service) zakładam, że aplikacja w kontenerze zostanie zainstalowana jako `rest.war`.
+{:.notice--info}
 
 ## Webservice
 
@@ -213,7 +192,7 @@ public class ReservationWebservice {
 
 Adnotację [`@Path`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html) znasz z [poprzedniej części artykułu]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}). Określa ona ścieżkę, która obsługiwana jest przez daną klasę.
 
-Nowe są dla Ciebie adnotacje [`@Consumes`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html) i [`@Produces`](https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html). Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie [JSON](https://www.json.org/).
+Nowe są dla Ciebie adnotacje [`@Consumes`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html) i [`@Produces`](https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html). Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie [JSON]({% post_url 2018-09-14-format-json-w-jezyku-java %}).
 
 Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod [415](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415). Kod ten informuje klienty o tym, że format danych nie jest wspierany. 
 
