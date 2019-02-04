@@ -35,7 +35,7 @@
 
 
 
-  <meta property="article:modified_time" content="2018-07-18T20:43:32+02:00">
+  <meta property="article:modified_time" content="2019-02-04T21:58:32+01:00">
 
 
 
@@ -226,7 +226,7 @@
     <meta itemprop="headline" content="REST web service z Java EE część 2">
     <meta itemprop="description" content="W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzystanie wstrzykiwania zależności (CDI), walidacji (Bean Validation) czy obsługi formatu JSON (JSON-P i JSON-B). W praktyce JAX-RS pozwala na łatwe połączenie tych mechanizmów w całość. Artykuł przedstawia prosty webservice, napisany bez Springa. W artykule tym staram się pokazać, że nowoczesna Java EE nie jest taka straszna.">
     <meta itemprop="datePublished" content="January 22, 2018">
-    <meta itemprop="dateModified" content="July 18, 2018">
+    <meta itemprop="dateModified" content="February 04, 2019">
 
     <div class="page__inner-wrap">
       
@@ -243,12 +243,7 @@
                 </header>
                 <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#rest-webservice-w-java-ee-8">REST Webservice w Java EE 8</a></li>
-<li class="toc-entry toc-h2"><a href="#serwer-aplikacji-dla-javaee-8">Serwer aplikacji dla JavaEE 8</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#instalacja-serwera-aplikacji-glassfish">Instalacja serwera aplikacji Glassfish</a></li>
-<li class="toc-entry toc-h3"><a href="#podstawowe-komendy-do-zarządzania-serwerem">Podstawowe komendy do zarządzania serwerem</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#serwer-aplikacji-dla-javaee-8">Serwer aplikacji dla JavaEE 8</a></li>
 <li class="toc-entry toc-h2"><a href="#wstrzykiwanie-zależności">Wstrzykiwanie zależności</a></li>
 <li class="toc-entry toc-h2"><a href="#model--rezerwacja">Model – rezerwacja</a>
 <ul>
@@ -317,23 +312,9 @@
 
 <h2 id="serwer-aplikacji-dla-javaee-8">Serwer aplikacji dla JavaEE 8</h2>
 
-<p>W poprzednim artykule posłużyłem się kontenerem aplikacji TomEE. Niestety aktualnie kontener ten nie wspiera JEE 8. W związku z tym w tym artykule bazuję na serwerze Glassfish 5.</p>
+<p>W poprzednim artykule posłużyłem się kontenerem aplikacji TomEE. Także i tym razem polecam użycie tego kontenera aplikacji. Jeśli chcesz wiedzieć więcej o jego instalacji zapraszam Cię do <a href="/rest-web-service-z-java-ee-czesc-1/#instalacja-kontenera-aplikacji">poprzedniego artykułu</a>.</p>
 
-<h3 id="instalacja-serwera-aplikacji-glassfish">Instalacja serwera aplikacji Glassfish</h3>
-
-<p>Podobnie jak w przypadku serwera TomEE instalacja nie jest skomplikowana. W tym przypadku należy pobrać <a href="https://javaee.github.io/glassfish/download">najnowszą wersję</a> serwera Glassfish. Następnie należy rozpakować ściągnięty plik do dowolnego folderu. W moim przypadku jest to <code class="highlighter-rouge">/home/mapi/opt/glassfish5</code>.</p>
-
-<p>Nie wchodząc zbytnio w szczegóły działania serwera Glassfish musisz wiedzieć o programie <code class="highlighter-rouge">asadmin</code>, który pomaga w administracji serwerem. Program ten znajduje się w katalogu <code class="highlighter-rouge">bin</code>.</p>
-
-<h3 id="podstawowe-komendy-do-zarządzania-serwerem">Podstawowe komendy do zarządzania serwerem</h3>
-
-<p>Aby uruchomić serwer musisz wywołać polecenie <code class="highlighter-rouge">asadmin start-domain</code>. Mając działający serwer aplikacji możesz przejść do następnego kroku.</p>
-
-<p>Możesz pobrać listę aplikacji, które są aktualnie zainstalowane na serwerze przy pomocy polecenia <code class="highlighter-rouge">asadmin list-applications</code>.</p>
-
-<p>Zainstalować aplikację możesz przy pomocy polecenia <code class="highlighter-rouge">asadmin deploy --contextroot / build/libs/07_rest_crud-1.0-SNAPSHOT.war</code>. Ścieżka na końcu odpowiada plikowi war z aplikacją webową.</p>
-
-<p>Jeśli chcesz usunąć zainstalowaną aplikację uruchom <code class="highlighter-rouge">asadmin undeploy 07_rest_crud-1.0-SNAPSHOT</code>. Nazwę aplikacji do usunięcia możesz uzyskać wcześniej wspomniane polecenie <code class="highlighter-rouge">asadmin list-applications</code>.</p>
+<p>curl -H “Content-Type: application/json” -X POST http://localhost:8080/rest/reservation -d ‘{“name”: “abc”, “tableNumber”: 1, “start”: “2019-09-20T18:00”, “end”: “2019-11-20T18:00”}’ -v</p>
 
 <h2 id="wstrzykiwanie-zależności">Wstrzykiwanie zależności</h2>
 
@@ -358,14 +339,6 @@
 <p>Fragment kodu powyżej używa mechanizmu wstrzykiwania zależności. Klasa <code class="highlighter-rouge">ReservationWebservice</code> potrzebuje instancji klasy <code class="highlighter-rouge">ReservationDAO</code><sup id="fnref:dao"><a href="#fn:dao" class="footnote">1</a></sup>. Atrybut <code class="highlighter-rouge">dao</code> może zostać wstrzyknięty dzięki mechanizmowi DI (ang. <em>Dependency Injection</em>). Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/inject/Inject.html"><code class="highlighter-rouge">@Inject</code></a> informuje kontener o tym, że ten atrybut powinien zostać wstrzyknięty.</p>
 
 <p>Klasa <code class="highlighter-rouge">ReservationDAO</code> poprzedzona jest adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/context/ApplicationScoped.html"><code class="highlighter-rouge">@ApplicationScoped</code></a>. Adnotacja ta informuje kontener o tym, że instancja tej klasy powinna być możliwa do wstrzyknięcia. Instancja będzie dostępna w kontekście aplikacji. Oznacza to tyle, że kontener utworzy wyłącznie jedną instancję tej klasy w trakcie działania aplikacji<sup id="fnref:serwery"><a href="#fn:serwery" class="footnote">2</a></sup>.</p>
-
-<div class="notice--warning">
-    
-<p>Mechanizm wstrzykiwania zależności powinien być domyślnie dostępny jak tylko kontener wykryje klasy, które powinien wstrzykiwać. Niestety jednak nie udało mi się zmusić do tego Glassfisha 5.</p>
-
-<p>Obszedłem to poprzez dodanie pustego pliku <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/07_rest_crud/src/main/webapp/WEB-INF/beans.xml"><code class="highlighter-rouge">beans.xml</code></a>, który także włącza ten mechanizm.</p>
-
-</div>
 
 <h2 id="model--rezerwacja">Model – rezerwacja</h2>
 
@@ -396,7 +369,7 @@
 
 <h3 id="walidacja">Walidacja</h3>
 
-<p>Walidacja obiektów dostarczona jest przez implementację specyfikacji Bean Validation. Każdy kontener aplikacji, który jest kompatybilny z Java EE 8 (jak Glassfish 5 wspomniany wyżej), musi dostarczać implementację tej specyfikacji.</p>
+<p>Walidacja obiektów dostarczona jest przez implementację specyfikacji Bean Validation. Każdy kontener aplikacji, który jest kompatybilny z Java EE 8 (jak TomEE wspomniany wyżej), musi dostarczać implementację tej specyfikacji.</p>
 
 <p>Samą <a href="/walidacja-obiektow-w-jezyku-java/">walidację obiektów</a> omówiłem bardziej szczegółowo w osobnym artykule. Tutaj widzisz jej użycie w kontekście aplikacji webowej.</p>
 
@@ -463,14 +436,16 @@
 
 <h2 id="aplikacja">Aplikacja</h2>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ApplicationPath</span><span class="o">(</span><span class="s">"/rest"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ApplicationPath</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RegistrationApplication</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ApplicationPath.html"><code class="highlighter-rouge">@ApplicationPath</code></a> informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice’ów w tej aplikacji poprzedzone są <code class="highlighter-rouge">/rest</code>.</p>
+<p>Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ApplicationPath.html"><code class="highlighter-rouge">@ApplicationPath</code></a> informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice’ów w tej aplikacji poprzedzone są <code class="highlighter-rouge">/</code>.</p>
 
 <p>Adnotacja ta może zostać dodana wyłącznie do instancji klasy <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Application.html"><code class="highlighter-rouge">Application</code></a>. Klasa ta dostarcza dodatkowych metadanych o aplikacji. W moim przypadku jedyną wymaganą informacją dodatkową jest ta dostarczona przez adnotację.</p>
+
+<p class="notice--info">Podobnie jak w <a href="/rest-web-service-z-java-ee-czesc-1/#pierwszy-web-service">poprzednim artykule</a> zakładam, że aplikacja w kontenerze zostanie zainstalowana jako <code class="highlighter-rouge">rest.war</code>.</p>
 
 <h2 id="webservice">Webservice</h2>
 
@@ -489,7 +464,7 @@
 
 <p>Adnotację <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html"><code class="highlighter-rouge">@Path</code></a> znasz z <a href="/rest-web-service-z-java-ee-czesc-1/">poprzedniej części artykułu</a>. Określa ona ścieżkę, która obsługiwana jest przez daną klasę.</p>
 
-<p>Nowe są dla Ciebie adnotacje <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html"><code class="highlighter-rouge">@Consumes</code></a> i <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html"><code class="highlighter-rouge">@Produces</code></a>. Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie <a href="https://www.json.org/">JSON</a>.</p>
+<p>Nowe są dla Ciebie adnotacje <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html"><code class="highlighter-rouge">@Consumes</code></a> i <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html"><code class="highlighter-rouge">@Produces</code></a>. Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie <a href="/format-json-w-jezyku-java/">JSON</a>.</p>
 
 <p>Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415">415</a>. Kod ten informuje klienty o tym, że format danych nie jest wspierany.</p>
 
@@ -732,7 +707,7 @@
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-07-18">2018-07-18</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-02-04">2019-02-04</time></p>
         
         <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
       </footer>
