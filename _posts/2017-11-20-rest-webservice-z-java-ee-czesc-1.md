@@ -1,6 +1,6 @@
 ---
 title: REST web service z Java EE część 1
-last_modified_at: 2018-07-18 20:43:32 +0200
+last_modified_at: 2019-02-04 21:08:48 +0100
 categories:
 - Kurs aplikacji webowych
 permalink: /rest-web-service-z-java-ee-czesc-1/
@@ -38,9 +38,10 @@ Operacje na encjach wykonuje się za pomocą zapytań HTTP. Do encji dobieramy s
 | `POST`    | `POST /rezerwacja`       | Utworzenie nowej rezerwacji                | 
 | `DELETE`  | `DELETE /rezerwacja/123` | Usunięcie rezerwacji o identyfikatorze 123 |
 
-Zanim powstał REST, web service'y w języku Java tworzono w oparciu o SOAP (ang. _Simple Object Access Protocol_). SOAP w porównaniu do REST jest dużo bardziej złożony. SOAP oparty jest o XML'a i jest dość rozwlekłym protokołem. Moim zdaniem REST zdobył dużą przewagę właśnie swoją prostotą w porównaniu do SOAP. REST jest _de facto_ standardem jeśli chodzi o tworzenie web service'ów w większości aplikacji webowych.
+Zanim powstał REST, web service'y w języku Java tworzono w oparciu o SOAP (ang. _Simple Object Access Protocol_). SOAP w porównaniu do REST jest dużo bardziej złożony. SOAP oparty jest o [XML]({% post_url 2017-03-02-xml-dla-poczatkujacych %})'a i jest dość rozwlekłym protokołem. Moim zdaniem REST zdobył dużą przewagę właśnie swoją prostotą w porównaniu do SOAP. REST jest _de facto_ standardem jeśli chodzi o tworzenie web service'ów w większości aplikacji webowych.
 
-Wysłane zapytanie informuje także web service o preferowanej formie odpowiedzi. Dzieje się to zazwyczaj przy pomocy nagłówków HTTP. Na przykład nagłówek zapytania `Accept: application/json` informuje web service, że klient oczekuje odpowiedzi w formacie [JSON](https://www.json.org/).
+Wysłane zapytanie informuje także web service o preferowanej formie odpowiedzi. Dzieje się to zazwyczaj przy pomocy nagłówków HTTP. Na przykład nagłówek zapytania `Accept: application/json` informuje web service, że klient oczekuje odpowiedzi w formacie [JSON](
+{% post_url 2018-09-14-format-json-w-jezyku-java %}).
 
 Jest to tylko krótkie wprowadzenie, jeśli chcesz dowiedzieć się więcej na temat REST odsyłam Cię do materiałów dodatkowych.
 
@@ -74,7 +75,7 @@ Jest wiele kontenerów aplikacji. W tym kursie będę używał Apache TomEE. Jes
 
 Ważne jest, żebyś pobrał wersję TomEE PluME, lub TomEE+. Te wersje [wspierają specyfikację JAX-RS](http://tomee.apache.org/comparison.html).
 
-{% include figure image_path="/assets/images/2017/11/20_tomee_plume_download.png" caption="Pobieranie TomEE Plume" %}
+{% include figure image_path="/assets/images/2019/02/04_tomee_plume_download.png" caption="Pobieranie TomEE Plume" %}
 
 ## Web service z JAX-RS
 
