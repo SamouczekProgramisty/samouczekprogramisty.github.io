@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg
     overlay_image: /assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg
     caption: "[&copy; Héctor J. Rivas](https://unsplash.com/photos/87hFrPk3V-s)"
-excerpt: Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz trzy słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego.
+excerpt: Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz trzy słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego. Na końcu artykułu czeka na Ciebie zadanie, w którym przećwiczysz zdobytą wiedzę.
 ---
 
 W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu "event-loop" i przetważania asynchronicznego, które niejako związane są z wątkami.
@@ -19,7 +19,7 @@ W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykony
 Zacznę od przykładu. Poniższy fragment kodu tworzy nowy wątek. Wewnątrz tego wątku znajduje się pętla, która wypisuje wszystkie liczby od 0 do 4, po czym kończy swoje działanie. Dokładnie taka sama pętla znajduje się w wątku gównym:
 
 ```java
-public static void main(String[] args) throws InterruptedException {
+public static void main(String[] args) {
     System.out.println("MT start");
     Thread thread = new Thread(() -> {
         System.out.println("T0 start");
@@ -55,9 +55,7 @@ Wynik działania tej metody może być następujący. W Twoim przypadku może on
 
 Zanim przejdę do dokładnego omówienia tego fragmentu kodu musisz dowiedzieć się czegoś więcej o wątkach i sposobie ich działania.
 
-## Wątki[^procesy] na obrazkach
-
-[^procesy]: Miałem nie wspominać o procesach... Jedno zdanie – ten podpunkt będzie nadal prawdziwy jeśli wątek zastąpisz słowem proces ;).
+## Wątki na obrazkach
 
 ### Program bez wątków
 
@@ -113,6 +111,125 @@ W rzeczywistości spotkasz się połączeniem obu podejść[^rdzenie]. Proszę s
 
 {% include newsletter-srodek.md %}
 
+
+## Tworzenie nowego wątku
+
+Każdy wątek w języku Java związany jest z klasą [`Thread`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html). Wątek można utworzyć na dwa sposoby. 
+
+### Dziedziczenie po klasie `Thread`
+
+Pierwszym ze sposobów jest utworzenie własnej klasy, która dziedziczy po klasie [`Thread`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html):
+
+```java
+public class MyThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("I'm inside thread!");
+    }
+}
+
+Thread thread = new MyThread();
+```
+
+W tym przypadku należy nadpisać metodę [`run`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#run()) – to właśnie ona zostaje wykonana jako ciało wątku.
+
+### Implementacja interfejsu `Runnable`
+
+Drugim sposobem jest utworzenie wątku, używając konstruktora, który przyjmuje obiekt implementujący interfejs [`Runnable`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html):
+
+```java
+public static class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("I'm inside runnable!");
+    }
+}
+
+Thread thread = new Thread(new MyRunnable());
+```
+
+Tym razem ciałem wątku jest implementacja metody [`run`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html#run()) z interfejsu [`Runnable`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html).
+
+Zauważ, że możesz utworzyć wątek posługując się [klasami anonimowymi]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %}#klasy-anonimowe):
+
+```java
+Trhread thread = new Thread(new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("I'm inside runnable!");
+    }
+});
+```
+
+Interfejs `Runnable` jest [interfejsem funkcyjnym]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}#interfejs-funkcyjny). W związku z tym zapis ten można uprościć stosując [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}#interfejs-funkcyjny)
+
+```java
+Trhread thread = new Thread(() -> System.out.println("I'm inside runnable!"));
+```
+
+## Cykl życia wątku
+
+Utworzenie instancji wątku to dopiero początek. Każdy wątek ma swój cykl życia. Wątki mogą znajdować się w jednym z sześciu stanów. Dopuszczalne stany wątku znajdują się w [klasie wyliczeniowej]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) [`Thread.State`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html):
+
+* [`NEW`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#NEW) – nowy wątek, który nie został jeszcze uruchomiony,
+* [`RUNNABLE`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#RUNNABLE) – wątek, który może wykonywać swój kod,
+* [`TERMINATED`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#TERMINATED) – wątek, który zakończył swoje działanie,
+* [`BLOCKED`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#BLOCKED) – wątek zablokowany, oczekujący na zwolnienie współdzielonego zasobu,
+* [`WAITING`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#WAITING) – wątek uśpiony,
+* [`TIMED_WAITING`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#TIMED_WAITING) – wątek uśpiony na określony czas.
+
+Poniższy diagram pokazuje możliwe przejścia pomiędzy stanami:
+
+{% include figure image_path="/assets/images/2019/02/05_thread_states.svg" caption="Diagram stanów wątku" %}
+
+Przejście ze stanu `NEW` do stanu `RUNNABLE` odbywa się po wywołaniu metody [`start()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#start()) na instancji wątku. Dopiero wtedy wątek może być wykonywany, samo utworzenie instancji nie powoduje jego uruchomienia. Każdy wątek może być uruchomiony dokładnie raz – dokładanie jeden raz może być na nim wywołana metoda `start()`.
+
+Wątek, który skończy swoje działanie, przechodzi do stanu `TERMINATED`.
+
+Omówienie stanów `BLOCKED`, `WAITING` i `TIMED_WAITING` wymaga osobnych sekcji. Zanim jednak do tego przejdę szczegółowo omówię przykład, który pokazałem na początku artykułu.
+
+## Omówienie przykładu
+
+Skoro już znasz podstawy teorii związanej z wątkami mogę przejść do omówienia przykładu z początku artykułu. Dla przypomnienia poniżej znajdziesz kod:
+
+```java
+public static void main(String[] args) {
+    System.out.println("MT start");
+    Thread thread = new Thread(() -> {
+        System.out.println("T0 start");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("T0 " + i);
+        }
+        System.out.println("T0 stop");
+    });
+    thread.start();
+    for (int i = 0; i < 5; i++) {
+        System.out.println("MT " + i);
+    }
+    System.out.println("MT stop");
+}
+```
+
+Druga linijka metody `main` to utworzenie instancji wątku. W tym przypadku użyłem konstruktora przyjmującego obiekt implementujący interfejs `Runnable`. Ten obiekt utworzyłem przy pomocy wyrażenia lambda. W ciele tego wyrażenia znajduje się pętla wypisująca liczby.
+
+Kolejna linijka kodu, `thread.start();`, uruchamia wątek. Bez niej kod wewnątrz interfejsu `Runnable` nie zostałby wykonany. Po uruchomienu wątku znajdziesz kolejną pętlę wypisującą liczby. Powyższy fragment kodu działa w dwóch wątkach: 
+- wątku o domyślnej nazwie `main`, który tworzony jest automatycznie. Wewnątrz niego uruchomiona jest metoda `main`, 
+- wątku o domyślnej nazwie `Thread-0`[^nazwa], który utworzyłem i uruchomiłem samodzielnie.
+
+[^nazwa]: Tworząc nowe wątki masz możliwość nadawania im nazw, jeśli tego nie zrobisz dostają domyślną w formacie `Thread-<kolejny numer>`. Masz także możliwość pobrania nazwy aktualnie uruchomionego wątku używając `Thread.currentThread().getName()`.
+
+Kilkukrotne uruchomienie tego kodu pokazuje Ci, że działanie tych dwóch wątków może przeplatać się na różne sposoby.
+
+## Wątek w stanie `BLOCKED`
+
+
+### Synchronizacja wątków
+
+
+## Wątek w stanie `WAITING`
+
+### `Object.wait()`
+
 ## Do czego służą wątki
 
 - synchronized
@@ -148,9 +265,23 @@ Wyobraź sobie pętlę. Pętla ma za zadanie operować na wartości licznika rep
 
 Jaką wartość będzie miał
 
-
 ## Wątki są trudne
 
-Tworzenie programów wielowątkowych jest trudne. Unikanie zakleszczeń, odpowiednia synchronizacja, unikanie wyścigów nie jest trywialne.
+Tworzenie programów wielowątkowych jest trudne. Unikanie zakleszczeń, odpowiednia synchronizacja, unikanie wyścigów nie jest trywialne. Nie przejmuj się, jeśli nie zrozumiesz tego zagadnienia od razu. Pisanie wydajnego, bezpiecznego kodu wielowątkowego to coś, z czym nawet bardzo doświadczeni programiści mogą mieć sporo problemów.
+
+Odnajdowanie i naprawianie błędów w programach, które używają wielu wątków to także ciężkie zadanie. Sytuacja, w której kod działa idealnie w trakcie testów, a zachowuje się "dziwnie" w środowisku wielowątkowym jest czymś powszechnym.
+
+Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj znaleźć gotową implementację w pakiecie [`java.util.concurrent`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html). Używając klas z tego pakietu na pewno unikniesz sporo ciężkich do zdiagnozowania błędów.
+
+## Dodatkowe materiały do nauki
+
+- [Rozdział w Java Language Specification dotyczący wątków](https://docs.oracle.com/javase/specs/jls/se11/html/jls-17.html),
+- [Sekcja w Java Language Specification dotycząca metod synchronizowanych](https://docs.oracle.com/javase/specs/jls/se11/html/jls-8.html#jls-8.4.3.6),
+- [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]( https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.19),
+
+## Ćwiczenie
 
 ## Podsumowanie
+
+Bałem się tego artykułu. Od samego początku pracy nad kursem Javy przesuwałem go w czasie. Teraz, po jego ukończeniu wiem dlaczego ;).
+
