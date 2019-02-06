@@ -55,7 +55,7 @@ Wynik działania tej metody może być następujący. W Twoim przypadku może on
 
 Zanim przejdę do dokładnego omówienia tego fragmentu kodu musisz dowiedzieć się czegoś więcej o wątkach i sposobie ich działania.
 
-## Wątki na obrazkach
+## Wątki w teorii
 
 ### Program bez wątków
 
@@ -73,7 +73,7 @@ Przed procesorami wielordzeniowymi wątki były "oszustwem". Procesor był jeden
 
 Mam na myśli _time slicing_. Mechanizm dzięki, któremu jeden rdzeń procesora może uruchamiać wiele wątków. Nie dzieje się to jednak równolegle.
 
-Diagram poniżej prezentuje dokładnie te same zadania. Tym razem każde z nich uruchamiane jest w osobnym wątku, mamy zatem trzy wątki. Mechanizm nadzorujący ich pracę zapewnia, że co jakiś czas aktualny wątek zostanie zatrzymany. Kolejny wątek zostaje wybudzony, dostaje czas procesora i jest przez niego wykonywany. Suma długości prostokącików w danym kolorze jest dokładnie taka sama jak w poprzednim przykładzie:
+Diagram poniżej prezentuje dokładnie te same zadania. Tym razem każde z nich uruchamiane jest w osobnym wątku, mamy zatem trzy wątki. Mechanizm nadzorujący ich pracę zapewnia, że co jakiś czas aktualny wątek zostanie zatrzymany. Mówi się wtedy, że wątek został wywłaszczony. Kolejny wątek zostaje wybudzony, dostaje czas procesora i jest przez niego wykonywany. Suma długości prostokącików w danym kolorze jest dokładnie taka sama jak w poprzednim przykładzie:
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_1_cpu_3_tasks_threads.svg" caption="Trzy zadania uruchomione w wątkach na jednym procesorze." %}
 
@@ -109,8 +109,15 @@ W rzeczywistości spotkasz się połączeniem obu podejść[^rdzenie]. Proszę s
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_2_cpu_3_tasks_threads_comparison.svg" caption="Trzy zadania uruchomione w wątkach na dwóch procesorach." %}
 
-{% include newsletter-srodek.md %}
+### Wspólne dane
 
+Wątki korzystają z tych samych danych. Mówi się, że wątki współdzielą przestrzeń adresową. Oznacza to tyle, że obiekty dostępne dla jednego wątku są widoczne także w innych wątkach[^threadlocal].
+
+[^threadlocal]: Dla uproszczenia pomijam tutaj [`ThreadLocal`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/ThreadLocal.html).
+
+Proszę pamiętaj, że zmienne dostępne są dla wszystkich wątków. W związku z tym wszystkie wątki mogą te zmienne modyfikować. Pociąga to za sobą bardzo duże konsekwencje. Opiszę je dokładniej w dalszej części artykułu.
+
+{% include newsletter-srodek.md %}
 
 ## Tworzenie nowego wątku
 
@@ -161,7 +168,7 @@ Trhread thread = new Thread(new Runnable() {
 });
 ```
 
-Interfejs `Runnable` jest [interfejsem funkcyjnym]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}#interfejs-funkcyjny). W związku z tym zapis ten można uprościć stosując [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}#interfejs-funkcyjny)
+Interfejs `Runnable` jest [interfejsem funkcyjnym]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}#interfejs-funkcyjny). W związku z tym zapis ten można uprościć stosując [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}):
 
 ```java
 Trhread thread = new Thread(() -> System.out.println("I'm inside runnable!"));
@@ -190,7 +197,7 @@ Omówienie stanów `BLOCKED`, `WAITING` i `TIMED_WAITING` wymaga osobnych sekcji
 
 ## Omówienie przykładu
 
-Skoro już znasz podstawy teorii związanej z wątkami mogę przejść do omówienia przykładu z początku artykułu. Dla przypomnienia poniżej znajdziesz kod:
+Skoro już znasz podstawy teorii związanej z wątkami mogę przejść do omówienia przykładu z początku artykułu. Dla przypomnienia:
 
 ```java
 public static void main(String[] args) {
@@ -210,7 +217,7 @@ public static void main(String[] args) {
 }
 ```
 
-Druga linijka metody `main` to utworzenie instancji wątku. W tym przypadku użyłem konstruktora przyjmującego obiekt implementujący interfejs `Runnable`. Ten obiekt utworzyłem przy pomocy wyrażenia lambda. W ciele tego wyrażenia znajduje się pętla wypisująca liczby.
+Druga linijka metody `main` to utworzenie instancji wątku. W tym przypadku użyłem konstruktora przyjmującego obiekt implementujący interfejs `Runnable`. Ten obiekt utworzyłem przy pomocy [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}). W ciele tego wyrażenia znajduje się pętla wypisująca liczby.
 
 Kolejna linijka kodu, `thread.start();`, uruchamia wątek. Bez niej kod wewnątrz interfejsu `Runnable` nie zostałby wykonany. Po uruchomienu wątku znajdziesz kolejną pętlę wypisującą liczby. Powyższy fragment kodu działa w dwóch wątkach: 
 - wątku o domyślnej nazwie `main`, który tworzony jest automatycznie. Wewnątrz niego uruchomiona jest metoda `main`, 
@@ -222,9 +229,86 @@ Kilkukrotne uruchomienie tego kodu pokazuje Ci, że działanie tych dwóch wątk
 
 ## Wątek w stanie `BLOCKED`
 
+Wątek, który znajduje się w stanie `BLOCKED` oczekuje na pewien zablokowany zasób. W języku Java blokowanie odbywa się przy pomocy tak zwanych monitorów, które służą do synchronizacji wątków. Zanim powiem Ci jak synchronizować wątki między sobą muszę pokazać Ci dlaczego taka synchronizacja jest czasami niezbędna.
+
+### Dlaczego synchronizacja jest potrzebna?
+
+Wiesz już, że wątki współdzielą przestrzeń adresową. Wspomniałem już, że ma to bardzo istotne konsekwencje. Pokażę Ci je na poniższym przykładzie:
+
+```java
+public class RaceCondition {
+    private static class Counter {
+        int value;
+    }
+    public static void main(String[] args) throws InterruptedException {
+        Counter c = new Counter();
+        Runnable r = () -> {
+            for (int i = 0; i < 100_000; i++) {
+                c.value += 1;
+            }
+        };
+
+        Thread t1 = new Thread(r);
+        Thread t2 = new Thread(r);
+        Thread t3 = new Thread(r);
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+        t1.join();
+        t2.join();
+        t3.join();
+
+        System.out.println(c.value);
+    }
+}
+```
+
+Tutaj nowością dla Ciebie jest metoda [`Thread.join()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join()). Metoda ta zapewnia, że aktualny wątek czeka na zakończenie się wątku, na którym `join` zostało wywołane. W przykładzie powyżej domyślny wątek `main` czeka na zakończenie się wątku `t1`, jak ten się skończy czeka na zakończenie wątku `t2` i następnie `t3`.
+
+Tutaj drobna dygresja. To, że `main` czeka na wątki w kolejności `t1`, `t2` i `t3` nie oznacza, że te wątki skończą się w tej kolejności. W praktyce kolejność ta może być dowolna, w szczególności może także być odwrotna.
+{:.notice--info}
+
+W powyższym fragmencie kodu tworzę obiekt `r`, który implementuje interfejs `Runnable`. Następnie używając tej instancji tworzę trzy wątki, uruchamiam je i czekam na ich zakończenie. `r` używa zmiennej lokalnej `c` typu `Counter`. Używa jej do zwiększenia wartości atrybutu `value` o 100'000.
+
+Skoro są trzy wątki, każdy z nich zwiększa wartość zmiennej o 1 i robi to 100'000 razy to wartość `c.value` powinna wynosić 300'000, prawda? Spróbuj uruchomić ten kod kilka razy. Jakie wyniki otrzymujesz? W moim przypadku pięć kolejnych uruchomień zwróciło takie wyniki:
+
+	235239
+	296424
+	300000
+	281814
+	300000
+
+### Wyścig
+
+To co zaobserwowałeś wyżej to tak zwany wyścig (ang. _race condition_). Taka sytuacja zachodzi jeśli kilka wątków jednocześnie modyfikuje zmienną, która do takiej równoległej zmiany nie jest przystosowana. Tylko dlaczego wartość atrybutu `value` miała tak różne wartości? Działo się tak dlatego, że operacja `c.value += 1` nie jest operacją atomową.
+
+Tutaj należy Ci się kolejne wyjaśnienie. Operacja atomowa to taka operacja, która jest niepodzielna. Operacja atomowa realizowana jest przy pomocy jednej instrukcji w bytecode (w skompilowanej klasie). Operacja `c.value += 1` nie jest operacją atomową, jest ona równoważna z `c.value = c.value + 1`. Wykonanie tej operacji składa się z kilku kroków:
+
+1. pobrania aktualnej wartości `c.value` do "zmiennej tymczasowej" (nie widocznej w kodzie źródłowym),
+2. dodania `1` do "zmiennej tymczasowej",
+3. przypisanie powiększonej wartości do `c.value`.
+
+Pamiętasz szatkowanie czasu, które opisałem na początku artykułu? Odgrywa ono tu kluczową rolę. Wyobraź sobie sytuację, w której wątek `t1` wykonał krok 1., 2. i 3. po czym został wywłaszczony. Następnie wątki `t2` i `t3` wykonały krok 1.. Po czym wątek `t2` wykonał kroki 2. i 3. Po chwili to samo stało się z wątkiem `t3`. Jaką wartość wątek `t3` przypisał do `c.value`? Była to wartość `2`, przez co cała praca wątku `t2` została nadpisana. Proszę spójrz na tabelkę niżej, która pokazuje tę sytuację:
+
+| Operacja | Wątek | Krok | Wartość `c.value` | Wartość zmiennej tymczasowej |
+|:--------:|------ |------|-------------------|------------------------------|
+| 1.       | `t1`  | 1.   | 0                 | 0                            |
+| 2.       | `t1`  | 2.   | 1                 | 1                            |
+| 3.       | `t1`  | 3.   | 1                 | 1                            |
+| 4.       | `t2`  | 1.   | 1                 | 1                            |
+| 5.       | `t3`  | 1.   | 1                 | 1                            |
+| 6.       | `t2`  | 2.   | 1                 | 2                            |
+| 7.       | `t2`  | 3.   | 2                 | 2                            |
+| 8.       | `t3`  | 2.   | 2                 | 2                            |
+| 9.       | `t3`  | 3.   | 2                 | 2                            |
+
+Tabela pokazuje jak mogą zachować się wątki. Jest to jeden z możliwych scenariuszy. W przykładzie powyżej operacja 9. ustawiają wartość `c.value` na `2` w wątku `t3` ignorując zwiększenie wartości wykonane przez wątek `t2` w operacji 7.
+
+Aby uniknąć takich sytuacji, uniknąć wyścigów, niezbędna jest synchronizacja pracy wątków.
 
 ### Synchronizacja wątków
-
 
 ## Wątek w stanie `WAITING`
 
@@ -233,37 +317,10 @@ Kilkukrotne uruchomienie tego kodu pokazuje Ci, że działanie tych dwóch wątk
 ## Do czego służą wątki
 
 - synchronized
-- wyścig
 - synchronize
-- thread
 - deadlock, lifelock
 - threadpool
-- thread vs process
-- thread vs cpu
-- cykl życia
 - volatile
-- atomowość
-
-### Wykorzystanie 
-
-
-## 
-
-Załóżmy, że masz napisać program, który sprawdzi czy w którymkolwiek pliku w katalogu występuje słowo "Samouczek". Dla uproszczenia przyjmę, że przeszukanie jednego pliku trwa jedną sekundę. 
-
-Katalog, który masz przeszukać ma 10'000 plików. Sprawdzanie wszystkich plików po kolej potrwa 10'000 sekund, czyli ponad 2 godziny i 46 minut. Długo, chcesz to przyspieszyć.
-
-Z pomocą mogą przyjść wątki. Załóżmy, że Twój komputer ma procesor, który ma 32 rdzenie i uruchomisz 32 wątki, które równocześnie przeszukują pliki. Dzięki temu czas przeszukiwania może być do 32 razy krótszy. Dzięki temu Twój program sprawdzi wszystkie pliki dużo szybciej. Przy takim podejściu sprawdzenie wszystkich plików potrwa niewiele ponad 5 minut.
-
-## Synchronizacja
-
-Wyobraź sobie pętlę. Pętla ma za zadanie operować na wartości licznika reprezentowanego przez obiekt `Counter`. Pętla wygląda tak:
-
-```java
-
-```
-
-Jaką wartość będzie miał
 
 ## Wątki są trudne
 
