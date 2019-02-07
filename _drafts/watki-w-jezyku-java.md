@@ -11,12 +11,12 @@ header:
 excerpt: Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz trzy słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego. Na końcu artykułu czeka na Ciebie zadanie, w którym przećwiczysz zdobytą wiedzę.
 ---
 
-W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu "event-loop" i przetważania asynchronicznego, które niejako związane są z wątkami.
+W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu "event-loop" i przetwarzania asynchronicznego, które niejako związane są z wątkami.
 {:.notice--info}
 
 ## Stwórz swój pierwszy wątek
 
-Zacznę od przykładu. Poniższy fragment kodu tworzy nowy wątek. Wewnątrz tego wątku znajduje się pętla, która wypisuje wszystkie liczby od 0 do 4, po czym kończy swoje działanie. Dokładnie taka sama pętla znajduje się w wątku gównym:
+Zacznę od przykładu. Poniższy fragment kodu tworzy nowy wątek. Wewnątrz tego wątku znajduje się pętla, która wypisuje wszystkie liczby od 0 do 4, po czym kończy swoje działanie. Dokładnie taka sama pętla znajduje się w wątku głównym:
 
 ```java
 public static void main(String[] args) {
@@ -95,7 +95,7 @@ W takim przypadku zadania niebieskie i białe muszą czekać na zakończenie zad
 
 Procesory wielordzeniowe dają rzeczywistą możliwość uruchamiania wielu zadań równolegle. W takim przypadku, jeśli każde z zadań uruchomione zostanie w osobnym wątku wówczas sytuacja wygląda jak na diagramie poniżej[^cztery]:
 
-[^cztery]: Możesz założyć, że program został uruchomiony na procesorze czterordzeniowym. Czwarty rdzeń nie był uwzglęniony na diagramie.
+[^cztery]: Możesz założyć, że program został uruchomiony na procesorze czterordzeniowym. Czwarty rdzeń nie był uwzględniony na diagramie.
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_3_cpu_3_tasks_threads.svg" %}
 
@@ -105,7 +105,7 @@ Uruchomienie programu bez wątków na komputerze z procesorem wielordzeniowym ni
 
 W rzeczywistości spotkasz się połączeniem obu podejść[^rdzenie]. Proszę spójrz na diagram poniżej. Pokazuje on przykładowe wykonanie zadania na dwóch rdzeniach. Dla porównania pokazałem też sekwencyjne wykonanie tych samych zadań:
 
-[^rdzenie]: Raczej małoprawdopodobne jest to, że masz komputer, który ma tylko jeden rdzeń procesora.
+[^rdzenie]: Raczej mało prawdopodobne jest to, że masz komputer, który ma tylko jeden rdzeń procesora.
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_2_cpu_3_tasks_threads_comparison.svg" caption="Trzy zadania uruchomione w wątkach na dwóch procesorach." %}
 
@@ -160,7 +160,7 @@ Tym razem ciałem wątku jest implementacja metody [`run`](https://docs.oracle.c
 Zauważ, że możesz utworzyć wątek posługując się [klasami anonimowymi]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %}#klasy-anonimowe):
 
 ```java
-Trhread thread = new Thread(new Runnable() {
+Thread thread = new Thread(new Runnable() {
     @Override
     public void run() {
         System.out.println("I'm inside runnable!");
@@ -171,7 +171,7 @@ Trhread thread = new Thread(new Runnable() {
 Interfejs `Runnable` jest [interfejsem funkcyjnym]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}#interfejs-funkcyjny). W związku z tym zapis ten można uprościć stosując [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}):
 
 ```java
-Trhread thread = new Thread(() -> System.out.println("I'm inside runnable!"));
+Thread thread = new Thread(() -> System.out.println("I'm inside runnable!"));
 ```
 
 ## Cykl życia wątku
@@ -219,7 +219,7 @@ public static void main(String[] args) {
 
 Druga linijka metody `main` to utworzenie instancji wątku. W tym przypadku użyłem konstruktora przyjmującego obiekt implementujący interfejs `Runnable`. Ten obiekt utworzyłem przy pomocy [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}). W ciele tego wyrażenia znajduje się pętla wypisująca liczby.
 
-Kolejna linijka kodu, `thread.start();`, uruchamia wątek. Bez niej kod wewnątrz interfejsu `Runnable` nie zostałby wykonany. Po uruchomienu wątku znajdziesz kolejną pętlę wypisującą liczby. Powyższy fragment kodu działa w dwóch wątkach: 
+Kolejna linijka kodu, `thread.start();`, uruchamia wątek. Bez niej kod wewnątrz interfejsu `Runnable` nie zostałby wykonany. Po uruchomieniu wątku znajdziesz kolejną pętlę wypisującą liczby. Powyższy fragment kodu działa w dwóch wątkach: 
 - wątku o domyślnej nazwie `main`, który tworzony jest automatycznie. Wewnątrz niego uruchomiona jest metoda `main`, 
 - wątku o domyślnej nazwie `Thread-0`[^nazwa], który utworzyłem i uruchomiłem samodzielnie.
 
