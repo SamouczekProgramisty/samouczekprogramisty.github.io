@@ -236,15 +236,24 @@ Wątek, który znajduje się w stanie `BLOCKED` oczekuje na pewien zablokowany z
 Wiesz już, że wątki współdzielą przestrzeń adresową. Wspomniałem już, że ma to bardzo istotne konsekwencje. Pokażę Ci je na poniższym przykładzie:
 
 ```java
-public class RaceCondition {
-    private static class Counter {
-        int value;
+class Counter {
+    private int value;
+
+    public void increment() {
+        value += 1;
     }
+
+    public int getValue() {
+        return value;
+    }
+}
+
+public class RaceCondition {
     public static void main(String[] args) throws InterruptedException {
         Counter c = new Counter();
         Runnable r = () -> {
             for (int i = 0; i < 100_000; i++) {
-                c.value += 1;
+                c.increment();
             }
         };
 
@@ -260,7 +269,7 @@ public class RaceCondition {
         t2.join();
         t3.join();
 
-        System.out.println(c.value);
+        System.out.println(c.getValue());
     }
 }
 ```
@@ -272,7 +281,7 @@ Tutaj drobna dygresja. To, że `main` czeka na wątki w kolejności `t1`, `t2` i
 
 W powyższym fragmencie kodu tworzę obiekt `r`, który implementuje interfejs `Runnable`. Następnie używając tej instancji tworzę trzy wątki, uruchamiam je i czekam na ich zakończenie. `r` używa zmiennej lokalnej `c` typu `Counter`. Używa jej do zwiększenia wartości atrybutu `value` o 100'000.
 
-Skoro są trzy wątki, każdy z nich zwiększa wartość zmiennej o 1 i robi to 100'000 razy to wartość `c.value` powinna wynosić 300'000, prawda? Spróbuj uruchomić ten kod kilka razy. Jakie wyniki otrzymujesz? W moim przypadku pięć kolejnych uruchomień zwróciło takie wyniki:
+Skoro są trzy wątki, każdy z nich zwiększa wartość zmiennej o 1 i robi to 100'000 razy to wartość `value` powinna wynosić 300'000, prawda? Spróbuj uruchomić ten kod kilka razy. Jakie wyniki otrzymujesz? W moim przypadku pięć kolejnych uruchomień zwróciło takie wyniki:
 
 	235239
 	296424
@@ -282,17 +291,24 @@ Skoro są trzy wątki, każdy z nich zwiększa wartość zmiennej o 1 i robi to 
 
 ### Wyścig
 
-To co zaobserwowałeś wyżej to tak zwany wyścig (ang. _race condition_). Taka sytuacja zachodzi jeśli kilka wątków jednocześnie modyfikuje zmienną, która do takiej równoległej zmiany nie jest przystosowana. Tylko dlaczego wartość atrybutu `value` miała tak różne wartości? Działo się tak dlatego, że operacja `c.value += 1` nie jest operacją atomową.
+To co udalo Ci się zaobserowować wyżej to tak zwany wyścig (ang. _race condition_). Taka sytuacja zachodzi jeśli kilka wątków jednocześnie modyfikuje zmienną, która do takiej równoległej zmiany nie jest przystosowana. Tylko dlaczego wartość atrybutu `value` miała tak różne wartości? Działo się tak dlatego, że operacja `value += 1` nie jest operacją atomową.
 
-Tutaj należy Ci się kolejne wyjaśnienie. Operacja atomowa to taka operacja, która jest niepodzielna. Operacja atomowa realizowana jest przy pomocy jednej instrukcji w bytecode (w skompilowanej klasie). Operacja `c.value += 1` nie jest operacją atomową, jest ona równoważna z `c.value = c.value + 1`. Wykonanie tej operacji składa się z kilku kroków:
+Tutaj należy Ci się kolejne wyjaśnienie. Operacja atomowa to taka operacja, która jest niepodzielna. Operacja atomowa realizowana jest przy pomocy jednej instrukcji w bytecode (w skompilowanej klasie). Operacja `value += 1` nie jest operacją atomową, jest ona równoważna z `value = value + 1`. Wykonanie tej operacji składa się z kilku kroków:
 
-1. pobrania aktualnej wartości `c.value` do "zmiennej tymczasowej" (nie widocznej w kodzie źródłowym),
+1. pobrania aktualnej wartości `value` do "zmiennej tymczasowej" (nie widocznej w kodzie źródłowym),
 2. dodania `1` do "zmiennej tymczasowej",
-3. przypisanie powiększonej wartości do `c.value`.
+3. przypisanie powiększonej wartości do `value`.
 
-Pamiętasz szatkowanie czasu, które opisałem na początku artykułu? Odgrywa ono tu kluczową rolę. Wyobraź sobie sytuację, w której wątek `t1` wykonał krok 1., 2. i 3. po czym został wywłaszczony. Następnie wątki `t2` i `t3` wykonały krok 1.. Po czym wątek `t2` wykonał kroki 2. i 3. Po chwili to samo stało się z wątkiem `t3`. Jaką wartość wątek `t3` przypisał do `c.value`? Była to wartość `2`, przez co cała praca wątku `t2` została nadpisana. Proszę spójrz na tabelkę niżej, która pokazuje tę sytuację:
+W bytecode ten fragment wygląda tak:
 
-| Operacja | Wątek | Krok | Wartość `c.value` | Wartość zmiennej tymczasowej |
+    GETFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
+    ICONST_1
+    IADD
+    PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
+
+Pamiętasz szatkowanie czasu, które opisałem na początku artykułu? Odgrywa ono tu kluczową rolę. Wyobraź sobie sytuację, w której wątek `t1` wykonał krok 1., 2. i 3. po czym został wywłaszczony. Następnie wątki `t2` i `t3` wykonały krok 1.. Po czym wątek `t2` wykonał kroki 2. i 3. Po chwili to samo stało się z wątkiem `t3`. Jaką wartość wątek `t3` przypisał do `value`? Była to wartość `2`, przez co cała praca wątku `t2` została nadpisana. Proszę spójrz na tabelkę niżej, która pokazuje tę sytuację:
+
+| Operacja | Wątek | Krok | Wartość `value` | Wartość zmiennej tymczasowej |
 |:--------:|------ |------|-------------------|------------------------------|
 | 1.       | `t1`  | 1.   | 0                 | 0                            |
 | 2.       | `t1`  | 2.   | 1                 | 1                            |
@@ -304,13 +320,89 @@ Pamiętasz szatkowanie czasu, które opisałem na początku artykułu? Odgrywa o
 | 8.       | `t3`  | 2.   | 2                 | 2                            |
 | 9.       | `t3`  | 3.   | 2                 | 2                            |
 
-Tabela pokazuje jak mogą zachować się wątki. Jest to jeden z możliwych scenariuszy. W przykładzie powyżej operacja 9. ustawiają wartość `c.value` na `2` w wątku `t3` ignorując zwiększenie wartości wykonane przez wątek `t2` w operacji 7.
+Tabela pokazuje jak mogą zachować się wątki. Jest to jeden z możliwych scenariuszy. W przykładzie powyżej operacja 9. ustawiają wartość `value` na `2` w wątku `t3` ignorując zwiększenie wartości wykonane przez wątek `t2` w operacji 7.
 
 Aby uniknąć takich sytuacji, uniknąć wyścigów, niezbędna jest synchronizacja pracy wątków.
 
 ### Synchronizacja wątków
 
+Każdy obiekt w języku Java powiązany jest z tak zwanym monitorem. Każdy monitor może być w jednym z dwóch stanów: odblokowany albo zablokowany. Monitor może być zablokowany wyłącznie przez jeden wątek w danym momencie. Dzięki tej właściwości to obiekty używane są do tego, żeby synchronizować wątki ze sobą. Służy do tego słowo kluczowe `synchronized`.
+
+#### Blok `synchronized`
+
+Proszę spójrz na delikatnie zmodyfikowany kod klasy `Counter`:
+
+```java
+class Counter {
+    private int value;
+
+    public void increment() {
+        synchronized (this) {
+            value += 1;
+        }
+    }
+
+    public int getValue() {
+        return value;
+    }
+}
+```
+
+Spróbuj jeszcze raz uruchomić `RaceCondition` po wprowadzeniu takiej modyfikacji. Jak z wynikami? Tym razem na pewno za każdym razem na konsoli pokaże się liczba 300'000. Dzieje się tak ponieważ ciało metody `increment` objęte jest blokiem `synchronized`. W tym przypadku obiektem, który został użyty jako monitor jest `this` – instancja `Counter`. W ogólności blok `synchronized` ma następujący format:
+
+```java
+synchronized (obiekt) {
+    // synchronizowany kod
+}
+```
+
+Masz pewność, że wszystko co znajduje się wewnątrz bloku w każdym momencie uruchomione jest przez maksymalnie jeden wątek.
+
+#### Metoda `synchronized`
+
+Słowo kluczowe `synchronized` może być także użyte w innym kontekście. Może także oznaczyć metody, które sa synchronizowane. Na przykład:
+
+```java
+public synchronized void increment() {
+    value += 1;
+}
+```
+
+W praktyce obie wersje metody `increment` są równoważne. Oznaczenie metody słowem kluczowym `synchronized` równoznaczne jest w umieszczeniem całego ciała metody w bloku `sychronized`. To jaki obiekt użyty jest w roli monitora zależy od rodzaju metody:
+
+- standardowa metoda – jako monitor użyta jest instancja klasy `this`,
+- metoda statyczna – jako monitor użyta jest klasa.
+
+Na przykład dwa poniższe fragmenty kodu są równoważne:
+
+```java
+class Counter {
+    public synchronized static void sampleStaticMethod() {
+        System.out.println('xxx');
+    }
+}
+```
+
+```java
+class Counter {
+    public static void sampleStaticMethod() {
+        synchronized (Counter.class) {
+            System.out.println('xxx');
+        }
+    }
+}
+```
+
+#### Nie synchronizuj wszystkiego
+
+Synchronizacja wątków pozwala na uniknięcie wielu problemów związanych na przykład z wyścigami. Niestety ma też swoje słabe strony. Pamiętaj, że cały kod, który jest w bloku `synchronized` w danym momencie może być uruchomiony przez maksymalnie jeden wątek. W związku z tym ten fragment kodu traci możliwość równoczesnego uruchomienia na kilku procesorach – spowalnia wykonanie programu wielowątkowego. 
+
+Taki fragment kodu, który w danym momencie może być użyty przez maksymalnie jeden wątek nazywany jest sekcją krytyczną. Dobrą zasadą jest ograniczanie sekcji krytycznej – im mniej w niej kodu tym większy zysk z użycia wielu wątków.
+
+Synchronizacja wątków przy pomocy `synchronized` to nie wszystko. Wszystkie obiekty w języku Java, poza monitorami, zawierają tak specjalny zbiór wątków, na które czekają (ang. _wait set_). 
+
 ## Wątek w stanie `WAITING`
+
 
 ### `Object.wait()`
 
@@ -332,9 +424,10 @@ Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj zna
 
 ## Dodatkowe materiały do nauki
 
+- [Tutorial na stronie Oracle'a dotyczący wątków](https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html),
 - [Rozdział w Java Language Specification dotyczący wątków](https://docs.oracle.com/javase/specs/jls/se11/html/jls-17.html),
 - [Sekcja w Java Language Specification dotycząca metod synchronizowanych](https://docs.oracle.com/javase/specs/jls/se11/html/jls-8.html#jls-8.4.3.6),
-- [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]( https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.19),
+- [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]( https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.19).
 
 ## Ćwiczenie
 
