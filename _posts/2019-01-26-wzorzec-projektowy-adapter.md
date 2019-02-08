@@ -1,6 +1,6 @@
 ---
 title: Wzorzec projektowy adapter
-last_modified_at: 2019-01-30 23:18:31 +0100
+last_modified_at: 2019-02-08 19:07:18 2019 +0100
 categories:
 - Wzorce projektowe
 permalink: /wzorzec-projektowy-adapter/
