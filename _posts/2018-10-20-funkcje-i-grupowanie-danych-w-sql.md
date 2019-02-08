@@ -126,7 +126,7 @@ Do tej pory pokazałem Ci tylko dwie funkcje `MAX` i `LENGTH`. Niżej pokażę C
 - `LENGTH` – tę funkcję już znasz, zwraca długość łańcucha znaków,
 - `LOWER` – zwraca kopię łańcucha znaków przekazanego jako parametr, w którym wszystkie litery zamienione są na małe[^ascii],
 - `RANDOM` – zwraca losową liczbę całkowitą,
-- `SUBSTR`[^substring] – `SUBSTR(x, y, z)` pobiera podzbiór znaków parametru `x` od litery `y` do litery `z`. Parametr `z` może być pominięty, wtedy funkcja zwraca podzbiór znaków od znaku `y` do końca,
+- `SUBSTR`[^substring] – `SUBSTR(x, y, z)` pobiera podzbiór znaków parametru `x` od litery `y` o długości `z`. Parametr `z` może być pominięty, wtedy funkcja zwraca podzbiór znaków od znaku `y` do końca. Pierwsza litera ma indeks `1`,
 - `TRIM` – usuwa spacje z obu stron przekazanego parametru,
 - `UPPER` – funkcja działa podobnie jak `LOWER`, tym razem zwracany łańcuch znaków składa się z wielkich liter.
 
@@ -350,7 +350,7 @@ ORDER BY RANDOM()
 ```
 
 ```sql
-  SELECT SUBSTR(invoicedate, 0, 8) AS invoice_month
+  SELECT SUBSTR(invoicedate, 1, 7) AS invoice_month
         ,SUM(total) AS monthly_total
     FROM invoice
    WHERE customerid < 30
