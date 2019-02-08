@@ -8,10 +8,10 @@ header:
     teaser: /assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg
     overlay_image: /assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg
     caption: "[&copy; Héctor J. Rivas](https://unsplash.com/photos/87hFrPk3V-s)"
-excerpt: Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz trzy słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego. Na końcu artykułu czeka na Ciebie zadanie, w którym przećwiczysz zdobytą wiedzę.
+excerpt: Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz dwa słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego. Na końcu artykułu czeka na Ciebie zadanie, w którym przećwiczysz zdobytą wiedzę.
 ---
 
-W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu "event-loop" i przetwarzania asynchronicznego, które niejako związane są z wątkami.
+W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu "event-loop" i przetwarzania asynchronicznego, które niejako związane są z wątkami. Pomijam także dokładny opis klas biblioteki standardowej z pakietu `java.util.concurrent` czy zagadnienie programowania reaktywnego. Każde z tych zagadnień to temat na co najmniej jeden osobny artykuł.
 {:.notice--info}
 
 ## Stwórz swój pierwszy wątek
@@ -63,7 +63,7 @@ Wyobraź sobie problem, którego rozwiązanie wymaga wykonania trzech zadań. Ud
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_1_cpu_3_tasks.svg" caption="Trzy zadania uruchomione sekwencyjne na jednym procesorze." %}
 
-Gwiazdka reprezentuje rdzeń procesora. Różnokolorowe prostokąciki reprezentują trzy zadania do wykonania. Długość prostokącików reprezentuje czas trwania poszczególnych zadań. Zadania uruchamiane są po kolei. Po tym jak skończy się zadanie zielone rozpoczyna się zadanie niebieskie. Można powiedzieć, że zadania uruchamiane są sekwencyjnie. 
+Gwiazdka reprezentuje rdzeń procesora. Różnokolorowe prostokąciki reprezentują trzy zadania do wykonania. Długość prostokącików reprezentuje czas trwania poszczególnych zadań. Zadania uruchamiane są po kolei. Po tym jak skończy się zadanie zielone rozpoczyna się zadanie niebieskie. Można powiedzieć, że zadania uruchamiane są sekwencyjnie.
 
 ### Program wielowątkowy
 
@@ -121,7 +121,7 @@ Proszę pamiętaj, że zmienne dostępne są dla wszystkich wątków. W związku
 
 ## Tworzenie nowego wątku
 
-Każdy wątek w języku Java związany jest z klasą [`Thread`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html). Wątek można utworzyć na dwa sposoby. 
+Każdy wątek w języku Java związany jest z klasą [`Thread`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html). Wątek można utworzyć na dwa sposoby.
 
 ### Dziedziczenie po klasie `Thread`
 
@@ -219,8 +219,8 @@ public static void main(String[] args) {
 
 Druga linijka metody `main` to utworzenie instancji wątku. W tym przypadku użyłem konstruktora przyjmującego obiekt implementujący interfejs `Runnable`. Ten obiekt utworzyłem przy pomocy [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}). W ciele tego wyrażenia znajduje się pętla wypisująca liczby.
 
-Kolejna linijka kodu, `thread.start();`, uruchamia wątek. Bez niej kod wewnątrz interfejsu `Runnable` nie zostałby wykonany. Po uruchomieniu wątku znajdziesz kolejną pętlę wypisującą liczby. Powyższy fragment kodu działa w dwóch wątkach: 
-- wątku o domyślnej nazwie `main`, który tworzony jest automatycznie. Wewnątrz niego uruchomiona jest metoda `main`, 
+Kolejna linijka kodu, `thread.start();`, uruchamia wątek. Bez niej kod wewnątrz interfejsu `Runnable` nie zostałby wykonany. Po uruchomieniu wątku znajdziesz kolejną pętlę wypisującą liczby. Powyższy fragment kodu działa w dwóch wątkach:
+- wątku o domyślnej nazwie `main`, który tworzony jest automatycznie. Wewnątrz niego uruchomiona jest metoda `main`,
 - wątku o domyślnej nazwie `Thread-0`[^nazwa], który utworzyłem i uruchomiłem samodzielnie.
 
 [^nazwa]: Tworząc nowe wątki masz możliwość nadawania im nazw, jeśli tego nie zrobisz dostają domyślną w formacie `Thread-<kolejny numer>`. Masz także możliwość pobrania nazwy aktualnie uruchomionego wątku używając `Thread.currentThread().getName()`.
@@ -395,23 +395,19 @@ class Counter {
 
 #### Nie synchronizuj wszystkiego
 
-Synchronizacja wątków pozwala na uniknięcie wielu problemów związanych na przykład z wyścigami. Niestety ma też swoje słabe strony. Pamiętaj, że cały kod, który jest w bloku `synchronized` w danym momencie może być uruchomiony przez maksymalnie jeden wątek. W związku z tym ten fragment kodu traci możliwość równoczesnego uruchomienia na kilku procesorach – spowalnia wykonanie programu wielowątkowego. 
+Synchronizacja wątków pozwala na uniknięcie wielu problemów związanych na przykład z wyścigami. Niestety ma też swoje słabe strony. Pamiętaj, że cały kod, który jest w bloku `synchronized` w danym momencie może być uruchomiony przez maksymalnie jeden wątek. W związku z tym ten fragment kodu traci możliwość równoczesnego uruchomienia na kilku procesorach – spowalnia wykonanie programu wielowątkowego.
 
 Taki fragment kodu, który w danym momencie może być użyty przez maksymalnie jeden wątek nazywany jest sekcją krytyczną. Dobrą zasadą jest ograniczanie sekcji krytycznej – im mniej w niej kodu tym większy zysk z użycia wielu wątków.
 
-Synchronizacja wątków przy pomocy `synchronized` to nie wszystko. Wszystkie obiekty w języku Java, poza monitorami, zawierają tak specjalny zbiór wątków, na które czekają (ang. _wait set_). 
+Synchronizacja wątków przy pomocy `synchronized` to nie wszystko. Wszystkie obiekty w języku Java, poza monitorami, zawierają tak specjalny zbiór wątków, na które czekają (ang. _wait set_).
 
 ## Wątek w stanie `WAITING`
-
 
 ### `Object.wait()`
 
 ## Do czego służą wątki
 
-- synchronized
-- synchronize
 - deadlock, lifelock
-- threadpool
 - volatile
 
 ## Wątki są trudne
@@ -427,11 +423,73 @@ Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj zna
 - [Tutorial na stronie Oracle'a dotyczący wątków](https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html),
 - [Rozdział w Java Language Specification dotyczący wątków](https://docs.oracle.com/javase/specs/jls/se11/html/jls-17.html),
 - [Sekcja w Java Language Specification dotycząca metod synchronizowanych](https://docs.oracle.com/javase/specs/jls/se11/html/jls-8.html#jls-8.4.3.6),
-- [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]( https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.19).
+- [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]( https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.19),
+- [Kod źródłowy przykładów użytych w artykule](TODO)
 
-## Ćwiczenie
+## Zadania
+
+Przygotowałem dla Ciebie zadania, które pomogą Ci przećwiczyć wiedzę przedstawioną w artykule w praktyce. Pamiętaj, że zawsze możesz rzucić okiem na [przykładowe rozwiązania](TODO). Jak zwykle zachęcam Cię do samodzielnej próby rozwiązania tych zadań, w ten sposób nauczysz się najwięcej.
+
+### Przedstaw się
+
+Napisz metodę, która przyjmuje liczbę całkowitą. Wywołanie metody powinno uruchomić wątek 0., wewnątrz tego wątku powinien zostać uruchomiony wątek 1. Wątek 1. powinien uruchomić wątek 2. itd. do osiągnięcia zadanej liczby. Każdy z wątków powinen wypisać na konsolę swoją domyślną nazwę.
+ 
+ Wątki powinny wypisać swoje nazwy w kolejności odwrtotnej do ich tworzenia. Tzn. wątek uruchomiony jako pierwszy powinien wypisać swoją nazwę jako ostatni. Na przykład wywołanie metody:
+
+```java
+startNestedThreads(3);
+```
+
+Powinno skończyć się uruchomieniem 4 wątków i wypisaniem tekstu na konsole:
+
+```
+Thread-3
+Thread-2
+Thread-1
+Thread-0
+```
+
+### Wielowątkowe `Hello world!`
+
+Napisz program, który uruchomi trzy wątki. Pierwszy z nich będzie wypisywał w pętli ciąg znaków `Hello `, drugi `world`, trzeci `!\n` (wykrzyknik ze znakiem nowej linii). Na przykład:
+ 
+ ```java
+Thread t1 = new Thread(() -> {
+    for(int i = 0; i < 4; i++) {
+        System.out.print("Hello ");
+    }
+});
+t1.start();
+
+Thread t2 = new Thread(() -> {
+    for(int i = 0; i < 4; i++) {
+        System.out.print("world");
+    }
+});
+t2.start();
+
+Thread t3 = new Thread(() -> {
+    for(int i = 0; i < 4; i++) {
+        System.out.println("!");
+    }
+});
+t3.start();
+```
+
+Uzupełniając powyższy kod o podstawowe mechanizmy synchronizacji wątków spraw, że program po zakończeniu wypisze linijki tekstu zawierające `Hello world!`:
+
+```
+Hello world!
+Hello world!
+Hello world!
+Hello world!
+```
 
 ## Podsumowanie
 
-Bałem się tego artykułu. Od samego początku pracy nad kursem Javy przesuwałem go w czasie. Teraz, po jego ukończeniu wiem dlaczego ;).
+Po lekturze tego artykułu wiesz czym są wątki. Wiesz jak je tworzyć i uruchamiać. Znasz podstawowe mechanizmy ich synchronizacji. Udało ci się też poznać kilka definicji związanych z programowaniem współbieżnym. Po wykonaniu zadań wiesz, że potrafisz wykorzystać tę wiedzę w praktyce – gratulacje!
+
+Bałem się tego artykułu. Od samego początku pracy nad kursem Javy przesuwałem go w czasie. Teraz, po jego ukończeniu wiem dlaczego ;). Ten artykuł kosztował mnie chyba najwięcej pracy do tej pory. Mam nadzieję, że efekt przypadł Ci do gustu. Proszę podziel się nim z osobami, którym może pomóc. Dzięki temu uda mi się dotrzeć do nowych Czytelników a na tym właśnie mi zależy – z góry wielkie dzięki!
+
+Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newsletter'a i polub Samouczka na Facebook'u. To tyle na dzisiaj, trzymaj się i do następnego razu!
 
