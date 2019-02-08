@@ -152,13 +152,12 @@ public class MapMatrix extends HashMap<String, Integer> implements Matrix {
 
     @Override
     public int get(int x, int y) {
-        if (x < 0 || x > size || y < 0 || y > size) {
-            throw new IllegalArgumentException(key(x, y));
-        }
+        assertBoundaries(x, y);
         return this.getOrDefault(key(x, y), 0);
     }
     
     public void set(int x, int y, int value) {
+        assertBoundaries(x, y);
         put(key(x, y), value);
     }
 
@@ -169,6 +168,12 @@ public class MapMatrix extends HashMap<String, Integer> implements Matrix {
 
     private String key(int x, int y) {
         return x + "," + y;
+    }
+
+    private void assertBoundaries(int x, int y) {
+        if (x < 0 || x > size || y < 0 || y > size) {
+            throw new IllegalArgumentException(key(x, y));
+        }
     }
 }
 ```
