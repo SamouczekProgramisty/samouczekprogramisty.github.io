@@ -403,14 +403,213 @@ Synchronizacja wątków przy pomocy `synchronized` to nie wszystko. Wszystkie ob
 
 ## Wątek w stanie `WAITING`
 
-### `Object.wait()`
+Jednym ze sposobów aby wątek znalazł się w tym stanie jest wywołanie metody [`Thread.join()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join()). Wiesz już, że w takim przypadku aktualny wątek czeka na zakończenie swojego kolegi.
+
+Wątek znajdzie się w stanie `WAITING` także jeśli w trakcie jego działania zostanie wywołana metoda [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait())[^pomijam].
+
+[^pomijam]: Pomijam tu trzeci możliwy przypadek – wywołanie metody [`LockSupport.park`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#park()).
+
+Na Samouczku Programisty takie lakoniczne wytłuaczenie nie przejdzie ;). Zapraszam Cię do przykładu, opisującego drugą sytuację.
+
+### Komunikacja pomiędzy wątkami
+
+Wyobraź sobie sytuację, w której masz dwa wątki. Jeden z nich produkuje pewne dane, drugi z nich je konsumuje. Tego typu mechanizm jest dość często spotykany. Naiwna implementacja tego typu zachowania może wyglądać tak:
+
+Ten przykład pokazuje złe praktyki, zanim zaczniesz pisać wielowątkowy kod w ten sposób przeczytaj wyjaśnienie poniżej wraz z poprawną wersją implementacji!
+{:.notice--warning}
+
+```java
+public class NaiveConsumerProducer {
+    private static final Random generator = new Random();
+    private static final Queue<String> queue = new LinkedList<>();
+
+    public static void main(String[] args) {
+        int itemCount = 5;
+        Thread producer = new Thread(() -> {
+            for (int i = 0; i < itemCount; i++) {
+                try {
+                    Thread.sleep(Duration.ofSeconds(generator.nextInt(5)).toMillis());
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                synchronized (queue) {
+                    queue.add("Item no. " + i);
+                }
+            }
+        });
+        Thread consumer = new Thread(() -> {
+            int itemsLeft = itemCount;
+            while (itemsLeft > 0) {
+                String item;
+                synchronized (queue) {
+                    if (queue.isEmpty()) {
+                        continue;
+                    }
+                    item = queue.poll();
+                }
+                itemsLeft--;
+                System.out.println("Consumer got item: " + item);
+            }
+        });
+
+        consumer.start();
+        producer.start();
+    }
+}
+```
+
+W przykładzie tym użyłem [listy wiązanej]({% post_url 2018-01-01-struktury-danych-lista-wiazana %}) jako kolejki. Obiekt `queue` będzie służył jako narzędzie do wymiany danych pomiędzy wątkami.
+
+#### Producent
+
+Zacznę od wątku produkującego dane:
+
+```java
+Thread producer = new Thread(() -> {
+    for (int i = 0; i < itemCount; i++) {
+        try {
+            Thread.sleep(Duration.ofSeconds(generator.nextInt(5)).toMillis());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        synchronized (queue) {
+            queue.add("Item no. " + i);
+        }
+    }
+});
+```
+
+W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)). Służy ona do uśpienia wątku[^timed_wait]. Przekazany parametr mówi o minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy [`Random`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html), żeby to zasymulować.
+
+[^timed_wait]: Metoda ta sprawia, że wątek jest w stanie `TIMED_WAITING` o czym przeczytasz za chwilę.
+
+Narazie pominę obsługę wyjątku [`InterruptedException`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html). Nie jest ona istotna w tym przykładzie, omówię ją dokładnie w jednym z kolejnych akapitów.
+
+Następnie w bloku `synchronized` dodaje nowy element. Zwróć uwagę, że do synchronizacji używam tu obiektu `queue`. Dzięki temu mam pewność, że nie nastąpi wyścig podczas dodawania czy usuwania elementów z kolejki. 
+
+Wątek kończy swoje działanie po wyprodukowaniu wszystkich elementów.
+
+#### Konsument
+
+Wątek konsumujący wyprodukowane elementy wygląda tak:
+
+Ten przykład pokazuje złe praktyki, zanim zaczniesz pisać wielowątkowy kod w ten sposób przeczytaj wyjaśnienie poniżej wraz z poprawną wersją implementacji!
+{:.notice--warning}
+
+```java
+Thread consumer = new Thread(() -> {
+    int itemsLeft = itemCount;
+    while (itemsLeft > 0) {
+        String item;
+        synchronized (queue) {
+            if (queue.isEmpty()) {
+                continue;
+            }
+            item = queue.poll();
+        }
+        itemsLeft--;
+        System.out.println("Consumer got item: " + item);
+    }
+});
+```
+
+Wątek konsumujący dane także używa [pętli]({% post_url 2015-11-18-petle-i-instrukcje-warunkowe-w-jezyku-java %}). Tym razem jest to pętla `while`, która wykonuje się dopóki oczekiwana liczba elementów nie zostanie pobrana z kolejki. Także tutaj wątek używa bloku `synchronized`, w który sprawdza czy elementy są w kolejce i do ewentualnego ich pobrania.
+
+Program "działa". Ma jednak pewien subtelny błąd. Zwróć uwagę na wątek konsumenta. Wątek ten działa bez przerwy. Bez przerwy zajmuje czas procesora[^wywlaszczenia]. Co więcej, przez większość swojego czasu kręci się wewnątrz pętli sprawdzając czy kolejka jest pusta. Jako drobne ćwiczenie dla Ciebie zostawiam dodanie licznika iteracji – ile razy pętla wykonała się w Twoim przypadku?
+
+[^wywlaszczenia]: Pomijam wywłaszczenia, które znasz z początku artykułu.
+
+Jak można ten problem rozwiązać? Jednym ze sposobów może być usypianie wątku konsumetna używając metody [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)), którą już znasz. To także byłoby marnowanie zasobów – skąd możesz wiedzieć jak długo zajmie produkowanie kolejnego elementu?
+
+Z pomocą przychodzi mechanizm powiadomień.
+
+### Jak działa mechanizm powiadomień
+
+Wiesz już, że każdy obiekt powiązany jest z monitorem używamy w trakcie synchronizacji. Podobnie wygląda sprawa w przypadku mechanizmu powiadomień. Każdy obiekt w języku Java posiada "zbiór   powiadamianych wątków" (ang. _waiting set_).
+
+Wewnątrz tego zbioru znajdują się wątki, które czekają na powiadomienie dotyczące danego obiektu. Jedynym sposobem, żeby modyfikować zawartość tego zbioru jest używanie metod dostępnych w klasie `Object`:
+
+- [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait()) – dodanie aktualnego wątku do zbioru powiadmianych wątków,
+- [`Object.notify()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()) – powiadomienie i wybudzenie jednego z oczekujących wątków,
+- [`Object.notifyAll()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()) – powiadomienie i wybudzenie wszystkich oczekujących wątków.
+
+#### Poprawny producent
+
+Poprawna wersja producenta używa metody [`notify`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()) lub [`notifyAll`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()) informując w ten sposób konsumentów o nowym elemencie:
+
+```java
+Thread producer = new Thread(() -> {
+    for (int i = 0; i < itemCount; i++) {
+        try {
+            Thread.sleep(Duration.ofSeconds(generator.nextInt(5)).toMillis());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        synchronized (queue) {
+            queue.add("Item no. " + i);
+            queue.notify();
+        }
+    }
+});
+```
+
+#### Poprawny konsument
+
+Poprawna wersja konsumenta oczekuje pasywnie na informację od producenta o nowym elemencie:
+
+```java
+Thread consumer = new Thread(() -> {
+    int itemsLeft = itemCount;
+    while (itemsLeft > 0) {
+        String item;
+        synchronized (queue) {
+            while (queue.isEmpty()) {
+                try {
+                    queue.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            item = queue.poll();
+        }
+        itemsLeft--;
+        System.out.println("Consumer got item: " + item);
+    }
+});
+``` 
+
+Należy Ci się drobne wyjaśnienie nowego fragmentu:
+
+```java
+while (queue.isEmpty()) {
+    try {
+        queue.wait();
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+    }
+}
+```
+
+Specyfikacja języka Java pozwala na fałszywe wybudzenia (ang. _spurious wake-ups_). Są to wybudzenia, które mogą wystąpić nawet gdy nie było odpowiadającego im powiadomienia – wywołania metody `notify`. Dlatego właśnie sprawdzenie warunku (`queue.isEmpty()`) musi być wykonane w pętli.
+
+## Wątek w stanie `TIMED_WAITING`
+
+Tym razem będzie krótko ;). Stan `TIMED_WAITING` jest podobny do stanu `WAITING`. W tym przypadku wątek oczekuje przez pewien czas, nie krótszy niż podany jako argument do jednej z metod:
+
+- [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long)) – dodanie aktualnego wątku do zbioru powiadmianych wątków i wybudzenie go po określonym czasie,
+- [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)) – wątek wywułujący tę metodę usypia na określony czas,
+- [`Thread.join()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join(long)) – oczekiwanie na zakończenie wątku przez określony czas.
+
+## Przerywanie wątku
+
+W jednym z poprzednich przykładów wspomniałem o wyjątku [`InterruptedException`](TODO). Wyjątek ten sygnalizuje sytuację, w której wątek został przerwany. Wątek zostaje przerwany jeśli 
 
 ## Do czego służą wątki
 
 - deadlock, lifelock
 - volatile
 
-## Wątki są trudne
+## Wątki są skomplikowane
 
 Tworzenie programów wielowątkowych jest trudne. Unikanie zakleszczeń, odpowiednia synchronizacja, unikanie wyścigów nie jest trywialne. Nie przejmuj się, jeśli nie zrozumiesz tego zagadnienia od razu. Pisanie wydajnego, bezpiecznego kodu wielowątkowego to coś, z czym nawet bardzo doświadczeni programiści mogą mieć sporo problemów.
 
@@ -420,11 +619,15 @@ Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj zna
 
 ## Dodatkowe materiały do nauki
 
+Przygotowałem dla Ciebie zestaw linków, które mogą pomóc Ci spojrzeć na temat wątków z innej strony:
+
 - [Tutorial na stronie Oracle'a dotyczący wątków](https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html),
 - [Rozdział w Java Language Specification dotyczący wątków](https://docs.oracle.com/javase/specs/jls/se11/html/jls-17.html),
 - [Sekcja w Java Language Specification dotycząca metod synchronizowanych](https://docs.oracle.com/javase/specs/jls/se11/html/jls-8.html#jls-8.4.3.6),
 - [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]( https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.19),
 - [Kod źródłowy przykładów użytych w artykule](TODO)
+
+Jeśli znasz źródło, które Twoim zdaniem warte jest uwagi daj znać – dodam je do listy.
 
 ## Zadania
 
@@ -433,14 +636,31 @@ Przygotowałem dla Ciebie zadania, które pomogą Ci przećwiczyć wiedzę przed
 ### Przedstaw się
 
 Napisz metodę, która przyjmuje liczbę całkowitą. Wywołanie metody powinno uruchomić wątek 0., wewnątrz tego wątku powinien zostać uruchomiony wątek 1. Wątek 1. powinien uruchomić wątek 2. itd. do osiągnięcia zadanej liczby. Każdy z wątków powinen wypisać na konsolę swoją domyślną nazwę.
- 
- Wątki powinny wypisać swoje nazwy w kolejności odwrtotnej do ich tworzenia. Tzn. wątek uruchomiony jako pierwszy powinien wypisać swoją nazwę jako ostatni. Na przykład wywołanie metody:
+
+Na przykład wywołanie metody:
 
 ```java
 startNestedThreads(3);
 ```
 
-Powinno skończyć się uruchomieniem 4 wątków i wypisaniem tekstu na konsole:
+Powinno skończyć się uruchomieniem 4 wątków i wypisaniem tekstu na konsolę:
+
+```
+Thread-0
+Thread-1
+Thread-2
+Thread-3
+```
+
+### Przedstaw się II
+
+Zmodyfikuj program z poprzedniego punktu w taki sposób, aby wątki wypisywały swoją nazwe w kolejności odwrtotnej do ich tworzenia. Tzn. wątek uruchomiony jako pierwszy powinien wypisać swoją nazwę jako ostatni. Na przykład wywołanie metody:
+
+```java
+startNestedThreads(3);
+```
+
+Powinno skończyć się uruchomieniem 4 wątków i wypisaniem tekstu na konsolę:
 
 ```
 Thread-3
@@ -485,6 +705,8 @@ Hello world!
 Hello world!
 ```
 
+Czy Twój program nadal będzie dział poprawnie jeśli będzie wypisywał "Hello world!" 10'000 razy?
+
 ## Podsumowanie
 
 Po lekturze tego artykułu wiesz czym są wątki. Wiesz jak je tworzyć i uruchamiać. Znasz podstawowe mechanizmy ich synchronizacji. Udało ci się też poznać kilka definicji związanych z programowaniem współbieżnym. Po wykonaniu zadań wiesz, że potrafisz wykorzystać tę wiedzę w praktyce – gratulacje!
@@ -492,4 +714,3 @@ Po lekturze tego artykułu wiesz czym są wątki. Wiesz jak je tworzyć i urucha
 Bałem się tego artykułu. Od samego początku pracy nad kursem Javy przesuwałem go w czasie. Teraz, po jego ukończeniu wiem dlaczego ;). Ten artykuł kosztował mnie chyba najwięcej pracy do tej pory. Mam nadzieję, że efekt przypadł Ci do gustu. Proszę podziel się nim z osobami, którym może pomóc. Dzięki temu uda mi się dotrzeć do nowych Czytelników a na tym właśnie mi zależy – z góry wielkie dzięki!
 
 Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newsletter'a i polub Samouczka na Facebook'u. To tyle na dzisiaj, trzymaj się i do następnego razu!
-
