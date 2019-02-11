@@ -291,7 +291,7 @@ Skoro są trzy wątki, każdy z nich zwiększa wartość zmiennej o 1 i robi to 
 
 ### Wyścig
 
-To co udalo Ci się zaobserowować wyżej to tak zwany wyścig (ang. _race condition_). Taka sytuacja zachodzi jeśli kilka wątków jednocześnie modyfikuje zmienną, która do takiej równoległej zmiany nie jest przystosowana. Tylko dlaczego wartość atrybutu `value` miała tak różne wartości? Działo się tak dlatego, że operacja `value += 1` nie jest operacją atomową.
+To co udało Ci się zaobserwować wyżej to tak zwany wyścig (ang. _race condition_). Taka sytuacja zachodzi jeśli kilka wątków jednocześnie modyfikuje zmienną, która do takiej równoległej zmiany nie jest przystosowana. Tylko dlaczego wartość atrybutu `value` miała tak różne wartości? Działo się tak dlatego, że operacja `value += 1` nie jest operacją atomową.
 
 Tutaj należy Ci się kolejne wyjaśnienie. Operacja atomowa to taka operacja, która jest niepodzielna. Operacja atomowa realizowana jest przy pomocy jednej instrukcji w bytecode (w skompilowanej klasie). Operacja `value += 1` nie jest operacją atomową, jest ona równoważna z `value = value + 1`. Wykonanie tej operacji składa się z kilku kroków:
 
@@ -360,7 +360,7 @@ Masz pewność, że wszystko co znajduje się wewnątrz bloku w każdym momencie
 
 #### Metoda `synchronized`
 
-Słowo kluczowe `synchronized` może być także użyte w innym kontekście. Może także oznaczyć metody, które sa synchronizowane. Na przykład:
+Słowo kluczowe `synchronized` może być także użyte w innym kontekście. Może także oznaczyć metody, które są synchronizowane. Na przykład:
 
 ```java
 public synchronized void increment() {
@@ -368,7 +368,7 @@ public synchronized void increment() {
 }
 ```
 
-W praktyce obie wersje metody `increment` są równoważne. Oznaczenie metody słowem kluczowym `synchronized` równoznaczne jest w umieszczeniem całego ciała metody w bloku `sychronized`. To jaki obiekt użyty jest w roli monitora zależy od rodzaju metody:
+W praktyce obie wersje metody `increment` są równoważne. Oznaczenie metody słowem kluczowym `synchronized` równoznaczne jest w umieszczeniem całego ciała metody w bloku `synchronized`. To jaki obiekt użyty jest w roli monitora zależy od rodzaju metody:
 
 - standardowa metoda – jako monitor użyta jest instancja klasy `this`,
 - metoda statyczna – jako monitor użyta jest klasa.
@@ -409,7 +409,7 @@ Wątek znajdzie się w stanie `WAITING` także jeśli w trakcie jego działania 
 
 [^pomijam]: Pomijam tu trzeci możliwy przypadek – wywołanie metody [`LockSupport.park`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#park()).
 
-Na Samouczku Programisty takie lakoniczne wytłuaczenie nie przejdzie ;). Zapraszam Cię do przykładu, opisującego drugą sytuację.
+Na Samouczku Programisty takie lakoniczne wytłumaczenie nie przejdzie ;). Zapraszam Cię do przykładu, opisującego drugą sytuację.
 
 ### Komunikacja pomiędzy wątkami
 
@@ -479,11 +479,11 @@ Thread producer = new Thread(() -> {
 });
 ```
 
-W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)). Służy ona do uśpienia wątku[^timed_wait]. Przekazany parametr mówi o minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy [`Random`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html), żeby to zasymulować.
+W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)). Służy ona do uśpienia wątku[^timed_wait]. Przekazany parametr mówi o minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy [`Random`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html), żeby to symulować.
 
 [^timed_wait]: Metoda ta sprawia, że wątek jest w stanie `TIMED_WAITING` o czym przeczytasz za chwilę.
 
-Narazie pominę obsługę wyjątku [`InterruptedException`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html). Nie jest ona istotna w tym przykładzie, omówię ją dokładnie w jednym z kolejnych akapitów.
+Na razie pominę obsługę wyjątku [`InterruptedException`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html). Nie jest ona istotna w tym przykładzie, omówię ją dokładnie w jednym z kolejnych akapitów.
 
 Następnie w bloku `synchronized` dodaje nowy element. Zwróć uwagę, że do synchronizacji używam tu obiektu `queue`. Dzięki temu mam pewność, że nie nastąpi wyścig podczas dodawania czy usuwania elementów z kolejki. 
 
@@ -519,7 +519,7 @@ Program "działa". Ma jednak pewien subtelny błąd. Zwróć uwagę na wątek ko
 
 [^wywlaszczenia]: Pomijam wywłaszczenia, które znasz z początku artykułu.
 
-Jak można ten problem rozwiązać? Jednym ze sposobów może być usypianie wątku konsumetna używając metody [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)), którą już znasz. To także byłoby marnowanie zasobów – skąd możesz wiedzieć jak długo zajmie produkowanie kolejnego elementu?
+Jak można ten problem rozwiązać? Jednym ze sposobów może być usypianie wątku konsumenta używając metody [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)), którą już znasz. To także byłoby marnowanie zasobów – skąd możesz wiedzieć jak długo zajmie produkowanie kolejnego elementu?
 
 Z pomocą przychodzi mechanizm powiadomień.
 
@@ -529,7 +529,7 @@ Wiesz już, że każdy obiekt powiązany jest z monitorem używamy w trakcie syn
 
 Wewnątrz tego zbioru znajdują się wątki, które czekają na powiadomienie dotyczące danego obiektu. Jedynym sposobem, żeby modyfikować zawartość tego zbioru jest używanie metod dostępnych w klasie `Object`:
 
-- [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait()) – dodanie aktualnego wątku do zbioru powiadmianych wątków,
+- [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait()) – dodanie aktualnego wątku do zbioru powiadamianych wątków,
 - [`Object.notify()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()) – powiadomienie i wybudzenie jednego z oczekujących wątków,
 - [`Object.notifyAll()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()) – powiadomienie i wybudzenie wszystkich oczekujących wątków.
 
@@ -596,8 +596,8 @@ Specyfikacja języka Java pozwala na fałszywe wybudzenia (ang. _spurious wake-u
 
 Tym razem będzie krótko ;). Stan `TIMED_WAITING` jest podobny do stanu `WAITING`. W tym przypadku wątek oczekuje przez pewien czas, nie krótszy niż podany jako argument do jednej z metod:
 
-- [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long)) – dodanie aktualnego wątku do zbioru powiadmianych wątków i wybudzenie go po określonym czasie,
-- [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)) – wątek wywułujący tę metodę usypia na określony czas,
+- [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long)) – dodanie aktualnego wątku do zbioru powiadamianych wątków i wybudzenie go po określonym czasie,
+- [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)) – wątek wywołujący tę metodę usypia na określony czas,
 - [`Thread.join()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join(long)) – oczekiwanie na zakończenie wątku przez określony czas.
 
 ## Przerywanie wątku
@@ -635,7 +635,7 @@ Przygotowałem dla Ciebie zadania, które pomogą Ci przećwiczyć wiedzę przed
 
 ### Przedstaw się
 
-Napisz metodę, która przyjmuje liczbę całkowitą. Wywołanie metody powinno uruchomić wątek 0., wewnątrz tego wątku powinien zostać uruchomiony wątek 1. Wątek 1. powinien uruchomić wątek 2. itd. do osiągnięcia zadanej liczby. Każdy z wątków powinen wypisać na konsolę swoją domyślną nazwę.
+Napisz metodę, która przyjmuje liczbę całkowitą. Wywołanie metody powinno uruchomić wątek 0., wewnątrz tego wątku powinien zostać uruchomiony wątek 1. Wątek 1. powinien uruchomić wątek 2. itd. do osiągnięcia zadanej liczby. Każdy z wątków powinien wypisać na konsolę swoją domyślną nazwę.
 
 Na przykład wywołanie metody:
 
@@ -654,7 +654,7 @@ Thread-3
 
 ### Przedstaw się II
 
-Zmodyfikuj program z poprzedniego punktu w taki sposób, aby wątki wypisywały swoją nazwe w kolejności odwrtotnej do ich tworzenia. Tzn. wątek uruchomiony jako pierwszy powinien wypisać swoją nazwę jako ostatni. Na przykład wywołanie metody:
+Zmodyfikuj program z poprzedniego punktu w taki sposób, aby wątki wypisywały swoją nazwę w kolejności odwrotnej do ich tworzenia. Tzn. wątek uruchomiony jako pierwszy powinien wypisać swoją nazwę jako ostatni. Na przykład wywołanie metody:
 
 ```java
 startNestedThreads(3);
