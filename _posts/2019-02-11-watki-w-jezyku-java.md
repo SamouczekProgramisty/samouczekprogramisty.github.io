@@ -1,6 +1,6 @@
 ---
 title: Wątki w języku Java
-last_modified_at: 2019-02-08 23:18:31 +0100
+last_modified_at: 2019-02-11 23:07:42 2019 +0100
 categories:
 - Kurs programowania Java
 permalink: /watki-w-jezyku-java/
@@ -8,10 +8,10 @@ header:
     teaser: /assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg
     overlay_image: /assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg
     caption: "[&copy; Héctor J. Rivas](https://unsplash.com/photos/87hFrPk3V-s)"
-excerpt: Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz dwa słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego. Na końcu artykułu czeka na Ciebie zadanie, w którym przećwiczysz zdobytą wiedzę.
+excerpt: Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz dwa słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego. Na końcu artykułu czekają na Ciebie zadania, w których przećwiczysz zdobytą wiedzę.
 ---
 
-W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu "event-loop" i przetwarzania asynchronicznego, które niejako związane są z wątkami. Pomijam także dokładny opis klas biblioteki standardowej z pakietu `java.util.concurrent` czy zagadnienie programowania reaktywnego. Każde z tych zagadnień to temat na co najmniej jeden osobny artykuł.
+W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu "event-loop" i przetwarzania asynchronicznego, które niejako związane są z wątkami. Pomijam także dokładny opis klas biblioteki standardowej z pakietu `java.util.concurrent` czy temat programowania reaktywnego. Każde z tych zagadnień to temat na co najmniej jeden osobny artykuł.
 {:.notice--info}
 
 ## Stwórz swój pierwszy wątek
@@ -73,7 +73,7 @@ Przed procesorami wielordzeniowymi wątki były "oszustwem". Procesor był jeden
 
 Mam na myśli _time slicing_. Mechanizm dzięki, któremu jeden rdzeń procesora może uruchamiać wiele wątków. Nie dzieje się to jednak równolegle.
 
-Diagram poniżej prezentuje dokładnie te same zadania. Tym razem każde z nich uruchamiane jest w osobnym wątku, mamy zatem trzy wątki. Mechanizm nadzorujący ich pracę zapewnia, że co jakiś czas aktualny wątek zostanie zatrzymany. Mówi się wtedy, że wątek został wywłaszczony. Kolejny wątek zostaje wybudzony, dostaje czas procesora i jest przez niego wykonywany. Suma długości prostokącików w danym kolorze jest dokładnie taka sama jak w poprzednim przykładzie:
+Diagram poniżej prezentuje dokładnie te same zadania. Tym razem każde z nich uruchamiane jest w osobnym wątku, mamy zatem trzy wątki. Mechanizm nadzorujący ich pracę zapewnia, że co jakiś czas aktualny wątek zostanie zatrzymany. Mówi się wtedy, że wątek został wywłaszczony. Kolejny wątek zostaje wybudzony, dostaje czas procesora i jest przez niego wykonywany. Suma długości prostokącików w danym kolorze jest dokładnie taka sama jak w&nbsp;poprzednim przykładzie:
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_1_cpu_3_tasks_threads.svg" caption="Trzy zadania uruchomione w wątkach na jednym procesorze." %}
 
@@ -81,7 +81,7 @@ Takie podejście ma swoje zalety, jednak nie prowadzi do krótszego czasu dział
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_1_cpu_3_tasks_threads_comparison.svg" caption="Porównanie czasu trwania dwóch podejść na jednym procesorze." %}
 
-Po co zatem stosować takie podejście? Najważniejszym argumentem jest to, że w tym przypadku każde z zadań jest delikatnie popychane do przodu. Wyobraź sobie inną sytuację. Załóżmy, że dwa zadania zajmują wyraźnie mniej czasu niż pierwsze z nich:
+Po co zatem stosować takie podejście? Najważniejszym argumentem jest to, że w tym przypadku każde z zadań jest delikatnie popychane do przodu. Wyobraź sobie inną sytuację. Załóżmy, że dwa zadania zajmują wyraźnie mniej czasu niż trzecie:
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_1_cpu_3_uneven_tasks.svg" %}
 
@@ -89,13 +89,13 @@ W takim przypadku zadania niebieskie i białe muszą czekać na zakończenie zad
 
 {% include figure class="c_img_with_auto" image_path="/assets/images/2019/02/03_1_cpu_3_uneven_tasks_threads.svg" %}
 
-"Szatkowanie czasu" daje wrażenie równoległej pracy wielu wątków, jednak w rzeczywistości w danym momencie tylko jedno zadanie jest uruchomione. Inaczej wygląda sytuacja w przypadku procesorów mających wiele rdzeni.
+Takie podejście pozwala na uniknięcie tak zwanego zagłodzenia (ang. _starving_) wątków. W&nbsp;powyższym przykładzie bez szatkowania czasu wątek z&nbsp;zadaniem zielonym zagłodziłby wątki z zadaniami niebieskim i białym.
 
-Takie podejście pozwala na uniknięcie tak zwanego zagłodzenia (ang. _starving_) wątków. W powyższym przykładzie bez szatkowania czasu wątek z zadaniem zielonym zagłodziłby wątki z zadaniami niebieskim i białym.
+"Szatkowanie czasu" daje wrażenie równoległej pracy wielu wątków, jednak w rzeczywistości w&nbsp;danym momencie tylko jedno zadanie jest uruchomione. Inaczej wygląda sytuacja w przypadku procesorów mających wiele rdzeni.
 
 #### Procesory wielordzeniowe
 
-Procesory wielordzeniowe dają rzeczywistą możliwość uruchamiania wielu zadań równolegle. W takim przypadku, jeśli każde z zadań uruchomione zostanie w osobnym wątku wówczas sytuacja wygląda jak na diagramie poniżej[^cztery]:
+Procesory wielordzeniowe dają rzeczywistą możliwość uruchamiania wielu zadań równolegle. W&nbsp;takim przypadku, jeśli każde z zadań uruchomione zostanie w osobnym wątku wówczas sytuacja wygląda jak na diagramie poniżej[^cztery]:
 
 [^cztery]: Możesz założyć, że program został uruchomiony na procesorze czterordzeniowym. Czwarty rdzeń nie był uwzględniony na diagramie.
 
@@ -144,7 +144,7 @@ W tym przypadku należy nadpisać metodę [`run`](https://docs.oracle.com/en/jav
 
 ### Implementacja interfejsu `Runnable`
 
-Drugim sposobem jest utworzenie wątku, używając konstruktora, który przyjmuje obiekt implementujący interfejs [`Runnable`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html):
+Drugim sposobem jest utworzenie wątku przy pomocy konstruktora, który przyjmuje obiekt implementujący interfejs [`Runnable`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html):
 
 ```java
 public static class MyRunnable implements Runnable {
@@ -300,9 +300,11 @@ To co udało Ci się zaobserwować wyżej to tak zwany wyścig (ang. _race condi
 
 Tutaj należy Ci się kolejne wyjaśnienie. Operacja atomowa to taka operacja, która jest niepodzielna. Operacja atomowa realizowana jest przy pomocy jednej instrukcji w bytecode (w skompilowanej klasie). Operacja `value += 1` nie jest operacją atomową, jest ona równoważna z `value = value + 1`. Wykonanie tej operacji składa się z kilku kroków:
 
-1. pobrania aktualnej wartości `value` do "zmiennej tymczasowej" (nie widocznej w kodzie źródłowym),
-2. dodania `1` do "zmiennej tymczasowej",
+1. pobrania aktualnej wartości `value` do zmiennej tymczasowej (niewidocznej w kodzie źródłowym)[^stos],
+2. dodania `1` do zmiennej tymczasowej,
 3. przypisanie powiększonej wartości do `value`.
+
+[^stos]: W rzeczywistości zmienną tymczasową jest stos, na którym ląduje wartość atrybutu.
 
 W bytecode ten fragment wygląda tak:
 
@@ -359,7 +361,7 @@ class Counter {
 }
 ```
 
-Spróbuj jeszcze raz uruchomić `RaceCondition` po wprowadzeniu takiej modyfikacji. Jak z wynikami? Tym razem na pewno za każdym razem na konsoli pokaże się liczba 300'000. Dzieje się tak ponieważ ciało metody `increment` objęte jest blokiem `synchronized`. W tym przypadku obiektem, który został użyty jako monitor jest `this` – instancja `Counter`. W ogólności blok `synchronized` ma następujący format:
+Spróbuj jeszcze raz uruchomić `RaceCondition` po wprowadzeniu takiej modyfikacji. Jak z wynikami? Tym razem na pewno za każdym razem na konsoli pokaże się liczba 300'000. Dzieje się tak ponieważ ciało metody `increment` objęte jest blokiem `synchronized`. W tym przypadku obiektem, który został użyty jako monitor jest `this` – instancja `Counter`. Blok `synchronized` ma następujący format:
 
 ```java
 synchronized (obiekt) {
@@ -381,7 +383,7 @@ public synchronized void increment() {
 
 W praktyce obie wersje metody `increment` są równoważne. Oznaczenie metody słowem kluczowym `synchronized` równoznaczne jest w umieszczeniem całego ciała metody w bloku `synchronized`. To jaki obiekt użyty jest w roli monitora zależy od rodzaju metody:
 
-- standardowa metoda – jako monitor użyta jest instancja klasy `this`,
+- standardowa metoda – jako monitor użyta jest instancja klasy – `this`,
 - metoda statyczna – jako monitor użyta jest klasa.
 
 Na przykład dwa poniższe fragmenty kodu są równoważne:
@@ -410,7 +412,7 @@ Synchronizacja wątków pozwala na uniknięcie wielu problemów związanych na p
 
 Taki fragment kodu, który w danym momencie może być użyty przez maksymalnie jeden wątek nazywany jest sekcją krytyczną. Dobrą zasadą jest ograniczanie sekcji krytycznej – im mniej w niej kodu tym większy zysk z użycia wielu wątków.
 
-Synchronizacja wątków przy pomocy `synchronized` to nie wszystko. Wszystkie obiekty w języku Java, poza monitorami, zawierają tak specjalny zbiór wątków, na które czekają (ang. _wait set_).
+Synchronizacja wątków przy pomocy `synchronized` to nie wszystko. Wszystkie obiekty w języku Java, poza monitorami, zawierają specjalny zbiór wątków (ang. _wait set_). Elementami tego zbioru są wątki, które czekają na powiadomienia dotyczące tego obiektu.
 
 ## Wątek w stanie `WAITING`
 
@@ -526,7 +528,7 @@ Thread consumer = new Thread(() -> {
 
 Wątek konsumujący dane także używa [pętli]({% post_url 2015-11-18-petle-i-instrukcje-warunkowe-w-jezyku-java %}). Tym razem jest to pętla `while`, która wykonuje się dopóki oczekiwana liczba elementów nie zostanie pobrana z kolejki. Także tutaj wątek używa bloku `synchronized`, w który sprawdza czy elementy są w kolejce i do ewentualnego ich pobrania.
 
-Program "działa". Ma jednak pewien subtelny błąd. Zwróć uwagę na wątek konsumenta. Wątek ten działa bez przerwy. Bez przerwy zajmuje czas procesora[^wywlaszczenia]. Co więcej, przez większość swojego czasu kręci się wewnątrz pętli sprawdzając czy kolejka jest pusta. Jako drobne ćwiczenie dla Ciebie zostawiam dodanie licznika iteracji – ile razy pętla wykonała się w Twoim przypadku?
+Program działa. Ma jednak pewien subtelny błąd. Zwróć uwagę na wątek konsumenta. Wątek ten działa bez przerwy. Bez przerwy zajmuje czas procesora[^wywlaszczenia]. Co więcej, przez większość swojego czasu kręci się wewnątrz pętli sprawdzając czy kolejka jest pusta. Jako drobne ćwiczenie dla Ciebie zostawiam dodanie licznika iteracji – ile razy pętla wykonała się w Twoim przypadku?
 
 [^wywlaszczenia]: Pomijam wywłaszczenia, które znasz z początku artykułu.
 
@@ -761,6 +763,6 @@ Czy Twój program nadal będzie dział poprawnie jeśli będzie wypisywał "Hell
 
 Po lekturze tego artykułu wiesz czym są wątki. Wiesz jak je tworzyć i uruchamiać. Znasz podstawowe mechanizmy ich synchronizacji. Udało ci się też poznać kilka definicji związanych z programowaniem współbieżnym. Po wykonaniu zadań wiesz, że potrafisz wykorzystać tę wiedzę w praktyce – gratulacje!
 
-Bałem się tego artykułu. Od samego początku pracy nad kursem Javy przesuwałem go w czasie. Teraz, po jego ukończeniu wiem dlaczego ;). Ten artykuł kosztował mnie chyba najwięcej pracy do tej pory. Mam nadzieję, że efekt przypadł Ci do gustu. Proszę podziel się nim z osobami, którym może pomóc. Dzięki temu uda mi się dotrzeć do nowych Czytelników a na tym właśnie mi zależy – z góry wielkie dzięki!
+Bałem się tego artykułu. Od samego początku pracy nad kursem Javy przesuwałem go w czasie. Teraz, po jego ukończeniu wiem dlaczego ;). Żaden artykuł na blogu nie kosztował mnie tyle pracy. Mam nadzieję, że efekt przypadł Ci do gustu. Proszę podziel się nim z osobami, którym może pomóc. Dzięki temu uda mi się dotrzeć do nowych Czytelników, a na tym właśnie mi zależy – z góry bardzo dziękuję!
 
 Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newsletter'a i polub Samouczka na Facebook'u. To tyle na dzisiaj, trzymaj się i do następnego razu!
