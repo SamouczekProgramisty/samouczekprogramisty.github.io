@@ -91,6 +91,8 @@ W takim przypadku zadania niebieskie i białe muszą czekać na zakończenie zad
 
 "Szatkowanie czasu" daje wrażenie równoległej pracy wielu wątków, jednak w rzeczywistości w danym momencie tylko jedno zadanie jest uruchomione. Inaczej wygląda sytuacja w przypadku procesorów mających wiele rdzeni.
 
+Takie podejście pozwala na uniknięcie tak zwanego zagłodzenia (ang. _starving_) wątków. W powyższym przykładzie bez szatkowania czasu wątek z zadaniem zielonym zagłodziłby wątki z zadaniami niebieskim i białym.
+
 #### Procesory wielordzeniowe
 
 Procesory wielordzeniowe dają rzeczywistą możliwość uruchamiania wielu zadań równolegle. W takim przypadku, jeśli każde z zadań uruchomione zostanie w osobnym wątku wówczas sytuacja wygląda jak na diagramie poniżej[^cztery]:
@@ -115,7 +117,7 @@ Wątki korzystają z tych samych danych. Mówi się, że wątki współdzielą p
 
 [^threadlocal]: Dla uproszczenia pomijam tutaj [`ThreadLocal`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/ThreadLocal.html).
 
-Proszę pamiętaj, że zmienne dostępne są dla wszystkich wątków. W związku z tym wszystkie wątki mogą te zmienne modyfikować. Pociąga to za sobą bardzo duże konsekwencje. Opiszę je dokładniej w dalszej części artykułu.
+Proszę pamiętaj, że zmienne dostępne są dla wszystkich wątków. W związku z tym wszystkie wątki mogą te zmienne modyfikować. Pociąga to za sobą bardzo poważne konsekwencje. Opiszę je dokładniej w dalszej części artykułu.
 
 {% include newsletter-srodek.md %}
 
@@ -190,6 +192,9 @@ Poniższy diagram pokazuje możliwe przejścia pomiędzy stanami:
 {% include figure image_path="/assets/images/2019/02/05_thread_states.svg" caption="Diagram stanów wątku" %}
 
 Przejście ze stanu `NEW` do stanu `RUNNABLE` odbywa się po wywołaniu metody [`start()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#start()) na instancji wątku. Dopiero wtedy wątek może być wykonywany, samo utworzenie instancji nie powoduje jego uruchomienia. Każdy wątek może być uruchomiony dokładnie raz – dokładanie jeden raz może być na nim wywołana metoda `start()`.
+
+Zwróć uwagę na to, że ciałem wątku jest metoda `run` a do jego uruchomienia niezbędne jest wywołanie metody `start`. Oczywiście możesz uruchomić metodę `run` samodzielnie, jednak nie spowoduje to uruchomienia nowego wątku – kod metody `run` będzie wykonywany w aktualnym wątku.
+{:.notice--info}
 
 Wątek, który skończy swoje działanie, przechodzi do stanu `TERMINATED`.
 
@@ -306,21 +311,27 @@ W bytecode ten fragment wygląda tak:
     IADD
     PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 
-Pamiętasz szatkowanie czasu, które opisałem na początku artykułu? Odgrywa ono tu kluczową rolę. Wyobraź sobie sytuację, w której wątek `t1` wykonał krok 1., 2. i 3. po czym został wywłaszczony. Następnie wątki `t2` i `t3` wykonały krok 1.. Po czym wątek `t2` wykonał kroki 2. i 3. Po chwili to samo stało się z wątkiem `t3`. Jaką wartość wątek `t3` przypisał do `value`? Była to wartość `2`, przez co cała praca wątku `t2` została nadpisana. Proszę spójrz na tabelkę niżej, która pokazuje tę sytuację:
+#### Przykład zachowania wątków
 
-| Operacja | Wątek | Krok | Wartość `value` | Wartość zmiennej tymczasowej |
-|:--------:|------ |------|-------------------|------------------------------|
-| 1.       | `t1`  | 1.   | 0                 | 0                            |
-| 2.       | `t1`  | 2.   | 1                 | 1                            |
-| 3.       | `t1`  | 3.   | 1                 | 1                            |
-| 4.       | `t2`  | 1.   | 1                 | 1                            |
-| 5.       | `t3`  | 1.   | 1                 | 1                            |
-| 6.       | `t2`  | 2.   | 1                 | 2                            |
-| 7.       | `t2`  | 3.   | 2                 | 2                            |
-| 8.       | `t3`  | 2.   | 2                 | 2                            |
-| 9.       | `t3`  | 3.   | 2                 | 2                            |
+Pamiętasz szatkowanie czasu, które opisałem na początku artykułu? Odgrywa ono tu kluczową rolę. Wyobraź sobie sytuację, w której wątek zielony wykonał krok 1., 2. i 3. po czym został wywłaszczony. Następnie wątki niebieski i biały wykonały krok 1. Po czym wątek niebieski wykonał kroki 2. i 3. Po chwili to samo stało się z wątkiem białym. Taką sytuację pokazuje poniższy diagram:
 
-Tabela pokazuje jak mogą zachować się wątki. Jest to jeden z możliwych scenariuszy. W przykładzie powyżej operacja 9. ustawiają wartość `value` na `2` w wątku `t3` ignorując zwiększenie wartości wykonane przez wątek `t2` w operacji 7.
+{% include figure image_path="/assets/images/2019/02/11_slicing_time_example.svg" caption="Przykład zachowania wątków" %}
+
+Biorąc pod uwagę takie zachowanie wątków, jaką wartość wątek biały przypisał do `value`? Była to wartość `2`, przez co cała praca wątku niebieskiego została nadpisana. Proszę spójrz na tabelkę niżej, która pokazuje tę sytuację:
+
+| Operacja | Wątek     | Krok | Wartość `value` | Wartość zmiennej tymczasowej |
+|:--------:|-----------|------|-------------------|------------------------------|
+| 1.       | zielony   | 1.   | 0                 | 0                            |
+| 2.       | zielony   | 2.   | 1                 | 1                            |
+| 3.       | zielony   | 3.   | 1                 | 1                            |
+| 4.       | niebieski | 1.   | 1                 | 1                            |
+| 5.       | biały     | 1.   | 1                 | 1                            |
+| 6.       | niebieski | 2.   | 1                 | 2                            |
+| 7.       | niebieski | 3.   | 2                 | 2                            |
+| 8.       | biały     | 2.   | 2                 | 2                            |
+| 9.       | biały     | 3.   | 2                 | 2                            |
+
+Jest to jeden z możliwych scenariuszy. W przykładzie powyżej operacja 9. ustawiają wartość `value` na `2` w wątku białym ignorując zwiększenie wartości wykonane przez wątek niebieski w operacji 7.
 
 Aby uniknąć takich sytuacji, uniknąć wyścigów, niezbędna jest synchronizacja pracy wątków.
 
@@ -413,7 +424,7 @@ Na Samouczku Programisty takie lakoniczne wytłumaczenie nie przejdzie ;). Zapra
 
 ### Komunikacja pomiędzy wątkami
 
-Wyobraź sobie sytuację, w której masz dwa wątki. Jeden z nich produkuje pewne dane, drugi z nich je konsumuje. Tego typu mechanizm jest dość często spotykany. Naiwna implementacja tego typu zachowania może wyglądać tak:
+Wyobraź sobie sytuację, w której masz dwa wątki. Jeden produkuje pewne dane, drugi je konsumuje. Tego typu mechanizm jest dość często spotykany. Naiwna implementacja tego typu zachowania może wyglądać tak:
 
 Ten przykład pokazuje złe praktyki, zanim zaczniesz pisać wielowątkowy kod w ten sposób przeczytaj wyjaśnienie poniżej wraz z poprawną wersją implementacji!
 {:.notice--warning}
@@ -479,7 +490,7 @@ Thread producer = new Thread(() -> {
 });
 ```
 
-W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)). Służy ona do uśpienia wątku[^timed_wait]. Przekazany parametr mówi o minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy [`Random`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html), żeby to symulować.
+W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)). Służy ona do uśpienia wątku[^timed_wait]. Przekazany parametr mówi o&nbsp;minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy [`Random`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html), żeby to symulować.
 
 [^timed_wait]: Metoda ta sprawia, że wątek jest w stanie `TIMED_WAITING` o czym przeczytasz za chwilę.
 
@@ -525,7 +536,7 @@ Z pomocą przychodzi mechanizm powiadomień.
 
 ### Jak działa mechanizm powiadomień
 
-Wiesz już, że każdy obiekt powiązany jest z monitorem używamy w trakcie synchronizacji. Podobnie wygląda sprawa w przypadku mechanizmu powiadomień. Każdy obiekt w języku Java posiada "zbiór   powiadamianych wątków" (ang. _waiting set_).
+Wiesz już, że każdy obiekt powiązany jest z monitorem używamy w trakcie synchronizacji. Podobnie wygląda sprawa w przypadku mechanizmu powiadomień. Każdy obiekt w języku Java posiada zbiór   powiadamianych wątków (ang. _waiting set_).
 
 Wewnątrz tego zbioru znajdują się wątki, które czekają na powiadomienie dotyczące danego obiektu. Jedynym sposobem, żeby modyfikować zawartość tego zbioru jest używanie metod dostępnych w klasie `Object`:
 
@@ -535,7 +546,7 @@ Wewnątrz tego zbioru znajdują się wątki, które czekają na powiadomienie do
 
 #### Poprawny producent
 
-Poprawna wersja producenta używa metody [`notify`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()) lub [`notifyAll`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()) informując w ten sposób konsumentów o nowym elemencie:
+Poprawna wersja producenta używa metody [`notify`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()) albo [`notifyAll`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()) informując w ten sposób konsumentów o nowym elemencie:
 
 ```java
 Thread producer = new Thread(() -> {
@@ -594,7 +605,9 @@ Specyfikacja języka Java pozwala na fałszywe wybudzenia (ang. _spurious wake-u
 
 ## Wątek w stanie `TIMED_WAITING`
 
-Tym razem będzie krótko ;). Stan `TIMED_WAITING` jest podobny do stanu `WAITING`. W tym przypadku wątek oczekuje przez pewien czas, nie krótszy niż podany jako argument do jednej z metod:
+Tym razem będzie krótko ;). Stan `TIMED_WAITING` jest podobny do stanu `WAITING`. W tym przypadku wątek oczekuje przez pewien czas, nie krótszy niż podany jako argument do jednej z metod[^pomijam2]:
+
+[^pomijam2]: Także tutaj pomijam metody z klasy `LockSupport`: [`LockSupport.partNanos`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkNanos(java.lang.Object,long)) i [`LockSupport.parkUntil`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkUntil(java.lang.Object,long)).
 
 - [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long)) – dodanie aktualnego wątku do zbioru powiadamianych wątków i wybudzenie go po określonym czasie,
 - [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)) – wątek wywołujący tę metodę usypia na określony czas,
@@ -602,12 +615,17 @@ Tym razem będzie krótko ;). Stan `TIMED_WAITING` jest podobny do stanu `WAITIN
 
 ## Przerywanie wątku
 
-W jednym z poprzednich przykładów wspomniałem o wyjątku [`InterruptedException`](TODO). Wyjątek ten sygnalizuje sytuację, w której wątek został przerwany. Wątek zostaje przerwany jeśli 
+W jednym z poprzednich przykładów wspomniałem o wyjątku [`InterruptedException`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html). Wyjątek ten sygnalizuje sytuację, w której wątek został przerwany. Wątek może zostać przerwany po wywołaniu na jego instancji metody [`Thread.interrupt`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#interrupt()).
 
-## Do czego służą wątki
+W momencie kiedy wątek zostaje przerwany ustawiana jest na nim specjalna flaga, która o tym informuje.
 
-- deadlock, lifelock
-- volatile
+Jeśli chcesz sprawdzić, czy aktualny wątek jest przerwany możesz wywołać statyczną metodę [`Thread.interrupted`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#interrupted()). Wywołanie tej metody zwraca `true` jeśli wątek był przerwany jednocześnie usuwając flagę, o której wspomniałem przed chwilą.
+
+## Synchronizacja inaczej – `volatile`
+
+Java udostępnia jeszcze jeden mechanizm, który pozwala na synchronizację. Mam tu na myśli słowo kluczowe `volatile`. Specyfikacja języka Java mówi, że każdy odczyt atrybutów poprzedzonych tym słowem kluczowym następuje po ich zapisie.
+
+Dzięki temu w ten sposób możesz osiągnąć synchronizację wartości danego pola pomiędzy wątkami. Musisz jednak uważać na modyfikacje, które nie są atomowe – przed zmianami tego typu `volatile` niestety Cię nie uchroni. W takim przypadku niezbędna będzie synchronizacja, którą opisałem wcześniej.
 
 ## Wątki są skomplikowane
 
@@ -625,6 +643,7 @@ Przygotowałem dla Ciebie zestaw linków, które mogą pomóc Ci spojrzeć na te
 - [Rozdział w Java Language Specification dotyczący wątków](https://docs.oracle.com/javase/specs/jls/se11/html/jls-17.html),
 - [Sekcja w Java Language Specification dotycząca metod synchronizowanych](https://docs.oracle.com/javase/specs/jls/se11/html/jls-8.html#jls-8.4.3.6),
 - [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]( https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.19),
+- [Artykuł opisujący użycie zmiennych `volatile`](https://www.ibm.com/developerworks/java/library/j-jtp06197/),
 - [Kod źródłowy przykładów użytych w artykule](TODO)
 
 Jeśli znasz źródło, które Twoim zdaniem warte jest uwagi daj znać – dodam je do listy.
