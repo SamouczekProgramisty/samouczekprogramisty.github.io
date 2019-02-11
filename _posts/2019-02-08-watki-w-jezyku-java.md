@@ -623,15 +623,48 @@ Jeśli chcesz sprawdzić, czy aktualny wątek jest przerwany możesz wywołać s
 
 ## Synchronizacja inaczej – `volatile`
 
-Java udostępnia jeszcze jeden mechanizm, który pozwala na synchronizację. Mam tu na myśli słowo kluczowe `volatile`. Specyfikacja języka Java mówi, że każdy odczyt atrybutów poprzedzonych tym słowem kluczowym następuje po ich zapisie.
+Java udostępnia jeszcze jeden mechanizm, który pozwala na synchronizację. Mam tu na myśli słowo kluczowe `volatile`. Specyfikacja języka Java mówi, że każdy odczyt atrybutu poprzedzonego tym słowem kluczowym następuje po jego zapisie. Innymi słowy, modyfikator `volatile` gwarantuje, że każdy wątek czytający dany atrybut zobaczy najnowszą zapisaną wartość tego atrybutu.
 
-Dzięki temu w ten sposób możesz osiągnąć synchronizację wartości danego pola pomiędzy wątkami. Musisz jednak uważać na modyfikacje, które nie są atomowe – przed zmianami tego typu `volatile` niestety Cię nie uchroni. W takim przypadku niezbędna będzie synchronizacja, którą opisałem wcześniej.
+Dzięki temu możesz osiągnąć synchronizację wartości danego pola pomiędzy wątkami. Musisz jednak uważać na modyfikacje, które nie są atomowe – przed zmianami tego typu `volatile` niestety Cię nie uchroni. W takim przypadku niezbędna będzie synchronizacja, którą opisałem wcześniej.
+
+Poniższy fragment kodu pokazuje poprawne użycie modyfikatora `volatile`:
+
+```java
+public class VolatileExample {
+    private static volatile boolean isDone = false;
+
+    public static void main(String[] args) {
+        Thread backgroundJob = new Thread(() -> {
+            try {
+                Thread.sleep(Duration.ofSeconds(2).toMillis());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("I'm done with my job!");
+            isDone = true;
+        });
+        Thread heavyWorker = new Thread(() -> {
+            LocalDateTime start = LocalDateTime.now();
+            while (!isDone) {
+                // constantly doing some important stuff
+            }
+            long durationInMillis = ChronoUnit.MILLIS.between(start, LocalDateTime.now());
+            System.out.println("I've been notified about finished job after " + durationInMillis + " milliseconds.");
+        });
+
+        heavyWorker.start();
+        backgroundJob.start();
+    }
+}
+```
+
+W ramach ćwiczenia możesz spróbować uruchomić powyższy kod usuwając modyfikator `volatile` dla pola `isDone`. Jak zachowuje się ten program po takiej modyfikacji?
 
 ## Wątki są skomplikowane
 
 Tworzenie programów wielowątkowych jest trudne. Unikanie zakleszczeń, odpowiednia synchronizacja, unikanie wyścigów nie jest trywialne. Nie przejmuj się, jeśli nie zrozumiesz tego zagadnienia od razu. Pisanie wydajnego, bezpiecznego kodu wielowątkowego to coś, z czym nawet bardzo doświadczeni programiści mogą mieć sporo problemów.
 
-Odnajdowanie i naprawianie błędów w programach, które używają wielu wątków to także ciężkie zadanie. Sytuacja, w której kod działa idealnie w trakcie testów, a zachowuje się "dziwnie" w środowisku wielowątkowym jest czymś powszechnym.
+Odnajdowanie i naprawianie błędów w programach, które używają wielu wątków to także ciężkie zadanie. Sytuacja, w której kod działa idealnie w trakcie testów, a zachowuje się dziwnie w środowisku wielowątkowym jest czymś powszechnym.
 
 Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj znaleźć gotową implementację w pakiecie [`java.util.concurrent`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html). Używając klas z tego pakietu na pewno unikniesz sporo ciężkich do zdiagnozowania błędów.
 
@@ -644,17 +677,17 @@ Przygotowałem dla Ciebie zestaw linków, które mogą pomóc Ci spojrzeć na te
 - [Sekcja w Java Language Specification dotycząca metod synchronizowanych](https://docs.oracle.com/javase/specs/jls/se11/html/jls-8.html#jls-8.4.3.6),
 - [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]( https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.19),
 - [Artykuł opisujący użycie zmiennych `volatile`](https://www.ibm.com/developerworks/java/library/j-jtp06197/),
-- [Kod źródłowy przykładów użytych w artykule](TODO)
+- [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/34_watki/src/main/java/pl/samouczekprogramisty/kursjava/treads)
 
 Jeśli znasz źródło, które Twoim zdaniem warte jest uwagi daj znać – dodam je do listy.
 
 ## Zadania
 
-Przygotowałem dla Ciebie zadania, które pomogą Ci przećwiczyć wiedzę przedstawioną w artykule w praktyce. Pamiętaj, że zawsze możesz rzucić okiem na [przykładowe rozwiązania](TODO). Jak zwykle zachęcam Cię do samodzielnej próby rozwiązania tych zadań, w ten sposób nauczysz się najwięcej.
+Przygotowałem dla Ciebie zadania, które pomogą Ci przećwiczyć wiedzę przedstawioną w artykule w praktyce. Pamiętaj, że zawsze możesz rzucić okiem na [przykładowe rozwiązania](https://github.com/SamouczekProgramisty/KursJava/tree/master/34_watki/src/main/java/pl/samouczekprogramisty/kursjava/treads/exercise). Jak zwykle zachęcam Cię do samodzielnej próby rozwiązania tych zadań, w ten sposób nauczysz się najwięcej.
 
 ### Przedstaw się
 
-Napisz metodę, która przyjmuje liczbę całkowitą. Wywołanie metody powinno uruchomić wątek 0., wewnątrz tego wątku powinien zostać uruchomiony wątek 1. Wątek 1. powinien uruchomić wątek 2. itd. do osiągnięcia zadanej liczby. Każdy z wątków powinien wypisać na konsolę swoją domyślną nazwę.
+Napisz metodę, która przyjmuje liczbę całkowitą. Wywołanie metody powinno uruchomić wątek 0., wewnątrz tego wątku powinien zostać uruchomiony wątek 1. Wątek 1. powinien uruchomić wątek 2. itd. do osiągnięcia zadanej liczby wątków. Każdy z wątków powinien wypisać na konsolę swoją domyślną nazwę.
 
 Na przykład wywołanie metody:
 
@@ -662,13 +695,12 @@ Na przykład wywołanie metody:
 startNestedThreads(3);
 ```
 
-Powinno skończyć się uruchomieniem 4 wątków i wypisaniem tekstu na konsolę:
+Powinno skończyć się uruchomieniem 3 wątków i wypisaniem tekstu na konsolę:
 
 ```
 Thread-0
 Thread-1
 Thread-2
-Thread-3
 ```
 
 ### Przedstaw się II
@@ -679,10 +711,9 @@ Zmodyfikuj program z poprzedniego punktu w taki sposób, aby wątki wypisywały 
 startNestedThreads(3);
 ```
 
-Powinno skończyć się uruchomieniem 4 wątków i wypisaniem tekstu na konsolę:
+Powinno skończyć się uruchomieniem 3 wątków i wypisaniem tekstu na konsolę:
 
 ```
-Thread-3
 Thread-2
 Thread-1
 Thread-0
