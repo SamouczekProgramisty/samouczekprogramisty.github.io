@@ -589,6 +589,11 @@ var store = [{
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/wzorzec-projektowy-adapter/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2019/01/26_wzorzec_projektowy_adapter_artykul.jpg"},{
+        "title": "Wątki w języku Java",
+        "excerpt":"W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu “event-loop” i przetwarzania asynchronicznego, które niejako związane są z wątkami. Pomijam także dokładny opis klas biblioteki standardowej z pakietu java.util.concurrent czy temat programowania reaktywnego. Każde z tych zagadnień to temat na co...","categories": ["Kurs programowania Java"],
+        "tags": [],
+        "url": "http://www.samouczekprogramisty.pl/watki-w-jezyku-java/",
+        "teaser":"http://www.samouczekprogramisty.pl/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],
