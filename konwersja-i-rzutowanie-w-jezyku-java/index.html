@@ -35,7 +35,7 @@
 
 
 
-  <meta property="article:modified_time" content="2018-12-29T09:03:42+01:00">
+  <meta property="article:modified_time" content="2019-02-13T21:00:24+01:00">
 
 
 
@@ -226,7 +226,7 @@
     <meta itemprop="headline" content="Konwersja i rzutowanie w języku Java">
     <meta itemprop="description" content="Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku Java. Przeczytasz o konwersji obiektów oraz typów prostych. Dowiesz się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typów do typu String. Poznasz mechanizm boxing’u oraz unboxing’u. Innymi słowy, dziś kolejna porcja informacji na temat języka Java :)">
     <meta itemprop="datePublished" content="February 17, 2016">
-    <meta itemprop="dateModified" content="December 29, 2018">
+    <meta itemprop="dateModified" content="February 13, 2019">
 
     <div class="page__inner-wrap">
       
@@ -271,7 +271,7 @@
 
 <h2 id="rzutowanie">Rzutowanie</h2>
 
-<p>Zaczniemy od rzutowania (ang. <em>cast</em>). Jak już wiesz kompilator Javy ma pewną wiedzę na temat tego jaki rodzaj obiektu kryje się pod daną referencją w trakcie kompilacji. Wie to z typu zmiennej do której przypisany jest dany obiekt. Jednak możliwa jest sytuacja kiedy pod referencją typu X przypisany jest obiekt typu Y jak w przykładzie poniżej:</p>
+<p>Zaczniemy od rzutowania (ang. <em>cast</em>). Jak już wiesz kompilator Javy ma pewną wiedzę na temat tego, jaki rodzaj obiektu kryje się pod daną referencją w trakcie kompilacji. Wie to z typu zmiennej do której przypisany jest dany obiekt. Jednak możliwa jest sytuacja kiedy pod referencją typu X przypisany jest obiekt typu Y jak w przykładzie poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">differentTypes</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">Object</span> <span class="n">objectInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
@@ -279,7 +279,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Obie referencje są typu <code class="highlighter-rouge">Object</code> jednak druga z nich przechowuje zmienną typu <code class="highlighter-rouge">String</code>. Jest to w 100% poprawny kod. Jednak jeśli na zmiennej <code class="highlighter-rouge">stringInstance</code> chciałbyś wywołać metodę, którą implementuje klasa <code class="highlighter-rouge">String</code> a nie ma jej w klasie <code class="highlighter-rouge">Object</code> skończy się to błędem kompilacji:</p>
+<p>Obie referencje są typu <code class="highlighter-rouge">Object</code>, jednak druga z nich przechowuje zmienną typu <code class="highlighter-rouge">String</code>. Jest to w 100% poprawny kod. Jednak jeśli na zmiennej <code class="highlighter-rouge">stringInstance</code> chciałbyś wywołać metodę, którą implementuje klasa <code class="highlighter-rouge">String</code> a nie ma jej w klasie <code class="highlighter-rouge">Object</code> skończy się to błędem kompilacji:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error:(15, 23) java: cannot find symbol
   symbol: method length()
@@ -313,9 +313,9 @@
   at pl.samouczekprogramisty.kursjava.RuntimeType.main(RuntimeType.java:8)
 </code></pre></div></div>
 
-<p>Wyjątek mówi tyle, że obiektu typu <code class="highlighter-rouge">java.lang.Object</code> nie możemy rzutować do typu <code class="highlighter-rouge">java.lang.String</code>. Jakie rzutowanie jest w takim razie dozwolone? Możemy rzutować wyłącznie na typ, który znajduje się hierarchii dziedziczenia danego obiektu. Z tego właśnie powodu rzutowanie <code class="highlighter-rouge">String</code> na <code class="highlighter-rouge">Object</code> jest dopuszczalne ale odwrotna operacja kończy się błędem.</p>
+<p>Wyjątek mówi tyle, że obiektu typu <code class="highlighter-rouge">java.lang.Object</code> nie możemy rzutować do typu <code class="highlighter-rouge">java.lang.String</code>. Jakie rzutowanie jest w takim razie dozwolone? Możemy rzutować wyłącznie na typ, który znajduje się <a href="/dziedziczenie-w-jezyku-java/">hierarchii dziedziczenia</a> danego obiektu. Z tego właśnie powodu rzutowanie <code class="highlighter-rouge">String</code> na <code class="highlighter-rouge">Object</code> jest dopuszczalne ale odwrotna operacja kończy się błędem.</p>
 
-<p>W jednym z kolejnych artykułów przeczytasz o typach generycznych, które pomagają rozwiązać część sytuacji, kiedy rzutowanie jest potrzebne. W codziennym programowaniu radziłbym unikać tego typu operacji. Z pewnością istnieje inny sposób napisania programu, który pozwoli na uniknięcie rzutowania.</p>
+<p>W jednym z kolejnych artykułów przeczytasz o <a href="/typy-generyczne-w-jezyku-java/">typach generycznych</a>, które pomagają rozwiązać część sytuacji, kiedy rzutowanie jest potrzebne. W codziennym programowaniu radziłbym unikać tego typu operacji. Z pewnością istnieje inny sposób napisania programu, który pozwoli na uniknięcie rzutowania.</p>
 
 <div class="notice--success text-center">
   
@@ -330,7 +330,7 @@
 
 <h2 id="konwersja">Konwersja</h2>
 
-<p>Rzutowanie to specyficzny przypadek konwersji, jest to konwersja jawna, wymuszona przez programistę. W trakcie niektórych operacji może dochodzić do automatycznej konwersji, konwersji niejawnej. Konwersja niejawna może wystąpić np. podczas wywołania metod czy operacji arytmetycznych. Poniżej przykład konwersji automatycznej, która zachodzi w trakcie wywołania metody:</p>
+<p>Rzutowanie to specyficzny przypadek konwersji, jest to konwersja jawna, wymuszona przez programistę. W trakcie niektórych operacji może dochodzić do automatycznej konwersji, konwersji niejawnej. Konwersja niejawna może wystąpić na przykład podczas wywołania metod czy operacji arytmetycznych. Poniżej przykład konwersji automatycznej, która zachodzi w trakcie wywołania metody:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WideningConversion</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -381,7 +381,7 @@
 
 <h3 id="konwersja-typów-zmiennoprzecinkowych-do-całkowitoliczbowych">Konwersja typów zmiennoprzecinkowych do całkowitoliczbowych</h3>
 
-<p>Innym przykładem konwersji w której dochodzi do utraty informacji jest konwersja z typów zmiennoprzecinkowych do typów całkowitoliczbowych:</p>
+<p>Innym przykładem konwersji w której dochodzi do utraty informacji jest konwersja z <a href="/liczby-zmiennoprzecinkowe/">typów zmiennoprzecinkowych</a> do typów całkowitoliczbowych:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">intValue</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="mf">123.123</span><span class="n">F</span><span class="o">;</span>
 <span class="kt">long</span> <span class="n">longValue</span> <span class="o">=</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span> <span class="mf">456.456</span><span class="o">;</span>
@@ -412,7 +412,7 @@
 
 <h2 id="automatyczna-konwersja-podczas-operacji-arytmetycznych">Automatyczna konwersja podczas operacji arytmetycznych</h2>
 
-<p>Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze specyfikacją języka Java (https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html#jls-5.6.2) możliwa jest konwersja (zachodzi pierwszy pasujący warunek):</p>
+<p>Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze <a href="https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.6.2">specyfikacją języka Java</a> możliwa jest konwersja (zachodzi pierwszy pasujący warunek):</p>
 <ol>
   <li>rozszerzająca do typu <code class="highlighter-rouge">double</code> jeśli którykolwiek z elementów operacji arytmetycznej jest typu <code class="highlighter-rouge">double</code>,</li>
   <li>rozszerzająca do typu <code class="highlighter-rouge">float</code> jeśli którykolwiek z elementów operacji jest typu <code class="highlighter-rouge">float</code>,</li>
@@ -451,11 +451,11 @@
 
 <p>Jak wiesz w języku Java występują zarówno typy proste jak i obiekty reprezentujące liczby np. <code class="highlighter-rouge">int</code> i <code class="highlighter-rouge">Integer</code>. Kompilator Java jest w stanie dokonać konwersji pomiędzy odpowiadającymi sobie typami prostymi i obiektami automatycznie. Proszę spójrz na przykład poniżej</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">primitiveInt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">123</span><span class="o">);</span>
-<span class="kt">long</span> <span class="n">primitiveLong</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Long</span><span class="o">(</span><span class="mi">123L</span><span class="o">);</span>
-<span class="kt">float</span> <span class="n">primitiveFloat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Float</span><span class="o">(</span><span class="mf">123.123</span><span class="n">F</span><span class="o">);</span>
-<span class="kt">double</span> <span class="n">primitiveDouble</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Double</span><span class="o">(</span><span class="mf">123.123</span><span class="o">);</span>
-<span class="kt">boolean</span> <span class="n">primitiveBoolean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Boolean</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">primitiveInt</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">123</span><span class="o">);</span>
+<span class="kt">long</span> <span class="n">primitiveLong</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">123L</span><span class="o">);</span>
+<span class="kt">float</span> <span class="n">primitiveFloat</span> <span class="o">=</span> <span class="n">Float</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">123.123</span><span class="n">F</span><span class="o">);</span>
+<span class="kt">double</span> <span class="n">primitiveDouble</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">123.123</span><span class="o">);</span>
+<span class="kt">boolean</span> <span class="n">primitiveBoolean</span> <span class="o">=</span> <span class="n">Boolean</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>Mamy tu do czynienia z tak zwanym “<em>unboxing</em>‘iem”, czyli automatycznym odpakowywaniem obiektu do odpowiadającego mu typu prostego.</p>
@@ -496,18 +496,18 @@
 <h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
 
 <ul>
-  <li><a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.16">https://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.16</a> – “cast expression”,</li>
-  <li><a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html">https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html</a> – rzutowanie i konwersje,</li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.16">https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.16</a> – “cast expression”,</li>
+  <li><a href="https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html">https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html</a> – rzutowanie i konwersje,</li>
   <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/11_konwersja_rzutowanie">https://github.com/SamouczekProgramisty/KursJava/tree/master/11_konwersja_rzutowanie</a> – kod źródłowy przykładów użytych w artykule.</li>
 </ul>
 
 <h2 id="podsumowanie">Podsumowanie</h2>
 
-<p>Właśnie dowiedziałeś się o kilku kolejnych zakamarkach języka Java. Mam nadzieję, że Ci się podobało. Jak zwykle na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zleży mi na dotarciu do jak największego grona czytelników. Jeśli nie chcesz pominąć żadnego postu polub Samouczka na facebooku. Do następnego razu! :)</p>
+<p>Właśnie dowiedziałeś się o kilku kolejnych zakamarkach języka Java. Mam nadzieję, że Ci się podobało. Jak zwykle na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zleży mi na dotarciu do jak największego grona czytelników. Jeśli nie chcesz pominąć żadnego postu polub Samouczka na Facebook’u. Do następnego razu! :)</p>
 <div class="footnotes">
   <ol>
     <li id="fn:konwersja">
-      <p>Wartość -1 wynika ze sposobu zapisywania liczb w Javie. Wiesz już o <a href="http://www.samouczekprogramisty.pl/system-dwojkowy/">binarnym zapisie</a>, tutaj wykorzystywana jest jego specyficzna odmiana – uzupełnienia do dwóch, jeżeli jesteś zainteresowany szczegółami daj znać w komentarzu, skrobnę o tym artykuł :). <a href="#fnref:konwersja" class="reversefootnote">&#8617;</a></p>
+      <p>Wartość -1 wynika ze sposobu zapisywania liczb w Javie. Wiesz już o <a href="/system-dwojkowy/">binarnym zapisie</a>, tutaj wykorzystywana jest jego specyficzna odmiana – uzupełnienia do dwóch, jeżeli jesteś zainteresowany szczegółami daj znać w komentarzu, skrobnę o tym artykuł :). <a href="#fnref:konwersja" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -553,7 +553,7 @@
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2018-12-29">2018-12-29</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-02-13">2019-02-13</time></p>
         
         <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
       </footer>

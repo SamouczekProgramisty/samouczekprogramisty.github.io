@@ -90,7 +90,7 @@ var store = [{
         "url": "http://www.samouczekprogramisty.pl/system-dwojkowy/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2016/02/11_system_dwojkowy_artykul.png"},{
         "title": "Konwersja i rzutowanie w języku Java",
-        "excerpt":"To jest jeden z artykułów w ramach darmowego kursu programowania w Javie. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Rzutowanie Zaczniemy od rzutowania (ang. cast). Jak już wiesz kompilator Javy ma pewną wiedzę na temat tego jaki rodzaj obiektu kryje się...","categories": ["Kurs programowania Java"],
+        "excerpt":"To jest jeden z artykułów w ramach darmowego kursu programowania w Javie. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Rzutowanie Zaczniemy od rzutowania (ang. cast). Jak już wiesz kompilator Javy ma pewną wiedzę na temat tego, jaki rodzaj obiektu kryje się...","categories": ["Kurs programowania Java"],
         "tags": [],
         "url": "http://www.samouczekprogramisty.pl/konwersja-i-rzutowanie-w-jezyku-java/",
         "teaser":"http://www.samouczekprogramisty.pl/assets/images/2016/02/17_konwersja_i_rzutowanie_artykul.jpeg"},{
