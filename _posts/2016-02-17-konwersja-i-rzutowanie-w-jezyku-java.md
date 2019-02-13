@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-12-29 09:03:42 +0100
+last_modified_at: 2019-02-13 21:00:24 +0100
 title: Konwersja i rzutowanie w języku Java
 categories:
 - Kurs programowania Java
@@ -16,7 +16,7 @@ disqus_page_identifier: 242 http://www.samouczekprogramisty.pl/?p=242
 
 ## Rzutowanie
 
-Zaczniemy od rzutowania (ang. _cast_). Jak już wiesz kompilator Javy ma pewną wiedzę na temat tego jaki rodzaj obiektu kryje się pod daną referencją w trakcie kompilacji. Wie to z typu zmiennej do której przypisany jest dany obiekt. Jednak możliwa jest sytuacja kiedy pod referencją typu X przypisany jest obiekt typu Y jak w przykładzie poniżej:
+Zaczniemy od rzutowania (ang. _cast_). Jak już wiesz kompilator Javy ma pewną wiedzę na temat tego, jaki rodzaj obiektu kryje się pod daną referencją w trakcie kompilacji. Wie to z typu zmiennej do której przypisany jest dany obiekt. Jednak możliwa jest sytuacja kiedy pod referencją typu X przypisany jest obiekt typu Y jak w przykładzie poniżej:
 
 ```java
 public void differentTypes() {
@@ -25,7 +25,7 @@ public void differentTypes() {
 }
 ```
 
-Obie referencje są typu `Object` jednak druga z nich przechowuje zmienną typu `String`. Jest to w 100% poprawny kod. Jednak jeśli na zmiennej `stringInstance` chciałbyś wywołać metodę, którą implementuje klasa `String` a nie ma jej w klasie `Object` skończy się to błędem kompilacji:
+Obie referencje są typu `Object`, jednak druga z nich przechowuje zmienną typu `String`. Jest to w 100% poprawny kod. Jednak jeśli na zmiennej `stringInstance` chciałbyś wywołać metodę, którą implementuje klasa `String` a nie ma jej w klasie `Object` skończy się to błędem kompilacji:
 
     Error:(15, 23) java: cannot find symbol
       symbol: method length()
@@ -59,15 +59,15 @@ public class RuntimeType {
     Exception in thread "main" java.lang.ClassCastException: java.lang.Object cannot be cast to java.lang.String
       at pl.samouczekprogramisty.kursjava.RuntimeType.main(RuntimeType.java:8)
 
-Wyjątek mówi tyle, że obiektu typu `java.lang.Object` nie możemy rzutować do typu `java.lang.String`. Jakie rzutowanie jest w takim razie dozwolone? Możemy rzutować wyłącznie na typ, który znajduje się hierarchii dziedziczenia danego obiektu. Z tego właśnie powodu rzutowanie `String` na `Object` jest dopuszczalne ale odwrotna operacja kończy się błędem.
+Wyjątek mówi tyle, że obiektu typu `java.lang.Object` nie możemy rzutować do typu `java.lang.String`. Jakie rzutowanie jest w takim razie dozwolone? Możemy rzutować wyłącznie na typ, który znajduje się [hierarchii dziedziczenia]({% post_url 2016-01-24-dziedziczenie-w-jezyku-java %}) danego obiektu. Z tego właśnie powodu rzutowanie `String` na `Object` jest dopuszczalne ale odwrotna operacja kończy się błędem.
 
-W jednym z kolejnych artykułów przeczytasz o typach generycznych, które pomagają rozwiązać część sytuacji, kiedy rzutowanie jest potrzebne. W codziennym programowaniu radziłbym unikać tego typu operacji. Z pewnością istnieje inny sposób napisania programu, który pozwoli na uniknięcie rzutowania.
+W jednym z kolejnych artykułów przeczytasz o [typach generycznych]({% post_url 2016-03-26-typy-generyczne-w-jezyku-java %}), które pomagają rozwiązać część sytuacji, kiedy rzutowanie jest potrzebne. W codziennym programowaniu radziłbym unikać tego typu operacji. Z pewnością istnieje inny sposób napisania programu, który pozwoli na uniknięcie rzutowania.
 
 {% include newsletter-srodek.md %}
 
 ## Konwersja
 
-Rzutowanie to specyficzny przypadek konwersji, jest to konwersja jawna, wymuszona przez programistę. W trakcie niektórych operacji może dochodzić do automatycznej konwersji, konwersji niejawnej. Konwersja niejawna może wystąpić np. podczas wywołania metod czy operacji arytmetycznych. Poniżej przykład konwersji automatycznej, która zachodzi w trakcie wywołania metody:
+Rzutowanie to specyficzny przypadek konwersji, jest to konwersja jawna, wymuszona przez programistę. W trakcie niektórych operacji może dochodzić do automatycznej konwersji, konwersji niejawnej. Konwersja niejawna może wystąpić na przykład podczas wywołania metod czy operacji arytmetycznych. Poniżej przykład konwersji automatycznej, która zachodzi w trakcie wywołania metody:
 
 ```java
 public class WideningConversion {
@@ -117,11 +117,11 @@ Jak myślisz co zostanie wypisane na konsoli po uruchomieniu tego programu?
 
 Dziwne prawda? :) Środkowa linijka to nic innego jak właśnie "utrata informacji", która może zajść w trakcie jawnej konwersji[^konwersja]. Ostatnia linijka pokazuje, że nie każda konwersja z `long` do `int` prowadzi do utraty informacji.
 
-[^konwersja]: Wartość -1 wynika ze sposobu zapisywania liczb w Javie. Wiesz już o [binarnym zapisie](http://www.samouczekprogramisty.pl/system-dwojkowy/), tutaj wykorzystywana jest jego specyficzna odmiana – uzupełnienia do dwóch, jeżeli jesteś zainteresowany szczegółami daj znać w komentarzu, skrobnę o tym artykuł :).
+[^konwersja]: Wartość -1 wynika ze sposobu zapisywania liczb w Javie. Wiesz już o [binarnym zapisie]({% post_url 2016-02-11-system-dwojkowy %}), tutaj wykorzystywana jest jego specyficzna odmiana – uzupełnienia do dwóch, jeżeli jesteś zainteresowany szczegółami daj znać w komentarzu, skrobnę o tym artykuł :).
 
 ### Konwersja typów zmiennoprzecinkowych do całkowitoliczbowych
 
-Innym przykładem konwersji w której dochodzi do utraty informacji jest konwersja z typów zmiennoprzecinkowych do typów całkowitoliczbowych:
+Innym przykładem konwersji w której dochodzi do utraty informacji jest konwersja z [typów zmiennoprzecinkowych]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}) do typów całkowitoliczbowych:
 
 ```java
 int intValue = (int) 123.123F;
@@ -154,7 +154,7 @@ Pierwsza linijka metody `main` to niejawna konwersja z typu `int` na `long` (lit
 
 ## Automatyczna konwersja podczas operacji arytmetycznych
 
-Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze specyfikacją języka Java (https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html#jls-5.6.2) możliwa jest konwersja (zachodzi pierwszy pasujący warunek):
+Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze [specyfikacją języka Java](https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.6.2) możliwa jest konwersja (zachodzi pierwszy pasujący warunek):
 1. rozszerzająca do typu `double` jeśli którykolwiek z elementów operacji arytmetycznej jest typu `double`,
 2. rozszerzająca do typu `float` jeśli którykolwiek z elementów operacji jest typu `float`,
 3. rozszerzająca to typu `long` jeśli którykolwiek z elementów operacji jest typu `long`,
@@ -192,11 +192,11 @@ Tutaj drobna dygresja, operator dzielenia (/) wykonuje w języku Java dzielenie 
 Jak wiesz w języku Java występują zarówno typy proste jak i obiekty reprezentujące liczby np. `int` i `Integer`. Kompilator Java jest w stanie dokonać konwersji pomiędzy odpowiadającymi sobie typami prostymi i obiektami automatycznie. Proszę spójrz na przykład poniżej
 
 ```java
-int primitiveInt = new Integer(123);
-long primitiveLong = new Long(123L);
-float primitiveFloat = new Float(123.123F);
-double primitiveDouble = new Double(123.123);
-boolean primitiveBoolean = new Boolean(true);
+int primitiveInt = Integer.valueOf(123);
+long primitiveLong = Long.valueOf(123L);
+float primitiveFloat = Float.valueOf(123.123F);
+double primitiveDouble = Double.valueOf(123.123);
+boolean primitiveBoolean = Boolean.valueOf(true);
 ```
 
 Mamy tu do czynienia z tak zwanym "_unboxing_'iem", czyli automatycznym odpakowywaniem obiektu do odpowiadającego mu typu prostego.
@@ -236,10 +236,10 @@ Przygotowałem też dla Ciebie zestaw [przykładowych rozwiązań zadań](https:
 
 ## Dodatkowe materiały do nauki
 
-- [https://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.16](https://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.16) – "cast expression",
-- [https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html](https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html) – rzutowanie i konwersje,
+- [https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.16](https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.16) – "cast expression",
+- [https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html](https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html) – rzutowanie i konwersje,
 - [https://github.com/SamouczekProgramisty/KursJava/tree/master/11\_konwersja\_rzutowanie](https://github.com/SamouczekProgramisty/KursJava/tree/master/11_konwersja_rzutowanie) – kod źródłowy przykładów użytych w artykule.
 
 ## Podsumowanie
 
-Właśnie dowiedziałeś się o kilku kolejnych zakamarkach języka Java. Mam nadzieję, że Ci się podobało. Jak zwykle na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zleży mi na dotarciu do jak największego grona czytelników. Jeśli nie chcesz pominąć żadnego postu polub Samouczka na facebooku. Do następnego razu! :)
+Właśnie dowiedziałeś się o kilku kolejnych zakamarkach języka Java. Mam nadzieję, że Ci się podobało. Jak zwykle na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zleży mi na dotarciu do jak największego grona czytelników. Jeśli nie chcesz pominąć żadnego postu polub Samouczka na Facebook'u. Do następnego razu! :)
