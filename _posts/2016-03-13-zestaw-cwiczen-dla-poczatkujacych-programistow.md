@@ -89,7 +89,7 @@ Dużo zadań dotyczących tablic wymaga znajmości pętli, dlatego w następnym 
 
 4. Utwórz metodę, która pobierze liczbę i wypisze każdy znak w osobnej linii zaczynając od ostatniej cyfry (np. dla liczby 123 będą to trzy linie z 3, 2 i 1),
 5. Utwórz metodę, która jako argument pobierze obiekt klasy `String` i zwróci "odwrócony" argument. Na przykład "pies" przekształci w "seip",
-6. Utwórz metodę, która pobierze liczbę oraz zwróci ją w formie binarnej (2 =\> "10", 4 =\> "100", 5 =\> "101", itd.). [System binarny](http://www.samouczekprogramisty.pl/system-dwojkowy/) opisałem w osobnym artykule,
+6. Utwórz metodę, która pobierze liczbę oraz zwróci ją w formie binarnej (2 =\> "10", 4 =\> "100", 5 =\> "101", itd.). [System binarny]({% post_url 2016-02-11-system-dwojkowy %}) opisałem w osobnym artykule,
 7. Utwórz metodę, pobierającą łańcuch znaków, która sprawdzi czy jest on [palindromem](https://pl.wikipedia.org/wiki/Palindrom). Np. "kajak" jest palindromem (to samo czytane "od przodu i od tyłu") jednak "kotek" już nie. Może przydać Ci się metoda `String#toCharArray`
 8. Do klasy `ArrayFactory` dodaj metodę zwracającą [macierz jednostkową](https://pl.wikipedia.org/wiki/Macierz_jednostkowa) (jedynki "na przekątnej"),
 9. Napisz metodę, która pobierze tablicę liczb całkowitych i wyświetli ją w postaci "[liczba, liczba, liczba]",

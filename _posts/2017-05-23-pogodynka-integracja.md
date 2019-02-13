@@ -53,7 +53,7 @@ Aplikacje [Datavault](https://github.com/SamouczekProgramisty/Pogodynka/tree/mas
 
 Ma to pewne konsekwencje. Mianowicie pewne elementy takie jak hasła nie powinny być publicznie dostępne. Aby to obejść użyłem zmiennych środowiskowych. Używam takiej zmiennej na przykład aby pobrać [hasło użytkownika bazy danych](https://github.com/SamouczekProgramisty/Pogodynka/blob/5c5334e0dc5878cb62d4c864a5035ca54c607373/datavault/src/main/java/pl/samouczekprogramisty/pogodynka/datavault/configuration/JPAConfigration.java).
 
-Zmienne te są ustawione na serwerze za pomocą [puppet’a](https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/tomcat.pp#L21). Ich wartość pobierana jest za pośrednictwem mechanizmu hiera (opisałem go w jednym z poprzednich [artykułów opisujących projekt Pogodynka](http://www.samouczekprogramisty.pl/pogodynka-konfiguracja-bazy-danych/)) więc nie są to dane dostępne publicznie.
+Zmienne te są ustawione na serwerze za pomocą [puppet’a](https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/tomcat.pp#L21). Ich wartość pobierana jest za pośrednictwem mechanizmu hiera (opisałem go w jednym z poprzednich [artykułów opisujących projekt Pogodynka]({% post_url 2017-05-07-pogodynka-konfiguracja-bazy-danych %})) więc nie są to dane dostępne publicznie.
 
 ## Zmiany w kodzie
 

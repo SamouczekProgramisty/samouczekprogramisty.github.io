@@ -25,7 +25,7 @@ Dostęp do tej bazy danych możliwy jest po dodaniu jednej linijki do konfigurac
 
     compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
 
-Jeśli chcesz dowiedzieć się czegoś więcej o samym Gradle zachęcam do przeczytania [wprowadzenia do Gradle](http://www.samouczekprogramisty.pl/wstep-do-gradle/).
+Jeśli chcesz dowiedzieć się czegoś więcej o samym Gradle zachęcam do przeczytania [wprowadzenia do Gradle]({% post_url 2017-01-19-wstep-do-gradle %}).
 
 ## JPA i ORM
 

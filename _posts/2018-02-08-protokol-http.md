@@ -83,7 +83,7 @@ W tym przypadku nazwa użytkownika i hasło przesyłane są jako część URL. N
 
 ### `host`
 
-W przypadku protokołu HTTP sprowadza się to do nazwy domeny internetowej lub adresu IP. Przykładem domeny może być <a href="http://www.samouczekprogramisty.pl">www.samouczekprogramisty.pl</a>. Przykładowy adres IPv4 to `192.30.253.112`. Jaka strona kryje się pod tym adresem :)?
+W przypadku protokołu HTTP sprowadza się to do nazwy domeny internetowej lub adresu IP. Przykładem domeny może być [www.samouczekprogramisty.pl](http://www.samouczekprogramisty.pl). Przykładowy adres IPv4 to `192.30.253.112`. Jaka strona kryje się pod tym adresem :)?
 
 [DNS](https://pl.wikipedia.org/wiki/Domain_Name_System) (ang. _Domain Name System_) jest protokołem, który pozwala na tłumaczenie [adresów IP](https://pl.wikipedia.org/wiki/Adres_IP) na nazwy domen.
 {: .notice--info}
@@ -108,7 +108,7 @@ Zawiera dodatkowe dane identyfikujące dany zasób. Ta część oddzielona jest 
 
 ### `fragment`
 
-Ostatnia część adresu URL. W praktyce wykorzystywana jest do określenia fragmentu strony HTML, która powinna zostać pokazana użytkownikowi. Na przykład adres [http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni](http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni) przeniesie Cię do sekcji opisującej właściwości strumieni.
+Ostatnia część adresu URL. W praktyce wykorzystywana jest do określenia fragmentu strony HTML, która powinna zostać pokazana użytkownikowi. Na przykład adres [http://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni]({% post_url 2018-01-30-strumienie-w-jezyku-java %}#właściwości-strumieni) przeniesie Cię do sekcji opisującej właściwości strumieni.
 
 {% include newsletter-srodek.md %}
 
