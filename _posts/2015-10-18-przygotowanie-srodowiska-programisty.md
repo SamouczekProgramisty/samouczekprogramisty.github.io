@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-08-20 16:31:08 +0200
+last_modified_at: 2019-02-13 15:22:30 +0100
 title: Przygotowanie środowiska programisty
 categories:
 - Kurs programowania Java
@@ -90,21 +90,21 @@ W najprostszym przypadku wystarczy zwykły edytor tekstu. W systemie operacyjnym
 
 Chociaż takie narzędzie w zupełności wystarczy do efektywnej pracy przydają się bardziej zaawansowane narzędzia. Jednym z nich jest „zintegrowane środowisko programistyczne” – IDE (ang. Integrated Development Environment). IDE poza bardziej zaawansowanym edytorem zawiera zestaw dodatkowych narzędzi przydatnych programiście. Np. „profiler”, „debuger”, zestaw narzędzi do refaktoryzacji itp. Jeśli jesteś zainteresowany, którymkolwiek z tych zagadnień daj znać, na pewno napiszę artykuł na jego temat ;)
 
-Nie ma jednego, słusznego IDE, którego programista powinien używać. Sam swoją przygodę zaczynałem z Eclipse i NetBeans. Jednak po pierwszych doświadczeniach z InteliJ Idea i opinii wśród innych programistów wydaję mi się, że powinieneś zacząć właśnie od tego IDE. Postaram się przeprowadzić Cię przez cały proces instalacji.
+Nie ma jednego, słusznego IDE, którego programista powinien używać. Sam swoją przygodę zaczynałem z Eclipse i NetBeans. Jednak po pierwszych doświadczeniach z IntelliJ IDEA i opinii wśród innych programistów wydaję mi się, że powinieneś zacząć właśnie od tego IDE. Postaram się przeprowadzić Cię przez cały proces instalacji.
 
-### Instalacja InteliJ Idea
+### Instalacja IntelliJ IDEA
 
-Podobnie jak w przypadku instalacji JDK używałem maszyny z systemem Windows 7. Aby ściągnąć InteliJ Idea musisz na stronie <https://www.jetbrains.com/idea/download> nacisnąć przycisk z napisem „Download Community”.
+Podobnie jak w przypadku instalacji JDK używałem maszyny z systemem Windows 7. Aby ściągnąć IntelliJ IDEA musisz na stronie <https://www.jetbrains.com/idea/download> nacisnąć przycisk z napisem „Download Community”.
 
-{% include figure image_path="/assets/images/2015/10/18_download_2.jpg" caption="Pobierz InteliJ Idea." %}
+{% include figure image_path="/assets/images/2015/10/18_download_2.jpg" caption="Pobierz IntelliJ IDEA." %}
 
-Instalacja InteliJ nie zawiera tak wiele ekranów jak instalacja JDK :) Jednak to nie wszystko. Teraz, gdy mamy już działające IDE należy je skonfigurować. Na pierwszym ekranie masz możliwość wyboru zestawu kolorów. Ja wybrałem ciemny, oczywiście możesz to później zmienić.
+Instalacja IntelliJ nie zawiera tak wiele ekranów jak instalacja JDK :) Jednak to nie wszystko. Teraz, gdy mamy już działające IDE należy je skonfigurować. Na pierwszym ekranie masz możliwość wyboru zestawu kolorów. Ja wybrałem ciemny, oczywiście możesz to później zmienić.
 
 {% include figure image_path="/assets/images/2015/10/18_install_1.jpg" caption="Instalacja krok I" %}
 
-### Tworzenie pierwszego projektu w InteliJ Idea
+### Tworzenie pierwszego projektu w IntelliJ IDEA
   
-Świeżo po instalacji InteliJ Idea niestety nie wie, którego JDK ma użyć (tak, możesz mieć kilka zainstalowanych JDK na jednym komputerze). Dlatego przy tworzeniu pierwszego projektu należy wskazać odpowiednią ścieżkę gdzie poprzednio zainstalowaliśmy JDK.
+Świeżo po instalacji IntelliJ IDEA niestety nie wie, którego JDK ma użyć (tak, możesz mieć kilka zainstalowanych JDK na jednym komputerze). Dlatego przy tworzeniu pierwszego projektu należy wskazać odpowiednią ścieżkę gdzie poprzednio zainstalowaliśmy JDK.
 
 {% include figure image_path="/assets/images/2015/10/18_install_2.jpg" caption="Instalacja krok II" %}
 
@@ -122,7 +122,7 @@ Po dodaniu JDK możemy je wybrać w menu rozwijanym. Na kolejnym ekranie nie wyb
 
 {% include figure image_path="/assets/images/2015/10/18_project_5.jpg" caption="Tworzenie projektu krok V" %}
 
-I tak utworzyliśmy swój pierwszy projekt w InteliJ! :) Co prawda nie ma w nim jeszcze ani linijki kodu ale tym szczegółem zajmiemy się następnym razem.
+I tak utworzyliśmy swój pierwszy projekt w IntelliJ IDEA! :) Co prawda nie ma w nim jeszcze ani linijki kodu ale tym szczegółem zajmiemy się następnym razem.
 
 {% include figure image_path="/assets/images/2015/10/18_project_6.jpg" caption="Tworzenie projektu krok VI" %}
 

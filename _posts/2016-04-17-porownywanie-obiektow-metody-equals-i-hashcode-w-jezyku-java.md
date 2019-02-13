@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-12-29 09:03:42 +0100
+last_modified_at: 2019-02-13 15:22:30 +0100
 title: Porównywanie obiektów, metody equals i hashCode w języku Java
 categories:
 - Kurs programowania Java
@@ -222,7 +222,7 @@ Trzeci przypadek jest ilustrowany na obrazku powyżej gdzie koła i trójkąt ma
 
 ## Generatory metod `hashCode` i `equals`
 
-Implementacja tych metod w większości przypadków jest dość prosta. W większości z nich także nie jest to kod zbyt skomplikowany. Jednak za każdym razem pisanie tych metod jest uciążliwe. Z pomocą przychodzi IDE. Polecam generowanie tych metod przy jego pomocy. W przypadku InteliJ IDEA pomocny może okazać się skrót klawiaturowy `Alt+Insert`. Po jego naciśnięciu pokaże się menu kontekstowe pozwalające na wygenerowanie tych metod.
+Implementacja tych metod w większości przypadków jest dość prosta. W większości z nich także nie jest to kod zbyt skomplikowany. Jednak za każdym razem pisanie tych metod jest uciążliwe. Z pomocą przychodzi IDE. Polecam generowanie tych metod przy jego pomocy. W przypadku IntelliJ IDEA pomocny może okazać się skrót klawiaturowy `Alt+Insert`. Po jego naciśnięciu pokaże się menu kontekstowe pozwalające na wygenerowanie tych metod.
 
 Dodatkowo warto przyjrzeć się klasie `Objects` i bibliotekom [Guava](https://github.com/google/guava) czy [Apache commons-lang](https://commons.apache.org/proper/commons-lang/). Zawierają one metody pomocnicze użyteczne podczas implementacji metod `hashCode` i `equals`.
 

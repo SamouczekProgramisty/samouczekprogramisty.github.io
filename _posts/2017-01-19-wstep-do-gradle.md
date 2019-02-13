@@ -1,6 +1,6 @@
 ---
 title: Wstęp do Gradle
-last_modified_at: 2018-07-18 20:43:32 +0200
+last_modified_at: 2019-02-13 15:22:30 +0100
 categories:
 - Programista rzemieślnik
 permalink: /wstep-do-gradle/
@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2017/01/19_wstep_do_gradle_artykul.jpg
     overlay_image: /assets/images/2017/01/19_wstep_do_gradle_artykul.jpg
     caption: "[&copy; antsnaps](https://www.flickr.com/photos/antsnaps/6163066070/sizes/l)"
-excerpt: W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używanego w pliku build.gradle. Utworzysz też swój pierwszy projekt z gradle w InteliJ IDEA. Zapraszam do lektury.
+excerpt: W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używanego w pliku build.gradle. Utworzysz też swój pierwszy projekt z gradle w IntelliJ IDEA. Zapraszam do lektury.
 disqus_page_identifier: 738 http://www.samouczekprogramisty.pl/?p=738
 ---
 
@@ -244,29 +244,29 @@ Program gradle pozwala na wypisane wszystkich zależności możesz to zrobić ur
 ### Wiesz, że poznałeś właśnie nowy język?
 
 Tak naprawdę, Gradle w pliku konfiguracyjnym do projektu używa języka skryptowego [Groovy](http://www.groovy-lang.org/). Język domenowy, którego używa się w pliku `build.gradle` jest na tyle rozbudowany, że w większości przypadków nie będzie potrzeby używania języka Groovy, jednak pamiętaj o tym, kiedy będziesz chciał zrobić coś nietypowego (na przykład wysłać smsa do siebie jeśli testy nie będą przechodziły, chociaż jak znam życie, ktoś już napisał wtyczkę, która to robi i możesz jej użyć bazując wyłącznie na DSL udostępnionym przez tę wtyczkę). W rzeczywistości sam DSL także jest poprawnym kodem Groovy ;).
-## Projekty Gradle w InteliJ Idea
+## Projekty Gradle w IntelliJ IDEA.
 
 IntliJ IDEA domyślnie wspiera projekty budowane przy pomocy Gradle. Poniżej pokazuję sposób w jaki możesz założyć przykładowy projekt. Aby to zrobić wybierz z menu File, New i następnie Project. Pokaże Ci się się następujące okienko.
 
-{% include figure image_path="/assets/images/2017/01/19_0_new_project.png" caption="Gradle nowy projekt InteliJ" %}
+{% include figure image_path="/assets/images/2017/01/19_0_new_project.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
 
 Zaznaczasz gradle i klikasz next. Kolejne okienko, to nic innego jak uzupełnienie wcześniej omówionych groupId, artifactId i version, które będą identyfikowały Twój projekt:
 
-{% include figure image_path="/assets/images/2017/01/19_1_project_identifiers.png" caption="Gradle nowy projekt InteliJ" %}
+{% include figure image_path="/assets/images/2017/01/19_1_project_identifiers.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
 
-Kolejne okienko daje InteliJ informacje jak ma się zachować w przypadku tworzenia projektu, na przykład tutaj podajesz informację, gdzie zainstalowany jest Gradle na Twoim komputerze. Istotne jest abyś zaznaczył drugą opcję, która spowoduje utworzenie struktury projektu zgodnie z opisaną wcześniej konwencją.
+Kolejne okienko daje IntelliJ IDEA informacje jak ma się zachować w przypadku tworzenia projektu, na przykład tutaj podajesz informację, gdzie zainstalowany jest Gradle na Twoim komputerze. Istotne jest abyś zaznaczył drugą opcję, która spowoduje utworzenie struktury projektu zgodnie z opisaną wcześniej konwencją.
 
-{% include figure image_path="/assets/images/2017/01/19_3_project_settings.png" caption="Gradle nowy projekt InteliJ" %}
+{% include figure image_path="/assets/images/2017/01/19_3_project_settings.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
 
-Kolejny ekran to informacja dla InteliJ jak powinien nazywać się projekt, domyślnie uzupełnia to pole wartością artifactId oraz gdzie na dysku projekt, powinien być utworzony.
+Kolejny ekran to informacja dla IntelliJ IDEA jak powinien nazywać się projekt, domyślnie uzupełnia to pole wartością artifactId oraz gdzie na dysku projekt, powinien być utworzony.
 
-{% include figure image_path="/assets/images/2017/01/19_4_project_location.png" caption="Gradle nowy projekt InteliJ" %}
+{% include figure image_path="/assets/images/2017/01/19_4_project_location.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
 
-Po przejściu przez tę serię kroków InteliJ utworzy pusty projekt wraz z plikiem build.gradle. Warto jest rzucić okiem na to co się w nim znajduje.
+Po przejściu przez tę serię kroków IntelliJ IDEA utworzy pusty projekt wraz z plikiem build.gradle. Warto jest rzucić okiem na to co się w nim znajduje.
 
-### Plik `build.gradle` utworzony przez IntliJ IDEA
+### Plik `build.gradle` utworzony przez IntelliJ IDEA
 
-Poniżej znajduje się plik `build.gradle`, który utworzył za mnie InteliJ.
+Poniżej znajduje się plik `build.gradle`, który utworzył za mnie IntelliJ IDEA.
 
 ```
 group 'pl.samouczekprogramisty'
@@ -291,13 +291,13 @@ Kolejna linijka jest Ci znana, włączamy wtyczkę do obsługi Javy.
 
 Ta linijka wymaga trochę szerszego omówienia. Java ewoluowała, na przestrzeni lat pojawiały się kolejne wersje. Wersje te wprowadzały pewne konstrukcje językowe, które nie były dostępne wcześniej. `sourceCompatibility` informuje kompilator `javac` (poprzez przełącznik `-source`) jakiej wersji Javy trzeba użyć do kompilowania klas z kodem.
 
-Kolejny blok mówi o repozytoriach, z których powinny być ściągane zależności. Jak widzisz InteliJ domyślnie zakłada, że korzystali będziemy z centralnego repozytorium Maven’a.
+Kolejny blok mówi o repozytoriach, z których powinny być ściągane zależności. Jak widzisz IntelliJ IDEA domyślnie zakłada, że korzystali będziemy z centralnego repozytorium Maven’a.
 
 Kolejny blok specyfikuje zależności, domyślnie występuje tylko jedna zależność dostępna w trakcie kompilowania testów (`testCompile`), jest to bilblioteka JUnit w wersji 4.11.
 
 ## Podsumowanie
 
-Po przeczytaniu artykułu dowiedziałeś się podstaw o Gradle. Wiesz już czym są zadania, jak łączyć je między sobą. Utworzyłeś swój pierwszy projekt w Gradle w InteliJ IDEA. Przeczytałeś o konwencjach stosowanych w większych projektach programistycznych.
+Po przeczytaniu artykułu dowiedziałeś się podstaw o Gradle. Wiesz już czym są zadania, jak łączyć je między sobą. Utworzyłeś swój pierwszy projekt w Gradle w IntelliJ IDEA. Przeczytałeś o konwencjach stosowanych w większych projektach programistycznych.
 
 Temat bynajmniej nie jest wyczerpany. W kolejnych artykułach, bez wstępu, któremu poświęcony jest ten artykuł skupię się na omawianiu bardziej zaawansowanych możliwości Gradle.
 

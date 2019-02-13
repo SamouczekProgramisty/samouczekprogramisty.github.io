@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-08-20 16:31:08 +0200
+last_modified_at: 2019-02-13 15:22:30 +0100
 title: Kolekcje w języku Java
 categories:
 - Kurs programowania Java
@@ -166,9 +166,9 @@ System.out.println(pairsMap.containsValue("Adela"));
 Pełna lista metod dostępna w interfejsie `Map` znajduje się w [dokumentacji](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html).
 ## Skróty klawiaturowe
 
-W IDE, które proponowałem na początku (InteliJ) jest skrót klawiaturowy, który bardzo może Ci się przydać w odkrywaniu nowych metod. Po wpisaniu zmiennej i kropki po niej naciśnij `<Ctrl + Spacja>` pojawi się menu kontekstowe z dostępnymi atrybutami/metodami tego obiektu.
+W IDE, które proponowałem na początku (IntelliJ IDEA) jest skrót klawiaturowy, który bardzo może Ci się przydać w odkrywaniu nowych metod. Po wpisaniu zmiennej i kropki po niej naciśnij `<Ctrl + Spacja>` pojawi się menu kontekstowe z dostępnymi atrybutami/metodami tego obiektu.
 
-{% include figure image_path="/assets/images/2016/08/09_tooltip.png" caption="Skróty klawiaturowe w InteliJ Idea" %}
+{% include figure image_path="/assets/images/2016/08/09_tooltip.png" caption="Skróty klawiaturowe w IntelliJ IDEA" %}
 
 Kolejny przydatny skrót klawiaturowy to `<Ctrl + H>`. Najedź kursorem na interfejs `List`, po naciśnięciu tego skrótu pojawi się panel zawierający hierarchię dziedziczenia dla elementu pod kursorem. Także ten panel jest widoczny na zrzucie ekranu powyżej.
 

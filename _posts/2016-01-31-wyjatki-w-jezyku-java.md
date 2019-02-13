@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-08-20 16:31:08 +0200
+last_modified_at: 2019-02-13 15:22:30 +0100
 title: Wyjątki w języku Java
 categories:
 - Kurs programowania Java
@@ -94,7 +94,7 @@ Proszę zwróć uwagę na stos wywołań metod, który wspomniałem wyżej i por
 
 Pierwsza linijka mówi o tym jaki wyjątek został rzucony, kolejne linijki to metody, które były wywoływane. Każda linia składa się z nazwy klasy wraz z pakietem, w nawiasach znajduje się nazwa pliku oddzielona dwukropkiem od numeru linii w tym pliku. W naszym przypadku wyjątek `RuntimeException` został rzucony po wywołaniu metody `pl.samouczekprogramisty.kursjava.exception.StackTraceExample.method3`, która znajduje się w 18 linijce pliku&nbsp;`StackTraceExample.java`.
 
-Ostatnie linijki także pokazują na kod programu, jednak ten nie jest już napisany prze mnie. Program powyżej uruchamiałem z IDE i to właśnie przez InteliJ stacktrace zawiera te 5 dodatkowych linijek.
+Ostatnie linijki także pokazują na kod programu, jednak ten nie jest już napisany prze mnie. Program powyżej uruchamiałem z IDE i to właśnie przez IntelliJ IDEA stacktrace zawiera te 5 dodatkowych linijek.
 
 ## Obsługa wyjątków
 
