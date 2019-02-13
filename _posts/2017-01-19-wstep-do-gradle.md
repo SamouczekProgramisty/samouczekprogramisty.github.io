@@ -1,6 +1,6 @@
 ---
 title: Wstęp do Gradle
-last_modified_at: 2019-02-13 15:22:30 +0100
+last_modified_at: 2019-02-13 23:16:19 +0100
 categories:
 - Programista rzemieślnik
 permalink: /wstep-do-gradle/
@@ -16,7 +16,7 @@ disqus_page_identifier: 738 http://www.samouczekprogramisty.pl/?p=738
 
 Starając się opisać Gradle jednym zdaniem powiedziałbym, że Gradle jest narzędziem służącym do budowania projektów[^gradle]. Pozwala ono na zautomatyzowanie tego procesu. Używa się do tego tak zwanego języka domenowego – DSL (ang. _Domain Specific Language_), który ułatwia wykonywanie standardowych zadań związanych z budowaniem projektu.
 
-[^gradle]: Oczywiście z racji swoje elastyczności Gradle może być użyte także w wielu innych przypadkach, jednak to budowanie projektów jest tym "standardowym".
+[^gradle]: Oczywiście z racji swoje elastyczności Gradle może być użyte także w wielu innych przypadkach, jednak to budowanie projektów jest tym standardowym.
 
 Jeśli do tej pory miałeś styczność wyłącznie z niezbyt dużymi projektami, nad którymi pracowałeś samodzielnie prawdopodobnie nie odczuwałeś potrzeby używania narzędzi tego typu. Jednak przy większych projektach narzędzie, które pozwala na zautomatyzowanie tego procesu jest bardzo pomocne.
 
@@ -24,9 +24,9 @@ Jeśli do tej pory miałeś styczność wyłącznie z niezbyt dużymi projektami
 
 Oczywiście Gradle nie jest jedynym narzędziem, które pomaga przy budowaniu projektów. Wymienić tu trzeba byłoby kilka innych jak [Ant](http://ant.apache.org/), [Maven](https://maven.apache.org/), [Ivy](http://ant.apache.org/ivy/), [Make](https://www.gnu.org/software/make/) czy [Buildr](https://buildr.apache.org/). Oczywiście nie jest to kompletna lista.
 
-Dodatkowo „problem budowania” projektu występuje w każdym języku programowania, więc analogiczne narzędzia występują także dla innych języków.
+Dodatkowo problem budowania projektu występuje w każdym języku programowania, więc analogiczne narzędzia występują także dla innych języków.
 
-## Instalacja gradle
+## Instalacja Gradle
 
 Gradle sam w sobie jest programem, abyś mógł go używać musisz „zainstalować” go na swoim komputerze. Najnowszą wersję Gradle możesz ściągnąć z [tej strony](https://gradle.org/gradle-download/). Następnie rozpakuj ściągnięty plik, ustaw zmienną środowiskową `GRADLE_HOME`, która będzie wskazywała na katalog, w którym rozpakowałeś wcześniej ściągniętą paczkę.
 
@@ -40,7 +40,7 @@ Po takim zestawie ustawień i ponownym uruchomieniu terminala powinieneś móc w
 
 ## W czym może pomóc Gradle
 
-Jak wspomniałem wcześniej Gradle służy do budowania projektów. Pod pojęciem „budowania projektów” tak naprawdę kryje się cała masa drobnych czynności. Zaczynając od najbardziej podstawowych, takich jak kompilowanie kodu źródłowego czy tworzenie pliku ze skompilowanymi klasami, na przykład pliku JAR (ang. _Java Archive_)[^jar].
+Jak wspomniałem wcześniej Gradle służy do budowania projektów. Pod pojęciem budowania projektów tak naprawdę kryje się cała masa drobnych czynności. Zaczynając od najbardziej podstawowych, takich jak kompilowanie kodu źródłowego czy tworzenie pliku ze skompilowanymi klasami, na przykład pliku JAR (ang. _Java Archive_)[^jar].
 
 [^jar]: Programy, które napiszemy pakowane są w paczki, tego typu paczki używane są do uruchamiania programów w środowisku produkcyjnym.
 
@@ -58,11 +58,11 @@ Gradle pobiera zależności, które wskażesz (w odpowiedni sposób), zajmując 
 
 ### Konwencje
 
-Programując w Javie (i nie tylko) dobrze jest stosować do pewnych przyjętych konwencji, które możemy spotkać w wielu projektach. Takie podejście pomaga w pracy nad różnymi projektami, wprowadza swego rodzaju „porządek”. Gradle także używa takich konwencji, poniżej opiszę dwie z nich, strukturę katalogów w projekcie i sposób identyfikowania projektu. Pomogą one w zrozumieniu podstaw DSL, które znajdą się w kolejnych akapitach.
+Programując w Javie (i nie tylko) dobrze jest stosować do pewnych przyjętych konwencji, które możemy spotkać w wielu projektach. Takie podejście pomaga w pracy nad różnymi projektami, wprowadza swego rodzaju porządek. Gradle także używa takich konwencji, poniżej opiszę dwie z nich, strukturę katalogów w projekcie i sposób identyfikowania projektu. Pomogą one w zrozumieniu podstaw DSL, które znajdą się w kolejnych akapitach.
 
 ### Struktura projektu
 
-Przy prostych projektach, nie ma potrzeby używania specjalnej struktury dla projektu. Jednak przy tych bardziej zaawansowanych pewna konwencja ułatwia zrozumienie tego „co w danym projekcie się dzieje”. Gdzie szukać plików z testami, w którym miejscu mogą znajdować się pliki z kodem źródłowym, gdzie może znajdować się plik JAR, który powstał po zbudowaniu projektu. To wszystko można osiągnąć, dzięki pewnej konwencji, która jest powszechnie stosowana w świecie projektów Java.
+Przy prostych projektach, nie ma potrzeby używania specjalnej struktury dla projektu. Jednak przy tych bardziej zaawansowanych pewna konwencja ułatwia zrozumienie tego co w danym projekcie się dzieje. Gdzie szukać plików z testami, w którym miejscu mogą znajdować się pliki z kodem źródłowym, gdzie może znajdować się plik JAR, który powstał po zbudowaniu projektu. To wszystko można osiągnąć, dzięki pewnej konwencji, która jest powszechnie stosowana w świecie projektów Java.
 
 Proszę spójrz na przykład poniżej, pokazuje on strukturę katalogów w projekcie `01_witaj_swiecie`, który stworzyłem na potrzeby tego artykułu (użyłem tu programu [`tree`](https://linux.die.net/man/1/tree)) do pokazania struktury katalogów):
 
@@ -70,20 +70,20 @@ Proszę spójrz na przykład poniżej, pokazuje on strukturę katalogów w proje
     .
     ├── build.gradle
     └── src
-    ├── main
-    │   ├── java
-    │   │   └── pl
-    │   │   └── samouczekprogramisty
-    │   │   └── Hello.java
-    │   └── resources
-    │   └── log4j.ini
-    └── test
-    ├── java
-    │   └── pl
-    │   └── samouczekprogramisty
-    │   └── HelloTest.java
-    └── resources
-    └── log4j.ini
+        ├── main
+        │   ├── java
+        │   │   └── pl
+        │   │       └── samouczekprogramisty
+        │   │           └── Hello.java
+        │   └── resources
+        │       └── log4j.ini
+        └── test
+            ├── java
+            │   └── pl
+            │       └── samouczekprogramisty
+            │           └── HelloTest.java
+            └── resources
+                └── log4j.ini
 
 Projekt ten zawiera jedną klasę `Hello`, znajdującą się w pakiecie `pl.samouczekprogramisty` i odpowiadający jest test znajdujący się w pliku `HelloTest.java`. Proszę zauważ, że oba te pliki znajdują się w zupełnie różnych katalogach, odpowiednio `src/main/java` i `src/test/java`. Tego typu podejście pozwala na oddzielenie kodu aplikacji od testów.
 
@@ -106,7 +106,7 @@ Gradle także używa tej trójki, jednak pod troszkę innymi nazwami, są to odp
 
 `name` to drugi identyfikator, jest on częścią finalnej nazwy pliku JAR ze skompilowanymi klasami. W przypadku projektu, z przykładami do kursu Java na Samouczku `name` może mieć wartość `examples` czy `code-samples`.
 
-`version` określa wersję projektu. Standardowo wersję określa się przez trójkę liczb oddzielonych kropkami na przykład `1.0.0` czy `5.0.12`. Dodatkowo jeśli jest to wersja „deweloperska” można do niej dołączyć `-SNAPSHOT` uzyskując `1.0.0-SNAPSHOT`.
+`version` określa wersję projektu. Standardowo wersję określa się przez trójkę liczb oddzielonych kropkami na przykład `1.0.0` czy `5.0.12`. Dodatkowo jeśli jest to wersja deweloperska można do niej dołączyć `-SNAPSHOT` uzyskując `1.0.0-SNAPSHOT`.
 
 Finalnie nazwa pliku JAR ze skompilowanymi klasami będzie składała się z `name` i `version` oddzielonych minusem, na przykład `code-samples-1.0.0-SNAPSHOT.jar`, czy `examples-5.0.12.jar`.
 
@@ -119,7 +119,7 @@ Gradle do działania potrzebuje konfiguracji. Domyślnie konfigurację umieszcza
 Gradle działa w oparciu o zadania. Wewnątrz nich definiujemy co tak naprawdę gradle powinien zrobić. Na przykład zadaniem może być utworzenie pliku JAR czy uruchomienie testów. Zadania te definiujemy wewnątrz pliku build.gradle. Poniższy przykład pokazuje prosty plik, który zawiera wyłącznie jedno zadanie `buildJar`, wypisujące na konsolę odpowiedni komunikat:
 
 ```
-task buildJar << {
+task buildJar {
     println 'now I am building JAR file, in theory'
 }
 ```
@@ -133,11 +133,11 @@ Gradle pozwala także na wprowadzanie zależności pomiędzy zadaniami. Dzięki 
 Proszę spójrz na przykład poniżej, który rozbudowuje poprzedni fragment:
 
 ```
-task runAllTests << {
+task runAllTests {
     println 'now I am checking if all tests are passing, in theory'
 }
- 
-task buildJar(dependsOn: runAllTests) << {
+
+task buildJar(dependsOn: runAllTests) {
     println 'now I am building JAR file, in theory'
 }
 ```
@@ -149,46 +149,46 @@ Uruchamiając `gradle` poleceniem `gradle -q buildJar` na konsoli pokaże się
 
 #### Program gradle
 
-Teraz trochę wyjaśnień, `gradle -q buildJar`, uruchamia zadanie `buildJar` zdefiniowane w pliku `build.gradle`. Przełącznik `-q` (lub `--quiet`) wyłącza część informacji wypisywanych na konsolę. Teraz przeanalizuję wyjście komendy bez tego przełącznika:
+Teraz trochę wyjaśnień, `gradle -q buildJar`, uruchamia zadanie `buildJar` zdefiniowane w pliku `build.gradle`. Przełącznik `-q` (lub `--quiet`) wyłącza część informacji wypisywanych na konsolę. Teraz przeanalizuję wyjście komendy z przełącznikiem `--console=verbose`, który pokazuje trochę więcej informacji:
 
-    $ gradle buildJar
-    :runAllTests
+    $ gradle buildJar --console=verbose
+
+    > Configure project :
     now I am checking if all tests are passing, in theory
-    :buildJar
     now I am building JAR file, in theory
-    
-    BUILD SUCCESSFUL
-    
-    Total time: 2.276 secs
 
-Jak widzisz, pierwsza linijka zawiera `:runAllTests`, tak `gradle` informuje Cię o uruchomieniu tego właśnie zadania. Następna linijka zawiera odpowiedni komunikat, który wypisywane jest w trakcie uruchomienia zadania `runAllTests`, kolejnym zadaniem jest `buildJar`, także wypisujące komunikat. Zauważ, że Gradle uwzględnił zależności pomiędzy zadaniami – uruchomił `runAllTests` przed `buildJar`, tak jak było to zdefiniowane w `build.gradle`. Ostatnie linijki informują o tym, że proces budowania się powiódł i ile trwał.
+    > Task :runAllTests UP-TO-DATE
+    > Task :buildJar UP-TO-DATE
+
+    BUILD SUCCESSFUL in 0s
+
+Pierwsza linijka informuje o przygotowaniu gradle do pracy. Kolejne dwie to komunikaty, które znasz. Pod spodem pokazana jest informacja o stanie dwóch uruchomionych zadań. Zauważ, że Gradle uwzględnił zależności pomiędzy zadaniami – uruchomił `runAllTests` przed `buildJar`, tak jak było to zdefiniowane w `build.gradle`. Ostatnia linijka informują o tym, że proces budowania się powiódł i ile trwał.
 
 ### Wtyczki
 
 Gradle wspiera tak zwane wtyczki. Zawierają one zestaw gotowych zadań, które możesz uruchamiać. Przykładem takiej wtyczki jest `java`, która zawiera zestaw zadań przydatnych przy projektach. Wtyczki dodajemy w pliku `build.gradle` w następujący sposób:
 
 ```
-apply plugin: ‘java’
+apply plugin: 'java'
 ```
 
-Załóżmy, że plik `build.gradle` zawiera wyłącznie tę linijkę. Zobacz co zostanie wypisane na konsolę po uruchmieniu `gradle build` (`build` jest jednym z zadań udostępnionych przez wtyczkę):
+Załóżmy, że plik `build.gradle` zawiera wyłącznie tę linijkę. Zobacz co zostanie wypisane na konsolę po uruchomieniu `gradle build --console=verbose` (`build` jest jednym z zadań udostępnionych przez wtyczkę):
 
-    $ gradle build
-    :compileJava
-    :processResources
-    :classes
-    :jar
-    :assemble
-    :compileTestJava
-    :processTestResources
-    :testClasses
-    :test UP-TO-DATE
-    :check UP-TO-DATE
-    :build
-     
-    BUILD SUCCESSFUL
-     
-    Total time: 2.917 secs
+    $ gradle build --console=verbose
+    > Task :compileJava NO-SOURCE
+    > Task :processResources NO-SOURCE
+    > Task :classes UP-TO-DATE
+    > Task :jar UP-TO-DATE
+    > Task :assemble UP-TO-DATE
+    > Task :compileTestJava NO-SOURCE
+    > Task :processTestResources NO-SOURCE
+    > Task :testClasses UP-TO-DATE
+    > Task :test NO-SOURCE
+    > Task :check UP-TO-DATE
+    > Task :build UP-TO-DATE
+    
+    BUILD SUCCESSFUL in 0s
+    1 actionable task: 1 up-to-date
 
 Widzisz jakie zadania zostały uruchomione? Cała masa ;). Na przykład kompilowanie kodu (`:compileJava`), kompilowania testów (`:compileTestJava`), uruchomienia testów (`:test`) czy budowanie pliku JAR (`:jar`).
 
@@ -198,7 +198,7 @@ Także w tym przypadku widać jak Gradle rozstrzyga zależności pomiędzy zadan
 
 Wspomniałem o tym, że Gradle pomaga w zarządzaniu zależnościami – tym razem chodzi o zależności od innych projektów. Tutaj także z pomocą przychodzi wtyczka `java`.
 
-Pozwala ona na określenie repozytoriów z których powinny być ściągane zależności. Na przykład poniższy fragment poinstruuje gradle aby użył domyślnego repozytorium Maven’a
+Pozwala ona na określenie repozytoriów z których powinny być ściągane zależności. Na przykład poniższy fragment poinstruuje gradle aby użył domyślnego repozytorium Maven’a:
 
 ```
 repositories {
@@ -206,36 +206,36 @@ repositories {
 }
 ```
 
-Następnie możemy już opisywać zależności jak w przykładzie poniżej.
+Następnie możemy już opisywać zależności jak w przykładzie poniżej:
 
 ```
 dependencies {
-    compile group: 'com.google.guava', name: 'guava', version: '21.0'
+    compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
 }
 ```
 
-Powyższa sekcja mówi, że nasz kod potrzebuje w trakcie kompilacji innej biblioteki. W tym przypadku jest to biblioteka guava w wersji 21.0. Gradle pozwala też na troszkę krótszy zapis. Poniższy przykład da dokładnie ten sam efekt co poprzedni:
+Powyższa sekcja mówi, że nasz kod potrzebuje w trakcie kompilacji innej biblioteki. W tym przypadku jest to biblioteka guava w wersji 27.0-jre. Gradle pozwala też na troszkę krótszy zapis. Poniższy przykład da dokładnie ten sam efekt co poprzedni:
 
 ```
 dependencies {
-    compile 'com.google.guava:guava:21.0'
+    compile 'com.google.guava:guava:27.0-jre'
 }
 ```
 
-Słówko `compile` w powyższych przykładach mówi o tym, w jakiej sytuacji będziemy potrzebowali tej zależności. Mówimy w tym przypadku o „obszarze” (ang. scope) gdzie dana zależność będzie używana. Na początku wystarczy abyś wiedział, że istnieje wiele takich obszarów, najczęściej używane z nich to `compile` i `testCompile`. Ten drugi określa zależności używane i dostępne wyłącznie w trakcie testów. W bardziej zaawansowanych przypadkach gradle pozwala na tworzenie swoich własnych „obszarów”.
+Słówko `compile` w powyższych przykładach mówi o tym, w jakiej sytuacji będziemy potrzebowali tej zależności. Mówimy w tym przypadku o obszarze (ang. _scope_) gdzie dana zależność będzie używana. Na początku wystarczy abyś wiedział, że istnieje wiele takich obszarów, najczęściej używane z nich to `compile` i `testCompile`. Ten drugi określa zależności używane i dostępne wyłącznie w trakcie testów. W bardziej zaawansowanych przypadkach gradle pozwala na tworzenie swoich własnych obszarów.
 
 Poniższy przykład pokazuje jak może wyglądać przykładowy plik build.gradle z wieloma zależnościami:
 
 ```
 apply plugin: 'java'
- 
+
 repositories {
     mavenCentral()
 }
- 
+
 dependencies {
-    compile 'com.google.guava:guava:21.0'
-    testCompile 'junit:junit:4.11'
+    compile 'com.google.guava:guava:27.0-jre'
+    testCompile 'junit:junit:4.12'
 }
 ```
 
@@ -243,24 +243,27 @@ Program gradle pozwala na wypisane wszystkich zależności możesz to zrobić ur
 
 ### Wiesz, że poznałeś właśnie nowy język?
 
-Tak naprawdę, Gradle w pliku konfiguracyjnym do projektu używa języka skryptowego [Groovy](http://www.groovy-lang.org/). Język domenowy, którego używa się w pliku `build.gradle` jest na tyle rozbudowany, że w większości przypadków nie będzie potrzeby używania języka Groovy, jednak pamiętaj o tym, kiedy będziesz chciał zrobić coś nietypowego (na przykład wysłać smsa do siebie jeśli testy nie będą przechodziły, chociaż jak znam życie, ktoś już napisał wtyczkę, która to robi i możesz jej użyć bazując wyłącznie na DSL udostępnionym przez tę wtyczkę). W rzeczywistości sam DSL także jest poprawnym kodem Groovy ;).
+Tak naprawdę, Gradle w pliku konfiguracyjnym do projektu używa języka skryptowego [Groovy](http://www.groovy-lang.org/). Język domenowy, którego używa się w pliku `build.gradle` jest na tyle rozbudowany, że w większości przypadków nie będzie potrzeby używania języka Groovy, jednak pamiętaj o tym, kiedy będziesz chciał zrobić coś nietypowego (na przykład wysłać SMS-a do siebie jeśli testy nie będą przechodziły, chociaż jak znam życie, ktoś już napisał wtyczkę, która to robi i możesz jej użyć bazując wyłącznie na DSL udostępnionym przez tę wtyczkę). W rzeczywistości sam DSL także jest poprawnym kodem Groovy ;).
+
+Od wersji 5.0 Gradle pozwala także na użycie języka [Kotlin](https://kotlinlang.org/) do pisania skryptów budowania.
+
 ## Projekty Gradle w IntelliJ IDEA.
 
-IntliJ IDEA domyślnie wspiera projekty budowane przy pomocy Gradle. Poniżej pokazuję sposób w jaki możesz założyć przykładowy projekt. Aby to zrobić wybierz z menu File, New i następnie Project. Pokaże Ci się się następujące okienko.
+IntelliJ IDEA domyślnie wspiera projekty budowane przy pomocy Gradle. Poniżej pokazuję sposób w jaki możesz założyć przykładowy projekt. Aby to zrobić wybierz z menu File, New i następnie Project. Pokaże Ci się się następujące okienko.
 
-{% include figure image_path="/assets/images/2017/01/19_0_new_project.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
+{% include figure image_path="/assets/images/2019/02/13_1_new_project.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
 
 Zaznaczasz gradle i klikasz next. Kolejne okienko, to nic innego jak uzupełnienie wcześniej omówionych groupId, artifactId i version, które będą identyfikowały Twój projekt:
 
-{% include figure image_path="/assets/images/2017/01/19_1_project_identifiers.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
+{% include figure image_path="/assets/images/2019/02/13_2_project_identifiers.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
 
 Kolejne okienko daje IntelliJ IDEA informacje jak ma się zachować w przypadku tworzenia projektu, na przykład tutaj podajesz informację, gdzie zainstalowany jest Gradle na Twoim komputerze. Istotne jest abyś zaznaczył drugą opcję, która spowoduje utworzenie struktury projektu zgodnie z opisaną wcześniej konwencją.
 
-{% include figure image_path="/assets/images/2017/01/19_3_project_settings.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
+{% include figure image_path="/assets/images/2019/02/13_3_project_settings.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
 
 Kolejny ekran to informacja dla IntelliJ IDEA jak powinien nazywać się projekt, domyślnie uzupełnia to pole wartością artifactId oraz gdzie na dysku projekt, powinien być utworzony.
 
-{% include figure image_path="/assets/images/2017/01/19_4_project_location.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
+{% include figure image_path="/assets/images/2019/02/13_4_project_location.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
 
 Po przejściu przez tę serię kroków IntelliJ IDEA utworzy pusty projekt wraz z plikiem build.gradle. Warto jest rzucić okiem na to co się w nim znajduje.
 
@@ -271,17 +274,17 @@ Poniżej znajduje się plik `build.gradle`, który utworzył za mnie IntelliJ ID
 ```
 group 'pl.samouczekprogramisty'
 version '1.0-SNAPSHOT'
- 
+
 apply plugin: 'java'
- 
-sourceCompatibility = 1.5
- 
+
+sourceCompatibility = 1.8
+
 repositories {
     mavenCentral()
 }
- 
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 ```
 
@@ -293,7 +296,7 @@ Ta linijka wymaga trochę szerszego omówienia. Java ewoluowała, na przestrzeni
 
 Kolejny blok mówi o repozytoriach, z których powinny być ściągane zależności. Jak widzisz IntelliJ IDEA domyślnie zakłada, że korzystali będziemy z centralnego repozytorium Maven’a.
 
-Kolejny blok specyfikuje zależności, domyślnie występuje tylko jedna zależność dostępna w trakcie kompilowania testów (`testCompile`), jest to bilblioteka JUnit w wersji 4.11.
+Kolejny blok specyfikuje zależności, domyślnie występuje tylko jedna zależność dostępna w trakcie kompilowania testów (`testCompile`), jest to biblioteka JUnit w wersji 4.12.
 
 ## Podsumowanie
 
@@ -301,6 +304,6 @@ Po przeczytaniu artykułu dowiedziałeś się podstaw o Gradle. Wiesz już czym 
 
 Temat bynajmniej nie jest wyczerpany. W kolejnych artykułach, bez wstępu, któremu poświęcony jest ten artykuł skupię się na omawianiu bardziej zaawansowanych możliwości Gradle.
 
-Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do mojego newslettera i polub Samouczka na facebooku.
+Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do mojego newslettera i polub Samouczka na Facebook'u.
 
 Na koniec mam do Ciebie standardową prośbę, podziel się linkiem do artykułu ze znajomymi, zależy mi na dotarciu do jak największej liczby zapaleńców chcących uczyć się i doskonalić w programowaniu :). Do następnego razu!
