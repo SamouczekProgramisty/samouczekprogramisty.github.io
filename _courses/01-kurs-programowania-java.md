@@ -1,6 +1,6 @@
 ---
 date: 2017-10-13 19:23:50 +0200
-last_modified_at: 2018-09-30 20:17:41 +0200
+last_modified_at: 2019-02-13 14:18:08 2019 +0100
 layout: single_page
 title: Kurs programowania Java
 permalink: /kurs-programowania-java/
@@ -66,6 +66,7 @@ Jak poznasz już podstawy składni możesz przejść do bardziej zaawansowanych 
 * [Klasy wewnętrzne i anonimowe w języku Java]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %})
 * [Wyrażenia lambda w języku Java]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %})
 * [Strumienie w języku Java]({% post_url 2018-01-30-strumienie-w-jezyku-java %})
+* [Wątki w języku Java]({% post_url 2019-02-11-watki-w-jezyku-java %})
 
 ## Elementy biblioteki standardowej
 
