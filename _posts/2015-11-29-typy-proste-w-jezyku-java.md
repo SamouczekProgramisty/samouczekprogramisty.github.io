@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-08-20 16:31:08 +0200
+last_modified_at: 2019-02-13 20:34:46 +0100
 title: Typy proste w języku Java
 categories:
 - Kurs programowania Java
@@ -35,7 +35,7 @@ short daysInYear = 365;
 long veryLargeNumber = 72036854775807L;
 ```
   
-Proszę zwróć uwagę na zmienną `veryLargeNumber`. Zauważyłeś `L` na końcu? Dołączenie `L` na końcu sprawia, że używamy literału innego typu.
+Proszę zwróć uwagę na zmienną `veryLargeNumber`. Zauważyłeś `L` na końcu? Dołączenie `L` na końcu sprawia, że używamy literału typu `long`.
 
 {% include newsletter-srodek.md %}
 
@@ -52,7 +52,7 @@ Zaraz, zaraz! Czym jest literał!? To nic skomplikowanego, jest to po prostu fra
     45l
 
 - `18` – nic nowego, zwykła liczba, którą już znasz,
-- `0b11100` – też liczba, tylko zapisana binarnie, o tym typie zapisywania liczb przeczytasz w jednym z kolejnych artykułów,
+- `0b11100` – też liczba, tylko zapisana binarnie, o tym typie zapisywania liczb przeczytasz w [jednym z kolejnych artykułów]({% post_url 2016-02-11-system-dwojkowy %}),
 - `-0xFF00` – tym razem liczba zapisana w [systemie szesnastkowym](https://pl.wikipedia.org/wiki/Szesnastkowy_system_liczbowy),
 - `0777` – tak wygląda liczba zapisana w [systemie ósemkowym](https://pl.wikipedia.org/wiki/%C3%93semkowy_system_liczbowy),
 - `+78_123_898` – to nic innego jak `78123898`, tylko zapisane w troszkę inny sposób. Znak `+` na początku jest zbędny (domyślnie literały przechowują liczby dodatnie). Znaki `_` podobnie nie są obowiązkowe, służą jedynie do zwiększenia czytelności liczby.
@@ -61,7 +61,7 @@ Zaraz, zaraz! Czym jest literał!? To nic skomplikowanego, jest to po prostu fra
 
 ### Domyślna konwersja
   
-Możesz zadać sobie teraz pytanie. Dlaczego musimy dodawać `L` na końcu liczby typu `long`, a nie musimy nic dodawać dla liczby typu `short` czy `int`? Okazuje się, że kompilator wykonuje za nas automatycznej konwersji typu.
+Możesz zadać sobie teraz pytanie. Dlaczego musimy dodawać `L` na końcu liczby typu `long`, a nie musimy nic dodawać dla liczby typu `short` czy `int`? Okazuje się, że kompilator wykonuje za nas automatycznej [konwersji typu]({% post_url 2016-02-17-konwersja-i-rzutowanie-w-jezyku-java %}):
 
 ```java
 short daysInYear = (short) 365;
@@ -99,7 +99,7 @@ char firstAlphabetLetter = 'a';
 
 ### Liczby zmiennoprzecinkowe
   
-Do tej pory używaliśmy wyłącznie liczb całkowitych. W Javie istnieją też oczywiście typy proste, które mogą przechowywać liczby zmiennoprzecinkowe. Istnieją dwa takie typy:
+Do tej pory używaliśmy wyłącznie liczb całkowitych. W Javie istnieją też oczywiście typy proste, które mogą przechowywać [liczby zmiennoprzecinkowe]({% post_url 2017-11-06-liczby-zmiennoprzecinkowe %}). Istnieją dwa takie typy:
 - `float`,
 - `double`.
   
@@ -120,31 +120,31 @@ Każdy z typów prostych ma odpowiadający mu obiekt:
 
 ```java
 byte b1 = 10;
-Byte b2 = new Byte((byte) 10);
+Byte b2 = Byte.valueOf((byte) 10);
  
 short s1 = 10;
-Short s2 = new Short((short) 10);
+Short s2 = Short.valueOf((short) 10);
  
 int i1 = 10;
-Integer i2 = new Integer(10);
+Integer i2 = Integer.valueOf(10);
  
 long l1 = 10L;
-Long l2 = new Long(10L);
+Long l2 = Long.valueOf(10L);
  
 boolean bo1 = true;
-Boolean bo2 = new Boolean(true)
+Boolean bo2 = Boolean.valueOf(true)
  
 char c1 = 'c';
-Character c2 = new Character('c');
+Character c2 = Character.valueOf('c');
  
 float f1 = 1.2F;
-Float f2 = new Float(1.2F);
+Float f2 = Float.valueOf(1.2F);
  
 double d1 = 1.2;
-Double d2 = new Double(1.2);
+Double d2 = Double.valueOf(1.2);
 ```
   
-Jak widzisz tworzenie obiektów jest trochę "trudniejsze" niż tworzenie zmiennych typów prostych. Jednak nie jest to wymagane. W Javie istnieje tak zwany autoboxing/autounboxing:
+Jak widzisz tworzenie obiektów jest trochę "trudniejsze" niż tworzenie zmiennych typów prostych. Jednak nie jest to wymagane. W Javie istnieje tak zwany autoboxing/unboxing:
 
 ```java
 Byte b3 = 10;
@@ -157,15 +157,15 @@ Float f3 = 1.2F;
 Double d3 = 1.2
 ```
   
-W przykładach powyżej kompilator Javy automatycznie opakował typy proste do obiektów (autoboxing). Operacja odwrotna (autounboxing) także jest możliwa:
+W przykładach powyżej kompilator Javy automatycznie opakował typy proste do obiektów (autoboxing). Operacja odwrotna (unboxing) także jest możliwa:
 
 ```java
-int i4 = new Integer(12);
+int i4 = Integer.valueOf(12);
 ```
 
 ## Pobieranie danych od użytkownika
   
-Teraz jak znasz już wszystkie typy proste w języku Java nadszedł moment na napisane pierwszego interaktywnego programu. W programie zapytamy użytkownika o siedem kolejnych temperatur i policzymy średnią temperaturę. Do napisania takiego programu użyjemy znanych już pętli.
+Teraz jak znasz już wszystkie typy proste w języku Java nadszedł moment na napisane pierwszego interaktywnego programu. W programie zapytamy użytkownika o siedem kolejnych temperatur i policzymy średnią temperaturę. Do napisania takiego programu użyjemy znanych już [pętli]({% post_url 2015-11-18-petle-i-instrukcje-warunkowe-w-jezyku-java %}).
 
 Zanim jednak do tego przejdziemy musisz poznać klasę `java.util.Scanner`. Jest to klasa dostępna w standardowej bibliotece Javy, która może nam pomóc w pobieraniu danych od użytkownika.
 
@@ -206,7 +206,7 @@ public class AverageTemperature {
 }
 ```
   
-Jeśli masz jakiekolwiek pytania dotyczącke kodu powyżej proszę zadaj je w komentarzach.
+Jeśli masz jakiekolwiek pytania dotyczące kodu powyżej proszę zadaj je w komentarzach.
 
 ## Ćwiczenie
   
@@ -235,11 +235,11 @@ Temat bynajmniej nie jest wyczerpany. Jeśli chcesz bardziej pogłębić swoją 
 - [System szesnastkowy zapisu liczb](https://pl.wikipedia.org/wiki/Szesnastkowy_system_liczbowy),
 - [System ósemkowy zapisu liczb](https://pl.wikipedia.org/wiki/%C3%93semkowy_system_liczbowy),
 - [Rozdział w Java Language Specification dotyczący typów prostych](https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.2),
-- [Rozdzial w Java Language Specification dotyczący literałów](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10),
+- [Rozdział w Java Language Specification dotyczący literałów](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10),
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/blob/master/06_typy_proste/src/main/java/pl/samouczekprogramisty/kursjava/primitivetypes).
   
 ## Podsumowanie
   
 Dzisiaj poznałeś całkiem sporo nowych rzeczy. Znasz już wszystkie typy proste w Javie i typy je opakowujące. Wiesz już czym jest literał i jakie są ich rodzaje. Umiesz pobierać dane od użytkownika. Innymi słowy masz już wszystkie klocki potrzebne do budowania interaktywnych programów :).
 
-Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak to proszę podziel się nim ze swoimi znajomymi. Jeśli chcesz wiedzieć o nowych wpisach proszę polub naszą stronę na facebooku. Trzymaj się! Do następnego razu!
+Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak to proszę podziel się nim ze swoimi znajomymi. Jeśli chcesz wiedzieć o nowych wpisach proszę polub naszą stronę na Facebook'u. Trzymaj się! Do następnego razu!
