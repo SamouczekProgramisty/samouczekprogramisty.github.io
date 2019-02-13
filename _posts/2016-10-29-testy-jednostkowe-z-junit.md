@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-11-13 21:16:35 +0100
+last_modified_at: 2019-02-13 14:15:08 2019 +0100
 title: Testy jednostkowe z JUnit
 categories:
 - Programista rzemieślnik
@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2016/10/29_testy_jednostkowe_junit_artykul.jpg
     overlay_image: /assets/images/2016/10/29_testy_jednostkowe_junit_artykul.jpg
     caption: "[&copy; andercismo](https://www.flickr.com/photos/andercismo/2349098787/sizes/l)"
-excerpt: Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.
+excerpt: Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntelliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.
 disqus_page_identifier: 478 http://www.samouczekprogramisty.pl/?p=478
 ---
 
@@ -256,8 +256,8 @@ Poniżej postaram się zebrać dla Ciebie kilka dobrych praktyk, do których war
 - Pisz testy jednostkowe niezależne od zewnętrznych systemów. Innymi słowy testuj tylko „jednostkę”, nic ponadto. Jeśli klasa, którą testujesz potrzebuje dostępu np. do bazy danych użyj mocka czy stuba do jej zastąpienia w trakcie testów[^mock] .
 - Testuj warunki brzegowe i sytuacje wyjątkowe. Załóżmy, że masz metodę, która przyjmuje tablicę, która musi mieć maksymalnie trzy elementy. Napisz kilka testów:
   - przekazując `null` zamiast tablicy,
-  - przekazujac pustą tablicę,
-  - przekazujac tablicę z trzema elementami,
+  - przekazując pustą tablicę,
+  - przekazując tablicę z trzema elementami,
   - przekazując tablicę z czterema elementami.
 
 [^mock]: O mockach czy stubach przeczytasz w kolejnych artykułach, jeśli jest to Twoja pierwsza styczność z testami możesz ten punkt pominąć.
@@ -269,13 +269,13 @@ Dzięki takim testom będziesz pewien, jak zachowuje się Twoja metoda w sytuacj
 - Jeśli zauważysz, że część testów jednostkowych wymaga dokładnie takiego samego „przygotowania” wydziel je do osobnej klasy i użyj metod z adnotacją `@Before` lub `@BeforeClass`.
 
 
-## Testy jednostkowe w IntejiJ Idea
+## Testy jednostkowe w IntelliJ Idea
 
 Zacznijmy od utworzenia testu jednostkowego dla istniejącej klasy. Z pomocą przychodzi skrót klawiaturowy `<Ctrl + Shift + T>` – naciśnij tę kombinację na nazwie klasy dla której chcesz utworzyć test. Pokaże się wówczas dialog pomagający utworzyć nową klasę testu.
 
 {% include figure image_path="/assets/images/2016/10/29_nowy_test_dialog.png" caption="Tworzenie nowego testu." %}
 
-InteliJ jest na tyle mądry, że wykrywa brak biblioteki JUnit w projekcie. W oknie dialogowym widać wówczas przycisk „Fix it”, który automatycznie dodaję tę bibliotekę.
+IntelliJ jest na tyle mądry, że wykrywa brak biblioteki JUnit w projekcie. W oknie dialogowym widać wówczas przycisk „Fix it”, który automatycznie dodaję tę bibliotekę.
 
 {% include figure image_path="/assets/images/2016/10/29_nowy_test_dialog2.png" caption="Tworzenie nowego testu." %}
 
@@ -289,7 +289,7 @@ W końcu kombinacja `<Ctrl + Shift + F10>` pozwala na uruchomienie testów jedno
 
 ## Zadanie do rozwiązania
 
-Napisz program, który będzie reprezentował koszyk w sklepie internetowym. Do koszyka reprezentowanego przez klasę `Basket` możemy dodawać bądź usuwać kolejne przedmioty. Każdy przedmiot powien mieć nazwę i cenę jednostkową. Koszyk powinien także pozwalać na dodanie/usunięcie od razu kilku egzemplarzy przedmiotu ze sklepu. Koszyk powinien także być w stanie policzyć sumaryczną wartość zamówienia oraz wyświetlić swoją zawartość. Pamiętaj o poprawnym obsłużeniu sytuacji wyjątkowych np. usunięcie elementów z pustego koszyka czy dodaniu ujemej liczby przedmiotów.
+Napisz program, który będzie reprezentował koszyk w sklepie internetowym. Do koszyka reprezentowanego przez klasę `Basket` możemy dodawać bądź usuwać kolejne przedmioty. Każdy przedmiot powinien mieć nazwę i cenę jednostkową. Koszyk powinien także pozwalać na dodanie/usunięcie od razu kilku egzemplarzy przedmiotu ze sklepu. Koszyk powinien także być w stanie policzyć sumaryczną wartość zamówienia oraz wyświetlić swoją zawartość. Pamiętaj o poprawnym obsłużeniu sytuacji wyjątkowych np. usunięcie elementów z pustego koszyka czy dodaniu ujemnej liczby przedmiotów.
 
 Napisz zestaw testów jednostkowych potwierdzających poprawne działanie Twojego koszyka z zakupami.
 
@@ -302,10 +302,13 @@ Drobna podpowiedź z przykładowym zestawem klas, które mogą rozwiązać ten p
 
 Przygotowałem też przykładowe rozwiązanie, znajduje się w [repozytorium na githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe/src/main/java/pl/samouczekprogramisty/kursjava/shop/exercise) wraz z zestawem [testów jednostkowych](https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe/src/test/java/pl/samouczekprogramisty/kursjava/shop/exercise). Zachęcam jednak do samodzielnej próby rozwiązania zadania. Uwierz mi, że wtedy nauczysz się najwięcej :).
 
+Jeśli nie udało Ci się wcześniej poznać klasy `StringBuilder` zachęcam Cię do rzucenia okiem na artykuł na temat [`String` cache i klasy `StringBuilder`]({% post_url 2017-05-06-string-cache-i-stringbuilder-w-praktyce %}). Jej znajomość nie jest konieczna, jednak użyłem jej w moim przykładowym rozwiązaniu.
+{:.notice--info}
+
 ## Dodatkowe materiały do nauki
 
 - [Test jednostkowy na Wikipedii](https://pl.wikipedia.org/wiki/Test_jednostkowy)
-- [Strona biltioteki JUnit](http://junit.org)
+- [Strona biblioteki JUnit](http://junit.org)
 - [Dokumentacja biblioteki JUnit](http://junit.org/junit4/javadoc/latest/index.html)
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/22_testy_jednostkowe)
 
@@ -313,4 +316,4 @@ Przygotowałem też przykładowe rozwiązanie, znajduje się w [repozytorium na 
 
 W artykule przeczytałeś o testach jednostkowych. Poznałeś zestaw dobrych praktyk dotyczących pisania testów, nauczyłeś się podstaw biblioteki JUnit. Wiesz czym jest test automatyczny i dlaczego takie testy są istotne. Całość przećwiczyłeś w sposób praktyczny rozwiązując zadanie końcowe.
 
-Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na facebooku ;). Do następnego razu!
+Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na Facebooku ;). Do następnego razu!

@@ -61,7 +61,7 @@ System.out.println("test" + 1 + 2); // test12
 
 Pierwsza z nich na początku doda dwie liczby uzyskując 3 a następnie dołączy do niej łańcuch znaków. Druga do łańcucha znaków dołączy dwie kolejne liczby. Dzieje się tak ponieważ operator `+` jest lewostronnie łączny. Oznacza to tyle, że w tym przypadku wyrażenie to wykonywane jest od lewej do prawej strony.
 
-W pierwszym przypadku do liczby 1 dodajemy liczbę 2, następnie "dodajemy" do niej łańcuch znaków. W drugim przypadku do łańcucha znakód dodajemy kolejno dwie liczby.
+W pierwszym przypadku do liczby 1 dodajemy liczbę 2, następnie "dodajemy" do niej łańcuch znaków. W drugim przypadku do łańcucha znaków dodajemy kolejno dwie liczby.
 
 Klasa `String` posiada także metodę `concat`, która działa w podobny sposób do operatora `+`[^operator].
 
@@ -94,13 +94,13 @@ Tak na prawdę, zanim powstałaby finalna instancja klasy `String` potrzebne by�
 
 Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobić lepiej. Z pomocą przychodzą klasy `StringBuilder` i `StringBuffer`[^kompilator].
 
-[^kompilator]: Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instacji klasy `StringBuilder`. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;).
+[^kompilator]: Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instancji klasy `StringBuilder`. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;).
 
 ### Jak używać klasy `StringBuilder`
 
 Klasa [`StringBuilder`](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html) podobnie jak `String` jest opakowaniem tablicy znaków typu `char[]`. `StringBuilder` jednak jest typem mutowalnym. Instancje tego typu w można konwertować do typu `String` używając metody `toString`.
 
-Najprosztszym sposobem utworzenia instancji klasy `StringBuilder` jest użycie konstruktora bezparametrowego. Następnie możesz modyfikować ten obiekt używając dostępnych metod.
+Najprostszym sposobem utworzenia instancji klasy `StringBuilder` jest użycie konstruktora bezparametrowego. Następnie możesz modyfikować ten obiekt używając dostępnych metod.
 
 Bardzo przydatną metodą z tej klasy jest przeciążona metoda `append`. Pozwala ona na wydajne łączenie łańcuchów znaków. Proszę spójrz na przykład poniżej pokazujący sposób użycia klasy:
 
@@ -216,7 +216,7 @@ Cache może być zrealizowany na wiele sposobów, najprostszą implementacją mo
 
 Oznacza to tyle, że poniższe dwie zmienne są referencjami na dokładnie ten sam obiekt na stercie. Dzieje się tak, ponieważ są one literałami o tej samej zawartości:
 
-Poniższe fragmenty kodu są testami jednostkowymi. Jeśli chcesz przeczytać więcej na ten temat zapraszam do arytkułu poświęconemu [testom jednostkowym w Javie]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}). Możesz też przeczytać kolejny artykuł poświęcony [Test Driven Development]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}).
+Poniższe fragmenty kodu są testami jednostkowymi. Jeśli chcesz przeczytać więcej na ten temat zapraszam do artykułu poświęconemu [testom jednostkowym w Javie]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}). Możesz też przeczytać kolejny artykuł poświęcony [Test Driven Development]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}).
 {: .notice--info}
 
 ```java
@@ -280,4 +280,4 @@ Poniżej przygotowałem dla Ciebie zestaw odnośników, które mogą pomóc w ro
 
 Po lekturze tego artykułu sporo wiesz o pracy z łańcuchami znaków. Poznałeś jedną z optymalizacji, które wprowadza kompilator. Umiesz odpowiedzieć na jedno ze sztampowych pytań rekrutacyjnych ;). Znasz sposób pracy z klasą `StringBuilder`. Dowiedziałeś się też o przydatnych metodach operujących na instancjach klasy `String` znajdujących się w bibliotece commons-lang.
 
-Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć żadnego postu polub stronę na facebooku i dopisz się do samouczkowego newslettera. Do następnego razu!
+Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć żadnego postu polub stronę na Facebooku i dopisz się do samouczkowego newslettera. Do następnego razu!
