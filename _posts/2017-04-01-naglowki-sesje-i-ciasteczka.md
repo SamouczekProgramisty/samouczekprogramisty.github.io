@@ -163,7 +163,7 @@ Nagłówki jako część protokołu HTTP pełnią bardzo istotną rolę. Dla prz
     Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
     Pragma: no-cache
     Content-Type: text/html; charset=UTF-8
-    Link: <http://www.samouczekprogramisty.pl/wp-json/>; rel="https://api.w.org/"
+    Link: <https://www.samouczekprogramisty.pl/wp-json/>; rel="https://api.w.org/"
     Date: Sun, 02 Apr 2017 10:46:08 GMT
     Accept-Ranges: bytes
     Server: LiteSpeed
@@ -235,7 +235,7 @@ Podobnie jak w przypadku nagłówków – w codziennej pracy z aplikacjami webow
 
 Można powiedzieć, że sesja to połączenie kilku żądań/odpowiedzi w jedną całość. Dzięki temu aplikacja webowa może powiązać te żądania z jednym użytkownikiem. Sesje najczęściej zaimplementowane są przy pomocy ciasteczek. Specyfikacja serwletów określa nawet domyślną nazwę takiego ciasteczka – jest to `JSESSIONID`.
 
-Innym mechanizmem, na którym może być oparta sesja jest przepisywanie adresu URL (ang. _URL rewriting_). Polega ono na dołączaniu identyfikatora sesji do adresu. W takim przypadku adres może wyglądać następująco `http://www.samouczekprogramisty.pl/kurs-programowania-java;jsessionid=1234`. To kontener serwletów decyduje o metodzie, która powinna być użyta do “podtrzymywania” sesji.
+Innym mechanizmem, na którym może być oparta sesja jest przepisywanie adresu URL (ang. _URL rewriting_). Polega ono na dołączaniu identyfikatora sesji do adresu. W takim przypadku adres może wyglądać następująco `https://www.samouczekprogramisty.pl/kurs-programowania-java;jsessionid=1234`. To kontener serwletów decyduje o metodzie, która powinna być użyta do “podtrzymywania” sesji.
 
 Podobnie jak w przypadku ciasteczek sesja ma swój dedykowany obiekt. Po stronie serwera sesja reprezentowana jest przez [`HttpSession`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html).
 

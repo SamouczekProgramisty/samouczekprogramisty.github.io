@@ -46,13 +46,13 @@ Każde z żądań dotyczy jakiegoś zasobu. Na przykład otwierając stronę [ww
 Adres URL może składać się z kilku części
 
     (scheme://)(user:password@)host(:port)(/)(path)(?query)(#fragment)
-    http://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java?parametr=wartosc&innyParametr=wartosc#xxx
+    https://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java?parametr=wartosc&innyParametr=wartosc#xxx
 
 W ogromnej większości przypadków część z użytkownikiem i hasłem jest pomijana. Używana jest ona do uwierzytelniania, jednak metoda ta nie jest powszechnie używana. Port także jest pomijany. Pomijamy go ponieważ dla protokołu http domyślny port to właśnie 80 więc nie ma potrzeby go dodawać. Odrzucając rzadziej używane elementy adres url wygląda następująco
 
-    http://www.samouczekprogramisty.pl:80/kurs-programowania-java?parametr=wartosc&innyParametr=wartosc
+    https://www.samouczekprogramisty.pl:80/kurs-programowania-java?parametr=wartosc&innyParametr=wartosc
 
-Mamy tutaj informację o protokole (http), serwerze (www.samouczekprogramisty.pl), ścieżce (/kurs-programowania-java) i parametrach (parametr=wartosc&innyParametr=wartosc).
+Mamy tutaj informację o protokole (https), serwerze (www.samouczekprogramisty.pl), ścieżce (/kurs-programowania-java) i parametrach (parametr=wartosc&innyParametr=wartosc).
 
 {% include newsletter-srodek.md %}
 

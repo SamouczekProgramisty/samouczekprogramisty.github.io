@@ -98,14 +98,14 @@ Dodatkowo “zintegruję” to z wcześniej opisanym serwisem healthchecks. Z po
 Zatem finalnie komenda w crontab będzie wyglądała następująco:
 
     java -jar /opt/pogodynka/thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword \
-    http://www.samouczekprogramisty.pl/getrealaddress && \
+    https://www.samouczekprogramisty.pl/getrealaddress && \
     curl -fsS --retry 3 https://hchk.io/89941a75-5e1a-4b0b-a864-59d584e579a8
 
 Magiczna część po && odpowiada za wysłanie zapytania do healtchecks. Całość opakowałem w [drobny skrypt](https://github.com/SamouczekProgramisty/Pogodynka/blob/45e3004e55634debd6a6c69aa29d0549d5405456/thermometer/add_to_crontab.sh) w bash’u, który automatyzuje dodanie wpisu do cron’a. Skrypt dostępny jest na githubie.
 Tak oto wygląda crontab po uruchomieniu tego skryptu:
 
     $ crontab -l
-    */5 * * * * java -jar /opt/pogodynka/thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword http://www.samouczekprogramisty.pl/getrealaddress && curl -fsS --retry 3 https://hchk.io/89941a75-5e1a-4b0b-a864-59d584e579a8
+    */5 * * * * java -jar /opt/pogodynka/thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword https://www.samouczekprogramisty.pl/getrealaddress && curl -fsS --retry 3 https://hchk.io/89941a75-5e1a-4b0b-a864-59d584e579a8
     1 0 * * * find /var/log/pogodynka/*.log -mtime +7 -exec rm {} \;
 
 ## Efekt finalny

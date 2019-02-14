@@ -218,7 +218,7 @@ JsonObject articleObject = builderFactory.createObjectBuilder()
 JsonArray articlesArray = builderFactory.createArrayBuilder().add(articleObject).build();
 
 JsonObject webPageObject = builderFactory.createObjectBuilder()
-        .add("adres www", "http://www.samouczekprogramisty.pl")
+        .add("adres www", "https://www.samouczekprogramisty.pl")
         .add("artykuły", articlesArray).build();
 
 JsonObject authorObject = builderFactory.createObjectBuilder()
@@ -242,7 +242,7 @@ Dzięki takiemu podejściu wynik wypisywany na konsoli jest sformatowany w bardz
     "imię": "Marcin",
     "nazwisko": "Pietraszek",
     "strona": {
-        "adres www": "http://www.samouczekprogramisty.pl",
+        "adres www": "https://www.samouczekprogramisty.pl",
         "artykuły": [
             {
                 "tytuł": "Format JSON w języku Java",
@@ -328,7 +328,7 @@ generator
         .write("imię", "Marcin")
         .write("nazwisko", "Pietraszek")
         .writeStartObject("strona")
-            .write("adres www", "http://www.samouczekprogramisty.pl")
+            .write("adres www", "https://www.samouczekprogramisty.pl")
             .writeStartArray("artykuły")
                 .writeStartObject()
                     .write("tytuł", "Format JSON w języku Java")
@@ -388,7 +388,7 @@ W wyniku działania tego kodu na konsoli wyświetli się dokument:
 "imię": "Marcin"
 "nazwisko": "Pietraszek"
 "strona": {
-"adres www": "http://www.samouczekprogramisty.pl"
+"adres www": "https://www.samouczekprogramisty.pl"
 "artykuły": [
 {
 "tytuł": "Format JSON w języku Java"

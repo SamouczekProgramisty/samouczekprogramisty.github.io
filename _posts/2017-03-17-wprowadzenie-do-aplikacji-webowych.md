@@ -29,7 +29,7 @@ Słowo serwer ma wiele znaczeń. Jednym ze znaczeń tego słowa jest określenie
 
 Wymienione wyżej serwery to serwery HTTP (ang. _Hypertext Transfer Protocol_), ich zadaniem jest serwowanie stron internetowych.
 
-Wpisując adres [www.samouczekprogramisty.pl](http://www.samouczekprogramisty.pl) w okienku przeglądarki wysyłasz zapytanie HTTP do serwera firmy, w której wykupiłem taką usługę. Serwer ten widząc twoje zapytanie odpowiada treścią, która jest zrozumiała dla przeglądarki. Przeglądarka wyświetla następnie tę treść w formie strony internetowej.
+Wpisując adres [www.samouczekprogramisty.pl]({{ site.url }}) w okienku przeglądarki wysyłasz zapytanie HTTP do serwera firmy, w której wykupiłem taką usługę. Serwer ten widząc twoje zapytanie odpowiada treścią, która jest zrozumiała dla przeglądarki. Przeglądarka wyświetla następnie tę treść w formie strony internetowej.
 
 W najprostszym przykładzie jakim jest serwer HTTP, serwer (aplikacja) w odpowiedzi wysyła zawartość plików znajdujących się na dysku serwera (komputera). W takim przypadku możemy mówić o serwowaniu plików statycznych.
 
