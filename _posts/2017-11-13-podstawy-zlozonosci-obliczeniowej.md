@@ -364,9 +364,8 @@ W zależności od wymagań w wyborze algorytmu bierze się pod uwagę złożono�
 
 Informacji na temat teorii obliczeń i złożoności obliczeniowej w internecie jest sporo. Jednak dość ciężko jest znaleźć jakiekolwiek informacje, które są na początkującym poziomie. Niemniej jednak poniżej starałem się zebrać materiały, które mogą być interesujące:
 
-- [Wykład dotyczący złożoności obliczeniowej na Uniwersytecie Warszawskim](http://wazniak.mimuw.edu.pl/index.php?title=Z%C5%82o%C5%BCono%C5%9B%C4%87_obliczeniowa),
 - [Kilka krótkich artykułów opisujących podstawy teorii obliczeń](http://cpp0x.pl/kursy/Teoria-w-Informatyce/424),
-- [Computational Complexity: A Modern Approach](http://theory.cs.princeton.edu/complexity/), szkic książki o złożoności obliczeniowej. Jej ostateczna wersja dostępna jest na [Amazonie](http://amzn.to/2zxrqqs)[^afiliacja],
+- [Computational Complexity: A Modern Approach](http://theory.cs.princeton.edu/complexity/), szkic książki o złożoności obliczeniowej. Jej ostateczna wersja dostępna jest na [Amazonie](http://amzn.to/2zxrqqs),
 - [Artykuł na temat złożoności obliczeniowej z uniwersytetu Stanford](https://plato.stanford.edu/entries/computational-complexity/),
 - [Sekcja Wolfram Alpha poświęcona złożoności obliczeniowej](https://www.wolframalpha.com/examples/ComputationalComplexity.html),
 - [Artykuł na Wikipedii na temat funkcji służących do szacowania](https://pl.wikipedia.org/wiki/Asymptotyczne_tempo_wzrostu),
@@ -374,8 +373,6 @@ Informacji na temat teorii obliczeń i złożoności obliczeniowej w internecie 
 - [Fragmenty kodu użyte w tym artykule](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/02_computational_complexity/src/main/java/pl/samouczekprogramisty/misc/complexity).
 
 [^marek]: Wielkie dzięki dla Marka za podesłanie linka do tego artykułu.
-
-[^afiliacja]: To jest link afiliacyjny. Oznacza to tyle, że jeśli kupisz ten produkt pomożesz mi w dalszym prowadzeniu bloga. Nie jest to związane z żadnymi dodatkowymi kosztami dla Ciebie. Dziękuję! :)
 
 ## Podsumowanie
 
