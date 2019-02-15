@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2019-01-24 16:52:00 +0100
+last_modified_at: 2019-02-15 23:32:51 +0100
 title: Dziedziczenie w języku Java
 categories:
 - Kurs programowania Java
@@ -173,9 +173,12 @@ Przeciążać można także metody statyczne. Jako przykład może tu posłuży�
 Konstruktory nie są wyjątkiem, także można je przeciążać. Dzięki temu pozwalasz na tworzenie danego obiektu na wiele różnych sposobów:
 
 ```java
+public class DieselEngine implements Engine {
+}
+
 public class Car extends Vehicle {
     public Car() {
-        this(new DiselEngine());
+        this(new DieselEngine());
     }
 
     public Car(Engine engine) {
@@ -184,7 +187,7 @@ public class Car extends Vehicle {
 }
 ```
 
-Podobnie jak w zwykłym przeciążeniu także i tutaj często odwołuje się do innego konstruktora. Służy do tego słowo kluczowe `this`. W przykładzie powyżej bezparametrowy konstruktor wywołuje konstruktor przyjmujący instancję klasy implementującą interfejs `Engine`. W tym przypadku nowa instancja `DieselEngine` tworzona jest wewnątrz konstruktora bezparametrowego.
+Podobnie jak w zwykłym przeciążeniu także i tutaj często odwołuje się do innego konstruktora. Służy do tego słowo kluczowe `this`. W przykładzie powyżej bezparametrowy konstruktor wywołuje konstruktor przyjmujący instancję klasy implementującą interfejs `Engine`. W tym przypadku nowa instancja klasy `DieselEngine` tworzona jest wewnątrz konstruktora bezparametrowego.
 
 ## Konstruktory a dziedziczenie
   
@@ -323,7 +326,7 @@ Jeśli miałbyś problemy z zadaniem możesz spojrzeć na [przykładowe rozwiąz
   
 Poniżej przygotowałem dla Ciebie zestaw linków z dodatkowymi materiałami, część z nich jest w języku angielskim.
 - [https://pl.wikipedia.org/wiki/Dziedziczenie\_%28programowanie%29](https://pl.wikipedia.org/wiki/Dziedziczenie_%28programowanie%29)
-- [https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8](https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8)
+- [https://docs.oracle.com/javase/specs/jls/se11/html/jls-11.html#jls-11](https://docs.oracle.com/javase/specs/jls/se11/html/jls-11.html#jls-11)
 - [https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html](https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html)
 - [https://docs.oracle.com/javase/tutorial/java/concepts/inheritance.html](https://docs.oracle.com/javase/tutorial/java/concepts/inheritance.html)
 - [kod źródłowy przykładów z tego artykułu](https://github.com/SamouczekProgramisty/KursJava/tree/master/08_dziedziczenie/src/main/java/pl/samouczekprogramisty/kursjava/inheritance)
