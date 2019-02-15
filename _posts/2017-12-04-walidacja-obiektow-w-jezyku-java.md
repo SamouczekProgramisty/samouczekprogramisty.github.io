@@ -76,7 +76,7 @@ Druga zależność jest wymagana, ponieważ EL ([_Expression Language_](https://
 
 ### Wymagania dotyczące walidacji
 
-Atrybuty, których poprawność będzie sprawdzana, muszą być atrybutami w kontekście specyfikacji _Java Beans_. Innymi słowy dla każdego z sprawdzanych atrybutów powinna być zaimplementowana metoda dostępowa. Tak zwany "getter". W poprzednim fragmencie kodu są to metody `getOwner` i `getValidUntil`.
+Atrybuty, których poprawność będzie sprawdzana, muszą być atrybutami w kontekście specyfikacji _Java Beans_. Innymi słowy dla każdego ze sprawdzanych atrybutów powinna być zaimplementowana metoda dostępowa. Tak zwany "getter". W poprzednim fragmencie kodu są to metody `getOwner` i `getValidUntil`.
 
 Adnotacja dotyczące walidacji można stosować do:
 
