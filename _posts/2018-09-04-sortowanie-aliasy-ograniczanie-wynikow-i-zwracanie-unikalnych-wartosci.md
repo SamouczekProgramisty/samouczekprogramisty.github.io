@@ -1,6 +1,6 @@
 ---
 title: Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości
-last_modified_at: 2018-11-11 21:07:14 +0100
+last_modified_at: 2019-02-16 16:12:22 +0100
 categories:
 - Bazy danych
 - Kurs SQL
@@ -342,8 +342,8 @@ Niektóre wyrażenia `UNION` mogą być zastąpione przy pomocy `OR`. Zatem kied
 
 Poniżej znajdziesz kilka zadań do wykonania. Każde z nich wymaga napisania jednego zapytania. Napisz zapytanie, które:
 
-- zwróci dziesięć najdłuższych ścieżek (tabela `track`), weź pod uwagę tylko te, których kompozytor (kolumna `composer`) zawiera literę `b`,
-- zwróci pięć najtańszych ścieżek (tabela `track`) dłuższych niż minuta,
+- zwróci dziesięć najdłuższych ścieżek (tabela `track`, kolumna `milliseconds`), weź pod uwagę tylko te, których kompozytor (kolumna `composer`) zawiera literę `b`,
+- zwróci pięć najtańszych ścieżek (tabela `track`, kolumna `unitprice`) dłuższych niż minuta,
 - zwróci unikalną listę dwudziestu kompozytorów których ścieżki kosztują mniej niż 2$ posortowanych malejąco według identyfikatora gatunku (kolumna `genreid`) i rosnąco według rozmiaru (kolumna `bytes`),
 - zwróci dwie kolumny. Pierwsza z nich powinna zawierać ścieżki (kolumna `name`) droższe niż 1$ i poprawnych kompozytorów (kolumna `composer` nie ma wartości `NULL`) pod nazwą `magic thingy`. Druga powinna zawierać liczbę bajtów. Wynik powinien zawierać dziesięć wierszy i być posortowany rosnąco po liczbie bajtów[^zle],
 - zwróci piątą stronę z fakturami (tabela `invoice`) zakładając, że na stronie znajduje się dziesięć faktur i sortowane są według identyfikatora (kolumna `invoiceid`).
