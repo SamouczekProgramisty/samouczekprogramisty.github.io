@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-11-22 23:33:36 +0100
+last_modified_at: 2019-02-18 10:57:31 +0100 
 title: Adnotacje w języku Java
 categories:
 - Kurs programowania Java
@@ -26,9 +26,9 @@ Mówi się, że adnotacje służą do przekazywania metadanych. Innymi słowy pr
 
 ### Adnotacje a JavaDoc
 
-Chociaż w obu przypadkach możesz zauwaćyć znak `@` musisz wiedzieć, że adnotacje to coś zupełnie innego niż dyrektywy JavaDoc.
+Chociaż w obu przypadkach możesz zauważyć znak `@` musisz wiedzieć, że adnotacje to coś zupełnie innego niż dyrektywy JavaDoc.
 
-JavaDoc to standardowy mechanizm do generowania dokumentacji, która zaszyta jest kodzie źródłowym. Na przykład we fragmencie kodu poniżej widzisz metodę wraz z dokumentacją. Zwróć proszę uwagę, że JavaDoc znajduje się wewnątrz specjalne sformatowanego kometarza wieloliniowego. który rozpoczyna się od `/**`, każda linia wewnątrz komentarza rozpoczyna się od `*`. Wewnątrz komentarza znajdują się specjalne dyrektywy, takie jak `@param` czy `@return`. Opisują one odpowiednio parametr oraz wartość zwracaną metody.
+JavaDoc to standardowy mechanizm do generowania dokumentacji, która zaszyta jest kodzie źródłowym. Na przykład we fragmencie kodu poniżej widzisz metodę wraz z dokumentacją. Zwróć proszę uwagę, że JavaDoc znajduje się wewnątrz specjalne sformatowanego komentarza wieloliniowego. który rozpoczyna się od `/**`, każda linia wewnątrz komentarza rozpoczyna się od `*`. Wewnątrz komentarza znajdują się specjalne dyrektywy, takie jak `@param` czy `@return`. Opisują one odpowiednio parametr oraz wartość zwracaną metody.
 
 ```java
 /**
@@ -61,7 +61,7 @@ Każda adnotacja określa, w którym miejscu możemy ją stosować. Mamy kilka s
 - adnotacja typu (ang. _type annotations_).
 
 
-Adnotację umieszczamy zawsze przed kokretnym elementem, na przykład przed klasą.
+Adnotację umieszczamy zawsze przed konkretnym elementem, na przykład przed klasą.
 
 ## Zastosowanie adnotacji
 
@@ -69,7 +69,7 @@ Adnotacje mają trzy główne zastosowania. Poniższe sekcje dokładniej opisuj�
 
 ### Dodatkowe informacje dla kompilatora
 
-Adnotacje mogą służyć jako dodatkowa informacja dla komplilatora. Za przykład może tu posłużyć adnotacja [`@Override`](https://docs.oracle.com/javase/8/docs/api/java/lang/Override.html). Jest to informacja dla kompilatora, że dana metoda przesłania metodę w nadklasie. Adnotacja `@Override` może też być używana do oznaczania metod interfejsu, które implementujemy.
+Adnotacje mogą służyć jako dodatkowa informacja dla kompilatora. Za przykład może tu posłużyć adnotacja [`@Override`](https://docs.oracle.com/javase/8/docs/api/java/lang/Override.html). Jest to informacja dla kompilatora, że dana metoda przesłania metodę w nadklasie. Adnotacja `@Override` może też być używana do oznaczania metod interfejsu, które implementujemy.
 
 W przypadku tej adnotacji kompilator może wychwycić więcej błędów w trakcie kompilacji. Spójrz na przykład poniżej:
 
@@ -163,7 +163,7 @@ public @interface Override {
 
 Do określenia gdzie możemy użyć adnotację służy inna „meta-adnotacja” [`@Target`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Target.html). Jeśli ją pominiemy przy definiowaniu nowej adnotacji, możemy jej używać w każdym miejscu. Z jednym małym wyjątkiem – adnotacji typów.
 
-Miejsca gdzie możmy użyć adnotacji określone są przez wartości typu wyliczeniowego [`ElementType`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/ElementType.html). Spójrz na przykład poniżej.
+Miejsca gdzie możemy użyć adnotacji określone są przez wartości typu wyliczeniowego [`ElementType`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/ElementType.html). Spójrz na przykład poniżej.
 
 ```java
 @Target(ElementType.FIELD)
@@ -202,7 +202,7 @@ public @interface Retention {
 
 Jak widzisz, składnia definiująca elementy adnotacji używa nawiasów `()`, mogą przypominać one deklaracje metod, co po raz kolejny można skojarzyć z interfejsami.
 
-Adnotacja `@Retention` posiada jeden element o nazwie `value`. Nazwa `value` jest traktowana specjalnie. Jeżli jest jedyna, możemy ją pomijać gdy używamy danej adnotacji. W przykładzie poniżej oba użycia oznaczają dokładnie to samo.
+Adnotacja `@Retention` posiada jeden element o nazwie `value`. Nazwa `value` jest traktowana specjalnie. Jeżeli jest jedyna, możemy ją pomijać gdy używamy danej adnotacji. W przykładzie poniżej oba użycia oznaczają dokładnie to samo.
 
 ```java
 @Retention(RetentionPolicy.SOURCE)
@@ -230,7 +230,7 @@ Jak widzisz posiada ona element `value`, który jest tablicą. Podobnie jak w po
 
 #### Wartości domyślne elementów adnotacji
 
-Istnieje możliwość tworzenia adnotacji, które mają wartości domyślne. Używamy do tego słowa kluczowego `default`. Spórz na przykład poniżej
+Istnieje możliwość tworzenia adnotacji, które mają wartości domyślne. Używamy do tego słowa kluczowego `default`. Spójrz na przykład poniżej
 
 ```java
 @Retention(RetentionPolicy.RUNTIME)
@@ -269,6 +269,7 @@ public class AnnotationProcessor {
                 continue;
             }
             System.out.println("Nazwa elementu: " + method.getName());
+            System.out.println("Wartosc elementu: " + method.invoke(annotation));
             System.out.println("Wartosc domyslna elementu: " + method.getDefaultValue());
             System.out.println();
         }
