@@ -1,6 +1,6 @@
 ---
 title: Klauzula JOIN w zapytaniach SQL
-last_modified_at: 2018-11-22 23:20:12 +0100
+last_modified_at: 2019-02-20 23:06:50 +0100
 categories:
 - Bazy danych
 - Kurs SQL
@@ -439,13 +439,13 @@ Jak zwykle zachęcam Cię do samodzielnego eksperymentowania zanim rzucisz okiem
 
 Napisz zapytanie, które zwróci:
 
-- liczbę wierszy w iloczynie kartezjańskim tabel `track`, `invoice` i `invoiceline` (UWAGA! to zapytanie może trochę potrwać),
-- tytuł albumu i nazwę artysty dla wszystkich nazw artystów zaczynających się od `s`,
-- identyfikator i nazwę list utworów, które są puste,
-- nazwy trzech najczęściej występujących gatunków muzycznych wraz z odpowiadającą im liczbą utworów posortowaną malejąco po liczbie utworów,
-- tytuły pięciu najdłuższych albumów posortowanych malejąco po ich długości,
-- tytuły albumów, na których występują utwory z gatunku "Reggae",
-- pięć nazw list utworów, które są najdroższe (suma cen wszystkich ścieżek jest największa),
+1. liczbę wierszy w iloczynie kartezjańskim tabel `track`, `invoice` i `invoiceline` (UWAGA! to zapytanie może trochę potrwać),
+2. tytuł albumu (kolumna `title` w tabeli `album`) i nazwę artysty (kolumna `name` w tabeli `artist`) dla wszystkich nazw artystów zaczynających się od `s`,
+3. identyfikator i nazwę list utworów (tabela `playlist`), które są puste,
+4. nazwy trzech najczęściej występujących gatunków muzycznych (kolumna `name` w tabeli `genre`) wraz z odpowiadającą im liczbą utworów (tabela `track`) posortowaną malejąco po liczbie utworów,
+5. tytuły pięciu najdłuższych albumów (kolumna `title` w tabeli `album`) posortowanych malejąco po ich długości (kolumna `milliseconds` w tabeli `track`),
+6. tytuły albumów, na których występują utwory z gatunku "Reggae",
+7. pięć nazw list utworów, które są najdroższe (suma cen wszystkich ścieżek jest największa),
 
 ### Przykładowe rozwiązania zadań
 
