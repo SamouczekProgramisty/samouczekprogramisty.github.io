@@ -4,7 +4,7 @@ last_modified_at: 2019-02-25 23:22:59 +0100
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa
-permalink: /samouczek-na-rozmowie-sekwencje-lancuchy-bialkowe/
+permalink: /samouczek-na-rozmowie-lancuchy-bialkowe/
 header:
     teaser: /assets/images/2019/02/25_zadanie_z_rozmowy_kwalifikacyjnej_lancuchy_bialkowe_artykul.jpg
     overlay_image: /assets/images/2019/02/25_zadanie_z_rozmowy_kwalifikacyjnej_lancuchy_bialkowe_artykul.jpg
