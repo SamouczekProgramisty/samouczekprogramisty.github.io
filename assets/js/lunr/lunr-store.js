@@ -594,6 +594,11 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/watki-w-jezyku-java/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg"},{
+        "title": "Samouczek na rozmowie – łańcuchy białkowe",
+        "excerpt":"To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych. W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/samouczek-na-rozmowie-lancuchy-bialkowe/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/02/25_zadanie_z_rozmowy_kwalifikacyjnej_lancuchy_bialkowe_artykul.jpg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],

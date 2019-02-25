@@ -1,0 +1,844 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Samouczek na rozmowie – łańcuchy białkowe - Samouczek Programisty</title>
+<meta name="description" content="Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po jego lekturze dowiesz się o czterech różnych sposobach na rozwiązanie zadania, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony. Każda z propozycji jest dokładnie omówiona pod kątem złożoności obliczeniowej i pamięciowej.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Samouczek na rozmowie – łańcuchy białkowe">
+<meta property="og:url" content="https://www.samouczekprogramisty.pl/samouczek-na-rozmowie-lancuchy-bialkowe/">
+
+
+  <meta property="og:description" content="Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po jego lekturze dowiesz się o czterech różnych sposobach na rozwiązanie zadania, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony. Każda z propozycji jest dokładnie omówiona pod kątem złożoności obliczeniowej i pamięciowej.">
+
+
+
+  <meta property="og:image" content="https://www.samouczekprogramisty.pl/assets/images/2019/02/25_zadanie_z_rozmowy_kwalifikacyjnej_lancuchy_bialkowe_artykul.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-02-25T00:00:00+01:00">
+
+
+
+  <meta property="article:modified_time" content="2019-02-25T23:22:59+01:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.samouczekprogramisty.pl/samouczek-na-rozmowie-lancuchy-bialkowe/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "https://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2019/02/25_zadanie_z_rozmowy_kwalifikacyjnej_lancuchy_bialkowe_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Samouczek na rozmowie – łańcuchy białkowe
+
+        
+      </h1>
+      
+        <p class="page__lead">Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po jego lekturze dowiesz się o czterech różnych sposobach na rozwiązanie zadania, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony. Każda z propozycji jest dokładnie omówiona pod kątem złożoności obliczeniowej i pamięciowej.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://pixabay.com/illustrations/dna-biology-science-dna-helix-163710/">© PublicDomainPictures</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Samouczek na rozmowie – łańcuchy białkowe</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Samouczek na rozmowie – łańcuchy białkowe">
+    <meta itemprop="description" content="Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po jego lekturze dowiesz się o czterech różnych sposobach na rozwiązanie zadania, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony. Każda z propozycji jest dokładnie omówiona pod kątem złożoności obliczeniowej i pamięciowej.">
+    <meta itemprop="datePublished" content="February 25, 2019">
+    <meta itemprop="dateModified" content="February 25, 2019">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#treść-zadania">Treść zadania</a></li>
+<li class="toc-entry toc-h2"><a href="#rozwiązanie-zadania">Rozwiązanie zadania</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#algorytm--naiwne-rozwiązanie-zadania">Algorytm – naiwne rozwiązanie zadania</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#złożoność-obliczeniowa">Złożoność obliczeniowa</a></li>
+<li class="toc-entry toc-h4"><a href="#złożoność-pamięciowa">Złożoność pamięciowa</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#algorytm--znacząco-lepsze-rozwiązanie">Algorytm – Znacząco lepsze rozwiązanie</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#złożoność-obliczeniowa-1">Złożoność obliczeniowa</a></li>
+<li class="toc-entry toc-h4"><a href="#złożoność-pamięciowa-1">Złożoność pamięciowa</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#algorytm--optymalne-rozwiązanie-i-tablice">Algorytm – optymalne rozwiązanie i tablice</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#złożoność-obliczeniowa-2">Złożoność obliczeniowa</a></li>
+<li class="toc-entry toc-h4"><a href="#złożoność-pamięciowa-2">Złożoność pamięciowa</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#algorytm--optymalne-rozwiązanie-i-strumienie">Algorytm – optymalne rozwiązanie i strumienie</a></li>
+<li class="toc-entry toc-h3"><a href="#interfejs-użytkownika">Interfejs użytkownika</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#wyślij-mi-swoje-zadanie">Wyślij mi swoje zadanie</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        
+<div class="notice--info">
+  
+<p>To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych.</p>
+
+<p>W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz działanie algorytmu.</p>
+
+<ul>
+  <li><a href="/podstawy-zlozonosci-obliczeniowej/">Podstawy złożoności obliczeniowej</a>,</li>
+  <li><a href="/test-driven-development-na-przykladzie/">Test Driven Development na przykładzie</a>,</li>
+  <li><a href="% post_url 2016-10-29-testy-jednostkowe-z-junit %}">Testy jednostkowe z JUnit</a>,</li>
+</ul>
+
+<p>Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu czasami będę używał “pseudo kodu”. Przykładowe rozwiązania będą w języku Java.</p>
+
+<ul>
+  <li><a href="https://www.samouczekprogramisty.pl/kurs-programowania-java">Kurs programowania w języku Java</a>.</li>
+</ul>
+
+</div>
+
+<p>W artykule tym pokazuję zadanie, które przesłał mi jeden z Czytelników – Marek. Marku, jeszcze raz bardzo dziękuję!</p>
+
+<p>W artykule dotyczącym <a href="/samouczek-na-rozmowie-zagniezdzona-struktura/">zadania z zagnieżdżoną strukturą</a> dokładnie opisywałem moje podejście do rozwiązania tego typu zadań. Zachęcam Cię do przeczytania tego artykułu. Poniżej tylko krótkie przypomnienie wskazówek, które tam zebrałem:</p>
+
+<ul>
+  <li>w przypadku niepełnego opisu zadania załóż coś. W rozwiązaniu zadania opisz swoje założenia,</li>
+  <li>staraj się zawsze dostarczać testy automatyczne razem ze swoim rozwiązaniem, nawet jeśli nie są wymagane,</li>
+  <li>dokumentuj swój kod tam gdzie jest to niezbędne, używanie docstring’ów może być dobrym rozwiązaniem,</li>
+  <li>jeśli nie masz pomysłu na optymalne rozwiązanie zadania zacznij od najprostszego podejścia.</li>
+</ul>
+
+<h2 id="treść-zadania">Treść zadania</h2>
+
+<p>Genetycy zajmują się nowym typem łańcuchów białkowych, które składają się z ciągu aminokwasów pewnego typu. Wyróżniono 20 rodzajów tych aminokwasów i oznaczono je dużymi literami alfabetu angielskiego – od litery A do T. Łańcuch białkowy można zatem zapisać jako słowo składające się z dużych liter od A do T, na przykład “BDDFPQPPRRAGGHPOPDKJKPEQAAER”.</p>
+
+<p>Mając dany łańcuch białkowy genetycy mogą zamienić w nim dwa dowolne aminokwasy miejscami, na przykład łańcuch “AABBCC” mogą zamienić na “ACBBCA”, a ten z kolei na przykład na “BCBACA”.</p>
+
+<p>Genetyk posiada komputerowy zapis dwóch łańcuchów białkowych i zastanawia się, czy drugi z nich mógł powstać z pierwszego poprzez wykonywanie dowolnej liczby zamian miejsc aminokwasów.</p>
+
+<p>Napisz program, który będzie posiadał funkcję:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">changePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">s1</span><span class="o">,</span> <span class="n">String</span> <span class="n">s2</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Powinna ona sprawdzić, czy możliwe jest uzyskanie łańcucha białkowego <code class="highlighter-rouge">s2</code> z łańcucha białkowego <code class="highlighter-rouge">s1</code>.</p>
+
+<p>Ponieważ rzeczywiste łańcuchy białkowe składają się z około 10<sup>8</sup> aminokwasów, należy zadbać o dobrą wydajność algorytmu.</p>
+
+<p>Dane są zapisane w pliku tekstowym. Każdy z łańcuchów jest zapisany w osobnej linii. Porównujemy łańcuch z linii nieparzystej z łańcuchem z linii
+parzystej. Przykładowy plik:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ACBBCA
+BCBACA
+</code></pre></div></div>
+
+<p>Można założyć, że liczba linii będzie zawsze parzysta. Można także założyć, że plik wejściowy jest poprawny i nie zawiera żadnych białych znaków poza znakami końca linii. Napisz  program  w popularnym języku programowania (C,  C++,  Java,  C#,  Python), który wczyta plik wejściowy z danymi, obliczy i wypisze wynik. Najlepiej będzie, jeśli program będzie czytać dane ze standardowego wejścia i wypisywać wynik na standardowe wyjście, dzięki czemu będzie go można wywołać poleceniem:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program.exe &lt; dane.txt 
+</code></pre></div></div>
+
+<p>Jeśli nie potrafisz korzystać ze standardowego wejścia, możesz wczytać plik z danymi w inny sposób. Ważna jest wydajność zastosowanego algorytmu. W rozwiązaniu możesz korzystać z bibltioteki standardowej dostępnej na platformie, w której będziesz programować.</p>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2613 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h2 id="rozwiązanie-zadania">Rozwiązanie zadania</h2>
+
+<p>Zadanie można podzielić na dwie części:</p>
+
+<ul>
+  <li>algorytmiczne rozwiązanie problemu,</li>
+  <li>spełnienie wymagań związanych z interfejsem użytkownika.</li>
+</ul>
+
+<p>Zacznę od dokładnego omówienia pierwszej części – sposobu implementacji algorytmu.</p>
+
+<h3 id="algorytm--naiwne-rozwiązanie-zadania">Algorytm – naiwne rozwiązanie zadania</h3>
+
+<p>Chociaż jest to naiwne rozwiązanie, nie jest trywialne w implementacji. Opiera się ono na przeglądzie zupełnym. Pomysł polega na wygenerowaniu wszystkich możliwych <a href="https://pl.wikipedia.org/wiki/Grupa_permutacji">permutacji</a> jednej z sekwencji i sprawdzenia czy druga znajduje się wśród tych permutacji. W przykładowej implementacji użyłem rekurencji:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">naiveChangePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="n">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">peramutationsCache</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+    <span class="n">permutations</span><span class="o">(</span><span class="n">peramutationsCache</span><span class="o">,</span> <span class="s">""</span><span class="o">,</span> <span class="n">sequence1</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">peramutationsCache</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">sequence2</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">permutations</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">permutationsCache</span><span class="o">,</span> <span class="n">String</span> <span class="n">currentPermutation</span><span class="o">,</span> <span class="n">String</span> <span class="n">leftCharacters</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">leftCharacters</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">permutationsCache</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">currentPermutation</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">leftCharacters</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">permutations</span><span class="o">(</span>
+            <span class="n">permutationsCache</span><span class="o">,</span>
+            <span class="n">currentPermutation</span> <span class="o">+</span> <span class="n">leftCharacters</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">),</span>
+            <span class="n">leftCharacters</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">i</span><span class="o">)</span> <span class="o">+</span> <span class="n">leftCharacters</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+        <span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="złożoność-obliczeniowa">Złożoność obliczeniowa</h4>
+
+<p>Łańcuch znaków o długości <code class="highlighter-rouge">n</code> posiada <code class="highlighter-rouge">n!</code> wszystkich permutacji. Zatem złożoność obliczeniowa potrzebna do ich wygenerowania to <code class="highlighter-rouge">Ο(n!)</code>. Dodatkowo dla każdej z nich przeprowadzam operację łączenia łańcuchów znaków wewnątrz pętli. Ta operacja ma złożoność <code class="highlighter-rouge">Ο(n)</code>. Zatem finalna złożoność obliczeniowa tego rozwiązania to <code class="highlighter-rouge">Ο(n^n!)</code>.</p>
+
+<p>Spróbuj uruchomić to rozwiązanie kilka razy. Za każdym razem dodawaj po jednej literze do łańcucha znaków. Na ile liter masz cierpliwość ;) ? Pamiętaj, że dla dużych wartości <code class="highlighter-rouge">n</code> nie masz szans na doczekanie się rozwiązania.</p>
+
+<h4 id="złożoność-pamięciowa">Złożoność pamięciowa</h4>
+
+<p>W przypadku tego rozwiązania każda permutacja jest dodawana do <code class="highlighter-rouge">permutationsCache</code>. Każda z permutacji ma tę samą długość – <code class="highlighter-rouge">n</code>. W związku z tym złożoność pamięciowa tego rozwiązania to <code class="highlighter-rouge">Ο(nn!)</code>.</p>
+
+<h3 id="algorytm--znacząco-lepsze-rozwiązanie">Algorytm – Znacząco lepsze rozwiązanie</h3>
+
+<p>Chociaż poprzedni algorytm jest poprawny nie ma szans działać dla większych instancji problemu. Nie wspominając nawet o łańcuchach o długości 10<sup>8</sup> wspomnianych w treści zadania. Można podejść do rozwiązania tego problemu w trochę inny sposób. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">slightlyBetterChangePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="n">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">char</span><span class="o">[]</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">sequence1</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+    <span class="kt">char</span><span class="o">[]</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">sequence2</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+    <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">s1</span><span class="o">);</span>
+    <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">s2</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>To rozwiązanie jest lepsze od poprzedniego pod każdym względem. Wykorzystuje ono fakt, że istnieje możliwość otrzymania <code class="highlighter-rouge">sequence2</code> w wyniku przekształceń <code class="highlighter-rouge">sequence1</code> jeśli obie sekwencje składają się dokładnie z tych samych liter.</p>
+
+<h4 id="złożoność-obliczeniowa-1">Złożoność obliczeniowa</h4>
+
+<p>Łatwym sposobem na sprawdzenie czy ta zależność jest spełniona jest sprawdzenie posortowanych liter, które wchodziły w skład łańcuchów. W tym przypadku do sortowania użyłem algorytmu z biblioteki standardowej, którego złożoność obliczeniowa wynosi <code class="highlighter-rouge">Ο(nlog(n))</code> – złożoność obliczeniowa tego podejścia wynosi <code class="highlighter-rouge">Ο(nlog(n))</code>.</p>
+
+<h4 id="złożoność-pamięciowa-1">Złożoność pamięciowa</h4>
+
+<p>W tym przypadku potrzebna jest tablica zawierająca wszystkie znaki obu łańcuchów. Zatem złożoność pamięciowa tego rozwiązania wynosi <code class="highlighter-rouge">Ο(n)</code>.</p>
+
+<h3 id="algorytm--optymalne-rozwiązanie-i-tablice">Algorytm – optymalne rozwiązanie i tablice</h3>
+
+<p>Poprzednia wersja algorytmu jest zadowalająca. Można ją uruchomić dla dużych instancji problemu i doczekać się rozwiązania ;). Jest jednak jeszcze lepszy sposób. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">optimalChangePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="n">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">countLetters</span><span class="o">(</span><span class="n">sequence1</span><span class="o">),</span> <span class="n">countLetters</span><span class="o">(</span><span class="n">sequence2</span><span class="o">));</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">countLetters</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">counters</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="sc">'T'</span> <span class="o">-</span> <span class="sc">'A'</span> <span class="o">+</span> <span class="mi">1</span><span class="o">];</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">char</span> <span class="n">c</span> <span class="o">:</span> <span class="n">sequence</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">counters</span><span class="o">[</span><span class="n">c</span> <span class="o">-</span> <span class="sc">'A'</span><span class="o">]++;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">counters</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>To rozwiązanie wykorzystuje dokładnie ten sam fakt, na który zwróciłem uwagę poprzednio. Mianowicie istnieje możliwość przekształcenia <code class="highlighter-rouge">sequence1</code> do <code class="highlighter-rouge">sequence2</code> jeśli oba łańcuchy składają się dokładnie z tych samych liter.</p>
+
+<h4 id="złożoność-obliczeniowa-2">Złożoność obliczeniowa</h4>
+
+<p>Kolejność tych liter nie ma znaczenia. Istotna jest jedynie ich liczba. Zatem wystarczy zliczyć wystąpienia każdej z możliwych liter. Taka statystyka zwracana jest przez funkcję <code class="highlighter-rouge">countLetters</code>. Funkcja ta wykonuje operację dla każdej z <code class="highlighter-rouge">n</code> liter, zatem jej złożoność obliczeniowa to <code class="highlighter-rouge">Ο(n)</code>. Funkcja ta wykonana jest dwa razy, w związku z tym złożoność obliczeniowa tego algorytmu to <code class="highlighter-rouge">Ο(n)</code>.</p>
+
+<h4 id="złożoność-pamięciowa-2">Złożoność pamięciowa</h4>
+
+<p>Z treści zadania wiadomo, że litery są z zakresu <code class="highlighter-rouge">A-T</code>, zatem tablica do pomieszczenia licznika wystąpień dla każdej z liter wymaga dokładnie <code class="highlighter-rouge">'T' - 'A' + 1</code> elementów — 20. Z racji tego, że jest to stała, niezależna od długości łańcucha wejściowego złożoność pamięciowa tego rozwiązania wynosi <code class="highlighter-rouge">Ο(1)</code>.</p>
+
+<h3 id="algorytm--optymalne-rozwiązanie-i-strumienie">Algorytm – optymalne rozwiązanie i strumienie</h3>
+
+<p>Tym razem jest to wariacja poprzedniego pomysłu. W tym przypadku implementację opartą o tablice zastąpiłem <a href="/strumienie-w-jezyku-java/">strumieniami</a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">changePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="n">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="n">s1Counters</span> <span class="o">=</span> <span class="n">countLettersWithStreams</span><span class="o">(</span><span class="n">sequence1</span><span class="o">);</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="n">s2Counters</span> <span class="o">=</span> <span class="n">countLettersWithStreams</span><span class="o">(</span><span class="n">sequence2</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">s1Counters</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s2Counters</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="nf">countLettersWithStreams</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">sequence1</span><span class="o">.</span><span class="na">chars</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">mapToObj</span><span class="o">(</span><span class="n">c</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="kt">char</span><span class="o">)</span> <span class="n">c</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">groupingBy</span><span class="o">(</span><span class="n">c</span> <span class="o">-&gt;</span> <span class="n">c</span><span class="o">,</span> <span class="n">Collectors</span><span class="o">.</span><span class="na">counting</span><span class="o">()));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Złożoność pamięciowa i obliczeniowa nie zmieniły się w stosunku do poprzedniego rozwiązania.</p>
+
+<h3 id="interfejs-użytkownika">Interfejs użytkownika</h3>
+
+<p>Treść zadania zakłada uruchomienie programu w następujący sposób:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program.exe &lt; dane.txt 
+</code></pre></div></div>
+
+<p>Przekładając to na realia Javy uruchomienie programu może wyglądać następująco</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -cp 12_dna-1.0-SNAPSHOT.jar pl.samouczekprogramisty.szs.dna.DNASequencer &lt; dane.txt
+</code></pre></div></div>
+
+<p>Jeśli do tej pory nie udało Ci się przeczytać artykułu o <a href="/java-z-linii-polecen/">użyciu Javy w linii poleceń</a> to chyba właśnie nadszedł na to czas ;).</p>
+
+<p>Standardowe wejście w języku Java reprezentowane jest przez obiekt <code class="highlighter-rouge">System.in</code>. Do czytania wejścia linia po linii użyłem klasy <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/BufferedReader.html"><code class="highlighter-rouge">BufferedReader</code></a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">));</span>
+    <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">line</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">changePossible</span><span class="o">(</span><span class="n">line</span><span class="o">,</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">()));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="wyślij-mi-swoje-zadanie">Wyślij mi swoje zadanie</h2>
+
+<p>Jeśli chcesz żebym spróbował rozwiązać Twoje zadanie proszę wyślij je na mój adres e-mail <code class="highlighter-rouge">marcin małpka samouczekprogramisty.pl</code>. Jeśli tylko będę potrafił je rozwiązać to z chęcią napiszę o tym artykuł.</p>
+
+<div class="notice--warning">
+
+<p>Często firmy zastrzegają sobie to, żeby nie rozpowszechniać zadań, które były na rozmowie kwalifikacyjnej. Jeśli tak było w Twoim przypadku proszę uszanuj wolę danej firmy i nie przesyłaj mi takiego zadania.</p>
+
+<p>Dostając zadanie od Ciebie zakładam, że mogę je opublikować na blogu.</p>
+
+</div>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po lekturze tego artykułu i samodzielnej próbie rozwiązania zadania jesteś o krok bliżej do dobrego przygotowania do rozmowy kwalifikacyjnej. Udało Ci się poznać kilka sposobów rozwiązania tego samego problemu, a może Twoje rozwiązanie jest jeszcze inne?</p>
+
+<p>Nawet jeśli udało Ci się rozwiązać zadanie samodzielnie proszę rzuć okiem na <a href="https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/12_dna">moją implementację</a>. Czytając kod innych programistów możesz nauczyć się jeszcze więcej. Nie zapomnij rzucić okiem na <a href="/testy-jednostkowe-z-junit5/">testy jednostkowe</a>!</p>
+
+<p>Jeśli ktoś z Twoich znajomych przygotowuje się do rozmowy kwalifikacyjnej na stanowisko programisty możesz podzielić się linkiem do tego artykułu, z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów możesz dopisać się do samouczkowego newslettera i polubić Samouczka na Facebook’u.</p>
+
+<p>Do następnego razu!</p>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2613 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#samouczek-na-rozmowie" class="page__taxonomy-item" rel="tag">Samouczek na rozmowie</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/kategorie/#strefa-zadaniowa" class="page__taxonomy-item" rel="tag">Strefa zadaniowa</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-02-25">2019-02-25</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.samouczekprogramisty.pl%2Fsamouczek-na-rozmowie-lancuchy-bialkowe%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.samouczekprogramisty.pl%2Fsamouczek-na-rozmowie-lancuchy-bialkowe%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/watki-w-jezyku-java/" class="pagination--pager" title="Wątki w języku Java
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/watki-w-jezyku-java/" rel="permalink">Wątki w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2017/11/13_zlozonosc_obliczeniowa_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/podstawy-zlozonosci-obliczeniowej/" rel="permalink">Podstawy złożoności obliczeniowej
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  15 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/struktury-danych-tablica-asocjacyjna/" rel="permalink">Struktury danych – tablica asocjacyjna
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  12 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację ...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="https://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.samouczekprogramisty.pl/samouczek-na-rozmowie-lancuchy-bialkowe/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>
