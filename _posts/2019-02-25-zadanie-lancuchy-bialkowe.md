@@ -9,7 +9,7 @@ header:
     teaser: /assets/images/2019/02/25_zadanie_z_rozmowy_kwalifikacyjnej_lancuchy_bialkowe_artykul.jpg
     overlay_image: /assets/images/2019/02/25_zadanie_z_rozmowy_kwalifikacyjnej_lancuchy_bialkowe_artykul.jpg
     caption: "[&copy; PublicDomainPictures](https://pixabay.com/illustrations/dna-biology-science-dna-helix-163710/)"
-excerpt: Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po lekturze tego artykułu dowiedz się jak rozwiązać zadanie, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony.
+excerpt: Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po jego lekturze dowiesz się o czterech różnych sposobach na rozwiązanie zadania, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony. Każda z propozycji jest dokładnie omówiona pod kątem złożoności obliczeniowej i pamięciowej.
 ---
 
 {% include samouczek-na-rozmowie.md %}
@@ -21,7 +21,7 @@ W artykule dotyczącym [zadania z zagnieżdżoną strukturą]({% post_url 2018-0
 - w przypadku niepełnego opisu zadania załóż coś. W rozwiązaniu zadania opisz swoje założenia,
 - staraj się zawsze dostarczać testy automatyczne razem ze swoim rozwiązaniem, nawet jeśli nie są wymagane,
 - dokumentuj swój kod tam gdzie jest to niezbędne, używanie docstring'ów może być dobrym rozwiązaniem,
-- jeśli nie masz pomysłu na optymalne rozwiązanie zadania zacznij od najprostrzego podejścia.
+- jeśli nie masz pomysłu na optymalne rozwiązanie zadania zacznij od najprostszego podejścia.
 
 ## Treść zadania
 
@@ -41,17 +41,17 @@ Powinna ona sprawdzić, czy możliwe jest uzyskanie łańcucha białkowego `s2` 
 
 Ponieważ rzeczywiste łańcuchy białkowe składają się z około 10<sup>8</sup> aminokwasów, należy zadbać o dobrą wydajność algorytmu.
 
-Dane są zapisane w pliku tekstowym. Każdy z łańcuchów jest zapisany w osobnej linii i porównujemy łańcuch z linii nieparzystej z łańcuchem z linii
+Dane są zapisane w pliku tekstowym. Każdy z łańcuchów jest zapisany w osobnej linii. Porównujemy łańcuch z linii nieparzystej z łańcuchem z linii
 parzystej. Przykładowy plik: 
 
     ACBBCA
     BCBACA
 
-Można założyć, że liczba linii będzie zawsze parzysta. Można także założyć również, że plik wejściowy jest poprawny i nie zawiera żadnych białych znaków poza znakami końca linii. Napisz  program  w popularnym języku programowania (C,  C++,  Java,  C#,  Python), który wczyta plik wejściowy z danymi, obliczy i wypisze wynik. Najlepiej będzie, jeśli program będzie czytać dane ze standardowego wejścia i wypisywać wynik na standardowe wyjście, dzięki czemu będzie go można wywołać poleceniem: 
+Można założyć, że liczba linii będzie zawsze parzysta. Można także założyć, że plik wejściowy jest poprawny i nie zawiera żadnych białych znaków poza znakami końca linii. Napisz  program  w popularnym języku programowania (C,  C++,  Java,  C#,  Python), który wczyta plik wejściowy z danymi, obliczy i wypisze wynik. Najlepiej będzie, jeśli program będzie czytać dane ze standardowego wejścia i wypisywać wynik na standardowe wyjście, dzięki czemu będzie go można wywołać poleceniem: 
 
     program.exe < dane.txt 
 
-Jeśli nie potrafisz korzystać ze standardowego wejścia, możesz wczytać plik z danymi w inny sposób. Ważna jest wydajność zastosowanego algorytmu. W rozwiązaniu możesz korzystać z biblioteki klas dostępnych na platformie, w której będziesz programować. 
+Jeśli nie potrafisz korzystać ze standardowego wejścia, możesz wczytać plik z danymi w inny sposób. Ważna jest wydajność zastosowanego algorytmu. W rozwiązaniu możesz korzystać z bibltioteki standardowej dostępnej na platformie, w której będziesz programować. 
 
 {% include newsletter-srodek.md %}
 
@@ -125,7 +125,7 @@ W tym przypadku potrzebna jest tablica zawierająca wszystkie znaki obu łańcuc
 
 ### Algorytm – optymalne rozwiązanie i tablice
 
-Poprzednia wersja algortymu jest zadowalająca. Można ją uruchomić dla dużych instancji problemu i doczekać się rozwiązania ;). Jest jednak jeszcze lepszy sposób. Proszę spójrz na przykład poniżej:
+Poprzednia wersja algorytmu jest zadowalająca. Można ją uruchomić dla dużych instancji problemu i doczekać się rozwiązania ;). Jest jednak jeszcze lepszy sposób. Proszę spójrz na przykład poniżej:
 
 ```java
 boolean optimalChangePossible(String sequence1, String sequence2) {
@@ -147,7 +147,7 @@ To rozwiązanie wykorzystuje dokładnie ten sam fakt, na który zwróciłem uwag
 
 #### Złożoność obliczeniowa
 
-Kolejność tych liter nie ma znaczenia. Istotna jest jedynie ich liczba. Zatem wystarczy zliczyć wystąpienia każdej z możliwych liter. Taka statystyka zwracana jest przez funkcję `countLetters`. Funkcja ta wykonuje operację dla każdej z `n` liter, zatem jej złożoność obliczeniowa to `Ο(n)`. Funkcja ta wykonan jest dwa razy, w związku z tym złożoność obliczeniowa tego algorytmu to `Ο(n)`.
+Kolejność tych liter nie ma znaczenia. Istotna jest jedynie ich liczba. Zatem wystarczy zliczyć wystąpienia każdej z możliwych liter. Taka statystyka zwracana jest przez funkcję `countLetters`. Funkcja ta wykonuje operację dla każdej z `n` liter, zatem jej złożoność obliczeniowa to `Ο(n)`. Funkcja ta wykonana jest dwa razy, w związku z tym złożoność obliczeniowa tego algorytmu to `Ο(n)`.
 
 #### Złożoność pamięciowa
 
@@ -185,7 +185,7 @@ Przekładając to na realia Javy uruchomienie programu może wyglądać następu
 
 Jeśli do tej pory nie udało Ci się przeczytać artykułu o [użyciu Javy w linii poleceń]({% post_url 2017-03-08-java-z-linii-polecen %}) to chyba właśnie nadszedł na to czas ;).
 
-Standardowe wejście w języku Java reprezentowan jest przez obiekt `System.in`. Do czytania wejścia linia po linii użyłem klasy [`BufferedReader`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/BufferedReader.html):
+Standardowe wejście w języku Java reprezentowane jest przez obiekt `System.in`. Do czytania wejścia linia po linii użyłem klasy [`BufferedReader`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/BufferedReader.html):
 
 ```java
 public static void main(String[] args) throws IOException {
