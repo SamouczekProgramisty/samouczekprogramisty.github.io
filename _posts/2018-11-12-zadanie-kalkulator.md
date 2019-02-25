@@ -156,6 +156,6 @@ Po lekturze tego artykułu i samodzielnej próbie rozwiązania zadania jesteś o
 
 Dzisiejszy artykuł pokazał Ci zadanie, które moim zdaniem jest jasno opisane. Zawiera wszystkie niezbędne informacje do jego rozwiązania. Dobrze jest trafić na zadania tego typu na rozmowach kwalifikacyjnych. Propozycja rozwiązania zawiera bardziej zaawansowane konstrukcje, dzięki którym możesz zobaczyć jak może wyglądać czytelny kod wysokiej jakości.
 
-Jeśli ktoś z Twoich znajomych przygotowuje się do rozmowy kwalifikacyjnej na stanowisku programisty możesz podzielić się linkiem do tego artykułu, z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów możesz dopisać się do samouczkowego newslettera i polubić Samouczka na Facebook'u.
+Jeśli ktoś z Twoich znajomych przygotowuje się do rozmowy kwalifikacyjnej na stanowisko programisty możesz podzielić się linkiem do tego artykułu, z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów możesz dopisać się do samouczkowego newslettera i polubić Samouczka na Facebook'u.
 
 Do następnego razu!
