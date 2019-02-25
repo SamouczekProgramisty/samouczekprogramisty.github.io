@@ -1,6 +1,6 @@
 ---
 title: Samouczek na rozmowie – łańcuchy białkowe
-last_modified_at: 2018-11-18 14:00:20 +0100
+last_modified_at: 2019-02-25 23:22:59 +0100
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa
