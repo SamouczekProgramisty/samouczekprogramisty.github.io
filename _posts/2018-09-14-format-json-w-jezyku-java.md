@@ -1,6 +1,6 @@
 ---
 title: Format JSON w języku Java
-last_modified_at: 2018-11-27 20:44:29 +0100
+last_modified_at: 2019-02-27 22:57:33 +0100
 categories:
 - Narzędzia
 - Kurs aplikacji webowych
@@ -173,8 +173,15 @@ Mimo braku takiego wymogu przyjęło się, że elementem głównym dokumentu w t
 
 ## JSON-P
 
+{% capture notice %}
 Wszystkie fragmenty kodu użyte w tym artykule udostępnione są na [Samouczkowym Githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/32_format_json/src/main/java/pl/samouczekprogramisty/kursjava/json). Zachęcam Cię do eksperymentów i uruchomienia kodu samodzielnie.
-{:.notice--info}
+
+Zwróć też uwagę na zależności wspomniane w pliku [`build.gradle`](https://github.com/SamouczekProgramisty/KursJava/blob/master/32_format_json/build.gradle). Część klas użytych we fragmentach poniżej nie jest dostępna w standardowej bibliotece Javy.
+{% endcapture %}
+
+<div class="notice--info">
+  {{ notice | markdownify }}
+</div>
 
 JSON-P jest specyfikacją, która opisuje przetwarzanie formatu JSON. Zakłada przetwarzanie dokumentów JSON zarówno w całości jak i w trybie strumieniowym (nie trzeba załadować całego dokumentu do pamięci). Pozwala na parsowanie i generowanie dokumentów w formacie JSON. Specyfikacja JSON-P 1.1 jest częścią JEE 8.
 
