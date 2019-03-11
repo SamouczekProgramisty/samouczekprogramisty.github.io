@@ -6,9 +6,9 @@ categories:
 - Strefa zadaniowa
 permalink: /poczatki-pracy-z-konsola/
 header:
-    teaser: /assets/images/2019/03/12_praca_z_linia_polecen_artykul.jpeg
-    overlay_image: /assets/images/2019/03/12_praca_z_linia_polecen_artykul.jpeg
-    caption: "[&copy; PublicDomainPictures](https://pixabay.com/illustrations/dna-biology-science-dna-helix-163710/)"
+    teaser: /assets/images/2019/03/12_poczatki_pracy_z_konsola_artykul.jpeg
+    overlay_image: /assets/images/2019/03/12_poczatki_pracy_z_konsola_artykul.jpeg
+    caption: "[&copy; Arie Wubben](https://unsplash.com/photos/MHIw0nSxCR4)"
 excerpt: W tym artykule pokażę Ci jak pracuję z konsolą w systemie Linux. Poznasz najczęściej używane programy, które przydają się w codziennej pracy. Dowiesz się czym jest standardowe wyjście, poznasz też mechanizm przekierowań. Na końcu artykułu jak zwykle czeka na Ciebie zestaw zadań, które pomogą utrwalić Ci wiedzę zdobytą po lekturze artykułu.
 ---
 
