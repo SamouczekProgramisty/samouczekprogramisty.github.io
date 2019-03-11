@@ -17,3 +17,6 @@ Większość osób korzysta z IDE, krótka informacja jak uruchomić program / p
 Czy Gradle potrzebuje np XAMPP? uruchomiłem Twój projekt bez tego, a mogłem już uruchomić w przeglądarce pogram. Gradle lub IntelliJ sam to jakoś uruchamia?
 
 Starałem się pisać konstruktywne uwagi, mam nadzieję, że pomogłem.
+
+
+Bardzo proszę o podpowiedź jak budować plik war w katalogu TomEE. Modifikujemy plik build.gradle czy ścieżkę w OS?<Paste> – exploaded war
