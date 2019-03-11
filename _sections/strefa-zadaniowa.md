@@ -24,6 +24,7 @@ Czasami od czytelników dostaję zadania z ich rozmów kwalifikacyjnych. Poniże
 * [Znajdź brakujący element]({% post_url 2017-12-10-zadanie-znajdz-brakujacy-element %})
 * [Zagnieżdżona struktura]({% post_url 2018-08-26-zadanie-zagniezdzona-struktura %})
 * [Kalkulator]({% post_url 2018-11-12-zadanie-kalkulator %})
+* [Łańcuchy białkowe]({% post_url 2019-02-25-zadanie-lancuchy-bialkowe %})
 
 ## Zadania różne
 
