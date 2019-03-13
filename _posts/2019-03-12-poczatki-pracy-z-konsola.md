@@ -14,6 +14,14 @@ excerpt: W tym artykule pokażę Ci jak pracuję z konsolą w systemie Linux. Po
 
 ## Windows czy Linux/Unix
 
+Na początku muszę powiedzieć, że to jest moje subiektywne zdanie. Każdy może mieć inne. Muszę też powiedzieć, że Windows jest świetną platformą do grania[^wine]. I to chyba wszystko. 
+
+[^wine]: Przez długi czas uruchamiałem moje ulubione gry ze stajni Blizzard'a przy pomocy Wine – dało się grać, jednak nie był to 
+
+Nie jestem wielkim znawcą systemów z rodziny Linux/Unix. Określiłbym siebie jako przeciętnego użytkownika świadomego konsoli. Do tej pory pracowałem z kilkoma wersjami systemu Linux[^dystrybucja].
+
+[^dystrybucja]: W świecie Linux/Unix mówi się o dystrybucjach.
+
 ## Przydatne programy
 
 ### Poruszanie się po systemie plików

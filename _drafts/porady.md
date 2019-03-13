@@ -39,3 +39,11 @@ if (something) {
 – staraj się nadawać nazwy, które odpowiadają temu co jest w środku, np. displayNoOfUnique nic nie pokazuje, jedynie zwraca.
 
 Jeśli chodzi o Gradle, to podstawy opisałem tutaj. A co do Git'a i Gighub'a to zapraszam na Kurs Git'a, nad którym pracuję.
+Jest OK, chociaż można zastanowić się, czy ta metoda nie pasowałaby lepiej do osobnej klasy (jednak przy tak małych programach nie ma to większego znaczenia). Dodatkowo metodę statyczną wywołabym na klasie, nie na instancji:
+
+<pre>
+Klasa instancja = new Klasa();
+instancja.metoda();
+
+Klasa.metodaStatyczna();
+</pre>
