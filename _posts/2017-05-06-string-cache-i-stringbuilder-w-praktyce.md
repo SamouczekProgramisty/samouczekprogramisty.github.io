@@ -71,7 +71,7 @@ Klasa `String` posiada także metodę `concat`, która działa w podobny sposób
 
 ## Wydajność a konkatenacja
 
-Wiesz już, że instancje klasy `String` są niemutowalne. Wszystkie metody znajdujące się w klasie `String`, modyfikują łańcuch znaków tak na prawdę tworzą jego nową instancję.
+Wiesz już, że instancje klasy `String` są niemutowalne. Wszystkie metody znajdujące się w klasie `String`, modyfikują łańcuch znaków tak naprawdę tworzą jego nową instancję.
 
 Nie inaczej jest z konkatenacją. Proszę spójrz na przykład poniżej:
 

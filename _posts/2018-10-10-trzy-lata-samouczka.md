@@ -62,7 +62,7 @@ Szczerze mówiąc największy banan na twarzy pojawił się gdy dowiedziałem si
 
 ### Blog polecany przez pracodawców
 
-Czytelnicy dają mi też znać, że blog polecany jest przez pracodawców w materiałach dla początkujących. Mam tu na myśli firmę [Capgemini](https://www.capgemini.com/pl-pl/). Capgemini poleca Samouczka Programisty w swoich materiałach. To jest na prawdę bardzo miłe, kiedy dostaję informację, że ktoś dostał się do pracy między innymi dzięki artykułom, które publikuję[^praca].
+Czytelnicy dają mi też znać, że blog polecany jest przez pracodawców w materiałach dla początkujących. Mam tu na myśli firmę [Capgemini](https://www.capgemini.com/pl-pl/). Capgemini poleca Samouczka Programisty w swoich materiałach. To jest naprawdę bardzo miłe, kiedy dostaję informację, że ktoś dostał się do pracy między innymi dzięki artykułom, które publikuję[^praca].
 
 A może jesteś takim właśnie pracodawcą? Proszę daj znać, z chęcią postaram się przygotować materiały dla nowych pracowników w Twojej firmie. Na stronie [o mnie]({{ '/o-mnie' | absolute_url }}) znajdziesz kilka sposobów jak możesz się ze mną skontaktować.
 
@@ -110,6 +110,6 @@ Planów mam sporo, pokazałem Ci część z nich. Wszystko jednak musi poczekać
 
 ## Podsumowanie
 
-Wszystko co wspomniałem w tym artykule pokazuje mi, że materiały, które tworzę są dobrej jakości i warte uwagi. Bardzo dziękuję Ci za to, że poświęcasz swój czas na czytanie treści, które tworzę. Jestem Ci ogromnie wdzięczny za polecanie bloga dalej. Ankieta, którą przeprowadzam wśród subskrybentów newslettera pokazuje mi, że coraz więcej Czytelników dowiaduje się o Samouczku od swoich znajomych. To jest na prawdę bardzo miłe. Dziękuję!
+Wszystko co wspomniałem w tym artykule pokazuje mi, że materiały, które tworzę są dobrej jakości i warte uwagi. Bardzo dziękuję Ci za to, że poświęcasz swój czas na czytanie treści, które tworzę. Jestem Ci ogromnie wdzięczny za polecanie bloga dalej. Ankieta, którą przeprowadzam wśród subskrybentów newslettera pokazuje mi, że coraz więcej Czytelników dowiaduje się o Samouczku od swoich znajomych. To jest naprawdę bardzo miłe. Dziękuję!
 
 Przy okazji proszę Cię o Twoją opinię. Daj znać w komentarzach co sądzisz o planach rozwoju Samouczka. Może pominąłem coś, co Twoim zdaniem jest bardzo ważne?

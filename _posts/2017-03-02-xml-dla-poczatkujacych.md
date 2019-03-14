@@ -131,7 +131,7 @@ Poniżej pokażę Ci kilka przykładowych zastosowań dokumentów w formacie XML
 - "poprzednik" [opisanego przeze mnie Gradle’a]({% post_url 2017-01-19-wstep-do-gradle %}) – Maven używa XML w swoich plikach konfiguracyjnych - na przykład `settings.xml`, `profiles.xml` czy `plugin-registry.xml`. Główny plik konfiguracyjny dla projektu to także dokument XML – `pom.xml`,
 - w jednym z banków, w którym pracowałem dokumenty XML wraz z XSLT służyły do generowania wszystkich drukowanych dokumentów,
 - każda aplikacja na system Android używa plików XML. W uproszczeniu można powiedzieć, że opisują one wygląd ekranu aplikacji,
-- dokumenty ODT (format używany na przykład przez Open Office), czy DOCX (format używany przez Microsoft Word) to tak na prawdę pliki zip, które wewnątrz zawierają dokumenty XML opisujące zawartość pliku, rozpakuj je a sam się przekonasz :)
+- dokumenty ODT (format używany na przykład przez Open Office), czy DOCX (format używany przez Microsoft Word) to tak naprawdę pliki zip, które wewnątrz zawierają dokumenty XML opisujące zawartość pliku, rozpakuj je a sam się przekonasz :)
 
 ## Na XML świat się nie kończy
 

@@ -186,7 +186,7 @@ Jak widzisz w ostatniej linii program `java` wyświetlił błąd informujący, �
 
     some/path:.:other/path/file.jar
 
-[^format]: Tak na prawdę plik jar to plik zip z innym rozszerzeniem.
+[^format]: Tak naprawdę plik jar to plik zip z innym rozszerzeniem.
 
 W przypadku sytemów z rodziny Windows do rozdzielenia elementów na ścieżce przeszukiwania używa się znaku `;`. W pozostałych znanych mi systemach jest to znak `:` jak widzisz w przykładzie powyżej.
 {:.notice--info}

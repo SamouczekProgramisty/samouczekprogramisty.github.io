@@ -248,7 +248,7 @@ Niektóre z klas anonimowych można zastąpić [wyrażeniami lambda]({% post_url
 
 ### Klasa anonimowa to nie instancja interfejsu
 
-Ważne jest abyś pamiętał o tym, że klasa anonimowa nie tworzy instancji interfejsu. Kompilator tworzy nową klasę, która implementuje dany interfejs. Klasa stworzona przez kompilator tak na prawdę ma swoją nazwę. Możesz nawet do niej dotrzeć:
+Ważne jest abyś pamiętał o tym, że klasa anonimowa nie tworzy instancji interfejsu. Kompilator tworzy nową klasę, która implementuje dany interfejs. Klasa stworzona przez kompilator tak naprawdę ma swoją nazwę. Możesz nawet do niej dotrzeć:
 
 ```java
 public class AnonymousCheating {
