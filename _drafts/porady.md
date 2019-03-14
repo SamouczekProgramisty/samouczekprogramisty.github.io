@@ -47,3 +47,13 @@ instancja.metoda();
 
 Klasa.metodaStatyczna();
 </pre>
+
+– formatowanie kodu zostaw IDE, zrobi to dobrze i konsekwentnie,
+– pusty blok <code>if</code> jest słaby, lepiej zastosuj odwrócony warunek – <code>!=</code>,
+
+– zwróciłeś mi uwagę na coś co można zrobić lepiej w przykładowym kodzie, który pokazałem – <code>java.util.Date</code> ma słabą prasę ;). Dużo lepszym pomysłem jest użycie <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/LocalDate.html"><code>java.time.LocalDate</code></a>,
+– <code>@IsDate</code> nie nadaje się do parametru, który jest typu <code>Date</code>,
+– w tym przypadku walidacje na parametrach konstruktora raczej nie mają sensu (masz to samo w atrybutach klasy),
+– jak zadziała Twój walidator jeśli będzie musiał sprawdzić poprawność pustego łańcucha znaków?
+– pozwól IDE formatować kod,
+– spróbuj przenieść komunikaty błędów do plików properties.
