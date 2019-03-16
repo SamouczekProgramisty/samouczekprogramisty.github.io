@@ -9,12 +9,12 @@ header:
     teaser: /assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg
     overlay_image: /assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg
     caption: "[&copy; Arie Wubben](https://unsplash.com/photos/MHIw0nSxCR4)"
-excerpt: W tym artykule pokażę Ci jak pracuję z wierszem poleceń w systemie Linux. Poznasz najczęściej używane programy, które przydają się w codziennej pracy. Dowiesz się czym jest standardowe wyjście, poznasz też mechanizm przekierowań. Na końcu artykułu jak zwykle czeka na Ciebie zestaw zadań, które pomogą utrwalić Ci wiedzę zdobytą po lekturze artykułu.
+excerpt: Artykuł zaczynam od wytłumaczenia dlaczego warto poznać wiersz poleceń. Pokażę Ci jak sam pracuję z terminalem w systemie Linux. Poznasz najczęściej używane programy, które przydają się w codziennej pracy. Dowiesz się czym jest standardowe wyjście, poznasz też mechanizm przekierowań. Na końcu artykułu jak zwykle czeka na Ciebie zestaw zadań, które pomogą utrwalić Ci wiedzę zdobytą po lekturze artykułu.
 ---
 
 ## Wiersz poleceń
 
-Upraszczając można powiedzieć, że wiersz poleceń to program pozwalający na interakcję z komputerem. W odróżnieniu od graficznego interfejsu użytkownika w wierszu poleceń używa się głównie klawiatury.
+Upraszczając można powiedzieć, że wiersz poleceń to program pozwalający na interakcję z komputerem. W odróżnieniu od graficznego interfejsu użytkownika w wierszu poleceń używa się klawiatury.
 
 ### Dlaczego warto używać wiersza poleceń
 
@@ -30,7 +30,7 @@ Co więcej filozofia, która stoi za programami dostępnymi w wierszu poleceń p
 
 ### Jaki wiersz poleceń wybrać
 
-Mam nadzięję, że udało mi się przekonać Cię do tego, że warto używać wiersza poleceń. Teraz pozostaje pytanie, jaki wiersz poleceń wybrać? Nie chcę tu prowadzić świętej wojny i przekonywać Cię o wyższości jednego rozwiązana nad innym. Zachęcam Cię do sprawdzenia kilku rozwiązań i wybrania tego, które w Twoim przypadku sprawdzi się najlepiej. Sam używam [bash](https://pl.wikipedia.org/wiki/Bash)'a. Do tej pory nie
+Mam nadzięję, że udało mi się przekonać Cię do tego, że warto używać wiersza poleceń. Teraz pozostaje pytanie, jaki wiersz poleceń wybrać? Nie chcę tu prowadzić świętej wojny i przekonywać Cię o wyższości jednego rozwiązana nad innym. Zachęcam Cię do sprawdzenia kilku rozwiązań i wybrania tego, które w Twoim przypadku sprawdzi się najlepiej. Sam używam [bash](https://pl.wikipedia.org/wiki/Bash)'a i to właśnie jego będę używał w dalszej częśći artykułu.
 
 ### Jak bezboleśnie zacząć przygodę z bash'em?
 
@@ -41,7 +41,8 @@ Jeśli chcesz sprawdzić czy praca z wierszem poleceń to coś dla Ciebie masz d
 * użyć emulatora wiersza poleceń w przeglądarce, na przykład [LinuxContainers](https://linuxcontainers.org/lxd/try-it/),
 * zinstalować emulator wiersza poleceń, na przykład [Cygwin](https://www.cygwin.com/),
 * użyć pełnego systemu operacyjnego [uruchamianego z USB/CD](https://tutorials.ubuntu.com/tutorial/try-ubuntu-before-you-install) – w ten sposób dostaniesz cały system opracyjny, nie tylko wiersz poleceń,
-* zainstalować narzędzie do wirtualizacji (na przykład [VirtualBox](https://www.virtualbox.org/wiki/Downloads) w systemie Windows i utworzyć maszynę wirtualną z systemem Linux. Także tutaj dostajesz do dysposycji Linux'a, którego możesz przetestować bez dużego nakładu pracy,
+* zainstalować narzędzie do wirtualizacji (na przykład [VirtualBox](https://www.virtualbox.org/wiki/Downloads)) w systemie Windows i utworzyć maszynę wirtualną z systemem Linux. Także tutaj dostajesz do dysposycji Linux'a, którego możesz przetestować bez dużego nakładu pracy,
+* urzyć narzędzia wspierającego kontenery (na przykład [Docker](https://www.docker.com/)) i uruchomić najprostszy kontener z systemem Linux,
 * zainstalować drugi system równolegle do Windowsa,
 * wyrzucić Windows'a do śmieci i pracować na Linux'ie ;).
 
@@ -62,15 +63,15 @@ To puste okno wiersza poleceń. Ten migający znaczek to znak zachęty. Tutaj wp
 
 W dalszych przykładach będę używał skróconego zapisu – `$ program`.
 
-## Przydatne programy
+## Podstawy pracy z systemem plików
 
 Nadszedł czas na pokazanie Ci kilku podstawowych programów, które są niezbędne do pracy z linią poleceń.
 
-### Praca z systemem plików
+Tutaj mam do Ciebie prośbę. Eksperymentuj! Otwórz wiersz poleceń i na bieżąco czytając artykuł sprawdzaj jak działają poszczególne programy. Właśnie dzięki takiej praktyce nauczysz się najwięcej. 
 
-#### `cd`
+### `cd`
 
-Nawigowanie po systemie plików w wierszu poleceń to podstawa od której należy zacząć. Służy do tego program `cd`. Na przykład wywołąnie komendy:
+Nawigowanie po systemie plików w wierszu poleceń to podstawa od której należy zacząć. Służy do tego program `cd`. Na przykład wywołanie komendy:
 
 ```bash
 $ cd some-directory
@@ -78,9 +79,11 @@ $ cd some-directory
 
 Spowoduje przejście do katalogu `some-directory`. Argumentem przekazanym do programu jest ścieżka reprezentująca katalog. W przykładzie powyżej jest to ścieżka względna. Oznacza to tyle, że zmiana następuje względem katalogu, w którym aktualnie się znajdujesz. Innymi przykładem ścieżki względnej może być `dir1/dir2/yet-another-directory`. Reprezentuje ona trzy zagnieżdżone katalogi.
 
-Wcześniej wprowadziłem już `~` – symbol ten oznacza katalog domowy. W systemach z rodziny Linux/Unix jest to przeważnie `/home/<nazwa użytkownika>`, na przykład `/home/marcinek`. `/home/marcinek` to przykład ścieżki bezwzględnej. Ścieżka bezwzględna od ścieżki względniej różni się tym, że ta pierwsza zaczyna się od `/`.
+Wcześniej wprowadziłem już `~` – symbol ten oznacza katalog domowy. W systemach z rodziny Linux/Unix jest to przeważnie `/home/<nazwa użytkownika>`, na przykład `/home/marcinek`. `/home/marcinek` to przykład ścieżki bezwzględnej. Ścieżka bezwzględna od ścieżki względniej różni się tym, że zaczyna się od `/`.
 
-A co jeśli chcę przejść do katalogu nadrzędnego? W tym przypadku trzeba użyć `..` jako nazwy katalogu:
+A co jeśli chcę przejść do katalogu nadrzędnego? W tym przypadku trzeba użyć `..` jako nazwy katalogu[^bezwzgledna]:
+
+[^bezwzgledna]: Możesz także użyć ścieżki bezwzględnej.
 
 ```bash
 $ cd ..
@@ -96,15 +99,17 @@ $ cd some-directory
 $ cd ./some-directory
 ```
 
-Jeśli chcesz zmienić aktualny katalog na swój katalog domowy możesz użyć wcześniej wspomnianego znaku `~`:
+Jeśli chcesz zmienić aktualny katalog na swój katalog domowy możesz użyć wcześniej wspomnianego znaku `~`. Wywołanie programu `cd` z pominięciem argumentu także zmienia katalog na domowy. Oba polecenia zaprowadzą Cię do tego samego katalogu:
 
 ```bash
 $ cd ~
 ```
 
-Wywołanie programu `cd` z pominięciem argumentu także zmienia katalog na domowy.
+```bash
+$ cd
+```
 
-#### `pwd`
+### `pwd`
 
 Jeżli chcesz poznać swój aktualny katalog możesz użyć programu `pwd`. Wypisuje on na konsolę ścieżkę absolutną katalogu, w którym aktualnie się znajdujesz:
 
@@ -113,7 +118,7 @@ marcinek@mapiszon-dell:~/private$ pwd
 /home/marcinek/private
 ```
 
-#### `ls`
+### `ls`
 
 Sprawdzanie zawartości katalogu jest bardzo przydatne. W tym zadaniu może pomóc program `ls`:
 
@@ -140,10 +145,10 @@ Przełączniki często występują także w skróconych formach. Na przykład sk
 * `-t` – posortuj wynik po czasie modyfikacji malejąco,
 * `-r` – odwróć sortowanie.
 
-Zaletą skróconych form jest to, że można je ze sobą łączyć. Na przykład poniższe wywołąnie pokazuje listę wszystkich plików w formie listy (pokazałem tylko część):
+Zaletą skróconych form jest to, że można je ze sobą łączyć. Na przykład poniższe wywołanie pokazuje zawartość katalogu w formie listy (pokazałem tylko część):
 
 ```bash
-marcinek@mapiszon-dell:~$ ls -l -a
+marcinek@mapiszon-dell:~$ ls -la
 total 232
 drwxr-xr-x 31 marcinek marcinek  4096 mar 14 23:03 .
 drwxr-xr-x  4 root     root      4096 mar  9 20:37 ..
@@ -154,17 +159,93 @@ lrwxrwxrwx  1 marcinek marcinek    37 mar 11 23:38 .bash_aliases -> /home/marcin
 ...
 ```
 
-Ostatnia kolumna to nazwa pliku/katalogu. Wcześniejsze kolumny zawierają metadane dotyczące danego elementu takie jak czas modyfikacji czy prawa dostępu.
+Ostatnia kolumna to nazwa pliku/katalogu. Wcześniejsze kolumny zawierają metadane dotyczące danego elementu takie jak czas modyfikacji czy prawa dostępu. Pominę tutaj dokładne tłumaczenie tych elementów.
 
-#### `mkdir`
+### `mkdir`
 
-#### `rmdir`
+Program `mkdir` służy do tworzenia nowych katalogów. Wywołanie poniżej utworzy katalog o nazwie `sample-directory`:
 
-#### `rm`
+```bash
+$ mkdir sample-directory
+```
+
+Program `mkdir` pozwala także na tworzenie katalogów zagnieżdżonych:
+
+```bash
+$ mkdir non/existent/list/of/directories
+mkdir: cannot create directory ‘non/existent/list/of/directories’: No such file or directory
+```
+
+Pod warunkiem, że cała ścieżka, poza ostatnim katalogiem aktualnie istnieje. Innymi słowy powyższe wywołąnie należałoby zastąpić:
+
+```bash
+$ mkdir non
+$ mkdir non/existent
+$ mkdir non/existent/list
+$ mkdir non/existent/list/of
+$ mkdir non/existent/list/of/directories
+```
+
+Przyznasz, że nie jest to zbyt efektywne. W takim przypadku pomaga przełącznik `-p` lub `--parents`. Powyższą serię można zastąpić poleceniem:
+
+```bash
+$ mkdir -p non/existent/list/of/directories
+```
+
+### `rmdir`
+
+Usuwanie elemetnów używając `rmdir`/`rm` nie wrzuca ich do Kosza, dany element od razu jest usuwany z dysku. Sprawdź dwa razy zanim usuniesz coś czego możesz potrzebować.
+{:.notice--warning}
+
+Wiesz już jak utworzyć katalog. Nadszedł czas na jego usunięcie. Służy do tego program `rmdir`:
+
+```bash
+$ rmdir sample-directory
+```
+
+Podobnie jak w przypadku `mkdir` także i tutaj jest możliwość usuwania zagnieżdżonych katalogów. Poniższe dwa zestawy wywołań programu `rmdir` mają ten sam efekt:
+
+```bash
+$ rmdir non/existent/list/of/directories
+$ rmdir non/existent/list/of
+$ rmdir non/existent/list
+$ rmdir non/existent
+$ rmdir non
+```
+
+```bash
+$ rmdir -p non/existent/list/of/directories
+```
+
+Program `rmdir` usuwa wyłącznie puste katalogi. Jeśli chcesz usunąć coś więcej użyj programu `rm`
+
+### `rm`
+
+Program `rm` służy do usuwania elementów z dysku. Standardowe wywołanie usuwa pojedynczy plik o nazwie `some-file.txt`:
+
+```bash
+$ rm some-file.txt
+```
+
+Jeśli chesz usunąć zagnieżdżone elementy użyj flagi `-r`. Tylko bardzo proszę - OSTROŻNIE!
+
+Tym programem można sobie zrobić kuku :). Sam nie raz usunałem trochę zbyt dużo. Raz nawet udało mi się usunąć katalog domowy użytkownika. Wywołałem polecenie:
+```bash
+$ rm -rf ~
+```
+Wszystko dlatego, że dla testów utworzyłem plik o nazwie `~` ;). Uwierz mi, nie chesz powtórzyć tego błędu. W wywołąniu wyżej przełącznik `-f` oznacza "wymuś usunięcie". Od tego czasu, jeśli usuwam cokolwiek rekursywnie, dodaję przełączniki `-rf` na końcu polecenia długo zastanawiając się przed naciścnięciem Enter ;).
+
+### `touch`
+
+Każdy element na dysku ma datę ostatniego dostępu i modyfikacji (widać ją w jednej z kolumn wyświetlanych prerz `ls -l`). Program `touch` ustawia te daty na aktualą. Ta funkcjonalność nie jest aż tak istotna w większości przypadków. Ten program ma jeden istotny efekt uboczny. Jeśli plik przekazany jako argument nie istnieje zoastanie on domyślnie utworzony:
+
+```bash
+$ touch non-existent-file.txt
+```
 
 ## Standardowe wejście i wyjście
 
-Zanim powiem Ci coś więcej o standardowym wejściu/wyjściu musisz poznać kilka pojęć.
+Zanim powiem Ci coś więcej o pracy z tekstem w wierszu poleceń musisz poznać kilka pojęć
 
 Wiesz czym jest aplikacja. Aplikacją może być przeglądarka internetowa. Każda aplikacja to co najmniej jeden proces. Proces można zdefiniować jako kod (program) wykonywany przez komputer. Schądząc jeszcze niżej możemy dojść do [wątków, które opisałem niedawno]({% post_url 2019-02-11-watki-w-jezyku-java %}).
 
@@ -186,6 +267,8 @@ Ten standardowy zestaw połączony jest z deskryptorami o dobrze znanych numerac
 * stdout – `1`,
 * stderr – `2`.
 
+Programy, które wypisują tekst na konsoli korzystają włąśnie z tych standardowych strumienii – stdout i stderr. Na przykład `ls` wykorzystuje stdout do wypisania zawartości przekazanego argumentu. stderr może być użyty przez `mkdir` w przypadku, gdy chcesz utworzyć zagnieżdżony katalog bez przełącznika `-p`.
+
 Teraz jak znasz już standardowe strumienie (wejście – stdin, wyjśćie – stdout i wyjście błędów – stderr), mogę powiedzieć Ci coś więcej o przekierowaniach.
 
 ### Przekierowania
@@ -197,25 +280,28 @@ Przekierowania dotyczą standardowych strumieni. W praktyce są bardzo często w
 Najprostszym przykładem przekierowania jest:
 
 ```bash
-program 1> plik_wyjscia
+$ program 1> plik_wyjscia
 ```
 
 Taki zapis informuje wiersz poleceń o tym, żeby stdout `program`'u przekierować do pliku `plik_wyjscia`. `1` w tym zapisie reprezentuje numer deskryptora pliku. Okazuje się, że w tym przykładzie `1` można pomiąć, poniższy zapis znaczy dokładnie to samo:
 
 ```bash
-program > plik_wyjscia
+$ program > plik_wyjscia
 ```
 
 W podobny sposób wygląda przekierowanie stderr:
 
 ```bash
-program 2> plik_wyjscia
+$ program 2> plik_wyjscia
 ```
+
+W ramach rpstego ćwiczenia spróbuj prezkierować wyjśćie programu `ls` do pliku.
+{:.notice--info}
 
 Możesz też przekierować jeden strumień do drugiego. Na przykład przekierowanie stdout do stderr wygląda tak:
 
 ```bash
-program 1>&2
+$ program 1>&2
 ```
 
 W wyniku takiego wywołania wszystkie komunikaty wypisane przez program do stdout zostaną przekierowane do stderr. Zwróć uwagę na `&` w komendzie. Bez tego znaku `2` zostałoby potraktowane jako plik o takiej nazwie.
@@ -223,17 +309,48 @@ W wyniku takiego wywołania wszystkie komunikaty wypisane przez program do stdou
 Możesz także przekierować zarówno stdout jak i stdin równocześnie:
 
 ```bash
-program > plik_wyjscia 2> plik_bledow
+$ program > plik_wyjscia 2> plik_bledow
 ```
+
+Jeśi w poleceniu występuje więcej przekierowań brane są pod uwagę od lewej do prawej strony. Ma to znaczenie na przykład tutaj:
+
+```bash
+$ program > plik_wyjscia 2>&1
+```
+
+Polecenie to przekierowuje stdout do `plik_wyjacia` a stderr "tam gdzie stdout".
 
 #### Dołączanie
 
-Przykłądy, które pokazałem poprzednio nadpisują zwartość pliku do którego
+Przykłady, które pokazałem poprzednio nadpisują zwartość pliku, do którego nastąpiło przekierowanie. Istnieje takżę możliwość na dołączenie nowych wierszy do pliku:
+
+```bash
+$ program >> plik_wyjscia
+```
+
+Wszystkie mechanizmy, które opisałem powyżej działają także w przypadku dołączania, na przykład:
+
+```bash
+$ program 1>> plik_wyjscia 2>> plik_bledow
+$ program >> plik_wyjacia 2>&1
+```
+
+### Potoki
+
+W końcu mogę Ci powiedzieć o potokach! To właśnie one sprawiają, że małe klocki można łączyć w całość. Spójrz na przykład:
+
+```bash
+$ program1 | program2
+```
+
+Pionowa kreska `|` oznacza potok. No dobrze, ale co to takiego jest? Możesz to sobie wyobrazić jak rurę, która łączy stanrdowe wyjśćie jednego procesu ze standardowym wejściem innego praocesu. W przykładzie powyżej stdout `program1` połączony zostaje z stdin `program2`.
+
+Niby to nic nadzwyczajnego, jednak pozwala na tworzenie zaawansowanych narzędzi z prostych klocków nie odrywając się od wiersza poleceń. To właśnie ta funkcjonalność sprawia, że graficzny interfejs użytkownika nie dorasta do pięt wierszowi poleceń pod kątem możliwości.
+
+Przykład, który pokazałem jest abastrakcyjny. Praktyczne zastosowania pokażę Ci w dalszej części artykułu.
 
 ## Przydatne programy
 
-
-ln
 clear
 cat
 cut
@@ -248,27 +365,31 @@ uniq
 wc
 chmod
 chown
+
 xargs
+
 which
+
 rsync
 sed
+ln
 
 
 Wspomniałem tu jedynie drobnym podzbiorze programów, sporo pominąłem. Starałem się uwzględnić wyłącznie te najważniejsze. Jeśli Twoim zdaniem lista nie zawiera jakiegoś bardzo ważnego programu, który pominąłem proszę daj znać w komentarzach. Postaram się to uzupełnić :).
 
 [`git`]({{ '/kurs-git/' }})
 
-### Zaawansowane programy
+## Zaawansowane programy
 
-#### `vim`
+### `vim`
 
 Świetny edytor tekstu. Niestety jest dość trudny do opanowania, jednak jak już się przyzwyczaisz to nie ma odniego ucieczki – sam używam wtyczek do przeglądarki internetowej i IntelliJ/PyCharm, które symulują niektóre funkcje klawiszy dostępne w tym edytorze. Równie zaawansowaną alternatywą jest `emacs`.
 
-#### `awk`
+### `awk`
 
 `awk` to narzędzie i także język programowania. Jeśli jest coś czego nie możesz zrobić przy pomocy innych programów dostępnych w wierszu poleceń `awk` na pewno da sobie z tym radę ;). Niestety nie znam tego programu za dobrze, zawsze gdy potrzebuję go użyć zaglądam do dokumentacji szukając niezbędnych informacji.
 
-#### `lynx`
+### `lynx`
 
 `lynx` to przeglądarka internetowa dostępna w konsoli. Oczywiście nie ma możliwośći pokazywania grafiki/animacji, jednak pozwala na przeglądanie zawartości internetu. Spróbuj, może ten sposób przeglądania stron przypadnie Ci do gustu ;).
 
@@ -278,20 +399,29 @@ Wspomniałem tu jedynie drobnym podzbiorze programów, sporo pominąłem. Stara�
 `$#`
 `$_`
 
-
-### Poruszanie się po systemie plików
-
 ### Praca z tekstem
 
 ## Dodatkowe materiały
 
-Całość sprawadza się do programu `man` lub parametru `--help`. Na przykład jeśli chcesz dowiedzieć się czegoś więcej o programie `cd` wywołąj komendę `cd --help` lub `man cd`. W ten sposób dostaniesz się do dokumentacji danego programu.
+Całość sprawadza się do programu `man` lub parametru `--help`. Na przykład jeśli chcesz dowiedzieć się czegoś więcej o programie `cd` wywołąj komendę `cd --help` lub `man cd`. W ten sposób dostaniesz się do dokumentacji danego programu. To naprawdę najlepsze miejsce do szukania szczegółowych informacji o danym programie.
 
 ## Ćwiczenia do wykonania
 
-Jaki przełącznik programu `ls` pozwala na posortowanie wyników używając rozszerzenia plików?
+* Utwórz poniższą strukturę katalogów używając wiersza poleceń:
 
-Napisz program, który pobierze ze standardowego wejścia dwie linijki tekstu. Pierwszą z nich powinien wypisać do standardowego wyjścia, drugą do standardowego wyjścia błędów. Następnie uruchom ten program z linii poleceń na kilka sposobów:
+    samouczek/
+    ├── algorytmy
+    ├── bazy-danych
+    │   └── sql
+    ├── programowanie
+    │   ├── java
+    │   └── python
+    └── struktury-danych
+
+* Przekieruj wyjśćie programu `ls` do pliku,
+* Użyj dowolnego programu i przekieruj stderr i stdout do dwóch różnych plików. Dasz radę zrobić to tak, żeby oba pliki nie były puste?,
+* Jaki przełącznik programu `ls` pozwala na posortowanie wyników używając rozszerzenia plików?
+* Napisz program, który pobierze ze standardowego wejścia dwie linijki tekstu. Pierwszą z nich powinien wypisać do standardowego wyjścia, drugą do standardowego wyjścia błędów. Następnie uruchom ten program z linii poleceń na kilka sposobów:
 
 - przekieruj na standardowe wejście zawartość pliku z dwoma linijkami,
 - przekieruj wyjście błędów do pliku error.log i standardowe wyjście do pliku usage.log,
@@ -300,3 +430,13 @@ Napisz program, który pobierze ze standardowego wejścia dwie linijki tekstu. P
 Jeśli chcesz użyć Javy do rozwiązania tego zadania zachęcam Cię do przeczytania artykułu [Java z linii poleceń]({% post_url 2017-03-08-java-z-linii-polecen %}).
 
 ## Podsumowanie
+
+Po lekturze tego artykułu znasz podstawowe programy używane w trakcie pracy z linią poleceń. Dzięki artykułowi udało Ci się dowiedzieć czym jest stdout, stderr i stdin. Znasz pojęcia przekierowań i potoków, potrafisz z nimi pracować. Rozwiązane ćwiczenia pozwoliły Ci w praktyczny sposób sprawdzić zdobytą wiedzę. Innymi słowy udało Ci się zdobyć kawał solidnej i przydatnej wiedzy, gratuluję :).
+
+Teraz nie pozostaje mi nic innego jak zachęcić Cię do częstszej pracy z linią poleceń. Takie podejście naprawdę nie gryzie. Wierzę, że w dłuższej perspektywie pozwoli Ci osiągnąć lepszą wydajność. A może masz jakieś 
+
+Daj znać w komentarzach jak używasz linii poleceń w swojej codziennej pracy z komputerem. Może pominąłem jakiś program, który Twoim zdaniem do takiej pracy jest niezbędny?
+
+Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub stronę Samouczka na Facebook'u. Jeśli wiesz, że ktoś z Twoich znajomych potrzebuje wiedzy zawartej w tym artykule będę wdzięczny za przekazanie mu odnośnika do tego artykułu – z góry dziękuję.
+
+To tyle na dzisiaj, trzymaj się i do następnego razu!
