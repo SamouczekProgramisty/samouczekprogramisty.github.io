@@ -49,7 +49,7 @@ Analogiczna ścieżka w systemach z rodziny Linux/Unix wygląda trochę inaczej:
 
     /katalog/plik.txt
 
-W kontekście języka Java taka różnica ma pewne konsekwencje. Otóż jeśli chcemy użyć literału `String` wówczas znak `\` musimy poprzedzić kolejnym `\`. Dzieje się tak ponieważ symbol `\` jest wykorzystywany w specjalny sposób. Zatem ścieżka `C:\katalog\plik.txt` zapisana w Javie jako `String` wygląda następująco `"C:\katalog\plik.txt"`.
+W kontekście języka Java taka różnica ma pewne konsekwencje. Otóż jeśli chcemy użyć literału `String` wówczas znak `\` musimy poprzedzić kolejnym `\`. Dzieje się tak ponieważ symbol `\` jest wykorzystywany w specjalny sposób. Zatem ścieżka `C:\katalog\plik.txt` zapisana w Javie jako `String` wygląda następująco `"C:\\katalog\\plik.txt"`.
 
 ### Ścieżka absolutna i relatywna
 
