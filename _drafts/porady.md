@@ -35,7 +35,6 @@ if (something) {
 }
 // something else
 
-
 – staraj się nadawać nazwy, które odpowiadają temu co jest w środku, np. displayNoOfUnique nic nie pokazuje, jedynie zwraca.
 
 Jeśli chodzi o Gradle, to podstawy opisałem tutaj. A co do Git'a i Gighub'a to zapraszam na Kurs Git'a, nad którym pracuję.
@@ -57,3 +56,8 @@ Klasa.metodaStatyczna();
 – jak zadziała Twój walidator jeśli będzie musiał sprawdzić poprawność pustego łańcucha znaków?
 – pozwól IDE formatować kod,
 – spróbuj przenieść komunikaty błędów do plików properties.
+
+– staram się otaczać nawet jednoliniowe bloki nawiasami (po if, else itd.)
+– w repozytorium rozdzielaj kod na pliki jakie masz w swoim edytorze.
+
+– spróbuj try with resources
