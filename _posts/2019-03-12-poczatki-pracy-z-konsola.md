@@ -1,6 +1,6 @@
 ---
 title: Początki pracy z wierszem poleceń
-last_modified_at: 2019-02-25 23:22:59 +0100
+last_modified_at: 2019-03-17 15:56:22 +0100
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa
@@ -21,9 +21,9 @@ Upraszczając można powiedzieć, że wiersz poleceń to program pozwalający na
 
 ### Dlaczego warto używać wiersza poleceń
 
-Interfejs graficzny służy do tego, zeby ułatwić pracę z danym programem/systemem operacyjnym. Takie podejście jest szczególnie użyteczne dla początkujących użytkowników. Interfejs graficzny w przyjazny dla oka sposób udostępnia najczęściej używane funkcje. Problem zaczna pojawiać się kiedy chcesz zrobić coś co nie jest standardowe. W takich przypadkach musisz szukać opcji, które są ukryte gdzieś głęboko w czeluściach zagnieżdżonych menu.
+Interfejs graficzny służy do tego, żeby ułatwić pracę z danym programem/systemem operacyjnym. Takie podejście jest szczególnie użyteczne dla początkujących użytkowników. Interfejs graficzny w przyjazny dla oka sposób udostępnia najczęściej używane funkcje. Problem zaczyna pojawiać się kiedy chcesz zrobić coś co nie jest standardowe. W takich przypadkach musisz szukać opcji, które są ukryte gdzieś głęboko w czeluściach zagnieżdżonych menu.
 
-Co więcej taką pracę ciężko jest zautomatyzować. Jeśli wykonujesz pewną czynność, która jest potwarzalna to z interfejsem graficznym za każdym razem musisz klikać, nie ma wyjścia[^nagrywanie]. Pomocne są tu skróty klawiaturowe, jednak nie wszystkie opcje mają swój skrót. Z wierszem poleceń sprawa wygląda trochę inaczej.
+Co więcej taką pracę ciężko jest zautomatyzować. Jeśli wykonujesz pewną czynność, która jest powtarzalna to z interfejsem graficznym za każdym razem musisz klikać, nie ma wyjścia[^nagrywanie]. Pomocne są tu skróty klawiaturowe, jednak nie wszystkie opcje mają swój skrót. Z wierszem poleceń sprawa wygląda trochę inaczej.
 
 [^nagrywanie]: Pomijam tutaj rozwiązania, które pozwalają na nagrywanie ekranu i automatyczne wykonywanie tych czynności ponownie. Takie narzędzia często także wymagają użycia specyficznego języka programowania. Tak otrzymane nagrania są ciężkie w utrzymaniu, każda zmiana interfejsu może powodować błędy w ich działaniu.
 
@@ -33,19 +33,19 @@ Co więcej filozofia, która stoi za programami dostępnymi w wierszu poleceń p
 
 ### Jaki wiersz poleceń wybrać
 
-Mam nadzięję, że udało mi się przekonać Cię do tego, że warto używać wiersza poleceń. Teraz pozostaje pytanie, jaki wiersz poleceń wybrać? Nie chcę tu prowadzić świętej wojny i przekonywać Cię o wyższości jednego rozwiązana nad innym. Zachęcam Cię do sprawdzenia kilku rozwiązań i wybrania tego, które w Twoim przypadku sprawdzi się najlepiej. Sam używam [`bash`](https://pl.wikipedia.org/wiki/Bash)'a i to właśnie jego będę używał w dalszej części artykułu.
+Mam nadzieje, że udało mi się przekonać Cię do tego, że warto używać wiersza poleceń. Teraz pozostaje pytanie, jaki wiersz poleceń wybrać? Nie chcę tu prowadzić świętej wojny i przekonywać Cię o wyższości jednego rozwiązana nad innym. Zachęcam Cię do sprawdzenia kilku rozwiązań i wybrania tego, które w Twoim przypadku sprawdzi się najlepiej. Sam używam [`bash`](https://pl.wikipedia.org/wiki/Bash)'a i to właśnie jego będę używał w dalszej części artykułu.
 
 ### Jak bezboleśnie zacząć przygodę z `bash`'em?
 
-Jeśli używasz systemu Linux/Unix to istnieje duże prawdopodobnieństwo, że masz dostęp do `bash`'a i możesz pominąć ten podpunkt. Problem pojawia się jeśli używasz Windows'a. Tam niestety `bash` nie jest dostępny.
+Jeśli używasz systemu Linux/Unix to istnieje duże prawdopodobieństwo, że masz dostęp do `bash`'a i możesz pominąć ten podpunkt. Problem pojawia się jeśli używasz Windows'a. Tam niestety `bash` nie jest dostępny.
 
 Jeśli chcesz sprawdzić czy praca z wierszem poleceń to coś dla Ciebie masz do wyboru kilka opcji:
 
 * użyć emulatora wiersza poleceń w przeglądarce, na przykład [LinuxContainers](https://linuxcontainers.org/lxd/try-it/),
-* zinstalować emulator wiersza poleceń, na przykład [Cygwin](https://www.cygwin.com/),
-* użyć pełnego systemu operacyjnego [uruchamianego z USB/CD](https://tutorials.ubuntu.com/tutorial/try-ubuntu-before-you-install) – w ten sposób dostaniesz cały system opracyjny, nie tylko wiersz poleceń,
-* zainstalować narzędzie do wirtualizacji (na przykład [VirtualBox](https://www.virtualbox.org/wiki/Downloads)) w systemie Windows i utworzyć maszynę wirtualną z systemem Linux. Także tutaj dostajesz do dysposycji Linux'a, którego możesz przetestować bez dużego nakładu pracy,
-* urzyć narzędzia wspierającego kontenery (na przykład [Docker](https://www.docker.com/)) i uruchomić najprostszy kontener z systemem Linux,
+* zainstalować emulator wiersza poleceń, na przykład [Cygwin](https://www.cygwin.com/),
+* użyć pełnego systemu operacyjnego [uruchamianego z USB/CD](https://tutorials.ubuntu.com/tutorial/try-ubuntu-before-you-install) – w ten sposób dostaniesz cały system operacyjny, nie tylko wiersz poleceń,
+* zainstalować narzędzie do wirtualizacji (na przykład [VirtualBox](https://www.virtualbox.org/wiki/Downloads)) w systemie Windows i utworzyć maszynę wirtualną z systemem Linux. Także tutaj dostajesz do dyspozycji Linux'a, którego możesz przetestować bez dużego nakładu pracy,
+* użyć narzędzia wspierającego kontenery (na przykład [Docker](https://www.docker.com/)) i uruchomić najprostszy kontener z systemem Linux,
 * zainstalować drugi system równolegle do Windowsa,
 * wyrzucić Windows'a do śmieci i pracować na Linux'ie ;).
 
@@ -60,7 +60,7 @@ Zacznę od obrazka:
 To puste okno wiersza poleceń. Ten migający znaczek to znak zachęty. Tutaj wpisuje się komendy. To co jest przed znakiem zachęty to:
 
 * nazwa użytkownika, w moim przypadku jest to `marcinek`,
-* `@` odzielająca nazwę użytkownika i kolejny element,
+* `@` oddzielająca nazwę użytkownika i kolejny element,
 * nazwa komputera, w moim przypadku jest to `mapiszon-dell`,
 * `:` oddzielający nazwę komputera i kolejny element,
 * aktualna ścieżka, w moim przypadku jest to `~` (tylda). Ten znak reprezentuje katalog domowy użytkownika,
@@ -116,7 +116,7 @@ $ cd
 
 ### `pwd`
 
-Jeżli chcesz poznać swój aktualny katalog możesz użyć programu `pwd`. Wypisuje on na konsolę ścieżkę absolutną katalogu, w którym aktualnie się znajdujesz:
+Jeżeli chcesz poznać swój aktualny katalog możesz użyć programu `pwd`. Wypisuje on na konsolę ścieżkę absolutną katalogu, w którym aktualnie się znajdujesz:
 
 ```bash
 marcinek@mapiszon-dell:~/private$ pwd
@@ -132,7 +132,7 @@ marcinek@mapiszon-dell:~$ ls
 Desktop  Documents  Downloads  Dropbox  Music  Pictures  private  Public  snap  Templates  Videos
 ```
 
-Propgram ten wypisuje na konsolę zawartość ścieżki przekazanej jako argument. Domyślną ścieżką jest `.`, czyli aktualny katalog. W systemie Linux/Unix także istnieją pliki/katalogi ukryte. Domyślnie program `ls` ich nie pokazuje. Aby je zobaczyć należy użyć przełącznika. Jedną z możliwych opcji jest użycie `--all`:
+Program ten wypisuje na konsolę zawartość ścieżki przekazanej jako argument. Domyślną ścieżką jest `.`, czyli aktualny katalog. W systemie Linux/Unix także istnieją pliki/katalogi ukryte. Domyślnie program `ls` ich nie pokazuje. Aby je zobaczyć należy użyć przełącznika. Jedną z możliwych opcji jest użycie `--all`:
 
 ```bash
 marcinek@mapiszon-dell:~$ ls --all
@@ -181,7 +181,7 @@ $ mkdir non/existent/list/of/directories
 mkdir: cannot create directory ‘non/existent/list/of/directories’: No such file or directory
 ```
 
-Pod warunkiem, że cała ścieżka, poza ostatnim katalogiem aktualnie istnieje. Innymi słowy powyższe wywołąnie należałoby zastąpić:
+Pod warunkiem, że cała ścieżka, poza ostatnim katalogiem aktualnie istnieje. Innymi słowy powyższe wywołanie należałoby zastąpić:
 
 ```bash
 $ mkdir non
@@ -199,7 +199,7 @@ $ mkdir -p non/existent/list/of/directories
 
 ### `rmdir`
 
-Usuwanie elemetnów używając `rmdir`/`rm` nie wrzuca ich do Kosza, dany element od razu jest usuwany z dysku. Sprawdź dwa razy zanim usuniesz coś czego możesz potrzebować.
+Usuwanie elementów używając `rmdir`/`rm` nie wrzuca ich do Kosza, dany element od razu jest usuwany z dysku. Sprawdź dwa razy zanim usuniesz coś czego możesz potrzebować.
 {:.notice--warning}
 
 Wiesz już jak utworzyć katalog. Nadszedł czas na jego usunięcie. Służy do tego program `rmdir`:
@@ -232,17 +232,17 @@ Program `rm` służy do usuwania elementów z dysku. Standardowe wywołanie usuw
 $ rm some-file.txt
 ```
 
-Jeśli chesz usunąć zagnieżdżone elementy użyj flagi `-r`. Tylko bardzo proszę - OSTROŻNIE!
+Jeśli chcesz usunąć zagnieżdżone elementy użyj flagi `-r`. Tylko bardzo proszę - OSTROŻNIE!
 
-Tym programem można sobie zrobić kuku :). Sam nie raz usunałem trochę zbyt dużo. Raz nawet udało mi się usunąć katalog domowy użytkownika. Wywołałem polecenie:
+Tym programem można sobie zrobić kuku :). Sam nie raz usunąłem trochę zbyt dużo. Raz nawet udało mi się usunąć katalog domowy użytkownika. Wywołałem polecenie:
 ```bash
 $ rm -rf ~
 ```
-Wszystko dlatego, że dla testów utworzyłem plik o nazwie `~` ;). Uwierz mi, nie chesz powtórzyć tego błędu. W wywołąniu wyżej przełącznik `-f` oznacza "wymuś usunięcie". Od tego czasu, jeśli usuwam cokolwiek rekursywnie, dodaję przełączniki `-rf` na końcu polecenia długo zastanawiając się przed naciścnięciem Enter ;).
+Wszystko dlatego, że dla testów utworzyłem plik o nazwie `~` ;). Uwierz mi, nie chcesz powtórzyć tego błędu. W wywołaniu wyżej przełącznik `-f` oznacza "wymuś usunięcie". Od tego czasu, jeśli usuwam cokolwiek rekursywnie, dodaję przełączniki `-rf` na końcu polecenia długo zastanawiając się przed naciśnięciem Enter ;).
 
 ### `touch`
 
-Każdy element na dysku ma datę ostatniego dostępu i modyfikacji (widać ją w jednej z kolumn wyświetlanych prerz `ls -l`). Program `touch` ustawia te daty na aktualą. Ta funkcjonalność nie jest aż tak istotna w większości przypadków. Ten program ma jeden istotny efekt uboczny. Jeśli plik przekazany jako argument nie istnieje zoastanie on domyślnie utworzony:
+Każdy element na dysku ma datę ostatniego dostępu i modyfikacji (widać ją w jednej z kolumn wyświetlanych przez `ls -l`). Program `touch` ustawia te daty na aktualną. Ta funkcjonalność nie jest aż tak istotna w większości przypadków. Ten program ma jeden istotny efekt uboczny. Jeśli plik przekazany jako argument nie istnieje zostanie on domyślnie utworzony:
 
 ```bash
 $ touch non-existent-file.txt
@@ -252,19 +252,19 @@ $ touch non-existent-file.txt
 
 Zanim powiem Ci coś więcej o pracy z tekstem w wierszu poleceń musisz poznać kilka pojęć
 
-Wiesz czym jest aplikacja. Aplikacją może być przeglądarka internetowa. Każda aplikacja to co najmniej jeden proces. Proces można zdefiniować jako kod (program) wykonywany przez komputer. Schądząc jeszcze niżej możemy dojść do [wątków, które opisałem niedawno]({% post_url 2019-02-11-watki-w-jezyku-java %}).
+Wiesz czym jest aplikacja. Aplikacją może być przeglądarka internetowa. Każda aplikacja to co najmniej jeden proces. Proces można zdefiniować jako kod (program) wykonywany przez komputer. Schodząc jeszcze niżej możemy dojść do [wątków, które opisałem niedawno]({% post_url 2019-02-11-watki-w-jezyku-java %}).
 
 Każdy proces ma przypisane zasoby, na przykład RAM (ang. _Random Access Memory_) czy zestaw deskryptorów plików. Deskryptor pliku to struktura, która pozwala na dostęp do pliku[^wszystko]. Deskryptory plików identyfikowane są przez nieujemne liczby całkowite, na przykład `0`, `1` czy `123`.
 
-[^wszystko]: Poznając lepiej systemy operacyjne z rodziny Linux/Unix usłyszysz to jeszcze nie raz – wszysztko jest plikiem ;). Dysk, plik, katalog, strumień, klawiatura itp.
+[^wszystko]: Poznając lepiej systemy operacyjne z rodziny Linux/Unix usłyszysz to jeszcze nie raz – wszystko jest plikiem ;). Dysk, plik, katalog, strumień, klawiatura itp.
 
 Każdy program[^demon] zazwyczaj ma dostęp do co najmniej trzech deskryptorów plików:
 
 [^demon]: Demony (ang. _deamon_) mogą trochę odstawać od tej reguły.
 
-* standardoweg wejścia (ang. _stdin_),
-* standardoweg wyjścia (ang. _stdout_),
-* standardoweg wyjścia błędów (ang. _stderr_).
+* standardowego wejścia (ang. _stdin_),
+* standardowego wyjścia (ang. _stdout_),
+* standardowego wyjścia błędów (ang. _stderr_).
 
 Ten standardowy zestaw połączony jest z deskryptorami o dobrze znanych numerach:
 
@@ -272,11 +272,11 @@ Ten standardowy zestaw połączony jest z deskryptorami o dobrze znanych numerac
 * stdout – `1`,
 * stderr – `2`.
 
-Programy, które wypisują tekst na konsoli korzystają włąśnie z tych standardowych strumienii – stdout i stderr. Na przykład `ls` wykorzystuje stdout do wypisania zawartości przekazanego argumentu. stderr może być użyty przez `mkdir` w przypadku, gdy chcesz utworzyć zagnieżdżony katalog bez przełącznika `-p` – do pokazania błędu.
+Programy, które wypisują tekst na konsoli korzystają właśnie z tych standardowych strumieni – stdout i stderr. Na przykład `ls` wykorzystuje stdout do wypisania zawartości przekazanego argumentu. stderr może być użyty przez `mkdir` w przypadku, gdy chcesz utworzyć zagnieżdżony katalog bez przełącznika `-p` – do pokazania błędu.
 
 #### `echo`
 
-Prostym programem, który wykorzystuje standardowe wyjście jest `echo`. Zastda jego działania jest prosta – wyświetla na konsoli (używając stdout) przekazany tekst:
+Prostym programem, który wykorzystuje standardowe wyjście jest `echo`. Zasada jego działania jest prosta – wyświetla na konsoli (używając stdout) przekazany tekst:
 
 ```bash
 $ echo Some text to show on a console
@@ -294,7 +294,7 @@ Multiline text to
 show on a console
 ```
 
-Teraz jak znasz już standardowe strumienie (wejście – stdin, wyjśćie – stdout i wyjście błędów – stderr), mogę powiedzieć Ci coś więcej o przekierowaniach.
+Teraz jak znasz już standardowe strumienie (wejście – stdin, wyjście – stdout i wyjście błędów – stderr), mogę powiedzieć Ci coś więcej o przekierowaniach.
 
 ### Przekierowania
 
@@ -320,7 +320,7 @@ W podobny sposób wygląda przekierowanie stderr:
 $ program 2> plik_wyjscia
 ```
 
-W ramach rpstego ćwiczenia spróbuj prezkierować wyjśćie programu `ls` do pliku.
+W ramach prostego ćwiczenia spróbuj przekierować wyjście programu `ls` do pliku.
 {:.notice--info}
 
 Możesz też przekierować jeden strumień do drugiego. Na przykład przekierowanie stdout do stderr wygląda tak:
@@ -337,7 +337,7 @@ Możesz także przekierować zarówno stdout jak i stdin równocześnie:
 $ program > plik_wyjscia 2> plik_bledow
 ```
 
-Jeśi w poleceniu występuje więcej przekierowań brane są pod uwagę od lewej do prawej strony. Ma to znaczenie na przykład tutaj:
+Jeśli w poleceniu występuje więcej przekierowań brane są pod uwagę od lewej do prawej strony. Ma to znaczenie na przykład tutaj:
 
 ```bash
 $ program > plik_wyjscia 2>&1
@@ -353,7 +353,7 @@ $ echo sample file content > sample_file.txt
 
 #### Dołączanie
 
-Przykłady, które pokazałem poprzednio nadpisują zwartość pliku, do którego nastąpiło przekierowanie. Istnieje takżę możliwość na dołączenie nowych wierszy do pliku:
+Przykłady, które pokazałem poprzednio nadpisują zwartość pliku, do którego nastąpiło przekierowanie. Istnieje także możliwość na dołączenie nowych wierszy do pliku:
 
 ```bash
 $ program >> plik_wyjscia
@@ -378,13 +378,13 @@ Pionowa kreska `|` oznacza potok. No dobrze, ale co to takiego jest? Możesz to 
 
 Niby to nic nadzwyczajnego, jednak pozwala na tworzenie zaawansowanych narzędzi z prostych klocków nie odrywając się od wiersza poleceń. To właśnie ta funkcjonalność sprawia, że graficzny interfejs użytkownika nie dorasta do pięt wierszowi poleceń pod kątem możliwości.
 
-Przykład, który pokazałem jest abastrakcyjny. Praktyczne zastosowania pokażę Ci w dalszej części artykułu.
+Przykład, który pokazałem jest abstrakcyjny. Praktyczne zastosowania pokażę Ci w dalszej części artykułu.
 
 ## Początki pracy z tekstem
 
 ### `cat`
 
-`cat` jest programem, który służy do wyświetlania danych używając stdout. To co powino być wyświetlone przekazywane jest to programu jako parametr oznaczający nazwę pliku. Program ten może przyjąć wiele parametrów:
+`cat` jest programem, który służy do wyświetlania danych używając stdout. To co powinno być wyświetlone przekazywane jest to programu jako parametr oznaczający nazwę pliku. Program ten może przyjąć wiele parametrów:
 
 ```bash
 $ echo file1 content > file1
@@ -418,7 +418,7 @@ Czasami wygodniej jest zacząć od początku. Pomaga przy tym program `clear`. P
 
 ## Dodatkowe materiały
 
-Całość sprawadza się do programu `man` lub parametru `--help`. Na przykład jeśli chcesz dowiedzieć się czegoś więcej o programie `cd` wywołąj komendę `cd --help` lub `man cd`. W ten sposób dostaniesz się do dokumentacji danego programu. To naprawdę najlepsze miejsce do szukania szczegółowych informacji o danym programie.
+Całość sprowadza się do programu `man` lub parametru `--help`. Na przykład jeśli chcesz dowiedzieć się czegoś więcej o programie `cd` wywołaj komendę `cd --help` lub `man cd`. W ten sposób dostaniesz się do dokumentacji danego programu. To naprawdę najlepsze miejsce do szukania szczegółowych informacji o danym programie.
 
 ## Ćwiczenia do wykonania
 

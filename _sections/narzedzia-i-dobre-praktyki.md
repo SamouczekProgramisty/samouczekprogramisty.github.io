@@ -19,6 +19,7 @@ Znajomość składni języka programowania to dopiero początek. Programista w s
 * [Wstęp do Gradle]({% post_url 2017-01-19-wstep-do-gradle %})
 * [Walidacja obiektów w języku Java]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-java %})
 * [Format JSON w języku Java]({% post_url 2018-09-14-format-json-w-jezyku-java %})
+* [Początki pracy z wierszem poleceń]({% post_url 2019-03-12-poczatki-pracy-z-konsola %})
 
 Dodatkowo koniecznie musisz znać system kontroli wersji. Proponuję Ci zacząć od Git'a, który jest standardem w branży. [Kurs Gita]({{ '/kurs-git/' | absolute_url }}) dostępny na Samouczku powinien Ci pomóc go poznać.
 
