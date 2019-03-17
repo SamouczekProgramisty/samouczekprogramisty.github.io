@@ -599,6 +599,11 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/samouczek-na-rozmowie-lancuchy-bialkowe/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/02/25_zadanie_z_rozmowy_kwalifikacyjnej_lancuchy_bialkowe_artykul.jpg"},{
+        "title": "Początki pracy z wierszem poleceń",
+        "excerpt":"To jest jeden z artykułów omawiających pracę z wierszem poleceń. Omawiam w nim podstawy niezbędne do wydajnej pracy. Dalsze artykuły z cyklu opisują bardziej zaawansowane zagadnienia związane z pracą w linii poleceń. Wszystkie artykuły w serii zebrałem w sekcji narzędzia i dobre praktyki. Wiersz poleceń Upraszczając można powiedzieć, że wiersz...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],

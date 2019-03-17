@@ -1,0 +1,1064 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Początki pracy z wierszem poleceń - Samouczek Programisty</title>
+<meta name="description" content="Artykuł zaczynam od wytłumaczenia dlaczego warto poznać wiersz poleceń. Pokażę Ci jak sam pracuję z terminalem w systemie Linux. Poznasz najczęściej używane programy, które przydają się w codziennej pracy. Dowiesz się czym jest standardowe wyjście, poznasz też mechanizm przekierowań. Na końcu artykułu jak zwykle czeka na Ciebie zestaw zadań, które pomogą utrwalić Ci wiedzę zdobytą po lekturze artykułu.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Początki pracy z wierszem poleceń">
+<meta property="og:url" content="https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/">
+
+
+  <meta property="og:description" content="Artykuł zaczynam od wytłumaczenia dlaczego warto poznać wiersz poleceń. Pokażę Ci jak sam pracuję z terminalem w systemie Linux. Poznasz najczęściej używane programy, które przydają się w codziennej pracy. Dowiesz się czym jest standardowe wyjście, poznasz też mechanizm przekierowań. Na końcu artykułu jak zwykle czeka na Ciebie zestaw zadań, które pomogą utrwalić Ci wiedzę zdobytą po lekturze artykułu.">
+
+
+
+  <meta property="og:image" content="https://www.samouczekprogramisty.pl/assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-03-12T00:00:00+01:00">
+
+
+
+  <meta property="article:modified_time" content="2019-03-17T15:56:22+01:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "https://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Początki pracy z wierszem poleceń
+
+        
+      </h1>
+      
+        <p class="page__lead">Artykuł zaczynam od wytłumaczenia dlaczego warto poznać wiersz poleceń. Pokażę Ci jak sam pracuję z terminalem w systemie Linux. Poznasz najczęściej używane programy, które przydają się w codziennej pracy. Dowiesz się czym jest standardowe wyjście, poznasz też mechanizm przekierowań. Na końcu artykułu jak zwykle czeka na Ciebie zestaw zadań, które pomogą utrwalić Ci wiedzę zdobytą po lekturze artykułu.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://unsplash.com/photos/MHIw0nSxCR4">© Arie Wubben</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Początki pracy z wierszem poleceń</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Początki pracy z wierszem poleceń">
+    <meta itemprop="description" content="Artykuł zaczynam od wytłumaczenia dlaczego warto poznać wiersz poleceń. Pokażę Ci jak sam pracuję z terminalem w systemie Linux. Poznasz najczęściej używane programy, które przydają się w codziennej pracy. Dowiesz się czym jest standardowe wyjście, poznasz też mechanizm przekierowań. Na końcu artykułu jak zwykle czeka na Ciebie zestaw zadań, które pomogą utrwalić Ci wiedzę zdobytą po lekturze artykułu.">
+    <meta itemprop="datePublished" content="March 12, 2019">
+    <meta itemprop="dateModified" content="March 17, 2019">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#wiersz-poleceń">Wiersz poleceń</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#dlaczego-warto-używać-wiersza-poleceń">Dlaczego warto używać wiersza poleceń</a></li>
+<li class="toc-entry toc-h3"><a href="#jaki-wiersz-poleceń-wybrać">Jaki wiersz poleceń wybrać</a></li>
+<li class="toc-entry toc-h3"><a href="#jak-bezboleśnie-zacząć-przygodę-z-bashem">Jak bezboleśnie zacząć przygodę z bash‘em?</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#jak-wygląda-wiersz-poleceń">Jak wygląda wiersz poleceń</a></li>
+<li class="toc-entry toc-h2"><a href="#podstawy-pracy-z-systemem-plików">Podstawy pracy z systemem plików</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#cd">cd</a></li>
+<li class="toc-entry toc-h3"><a href="#pwd">pwd</a></li>
+<li class="toc-entry toc-h3"><a href="#ls">ls</a></li>
+<li class="toc-entry toc-h3"><a href="#mkdir">mkdir</a></li>
+<li class="toc-entry toc-h3"><a href="#rmdir">rmdir</a></li>
+<li class="toc-entry toc-h3"><a href="#rm">rm</a></li>
+<li class="toc-entry toc-h3"><a href="#touch">touch</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#standardowe-wejście-i-wyjście">Standardowe wejście i wyjście</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#echo">echo</a></li>
+<li class="toc-entry toc-h3"><a href="#przekierowania">Przekierowania</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#nadpisywanie">Nadpisywanie</a></li>
+<li class="toc-entry toc-h4"><a href="#dołączanie">Dołączanie</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#potoki">Potoki</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#początki-pracy-z-tekstem">Początki pracy z tekstem</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#cat">cat</a></li>
+<li class="toc-entry toc-h3"><a href="#clear">clear</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały">Dodatkowe materiały</a></li>
+<li class="toc-entry toc-h2"><a href="#ćwiczenia-do-wykonania">Ćwiczenia do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        <p class="notice--info">To jest jeden z artykułów omawiających pracę z wierszem poleceń. Omawiam w nim podstawy niezbędne do wydajnej pracy. Dalsze artykuły z cyklu opisują bardziej zaawansowane zagadnienia związane z pracą w linii poleceń. Wszystkie artykuły w serii zebrałem w sekcji <a href="/narzedzia-i-dobre-praktyki/#narz%C4%99dzia">narzędzia i dobre praktyki</a>.</p>
+
+<h2 id="wiersz-poleceń">Wiersz poleceń</h2>
+
+<p>Upraszczając można powiedzieć, że wiersz poleceń to program pozwalający na interakcję z komputerem. W odróżnieniu od graficznego interfejsu użytkownika w wierszu poleceń używa się klawiatury.</p>
+
+<h3 id="dlaczego-warto-używać-wiersza-poleceń">Dlaczego warto używać wiersza poleceń</h3>
+
+<p>Interfejs graficzny służy do tego, żeby ułatwić pracę z danym programem/systemem operacyjnym. Takie podejście jest szczególnie użyteczne dla początkujących użytkowników. Interfejs graficzny w przyjazny dla oka sposób udostępnia najczęściej używane funkcje. Problem zaczyna pojawiać się kiedy chcesz zrobić coś co nie jest standardowe. W takich przypadkach musisz szukać opcji, które są ukryte gdzieś głęboko w czeluściach zagnieżdżonych menu.</p>
+
+<p>Co więcej taką pracę ciężko jest zautomatyzować. Jeśli wykonujesz pewną czynność, która jest powtarzalna to z interfejsem graficznym za każdym razem musisz klikać, nie ma wyjścia<sup id="fnref:nagrywanie"><a href="#fn:nagrywanie" class="footnote">1</a></sup>. Pomocne są tu skróty klawiaturowe, jednak nie wszystkie opcje mają swój skrót. Z wierszem poleceń sprawa wygląda trochę inaczej.</p>
+
+<p>Wiersz poleceń to narzędzie przydatne w codziennej pracy programisty. Nie znam żadnego programisty, który w swojej pracy nigdy nie używał wiersza poleceń. Co więcej to narzędzie jest przydatne w trakcie pracy z każdym językiem programowania. Niezależnie od tego w jakim języku chcesz programować umiejętność posługiwania się wierszem poleceń może się przydać.</p>
+
+<p>Co więcej filozofia, która stoi za programami dostępnymi w wierszu poleceń pozwala na ich zgrabne łączenie. W efekcie możesz uzyskać naprawdę potężne narzędzie, które składa się z wielu drobnych klocków.</p>
+
+<h3 id="jaki-wiersz-poleceń-wybrać">Jaki wiersz poleceń wybrać</h3>
+
+<p>Mam nadzieje, że udało mi się przekonać Cię do tego, że warto używać wiersza poleceń. Teraz pozostaje pytanie, jaki wiersz poleceń wybrać? Nie chcę tu prowadzić świętej wojny i przekonywać Cię o wyższości jednego rozwiązana nad innym. Zachęcam Cię do sprawdzenia kilku rozwiązań i wybrania tego, które w Twoim przypadku sprawdzi się najlepiej. Sam używam <a href="https://pl.wikipedia.org/wiki/Bash"><code class="highlighter-rouge">bash</code></a>‘a i to właśnie jego będę używał w dalszej części artykułu.</p>
+
+<h3 id="jak-bezboleśnie-zacząć-przygodę-z-bashem">Jak bezboleśnie zacząć przygodę z <code class="highlighter-rouge">bash</code>‘em?</h3>
+
+<p>Jeśli używasz systemu Linux/Unix to istnieje duże prawdopodobieństwo, że masz dostęp do <code class="highlighter-rouge">bash</code>‘a i możesz pominąć ten podpunkt. Problem pojawia się jeśli używasz Windows’a. Tam niestety <code class="highlighter-rouge">bash</code> nie jest dostępny.</p>
+
+<p>Jeśli chcesz sprawdzić czy praca z wierszem poleceń to coś dla Ciebie, to masz do wyboru kilka opcji:</p>
+
+<ul>
+  <li>użyć emulatora wiersza poleceń w przeglądarce, na przykład <a href="https://linuxcontainers.org/lxd/try-it/">LinuxContainers</a>,</li>
+  <li>zainstalować emulator wiersza poleceń, na przykład <a href="https://www.cygwin.com/">Cygwin</a>,</li>
+  <li>użyć pełnego systemu operacyjnego <a href="https://tutorials.ubuntu.com/tutorial/try-ubuntu-before-you-install">uruchamianego z USB/CD</a> – w ten sposób dostaniesz cały system operacyjny, nie tylko wiersz poleceń,</li>
+  <li>zainstalować narzędzie do wirtualizacji (na przykład <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>) w systemie Windows i utworzyć maszynę wirtualną z systemem Linux. Także tutaj dostajesz do dyspozycji Linux’a, którego możesz przetestować bez dużego nakładu pracy,</li>
+  <li>użyć narzędzia wspierającego kontenery (na przykład <a href="https://www.docker.com/">Docker</a>) i uruchomić najprostszy kontener z systemem Linux,</li>
+  <li>zainstalować drugi system równolegle do Windowsa,</li>
+  <li>wyrzucić Windows’a do śmieci i pracować na Linux’ie ;).</li>
+</ul>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2613 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h2 id="jak-wygląda-wiersz-poleceń">Jak wygląda wiersz poleceń</h2>
+
+<p>Zacznę od obrazka:</p>
+
+<figure class="">
+  <img src="/assets/images/2019/03/14_prompt.gif" alt="" />
+  
+    <figcaption>Okno wiersza poleceń
+</figcaption>
+  
+</figure>
+
+<p>To puste okno wiersza poleceń. Ten migający znaczek to znak zachęty. Tutaj wpisuje się komendy. To co jest przed znakiem zachęty to:</p>
+
+<ul>
+  <li>nazwa użytkownika, w moim przypadku jest to <code class="highlighter-rouge">marcinek</code>,</li>
+  <li><code class="highlighter-rouge">@</code> oddzielająca nazwę użytkownika i kolejny element,</li>
+  <li>nazwa komputera, w moim przypadku jest to <code class="highlighter-rouge">mapiszon-dell</code>,</li>
+  <li><code class="highlighter-rouge">:</code> oddzielający nazwę komputera i kolejny element,</li>
+  <li>aktualna ścieżka, w moim przypadku jest to <code class="highlighter-rouge">~</code> (tylda). Ten znak reprezentuje katalog domowy użytkownika,</li>
+  <li><code class="highlighter-rouge">$</code> oddzielający ścieżkę od miejsca do wprowadzania komend.</li>
+</ul>
+
+<p>W dalszych przykładach będę używał skróconego zapisu – <code class="highlighter-rouge">$ something</code>. Zapis ten oznacza uruchomienie programu <code class="highlighter-rouge">something</code>. Sprowadza się to do uruchomienia procesu, który wykonuje kod programu <code class="highlighter-rouge">something</code>.</p>
+
+<h2 id="podstawy-pracy-z-systemem-plików">Podstawy pracy z systemem plików</h2>
+
+<p>Nadszedł czas na pokazanie Ci kilku podstawowych programów, które są niezbędne do pracy z linią poleceń.</p>
+
+<p>Tutaj mam do Ciebie prośbę. Eksperymentuj! Otwórz wiersz poleceń i na bieżąco czytając artykuł sprawdzaj jak działają poszczególne programy. Właśnie dzięki takiej praktyce nauczysz się najwięcej.</p>
+
+<h3 id="cd"><code class="highlighter-rouge">cd</code></h3>
+
+<p>Nawigowanie po systemie plików w wierszu poleceń to podstawa od której należy zacząć. Służy do tego program <code class="highlighter-rouge">cd</code>. Na przykład wywołanie komendy:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>some-directory
+</code></pre></div></div>
+
+<p>Spowoduje przejście do katalogu <code class="highlighter-rouge">some-directory</code>. Argumentem przekazanym do programu jest ścieżka reprezentująca katalog. W przykładzie powyżej jest to ścieżka względna. Oznacza to tyle, że zmiana następuje względem katalogu, w którym aktualnie się znajdujesz. Innymi przykładem ścieżki względnej może być <code class="highlighter-rouge">dir1/dir2/yet-another-directory</code>. Reprezentuje ona trzy zagnieżdżone katalogi.</p>
+
+<p>Wcześniej wprowadziłem już <code class="highlighter-rouge">~</code> – symbol ten oznacza katalog domowy. W systemach z rodziny Linux/Unix jest to przeważnie <code class="highlighter-rouge">/home/&lt;nazwa użytkownika&gt;</code>, na przykład <code class="highlighter-rouge">/home/marcinek</code>. <code class="highlighter-rouge">/home/marcinek</code> to przykład ścieżki bezwzględnej. Ścieżka bezwzględna od ścieżki względniej różni się tym, że zaczyna się od <code class="highlighter-rouge">/</code>.</p>
+
+<p>A co jeśli chcę przejść do katalogu nadrzędnego? W tym przypadku trzeba użyć <code class="highlighter-rouge">..</code> jako nazwy katalogu<sup id="fnref:bezwzgledna"><a href="#fn:bezwzgledna" class="footnote">2</a></sup>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ..
+</code></pre></div></div>
+
+<p>Innym specjalnym symbolem jest <code class="highlighter-rouge">.</code> – pojedyncza kropka oznacza aktualny katalog. Zatem dwie poniższe komendy są równoznaczne:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>some-directory
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ./some-directory
+</code></pre></div></div>
+
+<p>Jeśli chcesz zmienić aktualny katalog na swój katalog domowy możesz użyć wcześniej wspomnianego znaku <code class="highlighter-rouge">~</code>. Wywołanie programu <code class="highlighter-rouge">cd</code> z pominięciem argumentu także zmienia katalog na domowy. Oba polecenia zaprowadzą Cię do tego samego katalogu:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ~
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span>
+</code></pre></div></div>
+
+<h3 id="pwd"><code class="highlighter-rouge">pwd</code></h3>
+
+<p>Jeżeli chcesz poznać swój aktualny katalog możesz użyć programu <code class="highlighter-rouge">pwd</code>. Wypisuje on na konsolę ścieżkę absolutną katalogu, w którym aktualnie się znajdujesz:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marcinek@mapiszon-dell:~/private<span class="nv">$ </span><span class="nb">pwd</span>
+/home/marcinek/private
+</code></pre></div></div>
+
+<h3 id="ls"><code class="highlighter-rouge">ls</code></h3>
+
+<p>Sprawdzanie zawartości katalogu jest bardzo przydatne. W tym przypadku przyda się program <code class="highlighter-rouge">ls</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marcinek@mapiszon-dell:~<span class="nv">$ </span><span class="nb">ls
+</span>Desktop  Documents  Downloads  Dropbox  Music  Pictures  private  Public  snap  Templates  Videos
+</code></pre></div></div>
+
+<p>Program ten wypisuje na konsolę zawartość ścieżki przekazanej jako argument. Domyślną ścieżką jest <code class="highlighter-rouge">.</code>, czyli aktualny katalog. W systemie Linux/Unix także istnieją pliki/katalogi ukryte. Domyślnie program <code class="highlighter-rouge">ls</code> ich nie pokazuje. Aby je zobaczyć należy użyć przełącznika. Jedną z możliwych opcji jest użycie <code class="highlighter-rouge">--all</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marcinek@mapiszon-dell:~<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">--all</span>
+<span class="nb">.</span>              .bash_profile  .dotfiles  .globalignore  .gradle  .java     Pictures  .rvm       Videos
+..             .bashrc        Downloads  .gconf         .gnome2  .local    private   snap       .vimos
+.bash_aliases  .cache         Desktop    .gem           .gnupg   .mozilla  .profile  .ssh       .viminfo
+.bash_history  .config        Documents  .gitconfig     .mkshrc  Music     Public    Templates  .vimrc
+</code></pre></div></div>
+
+<p>Przełączniki często występują także w skróconych formach. Na przykład skróconym odpowiednikiem <code class="highlighter-rouge">--all</code> jest <code class="highlighter-rouge">-a</code>. Program <code class="highlighter-rouge">ls</code> ma wiele przełączników, te które używam najczęściej to:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">-l</code> – zwróć wynik działania w formie listy,</li>
+  <li><code class="highlighter-rouge">-a</code> – pokaż także ukryte pliki i katalogi,</li>
+  <li><code class="highlighter-rouge">-A</code> – pokaż także ukryte pliki i katalogi pomijając katalogi specjalne (<code class="highlighter-rouge">.</code> i <code class="highlighter-rouge">..</code>),</li>
+  <li><code class="highlighter-rouge">-t</code> – posortuj wynik po czasie modyfikacji malejąco,</li>
+  <li><code class="highlighter-rouge">-r</code> – odwróć sortowanie.</li>
+</ul>
+
+<p>Zaletą skróconych form jest to, że można je ze sobą łączyć. Na przykład poniższe wywołanie pokazuje zawartość katalogu w formie listy (pokazałem tylko część):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marcinek@mapiszon-dell:~<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-la</span>
+total 232
+drwxr-xr-x 31 marcinek marcinek  4096 mar 14 23:03 <span class="nb">.</span>
+drwxr-xr-x  4 root     root      4096 mar  9 20:37 ..
+lrwxrwxrwx  1 marcinek marcinek    37 mar 11 23:38 .bash_aliases -&gt; /home/marcinek/.dotfiles/bash_aliases
+<span class="nt">-rw-------</span>  1 marcinek marcinek 23820 mar 14 15:00 .bash_history
+<span class="nt">-rw-r--r--</span>  1 marcinek marcinek    81 mar 13 21:05 .bash_profile
+<span class="nt">-rw-r--r--</span>  1 marcinek marcinek  4059 mar 13 21:04 .bashrc
+...
+</code></pre></div></div>
+
+<p>Ostatnia kolumna to nazwa pliku/katalogu. Wcześniejsze kolumny zawierają metadane dotyczące danego elementu takie jak czas modyfikacji czy prawa dostępu. Pominę tutaj dokładne tłumaczenie tych elementów.</p>
+
+<h3 id="mkdir"><code class="highlighter-rouge">mkdir</code></h3>
+
+<p>Program <code class="highlighter-rouge">mkdir</code> służy do tworzenia nowych katalogów. Wywołanie poniżej utworzy katalog o nazwie <code class="highlighter-rouge">sample-directory</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir </span>sample-directory
+</code></pre></div></div>
+
+<p>Program <code class="highlighter-rouge">mkdir</code> pozwala także na tworzenie katalogów zagnieżdżonych:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir </span>non/existent/list/of/directories
+<span class="nb">mkdir</span>: cannot create directory ‘non/existent/list/of/directories’: No such file or directory
+</code></pre></div></div>
+
+<p>Pod warunkiem, że cała ścieżka, poza ostatnim katalogiem aktualnie istnieje. Innymi słowy powyższe wywołanie należałoby zastąpić:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir </span>non
+<span class="nv">$ </span><span class="nb">mkdir </span>non/existent
+<span class="nv">$ </span><span class="nb">mkdir </span>non/existent/list
+<span class="nv">$ </span><span class="nb">mkdir </span>non/existent/list/of
+<span class="nv">$ </span><span class="nb">mkdir </span>non/existent/list/of/directories
+</code></pre></div></div>
+
+<p>Przyznasz, że nie jest to zbyt efektywne. W takim przypadku pomaga przełącznik <code class="highlighter-rouge">-p</code> lub <code class="highlighter-rouge">--parents</code>. Powyższą serię można zastąpić poleceniem:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir</span> <span class="nt">-p</span> non/existent/list/of/directories
+</code></pre></div></div>
+
+<h3 id="rmdir"><code class="highlighter-rouge">rmdir</code></h3>
+
+<p class="notice--warning">Usuwanie elementów używając <code class="highlighter-rouge">rmdir</code>/<code class="highlighter-rouge">rm</code> nie wrzuca ich do Kosza, dany element od razu jest usuwany z dysku. Sprawdź dwa razy zanim usuniesz coś czego możesz potrzebować.</p>
+
+<p>Wiesz już jak utworzyć katalog. Nadszedł czas na jego usunięcie. Służy do tego program <code class="highlighter-rouge">rmdir</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">rmdir </span>sample-directory
+</code></pre></div></div>
+
+<p>Podobnie jak w przypadku <code class="highlighter-rouge">mkdir</code> także i tutaj jest możliwość usuwania zagnieżdżonych katalogów. Poniższe dwa zestawy wywołań programu <code class="highlighter-rouge">rmdir</code> mają ten sam efekt:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">rmdir </span>non/existent/list/of/directories
+<span class="nv">$ </span><span class="nb">rmdir </span>non/existent/list/of
+<span class="nv">$ </span><span class="nb">rmdir </span>non/existent/list
+<span class="nv">$ </span><span class="nb">rmdir </span>non/existent
+<span class="nv">$ </span><span class="nb">rmdir </span>non
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">rmdir</span> <span class="nt">-p</span> non/existent/list/of/directories
+</code></pre></div></div>
+
+<p>Program <code class="highlighter-rouge">rmdir</code> usuwa wyłącznie puste katalogi. Jeśli chcesz usunąć coś więcej użyj programu <code class="highlighter-rouge">rm</code></p>
+
+<h3 id="rm"><code class="highlighter-rouge">rm</code></h3>
+
+<p>Program <code class="highlighter-rouge">rm</code> służy do usuwania elementów z dysku. Standardowe wywołanie usuwa pojedynczy plik. Przykład poniżej pokazuje usunięcie pliku o nazwie <code class="highlighter-rouge">some-file.txt</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">rm </span>some-file.txt
+</code></pre></div></div>
+
+<p>Jeśli chcesz usunąć zagnieżdżone elementy użyj flagi <code class="highlighter-rouge">-r</code>. Tylko bardzo proszę, <strong>ostrożnie</strong>!</p>
+
+<p>Tym programem można sobie zrobić kuku :). Sam nie raz usunąłem trochę zbyt dużo. Raz nawet udało mi się usunąć katalog domowy użytkownika. Wywołałem polecenie:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">rm</span> <span class="nt">-rf</span> ~
+</code></pre></div></div>
+
+<p>Wszystko dlatego, że dla testów utworzyłem plik o nazwie <code class="highlighter-rouge">~</code> ;). Uwierz mi, nie chcesz powtórzyć tego błędu. W wywołaniu wyżej przełącznik <code class="highlighter-rouge">-f</code> oznacza “wymuś usunięcie”. Od tego czasu, jeśli usuwam cokolwiek rekursywnie, dodaję przełączniki <code class="highlighter-rouge">-rf</code> na końcu polecenia długo zastanawiając się przed naciśnięciem Enter ;).</p>
+
+<h3 id="touch"><code class="highlighter-rouge">touch</code></h3>
+
+<p>Każdy element na dysku ma datę ostatniego dostępu i modyfikacji (widać ją w jednej z kolumn wyświetlanych przez <code class="highlighter-rouge">ls -l</code>). Program <code class="highlighter-rouge">touch</code> ustawia te daty na aktualną. Ta funkcjonalność nie jest aż tak istotna w większości przypadków. Ten program ma jeden istotny efekt uboczny. Jeśli plik przekazany jako argument nie istnieje zostanie on domyślnie utworzony:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">touch </span>non-existent-file.txt
+</code></pre></div></div>
+
+<h2 id="standardowe-wejście-i-wyjście">Standardowe wejście i wyjście</h2>
+
+<p>Zanim powiem Ci coś więcej o pracy z tekstem w wierszu poleceń musisz poznać kilka pojęć.</p>
+
+<p>Wiesz czym jest aplikacja. Aplikacją może być przeglądarka internetowa. Każda aplikacja to co najmniej jeden proces. Proces można zdefiniować jako kod (program) wykonywany przez komputer. Schodząc jeszcze niżej możemy dojść do <a href="/watki-w-jezyku-java/">wątków</a>, które opisałem niedawno.</p>
+
+<p>Każdy proces ma przypisane zasoby, na przykład RAM (ang. <em>Random Access Memory</em>) czy zestaw deskryptorów plików. Deskryptor pliku to liczba, która jednoznacznie określa plik otworzony w danym procesie, pozwala na dostęp do pliku<sup id="fnref:wszystko"><a href="#fn:wszystko" class="footnote">3</a></sup>. Deskryptory plików to nieujemne liczby całkowite, na przykład <code class="highlighter-rouge">0</code>, <code class="highlighter-rouge">1</code> czy <code class="highlighter-rouge">123</code>.</p>
+
+<p>Każdy program<sup id="fnref:demon"><a href="#fn:demon" class="footnote">4</a></sup> zazwyczaj ma dostęp do co najmniej trzech deskryptorów plików:</p>
+
+<ul>
+  <li>standardowego wejścia (ang. <em>stdin</em>),</li>
+  <li>standardowego wyjścia (ang. <em>stdout</em>),</li>
+  <li>standardowego wyjścia błędów (ang. <em>stderr</em>).</li>
+</ul>
+
+<p>Ten standardowy zestaw połączony jest z deskryptorami o dobrze znanych numerach:</p>
+
+<ul>
+  <li>stdin – <code class="highlighter-rouge">0</code>,</li>
+  <li>stdout – <code class="highlighter-rouge">1</code>,</li>
+  <li>stderr – <code class="highlighter-rouge">2</code>.</li>
+</ul>
+
+<p>Programy, które wypisują tekst na konsoli korzystają właśnie z tych standardowych strumieni – stdout i stderr. Na przykład <code class="highlighter-rouge">ls</code> wykorzystuje stdout do wypisania zawartości przekazanego argumentu. stderr może być użyty przez <code class="highlighter-rouge">mkdir</code> w przypadku, gdy chcesz utworzyć zagnieżdżony katalog bez przełącznika <code class="highlighter-rouge">-p</code> – do pokazania błędu.</p>
+
+<h4 id="echo"><code class="highlighter-rouge">echo</code></h4>
+
+<p>Prostym programem, który wykorzystuje standardowe wyjście jest <code class="highlighter-rouge">echo</code>. Zasada jego działania jest prosta – wyświetla na konsoli (używając stdout) przekazany tekst:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo </span>Some text to show on a console
+Some text to show on a console
+</code></pre></div></div>
+
+<p>Jeśli chcesz wyświetlić tekst, który ma więcej niż jedną linię możesz użyć <code class="highlighter-rouge">'</code> albo <code class="highlighter-rouge">"</code><sup id="fnref:roznice"><a href="#fn:roznice" class="footnote">5</a></sup>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"Multiline text to 
+&gt; show on a console"</span>
+Multiline text to 
+show on a console
+</code></pre></div></div>
+
+<p>Teraz jak znasz już standardowe strumienie (wejście – stdin, wyjście – stdout i wyjście błędów – stderr), mogę powiedzieć Ci coś więcej o przekierowaniach.</p>
+
+<h3 id="przekierowania">Przekierowania</h3>
+
+<p>Przekierowania dotyczą standardowych strumieni. W praktyce mogą być wykorzystywane do tego, żeby tworzyć pliki zawierające logi programu. Używane są także po to, żeby dostarczyć dane czytane przez program na standardowym wejściu.</p>
+
+<h4 id="nadpisywanie">Nadpisywanie</h4>
+
+<p>Najprostszym przykładem przekierowania jest:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo </span>some text 1&gt; plik_wyjscia
+</code></pre></div></div>
+
+<p>Taki zapis informuje wiersz poleceń o tym, żeby stdout procesu w którym uruchomiony jest program <code class="highlighter-rouge">echo</code> przekierować do pliku <code class="highlighter-rouge">plik_wyjscia</code>. <code class="highlighter-rouge">1</code> w tym zapisie reprezentuje numer deskryptora pliku. W tym przykładzie <code class="highlighter-rouge">1</code> można pomiąć, poniższy zapis znaczy dokładnie to samo:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo </span>some text <span class="o">&gt;</span> plik_wyjscia
+</code></pre></div></div>
+
+<p>W podobny sposób wygląda przekierowanie stderr:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>program 2&gt; plik_wyjscia
+</code></pre></div></div>
+
+<p>Możesz też przekierować jeden strumień do drugiego. Na przykład przekierowanie stdout do stderr wygląda tak:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>program 1&gt;&amp;2
+</code></pre></div></div>
+
+<p>W wyniku takiego wywołania wszystkie komunikaty wypisane przez program do stdout zostaną przekierowane do stderr. Zwróć uwagę na <code class="highlighter-rouge">&amp;</code> w komendzie. Bez tego znaku <code class="highlighter-rouge">2</code> zostałoby potraktowane jako plik o takiej nazwie.</p>
+
+<p>Możesz także przekierować stdout i stderr równocześnie:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>program <span class="o">&gt;</span> plik_wyjscia 2&gt; plik_bledow
+</code></pre></div></div>
+
+<p>Jeśli w poleceniu występuje więcej przekierowań brane są pod uwagę od lewej do prawej strony. Ma to znaczenie na przykład tutaj:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>program <span class="o">&gt;</span> plik_wyjscia 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>Polecenie to przekierowuje stdout do <code class="highlighter-rouge">plik_wyjacia</code> a stderr “tam gdzie stdout”.</p>
+
+<p>Jeśli plik do którego przekierowywane są wiadomości nie istnieje zostaje utworzony. Dzięki temu zachowaniu możesz w prosty sposób tworzyć pliki. Na przykład poniższa komenda utworzy plik <code class="highlighter-rouge">sample_file.txt</code> (jeśli wcześniej plik nie istniał) uzupełniając go testem <code class="highlighter-rouge">sample file content</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo </span>sample file content <span class="o">&gt;</span> sample_file.txt
+</code></pre></div></div>
+
+<h4 id="dołączanie">Dołączanie</h4>
+
+<p>Przykłady, które pokazałem poprzednio nadpisują zwartość pliku, do którego nastąpiło przekierowanie. Istnieje także możliwość na dołączenie nowych wierszy do pliku:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>program <span class="o">&gt;&gt;</span> plik_wyjscia
+</code></pre></div></div>
+
+<p>Wszystkie mechanizmy, które opisałem powyżej działają także w przypadku dołączania, na przykład:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>program 1&gt;&gt; plik_wyjscia 2&gt;&gt; plik_bledow
+<span class="nv">$ </span>program <span class="o">&gt;&gt;</span> plik_wyjacia 2&gt;&amp;1
+</code></pre></div></div>
+
+<h3 id="potoki">Potoki</h3>
+
+<p>W końcu mogę Ci powiedzieć o potokach! To właśnie one sprawiają, że małe klocki można łączyć w większą całość. Spójrz na przykład:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>program1 | program2
+</code></pre></div></div>
+
+<p>Pionowa kreska <code class="highlighter-rouge">|</code> oznacza potok. No dobrze, ale co to takiego jest? Możesz to sobie wyobrazić jak rurę, która łączy standardowe wyjście jednego procesu ze standardowym wejściem innego procesu. W przykładzie powyżej stdout <code class="highlighter-rouge">program1</code> połączony zostaje z stdin <code class="highlighter-rouge">program2</code>.</p>
+
+<p>Niby to nic nadzwyczajnego, jednak pozwala na tworzenie zaawansowanych narzędzi z prostych klocków nie odrywając się od wiersza poleceń. Moim zdaniem to właśnie ta funkcjonalność sprawia, że graficzny interfejs użytkownika nie dorasta do pięt wierszowi poleceń pod kątem możliwości.</p>
+
+<p>Przykład, który pokazałem jest abstrakcyjny. Praktyczne zastosowania pokażę Ci w dalszej części artykułu.</p>
+
+<h2 id="początki-pracy-z-tekstem">Początki pracy z tekstem</h2>
+
+<h3 id="cat"><code class="highlighter-rouge">cat</code></h3>
+
+<p><code class="highlighter-rouge">cat</code> jest programem, który służy do wyświetlania danych używając stdout. To co powinno być wyświetlone przekazywane jest to programu jako parametr oznaczający nazwę pliku. Program ten może przyjąć wiele parametrów:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo </span>file1 content <span class="o">&gt;</span> file1
+<span class="nv">$ </span><span class="nb">echo </span>file2 content <span class="o">&gt;</span> file2
+<span class="nv">$ </span><span class="nb">cat </span>file2 file1
+file2 content
+file1 content
+</code></pre></div></div>
+
+<p>Program <code class="highlighter-rouge">cat</code> domyślnie wypisuje na stdout wszystko co odczyta z stdin. Pokazuje to poniższy przykład:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo </span>some text | <span class="nb">cat
+</span>some text
+</code></pre></div></div>
+
+<p>Fragment powyżej zawiera przykładowe użycie przekierowań. <code class="highlighter-rouge">echo</code> wypisuje <code class="highlighter-rouge">some text</code> na stdout. <code class="highlighter-rouge">|</code> łączy stdout z programu <code class="highlighter-rouge">echo</code> z stdin programu <code class="highlighter-rouge">cat</code>, i to właśnie <code class="highlighter-rouge">cat</code> wypisuje na konsolę (swój stdout) to co przeczytał z programu <code class="highlighter-rouge">echo</code>.</p>
+
+<p>W specjalny sposób traktowany jest parametr <code class="highlighter-rouge">-</code>, oznacza on stdin. Spójrz na przykład poniżej gdzie używam wcześniej utworzonych plików:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo </span>some text | <span class="nb">cat </span>file2 - file1
+file2 content
+some text
+file1 content
+</code></pre></div></div>
+
+<h3 id="clear"><code class="highlighter-rouge">clear</code></h3>
+
+<p>Czasami wygodniej jest zacząć od początku. Pomaga przy tym program <code class="highlighter-rouge">clear</code>. Program ten robi co może żeby wyczyścić okno terminala :). Spróbuj go wywołać po serii innych komend.</p>
+
+<h2 id="dodatkowe-materiały">Dodatkowe materiały</h2>
+
+<p>Najlepszym materiałem, który mogę Ci polecić jest dokumentacja poszczególnych programów.</p>
+
+<p>Całość sprowadza się do programu <code class="highlighter-rouge">man</code> lub parametru <code class="highlighter-rouge">--help</code>. Na przykład jeśli chcesz dowiedzieć się czegoś więcej o programie <code class="highlighter-rouge">cd</code> wywołaj komendę <code class="highlighter-rouge">cd --help</code> lub <code class="highlighter-rouge">man cd</code>. W ten sposób dostaniesz się do dokumentacji danego programu. To naprawdę najlepsze miejsce do szukania szczegółowych informacji o danym programie.</p>
+
+<h2 id="ćwiczenia-do-wykonania">Ćwiczenia do wykonania</h2>
+
+<ul>
+  <li>Utwórz poniższą strukturę katalogów używając wiersza poleceń:</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>samouczek/
+├── algorytmy
+├── bazy-danych
+│   └── sql
+├── programowanie
+│   ├── java
+│   └── python
+└── struktury-danych
+</code></pre></div></div>
+
+<ul>
+  <li>Przekieruj wyjście programu <code class="highlighter-rouge">ls</code> do pliku,</li>
+  <li>Użyj dowolnego programu i przekieruj stderr i stdout do dwóch różnych plików. Dasz radę zrobić to tak, żeby oba pliki nie były puste?,</li>
+  <li>Jaki przełącznik programu <code class="highlighter-rouge">ls</code> pozwala na posortowanie wyników używając rozszerzenia plików (użyj <code class="highlighter-rouge">man</code>)?</li>
+  <li>Napisz program, który pobierze ze standardowego wejścia dwie linijki tekstu. Pierwszą z nich powinien wypisać do standardowego wyjścia, drugą do standardowego wyjścia błędów. Następnie uruchom ten program z linii poleceń na kilka sposobów:
+    <ul>
+      <li>przekieruj na standardowe wejście zawartość pliku z dwoma linijkami,</li>
+      <li>przekieruj wyjście błędów do pliku error.log i standardowe wyjście do pliku usage.log,</li>
+      <li>przekieruj zarówno standardowe wyjście jak i wyjście błędów do usage.log.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Jeśli chcesz użyć Javy do rozwiązania tego zadania zachęcam Cię do przeczytania artykułu <a href="/java-z-linii-polecen/">Java z linii poleceń</a>.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po lekturze tego artykułu znasz podstawowe programy używane w trakcie pracy z linią poleceń. Dzięki artykułowi udało Ci się dowiedzieć czym jest stdout, stderr i stdin. Znasz pojęcia przekierowań i potoków, potrafisz z nimi pracować. Rozwiązane ćwiczenia pozwoliły Ci w praktyczny sposób sprawdzić zdobytą wiedzę. Innymi słowy udało Ci się zdobyć kawał solidnej i przydatnej wiedzy, gratuluję :).</p>
+
+<p>Teraz nie pozostaje mi nic innego jak zachęcić Cię do częstszej pracy z linią poleceń. Takie podejście naprawdę nie gryzie. Wierzę, że w dłuższej perspektywie pozwoli Ci osiągnąć lepszą wydajność. W kolejnym artykule z tej serii poznasz więcej programów, które pozwolą budować Ci bardziej skomplikowane komendy.</p>
+
+<p>Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub stronę Samouczka na Facebook’u. Jeśli wiesz, że ktoś z Twoich znajomych potrzebuje wiedzy zawartej w tym artykule będę wdzięczny za przekazanie mu odnośnika do tego artykułu – z góry dziękuję.</p>
+
+<p>To tyle na dzisiaj, trzymaj się i do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:nagrywanie">
+      <p>Pomijam tutaj rozwiązania, które pozwalają na nagrywanie ekranu i automatyczne wykonywanie tych czynności ponownie. Takie narzędzia często także wymagają użycia specyficznego języka programowania. Tak otrzymane nagrania są ciężkie w utrzymaniu, każda zmiana interfejsu może powodować błędy w ich działaniu. <a href="#fnref:nagrywanie" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:bezwzgledna">
+      <p>Możesz także użyć ścieżki bezwzględnej. <a href="#fnref:bezwzgledna" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:wszystko">
+      <p>Poznając lepiej systemy operacyjne z rodziny Linux/Unix usłyszysz to jeszcze nie raz – wszystko jest plikiem ;). Dysk, plik, katalog, strumień, klawiatura itp. <a href="#fnref:wszystko" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:demon">
+      <p>Demony (ang. <em>deamon</em>) mogą trochę odstawać od tej reguły. <a href="#fnref:demon" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:roznice">
+      <p><code class="highlighter-rouge">bash</code> inaczej interpretuje tekst pomiędzy <code class="highlighter-rouge">'</code> i <code class="highlighter-rouge">"</code>, jednak na tym etapie te różnice nie są istotne. <a href="#fnref:roznice" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2613 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#samouczek-na-rozmowie" class="page__taxonomy-item" rel="tag">Samouczek na rozmowie</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/kategorie/#strefa-zadaniowa" class="page__taxonomy-item" rel="tag">Strefa zadaniowa</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-03-17">2019-03-17</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Udostępnij</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpoczatki-pracy-z-wierszem-polecen%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.samouczekprogramisty.pl%2Fpoczatki-pracy-z-wierszem-polecen%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Udostępnij LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/samouczek-na-rozmowie-lancuchy-bialkowe/" class="pagination--pager" title="Samouczek na rozmowie – łańcuchy białkowe
+">Poprzednia</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Następna</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/watki-w-jezyku-java/" rel="permalink">Wątki w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2017/03/08_java_z_linii_polecen_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/java-z-linii-polecen/" rel="permalink">Java z linii poleceń
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o narzędziach dostarczonych wraz z JDK. Dowiesz się jak używać kompilatora javac. Stworzysz swój pierwszy plik JAR. Po przeczytani...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/zmiana-branzy-zostan-programista/" rel="permalink">Zmiana branży – zostań programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  25 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Na rynku IT brakuje pracowników. Uczelnie nie nadążają z dostarczaniem nowych specjalistów. Popyt znacząco przewyższa podaż przez co rynek IT jest rynkiem pr...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/02/08_protokol_http_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/protokol-http/" rel="permalink">Protokół HTTP
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="https://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>
