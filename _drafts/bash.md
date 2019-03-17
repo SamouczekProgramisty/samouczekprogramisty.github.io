@@ -1,3 +1,6 @@
+## Glob
+? * glob a pliki ukryte
+
 ### `less`
 
 less sł
