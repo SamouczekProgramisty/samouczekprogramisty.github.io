@@ -12,7 +12,7 @@ header:
 excerpt: Artykuł zaczynam od wytłumaczenia dlaczego warto poznać wiersz poleceń. Pokażę Ci jak sam pracuję z terminalem w systemie Linux. Poznasz najczęściej używane programy, które przydają się w codziennej pracy. Dowiesz się czym jest standardowe wyjście, poznasz też mechanizm przekierowań. Na końcu artykułu jak zwykle czeka na Ciebie zestaw zadań, które pomogą utrwalić Ci wiedzę zdobytą po lekturze artykułu.
 ---
 
-To jest jeden z artykułów omawiających pracę z wierszem poleceń. Omawiam w nim podstawy niezbędne do wydajnej pracy. Dalsze artykuły z cyklu opisują bardziej zaawansowane zagadnienia związane z pracą w linii poleceń.
+To jest jeden z artykułów omawiających pracę z wierszem poleceń. Omawiam w nim podstawy niezbędne do wydajnej pracy. Dalsze artykuły z cyklu opisują bardziej zaawansowane zagadnienia związane z pracą w linii poleceń. Wszystkie artykuły w serii zebrałem w sekcji [narzędzia i dobre praktyki]({{ '/narzedzia-i-dobre-praktyki/' }}#narz%C4%99dzia).
 {:.notice--info}
 
 ## Wiersz poleceń
@@ -39,7 +39,7 @@ Mam nadzieje, że udało mi się przekonać Cię do tego, że warto używać wie
 
 Jeśli używasz systemu Linux/Unix to istnieje duże prawdopodobieństwo, że masz dostęp do `bash`'a i możesz pominąć ten podpunkt. Problem pojawia się jeśli używasz Windows'a. Tam niestety `bash` nie jest dostępny.
 
-Jeśli chcesz sprawdzić czy praca z wierszem poleceń to coś dla Ciebie masz do wyboru kilka opcji:
+Jeśli chcesz sprawdzić czy praca z wierszem poleceń to coś dla Ciebie, to masz do wyboru kilka opcji:
 
 * użyć emulatora wiersza poleceń w przeglądarce, na przykład [LinuxContainers](https://linuxcontainers.org/lxd/try-it/),
 * zainstalować emulator wiersza poleceń, na przykład [Cygwin](https://www.cygwin.com/),
@@ -66,7 +66,7 @@ To puste okno wiersza poleceń. Ten migający znaczek to znak zachęty. Tutaj wp
 * aktualna ścieżka, w moim przypadku jest to `~` (tylda). Ten znak reprezentuje katalog domowy użytkownika,
 * `$` oddzielający ścieżkę od miejsca do wprowadzania komend.
 
-W dalszych przykładach będę używał skróconego zapisu – `$ program`.
+W dalszych przykładach będę używał skróconego zapisu – `$ something`. Zapis ten oznacza uruchomienie programu `something`. Sprowadza się to do uruchomienia procesu, który wykonuje kod programu `something`.
 
 ## Podstawy pracy z systemem plików
 
@@ -125,7 +125,7 @@ marcinek@mapiszon-dell:~/private$ pwd
 
 ### `ls`
 
-Sprawdzanie zawartości katalogu jest bardzo przydatne. W tym zadaniu może pomóc program `ls`:
+Sprawdzanie zawartości katalogu jest bardzo przydatne. W tym przypadku przyda się program `ls`:
 
 ```bash
 marcinek@mapiszon-dell:~$ ls
@@ -226,18 +226,20 @@ Program `rmdir` usuwa wyłącznie puste katalogi. Jeśli chcesz usunąć coś wi
 
 ### `rm`
 
-Program `rm` służy do usuwania elementów z dysku. Standardowe wywołanie usuwa pojedynczy plik o nazwie `some-file.txt`:
+Program `rm` służy do usuwania elementów z dysku. Standardowe wywołanie usuwa pojedynczy plik. Przykład poniżej pokazuje usunięcie pliku o nazwie `some-file.txt`:
 
 ```bash
 $ rm some-file.txt
 ```
 
-Jeśli chcesz usunąć zagnieżdżone elementy użyj flagi `-r`. Tylko bardzo proszę - OSTROŻNIE!
+Jeśli chcesz usunąć zagnieżdżone elementy użyj flagi `-r`. Tylko bardzo proszę, **ostrożnie**!
 
 Tym programem można sobie zrobić kuku :). Sam nie raz usunąłem trochę zbyt dużo. Raz nawet udało mi się usunąć katalog domowy użytkownika. Wywołałem polecenie:
+
 ```bash
 $ rm -rf ~
 ```
+
 Wszystko dlatego, że dla testów utworzyłem plik o nazwie `~` ;). Uwierz mi, nie chcesz powtórzyć tego błędu. W wywołaniu wyżej przełącznik `-f` oznacza "wymuś usunięcie". Od tego czasu, jeśli usuwam cokolwiek rekursywnie, dodaję przełączniki `-rf` na końcu polecenia długo zastanawiając się przed naciśnięciem Enter ;).
 
 ### `touch`
@@ -250,11 +252,11 @@ $ touch non-existent-file.txt
 
 ## Standardowe wejście i wyjście
 
-Zanim powiem Ci coś więcej o pracy z tekstem w wierszu poleceń musisz poznać kilka pojęć
+Zanim powiem Ci coś więcej o pracy z tekstem w wierszu poleceń musisz poznać kilka pojęć.
 
-Wiesz czym jest aplikacja. Aplikacją może być przeglądarka internetowa. Każda aplikacja to co najmniej jeden proces. Proces można zdefiniować jako kod (program) wykonywany przez komputer. Schodząc jeszcze niżej możemy dojść do [wątków, które opisałem niedawno]({% post_url 2019-02-11-watki-w-jezyku-java %}).
+Wiesz czym jest aplikacja. Aplikacją może być przeglądarka internetowa. Każda aplikacja to co najmniej jeden proces. Proces można zdefiniować jako kod (program) wykonywany przez komputer. Schodząc jeszcze niżej możemy dojść do [wątków]({% post_url 2019-02-11-watki-w-jezyku-java %}), które opisałem niedawno.
 
-Każdy proces ma przypisane zasoby, na przykład RAM (ang. _Random Access Memory_) czy zestaw deskryptorów plików. Deskryptor pliku to struktura, która pozwala na dostęp do pliku[^wszystko]. Deskryptory plików identyfikowane są przez nieujemne liczby całkowite, na przykład `0`, `1` czy `123`.
+Każdy proces ma przypisane zasoby, na przykład RAM (ang. _Random Access Memory_) czy zestaw deskryptorów plików. Deskryptor pliku to liczba, która jednoznacznie określa plik otworzony w danym procesie, pozwala na dostęp do pliku[^wszystko]. Deskryptory plików to nieujemne liczby całkowite, na przykład `0`, `1` czy `123`.
 
 [^wszystko]: Poznając lepiej systemy operacyjne z rodziny Linux/Unix usłyszysz to jeszcze nie raz – wszystko jest plikiem ;). Dysk, plik, katalog, strumień, klawiatura itp.
 
@@ -298,7 +300,7 @@ Teraz jak znasz już standardowe strumienie (wejście – stdin, wyjście – st
 
 ### Przekierowania
 
-Przekierowania dotyczą standardowych strumieni. W praktyce są bardzo często wykorzystywane do tego, żeby tworzyć pliki zawierające logi programu. Używane są także po to, żeby dostarczyć dane czytane przez program na standardowym wejściu.
+Przekierowania dotyczą standardowych strumieni. W praktyce mogą być wykorzystywane do tego, żeby tworzyć pliki zawierające logi programu. Używane są także po to, żeby dostarczyć dane czytane przez program na standardowym wejściu.
 
 #### Nadpisywanie
 
@@ -308,7 +310,7 @@ Najprostszym przykładem przekierowania jest:
 $ echo some text 1> plik_wyjscia
 ```
 
-Taki zapis informuje wiersz poleceń o tym, żeby stdout `echo` przekierować do pliku `plik_wyjscia`. `1` w tym zapisie reprezentuje numer deskryptora pliku. W tym przykładzie `1` można pomiąć, poniższy zapis znaczy dokładnie to samo:
+Taki zapis informuje wiersz poleceń o tym, żeby stdout procesu w którym uruchomiony jest program `echo` przekierować do pliku `plik_wyjscia`. `1` w tym zapisie reprezentuje numer deskryptora pliku. W tym przykładzie `1` można pomiąć, poniższy zapis znaczy dokładnie to samo:
 
 ```bash
 $ echo some text > plik_wyjscia
@@ -320,9 +322,6 @@ W podobny sposób wygląda przekierowanie stderr:
 $ program 2> plik_wyjscia
 ```
 
-W ramach prostego ćwiczenia spróbuj przekierować wyjście programu `ls` do pliku.
-{:.notice--info}
-
 Możesz też przekierować jeden strumień do drugiego. Na przykład przekierowanie stdout do stderr wygląda tak:
 
 ```bash
@@ -331,7 +330,7 @@ $ program 1>&2
 
 W wyniku takiego wywołania wszystkie komunikaty wypisane przez program do stdout zostaną przekierowane do stderr. Zwróć uwagę na `&` w komendzie. Bez tego znaku `2` zostałoby potraktowane jako plik o takiej nazwie.
 
-Możesz także przekierować zarówno stdout jak i stdin równocześnie:
+Możesz także przekierować stdout i stderr równocześnie:
 
 ```bash
 $ program > plik_wyjscia 2> plik_bledow
@@ -376,7 +375,7 @@ $ program1 | program2
 
 Pionowa kreska `|` oznacza potok. No dobrze, ale co to takiego jest? Możesz to sobie wyobrazić jak rurę, która łączy standardowe wyjście jednego procesu ze standardowym wejściem innego procesu. W przykładzie powyżej stdout `program1` połączony zostaje z stdin `program2`.
 
-Niby to nic nadzwyczajnego, jednak pozwala na tworzenie zaawansowanych narzędzi z prostych klocków nie odrywając się od wiersza poleceń. To właśnie ta funkcjonalność sprawia, że graficzny interfejs użytkownika nie dorasta do pięt wierszowi poleceń pod kątem możliwości.
+Niby to nic nadzwyczajnego, jednak pozwala na tworzenie zaawansowanych narzędzi z prostych klocków nie odrywając się od wiersza poleceń. Moim zdaniem to właśnie ta funkcjonalność sprawia, że graficzny interfejs użytkownika nie dorasta do pięt wierszowi poleceń pod kątem możliwości.
 
 Przykład, który pokazałem jest abstrakcyjny. Praktyczne zastosowania pokażę Ci w dalszej części artykułu.
 
@@ -407,9 +406,9 @@ W specjalny sposób traktowany jest parametr `-`, oznacza on stdin. Spójrz na p
 
 ```bash
 $ echo some text | cat file2 - file1
-content 2
+file2 content
 some text
-content 1
+file1 content
 ```
 
 ### `clear`
@@ -418,29 +417,32 @@ Czasami wygodniej jest zacząć od początku. Pomaga przy tym program `clear`. P
 
 ## Dodatkowe materiały
 
+Najlepszym materiałem, który mogę Ci polecić jest dokumentacja poszczególnych programów.
+
 Całość sprowadza się do programu `man` lub parametru `--help`. Na przykład jeśli chcesz dowiedzieć się czegoś więcej o programie `cd` wywołaj komendę `cd --help` lub `man cd`. W ten sposób dostaniesz się do dokumentacji danego programu. To naprawdę najlepsze miejsce do szukania szczegółowych informacji o danym programie.
 
 ## Ćwiczenia do wykonania
 
 * Utwórz poniższą strukturę katalogów używając wiersza poleceń:
 
-    samouczek/
-    ├── algorytmy
-    ├── bazy-danych
-    │   └── sql
-    ├── programowanie
-    │   ├── java
-    │   └── python
-    └── struktury-danych
+```
+samouczek/
+├── algorytmy
+├── bazy-danych
+│   └── sql
+├── programowanie
+│   ├── java
+│   └── python
+└── struktury-danych
+```
 
 * Przekieruj wyjście programu `ls` do pliku,
 * Użyj dowolnego programu i przekieruj stderr i stdout do dwóch różnych plików. Dasz radę zrobić to tak, żeby oba pliki nie były puste?,
-* Jaki przełącznik programu `ls` pozwala na posortowanie wyników używając rozszerzenia plików?
+* Jaki przełącznik programu `ls` pozwala na posortowanie wyników używając rozszerzenia plików (użyj `man`)?
 * Napisz program, który pobierze ze standardowego wejścia dwie linijki tekstu. Pierwszą z nich powinien wypisać do standardowego wyjścia, drugą do standardowego wyjścia błędów. Następnie uruchom ten program z linii poleceń na kilka sposobów:
-
-- przekieruj na standardowe wejście zawartość pliku z dwoma linijkami,
-- przekieruj wyjście błędów do pliku error.log i standardowe wyjście do pliku usage.log,
-- przekieruj zarówno standardowe wyjście jak i wyjście błędów do usage.log.
+    - przekieruj na standardowe wejście zawartość pliku z dwoma linijkami,
+    - przekieruj wyjście błędów do pliku error.log i standardowe wyjście do pliku usage.log,
+    - przekieruj zarówno standardowe wyjście jak i wyjście błędów do usage.log.
 
 Jeśli chcesz użyć Javy do rozwiązania tego zadania zachęcam Cię do przeczytania artykułu [Java z linii poleceń]({% post_url 2017-03-08-java-z-linii-polecen %}).
 
