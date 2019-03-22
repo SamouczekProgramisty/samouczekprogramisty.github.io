@@ -173,7 +173,7 @@ Jeśli chcesz przeczytać o tablicach w innym miejscu zachęcam do rzucenia okie
 
 1. Napisz metodę pobierającą dwuelementową tablicę liczb i zwracający ich sumę.
 2. Napisz program pobierający trójelementową tablicę liczb i zwracający największą liczbę.
-3. Jak przechowałbyś stan sudoku? Napisz program, który stworzy instancje tablicy służących do przechowywania [sudoku](https://pl.wikipedia.org/wiki/Sudoku) i uzupełnij ją [przykładową planszą](https://pl.wikipedia.org/wiki/Sudoku#/media/File:Sudoku_przyklad.png).
+3. Jak przechowałbyś stan sudoku? Napisz program, który stworzy instancje tablicy służących do przechowywania [sudoku](https://pl.wikipedia.org/wiki/Sudoku) i uzupełnij ją [przykładową planszą](https://upload.wikimedia.org/wikipedia/commons/2/2d/Sudoku_przyklad.png).
 4. Jak przechowałbyś stan gry w szachy? Napisz program, który stworzy instancje tablic służące do przechowywania stanu gry w szachy. Potrafiłbyś zachować w nim ostatni stan partii [Kasparowa z Deep Blue](https://en.wikipedia.org/wiki/Deep_Blue_versus_Garry_Kasparov#Game_5_2)?
   
 Zachęcam Cię, do samodzielnego rozwiązania zadań, jeśli jednak miałbyś jakikolwiek problem możesz rzucić okiem na [przykładowe rozwiązania](https://github.com/SamouczekProgramisty/KursJava/tree/master/04_tablice/src/main/java/pl/samouczekprogramisty/kursjava/arrays/exercise). Pamiętaj, że rozwiązując zadania samodzielnie nauczysz się najwięcej.
