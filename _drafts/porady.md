@@ -61,3 +61,26 @@ Klasa.metodaStatyczna();
 – w repozytorium rozdzielaj kod na pliki jakie masz w swoim edytorze.
 
 – spróbuj try with resources
+
+
+– rzuć okiem na <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#join(java.lang.CharSequence,java.lang.CharSequence...)"><code>String.join</code></a>,
+– subiektywna opinia – nie podchodzą mi importy z `*`, moim zdaniem bardziej czytelne są importy, które są "jawne",
+– <code>toString</code> w <code>WordSort</code> możesz zrobić używając <code>String.join</code>,
+– dobrą praktyką jest wyciąganie regexpów, które się nie zmieniają poza metody,
+– rzuć okiem na <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Integer.html#compare(int,int)"><code>Integer.compare</code></a>,
+– uważaj z zamykaniem <code>System.in</code>,
+– jak dojdziesz do <a href="http://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/">wyrażeń lambda</a> wróć do tych ćwiczeń i zastanów się co możesz poprawić.
+
+Siemasz!
+
+
+Kilka standardowych uwag:
+
+– formatowanie kodu zostaw IDE,
+– stosuj się do konwencji nazewniczej powszechnej w Javie,
+– rozdziel metody na mniejsze, z pojedynczym zakresem odpowiedzialności,
+– enkapsulacja – stosuj <a href="https://www.samouczekprogramisty.pl/modyfikatory-dostepu-w-jezyku-java/">modyfikatory dostępu</a>,
+– powtarzający się kod wyciągaj do oddzielnych klas/metod,
+– jaka jest domyślna wartość w tablicy <code>int[]</code>?,
+– nie potrzebujesz zmiennej lokalnej, zamiast <code>%=</code> możesz użyć po prostu <code>%</code>,
+– staraj się nazywać zmienne w sposób, który mówi co zawierają (liczba2, arg1 przeważnie mają lepsze odpowiedniki),
