@@ -84,3 +84,34 @@ Kilka standardowych uwag:
 – jaka jest domyślna wartość w tablicy <code>int[]</code>?,
 – nie potrzebujesz zmiennej lokalnej, zamiast <code>%=</code> możesz użyć po prostu <code>%</code>,
 – staraj się nazywać zmienne w sposób, który mówi co zawierają (liczba2, arg1 przeważnie mają lepsze odpowiedniki),
+
+
+Poniżej kilka uwag, które przyszły mi do głowy:
+– instanceof w metodzie printInfo jest do usunięcia, spróbuj zostawić funkcjonalność tej metody bez użycia tego operatora,
+– w repozytorium trzymaj kod w formie, która może być w prosty sposób zaimportowana do IDE (poprawne pliki java),
+– standardowe uwaga do formatowania. Jest dobrze, ale zdarzają się miejsca gdzie nie jest ono konsekwentne (IDE robi to dobrze),
+– standardowa uwaga do konwencji nazewniczej, na przykład pakiety powinny być pisane wyłącznie małymi literami,
+– przyjrzyj się stałej Math.PI,
+– nie zamykaj Scanner'a przypiętego do System.in. JVM otwiera ten plik i JVM go zamyka,
+– do niektórych zadań możesz napisać testy jednostkowe, to lepszy sposób sprawdzania poprawności kodu,
+– spróbuj sprawdzić czy słowo jest palindromem używając pętli,
+– jaka jest wartość domyślna elementów pustej tablicy int[]?
+– nie dodawaj znaku nowej linii samodzielnie, użyj System.lineSeparator(),
+– jak zachowa się Twoja implementacja zadania 9 z pętli jeśli przekażesz pustą tablicę?
+– czy isOdd nie jest przeciwnością isEven?
+– rzuć okiem na dwie implementacje, która z nich Twoim zdaniem jest lepsza?
+
+boolean isZero(int number) {
+    boolean isZero = number == 0;
+    if (isZero == true) {
+        return true;
+    }
+    return false;
+}
+
+boolean isZero(int number) {
+    return number == 0;
+}
+
+– czy z odcinków o długości 3, 4, 5 można zbudować trójkąt prostokątny? A z odcinków 5, 4, 3 ;)?
+
