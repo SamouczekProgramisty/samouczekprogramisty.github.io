@@ -1,4 +1,400 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="https://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-03-25T22:46:34+01:00</updated><id>https://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Początki pracy z wierszem poleceń</title><link href="https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/" rel="alternate" type="text/html" title="Początki pracy z wierszem poleceń" /><published>2019-03-12T00:00:00+01:00</published><updated>2019-03-17T15:56:22+01:00</updated><id>https://www.samouczekprogramisty.pl/poczatki-pracy-z-konsola</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/">&lt;p class=&quot;notice--info&quot;&gt;To jest jeden z artykułów omawiających pracę z wierszem poleceń. Omawiam w nim podstawy niezbędne do wydajnej pracy. Dalsze artykuły z cyklu opisują bardziej zaawansowane zagadnienia związane z pracą w linii poleceń. Wszystkie artykuły w serii zebrałem w sekcji &lt;a href=&quot;/narzedzia-i-dobre-praktyki/#narz%C4%99dzia&quot;&gt;narzędzia i dobre praktyki&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="https://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-03-28T01:36:12+01:00</updated><id>https://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Pierwszy projekt z Gradle</title><link href="https://www.samouczekprogramisty.pl/pierwszy-projekt-z-gradle/" rel="alternate" type="text/html" title="Pierwszy projekt z Gradle" /><published>2019-03-22T00:00:00+01:00</published><updated>2019-03-17T15:56:22+01:00</updated><id>https://www.samouczekprogramisty.pl/pierwszy-projekt-z-gradle</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/pierwszy-projekt-z-gradle/">&lt;p class=&quot;notice--info&quot;&gt;To jest kolejny artykuł opisujący narzędzie Gradle. Jeśli nie udało Ci się wcześniej z nim pracować, to zachęcam Cię do przeczytania &lt;a href=&quot;/wstep-do-gradle/&quot;&gt;wstępu do Gradle&lt;/a&gt;. W tym artykule zakładam, że znasz podstawy, które omówiłem poprzednio.&lt;/p&gt;
+
+&lt;h2 id=&quot;odrobina-teorii&quot;&gt;Odrobina teorii&lt;/h2&gt;
+
+&lt;p&gt;Gradle bazuje na plikach konfiguracyjnych. Każdy z tych plików konfiguracyjnych powiązany jest z obiektem, który jest tworzony w trakcie inicjalizacji procesu budowania. Na przykład plik &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; powiązany jest z instancją klasy &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.Project.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Project&lt;/code&gt;&lt;/a&gt; a plik &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt; z instancją klasy &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.initialization.Settings.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Settings&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Konfiguracja używająca DSL zawarta w tych plikach odpowiednio konfiguruje instancje tych obiektów.&lt;/p&gt;
+
+&lt;h3 id=&quot;cykl-budowania-projektu&quot;&gt;Cykl budowania projektu&lt;/h3&gt;
+
+&lt;p&gt;Gradle jasno określa sposób w jaki budowany jest projekt. Cały proces podzielony jest na trzy fazy:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;inicjalizację,&lt;/li&gt;
+  &lt;li&gt;konfigurację,&lt;/li&gt;
+  &lt;li&gt;wykonanie.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;W trakcie fazy inicjalizacji Gradle określa jakie projekty wchodzą w skład cyklu budowania. Gradle wspiera proste projekty (składające się wyłącznie z jednego projektu) jak i te złożone (składające się z wielu podprojektów). Jak wspomniałem wcześniej, dla każdego z nich tworzy obiekt, który przechowuje konfigurację danego projektu. W tej fazie wykonywany jest plik &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Faza konfiguracji polega na wykonaniu każdego z plików konfiguracyjnych projektów wchodzących w skład procesu budowania. W wyniku tego wykonania obiekty utworzone w fazie inicjalizacji są odpowiednio konfigurowane (na podstawie wykonywanych plików &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Ostatnią fazą jest faza wykonania. To właśnie tutaj Gradle określa zestaw wymaganych zadań do wykonania wraz z ich kolejnością. Zadania pochodzą z obiektów skonfigurowanych w poprzednim kroku.&lt;/p&gt;
+
+&lt;h3 id=&quot;wbudowana-pomoc&quot;&gt;Wbudowana pomoc&lt;/h3&gt;
+
+&lt;p&gt;Gradle posiada wbudowaną dokumentację. Możesz się do niej dobrać używając linii poleceń. Pierwszym przydatnym poleceniem może być:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gradle tasks
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To polecenie wypisze wszystkie możliwe do wykonania zadania, które zawarte są w konfiguracji lub dostarczone są przez wtyczki.&lt;/p&gt;
+
+&lt;p&gt;Jeśli chcesz dowiedzieć się czegoś więcej o którymkolwiek z zadań z pomocą przychodzi &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle help&lt;/code&gt;. Na przykład do dokumentacji zadania &lt;code class=&quot;highlighter-rouge&quot;&gt;init&lt;/code&gt; możesz dobrać się wywołując polecenie:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gradle &lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--task&lt;/span&gt; init
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;schowek-ang-cache&quot;&gt;Schowek (ang. &lt;em&gt;cache&lt;/em&gt;)&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;/wstep-do-gradle/#zarz%C4%85dzanie-zale%C5%BCno%C5%9Bciami&quot;&gt;Z poprzedniego artykułu&lt;/a&gt; wiesz, że Gradle pomaga przy zarządzaniu zależnościami. Odpowiednia konfiguracja pozwala na określenie jakie zależności są niezbędne do działania Twojej biblioteki czy aplikacji. Dodatkowym atutem zarządzania zależnościami przez Gradle jest to, że trzymane one są w schowku na Twoim dysku. Domyślnie znajdziesz je w katalogu &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.gradle/caches&lt;/code&gt;&lt;sup id=&quot;fnref:cachewin&quot;&gt;&lt;a href=&quot;#fn:cachewin&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Wewnątrz tego katalogu znajdziesz zależności, które były pobrane przez Gradle. Dzięki takiemu podejściu zależności są współdzielone pomiędzy różnymi aplikacjami. Co więcej nie musisz ich za każdym razem ściągać – zanim Gradle zacznie ich szukać w repozytorium zajrzy do schowka na lokalnym dysku.&lt;/p&gt;
+
+&lt;h2 id=&quot;nowy-projekt-z-gradle&quot;&gt;Nowy projekt z Gradle&lt;/h2&gt;
+
+&lt;p&gt;Praktyczną przygodę z Gradle zacznę od utworzenia przykładowej konfiguracji. Do przygotowania projektu może posłużyć polecenie &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle init&lt;/code&gt;. Po takim wywołaniu Gradle utworzy odpowiednią strukturę przygotowując podstawową konfigurację. Zanim do tego dojdzie zapyta Cię o kilka ustawień:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gradle init
+
+Select &lt;span class=&quot;nb&quot;&gt;type &lt;/span&gt;of project to generate:
+  1: basic
+  2: cpp-application
+  3: cpp-library
+  4: groovy-application
+  5: groovy-library
+  6: java-application
+  7: java-library
+  8: kotlin-application
+  9: kotlin-library
+  10: scala-library
+Enter selection &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;default: basic&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1..10] 7
+
+Select build script DSL:
+  1: groovy
+  2: kotlin
+Enter selection &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;default: groovy&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1..2] 1
+
+Select &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;framework:
+  1: junit
+  2: testng
+  3: spock
+Enter selection &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;default: junit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1..3] 1
+
+Project name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;default: samouczek&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
+Source package &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;default: samouczek&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: pl.samouczekprogramisty
+
+BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;24s
+2 actionable tasks: 2 executed
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Pierwsze pytanie dotyczy typu generowanego projektu. W tym przypadku projekt będzie używał języka Java, więc biorę pod uwagę odpowiedzi 6 albo 7. Główna różnica pomiędzy biblioteką a aplikacją sprowadza się do tego, że aplikację można uruchomić samodzielnie, biblioteka włączana jest do innych bibliotek lub aplikacji. Konfiguracja biblioteki i aplikacji różni się jedynie wtyczkami. W przykładach, które pokazuję w dalszej części te różnice nie są istotne.&lt;/p&gt;
+
+&lt;p&gt;Kolejne pytanie dotyczy DSL’a (ang. &lt;em&gt;Domain Specific Language&lt;/em&gt;), który powinien być używany w konfiguracji. Od wersji &lt;a href=&quot;https://docs.gradle.org/5.0/release-notes.html#kotlin-dsl-1.0&quot;&gt;5.0&lt;/a&gt; Gradle jako DSL można także wybrać język Kotlin.&lt;/p&gt;
+
+&lt;p&gt;Następne pytanie dotyczy biblioteki użytej do &lt;a href=&quot;/testy-jednostkowe-z-junit/&quot;&gt;testów&lt;/a&gt;. Ma to wpływ na wygenerowany przykładowy kod i konfigurację.&lt;/p&gt;
+
+&lt;p&gt;Ostatnie dwa pytania dotyczą nazwy projektu i nazwy pakietu (domyślnie jest to nazwa katalogu w którym wykonano polecenie &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle init&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Po udzieleniu odpowiedzi na taki zestaw pytań Gradle przygotuje szkielet projektu wraz z przykładową konfiguracją:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tree &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── settings.gradle
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── pl
+    │   │       └── samouczekprogramisty
+    │   │           └── Library.java
+    │   └── resources
+    └── &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+        ├── java
+        │   └── pl
+        │       └── samouczekprogramisty
+        │           └── LibraryTest.java
+        └── resources
+
+13 directories, 8 files
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Teraz omówię poszczególne elementy wygenerowane przez &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle init&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;notice--success&quot; style=&quot;font-size:1em !important&quot;&gt;
+  &lt;div class=&quot;c_almost-header text-center&quot;&gt;Gala Twórców 2019&lt;/div&gt;
+  &lt;p&gt;Samouczek Programisty startuje w konkursie Gala Twórców 2019. Pierwszy etap to głosowanie. Jeśli mógłbym Cię prosić o pomoc i oddanie głosu na mój blog będę Ci wdzięczny :).&lt;/p&gt;
+  
+&lt;p class=&quot;text-center&quot;&gt;&lt;b&gt;&lt;a href=&quot;https://bit.ly/gala-tworcow-samouczek&quot;&gt;Tak, chcę Ci pomóc i oddać swój głos!&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;
+  
+  &lt;p&gt;Procedura głosowania wymaga kilku kliknięć:
+  
+  &lt;ol&gt;
+    &lt;li&gt;Klik w „Głosuj”&lt;/li&gt;
+    &lt;li&gt;Klik w ikonkę Facebooka&lt;/li&gt;
+    &lt;li&gt;Pozwolenie aplikacji Gali Twórców na głosowanie (w oddzielnym okienku)&lt;/li&gt;
+    &lt;li&gt;Klik w „Głosuj”&lt;/li&gt;
+  &lt;/ol&gt;&lt;/p&gt;
+  
+  &lt;p&gt;Głosowanie trwa do 31 marca do godziny 12:00. Z góry dziękuję, za Twój głos – jest szansa, że dzięki niemu uda mi się dotrzeć do większego grona odbiorców!&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;settingsgradle&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Plik &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt; zawiera konfigurację projektu. Po pominięciu komentarza znajduje się w nim tylko nazwa projektu określona w trakcie działania &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle init&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;rootProject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'samouczek'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Plik ten może jednak zawierać dużo więcej elementów. Wszystkie z nich znajdziesz w &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.initialization.Settings.html#org.gradle.api.initialization.Settings&quot;&gt;oficjalnej dokumentacji&lt;/a&gt;. Trochę więcej o tym pliku przeczytasz w dalszej części artykułu, kiedy będę opisywał budowanie zagnieżdżonych projektów.&lt;/p&gt;
+
+&lt;h3 id=&quot;buildgradle&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Sercem projektu jest plik &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;&lt;sup id=&quot;fnref:dowolna&quot;&gt;&lt;a href=&quot;#fn:dowolna&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Wygenerowany plik, z pominięciem komentarzy, wygląda następująco:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plugins&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'java-library'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;jcenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;api&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.apache.commons:commons-math3:3.6.1'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.google.guava:guava:27.0.1-jre'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;testImplementation&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'junit:junit:4.12'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Plik ten zawiera trzy bloki wewnątrz których znajduje się konfiguracja.&lt;/p&gt;
+
+&lt;p&gt;Pierwszy blok &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:plugins&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;plugins&lt;/code&gt;&lt;/a&gt; zawiera wtyczkę &lt;a href=&quot;https://docs.gradle.org/current/userguide/java_library_plugin.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;java-library&lt;/code&gt;&lt;/a&gt;. W bloku &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:repositories(groovy.lang.Closure)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;repositories&lt;/code&gt;&lt;/a&gt; dodawane jest repozytorium &lt;a href=&quot;https://jcenter.bintray.com/&quot;&gt;jcenter&lt;/a&gt;. Ostatni blok &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:dependencies(groovy.lang.Closure)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dependencies&lt;/code&gt;&lt;/a&gt; zawiera zestaw przykładowych zależności.&lt;/p&gt;
+
+&lt;p&gt;W dużej części projektów to właśnie te trzy bloki będą stanowiły większość konfiguracji. W bardziej zaawansowanych przypadkach odsyłam Cię do &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.Project.html&quot;&gt;dokumentacji&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;wrapper&quot;&gt;wrapper&lt;/h3&gt;
+
+&lt;p&gt;Standardowa struktura projektu pozwala na łatwe zorientowanie się w nowym projekcie informatycznym. Zarządzanie zależnościami pozwala na przygotowanie wszędzie takiej samej paczki programu&lt;sup id=&quot;fnref:pomijam&quot;&gt;&lt;a href=&quot;#fn:pomijam&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;. Wszystko to dzięki plikowi wykonywalnemu &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle&lt;/code&gt;. Ten plik jest tak naprawdę skryptem, który opakowuje uruchomienie maszyny wirtualnej Javy. Zachęcam Cię do zajrzenia do środka tego pliku. W przypadku systemów z rodziny Linux możesz spodziewać się skryptu &lt;a href=&quot;/poczatki-pracy-z-wierszem-polecen/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bash&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ten skrypt różni się pomiędzy różnymi wersjami Gradle. Co więcej Gradle także ewoluuje, DSL używany w różnych wersjach może nie być ze sobą kompatybilny. Może to prowadzić do sytuacji, w której wersja Gradle zainstalowana na Twoim komputerze nie będzie w stanie zbudować projektu, który przygotowany był przy pomocy innej wersji Gradle.&lt;/p&gt;
+
+&lt;p&gt;Jest jednak proste rozwiązanie tego problemu. Tym rozwiązaniem jest Gradle wrapper. Jest on domyślnie tworzony po wywołaniu &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle init&lt;/code&gt;. Można to także utworzyć samodzielnie w już istniejącym projekcie:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gradle wrapper &lt;span class=&quot;nt&quot;&gt;--console&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;verbose
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :wrapper
+
+BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
+1 actionable task: 1 executed
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Efektem działania tego zadania jest utworzenie dwóch katalogów i kilku plików&lt;sup id=&quot;fnref:ukryty&quot;&gt;&lt;a href=&quot;#fn:ukryty&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tree &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+└── gradlew.bat
+
+2 directories, 4 files
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Warto zwrócić uwagę na zwartość pliku &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle/wrapper/gradle-wrapper.properties&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;gradle/wrapper/gradle-wrapper.properties
+&lt;span class=&quot;nv&quot;&gt;distributionBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;GRADLE_USER_HOME
+&lt;span class=&quot;nv&quot;&gt;distributionPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;wrapper/dists
+&lt;span class=&quot;nv&quot;&gt;distributionUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https&lt;span class=&quot;se&quot;&gt;\:&lt;/span&gt;//services.gradle.org/distributions/gradle-5.3-bin.zip
+&lt;span class=&quot;nv&quot;&gt;zipStoreBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;GRADLE_USER_HOME
+&lt;span class=&quot;nv&quot;&gt;zipStorePath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;wrapper/dists
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jedno z ustawień – &lt;code class=&quot;highlighter-rouge&quot;&gt;distributionUrl&lt;/code&gt; pokazuje wersję, która powinna być uruchomiona. Co jeśli ktoś inny na swoim komputerze nie będzie miał wersji, na którą wskazuje plik konfiguracyjny? &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt; ściągnie odpowiednią wersję i zapisze ją w katalogu domowym użytkownika:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-lA&lt;/span&gt; ~/.gradle/
+total 12
+drwxr-xr-x 5 marcinek marcinek 4096 mar 22 18:34 5.2.1
+drwxr-xr-x 5 marcinek marcinek 4096 mar 22 18:49 5.3
+drwxr-xr-x 2 marcinek marcinek 4096 mar 22 18:49 buildOutputCleanup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Od tego momentu zamiast &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle&lt;/code&gt; używaj &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt;, który będzie dostępny w Twoim repozytorium.&lt;/p&gt;
+
+&lt;p&gt;Proszę zobacz czym różnią się między sobą &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle&lt;/code&gt;. Dla czytelności zostawiłem najbardziej istotne fragmenty generowane przez program &lt;code class=&quot;highlighter-rouge&quot;&gt;diff&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ diff -u ./gradlew /usr/local/bin/gradle
+&lt;span class=&quot;gd&quot;&gt;--- ./gradlew	2019-03-22 18:34:35.244396273 +0100
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+++ /usr/local/bin/gradle	2019-02-08 20:01:44.000000000 +0100
+&lt;/span&gt;
+&lt;span class=&quot;gd&quot;&gt;-CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+CLASSPATH=$APP_HOME/lib/gradle-launcher-5.2.1.jar
+&lt;/span&gt;
+&lt;span class=&quot;gd&quot;&gt;-eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS &quot;\&quot;-Dorg.gradle.appname=$APP_BASE_NAME\&quot;&quot; -classpath &quot;\&quot;$CLASSPATH\&quot;&quot; org.gradle.wrapper.GradleWrapperMain &quot;$APP_ARGS&quot;
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS &quot;\&quot;-Dorg.gradle.appname=$APP_BASE_NAME\&quot;&quot; -classpath &quot;\&quot;$CLASSPATH\&quot;&quot; org.gradle.launcher.GradleMain &quot;$APP_ARGS&quot;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Linijki zaczynające się od &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt; są w &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt;, te z &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt; na początku są w standardowym skrypcie &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle&lt;/code&gt;. Jak widzisz różnic jest niewiele. Polegają one wyłącznie na tym, że uruchomienie &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt; korzysta z &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew-wrapper.jar&lt;/code&gt; i używa innej klasy z metodą main &lt;code class=&quot;highlighter-rouge&quot;&gt;org.gradle.wrapper.GradleWrapperMain&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Używanie &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt; pozwala na uniezależnienie się od wersji &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle&lt;/code&gt; zainstalowanej na komputerze programisty.&lt;/p&gt;
+
+&lt;h2 id=&quot;budowanie-projektów&quot;&gt;Budowanie projektów&lt;/h2&gt;
+
+&lt;p&gt;Używając &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew tasks&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew help&lt;/code&gt; dowiesz się sporo o możliwych zadaniach do wykonania. Chciałbym zwrócić Twoją uwagę na dwa z nich: &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Poniżej widzisz wywołanie zadania &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; z przełącznikiem &lt;code class=&quot;highlighter-rouge&quot;&gt;--console=verbose&lt;/code&gt;, który sprawia, że na konsoli pokazuje się trochę więcej informacji:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./gradlew build &lt;span class=&quot;nt&quot;&gt;--console&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;verbose
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :compileJava UP-TO-DATE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :processResources NO-SOURCE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :classes UP-TO-DATE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :jar UP-TO-DATE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :assemble UP-TO-DATE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :compileTestJava UP-TO-DATE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :processTestResources NO-SOURCE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :testClasses UP-TO-DATE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :test UP-TO-DATE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :check UP-TO-DATE
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Task :build UP-TO-DATE
+
+BUILD SUCCESSFUL &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;0s
+4 actionable tasks: 4 up-to-date
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Wiesz już, że Gradle uruchamia wszystkie zależne zadania. Ten przykład doskonale to pokazuje. Poprosiłem o wywołanie &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; a w efekcie została wykonana cała seria zadań, zaczynając od &lt;code class=&quot;highlighter-rouge&quot;&gt;compileJava&lt;/code&gt; a na &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; kończąc. Niektóre z tych zadań generują tak zwane artefakty – efekty procesu budowania.&lt;/p&gt;
+
+&lt;p&gt;Na przykład artefaktem zadania &lt;code class=&quot;highlighter-rouge&quot;&gt;compileJava&lt;/code&gt; są pliki &lt;code class=&quot;highlighter-rouge&quot;&gt;.class&lt;/code&gt; ze skompilowanymi klasami. Artefakty procesu budowania umieszczane są w katalogu &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt;. Poniżej możesz zobaczyć część struktury tego katalogu:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tree build
+build
+├── classes
+│   └── java
+│       ├── main
+│       │   └── pl
+│       │       └── samouczekprogramisty
+│       │           └── Library.class
+│       └── &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+│           └── pl
+│               └── samouczekprogramisty
+│                   └── LibraryTest.class
+...
+├── libs
+│   └── samouczek.jar
+├── reports
+│   └── tests
+│       └── &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+│           ├── classes
+│           │   └── pl.samouczekprogramisty.LibraryTest.html
+│           ├── css
+│           │   ├── base-style.css
+│           │   └── style.css
+│           ├── index.html
+│           ├── js
+│           │   └── report.js
+│           └── packages
+│               └── pl.samouczekprogramisty.html
+...
+
+29 directories, 14 files
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Drzewko powyżej pokazuje między innymi katalogi &lt;code class=&quot;highlighter-rouge&quot;&gt;build/classes&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;build/libs&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;build/reports&lt;/code&gt;. Pierwszy z nich zawiera skompilowane klasy. Drugi plik &lt;code class=&quot;highlighter-rouge&quot;&gt;jar&lt;/code&gt; (utworzony przez zadanie &lt;code class=&quot;highlighter-rouge&quot;&gt;jar&lt;/code&gt;). Zwróć też uwagę na ostatni katalog. Ten katalog powstaje po wykonaniu zadania &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt;. Zawiera on raporty z testów automatycznych uruchomionych w trakcie budowania projektu:&lt;/p&gt;
+
+&lt;figure class=&quot;c_img_with_auto&quot;&gt;
+  &lt;img src=&quot;/assets/images/2019/03/28_gradle_test_report.gif&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Przykładowy raport testów wygenerowany przez Gradle’a
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;p&gt;Wielką zaletą narzędzi typu Gradle jest to, że potrafią automatycznie uruchamiać takie testy w trakcie budowania.&lt;/p&gt;
+
+&lt;h3 id=&quot;budowanie-złożonych-projektów&quot;&gt;Budowanie złożonych projektów&lt;/h3&gt;
+
+&lt;p&gt;Gradle świetnie sprawdza się do budowania projektów, które zawierają podprojekty. Jako przykład może tu posłużyć &lt;a href=&quot;https://github.com/SamouczekProgramisty/KursJava/&quot;&gt;Kurs Java&lt;/a&gt; czy &lt;a href=&quot;https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/&quot;&gt;Kurs Aplikacji Webowych&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;W każdym z tych repozytoriów znajdziesz plik &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt;. W przypadku pojedynczego projektu ten plik jest opcjonalny. W przypadku projektów zawierający podprojekty plik &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt; jest wymagany. W tym drugim przypadku zawiera on ścieżki wskazujące na zagnieżdżone projekty. Fragment takiego pliku może wyglądać następująco:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;rootProject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'KursAplikacjeWebowe'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'01_serwlety'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'02_serwlety'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'03_filtry'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'04_kontekst'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;konfiguracja-podprojektów&quot;&gt;Konfiguracja podprojektów&lt;/h4&gt;
+
+&lt;p&gt;Każdy z projektów zagnieżdżonych może zawierać swój własny plik konfiguracyjny &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;. Jednak nie zawsze jest to najlepszy pomysł. Często żeby wyeliminować duplikację wspólna konfiguracja wyciągnięta jest do głównego projektu. Służy do tego blok &lt;code class=&quot;highlighter-rouge&quot;&gt;subprojects&lt;/code&gt;. Jego przykład możesz znaleźć w pliku &lt;a href=&quot;https://github.com/SamouczekProgramisty/KursJava/blob/master/build.gradle&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; w Kursie Java&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;subprojects&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'java'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'idea'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'maven'&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenCentral&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pl.samouczekprogramisty.kursjava'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1.0-SNAPSHOT'&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;gradle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;projectsEvaluated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JavaCompile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compilerArgs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;-Xlint:deprecation&quot;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;W tym przykładzie każdy z podprojektów będzie zawierał trzy wtyczki, będzie korzystał z repozytorium &lt;code class=&quot;highlighter-rouge&quot;&gt;mavenCentral&lt;/code&gt;. Będzie miał ustawiony atrybuty &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:group&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;group&lt;/code&gt;&lt;/a&gt; i &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:version&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;version&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ostatni blok używa mechanizmu rozszerzeń Gradle. W ten sposób dołączam pewną akcję po wystąpieniu zdarzenia &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.invocation.Gradle.html#org.gradle.api.invocation.Gradle:projectsEvaluated(groovy.lang.Closure)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;projectsEvaluated&lt;/code&gt;&lt;/a&gt;. W tym przypadku dodaję do &lt;a href=&quot;/java-z-linii-polecen/&quot;&gt;kompilatora &lt;code class=&quot;highlighter-rouge&quot;&gt;javac&lt;/code&gt;&lt;/a&gt; flagę &lt;code class=&quot;highlighter-rouge&quot;&gt;-Xling:deprecation&lt;/code&gt;, która włącza ostrzeżenia dotyczące używania przestarzałego API.&lt;/p&gt;
+
+&lt;p&gt;Niektóre podprojekty nie potrzebują dodatkowej konfiguracji. W takim przypadku nie mają własnego pliku &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;. W innych przypadkach &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; rozszerza konfigurację zawartą w bloku &lt;a href=&quot;https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:subprojects(groovy.lang.Closure)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;subprojects&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;gradle-a-repozytorium-kodu&quot;&gt;Gradle a repozytorium kodu&lt;/h2&gt;
+
+&lt;p&gt;Jeśli korzystasz z systemu kontroli wersji część plików związanych z Gradle powinna być w nim zawarta. Jeśli nie korzystasz, to najwyższy czas zacząć ;) – zapraszam Cię do &lt;a href=&quot;https://www.samouczekprogramisty.pl/kurs-git/&quot;&gt;kursu Git’a&lt;/a&gt;. Katalog &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle&lt;/code&gt;, pliki &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt;,  &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew.bat&lt;/code&gt; wraz z wszystkimi plikami konfiguracyjnymi powinny zostać dodane do systemu kontroli wersji.&lt;/p&gt;
+
+&lt;p&gt;Natomiast ukryty katalog &lt;code class=&quot;highlighter-rouge&quot;&gt;.gradle&lt;/code&gt; powinien zostać pominięty. Sprawa wygląda podobnie z wszystkimi artefaktami powstałymi w wyniku budowania projektu. Z założenia mogą one być w prosty sposób odtworzone na podstawie plików źródłowych. Innymi słowy zawartość katalogu &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; nie powinna wylądować w repozytorium kodu.&lt;/p&gt;
+
+&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
+
+&lt;p&gt;W artykule wielokrotnie odwoływałem się do dokumentacji Gradle. Nie bez powodu. Moim zdaniem dokumentacja Gradle’a jest na prawdę przydatnym źródłem wiedzy:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;htps://docs.gradle.org/current/userguide/userguide.html&quot;&gt;dokumentacja Gradle’a&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;dodatkowo na stronie Gradle’a znajdziesz serię dobrze przygotowanych &lt;a href=&quot;https://gradle.org/guides/&quot;&gt;poradników&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ćwiczenie-do-wykonania&quot;&gt;Ćwiczenie do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Na koniec mam dla Ciebie drobne ćwiczenie. Spróbuj utworzyć nowy projekt wywołując &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle init&lt;/code&gt; z dodatkowymi parametrami opisanymi w dokumentacji. Czy dasz radę napisać polecenie, które utworzy nowy projekt i pominie wszystkie pytania, które Gradle zadaje po wywołaniu &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle init&lt;/code&gt;?&lt;/p&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Po przeczytaniu tego artykułu wiesz jak działa Gradle. Znasz elementy DSL pozwalające na budowanie nieskomplikowanych skryptów budowania. Udało Ci się poznać szereg komend Gradle’a, które pomogą Ci w efektywny sposób pracować z tym narzędziem.&lt;/p&gt;
+
+&lt;p&gt;Na koniec mam do Ciebie prośbę, proszę poleć ten artykuł znajomym, którym Twoim zdaniem może się on przydać. Dzięki temu pozwolisz dotrzeć mi do większego grona odbiorców, z góry dziękuję!&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz ominąć kolejnych artykułów na Samouczku dopisz się do samouczkowego newslettera i polub Stronę samouczka na Facebook’u. To tyle na dzisiaj, trzymaj się i do następnego razu!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:cachewin&quot;&gt;
+      &lt;p&gt;W systemie Windows jest to ścieżka &lt;code class=&quot;highlighter-rouge&quot;&gt;%userprofile%/gradle/caches&lt;/code&gt;. &lt;a href=&quot;#fnref:cachewin&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:dowolna&quot;&gt;
+      &lt;p&gt;Po odpowiedniej konfiguracji albo sposobie uruchomienia &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle&lt;/code&gt; nazwa tego pliku może być inna, &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; jest wartością domyślną. &lt;a href=&quot;#fnref:dowolna&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:pomijam&quot;&gt;
+      &lt;p&gt;Pomijam skrajne sytuacje, w których ktoś może zmodyfikować swoje lokalne środowisko w sposób, który pozwoli zbudować coś innego. Jednak taka sytuacja wymaga świadomego działa :). &lt;a href=&quot;#fnref:pomijam&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:ukryty&quot;&gt;
+      &lt;p&gt;To wywołanie tworzy też ukryty katalog &lt;code class=&quot;highlighter-rouge&quot;&gt;.gradle&lt;/code&gt;. &lt;a href=&quot;#fnref:ukryty&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule przeczytasz o tym jak działa Gradle. Dowiesz się czegoś więcej o sposobie konfigurowania projektów. Po lekturze będziesz wiedzieć czym jest i jak działa gradle wrapper oraz dlaczego warto go używać. Przeczytasz także o tym jak używać Gradle z systemem kontroli wersji.</summary></entry><entry><title type="html">Początki pracy z wierszem poleceń</title><link href="https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/" rel="alternate" type="text/html" title="Początki pracy z wierszem poleceń" /><published>2019-03-12T00:00:00+01:00</published><updated>2019-03-17T15:56:22+01:00</updated><id>https://www.samouczekprogramisty.pl/poczatki-pracy-z-konsola</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/">&lt;p class=&quot;notice--info&quot;&gt;To jest jeden z artykułów omawiających pracę z wierszem poleceń. Omawiam w nim podstawy niezbędne do wydajnej pracy. Dalsze artykuły z cyklu opisują bardziej zaawansowane zagadnienia związane z pracą w linii poleceń. Wszystkie artykuły w serii zebrałem w sekcji &lt;a href=&quot;/narzedzia-i-dobre-praktyki/#narz%C4%99dzia&quot;&gt;narzędzia i dobre praktyki&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;wiersz-poleceń&quot;&gt;Wiersz poleceń&lt;/h2&gt;
 
@@ -3367,179 +3763,4 @@ Pierwsze materiały dotyczyły języka Java, bo to właśnie ten język nadal ci
       &lt;p&gt;Oczywiście same artykuły nic nie dadzą, to tylko i wyłącznie ciężka praca tej osoby. &lt;a href=&quot;#fnref:praca&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Samouczek Programisty ma już trzy lata. Zaczynając prowadzić ten blog nie pomyślałbym, że dojdę z nim tak daleko. W artykule tym dzielę się kilkoma informacjami dotyczącymi historii bloga i planów jego rozwoju.</summary></entry><entry><title type="html">Jakość kodu a oschłe pocałunki Jagny</title><link href="https://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/" rel="alternate" type="text/html" title="Jakość kodu a oschłe pocałunki Jagny" /><published>2018-09-28T00:00:00+02:00</published><updated>2018-10-09T23:24:54+02:00</updated><id>https://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/jakosc-kodu-a-oschle-pocalunki-jagny/">&lt;h2 id=&quot;coś-o-powtarzaniu--dry&quot;&gt;Coś o powtarzaniu – DRY&lt;/h2&gt;
-
-&lt;p&gt;Reguła DRY (ang. &lt;em&gt;Don’t Repeat Yourself&lt;/em&gt;) zostało opisana w książce “The Pragmatic Programmer” autorstwa Andrew’a Hunt’a i David’a Thomas’a. Autorzy wprowadzają regułę, która mówi, że każdy fragment wiedzy powinien mieć pojedynczą, jednoznaczną i uznaną reprezentację w systemie. Regułę tę można zastosować zarówno do konfiguracji jak i kodu programu.&lt;/p&gt;
-
-&lt;p&gt;Utrzymywanie kodu kosztuje. Kod, wraz z dodawaniem nowych funkcjonalności koroduje, psuje się z czasem. Im więcej kodu tym więcej potencjalnych błędów. A jeśli kod jest powielany w wielu miejscach, to jest to dobry przepis na tragedię. Wyobraź sobie sytuację, w której podobny fragment kodu jest kopiowany wielokrotnie. Po pewnym czasie okazuje się, że w tym właśnie fragmencie jest błąd, lub trzeba wprowadzić w nim pewną zmianę.&lt;/p&gt;
-
-&lt;p&gt;Taka sytuacja prosi się o popełnienie błędu w trakcie wprowadzania niezbędnej zmiany. Wystarczy ominąć jedną z kopii kodu i błąd gotowy. Przypomina mi się mem z piosenką:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;99 little bugs in the code.&lt;br /&gt;
-99 little bugs in the code.&lt;br /&gt;
-Take one down, patch it around.&lt;br /&gt;
-127 little bugs in the code.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Reguła DRY ma zastosowanie zarówno do mniejszych fragmentów kodu jak i dużych części systemu. Jeśli widzisz duplikację, którą można wyeliminować, zrób to :). Zanim jednak zajmiesz się refaktoryzacją kodu upewnij się, że posiadasz dobry zestaw &lt;a href=&quot;/testy-jednostkowe-z-junit5/&quot;&gt;testów jednostkowych&lt;/a&gt;. Testy pomogą Ci upewnić się, że po zlikwidowaniu duplikacji kod nadal działa jak powinien.&lt;/p&gt;
-
-&lt;h3 id=&quot;przykład-zastosowania-reguły&quot;&gt;Przykład zastosowania reguły&lt;/h3&gt;
-
-&lt;p&gt;Załóżmy, że zadaniem jest napisanie algorytmu, który liczbę w notacji dziesiętnej zapisze w innym systemie, na przykład binarnie. Akurat to zadanie jest do wykonania w artykule opisującym &lt;a href=&quot;/system-dwojkowy/&quot;&gt;system binarny&lt;/a&gt;. Jeden z czytelników zaproponował takie rozwiązanie (jeszcze raz dziękuję za pozwolenie na jego publikację):&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;convert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-   
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;    
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binaryRepresentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reverse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Można powiedzieć, że rozwiązanie spełnia wymagania. Poprawnie przekształca liczby na wartość binarną&lt;sup id=&quot;fnref:ujemne&quot;&gt;&lt;a href=&quot;#fn:ujemne&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Jednak od razu można zwrócić uwagę na duplikację. Proszę spójrz na moją propozycję refaktoringu tego kodu gdzie duplikacja została usunięta. Algorytm zachowuje się dokładanie tak samo, jednak moim zdaniem jest o wiele bardziej przejrzysty. Do tego nie łamie zasady DRY.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;convert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divisionReminder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toBase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;divisionReminder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numberToConvert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decimalNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reverse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Jeśli widzisz duplikację w kodzie, warto zastanowić się nad jej usunięciem. Zastanów się czy sesja refaktoringu kodu nie byłaby potrzebna. Może proste wydzielenie metody rozwiąże problem? Może fragment kodu jest na tyle rozbudowany, że potrzeba osobnej klasy? Ta klasa będzie miała wtedy swój zakres odpowiedzialności i koniecznie swój zestaw &lt;a href=&quot;/testy-jednostkowe-z-junit5/&quot;&gt;testów jednostkowych&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Nie pamiętam gdzie, ale usłyszałem kiedyś, że przeciwnością DRY jest WET (ang. &lt;em&gt;We Enjoy Typing&lt;/em&gt;, &lt;em&gt;We Edit Terribly&lt;/em&gt;, etc.). W moim przypadku często łączę te akronimy ;). Na początku piszę coś co spełnia wymagania, powtarzając niektóre fragmenty. Taki początkowy kod jest brzydki, ale działa. Jednak po tym etapie przychodzi czas na chwilę zastanowienia. Nie bez powodu pojedyncza runda &lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;TDD&lt;/a&gt; nie jest kompletna bez refaktoringu. Właśnie wtedy można uprościć kod usuwając zbędną duplikację. Zestaw wcześniej napisanych testów jednostkowych pozwala na swobodną zmianę struktury kodu.&lt;/p&gt;
-
-&lt;div class=&quot;notice--success&quot; style=&quot;font-size:1em !important&quot;&gt;
-  &lt;div class=&quot;c_almost-header text-center&quot;&gt;Gala Twórców 2019&lt;/div&gt;
-  &lt;p&gt;Samouczek Programisty startuje w konkursie Gala Twórców 2019. Pierwszy etap to głosowanie. Jeśli mógłbym Cię prosić o pomoc i oddanie głosu na mój blog będę Ci wdzięczny :).&lt;/p&gt;
-  
-&lt;p class=&quot;text-center&quot;&gt;&lt;b&gt;&lt;a href=&quot;https://bit.ly/gala-tworcow-samouczek&quot;&gt;Tak, chcę Ci pomóc i oddać swój głos!&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;
-  
-  &lt;p&gt;Procedura głosowania wymaga kilku kliknięć:
-  
-  &lt;ol&gt;
-    &lt;li&gt;Klik w „Głosuj”&lt;/li&gt;
-    &lt;li&gt;Klik w ikonkę Facebooka&lt;/li&gt;
-    &lt;li&gt;Pozwolenie aplikacji Gali Twórców na głosowanie (w oddzielnym okienku)&lt;/li&gt;
-    &lt;li&gt;Klik w „Głosuj”&lt;/li&gt;
-  &lt;/ol&gt;&lt;/p&gt;
-  
-  &lt;p&gt;Głosowanie trwa do 31 marca do godziny 12:00. Z góry dziękuję, za Twój głos – jest szansa, że dzięki niemu uda mi się dotrzeć do większego grona odbiorców!&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;coś-o-prostocie--kiss&quot;&gt;Coś o prostocie – KISS&lt;/h2&gt;
-
-&lt;p&gt;Według &lt;a href=&quot;https://en.wikipedia.org/wiki/KISS_principle&quot;&gt;Wikipedii&lt;/a&gt; reguła KISS (ang. &lt;em&gt;Keep It Simple, Stupid&lt;/em&gt;) wspomniana została już w 1960 roku przez marynarkę Stanów Zjednoczonych jako wytyczna dotycząca projektowania. Ja poznałem ją w kontekście projektów informatycznych.&lt;/p&gt;
-
-&lt;p&gt;KISS sprowadza się do unikania złożoności projektów informatycznych. Im mniej ruszających się części tym mniej rzeczy może się zepsuć. Wychodzę z założenia, że kod, który ma mniej linijek przeważnie jest lepszym rozwiązaniem. Głośno mówię o tym, że bardzo lubię usuwać kod. Im go mniej, tym lepiej. Nie jest sztuką napisać obszerny kod, który realizuje wymagania. Sztuką jest napisanie czytelnego fragmentu kodu, z którego nic nie można usunąć. Nie można nic usunąć, ponieważ każdy element jest potrzebny i realizuje część funkcjonalności.&lt;/p&gt;
-
-&lt;p&gt;Podobnie jak przy regule DRY. Jeśli zobaczysz coś co można uprościć, zrób to. Powtarzam też z uporem maniaka, operacje tego typu powinno się przeprowadzać mając pod sobą siatkę bezpieczeństwa w postaci &lt;a href=&quot;/testy-jednostkowe-z-junit5/&quot;&gt;testów jednostkowych&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;kiss-a-python&quot;&gt;KISS a Python&lt;/h3&gt;
-
-&lt;p&gt;Python idzie o krok dalej. Istnieje coś takiego jak “manifest Python’a”&lt;sup id=&quot;fnref:zen&quot;&gt;&lt;a href=&quot;#fn:zen&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Jest to kilka reguł, które opisują w jaki sposób powinno się pisać kod. Całość sprowadza się do 19 linijek tekstu. Aż cztery z nich powiązane są regułą KISS:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Simple is better than complex.&lt;br /&gt;
-Complex is better than complicated.&lt;br /&gt;
-(…)&lt;br /&gt;
-If the implementation is hard to explain, it’s a bad idea.&lt;br /&gt;
-If the implementation is easy to explain, it may be a good idea.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Tłumaczę to jako:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Proste jest lepsze od złożonego.&lt;br /&gt;
-Złożone jest lepsze od skomplikowanego.&lt;br /&gt;
-Jeśli implementacja jest trudna do wytłumaczenia, to jest to zły pomysł.&lt;br /&gt;
-Jeśli implementacja jest łatwa do wytłumaczenia, to może to być dobry pomysł.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;inne-spojrzenie-na-kiss&quot;&gt;Inne spojrzenie na KISS&lt;/h3&gt;
-
-&lt;p&gt;Podejście tego typu znane było długo przed KISS używanym przez amerykańską marynarkę wojenną. Istnieje zasada nazywana &lt;a href=&quot;https://pl.wikipedia.org/wiki/Brzytwa_Ockhama&quot;&gt;brzytwą Ockhama&lt;/a&gt;. Mówi ona o tym żeby nie mnożyć bytów ponad potrzebę.&lt;/p&gt;
-
-&lt;p&gt;W kontekście oprogramowania mniej bytów sprowadza się do mniejszej ilości kodu. Mniej kodu to mniej potencjalnych błędów do popełnienia. Mniej kodu to mniejszy system, który prawdopodobnie będzie łatwiejszy do zrozumienia i utrzymania.&lt;/p&gt;
-
-&lt;h2 id=&quot;coś-o-wyobraźni--yagni&quot;&gt;Coś o wyobraźni – YAGNI&lt;/h2&gt;
-
-&lt;p&gt;Na pewno zdarzyło Ci się kiedyś zastanawiać się nad tym jak zaimplementować jakieś rozwiązanie. Wpadasz wtedy w wir tworzenia. Potrafisz wymyślić piękne struktury danych. Algorytmy takie, że płaczesz jak &lt;a href=&quot;https://www.samouczekprogramisty.pl/kurs-git/&quot;&gt;commit&lt;/a&gt;‘ujesz. Tutaj nowy &lt;em&gt;manager&lt;/em&gt;, tam kolejny &lt;em&gt;helper&lt;/em&gt;. Oczywiście Twoje rozwiązanie przewiduje to, że klient będzie chciał obsługiwać kwoty reprezentowane w liczbach urojonych.&lt;/p&gt;
-
-&lt;p&gt;Każda ewentualność jest obsłużona. Wszystkie ekstremalne przypadki zaimplementowane. Po prostu niezatapialny fragment kodu. Kod tak generyczny, że jak zostawisz go przez noc to w wyniku ewolucji przejmie władzę nad światem…&lt;/p&gt;
-
-&lt;p&gt;Całość zajęła Ci trzy miesiące. Przez ten czas nawet nie było kiedy porozmawiać z klientem o jego wymaganiach. Przecież Twoja wyobraźnia wie lepiej. Wszystkie funkcjonalności, o których klient jeszcze nie pomyślał są gotowe. Wiesz co? YAGNI (ang. &lt;em&gt;You Aren’t Gonna Need It&lt;/em&gt;). Nie będziesz tego potrzebować.&lt;/p&gt;
-
-&lt;h3 id=&quot;łatwo-rozszerzalny-kod-a-nowe-funkcjonalności&quot;&gt;Łatwo rozszerzalny kod a nowe funkcjonalności&lt;/h3&gt;
-
-&lt;p&gt;Oczywiście nie mam nic przeciwko pisaniu solidnego kodu, który spełnia wymagania użytkownika. Nie mam nic przeciwko temu, żeby przewidywać sytuacje, o których nie poinformował klient. W pełni zgadzam się na sugerowanie przydatnych funkcjonalności. Do tego uważam, że pisanie kodu łatwego do rozszerzenia zgodnie z zasadami &lt;a href=&quot;/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/&quot;&gt;SOLID&lt;/a&gt; jest dobrym posunięciem.&lt;/p&gt;
-
-&lt;p&gt;Jest jednak jedno małe “ale”. Z doświadczenia wiem, że wymyślanie czegoś na siłę nie ma sensu. Klient nie chciał funkcjonalności X? Jeśli Twoim zdaniem to głupi pomysł to z nim o tym porozmawiaj. Przekonaj go do swojego zdania. Jeśli uda Ci się go przekonać – brawo! Jeśli nie, to pogódź się z faktem, że nie możesz wiedzieć wszystkiego najlepiej.&lt;/p&gt;
-
-&lt;p&gt;YAGNI sprowadza się do hamowania swojej fantazji. Nie wprowadzaj bytów, funkcjonalności, metod, itp., które nie są w danym momencie potrzebne. Dodawanie zbędnych elementów komplikuje kod. Do tego podnosi koszty realizacji projektu. Dodatkowo może stawiać Cię w złym świetle jako programistę. Po płodnej sesji pisania kodu może okazać się, że udało Ci się wykonać kawał solidnej, porządnej i nikomu niepotrzebnej pracy.&lt;/p&gt;
-
-&lt;h2 id=&quot;akronimy-na-ratunek&quot;&gt;Akronimy na ratunek&lt;/h2&gt;
-
-&lt;p&gt;Żaden akronim nie sprawi, że Twój kod automatycznie będzie lepszy. Nie ważne czy jest to &lt;a href=&quot;/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/&quot;&gt;SOLID&lt;/a&gt;, KISS, YAGNI czy DRY. Dobry kod to moim zdaniem efekt wielu sesji refaktoringu, ciągłej pracy nad jego polepszaniem.&lt;/p&gt;
-
-&lt;p&gt;Spotkałem się też z zasadą, którą opisuje się jako zasadę “amerykańskiego skauta”. Sprowadza się ona do tego, żeby kod, który zastaliśmy zostawić chociaż odrobinę lepszym kiedy kończymy z nim pracę. W ten sposób małymi kroczkami można dążyć do polepszenia jakości kodu.&lt;/p&gt;
-
-&lt;p&gt;Pamiętaj też, że “lepszy kod” jest określeniem czysto subiektywnym. Dla jednej osoby kod podzielony na malutkie metody będzie lepszy. Inna powie, że metody mające jedną linijkę kodu to przesada.&lt;/p&gt;
-
-&lt;h2 id=&quot;materiały-dodatkowe&quot;&gt;Materiały dodatkowe&lt;/h2&gt;
-
-&lt;p&gt;Jeśli masz ochotę spojrzeć na temat z innej strony zachęcam Cię do rzucenia okiem na poniższe materiały:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Don%27t_repeat_yourself&quot;&gt;Definicja DRY na Wikipedii&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/KISS_principle&quot;&gt;Definicja KISS na Wikipedii&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it&quot;&gt;Definicja YAGNI na Wikipedii&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.martinfowler.com/bliki/Yagni.html&quot;&gt;Artykuł o YAGNI&lt;/a&gt; na stronie Martin’a Fowler’a.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Po lekturze tego artykułu wiesz czym jest DRY, KISS i YAGNI. Wiesz, że powtórzenia należy eliminować. Wiesz, że zbędne komplikowanie implementacji jest złym podejściem. W końcu, wiesz też, że funkcjonalności powinny być implementowane nie wcześniej niż są potrzebne.&lt;/p&gt;
-
-&lt;p&gt;Opisane tu akronimy KISS i YAGNI odnoszą się do zwinnego sposobu wytwarzania oprogramowania, które moim zdaniem jest lepszym podejściem w większości przypadków. A Ty co o tym sądzisz? Który z tych akronimów stosujesz najczęściej?&lt;/p&gt;
-
-&lt;p&gt;Na koniec mam do Ciebie prośbę, jeśli znasz kogoś komu ten tekst może być pomocny proszę podeślij mu adres tego artykułu. Dzięki Tobie uda mi się dotrzeć do nowych czytelników. Pamiętaj też, że dopisanie się do samouczkowego newslettera i polubienie Samouczka na Facebooku pomoże Ci śledzić nowe artykuły na blogu.&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:ujemne&quot;&gt;
-      &lt;p&gt;Pominę tu kodowanie liczb ujemnych, załóżmy, ze znak &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt; jest dopuszczalny. &lt;a href=&quot;#fnref:ujemne&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:zen&quot;&gt;
-      &lt;p&gt;Możesz go zobaczyć wpisując &lt;code class=&quot;highlighter-rouge&quot;&gt;import this&lt;/code&gt; w interpreterze. &lt;a href=&quot;#fnref:zen&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł ten przedstawia kilka akronimów, które opisują praktyki pomagające w tworzeniu kodu wysokiej jakości. Po przeczytaniu tego artykułu dowiesz się czym jest DRY, KISS czy YAGNI. Opisuję w nim każdy z tych akronimów, pokazując ich zastosowanie nie tylko w projektach informatycznych.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Samouczek Programisty ma już trzy lata. Zaczynając prowadzić ten blog nie pomyślałbym, że dojdę z nim tak daleko. W artykule tym dzielę się kilkoma informacjami dotyczącymi historii bloga i planów jego rozwoju.</summary></entry></feed>

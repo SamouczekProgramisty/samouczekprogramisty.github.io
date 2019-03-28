@@ -604,6 +604,11 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg"},{
+        "title": "Pierwszy projekt z Gradle",
+        "excerpt":"To jest kolejny artykuł opisujący narzędzie Gradle. Jeśli nie udało Ci się wcześniej z nim pracować, to zachęcam Cię do przeczytania wstępu do Gradle. W tym artykule zakładam, że znasz podstawy, które omówiłem poprzednio. Odrobina teorii Gradle bazuje na plikach konfiguracyjnych. Każdy z tych plików konfiguracyjnych powiązany jest z obiektem,...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/pierwszy-projekt-z-gradle/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/03/22_gradle_artykul.jpeg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],
