@@ -9,7 +9,7 @@ header:
     teaser: /assets/images/2019/03/22_gradle_artykul.jpeg
     overlay_image: /assets/images/2019/03/22_gradle_artykul.jpeg
     caption: "[&copy; David Clode](https://unsplash.com/photos/Bj0XFTabquo)"
-excerpt: W tym artykule przeczytasz o tym jak działa Gradle. Dowiesz się czegoś więcej o sposobie konfigurowania projektów. Po lekturze będziesz wiedzieć czym jest i jak działa gradle wrapper oraz dlaczego warto go używać.
+excerpt: W tym artykule przeczytasz o tym jak działa Gradle. Dowiesz się czegoś więcej o sposobie konfigurowania projektów. Po lekturze będziesz wiedzieć czym jest i jak działa gradle wrapper oraz dlaczego warto go używać. Przeczytasz także o tym jak używać Gradle z systemem kontroli wersji.
 ---
 
 To jest kolejny artykuł opisujący narzędzie Gradle. Jeśli nie udało Ci się wcześniej z nim pracować, to zachęcam Cię do przeczytania [wstępu do Gradle]({% post_url 2017-01-19-wstep-do-gradle %}). W tym artykule zakładam, że znasz podstawy, które omówiłem poprzednio.
@@ -29,7 +29,7 @@ Gradle jasno określa sposób w jaki budowany jest projekt. Cały proces podziel
 * konfigurację,
 * wykonanie.
 
-W trakcie fazy inicjalizacji Gradle określa jakie projekty wchodzą w skład cyklu budowania. Gradle wspiera proste projekty (skłądające się wyłącznie z jednego projektu) jak i te złożone (skłądające się z wielu podprojektów). Jak wspomniałem wcześniej, dla każdego z nich tworzy obiekt, który przechowuje konfigurację danego projektu. W tej fazie wykonywany jest plik `settings.gradle`.
+W trakcie fazy inicjalizacji Gradle określa jakie projekty wchodzą w skład cyklu budowania. Gradle wspiera proste projekty (składające się wyłącznie z jednego projektu) jak i te złożone (składające się z wielu podprojektów). Jak wspomniałem wcześniej, dla każdego z nich tworzy obiekt, który przechowuje konfigurację danego projektu. W tej fazie wykonywany jest plik `settings.gradle`.
 
 Faza konfiguracji polega na wykonaniu każdego z plików konfiguracyjnych projektów wchodzących w skład procesu budowania. W wyniku tego wykonania obiekty utworzone w fazie inicjalizacji są odpowiednio konfigurowane (na podstawie wykonywanych plików `build.gradle`).
 
@@ -37,7 +37,7 @@ Ostatnią fazą jest faza wykonania. To właśnie tutaj Gradle określa zestaw w
 
 ### Wbudowana pomoc
 
-Gradle posiada wbudowaną dokumentację. Możesz się do niej dobrać używając linii poleceń. Pierwszym przydatnym polecenim może być:
+Gradle posiada wbudowaną dokumentację. Możesz się do niej dobrać używając linii poleceń. Pierwszym przydatnym poleceniem może być:
 
 ```bash
 $ gradle tasks
@@ -51,17 +51,17 @@ Jeśli chcesz dowiedzieć się czegoś więcej o którymkolwiek z zadań z pomoc
 $ gradle help --task init
 ```
 
-### Schowek (ang. _cache_) 
+### Schowek (ang. _cache_)
 
-[Z poprzedniego artykułu]({% post_url 2017-01-19-wstep-do-gradle %}#zarz%C4%85dzanie-zale%C5%BCno%C5%9Bciami) wiesz, że Gradle pomaga przy zarządzaniu zależnościami. Odpowienia konfiguracja pozwala na określenie jakie zależności są niezbędne do działania Twojej biblioteki czy aplikacji. Dodatkowym atutem zarządzania zależnościami przez Gradle jest to, że trzymane one są w schowku na Twoim dysku. Domyślnie znajdziesz je w katalogu `~/.gradle/caches`[^cachewin].
-                                                                                                                    
+[Z poprzedniego artykułu]({% post_url 2017-01-19-wstep-do-gradle %}#zarz%C4%85dzanie-zale%C5%BCno%C5%9Bciami) wiesz, że Gradle pomaga przy zarządzaniu zależnościami. Odpowiednia konfiguracja pozwala na określenie jakie zależności są niezbędne do działania Twojej biblioteki czy aplikacji. Dodatkowym atutem zarządzania zależnościami przez Gradle jest to, że trzymane one są w schowku na Twoim dysku. Domyślnie znajdziesz je w katalogu `~/.gradle/caches`[^cachewin].
+
 Wewnątrz tego katalogu znajdziesz zależności, które były pobrane przez Gradle. Dzięki takiemu podejściu zależności są współdzielone pomiędzy różnymi aplikacjami. Co więcej nie musisz ich za każdym razem ściągać – zanim Gradle zacznie ich szukać w repozytorium zajrzy do schowka na lokalnym dysku.
 
-[^cachewin]: W systemie windows jest to ścieżka `%userprofile%/gradle/caches`.
+[^cachewin]: W systemie Windows jest to ścieżka `%userprofile%/gradle/caches`.
 
 ## Nowy projekt z Gradle
 
-Praktyczą przygodę z Gradlę zacznę od utworzenia przykładowej konfiguracji. Do przygotowania projektu może posłużyć polecenie `gradle init`. Po takim wywołaniu Gradle utworzy odpowiednią struktukturę przygotowując podstawową konfigurację. Zanim do tego dojdzie zapyta Cię o kilka ustawień:
+Praktyczną przygodę z Gradle zacznę od utworzenia przykładowej konfiguracji. Do przygotowania projektu może posłużyć polecenie `gradle init`. Po takim wywołaniu Gradle utworzy odpowiednią strukturę przygotowując podstawową konfigurację. Zanim do tego dojdzie zapyta Cię o kilka ustawień:
 
 ```bash
 $ gradle init
@@ -97,7 +97,7 @@ BUILD SUCCESSFUL in 24s
 2 actionable tasks: 2 executed
 ```
 
-Pierwsze pytanie dotyczy typu generowanego projektu. W tym przypadku projekt będzie używał języka Java, więc biorę pod uwagę odpowiedzi 6 albo 7. Główna różnica pomiędzy biblioteką a aplikacją sprowadza się do tego, że aplikację można uruchomić samodzielnie, biblioteka włączana jest do innych bibliotek lub aplikacji. Konfiguracja biblitoteki i aplikacji różni się jedynie wtyczkami. W przykładach, które pokazuję w dalszej części te różnice nie są istotne.
+Pierwsze pytanie dotyczy typu generowanego projektu. W tym przypadku projekt będzie używał języka Java, więc biorę pod uwagę odpowiedzi 6 albo 7. Główna różnica pomiędzy biblioteką a aplikacją sprowadza się do tego, że aplikację można uruchomić samodzielnie, biblioteka włączana jest do innych bibliotek lub aplikacji. Konfiguracja biblioteki i aplikacji różni się jedynie wtyczkami. W przykładach, które pokazuję w dalszej części te różnice nie są istotne.
 
 Kolejne pytanie dotyczy DSL'a (ang. _Domain Specific Language_), który powinien być używany w konfiguracji. Od wersji [5.0](https://docs.gradle.org/5.0/release-notes.html#kotlin-dsl-1.0) Gradle jako DSL można także wybrać język Kotlin.
 
@@ -141,7 +141,7 @@ Teraz omówię poszczególne elementy wygenerowane przez `gradle init`.
 
 ### `settings.gradle`
 
-Plik `settings.gradle` zawiera konfigurację projektu. Po pominięciu komentarza znajduje się w nim tylko nazwa projektu okreśona w trakcie działania `gradle init`:
+Plik `settings.gradle` zawiera konfigurację projektu. Po pominięciu komentarza znajduje się w nim tylko nazwa projektu określona w trakcie działania `gradle init`:
 
 ```groovy
 rootProject.name = 'samouczek'
@@ -173,13 +173,13 @@ dependencies {
 
 Plik ten zawiera trzy bloki wewnątrz których znajduje się konfiguracja.
 
-Pierwszy blok [`plugins`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:plugins) zawiera wtyczkę [`java-library`](https://docs.gradle.org/current/userguide/java_library_plugin.html). W bloku [`repositories`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:repositories(groovy.lang.Closure)) dodawane jest repozytorium [jcenter](https://jcenter.bintray.com/). Ostatni blok [`depencencie`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:dependencies(groovy.lang.Closure)) zawiera zestaw przykładowych zależności.
+Pierwszy blok [`plugins`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:plugins) zawiera wtyczkę [`java-library`](https://docs.gradle.org/current/userguide/java_library_plugin.html). W bloku [`repositories`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:repositories(groovy.lang.Closure)) dodawane jest repozytorium [jcenter](https://jcenter.bintray.com/). Ostatni blok [`dependencies`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:dependencies(groovy.lang.Closure)) zawiera zestaw przykładowych zależności.
 
 W dużej części projektów to właśnie te trzy bloki będą stanowiły większość konfiguracji. W bardziej zaawansowanych przypadkach odsyłam Cię do [dokumentacji](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html).
 
 ### wrapper
 
-Standardowa struktura projektu pozwala na łatwe zorientowanie się w nowym projekcie informatycznym. Zarządzanie zależnościami pozwala na przygotowanie wszędzie takiej samej paczki programu[^pomijam]. Wszystko to dzięki plikowi wykonywalnemu `gradle`. Ten plik jest tak naprawdę jest skryptem, który opakowuje uruchomienie maszyny wirtualnej Javy. Zachęcam Cię do zajrzenia do środka tago pliku. W przypadku systemów z rodziny Linux możesz spodziewać się skryptu [`bash`]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}).
+Standardowa struktura projektu pozwala na łatwe zorientowanie się w nowym projekcie informatycznym. Zarządzanie zależnościami pozwala na przygotowanie wszędzie takiej samej paczki programu[^pomijam]. Wszystko to dzięki plikowi wykonywalnemu `gradle`. Ten plik jest tak naprawdę skryptem, który opakowuje uruchomienie maszyny wirtualnej Javy. Zachęcam Cię do zajrzenia do środka tego pliku. W przypadku systemów z rodziny Linux możesz spodziewać się skryptu [`bash`]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}).
 
 [^pomijam]: Pomijam skrajne sytuacje, w których ktoś może zmodyfikować swoje lokalne środowisko w sposób, który pozwoli zbudować coś innego. Jednak taka sytuacja wymaga świadomego działa :).
 
@@ -195,7 +195,9 @@ BUILD SUCCESSFUL in 0s
 1 actionable task: 1 executed
 ```
 
-Efektem działania tego zadania jest utworzenie dwóch katalogów i kilku plików:
+Efektem działania tego zadania jest utworzenie dwóch katalogów i kilku plików[^ukryty]:
+
+[^ukryty]: To wywołanie tworzy też ukryty katalog `.gradle`.
 
 ```bash
 $ tree .
@@ -253,12 +255,12 @@ Używanie `gradlew` pozwala na uniezależnienie się od wersji `gradle` zainstal
 
 ## Budowanie projektów
 
-Używając `gradle tasks` i `gradle help` dowiesz się sporo o możliwych zadanich do wykonania. Chciałbym zwrócić Twoją uwagę na dwa z nich: `build` i `test`.
+Używając `gradlew tasks` i `gradlew help` dowiesz się sporo o możliwych zadaniach do wykonania. Chciałbym zwrócić Twoją uwagę na dwa z nich: `build` i `test`.
 
 Poniżej widzisz wywołanie zadania `build` z przełącznikiem `--console=verbose`, który sprawia, że na konsoli pokazuje się trochę więcej informacji:
 
 ```bash
-$ gradle build --console=verbose
+$ ./gradlew build --console=verbose
 > Task :compileJava UP-TO-DATE
 > Task :processResources NO-SOURCE
 > Task :classes UP-TO-DATE
@@ -275,7 +277,7 @@ BUILD SUCCESSFUL in 0s
 4 actionable tasks: 4 up-to-date
 ```
 
-Wiesz już, że Gradle uruchamia wszystkie zależne zadania. Ten przykład doskonale to pokazuje. Poprosiłem o wywołąnie `build` a w efekcie została wykonana cała seria zadań, zaczynając od `compileJava` a na `build` kończąc. Niektóre z tych zadań generują tak zwane artefakty – efekty procesu budowania.
+Wiesz już, że Gradle uruchamia wszystkie zależne zadania. Ten przykład doskonale to pokazuje. Poprosiłem o wywołanie `build` a w efekcie została wykonana cała seria zadań, zaczynając od `compileJava` a na `build` kończąc. Niektóre z tych zadań generują tak zwane artefakty – efekty procesu budowania.
 
 Na przykład artefaktem zadania `compileJava` są pliki `.class` ze skompilowanymi klasami. Artefakty procesu budowania umieszczane są w katalogu `build`. Poniżej możesz zobaczyć część struktury tego katalogu:
 
@@ -323,9 +325,9 @@ Wielką zaletą narzędzi typu Gradle jest to, że potrafią automatycznie uruch
 
 Gradle świetnie sprawdza się do budowania projektów, które zawierają podprojekty. Jako przykład może tu posłużyć [Kurs Java](https://github.com/SamouczekProgramisty/KursJava/) czy [Kurs Aplikacji Webowych](https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/).
 
-W każdym z tych repozytoriów znajdziesz plik `settings.gradle`. W przypadku pojedynczego projektu ten plik jest opcjonalny. W przypadku projektów zawierający „podprojekty” plik `settings.gradle` jest wymany. W tym drugim przypadku zawiera on ścieżki wkazujące na zagnieżdżone projekty. Fragment takiego pliku może wyglądać nasępująco:
+W każdym z tych repozytoriów znajdziesz plik `settings.gradle`. W przypadku pojedynczego projektu ten plik jest opcjonalny. W przypadku projektów zawierający podprojekty plik `settings.gradle` jest wymagany. W tym drugim przypadku zawiera on ścieżki wskazujące na zagnieżdżone projekty. Fragment takiego pliku może wyglądać następująco:
 
-```groovy                                                                                                                                                                                              `
+```groovy
 rootProject.name = 'KursAplikacjeWebowe'
 
 include '01_serwlety'
@@ -336,7 +338,7 @@ include '04_kontekst'
 
 #### Konfiguracja podprojektów
 
-Każdy z projektów zagnieżdżonych może zawierać swój własny plik konfiguracyjny `build.gradle`. Jednak nie zawsze jest to najlepszy pomysł. Często żeby wyeliminować duplikację wspólna konfiguracja wyciągnięta jest do głównego projektu. Służy do tego sekcja `subprojects`. Jej przykład możesz znaleźć w pliku [`build.gradle` w Kursie Java](https://github.com/SamouczekProgramisty/KursJava/blob/master/build.gradle):
+Każdy z projektów zagnieżdżonych może zawierać swój własny plik konfiguracyjny `build.gradle`. Jednak nie zawsze jest to najlepszy pomysł. Często żeby wyeliminować duplikację wspólna konfiguracja wyciągnięta jest do głównego projektu. Służy do tego blok `subprojects`. Jego przykład możesz znaleźć w pliku [`build.gradle` w Kursie Java](https://github.com/SamouczekProgramisty/KursJava/blob/master/build.gradle):
 
 ```groovy
 subprojects {
@@ -359,30 +361,28 @@ subprojects {
 }
 ```
 
-W tym przykładzie każdy z podprojektów będzie zawierał trzy wtyczki, będzie korzystał z repozytorium `mavenCentral`. Będzie miał ustawiony atrybuty [`group`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:group) i [`version`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:version). 
+W tym przykładzie każdy z podprojektów będzie zawierał trzy wtyczki, będzie korzystał z repozytorium `mavenCentral`. Będzie miał ustawiony atrybuty [`group`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:group) i [`version`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:version).
 
-Ostatni blok używa mechanizmu rozszerzeń Gradle. W ten sposób dołączam pewną akcję po wystąpoieniu zdarzenia [`projectsEvaluated`](https://docs.gradle.org/current/dsl/org.gradle.api.invocation.Gradle.html#org.gradle.api.invocation.Gradle:projectsEvaluated(groovy.lang.Closure)). W tym przypadku dodaję do [kompilatora `javac`]({% post_url 2017-03-08-java-z-linii-polecen %}) flagę `-Xling:deprecation`, która włącza ostrzeżenia dotyczące używania przestarzałego API.
+Ostatni blok używa mechanizmu rozszerzeń Gradle. W ten sposób dołączam pewną akcję po wystąpieniu zdarzenia [`projectsEvaluated`](https://docs.gradle.org/current/dsl/org.gradle.api.invocation.Gradle.html#org.gradle.api.invocation.Gradle:projectsEvaluated(groovy.lang.Closure)). W tym przypadku dodaję do [kompilatora `javac`]({% post_url 2017-03-08-java-z-linii-polecen %}) flagę `-Xling:deprecation`, która włącza ostrzeżenia dotyczące używania przestarzałego API.
 
-Niektóre podprojekty nie potrzebują dodatkowej konfiguracji. W takim przypadku nie miają własnego pliku `build.gradle`. W innych przypadkach `build.gradle` rozszerza konfigurację zawartą w bloku [`subprojects`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:subprojects(groovy.lang.Closure)).
-
-
-Większość osób korzysta z IDE, krótka informacja jak uruchomić program / projekt Gradle w intelliJ była by bardzo przydatna. W Maven, mam klasę z nazwą projektu a w niej metodę main. Wiem, że to ją muszę uruchomić, aby uruchomić pogram.
-
-Bardzo proszę o podpowiedź jak budować plik war w katalogu TomEE. Modifikujemy plik build.gradle czy ścieżkę w OS?<Paste> – exploaded war
+Niektóre podprojekty nie potrzebują dodatkowej konfiguracji. W takim przypadku nie mają własnego pliku `build.gradle`. W innych przypadkach `build.gradle` rozszerza konfigurację zawartą w bloku [`subprojects`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:subprojects(groovy.lang.Closure)).
 
 ## Gradle a repozytorium kodu
 
-Jeśli korzystasz z systemu kontroli wersji część plików związanych z Gradle powinna być w nim zawarta (jeśli nie korzystarz z systemu kontroli wersji to najwyższy casz zacząć ;) – zapraszam Cię do [kursu Git'a]({{ '/kurs-git/' | absolute_url }})). Na przykład katalog `gradle` i pliki `gradlew` oraz `gradlew.bat` powinny zostać dodane do systemu kontroli wersji. Ukryty katalog `.gradle` powinien zostać pominięty.
+Jeśli korzystasz z systemu kontroli wersji część plików związanych z Gradle powinna być w nim zawarta. Jeśli nie korzystasz, to najwyższy czas zacząć ;) – zapraszam Cię do [kursu Git'a]({{ '/kurs-git/' | absolute_url }}). Katalog `gradle`, pliki `gradlew`,  `gradlew.bat` wraz z wszystkimi plikami konfiguracyjnymi powinny zostać dodane do systemu kontroli wersji.
 
-Sprawa wygląda podonie dla wszystkich artefaktów powstałych w wyniku budowania projektu. Z założenia mogą one być w prosty sposób odtworzone na podstawie plików źródłowych. Innymi słowy zawartość katalogu `build` nie powinna wylądować w repozytorium kodu.
+Natomiast ukryty katalog `.gradle` powinien zostać pominięty. Sprawa wygląda podobnie z wszystkimi artefaktami powstałymi w wyniku budowania projektu. Z założenia mogą one być w prosty sposób odtworzone na podstawie plików źródłowych. Innymi słowy zawartość katalogu `build` nie powinna wylądować w repozytorium kodu.
 
 ## Dodatkowe materiały do nauki
 
-W artykule wielokrotnie odwoływałem się do dokumentacji Gradle. Nie bez powodu. Moim zdaniem dokumentacja Gradle'a jest na prawdę przydatnym źródłem wiedzy: (htps://docs.gradle.org/current/userguide/userguide.html). Dodatkowo na stronie Gradle'a znajdziesz serię dobrze przygotowanych [poradników](https://gradle.org/guides/).
+W artykule wielokrotnie odwoływałem się do dokumentacji Gradle. Nie bez powodu. Moim zdaniem dokumentacja Gradle'a jest na prawdę przydatnym źródłem wiedzy: 
+
+* [dokumentacja Gradle'a](htps://docs.gradle.org/current/userguide/userguide.html),
+* dodatkowo na stronie Gradle'a znajdziesz serię dobrze przygotowanych [poradników](https://gradle.org/guides/).
 
 ## Ćwiczenie do wykonania
 
-Na koniec mam drobne ćwiczenie dla Ciebie. Spróbuj utworzyć nowy projekt wywołując `gradle init` z dodatkowymi parametrami opisanymi w dokumentacji. Czy dasz radę napisać polecenie, które utworzy nowy projekt i pominie wszystkie pytania, które Gradle zadaje po wywołaniu `gradle init`?
+Na koniec mam dla Ciebie drobne ćwiczenie. Spróbuj utworzyć nowy projekt wywołując `gradle init` z dodatkowymi parametrami opisanymi w dokumentacji. Czy dasz radę napisać polecenie, które utworzy nowy projekt i pominie wszystkie pytania, które Gradle zadaje po wywołaniu `gradle init`?
 
 ## Podsumowanie
 
@@ -390,4 +390,4 @@ Po przeczytaniu tego artykułu wiesz jak działa Gradle. Znasz elementy DSL pozw
 
 Na koniec mam do Ciebie prośbę, proszę poleć ten artykuł znajomym, którym Twoim zdaniem może się on przydać. Dzięki temu pozwolisz dotrzeć mi do większego grona odbiorców, z góry dziękuję!
 
-Jeśli nie chcesz ominąć kolejnych artykułów na Samouczku dopisz się do samouczkowego newslettera i polub Stronę samouczka na Facebook'u. TO tyle na dzisiaj, trzymaj się i do następnego razu!
+Jeśli nie chcesz ominąć kolejnych artykułów na Samouczku dopisz się do samouczkowego newslettera i polub Stronę samouczka na Facebook'u. To tyle na dzisiaj, trzymaj się i do następnego razu!
