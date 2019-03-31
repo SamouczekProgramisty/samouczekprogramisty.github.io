@@ -600,12 +600,12 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/samouczek-na-rozmowie-lancuchy-bialkowe/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/02/25_zadanie_z_rozmowy_kwalifikacyjnej_lancuchy_bialkowe_artykul.jpg"},{
         "title": "Początki pracy z wierszem poleceń",
-        "excerpt":"To jest jeden z artykułów omawiających pracę z wierszem poleceń. Omawiam w nim podstawy niezbędne do wydajnej pracy. Dalsze artykuły z cyklu opisują bardziej zaawansowane zagadnienia związane z pracą w linii poleceń. Wszystkie artykuły w serii zebrałem w sekcji narzędzia i dobre praktyki. Wiersz poleceń Upraszczając można powiedzieć, że wiersz...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
+        "excerpt":"To jest jeden z artykułów omawiających pracę z wierszem poleceń. Omawiam w nim podstawy niezbędne do wydajnej pracy. Dalsze artykuły z cyklu opisują bardziej zaawansowane zagadnienia związane z pracą w linii poleceń. Wszystkie artykuły w serii zebrałem w sekcji narzędzia i dobre praktyki. Wiersz poleceń Upraszczając można powiedzieć, że wiersz...","categories": ["Programista rzemieślnik"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/poczatki-pracy-z-wierszem-polecen/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg"},{
         "title": "Pierwszy projekt z Gradle",
-        "excerpt":"To jest kolejny artykuł opisujący narzędzie Gradle. Jeśli nie udało Ci się wcześniej z nim pracować, to zachęcam Cię do przeczytania wstępu do Gradle. W tym artykule zakładam, że znasz podstawy, które omówiłem poprzednio. Odrobina teorii Gradle bazuje na plikach konfiguracyjnych. Każdy z tych plików konfiguracyjnych powiązany jest z obiektem,...","categories": ["Samouczek na rozmowie","Strefa zadaniowa"],
+        "excerpt":"To jest kolejny artykuł opisujący narzędzie Gradle. Jeśli nie udało Ci się wcześniej z nim pracować, to zachęcam Cię do przeczytania wstępu do Gradle. W tym artykule zakładam, że znasz podstawy, które omówiłem poprzednio. Odrobina teorii Gradle bazuje na plikach konfiguracyjnych. Każdy z tych plików konfiguracyjnych powiązany jest z obiektem,...","categories": ["Programista rzemieślnik"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/pierwszy-projekt-z-gradle/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/03/22_gradle_artykul.jpeg"},{
@@ -615,7 +615,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/strefa-zadaniowa/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/splash/dzial_strefa_zadaniowa.jpg"},{
         "title": "Narzędzia i dobre praktyki",
-        "excerpt":"Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować na co dzień. Narzędzia Wstęp do Gradle Walidacja obiektów w języku Java Format JSON...","categories": [],
+        "excerpt":"Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować na co dzień. Narzędzia Wstęp do Gradle Pierwszy projekt w Gradle Walidacja obiektów w...","categories": [],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg"},{
