@@ -1,9 +1,8 @@
 ---
 title: Pierwszy projekt z Gradle
-last_modified_at: 2019-03-17 15:56:22 +0100
+last_modified_at: 2019-03-28 01:30:16 +0100
 categories:
-- Samouczek na rozmowie
-- Strefa zadaniowa
+- Programista rzemieślnik
 permalink: /pierwszy-projekt-z-gradle/
 header:
     teaser: /assets/images/2019/03/22_gradle_artykul.jpeg

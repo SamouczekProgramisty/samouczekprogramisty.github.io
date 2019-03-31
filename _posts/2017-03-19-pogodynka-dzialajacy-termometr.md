@@ -89,4 +89,4 @@ Następnie otworzenie w przeglądarce adresu http://localhost:8080/datavault pow
 
 ## Podsumowanie
 
-Powoli, ale skutecznie idę do przodu :). Jeden z modułów jest gotowy, pozostałe dwa czekają na swoją kolej. Datavautl wezmę na tapetę w kolejnych tygodniach. Na dzisiaj to wszystko z frontu, do następnego razu! :)
+Powoli, ale skutecznie idę do przodu :). Jeden z modułów jest gotowy, pozostałe dwa czekają na swoją kolej. Datavautl wezmę na tapet w kolejnych tygodniach. Na dzisiaj to wszystko z frontu, do następnego razu! :)

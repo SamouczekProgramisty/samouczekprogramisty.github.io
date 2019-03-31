@@ -35,7 +35,7 @@ Czasami od czytelników dostaję zadania z ich rozmów kwalifikacyjnych. Poniże
 
 ## Advent of Code
 
-_Advent of Code_ to inicjatywa, w której codzienne w trakcie adwentu publikowane są zadania do rozwiązania. W jednym z początkowych lat istnienia bloga wziąłem na tapetę zadania prezentowane w tym cyklu. 
+_Advent of Code_ to inicjatywa, w której codzienne w trakcie adwentu publikowane są zadania do rozwiązania. W jednym z początkowych lat istnienia bloga wziąłem na tapet zadania prezentowane w tym cyklu. 
 
 * [Advent of Code 2016 dzień 1]({% post_url 2016-12-03-advent-of-code-2016-dzien-1 %})
 * [Advent of Code 2016 dzień 2]({% post_url 2016-12-04-advent-of-code-2016-dzien-2 %})

@@ -2,8 +2,7 @@
 title: Początki pracy z wierszem poleceń
 last_modified_at: 2019-03-17 15:56:22 +0100
 categories:
-- Samouczek na rozmowie
-- Strefa zadaniowa
+- Programista rzemieślnik
 permalink: /poczatki-pracy-z-wierszem-polecen/
 header:
     teaser: /assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg
