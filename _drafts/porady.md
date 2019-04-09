@@ -115,3 +115,16 @@ boolean isZero(int number) {
 
 – czy z odcinków o długości 3, 4, 5 można zbudować trójkąt prostokątny? A z odcinków 5, 4, 3 ;)?
 
+
+Siemasz Wojtas!
+
+
+Kilka uwag, które przyszły mi do głowy po pobieżnym przejrzeniu kodu:
+– używaj <code>System.lineSeparator()</code>,
+– jesteś pewien, że wzory na pole/obwód trójkąta są w porządku?
+– używaj nawiasów <code>{}</code> nawet przy blokach zawierających jedną linię,
+– czy Twój algorytm sortowania bąbelkowego działa poprawnie?
+– tworząc tablice wielowymiarowe podawanie zagnieżdżonego wymiaru nie ma sensu,
+– stosuj się do konwencji nazewniczej (np. <code>plec</code> vs. <code>Plec</code>).
+
+Ogólnie nie jest źle, zabieraj się za testy jednostkowe :)
