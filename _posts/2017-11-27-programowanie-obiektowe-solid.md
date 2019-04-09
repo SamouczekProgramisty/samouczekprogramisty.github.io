@@ -290,7 +290,7 @@ W takim przypadku zmiana jednej z tych metod nie pociąga za sobą zmian w każd
 
 ### D jak oDwrócenie zależności
 
-D pochodzi od _Dependency Inversion Principle_. Wytyczna ta mówi, że wysokopoziomowe klasy nie powinny zleżeć od niskopoziomowych detali. Zależność ta powinna być odwrócona poprzez wprowadzenie dodatkowych elementów. Mówi się tu o dodatkowych warstwach abstrakcji, które pozwalają na zmianę kierunku takiej zależności.
+D pochodzi od _Dependency Inversion Principle_. Wytyczna ta mówi, że wysokopoziomowe klasy nie powinny zależeć od niskopoziomowych detali. Zależność ta powinna być odwrócona poprzez wprowadzenie dodatkowych elementów. Mówi się tu o dodatkowych warstwach abstrakcji, które pozwalają na zmianę kierunku takiej zależności.
 
 Osobiście ciężko było mi tę zasadę zrozumieć bez dobrego przykładu. Mam nadzieję, że ten przytoczony poniżej trochę Ci to ułatwi.
 
