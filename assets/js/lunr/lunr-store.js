@@ -609,6 +609,11 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/pierwszy-projekt-z-gradle/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/03/22_gradle_artykul.jpeg"},{
+        "title": "Granice wsparcia w rekrutacji",
+        "excerpt":"Dzisiaj będzie bardzo nietypowo. Nie jestem mistrzem pióra, dużo lepiej czuję się w technicznych tematach, jednak jest to dla mnie ważne i ciekaw jestem Twojego zdania. Dlatego zapraszam Cię do lektury i podzielenia się w komentarzu Twoją opinią na temat poruszany w treści artykułu. Początek Jakiś czas temu słuchałem jednego...","categories": [],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/granice-wsparcia-w-rekrutacji/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/04/09_granice_wsparcia_w_rekrutacji_artykul.jpeg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],
