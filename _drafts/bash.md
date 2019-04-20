@@ -111,6 +111,7 @@ total 1876
 ### `rsync`
 ### `sed`
 ### `ln`
+### `ss`
 
 Wspomniałem tu jedynie drobnym podzbiorze programów, sporo pominąłem. Starałem się uwzględnić wyłącznie te najważniejsze. Jeśli Twoim zdaniem lista nie zawiera jakiegoś bardzo ważnego programu, który pominąłem proszę daj znać w komentarzach. Postaram się to uzupełnić :).
 
