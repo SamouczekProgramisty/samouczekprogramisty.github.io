@@ -33,6 +33,10 @@ Zależy mi na tym, żeby materiały te traktować jako coś co pomoże Ci w popr
 * [Zadanie z rozmowy – znajdź brakujący element]({% post_url 2017-12-10-zadanie-znajdz-brakujacy-element %})
 * [Zadanie z rozmowy – czy liczba jest cykliczna]({% post_url 2018-02-16-zadanie-czy-liczba-jest-cykliczna %})
 * [Zadanie z rozmowy – zagnieżdżona struktura]({% post_url 2018-08-26-zadanie-zagniezdzona-struktura %})
+* [Zadanie z rozmowy – kalkulator]({% post_url 2018-11-12-zadanie-kalkulator %})
+* [Zadanie z rozmowy – łańcuchy białkowe]({% post_url 2019-02-25-zadanie-lancuchy-bialkowe %})
+
+Jakiś czas temu zastanawiałem się, czy bardziej nie zaszkodzę niż pomogę publikując gotowe rozwiązania. Moje przemyślenia na ten temat zebrałem w artykule opisującym [granice wsparcia w rekrutacji]({% post_url 2019-04-10-granice-wsparcia-w-rekrutacji %}).
 
 ## Co dalej?
 
