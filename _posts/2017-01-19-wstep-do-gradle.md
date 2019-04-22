@@ -1,6 +1,6 @@
 ---
 title: Wstęp do Gradle
-last_modified_at: 2019-02-13 23:16:19 +0100
+last_modified_at: 2019-04-22 23:38:06 +0200
 categories:
 - Programista rzemieślnik
 permalink: /wstep-do-gradle/
@@ -302,7 +302,7 @@ Kolejny blok specyfikuje zależności, domyślnie występuje tylko jedna zależn
 
 Po przeczytaniu artykułu dowiedziałeś się podstaw o Gradle. Wiesz już czym są zadania, jak łączyć je między sobą. Utworzyłeś swój pierwszy projekt w Gradle w IntelliJ IDEA. Przeczytałeś o konwencjach stosowanych w większych projektach programistycznych.
 
-Temat bynajmniej nie jest wyczerpany. W kolejnych artykułach, bez wstępu, któremu poświęcony jest ten artykuł skupię się na omawianiu bardziej zaawansowanych możliwości Gradle.
+Temat bynajmniej nie jest wyczerpany. W kolejnych artykułach, bez wstępu, któremu poświęcony jest ten artykuł skupię się na omawianiu bardziej zaawansowanych możliwości Gradle. Możesz na przykład zajrzeć do artykułu opisującego [pierwszy projekt z Gradle]({% post_url 2019-03-22-pierwszy-projekt-z-gradle %}).
 
 Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do mojego newslettera i polub Samouczka na Facebook'u.
 
