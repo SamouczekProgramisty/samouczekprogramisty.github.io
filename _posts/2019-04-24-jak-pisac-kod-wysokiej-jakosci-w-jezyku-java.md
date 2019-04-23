@@ -26,7 +26,7 @@ Zanim zacznę opisywać jakiekolwiek standardy muszę zaznaczyć jedną bardzo w
 
 Jeśli Twoim zdaniem ta konwencja jest bez sensu porozmawiaj o tym z innymi członkami zespołu. Każdy przypadek powinien być rozpatrywany indywidualnie, a konsensus może usprawiedliwić zmianę istniejącej konwencji.
 
-W języku Java obowiązuje konwencja nazewnicza. Kompilator nie będzie marudził jeśli kod, który napiszesz nie będzie jej przestrzegał. Będzie marudziła kolejna osoba, która z tym kodem będzie pracowała. W praktyce często jest tak, że raz napisany kod czytany jest wielokrotnie. Często przez kogoś innego niż autor. Stosowanie konwencji nazewniczej pozwala na łatwiejsze zorientowanie się w kodzie, z którym się pracuje.
+W języku Java „obowiązuje” konwencja nazewnicza. Kompilator nie będzie marudził jeśli kod, który napiszesz nie będzie jej przestrzegał. Będzie marudziła kolejna osoba, która z tym kodem będzie pracowała. W praktyce często jest tak, że raz napisany kod czytany jest wielokrotnie. Często przez kogoś innego niż autor. Stosowanie konwencji nazewniczej pozwala na łatwiejsze zorientowanie się w kodzie, z którym się pracuje.
 
 Mimo tego, że pisownia jest ważna to nie jest najważniejsza. Najbardziej istotne jest nadanie poszczególnym elementom dobrej nazwy. Pracuję w IT od 2007 roku, nadal nie potrafię tego robić dobrze. W branży IT panuje obiegowa opinia: 
 
@@ -68,7 +68,7 @@ enum URLSchema {
 
 #### Metody, parametry, atrybuty
 
-Metody w języku java zwykło się nazywać używając [camelCase](https://pl.wikipedia.org/wiki/CamelCase). Oznacza to tyle, że pierwsze słowo pisane jest małą literą. Każdy kolejny wyraz zaczyna się wielką literą. Przykładami poprawnych nazw mogą być:
+Metody w języku Java zwykło się nazywać używając [camelCase](https://pl.wikipedia.org/wiki/CamelCase). Oznacza to tyle, że pierwsze słowo pisane jest małą literą. Każdy kolejny wyraz zaczyna się wielką literą. Przykładami poprawnych nazw mogą być:
 
 ```java
 // correct
@@ -107,6 +107,8 @@ package pckg.pl;
 // correct
 package pl.samouczekprogramisty.kursjava.loops;
 ```
+
+{% include newsletter-srodek.md %}
 
 ### Formatowanie kodu
 
@@ -203,7 +205,7 @@ else {
 return !parameter;
 ```
 
-Warunki logiczne często urastają do sporych potworków. Jeśli zauważysz jeden z nich, który ma zawsze taką samą wartość warto uprościć takie wyrażenie. Dzięki temu kod będzie bardziej czytelny. W przykładzie poniżej zakładam, że `variableThatAlwaysIsNull` w wyniku różnych operacji ma wartość `null`:
+Warunki logiczne często urastają do sporych potworków. Jeśli zauważysz jeden z nich, który ma zawsze taką samą wartość warto uprościć takie wyrażenie. Dzięki temu kod będzie bardziej czytelny. W przykładzie poniżej zakładam, że `variableThatAlwaysIsNull` w wyniku różnych operacji zawsze ma wartość `null`:
 
 ```java
 // incorrect
@@ -463,7 +465,7 @@ Jest to ważne, bo może zdarzyć się tak, że intuicja nawet doświadczonych p
 
 ### Tworzenie nadmiarowych obiektów
 
-Im mniej obiektów, tym mniej zajętej pamięci. Jeśli możesz użyć obiektu wielokrotnie zrób to, nie ma sensu tworzyć nowej instancji dla każdego wywołania. Jednak tutaj sprawa trochę się komplikuje. Wszystko przez [wątki]({% post_url 2019-02-11-watki-w-jezyku-java %}) i współdzielenie instancji pomiędzy nimi. Jeśli instancja obiektu będzie współdzielona pomiędzy wątkami należy upewnić się, że kod jej klasy napisany jest w wielowątkowo bezpieczny sposób.
+Im mniej obiektów, tym mniej zajętej pamięci. Jeśli możesz użyć obiektu wielokrotnie zrób to, nie ma sensu tworzyć nowej instancji dla każdego wywołania. Tutaj sprawa trochę się komplikuje. Wszystko przez [wątki]({% post_url 2019-02-11-watki-w-jezyku-java %}) i współdzielenie instancji pomiędzy nimi. Jeśli instancja obiektu będzie współdzielona pomiędzy wątkami należy upewnić się, że kod jej klasy napisany jest w wielowątkowo bezpieczny sposób.
 
 Uproszczony przykład tworzenia nadmiarowej instancji:
 
@@ -495,7 +497,7 @@ Znajomość bibliotek i API przychodzi z czasem. Nie ma sensu uczyć się tego n
 
 ### `System.in`, `System.out`, `System.err`
 
-[`Scanner`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Scanner.html) jest bardzo często używany do pobierania danych od użytkownika. Jednym ze sposobów utworzenia instancji tej klasy jest przekazanie jej instancji [`InputStream`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/io/InputStream.html). Możesz na przykład użyć `System.in`. Proszę spójrz na przykład poniżej:
+Wspomniany wyżej [`Scanner`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Scanner.html) jest bardzo często używany do pobierania danych od użytkownika. Jednym ze sposobów utworzenia instancji tej klasy jest przekazanie jej instancji [`InputStream`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/io/InputStream.html). Możesz na przykład użyć `System.in`. Proszę spójrz na przykład poniżej:
 
 ```java
 // incorrect
@@ -574,23 +576,23 @@ class Postcode {
 
 ### Znajomość wbudowanych wyjątków
 
-Java dostarcza cały szereg gotowych klas wyjątków. Czasami nie ma sensu tworzenie własnego dedykowanego wyjątku – warto użyć jednego z istniejących. Dobrym przykładem jest użycie wyjątku [`IllegalArgumentException`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalArgumentException.html) jeśli chcesz zasygnalizować niepoprawny argument.
+Java dostarcza cały szereg gotowych klas [wyjątków]({% post_url 2016-01-31-wyjatki-w-jezyku-java %}). Czasami nie ma sensu tworzenie własnego dedykowanego wyjątku – warto użyć jednego z istniejących. Dobrym przykładem jest użycie wyjątku [`IllegalArgumentException`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalArgumentException.html) jeśli chcesz zasygnalizować niepoprawny argument.
 
 Dodatkowo ważne jest żeby rzucać wyjątki, które pasują do danej sytuacji. Na przykład rzucenie wyjątku [`IllegalStateException`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalStateException.html) w sytuacji gdy podano błędny argument nie jest najlepszym rozwiązaniem.
 
 ### `java.util.Date` i spółka
 
-Gdzie się da omijaj stare API do zarządzania datami szerokim łukiem. Na przykład instancje `java.util.Date` nie są wielowątkowo bezpieczne, API jest zagmatwane, obsługa stref czasowych wymaga więcej pracy.
+Gdzie tylko się da omijaj stare API do zarządzania datami szerokim łukiem. Na przykład instancje `java.util.Date` nie są wielowątkowo bezpieczne, API jest zagmatwane, obsługa stref czasowych wymaga więcej pracy.
 
 Skup się na poznaniu [`LocalDateTime`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/time/LocalDateTime.html) i jej podobnych.
 
 ### Konstrukcje języka
 
-Konstrukcje języka nie są związane z API a składnią jaką język oferuje. Java ewoluuje jak każdy język. W kolejnych wersjach wprowadza nowe elementy. Warto z nich korzystać. Za przykład mogą tu posłużyć [wyrażenia lambda](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalStateException.html), możliwość używania różnych typów w bloku `switch`, używanie `var`, konstrukcja [_try with resources_]({% post_url 2016-08-25-konstrukcja-try-with-resources-w-jezyku-java %}) i tak dalej ;).
+Konstrukcje języka nie są związane z API a składnią jaką język oferuje. Java ewoluuje jak każdy język. W kolejnych wersjach wprowadza nowe elementy. Warto z nich korzystać. Za przykład mogą tu posłużyć [wyrażenia lambda](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalStateException.html), wyrażenia `switch`, zmienne lokalne przy użyciu `var`, konstrukcja [_try with resources_]({% post_url 2016-08-25-konstrukcja-try-with-resources-w-jezyku-java %}) i tak dalej ;).
 
 ## Dodatkowe materiały do nauki
 
-Do tej pory nie nazwałem tego wprost. Wprowadzanie zmian, które nie modyfikują zachowania programu to tak zwana refaktoryzacja. Zacznij od przeczytania czym jest refaktoryzacja w [artykule na Wikipedii](https://pl.wikipedia.org/wiki/Refaktoryzacja). Później możesz sięgnąć po książkę [Refacttoring autorstwa Martin'a Fowler'a](https://martinfowler.com/articles/refactoring-2nd-ed.html). Pierwsza edycja zawiera przykłady w Javie, druga w JavaScript.
+Do tej pory nie nazwałem tego wprost. Wprowadzanie zmian, które nie modyfikują zachowania programu to tak zwana refaktoryzacja. Zacznij od przeczytania czym jest refaktoryzacja w [artykule na Wikipedii](https://pl.wikipedia.org/wiki/Refaktoryzacja). Później możesz sięgnąć po książkę [_Refactoring_ autorstwa Martin'a Fowler'a](https://martinfowler.com/articles/refactoring-2nd-ed.html). Pierwsza edycja zawiera przykłady w Javie, druga w JavaScript.
 
 Możesz też rzucić okiem na dość stary dokument opisujący [konwencja nazewnicza w języku Java](https://www.oracle.com/technetwork/java/codeconventions-150003.pdf). Opisuje on też zalecane formatowanie kodu.
 
