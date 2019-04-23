@@ -1,0 +1,1175 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Jak pisać kod wysokiej jakości w języku Java - Samouczek Programisty</title>
+<meta name="description" content="W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propozycjami ich poprawienia.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Jak pisać kod wysokiej jakości w języku Java">
+<meta property="og:url" content="https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/">
+
+
+  <meta property="og:description" content="W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propozycjami ich poprawienia.">
+
+
+
+  <meta property="og:image" content="https://www.samouczekprogramisty.pl/assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-04-24T00:00:00+02:00">
+
+
+
+  <meta property="article:modified_time" content="2019-04-24T00:37:30+02:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "https://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Jak pisać kod wysokiej jakości w języku Java
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propozycjami ich poprawienia.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://unsplash.com/photos/C7B-ExXpOIE">© Javier Allegue Barros</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Jak pisać kod wysokiej jakości w języku Java</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Jak pisać kod wysokiej jakości w języku Java">
+    <meta itemprop="description" content="W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propozycjami ich poprawienia.">
+    <meta itemprop="datePublished" content="April 24, 2019">
+    <meta itemprop="dateModified" content="April 24, 2019">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#ogólne-uwagi-dotyczące-kodu">Ogólne uwagi dotyczące kodu</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#konwencja-nazewnicza">Konwencja nazewnicza</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#typy">Typy</a></li>
+<li class="toc-entry toc-h4"><a href="#metody-parametry-atrybuty">Metody, parametry, atrybuty</a></li>
+<li class="toc-entry toc-h4"><a href="#stałe">Stałe</a></li>
+<li class="toc-entry toc-h4"><a href="#pakiety">Pakiety</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#formatowanie-kodu">Formatowanie kodu</a></li>
+<li class="toc-entry toc-h3"><a href="#bloki-z-jedną-linią">Bloki z jedną linią</a></li>
+<li class="toc-entry toc-h3"><a href="#flagi">Flagi</a></li>
+<li class="toc-entry toc-h3"><a href="#duplikacja-kodu">Duplikacja kodu</a></li>
+<li class="toc-entry toc-h3"><a href="#unikanie-zbędnych-zagnieżdżeń">Unikanie zbędnych zagnieżdżeń</a></li>
+<li class="toc-entry toc-h3"><a href="#metody-statyczne">Metody statyczne</a></li>
+<li class="toc-entry toc-h3"><a href="#import-">import *</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#projekt">Projekt</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#brak-systemu-kontroli-wersji">Brak systemu kontroli wersji</a></li>
+<li class="toc-entry toc-h3"><a href="#brak-testów-jednostkowych">Brak testów jednostkowych</a></li>
+<li class="toc-entry toc-h3"><a href="#zła-organizacja-kodu">Zła organizacja kodu</a></li>
+<li class="toc-entry toc-h3"><a href="#brak-standardowego-mechanizmu-budowania">Brak standardowego mechanizmu budowania</a></li>
+<li class="toc-entry toc-h3"><a href="#niestandardowa-struktura-projektu">Niestandardowa struktura projektu</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#martwy-kod">Martwy kod</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#kod-który-nigdy-nie-będzie-wykonany">Kod, który nigdy nie będzie wykonany</a></li>
+<li class="toc-entry toc-h3"><a href="#niepotrzebne-parametry-i-atrybuty">Niepotrzebne parametry i atrybuty</a></li>
+<li class="toc-entry toc-h3"><a href="#zbędne-metody">Zbędne metody</a></li>
+<li class="toc-entry toc-h3"><a href="#nieużywana-wartość-zwracana">Nieużywana wartość zwracana</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#wydajność">Wydajność</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#przedwczesna-optymalizacja">Przedwczesna optymalizacja</a></li>
+<li class="toc-entry toc-h3"><a href="#tworzenie-nadmiarowych-obiektów">Tworzenie nadmiarowych obiektów</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#znajomość-jdk">Znajomość JDK</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#systemin-systemout-systemerr">System.in, System.out, System.err</a></li>
+<li class="toc-entry toc-h3"><a href="#znak-końca-linii">Znak końca linii</a></li>
+<li class="toc-entry toc-h3"><a href="#kompilacja-wyrażenia-regularnego">Kompilacja wyrażenia regularnego</a></li>
+<li class="toc-entry toc-h3"><a href="#znajomość-wbudowanych-wyjątków">Znajomość wbudowanych wyjątków</a></li>
+<li class="toc-entry toc-h3"><a href="#javautildate-i-spółka">java.util.Date i spółka</a></li>
+<li class="toc-entry toc-h3"><a href="#konstrukcje-języka">Konstrukcje języka</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr>
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr>
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        <p>Powtórzę to po raz kolejny. Uważam, że nauka przez praktykę to najlepsze rozwiązanie. Właśnie z tego powodu artykuły na Samouczku bardzo często zawierają zadania z przykładowymi rozwiązaniami. Sporo Czytelników rozwiązuje te zadania prosząc później o spojrzenie na kod krytycznym okiem.</p>
+
+<p>Tego typu praktyka spotykana jest także w codziennej pracy programisty. Przeglądy kodu (ang. <em>code review</em>) to bardzo dobry sposób na poznawanie projektu i naukę. Najlepsze w tym wszystkim jest to, że uczy się zarówno osoba, która sprawdza kod jak i ta której kod jest sprawdzany.</p>
+
+<p>Na przestrzeni kilku lat prowadzenia Samouczka widziałem już różne przypadki. W tym artykule zbieram najczęściej popełniane błędy wraz z propozycją ich rozwiązania.</p>
+
+<p class="notice--info">Część proponowanych tu rozwiązań jest subiektywna. Nie jest poparta żadną specyfikacją czy dokładnym opisem „u źródła”. Masz prawo nie zgadzać się z moją opinią, z chęcią usłyszę Twój punkt widzenia w komentarzach.</p>
+
+<h2 id="ogólne-uwagi-dotyczące-kodu">Ogólne uwagi dotyczące kodu</h2>
+
+<h3 id="konwencja-nazewnicza">Konwencja nazewnicza</h3>
+
+<p>Zanim zacznę opisywać jakiekolwiek standardy muszę zaznaczyć jedną bardzo ważną rzecz. Jeśli w projekcie, z którym pracujesz istnieje już jakaś konwencja proponuję nadal ją stosować. Jeśli wejdziesz między wrony, musisz krakać jak i one.</p>
+
+<p>Jeśli Twoim zdaniem ta konwencja jest bez sensu porozmawiaj o tym z innymi członkami zespołu. Każdy przypadek powinien być rozpatrywany indywidualnie, a konsensus może usprawiedliwić zmianę istniejącej konwencji.</p>
+
+<p>W języku Java „obowiązuje” konwencja nazewnicza. Kompilator nie będzie marudził jeśli kod, który napiszesz nie będzie jej przestrzegał. Będzie marudziła kolejna osoba, która z tym kodem będzie pracowała. W praktyce często jest tak, że raz napisany kod czytany jest wielokrotnie. Często przez kogoś innego niż autor. Stosowanie konwencji nazewniczej pozwala na łatwiejsze zorientowanie się w kodzie, z którym się pracuje.</p>
+
+<p>Mimo tego, że pisownia jest ważna to nie jest najważniejsza. Najbardziej istotne jest nadanie poszczególnym elementom dobrej nazwy. Pracuję w IT od 2007 roku, nadal nie potrafię tego robić dobrze. W branży IT panuje obiegowa opinia:</p>
+
+<blockquote>
+  <p>There are only two hard things in Computer Science: cache invalidation and naming things.</p>
+</blockquote>
+
+<p>Istotne jest aby nazwy elementów (typów, parametrów, atrybutów, metod itd.) oddawały to co dany element zawiera/robi. Złe nazwy mogą wprowadzić w błąd, co może utrudnić zrozumienie kodu.</p>
+
+<h4 id="typy">Typy</h4>
+
+<p>Klasy, typy wyliczeniowe, interfejsy powinny być nazwane zgodnie z <a href="https://pl.wikipedia.org/wiki/PascalCase">PascalCase</a>. Oznacza to tyle, że nazwy powinny być jednym ciągiem znaków, w którym każde kolejne słowo zaczyna się od wielkiej litery. Dobrze, jeśli te nazwy są rzeczownikami. Problem jest z akronimami, nawet JDK nie zachowuje tu konwencji – część akronimów pisana jest wielkimi literami (na przykład <code class="highlighter-rouge">URL</code>), część używając PascalCase (na przykład <code class="highlighter-rouge">Http</code>). W tym przypadku proponuję Ci używanie pierwszego podejścia.</p>
+
+<p>Moim zdaniem przykłady poniżej pokazują nazwy, które można poprawić:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kd">class</span> <span class="nc">anonymousUser</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">Bus_driver</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="kd">enum</span> <span class="n">color</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Poprawnymi przykładami nazw mogą być:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">PageCollector</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="kd">enum</span> <span class="n">URLSchema</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="metody-parametry-atrybuty">Metody, parametry, atrybuty</h4>
+
+<p>Metody w języku Java zwykło się nazywać używając <a href="https://pl.wikipedia.org/wiki/CamelCase">camelCase</a>. Oznacza to tyle, że pierwsze słowo pisane jest małą literą. Każdy kolejny wyraz zaczyna się wielką literą. Przykładami poprawnych nazw mogą być:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kd">class</span> <span class="nc">CodeExecutor</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">snippet</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">returnCode</span><span class="o">;</span>
+
+    <span class="n">Future</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">executeAsynchronously</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// ...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="stałe">Stałe</h4>
+
+<p>Swego rodzaju wyjątkiem od reguły są stałe – atrybuty przypisane do klasy oznaczone słowem kluczowym <code class="highlighter-rouge">final</code>. Te powinny być pisane wyłącznie wielkimi literami używając <a href="https://en.wikipedia.org/wiki/Snake_case">SCREAMING_SNAKE_CASE</a>. Poszczególne słowa pisane wielkimi literami powinny być oddzielone symbolem <code class="highlighter-rouge">_</code>. Na przykład:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kd">class</span> <span class="nc">Temperature</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">BOILING_WATER_CELSIUS</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="pakiety">Pakiety</h4>
+
+<p>Mimo tego, że Java pozwala na używanie domyślnego pakietu (brak deklaracji <code class="highlighter-rouge">package</code>) nie jest to zalecane. Przyjęło się, że nazwa pakietu składa się z małych liter oddzielonych kropkami. Każdy z członów opisuje bardziej szczegółowo swoją zwartość.</p>
+
+<p>Przyjęło się, że pakiety mają postać „odwróconej domeny”:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kn">package</span> <span class="n">pckg</span><span class="o">.</span><span class="na">pl</span><span class="o">;</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kn">package</span> <span class="n">pl</span><span class="o">.</span><span class="na">samouczekprogramisty</span><span class="o">.</span><span class="na">kursjava</span><span class="o">.</span><span class="na">loops</span><span class="o">;</span>
+</code></pre></div></div>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2896 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h3 id="formatowanie-kodu">Formatowanie kodu</h3>
+
+<p>Nie chcę rozpoczynać świętej wojny. Niektórzy programiści bronią formatowania, do którego są przyzwyczajeni, jak niepodległości. Mam do tego bardziej pragmatyczne podejście. Używaj formatowania kodu. Niech IDE robi to za Ciebie, nie zastanawiaj się nad tym dopóki nie zacznie Ci ono przeszkadzać. Nie chcę się tu rozpisywać nad wyższością jednego formatowania nad drugim, to nie ma sensu. Istotne jest to, że brak formatowania kodu można traktować jako złą praktykę.</p>
+
+<p>Moim zdaniem dobrym podejściem jest włączenie automatycznego formatowania kodu w IDE<sup id="fnref:wyjatek"><a href="#fn:wyjatek" class="footnote">1</a></sup>. W zależności od tego jakiego IDE używasz ta akcja może być wykonywana na przykład przed każdym zapisem pliku czy przed każdym commit’em do repozytorium. Dzięki temu możesz w ogóle zapomnieć o formatowaniu i skupić się na innych rzeczach. IDE zrobi to za Ciebie.</p>
+
+<p>Istotne jest to, żeby wszystkie osoby, które pracują w danym projekcie używały spójnego formatowania kodu. Wachlowanie się commit’ami, które polegają tylko na zmianach w formatowaniu kodu nie jest dobrym pomysłem. Formatowanie kodu to konwencja, która musi być ustalona wspólnie przez cały zespół i konsekwentnie stosowana.</p>
+
+<h3 id="bloki-z-jedną-linią">Bloki z jedną linią</h3>
+
+<p>Język Java pozwala na opuszczanie nawiasów <code class="highlighter-rouge">{ }</code> jeśli blok ma jedną linię. Tego typu konstrukcja może być na przykład użyta po warunku <code class="highlighter-rouge">if</code> czy pętli. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">activeUser</span><span class="o">.</span><span class="na">isAnAdmin</span><span class="o">())</span>
+    <span class="n">allowedActions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Action</span><span class="o">.</span><span class="na">DELETION</span><span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Some log message"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Moim zdaniem to bardzo zła praktyka. Może prowadzić do trudnych do znalezienia błędów. Co jeśli tylko użytkownik, który jest administratorem powinien móc dokonywać modyfikacji? Ktoś mógłby wprowadzić drobną zmianę:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">activeUser</span><span class="o">.</span><span class="na">isAnAdmin</span><span class="o">())</span>
+    <span class="n">allowedActions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Action</span><span class="o">.</span><span class="na">DELETION</span><span class="o">);</span>
+    <span class="n">allowedActions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Action</span><span class="o">.</span><span class="na">MODIFICATION</span><span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Some log message"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Problem polega na tym, że taki fragment kodu powoduje, że każdy użytkownik mógłby wykonać modyfikację. Dlatego nawet przy jednoliniowych blokach należy używać nawiasów:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">activeUser</span><span class="o">.</span><span class="na">isAnAdmin</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">allowedActions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Action</span><span class="o">.</span><span class="na">DELETION</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Some log message"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="flagi">Flagi</h3>
+
+<p>Na początku mojej przygody z programowaniem pracowałem w Eurobanku. Nie zapomnę do końca życia strony w intranecie opisującej „kwiatki w kodzie”. Kwiatki w kodzie czyli radosną twórczość programistów, która po dłuższym zastanowieniu nie ma sensu. Dość dużą część tej strony zajmowały przykłady kodu z wyrażeniami logicznymi.</p>
+
+<p>Proszę spójrz na kilka złych przykładów wraz z propozycjami jak można je poprawić:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kt">boolean</span> <span class="n">parameter</span> <span class="o">=</span> <span class="c1">// ...</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">parameter</span> <span class="o">==</span> <span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kt">boolean</span> <span class="n">parameter</span> <span class="o">=</span> <span class="c1">// ...</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">parameter</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Podobnie wyglądać może sytuacja z odwróceniem warunku</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">parameter</span> <span class="o">==</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">parameter</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Spotkałem się też z uzależnieniem wartości zwracanej od zmiennej typu <code class="highlighter-rouge">boolean</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">parameter</span> <span class="o">==</span> <span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="k">else</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="k">return</span> <span class="o">!</span><span class="n">parameter</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Warunki logiczne często urastają do sporych potworków. Jeśli zauważysz jeden z nich, który ma zawsze taką samą wartość warto uprościć takie wyrażenie. Dzięki temu kod będzie bardziej czytelny. W przykładzie poniżej zakładam, że <code class="highlighter-rouge">variableThatAlwaysIsNull</code> w wyniku różnych operacji zawsze ma wartość <code class="highlighter-rouge">null</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="n">Object</span> <span class="n">variableThatAlwaysIsNull</span> <span class="o">=</span> <span class="n">methodAlwaysReturningNull</span><span class="o">();</span>
+<span class="kt">boolean</span> <span class="n">someMagicFlag</span> <span class="o">=</span> <span class="c1">// ...</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">variableThatAlwaysIsNull</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">someMagicFlag</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kt">boolean</span> <span class="n">someMagicFlag</span> <span class="o">=</span> <span class="c1">// ...</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">someMagicFlag</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Spotkałem się też z kodem tego typu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">someMagicFlag</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span>
+<span class="k">else</span> <span class="o">{</span>
+    <span class="c1">// code to execute</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Blok <code class="highlighter-rouge">if</code> nie zawierał żadnej linijki. Kod do wykonania znajdował się wewnątrz bloku <code class="highlighter-rouge">else</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">someMagicFlag</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// code to execute</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Przykłady tego typu można mnożyć. Ważne, żeby zwracać uwagę na wyrażenia logiczne – bardzo często można je uprościć. Jeśli nie znasz <a href="https://pl.wikipedia.org/wiki/Prawa_De_Morgana">praw De Morgana</a>, to najwyższy czas je poznać ;).</p>
+
+<h3 id="duplikacja-kodu">Duplikacja kodu</h3>
+
+<p>Jakiś czas temu pisałem o <a href="/jakosc-kodu-a-oschle-pocalunki-jagny/">regule <em>Don’t Repeat Yourself</em></a>. Można ją zastosować na wielu poziomach. Jednym z nich jest kod źródłowy programu. Duplikacja w kodzie jest zła. Należy ją eliminować (jestem gorącym zwolennikiem usuwania kodu). Poniższy przykład pokazuje duplikację w bardzo wąskim zakresie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kd">class</span> <span class="nc">MagicNumber</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEven</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isOdd</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kd">class</span> <span class="nc">MagicNumber</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEven</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isOdd</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">!</span><span class="n">isEven</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="unikanie-zbędnych-zagnieżdżeń">Unikanie zbędnych zagnieżdżeń</h3>
+
+<p>Moim zdaniem unikanie zbędnych zagnieżdżeń jest dobre. Mam tu na myśli pomijanie bloku <code class="highlighter-rouge">else</code>, jeśli kod wewnątrz bloku <code class="highlighter-rouge">if</code> na pewno zakończy działanie metody. Może się tak stać na przykład w sytuacji kiedy wewnątrz bloku <code class="highlighter-rouge">if</code> znajduje się <code class="highlighter-rouge">return</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// „incorrect”</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">someFlag</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// return/throw/break/continue</span>
+<span class="o">}</span>
+<span class="k">else</span> <span class="o">{</span>
+    <span class="c1">// something else</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Moim zdaniem pomięcie <code class="highlighter-rouge">else</code> poprawia czytelność:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">someFlag</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// return/throw/break/continue</span>
+<span class="o">}</span>
+<span class="c1">// something else</span>
+</code></pre></div></div>
+
+<h3 id="metody-statyczne">Metody statyczne</h3>
+
+<p>Metody statyczne są przypisane do klasy. Moim zdaniem warto o tym pamiętać i wywoływać metody statyczne posługując się klasą a nie jej instancją:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="n">SomeClass</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SomeClass</span><span class="o">();</span>
+<span class="n">instance</span><span class="o">.</span><span class="na">staticMethod</span><span class="o">();</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="n">SomeClass</span><span class="o">.</span><span class="na">staticMethod</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="import-"><code class="highlighter-rouge">import *</code></h3>
+
+<p>Kolejny subiektywny punkt. Nie podchodzą mi klasy/metody statyczne importowane przy pomocy <code class="highlighter-rouge">*</code>. Pewnie wynika to trochę z filozofii jaką proponuje Python –  <a href="https://www.python.org/dev/peps/pep-0020/"><em>explicit is better than implicit</em></a>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Math</span><span class="o">.*;</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Math</span><span class="o">.</span><span class="na">pow</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h2 id="projekt">Projekt</h2>
+
+<p>Problemy i złe praktyki na poziomie poszczególnych plików to czubek góry lodowej. Pod spodem kryją się większe problemy. Problemy związane z podejściem do samego projektu.</p>
+
+<h3 id="brak-systemu-kontroli-wersji">Brak systemu kontroli wersji</h3>
+
+<p>Piszesz kod bez używania systemu kontroli wersji? Robisz błąd. System kontroli wersji jest narzędziem niezbędnym w pracy każdego programisty. Polecam Ci <a href="https://www.samouczekprogramisty.pl/kurs-git/">Git’a</a>, który moim zdaniem jest standardem w branży.</p>
+
+<h3 id="brak-testów-jednostkowych">Brak testów jednostkowych</h3>
+
+<p>Piszesz kod bez testów jednostkowych? Robisz błąd. Moim zdaniem automatyczne testy jednostkowe w wielu przypadkach są niezbędne. Nie będę się tu rozwodził nad tematyką testów. Zachęcam Cię do przeczytania artykułów:</p>
+
+<ul>
+  <li><a href="/testy-jednostkowe-z-junit/">Wprowadzenie do tematyki testów jednostkowych na przykładzie JUnit4</a> – jeśli nigdy nie udało Ci się pracować z testami zacznij od tego artykułu,</li>
+  <li><a href="/testy-jednostkowe-z-junit5/">Opis biblioteki JUnit5</a> – ten artykuł opisuje bibliotekę JUnit5,</li>
+  <li><a href="/test-driven-development-na-przykladzie/">Test Driven Development</a> – jak poznasz już bibliotekę do pisania testów czas zabrać się za TDD.</li>
+</ul>
+
+<h3 id="zła-organizacja-kodu">Zła organizacja kodu</h3>
+
+<p>Na ten temat powstają mądre książki. Dobrym początkiem będzie zapoznanie się z zasadami <a href="/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/">SOLID</a> i ich świadome stosowanie w pracy z kodem.</p>
+
+<h3 id="brak-standardowego-mechanizmu-budowania">Brak standardowego mechanizmu budowania</h3>
+
+<p>W idealnym świecie zbudowanie projektu powinno składać się z dwóch etapów:</p>
+
+<ol>
+  <li>Pobrania źródeł projektu, na przykład z <a href="https://www.samouczekprogramisty.pl/kurs-git/">repozytorium Git’a</a>,</li>
+  <li>Uruchomienia narzędzia do budowania, które na podstawie plików konfiguracyjnych zbuduje projekt.</li>
+</ol>
+
+<p>Oba etapy powinny działać niezależnie od środowiska programisty. Drugi punkt rozwiązywany jest przez narzędzia takie jak Maven, Make, Rake, Gradle, Ant, Grunt itp. Jeśli do tej pory nie udało Ci się pracować z narzędziami tego typu zachęcam Cię do zajrzenia do artykułów opisujących Gradle:</p>
+
+<ul>
+  <li><a href="/wstep-do-gradle/">Wstęp do Gradle</a>,</li>
+  <li><a href="/pierwszy-projekt-z-gradle/">Pierwszy projekt z Gradle</a>.</li>
+</ul>
+
+<h3 id="niestandardowa-struktura-projektu">Niestandardowa struktura projektu</h3>
+
+<p>Organizacja plików w projekcie jest ważna. Podobnie jak z nazewnictwem czy formatowaniem kodu istnieje pewna konwencja, która pozwala na szybkie zorientowanie się w strukturze projektu. Niejako powiązane z tym tematem jest używanie narzędzie wspomagającego budowanie projektu, które „narzucają” używanie pewnych konwencji. Standardową strukturę projektu opisałem we <a href="/wstep-do-gradle/">wstępie do Gradle</a>.</p>
+
+<h2 id="martwy-kod">Martwy kod</h2>
+
+<p>Historia w repozytorium jest od tego, żeby pamiętać co działo się w projekcie. Fragmenty kodu w komentarzu, które „może kiedyś się przydadzą” moim zdaniem powinny od razu wylecieć w kosmos. Nie są potrzebne, jedynie zaciemniają obraz.</p>
+
+<p>Kilka poniższych podpunktów opisuje różne przypadki, które można podsumować w jednym zdaniu: nie jest sztuką napisać dużo kodu, sztuką jest napisać jak najmniej czytelnego i zrozumiałego kodu, który robi to samo. Jeśli masz możliwość usunięcia czegoś, co nie jest używane zrób to! :) Mniej kodu oznacza mniej potencjalnych błędów. Mniej kodu, to niższy koszt jego utrzymania<sup id="fnref:czytelny"><a href="#fn:czytelny" class="footnote">2</a></sup>.</p>
+
+<p>Często jest tak, że fragmenty martwego kodu narastają z czasem – wynikają z kilku zmian wprowadzonych na przestrzeni życia projektu. Odwaga do usuwania danej linijki kodu jest odwrotnie proporcjonalna do jej wieku ;).</p>
+
+<h3 id="kod-który-nigdy-nie-będzie-wykonany">Kod, który nigdy nie będzie wykonany</h3>
+
+<p>Ten punkt jest powiązany z flagami, które poruszałem wcześniej. Po uproszczeniu warunków logicznych możesz czasami zauważyć, że dotarcie do pewnych fragmentów kodu jest po prostu niemożliwe. W podstawowych przypadkach IDE potrafi pokazać takie fragmenty kodu jako martwe. Dobrym pomysłem jest usunięcie śmieci tego typu.</p>
+
+<h3 id="niepotrzebne-parametry-i-atrybuty">Niepotrzebne parametry i atrybuty</h3>
+
+<p>Widzisz metodę, która ma nieużywany parametr? Zastanów się czy możesz go usunąć. Jeśli tak, to wiesz co masz zrobić ;). Podobną regułę trzeba stosować przy atrybutach klas.</p>
+
+<p>Zwróć szczególną uwagę na zmianę sygnatury metody. Tego typu zmiany mogą prowadzić do „dziwnych zachowań”. Mam tu na myśli sytuację, w której metoda nadpisywała inną w klasie bazowej. Tu drobne ćwiczenie dla Ciebie – czym może skończyć się takie usunięcie parametru?</p>
+
+<p>Usuwanie atrybutów, to też coś co wymaga pewnej analizy. W zależności od <a href="/modyfikatory-dostepu-w-jezyku-java/">modyfikatora dostępu</a> może, ale nie musi, łamać kompatybilność wsteczną.</p>
+
+<h3 id="zbędne-metody">Zbędne metody</h3>
+
+<p>Nie zrozum mnie źle. Uważam, że nieduże metody są dobre. Jednak także i tutaj trzeba zachować zdrowy rozsądek. Proszę spójrz na przykład poniżej, używa on klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Math.html"><code class="highlighter-rouge">Math</code></a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kt">double</span> <span class="nf">someVeryImportantCalculation</span><span class="o">(</span><span class="kt">double</span> <span class="n">argument0</span><span class="o">,</span> <span class="kt">double</span> <span class="n">argument1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">argument0</span> <span class="o">+</span> <span class="n">sqrt</span><span class="o">(</span><span class="n">argument1</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kt">double</span> <span class="nf">sqrt</span><span class="o">(</span><span class="kt">double</span> <span class="n">argument</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span><span class="n">argument</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Moim zdaniem w tym przypadku wprowadzenie metody <code class="highlighter-rouge">sqrt</code> nic nie wnosi. Równie dobrze w miejscu jej wywołania można byłoby użyć <code class="highlighter-rouge">Math.sqrt</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kt">double</span> <span class="nf">someVeryImportantCalculation</span><span class="o">(</span><span class="kt">double</span> <span class="n">argument0</span><span class="o">,</span> <span class="kt">double</span> <span class="n">argument1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">argument0</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span><span class="n">argument1</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="nieużywana-wartość-zwracana">Nieużywana wartość zwracana</h3>
+
+<p>Widziałem przypadki, w których metoda wywoływana dla efektów ubocznych<sup id="fnref:uboczne"><a href="#fn:uboczne" class="footnote">3</a></sup> zwracała wartość. Ta zwrócona wartość nie była w ogóle wykorzystywana. Moim zdaniem warto uprościć taką metodę usuwając wartość zwracaną:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="nf">login</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">callingExternalServiceToLogin</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">LoginException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// handling exception</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="s">"logged in"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">login</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">callingExternalServiceToLogin</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">LoginException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// handling exception</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="wydajność">Wydajność</h2>
+
+<h3 id="przedwczesna-optymalizacja">Przedwczesna optymalizacja</h3>
+
+<p>Tutaj nie mam przykładu z zadań na blogu, jednak nadal warto wspomnieć o tym błędzie. W świecie programistów panuje przekonanie, że „przedwczesna optymalizacja jest źródłem całego zła”<sup id="fnref:knuth"><a href="#fn:knuth" class="footnote">4</a></sup>. Podpisuję się pod tym obiema rękami. Kompilator Java jest na tyle zaawansowany, że potrafi zrobić cuda, tak żeby nasz kod był bardziej wydajny.</p>
+
+<p>Zacznij od pisania zrozumiałego i czytelnego kodu. Dopiero gdy zauważysz, że pojawiają się problemy wydajnościowe wprowadzaj optymalizacje. Istotne jest żeby wprowadzać takie zmiany na podstawie twardych dowodów – przeprowadzonych testów wydajnościowych.</p>
+
+<p>Jest to ważne, bo może zdarzyć się tak, że intuicja nawet doświadczonych programistów nie sprawdza się w praktyce. Przez co wprowadzona optymalizacja ma znikomy (zerowy?) wpływ na wydajność, a sprawia, że kod jest zupełnie niezrozumiały.</p>
+
+<h3 id="tworzenie-nadmiarowych-obiektów">Tworzenie nadmiarowych obiektów</h3>
+
+<p>Im mniej obiektów, tym mniej zajętej pamięci. Jeśli możesz użyć obiektu wielokrotnie zrób to, nie ma sensu tworzyć nowej instancji dla każdego wywołania. Tutaj sprawa trochę się komplikuje. Wszystko przez <a href="/watki-w-jezyku-java/">wątki</a> i współdzielenie instancji pomiędzy nimi. Jeśli instancja obiektu będzie współdzielona pomiędzy wątkami należy upewnić się, że kod jej klasy napisany jest w wielowątkowo bezpieczny sposób.</p>
+
+<p>Uproszczony przykład tworzenia nadmiarowej instancji:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kd">class</span> <span class="nc">UserInput</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span> <span class="n">prompt</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">prompt</span><span class="o">);</span>
+        <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">scanner</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kd">class</span> <span class="nc">UserInput</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span> <span class="n">prompt</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">prompt</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">scanner</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="znajomość-jdk">Znajomość JDK</h2>
+
+<p>Znajomość bibliotek i API przychodzi z czasem. Nie ma sensu uczyć się tego na pamięć. Poniżej zebrałem najczęściej spotykane błędy powiązane z klasami dostarczonym wraz z JDK.</p>
+
+<h3 id="systemin-systemout-systemerr"><code class="highlighter-rouge">System.in</code>, <code class="highlighter-rouge">System.out</code>, <code class="highlighter-rouge">System.err</code></h3>
+
+<p>Wspomniany wyżej <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Scanner.html"><code class="highlighter-rouge">Scanner</code></a> jest bardzo często używany do pobierania danych od użytkownika. Jednym ze sposobów utworzenia instancji tej klasy jest przekazanie jej instancji <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/io/InputStream.html"><code class="highlighter-rouge">InputStream</code></a>. Możesz na przykład użyć <code class="highlighter-rouge">System.in</code>. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span><span class="o">(</span><span class="n">Scanner</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">next</span><span class="o">());</span>
+    <span class="o">}</span>
+    <span class="k">try</span><span class="o">(</span><span class="n">Scanner</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">next</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Ten kod jest zły z dwóch powodów. Pierwszy to wyżej wspomniane tworzenie dwóch instancji klasy <code class="highlighter-rouge">Scanner</code>, w tym przypadku spokojne wystarczy jeden obiekt i jego użycie wiele razy. Drugim, poważniejszym błędem jest zamykanie <code class="highlighter-rouge">System.in</code>. Dzieje się tak, ponieważ po wyjściu z bloku <a href="/konstrukcja-try-with-resources-w-jezyku-java/"><em>try with resources</em></a> na instancji <code class="highlighter-rouge">s</code> wywoływana jest metoda <code class="highlighter-rouge">close</code>. Powoduje to zamknięcie <code class="highlighter-rouge">System.in</code>. W ramach ćwiczenia uruchom powyższy kod i zobacz jaki będzie jego efekt.</p>
+
+<p>Nie jest to dobra praktyka. To wirtualna maszyna Javy otwiera ten strumień i to ona jest odpowiedzialna za jego zamknięcie. Sprawa wygląda podobnie w przypadku strumieni <code class="highlighter-rouge">System.out</code> czy <code class="highlighter-rouge">System.err</code>.</p>
+
+<p>Jeśli chcesz przeczytać więcej o stdout, stderr i stdin w trochę innym kontekście zapraszam do przeczytania artykułu opisującego <a href="/poczatki-pracy-z-wierszem-polecen/#standardowe-wej%C5%9Bcie-i-wyj%C5%9Bcie">początki pracy z linią poleceń</a>.</p>
+
+<p>Poniżej możesz zobaczyć poprawiony fragment kodu:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Scanner</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">next</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">next</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="znak-końca-linii">Znak końca linii</h3>
+
+<p>Java pozwala tworzyć programy, które mogą być uruchamiane na różnych systemach operacyjnych. Żeby programy te działały w pełni poprawnie trzeba brać pod uwagę różnice, które występują pomiędzy nimi.</p>
+
+<p>Sztandarowym przykładem jest tutaj znak końca linii. W zależności od systemu operacyjnego inny ciąg znaków odpowiedzialny jest za łamanie linii. Poniższy przykład pokazuje błąd i jego rozwiązanie:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This is a list:\n- item."</span><span class="o">);</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This is a list:"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">()</span> <span class="o">+</span> <span class="s">"- item."</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="kompilacja-wyrażenia-regularnego">Kompilacja wyrażenia regularnego</h3>
+
+<p><a href="/wyrazenia-regularne-w-jezyku-java/">Wyrażenia regularne</a> i <a href="/wyrazenia-regularne-czesc-2/">bardziej zaawansowane wyrażenia regularne</a> były już poruszane na blogu.</p>
+
+<p>Tutaj chciałbym zwrócić na jeden drobny szczegół. Proszę rzuć okiem na kod poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// incorrect</span>
+<span class="kd">class</span> <span class="nc">Postcode</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="n">String</span> <span class="n">postcode</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Pattern</span> <span class="n">postcodePattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"^\\d{2}-\\d{3}$"</span><span class="o">);</span>
+        <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">postcodePattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">postcode</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Kompilacja wyrażenia regularnego jest procesem długotrwałym. Jeśli jest taka możliwość to warto wykonywać tę czynność tylko raz:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// correct</span>
+<span class="kd">class</span> <span class="nc">Postcode</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Pattern</span> <span class="n">PATTERN</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"^\\d{2}-\\d{3}$"</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="n">String</span> <span class="n">postcode</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">PATTERN</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">postcode</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="znajomość-wbudowanych-wyjątków">Znajomość wbudowanych wyjątków</h3>
+
+<p>Java dostarcza cały szereg gotowych klas <a href="/wyjatki-w-jezyku-java/">wyjątków</a>. Czasami nie ma sensu tworzenie własnego dedykowanego wyjątku – warto użyć jednego z istniejących. Dobrym przykładem jest użycie wyjątku <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalArgumentException.html"><code class="highlighter-rouge">IllegalArgumentException</code></a> jeśli chcesz zasygnalizować niepoprawny argument.</p>
+
+<p>Dodatkowo ważne jest żeby rzucać wyjątki, które pasują do danej sytuacji. Na przykład rzucenie wyjątku <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalStateException.html"><code class="highlighter-rouge">IllegalStateException</code></a> w sytuacji gdy podano błędny argument nie jest najlepszym rozwiązaniem.</p>
+
+<h3 id="javautildate-i-spółka"><code class="highlighter-rouge">java.util.Date</code> i spółka</h3>
+
+<p>Gdzie tylko się da omijaj stare API do zarządzania datami szerokim łukiem. Na przykład instancje <code class="highlighter-rouge">java.util.Date</code> nie są wielowątkowo bezpieczne, API jest zagmatwane, obsługa stref czasowych wymaga więcej pracy.</p>
+
+<p>Skup się na poznaniu <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/time/LocalDateTime.html"><code class="highlighter-rouge">LocalDateTime</code></a> i jej podobnych.</p>
+
+<h3 id="konstrukcje-języka">Konstrukcje języka</h3>
+
+<p>Konstrukcje języka nie są związane z API a składnią jaką język oferuje. Java ewoluuje jak każdy język. W kolejnych wersjach wprowadza nowe elementy. Warto z nich korzystać. Za przykład mogą tu posłużyć <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalStateException.html">wyrażenia lambda</a>, wyrażenia <code class="highlighter-rouge">switch</code>, zmienne lokalne przy użyciu <code class="highlighter-rouge">var</code>, konstrukcja <a href="/konstrukcja-try-with-resources-w-jezyku-java/"><em>try with resources</em></a> i tak dalej ;).</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Do tej pory nie nazwałem tego wprost. Wprowadzanie zmian, które nie modyfikują zachowania programu to tak zwana refaktoryzacja. Zacznij od przeczytania czym jest refaktoryzacja w <a href="https://pl.wikipedia.org/wiki/Refaktoryzacja">artykule na Wikipedii</a>. Później możesz sięgnąć po książkę <a href="https://martinfowler.com/articles/refactoring-2nd-ed.html"><em>Refactoring</em> autorstwa Martin’a Fowler’a</a>. Pierwsza edycja zawiera przykłady w Javie, druga w JavaScript.</p>
+
+<p>Możesz też rzucić okiem na dość stary dokument opisujący <a href="https://www.oracle.com/technetwork/java/codeconventions-150003.pdf">konwencja nazewnicza w języku Java</a>. Opisuje on też zalecane formatowanie kodu.</p>
+
+<p>W treści artykułu wspomniałem o <a href="https://pl.wikipedia.org/wiki/Prawa_De_Morgana">prawach De Morgana</a>. To podstawa, jak już je poznasz warto poczytać więcej o <a href="https://pl.wikipedia.org/wiki/Algebra_Boole%E2%80%99a">algebrze Boole’a</a> i wzorach pozwalających na upraszczanie wyrażeń logicznych.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Moją motywacją do napisania tego artykułu było zebranie w jednym miejscu błędów i propozycji ich rozwiązania. Temat bynajmniej nie jest wyczerpany. Większość z tych punktów można rozbudować podając więcej przykładów.</p>
+
+<p>Jednak nawet w obecnej formie artykuł pokazał Ci większość klas „podstawowych błędów”. Po jego lekturze wiesz jak można je poprawić. Stosując się do zaleceń, które tu zebrałem Twój kod będzie na pewno wyższej jakości. Z góry gratuluję ;).</p>
+
+<p>Jeśli znasz kogoś dla kogo ten artykuł byłby pomocny proszę podziel się linkiem. Dzięki temu pomożesz mi dotrzeć do nowych Czytelników, za co od razu bardzo dziękuję!</p>
+
+<p>Jeśli nie chcesz pomiąć kolejnych artykułów polub <a href="https://www.facebook.com/SamouczekProgramisty/">Samouczka na Facebooku</a> i dopisz się do samouczkowego newslettera. To tyle na dzisiaj, trzymaj się i do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:wyjatek">
+      <p>Potrafię sobie wyobrazić wyjątki od tej reguły. Załóżmy, że pracujesz nad projektem, który nie jest pierwszej młodości. Znajdują się w nim pliki mające kilka lat i kilka tysięcy linii. Musisz poprawić błąd, który sprowadza się do zmiany kilku linijek. Łączenie tej zmiany z formatowaniem całego pliku przeważnie nie jest dobrym pomysłem. <a href="#fnref:wyjatek" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:czytelny">
+      <p>Jak napisałem wcześniej – zakładam, że kod jest napisany w sposób czytelny i zrozumiały. Nie chodzi mi tu o sytuację, w której używasz jednoliterowych nazw metod, żeby „było mniej kodu”. <a href="#fnref:czytelny" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:uboczne">
+      <p>Abstrahując od tego czy metody posiadające efekty uboczne są w porządku czy nie. <a href="#fnref:uboczne" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:knuth">
+      <p>Cytat pochodzi z książki autorstwa <a href="https://en.wikiquote.org/wiki/Donald_Knuth#Computer_Programming_as_an_Art_(1974)">Donalda Knuth’a</a>. <a href="#fnref:knuth" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2896 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-04-24">2019-04-24</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+        <hr />
+        <p>
+          Nie popełnia błędów tylko ten, kto nic nie robi ;). Bardzo możliwe, że znajdziesz błąd, literówkę, coś co wymaga poprawy. Jeśli chcesz możesz samodzielnie 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/edit/source/_posts/2019-04-24-jak-pisac-kod-wysokiej-jakosci-w-jezyku-java.md">poprawić tę stronę</a>. Jeśli nie chcesz poprawiać błędu, który udało Ci się znaleźć będę wdzięczny jeśli go 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/issues/new?title=Błąd%20na%20stronie:%20_posts/2019-04-24-jak-pisac-kod-wysokiej-jakosci-w-jezyku-java.md">zgłosisz</a>. Z góry dziękuję!
+        </p>
+      </footer>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/watki-w-jezyku-java/" rel="permalink">Wątki w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/zmiana-branzy-zostan-programista/" rel="permalink">Zmiana branży – zostań programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  25 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Na rynku IT brakuje pracowników. Uczelnie nie nadążają z dostarczaniem nowych specjalistów. Popyt znacząco przewyższa podaż przez co rynek IT jest rynkiem pr...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/10/29_testy_jednostkowe_junit_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/testy-jednostkowe-z-junit/" rel="permalink">Testy jednostkowe z JUnit
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz pods...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  15 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="https://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>

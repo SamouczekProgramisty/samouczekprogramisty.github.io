@@ -614,6 +614,11 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/granice-wsparcia-w-rekrutacji/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/04/09_granice_wsparcia_w_rekrutacji_artykul.jpeg"},{
+        "title": "Jak pisać kod wysokiej jakości w języku Java",
+        "excerpt":"Powtórzę to po raz kolejny. Uważam, że nauka przez praktykę to najlepsze rozwiązanie. Właśnie z tego powodu artykuły na Samouczku bardzo często zawierają zadania z przykładowymi rozwiązaniami. Sporo Czytelników rozwiązuje te zadania prosząc później o spojrzenie na kod krytycznym okiem. Tego typu praktyka spotykana jest także w codziennej pracy programisty....","categories": [],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],
