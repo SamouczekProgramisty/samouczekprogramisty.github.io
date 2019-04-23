@@ -1,6 +1,6 @@
 ---
 title: Jak pisać kod wysokiej jakości w języku Java
-last_modified_at: 2019-04-10 05:01:13 +0200
+last_modified_at: 2019-04-24 00:37:30 +0200
 permalink: /jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/
 header:
     teaser: /assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg
