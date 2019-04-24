@@ -316,7 +316,7 @@ instance.staticMethod();
 ```
 
 ```java
-// incorrect
+// correct
 SomeClass.staticMethod();
 ```
 
@@ -330,7 +330,7 @@ import static java.lang.Math.*;
 ```
 
 ```java
-// incorrect
+// correct
 import static java.lang.Math.sqrt;
 import static java.lang.Math.pow;
 ```
