@@ -1,5 +1,17 @@
+---
+title: Praca z wierszem poleceń
+last_modified_at: 2019-03-17 15:56:22 +0100
+categories:
+- Programista rzemieślnik
+permalink: /praca-z-wierszem-polecen/
+header:
+    teaser: /assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg
+    overlay_image: /assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg
+    caption: "[&copy; Arie Wubben](https://unsplash.com/photos/MHIw0nSxCR4)"
+excerpt: TODO
+---
 
-{% capture text_soure_notice %}
+{% capture text_source_notice %}
 W treści artykułu będę używał plików z lekturami dostępnymi na stronie (https://wolnelektury.pl/). Możesz je ściągnąć w konsoli używając takiego skryptu:
 
 ```bash
