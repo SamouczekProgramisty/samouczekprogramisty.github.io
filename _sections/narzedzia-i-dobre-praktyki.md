@@ -47,9 +47,10 @@ Jak poznasz już bibliotekę pomagającą w pisaniu testów jednostkowych koniec
 
 ### Wzorce projektowe
 
-Nie bez znaczenia są także wzorce projektowe. Na blogu opisałem kilka z nich. Artykuły poniżej zawierają dokładny opis, przykłady zastosowania i implementację poszczególnych wzorców projektowych
+Nie bez znaczenia są także wzorce projektowe. Na blogu opisałem kilka z nich. Artykuły poniżej zawierają dokładny opis, przykłady zastosowania i implementację poszczególnych wzorców projektowych:
 
 * [Wzorzec projektowy adapter]({% post_url 2019-01-26-wzorzec-projektowy-adapter %})
+* [Wzorzec projektowy obserwator]({% post_url 2019-05-02-wzorzec-projektowy-obserwator %})
 
 ## Co dalej?
 
