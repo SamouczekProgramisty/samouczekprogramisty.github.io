@@ -1,6 +1,6 @@
 ---
 title: Wzorzec projektowy obserwator
-last_modified_at: 2019-02-08 19:07:18 2019 +0100
+last_modified_at: 2019-05-02 23:15:06 +0200
 categories:
 - Wzorce projektowe
 permalink: /wzorzec-projektowy-obserwator/

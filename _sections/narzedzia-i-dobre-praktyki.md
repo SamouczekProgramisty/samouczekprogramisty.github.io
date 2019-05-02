@@ -1,6 +1,6 @@
 ---
 date: 2018-08-22 20:23:01 +0200
-last_modified_at: 2018-08-25 00:23:49 +0200
+last_modified_at: 2019-05-02 23:15:06 +0200
 layout: single_page
 title: Narzędzia i dobre praktyki
 permalink: /narzedzia-i-dobre-praktyki/
