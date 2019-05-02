@@ -28,7 +28,7 @@ Mówi się, że adnotacje służą do przekazywania metadanych. Innymi słowy pr
 
 Chociaż w obu przypadkach możesz zauważyć znak `@` musisz wiedzieć, że adnotacje to coś zupełnie innego niż dyrektywy JavaDoc.
 
-JavaDoc to standardowy mechanizm do generowania dokumentacji, która zaszyta jest kodzie źródłowym. Na przykład we fragmencie kodu poniżej widzisz metodę wraz z dokumentacją. Zwróć proszę uwagę, że JavaDoc znajduje się wewnątrz specjalne sformatowanego komentarza wieloliniowego. który rozpoczyna się od `/**`, każda linia wewnątrz komentarza rozpoczyna się od `*`. Wewnątrz komentarza znajdują się specjalne dyrektywy, takie jak `@param` czy `@return`. Opisują one odpowiednio parametr oraz wartość zwracaną metody.
+JavaDoc to standardowy mechanizm do generowania dokumentacji, która zaszyta jest w kodzie źródłowym. Na przykład we fragmencie kodu poniżej widzisz metodę wraz z dokumentacją. Zwróć proszę uwagę, że JavaDoc znajduje się wewnątrz specjalne sformatowanego komentarza wieloliniowego. który rozpoczyna się od `/**`, każda linia wewnątrz komentarza rozpoczyna się od `*`. Wewnątrz komentarza znajdują się specjalne dyrektywy, takie jak `@param` czy `@return`. Opisują one odpowiednio parametr oraz wartość zwracaną metody.
 
 ```java
 /**
