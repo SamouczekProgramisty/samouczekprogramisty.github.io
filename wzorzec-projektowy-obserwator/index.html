@@ -1,0 +1,761 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Wzorzec projektowy obserwator - Samouczek Programisty</title>
+<meta name="description" content="W tym artykule przeczytasz o jednym z wzorców projektowych – o obserwatorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wzorzec projektowy obserwator">
+<meta property="og:url" content="https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/">
+
+
+  <meta property="og:description" content="W tym artykule przeczytasz o jednym z wzorców projektowych – o obserwatorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce">
+
+
+
+  <meta property="og:image" content="https://www.samouczekprogramisty.pl/assets/images/2019/05/01_wzorzec_projektowy_obserwator_artykul.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-05-02T00:00:00+02:00">
+
+
+
+  <meta property="article:modified_time" content="2019-05-02T23:15:06+02:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "https://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/patronite/" >Patronite</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2019/05/01_wzorzec_projektowy_obserwator_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Wzorzec projektowy obserwator
+
+        
+      </h1>
+      
+        <p class="page__lead">W tym artykule przeczytasz o jednym z wzorców projektowych – o obserwatorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://unsplash.com/photos/s9XMNEm-M9c">© Maarten van den Heuvel</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wzorzec projektowy obserwator</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wzorzec projektowy obserwator">
+    <meta itemprop="description" content="W tym artykule przeczytasz o jednym z wzorców projektowych – o obserwatorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce">
+    <meta itemprop="datePublished" content="May 02, 2019">
+    <meta itemprop="dateModified" content="May 02, 2019">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#problem-do-rozwiązania">Problem do rozwiązania</a></li>
+<li class="toc-entry toc-h2"><a href="#wzorzec-obserwator">Wzorzec obserwator</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#diagramy-klas">Diagramy klas</a></li>
+<li class="toc-entry toc-h3"><a href="#przykładowa-implementacja-obserwatora">Przykładowa implementacja obserwatora</a></li>
+<li class="toc-entry toc-h3"><a href="#dodatkowe-rozważania">Dodatkowe rozważania</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#zalety">Zalety</a></li>
+<li class="toc-entry toc-h4"><a href="#wady">Wady</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#przykłady-użycia-wzorca-obserwator">Przykłady użycia wzorca obserwator</a></li>
+<li class="toc-entry toc-h2"><a href="#ćwiczenie-do-wykonania">Ćwiczenie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr />
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr />
+            <div>
+            <a href="https://patronite.pl/samouczekprogramisty"><img src="/assets/images/patronite.gif" alt="Profil Samouczka Patronite"/></a>
+            </div>
+            <hr />
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        <p class="notice--info">Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – <a href="https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/#wzorce-projektowe">wzorce projektowe</a>. Jeżeli chcesz sobie przypomnieć diagram klas w UML, to zapraszam Cię do <a href="/wzorzec-projektowy-adapter/#b%C5%82yskawiczny-kurs-uml">krótkiego wprowadzenia do diagramu klas</a>.</p>
+
+<h2 id="problem-do-rozwiązania">Problem do rozwiązania</h2>
+
+<p>Czytasz artykuły na różnych stronach internetowych. Jedną z tych stron jest Samouczek Programisty ;). Są strony na które zaglądasz regularnie. Raz na jakiś czas sprawdzasz czy na stronach, które Cię interesują nie pojawiły się nowe artykuły. Po lekturze nowych artykułów spisujesz swoje notatki. Jeśli stron do śledzenie masz sporo pojawia się problem. Regularne sprawdzanie czy pojawiły się nowe treści jest mało efektywne. Możesz rozwiązać ten problem na kilka sposobów, jednym z nich może być zapisanie się do newslettera. Można powiedzieć, że zapisanie się na newsletter czyni z Ciebie obserwatora strony.</p>
+
+<p>Ten sam problem występuje w projektach informatycznych. Istnieją zdarzenia, które powinny wyzwalać pewne zachowanie. Wystąpienie zdarzenia powoduje to, że obserwator aktualizuje swój stan na podstawie zmiany obserwowanego elementu. Aktywne sprawdzanie czy zdarzenie wystąpiło w większości przypadków nie jest dobrym rozwiązaniem. W projektach informatycznych problem tego typu rozwiązany jest przez wzorzec projektowy obserwator (ang. <em>observer</em>).</p>
+
+<h2 id="wzorzec-obserwator">Wzorzec obserwator</h2>
+
+<h3 id="diagramy-klas">Diagramy klas</h3>
+
+<p>Ten wzorzec projektowy opera się o dwa interfejsy. Jeden z nich reprezentuje obserwatora. Drugi element, który jest obserwowany:</p>
+
+<figure class="">
+  <img src="/assets/images/2019/05/01_observer.svg" alt="" />
+  
+    <figcaption>Wzorzec projektowy obserwator (ang. <em>observer</em>)
+</figcaption>
+  
+</figure>
+
+<p>Interfejs <code class="highlighter-rouge">Observable</code> zawiera trzy metody:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">attach(Observer)</code> – powoduje dodanie nowego obserwatora (obserwator jest zainteresowany zmianami),</li>
+  <li><code class="highlighter-rouge">detach(Observer)</code> – powoduje usunięcie istniejącego obserwatora (obserwator nie jest już zainteresowany zmianami),</li>
+  <li><code class="highlighter-rouge">notify()</code> – powoduje powiadomienie wszystkich obserwatorów o wystąpieniu zmiany.</li>
+</ul>
+
+<p>Interfejs <code class="highlighter-rouge">Observer</code> zawiera wyłącznie jedną metodę:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">update()</code> – metoda jest wywołana przez <code class="highlighter-rouge">Observable</code> w momencie wystąpienia zmiany.</li>
+</ul>
+
+<p>Interfejsy nie przechowują żadnego stanu, który może się zmienić. Właściwe obiekty implementują te interfejsy i to one przechowują stan.</p>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2896 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h3 id="przykładowa-implementacja-obserwatora">Przykładowa implementacja obserwatora</h3>
+
+<p>Interfejsy przedstawione na diagramie UML mogą wyglądać następująco:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Observable</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">attach</span><span class="o">(</span><span class="n">Observer</span> <span class="n">observer</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">detach</span><span class="o">(</span><span class="n">Observer</span> <span class="n">observer</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">notifyObservers</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Observer</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">update</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Posłużę się przykładem, który przytoczyłem na początku artykułu. Wyobraź sobie blog, na którym publikowane są artykuły. Blog pozwala się obserwować – implementuje interfejs <code class="highlighter-rouge">Observable</code>. W momencie dodania nowego czytelnika zostaje on dodany do zbioru obserwatorów.</p>
+
+<p>Następnie w momencie publikacji nowego artykułu (metoda <code class="highlighter-rouge">publishArticle</code>) zmieniany jest wewnętrzny stan instancji klasy <code class="highlighter-rouge">Blog</code>. Po tej zmianie wywołana jest metoda <code class="highlighter-rouge">notifyObservers</code>. Wewnątrz tej metody na każdej z instancji implementującej <code class="highlighter-rouge">Observer</code> wywołana jest metoda <code class="highlighter-rouge">update</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blog</span> <span class="kd">implements</span> <span class="n">Observable</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Observer</span><span class="o">&gt;</span> <span class="n">observers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">newestArticle</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">attach</span><span class="o">(</span><span class="n">Observer</span> <span class="n">observer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">observers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">observer</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">detach</span><span class="o">(</span><span class="n">Observer</span> <span class="n">observer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">observers</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">observer</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">notifyObservers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">observers</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nl">Observer:</span><span class="o">:</span><span class="n">update</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getNewestArticle</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">newestArticle</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">publishArticle</span><span class="o">(</span><span class="n">String</span> <span class="n">article</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">newestArticle</span> <span class="o">=</span> <span class="n">article</span><span class="o">;</span>
+        <span class="n">notifyObservers</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Obserwatorem jest czytelnik reprezentowany przez klasę <code class="highlighter-rouge">Reader</code>. Czytelnik wie jaki zasób obserwuje, przechowuje go w atrybucie <code class="highlighter-rouge">blog</code>. W momencie powiadomienia, czyli w trakcie wywołania metody <code class="highlighter-rouge">update</code>, sprawdzany jest stan atrybutu <code class="highlighter-rouge">blog</code> i <code class="highlighter-rouge">Reader</code> może odpowiednio na tę zmianę zareagować. W tym przypadku informuje o najnowszym artykule:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Reader</span> <span class="kd">implements</span> <span class="n">Observer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Blog</span> <span class="n">blog</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">newestArticle</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Reader</span><span class="o">(</span><span class="n">Blog</span> <span class="n">blog</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">blog</span> <span class="o">=</span> <span class="n">blog</span><span class="o">;</span>
+        <span class="n">newestArticle</span> <span class="o">=</span> <span class="n">blog</span><span class="o">.</span><span class="na">getNewestArticle</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">newestArticle</span> <span class="o">=</span> <span class="n">blog</span><span class="o">.</span><span class="na">getNewestArticle</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"An article „%s” was published!"</span><span class="o">,</span>  <span class="n">newestArticle</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Przekładając klasy z tego przykładu na te użyte w diagramie UML:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">SomeObservable</code> – <code class="highlighter-rouge">Blog</code>,</li>
+  <li><code class="highlighter-rouge">SomeObserver</code> – <code class="highlighter-rouge">Reader</code>.</li>
+</ul>
+
+<h3 id="dodatkowe-rozważania">Dodatkowe rozważania</h3>
+
+<p>Obserwator to wzorzec, który jest bardzo generyczny. W swojej podstawowej wersji nie posiada mechanizmu na informowanie o tym co dokładnie zmieniło się w obserwowanym obiekcie. Takie podejście ma swoje wady i zalety.</p>
+
+<h4 id="zalety">Zalety</h4>
+
+<p>Jedną z zalet stosowania tego wzorca projektowego jest to, że klasa implementująca interfejs <code class="highlighter-rouge">Observer</code> nie musi aktywnie sprawdzać czy interesujący ją obiekt się zmienił.</p>
+
+<p>Dzięki zastosowaniu tego wzorca projektowego można w czysty sposób odizolować od siebie obiekty. Nie są one ze sobą sztywno powiązane. Dodatkowo szeroka definicja metody <code class="highlighter-rouge">update</code> pozwala na informowanie o zdarzeniach różnego rodzaju.</p>
+
+<p>Niewątpliwą zaletą także jest to, że obiekt obserwowany może poinformować wielu obserwatorów używając tego samego protokołu.</p>
+
+<h4 id="wady">Wady</h4>
+
+<p>Obserwator powiadomiony o zmianie sam musi dojść do tego co się zmieniło w obiekcie obserwowanym. Czasami takie sprawdzenie może nie być trywialne. Co więcej nie jest to potrzebne, bo obserwowany obiekt doskonale wie co się zmieniło – sam przecież o tej zmianie informuje swoich obserwatorów.</p>
+
+<p>Można to obejść poprzez rozszerzenie metody <code class="highlighter-rouge">attach</code> lub <code class="highlighter-rouge">update</code>. Na przykład zmiana deklaracji z <code class="highlighter-rouge">attach(Observer observer)</code> na <code class="highlighter-rouge">attach(Observer observer, EnumType event)</code> może informować obiekt informowany o tym, że dany obserwator zainteresowany jest jedynie podzbiorem zdarzeń.</p>
+
+<p>Podobną zmianę można wprowadzić w metodzie <code class="highlighter-rouge">update</code> zmieniając ją z <code class="highlighter-rouge">update()</code> na <code class="highlighter-rouge">update(EventDetails eventDetails)</code>. Zmiany tego typu sprawiają, że interfejsy <code class="highlighter-rouge">Observable</code> czy <code class="highlighter-rouge">Observer</code> nie są już tak generyczne.</p>
+
+<p>Przy synchronicznym powiadamianiu obserwatorów może wystąpić sytuacja, w której wywołania metody <code class="highlighter-rouge">update</code> zajmują lwią część czasu zmiany stanu obiektu obserwowanego.</p>
+
+<h2 id="przykłady-użycia-wzorca-obserwator">Przykłady użycia wzorca obserwator</h2>
+
+<p>W standardowej bibliotece języka Java możesz spotkać całą masę różnych implementacji interfejsu <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/EventListener.html"><code class="highlighter-rouge">EventListener</code></a>. Jest to interfejs bazowy dla pozostałych interfejsów, które służą do informowania o wystąpieniu pewnego zdarzenia. To nic innego jak <code class="highlighter-rouge">Observer</code>, z rozszerzoną metodą <code class="highlighter-rouge">update</code>.</p>
+
+<p>Jeśli udało Ci się już przeczytać artykuł o <a href="/watki-w-jezyku-java/#jak-dzia%C5%82a-mechanizm-powiadomie%C5%84">wątkach</a> to wiesz o mechanizmie powiadamiania. Także tam można dopatrzeć się analogii do wzorca projektowego obserwator. Wątek, oczekujący na pewien zasób jest powiadamiany kiedy zasób staje się dostępny.</p>
+
+<p>Można powiedzieć, że MVC (ang. <em>Model View Controller</em>) jest wzorcem architektonicznym. Połączenia pomiędzy poszczególnymi komponentami można uzyskać stosując wzorzec obserwatora. Na przykład widok obserwuje zmiany w modelu, model informuje widok o zmianach, które powinny zostać pokazane użytkownikowi.</p>
+
+<h2 id="ćwiczenie-do-wykonania">Ćwiczenie do wykonania</h2>
+
+<p>Ćwiczenie polega na zaimplementowaniu klasy zdarzenia <code class="highlighter-rouge">ArticleEvent</code>, która będzie zawierała informacje o nowym artykule opublikowanym na blogu. Wymaga to także zmiany metody <code class="highlighter-rouge">update</code>. Niech obserwator użyje informacji przekazywanej w tym zdarzeniu do pokazania najnowszego artykułu. Czy w takim przypadku <code class="highlighter-rouge">Reader</code> potrzebuje instancji klasy <code class="highlighter-rouge">Blog</code>?</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Niezmiennie, we wszystkich artykułach z serii poświęconej wzorcom projektowym polecam książkę <a href="https://www.amazon.com/gp/product/0201633612/">Design Patterns – Gamma, Helm, Johnson, Vlissides</a>. Jeśli miałbym polecić wyłącznie jedno źródło to poprzestałbym na tej książce.</p>
+
+<p>Możesz też przeczytać więcej o obserwatorze z <a href="https://codecouple.pl/2017/03/31/2-wzorce-projektowe-obserwator-po-raz-kolejny/">innego punktu widzenia</a>. Wartościowym źródłem są także artykuły na <a href="https://pl.wikipedia.org/wiki/Obserwator_(wzorzec_projektowy)">polskiej</a> i <a href="https://en.wikipedia.org/wiki/Observer_pattern">angielskiej Wikipedii</a>.</p>
+
+<p>Zachęcam Cię też do zajrzenia do <a href="https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/02_observer/src/main/java/pl/samouczekprogramisty/patterns">kodu źródłowego</a>, który użyłem w tym artykule.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po lekturze tego artykułu wiesz czym jest obserwator. Artykuł pokazał Ci też pewne wariacje tego wzorca projektowego. Po wykonaniu ćwiczenia potrafisz zaimplementować swój własny obserwator. Można powiedzieć, że udało Ci się poznać kolejny wzorzec projektowy. Gratulacje!</p>
+
+<p>Czy udało Ci się użyć tego wzorca w praktyce? W czym pomógł w Twoim projekcie? Podziel się Twoją opinią z innymi Czytelnikami :).</p>
+
+<p>Jeśli znasz kogoś komu obserwator może się przydać proszę podziel się odnośnikiem do tego artykułu. Kto wie, może dzięki Tobie Samouczek zyska kolejnego Czytelnika? Z góry dziękuję!</p>
+
+<p>Jeśli nie chcesz pominąć kolejnych artykułów proszę dopisz się do samouczkowego newslettera i polub <a href="https://www.facebook.com/SamouczekProgramisty">profil Samouczka na Facebook’u</a>. To tyle na dzisiaj, trzymaj się i do następnego razu!</p>
+
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2896 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#wzorce-projektowe" class="page__taxonomy-item" rel="tag">Wzorce projektowe</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-05-02">2019-05-02</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+        <hr />
+        <p>
+          Nie popełnia błędów tylko ten, kto nic nie robi ;). Bardzo możliwe, że znajdziesz błąd, literówkę, coś co wymaga poprawy. Jeśli chcesz możesz samodzielnie 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/edit/source/_posts/2019-05-02-wzorzec-projektowy-obserwator.md">poprawić tę stronę</a>. Jeśli nie chcesz poprawiać błędu, który udało Ci się znaleźć będę wdzięczny jeśli go 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/issues/new?title=Błąd%20na%20stronie:%20_posts/2019-05-02-wzorzec-projektowy-obserwator.md">zgłosisz</a>. Z góry dziękuję!
+        </p>
+      </footer>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/watki-w-jezyku-java/" rel="permalink">Wątki w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/" rel="permalink">Jak pisać kod wysokiej jakości w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/09/22_testy_z_mock_i_stub_w_jezyku_java.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/testy-jednostkowe-z-uzyciem-mock-i-stub/" rel="permalink">Testy jednostkowe z użyciem mock i stub
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o obiektach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady ta...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/zmiana-branzy-zostan-programista/" rel="permalink">Zmiana branży – zostań programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  25 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Na rynku IT brakuje pracowników. Uczelnie nie nadążają z dostarczaniem nowych specjalistów. Popyt znacząco przewyższa podaż przez co rynek IT jest rynkiem pr...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="https://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>

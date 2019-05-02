@@ -1,4 +1,180 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="https://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-04-29T21:05:43+02:00</updated><id>https://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Jak pisać kod wysokiej jakości w języku Java</title><link href="https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/" rel="alternate" type="text/html" title="Jak pisać kod wysokiej jakości w języku Java" /><published>2019-04-24T00:00:00+02:00</published><updated>2019-04-24T00:37:30+02:00</updated><id>https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/">&lt;p&gt;Powtórzę to po raz kolejny. Uważam, że nauka przez praktykę to najlepsze rozwiązanie. Właśnie z tego powodu artykuły na Samouczku bardzo często zawierają zadania z przykładowymi rozwiązaniami. Sporo Czytelników rozwiązuje te zadania prosząc później o spojrzenie na kod krytycznym okiem.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="https://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-05-02T23:17:43+02:00</updated><id>https://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Wzorzec projektowy obserwator</title><link href="https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/" rel="alternate" type="text/html" title="Wzorzec projektowy obserwator" /><published>2019-05-02T00:00:00+02:00</published><updated>2019-05-02T23:15:06+02:00</updated><id>https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/">&lt;p class=&quot;notice--info&quot;&gt;Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – &lt;a href=&quot;https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/#wzorce-projektowe&quot;&gt;wzorce projektowe&lt;/a&gt;. Jeżeli chcesz sobie przypomnieć diagram klas w UML, to zapraszam Cię do &lt;a href=&quot;/wzorzec-projektowy-adapter/#b%C5%82yskawiczny-kurs-uml&quot;&gt;krótkiego wprowadzenia do diagramu klas&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;problem-do-rozwiązania&quot;&gt;Problem do rozwiązania&lt;/h2&gt;
+
+&lt;p&gt;Czytasz artykuły na różnych stronach internetowych. Jedną z tych stron jest Samouczek Programisty ;). Są strony na które zaglądasz regularnie. Raz na jakiś czas sprawdzasz czy na stronach, które Cię interesują nie pojawiły się nowe artykuły. Po lekturze nowych artykułów spisujesz swoje notatki. Jeśli stron do śledzenie masz sporo pojawia się problem. Regularne sprawdzanie czy pojawiły się nowe treści jest mało efektywne. Możesz rozwiązać ten problem na kilka sposobów, jednym z nich może być zapisanie się do newslettera. Można powiedzieć, że zapisanie się na newsletter czyni z Ciebie obserwatora strony.&lt;/p&gt;
+
+&lt;p&gt;Ten sam problem występuje w projektach informatycznych. Istnieją zdarzenia, które powinny wyzwalać pewne zachowanie. Wystąpienie zdarzenia powoduje to, że obserwator aktualizuje swój stan na podstawie zmiany obserwowanego elementu. Aktywne sprawdzanie czy zdarzenie wystąpiło w większości przypadków nie jest dobrym rozwiązaniem. W projektach informatycznych problem tego typu rozwiązany jest przez wzorzec projektowy obserwator (ang. &lt;em&gt;observer&lt;/em&gt;).&lt;/p&gt;
+
+&lt;h2 id=&quot;wzorzec-obserwator&quot;&gt;Wzorzec obserwator&lt;/h2&gt;
+
+&lt;h3 id=&quot;diagramy-klas&quot;&gt;Diagramy klas&lt;/h3&gt;
+
+&lt;p&gt;Ten wzorzec projektowy opera się o dwa interfejsy. Jeden z nich reprezentuje obserwatora. Drugi element, który jest obserwowany:&lt;/p&gt;
+
+&lt;figure class=&quot;&quot;&gt;
+  &lt;img src=&quot;/assets/images/2019/05/01_observer.svg&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Wzorzec projektowy obserwator (ang. &lt;em&gt;observer&lt;/em&gt;)
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;p&gt;Interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt; zawiera trzy metody:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;attach(Observer)&lt;/code&gt; – powoduje dodanie nowego obserwatora (obserwator jest zainteresowany zmianami),&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;detach(Observer)&lt;/code&gt; – powoduje usunięcie istniejącego obserwatora (obserwator nie jest już zainteresowany zmianami),&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;notify()&lt;/code&gt; – powoduje powiadomienie wszystkich obserwatorów o wystąpieniu zmiany.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Observer&lt;/code&gt; zawiera wyłącznie jedną metodę:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;update()&lt;/code&gt; – metoda jest wywołana przez &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt; w momencie wystąpienia zmiany.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Interfejsy nie przechowują żadnego stanu, który może się zmienić. Właściwe obiekty implementują te interfejsy i to one przechowują stan.&lt;/p&gt;
+
+&lt;div class=&quot;notice--success text-center&quot;&gt;
+  
+&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2896 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
+
+
+&lt;/div&gt;
+
+&lt;h3 id=&quot;przykładowa-implementacja-obserwatora&quot;&gt;Przykładowa implementacja obserwatora&lt;/h3&gt;
+
+&lt;p&gt;Interfejsy przedstawione na diagramie UML mogą wyglądać następująco:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Observable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;attach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Observer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;detach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Observer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;notifyObservers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Observer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Posłużę się przykładem, który przytoczyłem na początku artykułu. Wyobraź sobie blog, na którym publikowane są artykuły. Blog pozwala się obserwować – implementuje interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt;. W momencie dodania nowego czytelnika zostaje on dodany do zbioru obserwatorów.&lt;/p&gt;
+
+&lt;p&gt;Następnie w momencie publikacji nowego artykułu (metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;publishArticle&lt;/code&gt;) zmieniany jest wewnętrzny stan instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Blog&lt;/code&gt;. Po tej zmianie wywołana jest metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;notifyObservers&lt;/code&gt;. Wewnątrz tej metody na każdej z instancji implementującej &lt;code class=&quot;highlighter-rouge&quot;&gt;Observer&lt;/code&gt; wywołana jest metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Blog&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Observable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;observers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HashSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newestArticle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;attach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Observer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;observers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;detach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Observer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;observers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;notifyObservers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;observers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;Observer:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getNewestArticle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newestArticle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;publishArticle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;article&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;newestArticle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;article&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;notifyObservers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Obserwatorem jest czytelnik reprezentowany przez klasę &lt;code class=&quot;highlighter-rouge&quot;&gt;Reader&lt;/code&gt;. Czytelnik wie jaki zasób obserwuje, przechowuje go w atrybucie &lt;code class=&quot;highlighter-rouge&quot;&gt;blog&lt;/code&gt;. W momencie powiadomienia, czyli w trakcie wywołania metody &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;, sprawdzany jest stan atrybutu &lt;code class=&quot;highlighter-rouge&quot;&gt;blog&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;Reader&lt;/code&gt; może odpowiednio na tę zmianę zareagować. W tym przypadku informuje o najnowszym artykule:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Reader&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Observer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Blog&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newestArticle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Reader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Blog&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;blog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;newestArticle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getNewestArticle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;newestArticle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getNewestArticle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;An article „%s” was published!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;newestArticle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Przekładając klasy z tego przykładu na te użyte w diagramie UML:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SomeObservable&lt;/code&gt; – &lt;code class=&quot;highlighter-rouge&quot;&gt;Blog&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SomeObserver&lt;/code&gt; – &lt;code class=&quot;highlighter-rouge&quot;&gt;Reader&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;dodatkowe-rozważania&quot;&gt;Dodatkowe rozważania&lt;/h3&gt;
+
+&lt;p&gt;Obserwator to wzorzec, który jest bardzo generyczny. W swojej podstawowej wersji nie posiada mechanizmu na informowanie o tym co dokładnie zmieniło się w obserwowanym obiekcie. Takie podejście ma swoje wady i zalety.&lt;/p&gt;
+
+&lt;h4 id=&quot;zalety&quot;&gt;Zalety&lt;/h4&gt;
+
+&lt;p&gt;Jedną z zalet stosowania tego wzorca projektowego jest to, że klasa implementująca interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Observer&lt;/code&gt; nie musi aktywnie sprawdzać czy interesujący ją obiekt się zmienił.&lt;/p&gt;
+
+&lt;p&gt;Dzięki zastosowaniu tego wzorca projektowego można w czysty sposób odizolować od siebie obiekty. Nie są one ze sobą sztywno powiązane. Dodatkowo szeroka definicja metody &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; pozwala na informowanie o zdarzeniach różnego rodzaju.&lt;/p&gt;
+
+&lt;p&gt;Niewątpliwą zaletą także jest to, że obiekt obserwowany może poinformować wielu obserwatorów używając tego samego protokołu.&lt;/p&gt;
+
+&lt;h4 id=&quot;wady&quot;&gt;Wady&lt;/h4&gt;
+
+&lt;p&gt;Obserwator powiadomiony o zmianie sam musi dojść do tego co się zmieniło w obiekcie obserwowanym. Czasami takie sprawdzenie może nie być trywialne. Co więcej nie jest to potrzebne, bo obserwowany obiekt doskonale wie co się zmieniło – sam przecież o tej zmianie informuje swoich obserwatorów.&lt;/p&gt;
+
+&lt;p&gt;Można to obejść poprzez rozszerzenie metody &lt;code class=&quot;highlighter-rouge&quot;&gt;attach&lt;/code&gt; lub &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;. Na przykład zmiana deklaracji z &lt;code class=&quot;highlighter-rouge&quot;&gt;attach(Observer observer)&lt;/code&gt; na &lt;code class=&quot;highlighter-rouge&quot;&gt;attach(Observer observer, EnumType event)&lt;/code&gt; może informować obiekt informowany o tym, że dany obserwator zainteresowany jest jedynie podzbiorem zdarzeń.&lt;/p&gt;
+
+&lt;p&gt;Podobną zmianę można wprowadzić w metodzie &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; zmieniając ją z &lt;code class=&quot;highlighter-rouge&quot;&gt;update()&lt;/code&gt; na &lt;code class=&quot;highlighter-rouge&quot;&gt;update(EventDetails eventDetails)&lt;/code&gt;. Zmiany tego typu sprawiają, że interfejsy &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;Observer&lt;/code&gt; nie są już tak generyczne.&lt;/p&gt;
+
+&lt;p&gt;Przy synchronicznym powiadamianiu obserwatorów może wystąpić sytuacja, w której wywołania metody &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; zajmują lwią część czasu zmiany stanu obiektu obserwowanego.&lt;/p&gt;
+
+&lt;h2 id=&quot;przykłady-użycia-wzorca-obserwator&quot;&gt;Przykłady użycia wzorca obserwator&lt;/h2&gt;
+
+&lt;p&gt;W standardowej bibliotece języka Java możesz spotkać całą masę różnych implementacji interfejsu &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/EventListener.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;EventListener&lt;/code&gt;&lt;/a&gt;. Jest to interfejs bazowy dla pozostałych interfejsów, które służą do informowania o wystąpieniu pewnego zdarzenia. To nic innego jak &lt;code class=&quot;highlighter-rouge&quot;&gt;Observer&lt;/code&gt;, z rozszerzoną metodą &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Jeśli udało Ci się już przeczytać artykuł o &lt;a href=&quot;/watki-w-jezyku-java/#jak-dzia%C5%82a-mechanizm-powiadomie%C5%84&quot;&gt;wątkach&lt;/a&gt; to wiesz o mechanizmie powiadamiania. Także tam można dopatrzeć się analogii do wzorca projektowego obserwator. Wątek, oczekujący na pewien zasób jest powiadamiany kiedy zasób staje się dostępny.&lt;/p&gt;
+
+&lt;p&gt;Można powiedzieć, że MVC (ang. &lt;em&gt;Model View Controller&lt;/em&gt;) jest wzorcem architektonicznym. Połączenia pomiędzy poszczególnymi komponentami można uzyskać stosując wzorzec obserwatora. Na przykład widok obserwuje zmiany w modelu, model informuje widok o zmianach, które powinny zostać pokazane użytkownikowi.&lt;/p&gt;
+
+&lt;h2 id=&quot;ćwiczenie-do-wykonania&quot;&gt;Ćwiczenie do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Ćwiczenie polega na zaimplementowaniu klasy zdarzenia &lt;code class=&quot;highlighter-rouge&quot;&gt;ArticleEvent&lt;/code&gt;, która będzie zawierała informacje o nowym artykule opublikowanym na blogu. Wymaga to także zmiany metody &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;. Niech obserwator użyje informacji przekazywanej w tym zdarzeniu do pokazania najnowszego artykułu. Czy w takim przypadku &lt;code class=&quot;highlighter-rouge&quot;&gt;Reader&lt;/code&gt; potrzebuje instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Blog&lt;/code&gt;?&lt;/p&gt;
+
+&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
+
+&lt;p&gt;Niezmiennie, we wszystkich artykułach z serii poświęconej wzorcom projektowym polecam książkę &lt;a href=&quot;https://www.amazon.com/gp/product/0201633612/&quot;&gt;Design Patterns – Gamma, Helm, Johnson, Vlissides&lt;/a&gt;. Jeśli miałbym polecić wyłącznie jedno źródło to poprzestałbym na tej książce.&lt;/p&gt;
+
+&lt;p&gt;Możesz też przeczytać więcej o obserwatorze z &lt;a href=&quot;https://codecouple.pl/2017/03/31/2-wzorce-projektowe-obserwator-po-raz-kolejny/&quot;&gt;innego punktu widzenia&lt;/a&gt;. Wartościowym źródłem są także artykuły na &lt;a href=&quot;https://pl.wikipedia.org/wiki/Obserwator_(wzorzec_projektowy)&quot;&gt;polskiej&lt;/a&gt; i &lt;a href=&quot;https://en.wikipedia.org/wiki/Observer_pattern&quot;&gt;angielskiej Wikipedii&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Zachęcam Cię też do zajrzenia do &lt;a href=&quot;https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/02_observer/src/main/java/pl/samouczekprogramisty/patterns&quot;&gt;kodu źródłowego&lt;/a&gt;, który użyłem w tym artykule.&lt;/p&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Po lekturze tego artykułu wiesz czym jest obserwator. Artykuł pokazał Ci też pewne wariacje tego wzorca projektowego. Po wykonaniu ćwiczenia potrafisz zaimplementować swój własny obserwator. Można powiedzieć, że udało Ci się poznać kolejny wzorzec projektowy. Gratulacje!&lt;/p&gt;
+
+&lt;p&gt;Czy udało Ci się użyć tego wzorca w praktyce? W czym pomógł w Twoim projekcie? Podziel się Twoją opinią z innymi Czytelnikami :).&lt;/p&gt;
+
+&lt;p&gt;Jeśli znasz kogoś komu obserwator może się przydać proszę podziel się odnośnikiem do tego artykułu. Kto wie, może dzięki Tobie Samouczek zyska kolejnego Czytelnika? Z góry dziękuję!&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów proszę dopisz się do samouczkowego newslettera i polub &lt;a href=&quot;https://www.facebook.com/SamouczekProgramisty&quot;&gt;profil Samouczka na Facebook’u&lt;/a&gt;. To tyle na dzisiaj, trzymaj się i do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule przeczytasz o jednym z wzorców projektowych – o obserwatorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce</summary></entry><entry><title type="html">Jak pisać kod wysokiej jakości w języku Java</title><link href="https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/" rel="alternate" type="text/html" title="Jak pisać kod wysokiej jakości w języku Java" /><published>2019-04-24T00:00:00+02:00</published><updated>2019-04-24T00:37:30+02:00</updated><id>https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/">&lt;p&gt;Powtórzę to po raz kolejny. Uważam, że nauka przez praktykę to najlepsze rozwiązanie. Właśnie z tego powodu artykuły na Samouczku bardzo często zawierają zadania z przykładowymi rozwiązaniami. Sporo Czytelników rozwiązuje te zadania prosząc później o spojrzenie na kod krytycznym okiem.&lt;/p&gt;
 
 &lt;p&gt;Tego typu praktyka spotykana jest także w codziennej pracy programisty. Przeglądy kodu (ang. &lt;em&gt;code review&lt;/em&gt;) to bardzo dobry sposób na poznawanie projektu i naukę. Najlepsze w tym wszystkim jest to, że uczy się zarówno osoba, która sprawdza kod jak i ta której kod jest sprawdzany.&lt;/p&gt;
 
@@ -3575,335 +3751,4 @@ wyjście: 1&lt;/p&gt;
       &lt;p&gt;Wyrażenia lambda w języku Java nie są czystymi domknięciami, jednak w tym przypadku takie uproszczenie jest dopuszczalne :). &lt;a href=&quot;#fnref:domkniecie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule rozkładam na części pierwsze zadanie podesłane przez Łukasza. Po lekturze tego artykułu będziesz wiedzieć na co zwracać uwagę przy rozwiązywaniu tego typu zadań na rozmowach kwalifikacyjnych. Pokażę Ci też jak _Test Driven Development_ pozwala na tworzenie przejrzystego i czytelnego kodu.</summary></entry><entry><title type="html">Dependency Inversion Principle, Dependency Injection i Inversion of Control</title><link href="https://www.samouczekprogramisty.pl/dependency-inversion-principle-dependency-injection-i-inversion-of-control/" rel="alternate" type="text/html" title="Dependency Inversion Principle, Dependency Injection i Inversion of Control" /><published>2018-11-03T00:00:00+01:00</published><updated>2018-11-18T13:05:47+01:00</updated><id>https://www.samouczekprogramisty.pl/dependency-inversion-principle-dependency-injection-i-inversion-of-control</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/dependency-inversion-principle-dependency-injection-i-inversion-of-control/">&lt;p class=&quot;notice--info&quot;&gt;Moim zdaniem wokół tych pojęć narosło sporo różnych teorii i wyjaśnień. Każdy na swój sposób stara się je przełożyć na praktykę programowania. W tym artykule postaram się pokazać Ci definicje możliwe najbliższe oryginałowi. Dla pełnego obrazu postaram się także cytować oryginalną definicję, dzięki czemu będziesz mieć okazję wyrobić sobie własne zdanie.&lt;/p&gt;
-
-&lt;h2 id=&quot;dependency-inversion-principle&quot;&gt;&lt;em&gt;Dependency Inversion Principle&lt;/em&gt;&lt;/h2&gt;
-
-&lt;p&gt;Zasada odwrócenia zależności (ang. &lt;em&gt;Dependency Inversion Principle&lt;/em&gt;) to literka &lt;em&gt;D&lt;/em&gt; w akronimie &lt;a href=&quot;/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/&quot;&gt;SOLID&lt;/a&gt;. Akronim ten grupuje pięć różnych wytycznych pomagających pisać kod wysokiej jakości. W dalszej części artykułu będę się do niej odnosił także jako DIP.&lt;/p&gt;
-
-&lt;p&gt;W 2002 roku Robert C. Martin, znany także jako Uncle Bob opublikował książkę &lt;a href=&quot;https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/0135974445/&quot;&gt;Agile Software Development, Principles, Patterns and Practices&lt;/a&gt; w 2013 książka doczekała się &lt;a href=&quot;https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/1292025948&quot;&gt;nowego wydania&lt;/a&gt;. W książce tej opisał wcześniej wspomniany akronim SOLID. Literka &lt;em&gt;D&lt;/em&gt; została opisana w osobnym rozdziale. Ogólną definicję tej zasady autor przedstawił jako:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;The Dependency-Inversion Principle&lt;/strong&gt;&lt;br /&gt;
-A. High-level modules should not depend on low-level modules. Both should depend on abstractions.&lt;br /&gt;
-B. Abstractions should not depend upon details. Details should depend upon abstractions.&lt;br /&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Punkty tej zasady można przetłumaczyć jako:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;A. Moduły wysokiego poziomu nie powinny zależeć od modułów niskiego poziomu. Oba powinny zależeć od abstrakcji.&lt;br /&gt;
-B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstrakcji.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;przykład-zastosowania-dependency-inversion-principle&quot;&gt;Przykład zastosowania &lt;em&gt;Dependency Inversion Principle&lt;/em&gt;&lt;/h3&gt;
-
-&lt;p&gt;Wyobraź sobie klimatyzator, który reaguje na temperaturę powietrza. Jeśli temperatura jest wyższa od założonego poziomu klimatyzator włącza się automatycznie. Wyłącza się, jeśli osiągnie temperaturę niższą o 3 stopnie niż założony poziom. Naiwna implementacja może wyglądać tak (zauważ, że tego klimatyzatora nie da się wyłączyć ;)):&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AirConditioner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;THRESHOLD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;desiredTemperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thermometer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thermometer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AirConditioner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;desiredTemperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thermometer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thermometer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;desiredTemperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;desiredTemperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thermometer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thermometer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;thermometer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;desiredTemperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;coolDown&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;It's cool.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;TimeUnit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SECONDS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;coolDown&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;thermometer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;desiredTemperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;THRESHOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Cooling down&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// cooling down somehow ;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;TimeUnit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SECONDS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thermometer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nextFloat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W tym przypadku klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;AirConditioner&lt;/code&gt; jest “modułem wysokiego poziomu”. Klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;Thermometer&lt;/code&gt; to “moduł niskiego poziomu”. Zatem ten przykład nie spełnia DIP, bo klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;AirConditioner&lt;/code&gt; zależy bezpośrednio od &lt;code class=&quot;highlighter-rouge&quot;&gt;Thermometer&lt;/code&gt;. To co proponuje Uncle Bob sprowadza się do wprowadzenia nowej abstrakcji. Istotne jest to, że to moduł wysokiego poziomu powinien być właścicielem tej abstrakcji.&lt;/p&gt;
-
-&lt;p&gt;Rozwiązaniem w tym przypadku może być wprowadzenie abstrakcji, interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Sensor&lt;/code&gt;. Interfejs ten byłby implementowany przez &lt;code class=&quot;highlighter-rouge&quot;&gt;Thermometer&lt;/code&gt;. Aby DIP była spełniona, klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;AirConditioner&lt;/code&gt; powinna być właścicielem interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Sensor&lt;/code&gt;. Kod spełniający DIP może wyglądać tak:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Sensor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AirConditioner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;THRESHOLD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;desiredTemperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sensor&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperatureSensor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AirConditioner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;desiredTemperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sensor&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperatureSensor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;desiredTemperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;desiredTemperature&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;temperatureSensor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperatureSensor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thermometer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sensor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Overrides&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;measure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nextFloat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;co-to-znaczy-być-właścicielem-abstrakcji&quot;&gt;Co to znaczy być właścicielem abstrakcji?&lt;/h4&gt;
-
-&lt;p&gt;Można powiedzieć, że komponent jest właścicielem abstrakcji, jeśli kontroluje sposób w jaki ta abstrakcja jest zdefiniowana. W przypadku interfejsów oznacza to tyle, że moduł określa metody dostępne w tym interfejsie. Stosując to do przykładu wyżej, aby DIP była spełniona to &lt;code class=&quot;highlighter-rouge&quot;&gt;AirConditioner&lt;/code&gt; musi być właścicielem interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Sensor&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;W aplikacjach, które cały kod źródłowy mają w jednym &lt;a href=&quot;/java-z-linii-polecen//#pliki-jar&quot;&gt;pliku jar&lt;/a&gt; jest to kwestia umowna. Zdarzają się jednak sytuacje, w których kod źródłowy rozdzielony jest pomiędzy kilka plików.&lt;/p&gt;
-
-&lt;p&gt;Diagramy poniżej pokazują przykładowe sposoby podziału. Białe prostokąty reprezentują pliki JAR. Prostokąty z zaokrąglonymi rogami to klasy/interfejsy:&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;/assets/images/2018/11/18_dip_approach_1.png&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Podział komponentów na osobne pliki JAR, sposób 1.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;/assets/images/2018/11/18_dip_approach_2.png&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Podział komponentów na osobne pliki JAR, sposób 2.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Zachęcam Cię do rzucenia okiem na &lt;a href=&quot;https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty/dip&quot;&gt;kod źródłowy na Github’ie&lt;/a&gt;. Pokazuję tam przykładowe sposoby rozdzielenia poszczególnych elementów pomiędzy pliki JAR.&lt;/p&gt;
-
-&lt;h3 id=&quot;moje-trzy-grosze&quot;&gt;Moje trzy grosze&lt;/h3&gt;
-
-&lt;p&gt;Na początku chciałbym zaznaczyć, że nie dorastam do pięt Robert’owi C. Martin’owi. Po tym wstępie mogę dodać moje trzy grosze ;).&lt;/p&gt;
-
-&lt;p&gt;Moim zdaniem, czasami jest tak, że nie ma sensu na siłę wprowadzać dodatkowego interfejsu. Czasami refaktoryzacja, która wydzieli dodatkową klasę, która opakowuje niskopoziomowe szczegóły jest wystarczająco dobra. Pozwala na uzyskanie kodu lepszej jakości. Bardzo mocno wierzę w zmiany wprowadzane małymi krokami. Dobrym pierwszym krokiem jest właśnie wydzielenie klas. Kolejnym etapem jest zastanowienie się na interfejsem pomiędzy nimi.&lt;/p&gt;
-
-&lt;div class=&quot;notice--success text-center&quot;&gt;
-  
-&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2896 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
-
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;inversion-of-control&quot;&gt;&lt;em&gt;Inversion of Control&lt;/em&gt;&lt;/h2&gt;
-
-&lt;p&gt;W swoim &lt;a href=&quot;https://martinfowler.com/bliki/InversionOfControl.html&quot;&gt;artykule&lt;/a&gt; Martin Fowler wspomina, że pierwsza wzmianka o odwróceniu kontroli (ang. &lt;em&gt;Inversion of Control&lt;/em&gt;) miała miejsce 1988 roku. Ten sam koncept opisany był także w 1985 roku w &lt;a href=&quot;http://www.digibarn.com/friends/curbow/star/XDEPaper.pdf&quot;&gt;artykule&lt;/a&gt; opisującym środowisko programomania Mesa chwaląc się tym, że posiada więcej niż 500 użytkowników :).&lt;/p&gt;
-
-&lt;p&gt;Da druga wzmianka nazywa to podejście prawem Hollywood’u (ang. &lt;em&gt;Hollywod’s Law&lt;/em&gt;):&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Don‘t  call  us,  we’ll  call  you  (Hollywood’s  Law).&lt;/strong&gt;&lt;br /&gt;
-A tool should arrange for Tajo to notify it when the user wishes to communicate some event to the tool, rather than adopt an “ask the user for a command and execute it” model.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Można to przetłumaczyć jako:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Narzędzie powinno (…) wspierać użytkownika kiedy on chce wydać narzędziu polecenie, a nie stosować się do podejścia “zapytaj użytkownika o polecenie i wykonaj je”.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;O odwróceniu kontroli wspomina też inna, klasyczna już książka &lt;a href=&quot;/ksiazki-dla-programistow/#design-patterns---gamma-helm-johnson-vlissides&quot;&gt;Design Patterns: Elements of Reusable Object-Oriented Software&lt;/a&gt;:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;A framework dictates the architecture of your application. It will define the overall structure, its partitioning into classes and objects, the key responsibilites thereof, how the clases and objects collaborate, and the thread of control. (…) Frameworks thus emphasize design reuse over code reuse (…). Reuse on this level leads to an inversion of control between the application and the software on which it’s based. When you use a toolkit (…), you write the main body of the application and call the code you want to reuse. When you use a framework, you reuse the main body and write the code it calls.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Ten dłuższy fragment można przetłumaczyć jako&lt;sup id=&quot;fnref:framework&quot;&gt;&lt;a href=&quot;#fn:framework&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Biblioteka (ang. framework) narzuca architekturę aplikacji. Definiuje także jej strukturę, podział na klasy i obiekty, ich zakres odpowiedzialności, jak klasy i obiekty współdziałają oraz sposób ich wywoływania. (…) Zatem biblioteka podkreśla wielokrotne użycie architektury a nie wielokrotne użycie kodu. Wielokrotne użycie na tym poziomie prowadzi do odwrócenia kontroli pomiędzy aplikacją i jej zależnościami. Kiedy używasz zestawu narzędzi, piszesz główne ciało aplikacji i wywołujesz kod, który chcesz używać wielokrotnie. Kiedy używasz biblioteki, używasz jej mechanizmów, które wywołują kod, który napiszesz.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;W dalszej części artykułu czasami będę nazywał tę regułę jako IOC.&lt;/p&gt;
-
-&lt;h3 id=&quot;przykłady-odwrócenia-kontroli&quot;&gt;Przykłady odwrócenia kontroli&lt;/h3&gt;
-
-&lt;p&gt;Przykładem takiego odwrócenia kontroli może być &lt;a href=&quot;/serwlety-w-aplikacjach-webowych/#cykl-%C5%BCycia-serwletu&quot;&gt;cykl życia serwletu&lt;/a&gt;. Bazując na specyfikacji serwletów masz pewność, że kontener wywoła odpowiednie metody w odpowiednim czasie. Nie ty je wywołujesz, robi to za Ciebie kontener serwletów. Na przykład nie Ty wywołujesz metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;init&lt;/code&gt;, robi to kontener serwletów wtedy, kiedy jest taka potrzeba.&lt;/p&gt;
-
-&lt;p&gt;Innym przykładem odwrócenia kontroli są kontenery IOC, na przykład &lt;a href=&quot;https://github.com/google/guice&quot;&gt;Guice&lt;/a&gt; czy Spring&lt;sup id=&quot;fnref:wielki&quot;&gt;&lt;a href=&quot;#fn:wielki&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Nie Ty tworzysz zależności, te zależności tworzone są przez kontener i wstrzykiwane do Twoich obiektów.&lt;/p&gt;
-
-&lt;p&gt;Poniżej pokażę Ci też odwrócenie kontroli na trochę mniejszym fragmencie kodu. Zwróć uwagę na implementację metody &lt;code class=&quot;highlighter-rouge&quot;&gt;toString&lt;/code&gt;. W pierwszym przykładzie klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;HtmlTag&lt;/code&gt; wymaga wszystkich informacji w trakcie tworzenia obiektu:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HtmlTag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HtmlTag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;tag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;%s&amp;gt;%s&amp;lt;/%s&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W drugim zastosowałem wzorzec &lt;em&gt;template meethod&lt;/em&gt;. Metoda stosuje odwrócenie kontroli, w trakcie swojego działania prosi o niezbędne informacje wywołując metody &lt;code class=&quot;highlighter-rouge&quot;&gt;getTag&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;getBody&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HtmlTag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getTag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getTag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;%s&amp;gt;%s&amp;lt;/%s&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EmTag&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HtmlTag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;EmTag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getTag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;em&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;dependency-injection&quot;&gt;&lt;em&gt;Dependency Injection&lt;/em&gt;&lt;/h2&gt;
-
-&lt;p&gt;Niestety tutaj nie udało mi się dotrzeć do “pierwotnej” definicji tego pojęcia.&lt;/p&gt;
-
-&lt;p&gt;Można powiedzieć, że wstrzykiwanie zależności (ang. &lt;em&gt;Dependency Injection&lt;/em&gt;) to praktyka wspomagająca pisanie kodu lepszej jakości.&lt;/p&gt;
-
-&lt;p&gt;Jest to mechanizm, który pozwala na dostarczenie zależności niezbędnych do poprawnego działania danego obiektu. Zależności mogą być dostarczane (wstrzykiwane) na wiele sposobów. Na przykład poprzez wywołanie “seterów”, dostarczenie niezbędnych parametrów konstruktora czy korzystając z mechanizmu refleksji.&lt;/p&gt;
-
-&lt;p&gt;Bez wstrzykiwania wszystkie zależności tworzone są przez obiekt, który ich wymaga&lt;sup id=&quot;fnref:uproszczenie&quot;&gt;&lt;a href=&quot;#fn:uproszczenie&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;. Prowadzi to do kodu, który jest trudny do testowania i mocno związany z konkretną implementacją zależności.&lt;/p&gt;
-
-&lt;p&gt;W dalszej części artykułu czasami będę nazywał tę praktykę jako DI.&lt;/p&gt;
-
-&lt;h3 id=&quot;przykład-użycia-dependency-injection&quot;&gt;Przykład użycia &lt;em&gt;Dependency Injection&lt;/em&gt;&lt;/h3&gt;
-
-&lt;p&gt;Proszę spójrz na przykład poniżej. Jest to klasa, która jest odpowiedzialna za tworzenie losowego łańcucha znaków o zadanej długości. Zauważ, że klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;RandomString&lt;/code&gt; wymaga generatora liczb losowych. W tym przykładzie tym generatorem jest instancja klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Random&lt;/code&gt;. Głównym problemem tego kodu jest to, że używając klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;RandomString&lt;/code&gt; nie masz żadnego wpływu na sposób jej działania. Wszystkie jej zależności tworzone są w trakcie tworzenie instancji.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RandomString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Random&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ints&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'z'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mapToObj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;StringBuilder:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;StringBuilder:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Pozornie niewielka zmiana bardzo mocno podnosi jakość kodu. Tą zmianą jest dodanie do konstruktora parametru, który inicjalizuje generator. Takie podejście pozwoli w łatwy sposób wstrzykiwać zależności tej klasy. Dzięki temu na przykład w trakcie &lt;a href=&quot;/testy-jednostkowe-z-junit5/&quot;&gt;testów&lt;/a&gt; możesz dostarczyć taką instancję &lt;code class=&quot;highlighter-rouge&quot;&gt;Random&lt;/code&gt;, która za każdym razem będzie zwracała takie same wyniki:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RandomString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Random&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RandomString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Random&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;generator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// implementation of getString is the same&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Tak zwane kontenery DI odpowiedzialne są za tworzenie sieci obiektów. Taki kontener wstrzykuje poszczególne zależności. W naszym przykładzie to kontener stworzyłby instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Random&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;RandomString&lt;/code&gt;. Ta druga utworzona zostałaby przy pomocy wcześniej utworzonej instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Random&lt;/code&gt;. Innymi słowy instancja klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Random&lt;/code&gt; byłaby wstrzyknięta do instancji klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;RandomString&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;porównanie-dip-ioc-i-di&quot;&gt;Porównanie DIP, IOC i DI&lt;/h2&gt;
-
-&lt;h3 id=&quot;porównanie-dependency-inversion-principle-i-inversion-of-control&quot;&gt;Porównanie &lt;em&gt;Dependency Inversion Principle&lt;/em&gt; i &lt;em&gt;Inversion of Control&lt;/em&gt;&lt;/h3&gt;
-
-&lt;p&gt;Zasada odwrócenia zależności sprowadza się do dodawania nowych abstrakcji, które pozwolą tworzyć kod wyższej jakości. Odwrócenie kontroli może być stosowane na różnych poziomach.&lt;/p&gt;
-
-&lt;p&gt;Zwróć uwagę na to, że DIP wspomina o interfejsach pomiędzy poszczególnymi modułami. Opisując tę zasadę wspomniałem także o tym, że to moduł wysokiego poziomu jest właścicielem tego interfejsu.&lt;/p&gt;
-
-&lt;p&gt;Takie podejście Uncle Bob uznaje jako odwrócenie kontroli. Po zastosowaniu zasady odwrócenia zależności moduł wyższego poziomu staje się właścicielem interfejsu. W przeciwnym przypadku to moduł niższego poziomu jest właścicielem tego interfejsu. Ta subtelna różnica prowadzi do odwrócenia kontroli.&lt;/p&gt;
-
-&lt;h3 id=&quot;porównanie-dependency-inversion-principle-i-dependency-injection&quot;&gt;Porównanie &lt;em&gt;Dependency Inversion Principle&lt;/em&gt; i &lt;em&gt;Dependency Injection&lt;/em&gt;&lt;/h3&gt;
-
-&lt;p&gt;Zasada odwrócenia zależności wprowadza nowe abstrakcje. Można powiedzieć, że te nowe abstrakcje to zależności. Zależności te mogą być wstrzykiwane. Zatem użycie DIP pozwala na łatwe zastosowanie DI.&lt;/p&gt;
-
-&lt;p&gt;Te dwa pojęcia są także podobne pod względem nazwy ;). Wydaje mi się, że to właśnie ta zbliżona nazwa powoduje tyle zamieszania i powoduje mieszanie tych dwóch pojęć.&lt;/p&gt;
-
-&lt;h3 id=&quot;porównanie-inversion-of-control-i-dependency-injection&quot;&gt;Porównanie &lt;em&gt;Inversion of Control&lt;/em&gt; i &lt;em&gt;Dependency Injection&lt;/em&gt;&lt;/h3&gt;
-
-&lt;p&gt;IOC odwraca kontrolę. Objawia się to na wielu poziomach. Czasami może to być odwrócenie tego kto jest właścicielem interfejsu. Czy odwrócenie kolejności, w której generowane są obiekty.&lt;/p&gt;
-
-&lt;p&gt;Kontenery DI to nic innego jak kontenery, które wspierają IOC. Istnieje także pojęcie kontenerów IOC. Z mojego punktu widzenia kontenery IOC i kontenery DI określają to samo. To samo czyli mechanizm, który w łatwy sposób pozwala na wstrzykiwanie zależności.&lt;/p&gt;
-
-&lt;p&gt;Zauważ, że w przypadku tych kontenerów odwrócona jest kolejność wywoływania konstruktorów obiektów. Muszę tu też dodać, że stosowanie IOC wcale nie wymaga użycia DI. Jednak użycie DI wymaga użycia IOC.&lt;/p&gt;
-
-&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
-
-&lt;p&gt;Materiałów związanych z tymi trzema pojęciami jest sporo. Poniżej zebrałem kilka z nich:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Dependency_inversion_principle&quot;&gt;Artykuł dotyczący &lt;em&gt;Dependency Inversion Principle&lt;/em&gt; na Wikipedii&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Inversion_of_control&quot;&gt;Artykuł dotyczący &lt;em&gt;Inversion of Control&lt;/em&gt; na Wikipedii&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://martinfowler.com/bliki/InversionOfControl.html&quot;&gt;Artykuł dotyczący &lt;em&gt;Inversion of Control&lt;/em&gt; na stronie Martin’a Fowler’a&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://martinfowler.com/articles/injection.html&quot;&gt;Artykuł na temat &lt;em&gt;Inversion of Control&lt;/em&gt; i wzorca &lt;em&gt;Dependency Injection&lt;/em&gt; na stronie Martin’a Fowler’a&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.digibarn.com/friends/curbow/star/XDEPaper.pdf&quot;&gt;Ciekawostka, wzmianka z 1985 o Hollywood’s Law&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/06_dip_di_ioc/src/main/java/pl/samouczekprogramisty&quot;&gt;Kod źródłowy przykładów użytych w artykule&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Dodatkowo odsyłam Cię do źródeł w postaci książek, o których pisałem w artykule. Niestety ich minusem jest wysoka cena:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/Software-Development-Principles-Patterns-Practices/dp/0135974445/&quot;&gt;Agile Software Development, Principles, Patterns and Practices&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612&quot;&gt;Design Patterns: Elements of Reusable Object-Oriented Software&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Po przeczytaniu tego artykułu wiesz czym jest DIP, IOC i DI. Na przykładach pokazałem Ci jak wygląda kod przed i po zastosowaniu tych zasad. Mam nadzieję, że teraz nie będziesz już mieć problemu z wskazaniem różnic pomiędzy tymi pojęciami, które są często mylone.&lt;/p&gt;
-
-&lt;p&gt;Na koniec proszę Cię o to, podzielenie się tym artykułem ze swoimi znajomymi. Dzięki temu pozwolisz dotrzeć mi do szerszego grona Czytelników, a na tym właśnie mi zależy. Z góry dziękuję! Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na Facebook’u i dopisz się do samouczkowego newslettera. Do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:framework&quot;&gt;
-      &lt;p&gt;Mam świadomość, że &lt;em&gt;framework&lt;/em&gt; i &lt;em&gt;library&lt;/em&gt; to dwie różne rzeczy. Niestety nie znam lepszego tłumaczenia &lt;em&gt;framework&lt;/em&gt; niż biblioteka. Może powinienem użyć określenia rusztowanie? ;) &lt;a href=&quot;#fnref:framework&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:wielki&quot;&gt;
-      &lt;p&gt;Spring jest wielki. To słowo wytrych, które zawiera w sobie wszystko. Tutaj mam na myśli wyłącznie podzbiór Spring Core. &lt;a href=&quot;#fnref:wielki&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:uproszczenie&quot;&gt;
-      &lt;p&gt;Jest to pewne uproszczenie. Możliwa jest sytuacja, w której kod napisany jest w sposób pozwalający na użycie DI, jednak tego nie robi. &lt;a href=&quot;#fnref:uproszczenie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W programowaniu obiektowym istnieje kilka wytycznych pomagających pisać kod wysokiej jakości. W tym artykule chciałbym skupić się na tych, które dotyczą zależności. Mam na myśli _Dependency Inversion Principle_, _Dependency Injection_ i _Inversion of Control_. Często dostaje pytania o to czym te pojęcia różnią się od siebie. W tym artykule postaram się to wyjaśnić.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule rozkładam na części pierwsze zadanie podesłane przez Łukasza. Po lekturze tego artykułu będziesz wiedzieć na co zwracać uwagę przy rozwiązywaniu tego typu zadań na rozmowach kwalifikacyjnych. Pokażę Ci też jak _Test Driven Development_ pozwala na tworzenie przejrzystego i czytelnego kodu.</summary></entry></feed>

@@ -619,6 +619,11 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg"},{
+        "title": "Wzorzec projektowy obserwator",
+        "excerpt":"Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – wzorce projektowe. Jeżeli chcesz sobie przypomnieć diagram klas w UML, to zapraszam Cię do krótkiego wprowadzenia do diagramu klas. Problem do rozwiązania Czytasz artykuły na...","categories": ["Wzorce projektowe"],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/05/01_wzorzec_projektowy_obserwator_artykul.jpg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],
