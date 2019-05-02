@@ -11,7 +11,7 @@ header:
 excerpt: W tym artykule przeczytasz o jednym z wzorców projektowych – o obserwatorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce
 ---
 
-Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – [wzorce projektowe]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}#wzorce-projektowe). Jeżeli chesz sobie przypomnieć diagram klas w UML, to zapraszam Cię do [krótkiego wprowadzenia do diagramu klas]({% post_url 2019-01-26-wzorzec-projektowy-adapter %}#b%C5%82yskawiczny-kurs-uml).
+Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – [wzorce projektowe]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}#wzorce-projektowe). Jeżeli chcesz sobie przypomnieć diagram klas w UML, to zapraszam Cię do [krótkiego wprowadzenia do diagramu klas]({% post_url 2019-01-26-wzorzec-projektowy-adapter %}#b%C5%82yskawiczny-kurs-uml).
 {:.notice--info}
 
 ## Problem do rozwiązania
@@ -62,7 +62,7 @@ public interface Observer {
 
 Posłużę się przykładem, który przytoczyłem na początku artykułu. Wyobraź sobie blog, na którym publikowane są artykuły. Blog pozwala się obserwować – implementuje interfejs `Observable`. W momencie dodania nowego czytelnika zostaje on dodany do zbioru obserwatorów.
 
-Następnie w momencie publikacji nowego artykułu (metoda `publishArticle`) zmieniany jest wewnętrzny stan instancji klasy `Blog`. Po tej zmianie wywołana jest metoda `notifyObservers`. Wewnątrz tej metody na każdej z instancji implentującej `Observer` wywołana jest metoda `update`:
+Następnie w momencie publikacji nowego artykułu (metoda `publishArticle`) zmieniany jest wewnętrzny stan instancji klasy `Blog`. Po tej zmianie wywołana jest metoda `notifyObservers`. Wewnątrz tej metody na każdej z instancji implementującej `Observer` wywołana jest metoda `update`:
 
 ```java
 public class Blog implements Observable {
@@ -96,7 +96,7 @@ public class Blog implements Observable {
 }
 ```
 
-Obserwatorem jest czytelnik reprezentowany przez klasę `Reader`. Czytelnik wie jaki zasób obserwuje, przechowuje go w atrybucie `blog`. W momencie powiadomienia, czyli w trakcie wywołania metody `update`, sprawdzany jest stan atrybutu `blog` i `Reader` może odpowiednio na tę zmianę zaregować. W tym przypadku informuje o najnowszym artykule:
+Obserwatorem jest czytelnik reprezentowany przez klasę `Reader`. Czytelnik wie jaki zasób obserwuje, przechowuje go w atrybucie `blog`. W momencie powiadomienia, czyli w trakcie wywołania metody `update`, sprawdzany jest stan atrybutu `blog` i `Reader` może odpowiednio na tę zmianę zareagować. W tym przypadku informuje o najnowszym artykule:
 
 ```java
 public class Reader implements Observer {
@@ -129,7 +129,7 @@ Obserwator to wzorzec, który jest bardzo generyczny. W swojej podstawowej wersj
 
 Jedną z zalet stosowania tego wzorca projektowego jest to, że klasa implementująca interfejs `Observer` nie musi aktywnie sprawdzać czy interesujący ją obiekt się zmienił.
 
-Dzięki zastosowaniu tego wzorca projetowego można w czysty sposób odizolować od siebie obiekty. Nie są one ze sobą sztywno powiązane. Dodatkowo szeroka definicja metody `update` pozwala na informowanie o zdarzeniach różnego rodzaju.
+Dzięki zastosowaniu tego wzorca projektowego można w czysty sposób odizolować od siebie obiekty. Nie są one ze sobą sztywno powiązane. Dodatkowo szeroka definicja metody `update` pozwala na informowanie o zdarzeniach różnego rodzaju.
 
 Niewątpliwą zaletą także jest to, że obiekt obserwowany może poinformować wielu obserwatorów używając tego samego protokołu.
 
@@ -139,13 +139,13 @@ Obserwator powiadomiony o zmianie sam musi dojść do tego co się zmieniło w o
 
 Można to obejść poprzez rozszerzenie metody `attach` lub `update`. Na przykład zmiana deklaracji z `attach(Observer observer)` na `attach(Observer observer, EnumType event)` może informować obiekt informowany o tym, że dany obserwator zainteresowany jest jedynie podzbiorem zdarzeń.
 
-Podobną zmianę można wprowadzić w metodzie `update` zmieniając ją z `update()` na `update(EventDetails eventDetails)`. Zmiany tego typu sprawiają, że interfejy `Observable` czy `Observer` nie są już tak generyczne.
+Podobną zmianę można wprowadzić w metodzie `update` zmieniając ją z `update()` na `update(EventDetails eventDetails)`. Zmiany tego typu sprawiają, że interfejsy `Observable` czy `Observer` nie są już tak generyczne.
 
-Przy synchronicznym powiadamianu obserwatorów może wystąpić sytuacja, w której wywołania metody `update` zajmują lwią część czasu zmiany stanu obiektu obserwowanego.
+Przy synchronicznym powiadamianiu obserwatorów może wystąpić sytuacja, w której wywołania metody `update` zajmują lwią część czasu zmiany stanu obiektu obserwowanego.
 
 ## Przykłady użycia wzorca obserwator
 
-W standardowej bibliotecje języka Java możesz spotkać całą masę różnych implementacji interfejsu [`EventListener`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/EventListener.html). Jest to interfejs bazowy dla pozostałych interfejsów, które służą do infomowania o wystąpieniu pewnego zdarzenia. To nic innego jak `Observer`, z rozszerzoną metodą `update`.
+W standardowej bibliotece języka Java możesz spotkać całą masę różnych implementacji interfejsu [`EventListener`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/EventListener.html). Jest to interfejs bazowy dla pozostałych interfejsów, które służą do informowania o wystąpieniu pewnego zdarzenia. To nic innego jak `Observer`, z rozszerzoną metodą `update`.
 
 Jeśli udało Ci się już przeczytać artykuł o [wątkach]({% post_url 2019-02-11-watki-w-jezyku-java %}#jak-dzia%C5%82a-mechanizm-powiadomie%C5%84) to wiesz o mechanizmie powiadamiania. Także tam można dopatrzeć się analogii do wzorca projektowego obserwator. Wątek, oczekujący na pewien zasób jest powiadamiany kiedy zasób staje się dostępny.
 
@@ -169,7 +169,7 @@ Po lekturze tego artykułu wiesz czym jest obserwator. Artykuł pokazał Ci też
 
 Czy udało Ci się użyć tego wzorca w praktyce? W czym pomógł w Twoim projekcie? Podziel się Twoją opinią z innymi Czytelnikami :). 
 
-Jeśłi znasz kogoś komu obserwator może się przydać proszę podziel się odnośnikiem do tego artykułu. Kto wie, może dzięki Tobie Samouczek zyska kolejnego Czytelnika? Z góry dziękuję!
+Jeśli znasz kogoś komu obserwator może się przydać proszę podziel się odnośnikiem do tego artykułu. Kto wie, może dzięki Tobie Samouczek zyska kolejnego Czytelnika? Z góry dziękuję!
 
 Jeśli nie chcesz pominąć kolejnych artykułów proszę dopisz się do samouczkowego newslettera i polub [profil Samouczka na Facebook'u](https://www.facebook.com/SamouczekProgramisty). To tyle na dzisiaj, trzymaj się i do następnego razu!
 
