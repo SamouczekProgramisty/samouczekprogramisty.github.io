@@ -14,10 +14,11 @@ W jednym zdaniu. Patronite to serwis, który pozwala na dobrowolne wspieranie tw
 
 Jestem Wam bardzo wdzięczny. To, że dobrowolnie chcecie wspierać Samouczka jest dla mnie wielkim wyróżnieniem. Chronologiczna lista patronów Samouczka Programisty:
 
-1. Nataja Nazaruk
+1. Natalia Nazaruk
 2. Igor Bienkiewicz
 3. Grzegorz Roś
 4. Adrian Galus 
+5. Mateusz Angulski
 
 ## Samouczek Programisty a Patronite
 
