@@ -19,6 +19,7 @@ Jestem Wam bardzo wdzięczny. To, że dobrowolnie chcecie wspierać Samouczka je
 3. Grzegorz Roś
 4. Adrian Galus 
 5. Mateusz Angulski
+6. Tomasz Stańko
 
 ## Samouczek Programisty a Patronite
 
