@@ -59,11 +59,11 @@ Nazywany także przecięciem dwóch zbiorów. Przecięcie to nic innego jak czę
 * zbioru równemu obu zbiorom, jeśli oba zbiory zawierają dokładnie takie same elementy,
 * pustego zbioru, jeśli oba zbiory nie mają wspólnych elementów.
 
-Diagram powinien pomóc zrozumieć te operacje:
+Iloczyn dowolnego zbioru ze zbiorem pustym zawsze jest zbiorem pustym.
 
 ### Suma 
 
-Suma dwóch zbiorów do zbiór, który zawiera wszystkie elementy z obu sumowanych zbiorów.
+Suma dwóch zbiorów to zbiór, który zawiera wszystkie elementy z obu sumowanych zbiorów.
 
 ### Różnica 
 
@@ -77,23 +77,30 @@ W ramach tego artykułu skupię się na przykładowej implementacji, która opar
 
 Pdobnie jak w przypadku tablicy asocjacyjnej opartej o funkcję skrótu tak i tutaj `hashCode` i `equals` pełnią kluczową rolę.
 
-Także tutaj na podstawie wartości funkcji skrótu obliczone zostanie „wiaderkow” do którego wpadnie dany element. Następnie elementy wewnątrz tego samego wiaderka porównywane będą przy pomocy metody `equals`.
+Także tutaj na podstawie wartości funkcji skrótu obliczone zostanie „wiaderko” do którego wpadnie dany element. Następnie elementy wewnątrz tego samego wiaderka porównywane będą przy pomocy metody `equals`.
 
 Podobnie jak w przypadu tablicy asocjacyjnej kluczowe jest zachowanie [kontraktu]({% post_url 2016-04-17-porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java %}) pomiędzy tymi metodami.
 
-Jak wspomniałem wyżej zbiór oferuje kilka podstawowych operacji. Na potrzeby tego artykułu ogranicz
+Jak wspomniałem wyżej zbiór oferuje kilka podstawowych operacji. Na potrzeby tego artykułu ograniczę je do takiego interfejsu:
 
 ```java
-public interface SimpleSet<T> {
-    void put(K item);
-    K delete(K item);
-    boolean hasElement(K item);
+public interface SimpleSet<E> {
+    void add(E item);
+    K remove(E item);
+    boolean contains(E item);
 }
 ```
 
 ### Podobieństwa pomiędzy `HashSet` i `HashMap`
 
-Czy widzidzisz podob
+Zacznę od tego czym jest tablica asocjacyjna. Ta struktura pozwala na przechowywanie kluczy i odpowiadających im wartości. Implementacja `HashMap` zakłada, że tablica asocjacyjna zawiera unikalny zestaw kluczy. Innymi słowy nie może w niej być dwóch takich samych kluczy. Tablica asocjacyjna także może nie zwracać uwagi na porządek kluczy[^treemap].
+
+[^treemap]: Także i tutaj są wyjątki, niektóre implementacje pozwalają na porządkowanie kluczy.
+
+Widzisz tu pewne podobieństwo pomiędzy zbiorem a tak zdefiniowaną tablicą asocjacyjną? Zbiór także nie zawiera duplikatów. Zbiór nie zwraca uwagi na porządek kluczy.
+
+Powiem więcej, bardzo często implementacje zbioru opartego o funkcję skrótu pod spodem używają tablicy asocjacyjnej.
+
 
 ## Najczęściej zadawane pytania
 
