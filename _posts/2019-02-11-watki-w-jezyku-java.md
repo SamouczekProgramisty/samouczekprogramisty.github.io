@@ -1,6 +1,6 @@
 ---
 title: Wątki w języku Java
-last_modified_at: 2019-02-11 23:07:42 2019 +0100
+last_modified_at: 2019-05-05 21:25:49 +0200
 categories:
 - Kurs programowania Java
 permalink: /watki-w-jezyku-java/
@@ -321,10 +321,10 @@ Pamiętasz szatkowanie czasu, które opisałem na początku artykułu? Odgrywa o
 
 Biorąc pod uwagę takie zachowanie wątków, jaką wartość wątek biały przypisał do `value`? Była to wartość `2`, przez co cała praca wątku niebieskiego została nadpisana. Proszę spójrz na tabelkę niżej, która pokazuje tę sytuację:
 
-| Operacja | Wątek     | Krok | Wartość `value` | Wartość zmiennej tymczasowej |
+| Operacja | Wątek     | Krok | Wartość `value`   | Wartość zmiennej tymczasowej |
 |:--------:|-----------|------|-------------------|------------------------------|
 | 1.       | zielony   | 1.   | 0                 | 0                            |
-| 2.       | zielony   | 2.   | 1                 | 1                            |
+| 2.       | zielony   | 2.   | 0                 | 1                            |
 | 3.       | zielony   | 3.   | 1                 | 1                            |
 | 4.       | niebieski | 1.   | 1                 | 1                            |
 | 5.       | biały     | 1.   | 1                 | 1                            |
