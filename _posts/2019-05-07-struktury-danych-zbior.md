@@ -8,7 +8,7 @@ header:
     teaser: /assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg
     overlay_image: /assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg
     caption: "[&copy; rawpixel.com](https://www.pexels.com/photo/assorted-plastic-toy-lot-1249159/)"
-excerpt: W artykule tym przeczytasz o zbiorze. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację zbioru. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Zadania do rozwiązania pomogą Ci utrwalić zdobytą wiedzę.
+excerpt: W artykule tym przeczytasz o zbiorze. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację zbioru. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji.
 ---
 
 {% capture wprowadzenie %}
@@ -160,7 +160,7 @@ Implementacja zbioru opartego o funkcje skrótu jest na tyle prosta, że [zestaw
 
 Złożoność obliczeniowa poszczególnych operacji odpowiada złożoności obliczeniowej tablicy asocjacyjnej. Wynika to z faktu, że każda operacja wywołuje odpowiednią metodę zaimplementowaną w tablicy asocjacyjnej. 
 
-Ma to dokładnie takie same konsekwencje jak w przypadku mapy opartej o funkcję skrótu. Jeśli funkcja skrótu jest „dobra” wówczas złożoność operacji wynosi `Ο(1)`, jeśli jest zła złożoność obliczeniowa spada do `Ο(n)`.
+Ma to dokładnie takie same konsekwencje jak w przypadku mapy opartej o funkcję skrótu. Jeśli funkcja skrótu jest „dobra” wówczas złożoność operacji wynosi `Ο(1)`. Jeśli jest zła, złożoność obliczeniowa spada do `Ο(n)`.
 
 Dla przypomnienia możesz rzucić okiem na [złożoność obliczeniową mapy]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %}#por%C3%B3wnanie-z%C5%82o%C5%BCono%C5%9Bci-obliczeniowych).
 
@@ -190,6 +190,6 @@ Jak zwykle zachęcam Cię też do przejrzenia [kodu źródłowego użytego w art
 
 Teraz wiesz czym jest zbiór. Znasz złożoność obliczeniową poszczególnych operacji. Znasz podstawowe operacje, które można przeprowadzać na zbiorach. Masz też pod ręką zestaw dodatkowych materiałów, które pozwolą Ci poszerzyć zdobytą wiedzę. Możesz śmiało powiedzieć, że udało Ci się poznać kolejny abstrakcyjny typ danych :).
 
-Jeśli znasz kogoś komu materiał zebrany w tym artykule może się przydać będę wdzięczny za podzielenie się linkiem. Zależy mi na dotarciu do nowych Czytelników a Ty możesz mi w ten sposób pomóc – z góry dziękuję!
+Jeśli znasz kogoś komu materiał zebrany w tym artykule może się przydać będę wdzięczny za podzielenie się linkiem. Zależy mi na dotarciu do nowych Czytelników, a Ty możesz mi w ten sposób pomóc – z góry dziękuję!
 
 Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera. Możesz też polubić [profil Samouczka na Facebook'u](https://www.facebook.com/SamouczekProgramisty). To tyle na dzisiaj, trzymaj się i do następnego razu!
