@@ -1,0 +1,12 @@
+- zapytania insert
+- zapytania update
+- zapytania delete
+- ograniczenia/walidacja danych
+- wyzwalacze
+- podzapytania
+- join ze sobą
+- postacie normalne
+- transakcje i ACID
+- modyfikacja schematu alter/drop/create
+- użytkownicy i grant/revoke
+- widoki
