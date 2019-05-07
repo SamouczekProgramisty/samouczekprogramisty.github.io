@@ -1,0 +1,795 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Struktury danych – zbiór - Samouczek Programisty</title>
+<meta name="description" content="W artykule tym przeczytasz o zbiorze. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację zbioru. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Struktury danych – zbiór">
+<meta property="og:url" content="https://www.samouczekprogramisty.pl/struktury-danych-zbior/">
+
+
+  <meta property="og:description" content="W artykule tym przeczytasz o zbiorze. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację zbioru. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji.">
+
+
+
+  <meta property="og:image" content="https://www.samouczekprogramisty.pl/assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-05-07T00:00:00+02:00">
+
+
+
+  <meta property="article:modified_time" content="2019-05-07T23:54:56+02:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.samouczekprogramisty.pl/struktury-danych-zbior/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "https://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/patronite/" >Patronite</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Struktury danych – zbiór
+
+        
+      </h1>
+      
+        <p class="page__lead">W artykule tym przeczytasz o zbiorze. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację zbioru. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.pexels.com/photo/assorted-plastic-toy-lot-1249159/">© rawpixel.com</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Struktury danych – zbiór</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Struktury danych – zbiór">
+    <meta itemprop="description" content="W artykule tym przeczytasz o zbiorze. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację zbioru. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji.">
+    <meta itemprop="datePublished" content="May 07, 2019">
+    <meta itemprop="dateModified" content="May 07, 2019">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#struktura-danych-a-abstrakcyjny-typ-danych">Struktura danych a abstrakcyjny typ danych</a></li>
+<li class="toc-entry toc-h2"><a href="#czym-jest-zbiór">Czym jest zbiór</a></li>
+<li class="toc-entry toc-h2"><a href="#algebra-zbiorów">Algebra zbiorów</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#iloczyn">Iloczyn</a></li>
+<li class="toc-entry toc-h3"><a href="#suma">Suma</a></li>
+<li class="toc-entry toc-h3"><a href="#różnica">Różnica</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#jak-działa-zbiór">Jak działa zbiór?</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#hashcode-i-equals">hashCode i equals</a></li>
+<li class="toc-entry toc-h3"><a href="#podstawowe-operacje">Podstawowe operacje</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#przykładowa-implementacja">Przykładowa implementacja</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#podobieństwa-pomiędzy-hashset-i-hashmap">Podobieństwa pomiędzy HashSet i HashMap</a></li>
+<li class="toc-entry toc-h3"><a href="#kod-źródłowy">Kod źródłowy</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#złożoność-obliczeniowa">Złożoność obliczeniowa</a></li>
+<li class="toc-entry toc-h2"><a href="#najczęściej-zadawane-pytania">Najczęściej zadawane pytania</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#czy-zbiór-jest-serializowalnywielowątkowo-bezpiecznyposortowany">Czy zbiór jest serializowalny/wielowątkowo bezpieczny/posortowany</a></li>
+<li class="toc-entry toc-h3"><a href="#czym-zbiór-różni-się-od-listy">Czym zbiór różni się od listy</a></li>
+<li class="toc-entry toc-h3"><a href="#czym-zbiór-różni-się-od-tablicy-asocjacyjnej">Czym zbiór różni się od tablicy asocjacyjnej</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr />
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr />
+            <div>
+            <a href="https://patronite.pl/samouczekprogramisty"><img src="/assets/images/patronite.gif" alt="Profil Samouczka Patronite"/></a>
+            </div>
+            <hr />
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        
+<div class="notice--info">
+  
+<p>Artykuł ten opisuje przykładową implementację zbioru. Zbiór jest abstrakcyjnym typem danych, który występuje w wielu językach programowania. Zasada pracy ze zbiorami są niezależnie od języka programowania.</p>
+
+<p>Przykładową implementację przygotowałem w Javie. Żeby wynieść jak najwięcej z tego artykułu potrzebna jest wiedza na temat <code class="highlighter-rouge">hashCode</code> i <code class="highlighter-rouge">equals</code>. Niezbędna jest też znajomość <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/#kontrakt-między-metodami-equals-i-hashcode">kontraktu pomiędzy metodami <code class="highlighter-rouge">equals</code> i <code class="highlighter-rouge">hashCode</code></a>.</p>
+
+<p>Do zrozumienia przykładowej implementacji niezbędna będzie też wiedza o <a href="/typy-generyczne-w-jezyku-java/">typach generycznych</a>.</p>
+
+<p>Może przydać się też wiedza na temat <a href="/podstawy-zlozonosci-obliczeniowej/">szacowania złożoności obliczeniowej</a>.</p>
+
+</div>
+
+<h2 id="struktura-danych-a-abstrakcyjny-typ-danych">Struktura danych a abstrakcyjny typ danych</h2>
+
+<p>W poprzednich artykułach z serii opisujących <a href="/struktury-danych-lista-wiazana/">listę wiązaną</a> czy <a href="/struktury-danych-tablica-asocjacyjna/">tablicę asocjacyjną</a> pominąłem kwestie definicji. Używałem określenia struktura danych i abstrakcyjny typ danych zamiennie. Tym razem chciałbym zwrócić Twoją uwagę na drobną różnicę pomiędzy tymi określeniami.</p>
+
+<p>Abstrakcyjny typ danych definiuje zachowanie danego typu. Określa zestaw operacji, które można na tym typie wykonać. Opis abstrakcyjnego typu danych zawiera także cechy charakterystyczne dla danego typu.</p>
+
+<p>Na przykład zbiór jest abstrakcyjnym typem danych (niżej opiszę jego własności), a <code class="highlighter-rouge">TreeSet</code> czy <code class="highlighter-rouge">HashSet</code> są implementacjami tego abstrakcyjnego typu danych. Te implementacje używają rożnych struktur danych. Innym przykładem może być abstrakcyjny typ danych <a href="/struktury-danych-tablica-asocjacyjna/">tablica asocjacyjna</a>, której implementacja może używać tablicy i listy wiązanej.</p>
+
+<h2 id="czym-jest-zbiór">Czym jest zbiór</h2>
+
+<p>Zbiór jest abstrakcyjnym typem danych, który ma następujące własności:</p>
+
+<ul>
+  <li>pozwala na przechowywanie wielu elementów,</li>
+  <li>kolejność elementów w zbiorze nie ma znaczenia<sup id="fnref:wyjatek"><a href="#fn:wyjatek" class="footnote">1</a></sup>,</li>
+  <li>pozwala na przechowywanie co najwyżej jednej kopii elementu (duplikaty nie są dozwolone).</li>
+</ul>
+
+<p>Podstawowymi operacjami, które można przeprowadzić na zbiorze jest dodanie elementu, usunięcie elementu i sprawdzenie czy dany element jest częścią zbioru.</p>
+
+<p>Zbiór jest także jednym z podstawowych pojęć matematycznych.</p>
+
+<h2 id="algebra-zbiorów">Algebra zbiorów</h2>
+
+<p>Tematem tego artykułu nie jest zbiór w kontekście matematycznym. Chciałbym jednak zwrócić Twoją uwagę na podstawowe operacje, które można przeprowadzać na zbiorach. Ta podstawowa wiedza może także przydać się w kontekście programowania.</p>
+
+<p>Poza operacjami przyda się też wiedza o tak zwanym zbiorze pustym. Zbiór pusty jak sama nazwa wskazuje jest pusty, nie ma żadnego elementu.</p>
+
+<h3 id="iloczyn">Iloczyn</h3>
+
+<p>Nazywany także przecięciem dwóch zbiorów. Przecięcie to nic innego jak część wspólna dwóch zbiorów. Przecięcie dwóch zbiorów może prowadzić do uzyskania:</p>
+<ul>
+  <li>mniejszego podzbioru, który jest częścią wspólną obu zbiorów,</li>
+  <li>zbioru równemu obu zbiorom, jeśli oba zbiory zawierają dokładnie takie same elementy,</li>
+  <li>pustego zbioru, jeśli oba zbiory nie mają wspólnych elementów.</li>
+</ul>
+
+<p>Iloczyn dowolnego zbioru ze zbiorem pustym zawsze jest zbiorem pustym.</p>
+
+<h3 id="suma">Suma</h3>
+
+<p>Suma dwóch zbiorów to zbiór, który zawiera wszystkie elementy z obu sumowanych zbiorów.</p>
+
+<h3 id="różnica">Różnica</h3>
+
+<p>Różnica zbioru A i zbioru B to zbiór zawierający wszystkie elementy, które są w zbiorze A i nie ma ich w zbiorze B.</p>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2896 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h2 id="jak-działa-zbiór">Jak działa zbiór?</h2>
+
+<p>W ramach tego artykułu skupię się na przykładowej implementacji, która oparta jest o funkcję skrótu (w języku Java jest to <code class="highlighter-rouge">hashCode</code>). Przedstawiona tu implementacja będzie uproszczoną wersją klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html"><code class="highlighter-rouge">HashSet</code></a>, znajdującej się w bibliotece standardowej.</p>
+
+<h3 id="hashcode-i-equals"><code class="highlighter-rouge">hashCode</code> i <code class="highlighter-rouge">equals</code></h3>
+
+<p>Podobnie jak w przypadku tablicy asocjacyjnej opartej o funkcję skrótu tak i tutaj <code class="highlighter-rouge">hashCode</code> i <code class="highlighter-rouge">equals</code> pełnią kluczową rolę.</p>
+
+<p>Także tutaj na podstawie wartości funkcji <code class="highlighter-rouge">hashCode</code> obliczone zostanie „wiaderko”, do którego wpadnie dany element. Następnie elementy wewnątrz tego samego wiaderka porównywane będą przy pomocy metody <code class="highlighter-rouge">equals</code>. Takie podejście pozwala na uzyskanie bardzo dobrej złożoności obliczeniowej.</p>
+
+<p>Podobnie jak w przypadku tablicy asocjacyjnej kluczowe jest zachowanie <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/#kontrakt-między-metodami-equals-i-hashcode">kontraktu</a> pomiędzy tymi metodami.</p>
+
+<h3 id="podstawowe-operacje">Podstawowe operacje</h3>
+
+<p>Jak wspomniałem wyżej zbiór oferuje kilka podstawowych operacji. Na potrzeby tego artykułu ograniczę je do takiego <a href="/interfejsy-w-jezyku-java/">interfejsu</a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SimpleSet</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="nf">size</span><span class="o">();</span>
+    <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">);</span>
+    <span class="kt">boolean</span> <span class="nf">remove</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">);</span>
+    <span class="kt">boolean</span> <span class="nf">contains</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">int size()</code> – metoda zwraca liczbę elementów zbioru,</li>
+  <li><code class="highlighter-rouge">boolean add(E element)</code> – metoda dodaje element to zbioru, zwraca <code class="highlighter-rouge">true</code> jeśli element został dodany,</li>
+  <li><code class="highlighter-rouge">boolean remove(E element)</code> – metoda usuwa element ze zbioru, zwraca <code class="highlighter-rouge">true</code> jeśli element został usunięty,</li>
+  <li><code class="highlighter-rouge">boolean contains(E element)</code> – metoda zwraca flagę informującą czy element istnieje w zbiorze.</li>
+</ul>
+
+<h2 id="przykładowa-implementacja">Przykładowa implementacja</h2>
+
+<h3 id="podobieństwa-pomiędzy-hashset-i-hashmap">Podobieństwa pomiędzy <code class="highlighter-rouge">HashSet</code> i <code class="highlighter-rouge">HashMap</code></h3>
+
+<p>Zacznę od krótkiego przypomnienia czym jest tablica asocjacyjna. Ta struktura pozwala na przechowywanie kluczy i odpowiadających im wartości. Implementacja <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashMap.html"><code class="highlighter-rouge">HashMap</code></a> zakłada, że tablica asocjacyjna zawiera unikalny zestaw kluczy. Innymi słowy nie może w niej być dwóch takich samych kluczy.</p>
+
+<p>Tablica asocjacyjna, podobnie jak zbiór, nie zwraca uwagi na porządek kluczy<sup id="fnref:treemap"><a href="#fn:treemap" class="footnote">2</a></sup>. Zbiór nie zawiera duplikatów, mapa nie przechowuje zduplikowanych kluczy.</p>
+
+<p>Czy widzisz tu pewne podobieństwo pomiędzy zbiorem a tak zdefiniowaną tablicą asocjacyjną? Powiem więcej, bardzo często implementacje zbioru pod spodem używają tablicy asocjacyjnej.</p>
+
+<p>Są też języki programowania, w których w bibliotece standardowej nie ma zbiorów a jedynie tablice asocjacyjne. Jednym z takich języków jest Go.</p>
+
+<h3 id="kod-źródłowy">Kod źródłowy</h3>
+
+<p>Jak wspomniałem wcześniej zbiór jest bardzo podobny do tablicy asocjacyjnej. To podobieństwo jest widoczne także w przykładowej implementacji:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashSet</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">SimpleSet</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">PRESENT</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">SimpleMap</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleHashMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">map</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">T</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="n">PRESENT</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">remove</span><span class="o">(</span><span class="n">T</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">map</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">item</span><span class="o">)</span> <span class="o">==</span> <span class="n">PRESENT</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">contains</span><span class="o">(</span><span class="n">T</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Zauważ, że cały mechanizm związany z funkcją skrótu, kubełkami, dynamicznym rozszerzaniem pojemności zbioru jest ukryty w implementacji tablicy asocjacyjnej. Sam zbiór korzysta jedynie z publicznych metod. Jeśli nie znasz któregokolwiek z tych mechanizmów koniecznie przeczytaj artykuł o <a href="/struktury-danych-tablica-asocjacyjna/">tablicy asocjacyjnej</a>.</p>
+
+<p>Interesującym zabiegiem jest tu użycie instancji <code class="highlighter-rouge">PRESENT</code>. Dzięki takiemu podejściu minimalizowana jest wielkość zbioru, istnieje tylko jeden obiekt wartości współdzielony pomiędzy wszystkimi kluczami.</p>
+
+<p>Implementacja zbioru opartego o funkcje skrótu jest na tyle prosta, że <a href="https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/blob/master/03_hash_set/src/test/java/pl/samouczekprogramisty/asd/set/SimpleHashSetTest.java">zestaw testów jednostkowych</a> ma dużo więcej linijek kodu ;).</p>
+
+<h2 id="złożoność-obliczeniowa">Złożoność obliczeniowa</h2>
+
+<p>Złożoność obliczeniowa poszczególnych operacji odpowiada złożoności obliczeniowej tablicy asocjacyjnej. Wynika to z faktu, że każda operacja wywołuje odpowiednią metodę zaimplementowaną w tablicy asocjacyjnej.</p>
+
+<p>Ma to dokładnie takie same konsekwencje jak w przypadku mapy opartej o funkcję skrótu. Jeśli funkcja skrótu jest „dobra” wówczas złożoność operacji wynosi <code class="highlighter-rouge">Ο(1)</code>. Jeśli jest zła, złożoność obliczeniowa spada do <code class="highlighter-rouge">Ο(n)</code>.</p>
+
+<p>Dla przypomnienia możesz rzucić okiem na <a href="/struktury-danych-tablica-asocjacyjna/#por%C3%B3wnanie-z%C5%82o%C5%BCono%C5%9Bci-obliczeniowych">złożoność obliczeniową mapy</a>.</p>
+
+<h2 id="najczęściej-zadawane-pytania">Najczęściej zadawane pytania</h2>
+
+<h3 id="czy-zbiór-jest-serializowalnywielowątkowo-bezpiecznyposortowany">Czy zbiór jest serializowalny/wielowątkowo bezpieczny/posortowany</h3>
+
+<p>Jak wspomniałem na początku artykułu zbiór tak na prawdę nie jest strukturą danych. Zbiór to abstrakcyjny typ danych, który może mieć wiele implementacji. Jedną z nich przedstawiłem w tym artykule. Sam zbiór nie może być serializowalny/wielowątkowo bezpieczny/posortowany, ale jego konkretna implementacja już tak. Na przykład implementacja zbioru oparta o drzewo jest posortowana, a ta oparta o funkcję skrótu już nie musi taka być.</p>
+
+<h3 id="czym-zbiór-różni-się-od-listy">Czym zbiór różni się od listy</h3>
+
+<p>Zbiór z definicji jest nieuporządkowanym zbiorem elementów, które nie mogą się powtarzać. Lista to elementy, które mogą się powtarzać. Dodatkowo lista ma swój określony porządek.</p>
+
+<h3 id="czym-zbiór-różni-się-od-tablicy-asocjacyjnej">Czym zbiór różni się od tablicy asocjacyjnej</h3>
+
+<p>Tablica asocjacyjna zawiera unikalny zbiór kluczy, Każdy z kluczy ma przyporządkowaną wartość. Zbiór kluczy w mapie nie zawiera duplikatów. Można powiedzieć, że zbiór jest częścią mapy – zbiór nie zawiera mapowania. To podobieństwo widać w przykładowej implementacji.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>W artykule tylko musnąłem zagadnienia związane z matematyką. Jeśli chcesz możesz dowiedzieć się czegoś więcej o <a href="http://www.math.edu.pl/algebra-zbiorow">algebrze zbiorów</a>.</p>
+
+<p>Polecam lekturę dokumentacji klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html"><code class="highlighter-rouge">HashSet</code></a> i przejrzenie implementacji <a href="http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/HashSet.java"><code class="highlighter-rouge">HashSet</code> w OpenJDK</a>. Możesz też rzucić okiem na <a href="http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/TreeSet.java">implementację zbioru opartą o drzewa</a>.</p>
+
+<p>Jak zwykle zachęcam Cię też do przejrzenia <a href="https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/03_hash_set">kodu źródłowego użytego w artykule</a>.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Teraz wiesz czym jest zbiór. Znasz złożoność obliczeniową poszczególnych operacji. Znasz podstawowe operacje, które można przeprowadzać na zbiorach. Masz też pod ręką zestaw dodatkowych materiałów, które pozwolą Ci poszerzyć zdobytą wiedzę. Możesz śmiało powiedzieć, że udało Ci się poznać kolejny abstrakcyjny typ danych :).</p>
+
+<p>Jeśli znasz kogoś komu materiał zebrany w tym artykule może się przydać będę wdzięczny za podzielenie się linkiem. Zależy mi na dotarciu do nowych Czytelników, a Ty możesz mi w ten sposób pomóc – z góry dziękuję!</p>
+
+<p>Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera. Możesz też polubić <a href="https://www.facebook.com/SamouczekProgramisty">profil Samouczka na Facebook’u</a>. To tyle na dzisiaj, trzymaj się i do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:wyjatek">
+      <p>Niektóre implementacje porządkują elementy zbioru. <a href="#fnref:wyjatek" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:treemap">
+      <p>To zależy od implementacji, na przykład <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeMap.html"><code class="highlighter-rouge">TreeMap</code></a> sortuje klucze a <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeSet.html"><code class="highlighter-rouge">TreeSet</code></a> przechowuje posortowane wartości. <a href="#fnref:treemap" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2896 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#programista-rzemie%C5%9Blnik" class="page__taxonomy-item" rel="tag">Programista rzemieślnik</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-05-07">2019-05-07</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+        <hr />
+        <p>
+          Nie popełnia błędów tylko ten, kto nic nie robi ;). Bardzo możliwe, że znajdziesz błąd, literówkę, coś co wymaga poprawy. Jeśli chcesz możesz samodzielnie 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/edit/source/_posts/2019-05-07-struktury-danych-zbior.md">poprawić tę stronę</a>. Jeśli nie chcesz poprawiać błędu, który udało Ci się znaleźć będę wdzięczny jeśli go 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/issues/new?title=Błąd%20na%20stronie:%20_posts/2019-05-07-struktury-danych-zbior.md">zgłosisz</a>. Z góry dziękuję!
+        </p>
+      </footer>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/01/08_struktury_danych_tablica_asocjacyjna_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/struktury-danych-tablica-asocjacyjna/" rel="permalink">Struktury danych – tablica asocjacyjna
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  12 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację ...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/watki-w-jezyku-java/" rel="permalink">Wątki w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/01/02_struktury_danych_lista_wiazana_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/struktury-danych-lista-wiazana/" rel="permalink">Struktury danych – lista wiązana
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o liście wiązanej (ang. linked list). Pokażę Ci przykładową implementację takiej listy. Dowiesz się jaka jest złożoność obliczenio...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/08/09_kolekcje_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/kolekcje-w-jezyku-java/" rel="permalink">Kolekcje w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o kolekcjach w języku Java. Dowiesz się czym są kolekcje, kiedy można ich używać. Poznasz podstawowe kolekcje takie jak mapa, zbió...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="https://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.samouczekprogramisty.pl/struktury-danych-zbior/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>

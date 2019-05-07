@@ -1,4 +1,200 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="https://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-05-04T22:38:17+02:00</updated><id>https://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Wzorzec projektowy obserwator</title><link href="https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/" rel="alternate" type="text/html" title="Wzorzec projektowy obserwator" /><published>2019-05-02T00:00:00+02:00</published><updated>2019-05-02T23:15:06+02:00</updated><id>https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/">&lt;p class=&quot;notice--info&quot;&gt;Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – &lt;a href=&quot;https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/#wzorce-projektowe&quot;&gt;wzorce projektowe&lt;/a&gt;. Jeżeli chcesz sobie przypomnieć diagram klas w UML, to zapraszam Cię do &lt;a href=&quot;/wzorzec-projektowy-adapter/#b%C5%82yskawiczny-kurs-uml&quot;&gt;krótkiego wprowadzenia do diagramu klas&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="https://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-05-08T00:11:12+02:00</updated><id>https://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Struktury danych – zbiór</title><link href="https://www.samouczekprogramisty.pl/struktury-danych-zbior/" rel="alternate" type="text/html" title="Struktury danych – zbiór" /><published>2019-05-07T00:00:00+02:00</published><updated>2019-05-07T23:54:56+02:00</updated><id>https://www.samouczekprogramisty.pl/struktury-danych-zbior</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/struktury-danych-zbior/">&lt;div class=&quot;notice--info&quot;&gt;
+  
+&lt;p&gt;Artykuł ten opisuje przykładową implementację zbioru. Zbiór jest abstrakcyjnym typem danych, który występuje w wielu językach programowania. Zasada pracy ze zbiorami są niezależnie od języka programowania.&lt;/p&gt;
+
+&lt;p&gt;Przykładową implementację przygotowałem w Javie. Żeby wynieść jak najwięcej z tego artykułu potrzebna jest wiedza na temat &lt;code class=&quot;highlighter-rouge&quot;&gt;hashCode&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;equals&lt;/code&gt;. Niezbędna jest też znajomość &lt;a href=&quot;/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/#kontrakt-między-metodami-equals-i-hashcode&quot;&gt;kontraktu pomiędzy metodami &lt;code class=&quot;highlighter-rouge&quot;&gt;equals&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;hashCode&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Do zrozumienia przykładowej implementacji niezbędna będzie też wiedza o &lt;a href=&quot;/typy-generyczne-w-jezyku-java/&quot;&gt;typach generycznych&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Może przydać się też wiedza na temat &lt;a href=&quot;/podstawy-zlozonosci-obliczeniowej/&quot;&gt;szacowania złożoności obliczeniowej&lt;/a&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;struktura-danych-a-abstrakcyjny-typ-danych&quot;&gt;Struktura danych a abstrakcyjny typ danych&lt;/h2&gt;
+
+&lt;p&gt;W poprzednich artykułach z serii opisujących &lt;a href=&quot;/struktury-danych-lista-wiazana/&quot;&gt;listę wiązaną&lt;/a&gt; czy &lt;a href=&quot;/struktury-danych-tablica-asocjacyjna/&quot;&gt;tablicę asocjacyjną&lt;/a&gt; pominąłem kwestie definicji. Używałem określenia struktura danych i abstrakcyjny typ danych zamiennie. Tym razem chciałbym zwrócić Twoją uwagę na drobną różnicę pomiędzy tymi określeniami.&lt;/p&gt;
+
+&lt;p&gt;Abstrakcyjny typ danych definiuje zachowanie danego typu. Określa zestaw operacji, które można na tym typie wykonać. Opis abstrakcyjnego typu danych zawiera także cechy charakterystyczne dla danego typu.&lt;/p&gt;
+
+&lt;p&gt;Na przykład zbiór jest abstrakcyjnym typem danych (niżej opiszę jego własności), a &lt;code class=&quot;highlighter-rouge&quot;&gt;TreeSet&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;HashSet&lt;/code&gt; są implementacjami tego abstrakcyjnego typu danych. Te implementacje używają rożnych struktur danych. Innym przykładem może być abstrakcyjny typ danych &lt;a href=&quot;/struktury-danych-tablica-asocjacyjna/&quot;&gt;tablica asocjacyjna&lt;/a&gt;, której implementacja może używać tablicy i listy wiązanej.&lt;/p&gt;
+
+&lt;h2 id=&quot;czym-jest-zbiór&quot;&gt;Czym jest zbiór&lt;/h2&gt;
+
+&lt;p&gt;Zbiór jest abstrakcyjnym typem danych, który ma następujące własności:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;pozwala na przechowywanie wielu elementów,&lt;/li&gt;
+  &lt;li&gt;kolejność elementów w zbiorze nie ma znaczenia&lt;sup id=&quot;fnref:wyjatek&quot;&gt;&lt;a href=&quot;#fn:wyjatek&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
+  &lt;li&gt;pozwala na przechowywanie co najwyżej jednej kopii elementu (duplikaty nie są dozwolone).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Podstawowymi operacjami, które można przeprowadzić na zbiorze jest dodanie elementu, usunięcie elementu i sprawdzenie czy dany element jest częścią zbioru.&lt;/p&gt;
+
+&lt;p&gt;Zbiór jest także jednym z podstawowych pojęć matematycznych.&lt;/p&gt;
+
+&lt;h2 id=&quot;algebra-zbiorów&quot;&gt;Algebra zbiorów&lt;/h2&gt;
+
+&lt;p&gt;Tematem tego artykułu nie jest zbiór w kontekście matematycznym. Chciałbym jednak zwrócić Twoją uwagę na podstawowe operacje, które można przeprowadzać na zbiorach. Ta podstawowa wiedza może także przydać się w kontekście programowania.&lt;/p&gt;
+
+&lt;p&gt;Poza operacjami przyda się też wiedza o tak zwanym zbiorze pustym. Zbiór pusty jak sama nazwa wskazuje jest pusty, nie ma żadnego elementu.&lt;/p&gt;
+
+&lt;h3 id=&quot;iloczyn&quot;&gt;Iloczyn&lt;/h3&gt;
+
+&lt;p&gt;Nazywany także przecięciem dwóch zbiorów. Przecięcie to nic innego jak część wspólna dwóch zbiorów. Przecięcie dwóch zbiorów może prowadzić do uzyskania:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;mniejszego podzbioru, który jest częścią wspólną obu zbiorów,&lt;/li&gt;
+  &lt;li&gt;zbioru równemu obu zbiorom, jeśli oba zbiory zawierają dokładnie takie same elementy,&lt;/li&gt;
+  &lt;li&gt;pustego zbioru, jeśli oba zbiory nie mają wspólnych elementów.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Iloczyn dowolnego zbioru ze zbiorem pustym zawsze jest zbiorem pustym.&lt;/p&gt;
+
+&lt;h3 id=&quot;suma&quot;&gt;Suma&lt;/h3&gt;
+
+&lt;p&gt;Suma dwóch zbiorów to zbiór, który zawiera wszystkie elementy z obu sumowanych zbiorów.&lt;/p&gt;
+
+&lt;h3 id=&quot;różnica&quot;&gt;Różnica&lt;/h3&gt;
+
+&lt;p&gt;Różnica zbioru A i zbioru B to zbiór zawierający wszystkie elementy, które są w zbiorze A i nie ma ich w zbiorze B.&lt;/p&gt;
+
+&lt;div class=&quot;notice--success text-center&quot;&gt;
+  
+&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2896 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
+
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;jak-działa-zbiór&quot;&gt;Jak działa zbiór?&lt;/h2&gt;
+
+&lt;p&gt;W ramach tego artykułu skupię się na przykładowej implementacji, która oparta jest o funkcję skrótu (w języku Java jest to &lt;code class=&quot;highlighter-rouge&quot;&gt;hashCode&lt;/code&gt;). Przedstawiona tu implementacja będzie uproszczoną wersją klasy &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HashSet&lt;/code&gt;&lt;/a&gt;, znajdującej się w bibliotece standardowej.&lt;/p&gt;
+
+&lt;h3 id=&quot;hashcode-i-equals&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hashCode&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;equals&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Podobnie jak w przypadku tablicy asocjacyjnej opartej o funkcję skrótu tak i tutaj &lt;code class=&quot;highlighter-rouge&quot;&gt;hashCode&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;equals&lt;/code&gt; pełnią kluczową rolę.&lt;/p&gt;
+
+&lt;p&gt;Także tutaj na podstawie wartości funkcji &lt;code class=&quot;highlighter-rouge&quot;&gt;hashCode&lt;/code&gt; obliczone zostanie „wiaderko”, do którego wpadnie dany element. Następnie elementy wewnątrz tego samego wiaderka porównywane będą przy pomocy metody &lt;code class=&quot;highlighter-rouge&quot;&gt;equals&lt;/code&gt;. Takie podejście pozwala na uzyskanie bardzo dobrej złożoności obliczeniowej.&lt;/p&gt;
+
+&lt;p&gt;Podobnie jak w przypadku tablicy asocjacyjnej kluczowe jest zachowanie &lt;a href=&quot;/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/#kontrakt-między-metodami-equals-i-hashcode&quot;&gt;kontraktu&lt;/a&gt; pomiędzy tymi metodami.&lt;/p&gt;
+
+&lt;h3 id=&quot;podstawowe-operacje&quot;&gt;Podstawowe operacje&lt;/h3&gt;
+
+&lt;p&gt;Jak wspomniałem wyżej zbiór oferuje kilka podstawowych operacji. Na potrzeby tego artykułu ograniczę je do takiego &lt;a href=&quot;/interfejsy-w-jezyku-java/&quot;&gt;interfejsu&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SimpleSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int size()&lt;/code&gt; – metoda zwraca liczbę elementów zbioru,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;boolean add(E element)&lt;/code&gt; – metoda dodaje element to zbioru, zwraca &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; jeśli element został dodany,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;boolean remove(E element)&lt;/code&gt; – metoda usuwa element ze zbioru, zwraca &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; jeśli element został usunięty,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;boolean contains(E element)&lt;/code&gt; – metoda zwraca flagę informującą czy element istnieje w zbiorze.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;przykładowa-implementacja&quot;&gt;Przykładowa implementacja&lt;/h2&gt;
+
+&lt;h3 id=&quot;podobieństwa-pomiędzy-hashset-i-hashmap&quot;&gt;Podobieństwa pomiędzy &lt;code class=&quot;highlighter-rouge&quot;&gt;HashSet&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;HashMap&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Zacznę od krótkiego przypomnienia czym jest tablica asocjacyjna. Ta struktura pozwala na przechowywanie kluczy i odpowiadających im wartości. Implementacja &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashMap.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HashMap&lt;/code&gt;&lt;/a&gt; zakłada, że tablica asocjacyjna zawiera unikalny zestaw kluczy. Innymi słowy nie może w niej być dwóch takich samych kluczy.&lt;/p&gt;
+
+&lt;p&gt;Tablica asocjacyjna, podobnie jak zbiór, nie zwraca uwagi na porządek kluczy&lt;sup id=&quot;fnref:treemap&quot;&gt;&lt;a href=&quot;#fn:treemap&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Zbiór nie zawiera duplikatów, mapa nie przechowuje zduplikowanych kluczy.&lt;/p&gt;
+
+&lt;p&gt;Czy widzisz tu pewne podobieństwo pomiędzy zbiorem a tak zdefiniowaną tablicą asocjacyjną? Powiem więcej, bardzo często implementacje zbioru pod spodem używają tablicy asocjacyjnej.&lt;/p&gt;
+
+&lt;p&gt;Są też języki programowania, w których w bibliotece standardowej nie ma zbiorów a jedynie tablice asocjacyjne. Jednym z takich języków jest Go.&lt;/p&gt;
+
+&lt;h3 id=&quot;kod-źródłowy&quot;&gt;Kod źródłowy&lt;/h3&gt;
+
+&lt;p&gt;Jak wspomniałem wcześniej zbiór jest bardzo podobny do tablicy asocjacyjnej. To podobieństwo jest widoczne także w przykładowej implementacji:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SimpleHashSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SimpleSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PRESENT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SimpleMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SimpleHashMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PRESENT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PRESENT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;containsKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Zauważ, że cały mechanizm związany z funkcją skrótu, kubełkami, dynamicznym rozszerzaniem pojemności zbioru jest ukryty w implementacji tablicy asocjacyjnej. Sam zbiór korzysta jedynie z publicznych metod. Jeśli nie znasz któregokolwiek z tych mechanizmów koniecznie przeczytaj artykuł o &lt;a href=&quot;/struktury-danych-tablica-asocjacyjna/&quot;&gt;tablicy asocjacyjnej&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Interesującym zabiegiem jest tu użycie instancji &lt;code class=&quot;highlighter-rouge&quot;&gt;PRESENT&lt;/code&gt;. Dzięki takiemu podejściu minimalizowana jest wielkość zbioru, istnieje tylko jeden obiekt wartości współdzielony pomiędzy wszystkimi kluczami.&lt;/p&gt;
+
+&lt;p&gt;Implementacja zbioru opartego o funkcje skrótu jest na tyle prosta, że &lt;a href=&quot;https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/blob/master/03_hash_set/src/test/java/pl/samouczekprogramisty/asd/set/SimpleHashSetTest.java&quot;&gt;zestaw testów jednostkowych&lt;/a&gt; ma dużo więcej linijek kodu ;).&lt;/p&gt;
+
+&lt;h2 id=&quot;złożoność-obliczeniowa&quot;&gt;Złożoność obliczeniowa&lt;/h2&gt;
+
+&lt;p&gt;Złożoność obliczeniowa poszczególnych operacji odpowiada złożoności obliczeniowej tablicy asocjacyjnej. Wynika to z faktu, że każda operacja wywołuje odpowiednią metodę zaimplementowaną w tablicy asocjacyjnej.&lt;/p&gt;
+
+&lt;p&gt;Ma to dokładnie takie same konsekwencje jak w przypadku mapy opartej o funkcję skrótu. Jeśli funkcja skrótu jest „dobra” wówczas złożoność operacji wynosi &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(1)&lt;/code&gt;. Jeśli jest zła, złożoność obliczeniowa spada do &lt;code class=&quot;highlighter-rouge&quot;&gt;Ο(n)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dla przypomnienia możesz rzucić okiem na &lt;a href=&quot;/struktury-danych-tablica-asocjacyjna/#por%C3%B3wnanie-z%C5%82o%C5%BCono%C5%9Bci-obliczeniowych&quot;&gt;złożoność obliczeniową mapy&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;najczęściej-zadawane-pytania&quot;&gt;Najczęściej zadawane pytania&lt;/h2&gt;
+
+&lt;h3 id=&quot;czy-zbiór-jest-serializowalnywielowątkowo-bezpiecznyposortowany&quot;&gt;Czy zbiór jest serializowalny/wielowątkowo bezpieczny/posortowany&lt;/h3&gt;
+
+&lt;p&gt;Jak wspomniałem na początku artykułu zbiór tak na prawdę nie jest strukturą danych. Zbiór to abstrakcyjny typ danych, który może mieć wiele implementacji. Jedną z nich przedstawiłem w tym artykule. Sam zbiór nie może być serializowalny/wielowątkowo bezpieczny/posortowany, ale jego konkretna implementacja już tak. Na przykład implementacja zbioru oparta o drzewo jest posortowana, a ta oparta o funkcję skrótu już nie musi taka być.&lt;/p&gt;
+
+&lt;h3 id=&quot;czym-zbiór-różni-się-od-listy&quot;&gt;Czym zbiór różni się od listy&lt;/h3&gt;
+
+&lt;p&gt;Zbiór z definicji jest nieuporządkowanym zbiorem elementów, które nie mogą się powtarzać. Lista to elementy, które mogą się powtarzać. Dodatkowo lista ma swój określony porządek.&lt;/p&gt;
+
+&lt;h3 id=&quot;czym-zbiór-różni-się-od-tablicy-asocjacyjnej&quot;&gt;Czym zbiór różni się od tablicy asocjacyjnej&lt;/h3&gt;
+
+&lt;p&gt;Tablica asocjacyjna zawiera unikalny zbiór kluczy, Każdy z kluczy ma przyporządkowaną wartość. Zbiór kluczy w mapie nie zawiera duplikatów. Można powiedzieć, że zbiór jest częścią mapy – zbiór nie zawiera mapowania. To podobieństwo widać w przykładowej implementacji.&lt;/p&gt;
+
+&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
+
+&lt;p&gt;W artykule tylko musnąłem zagadnienia związane z matematyką. Jeśli chcesz możesz dowiedzieć się czegoś więcej o &lt;a href=&quot;http://www.math.edu.pl/algebra-zbiorow&quot;&gt;algebrze zbiorów&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Polecam lekturę dokumentacji klasy &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HashSet&lt;/code&gt;&lt;/a&gt; i przejrzenie implementacji &lt;a href=&quot;http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/HashSet.java&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HashSet&lt;/code&gt; w OpenJDK&lt;/a&gt;. Możesz też rzucić okiem na &lt;a href=&quot;http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/TreeSet.java&quot;&gt;implementację zbioru opartą o drzewa&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Jak zwykle zachęcam Cię też do przejrzenia &lt;a href=&quot;https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/03_hash_set&quot;&gt;kodu źródłowego użytego w artykule&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Teraz wiesz czym jest zbiór. Znasz złożoność obliczeniową poszczególnych operacji. Znasz podstawowe operacje, które można przeprowadzać na zbiorach. Masz też pod ręką zestaw dodatkowych materiałów, które pozwolą Ci poszerzyć zdobytą wiedzę. Możesz śmiało powiedzieć, że udało Ci się poznać kolejny abstrakcyjny typ danych :).&lt;/p&gt;
+
+&lt;p&gt;Jeśli znasz kogoś komu materiał zebrany w tym artykule może się przydać będę wdzięczny za podzielenie się linkiem. Zależy mi na dotarciu do nowych Czytelników, a Ty możesz mi w ten sposób pomóc – z góry dziękuję!&lt;/p&gt;
+
+&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera. Możesz też polubić &lt;a href=&quot;https://www.facebook.com/SamouczekProgramisty&quot;&gt;profil Samouczka na Facebook’u&lt;/a&gt;. To tyle na dzisiaj, trzymaj się i do następnego razu!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:wyjatek&quot;&gt;
+      &lt;p&gt;Niektóre implementacje porządkują elementy zbioru. &lt;a href=&quot;#fnref:wyjatek&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:treemap&quot;&gt;
+      &lt;p&gt;To zależy od implementacji, na przykład &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeMap.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TreeMap&lt;/code&gt;&lt;/a&gt; sortuje klucze a &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeSet.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TreeSet&lt;/code&gt;&lt;/a&gt; przechowuje posortowane wartości. &lt;a href=&quot;#fnref:treemap&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W artykule tym przeczytasz o zbiorze. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację zbioru. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji.</summary></entry><entry><title type="html">Wzorzec projektowy obserwator</title><link href="https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/" rel="alternate" type="text/html" title="Wzorzec projektowy obserwator" /><published>2019-05-02T00:00:00+02:00</published><updated>2019-05-02T23:15:06+02:00</updated><id>https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/">&lt;p class=&quot;notice--info&quot;&gt;Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – &lt;a href=&quot;https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/#wzorce-projektowe&quot;&gt;wzorce projektowe&lt;/a&gt;. Jeżeli chcesz sobie przypomnieć diagram klas w UML, to zapraszam Cię do &lt;a href=&quot;/wzorzec-projektowy-adapter/#b%C5%82yskawiczny-kurs-uml&quot;&gt;krótkiego wprowadzenia do diagramu klas&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;problem-do-rozwiązania&quot;&gt;Problem do rozwiązania&lt;/h2&gt;
 
@@ -1934,7 +2130,7 @@ BCBACA
 
 &lt;p&gt;Jeśli ktoś z Twoich znajomych przygotowuje się do rozmowy kwalifikacyjnej na stanowisko programisty możesz podzielić się linkiem do tego artykułu, z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów możesz dopisać się do samouczkowego newslettera i polubić Samouczka na Facebook’u.&lt;/p&gt;
 
-&lt;p&gt;Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po jego lekturze dowiesz się o czterech różnych sposobach na rozwiązanie zadania, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony. Każda z propozycji jest dokładnie omówiona pod kątem złożoności obliczeniowej i pamięciowej.</summary></entry><entry><title type="html">Wątki w języku Java</title><link href="https://www.samouczekprogramisty.pl/watki-w-jezyku-java/" rel="alternate" type="text/html" title="Wątki w języku Java" /><published>2019-02-11T00:00:00+01:00</published><updated>2019-02-11T23:07:42+01:00</updated><id>https://www.samouczekprogramisty.pl/watki-w-jezyku-java</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/watki-w-jezyku-java/">&lt;p class=&quot;notice--info&quot;&gt;W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu “event-loop” i przetwarzania asynchronicznego, które niejako związane są z wątkami. Pomijam także dokładny opis klas biblioteki standardowej z pakietu &lt;code class=&quot;highlighter-rouge&quot;&gt;java.util.concurrent&lt;/code&gt; czy temat programowania reaktywnego. Każde z tych zagadnień to temat na co najmniej jeden osobny artykuł.&lt;/p&gt;
+&lt;p&gt;Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po jego lekturze dowiesz się o czterech różnych sposobach na rozwiązanie zadania, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony. Każda z propozycji jest dokładnie omówiona pod kątem złożoności obliczeniowej i pamięciowej.</summary></entry><entry><title type="html">Wątki w języku Java</title><link href="https://www.samouczekprogramisty.pl/watki-w-jezyku-java/" rel="alternate" type="text/html" title="Wątki w języku Java" /><published>2019-02-11T00:00:00+01:00</published><updated>2019-05-05T21:25:49+02:00</updated><id>https://www.samouczekprogramisty.pl/watki-w-jezyku-java</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/watki-w-jezyku-java/">&lt;p class=&quot;notice--info&quot;&gt;W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu “event-loop” i przetwarzania asynchronicznego, które niejako związane są z wątkami. Pomijam także dokładny opis klas biblioteki standardowej z pakietu &lt;code class=&quot;highlighter-rouge&quot;&gt;java.util.concurrent&lt;/code&gt; czy temat programowania reaktywnego. Każde z tych zagadnień to temat na co najmniej jeden osobny artykuł.&lt;/p&gt;
 
 &lt;h2 id=&quot;stwórz-swój-pierwszy-wątek&quot;&gt;Stwórz swój pierwszy wątek&lt;/h2&gt;
 
@@ -2309,7 +2505,7 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
       &lt;td style=&quot;text-align: center&quot;&gt;2.&lt;/td&gt;
       &lt;td&gt;zielony&lt;/td&gt;
       &lt;td&gt;2.&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
       &lt;td&gt;1&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -3558,197 +3754,4 @@ Smerfy
       &lt;p&gt;Bazy danych mogą tu sporo optymalizować, dzięki czemu czasochłonne tworzenie iloczynu kartezjańskiego nie zawsze jest wykonywane. Jednak z punktu widzenia algebry relacji, podstawy modelu relacyjnego to właśnie iloczyn kartezjański jest punktem wyjścia. &lt;a href=&quot;#fnref:optymalizacja&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule opisuję klauzulę `JOIN`. Pozwala ona na łączenie ze sobą danych znajdujących się w różnych tabelach. Po lekturze tego artykułu będziesz wiedzieć jakie są rodzaje złączeń i jakie są między nimi różnice. Wszystkie opisy poparte są przykładami. Na końcu artykułu znajdziesz zadania z przykładowymi rozwiązaniami, które pomogą utrwalić Ci wiedzę dotyczącą klauzuli `JOIN`.</summary></entry><entry><title type="html">Samouczek na rozmowie – kalkulator</title><link href="https://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/" rel="alternate" type="text/html" title="Samouczek na rozmowie – kalkulator" /><published>2018-11-12T00:00:00+01:00</published><updated>2018-11-18T14:00:20+01:00</updated><id>https://www.samouczekprogramisty.pl/zadanie-kalkulator</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/samouczek-na-rozmowie-kalkulator/">&lt;div class=&quot;notice--info&quot;&gt;
-  
-&lt;p&gt;To jest artykuł z serii “Samouczek na rozmowie”. W ramach tej serii staram się, między innymi, rozwiązywać zadania. Zadania te często zdarzają się na rozmowach kwalifikacyjnych.&lt;/p&gt;
-
-&lt;p&gt;W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności obliczeniowej jest niezwykle ważna. Przyda się też umiejętność pisania testów jednostkowych. Dzięki nim bardzo łatwo przetestujesz działanie algorytmu.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/podstawy-zlozonosci-obliczeniowej/&quot;&gt;Podstawy złożoności obliczeniowej&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;Test Driven Development na przykładzie&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;% post_url 2016-10-29-testy-jednostkowe-z-junit %}&quot;&gt;Testy jednostkowe z JUnit&lt;/a&gt;,&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu czasami będę używał “pseudo kodu”. Przykładowe rozwiązania będą w języku Java.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.samouczekprogramisty.pl/kurs-programowania-java&quot;&gt;Kurs programowania w języku Java&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/div&gt;
-
-&lt;p&gt;W artykule tym pokazuję kolejne zadanie, które nie jest algorytmiczne. W tym przypadku zadanie ma sprawdzić głównie umiejętność pisania kodu wysokiej jakości.&lt;/p&gt;
-
-&lt;p&gt;W artykule dotyczącym &lt;a href=&quot;/samouczek-na-rozmowie-zagniezdzona-struktura/&quot;&gt;zadania z zagnieżdżoną strukturą&lt;/a&gt; dokładnie opisywałem moje podejście do rozwiązania tego typu zadań. Zachęcam Cię do przeczytania tego artykułu. Poniżej tylko krótkie przypomnienie wskazówek, które tam zebrałem:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;w przypadku niepełnego opisu zadania załóż coś. W rozwiązaniu zadania opisz swoje założenia,&lt;/li&gt;
-  &lt;li&gt;staraj się zawsze dostarczać testy automatyczne razem ze swoim rozwiązaniem, nawet jeśli nie są wymagane,&lt;/li&gt;
-  &lt;li&gt;dokumentuj swój kod tam gdzie jest to niezbędne, używanie docstring’ów może być dobrym rozwiązaniem.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;zadanie-do-wykonania&quot;&gt;Zadanie do wykonania&lt;/h2&gt;
-
-&lt;p&gt;Wiesz już, że dzisiejsze zadanie podesłał mi jeden z Czytelników – Łukasz (jeszcze raz wielkie dzięki). Łukasz dostał następujące instrukcje:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Przygotowanie kompletnego rozwiązania powinno zająć około dwóch godzin. Dostarczone rozwiązanie powinno mieć jakość, którego możemy się spodziewać w trakcie normalnej pracy. Używanie narzędzi do budowania jest mile widziane, nie jest to wymóg konieczny. Dostarczenie testów jednostkowych także nie jest wymagane, jednak jest mile widziane i będzie wzięte pod uwagę podczas oceniania zadania. Rozwiązanie powinno zawierać także instrukcję jak uruchomić zadanie z linii poleceń. Rozwiązanie może założyć, że dane wejściowe są w poprawnym formacie. W przypadku niejasnych wymagań przyjęte założenia powinny być dostarczone razem z rozwiązaniem. Dopuszczalne jest użycie zewnętrznych bibliotek. Należy je dołączyć do dostarczonego rozwiązania. Jakość dostarczonego kodu jest równie istotna jak dostarczenie działającego rozwiązania.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Poza ogólną instrukcją dostał także oczywiście treść zadania do wykonania:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Napisz program, który zwróci wynik otrzymany na podstawie zestawu instrukcji. Instrukcje składają się ze słowa kluczowego i liczby oddzielonych spacją. Instrukcje oddzielone są znakiem nowej linii.
-Zestaw instrukcji pobierany jest z pliku, a wynik obliczeń powinien być wypisany na ekranie. Plik może zawierać dowolną liczbę instrukcji. Instrukcje mogą być dowolną operacją przyjmującą dwa argumenty (np. &lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;subtract&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;multiply&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;divide&lt;/code&gt; itp.). Instrukcje powinny być interpretowane w kolejności wprowadzenia (kolejność operacji w matematyce powinna być ignorowana). Ostatnią instrukcją powinna być &lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt; i liczba. Na przykład &lt;code class=&quot;highlighter-rouge&quot;&gt;apply 3&lt;/code&gt;. Ta liczba powinna być użyta w trakcie tworzenia instancji kalkulatora. Następnie kalkulator powinien wykonać po kolei wszystkie wcześniej podane operacje.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Tutaj pracodawca zachował się wzorowo, dostarczając dodatkowo przykłady działania programu:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;wejście:&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;add 2&lt;/code&gt;&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;multiply 3&lt;/code&gt;&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;apply 10&lt;/code&gt;&lt;br /&gt;
-wyjście: 36&lt;br /&gt;
-wyjaśnienie: ((10 + 2) * 3) = 36&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;wejście: &lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;multiply 3&lt;/code&gt; &lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;add 2&lt;/code&gt; &lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;apply 10&lt;/code&gt;&lt;br /&gt;
-wyjście: 32&lt;br /&gt;
-wyjaśnienie: ((10 * 3) + 2) = 32&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;wejście:&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;apply 1&lt;/code&gt;&lt;br /&gt;
-wyjście: 1&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;pochwała-dla-pracodawcy&quot;&gt;Pochwała dla pracodawcy&lt;/h2&gt;
-
-&lt;p&gt;Często w artykułach w tej serii wspominam o dobrych praktykach, które warto stosować przy rozwiązywaniu zadań tego typu. Przytoczyłem część z nich na początku tego artykułu.&lt;/p&gt;
-
-&lt;p&gt;W tym przypadku pracodawca w treści zadania dokładnie je wypunktował. Z mojego punktu widzenia pracodawca, który dokładnie opisuje zadanie do wykonania i z góry odpowiada na pytania, które mogą się pojawić ma dużego plusa.&lt;/p&gt;
-
-&lt;p&gt;Jeśli zobaczysz tak opisane zadanie, to moim zdaniem masz do czynienia z firmą, która ma doświadczenie w rekrutowaniu programistów przy pomocy zadań tego typu.&lt;/p&gt;
-
-&lt;div class=&quot;notice--success text-center&quot;&gt;
-  
-&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 2896 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
-
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;rozwiązanie-zadania&quot;&gt;Rozwiązanie zadania&lt;/h2&gt;
-
-&lt;p&gt;Zadanie rozwiązałem używając &lt;a href=&quot;/test-driven-development-na-przykladzie/&quot;&gt;TDD&lt;/a&gt;. Starałem się dodawać zmiany po każdym cyklu. Patrząc w historię repozytorium&lt;sup id=&quot;fnref:kurs&quot;&gt;&lt;a href=&quot;#fn:kurs&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; możesz zobaczyć jak rozwijał się kod. Zanim jednak zajrzysz do &lt;a href=&quot;https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/11_abacus/src&quot;&gt;przykładowego rozwiązania&lt;/a&gt; zachęcam Cię do samodzielnej próby rozwiązania tego zadania. Wtedy nauczysz się najwięcej.&lt;/p&gt;
-
-&lt;p&gt;Muszę też zaznaczyć, że moje rozwiązanie nie zadziała w przypadku gdy lista poleceń będzie bardzo długa. Dzieje się tak, ponieważ wczytuję całą listę instrukcji do pamięci przed rozpoczęciem jakichkolwiek obliczeń. Bardzo długa lista poleceń skończyłaby się wówczas wyjątkiem &lt;a href=&quot;https://docs.oracle.com/javase/10/docs/api/java/lang/OutOfMemoryError.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;OutOfMemoryError&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Obejściem tego problemu byłoby przeczytanie odpowiedniej ilości danych z końca pliku (żeby znaleźć instrukcję &lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt;). Przy takim podejściu &lt;a href=&quot;/podstawy-zlozonosci-obliczeniowej/&quot;&gt;złożoność pamięciowa&lt;/a&gt; programu wynosiłaby Ο(1), a nie Ο(n).&lt;/p&gt;
-
-&lt;h3 id=&quot;dopuszczalne-operacje&quot;&gt;Dopuszczalne operacje&lt;/h3&gt;
-
-&lt;p&gt;W moim rozwiązaniu wszystkie dopuszczalne operacje zdefiniowałem jako elementy &lt;a href=&quot;/typ-wyliczeniowy-w-jezyku-java/&quot;&gt;typu wyliczeniowego&lt;/a&gt;. Posłużyłem się tutaj także odwołaniem do metod w klasie &lt;code class=&quot;highlighter-rouge&quot;&gt;BigDecimal&lt;/code&gt;. Ten mechanizm opisałem dokładnie w artykule na temat &lt;a href=&quot;/wyrazenia-lambda-w-jezyku-java/#odwo%C5%82ywanie-si%C4%99-do-metod-bez-podania-instancji&quot;&gt;wyrażeń lambda&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Operation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;ADD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;BigDecimal:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;SUBTRACT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;BigDecimal:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subtract&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;MULTIPLY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;BigDecimal:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;multiply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;DIVIDE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;BigDecimal:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;divide&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BinaryOperator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;Operation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BinaryOperator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;elementy-programowania-funkcyjnego&quot;&gt;Elementy programowania funkcyjnego&lt;/h3&gt;
-
-&lt;p&gt;W swoim rozwiązaniu użyłem elementy programowania funkcyjnego. Rozwijanie funkcji (ang. &lt;em&gt;currying&lt;/em&gt;) pozwala mi utworzyć odpowiednią funkcję na etapie parsowania każdej instrukcji, nie muszę znać obu parametrów. Tutaj także użyłem &lt;a href=&quot;/wyrazenia-lambda-w-jezyku-java/&quot;&gt;wyrażeń lambda&lt;/a&gt; i tak zwanych &lt;a href=&quot;https://pl.wikipedia.org/wiki/Domkni%C4%99cie_(programowanie)&quot;&gt;domknięć&lt;/a&gt;&lt;sup id=&quot;fnref:domkniecie&quot;&gt;&lt;a href=&quot;#fn:domkniecie&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Operation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokens&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokens&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Line (&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;) has illegal format!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;operand&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokens&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Operation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokens&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;operand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Dodatkowo klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;Calculator&lt;/code&gt; dostając kolejne instrukcje w formie funkcji do wykonania łączy je ze sobą używając metody &lt;code class=&quot;highlighter-rouge&quot;&gt;andThen&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Calculator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initialValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linkedOperations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;identity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Calculator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initialValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;initialValue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initialValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;linkedOperations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linkedOperations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andThen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;compute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linkedOperations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;initialValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Dzięki takiemu podejściu wywołanie &lt;code class=&quot;highlighter-rouge&quot;&gt;linkedOperations.apply(initialValue)&lt;/code&gt; pozwala na sekwencyjne uruchomienie wszystkich wprowadzonych instrukcji.&lt;/p&gt;
-
-&lt;h2 id=&quot;wyślij-mi-swoje-zadanie&quot;&gt;Wyślij mi swoje zadanie&lt;/h2&gt;
-
-&lt;p&gt;Jeśli chcesz żebym spróbował rozwiązać Twoje zadanie proszę wyślij je na mój adres e-mail &lt;code class=&quot;highlighter-rouge&quot;&gt;marcin małpka samouczekprogramisty.pl&lt;/code&gt;. Jeśli tylko będę potrafił je rozwiązać to z chęcią napiszę o tym artykuł.&lt;/p&gt;
-
-&lt;div class=&quot;notice--warning&quot;&gt;
-
-&lt;p&gt;Często firmy zastrzegają sobie to, żeby nie rozpowszechniać zadań, które były na rozmowie kwalifikacyjnej. Jeśli tak było w Twoim przypadku proszę uszanuj wolę danej firmy i nie przesyłaj mi takiego zadania.&lt;/p&gt;
-
-&lt;p&gt;Dostając zadanie od Ciebie zakładam, że mogę je opublikować na blogu.&lt;/p&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Po lekturze tego artykułu i samodzielnej próbie rozwiązania zadania jesteś o krok bliżej do dobrego przygotowania do rozmowy kwalifikacyjnej.&lt;/p&gt;
-
-&lt;p&gt;Dzisiejszy artykuł pokazał Ci zadanie, które moim zdaniem jest jasno opisane. Zawiera wszystkie niezbędne informacje do jego rozwiązania. Dobrze jest trafić na zadania tego typu na rozmowach kwalifikacyjnych. Propozycja rozwiązania zawiera bardziej zaawansowane konstrukcje, dzięki którym możesz zobaczyć jak może wyglądać czytelny kod wysokiej jakości.&lt;/p&gt;
-
-&lt;p&gt;Jeśli ktoś z Twoich znajomych przygotowuje się do rozmowy kwalifikacyjnej na stanowisko programisty możesz podzielić się linkiem do tego artykułu, z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów możesz dopisać się do samouczkowego newslettera i polubić Samouczka na Facebook’u.&lt;/p&gt;
-
-&lt;p&gt;Do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:kurs&quot;&gt;
-      &lt;p&gt;Jeśli nie wiesz czym jest repozytorium zapraszam Cię do &lt;a href=&quot;https://www.samouczekprogramisty.pl/kurs-git/&quot;&gt;kursu Git’a&lt;/a&gt; :) &lt;a href=&quot;#fnref:kurs&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:domkniecie&quot;&gt;
-      &lt;p&gt;Wyrażenia lambda w języku Java nie są czystymi domknięciami, jednak w tym przypadku takie uproszczenie jest dopuszczalne :). &lt;a href=&quot;#fnref:domkniecie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule rozkładam na części pierwsze zadanie podesłane przez Łukasza. Po lekturze tego artykułu będziesz wiedzieć na co zwracać uwagę przy rozwiązywaniu tego typu zadań na rozmowach kwalifikacyjnych. Pokażę Ci też jak _Test Driven Development_ pozwala na tworzenie przejrzystego i czytelnego kodu.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule opisuję klauzulę `JOIN`. Pozwala ona na łączenie ze sobą danych znajdujących się w różnych tabelach. Po lekturze tego artykułu będziesz wiedzieć jakie są rodzaje złączeń i jakie są między nimi różnice. Wszystkie opisy poparte są przykładami. Na końcu artykułu znajdziesz zadania z przykładowymi rozwiązaniami, które pomogą utrwalić Ci wiedzę dotyczącą klauzuli `JOIN`.</summary></entry></feed>

@@ -624,6 +624,11 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/05/01_wzorzec_projektowy_obserwator_artykul.jpg"},{
+        "title": "Struktury danych – zbiór",
+        "excerpt":"Artykuł ten opisuje przykładową implementację zbioru. Zbiór jest abstrakcyjnym typem danych, który występuje w wielu językach programowania. Zasada pracy ze zbiorami są niezależnie od języka programowania. Przykładową implementację przygotowałem w Javie. Żeby wynieść jak najwięcej z tego artykułu potrzebna jest wiedza na temat hashCode i equals. Niezbędna jest też znajomość...","categories": ["Programista rzemieślnik"],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/struktury-danych-zbior/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],
