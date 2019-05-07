@@ -1,6 +1,6 @@
 ---
 title: Struktury danych – tablica asocjacyjna
-last_modified_at: 2018-12-29 09:03:42 +0100
+last_modified_at: 2019-05-07 23:20:55 +0200
 categories:
 - Programista rzemieślnik
 permalink: /struktury-danych-tablica-asocjacyjna/
@@ -98,8 +98,7 @@ private int hash(K key) {
     if (key == null) {
         return 0;
     }
-    int hash = key.hashCode() % table.length;
-    return hash < 0 ? hash * -1 : hash;
+    return Math.abs(key.hashCode() % table.length);
 }
 ```
 
