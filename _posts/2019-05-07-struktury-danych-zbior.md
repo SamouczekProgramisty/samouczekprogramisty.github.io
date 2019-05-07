@@ -29,9 +29,9 @@ Może przydać się też wiedza na temat [szacowania złożoności obliczeniowej
 
 W poprzednich artykułach z serii opisujących [listę wiązaną]({% post_url 2018-01-01-struktury-danych-lista-wiazana %}) czy [tablicę asocjacyjną]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %}) pominąłem kwestie definicji. Używałem określenia struktura danych i abstrakcyjny typ danych zamiennie. Tym razem chciałbym zwrócić Twoją uwagę na drobną różnicę pomiędzy tymi określeniami.
 
-Abstrakcyjny typ danych definiuje zachowanie danego typu. Określa zestaw operacji, które można na tym typie wykonać. Opis abastrakcyjnego typu danych zawiera także cechy charakterystyczne dla danego typu.
+Abstrakcyjny typ danych definiuje zachowanie danego typu. Określa zestaw operacji, które można na tym typie wykonać. Opis abstrakcyjnego typu danych zawiera także cechy charakterystyczne dla danego typu.
 
-Na przykład zbiór jest abstrakcyjnym typem danych (niżej opiszę jego własności), a `TreeSet` czy `HashSet` są implementacjami tego abstrakcyjnego typu danych. Te implementacje używają róznych struktur danych. Innym przykładem może być absktrakcyjny typ danych [tablica asocjacyjna]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %}), której implementacja może używać tablicy i listy wiązanej.
+Na przykład zbiór jest abstrakcyjnym typem danych (niżej opiszę jego własności), a `TreeSet` czy `HashSet` są implementacjami tego abstrakcyjnego typu danych. Te implementacje używają rożnych struktur danych. Innym przykładem może być abstrakcyjny typ danych [tablica asocjacyjna]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %}), której implementacja może używać tablicy i listy wiązanej.
 
 ## Czym jest zbiór
 
@@ -41,7 +41,7 @@ Zbiór jest abstrakcyjnym typem danych, który ma następujące własności:
 * kolejność elementów w zbiorze nie ma znaczenia[^wyjatek], 
 * pozwala na przechowywanie co najwyżej jednej kopii elementu (duplikaty nie są dozwolone).
 
-[^wyjatek]: Nietkóre implementacje porządkują elementy zbioru.
+[^wyjatek]: Niektóre implementacje porządkują elementy zbioru.
 
 Podstawowymi operacjami, które można przeprowadzić na zbiorze jest dodanie elementu, usunięcie elementu i sprawdzenie czy dany element jest częścią zbioru.
 
@@ -78,11 +78,11 @@ W ramach tego artykułu skupię się na przykładowej implementacji, która opar
 
 ### `hashCode` i `equals`
 
-Pdobnie jak w przypadku tablicy asocjacyjnej opartej o funkcję skrótu tak i tutaj `hashCode` i `equals` pełnią kluczową rolę.
+Podobnie jak w przypadku tablicy asocjacyjnej opartej o funkcję skrótu tak i tutaj `hashCode` i `equals` pełnią kluczową rolę.
 
 Także tutaj na podstawie wartości funkcji `hashCode` obliczone zostanie „wiaderko”, do którego wpadnie dany element. Następnie elementy wewnątrz tego samego wiaderka porównywane będą przy pomocy metody `equals`. Takie podejście pozwala na uzyskanie bardzo dobrej złożoności obliczeniowej.
 
-Podobnie jak w przypadu tablicy asocjacyjnej kluczowe jest zachowanie [kontraktu]({% post_url 2016-04-17-porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java %}#kontrakt-między-metodami-equals-i-hashcode) pomiędzy tymi metodami.
+Podobnie jak w przypadku tablicy asocjacyjnej kluczowe jest zachowanie [kontraktu]({% post_url 2016-04-17-porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java %}#kontrakt-między-metodami-equals-i-hashcode) pomiędzy tymi metodami.
 
 ### Podstawowe operacje
 
@@ -98,15 +98,15 @@ public interface SimpleSet<E> {
 ```
 
 * `int size()` – metoda zwraca liczbę elementów zbioru,
-* `boolean add(E element)` – metoda dodaje elemnt to zbioru, zwraca `true` jeśli element został dodany,
+* `boolean add(E element)` – metoda dodaje element to zbioru, zwraca `true` jeśli element został dodany,
 * `boolean remove(E element)` – metoda usuwa element ze zbioru, zwraca `true` jeśli element został usunięty,
-* `boolean contains(E element)` – metoda zwraca flagę inforumującą czy element istnieje w zbiorze.
+* `boolean contains(E element)` – metoda zwraca flagę informującą czy element istnieje w zbiorze.
 
 ## Przykładowa implementacja
 
 ### Podobieństwa pomiędzy `HashSet` i `HashMap`
 
-Zacznę od krótkiego przpomnienia czym jest tablica asocjacyjna. Ta struktura pozwala na przechowywanie kluczy i odpowiadających im wartości. Implementacja [`HashMap`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashMap.html) zakłada, że tablica asocjacyjna zawiera unikalny zestaw kluczy. Innymi słowy nie może w niej być dwóch takich samych kluczy.
+Zacznę od krótkiego przypomnienia czym jest tablica asocjacyjna. Ta struktura pozwala na przechowywanie kluczy i odpowiadających im wartości. Implementacja [`HashMap`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashMap.html) zakłada, że tablica asocjacyjna zawiera unikalny zestaw kluczy. Innymi słowy nie może w niej być dwóch takich samych kluczy.
 
 Tablica asocjacyjna, podobnie jak zbiór, nie zwraca uwagi na porządek kluczy[^treemap]. Zbiór nie zawiera duplikatów, mapa nie przechowuje zduplikowanych kluczy.
 
@@ -114,7 +114,7 @@ Tablica asocjacyjna, podobnie jak zbiór, nie zwraca uwagi na porządek kluczy[^
 
 Czy widzisz tu pewne podobieństwo pomiędzy zbiorem a tak zdefiniowaną tablicą asocjacyjną? Powiem więcej, bardzo często implementacje zbioru pod spodem używają tablicy asocjacyjnej.
 
-Są też języki programowania, w których w bilbiotece standardowej nie ma zbiorów a jedynie tablice asocjacyjne. Jednym z takich języków jest Go.
+Są też języki programowania, w których w bibliotece standardowej nie ma zbiorów a jedynie tablice asocjacyjne. Jednym z takich języków jest Go.
 
 ### Kod źródłowy
 
@@ -158,11 +158,11 @@ Implementacja zbioru opartego o funkcje skrótu jest na tyle prosta, że [zestaw
 
 ## Złożoność obliczeniowa
 
-Złożoność obliczeniowa poszczególnych opracji odpowiada złożoności obliczeniowej tablicy asocjacyjnej. Wynika to z faktu, że każda operacja wywołuje odpowiednią metodę zaimplementowaną w tablicy asocjacyjnej. 
+Złożoność obliczeniowa poszczególnych operacji odpowiada złożoności obliczeniowej tablicy asocjacyjnej. Wynika to z faktu, że każda operacja wywołuje odpowiednią metodę zaimplementowaną w tablicy asocjacyjnej. 
 
 Ma to dokładnie takie same konsekwencje jak w przypadku mapy opartej o funkcję skrótu. Jeśli funkcja skrótu jest „dobra” wówczas złożoność operacji wynosi `Ο(1)`, jeśli jest zła złożoność obliczeniowa spada do `Ο(n)`.
 
-Dla przypomnienai możesz rzucić okiem na [złożoność obliczeniową mapy]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %}#por%C3%B3wnanie-z%C5%82o%C5%BCono%C5%9Bci-obliczeniowych).
+Dla przypomnienia możesz rzucić okiem na [złożoność obliczeniową mapy]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %}#por%C3%B3wnanie-z%C5%82o%C5%BCono%C5%9Bci-obliczeniowych).
 
 ## Najczęściej zadawane pytania
 
@@ -172,15 +172,15 @@ Jak wspomniałem na początku artykułu zbiór tak na prawdę nie jest struktur�
 
 ### Czym zbiór różni się od listy
 
-Zbiór z defnicji jest nieuporządkowanym zbiorem elementów, które nie mogą się powtarzać. Lista to elementy, które mogą się powtarzać. Dodatkowo lista ma swój określony porządek.
+Zbiór z definicji jest nieuporządkowanym zbiorem elementów, które nie mogą się powtarzać. Lista to elementy, które mogą się powtarzać. Dodatkowo lista ma swój określony porządek.
 
 ### Czym zbiór różni się od tablicy asocjacyjnej
 
-Tablica asocjacyjna zawiera unikalny zbiór kluczy, Każdy z kluczy ma przyporządkowną wartość. Zbiór kluczy w mapie nie zawiera duplikatów. Można powiedzieć, że zbiór jest częścią mapy – zbiór nie zawiera mapowania. To podobieństwo widać w przykładowej implementacji.
+Tablica asocjacyjna zawiera unikalny zbiór kluczy, Każdy z kluczy ma przyporządkowaną wartość. Zbiór kluczy w mapie nie zawiera duplikatów. Można powiedzieć, że zbiór jest częścią mapy – zbiór nie zawiera mapowania. To podobieństwo widać w przykładowej implementacji.
 
 ## Dodatkowe materiały do nauki
 
-W artykule tylko musnąłem zagadnienia związane z matematyką. Jeśli chesz możesz dowiedzieć się czegoś więcej o [algebrze zbiorów](http://www.math.edu.pl/algebra-zbiorow).
+W artykule tylko musnąłem zagadnienia związane z matematyką. Jeśli chcesz możesz dowiedzieć się czegoś więcej o [algebrze zbiorów](http://www.math.edu.pl/algebra-zbiorow).
 
 Polecam lekturę dokumentacji klasy [`HashSet`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html) i przejrzenie implementacji [`HashSet` w OpenJDK](http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/HashSet.java). Możesz też rzucić okiem na [implementację zbioru opartą o drzewa](http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/TreeSet.java).
 
@@ -190,6 +190,6 @@ Jak zwykle zachęcam Cię też do przejrzenia [kodu źródłowego użytego w art
 
 Teraz wiesz czym jest zbiór. Znasz złożoność obliczeniową poszczególnych operacji. Znasz podstawowe operacje, które można przeprowadzać na zbiorach. Masz też pod ręką zestaw dodatkowych materiałów, które pozwolą Ci poszerzyć zdobytą wiedzę. Możesz śmiało powiedzieć, że udało Ci się poznać kolejny abstrakcyjny typ danych :).
 
-Jeśli znasz kogoś komu materiał zebrany w tym artykule może się przydać będę wdzięczny za podzielenie się linkiem. Zależy mi na dotarciu do nowych Czytelników a Ty możęsz mi w ten sposób pomóc – z góry dziękuję!
+Jeśli znasz kogoś komu materiał zebrany w tym artykule może się przydać będę wdzięczny za podzielenie się linkiem. Zależy mi na dotarciu do nowych Czytelników a Ty możesz mi w ten sposób pomóc – z góry dziękuję!
 
 Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera. Możesz też polubić [profil Samouczka na Facebook'u](https://www.facebook.com/SamouczekProgramisty). To tyle na dzisiaj, trzymaj się i do następnego razu!
