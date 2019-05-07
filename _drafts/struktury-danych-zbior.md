@@ -5,7 +5,8 @@ categories:
 - Programista rzemieślnik
 permalink: /struktury-danych-zbior/
 header:
-    teaser: /assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg overlay_image: /assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg
+    teaser: /assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg
+    overlay_image: /assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg
     caption: "[&copy; rawpixel.com](https://www.pexels.com/photo/assorted-plastic-toy-lot-1249159/)"
 excerpt: W artykule tym przeczytasz o zbiorze. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację zbioru. Dowiesz się jaka jest złożoność obliczeniowa poszczególnych operacji. Zadania do rozwiązania pomogą Ci utrwalić zdobytą wiedzę.
 ---
@@ -85,11 +86,56 @@ Jak wspomniałem wyżej zbiór oferuje kilka podstawowych operacji. Na potrzeby 
 
 ```java
 public interface SimpleSet<E> {
-    void add(E item);
-    K remove(E item);
-    boolean contains(E item);
+    int size();
+    boolean add(E element);
+    boolean remove(E element);
+    boolean contains(E element);
 }
 ```
+
+* `int size()` – metoda zwraca liczbę elementów zbioru,
+* `boolean add(E element)` – metoda dodaje elemnt to zbioru, zwraca `true` jeśli element został dodany,
+* `boolean remove(E element)` – metoda usuwa element ze zbioru, zwraca `true` jeśli element został usunięty,
+* `boolean contains(E element)` – metoda zwraca flagę inforumującą czy element istnieje w zbiorze.
+
+## Przykładowa implementacja
+
+Jak wspomniałem wcześniej zbiór jest bardzo podobny do tablicy asocjacyjnej. To podobieństwo jest widoczne także w przykładowej implementacji:
+
+```java
+public class SimpleHashSet<T> implements SimpleSet<T> {
+    private static final Object PRESENT = new Object();
+
+    private final SimpleHashMap<T, Object> map = new SimpleHashMap<>();
+
+    @Override
+    public int size() {
+        return map.size();
+    }
+
+    @Override
+    public boolean add(T item) {
+        return map.put(item, PRESENT) == null;
+    }
+
+    @Override
+    public boolean remove(T item) {
+        return map.remove(item) == PRESENT;
+    }
+
+    @Override
+    public boolean contains(T item) {
+        return map.containsKey(item);
+    }
+}
+```
+
+Zauważ, że cały mechanizm związany z funkcją skrótu, kubełkami, dynamicznym rozszerzaniem pojemności zbioru jest ukryty w implementacji tablicy asocjacyjnej. Sam zbiór korzysta jedynie z publicznych metod.
+
+Interesującym zabiegiem jest tu użycie instancji `PRESENT`. Dzięki takiemu podejściu minimalizowana jest wielkość zbioru, istnieje tylko jeden obiekt wartości współdzielony pomiędzy wszystkimi kluczami. 
+
+
+Implementacja zbioru opartego o funkcje skrótu jest na tyle prosta, że [zestaw testów jednostkowych](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/blob/master/03_hash_set/src/test/java/pl/samouczekprogramisty/asd/set/SimpleHashSetTest.java) ma dużo więcej linijek kodu ;).
 
 ### Podobieństwa pomiędzy `HashSet` i `HashMap`
 
@@ -97,30 +143,41 @@ Zacznę od tego czym jest tablica asocjacyjna. Ta struktura pozwala na przechowy
 
 [^treemap]: Także i tutaj są wyjątki, niektóre implementacje pozwalają na porządkowanie kluczy.
 
-Widzisz tu pewne podobieństwo pomiędzy zbiorem a tak zdefiniowaną tablicą asocjacyjną? Zbiór także nie zawiera duplikatów. Zbiór nie zwraca uwagi na porządek kluczy.
+Czy widzisz tu pewne podobieństwo pomiędzy zbiorem a tak zdefiniowaną tablicą asocjacyjną? Zbiór także nie zawiera duplikatów. Zbiór nie zwraca uwagi na porządek kluczy.
 
-Powiem więcej, bardzo często implementacje zbioru opartego o funkcję skrótu pod spodem używają tablicy asocjacyjnej.
+Powiem więcej, bardzo często implementacje zbioru opartego o funkcję skrótu pod spodem używają tablicy asocjacyjnej. Są też języki programowania, w których w bilbiotece standardowej nie ma zbiorów a jedynie tablice asocjacyjne. Jednym z takich języków jest Go.
 
+
+## Złożoność obliczeniowa
+
+Złożoność obliczeniowa poszczególnych opracji odpowiada złożoności obliczeniowej tablicy asocjacyjnej. Wynika to z faktu, że każda operacja wywołuje odpowiednią metodę zaimplementowaną w tablicy asocjacyjnej. 
+
+Ma to dokładnie takie same konsekwencje jak w przypadku mapy opartej o funkcję skrótu. Jeśli funkcja skrótu jest „dobra” wówczas złożoność operacji wynosi `Ο(1)`, jeśli jest zła złożoność obliczeniowa spada do `Ο(n)`.
+
+Dla przypomnienai możęsz rzucić okiem na [złożoność obliczeniową mapy]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %}#por%C3%B3wnanie-z%C5%82o%C5%BCono%C5%9Bci-obliczeniowych).
 
 ## Najczęściej zadawane pytania
 
 ### Czy zbiór jest serializowalny/wielowątkowo bezpieczny/posortowany
 
-Jak wspomniałem na początku artykułu zbiór tak na prawdę nie jest strukturą danych. Zbiór to 
-
-
+Jak wspomniałem na początku artykułu zbiór tak na prawdę nie jest strukturą danych. Zbiór to abstrakcyjny typ danych, który może mieć wiele implementacji. Jedną z nich przedstawiłem w tym artykule. Sam zbiór nie może być serializowalny/wielowątkowo bezpieczny/posortowany, ale jego konkretna implementacja już tak. Na przykład implementacja zbioru oparta o drzewo jest posortowana, a ta oparta o funkcję skrótu już nie musi taka być.
 
 ### Czym zbiór różni się od listy
 
-
-
+Zbiór z defnicji jest nieuporządkowanym zbiorem elementów, które nie mogą się powtarzać. Lista to elementy, które mogą się powtarzać. Dodatkowo lista ma swój określony porządek.
 
 ### Czym zbiór różni się od tablicy asocjacyjnej
 
+Tablica asocjacyjna zawiera unikalny zbiór kluczy, Każdy z kluczy ma przyporządkowną wartość. Zbiór kluczy w mapie nie zawiera duplikatów. Można powiedzieć, że zbiór jest częścią mapy – zbiór nie zawiera mapowania. To podobieństwo widać w przykładowej implementacji.
+
 ## Dodatkowe materiały do nauki
 
-Jeśli chesz dowiedzieć się czegoś więcej o zbiorach [algebrze zbiorów](http://www.math.edu.pl/algebra-zbiorow).
+Jeśli chesz dowiedzieć się czegoś więcej o zbiorach [algebrze zbiorów](http://www.math.edu.pl/algebra-zbiorow). Polecam też lekturę dokumentacji klasy [`HashSet`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html), przejrzenie implementacji [`HashSet` w OpenJDK](http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/HashSet.java).
+
+Możesz też rzucić okiem na [implementację zbioru opartą o drzewa](http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/TreeSet.java).
+
+Jak zwykle zachęcam Cię też do przejrzenia [kodu źródłowego użytego w artykule](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/03_hash_set).
 
 ## Podsumowanie
 
-Teraz wiesz czym jest zbiór. 
+Teraz wiesz czym jest zbiór. Potrafisz go 
