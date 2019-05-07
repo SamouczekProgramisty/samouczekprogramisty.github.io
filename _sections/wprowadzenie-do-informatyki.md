@@ -25,10 +25,11 @@ Można powiedzieć, że komputer posługuje się ciągiem `0` i `1`. Jak te cią
 
 ## Struktury danych
 
-Struktury danych to chleb powszedni pracy programisty. Bez ich pomocy nie powstanie żaden większy program. Moim zdaniem dobrze jest zrozumieć jak te struktury działają. Artykuły z tej listy przybliżą Ci te najczęściej używane. Zawsze pokazuję też przykładową implementację:
+Struktury danych to chleb powszedni pracy programisty. Bez ich pomocy nie powstanie żaden większy program. Moim zdaniem dobrze jest rozumieć jak te struktury działają. Artykuły z tej listy przybliżą Ci te najczęściej używane. Zawsze pokazuję też przykładową implementację:
 
 * [Struktura danych – lista wiązana]({% post_url 2018-01-01-struktury-danych-lista-wiazana %})
 * [Struktura danych – hashmap]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %})
+* [Strutruda danych – zbiór]({% post_url 2019-05-07-struktury-danych-zbior %})
 
 ## Różne
 
