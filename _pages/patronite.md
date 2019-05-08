@@ -21,6 +21,7 @@ Jestem Wam bardzo wdzięczny. To, że dobrowolnie chcecie wspierać Samouczka je
 5. Mateusz Angulski
 6. Tomasz Stańko
 7. Mateusz Twardy
+8. Patryk Sładek
 
 ## Samouczek Programisty a Patronite
 
