@@ -399,6 +399,6 @@ Dodatkowo poniżej mam dla Ciebie książkę autorstwa twórcy akronimu S.O.L.I.
 
 ## Podsumowanie
 
-Dzisiejszy artykuł był mocno teoretyczny. Przeczytałeś nim o akronimie SOLID. Na przykładach zobaczyłeś jak wyglądają poszczególne składowe tego akronimu. Mam nadzieję, że zachęci Cię to do pisania solidnego kodu ;).
+Dzisiejszy artykuł był mocno teoretyczny. Przeczytałeś w nim o akronimie SOLID. Na przykładach zobaczyłeś jak wyglądają poszczególne składowe tego akronimu. Mam nadzieję, że zachęci Cię to do pisania solidnego kodu ;).
 
 Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku w przyszłości proszę dopisz się do newslettera i polub Samouczka na Facebooku. Jeśli będziesz miał jakiekolwiek pytania czy wątpliwości proszę zadaj je w komentarzu, postaram się pomóc. Do następnego razu :).
