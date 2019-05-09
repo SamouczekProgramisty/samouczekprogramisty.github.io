@@ -169,7 +169,7 @@ Metod jest sporo. Ponownie z pomocą przychodzi IDE. Wystarczy, że napiszesz `.
   
 Przypadkiem nie próbuj ich zapamiętać! Owszem parę podstawowych wejdzie Ci w krew po pewnym czasie ale zakuwanie ich z kartką w ręku nie ma najmniejszego sensu. Z pomocą przychodzi dokumentacja. Każda klasa z biblioteki standardowej ma dokładną dokumentację opisującą wszystkie metody, ich argumenty i typy zwracane.
 
-Na przykład dokumentację dla klasy `String` możesz znaleźć pod tym adresem [http://docs.oracle.com/javase/8/docs/api/java/lang/String.html](http://docs.oracle.com/javase/8/docs/api/java/lang/String.html)
+Na przykład dokumentację dla klasy `String` możesz znaleźć pod tym adresem [{{ site.doclinks.java.lang.String }}]({{ site.doclinks.java.lang.String }}).
 
 Pewnie pamiętasz jak na początku w artykule [opisującym czym jest programowanie]({% post_url 2015-10-07-czym-wlasciwie-jest-programowanie %}) przekonywałem, że angielski to podstawa? :)
 

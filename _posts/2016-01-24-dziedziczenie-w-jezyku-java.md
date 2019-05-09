@@ -134,7 +134,7 @@ public class Car extends Vehicle {
   
 W takim przypadku wywołanie metody `startEngine` na instancji obiektu `Car` na początku wywoła tę metodę z klasy bazowej (wyświetli się komunikat `Engine starts...`) następnie pokazany zostanie komunikat `Force driver...` (zachęcam do eksperymentowania z IDE).
 
-[Adnotacja]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}) [`@Override`](https://docs.oracle.com/javase/9/docs/api/java/lang/Override.html) informuje kompilator o tym, że dana metoda powinna przesłaniać inną metodę w klasie bazowej. Jeśli warunek ten nie będzie spełniony możesz spodziewać się błędu kompilacji.
+[Adnotacja]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}) [`@Override`]({{ site.doclinks.java.lang.Override }}) informuje kompilator o tym, że dana metoda powinna przesłaniać inną metodę w klasie bazowej. Jeśli warunek ten nie będzie spełniony możesz spodziewać się błędu kompilacji.
 {:.notice--info}
 
 ### Przeciążenie metody
@@ -168,7 +168,7 @@ Częstą praktyką jest używanie wewnątrz przeciążonej metody wywołania jej
 
 W przykładzie powyżej bezargumentowa metoda `fillTank` wylicza ile paliwa brakuje do pełnego zbiornika. Następnie wywołuje przeciążoną metodę przekazując jej liczbę brakujących litrów
 
-Przeciążać można także metody statyczne. Jako przykład może tu posłużyć metoda z biblioteki standardowej [`LocalDateTime.of`](https://docs.oracle.com/javase/9/docs/api/java/time/LocalDateTime.html#of-int-int-int-int-int-). Metoda ta jest przeciążona aż siedem razy.
+Przeciążać można także metody statyczne. Jako przykład może tu posłużyć metoda z biblioteki standardowej [`LocalDateTime.of`]({{ site.doclinks.java.time.LocalDateTime }}#of(int,int,int,int,int)). Metoda ta jest przeciążona aż siedem razy.
 
 Konstruktory nie są wyjątkiem, także można je przeciążać. Dzięki temu pozwalasz na tworzenie danego obiektu na wiele różnych sposobów:
 

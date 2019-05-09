@@ -231,7 +231,7 @@ Jeśli masz jakiekolwiek pytania podziel się nimi w komentarzach. Pochwal się 
 ## Materiały dodatkowe
   
 Temat bynajmniej nie jest wyczerpany. Jeśli chcesz bardziej pogłębić swoją wiedzę przygotowałem dla Ciebie zestaw linków z dodatkowymi materiałami do nauki. Część z nich jest w języku angielskim.
-- [Dokumentacja do klasy Scanner](http://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html)
+- [Dokumentacja do klasy `Scanner`]({{ site.doclinks.java.util.Scanner }})
 - [System szesnastkowy zapisu liczb](https://pl.wikipedia.org/wiki/Szesnastkowy_system_liczbowy),
 - [System ósemkowy zapisu liczb](https://pl.wikipedia.org/wiki/%C3%93semkowy_system_liczbowy),
 - [Rozdział w Java Language Specification dotyczący typów prostych](https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.2),
