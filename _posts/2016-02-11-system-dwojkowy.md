@@ -118,7 +118,7 @@ Poniżej przekształcenie liczby 21 na postać binarną:
 9. Liczba to 1. 1 / 2 = 0 reszty 1, aktualna postać binarna `10101`,
 10. 0 > 0 nie jest spełnione. Koniec algorytmu. Postać binarna liczby 21 to `10101`
 
-Spróbuj napisać program, który realizuje ten algorytm. Możesz sprawdzić poprawność wyniku używając metody [`Integer.toBinaryString`](https://docs.oracle.com/javase/9/docs/api/java/lang/Integer.html#toBinaryString-int-). Polecam napisanie kilku [testów jednostkowych]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}), które sprawdzą poprawność Twojego rozwiązania.
+Spróbuj napisać program, który realizuje ten algorytm. Możesz sprawdzić poprawność wyniku używając metody [`Integer.toBinaryString`]({{ site.doclinks.java.lang.Integer }}#toBinaryString-int-). Polecam napisanie kilku [testów jednostkowych]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}), które sprawdzą poprawność Twojego rozwiązania.
 
 ## Dodatkowe materiały do nauki
 

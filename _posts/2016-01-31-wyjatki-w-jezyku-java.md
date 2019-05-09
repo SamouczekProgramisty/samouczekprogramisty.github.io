@@ -219,7 +219,7 @@ Zachęcam do samodzielnego rozwiązania zadania, jeśli rozwiązujesz zadanie sa
 ## Dodatkowe materiały do nauki
 
 - [http://docs.oracle.com/javase/tutorial/essential/exceptions/index.html](http://docs.oracle.com/javase/tutorial/essential/exceptions/index.html)
-- [https://docs.oracle.com/javase/specs/jls/se8/html/jls-11.html](https://docs.oracle.com/javase/specs/jls/se8/html/jls-11.html)
+- [{{ site.doclinks.specs.jls}}jls-11.html]({{ site.doclinks.specs.jls }}jls-11.html)
 - [https://www.youtube.com/watch?v=Nl16BzP6Fao](https://www.youtube.com/watch?v=Nl16BzP6Fao)
 - [kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/09_wyjatki/src/main/java/pl/samouczekprogramisty/kursjava/exception)
 

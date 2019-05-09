@@ -55,7 +55,7 @@ boolean isEven = someNumber % 2 == 0;
 4. Napisz metodę, która jako argument przyjmuje liczbę i zwraca `true` jeśli liczba jest parzysta,
 5. Napisz metodę, która jako argument przyjmuje liczbę i zwraca `true` jeśli liczba jest podzielna przez 3 i przez 5,
 6. Napisz metodę, która jako argument przyjmuje liczbę i zwraca go podniesionego do 3 potęgi,
-7. Napisz metodę, która jako argument przyjmuje liczbę i zwraca jej pierwiastek kwadratowy (poczytaj javadoc do klasy [Math](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html), znajdziesz tam metodę, która na pewno Ci pomoże),
+7. Napisz metodę, która jako argument przyjmuje liczbę i zwraca jej pierwiastek kwadratowy (poczytaj javadoc do klasy [`Math`]({{ site.doclinks.java.lang.Math }}), znajdziesz tam metodę, która na pewno Ci pomoże),
 8. Napisz metodę, która jako argument przyjmie trzy liczby. Metoda powinna zwrócić `true` jeśli z odcinków o długości przekazanych w argumentach można zbudować trójkąt prostokątny.
 
 ### [Obiekty i pakiety]({% post_url 2015-11-01-obiekty-w-jezyku-java %})
@@ -66,7 +66,7 @@ boolean isEven = someNumber % 2 == 0;
   1. `MyNumber isOdd()` – `true` jeśli atrybut jest nieparzysty,
   2. `MyNumber isEven()` – `true` jeśli atrybut jest parzysty,
   3. `MyNumber sqrt()` – pierwiastek z atrybutu,
-  4. `MyNumber pow(MyNumber x)` – atrybut podniesiony do potęgi x (przydatnej metody poszukaj w javadoc do klasy [Math](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html)),
+  4. `MyNumber pow(MyNumber x)` – atrybut podniesiony do potęgi x (przydatnej metody poszukaj w javadoc do klasy [`Math`]({{ site.doclinks.java.lang.Math }})),
   5. `MyNumber add(MyNumber x)` – zwraca sumę atrybutu i x opakowaną w klasę `MyNumber`,
   6. `MyNumber subtract(MyNumber x)` – zwraca różnicę atrybutu i x opakowaną w klasę `MyNumber`.
 

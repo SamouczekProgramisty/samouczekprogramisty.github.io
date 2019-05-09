@@ -234,8 +234,8 @@ Temat bynajmniej nie jest wyczerpany. Jeśli chcesz bardziej pogłębić swoją 
 - [Dokumentacja do klasy `Scanner`]({{ site.doclinks.java.util.Scanner }})
 - [System szesnastkowy zapisu liczb](https://pl.wikipedia.org/wiki/Szesnastkowy_system_liczbowy),
 - [System ósemkowy zapisu liczb](https://pl.wikipedia.org/wiki/%C3%93semkowy_system_liczbowy),
-- [Rozdział w Java Language Specification dotyczący typów prostych](https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.2),
-- [Rozdział w Java Language Specification dotyczący literałów](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10),
+- [Rozdział w Java Language Specification dotyczący typów prostych]({{ site.doclinks.specs.jls }}jls-4.html#jls-4.2),
+- [Rozdział w Java Language Specification dotyczący literałów]({{ site.doclinks.specs.jls }}jls-3.html#jls-3.10),
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/blob/master/06_typy_proste/src/main/java/pl/samouczekprogramisty/kursjava/primitivetypes).
   
 ## Podsumowanie

@@ -326,7 +326,7 @@ Jeśli miałbyś problemy z zadaniem możesz spojrzeć na [przykładowe rozwiąz
   
 Poniżej przygotowałem dla Ciebie zestaw linków z dodatkowymi materiałami, część z nich jest w języku angielskim.
 - [https://pl.wikipedia.org/wiki/Dziedziczenie\_%28programowanie%29](https://pl.wikipedia.org/wiki/Dziedziczenie_%28programowanie%29)
-- [https://docs.oracle.com/javase/specs/jls/se11/html/jls-11.html#jls-11](https://docs.oracle.com/javase/specs/jls/se11/html/jls-11.html#jls-11)
+- [{{ site.doclinks.specs.jls }}jls-11.html#jls-11]({{ site.doclinks.specs.jls }}jls-11.html#jls-11)
 - [https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html](https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html)
 - [https://docs.oracle.com/javase/tutorial/java/concepts/inheritance.html](https://docs.oracle.com/javase/tutorial/java/concepts/inheritance.html)
 - [kod źródłowy przykładów z tego artykułu](https://github.com/SamouczekProgramisty/KursJava/tree/master/08_dziedziczenie/src/main/java/pl/samouczekprogramisty/kursjava/inheritance)

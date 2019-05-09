@@ -441,7 +441,7 @@ Wszystkie przykłady użyte w tym artykule dostępne są na [githubie](https://g
 
 - <https://docs.oracle.com/javase/tutorial/java/generics/index.html>
 - <https://docs.oracle.com/javase/tutorial/extra/generics/index.html>
-- <https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.5>
+- <{{ site.doclinks.specs.jls }}jls-4.html#jls-4.5>
 - <https://pl.wikipedia.org/wiki/Programowanie_uog%C3%B3lnione>
 
 ## Podsumowanie

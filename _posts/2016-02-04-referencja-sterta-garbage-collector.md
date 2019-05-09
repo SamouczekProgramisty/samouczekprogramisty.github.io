@@ -151,7 +151,7 @@ A co się stanie jeśli wywołamy metodę na referencji wskazującej na `null`? 
 
 - [https://gist.github.com/jboner/2841832](https://gist.github.com/jboner/2841832) – zestawienie czasów na podstawie których przygotowałem jeden z akapitów
 - [http://edu.pjwstk.edu.pl/wyklady/ppj/scb/ObRef/ObRef.html](http://edu.pjwstk.edu.pl/wyklady/ppj/scb/ObRef/ObRef.html)
-- [http://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.1 null](http://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.1 null)
+- [{{ site.doclinks.specs.jls }}jls-4.html#jls-4.1]({{ site.doclinks.specs.jls }}jls-4.html#jls-4.1)
 - [kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/10_obiekty/src/main/java/pl/samouczekprogramisty/kursjava)
 - [https://pl.wikipedia.org/wiki/Referencja\_%28informatyka%29](https://pl.wikipedia.org/wiki/Referencja_%28informatyka%29)
 

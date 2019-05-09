@@ -154,7 +154,7 @@ Pierwsza linijka metody `main` to niejawna konwersja z typu `int` na `long` (lit
 
 ## Automatyczna konwersja podczas operacji arytmetycznych
 
-Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze [specyfikacją języka Java](https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.6.2) możliwa jest konwersja (zachodzi pierwszy pasujący warunek):
+Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze [specyfikacją języka Java]({{ site.doclinks.specs.jls }}/jls-5.html#jls-5.6.2) możliwa jest konwersja (zachodzi pierwszy pasujący warunek):
 1. rozszerzająca do typu `double` jeśli którykolwiek z elementów operacji arytmetycznej jest typu `double`,
 2. rozszerzająca do typu `float` jeśli którykolwiek z elementów operacji jest typu `float`,
 3. rozszerzająca to typu `long` jeśli którykolwiek z elementów operacji jest typu `long`,
@@ -236,8 +236,8 @@ Przygotowałem też dla Ciebie zestaw [przykładowych rozwiązań zadań](https:
 
 ## Dodatkowe materiały do nauki
 
-- [https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.16](https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.16) – "cast expression",
-- [https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html](https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html) – rzutowanie i konwersje,
+- [{{ site.doclinks.specs.jls }}jls-15.html#jls-15.16]({{ site.doclinks.specs.jls }}jls-15.html#jls-15.16) – "cast expression",
+- [{{ site.doclinks.specs.jls }}jls-5.html]({{ site.doclinks.specs.jls }}jls-5.html) – rzutowanie i konwersje,
 - [https://github.com/SamouczekProgramisty/KursJava/tree/master/11\_konwersja\_rzutowanie](https://github.com/SamouczekProgramisty/KursJava/tree/master/11_konwersja_rzutowanie) – kod źródłowy przykładów użytych w artykule.
 
 ## Podsumowanie
