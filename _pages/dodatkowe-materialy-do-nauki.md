@@ -13,8 +13,8 @@ Poniższy spis oczywiście nie jest kompletny więc jeśli trafisz na stronę (b
 
 - [http://wazniak.mimuw.edu.pl/index.php?title=Programowanie\_obiektowe](http://wazniak.mimuw.edu.pl/index.php?title=Programowanie_obiektowe) – podstawowy kurs programowania obiektowego, z tej strony polecić mogę także inne kursy, pamiętam, że były dla mnie przydatne w trakcie studiów,
 - [https://www.youtube.com/user/CoraxTheTutor](https://www.youtube.com/user/CoraxTheTutor) – zestaw tutoriali omawiających podstawy programowania w Javie, jeśli wolisz poradniki wideo na pewno znajdziesz tam coś dla siebie,
+- [https://kobietydokodu.pl](https://kobietydokodu.pl) – blog z artykułami nie tylko z branży IT. Niech nie zmyli Cię tytuł, blog nie jest wyłącznie dla kobiet ;)
 - [http://naukajavy.pl/kurs-jezyka-java](http://naukajavy.pl/kurs-jezyka-java) – kolejny kurs programowania w języku Java, niestety strona nie była aktualizowana od 2009 roku.
-- [http://kobietydokodu.pl](http://kobietydokodu.pl) – często aktualizowany blog z artykułami nie tylko z branży IT. Niech nie zmyli Cię tytuł, blog nie jest wyłącznie dla kobiet ;)
 
 # Strony po angielsku
 

@@ -13,7 +13,7 @@ excerpt: W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się 
 ---
 
 <script type="text/javascript"
-    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 {% capture wstep %}
