@@ -252,7 +252,7 @@ Poniżej postaram się zebrać dla Ciebie kilka dobrych praktyk, do których war
 - Staraj się pisać testy jednostkowe, które są małe i dotyczą małego wycinka funkcjonalności. Później o wiele łatwiej jest zrozumieć taki test.
 - Nadawaj metodom z testem nazwy, które pomagają zrozumieć co dany test powinien sprawdzić.
 - Kolejność testów jednostkowych w klasie nie powinna mieć znaczenia. Innymi słowy nie możemy polegać na tym, że jako pierwszy musi się uruchomić `test1` a po nim `test2`. Testy uruchomione w odwrotnej kolejności także powinny mieć dokładnie taki sam efekt.
-- Pisz testy jednostkowe tak, żeby nie zależały na Twojej lokalnej konfiguracji. Na przykład test jednostkowy czytający plik z Twojego dysku z katalogu `C:\mój\katalog\domowy` (czy `/home/uzytkownik`) nie jest dobrym rozwiązaniem.
+- Pisz testy jednostkowe tak, żeby nie zależały od Twojej lokalnej konfiguracji. Na przykład test jednostkowy czytający plik z Twojego dysku z katalogu `C:\mój\katalog\domowy` (czy `/home/uzytkownik`) nie jest dobrym rozwiązaniem.
 - Pisz testy jednostkowe niezależne od zewnętrznych systemów. Innymi słowy testuj tylko „jednostkę”, nic ponadto. Jeśli klasa, którą testujesz potrzebuje dostępu np. do bazy danych użyj mocka czy stuba do jej zastąpienia w trakcie testów[^mock] .
 - Testuj warunki brzegowe i sytuacje wyjątkowe. Załóżmy, że masz metodę, która przyjmuje tablicę, która musi mieć maksymalnie trzy elementy. Napisz kilka testów:
   - przekazując `null` zamiast tablicy,
