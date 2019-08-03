@@ -83,8 +83,8 @@ Otwierając jakikolwiek plik w języku Java otwieramy go w pewnym trybie. Tryb t
 
 Musisz wiedzieć, że klasy z biblioteki standardowej do obsługi plików wprowadzają pewne warstwy abstrakcji ułatwiające pracę z plikami. Wygląda to w ten sposób, że mamy klasę X, która jest klasą podstawową udostępniającą bardzo ograniczony zakres operacji. Klasa Y używając interfejsu klasy X udostępnia interfejs wyższego poziomu, z którym programiście łatwiej jest pracować. Takie podejście można porównać do swego rodzaju cebuli ;) gdzie każda kolejna warstwa bazuje na poprzedniej i udostępnia trochę inny interfejs.
 
-Przekładając to na konkretny przykład klas ze standardowej biblioteki Javy mamy klasę [`java.io.File`](https://docs.oracle.com/javase/8/docs/api/java/io/File.html), która oferuje podstawowe operacje na pliku.
-Instancja `File` jest przyjmowana jako parametr do utworzenia instancji klasy [`java.io.FileReader`](https://docs.oracle.com/javase/8/docs/api/java/io/FileReader.html), która pozwala programiście na tekstowy dostęp do pliku znak po znaku. Z racji tego, że taka forma może być uciążliwa mamy do dyspozycji kolejną klasę [`java.io.BufferedReader`](https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html), która pozwala na dostęp do pliku linijka po linijce.
+Przekładając to na konkretny przykład klas ze standardowej biblioteki Javy mamy klasę [`java.io.File`]({{ site.doclinks.java.io.File }}), która oferuje podstawowe operacje na pliku.
+Instancja `File` jest przyjmowana jako parametr do utworzenia instancji klasy [`java.io.FileReader`]({{ site.doclinks.java.io.FileReader }}), która pozwala programiście na tekstowy dostęp do pliku znak po znaku. Z racji tego, że taka forma może być uciążliwa mamy do dyspozycji kolejną klasę [`java.io.BufferedReader`]({{ site.doclinks.java.io.BufferedReader }}), która pozwala na dostęp do pliku linijka po linijce.
 
 ```java
 new BufferedReader(new FileReader(new File("/path/to/text/file.txt")));
@@ -123,7 +123,7 @@ try {
 
 Przeanalizujmy co się dzieje w tym fragmencie kodu linijka po linijce. Pierwsze trzy linijki to nic innego jak inicjalizacja zmiennych, których będziemy używali później. Nowy tutaj dla Ciebie jest typ `FileWriter`, jest to klasa ze standardowej biblioteki języka Java odpowiedzialna za zapis do pliku tekstowego.
 
-Zachęcam do przejrzenia [pełnej dokumentacji klasy FileWriter](https://docs.oracle.com/javase/8/docs/api/java/io/FileWriter.html). Klasa ta udostępnia wysokopoziomowy interfejs zapisu do pliku danych tekstowych. Polecam sprawdzenie hierarchii dziedziczenia klasy `FileWriter` w IDE (pamiętasz skrót klawiaturowy z [poprzedniego artykułu]({% post_url 2016-08-09-kolekcje-w-jezyku-java %})?).
+Zachęcam do przejrzenia [pełnej dokumentacji klasy `FileWriter`]({{ site.doclinks.java.io.FileWriter }}). Klasa ta udostępnia wysokopoziomowy interfejs zapisu do pliku danych tekstowych. Polecam sprawdzenie hierarchii dziedziczenia klasy `FileWriter` w IDE (pamiętasz skrót klawiaturowy z [poprzedniego artykułu]({% post_url 2016-08-09-kolekcje-w-jezyku-java %})?).
 
 Następnie wewnątrz klauzuli `try` tworzymy nową instancję klasy `FileWriter` przekazując jej ścieżkę do pliku, do którego chcemy pisać. Operacja ta otwiera plik, może się ona nie udać co będzie sygnalizowane odpowiednim wyjątkiem. Kolejna linijka to wywołanie metody `write`, które zapisuje tekstową reprezentację liczby 1234567 do pliku. Ważne jest abyś pamiętał, że właściwy zapis wcale nie musi w tym miejscu nastąpić ze względu na buforowanie, o którym przeczytasz w jednym z kolejnych akapitów.
 
@@ -155,7 +155,7 @@ try {
 }
 ```
 
-Podobnie jak poprzednio przeanalizujemy go linijka po linijce. Pierwsze trzy linijki inicjalizują zmienne, które będziemy używali. Wewnątrz klauzuli `try` znajduje się kod, który tworzy instancję klasy [`BufferedReader`](https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html) dzięki której możemy czytać z pliku linijka po linijce.
+Podobnie jak poprzednio przeanalizujemy go linijka po linijce. Pierwsze trzy linijki inicjalizują zmienne, które będziemy używali. Wewnątrz klauzuli `try` znajduje się kod, który tworzy instancję klasy [`BufferedReader`]({{ site.doclinks.java.io.BufferedReader }}) dzięki której możemy czytać z pliku linijka po linijce.
 
 Kolejne dwie linie to czytanie linijki z pliku, parsowanie łańcucha znaków i zapisanie go jako liczby typu `int`. Metoda `readLine`, która została użyta zwróci `null` jeśli w pliku nie znajduje się już więcej danych.
 
@@ -186,7 +186,7 @@ try {
 }
 ```
 
-Pierwsze trzy i ostatnie pięć linii jest dla Ciebie znajoma. Bardzo podobny kod widziałeś w przykładach powyżej. Skupmy się nad tym co dzieje się w środku klauzuli `try`. Tworzymy tam instancję klasy [`FileOutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/FileOutputStream.html), która zostaje przekazana do konstruktora klasy [`DataOutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/DataOutputStream.html). `DataOutputStream` zapewnia interfejs pozwalający na binarny zapis typów prymitywnych w Javie podczas gdy `FileOutputStream` pozwala na zapis danych bajt po bajcie.
+Pierwsze trzy i ostatnie pięć linii jest dla Ciebie znajoma. Bardzo podobny kod widziałeś w przykładach powyżej. Skupmy się nad tym co dzieje się w środku klauzuli `try`. Tworzymy tam instancję klasy [`FileOutputStream`]({{ site.doclinks.java.io.FileOutputStream }}), która zostaje przekazana do konstruktora klasy [`DataOutputStream`]({{ site.doclinks.java.io.DataOutputStream }}). `DataOutputStream` zapewnia interfejs pozwalający na binarny zapis typów prymitywnych w Javie podczas gdy `FileOutputStream` pozwala na zapis danych bajt po bajcie.
 
 Używanie `DataOutputStream` pozwala programiście zapomnieć o szczegółach w jaki liczby powinny być zapisane binarnie, tymi szczegółami zajmuje się właśnie ta klasa przez wywołanie metody `writeInt`. Pozwala ona w łatwy sposób zapisać binarnie typy proste i łańcuchy znaków (w jednym z kolejnych artykułów przeczytasz o serializacji pozwalającej na zapisanie binarnie dowolnych obiektów).
 
@@ -209,12 +209,12 @@ try {
 }
 ```
 
-Podobnie jak poprzednio kod poza klauzulą `try` już znasz. Nowa tutaj dla Ciebie jest instancja klasy [`FileInputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/FileInputStream.html), która przekazana jest do konstruktora klasy [`DataInputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/DataInputStream.html). Widzisz tu pewną analogię do poprzedniego przykładu? Podobnie jak poprzednio `DataInputStream` pozwala na czytanie większych kawałków pliku zapisanego binarnie, dzięki tej klasie możemy przeczytać liczbę typu int zapisaną wcześniej w pliku. Podobnie jak poprzednio klasa ta pozwala na odczyt typów prostych i łańcuchów znaków zapisanych binarnie.
+Podobnie jak poprzednio kod poza klauzulą `try` już znasz. Nowa tutaj dla Ciebie jest instancja klasy [`FileInputStream`]({{ site.doclinks.java.io.FileInputStream }}), która przekazana jest do konstruktora klasy [`DataInputStream`]({{ site.doclinks.java.io.DataInputStream }}). Widzisz tu pewną analogię do poprzedniego przykładu? Podobnie jak poprzednio `DataInputStream` pozwala na czytanie większych kawałków pliku zapisanego binarnie, dzięki tej klasie możemy przeczytać liczbę typu int zapisaną wcześniej w pliku. Podobnie jak poprzednio klasa ta pozwala na odczyt typów prostych i łańcuchów znaków zapisanych binarnie.
 
 ## Zadania
 
 Na koniec kilka zadań dla Ciebie:
-1. Napisz program, który pobierze od użytkownika ścieżkę do pliku tekstowego oraz kilka linijek tekstu (dopóki użytkownik nie wprowadzi „-” jako linijki) i zapisze je do pliku tekstowego. Do wykonania tego zadania może Ci się przydać metoda [`System.lineSeparator()`](http://docs.oracle.com/javase/8/docs/api/java/lang/System.html#lineSeparator--) zwracająca znak nowej linii (jeśli chciałbyś oddzielić linie wprowadzone przez użytkownika).
+1. Napisz program, który pobierze od użytkownika ścieżkę do pliku tekstowego oraz kilka linijek tekstu (dopóki użytkownik nie wprowadzi „-” jako linijki) i zapisze je do pliku tekstowego. Do wykonania tego zadania może Ci się przydać metoda [`System.lineSeparator()`]({{ site.doclinks.java.lang.System }}#lineSeparator--) zwracająca znak nowej linii (jeśli chciałbyś oddzielić linie wprowadzone przez użytkownika).
 2. Napisz program, który pobierze od użytkownika ścieżkę do pliku i wyświetli zawartość pliku na ekranie wraz z informacją ile linii znajduje się w pliku.
 3. Napisz program, który poprosi użytkownika nazwę pliku wyjściowego oraz o podanie swojej daty urodzenia (osobno dzień, miesiąc i rok), a następnie zapisze te dane jako trzy osobne liczby binarnie.
 4. Napisz program, który pobierze od użytkownika ścieżkę do pliku binarnego z datą urodzenia, a następnie wyświetli ją na ekranie.
@@ -224,14 +224,14 @@ Jak zwykle przykładowe rozwiązania zadań znajdują się na [githubie](https:/
 ## Dodatkowe materiały do nauki
 
 W każdym artykule zachęcam Cię do zapoznania się z dokumentacją, nie inaczej będzie i tym razem. Zapewniam Cię, że jest to najlepsze źródło z kompletną informacją na temat klas z biblioteki standardowej. Innymi słowy zestaw obowiązkowy to dokumentacja biblioteki standardowej, zawsze w przypadku wątpliwości tam znajdziesz dużo potrzebnych informacji:
-- [File](https://docs.oracle.com/javase/8/docs/api/java/io/File.html)
-- [FileWriter](https://docs.oracle.com/javase/8/docs/api/java/io/FileWriter.html)
-- [FileReader](https://docs.oracle.com/javase/8/docs/api/java/io/FileReader.html)
-- [BufferedReader](https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html)
-- [FileOutputStream](https://docs.oracle.com/javase/8/docs/api/java/io/FileOutputStream.html)
-- [FileInputStream](https://docs.oracle.com/javase/8/docs/api/java/io/FileInputStream.html)
-- [DataOutputStream](https://docs.oracle.com/javase/8/docs/api/java/io/DataOutputStream.html)
-- [DataInputStream](https://docs.oracle.com/javase/8/docs/api/java/io/DataInputStream.html)
+- [`File`](https://docs.oracle.com/javase/8/docs/api/java/io/File.html)
+- [`FileWriter`](https://docs.oracle.com/javase/8/docs/api/java/io/FileWriter.html)
+- [`FileReader`](https://docs.oracle.com/javase/8/docs/api/java/io/FileReader.html)
+- [`BufferedReader`](https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html)
+- [`FileOutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/FileOutputStream.html)
+- [`FileInputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/FileInputStream.html)
+- [`DataOutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/DataOutputStream.html)
+- [`DataInputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/DataInputStream.html)
 
 Dodatkowo parę wpisów w innych miejscach w sieci:
 - [kod źródłowy przykładów i przykładowe rozwiązania zadań](https://github.com/SamouczekProgramisty/KursJava/tree/master/16_operacje_na_plikach/src/main/java/pl/samouczekprogramisty/kursjava/files)

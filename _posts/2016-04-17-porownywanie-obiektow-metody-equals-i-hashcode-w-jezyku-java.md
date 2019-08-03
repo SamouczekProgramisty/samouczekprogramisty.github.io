@@ -208,7 +208,7 @@ public int hashCode() {
 }
 ```
 
-W większości przypadków użycie metody [`Objects.hash`](https://docs.oracle.com/javase/8/docs/api/java/util/Objects.html#hash-java.lang.Object...-) przy implementacji metody `hashCode` jest dobrym pomysłem.
+W większości przypadków użycie metody [`Objects.hash`]({{ site.doclinks.java.lang.Objects }}#hash-java.lang.Object...-) przy implementacji metody `hashCode` jest dobrym pomysłem.
 
 ## Kontrakt między metodami `equals` i `hashCode`
 
@@ -235,9 +235,9 @@ Jeśli będziesz miał problem z rozwiązaniem zadania [przykładowe rozwiązani
 ## Materiały dodatkowe
 
 Kod źródłowy wszystkich przykładów użytych w artykule znajduje się na [githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/14_porownywanie_obiektow/src/main/java/pl/samouczekprogramisty/kursjava/equality). Jeśli chcesz poczytać więcej na temat metod `equals` i `hashCode` zapraszam do materiałów dodatkowych:
-- [http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-](http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-)
-- [http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#hashCode--](http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#hashCode--)
-- [https://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.21](https://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.21)
+- [{{ site.doclinks.java.lang.Object }}#equals-java.lang.Object-]({{ site.doclinks.java.lang.Object }}#equals-java.lang.Object-)
+- [{{ site.doclinks.java.lang.Object }}#hashCode--]({{ site.doclinks.java.lang.Object }}#hashCode--)
+- [{{ doclinks.specs.jls }}jls-15.html#jls-15.21]({{ doclinks.specs.jls }}jls-15.html#jls-15.21)
 - [http://kobietydokodu.pl/niezbednik-juniora-kontrakt-hashcode-i-equals](http://kobietydokodu.pl/niezbednik-juniora-kontrakt-hashcode-i-equals/)
 
 ## Podsumowanie

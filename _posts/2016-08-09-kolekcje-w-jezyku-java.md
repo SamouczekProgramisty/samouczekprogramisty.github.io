@@ -42,7 +42,7 @@ Bez wdawania się w zbędne szczegóły, proszę zapamiętaj, że `LinkedList` l
 
 ### Przydatne metody w `java.util.List`
 
-Chciałbym pokazać Ci parę metod, które mogą Ci się przydać przy pracy z listami. Jeśli jesteś zainteresowany pełną listą zachęcam do przeczytania [dokumentacji dla interfejsu `List`](https://docs.oracle.com/javase/8/docs/api/java/util/List.html), tam znajdziesz wszystkie niezbędne szczegóły.
+Chciałbym pokazać Ci parę metod, które mogą Ci się przydać przy pracy z listami. Jeśli jesteś zainteresowany pełną listą zachęcam do przeczytania [dokumentacji dla interfejsu `List`]({{ site.doclinks.java.util.List }}), tam znajdziesz wszystkie niezbędne szczegóły.
 
 Załóżmy, że nasza zmienna jest typu `List<String>`. Wówczas będziesz mógł używać m.in. następujących metod:
 
@@ -90,7 +90,7 @@ Najważniejszą implementacją interfejsu `Set` jest klasa `java.util.HashSet`.
 
 ### Przydatne metody w `java.util.Set`
 
-Podobnie jak w przypadku list zachęcam do zapoznania się z [pełną listą metod dostępnych w interfejsie `Set`](https://docs.oracle.com/javase/8/docs/api/java/util/Set.html). Poniżej lista kilku przydatnych metod:
+Podobnie jak w przypadku list zachęcam do zapoznania się z [pełną listą metod dostępnych w interfejsie `Set`]({{ site.doclinks.java.util.Set }}). Poniżej lista kilku przydatnych metod:
 - `add` – dodaje element do zbioru,
 - `addAll` – jako parametr przyjmuje inną kolekcję i dodaje wszystkie elementy z tej kolekcji do zbioru (pomijając duplikaty),
 - `contains` – jako parametr przyjmuje element zbioru i zwraca flagę informującą czy dany element już istnieje,
@@ -163,7 +163,7 @@ System.out.println(pairsMap.containsKey("Jan"));
 System.out.println(pairsMap.containsValue("Adela"));
 ```
 
-Pełna lista metod dostępna w interfejsie `Map` znajduje się w [dokumentacji](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html).
+Pełna lista metod dostępna w interfejsie `Map` znajduje się w [dokumentacji]({{ site.doclinks.java.util.Map }}).
 ## Skróty klawiaturowe
 
 W IDE, które proponowałem na początku (IntelliJ IDEA) jest skrót klawiaturowy, który bardzo może Ci się przydać w odkrywaniu nowych metod. Po wpisaniu zmiennej i kropki po niej naciśnij `<Ctrl + Spacja>` pojawi się menu kontekstowe z dostępnymi atrybutami/metodami tego obiektu.
@@ -278,9 +278,9 @@ Jeśli będziesz miał problemy z rozwiązaniem któregokolwiek z zadań na gith
 ## Dodatkowe materiały do nauki
 
 Materiałów na temat kolekcji w internecie jest całkiem sporo, poniżej przygotowałem dla Ciebie zestaw linków do innych blogów/kursów gdzie autorzy także opisują kolekcje. Jeśli będzie brakowało Ci materiałów, bądź będziesz chciał poznać temat z innej strony zachęcam do zapoznania się z nimi. Na początek kod źródłowy przykładów i rozwiązań zadań oraz dokumentacja biblioteki standardowej.
-- [https://docs.oracle.com/javase/8/docs/api/java/util/Map.html](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html)
-- [https://docs.oracle.com/javase/8/docs/api/java/util/Set.html](https://docs.oracle.com/javase/8/docs/api/java/util/Set.html)
-- [https://docs.oracle.com/javase/8/docs/api/java/util/List.html](https://docs.oracle.com/javase/8/docs/api/java/util/List.html)
+- [{{ site.doclinks.java.util.Map }}]({{ site.doclinks.java.util Map }})
+- [{{ site.doclinks.java.util.Set }}]({{ site.doclinks.java.util.Set }})
+- [{{ site.doclinks.java.util.List }}]({{ site.doclinks.java.util.List }})
 - [Kod źródłowy i przykłady rozwiązań zadań na githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/15_kolekcje/src/main/java/pl/samouczekprogramisty/kursjava)
 
 No i zestaw pozostałych materiałów :)
