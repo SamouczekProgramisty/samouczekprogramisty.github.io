@@ -64,7 +64,7 @@ Ponadto, wyrażeń regularnych możemy używać do „parsowania” łańcuchów
 
 ## Wyrażenia regularne w języku Java
 
-W języku Java wyrażenia regularne obsługiwane są przez dwie klasy z biblioteki standardowej. Są to [`Pattern`](http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html) i [`Matcher`](http://docs.oracle.com/javase/8/docs/api/java/util/regex/Matcher.html). Spójrz na przykład poniżej:
+W języku Java wyrażenia regularne obsługiwane są przez dwie klasy z biblioteki standardowej. Są to [`Pattern`]({{ site.doclinks.java.util.regex.Pattern }}) i [`Matcher`]({{ site.doclinks.java.util.regex.Matcher }}). Spójrz na przykład poniżej:
 
 ```java
 Pattern compiledPattern = Pattern.compile("Marcin");
