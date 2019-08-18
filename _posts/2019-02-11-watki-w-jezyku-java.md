@@ -675,9 +675,9 @@ Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj zna
 Przygotowałem dla Ciebie zestaw linków, które mogą pomóc Ci spojrzeć na temat wątków z innej strony:
 
 - [Tutorial na stronie Oracle'a dotyczący wątków](https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html),
-- [Rozdział w Java Language Specification dotyczący wątków](https://docs.oracle.com/javase/specs/jls/se11/html/jls-17.html),
-- [Sekcja w Java Language Specification dotycząca metod synchronizowanych](https://docs.oracle.com/javase/specs/jls/se11/html/jls-8.html#jls-8.4.3.6),
-- [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]( https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.19),
+- [Rozdział w Java Language Specification dotyczący wątków]({{ site.doclinks.specs.jls }}jls-17.html),
+- [Sekcja w Java Language Specification dotycząca metod synchronizowanych]({{ site.doclinks.specs.jls }}jls-8.html#jls-8.4.3.6),
+- [Sekcja w Java Language Specification dotycząca bloku synchronizowanego]({{ site.doclinks.specs.jls }}jls-14.html#jls-14.19),
 - [Artykuł opisujący użycie zmiennych `volatile`](https://www.ibm.com/developerworks/java/library/j-jtp06197/),
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/34_watki/src/main/java/pl/samouczekprogramisty/kursjava/treads)
 

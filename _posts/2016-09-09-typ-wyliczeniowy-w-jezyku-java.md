@@ -173,12 +173,12 @@ Konstrukcja taka jak na przykładzie powyżej to nic innego jak zdefiniowanie ci
 ## Materiały dodatkowe
 
 Przygotowałem dla Ciebie zestaw materiałów dodatkowych jeśli chciałbyś poczytać na temat typów wyliczeniowch w innych miejscach.
-- [https://rpodhajny.wordpress.com/2009/02/17/typ-enum](https://rpodhajny.wordpress.com/2009/02/17/typ-enum)
-- [https://www.youtube.com/watch?v=IHcTGxFQSm8](https://www.youtube.com/watch?v=IHcTGxFQSm8)
-- [https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html](https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html)
-- [https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html](https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html)
-- [https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.9](https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.9)
-- [http://tutorials.jenkov.com/java/enums.html](http://tutorials.jenkov.com/java/enums.html)
+- [Inny artykuł na temat typów wyliczeniowych](https://rpodhajny.wordpress.com/2009/02/17/typ-enum)
+- [Typy wyliczeniowe na YouTube](https://www.youtube.com/watch?v=IHcTGxFQSm8)
+- [Tutorial dotyczący typów wyliczeniowych na stronie Oracle'a](https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html)
+- [Dokumentacja klasy `Enum`](https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html)
+- [Rozdział w dokumentacji języka Java dotyczący klas wyliczeniowych]({{ site.doclinks.specs.jls }}jls-8.html#jls-8.9)
+- [Tutorial dotyczący klas wyliczeniowych](http://tutorials.jenkov.com/java/enums.html)
 
 Kod źródłowy dla wszystkich przykładów użytych w artykule znajduje się na [githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/19_typ_wyliczeniowy/src/main/java/pl/samouczekprogramisty/kursjava/enums).
 

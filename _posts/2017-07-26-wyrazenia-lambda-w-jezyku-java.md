@@ -315,9 +315,9 @@ Jeśli będziesz miał problem z rozwiązaniem zadań możesz rzucić okiem na [
 Przygotowałem dla Ciebie zestaw kilku linków z materiałami dodatkowymi:
 - [Wprowadzenie do wyrażeń lambda na stronie Oracle](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/index.html),
 - [Tutorial dotyczący wyrażeń lambda na stronie Oracle](https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html),
-- [Opis interfejsów funkcyjnych w JLS](https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.8),
-- [Referencja do metody w JLS](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.13),
-- [Wyrażenia lambda w JLS](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.27).
+- [Opis interfejsów funkcyjnych w JLS]({{ site.doclinks.specs.jls }}jls-9.html#jls-9.8),
+- [Referencja do metody w JLS]({{ site.doclinks.specs.jls }}jls-15.html#jls-15.13),
+- [Wyrażenia lambda w JLS]({{ site.doclinks.specs.jls }}jls-15.html#jls-15.27).
 
 ## Podsumowanie
 

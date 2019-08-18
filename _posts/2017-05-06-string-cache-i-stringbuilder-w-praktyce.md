@@ -269,7 +269,7 @@ W tym przypadku oba porównania zwrócą wartość `true`.
 ## Dodatkowe materiały do nauki
 
 Poniżej przygotowałem dla Ciebie zestaw odnośników, które mogą pomóc w rozwijaniu wiedzy związanej z pracą z łańcuchami znaków:
-- [Java Language Specification o konkatenacji](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.18.1),
+- [Java Language Specification o konkatenacji]({{ site.doclinks.specs.jls }}jls-15.html#jls-15.18.1),
 - dokumentacja klasy [`StringUtils`](https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/StringUtils.java),
 - dokumentacja klasy [`StringBuilder`](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html),
 - dokumentacja klasy [`StringBuffer`](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuffer.html),

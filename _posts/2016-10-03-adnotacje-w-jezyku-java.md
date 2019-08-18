@@ -278,11 +278,12 @@ public class AnnotationProcessor {
 ```
 
 Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania. W przypadku jakichkolwiek wątpliwości [przykładowe rozwiązanie](https://github.com/SamouczekProgramisty/KursJava/tree/master/20_adnotacje/src/main/java/pl/samouczekprogramisty/kursjava/annotations/exercise) umieściłem na githubie.
+
 ## Dodatkowe materiały do nauki
 
 Oczywiście Jak zwykle zachęcam do przejrzenia standardowej dokumentacji, jak zwykle znajdziesz tam mnóstwo wiedzy.
-- [https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.7](https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.7)
-- [http://tutorials.jenkov.com/java/annotations.html](http://tutorials.jenkov.com/java/annotations.html)
+- [Rozdział w specyfikacji języka Java dotyczący adnotacji]({{ site.doclinks.specs.jls }}jls-9.html#jls-9.7),
+- [Inny artykuł dotyczący adnotacji](http://tutorials.jenkov.com/java/annotations.html),
 - [kod źródłowy użyty w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/20_adnotacje/src/main/java/pl/samouczekprogramisty/kursjava/annotations).
 
 ## Podsumowanie

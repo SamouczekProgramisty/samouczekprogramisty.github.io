@@ -321,8 +321,8 @@ Na koniec czekają na Ciebie dwa zadania, w których przećwiczysz zagadnienia o
 Przygotowałem też dla Ciebie zestaw materiałów dodatkowych zawierających informacje na temat klas wewnętrznych i anonimowych. Dodatkowo wszystkie przykłady kodu użyte w tym artykule możesz znaleźć na [samouczkowym githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/21_klasy_wewnetrzne/src/main/java/pl/samouczekprogramisty/kursjava/inner).
 - [Tutorial na stronie Oracle dotyczący klas wewnętrznych i anonimowych](https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html),
 - [Fragment książki opisujący klasy wewnętrzne](http://docstore.mik.ua/orelly/java-ent/jnut/ch03_12.htm),
-- [Rozdział w JLS na temat klas wewnętrznych](https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.1.3),
-- [Rozdział w JLS na temat klas anonimowych](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.9.5).
+- [Rozdział w JLS na temat klas wewnętrznych]({{ site.doclinks.specs.jls }}jls-8.html#jls-8.1.3),
+- [Rozdział w JLS na temat klas anonimowych]({{ site.doclinks.specs.jls }}jls-15.html#jls-15.9.5).
 
 ## Podsumowanie
 
