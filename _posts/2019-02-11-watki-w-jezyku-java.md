@@ -115,7 +115,7 @@ W rzeczywistości spotkasz się połączeniem obu podejść[^rdzenie]. Proszę s
 
 Wątki korzystają z tych samych danych. Mówi się, że wątki współdzielą przestrzeń adresową. Oznacza to tyle, że obiekty dostępne dla jednego wątku są widoczne także w innych wątkach[^threadlocal].
 
-[^threadlocal]: Dla uproszczenia pomijam tutaj [`ThreadLocal`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/ThreadLocal.html).
+[^threadlocal]: Dla uproszczenia pomijam tutaj [`ThreadLocal`]({{ site.doclinks.java.lang.ThreadLocal }}).
 
 Proszę pamiętaj, że zmienne dostępne są dla wszystkich wątków. W związku z tym wszystkie wątki mogą te zmienne modyfikować. Pociąga to za sobą bardzo poważne konsekwencje. Opiszę je dokładniej w dalszej części artykułu.
 

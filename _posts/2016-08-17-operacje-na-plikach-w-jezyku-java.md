@@ -214,7 +214,7 @@ Podobnie jak poprzednio kod poza klauzulą `try` już znasz. Nowa tutaj dla Cieb
 ## Zadania
 
 Na koniec kilka zadań dla Ciebie:
-1. Napisz program, który pobierze od użytkownika ścieżkę do pliku tekstowego oraz kilka linijek tekstu (dopóki użytkownik nie wprowadzi „-” jako linijki) i zapisze je do pliku tekstowego. Do wykonania tego zadania może Ci się przydać metoda [`System.lineSeparator()`]({{ site.doclinks.java.lang.System }}#lineSeparator--) zwracająca znak nowej linii (jeśli chciałbyś oddzielić linie wprowadzone przez użytkownika).
+1. Napisz program, który pobierze od użytkownika ścieżkę do pliku tekstowego oraz kilka linijek tekstu (dopóki użytkownik nie wprowadzi „-” jako linijki) i zapisze je do pliku tekstowego. Do wykonania tego zadania może Ci się przydać metoda [`System.lineSeparator()`]({{ site.doclinks.java.lang.System }}#lineSeparator()) zwracająca znak nowej linii (jeśli chciałbyś oddzielić linie wprowadzone przez użytkownika).
 2. Napisz program, który pobierze od użytkownika ścieżkę do pliku i wyświetli zawartość pliku na ekranie wraz z informacją ile linii znajduje się w pliku.
 3. Napisz program, który poprosi użytkownika nazwę pliku wyjściowego oraz o podanie swojej daty urodzenia (osobno dzień, miesiąc i rok), a następnie zapisze te dane jako trzy osobne liczby binarnie.
 4. Napisz program, który pobierze od użytkownika ścieżkę do pliku binarnego z datą urodzenia, a następnie wyświetli ją na ekranie.

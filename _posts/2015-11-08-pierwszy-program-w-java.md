@@ -175,7 +175,7 @@ Pewnie pamiętasz jak na początku w artykule [opisującym czym jest programowan
 
 ### Biblioteka standardowa
   
-String i dużo innych klas są częścią tak zwanej biblioteki standardowej. Jest to nic innego jak zestaw klas dostarczony wraz z językiem dostępny dla programisty. Znajdują się w w niej różne klasy używane na co dzień przez programistów np. java.io.PrintStream, java.lang.String czy java.lang.System, które poznałeś w tym artykule.
+String i dużo innych klas są częścią tak zwanej biblioteki standardowej. Jest to nic innego jak zestaw klas dostarczony wraz z językiem dostępny dla programisty. Znajdują się w w niej różne klasy używane na co dzień przez programistów np. `java.io.PrintStream`, `java.lang.String` czy `java.lang.System`, które poznałeś w tym artykule.
 
 ## Zadanie
   

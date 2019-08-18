@@ -117,7 +117,7 @@ W przykładzie nasz enum został rozszerzony o trzy atrybuty: szerokość klatki
 
 Każdy typ wyliczeniowy, który napiszesz domyślnie tworzony jest jako typ `final`. Ograniczone są także modyfikatory dostępu, które możesz użyć, w przypadków enumów dopuszczalny jest wyłącznie modyfikator `public` lub brak jakiegokolwiek modyfikatora dostępu.
 
-Typ wyliczeniowy nie może określić żadnej nadklasy po której dziedziczy. Dzieje się tak ponieważ każdy enum domyślnie dziedziczy po [`java.lang.Enum`](https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html). Dzięki tej nadklasie wszystkie typy wyliczeniowe zyskują kilka dodatkowych metod opisanych w kolejnych akapitach.
+Typ wyliczeniowy nie może określić żadnej nadklasy po której dziedziczy. Dzieje się tak ponieważ każdy enum domyślnie dziedziczy po [`java.lang.Enum`]({{ site.doclinks.java.lang.Enum }}). Dzięki tej nadklasie wszystkie typy wyliczeniowe zyskują kilka dodatkowych metod opisanych w kolejnych akapitach.
 
 Jeśli nasz enum ma także metody czy konstruktory to lista jego wartości musi znajdować się na początku.
 
@@ -173,12 +173,12 @@ Konstrukcja taka jak na przykładzie powyżej to nic innego jak zdefiniowanie ci
 ## Materiały dodatkowe
 
 Przygotowałem dla Ciebie zestaw materiałów dodatkowych jeśli chciałbyś poczytać na temat typów wyliczeniowch w innych miejscach.
-- [Inny artykuł na temat typów wyliczeniowych](https://rpodhajny.wordpress.com/2009/02/17/typ-enum)
-- [Typy wyliczeniowe na YouTube](https://www.youtube.com/watch?v=IHcTGxFQSm8)
-- [Tutorial dotyczący typów wyliczeniowych na stronie Oracle'a](https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html)
-- [Dokumentacja klasy `Enum`](https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html)
-- [Rozdział w dokumentacji języka Java dotyczący klas wyliczeniowych]({{ site.doclinks.specs.jls }}jls-8.html#jls-8.9)
-- [Tutorial dotyczący klas wyliczeniowych](http://tutorials.jenkov.com/java/enums.html)
+- [Inny artykuł na temat typów wyliczeniowych](https://rpodhajny.wordpress.com/2009/02/17/typ-enum),
+- [Typy wyliczeniowe na YouTube](https://www.youtube.com/watch?v=IHcTGxFQSm8),
+- [Tutorial dotyczący typów wyliczeniowych na stronie Oracle'a](https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html),
+- [Dokumentacja klasy `Enum`]({{ site.doclinks.java.lang.Enum }}),
+- [Rozdział w dokumentacji języka Java dotyczący klas wyliczeniowych]({{ site.doclinks.specs.jls }}jls-8.html#jls-8.9),
+- [Tutorial dotyczący klas wyliczeniowych](http://tutorials.jenkov.com/java/enums.html).
 
 Kod źródłowy dla wszystkich przykładów użytych w artykule znajduje się na [githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/19_typ_wyliczeniowy/src/main/java/pl/samouczekprogramisty/kursjava/enums).
 
