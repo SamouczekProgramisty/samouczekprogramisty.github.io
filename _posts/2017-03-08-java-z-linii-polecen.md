@@ -306,10 +306,10 @@ Na przykład aby utworzyć plik `output.jar`, który będzie zawierał wszystkie
 ## Dodatkowe materiały do nauki
 
 Ten artykuł był wybitnie praktyczny. Zależało mi na tym żeby krok po kroku pozwolił Ci realizować poszczególne etapy. Jeśli tego nie zrobiłeś, bardzo proszę spróbuj. Jeśli chciałbyś dowiedzieć się więcej o narzędziach, które opisałem w artykule mam dla Ciebie zestaw kilku dodatkowych dokumentów:
-- [dokumentacja programu `java`](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html),
-- [dokumentacja programu `javac`](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/javac.html),
-- [dokumentacja programu `jar`](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/jar.html),
-- [specyfikacja plików jar](http://docs.oracle.com/javase/8/docs/technotes/guides/jar/jar.html),
+- [dokumentacja programu `java`]({{ site.doclinks.tools.java }}),
+- [dokumentacja programu `javac`]({{ site.doclinks.tools.javac }}),
+- [dokumentacja programu `jar`]({{ site.doclinks.tools.jar }}),
+- [specyfikacja plików jar]({{ site.doclinks.specs.jar }}),
 - [kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/25_linia_polecen/src/main/java/pl/samouczekprogramisty/commandline).
 
 ## Podsumowanie
