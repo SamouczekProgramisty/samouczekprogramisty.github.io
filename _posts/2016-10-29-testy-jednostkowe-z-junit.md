@@ -71,7 +71,7 @@ Testy jednostkowe łączymy w klasy z testami, bardzo często nazywamy je tak sa
 
 ### Przykłady użycia asercji
 
-Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie testów jednostkowych), które ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek [`AssertionError`](https://docs.oracle.com/javase/8/docs/api/java/lang/AssertionError.html)[^assert].
+Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie testów jednostkowych), które ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek [`AssertionError`]({{ site.doclinks.java.lang.AssertionError }})[^assert].
 
 [^assert]: W języku Java istnieje także słowo kluczowe `assert`, po którym musi wystąpić wartość logiczna, jeśli jest ona fałszem kończy się to rzuceniem wyjątku `AssertionError` – np. `assert false` rzuci wyjątek.
 
