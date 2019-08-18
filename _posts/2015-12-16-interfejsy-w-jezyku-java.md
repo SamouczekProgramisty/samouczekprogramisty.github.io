@@ -336,7 +336,7 @@ Program po uruchomieniu powinien zapytać użytkownika jaką operację chce wyko
 
 Oczywiście nie wyczerpaliśmy tematu mimo sporej objętości artykułu. Zachęcam do samodzielnego pogłębiania wiedzy korzystając z materiałów dodatkowych. Specyfikacja Języka Java jest w języku angielskim.
 - [Opis interfejsu na Wikipedii](https://pl.wikipedia.org/wiki/Interfejs_%28programowanie_obiektowe%29)
-- [Rozdział w Java Language Specification dotyczący interfejsów]({{ site.doclinks.specs.jls}}/jls-9.html)
+- [Rozdział w Java Language Specification dotyczący interfejsów]({{ site.doclinks.specs.jls}}jls-9.html)
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/07_interfejsy/src/main/java/pl/samouczekprogramisty/kursjava/interfaces)
 
 ## Podsumowanie

@@ -154,7 +154,7 @@ Pierwsza linijka metody `main` to niejawna konwersja z typu `int` na `long` (lit
 
 ## Automatyczna konwersja podczas operacji arytmetycznych
 
-Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze [specyfikacją języka Java]({{ site.doclinks.specs.jls }}/jls-5.html#jls-5.6.2) możliwa jest konwersja (zachodzi pierwszy pasujący warunek):
+Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze [specyfikacją języka Java]({{ site.doclinks.specs.jls }}jls-5.html#jls-5.6.2) możliwa jest konwersja (zachodzi pierwszy pasujący warunek):
 1. rozszerzająca do typu `double` jeśli którykolwiek z elementów operacji arytmetycznej jest typu `double`,
 2. rozszerzająca do typu `float` jeśli którykolwiek z elementów operacji jest typu `float`,
 3. rozszerzająca to typu `long` jeśli którykolwiek z elementów operacji jest typu `long`,

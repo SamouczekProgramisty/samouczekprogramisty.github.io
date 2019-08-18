@@ -283,7 +283,7 @@ Efekt działania wszystkich trzech fragmentów jest dokładnie taki sam. Różni
 ## Zadania
 
 Na koniec mam dla Ciebie kilka zadań, które pomogą przećwiczyć Ci wiedzę z tego artykułu.
-1. Napisz program, który pobierze o użytkownika cztery łańcuchy znaków, które umieścisz w liście. Następnie posortuj tę listę używając metody [`sort`](https://docs.oracle.com/javase/8/docs/api/java/util/List.html#sort-java.util.Comparator-). Użyj wyrażenia lambda, które posortuje łańcuchy znaków malejąco po długości.
+1. Napisz program, który pobierze o użytkownika cztery łańcuchy znaków, które umieścisz w liście. Następnie posortuj tę listę używając metody [`List.sort`]({{ site.doclinks.java.util.List }}#sort(java.util.Comparator)). Użyj wyrażenia lambda, które posortuje łańcuchy znaków malejąco po długości.
 2. Napisz program, który wywoła funkcję `equals` na instancji klasy `Object` używając mechanizmu odwoływania się do metody (przy pomocy `::`).
 3. Utwórz instancję klasy `Human` przy pomocy mechanizmu odwoływania się do konstruktora (przy pomocy `::`).
 

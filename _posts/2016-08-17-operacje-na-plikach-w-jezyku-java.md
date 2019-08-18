@@ -224,7 +224,7 @@ Jak zwykle przykładowe rozwiązania zadań znajdują się na [githubie](https:/
 ## Dodatkowe materiały do nauki
 
 W każdym artykule zachęcam Cię do zapoznania się z dokumentacją, nie inaczej będzie i tym razem. Zapewniam Cię, że jest to najlepsze źródło z kompletną informacją na temat klas z biblioteki standardowej. Innymi słowy zestaw obowiązkowy to dokumentacja biblioteki standardowej, zawsze w przypadku wątpliwości tam znajdziesz dużo potrzebnych informacji:
-- [`File`]({{ site.docslinks.java.io.File }})
+- [`File`]({{ site.doclinks.java.io.File }})
 - [`FileWriter`]({{ site.doclinks.java.io.FileWriter }})
 - [`FileReader`]({{ site.doclinks.java.io.FileReader }})
 - [`BufferedReader`]({{ site.doclinks.java.io.BufferedReader }})
