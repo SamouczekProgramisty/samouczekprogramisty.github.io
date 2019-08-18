@@ -57,7 +57,7 @@ Do wartości typu wyliczeniowego odnosimy się jak do pól statycznych klasy, za
 
 ### Typ wyliczeniowy a blok `switch`
 
-W jednym z [poprzednich artykułów]({% post_url 2015-11-18-petle-i-instrukcje-warunkowe-w-jezyku-java %}) poznałeś konstrukcję `switch`. W tamtej części wspomniałem, o tym, że wewnątrz tej konstrukcji możemy używać liczb całkowitych czy łańcuchów znaków. Pominąłem wówczas jedną z dodatkowych wartości konstrukcji `switch`. Otóż wewnątrz możemy użyć także typu wyliczeniowego jak w przykładzie poniżej:
+W jednym z [poprzednich artykułów]({% post_url 2015-11-18-petle-i-instrukcje-warunkowe-w-jezyku-java %}) poznałeś konstrukcję `switch`. W tamtej części wspomniałem o tym, że wewnątrz tej konstrukcji możemy używać liczb całkowitych czy łańcuchów znaków. Pominąłem wówczas jedną z dodatkowych wartości konstrukcji `switch`. Otóż wewnątrz możemy użyć także typu wyliczeniowego jak w przykładzie poniżej:
 
 ```java
 switch (tshirt.size) {
@@ -76,7 +76,7 @@ switch (tshirt.size) {
 }
 ```
 
-W takim przypadku w zależności od wartości zmiennej size zostanie wywołana odpowiedni blok konstrukcji `switch`. Proszę zauważ, że w tym przypadku kompilator dokładnie wie jakiego typu są wartości `L`, `M`, `S` czy `XL` i nie możemy się do nich odwoływać poprzez pełną nazwę `TshirtSize.M`.
+W takim przypadku w zależności od wartości zmiennej size zostanie wywołany odpowiedni blok konstrukcji `switch`. Proszę zauważ, że w tym przypadku kompilator dokładnie wie jakiego typu są wartości `L`, `M`, `S` czy `XL` i nie możemy się do nich odwoływać poprzez pełną nazwę `TshirtSize.M`.
 
 ### Typ wyliczeniowy to też klasa
 
