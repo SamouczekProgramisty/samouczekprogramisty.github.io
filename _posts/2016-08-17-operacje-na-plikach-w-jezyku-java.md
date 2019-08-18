@@ -224,14 +224,14 @@ Jak zwykle przykładowe rozwiązania zadań znajdują się na [githubie](https:/
 ## Dodatkowe materiały do nauki
 
 W każdym artykule zachęcam Cię do zapoznania się z dokumentacją, nie inaczej będzie i tym razem. Zapewniam Cię, że jest to najlepsze źródło z kompletną informacją na temat klas z biblioteki standardowej. Innymi słowy zestaw obowiązkowy to dokumentacja biblioteki standardowej, zawsze w przypadku wątpliwości tam znajdziesz dużo potrzebnych informacji:
-- [`File`](https://docs.oracle.com/javase/8/docs/api/java/io/File.html)
-- [`FileWriter`](https://docs.oracle.com/javase/8/docs/api/java/io/FileWriter.html)
-- [`FileReader`](https://docs.oracle.com/javase/8/docs/api/java/io/FileReader.html)
-- [`BufferedReader`](https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html)
-- [`FileOutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/FileOutputStream.html)
-- [`FileInputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/FileInputStream.html)
-- [`DataOutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/DataOutputStream.html)
-- [`DataInputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/DataInputStream.html)
+- [`File`]({{ site.docslinks.java.io.File }})
+- [`FileWriter`]({{ site.doclinks.java.io.FileWriter }})
+- [`FileReader`]({{ site.doclinks.java.io.FileReader }})
+- [`BufferedReader`]({{ site.doclinks.java.io.BufferedReader }})
+- [`FileOutputStream`]({{ site.doclinks.java.io.FileOutputStream }})
+- [`FileInputStream`]({{ site.doclinks.java.io.FileInputStream }})
+- [`DataOutputStream`]({{ site.doclinks.java.io.DataOutputStream }})
+- [`DataInputStream`]({{ site.doclinks.java.io.DataInputStream }})
 
 Dodatkowo parę wpisów w innych miejscach w sieci:
 - [kod źródłowy przykładów i przykładowe rozwiązania zadań](https://github.com/SamouczekProgramisty/KursJava/tree/master/16_operacje_na_plikach/src/main/java/pl/samouczekprogramisty/kursjava/files)

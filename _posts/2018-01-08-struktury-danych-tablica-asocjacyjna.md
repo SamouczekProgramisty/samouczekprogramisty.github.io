@@ -375,7 +375,7 @@ Jeśli w programie potrzebujesz przechować strukturę podobną do słownika to 
 
 ### Czy mapa może mieć klucz/wartość `null`
 
-To zależy od implementacji. Interfejs [`Map`](https://docs.oracle.com/javase/9/docs/api/java/util/Map.html) daje taką możliwość. `HashMap` czy moja implementacja pozwalają przechowywać zarówno klucze i wartości `null`. Oczywiście tylko jeden klucz może mieć wartość `null`.
+To zależy od implementacji. Interfejs [`Map`]({{ site.doclinks.java.util.Map }}) daje taką możliwość. `HashMap` czy moja implementacja pozwalają przechowywać zarówno klucze i wartości `null`. Oczywiście tylko jeden klucz może mieć wartość `null`.
 
 ## Dodatkowe materiały do nauki
 
@@ -387,10 +387,10 @@ Jeśli chcesz spojrzeć na temat z innego punktu widzenia zachęcam Cię do prze
 
 ## Zadania do wykonania
 
-Dodaj do Klasy `SimpleHashMap` kilka metod występujących w interfejsie [`Map`](https://docs.oracle.com/javase/9/docs/api/java/util/Map.html):
+Dodaj do Klasy `SimpleHashMap` kilka metod występujących w interfejsie [`Map`]({{ site.doclinks.java.util.Map }}):
 
-1. Dodaj metodę [`containsKey`](https://docs.oracle.com/javase/9/docs/api/java/util/Map.html#containsKey-java.lang.Object-). Metoda powinna zwrócić `true` jeśli dany klucz istnieje w mapie.
-2. Dodaj metodę [`containsValue`](https://docs.oracle.com/javase/9/docs/api/java/util/Map.html#containsValue-java.lang.Object-). Metoda powinna zwrócić `true` jeśli dany wartość istnieje w mapie.
+1. Dodaj metodę [`containsKey`]({{ site.doclinks.java.util.Map }}#containsKey(java.lang.Object)). Metoda powinna zwrócić `true` jeśli dany klucz istnieje w mapie.
+2. Dodaj metodę [`containsValue`]({{ site.doclinks.java.util.Map }}#containsValue(java.lang.Object)). Metoda powinna zwrócić `true` jeśli dany wartość istnieje w mapie.
 3. Jaka jest złożoność obliczeniowa Twojej implementacji metod `containsKey` i `containsValue`?
 
 Kod źródłowy klasy [`SimpleHashMap`](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/blob/master/02_hash_map/src/main/java/pl/samouczekprogramisty/asd/map/SimpleHashMap.java). Pamiętaj o dodaniu [testów jednostkowych]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}), potwierdzających, że Twoja implementacja działa poprawnie.

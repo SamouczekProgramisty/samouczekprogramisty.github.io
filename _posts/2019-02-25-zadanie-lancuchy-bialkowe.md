@@ -185,7 +185,7 @@ Przekładając to na realia Javy uruchomienie programu może wyglądać następu
 
 Jeśli do tej pory nie udało Ci się przeczytać artykułu o [użyciu Javy w linii poleceń]({% post_url 2017-03-08-java-z-linii-polecen %}) to chyba właśnie nadszedł na to czas ;).
 
-Standardowe wejście w języku Java reprezentowane jest przez obiekt `System.in`. Do czytania wejścia linia po linii użyłem klasy [`BufferedReader`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/BufferedReader.html):
+Standardowe wejście w języku Java reprezentowane jest przez obiekt `System.in`. Do czytania wejścia linia po linii użyłem klasy [`BufferedReader`]({{ site.doclinks.java.io.BufferedReader }}):
 
 ```java
 public static void main(String[] args) throws IOException {

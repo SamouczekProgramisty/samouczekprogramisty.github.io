@@ -278,7 +278,7 @@ Jeśli będziesz miał problemy z rozwiązaniem któregokolwiek z zadań na gith
 ## Dodatkowe materiały do nauki
 
 Materiałów na temat kolekcji w internecie jest całkiem sporo, poniżej przygotowałem dla Ciebie zestaw linków do innych blogów/kursów gdzie autorzy także opisują kolekcje. Jeśli będzie brakowało Ci materiałów, bądź będziesz chciał poznać temat z innej strony zachęcam do zapoznania się z nimi. Na początek kod źródłowy przykładów i rozwiązań zadań oraz dokumentacja biblioteki standardowej.
-- [{{ site.doclinks.java.util.Map }}]({{ site.doclinks.java.util Map }})
+- [{{ site.doclinks.java.util.Map }}]({{ site.doclinks.java.util.Map }})
 - [{{ site.doclinks.java.util.Set }}]({{ site.doclinks.java.util.Set }})
 - [{{ site.doclinks.java.util.List }}]({{ site.doclinks.java.util.List }})
 - [Kod źródłowy i przykłady rozwiązań zadań na githubie](https://github.com/SamouczekProgramisty/KursJava/tree/master/15_kolekcje/src/main/java/pl/samouczekprogramisty/kursjava)
