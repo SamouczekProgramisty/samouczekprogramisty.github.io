@@ -69,7 +69,7 @@ Adnotacje mają trzy główne zastosowania. Poniższe sekcje dokładniej opisuj�
 
 ### Dodatkowe informacje dla kompilatora
 
-Adnotacje mogą służyć jako dodatkowa informacja dla kompilatora. Za przykład może tu posłużyć adnotacja [`@Override`](https://docs.oracle.com/javase/8/docs/api/java/lang/Override.html). Jest to informacja dla kompilatora, że dana metoda przesłania metodę w nadklasie. Adnotacja `@Override` może też być używana do oznaczania metod interfejsu, które implementujemy.
+Adnotacje mogą służyć jako dodatkowa informacja dla kompilatora. Za przykład może tu posłużyć adnotacja [`@Override`]({{ site.doclinks.java.lang.Override }}). Jest to informacja dla kompilatora, że dana metoda przesłania metodę w nadklasie. Adnotacja `@Override` może też być używana do oznaczania metod interfejsu, które implementujemy.
 
 W przypadku tej adnotacji kompilator może wychwycić więcej błędów w trakcie kompilacji. Spójrz na przykład poniżej:
 
@@ -94,7 +94,7 @@ public boolean equals(Object obj) {
 
 ### Adnotacje przetwarzane w trakcie kompilacji
 
-W trakcie kompilacji także możemy przetwarzać adnotacje. Dzięki nim możemy na przykład automatycznie generować kod czy dać znać kompilatorowi aby zachowywał się trochę inaczej. Przykładem takiej adnotacji jest [`@SuppressWarnings`](https://docs.oracle.com/javase/8/docs/api/java/lang/SuppressWarnings.html) z biblioteki standardowej. Adnotacja ta pozwala nam wstrzymać pewne ostrzeżenie kompilatora.
+W trakcie kompilacji także możemy przetwarzać adnotacje. Dzięki nim możemy na przykład automatycznie generować kod czy dać znać kompilatorowi aby zachowywał się trochę inaczej. Przykładem takiej adnotacji jest [`@SuppressWarnings`]({{ site.doclinks.java.lang.SuppressWarnings }}) z biblioteki standardowej. Adnotacja ta pozwala nam wstrzymać pewne ostrzeżenie kompilatora.
 
 Proszę spójrz na przykład kodu poniżej.
 
@@ -135,7 +135,7 @@ Adnotacje mogą być także używane w trakcie działania programu. Służy do t
 
 Mechanizm refleksji opiszę w osobnym artykule. Na potrzeby tego artykułu wystarczy, że wiesz o jej istnieniu oraz o tym, że dzięki niej możemy w trakcie działania programu pobierać informacje o skompilowanym kodzie.
 
-Przykładem takiej adnotacji jest na przykład [`@PostConstruct`](https://docs.oracle.com/javase/8/docs/api/javax/annotation/PostConstruct.html).
+Przykładem takiej adnotacji może być [`@PostConstruct`]({{ site.doclinks.javax.annotation.PostConstruct }}).
 
 ## Składnia definiowania adnotacji
 
@@ -161,7 +161,7 @@ public @interface Override {
 
 ### Dopuszczalny kontekst użycia adnotacji
 
-Do określenia gdzie możemy użyć adnotację służy inna „meta-adnotacja” [`@Target`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Target.html). Jeśli ją pominiemy przy definiowaniu nowej adnotacji, możemy jej używać w każdym miejscu. Z jednym małym wyjątkiem – adnotacji typów.
+Do określenia gdzie możemy użyć adnotację służy inna „meta-adnotacja” [`@Target`]({{ site.doclinks.java.lang.annotation.Target }}). Jeśli ją pominiemy przy definiowaniu nowej adnotacji, możemy jej używać w każdym miejscu. Z jednym małym wyjątkiem – adnotacji typów.
 
 Miejsca gdzie możemy użyć adnotacji określone są przez wartości typu wyliczeniowego [`ElementType`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/ElementType.html). Spójrz na przykład poniżej.
 
