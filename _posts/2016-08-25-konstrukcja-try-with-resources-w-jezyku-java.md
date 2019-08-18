@@ -74,7 +74,7 @@ Taka struktura tłumaczona jest przez kompilator na sekwencję zagnieżdżonych 
 
 ## Własne menadżery kontekstu
 
-Całość działa, ponieważ klasy takie jak `BufferedWriter` czy `BufferedReader` implementują interfejs [`java.lang.AutoCloseable`](https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html). Właściwie to wszystkie znane mi klasy do obsługi strumieni wejściowych/wyjściowych w standardowej bibliotece Javy implementują ten interfejs. To jest właśnie główne wymaganie, które musi być spełnione przez zmienne definiowane wewnątrz `()` gdy używamy konstrukcji try-with-resources.
+Całość działa, ponieważ klasy takie jak `BufferedWriter` czy `BufferedReader` implementują interfejs [`java.lang.AutoCloseable`]({{ site.doclinks.java.lang.AutoCloseable }}). Właściwie to wszystkie znane mi klasy do obsługi strumieni wejściowych/wyjściowych w standardowej bibliotece Javy implementują ten interfejs. To jest właśnie główne wymaganie, które musi być spełnione przez zmienne definiowane wewnątrz `()` gdy używamy konstrukcji try-with-resources.
 
 Nasunąć się zatem może pytanie, czy możemy stworzyć własną klasę, która będzie działała z tą konstrukcją? Oczywiście! :) Poniżej przykład:
 
@@ -137,8 +137,8 @@ Jak zwykle zachęcam do samodzielnego rozwiązania zadania, jeśli jednak utkną
 
 ## Materiały dodatkowe
 
-- [dokumentacja interfejsu AutoCloseable](https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html)
-- [sekcja z Java Language Specification opisująca konstrukcję try-with-resources](http://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.20.3)
+- [dokumentacja interfejsu `AutoCloseable`]({{ site.doclinks.java.lang.AutoCloseable }})
+- [sekcja z Java Language Specification opisująca konstrukcję try-with-resources]({{ site.doclinks.specs.jls }}jls-14.html#jls-14.20.3)
 - [kod źródłowy przykładów i rozwiązanie zadania](https://github.com/SamouczekProgramisty/KursJava/tree/master/17_manager_kontekstu/src/main/java/pl/samouczekprogramisty/kursjava/context)
 
 ## Podsumowanie
