@@ -30,9 +30,9 @@ Dzięki temu mechanizmowi można na przykład przesyłać obiekty przez sieć. O
 
 Chociaż serializacja dostępna jest automatycznie dla większości obiektów z biblioteki standardowej to jeśli chcesz móc serializować instancje klas, które sam napiszesz musisz spełnić kilka warunków.
 
-### Interfejs [`java.io.Serializable`](https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html)
+### Interfejs [`java.io.Serializable`]({{ site.doclinks.java.io.Serializable }})
 
-Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serializowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu [`NotSerializableException`](https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html).
+Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serializowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu [`NotSerializableException`]({{ site.doclinks.java.io.NotSerializableException }}).
 ### Konstruktor bezparametrowy
 
 Tutaj reguła niestety nie jest trywialna. Pierwsza klasa w hierarchii dziedziczenia, która nie jest serializowalna musi mieć dostępny konstruktor bezparametrowy. Łatwiej to będzie zrozumieć na przykładzie:
@@ -45,7 +45,7 @@ public class Tomato implements Serializable {}
 
 W przykładzie powyżej klasa `Fruit` musi mieć konstruktor bezparametrowy abyśmy mogli poprawnie serializować instancje klasy `Apple`. Natomiast ani `Apple`, ani `Tomato` takiego konstruktora już nie wymagają (`Tomato` dziedziczy po `Object`, który taki konstruktor posiada).
 
-Dodatkowo istnieje interfejs [`java.io.Externalizable`](https://docs.oracle.com/javase/8/docs/api/java/io/Externalizable.html) (opiszę go dokładnie kilka akapitów niżej), który również zapewnia, że obiekty go implementujące są serializowalne. Jednak w tym przypadku obiekt taki musi także zapewnić konstruktor bezparametrowy, który jest wywoływany w trakcie deserializacji.
+Dodatkowo istnieje interfejs [`java.io.Externalizable`]({{ site.doclinks.java.io.Externalizable }}) (opiszę go dokładnie kilka akapitów niżej), który również zapewnia, że obiekty go implementujące są serializowalne. Jednak w tym przypadku obiekt taki musi także zapewnić konstruktor bezparametrowy, który jest wywoływany w trakcie deserializacji.
 
 ### Określić pola, które nie są serializowalne
 
@@ -53,7 +53,7 @@ Ten krok jest opcjonalny, jednak w bardziej zaawansowanych przypadkach niezbędn
 
 Tutaj dochodzimy do słowa kluczowego `transient`. Otóż słowo to może być stosowane przed atrybutami klasy. Oznacza ono, że dany atrybut nie jest serializowalny i zostanie pominięty przez mechanizm serializacji[^serializacja].
 
-[^serializacja]: Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacji– użycie pola `serialPersistentFields` (jest ono dokładniej opisane w [specyfikacji](http://docs.oracle.com/javase/8/docs/platform/serialization/spec/serial-arch.html#a6250)).
+[^serializacja]: Istnieje też inny, mniej popularny sposób ominięcia pól podczas serializacji– użycie pola `serialPersistentFields` (jest ono dokładniej opisane w [specyfikacji]({{ site.doclinks.specs.serialization }}serial-arch.html#defining-serializable-fields-for-a-class)).
 
 ## Przykład serializacji obiektu
 
@@ -73,9 +73,9 @@ try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("
 }
 ```
 
-W pierwszym bloku [try-with-resources]({% post_url 2016-08-25-konstrukcja-try-with-resources-w-jezyku-java %}) otwieramy strumień typu [`ObjectOutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html), na którym następnie wywołujemy metodę `writeObject` zapisując do strumienia dwie liczby.
+W pierwszym bloku [try-with-resources]({% post_url 2016-08-25-konstrukcja-try-with-resources-w-jezyku-java %}) otwieramy strumień typu [`ObjectOutputStream`]({{ site.doclinks.java.io.ObjectOutputStream }}), na którym następnie wywołujemy metodę `writeObject` zapisując do strumienia dwie liczby.
 
-W kolejnym bloku dzięki instancji [`ObjectInputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html) odczytujemy wcześniej zapisane obiekty. Obiekty odczytywane są w takiej samej kolejności w jakiej zostały zapisane, w naszym przypadku na konsoli zostaną wyświetlone liczby 1 a później 2.
+W kolejnym bloku dzięki instancji [`ObjectInputStream`]({{ site.doclinks.java.io.ObjectInputStream }}) odczytujemy wcześniej zapisane obiekty. Obiekty odczytywane są w takiej samej kolejności w jakiej zostały zapisane, w naszym przypadku na konsoli zostaną wyświetlone liczby 1 a później 2.
 
 ## Serializacja drzewa obiektów
 
@@ -185,9 +185,9 @@ private void writeObject(java.io.ObjectOutputStream stream) throws IOException
 ```
 
 Metoda `readObject(java.io.ObjectInputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momencie odczytywania obiektu ze strumienia, czyli w trakcie wywołania metody
-[`ObjectInputStream.readObject()`](https://docs.oracle.com/javase/9/docs/api/java/io/ObjectInputStream.html#readObject--).
+[`ObjectInputStream.readObject()`]({{ site.doclinks.java.io.ObjectInputStream }}#readObject()).
 
-Mechanizm ten wygląda podobnie w przypadku zapisu obiektu. Metoda `writeObject(java.io.ObjectOutputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momencie zapisywania obiektu do strumienia, czyli w trakcie wywołania metody [`ObjectOutputStream.writeObject()`](https://docs.oracle.com/javase/9/docs/api/java/io/ObjectOutputStream.html#writeObject-java.lang.Object-).
+Mechanizm ten wygląda podobnie w przypadku zapisu obiektu. Metoda `writeObject(java.io.ObjectOutputStream stream)`, którą zaimplementujesz jest automatycznie wywoływana w momencie zapisywania obiektu do strumienia, czyli w trakcie wywołania metody [`ObjectOutputStream.writeObject()`]({{ site.doclinks.java.io.ObjectOutputStream }}#writeObject(java.lang.Object)).
 
 Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu:
 
@@ -231,7 +231,7 @@ public class CustomSerialization implements Serializable {
 
 Jak widzisz obie metody są tu zaimplementowane. `writeObject` jako argument dostaje strumień, do którego powinniśmy zapisać nasz obiekt. Metoda `readObject` jako jedyny argument przyjmuje strumień, z którego powinniśmy odczytać stan obiektu.
 
-Warto tutaj zwrócić uwagę na to, że klasa `ObjectInputStream` posiada metodę [`defaultReadObject`](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html#defaultReadObject—), która przeprowadza standardową deserializację, którą możesz rozszerzyć. Podobnie wygląda to w przypadku klasy `ObjectOutputStream` i metody [`defaultWriteObject`](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html#defaultWriteObject--). Metody te mogą być wywołane wyłącznie w trakcie (de)serializacji obiektu. Zajmują się one (de)serializacją atrybutów klasy, które nie są oznaczone jako `static` lub `transient`.
+Warto tutaj zwrócić uwagę na to, że klasa `ObjectInputStream` posiada metodę [`defaultReadObject`]({{ site.doclinks.java.io.ObjectInputStream }}#defaultReadObject()), która przeprowadza standardową deserializację, którą możesz rozszerzyć. Podobnie wygląda to w przypadku klasy `ObjectOutputStream` i metody [`defaultWriteObject`]({{ site.doclinks.java.io.ObjectOutputStream }}#defaultWriteObject()). Metody te mogą być wywołane wyłącznie w trakcie (de)serializacji obiektu. Zajmują się one (de)serializacją atrybutów klasy, które nie są oznaczone jako `static` lub `transient`.
 
 ## Serializacja a dziedziczenie
 
@@ -310,13 +310,13 @@ Pole to możesz ustawić samodzielnie, jeśli tego nie zrobisz kompilator wygene
 ## Materiały dodatkowe
 
 Na początek zestaw dokumentacji do klas, związanych z tematem, jak zwykle znajdziesz tam ogrom informacji.
-- [Serializable](https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html)
-- [Externalizable](https://docs.oracle.com/javase/8/docs/api/java/io/Externalizable.html)
-- [ObjectOutputStream](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectOutputStream.html)
-- [ObjectInputStream](https://docs.oracle.com/javase/8/docs/api/java/io/ObjectInputStream.html)
-- [NotSerializableException](https://docs.oracle.com/javase/8/docs/api/java/io/NotSerializableException.html)
+- [`Serializable`]({{ site.doclinks.java.io.Serializable }})
+- [`Externalizable`]({{ site.doclinks.java.io.Externalizable }})
+- [`ObjectOutputStream`]({{ site.doclinks.java.io.ObjectOutputStream }})
+- [`ObjectInputStream`]({{ site.doclinks.java.io.ObjectInputStream }})
+- [`NotSerializableException`]({{ site.doclinks.java.io.NotSerializableException }})
 
-Dodatkowo możesz zajrzeć do [specyfikacja mechanizmu serializacji](https://docs.oracle.com/javase/8/docs/platform/serialization/spec/serialTOC.html) albo [artykułu na stronie Oracle](http://www.oracle.com/technetwork/articles/java/javaserial-1536170.html). Znalazłem też inne opracowanie, które poruszą także zagadnienie [serializacji, także do formatu XML](http://wazniak.mimuw.edu.pl/index.php?title=PO_Serializacja). Możesz też rzucić okiem na [przykłady użyte w tym artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/18_serializacja/src/main/java/pl/samouczekprogramisty/kursjava/serialization).
+Dodatkowo możesz zajrzeć do [specyfikacja mechanizmu serializacji]({{ site.doclinks.specs.serialization }}) albo [artykułu na stronie Oracle](http://www.oracle.com/technetwork/articles/java/javaserial-1536170.html). Znalazłem też inne opracowanie, które poruszą także zagadnienie [serializacji, także do formatu XML](http://wazniak.mimuw.edu.pl/index.php?title=PO_Serializacja). Możesz też rzucić okiem na [przykłady użyte w tym artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/18_serializacja/src/main/java/pl/samouczekprogramisty/kursjava/serialization).
 
 ## Zadania
 
