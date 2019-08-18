@@ -37,7 +37,7 @@ Program powinien wczytać zawartość pliku, wyłuskać adresy e-mail, a następ
 
 Dla uproszczenia pokażę Ci parę fragmentów kodu czy metod, które mogą Ci się przydać w rozwiązaniu tego zadania.
 
-Aby podzielić rekord na poszczególne pola możesz użyć metody [`String.split`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#split-java.lang.String-) jak w przykładzie poniżej
+Aby podzielić rekord na poszczególne pola możesz użyć metody [`String.split`]({{ site.doclinks.java.lang.String }}#split(java.lang.String)) jak w przykładzie poniżej
 
 ```java
 String[] fields = line.split(",");
@@ -49,7 +49,7 @@ Aby z pola otoczonego znakami `""` uzyskać wyłącznie jego zawartość możesz
 
 Metoda ta jako argument przyjmuje wartość pola i zwraca to co znajduje się wewnątrz `""` bądź `null` jeśli pole nie było uzupełnione.
 
-Aby wybrać losowo X wartości musisz losowo rozłożyć adresy e-mail z pliku. Pomóc Ci w tym może metoda [`Collections.shuffle`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#shuffle-java.util.List-), która w losowy sposób miesza elementy listy.
+Aby wybrać losowo X wartości musisz losowo rozłożyć adresy e-mail z pliku. Pomóc Ci w tym może metoda [`Collections.shuffle`]({{ site.doclinks.java.util.Collections }}#shuffle(java.util.List)), która w losowy sposób miesza elementy listy.
 
 Z tymi narzędziami jesteś przygotowany do napisania swojej pierwszej maszyny losującej :) Jeśli będziesz miał jakiekolwiek pytania możesz zasugerować się [przykładowym rozwiązaniem](https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/01_lottery_machine/src/main/java/pl/samouczekprogramisty/szs/LotteryMachine.java), które dla Ciebie przygotowałem. Jak zwykle zachęcam jednak do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej.
 

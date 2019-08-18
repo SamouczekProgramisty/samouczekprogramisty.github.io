@@ -41,7 +41,7 @@ public int timesTwo(int parameter) {
 }
 ```
 
-Mogą tam znajdować się również inne dyrektywy takie jak `@see`, `@author` czy `@version`. Na podstawie tak zapisanych informacji o kodzie generowana jest dokumentacja, na przykład dla klasy [`String`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html).
+Mogą tam znajdować się również inne dyrektywy takie jak `@see`, `@author` czy `@version`. Na podstawie tak zapisanych informacji o kodzie generowana jest dokumentacja, na przykład dla klasy [`String`]({{ site.doclinks.java.lang.String }}).
 
 Adnotacje, w odróżnieniu od dyrektyw JavaDoc, nie są umieszczane wewnątrz komentarzy a poza nimi.
 

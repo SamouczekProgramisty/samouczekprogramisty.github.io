@@ -25,11 +25,11 @@ Instancje klasy `String` reprezentują łańcuchy znaków. Wewnętrznie znaki te
 
 Instancje klasy `String` są niemutowalne. Oznacza to tyle, że po stworzeniu instancji nie ma możliwości jej modyfikacji. Kilka metod wymienionych poniżej zwraca nowe instancje, pozostawiając tę na której zostały wywołane bez zmian:
 
-- [`replace`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#replace-char-char) – podmienia znak w łańcuchu znaków,
-- [`substring`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#substring-int-) – zwraca pewną część łańcucha znaków określoną indeksami,
-- [`toLowerCase`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toLowerCase--) – zamienia wielkie litery na małe w nowej instancji,
-- [`toUpperCase`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--) – zamienia łańcuch znaków na wielkie litery,
-- [`trim`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#trim--) – zwraca nową instancję bez początkowych i końcowych białych znaków.
+- [`replace`]({{ site.doclinks.java.lang.String }}#replace(char,char)) – podmienia znak w łańcuchu znaków,
+- [`substring`]({{ site.doclinks.java.lang.String }}#substring(int)) – zwraca pewną część łańcucha znaków określoną indeksami,
+- [`toLowerCase`]({{ site.doclinks.java.lang.String }}#toLowerCase()) – zamienia wielkie litery na małe w nowej instancji,
+- [`toUpperCase`]({{ site.doclinks.java.lang.String }}#toUpperCase()) – zamienia łańcuch znaków na wielkie litery,
+- [`trim`]({{ site.doclinks.java.lang.String }}#trim()) – zwraca nową instancję bez początkowych i końcowych białych znaków.
 
 ## Co jeśli `String` nie ma metody, której potrzebuję?
 
@@ -249,7 +249,7 @@ W tym przypadku mamy do czynienia z dwoma osobnymi obiektami. W tym przypadku ad
 
 ### Metoda `String.intern`
 
-Istnieje sposób aby zachować wartość łańcucha znaków w cache (lub pobrać go z cache). Dzięki tej metodzie w cache'u możemy zachować nawet instancje utworzone przy pomocy konstruktora. Służy do tego metoda [`intern`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#intern--). Wywołanie tej metody zachowuje w cache'u dany łańcuch znaków i zwraca instancję, która jest w cache'u zachowana. Jeśli ten literał istnieje już w cache'u, będzie tam zachowany wyłącznie raz.
+Istnieje sposób aby zachować wartość łańcucha znaków w cache (lub pobrać go z cache). Dzięki tej metodzie w cache'u możemy zachować nawet instancje utworzone przy pomocy konstruktora. Służy do tego metoda [`intern`]({{ site.doclinks.java.lang.String }}#intern()). Wywołanie tej metody zachowuje w cache'u dany łańcuch znaków i zwraca instancję, która jest w cache'u zachowana. Jeśli ten literał istnieje już w cache'u, będzie tam zachowany wyłącznie raz.
 
 Proszę spójrz na przykład poniżej
 
