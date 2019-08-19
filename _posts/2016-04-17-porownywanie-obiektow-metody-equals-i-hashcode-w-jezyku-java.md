@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2019-02-13 15:22:30 +0100
+last_modified_at: 2019-08-19 23:10:36 +0200
 title: Porównywanie obiektów, metody equals i hashCode w języku Java
 categories:
 - Kurs programowania Java
@@ -185,7 +185,20 @@ System.out.println("chair1.equals(null): " + chair1.equals(null));
 
 Zauważ, że w naszej implementacji metody `equals` używamy także metody `equals` z typu `String` aby sprawdzić czy model i producent są równi.
 
-Nowy może być także operator `instanceof`, służy on do sprawdzenia czy dana instancja jest typu `Chair`. Po tym sprawdzeniu możemy bezpiecznie rzutować obiekt `obj` i mamy pewność, że nie zostanie rzucony wyjątek `ClassCastException`.
+Nowy może być także operator `instanceof`, służy on do sprawdzenia czy dana instancja jest typu `Chair`. Po tym sprawdzeniu możemy bezpiecznie [rzutować]({% post_url 2016-02-17-konwersja-i-rzutowanie-w-jezyku-java %}) obiekt `obj` i mamy pewność, że nie zostanie rzucony wyjątek `ClassCastException`. Operator ten zwróci `false` zawsze jeśli porównywany obiekt ma wartość `null`. W związku z tym jeden z powyższych warunków jest nadmiarowy i można go usunąć:
+
+```java
+@Override
+public boolean equals(Object obj) {
+    if (obj instanceof Chair) {
+        Chair otherChair = (Chair) obj;
+        return model.equals(otherChair.model) &&
+                manufacturer.equals(otherChair.manufacturer) &&
+                productionYear == otherChair.productionYear;
+    }
+    return false;
+}
+```
 
 ## Metoda `hashCode`
 
