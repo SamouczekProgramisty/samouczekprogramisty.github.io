@@ -40,7 +40,7 @@ Do pracy z atrybutami przechowywanymi w obiekcie implementującym `ServletContex
 - [`getAttributeNames`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#getAttributeNames--),
 - [`removeAttribute`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#removeAttribute-java.lang.String-).
 
-Instancję implementującą ten interfejs możemy uzyskać wywołując metodę [`getServletContext`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getServletContext--) znajdującą się w interfejsie [`ServletRequest`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html).
+Instancję implementującą ten interfejs możemy uzyskać wywołując metodę [`getServletContext`]({{ site.doclinks.javax.servlet.ServletRequest }}#getServletContext--) znajdującą się w interfejsie [`ServletRequest`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html).
 
 Dzięki dostępowi do kontekstu serwletów możesz przekazywać atrybuty pomiędzy poszczególnymi serwletami. Przykładowy serwlet poniżej wyświetla wszystkie atrybuty kontekstu ustawiając wcześniej wartość jednego z nich.
 
@@ -141,8 +141,8 @@ Jeśli będziesz miał problem z rozwiązaniem zadania możesz rzucić okiem na 
 
 ## Dodatkowe materiały do nauki
 
-- [Specyfikacja serwletów](http://download.oracle.com/otndocs/jcp/servlet-3_1-fr-eval-spec/index.html),
-- [Artykuł na wikipedii nt. wzorca projektowego observer](https://en.wikipedia.org/wiki/Observer_pattern),
+- [Specyfikacja serwletów]({{ site.doclinks.specs.servlet }}),
+- [Artykuł dotyczący wzorca projektowego obserwator]({% post_url 2019-05-02-wzorzec-projektowy-obserwator %}),
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/04_kontekst/src/main/java/pl/samouczekprogramisty/kursaplikacjewebowe).
 
 ## Podsumowanie

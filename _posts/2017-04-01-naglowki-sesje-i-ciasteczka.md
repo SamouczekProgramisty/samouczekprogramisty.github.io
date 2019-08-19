@@ -15,9 +15,9 @@ disqus_page_identifier: 817 http://www.samouczekprogramisty.pl/?p=817
 
 ## Wprowadzenie
 
-Zacznijmy od żądań i odpowiedzi. Wiesz już, o hierarchii dziedziczenia serwletów `Servlet`, `GenericServlet` i `HttpServlet`. W przypadku klasy opakowującej żądanie i odpowiedź sytuacja wygląda podobnie. Istnieją bazowe interfejsy [`ServeltRequest`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html) i [`ServletResponse`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html).
+Zacznijmy od żądań i odpowiedzi. Wiesz już, o hierarchii dziedziczenia serwletów `Servlet`, `GenericServlet` i `HttpServlet`. W przypadku klasy opakowującej żądanie i odpowiedź sytuacja wygląda podobnie. Istnieją bazowe interfejsy [`ServletRequest`]({{ site.doclinks.javax.servlet.ServletRequest }}) i [`ServletResponse`]({{ site.doclinks.javax.servlet.ServletResponse }}).
 
-W przypadku serwletów opartych o protokół HTTP interfejsy te są rozszerzane przez [`HttpServletRequest`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html) i [`HttpServletResponse`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html). Rozszerzone interfejsy zawierają metody specyficzne dla protokołu HTTP.
+W przypadku serwletów opartych o protokół HTTP interfejsy te są rozszerzane przez [`HttpServletRequest`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}) i [`HttpServletResponse`]({{ site.doclinks.javax.servlet.http.HttpServletResponse }}). Rozszerzone interfejsy zawierają metody specyficzne dla protokołu HTTP.
 
 Zauważ, że piszę tu wyłącznie o interfejsach. Są to interfejsy określone przez specyfikację serwletów. Kontener serwletów, który implementuję tę specyfikację dostarcza także konkretnych implementacji. To właśnie kontener odpowiedzialny jest za tworzenie instancji klas, które implementują te interfejsy.
 
@@ -49,10 +49,10 @@ public class ParametersServlet extends HttpServlet {
 }
 ```
 
-W przykładzie tym widzisz serwlet, który w odpowiedzi wypisuje wszystkie parametry z adresu URL żądania. Poza metodą [`getParameterMap`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameterMap--) możesz użyć także kilku innych:
-- [`getParameter()`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameter-java.lang.String-)
-- [`getParameterNames()`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameterNames--)
-- [`getParameterValues()`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameterValues-java.lang.String-)
+W przykładzie tym widzisz serwlet, który w odpowiedzi wypisuje wszystkie parametry z adresu URL żądania. Poza metodą [`getParameterMap`]({{ site.doclinks.javax.servlet.ServletRequest }}#getParameterMap--) możesz użyć także kilku innych:
+- [`getParameter()`]({{ site.doclinks.javax.servlet.ServletRequest }}#getParameter-java.lang.String-)
+- [`getParameterNames()`]({{ site.doclinks.javax.servlet.ServletRequest }}#getParameterNames--)
+- [`getParameterValues()`]({{ site.doclinks.javax.servlet.ServletRequest }}#getParameterValues-java.lang.String-)
 
 Po uruchomieniu aplikacji, która posiada taki serwlet i wpisaniu w przeglądarce adresu
 
@@ -74,10 +74,10 @@ Mimo tego, że parametry przesyłane są w inny sposób możesz z nimi pracować
 ### Adres URL
 
 Obiekt opakowujący żądanie pozwala także na pracę z adresem URL, którego żądanie dotyczy. Zestaw metod pozwala na pobranie informacji na temat adresu żądania:
-- [`getContextPath()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getContextPath--) zwraca fragment ścieżki, która jest “podstawą” wszystkich ścieżek obsługiwanych przez daną aplikację. W przypadku prostego instalowania aplikacji przy pomocy gradle będzie to nazwa pliku war,
-- [`getServletPath()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getServletPath--) zwraca fragment ścieżki, która została użyta w konfiguracji serwletu,
-- [`getRequestURL()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURL--) metoda zwraca adres URL żądania bez parametrów zawartych w adresie,
-- [`getRequstURI()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURI--) zwraca adres URI (ang. _Uniform Resource Identifier_). Od aresu URL różni się on tym, że nie zawiera protokołu, serwera i portu.
+- [`getContextPath()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getContextPath--) zwraca fragment ścieżki, która jest “podstawą” wszystkich ścieżek obsługiwanych przez daną aplikację. W przypadku prostego instalowania aplikacji przy pomocy gradle będzie to nazwa pliku war,
+- [`getServletPath()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getServletPath--) zwraca fragment ścieżki, która została użyta w konfiguracji serwletu,
+- [`getRequestURL()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getRequestURL--) metoda zwraca adres URL żądania bez parametrów zawartych w adresie,
+- [`getRequstURI()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getRequestURI--) zwraca adres URI (ang. _Uniform Resource Identifier_). Od aresu URL różni się on tym, że nie zawiera protokołu, serwera i portu.
 
 Zakładając, że nasz sewlet obsługuje ścieżkę /path wówczas wywołanie powyższych metod po żądaniu
 
@@ -93,8 +93,8 @@ Przykładowy serwlet, który używa tych metod możesz znaleźć na [samouczkowy
 ## `HttpServletResponse`
 
 Obiekt, implementujący ten interfejs także tworzony jest przez kontener serwletów. Służy on do przygotowania odpowiedzi na żądanie wysłane do serwera. W przypadku obiektu odpowiedzi musisz wiedzieć o następujących metodach
-- [`getOutputStream()`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html#getOutputStream--) zwraca instancję [`ServletOutputStream`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletOutputStream.html), która służy do tworzenia odpowiedzi zawierającej dane binarne,
-- [`getWriter()`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html#getWriter--) zwraca instancję `PrintWriter`, która służy do tworzenia odpowiedzi zawierającej tekst.
+- [`getOutputStream()`]({{ site.doclinks.javax.servlet.ServletResponse }}#getOutputStream--) zwraca instancję [`ServletOutputStream`]({{ site.doclinks.javax.servlet.ServletOutputStream }}), która służy do tworzenia odpowiedzi zawierającej dane binarne,
+- [`getWriter()`]({{ site.doclinks.javax.servlet.ServletResponse }}#getWriter--) zwraca instancję `PrintWriter`, która służy do tworzenia odpowiedzi zawierającej tekst.
 
 
 Ważne jest aby pamiętać, że w trakcie obsługi żądania możemy posługiwać się wyłącznie jedną z tych metod.
@@ -115,16 +115,16 @@ Przeglądarki internetowe posiadają wbudowane “narzędzia developerskie”, k
 
 Obiekty `HttpServletResponse` i `HttpServletRequest` pozwalają na pracę z nagłówkami przy pomocy metod:
 
-- [`setHeader()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#setHeader-java.lang.String-java.lang.String-)
-- [`addHeader()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#addHeader-java.lang.String-java.lang.String-)
+- [`setHeader()`]({{ site.doclinks.javax.servlet.http.HttpServletResponse }}#setHeader-java.lang.String-java.lang.String-)
+- [`addHeader()`]({{ site.doclinks.javax.servlet.http.HttpServletResponse }}#addHeader-java.lang.String-java.lang.String-)
 
 Pierwsza z nich ustawia wartość nagłówka, druga dodaje nową wartość nagłówka (i tworzy go jeśli wcześniej nie był ustawiony). W rzeczywistości nagłówek mający wiele wartości to dalej jedna para klucz-wartość. W tym przypadku wartość zawiera kilka elementów oddzielonych przecinkami.
 
 Nagłówki możesz pobierać z obiektu żądania używając metod:
 
-- [`getHeaderNames()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getHeaderNames--)
-- [`getHeader()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#getHeader-java.lang.String-)
-- [`getHeaders()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getHeaders-java.lang.String-)
+- [`getHeaderNames()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getHeaderNames--)
+- [`getHeader()`]({{ site.doclinks.javax.servlet.http.HttpServletResponse }}#getHeader-java.lang.String-)
+- [`getHeaders()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getHeaders-java.lang.String-)
 
 Poniższy serwlet używa tych metod aby ustawić kilka nagłówków. W odpowiedzi na żądanie tworzy stronę, która zawiera listę ustawionych nagłówków. Jak zwykle mocno zachęcam do eksperymentowania, sam zobacz jak taki serwlet działa.
 
@@ -186,10 +186,10 @@ Ciasteczka to mechanizm opisany w specyfikacji protokołu HTTP. W uproszczeniu m
 
 Po stronie serwera, w odpowiedzi można ustawiać ciasteczka. Można to robić przy pomocy nagłówka `Set-Cookie`. Z racji tego, że jest to bardzo popularny mechanizm istnieje osobny zestaw metod, które pomagają pracować z ciasteczkami:
 
-- [`addCookie()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#addCookie-javax.servlet.http.Cookie-)
-- [`getCookies()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getCookies--)
+- [`addCookie()`]({{ site.doclinks.javax.servlet.http.HttpServletResponse }}#addCookie-javax.servlet.http.Cookie-)
+- [`getCookies()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getCookies--)
 
-Samo ciasteczko reprezentowane jest przez klasę [`Cookie`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/Cookie.html). Podstawowymi atrybutami ciasteczka jest jego nazwa i wartość.
+Samo ciasteczko reprezentowane jest przez klasę [`Cookie`]({{ site.doclinks.javax.servlet.http.Cookie }}). Podstawowymi atrybutami ciasteczka jest jego nazwa i wartość.
 
 Dodatkowo możesz ustawić też inne atrybuty, takie jak czas życia ciasteczka. Jeśli jest on ustawiony, wówczas przeglądarka dołącza ciasteczka do żądań tak długo jak są one “ważne”.
 
@@ -237,19 +237,19 @@ Można powiedzieć, że sesja to połączenie kilku żądań/odpowiedzi w jedną
 
 Innym mechanizmem, na którym może być oparta sesja jest przepisywanie adresu URL (ang. _URL rewriting_). Polega ono na dołączaniu identyfikatora sesji do adresu. W takim przypadku adres może wyglądać następująco `https://www.samouczekprogramisty.pl/kurs-programowania-java;jsessionid=1234`. To kontener serwletów decyduje o metodzie, która powinna być użyta do “podtrzymywania” sesji.
 
-Podobnie jak w przypadku ciasteczek sesja ma swój dedykowany obiekt. Po stronie serwera sesja reprezentowana jest przez [`HttpSession`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html).
+Podobnie jak w przypadku ciasteczek sesja ma swój dedykowany obiekt. Po stronie serwera sesja reprezentowana jest przez [`HttpSession`]({{ site.doclinks.javax.servlet.http.HttpSession }}).
 
 ### Czas trwania sesji
 
-Sesja nie jest trzymana wiecznie. To jak długo powinna być utrzymywana przez kontener serwletów określone jest przez parametr metody [`setMaxInactiveInterval`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#setMaxInactiveInterval-int-). Określa on w sekundach jak długo pomiędzy żądaniami klienta sesjsa powinna być utrzymywana.
+Sesja nie jest trzymana wiecznie. To jak długo powinna być utrzymywana przez kontener serwletów określone jest przez parametr metody [`setMaxInactiveInterval`]({{ site.doclinks.javax.servlet.http.HttpSession }}#setMaxInactiveInterval-int-). Określa on w sekundach jak długo pomiędzy żądaniami klienta sesjsa powinna być utrzymywana.
 
 ### Atrybuty sesji
 
 Sesję można porównać do mapy, w której przechowujemy pary klucz-wartość. Są to atrybuty sesji. Dzięki nim mamy możliwość przekazywania informacji wewnątrz aplikacji webowej pomiędzy żądaniami klienta. Poniższy zestaw metod pozwala na pracę z atrybutami sesji:
-- [`getAttributeNames()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#getAttributeNames--)
-- [`getAttribute()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#getAttribute-java.lang.String-)
-- [`removeAttribute()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#removeAttribute-java.lang.String-)
-- [`setAttribute()`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#setAttribute-java.lang.String-java.lang.Object-)
+- [`getAttributeNames()`]({{ site.doclinks.javax.servlet.http.HttpSession }}#getAttributeNames--)
+- [`getAttribute()`]({{ site.doclinks.javax.servlet.http.HttpSession }}#getAttribute-java.lang.String-)
+- [`removeAttribute()`]({{ site.doclinks.javax.servlet.http.HttpSession }}#removeAttribute-java.lang.String-)
+- [`setAttribute()`]({{ site.doclinks.javax.servlet.http.HttpSession }}#setAttribute-java.lang.String-java.lang.Object-)
 
 Wartościami atrybutów są obiekty, jednak musisz pamiętać o tym aby nie były one “duże”. Atrybuty sesji powinny być także serializowalne. Jeśli nie miałeś do czynienia z serializacją zapraszam do artykułu poświęconemu [serializacji w języku Java]({% post_url 2016-09-02-serializacja-w-jezyku-java %}).
 
@@ -315,8 +315,8 @@ W przypadku jakichkolwiek problemów z wykonaniem ćwiczenia możesz rzucić oki
 
 - [Artykuł na wikipedi na temat ciasteczek](https://en.wikipedia.org/wiki/HTTP_cookie),
 - [Lista standardowych nagłówków HTTP](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields),
-- [Specyfikacja serwletów](http://download.oracle.com/otndocs/jcp/servlet-3_1-fr-eval-spec/index.html),
-- [Specyfikacja protokołu HTTP/1.1](http://www.ietf.org/rfc/rfc2616.txt),
+- [Specyfikacja serwletów]({{ site.doclinks.specs.servlet }}),
+- [Specyfikacja protokołu HTTP/1.1]({{ site.doclinks.specs.http11 }}),
 - [Kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/02_serwlety/src/main/java/pl/samouczekprogramisy/kursaplikacjewebowe/servlets).
 
 ## Podsumowanie
