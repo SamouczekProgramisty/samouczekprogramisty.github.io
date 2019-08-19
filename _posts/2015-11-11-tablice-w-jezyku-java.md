@@ -74,7 +74,7 @@ System.out.println(wintersMonths.length); // w naszym przypadku wyświetli 3
   
 Wyżej napisałem, ze w tablicy możesz trzymać dowolny obiekt. Tablica też jest obiektem :) Więc nic nie stoi na przeszkodzie, żeby w tablicach umieścić inne tablice. Tablica dwuwymiarowa to nic innego jak tabela zawierająca wiersze i kolumny w której możesz przechowywać dane.
 
-Nic nie stoi na przeszkodzie do tworzenia tablic, które mają więcej niż 2 wymiary, jednak w praktyce raczej ich się nie spotyka. Jeśli potrzebna jest tak skomplikowana tablica programiści zazwyczaj przechowują dane w inny sposób używając zbiorów, map czy list[^kolekcje].
+Możliwe jest tworzenie tablic, które mają więcej niż 2 wymiary, jednak w praktyce raczej ich się nie spotyka. Jeśli potrzebna jest tak skomplikowana tablica programiści zazwyczaj przechowują dane w inny sposób używając zbiorów, map czy list[^kolekcje].
 
 [^kolekcje]: Są to 3 podstawowe typy kolekcji w języku Java. Przeczytasz o nich w jednym z kolejnych artykułów.
 
@@ -129,9 +129,22 @@ ticTacToeBoard[1][1] = 1;
 ticTacToeBoard[2][2] = 2;
 ```
   
-Poza czytelnością zyskujemy kolejną rzecz. Nie łamiemy zasady DRY (ang. _Don't Repeat Yourself_)[^dry].
+Poza czytelnością zyskujemy kolejną rzecz. Nie łamiemy [zasady DRY]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %}) (ang. _Don't Repeat Yourself_)[^dry].
 
 [^dry]: W uproszczeniu zasada mówi o nie powtarzaniu tego samego kodu wielokrotnie, przeczytasz o tym w jednym z kolejnych artykułów. Poprę to lepszym przykładem niż ten w tym artykule.
+
+### Tablice o różnej liczbie elementów
+
+Powyższy przykład do pokazujący planszę do gry w kółko i krzyżyk pokazuje kwadratową tablice dwuwymiarową. W języku Java istnieje możliwość utworzenia zagnieżdżonych tablic, w których każdy element ma różną długość. Proszę spójrz na przykład poniżej:
+
+```java
+int[][] irregularArray = new int[3][];
+irregularArray[0] = new int[3];
+irregularArray[1] = new int[5];
+irregularArray[2] = new int[2];
+```
+
+W tym przykładzie każda z zagnieżdżonych tablic ma różną długość.
 
 ## Metody o zmiennej liczbie argumentów (ang. _varargs_)
   
@@ -156,7 +169,7 @@ sum(1, 2, 3);
   
 Metody mogą przyjmować wiele argumentów. Jednak argument z wielokropkiem może być tylko jeden i musi występować jako ostatni.
 
-Jak wspomniałem wielokropek to wzbogacenie składni. W rzeczywistości metody są tożsame:
+Jak wspomniałem wielokropek to wzbogacenie składni. W związku z tym obie metody w skompilowanej klasie są tożsame:
 
 ```java
 int sum(int ... numbers);
