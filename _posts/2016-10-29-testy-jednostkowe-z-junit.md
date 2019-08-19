@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2019-02-13 14:15:08 2019 +0100
+last_modified_at: 2019-08-19 23:24:38 +0200
 title: Testy jednostkowe z JUnit
 categories:
 - Programista rzemieślnik
@@ -288,6 +288,9 @@ W końcu kombinacja `<Ctrl + Shift + F10>` pozwala na uruchomienie testów jedno
 {% include figure image_path="/assets/images/2016/10/29_testy_ok.png" caption="Testy bez błędów." %}
 
 ## Zadanie do rozwiązania
+
+Wykonanie zadania wymaga podstawowej znajomości [kolekcji]({% post_url 2016-08-09-kolekcje-w-jezyku-java %}). Jeśli do tej pory nie udało Ci się pracować z kolekcjami zachęcam do przeczytania poświęconego im [artykułu]({% post_url 2016-08-09-kolekcje-w-jezyku-java %}).
+{:.notice--info}
 
 Napisz program, który będzie reprezentował koszyk w sklepie internetowym. Do koszyka reprezentowanego przez klasę `Basket` możemy dodawać bądź usuwać kolejne przedmioty. Każdy przedmiot powinien mieć nazwę i cenę jednostkową. Koszyk powinien także pozwalać na dodanie/usunięcie od razu kilku egzemplarzy przedmiotu ze sklepu. Koszyk powinien także być w stanie policzyć sumaryczną wartość zamówienia oraz wyświetlić swoją zawartość. Pamiętaj o poprawnym obsłużeniu sytuacji wyjątkowych np. usunięcie elementów z pustego koszyka czy dodaniu ujemnej liczby przedmiotów.
 
