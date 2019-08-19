@@ -33,16 +33,16 @@ Poniższy rysunek pokazuje zapytanie od klienta, które przechodzi przez dwa fil
 
 {% include figure image_path="/assets/images/2017/04/15_filter_chain.jpeg" caption="Łańcuch wywołania filtrów." %}
 
-Filtry oznacza się adnotacją [`@WebFilter`](http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/WebFilter.html)[^webfilter]. Podobnie jak wszystkie inne elementy specyfikacji serwletów także filtry mają swój cykl życia.
+Filtry oznacza się adnotacją [`@WebFilter`]({{ site.doclinks.javax.servlet.annotation.WebFilter }})[^webfilter]. Podobnie jak wszystkie inne elementy specyfikacji serwletów także filtry mają swój cykl życia.
 
 [^webfilter]: Do tej pory nie wspomniałem Ci jeszcze o pliku `web.xml`, w którym także można filtry konfigurować. Aby niepotrzebnie nie komplikować plik ten opiszę w [osobnym artykule]({% post_url 2017-04-27-deskryptor-wdrozenia-w-aplikacjach-webowych %}).
 
 ## Cykl życia filtrów
 
 Każdy z filtrów ma swój cykl życia. Podobnie jak w serwletach mamy tu metody `init` i `destroy`. Właściwa praca serwletu odbywa się wewnątrz metody `doFilter`.
-- [`init`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#init-javax.servlet.FilterConfig-) – metoda odpowiedzialna za inicjalizację serwletu. Musi się powieść aby kontener serwletów używał tego filtra,
-- [`doFilter`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-javax.servlet.FilterChain-) – tu odbywa się właściwa praca filtra. Metoda ta wywołana jest przed przekazaniem żądania do klasy serwletu,
-- [`destroy`](http://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#destroy--) – metoda, w które filtr ma szansę “posprzątać” po sobie :)
+- [`init`]({{ site.doclinks.javax.servlet.Filter }}#init-javax.servlet.FilterConfig-) – metoda odpowiedzialna za inicjalizację serwletu. Musi się powieść aby kontener serwletów używał tego filtra,
+- [`doFilter`]({{ site.doclinks.javax.servlet.Filter }}#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-javax.servlet.FilterChain-) – tu odbywa się właściwa praca filtra. Metoda ta wywołana jest przed przekazaniem żądania do klasy serwletu,
+- [`destroy`]({{ site.doclinks.javax.servlet.Filter }}#destroy--) – metoda, w które filtr ma szansę “posprzątać” po sobie :)
 
 {% include newsletter-srodek.md %}
 
@@ -65,10 +65,9 @@ Kilka przykładów z użyciem adnotacji:
 - `@WebFilter(urlPatterns = {"/some/*/thing", "/other/*/thing"})` – filtr będzie zaaplikowany do żądań dotyczących wielu adresów pasujących do jednego z wzorców.
 
 ## Łańcuch filtrów
+Na diagramie pokazanym wyżej widziałeś dwa filtry. Filtrów uruchomionych przed właściwym serwletem może być wiele. Tworzą one tak zwany łańcuch filtrów (ang. _filter chain_). Łańcuch ten reprezentowany jest przez instancję klasy implementującej interfejs [`FilterChain`]({{ site.doclinks.javax.servlet.FilterChain }}). Instancja ta przekazana jest jako parametr do metody `doFilter` wewnątrz filtra.
 
-Na diagramie pokazanym wyżej widziałeś dwa filtry. Filtrów uruchomionych przed właściwym serwletem może być wiele. Tworzą one tak zwany łańcuch filtrów (ang. _filter chain_). Łańcuch ten reprezentowany jest przez instancję klasy implementującej interfejs [`FilterChain`](http://docs.oracle.com/javaee/7/api/javax/servlet/FilterChain.html). Instancja ta przekazana jest jako parametr do metody `doFilter` wewnątrz filtra.
-
-Interfejs ten zawiera wyłącznie jedną metodę [`doFilter`](http://docs.oracle.com/javaee/7/api/javax/servlet/FilterChain.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-), która wykonuje kolejny filtr w łańcuchu. Jeśli filtr był ostatnim spowoduje to wywołanie właściwego serwletu.
+Interfejs ten zawiera wyłącznie jedną metodę [`doFilter`]({{ site.doclinks.javax.servlet.FilterChain }}#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-), która wykonuje kolejny filtr w łańcuchu. Jeśli filtr był ostatnim spowoduje to wywołanie właściwego serwletu.
 
 Pociąga to za sobą ważną konsekwencję. Jeśli wewnątrz filtra nie wywołasz tej metody właściwe żądanie nigdy nie dotrze do serwletu.
 
