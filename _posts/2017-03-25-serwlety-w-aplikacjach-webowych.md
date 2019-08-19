@@ -58,13 +58,13 @@ Mamy tutaj informację o protokole (https), serwerze (www.samouczekprogramisty.p
 
 ## Czym jest serwlet
 
-Serwlet to klasa, która implementuje interfejs [`Servlet`](https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html). Instancje tej klasy tworzone są przez kontener serwletów (na przykład Jetty). Instancje te wiedzą jak odpowiadać na żądania, które dostają od klienta.
+Serwlet to klasa, która implementuje interfejs [`Servlet`]({{ site.doclinks.javax.servlet.Servlet }}). Instancje tej klasy tworzone są przez kontener serwletów (na przykład Jetty). Instancje te wiedzą jak odpowiadać na żądania, które dostają od klienta.
 
-Do obsługi żądania klienta służy metoda [`service`](https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-). Metoda ta przyjmuje jako parametry żądanie i odpowiedź. Na podstawie parametrów żądania odpowiednio modyfikuje przekazany argument odpowiedzi.
+Do obsługi żądania klienta służy metoda [`service`]({{ site.doclinks.javax.servlet.Servlet }}#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-). Metoda ta przyjmuje jako parametry żądanie i odpowiedź. Na podstawie parametrów żądania odpowiednio modyfikuje przekazany argument odpowiedzi.
 
-Szczerze mówiąc do tej pory ani razu nie napisałem klasy, która bezpośrednio implementuje ten interfejs. Używa się do tego klas, które upraszczają tworzenie serwletów. Są to klasy [`GenericServlet`](https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html) i [`HttpServlet`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html).
+Szczerze mówiąc do tej pory ani razu nie napisałem klasy, która bezpośrednio implementuje ten interfejs. Używa się do tego klas, które upraszczają tworzenie serwletów. Są to klasy [`GenericServlet`]({{ site.doclinks.javax.servlet.GenericServlet }}) i [`HttpServlet`]({{ site.doclinks.javax.servlet.http.HttpServlet }}).
 
-Chociaż specyfikacja serwletów, nie wymaga użycia serwletów z protokołem HTTP w praktyce nie spotkałem się z innym zastosowaniem. Zatem z dwóch wyżej wspomnianych klas powinieneś zapamiętać [`HttpServlet`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html)[^serwlet].
+Chociaż specyfikacja serwletów, nie wymaga użycia serwletów z protokołem HTTP w praktyce nie spotkałem się z innym zastosowaniem. Zatem z dwóch wyżej wspomnianych klas powinieneś zapamiętać [`HttpServlet`]({{ site.doclinks.javax.servlet.http.HttpServlet }})[^serwlet].
 
 [^serwlet]: Prawda jest taka, że używając bibliotek pomagających tworzyć aplikacje webowe sam nie będziesz pisał serwletów. Będą to zwykłe klasy, które będą przez bibliotekę wywoływane. Biblioteka dostarczy “główny” serwlet, który będzie przekazywał żądania dalej.
 
@@ -86,15 +86,15 @@ Kontener wyszukuje klas serwletów i następnie tworzy jedną instancję serwlet
 
 ### Inicjalizacja serwletu
 
-Z racji tego, że to kontener serwletów odpowiedzialny jest za tworzenie instancji klasy serwletu nie ma możliwości przekazania odpowiednich parametrów do konstruktora. Do inicjalizacji stanu serwletu służy metoda [`init`](https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#init-javax.servlet.ServletConfig-) i jest ona wywoływana przez kontener przed rozpoczęciem obsługi żądań przez dany serwlet.
+Z racji tego, że to kontener serwletów odpowiedzialny jest za tworzenie instancji klasy serwletu nie ma możliwości przekazania odpowiednich parametrów do konstruktora. Do inicjalizacji stanu serwletu służy metoda [`init`]({{ site.doclinks.javax.servlet.Servlet }}#init-javax.servlet.ServletConfig-) i jest ona wywoływana przez kontener przed rozpoczęciem obsługi żądań przez dany serwlet.
 
 ### Obsługa żądań
 
-W trakcie tego etapu kontener serwletów może wielokrotnie użyć tej samej instancji to obsługi wielu żądań. Pociąga to za sobą dość poważne konsekwencje. Możliwa jest sytuacja, w której w tym samym czasie instancja serwletu będzie obsługiwała kilka żądań jednocześnie. Na przykład jest to możliwe, gdy kilku użytkowników wejdzie na ten sam adres. Obsługa każdego żądania to wywołanie przez kontener metody [`service`](https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-).
+W trakcie tego etapu kontener serwletów może wielokrotnie użyć tej samej instancji to obsługi wielu żądań. Pociąga to za sobą dość poważne konsekwencje. Możliwa jest sytuacja, w której w tym samym czasie instancja serwletu będzie obsługiwała kilka żądań jednocześnie. Na przykład jest to możliwe, gdy kilku użytkowników wejdzie na ten sam adres. Obsługa każdego żądania to wywołanie przez kontener metody [`service`]({{ site.doclinks.javax.servlet.Servlet }}#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-).
 
 ### Zniszczenie serwletu
 
-Kontener może usunąć daną instancję serwletu. Przed zniszczeniem instancji wywołana zostanie metoda [`destroy`](https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#destroy--). Dzięki temu wewnątrz serweltu masz szansę na “posprzątanie”. Metoda ta może na przykład służyć do zamknięcia połączenia z bazą danych. Nie masz pewności jak długo serwlet będzie żył, o tym decyduje kontener.
+Kontener może usunąć daną instancję serwletu. Przed zniszczeniem instancji wywołana zostanie metoda [`destroy`]({{ site.doclinks.javax.servlet.Servlet }}#destroy--). Dzięki temu wewnątrz serweltu masz szansę na “posprzątanie”. Metoda ta może na przykład służyć do zamknięcia połączenia z bazą danych. Nie masz pewności jak długo serwlet będzie żył, o tym decyduje kontener.
 
 ## Kontener serwletów
 
@@ -234,8 +234,8 @@ Na podstawie [przykładowej aplikacji](https://github.com/SamouczekProgramisty/K
 
 Poniżej przygotowałem dla Ciebie kilka dodatkowych linków, które pomogą Ci rozszerzyć wiedzę z tego artykułu:
 - [Protokół HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
-- [Specyfikacja serwletów wersja 3.1](https://jcp.org/en/jsr/detail?id=340)
-- [Specyfikacje Java EE 7](http://www.oracle.com/technetwork/java/javaee/tech/index.html)
+- [Specyfikacja serwletów wersja 3.1]({{ site.doclinks.specs.servlet }})
+- [Specyfikacje Java EE 7]({{ site.doclinks.specs.jee7 }})
 - [Przykłady użyte w tym artykule](https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/01_serwlety)
 
 ## Podsumowanie
