@@ -345,7 +345,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/pogodynka-szkielet-aplikacji-webowej/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/03/26_pogodynka_04_artykul.jpg"},{
         "title": "Nagłówki, sesje i ciasteczka",
-        "excerpt":"Wprowadzenie Zacznijmy od żądań i odpowiedzi. Wiesz już, o hierarchii dziedziczenia serwletów Servlet, GenericServlet i HttpServlet. W przypadku klasy opakowującej żądanie i odpowiedź sytuacja wygląda podobnie. Istnieją bazowe interfejsy ServeltRequest i ServletResponse. W przypadku serwletów opartych o protokół HTTP interfejsy te są rozszerzane przez HttpServletRequest i HttpServletResponse. Rozszerzone interfejsy zawierają...","categories": ["DSP2017","Kurs aplikacji webowych"],
+        "excerpt":"Wprowadzenie Zacznijmy od żądań i odpowiedzi. Wiesz już, o hierarchii dziedziczenia serwletów Servlet, GenericServlet i HttpServlet. W przypadku klasy opakowującej żądanie i odpowiedź sytuacja wygląda podobnie. Istnieją bazowe interfejsy ServletRequest i ServletResponse. W przypadku serwletów opartych o protokół HTTP interfejsy te są rozszerzane przez HttpServletRequest i HttpServletResponse. Rozszerzone interfejsy zawierają...","categories": ["DSP2017","Kurs aplikacji webowych"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/naglowki-sesje-i-ciasteczka/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/04/01_naglowki_ciasteczka_sesje_artykul.jpeg"},{
