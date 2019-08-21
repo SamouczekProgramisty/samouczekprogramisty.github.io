@@ -15,7 +15,7 @@ disqus_page_identifier: 863 http://www.samouczekprogramisty.pl/?p=863
 
 ## `ServletContext`
 
-Obiekt implementujący [`ServletContext`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html) tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej[^kilka_jvm]. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej.
+Obiekt implementujący [`ServletContext`]({{ site.doclinks.javax.servlet.ServletContext }}) tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej[^kilka_jvm]. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej.
 
 [^kilka_jvm]: Właściwie to, istnieje tylko jeden taki obiekt dla każdej wirtualnej maszyny Java. Jeśli twoja aplikacja webowa jest rozproszona wówczas obiektów implementujących ten interfejs jest tyle, ile instancji JVM.
 
@@ -35,12 +35,12 @@ Podobnie jak `Servlet` czy `HttpRequest` mają atrybuty, tak samo jest z `Servle
 
 Do pracy z atrybutami przechowywanymi w obiekcie implementującym `ServletContext` służą metody:
 
-- [`setAttribute`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#setAttribute-java.lang.String-java.lang.Object-),
-- [`getAttribute`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#getAttribute-java.lang.String-),
-- [`getAttributeNames`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#getAttributeNames--),
-- [`removeAttribute`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html#removeAttribute-java.lang.String-).
+- [`setAttribute`]({{ site.doclinks.javax.servlet.ServletContext }}#setAttribute-java.lang.String-java.lang.Object-),
+- [`getAttribute`]({{ site.doclinks.javax.servlet.ServletContext }}#getAttribute-java.lang.String-),
+- [`getAttributeNames`]({{ site.doclinks.javax.servlet.ServletContext }}#getAttributeNames--),
+- [`removeAttribute`]({{ site.doclinks.javax.servlet.ServletContext }}#removeAttribute-java.lang.String-).
 
-Instancję implementującą ten interfejs możemy uzyskać wywołując metodę [`getServletContext`]({{ site.doclinks.javax.servlet.ServletRequest }}#getServletContext--) znajdującą się w interfejsie [`ServletRequest`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html).
+Instancję implementującą ten interfejs możemy uzyskać wywołując metodę [`getServletContext`]({{ site.doclinks.javax.servlet.ServletRequest }}#getServletContext--) znajdującą się w interfejsie [`ServletRequest`]({{ site.doclinks.javax.servlet.ServletRequest }}).
 
 Dzięki dostępowi do kontekstu serwletów możesz przekazywać atrybuty pomiędzy poszczególnymi serwletami. Przykładowy serwlet poniżej wyświetla wszystkie atrybuty kontekstu ustawiając wcześniej wartość jednego z nich.
 
@@ -80,7 +80,7 @@ Ponadto twórcy bibliotek dzięki dostępowi do obiektu `ServletContext` mogą d
 
 Szczerze mówiąc miałem tu problem z tłumaczeniem :). Chodzi tu o obiekty, które potocznie nazywamy "listenerami". Obiekty nasłuchujące nie są specyficzne dla aplikacji webowych. Koncept tego typu używany jest także w innych miejscach. Jest to jeden z szeroko znanych wzorców projektowych. Wzorzec ten nazywany jest obserwatorem (ang. _observer_).
 
-Kontener serwletów ma informację o wystąpieniu pewnych zdarzeń. Ty jako programista możesz chcieć być informowany o tych zdarzeniach. Na przykład chcesz dostać informację kiedy obiekt `ServletContext` zostanie utworzony. Aby to zrobić tworzysz własną instancję obiektu nasłuchującego, który implementuje interfejs [`ServletContextListener`](http://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html). Dodatkowo tę implementację oznaczasz adnotacją [`@WebListener`](https://docs.oracle.com/javaee/7/api/javax/servlet/annotation/WebListener.html). Dzięki temu kontener serwletów wie o twojej klasie. Wie, że musi ją powiadomić o takim zdarzeniu.
+Kontener serwletów ma informację o wystąpieniu pewnych zdarzeń. Ty jako programista możesz chcieć być informowany o tych zdarzeniach. Na przykład chcesz dostać informację kiedy obiekt `ServletContext` zostanie utworzony. Aby to zrobić tworzysz własną instancję obiektu nasłuchującego, który implementuje interfejs [`ServletContextListener`]({{ site.doclinks.javax.servlet.ServletContextListener }}). Dodatkowo tę implementację oznaczasz adnotacją [`@WebListener`]({{ site.doclinks.javax.servlet.annotation.WebListener }}). Dzięki temu kontener serwletów wie o twojej klasie. Wie, że musi ją powiadomić o takim zdarzeniu.
 
 Poniższy diagram pokazuje jak te komponenty układają się w całość:
 
@@ -92,12 +92,12 @@ Zdarzenia dotyczące kontekstu nie są jedynymi. W trakcie działania aplikacji 
 
 Poniżej znajduje się lista kilka przykładowych interfejsów obiektów nasłuchujących:
 
-- [`ServletContextListener`](http://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html),
-- [`ServletContextAttributeListener`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextAttributeListener.html),
-- [`ServletRequestListener`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequestListener.html),
-- [`ServletRequestAttributeListener`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequestAttributeListener.html),
-- [`HttpSessionListener`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSessionListener.html),
-- [`HttpSessionAttributeListener`](https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSessionAttributeListener.html).
+- [`ServletContextListener`]({{ site.doclinks.javax.servlet.ServletContextListener }}),
+- [`ServletContextAttributeListener`]({{ site.doclinks.javax.servlet.ServletContextAttributeListener }}),
+- [`ServletRequestListener`]({{ site.doclinks.javax.servlet.ServletRequestListener }}),
+- [`ServletRequestAttributeListener`]({{ site.doclinks.javax.servlet.ServletRequestAttributeListener }}),
+- [`HttpSessionListener`]({{ site.doclinks.javax.servlet.http.HttpSessionListener }}),
+- [`HttpSessionAttributeListener`]({{ site.doclinks.javax.servlet.http.HttpSessionAttributeListener }}).
 
 Na przykład, obiekt implementujący interfejs `ServletContextAttributeListener` zostanie poinformowany o wszystkich operacjach na atrybutach kontekstu serwletu.
 

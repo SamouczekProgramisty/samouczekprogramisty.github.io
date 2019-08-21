@@ -53,7 +53,7 @@ Nie można ufać użytkownikom. Nawet jeśli jedynym użytkownikiem w trym przyp
 
 Specyfikacja [Bean Validation 1.0](https://jcp.org/en/jsr/detail?id=303) doczekała się swojego następcy [Bean Validation 1.1](https://jcp.org/en/jsr/detail?id=349) i [Bean Validation 2.0](https://jcp.org/en/jsr/detail?id=380). Aktualnie wersja 1.1 jest “obowiązującą”. Jako implementację walidatora wybrałem [Hibernate](http://hibernate.org/validator/).
 
-Proste dołączenie biblioteki w pliku [datavault.gradle](https://github.com/SamouczekProgramisty/Pogodynka/blob/master/datavault/datavault.gradle) wraz z użyciem adnotacji [@NotNull](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/NotNull.html) i [@Valid](http://docs.oracle.com/javaee/7/api/javax/validation/Valid.html) pokazuje siłę Springa:
+Proste dołączenie biblioteki w pliku [datavault.gradle](https://github.com/SamouczekProgramisty/Pogodynka/blob/master/datavault/datavault.gradle) wraz z użyciem adnotacji [`@NotNull`]({{ site.doclinks.javax.validation.constraints.NotNull }}) i [`@Valid`]({{ site.doclinks.javax.validation.constraints.Valid }}) pokazuje siłę Springa:
 
     curl -H 'Content-Type: application/json' http://localhost:8080/datavault/temperatures -d '{"temperature": 123}' -v
     * Trying 127.0.0.1...
