@@ -1,6 +1,6 @@
 ---
 title: Wstęp do Gradle
-last_modified_at: 2019-04-22 23:38:06 +0200
+last_modified_at: 2019-08-22 00:03:55 +0200
 categories:
 - Programista rzemieślnik
 permalink: /wstep-do-gradle/
@@ -172,6 +172,14 @@ Gradle wspiera tak zwane wtyczki. Zawierają one zestaw gotowych zadań, które 
 apply plugin: 'java'
 ```
 
+Można też je dodać stosując trochę inny zapis:
+
+```
+plugins {
+    id 'java'
+}
+```
+
 Załóżmy, że plik `build.gradle` zawiera wyłącznie tę linijkę. Zobacz co zostanie wypisane na konsolę po uruchomieniu `gradle build --console=verbose` (`build` jest jednym z zadań udostępnionych przez wtyczkę):
 
     $ gradle build --console=verbose
@@ -257,10 +265,6 @@ Zaznaczasz gradle i klikasz next. Kolejne okienko, to nic innego jak uzupełnien
 
 {% include figure image_path="/assets/images/2019/02/13_2_project_identifiers.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
 
-Kolejne okienko daje IntelliJ IDEA informacje jak ma się zachować w przypadku tworzenia projektu, na przykład tutaj podajesz informację, gdzie zainstalowany jest Gradle na Twoim komputerze. Istotne jest abyś zaznaczył drugą opcję, która spowoduje utworzenie struktury projektu zgodnie z opisaną wcześniej konwencją.
-
-{% include figure image_path="/assets/images/2019/02/13_3_project_settings.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
-
 Kolejny ekran to informacja dla IntelliJ IDEA jak powinien nazywać się projekt, domyślnie uzupełnia to pole wartością artifactId oraz gdzie na dysku projekt, powinien być utworzony.
 
 {% include figure image_path="/assets/images/2019/02/13_4_project_location.png" caption="Gradle nowy projekt IntelliJ IDEA" %}
@@ -272,10 +276,12 @@ Po przejściu przez tę serię kroków IntelliJ IDEA utworzy pusty projekt wraz 
 Poniżej znajduje się plik `build.gradle`, który utworzył za mnie IntelliJ IDEA.
 
 ```
+plugins {
+    id 'java'
+}
+
 group 'pl.samouczekprogramisty'
 version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
@@ -288,15 +294,15 @@ dependencies {
 }
 ```
 
-Pierwsze dwie linijki informują o grupie i wersji – dwóch komponentach pozwalających na unikalną identyfikację projektu. Atrybut name został pominięty, przyjmuje on wartość domyślną czyli nazwę katalogu, w którym znajduje się projekt.
+Pierwszy blok włącza wtyczkę do obsługi Javy.
 
-Kolejna linijka jest Ci znana, włączamy wtyczkę do obsługi Javy.
+Kolejne dwie linijki informują o grupie i wersji – dwóch komponentach pozwalających na unikalną identyfikację projektu. Atrybut name został pominięty, przyjmuje on wartość domyślną czyli nazwę katalogu, w którym znajduje się projekt.
 
 Ta linijka wymaga trochę szerszego omówienia. Java ewoluowała, na przestrzeni lat pojawiały się kolejne wersje. Wersje te wprowadzały pewne konstrukcje językowe, które nie były dostępne wcześniej. `sourceCompatibility` informuje kompilator `javac` (poprzez przełącznik `-source`) jakiej wersji Javy trzeba użyć do kompilowania klas z kodem.
 
 Kolejny blok mówi o repozytoriach, z których powinny być ściągane zależności. Jak widzisz IntelliJ IDEA domyślnie zakłada, że korzystali będziemy z centralnego repozytorium Maven’a.
 
-Kolejny blok specyfikuje zależności, domyślnie występuje tylko jedna zależność dostępna w trakcie kompilowania testów (`testCompile`), jest to biblioteka JUnit w wersji 4.12.
+Ostatni blok specyfikuje zależności, domyślnie występuje tylko jedna zależność dostępna w trakcie kompilowania testów (`testCompile`), jest to biblioteka JUnit w wersji 4.12.
 
 ## Podsumowanie
 
