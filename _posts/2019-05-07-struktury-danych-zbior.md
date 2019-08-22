@@ -106,7 +106,7 @@ public interface SimpleSet<E> {
 
 ### Podobieństwa pomiędzy `HashSet` i `HashMap`
 
-Zacznę od krótkiego przypomnienia czym jest tablica asocjacyjna. Ta struktura pozwala na przechowywanie kluczy i odpowiadających im wartości. Implementacja [`HashMap`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashMap.html) zakłada, że tablica asocjacyjna zawiera unikalny zestaw kluczy. Innymi słowy nie może w niej być dwóch takich samych kluczy.
+Zacznę od krótkiego przypomnienia czym jest tablica asocjacyjna. Ta struktura pozwala na przechowywanie kluczy i odpowiadających im wartości. Implementacja [`HashMap`]({{ site.doclinks.java.util.HashMap }}) zakłada, że tablica asocjacyjna zawiera unikalny zestaw kluczy. Innymi słowy nie może w niej być dwóch takich samych kluczy.
 
 Tablica asocjacyjna, podobnie jak zbiór, nie zwraca uwagi na porządek kluczy[^treemap]. Zbiór nie zawiera duplikatów, mapa nie przechowuje zduplikowanych kluczy.
 

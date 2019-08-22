@@ -98,7 +98,7 @@ Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobi
 
 ### Jak używać klasy `StringBuilder`
 
-Klasa [`StringBuilder`](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html) podobnie jak `String` jest opakowaniem tablicy znaków typu `char[]`. `StringBuilder` jednak jest typem mutowalnym. Instancje tego typu w można konwertować do typu `String` używając metody `toString`.
+Klasa [`StringBuilder`]({{ site.doclinks.java.lang.StringBuilder }}) podobnie jak `String` jest opakowaniem tablicy znaków typu `char[]`. `StringBuilder` jednak jest typem mutowalnym. Instancje tego typu w można konwertować do typu `String` używając metody `toString`.
 
 Najprostszym sposobem utworzenia instancji klasy `StringBuilder` jest użycie konstruktora bezparametrowego. Następnie możesz modyfikować ten obiekt używając dostępnych metod.
 
@@ -124,11 +124,11 @@ public void compilerConcatenationFiddling() {
 
 ### Różnica pomiędzy `StringBuilder` a `StringBuffer`
 
-Istnieje też inna implementacja tej samej funkcjonalności. Jest to klasa [`StringBuffer`](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuffer.html). Jeśli masz przed sobą rozmowę kwalifikacyjną dobrze jest znać różnicę między tymi klasami. Jest to jedno ze “sztampowych” pytań rekrutacyjnych ;).
+Istnieje też inna implementacja tej samej funkcjonalności. Jest to klasa [`StringBuffer`]({{ site.doclinks.java.lang.StringBuffer }}). Jeśli masz przed sobą rozmowę kwalifikacyjną dobrze jest znać różnicę między tymi klasami. Jest to jedno ze “sztampowych” pytań rekrutacyjnych ;).
 
 Główną różnicą jest to, że instancję klasy `StringBuffer` można bezpiecznie używać nawet w aplikacjach wielowątkowych. Instancje klasy `StringBuilder` nie powinny być współdzielone pomiędzy wątkami. Cecha ta ma jedną ważną konsekwencję. Ze względu na brak synchronizacji instancje klasy `StringBuilder` są nieznacznie szybsze od `StringBuffer`.
 
-Dodatkowo możesz zapoznać się też z klasą [`StringJoiner`](https://docs.oracle.com/javase/8/docs/api/java/util/StringJoiner.html), która oferuje podobną funkcjonalność. Jest ona wykorzystywana na przykład podczas łączenia strumieni.
+Dodatkowo możesz zapoznać się też z klasą [`StringJoiner`]({{ site.doclinks.java.util.StringJoiner }}), która oferuje podobną funkcjonalność. Jest ona wykorzystywana na przykład podczas łączenia strumieni.
 
 ## Optymalizacja konkatenacji przez kompilator
 
@@ -207,7 +207,7 @@ Specyfikacja języka Java narzuca pewne wymagania związane z optymalizacją pra
 {% capture notice %}
 Tutaj drobna dygresja. Cache to mechanizm, który pozwala na przetrzymywanie wartości jakiegoś typu. Przeważnie uzyskanie tej wartości jest czasochłonne. Założeniem tego mechanizmu jest pozwolenie na szybsze dotarcie do tych wartości w późniejszym czasie. Dodatkowo pozwala on na optymalizację zajmowanego miejsca. Elementy znajdujące się w cache’u przeważnie się nie powtarzają.
 
-Cache może być zrealizowany na wiele sposobów, najprostszą implementacją może być zwykła instancja [`HashMap`](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html). W bardziej zaawansowanych zastosowaniach używa się osobnych programów/baz danych, które zapewniają tę funkcjonalność, na przykład [memcached](https://memcached.org/).
+Cache może być zrealizowany na wiele sposobów, najprostszą implementacją może być zwykła instancja [`HashMap`]({{ site.doclinks.java.util.HashMap }}). W bardziej zaawansowanych zastosowaniach używa się osobnych programów/baz danych, które zapewniają tę funkcjonalność, na przykład [memcached](https://memcached.org/).
 {% endcapture %}
 
 <div class="notice--info">
@@ -271,9 +271,9 @@ W tym przypadku oba porównania zwrócą wartość `true`.
 Poniżej przygotowałem dla Ciebie zestaw odnośników, które mogą pomóc w rozwijaniu wiedzy związanej z pracą z łańcuchami znaków:
 - [Java Language Specification o konkatenacji]({{ site.doclinks.specs.jls }}jls-15.html#jls-15.18.1),
 - dokumentacja klasy [`StringUtils`](https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/StringUtils.java),
-- dokumentacja klasy [`StringBuilder`](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html),
-- dokumentacja klasy [`StringBuffer`](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuffer.html),
-- dokumentacja klasy [`StringJoiner`](https://docs.oracle.com/javase/8/docs/api/java/util/StringJoiner.html),
+- dokumentacja klasy [`StringBuilder`]({{ site.doclinks.java.lang.StringBuilder }}),
+- dokumentacja klasy [`StringBuffer`]({{ site.doclinks.java.lang.StringBuffer }}),
+- dokumentacja klasy [`StringJoiner`]({{ site.doclinks.java.util.StringJoiner }}),
 - [kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/26_lancuchy_znakow/src).
 
 ## Podsumowanie
