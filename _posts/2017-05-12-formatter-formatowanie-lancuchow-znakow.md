@@ -17,10 +17,10 @@ disqus_page_identifier: 895 http://www.samouczekprogramisty.pl/?p=895
 
 Wyobraź sobie, że chcesz pokazać użytkownikowi pewne zestawienie. Dane tego typu wygodnie jest prezentować w formie tabelarycznej. Tak dochodzimy do problemu formatowania. W jaki sposób można taki format uzyskać?
 
-Problem ten można rozwiązać posługując się klasą [`Formatter`](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html). Instancje właśnie tej klasy użyte są w wielu innych miejscach. Na przykład:
+Problem ten można rozwiązać posługując się klasą [`Formatter`]({{ site.doclinks.java.util.Formatter }}). Instancje właśnie tej klasy użyte są w wielu innych miejscach. Na przykład:
 
-- [`PrintWriter.format`](https://docs.oracle.com/javase/8/docs/api/java/io/PrintWriter.html#format-java.lang.String-java.lang.Object...-) Wewnątrz tej metody użyty jest `Formatter`. `System.out` to instancja klasy `PrintWriter`. Dzięki temu w bardzo wygodny sposób możesz formatować tekst wypisując go na konsoli używając metody `System.out.format`,
-- [`String.format`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#format-java.lang.String-java.lang.Object...-) statyczna metoda w klasie `String`, która pozwala na formatowanie łańcucha znaków. Jej implementacja także bazuje na klasie `Formatter`.
+- [`PrintWriter.format`]({{ site.doclinks.java.io.PrintWriter }}#format(java.lang.String,java.lang.Object...)) Wewnątrz tej metody użyty jest `Formatter`. `System.out` to instancja klasy `PrintWriter`. Dzięki temu w bardzo wygodny sposób możesz formatować tekst wypisując go na konsoli używając metody `System.out.format`,
+- [`String.format`]({{ site.doclinks.java.lang.String }}#format(java.lang.String,java.lang.Object...)) statyczna metoda w klasie `String`, która pozwala na formatowanie łańcucha znaków. Jej implementacja także bazuje na klasie `Formatter`.
 
 ## Zasada działania formattera
 
@@ -141,7 +141,7 @@ Jeden znacznik może zawierać kilka flag. Dodatkowo wszystkie opisane wcześnie
 
 W uproszczeniu lokalizacja to zbiór reguł, które określają w jaki sposób należy prezentować dany łańcuch znaków. Można powiedzieć, że jest to swego rodzaju tłumaczenie na reguły obowiązujące w danym kraju/regionie. To lokalizacja ma wpływ na to, jak na przykład wyświetlane są daty czy liczby.
 
-Do tej pory w całym artykule używałem metod, które używały domyślnej lokalizacji, możesz ją uzyskać odwołując się do metody [`Locale.getDefault`](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#getDefault-java.util.Locale.Category-). `Formatter` pozwala także na formatowanie łańcucha znaków używając innych ustawień lokalizacji.
+Do tej pory w całym artykule używałem metod, które używały domyślnej lokalizacji, możesz ją uzyskać odwołując się do metody [`Locale.getDefault`]({{ site.doclinks.java.util.Locale }}#getDefault(java.util.Locale.Category)). `Formatter` pozwala także na formatowanie łańcucha znaków używając innych ustawień lokalizacji.
 
 Proszę spójrz na przykład poniżej. Ta sama liczba prezentowana jest używając trzech różnych ustawień lokalizacji. Zwróć uwagę na to, że w każdym przypadku otrzymujemy różne wyniki:
 
@@ -190,10 +190,10 @@ Zachęcam Cię do rozwiązania zadania samodzielnie. Jeśli jednak będziesz mia
 
 ## Dodatkowe materiały do nauki
 
-Artykuł ten to “skrót” dokumentacji dla klasy klasy `Formatter`. Jeśli chcesz dowiedzieć się czegoś więcej zachęcam do przeczytania [dokumentacji tej klasy](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html). Dodatkowo możesz także przejrzeć [kod źródłowy wszystkich przykładów](https://github.com/SamouczekProgramisty/KursJava/blob/master/27_lancuchy_znakow_formatowanie/src/main/java/pl/samouczekprogramisty/kursjava/strings/formatting/StringFormatting.java) użytych w tym artykule.
+Artykuł ten to “skrót” dokumentacji dla klasy klasy `Formatter`. Jeśli chcesz dowiedzieć się czegoś więcej zachęcam do przeczytania [dokumentacji tej klasy]({{ site.doclinks.java.util.Formatter }}). Dodatkowo możesz także przejrzeć [kod źródłowy wszystkich przykładów](https://github.com/SamouczekProgramisty/KursJava/blob/master/27_lancuchy_znakow_formatowanie/src/main/java/pl/samouczekprogramisty/kursjava/strings/formatting/StringFormatting.java) użytych w tym artykule.
 
 ## Podsumowanie
 
-W artykule przeczytałeś o formatowaniu łańcuchów znaków. Wiesz jak formatować liczby zmiennoprzecinkowe, poznałeś klasę Formatter wraz miejscami gdzie jest ona używana. Rozwiązując ćwiczenie wykorzystałeś całą wiedzę w praktyce.
+W artykule przeczytałeś o formatowaniu łańcuchów znaków. Wiesz jak formatować liczby zmiennoprzecinkowe, poznałeś klasę `Formatter` wraz miejscami gdzie jest ona używana. Rozwiązując ćwiczenie wykorzystałeś całą wiedzę w praktyce.
 
 Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli masz jakieś pytania nie wahaj się zadać je w komentarzach. Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na facebooku i dopisz się do newslettera. Do następnego razu.
