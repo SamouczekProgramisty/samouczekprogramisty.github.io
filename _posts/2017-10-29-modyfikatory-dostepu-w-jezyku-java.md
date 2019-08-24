@@ -237,9 +237,9 @@ public interface Supplier<T> {
 }
 ```
 
-Jest to interfejs [`Supplier`](https://docs.oracle.com/javase/9/docs/api/java/util/function/Supplier.html) dostępny w standardowej bibliotece języka Java. Jak widzisz przed metodą `get` nie ma żadnego modyfikatora. W przypadku interfejsów oznacza to, że dana funkcja jest dostępna publicznie.
+Jest to interfejs [`Supplier`]({{ site.doclinks.java.util.function.Supplier }}) dostępny w standardowej bibliotece języka Java. Jak widzisz przed metodą `get` nie ma żadnego modyfikatora. W przypadku interfejsów oznacza to, że dana funkcja jest dostępna publicznie.
 
-Innym przykładem są wartości typu wyliczeniowego. Poniższy przykład to typ wyliczeniowy [`AccessMode`](https://docs.oracle.com/javase/9/docs/api/java/nio/file/AccessMode.html) ze standardowej biblioteki. Jego wartości `READ`, `WRITE` i `EXECUTE` są dostępne publicznie mimo braku jakiegokolwiek modyfikatora dostępu:
+Innym przykładem są wartości typu wyliczeniowego. Poniższy przykład to typ wyliczeniowy [`AccessMode`]({{ site.doclinks.java.nio.file.AccessMode }}) ze standardowej biblioteki. Jego wartości `READ`, `WRITE` i `EXECUTE` są dostępne publicznie mimo braku jakiegokolwiek modyfikatora dostępu:
 
 ```java
 public enum AccessMode {
