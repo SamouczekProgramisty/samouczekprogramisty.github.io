@@ -136,7 +136,7 @@ Dochodzimy teraz do momentu, w którym muszę Ci powiedzieć o typach w wyrażen
 
 ## Interfejs funkcyjny
 
-Interfejs funkcyjny to interfejs, który ma jedną abstrakcyjną metodę[^efektywnie_abstrakcyjna]. Wprowadzono adnotację [`@FunctionalInterface`](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html), którą możesz dodać do interfejsów tego typu.
+Interfejs funkcyjny to interfejs, który ma jedną abstrakcyjną metodę[^efektywnie_abstrakcyjna]. Wprowadzono adnotację [`@FunctionalInterface`]({{ site.doclinks.java.lang.FunctionalInterface }}), którą możesz dodać do interfejsów tego typu.
 
 [^efektywnie_abstrakcyjna]: Efektywnie abstrakcyjną, czyli dodanie do interfejsu np. metody equals, która jest w klasie Object nadal spełnia to wymaganie.
 
@@ -155,7 +155,7 @@ Zawiera on wyłącznie jedną metodę `check`.
 
 ### Przykładowe interfejsy funkcyjne
 
-Twórcy języka Java przygotowali zestaw interfejsów funkcyjnych, które możesz implementować. W większości przypadków w zupełności wystarczy ich użycie. Część z nich znajduje się w pakiecie [`java.util.function`](https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html). Najważniejsze z nich zebrałem poniżej:
+Twórcy języka Java przygotowali zestaw interfejsów funkcyjnych, które możesz implementować. W większości przypadków w zupełności wystarczy ich użycie. Część z nich znajduje się w pakiecie [`java.util.function`]({{ site.doclinks.java.util.function.package }}). Najważniejsze z nich zebrałem poniżej:
 - `Function<T, R>` zawiera metodę `apply`, która przyjmuje instancję klasy `T` zwracając instancję klasy `R`,
 - `Consumer<T>` zawiera metodę `accept`, która przyjmuje instancję klasy `T`,
 - `Predicate<T>` zawiera metodę `test`, która przyjmuje instancję klasy T i zwraca flagę. Interfejs ten może posłużyć do zastąpienia interfejsu `Checker`,
@@ -202,7 +202,7 @@ IntSupplier equalsMethodOnObject = objectInstance::hashCode;
 System.out.println(equalsMethodOnObject.getAsInt());
 ```
 
-W przykładzie tym tworzę nową instancję klasy `Object`. Następnie pobieram metodę `hashCode` z tego obiektu i przypisuję ją do typu [`IntSupplier`](https://docs.oracle.com/javase/8/docs/api/java/util/function/IntSupplier.html). Jest to kolejny interfejs funkcyjny znajdujący się w standardowej bibliotece. Ostatnia linijka to wywołanie metody znajdującej się w tym interfejsie.
+W przykładzie tym tworzę nową instancję klasy `Object`. Następnie pobieram metodę `hashCode` z tego obiektu i przypisuję ją do typu [`IntSupplier`]({{ site.doclinks.java.util.function.IntSupplier }}). Jest to kolejny interfejs funkcyjny znajdujący się w standardowej bibliotece. Ostatnia linijka to wywołanie metody znajdującej się w tym interfejsie.
 
 Kod powyżej można porównać do:
 
