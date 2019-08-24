@@ -237,10 +237,10 @@ Jeśli chcesz spojrzeć na temat liczb zmiennoprzecinkowych z innej perspektywy 
 
 Do wykonania zadań mogą Ci się przydać następujące funkcje:
 
-* [`Integer.toBinaryString`](https://docs.oracle.com/javase/9/docs/api/java/lang/Integer.html#toBinaryString-int-),
-* [`Long.toBinaryString`](https://docs.oracle.com/javase/9/docs/api/java/lang/Long.html#toBinaryString-long-),
-* [`Float.floatToRawIntBits`](https://docs.oracle.com/javase/9/docs/api/java/lang/Float.html#floatToRawIntBits-float-).
-* [`Double.doubleToRawLongBits`](https://docs.oracle.com/javase/9/docs/api/java/lang/Double.html#doubleToRawLongBits-double-),
+* [`Integer.toBinaryString`]({{ site.doclinks.java.lang.Integer }}#toBinaryString(int)),
+* [`Long.toBinaryString`]({{ site.doclinks.java.lang.Long }}#toBinaryString(long)),
+* [`Float.floatToRawIntBits`]({{ site.doclinks.java.lang.Float }}#floatToRawIntBits(float)).
+* [`Double.doubleToRawLongBits`]({{ site.doclinks.java.lang.Double }}#doubleToRawLongBits(double)),
 
 Zadania do wykonania:
 
