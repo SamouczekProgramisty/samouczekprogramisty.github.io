@@ -1,6 +1,6 @@
 ---
 title: REST web service z Java EE część 2
-last_modified_at: 2019-02-04 21:58:32 +0100
+last_modified_at: 2019-08-26 21:08:34 +0200
 categories:
 - Kurs aplikacji webowych
 permalink: /rest-web-service-z-java-ee-czesc-2/
@@ -37,8 +37,6 @@ W artykule tym rozszerzę przykładowy webservice do zarządzania rezerwacjami. 
 
 W poprzednim artykule posłużyłem się kontenerem aplikacji TomEE. Także i tym razem polecam użycie tego kontenera aplikacji. Jeśli chcesz wiedzieć więcej o jego instalacji zapraszam Cię do [poprzedniego artykułu]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}#instalacja-kontenera-aplikacji).  
 
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/rest/reservation -d '{"name": "abc", "tableNumber": 1, "start": "2019-09-20T18:00", "end": "2019-11-20T18:00"}' -v
-
 ## Wstrzykiwanie zależności
 
 Wstrzykiwanie zależności (ang. _dependency injection_) pozwala na oddelegowanie zarządzanie zależnościami do kontenera. Dzięki takiemu podejściu programista nie musi samemu tworzyć instancji obiektów, robi to za niego kontener aplikacji. Kontener aplikacji zarządza cyklem życia takich instancji. To kontener wywołuje konstruktor i kontener utrzymuje referencje do tych obiektów. Także kontener ustawia atrybuty jeśli odpowiadają one instancjom, którymi zarządza.
@@ -61,11 +59,11 @@ public class ReservationDAO {
 }
 ```
 
-Fragment kodu powyżej używa mechanizmu wstrzykiwania zależności. Klasa `ReservationWebservice` potrzebuje instancji klasy `ReservationDAO`[^dao]. Atrybut `dao` może zostać wstrzyknięty dzięki mechanizmowi DI (ang. _Dependency Injection_). Adnotacja [`@Inject`](https://javaee.github.io/javaee-spec/javadocs/javax/inject/Inject.html) informuje kontener o tym, że ten atrybut powinien zostać wstrzyknięty. 
+Fragment kodu powyżej używa mechanizmu wstrzykiwania zależności. Klasa `ReservationWebservice` potrzebuje instancji klasy `ReservationDAO`[^dao]. Atrybut `dao` może zostać wstrzyknięty dzięki mechanizmowi DI (ang. _Dependency Injection_). Adnotacja [`@Inject`]({{ site.doclinks.javax.inject.Inject }}) informuje kontener o tym, że ten atrybut powinien zostać wstrzyknięty. 
 
 [^dao]: DAO to akronim od _Data Access Object_. Jest to często spotykany sposób na oznaczenie klas, które odpowiedzialne są za dostęp do danych.
 
-Klasa `ReservationDAO` poprzedzona jest adnotacją [`@ApplicationScoped`](https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/context/ApplicationScoped.html). Adnotacja ta informuje kontener o tym, że instancja tej klasy powinna być możliwa do wstrzyknięcia. Instancja będzie dostępna w kontekście aplikacji. Oznacza to tyle, że kontener utworzy wyłącznie jedną instancję tej klasy w trakcie działania aplikacji[^serwery].
+Klasa `ReservationDAO` poprzedzona jest adnotacją [`@ApplicationScoped`]({{ site.doclinks.javax.enterprise.context.ApplicationScoped }}). Adnotacja ta informuje kontener o tym, że instancja tej klasy powinna być możliwa do wstrzyknięcia. Instancja będzie dostępna w kontekście aplikacji. Oznacza to tyle, że kontener utworzy wyłącznie jedną instancję tej klasy w trakcie działania aplikacji[^serwery].
 
 [^serwery]: Mam na myśli tutaj jedną instancję klasy na każdą wirtualną maszynę Javy. Jeśli aplikacja uruchomiona jest w kliku kontenerach wówczas każdy z nich będzie miał osobną instancję.
 
@@ -103,7 +101,7 @@ Walidacja obiektów dostarczona jest przez implementację specyfikacji Bean Vali
 
 Samą [walidację obiektów]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-java %}) omówiłem bardziej szczegółowo w osobnym artykule. Tutaj widzisz jej użycie w kontekście aplikacji webowej. 
 
-Instancja walidatora tworzona jest przez kontener automatycznie. Kontener także wywołuje mechanizm walidacji. Mechanizm ten wywoływany jest za każdym razem w metodach obsługujących podstawowe operacje. Przykład poniżej pokazuje użycie adnotacji [`@Valid`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html) w metodzie odpowiedzialnej za tworzenie nowej instancji rezerwacji.
+Instancja walidatora tworzona jest przez kontener automatycznie. Kontener także wywołuje mechanizm walidacji. Mechanizm ten wywoływany jest za każdym razem w metodach obsługujących podstawowe operacje. Przykład poniżej pokazuje użycie adnotacji [`@Valid`]({{ site.doclinks.javax.validation.Valid }}) w metodzie odpowiedzialnej za tworzenie nowej instancji rezerwacji.
 
 ```java
 @POST
@@ -112,9 +110,9 @@ public Response createReservation(@Valid Reservation reservation) {
 }
 ```
 
-Kontener na podstawie zapytania wysłanego przez użytkownika tworzy instancję klasy `Reservation`, następnie sprawdza czy instancja ta jest poprawna. Jeśli dane przesłane przez użytkownika są poprawne wówczas wywołuje ciało metody. Jeśli dane nie pozwolą na utworzenie poprawnej instancji wówczas zostanie rzucony [wyjątek](%{ post_url 2016-01-31-wyjatki-w-jezyku-java %})[`ValidationException`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html).
+Kontener na podstawie zapytania wysłanego przez użytkownika tworzy instancję klasy `Reservation`, następnie sprawdza czy instancja ta jest poprawna. Jeśli dane przesłane przez użytkownika są poprawne wówczas wywołuje ciało metody. Jeśli dane nie pozwolą na utworzenie poprawnej instancji wówczas zostanie rzucony [wyjątek](%{ post_url 2016-01-31-wyjatki-w-jezyku-java %})[`ValidationException`]({{ site.doclinks.javax.validation.ValidationException }}).
 
-W akapicie opisującym instancje oznaczone adnotacją [`@Provider`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Provider.html) opiszę ten mechanizm dokładniej.
+W akapicie opisującym instancje oznaczone adnotacją [`@Provider`]({{ site.doclinks.javax.ws.rs.ext.Provider }}) opiszę ten mechanizm dokładniej.
 
 {% include newsletter-srodek.md %}
 
@@ -167,9 +165,9 @@ public class RegistrationApplication extends Application {
 }
 ```
 
-Adnotacja [`@ApplicationPath`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ApplicationPath.html) informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice'ów w tej aplikacji poprzedzone są `/`. 
+Adnotacja [`@ApplicationPath`]({{ site.doclinks.javax.ws.rs.ApplicationPath }}) informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice'ów w tej aplikacji poprzedzone są `/`. 
 
-Adnotacja ta może zostać dodana wyłącznie do instancji klasy [`Application`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Application.html). Klasa ta dostarcza dodatkowych metadanych o aplikacji. W moim przypadku jedyną wymaganą informacją dodatkową jest ta dostarczona przez adnotację.
+Adnotacja ta może zostać dodana wyłącznie do instancji klasy [`Application`]({{ site.doclinks.javax.ws.rs.core.Application }}). Klasa ta dostarcza dodatkowych metadanych o aplikacji. W moim przypadku jedyną wymaganą informacją dodatkową jest ta dostarczona przez adnotację.
 
 Podobnie jak w [poprzednim artykule]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}#pierwszy-web-service) zakładam, że aplikacja w kontenerze zostanie zainstalowana jako `rest.war`.
 {:.notice--info}
@@ -190,9 +188,9 @@ public class ReservationWebservice {
 }
 ```
 
-Adnotację [`@Path`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html) znasz z [poprzedniej części artykułu]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}). Określa ona ścieżkę, która obsługiwana jest przez daną klasę.
+Adnotację [`@Path`]({{ site.doclinks.javax.ws.rs.Path }}) znasz z [poprzedniej części artykułu]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}). Określa ona ścieżkę, która obsługiwana jest przez daną klasę.
 
-Nowe są dla Ciebie adnotacje [`@Consumes`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html) i [`@Produces`](https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html). Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie [JSON]({% post_url 2018-09-14-format-json-w-jezyku-java %}).
+Nowe są dla Ciebie adnotacje [`@Consumes`]({{ site.doclinks.javax.ws.rs.Consumes }}) i [`@Produces`]({{ site.doclinks.javax.enterprise.inject.Produces }}). Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie [JSON]({% post_url 2018-09-14-format-json-w-jezyku-java %}).
 
 Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod [415](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415). Kod ten informuje klienty o tym, że format danych nie jest wspierany. 
 
@@ -211,7 +209,7 @@ public Response listReservations() {
 }
 ```
 
-Metoda `listReservations` poprzedzona jest adnotacją [`@GET`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html). Nie zawiera dodatkowej adnotacji `@Path`, więc wszystkie żądania wysłane pod adres `GET /rest/reservation` zostaną obsłużone przez tę metodę. Do sprawdzenia jej działania możesz użyć programu [`curl`](https://curl.haxx.se/)
+Metoda `listReservations` poprzedzona jest adnotacją [`@GET`]({{ site.doclinks.javax.ws.rs.GET }}). Nie zawiera dodatkowej adnotacji `@Path`, więc wszystkie żądania wysłane pod adres `GET /rest/reservation` zostaną obsłużone przez tę metodę. Do sprawdzenia jej działania możesz użyć programu [`curl`](https://curl.haxx.se/)
 
     curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation
 
@@ -237,9 +235,9 @@ public Response getReservation(@PathParam("id") @Min(0) Integer id) {
 }
 ```
 
-Dodatkowa adnotacja `@Path` rozszerza tę umieszczoną nad klasą `ReservationWebservice`. W wyniku tego metoda `getReservation` obsługuje wszystkie żądania wysłane przez klienty na adres `GET /reservation/{id}`. `id` jest identyfikatorem rezerwacji pobieranym z adresu URL dzięki adnotacji [`@PathParam`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html).
+Dodatkowa adnotacja `@Path` rozszerza tę umieszczoną nad klasą `ReservationWebservice`. W wyniku tego metoda `getReservation` obsługuje wszystkie żądania wysłane przez klienty na adres `GET /reservation/{id}`. `id` jest identyfikatorem rezerwacji pobieranym z adresu URL dzięki adnotacji [`@PathParam`]({{ site.doclinks.javax.ws.rs.PathParam }}).
 
-Zwróć także uwagę na użycie adnotacji [`@Min`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/Min.html). Adnotacja ta uruchomi mechanizm walidacji dla parametru `id`. Mechanizm ten sprawdzi czy liczba przekazana w adresie ma wartość większą, bądź równą 0. Jeśli wartość parametru jest niepoprawna zostanie rzucony wyjątek.
+Zwróć także uwagę na użycie adnotacji [`@Min`]({{ site.doclinks.javax.validation.constraints.Min }}). Adnotacja ta uruchomi mechanizm walidacji dla parametru `id`. Mechanizm ten sprawdzi czy liczba przekazana w adresie ma wartość większą, bądź równą 0. Jeśli wartość parametru jest niepoprawna zostanie rzucony wyjątek.
 
 Wewnątrz ciała metody odwołuję się do atrybutu `dao` pobierając rezerwację na podstawie identyfikatora pobranego od użytkownika. `dao` zwróci wartość `null` jeśli rezerwacja o danym identyfikatorze nie zostanie odnaleziona. W takim przypadku klient uzyska odpowiedź z kodem [404](https://developer.mozilla.org/uk/docs/Web/HTTP/Status/404) informującą o braku szukanego elementu.
 
@@ -265,7 +263,7 @@ public Response deleteReservation(@PathParam("id") @Min(0) Integer id) {
 }
 ```
 
-W tym przypadku kombinacja adnotacji [`@DELETE`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/DELETE.html) i `@Path` wskazuje, że metoda ta zostanie wywołana w przypadku wysłania żądania na adres `DELETE /reservation/{id}`. Podobnie jak w przypadku pobierania rezerwacji mechanizm walidacja sprawdza poprawność przekazanego parametru `id`.
+W tym przypadku kombinacja adnotacji [`@DELETE`]({{ site.doclinks.javax.ws.rs.DELETE }}) i `@Path` wskazuje, że metoda ta zostanie wywołana w przypadku wysłania żądania na adres `DELETE /reservation/{id}`. Podobnie jak w przypadku pobierania rezerwacji mechanizm walidacja sprawdza poprawność przekazanego parametru `id`.
 
 W przypadku tej metody `dao` użyte jest do usunięcia rezerwacji o podanym identyfikatorze.
 
@@ -275,7 +273,7 @@ Przykładowe wywołanie `curl` usuwające rezerwację o identyfikatorze 0:
 
 ### Utworzenie rezerwacji
 
-Podczas tworzenia rezerwacji webservice wymusza poprawność danych przekazanych przez użytkownika. To adnotacja [`@Valid`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html) wymusza sprawdzenie poprawności danych: 
+Podczas tworzenia rezerwacji webservice wymusza poprawność danych przekazanych przez użytkownika. To adnotacja [`@Valid`]({{ site.doclinks.javax.validation.Valid }}) wymusza sprawdzenie poprawności danych: 
 
 ```java
 @POST
@@ -327,7 +325,7 @@ public Response updateReservation(@PathParam("id") @Min(0) Integer id, @Valid Re
 }
 ```
 
-## Własna klasa [`@Provider`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/ExceptionMapper.html)
+## Własna klasa [`@Provider`]({{ site.doclinks.javax.ws.rs.ext.Provider }})
 
 W [poprzedniej części]({% post_url 2017-11-20-rest-webservice-z-java-ee-czesc-1 %}) artykułu użyłem tej adnotacji to utworzenia filtra, który dodawał nagłówki. Tym razem posłuży ona do pomocy przy walidacji.
 
@@ -354,14 +352,14 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
 }
 ```
 
-Klasa `ValidationExceptionMapper` implementuje interfejs [`ExceptionMapper`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/ExceptionMapper.html). Interfejs ten zawiera wyłącznie jedną metodę `toResponse`. Metoda ta zostaje wywołana jeśli zostanie rzucony wyjątek obsługiwany przez daną klasę.
+Klasa `ValidationExceptionMapper` implementuje interfejs [`ExceptionMapper`]({{ site.doclinks.javax.ws.rs.ext.ExceptionMapper }}). Interfejs ten zawiera wyłącznie jedną metodę `toResponse`. Metoda ta zostaje wywołana jeśli zostanie rzucony wyjątek obsługiwany przez daną klasę.
 
 W moim przypadku tworzę nową odpowiedź, która zwraca kod błędu [400](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400) wraz z dodatkowym komunikatem błędu zwróconym przez mechanizm walidacji. 
 
 {% capture jersey %}
-W związku z [błędem](https://github.com/jersey/jersey/issues/3425) w bibliotece Jersey musiałem utworzyć klasę, która obsługuje wyjątek [`ConstraintViolationException`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintViolationException.html). Po rozwiązaniu tego błędu klasa ta powinna obsługiwać wyjątek [`ValidationException`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html).
+W związku z [błędem](https://github.com/jersey/jersey/issues/3425) w bibliotece Jersey musiałem utworzyć klasę, która obsługuje wyjątek [`ConstraintViolationException`]({{ site.doclinks.javax.validation.ConstraintViolationException }}). Po rozwiązaniu tego błędu klasa ta powinna obsługiwać wyjątek [`ValidationException`]({{ site.doclinks.javax.validation.ValidationException }}).
 
-Zgodnie ze specyfikacją użycie adnotacji [`@Priority`](https://javaee.github.io/javaee-spec/javadocs/javax/annotation/Priority.html) także powinno pomóc obejść ten problem.
+Zgodnie ze specyfikacją użycie adnotacji [`@Priority`]({{ site.doclinks.javax.annotation.Priority }}) także powinno pomóc obejść ten problem.
 {% endcapture %}
 
 <div class="notice--warning">
