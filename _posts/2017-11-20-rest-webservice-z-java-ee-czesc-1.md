@@ -137,9 +137,9 @@ public class ReservationWebservice {
 }
 ```
 
-Jest to standardowa klasa Javy, tak zwane POJO (ang. _Plain Old Java Object_). Zawiera ona jedną metodą, `listReservations`. Dodatkowo znajdują się w niej dwie [adnotacje]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}): [`@Path`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html) i [`@GET`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html). Metoda ta zwraca instancję obiektu [`Response`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Response.html).
+Jest to standardowa klasa Javy, tak zwane POJO (ang. _Plain Old Java Object_). Zawiera ona jedną metodą, `listReservations`. Dodatkowo znajdują się w niej dwie [adnotacje]({% post_url 2016-10-03-adnotacje-w-jezyku-java %}): [`@Path`]({{ site.doclinks.javax.ws.rs.Path }}) i [`@GET`]({{ site.doclinks.javax.ws.rs.GET }}). Metoda ta zwraca instancję obiektu [`Response`]({{ site.doclinks.javax.ws.rs.core.Response }}).
 
-Ta kombinacja to Twój pierwszy web service. Adnotacja [`@Path`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html) informuje JAX-RS o tym pod jakim URL dana klasa/metoda powinna odpowiadać. Adnotacja [`@GET`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html) mówi o tym jaki czasownik HTTP jest obsługiwany przez daną metodę.
+Ta kombinacja to Twój pierwszy web service. Adnotacja [`@Path`]({{ site.doclinks.javax.ws.rs.Path }}) informuje JAX-RS o tym pod jakim URL dana klasa/metoda powinna odpowiadać. Adnotacja [`@GET`]({{ site.doclinks.javax.ws.rs.GET }}) mówi o tym jaki czasownik HTTP jest obsługiwany przez daną metodę.
 
 Następnie zbuduj aplikację używając polecenia:
 
@@ -194,7 +194,7 @@ public Response getReservation(@PathParam("id") Integer id) {
 }
 ```
 
-Jak widzisz w tym przypadku metoda `getReservation` dekorowana jest adnotacją [`@Path`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html). Metoda ta zostanie wywołana do obsłużenia zapytania wysłanego pod adres `/reservation/{id}`. Składnia `{id}` użyta jest do przechwytywania części adresu URL. Dzięki tej składni i użyciu adnotacji [`@PathParam`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html) część tej ścieżki zostanie przekazana w trakcie wywołania metody `getReservation`. Na przykład zapytanie `GET /reservation/123` spowoduje wywołanie tej metody z argumentem `id` o wartości `123`.
+Jak widzisz w tym przypadku metoda `getReservation` dekorowana jest adnotacją [`@Path`]({{ site.doclinks.javax.ws.rs.Path }}). Metoda ta zostanie wywołana do obsłużenia zapytania wysłanego pod adres `/reservation/{id}`. Składnia `{id}` użyta jest do przechwytywania części adresu URL. Dzięki tej składni i użyciu adnotacji [`@PathParam`]({{ site.doclinks.javax.ws.rs.PathParam }}) część tej ścieżki zostanie przekazana w trakcie wywołania metody `getReservation`. Na przykład zapytanie `GET /reservation/123` spowoduje wywołanie tej metody z argumentem `id` o wartości `123`.
 
 ### Edycja encji. Metoda `PUT`
 
@@ -206,7 +206,7 @@ public Response updateReservation(@PathParam("id") Integer id) {
 }
 ```
 
-W tym przypadku nowa jest dla Ciebie jedynie adnotacja [`@PUT`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PUT.html). Informuje ona kontener aplikacji o tym, że metoda `updateReservation` powinna być wywołana jeśli klient wyśle zapytanie `PUT /reservation/{id}`.
+W tym przypadku nowa jest dla Ciebie jedynie adnotacja [`@PUT`]({{ site.doclinks.javax.ws.rs.PUT }}). Informuje ona kontener aplikacji o tym, że metoda `updateReservation` powinna być wywołana jeśli klient wyśle zapytanie `PUT /reservation/{id}`.
 
 ### Usuwanie encji. Metoda 'DELETE`
 
@@ -267,7 +267,7 @@ Jest to wymagane dla każdego zapytania, które będzie uruchamiane ze strony do
 Więcej o tej adnotacji przeczytasz w drugiej części artykułu. Dzisiaj opiszę jedynie część jej możliwości.
 {: .notice--info}
 
-JAX-RS udostępnia adnotację [`@Provider`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Providers.html). Służy ona do oznaczenia komponentów, które powinny być automatycznie odkryte przez kontener aplikacji. Tą adnotacją oznacza się klasy, które są odpowiedzialne za przekrojowe zadania (ang. _cross-cutting_) związane z aplikacją.
+JAX-RS udostępnia adnotację [`@Provider`]({{ site.doclinks.javax.ws.rs.ext.Provider }}). Służy ona do oznaczenia komponentów, które powinny być automatycznie odkryte przez kontener aplikacji. Tą adnotacją oznacza się klasy, które są odpowiedzialne za przekrojowe zadania (ang. _cross-cutting_) związane z aplikacją.
 
 Przykładem takiego przekrojowego zadania może być automatyczne dodawanie nagłówków do każdej odpowiedzi. Ta funkcjonalność pozwala na łatwą implementację wymagań narzucanych przez CORS:
 
@@ -290,7 +290,7 @@ public class CORSFilter implements ContainerResponseFilter {
 }
 ```
 
-Klasa `CORSFilter` implementuje interfejs [`ContainerResponseFilter`](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/container/ContainerResponseFilter.html). Interfejs ten zawiera metodę `filter`, która pozwala między innymi na dodanie nagłówków do każdej odpowiedzi. 
+Klasa `CORSFilter` implementuje interfejs [`ContainerResponseFilter`]({{ site.doclinks.javax.ws.rs.ContainerResponseFilter }}). Interfejs ten zawiera metodę `filter`, która pozwala między innymi na dodanie nagłówków do każdej odpowiedzi. 
 
 ## Dodatkowe materiały do nauki
 
@@ -302,8 +302,8 @@ Jest tego sporo, głównie w języku angielskim:
 - [Rozdział w wyżej wspomnianej pracy na temat REST](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm),
 - [REST API Tutorial](http://www.restapitutorial.com/),
 - [Artykuł o REST na anglojęzycznej wersji Wikipedii](https://en.wikipedia.org/wiki/Representational_state_transfer),
-- [Specyfikacja JAX-RS 2.1](http://download.oracle.com/otndocs/jcp/jaxrs-2_1-final-eval-spec/index.html),
-- [Dokumentacja API JAX-RS](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/package-summary.html),
+- [Specyfikacja JAX-RS 2.1]({{ site.doclinks.specs.jaxrs21 }}),
+- [Dokumentacja API JAX-RS]({{ site.doclinks.javax.ws.rs._package }}),
 - [Artykuł na stronie Mozilli o CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS),
 - [Artykuł na temat dojrzałości architektury REST](https://martinfowler.com/articles/richardsonMaturityModel.html),
 

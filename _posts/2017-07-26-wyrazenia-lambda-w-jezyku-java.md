@@ -155,7 +155,7 @@ Zawiera on wyłącznie jedną metodę `check`.
 
 ### Przykładowe interfejsy funkcyjne
 
-Twórcy języka Java przygotowali zestaw interfejsów funkcyjnych, które możesz implementować. W większości przypadków w zupełności wystarczy ich użycie. Część z nich znajduje się w pakiecie [`java.util.function`]({{ site.doclinks.java.util.function.package }}). Najważniejsze z nich zebrałem poniżej:
+Twórcy języka Java przygotowali zestaw interfejsów funkcyjnych, które możesz implementować. W większości przypadków w zupełności wystarczy ich użycie. Część z nich znajduje się w pakiecie [`java.util.function`]({{ site.doclinks.java.util.function._package }}). Najważniejsze z nich zebrałem poniżej:
 - `Function<T, R>` zawiera metodę `apply`, która przyjmuje instancję klasy `T` zwracając instancję klasy `R`,
 - `Consumer<T>` zawiera metodę `accept`, która przyjmuje instancję klasy `T`,
 - `Predicate<T>` zawiera metodę `test`, która przyjmuje instancję klasy T i zwraca flagę. Interfejs ten może posłużyć do zastąpienia interfejsu `Checker`,
