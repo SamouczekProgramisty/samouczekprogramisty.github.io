@@ -187,7 +187,7 @@ public class MembershipBonus {
 
 W przykładzie tym użyta jest adnotacja `@Valid`. Zwraca ona uwagę na to, że instancja klasy `PaidAccount` także musi być sprawdzona pod kątem poprawności. To czy `PaidAccount` jest poprawne czy nie określone jest przez adnotacje wewnątrz tej klasy.
 
-Sprawdzenie reguł odbywa się poprzez uruchomienie metody [`validate`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html#validate-T-java.lang.Class...-) na instancji klasy implementującej interfejs [`Validator`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html). Biblioteka, która implementuje specyfikację _Bean Validation_ dosttarcza odpowiednią klasę.
+Sprawdzenie reguł odbywa się poprzez uruchomienie metody [`validate`]({{ site.doclinks.javax.validation.Validator }}#validate-T-java.lang.Class...-) na instancji klasy implementującej interfejs [`Validator`]({{ site.doclinks.javax.validation.Validator }}). Biblioteka, która implementuje specyfikację _Bean Validation_ dosttarcza odpowiednią klasę.
 
 ## Kiedy używamy automatycznej walidacji
 
@@ -359,7 +359,7 @@ Skoro mamy już adnotację nadszedł czas na implementację klasy sprawdzającej
 
 ### Implementacja klasy sprawdzającej
 
-Każda klasa sprawdzająca powinien implementować [interfejs]({% post_url 2015-12-16-interfejsy-w-jezyku-java %}) [`ConstraintValidator`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html). W momencie walidowania danego elementu zostaje wywołana metoda [`isValid`](https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html#isValid-T-javax.validation.ConstraintValidatorContext-). To implementacja tej metody będzie decydowała o tym czy dany element jest poprawny.
+Każda klasa sprawdzająca powinien implementować [interfejs]({% post_url 2015-12-16-interfejsy-w-jezyku-java %}) [`ConstraintValidator`]({{ site.doclinks.javax.validation.ConstraintValidator }}). W momencie walidowania danego elementu zostaje wywołana metoda [`isValid`]({{ site.doclinks.javax.validation.ConstraintValidator }}#isValid-T-javax.validation.ConstraintValidatorContext-). To implementacja tej metody będzie decydowała o tym czy dany element jest poprawny.
 
 ```java
 public class ZipCodeCityCoherentValidator implements ConstraintValidator<ZipCodeCityCoherent, Address> {
@@ -390,7 +390,7 @@ Utwórz klasę grupującą te dane. Upewnij się, że są one poprawne używają
 
 ## Materiały dodatkowe
 
-- [Specyfikacja Bean Validation 2.0](https://jcp.org/aboutJava/communityprocess/final/jsr380/index.html),
+- [Specyfikacja Bean Validation 2.0]({{ site.doclinks.specs.validation20 }}),
 - [Artykuł na temat _Fail fast, fail often_](https://www.martinfowler.com/ieeeSoftware/failFast.pdf),
 - [Biblioteka rozszerzająca standardowy zestaw reguł](https://github.com/nomemory/java-bean-validation-extension#additional-supported-annotations),
 - [Fragment tutoriala dla Java EE 7 opisujący walidację](https://docs.oracle.com/javaee/7/tutorial/bean-validation001.htm),
