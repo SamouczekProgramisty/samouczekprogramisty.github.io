@@ -1,6 +1,6 @@
 ---
 title: Testy jednostkowe z JUnit 5
-last_modified_at: 2018-07-18 20:43:32 +0200
+last_modified_at: 2019-08-26 21:29:28 +0200
 categories:
 - Programista rzemieślnik
 permalink: /testy-jednostkowe-z-junit5/
@@ -201,7 +201,7 @@ JUnit 5 pozwala na testowanie czy wykonanie fragmentu kodu będzie trwało króc
 - [`assertTimeoutPreemptively`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertTimeoutPreemptively-java.time.Duration-org.junit.jupiter.api.function.Executable-).
 
 Obie asercje przyjmują argumenty:
-- instancję klasy [`Duration`](https://docs.oracle.com/javase/10/docs/api/java/time/Duration.html) określającą maksymalny czas działania,
+- instancję klasy [`Duration`]({{ site.doclinks.java.time.Duration }}) określającą maksymalny czas działania,
 - implementację interfejsu funkcyjnego `Executable`, to ten sam interfejs, który jest użyty w przypadku `assertThrows`.
 
 ```java
