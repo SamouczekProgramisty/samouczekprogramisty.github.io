@@ -1,6 +1,6 @@
 ---
 title: Struktury danych – lista wiązana
-last_modified_at: 2018-12-29 09:03:42 +0100
+last_modified_at: 2019-08-26 20:39:22 +0200
 categories:
 - Programista rzemieślnik
 permalink: /struktury-danych-lista-wiazana/
@@ -26,7 +26,7 @@ Klasyczną pozycją jeśli chodzi o powiązanie algorytmów i struktur danych je
 
 Struktura danych jest niezależna od języka programowania. Można ją zaimplementować w różnych językach. Na przykład tablica jest uniwersalną strukturą, która istnieje w każdym znanym mi języku programowania.
 
-Podobnie sytuacja wygląda z listą wiązaną. Przeważnie w standardowej bibliotece danego języka znajdzie się już gotowa implementacja tej struktury danych. W języku Java implementacją dwukierunkowej listy wiązanej jest klasa [`LinkedList`](https://docs.oracle.com/javase/9/docs/api/java/util/LinkedList.html). O tym czym jest dwukierunkowa lista wiązana przeczytasz w jednym z akapitów poniżej.
+Podobnie sytuacja wygląda z listą wiązaną. Przeważnie w standardowej bibliotece danego języka znajdzie się już gotowa implementacja tej struktury danych. W języku Java implementacją dwukierunkowej listy wiązanej jest klasa [`LinkedList`]({{ site.doclinks.java.util.LinkedList }}). O tym czym jest dwukierunkowa lista wiązana przeczytasz w jednym z akapitów poniżej.
 
 Skoro zatem mamy gotowe implementacje to po co pisać kolejną? Jedynym powodem jest nauka i zrozumienie zasady działania danej struktury danych. Jeśli dany język dostarcza implementacji danej struktury najlepszym sposobem będzie jej użycie. Nie wymyślaj koła na nowo :).
 
