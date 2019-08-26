@@ -1,6 +1,6 @@
 ---
 title: Struktury danych – tablica asocjacyjna
-last_modified_at: 2019-05-07 23:20:55 +0200
+last_modified_at: 2019-08-26 20:42:53 +0200
 categories:
 - Programista rzemieślnik
 permalink: /struktury-danych-tablica-asocjacyjna/
@@ -367,7 +367,7 @@ Krótka, zwięzła odpowiedź: nie. Klucze powinny być instancjami klas, które
 
 ### Czy pary w mapie są posortowane
 
-Implementacja przedstawiona w tym artykule, czy `HashMap` nie przechowują elementów w żadnym porządku. Istnieją jednak implementacje, które pozwalają na przykład na przechowywanie elementów w porządku alfabetycznym kluczy ([`TreeMap`](https://docs.oracle.com/javase/9/docs/api/java/util/TreeMap.html)) czy według kolejności ich dodawania ([`LinkedHashMap`](https://docs.oracle.com/javase/9/docs/api/java/util/LinkedHashMap.html)).
+Implementacja przedstawiona w tym artykule, czy `HashMap` nie przechowują elementów w żadnym porządku. Istnieją jednak implementacje, które pozwalają na przykład na przechowywanie elementów w porządku alfabetycznym kluczy ([`TreeMap`]({{ site.doclinks.java.util.TreeMap }})) czy według kolejności ich dodawania ([`LinkedHashMap`]({{ site.doclinks.java.util.LinkedHashMap }})).
 
 ### Kiedy używać mapy
 
