@@ -1,6 +1,6 @@
 ---
 title: Strumienie w języku Java
-last_modified_at: 2019-01-10 22:58:06 +0100
+last_modified_at: 2019-08-26 21:25:21 +0200
 categories:
 - Kurs programowania Java
 permalink: /strumienie-w-jezyku-java/
@@ -29,7 +29,7 @@ Strumienie służą do przetwarzania danych. Zawierają[^really] dane i pozwalaj
 
 Dane mogą być przechowywane w kolekcji, mogą być wynikiem pracy z [wyrażeniami regularnymi]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}). W strumień możesz opakować praktycznie dowolny zestaw danych. Strumienie pozwalają w łatwy sposób zrównoleglić pracę na danych. Dzięki temu przetwarzanie dużych zbiorów danych może być dużo szybsze. Strumienie kładą nacisk na operacje jakie należy przeprowadzić na danych.
 
-Niestety pojęcie strumienia jest dość szerokie. Możesz się z nim także spotkać w przypadku pracy z plikami. W tym artykule mówiąc o strumieniach mam na myśli klasy implementujące interfejs [`Stream`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html).
+Niestety pojęcie strumienia jest dość szerokie. Możesz się z nim także spotkać w przypadku pracy z plikami. W tym artykule mówiąc o strumieniach mam na myśli klasy implementujące interfejs [`Stream`]({{ site.doclinks.java.util.stream.Stream }}).
 {: .notice--warning}
 
 ### Strumień na przykładzie
@@ -112,7 +112,7 @@ Rozłożę teraz ten strumień na części pierwsze.
 
 ## Analiza przykładowego strumienia
 
-Aby w ogóle mówić o operacjach na strumieniu należy go na początku utworzyć. W poprzednim przykładzie użyłem metody [`stream`](https://docs.oracle.com/javase/9/docs/api/java/util/Collection.html#stream--). Metoda ta jest [metodą domyślną]({% post_url 2015-12-16-interfejsy-w-jezyku-java %}/#metody-domyślne) zaimplementowaną w interfejsie [`Collection`](https://docs.oracle.com/javase/9/docs/api/java/util/Collection.html). Pozwala ona na utworzenie strumienia na podstawie danych znajdujących się w danej kolekcji.
+Aby w ogóle mówić o operacjach na strumieniu należy go na początku utworzyć. W poprzednim przykładzie użyłem metody [`stream`]({{ site.doclinks.java.util.Collection }}#stream()). Metoda ta jest [metodą domyślną]({% post_url 2015-12-16-interfejsy-w-jezyku-java %}/#metody-domyślne) zaimplementowaną w interfejsie [`Collection`]({{ site.doclinks.java.util.Collection }}). Pozwala ona na utworzenie strumienia na podstawie danych znajdujących się w danej kolekcji.
 
 ```java
 Stream<BoardGame> gamesStream = games.stream();
@@ -123,7 +123,7 @@ Strumienie zostały wprowadzone w Java 8. W tej wersji także dodano możliwoś�
 
 Interfejs `Stream` jest [interfejsem generycznym]({% post_url 2016-03-26-typy-generyczne-w-jezyku-java %}). Przechowuje on informację o typie, który aktualnie znajduje się w danym strumieniu. W przykładzie powyżej utworzyłem strumień `gamesStream` zawierający instancje klasy `BoardGame`. Strumień ten utworzyłem na podstawie [listy]({% post_url 2018-01-01-struktury-danych-lista-wiazana %}).
 
-Następnie filtruję strumień używając wyrażeń lambda. Zwróć uwagę na to, że każde wywołanie metody [`filter`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-) tworzy nową instancję klasy `Stream`. Każda linijka odpowiedzialna jest za filtr innego rodzaju. Pierwszy wybiera wyłącznie te gry, w które może grać więcej niż 4 graczy. Wśród tak odfiltrowanych gier następnie wybieram te, których ocena jest wyższa niż 8. Ostatnim zawężeniem jest wybranie gier, które kosztują mniej niż 150zł:
+Następnie filtruję strumień używając wyrażeń lambda. Zwróć uwagę na to, że każde wywołanie metody [`filter`]({{ site.doclinks.java.util.stream.Stream }}#filter(java.util.function.Predicate)) tworzy nową instancję klasy `Stream`. Każda linijka odpowiedzialna jest za filtr innego rodzaju. Pierwszy wybiera wyłącznie te gry, w które może grać więcej niż 4 graczy. Wśród tak odfiltrowanych gier następnie wybieram te, których ocena jest wyższa niż 8. Ostatnim zawężeniem jest wybranie gier, które kosztują mniej niż 150zł:
 
 ```java
 Stream<BoardGame> filteredStream = gamesStream
@@ -282,21 +282,21 @@ Strumień danych z pliku musi być zamknięty. W przykładzie powyżej użyłem 
 
 ### Operacje na strumieniach
 
-Nie opiszę tutaj wszystkich metod dostępnych na strumieniach. Jeśli chcesz poznać ich więcej zachęcam do zapoznania się z [dokumentacją interfejsu `Stream`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html).
+Nie opiszę tutaj wszystkich metod dostępnych na strumieniach. Jeśli chcesz poznać ich więcej zachęcam do zapoznania się z [dokumentacją interfejsu `Stream`]({{ site.doclinks.java.util.stream.Stream }}).
 
-- [`filter`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-) – zwraca strumień zawierający tylko te elementy dla których filtr zwrócił wartość `true`,
-- [`map`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#map-java.util.function.Function-) – każdy z elementów może zostać zmieniony do innego typu, nowy obiekt zawarty jest w nowym strumieniu,
-- [`peek`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#peek-java.util.function.Consumer-) – pozwala przeprowadzić operację na każdym elemencie w strumieniu, zwraca strumień z tymi samymi elementami,
-- [`limit`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#limit-long-) – zwraca strumień ograniczony do zadanej liczby elementów, pozostałe są ignorowane.
+- [`filter`]({{ site.doclinks.java.util.stream.Stream }}#filter(java.util.function.Predicate)) – zwraca strumień zawierający tylko te elementy dla których filtr zwrócił wartość `true`,
+- [`map`]({{ site.doclinks.java.util.stream.Stream }}#map(java.util.function.Function)) – każdy z elementów może zostać zmieniony do innego typu, nowy obiekt zawarty jest w nowym strumieniu,
+- [`peek`]({{ site.doclinks.java.util.stream.Stream }}#peek(java.util.function.Consumer)) – pozwala przeprowadzić operację na każdym elemencie w strumieniu, zwraca strumień z tymi samymi elementami,
+- [`limit`]({{ site.doclinks.java.util.stream.Stream }}#limit(long)) – zwraca strumień ograniczony do zadanej liczby elementów, pozostałe są ignorowane.
 
 ### Kończenie strumienia
 
 Operacjami kończącymi są wszystkie, które zwracają typ inny niż `Stream`. Metody tego typu mogą także nie zwracać żadnych wartości.
 
-- [`forEach`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#forEach-java.util.function.Consumer-) – wykonuje zadaną operację dla każdego elementu,
-- [`count`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#count--) – zwraca liczbę elementów w strumieniu,
-- [`allMatch`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#allMatch-java.util.function.Predicate-) – zwraca flagę informującą czy wszystkie elementy spełniają warunek. Przestaje sprawdzać na pierwszym elemencie, który tego warunku nie spełnia,
-- [`collect`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-) – pozwala na utworzenie nowego typu na podstawie elementów strumienia. Przy pomocy tej metody można na przykład utworzyć listę. Klasa [`Collectors`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Collectors.html) zawiera sporo gotowych implementacji.
+- [`forEach`]({{ site.doclinks.java.util.stream.Stream }}#forEach(java.util.function.Consumer)) – wykonuje zadaną operację dla każdego elementu,
+- [`count`]({{ site.doclinks.java.util.stream.Stream }}#count()) – zwraca liczbę elementów w strumieniu,
+- [`allMatch`]({{ site.doclinks.java.util.stream.Stream }}#allMatch(java.util.function.Predicate)) – zwraca flagę informującą czy wszystkie elementy spełniają warunek. Przestaje sprawdzać na pierwszym elemencie, który tego warunku nie spełnia,
+- [`collect`]({{ site.doclinks.java.util.stream.Stream }}#collect(java.util.stream.Collector)) – pozwala na utworzenie nowego typu na podstawie elementów strumienia. Przy pomocy tej metody można na przykład utworzyć listę. Klasa [`Collectors`]({{ site.doclinks.java.util.stream.Collectors }}) zawiera sporo gotowych implementacji.
 
 ## Właściwości strumieni
 
@@ -338,7 +338,7 @@ Zauważ, że komunikaty "W trakcie X" zostały wyświetlone przed operacją `map
 
 Strumienie mogą być przetwarzane sekwencyjnie bądź równolegle. Metoda `stream` tworzy sekwencyjny strumień danych. Metoda `parallelStream` tworzy strumień, który jest uruchamiany jednocześnie na kilku wątkach. To ile wątków zostanie uruchomionych zależy od procesora.
 
-Strumień sekwencyjny można przełączyć na równoległy wywołując na nim metodę [`parallel`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/BaseStream.html#parallel--). Odwrotna operacja także jest możliwa dzięki metodzie [`sequential`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/BaseStream.html#sequential--).
+Strumień sekwencyjny można przełączyć na równoległy wywołując na nim metodę [`parallel`]({{ site.doclinks.java.util.stream.BaseStream }}#parallel()). Odwrotna operacja także jest możliwa dzięki metodzie [`sequential`]({{ site.doclinks.java.util.stream.BaseStream }}#sequential()).
 
 ## Dobre praktyki
 
@@ -432,8 +432,8 @@ for (BoardGame game : BoardGame.GAMES) {
 }
 System.out.println(bestGame.name);
 ```
-2. Znajdź minimalny element w kolekcji używając strumieni i funkcji [`reduce`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#reduce-java.util.function.BinaryOperator-). Twoja funkcja powinna działać jak istniejąca funkcja [`min`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#min-java.util.Comparator-).
-3. Używając metody [`flatMap`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/Stream.html#flatMap-java.util.function.Function-) napisz strumień, który "spłaszczy" listę list.
+2. Znajdź minimalny element w kolekcji używając strumieni i funkcji [`reduce`]({{ site.doclinks.java.util.stream.Stream }}#reduce(java.util.function.BinaryOperator)). Twoja funkcja powinna działać jak istniejąca funkcja [`min`]({{ site.doclinks.java.util.stream.Stream }}#min(java.util.Comparator)).
+3. Używając metody [`flatMap`]({{ site.doclinks.java.util.stream.Stream }}#flatMap(java.util.function.Function)) napisz strumień, który "spłaszczy" listę list.
 
 Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Jeśli jednak będziesz miał z czymś kłopot możesz rzucić okiem do [przykładowych rozwiązań](https://github.com/SamouczekProgramisty/KursJava/tree/master/30_strumienie/src/main/java/pl/samouczekprogramisty/kursjava/streams/exercise), które przygotowałem.
 
@@ -441,7 +441,7 @@ Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz s
 
 Poniżej zebrałem dla Ciebie kilka dodatkowych źródeł, które pozwolą spojrzeć Ci na temat strumieni z innej strony.
 
-- [Bardzo dobra dokumentacja pakietu `java.util.stream`](https://docs.oracle.com/javase/9/docs/api/java/util/stream/package-summary.html),
+- [Bardzo dobra dokumentacja pakietu `java.util.stream`]({{ site.doclinks.java.util.stream._package }}),
 - [Część I tutoriala dotyczącego strumieni na stronie Oracle](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html),
 - [Część II tutoriala dotyczącego strumieni na stronie Oracle](http://www.oracle.com/technetwork/articles/java/architect-streams-pt2-2227132.html),
 - [Szczegółowy opis strumieni – Baeldung](http://www.baeldung.com/java-8-streams),
