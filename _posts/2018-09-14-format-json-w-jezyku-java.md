@@ -191,7 +191,7 @@ Decydując się na tryb obiektowy musisz zbudować cały obiekt przed przekszta�
 
 #### Zapis
 
-Tworzenie instancji klas odpowiadających typom formatu JSON polega na wywołaniu odpowiednich metod udostępnionych przez klasy [`JsonArrayBuilder`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonArrayBuilder.html) i [`JsonObjectBuilder`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonObjectBuilder.html). Instancje tych klas tworzone są przez [`JsonBuilderFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonBuilderFactory.html). Proszę spójrz na przykład poniżej:
+Tworzenie instancji klas odpowiadających typom formatu JSON polega na wywołaniu odpowiednich metod udostępnionych przez klasy [`JsonArrayBuilder`]({{ site.doclinks.javax.json.JsonArrayBuilder }}) i [`JsonObjectBuilder`]({{ site.doclinks.javax.json.JsonObjectBuilder }}). Instancje tych klas tworzone są przez [`JsonBuilderFactory`]({{ site.doclinks.javax.json.JsonBuilderFactory }}). Proszę spójrz na przykład poniżej:
 
 ```java
 JsonBuilderFactory builderFactory = Json.createBuilderFactory(Collections.emptyMap());
@@ -234,7 +234,7 @@ JsonObject authorObject = builderFactory.createObjectBuilder()
         .add("strona", webPageObject).build();
 ```
 
-Tym razem użyję trochę innej metody wypisywania obiektu. Tworząc instancję [`JsonWriterFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonWriterFactory.html) mogę przekazać konfigurację. Konfiguracja wpływa na zachowanie tej klasy. 
+Tym razem użyję trochę innej metody wypisywania obiektu. Tworząc instancję [`JsonWriterFactory`]({{ site.doclinks.javax.json.JsonWriterFactory }}) mogę przekazać konfigurację. Konfiguracja wpływa na zachowanie tej klasy. 
 
 ```java
 Map<String, ?> config = Collections.singletonMap(JsonGenerator.PRETTY_PRINTING, true);
@@ -275,7 +275,7 @@ String jsonObject = buildObject().toString();
 InputStream inputStream = new ByteArrayInputStream(jsonObject.getBytes());
 ```
 
-Odczyt dokumentów w formacie JSON używa podobnego API. Tym razem tworzę instancję klasy [`JsonReaderFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReaderFactory.html). Używam jej do utworzenia instancji [`JsonReader`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReader.html):
+Odczyt dokumentów w formacie JSON używa podobnego API. Tym razem tworzę instancję klasy [`JsonReaderFactory`]({{ site.doclinks.javax.json.JsonReaderFactory }}). Używam jej do utworzenia instancji [`JsonReader`]({{ site.doclinks.javax.json.JsonReader }}):
 
 ```java
 JsonReaderFactory readerFactory = Json.createReaderFactory(Collections.emptyMap());
@@ -325,7 +325,7 @@ Tryb strumieniowy pozwala na odczyt/zapis dokumentów w formacie JSON bez ładow
 
 #### Zapis
 
-W przypadku zapisu fabryka [`JsonGeneratorFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGeneratorFactory.html) pomaga w tworzeniu [`JsonGenerator`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGenerator.html). Instancja tej klasy pisze do strumienia poszczególne tokeny (elementy składowe dokumentu w formacie JSON). metody `write*` pozwalają na zapis danych do strumienia. Przykład poniżej zapisuje do strumienia dokładnie ten sam dokument JSON jaki użyłem w podejściu obiektowym:
+W przypadku zapisu fabryka [`JsonGeneratorFactory`]({{ site.doclinks.javax.json.stream.JsonGeneratorFactory }}) pomaga w tworzeniu [`JsonGenerator`]({{ site.doclinks.javax.json.stream.JsonGenerator }}). Instancja tej klasy pisze do strumienia poszczególne tokeny (elementy składowe dokumentu w formacie JSON). metody `write*` pozwalają na zapis danych do strumienia. Przykład poniżej zapisuje do strumienia dokładnie ten sam dokument JSON jaki użyłem w podejściu obiektowym:
 
 ```java
 JsonGeneratorFactory generatorFactory = Json.createGeneratorFactory(Collections.singletonMap(JsonGenerator.PRETTY_PRINTING, true));
@@ -352,7 +352,7 @@ generator
 
 #### Odczyt
 
-W przypadku czytania dokumentu w trybie strumieniowym przydadzą się klasy [`JsonParserFactory`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.html) i [`JsonParser`](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.htm://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonFactory.html). Instancja tej ostatniej pozwala na sprawdzenie czy w strumieniu znajduje się kolejny token. Jeśli tak, można go pobrać i odpowiednio na niego zareagować. Poniżej możesz zobaczyć przykład odczytywania dokumentu JSON w trybie strumieniowym:
+W przypadku czytania dokumentu w trybie strumieniowym przydadzą się klasy [`JsonParserFactory`]({{ site.doclinks.javax.json.JsonParserFactory }}) i [`JsonParser`]({{ site.doclinks.javax.json.JsonParser }}). Instancja tej ostatniej pozwala na sprawdzenie czy w strumieniu znajduje się kolejny token. Jeśli tak, można go pobrać i odpowiednio na niego zareagować. Poniżej możesz zobaczyć przykład odczytywania dokumentu JSON w trybie strumieniowym:
 
 ```java
 JsonParserFactory parserFactory = Json.createParserFactory(Collections.emptyMap());
@@ -442,7 +442,7 @@ public class Newspaper {
 }
 ```
 
-Aby zapisać instancję tego obiektu do formatu JSON należy użyć [`JsonBuilder`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/JsonbBuilder.html) do stworzenia instancji klasy [`Jsonb`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/Jsonb.html). W większości przypadków ta instancja powinna być współdzielona w całej aplikacji. 
+Aby zapisać instancję tego obiektu do formatu JSON należy użyć [`JsonBuilder`]({{ site.doclinks.javax.json.bind.JsonBuilder }}) do stworzenia instancji klasy [`Jsonb`]({{ site.doclinks.javax.json.bind.Jsonb }}). W większości przypadków ta instancja powinna być współdzielona w całej aplikacji. 
 
 Klasa `Jsonb` posiada zestaw przeciążonych metod `toJson`, które pozwalają na serializację obiektu. Przykład poniżej używa jednej z tych metod:
 
@@ -502,13 +502,13 @@ public class AnnotationExamples {
 }
 ```
 
-* [`@JsonbTransient`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbTransient.html) – atrybut powinien zostać pomięty,
-* [`@JsonbProperty`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html) – pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość `null` (domyślnie takie wartości są pomijane),
-* [`@JsonbNumberFormat`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbNumberFormat.html) – określa format w jakim powinna być zapisana liczba,
-* [`@JsonbDateFormat`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbDateFormat.html) – określa format w jakim powinna być zapisana data.
-* [`@JsonbPropertyOrder`](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbPropertyOrder.html) – określa kolejność w jakiej atrybuty powinny być serializowane.
+* [`@JsonbTransient`]({{ site.doclinks.javax.json.bind.annotation.JsonbTransient }}) – atrybut powinien zostać pomięty,
+* [`@JsonbProperty`]({{ site.doclinks.javax.json.bind.annotation.JsonbProperty }}) – pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość `null` (domyślnie takie wartości są pomijane),
+* [`@JsonbNumberFormat`]({{ site.doclinks.javax.json.bind.annotation.JsonbNumberFormat }}) – określa format w jakim powinna być zapisana liczba,
+* [`@JsonbDateFormat`]({{ site.doclinks.javax.json.bind.annotation.JsonbDateFormat }}) – określa format w jakim powinna być zapisana data.
+* [`@JsonbPropertyOrder`]({{ site.doclinks.javax.json.bind.annotation.JsonbPropertyOrder }}) – określa kolejność w jakiej atrybuty powinny być serializowane.
 
-Pozostałe adnotacje znajdziesz w [dokumentacji](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/package-summary.html).
+Pozostałe adnotacje znajdziesz w [dokumentacji]({{ site.doclinks.javax.json.bind.annotation._package }}).
 
 Miejsce umieszczenia adnotacji ma znaczenie:
 
@@ -559,10 +559,10 @@ Jeśli chcesz dowiedzieć się czegoś więcej na temat formatu JSON zachęcam C
 
 * [Specyfikacja JSON](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf) specyfikacja ma kod 404 – kod odpowiedzi Not Found w specyfikacji [protokołu HTTP]({% post_url 2018-02-08-protokol-http %}#statusy-4xx) :),
 * [Artykuł o JSON na Wikipedii](https://en.wikipedia.org/wiki/JSON),
-* [Specyfikacja JSON-P](https://jcp.org/aboutJava/communityprocess/final/jsr374/index.html),
-* [Dokumentacja API JSON-P](https://static.javadoc.io/javax.json/javax.json-api/1.1.2/overview-summary.html),
-* [Specyfikacja JSON-B](https://jcp.org/aboutJava/communityprocess/final/jsr367/index.html),
-* [Dokumentacja API JSON-B](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/overview-summary.html).
+* [Specyfikacja JSON-P]({{ site.doclinks.specs.jsonp }}),
+* [Dokumentacja API JSON-P]({{ site.doclinks.javax.json.jsonp_overview }}),
+* [Specyfikacja JSON-B]({{ site.doclinks.specs.jsonb }}),
+* [Dokumentacja API JSON-B]({{ site.doclinks.javax.json.jsonb_overview }}).
 
 Na pewno przyda Ci się też [kod źródłowy przykładów użytych w artykule](https://github.com/SamouczekProgramisty/KursJava/tree/master/32_format_json/src/main/java/pl/samouczekprogramisty/kursjava/json).
 
