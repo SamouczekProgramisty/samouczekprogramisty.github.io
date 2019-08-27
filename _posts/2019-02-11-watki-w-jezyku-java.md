@@ -1,6 +1,6 @@
 ---
 title: Wątki w języku Java
-last_modified_at: 2019-05-05 21:25:49 +0200
+last_modified_at: 2019-08-27 22:21:16 +0200
 categories:
 - Kurs programowania Java
 permalink: /watki-w-jezyku-java/
@@ -123,11 +123,11 @@ Proszę pamiętaj, że zmienne dostępne są dla wszystkich wątków. W związku
 
 ## Tworzenie nowego wątku
 
-Każdy wątek w języku Java związany jest z klasą [`Thread`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html). Wątek można utworzyć na dwa sposoby.
+Każdy wątek w języku Java związany jest z klasą [`Thread`]({{ site.doclinks.java.lang.Thread }}). Wątek można utworzyć na dwa sposoby.
 
 ### Dziedziczenie po klasie `Thread`
 
-Pierwszym ze sposobów jest utworzenie własnej klasy, która dziedziczy po klasie [`Thread`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html):
+Pierwszym ze sposobów jest utworzenie własnej klasy, która dziedziczy po klasie [`Thread`]({{ site.doclinks.java.lang.Thread }}):
 
 ```java
 public class MyThread extends Thread {
@@ -140,11 +140,11 @@ public class MyThread extends Thread {
 Thread thread = new MyThread();
 ```
 
-W tym przypadku należy nadpisać metodę [`run`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#run()) – to właśnie ona zostaje wykonana jako ciało wątku.
+W tym przypadku należy nadpisać metodę [`run`]({{ site.doclinks.java.lang.Thread }}#run()) – to właśnie ona zostaje wykonana jako ciało wątku.
 
 ### Implementacja interfejsu `Runnable`
 
-Drugim sposobem jest utworzenie wątku przy pomocy konstruktora, który przyjmuje obiekt implementujący interfejs [`Runnable`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html):
+Drugim sposobem jest utworzenie wątku przy pomocy konstruktora, który przyjmuje obiekt implementujący interfejs [`Runnable`]({{ site.doclinks.java.lang.Runnable }}):
 
 ```java
 public static class MyRunnable implements Runnable {
@@ -157,7 +157,7 @@ public static class MyRunnable implements Runnable {
 Thread thread = new Thread(new MyRunnable());
 ```
 
-Tym razem ciałem wątku jest implementacja metody [`run`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html#run()) z interfejsu [`Runnable`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html).
+Tym razem ciałem wątku jest implementacja metody [`run`]({{ site.doclinks.java.lang.Runnable }}#run()) z interfejsu [`Runnable`]({{ site.doclinks.java.lang.Runnable }}).
 
 Zauważ, że możesz utworzyć wątek posługując się [klasami anonimowymi]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %}#klasy-anonimowe):
 
@@ -178,20 +178,20 @@ Thread thread = new Thread(() -> System.out.println("I'm inside runnable!"));
 
 ## Cykl życia wątku
 
-Utworzenie instancji wątku to dopiero początek. Każdy wątek ma swój cykl życia. Wątki mogą znajdować się w jednym z sześciu stanów. Dopuszczalne stany wątku znajdują się w [klasie wyliczeniowej]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) [`Thread.State`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html):
+Utworzenie instancji wątku to dopiero początek. Każdy wątek ma swój cykl życia. Wątki mogą znajdować się w jednym z sześciu stanów. Dopuszczalne stany wątku znajdują się w [klasie wyliczeniowej]({% post_url 2016-09-09-typ-wyliczeniowy-w-jezyku-java %}) [`Thread.State`]({{ site.doclinks.java.lang.Thread_State }}):
 
-* [`NEW`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#NEW) – nowy wątek, który nie został jeszcze uruchomiony,
-* [`RUNNABLE`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#RUNNABLE) – wątek, który może wykonywać swój kod,
-* [`TERMINATED`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#TERMINATED) – wątek, który zakończył swoje działanie,
-* [`BLOCKED`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#BLOCKED) – wątek zablokowany, oczekujący na zwolnienie współdzielonego zasobu,
-* [`WAITING`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#WAITING) – wątek uśpiony,
-* [`TIMED_WAITING`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#TIMED_WAITING) – wątek uśpiony na określony czas.
+* [`NEW`]({{ site.doclinks.java.lang.Thread_State }}#NEW) – nowy wątek, który nie został jeszcze uruchomiony,
+* [`RUNNABLE`]({{ site.doclinks.java.lang.Thread_State }}#RUNNABLE) – wątek, który może wykonywać swój kod,
+* [`TERMINATED`]({{ site.doclinks.java.lang.Thread_State }}#TERMINATED) – wątek, który zakończył swoje działanie,
+* [`BLOCKED`]({{ site.doclinks.java.lang.Thread_State }}#BLOCKED) – wątek zablokowany, oczekujący na zwolnienie współdzielonego zasobu,
+* [`WAITING`]({{ site.doclinks.java.lang.Thread_State }}#WAITING) – wątek uśpiony,
+* [`TIMED_WAITING`]({{ site.doclinks.java.lang.Thread_State }}#TIMED_WAITING) – wątek uśpiony na określony czas.
 
 Poniższy diagram pokazuje możliwe przejścia pomiędzy stanami:
 
 {% include figure image_path="/assets/images/2019/02/05_thread_states.svg" caption="Diagram stanów wątku" %}
 
-Przejście ze stanu `NEW` do stanu `RUNNABLE` odbywa się po wywołaniu metody [`start()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#start()) na instancji wątku. Dopiero wtedy wątek może być wykonywany, samo utworzenie instancji nie powoduje jego uruchomienia. Każdy wątek może być uruchomiony dokładnie raz – dokładanie jeden raz może być na nim wywołana metoda `start()`.
+Przejście ze stanu `NEW` do stanu `RUNNABLE` odbywa się po wywołaniu metody [`start()`]({{ site.doclinks.java.lang.Thread }}#start()) na instancji wątku. Dopiero wtedy wątek może być wykonywany, samo utworzenie instancji nie powoduje jego uruchomienia. Każdy wątek może być uruchomiony dokładnie raz – dokładanie jeden raz może być na nim wywołana metoda `start()`.
 
 Zwróć uwagę na to, że ciałem wątku jest metoda `run` a do jego uruchomienia niezbędne jest wywołanie metody `start`. Oczywiście możesz uruchomić metodę `run` samodzielnie, jednak nie spowoduje to uruchomienia nowego wątku – kod metody `run` będzie wykonywany w aktualnym wątku.
 {:.notice--info}
@@ -279,7 +279,7 @@ public class RaceCondition {
 }
 ```
 
-Tutaj nowością dla Ciebie jest metoda [`Thread.join()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join()). Metoda ta zapewnia, że aktualny wątek czeka na zakończenie się wątku, na którym `join` zostało wywołane. W przykładzie powyżej domyślny wątek `main` czeka na zakończenie się wątku `t1`, jak ten się skończy czeka na zakończenie wątku `t2` i następnie `t3`.
+Tutaj nowością dla Ciebie jest metoda [`Thread.join()`]({{ site.doclinks.java.lang.Thread }}#join()). Metoda ta zapewnia, że aktualny wątek czeka na zakończenie się wątku, na którym `join` zostało wywołane. W przykładzie powyżej domyślny wątek `main` czeka na zakończenie się wątku `t1`, jak ten się skończy czeka na zakończenie wątku `t2` i następnie `t3`.
 
 Tutaj drobna dygresja. To, że `main` czeka na wątki w kolejności `t1`, `t2` i `t3` nie oznacza, że te wątki skończą się w tej kolejności. W praktyce kolejność ta może być dowolna, w szczególności może także być odwrotna.
 {:.notice--info}
@@ -416,11 +416,11 @@ Synchronizacja wątków przy pomocy `synchronized` to nie wszystko. Wszystkie ob
 
 ## Wątek w stanie `WAITING`
 
-Jednym ze sposobów aby wątek znalazł się w tym stanie jest wywołanie metody [`Thread.join()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join()). Wiesz już, że w takim przypadku aktualny wątek czeka na zakończenie swojego kolegi.
+Jednym ze sposobów aby wątek znalazł się w tym stanie jest wywołanie metody [`Thread.join()`]({{ site.doclinks.java.lang.Thread }}#join()). Wiesz już, że w takim przypadku aktualny wątek czeka na zakończenie swojego kolegi.
 
-Wątek znajdzie się w stanie `WAITING` także jeśli w trakcie jego działania zostanie wywołana metoda [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait())[^pomijam].
+Wątek znajdzie się w stanie `WAITING` także jeśli w trakcie jego działania zostanie wywołana metoda [`Object.wait()`]({{ site.doclinks.java.lang.Object }}#wait())[^pomijam].
 
-[^pomijam]: Pomijam tu trzeci możliwy przypadek – wywołanie metody [`LockSupport.park`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#park()).
+[^pomijam]: Pomijam tu trzeci możliwy przypadek – wywołanie metody [`LockSupport.park`]({{ site.doclinks.java.util.concurrent.locks.LockSupport }}#park()).
 
 Na Samouczku Programisty takie lakoniczne wytłumaczenie nie przejdzie ;). Zapraszam Cię do przykładu, opisującego drugą sytuację.
 
@@ -492,11 +492,11 @@ Thread producer = new Thread(() -> {
 });
 ```
 
-W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)). Służy ona do uśpienia wątku[^timed_wait]. Przekazany parametr mówi o&nbsp;minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy [`Random`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html), żeby to symulować.
+W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda [`Thread.sleep()`]({{ site.doclinks.java.lang.Thread }}#sleep(long)). Służy ona do uśpienia wątku[^timed_wait]. Przekazany parametr mówi o&nbsp;minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy [`Random`]({{ site.doclinks.java.util.Random }}), żeby to symulować.
 
 [^timed_wait]: Metoda ta sprawia, że wątek jest w stanie `TIMED_WAITING` o czym przeczytasz za chwilę.
 
-Na razie pominę obsługę wyjątku [`InterruptedException`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html). Nie jest ona istotna w tym przykładzie, omówię ją dokładnie w jednym z kolejnych akapitów.
+Na razie pominę obsługę wyjątku [`InterruptedException`]({{ site.doclinks.java.lang.InterruptedException }}). Nie jest ona istotna w tym przykładzie, omówię ją dokładnie w jednym z kolejnych akapitów.
 
 Następnie w bloku `synchronized` dodaje nowy element. Zwróć uwagę, że do synchronizacji używam tu obiektu `queue`. Dzięki temu mam pewność, że nie nastąpi wyścig podczas dodawania czy usuwania elementów z kolejki. 
 
@@ -532,7 +532,7 @@ Program działa. Ma jednak pewien subtelny błąd. Zwróć uwagę na wątek kons
 
 [^wywlaszczenia]: Pomijam wywłaszczenia, które znasz z początku artykułu.
 
-Jak można ten problem rozwiązać? Jednym ze sposobów może być usypianie wątku konsumenta używając metody [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)), którą już znasz. To także byłoby marnowanie zasobów – skąd możesz wiedzieć jak długo zajmie produkowanie kolejnego elementu?
+Jak można ten problem rozwiązać? Jednym ze sposobów może być usypianie wątku konsumenta używając metody [`Thread.sleep()`]({{ site.doclinks.java.lang.Thread }}#sleep(long)), którą już znasz. To także byłoby marnowanie zasobów – skąd możesz wiedzieć jak długo zajmie produkowanie kolejnego elementu?
 
 Z pomocą przychodzi mechanizm powiadomień.
 
@@ -542,13 +542,13 @@ Wiesz już, że każdy obiekt powiązany jest z monitorem używamy w trakcie syn
 
 Wewnątrz tego zbioru znajdują się wątki, które czekają na powiadomienie dotyczące danego obiektu. Jedynym sposobem, żeby modyfikować zawartość tego zbioru jest używanie metod dostępnych w klasie `Object`:
 
-- [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait()) – dodanie aktualnego wątku do zbioru powiadamianych wątków,
-- [`Object.notify()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()) – powiadomienie i wybudzenie jednego z oczekujących wątków,
-- [`Object.notifyAll()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()) – powiadomienie i wybudzenie wszystkich oczekujących wątków.
+- [`Object.wait()`]({{ site.doclinks.java.lang.Object }}#wait()) – dodanie aktualnego wątku do zbioru powiadamianych wątków,
+- [`Object.notify()`]({{ site.doclinks.java.lang.Object }}#notify()) – powiadomienie i wybudzenie jednego z oczekujących wątków,
+- [`Object.notifyAll()`]({{ site.doclinks.java.lang.Object }}#notifyAll()) – powiadomienie i wybudzenie wszystkich oczekujących wątków.
 
 #### Poprawny producent
 
-Poprawna wersja producenta używa metody [`notify`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()) albo [`notifyAll`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()) informując w ten sposób konsumentów o nowym elemencie:
+Poprawna wersja producenta używa metody [`notify`]({{ site.doclinks.java.lang.Object }}#notify()) albo [`notifyAll`]({{ site.doclinks.java.lang.Object }}#notifyAll()) informując w ten sposób konsumentów o nowym elemencie:
 
 ```java
 Thread producer = new Thread(() -> {
@@ -609,19 +609,19 @@ Specyfikacja języka Java pozwala na fałszywe wybudzenia (ang. _spurious wake-u
 
 Tym razem będzie krótko ;). Stan `TIMED_WAITING` jest podobny do stanu `WAITING`. W tym przypadku wątek oczekuje przez pewien czas, nie krótszy niż podany jako argument do jednej z metod[^pomijam2]:
 
-[^pomijam2]: Także tutaj pomijam metody z klasy `LockSupport`: [`LockSupport.partNanos`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkNanos(java.lang.Object,long)) i [`LockSupport.parkUntil`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkUntil(java.lang.Object,long)).
+[^pomijam2]: Także tutaj pomijam metody z klasy `LockSupport`: [`LockSupport.partNanos`]({{ site.doclinks.java.util.concurrent.locks.LockSupport }}#parkNanos(java.lang.Object,long)) i [`LockSupport.parkUntil`]({{ site.doclinks.java.util.concurrent.locks.LockSupport }}#parkUntil(java.lang.Object,long)).
 
-- [`Object.wait()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long)) – dodanie aktualnego wątku do zbioru powiadamianych wątków i wybudzenie go po określonym czasie,
-- [`Thread.sleep()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)) – wątek wywołujący tę metodę usypia na określony czas,
-- [`Thread.join()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join(long)) – oczekiwanie na zakończenie wątku przez określony czas.
+- [`Object.wait()`]({{ site.doclinks.java.lang.Object }}#wait(long)) – dodanie aktualnego wątku do zbioru powiadamianych wątków i wybudzenie go po określonym czasie,
+- [`Thread.sleep()`]({{ site.doclinks.java.lang.Thread }}#sleep(long)) – wątek wywołujący tę metodę usypia na określony czas,
+- [`Thread.join()`]({{ site.doclinks.java.lang.Thread }}#join(long)) – oczekiwanie na zakończenie wątku przez określony czas.
 
 ## Przerywanie wątku
 
-W jednym z poprzednich przykładów wspomniałem o wyjątku [`InterruptedException`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html). Wyjątek ten sygnalizuje sytuację, w której wątek został przerwany. Wątek może zostać przerwany po wywołaniu na jego instancji metody [`Thread.interrupt`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#interrupt()).
+W jednym z poprzednich przykładów wspomniałem o wyjątku [`InterruptedException`]({{ site.doclinks.java.lang.InterruptedException }}). Wyjątek ten sygnalizuje sytuację, w której wątek został przerwany. Wątek może zostać przerwany po wywołaniu na jego instancji metody [`Thread.interrupt`]({{ site.doclinks.java.lang.Thread }}#interrupt()).
 
 W momencie kiedy wątek zostaje przerwany ustawiana jest na nim specjalna flaga, która o tym informuje.
 
-Jeśli chcesz sprawdzić, czy aktualny wątek jest przerwany możesz wywołać statyczną metodę [`Thread.interrupted`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#interrupted()). Wywołanie tej metody zwraca `true` jeśli wątek był przerwany jednocześnie usuwając flagę, o której wspomniałem przed chwilą.
+Jeśli chcesz sprawdzić, czy aktualny wątek jest przerwany możesz wywołać statyczną metodę [`Thread.interrupted`]({{ site.doclinks.java.lang.Thread }}#interrupted()). Wywołanie tej metody zwraca `true` jeśli wątek był przerwany jednocześnie usuwając flagę, o której wspomniałem przed chwilą.
 
 ## Synchronizacja inaczej – `volatile`
 
@@ -668,7 +668,7 @@ Tworzenie programów wielowątkowych jest trudne. Unikanie zakleszczeń, odpowie
 
 Odnajdowanie i naprawianie błędów w programach, które używają wielu wątków to także ciężkie zadanie. Sytuacja, w której kod działa idealnie w trakcie testów, a zachowuje się dziwnie w środowisku wielowątkowym jest czymś powszechnym.
 
-Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj znaleźć gotową implementację w pakiecie [`java.util.concurrent`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html). Używając klas z tego pakietu na pewno unikniesz sporo ciężkich do zdiagnozowania błędów.
+Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj znaleźć gotową implementację w pakiecie [`java.util.concurrent`]({{ site.doclinks.java.util.concurrent._package }}). Używając klas z tego pakietu na pewno unikniesz sporo ciężkich do zdiagnozowania błędów.
 
 ## Dodatkowe materiały do nauki
 
