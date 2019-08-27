@@ -22,7 +22,7 @@ W jednym z poprzednich artykułów przeczytasz też o [wdrożeniu projektu w chm
 
 ## Baza danych
 
-W projekcie do mapowania obiektowo relacyjnego używam biblioteki Hibernate jako implementacji JPA (ang. _Java Persistence API_). W tym przypadku tworzenie schematu bazy danych zostawiam JPA. Poniżej widzisz konfigurację obiektu zarządzanego przez kontener Spring'a. Służy on do tworzenia instancji implementującej interfejs [`EntityManager`](https://javaee.github.io/javaee-spec/javadocs/javax/persistence/EntityManager.html):
+W projekcie do mapowania obiektowo relacyjnego używam biblioteki Hibernate jako implementacji JPA (ang. _Java Persistence API_). W tym przypadku tworzenie schematu bazy danych zostawiam JPA. Poniżej widzisz konfigurację obiektu zarządzanego przez kontener Spring'a. Służy on do tworzenia instancji implementującej interfejs [`EntityManager`]({{ site.doclinks.javax.persistence.EntityManager }}):
 
 ```java
 @Bean
