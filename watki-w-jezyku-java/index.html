@@ -35,7 +35,7 @@
 
 
 
-  <meta property="article:modified_time" content="2019-05-05T21:25:49+02:00">
+  <meta property="article:modified_time" content="2019-08-27T22:21:16+02:00">
 
 
 
@@ -231,7 +231,7 @@
     <meta itemprop="headline" content="Wątki w języku Java">
     <meta itemprop="description" content="Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz dwa słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego. Na końcu artykułu czekają na Ciebie zadania, w których przećwiczysz zdobytą wiedzę.">
     <meta itemprop="datePublished" content="February 11, 2019">
-    <meta itemprop="dateModified" content="May 05, 2019">
+    <meta itemprop="dateModified" content="August 27, 2019">
 
     <div class="page__inner-wrap">
       
@@ -474,11 +474,11 @@ MT stop
 
 <h2 id="tworzenie-nowego-wątku">Tworzenie nowego wątku</h2>
 
-<p>Każdy wątek w języku Java związany jest z klasą <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html"><code class="highlighter-rouge">Thread</code></a>. Wątek można utworzyć na dwa sposoby.</p>
+<p>Każdy wątek w języku Java związany jest z klasą <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html"><code class="highlighter-rouge">Thread</code></a>. Wątek można utworzyć na dwa sposoby.</p>
 
 <h3 id="dziedziczenie-po-klasie-thread">Dziedziczenie po klasie <code class="highlighter-rouge">Thread</code></h3>
 
-<p>Pierwszym ze sposobów jest utworzenie własnej klasy, która dziedziczy po klasie <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html"><code class="highlighter-rouge">Thread</code></a>:</p>
+<p>Pierwszym ze sposobów jest utworzenie własnej klasy, która dziedziczy po klasie <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html"><code class="highlighter-rouge">Thread</code></a>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
     <span class="nd">@Override</span>
@@ -490,11 +490,11 @@ MT stop
 <span class="n">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyThread</span><span class="o">();</span>
 </code></pre></div></div>
 
-<p>W tym przypadku należy nadpisać metodę <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#run()"><code class="highlighter-rouge">run</code></a> – to właśnie ona zostaje wykonana jako ciało wątku.</p>
+<p>W tym przypadku należy nadpisać metodę <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#run()"><code class="highlighter-rouge">run</code></a> – to właśnie ona zostaje wykonana jako ciało wątku.</p>
 
 <h3 id="implementacja-interfejsu-runnable">Implementacja interfejsu <code class="highlighter-rouge">Runnable</code></h3>
 
-<p>Drugim sposobem jest utworzenie wątku przy pomocy konstruktora, który przyjmuje obiekt implementujący interfejs <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html"><code class="highlighter-rouge">Runnable</code></a>:</p>
+<p>Drugim sposobem jest utworzenie wątku przy pomocy konstruktora, który przyjmuje obiekt implementujący interfejs <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Runnable.html"><code class="highlighter-rouge">Runnable</code></a>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyRunnable</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
     <span class="nd">@Override</span>
@@ -506,7 +506,7 @@ MT stop
 <span class="n">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">MyRunnable</span><span class="o">());</span>
 </code></pre></div></div>
 
-<p>Tym razem ciałem wątku jest implementacja metody <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html#run()"><code class="highlighter-rouge">run</code></a> z interfejsu <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runnable.html"><code class="highlighter-rouge">Runnable</code></a>.</p>
+<p>Tym razem ciałem wątku jest implementacja metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Runnable.html#run()"><code class="highlighter-rouge">run</code></a> z interfejsu <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Runnable.html"><code class="highlighter-rouge">Runnable</code></a>.</p>
 
 <p>Zauważ, że możesz utworzyć wątek posługując się <a href="/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/#klasy-anonimowe">klasami anonimowymi</a>:</p>
 
@@ -525,15 +525,15 @@ MT stop
 
 <h2 id="cykl-życia-wątku">Cykl życia wątku</h2>
 
-<p>Utworzenie instancji wątku to dopiero początek. Każdy wątek ma swój cykl życia. Wątki mogą znajdować się w jednym z sześciu stanów. Dopuszczalne stany wątku znajdują się w <a href="/typ-wyliczeniowy-w-jezyku-java/">klasie wyliczeniowej</a> <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html"><code class="highlighter-rouge">Thread.State</code></a>:</p>
+<p>Utworzenie instancji wątku to dopiero początek. Każdy wątek ma swój cykl życia. Wątki mogą znajdować się w jednym z sześciu stanów. Dopuszczalne stany wątku znajdują się w <a href="/typ-wyliczeniowy-w-jezyku-java/">klasie wyliczeniowej</a> <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html"><code class="highlighter-rouge">Thread.State</code></a>:</p>
 
 <ul>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#NEW"><code class="highlighter-rouge">NEW</code></a> – nowy wątek, który nie został jeszcze uruchomiony,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#RUNNABLE"><code class="highlighter-rouge">RUNNABLE</code></a> – wątek, który może wykonywać swój kod,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#TERMINATED"><code class="highlighter-rouge">TERMINATED</code></a> – wątek, który zakończył swoje działanie,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#BLOCKED"><code class="highlighter-rouge">BLOCKED</code></a> – wątek zablokowany, oczekujący na zwolnienie współdzielonego zasobu,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#WAITING"><code class="highlighter-rouge">WAITING</code></a> – wątek uśpiony,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.State.html#TIMED_WAITING"><code class="highlighter-rouge">TIMED_WAITING</code></a> – wątek uśpiony na określony czas.</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#NEW"><code class="highlighter-rouge">NEW</code></a> – nowy wątek, który nie został jeszcze uruchomiony,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#RUNNABLE"><code class="highlighter-rouge">RUNNABLE</code></a> – wątek, który może wykonywać swój kod,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#TERMINATED"><code class="highlighter-rouge">TERMINATED</code></a> – wątek, który zakończył swoje działanie,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#BLOCKED"><code class="highlighter-rouge">BLOCKED</code></a> – wątek zablokowany, oczekujący na zwolnienie współdzielonego zasobu,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#WAITING"><code class="highlighter-rouge">WAITING</code></a> – wątek uśpiony,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#TIMED_WAITING"><code class="highlighter-rouge">TIMED_WAITING</code></a> – wątek uśpiony na określony czas.</li>
 </ul>
 
 <p>Poniższy diagram pokazuje możliwe przejścia pomiędzy stanami:</p>
@@ -546,7 +546,7 @@ MT stop
   
 </figure>
 
-<p>Przejście ze stanu <code class="highlighter-rouge">NEW</code> do stanu <code class="highlighter-rouge">RUNNABLE</code> odbywa się po wywołaniu metody <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#start()"><code class="highlighter-rouge">start()</code></a> na instancji wątku. Dopiero wtedy wątek może być wykonywany, samo utworzenie instancji nie powoduje jego uruchomienia. Każdy wątek może być uruchomiony dokładnie raz – dokładanie jeden raz może być na nim wywołana metoda <code class="highlighter-rouge">start()</code>.</p>
+<p>Przejście ze stanu <code class="highlighter-rouge">NEW</code> do stanu <code class="highlighter-rouge">RUNNABLE</code> odbywa się po wywołaniu metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#start()"><code class="highlighter-rouge">start()</code></a> na instancji wątku. Dopiero wtedy wątek może być wykonywany, samo utworzenie instancji nie powoduje jego uruchomienia. Każdy wątek może być uruchomiony dokładnie raz – dokładanie jeden raz może być na nim wywołana metoda <code class="highlighter-rouge">start()</code>.</p>
 
 <p class="notice--info">Zwróć uwagę na to, że ciałem wątku jest metoda <code class="highlighter-rouge">run</code> a do jego uruchomienia niezbędne jest wywołanie metody <code class="highlighter-rouge">start</code>. Oczywiście możesz uruchomić metodę <code class="highlighter-rouge">run</code> samodzielnie, jednak nie spowoduje to uruchomienia nowego wątku – kod metody <code class="highlighter-rouge">run</code> będzie wykonywany w aktualnym wątku.</p>
 
@@ -631,7 +631,7 @@ MT stop
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Tutaj nowością dla Ciebie jest metoda <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join()"><code class="highlighter-rouge">Thread.join()</code></a>. Metoda ta zapewnia, że aktualny wątek czeka na zakończenie się wątku, na którym <code class="highlighter-rouge">join</code> zostało wywołane. W przykładzie powyżej domyślny wątek <code class="highlighter-rouge">main</code> czeka na zakończenie się wątku <code class="highlighter-rouge">t1</code>, jak ten się skończy czeka na zakończenie wątku <code class="highlighter-rouge">t2</code> i następnie <code class="highlighter-rouge">t3</code>.</p>
+<p>Tutaj nowością dla Ciebie jest metoda <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#join()"><code class="highlighter-rouge">Thread.join()</code></a>. Metoda ta zapewnia, że aktualny wątek czeka na zakończenie się wątku, na którym <code class="highlighter-rouge">join</code> zostało wywołane. W przykładzie powyżej domyślny wątek <code class="highlighter-rouge">main</code> czeka na zakończenie się wątku <code class="highlighter-rouge">t1</code>, jak ten się skończy czeka na zakończenie wątku <code class="highlighter-rouge">t2</code> i następnie <code class="highlighter-rouge">t3</code>.</p>
 
 <p class="notice--info">Tutaj drobna dygresja. To, że <code class="highlighter-rouge">main</code> czeka na wątki w kolejności <code class="highlighter-rouge">t1</code>, <code class="highlighter-rouge">t2</code> i <code class="highlighter-rouge">t3</code> nie oznacza, że te wątki skończą się w tej kolejności. W praktyce kolejność ta może być dowolna, w szczególności może także być odwrotna.</p>
 
@@ -837,9 +837,9 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 
 <h2 id="wątek-w-stanie-waiting">Wątek w stanie <code class="highlighter-rouge">WAITING</code></h2>
 
-<p>Jednym ze sposobów aby wątek znalazł się w tym stanie jest wywołanie metody <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join()"><code class="highlighter-rouge">Thread.join()</code></a>. Wiesz już, że w takim przypadku aktualny wątek czeka na zakończenie swojego kolegi.</p>
+<p>Jednym ze sposobów aby wątek znalazł się w tym stanie jest wywołanie metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#join()"><code class="highlighter-rouge">Thread.join()</code></a>. Wiesz już, że w takim przypadku aktualny wątek czeka na zakończenie swojego kolegi.</p>
 
-<p>Wątek znajdzie się w stanie <code class="highlighter-rouge">WAITING</code> także jeśli w trakcie jego działania zostanie wywołana metoda <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait()"><code class="highlighter-rouge">Object.wait()</code></a><sup id="fnref:pomijam"><a href="#fn:pomijam" class="footnote">6</a></sup>.</p>
+<p>Wątek znajdzie się w stanie <code class="highlighter-rouge">WAITING</code> także jeśli w trakcie jego działania zostanie wywołana metoda <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#wait()"><code class="highlighter-rouge">Object.wait()</code></a><sup id="fnref:pomijam"><a href="#fn:pomijam" class="footnote">6</a></sup>.</p>
 
 <p>Na Samouczku Programisty takie lakoniczne wytłumaczenie nie przejdzie ;). Zapraszam Cię do przykładu, opisującego drugą sytuację.</p>
 
@@ -908,9 +908,9 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 <span class="o">});</span>
 </code></pre></div></div>
 
-<p>W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)"><code class="highlighter-rouge">Thread.sleep()</code></a>. Służy ona do uśpienia wątku<sup id="fnref:timed_wait"><a href="#fn:timed_wait" class="footnote">7</a></sup>. Przekazany parametr mówi o minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html"><code class="highlighter-rouge">Random</code></a>, żeby to symulować.</p>
+<p>W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#sleep(long)"><code class="highlighter-rouge">Thread.sleep()</code></a>. Służy ona do uśpienia wątku<sup id="fnref:timed_wait"><a href="#fn:timed_wait" class="footnote">7</a></sup>. Przekazany parametr mówi o minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Random.html"><code class="highlighter-rouge">Random</code></a>, żeby to symulować.</p>
 
-<p>Na razie pominę obsługę wyjątku <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html"><code class="highlighter-rouge">InterruptedException</code></a>. Nie jest ona istotna w tym przykładzie, omówię ją dokładnie w jednym z kolejnych akapitów.</p>
+<p>Na razie pominę obsługę wyjątku <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/InterruptedException.html"><code class="highlighter-rouge">InterruptedException</code></a>. Nie jest ona istotna w tym przykładzie, omówię ją dokładnie w jednym z kolejnych akapitów.</p>
 
 <p>Następnie w bloku <code class="highlighter-rouge">synchronized</code> dodaje nowy element. Zwróć uwagę, że do synchronizacji używam tu obiektu <code class="highlighter-rouge">queue</code>. Dzięki temu mam pewność, że nie nastąpi wyścig podczas dodawania czy usuwania elementów z kolejki.</p>
 
@@ -942,7 +942,7 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 
 <p>Program działa. Ma jednak pewien subtelny błąd. Zwróć uwagę na wątek konsumenta. Wątek ten działa bez przerwy. Bez przerwy zajmuje czas procesora<sup id="fnref:wywlaszczenia"><a href="#fn:wywlaszczenia" class="footnote">8</a></sup>. Co więcej, przez większość swojego czasu kręci się wewnątrz pętli sprawdzając czy kolejka jest pusta. Jako drobne ćwiczenie dla Ciebie zostawiam dodanie licznika iteracji – ile razy pętla wykonała się w Twoim przypadku?</p>
 
-<p>Jak można ten problem rozwiązać? Jednym ze sposobów może być usypianie wątku konsumenta używając metody <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)"><code class="highlighter-rouge">Thread.sleep()</code></a>, którą już znasz. To także byłoby marnowanie zasobów – skąd możesz wiedzieć jak długo zajmie produkowanie kolejnego elementu?</p>
+<p>Jak można ten problem rozwiązać? Jednym ze sposobów może być usypianie wątku konsumenta używając metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#sleep(long)"><code class="highlighter-rouge">Thread.sleep()</code></a>, którą już znasz. To także byłoby marnowanie zasobów – skąd możesz wiedzieć jak długo zajmie produkowanie kolejnego elementu?</p>
 
 <p>Z pomocą przychodzi mechanizm powiadomień.</p>
 
@@ -953,14 +953,14 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 <p>Wewnątrz tego zbioru znajdują się wątki, które czekają na powiadomienie dotyczące danego obiektu. Jedynym sposobem, żeby modyfikować zawartość tego zbioru jest używanie metod dostępnych w klasie <code class="highlighter-rouge">Object</code>:</p>
 
 <ul>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait()"><code class="highlighter-rouge">Object.wait()</code></a> – dodanie aktualnego wątku do zbioru powiadamianych wątków,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()"><code class="highlighter-rouge">Object.notify()</code></a> – powiadomienie i wybudzenie jednego z oczekujących wątków,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()"><code class="highlighter-rouge">Object.notifyAll()</code></a> – powiadomienie i wybudzenie wszystkich oczekujących wątków.</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#wait()"><code class="highlighter-rouge">Object.wait()</code></a> – dodanie aktualnego wątku do zbioru powiadamianych wątków,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#notify()"><code class="highlighter-rouge">Object.notify()</code></a> – powiadomienie i wybudzenie jednego z oczekujących wątków,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#notifyAll()"><code class="highlighter-rouge">Object.notifyAll()</code></a> – powiadomienie i wybudzenie wszystkich oczekujących wątków.</li>
 </ul>
 
 <h4 id="poprawny-producent">Poprawny producent</h4>
 
-<p>Poprawna wersja producenta używa metody <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notify()"><code class="highlighter-rouge">notify</code></a> albo <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#notifyAll()"><code class="highlighter-rouge">notifyAll</code></a> informując w ten sposób konsumentów o nowym elemencie:</p>
+<p>Poprawna wersja producenta używa metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#notify()"><code class="highlighter-rouge">notify</code></a> albo <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#notifyAll()"><code class="highlighter-rouge">notifyAll</code></a> informując w ten sposób konsumentów o nowym elemencie:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Thread</span> <span class="n">producer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
     <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">itemCount</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
@@ -1019,18 +1019,18 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 <p>Tym razem będzie krótko ;). Stan <code class="highlighter-rouge">TIMED_WAITING</code> jest podobny do stanu <code class="highlighter-rouge">WAITING</code>. W tym przypadku wątek oczekuje przez pewien czas, nie krótszy niż podany jako argument do jednej z metod<sup id="fnref:pomijam2"><a href="#fn:pomijam2" class="footnote">9</a></sup>:</p>
 
 <ul>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#wait(long)"><code class="highlighter-rouge">Object.wait()</code></a> – dodanie aktualnego wątku do zbioru powiadamianych wątków i wybudzenie go po określonym czasie,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#sleep(long)"><code class="highlighter-rouge">Thread.sleep()</code></a> – wątek wywołujący tę metodę usypia na określony czas,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#join(long)"><code class="highlighter-rouge">Thread.join()</code></a> – oczekiwanie na zakończenie wątku przez określony czas.</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#wait(long)"><code class="highlighter-rouge">Object.wait()</code></a> – dodanie aktualnego wątku do zbioru powiadamianych wątków i wybudzenie go po określonym czasie,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#sleep(long)"><code class="highlighter-rouge">Thread.sleep()</code></a> – wątek wywołujący tę metodę usypia na określony czas,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#join(long)"><code class="highlighter-rouge">Thread.join()</code></a> – oczekiwanie na zakończenie wątku przez określony czas.</li>
 </ul>
 
 <h2 id="przerywanie-wątku">Przerywanie wątku</h2>
 
-<p>W jednym z poprzednich przykładów wspomniałem o wyjątku <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/InterruptedException.html"><code class="highlighter-rouge">InterruptedException</code></a>. Wyjątek ten sygnalizuje sytuację, w której wątek został przerwany. Wątek może zostać przerwany po wywołaniu na jego instancji metody <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#interrupt()"><code class="highlighter-rouge">Thread.interrupt</code></a>.</p>
+<p>W jednym z poprzednich przykładów wspomniałem o wyjątku <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/InterruptedException.html"><code class="highlighter-rouge">InterruptedException</code></a>. Wyjątek ten sygnalizuje sytuację, w której wątek został przerwany. Wątek może zostać przerwany po wywołaniu na jego instancji metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#interrupt()"><code class="highlighter-rouge">Thread.interrupt</code></a>.</p>
 
 <p>W momencie kiedy wątek zostaje przerwany ustawiana jest na nim specjalna flaga, która o tym informuje.</p>
 
-<p>Jeśli chcesz sprawdzić, czy aktualny wątek jest przerwany możesz wywołać statyczną metodę <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html#interrupted()"><code class="highlighter-rouge">Thread.interrupted</code></a>. Wywołanie tej metody zwraca <code class="highlighter-rouge">true</code> jeśli wątek był przerwany jednocześnie usuwając flagę, o której wspomniałem przed chwilą.</p>
+<p>Jeśli chcesz sprawdzić, czy aktualny wątek jest przerwany możesz wywołać statyczną metodę <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#interrupted()"><code class="highlighter-rouge">Thread.interrupted</code></a>. Wywołanie tej metody zwraca <code class="highlighter-rouge">true</code> jeśli wątek był przerwany jednocześnie usuwając flagę, o której wspomniałem przed chwilą.</p>
 
 <h2 id="synchronizacja-inaczej--volatile">Synchronizacja inaczej – <code class="highlighter-rouge">volatile</code></h2>
 
@@ -1076,7 +1076,7 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 
 <p>Odnajdowanie i naprawianie błędów w programach, które używają wielu wątków to także ciężkie zadanie. Sytuacja, w której kod działa idealnie w trakcie testów, a zachowuje się dziwnie w środowisku wielowątkowym jest czymś powszechnym.</p>
 
-<p>Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj znaleźć gotową implementację w pakiecie <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html"><code class="highlighter-rouge">java.util.concurrent</code></a>. Używając klas z tego pakietu na pewno unikniesz sporo ciężkich do zdiagnozowania błędów.</p>
+<p>Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj znaleźć gotową implementację w pakiecie <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/package-summary.html"><code class="highlighter-rouge">java.util.concurrent</code></a>. Używając klas z tego pakietu na pewno unikniesz sporo ciężkich do zdiagnozowania błędów.</p>
 
 <h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
 
@@ -1188,7 +1188,7 @@ Hello world!
       <p>W rzeczywistości zmienną tymczasową jest stos, na którym ląduje wartość atrybutu. <a href="#fnref:stos" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:pomijam">
-      <p>Pomijam tu trzeci możliwy przypadek – wywołanie metody <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#park()"><code class="highlighter-rouge">LockSupport.park</code></a>. <a href="#fnref:pomijam" class="reversefootnote">&#8617;</a></p>
+      <p>Pomijam tu trzeci możliwy przypadek – wywołanie metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#park()"><code class="highlighter-rouge">LockSupport.park</code></a>. <a href="#fnref:pomijam" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:timed_wait">
       <p>Metoda ta sprawia, że wątek jest w stanie <code class="highlighter-rouge">TIMED_WAITING</code> o czym przeczytasz za chwilę. <a href="#fnref:timed_wait" class="reversefootnote">&#8617;</a></p>
@@ -1197,7 +1197,7 @@ Hello world!
       <p>Pomijam wywłaszczenia, które znasz z początku artykułu. <a href="#fnref:wywlaszczenia" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:pomijam2">
-      <p>Także tutaj pomijam metody z klasy <code class="highlighter-rouge">LockSupport</code>: <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkNanos(java.lang.Object,long)"><code class="highlighter-rouge">LockSupport.partNanos</code></a> i <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkUntil(java.lang.Object,long)"><code class="highlighter-rouge">LockSupport.parkUntil</code></a>. <a href="#fnref:pomijam2" class="reversefootnote">&#8617;</a></p>
+      <p>Także tutaj pomijam metody z klasy <code class="highlighter-rouge">LockSupport</code>: <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkNanos(java.lang.Object,long)"><code class="highlighter-rouge">LockSupport.partNanos</code></a> i <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkUntil(java.lang.Object,long)"><code class="highlighter-rouge">LockSupport.parkUntil</code></a>. <a href="#fnref:pomijam2" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1243,7 +1243,7 @@ Hello world!
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-05-05">2019-05-05</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-08-27">2019-08-27</time></p>
         
         <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
         <hr />
