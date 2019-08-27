@@ -1,6 +1,6 @@
 ---
 title: Samouczek na rozmowie – kalkulator
-last_modified_at: 2018-11-18 14:00:20 +0100
+last_modified_at: 2019-08-27 21:50:35 +0200
 categories:
 - Samouczek na rozmowie
 - Strefa zadaniowa
@@ -70,7 +70,7 @@ Zadanie rozwiązałem używając [TDD]({% post_url 2016-11-21-test-driven-develo
 
 [^kurs]: Jeśli nie wiesz czym jest repozytorium zapraszam Cię do [kursu Git'a]({{ '/kurs-git/' | absolute_url }}) :)
 
-Muszę też zaznaczyć, że moje rozwiązanie nie zadziała w przypadku gdy lista poleceń będzie bardzo długa. Dzieje się tak, ponieważ wczytuję całą listę instrukcji do pamięci przed rozpoczęciem jakichkolwiek obliczeń. Bardzo długa lista poleceń skończyłaby się wówczas wyjątkiem [`OutOfMemoryError`](https://docs.oracle.com/javase/10/docs/api/java/lang/OutOfMemoryError.html).
+Muszę też zaznaczyć, że moje rozwiązanie nie zadziała w przypadku gdy lista poleceń będzie bardzo długa. Dzieje się tak, ponieważ wczytuję całą listę instrukcji do pamięci przed rozpoczęciem jakichkolwiek obliczeń. Bardzo długa lista poleceń skończyłaby się wówczas wyjątkiem [`OutOfMemoryError`]({{ site.doclinks.java.lang.OutOfMemoryError }}).
 
 Obejściem tego problemu byłoby przeczytanie odpowiedniej ilości danych z końca pliku (żeby znaleźć instrukcję `apply`). Przy takim podejściu [złożoność pamięciowa]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}) programu wynosiłaby Ο(1), a nie Ο(n).
 
