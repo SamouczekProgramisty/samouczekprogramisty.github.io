@@ -10,7 +10,7 @@ excerpt: Twoje dane są dla mnie ważne. Co, dlaczego, gdzie i jak z nimi robię
 
 ## Wstęp
 
-Podsumowujac wszystko w kilku zdaniach, zanim przejdę do bardziej rozbudowanych formułek:
+Podsumowując wszystko w kilku zdaniach, zanim przejdę do bardziej rozbudowanych formułek:
 
 - nie jestem studnią bez dna pochłaniającą dane osobowe,
 - zbieram tylko to, na co mi pozwolisz,
@@ -26,7 +26,7 @@ Tak, przeczytałem dotyczące mnie strony ze [skonsolidowanego tekstu rozporząd
 
 ### Ochrona danych osobowych
 
-Podanie przez Ciebie jakichkolwiek danych osobowych jest zawsze dobrowolne. Jest także konieczne do zrealizowania Twoich cełów (na przykład zapisania się do Samouczkowego Newslettera czy dodania komentarza).
+Podanie przez Ciebie jakichkolwiek danych osobowych jest zawsze dobrowolne. Jest także konieczne do zrealizowania Twoich celów (na przykład zapisania się do Samouczkowego Newslettera czy dodania komentarza).
 
 Dostęp do Twoich danych mam wyłącznie ja (pomijając dane dostępnie publicznie takie jak komentarze na blogu). Staram się w najlepszy znany mi sposób chronić Twoje dane osobowe na przykład poprzez:
 
@@ -37,11 +37,11 @@ Dostęp do Twoich danych mam wyłącznie ja (pomijając dane dostępnie publiczn
 
 Administratorem danych osobowych jestem ja, Marcin Pietraszek, pod szyldem jednoosobowej działalności gospodarczej: Salum Marcin Pietraszek ul. Borówkowa 2 56-400 Oleśnica, NIP: 9111832168.
 
-#### Jakie dane przetwarzam
+### Jakie dane przetwarzam
 
 ##### Samuczkowy Newsletter
 
-Głównym zbiorem danych jest Samouczkowy Newsletter. Zbieram w nim Twój adres e-mail połaczony z Twoim imieniem. Dane te zbieram, żeby móc się z Tobą komunikować na przykład wysyłając Ci informacje o nowych treściach na blogu. Przechowuję Twoje dane tak długo jak istniał będzie Samouczkowy Newsletter. Oczywiście możesz się z niego wypisać w każdym momencie – w takiej sytuacji przestanę wysyłać do Ciebie wiadomości. Twój adres będzie nadal w bazie żebym mógł potwierdzić Twoje wyrażenie zgody na przetwarzanie Twoich danych.
+Głównym zbiorem danych jaki posiadam jest Samouczkowy Newsletter. Zbieram w nim Twój adres e-mail połączony z Twoim imieniem. Dane te zbieram, żeby móc się z Tobą komunikować, na przykład wysyłając Ci informacje o nowych treściach na blogu. Przechowuję Twoje dane tak długo jak istniał będzie Samouczkowy Newsletter. Oczywiście możesz się z niego wypisać w każdym momencie – w takiej sytuacji przestanę wysyłać do Ciebie wiadomości. Twój adres będzie nadal w bazie żebym mógł potwierdzić Twoje wyrażenie zgody na przetwarzanie Twoich danych.
 
 Twoje dane w Samouczkowym Newsleterze znajdują się po wyrażeniu przez Ciebie zgody w postaci dodania swojego adresu e-mail i jego potwierdzenia.
 
@@ -51,11 +51,11 @@ Samouczkowy Newsletter obsługiwany jest dzięki firmie MailerLite. I to właśn
 
 Mam nadzieję, że jesteś aktywnym Czytelnikiem, który komentuje artykuły na blogu. Komentarze obsługiwane są przez firmę Disqus Inc., 301 Howard Street, Suite 300, San Francisco, CA94105, USA.
 
-Komentarze na blogu będą widoczne dopóki nie zdecydujesz się na ich usunięcie.
+Komentarze na blogu będą widoczne dopóki nie zdecydujesz się na ich usunięcie. Dane, które podasz w formularzu używane są wyłącznie do publikacji komentarza.
 
 ##### Wiadomości e-mail
 
-Jak zwykle zachęcam Cię do napisania do mnie wiadomości. W momencie jej wysłania przekazujesz mi także swój adres e-mail z dodatkowym zestawem nagłówków. Wysyłając do mnie wiadomość zezwalasz na przetwarzanie preze mnie tych danych w celu nawiązania zwyczajnej konwersacji, ot taka sobie rozmowa przez e-mail.
+Jak zwykle zachęcam Cię do napisania do mnie wiadomości. W momencie jej wysłania przekazujesz mi także swój adres e-mail z dodatkowym zestawem nagłówków. Wysyłając do mnie wiadomość zezwalasz na przetwarzanie przeze mnie tych danych w celu nawiązania zwyczajnej konwersacji, ot taka sobie rozmowa przez e-mail.
 
 Wiadomości, które od Ciebie dostaję przechowywane są na serwerach firmy obsługującej skrzynkę pocztową do czasu ich usunięcia – nie potrafię przewidzieć kiedy to będzie.
 
