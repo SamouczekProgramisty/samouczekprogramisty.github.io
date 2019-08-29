@@ -295,6 +295,6 @@ No i zestaw pozostałych materiałów :)
 
 ## Podsumowanie
 
-Cieszę się, że dotrwałeś do końca. Musisz wiedzieć, że bez kolekcji nie ma programowania, ten artykuł jest naprawdę ważny :). Na koniec mam do Ciebie prośbę, proszę pomóż mi dotrzeć do kolejnych Samouków, podziel się z nimi adresem tego bloga i polub stronkę na Facebooku. Z góry wielkie dzięki!
+Cieszę się, że dotrwałeś do końca. Musisz wiedzieć, że bez kolekcji nie ma programowania, ten artykuł jest naprawdę ważny :). Na koniec mam do Ciebie prośbę, proszę pomóż mi dotrzeć do kolejnych Samouków, podziel się z nimi adresem tego bloga i polub [stronkę na Facebook'u](https://www.facebook.com/SamouczekProgramisty). Z góry wielkie dzięki!
 
 Do następnego razu!

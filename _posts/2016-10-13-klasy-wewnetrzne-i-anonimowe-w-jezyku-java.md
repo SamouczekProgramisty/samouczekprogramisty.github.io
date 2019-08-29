@@ -328,4 +328,4 @@ Przygotowałem też dla Ciebie zestaw materiałów dodatkowych zawierających in
 
 Bardzo się cieszę, że przeczytałeś artykuł do końca. Po lekturze artykułu wiesz czym są klasy wewnętrzne. Wiesz też jakie rodzaje klas wewnętrznych występują. Znasz także klasy anonimowe i wiesz kiedy ich używać. Rozwiązując zadanie przećwiczyłeś całość w praktyce. Innymi słowy kawał solidnej wiedzy :)
 
-Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze znajomymi i polub moją stronę na Facebooku. Zależy mi na dotarciu do jak największej liczby osób, które chcą uczyć się programowania. Z góry dziękuję i do następnego razu.
+Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze znajomymi i polub moją [stronę na Facebook'u](https://www.facebook.com/SamouczekProgramisty). Zależy mi na dotarciu do jak największej liczby osób, które chcą uczyć się programowania. Z góry dziękuję i do następnego razu.

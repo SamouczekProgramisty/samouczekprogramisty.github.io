@@ -124,4 +124,4 @@ Rozwiązania, które dostarczyłem nie są jedynymi możliwymi rozwiązaniami, T
 
 Mam nadzieję, że zestaw zadań Ci się spodobał. Raz jeszcze prosiłbym Cię, żebyś rozwiązał je samodzielnie, wtedy nauczysz się najwięcej. Jeśli chciałbyś abym napisał kolejny artykuł tego typu daj znać ;) Jeśli będziesz miał problem z którymkolwiek z nich możesz rzucić okiem do gotowych rozwiązań.
 
-Jeśli nie chcesz pominąć żadnego z kolejnych artykułów proszę polub naszą stronę na facebooku. Proszę Cię też abyś udostępnił ten artykuł innym Twoim znajomym, którzy mogą być zainteresowani – niezmiennie zależy mi na dotarciu do jak największej liczby czytelników. Do następnego razu! :)
+Jeśli nie chcesz pominąć żadnego z kolejnych artykułów proszę polub naszą [stronę na Facebook'u](https://www.facebook.com/SamouczekProgramisty). Proszę Cię też abyś udostępnił ten artykuł innym Twoim znajomym, którzy mogą być zainteresowani – niezmiennie zależy mi na dotarciu do jak największej liczby czytelników. Do następnego razu! :)

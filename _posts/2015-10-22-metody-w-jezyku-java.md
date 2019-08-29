@@ -267,6 +267,6 @@ Jeszcze nie wiesz jak uruchomić tę metodę w działającym programie. Dowiesz 
 
 # Podsumowanie
 
-I jak czujesz się po pierwszej lekcji? Udało Ci się wykonać ćwiczenie? Daj znać jak Ci poszło w komentarzach. W następnym artykule przeczytasz o klasach. Jeśli chcesz być na bieżąco proszę polub stronę Samouczka na Facebook'u.
+I jak czujesz się po pierwszej lekcji? Udało Ci się wykonać ćwiczenie? Daj znać jak Ci poszło w komentarzach. W następnym artykule przeczytasz o klasach. Jeśli chcesz być na bieżąco proszę polub [stronę Samouczka na Facebook'u](https://www.facebook.com/SamouczekProgramisty).
 
 Naukę dobrze jest rozpocząć w gronie znajomych motywując się nawzajem, proszę poleć im tę stronę – razem zaczniecie uczyć się programowania.

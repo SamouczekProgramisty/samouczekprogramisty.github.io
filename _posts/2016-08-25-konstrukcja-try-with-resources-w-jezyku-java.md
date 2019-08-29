@@ -143,4 +143,4 @@ Jak zwykle zachęcam do samodzielnego rozwiązania zadania, jeśli jednak utkną
 
 ## Podsumowanie
 
-Po przeczytaniu artykułu wiesz już jak używać konstrukcji try-with-resources, wiesz czym jest cukier syntaktyczny. Mam nadzieję, że spędziłeś trochę czasu rozwiązując zadanie, które pozwoliło Ci przećwiczyć wiedzę w praktyce. Na koniec mam do Ciebie wielką prośbę, zależy mi na dotarciu do jak największej liczby czytelników, możesz mi w tym pomóc polecając blog znajomym i udostępniając link na facebooku, z góry dziękuję i do następnego razu.
+Po przeczytaniu artykułu wiesz już jak używać konstrukcji try-with-resources, wiesz czym jest cukier syntaktyczny. Mam nadzieję, że spędziłeś trochę czasu rozwiązując zadanie, które pozwoliło Ci przećwiczyć wiedzę w praktyce. Na koniec mam do Ciebie wielką prośbę, zależy mi na dotarciu do jak największej liczby czytelników, możesz mi w tym pomóc polecając blog znajomym i udostępniając link na Facebook'u, z góry dziękuję i do następnego razu.

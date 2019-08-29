@@ -242,4 +242,4 @@ Temat bynajmniej nie jest wyczerpany. Jeśli chcesz bardziej pogłębić swoją 
   
 Dzisiaj poznałeś całkiem sporo nowych rzeczy. Znasz już wszystkie typy proste w Javie i typy je opakowujące. Wiesz już czym jest literał i jakie są ich rodzaje. Umiesz pobierać dane od użytkownika. Innymi słowy masz już wszystkie klocki potrzebne do budowania interaktywnych programów :).
 
-Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak to proszę podziel się nim ze swoimi znajomymi. Jeśli chcesz wiedzieć o nowych wpisach proszę polub naszą stronę na Facebook'u. Trzymaj się! Do następnego razu!
+Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak to proszę podziel się nim ze swoimi znajomymi. Jeśli chcesz wiedzieć o nowych wpisach proszę [polub samouczkową stronę na Facebook'u](https://www.facebook.com/SamouczekProgramisty). Trzymaj się! Do następnego razu!

@@ -330,4 +330,4 @@ Przygotowałem też dla Ciebie [przykładowe rozwiązania](https://github.com/Sa
 
 Po przeczytaniu tego artykułu wiesz już czym są klasy `ObjectOutputStream` i `ObjectInputStream`. Znasz zasady serializacji, poznałeś słowo kluczowe `transient`. Teraz jesteś w stanie zapisać i odczytać każdą instancję klasy, którą stworzysz.
 
-Bardzo się cieszę, że przeczytałeś cały artykuł. Na koniec mam do Ciebie prośbę. Proszę przekaż adres bloga swoim znajomym, w grupie uczy się raźniej ;) Jeśli nie chcesz ominąć nowych artykułów dopisz się do newslettera i polub stronę Samouczka na Facebooku. Miłego dnia i do następnego razu :)
+Bardzo się cieszę, że przeczytałeś cały artykuł. Na koniec mam do Ciebie prośbę. Proszę przekaż adres bloga swoim znajomym, w grupie uczy się raźniej ;) Jeśli nie chcesz ominąć nowych artykułów dopisz się do newslettera i polub [stronę Samouczka na Facebook'u](https://www.facebook.com/SamouczekProgramisty). Miłego dnia i do następnego razu :)

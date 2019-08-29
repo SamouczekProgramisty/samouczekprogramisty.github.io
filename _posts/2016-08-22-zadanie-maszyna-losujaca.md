@@ -57,4 +57,4 @@ Z tymi narzędziami jesteś przygotowany do napisania swojej pierwszej maszyny l
 
 Jeśli tego typu sposób nauki Ci się spodobał proszę daj znać ;) Rozwiązując zadania tego typu w praktyczny sposób przećwiczysz wiedzę, którą zdobyłeś do tej pory. Z biegiem czasu będziesz w stanie rozwiązać zadania o coraz większym poziomie trudności. Wszystko przed Tobą ;)
 
-Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największego grona czytelników, proszę pomóż mi w tym :) Udostępnij link do bloga na FB swoim znajomym, możesz także zapisać się do newslettera jeśli nie chcesz pominąć kolejnych artykułów. Do następnego razu!
+Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największego grona czytelników, proszę pomóż mi w tym :) Udostępnij [link do bloga na FB](https://www.facebook.com/SamouczekProgramisty) swoim znajomym, możesz także zapisać się do newslettera jeśli nie chcesz pominąć kolejnych artykułów. Do następnego razu!

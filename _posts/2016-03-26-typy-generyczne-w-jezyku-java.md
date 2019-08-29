@@ -448,4 +448,4 @@ Wszystkie przykłady użyte w tym artykule dostępne są na [githubie](https://g
 
 Nie jest to oczywiście kompletny artykuł dotyczący typów generycznych w Javie. Pominięte zostały aspekty wymazywania typów czy bardziej szczegółowe informacje dotyczące użycia ?. Jeśli któryś fragment jest dla Ciebie nie do końca zrozumiały daj znać, postaram się rozszerzyć artykuł o dodatkowe przykłady i opisy.
 
-Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz ominąć żadnego kolejnego artykułu polub nas na Facebooku :) Do następnego razu!
+Na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tematem programowania. Zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz ominąć żadnego kolejnego artykułu [polub nas na Facebook'u](https://www.facebook.com/SamouczekProgramisty) :) Do następnego razu!

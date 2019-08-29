@@ -132,7 +132,7 @@ Teraz, wiedząc już jak działa system binarny wiesz już skąd wzięła się t
 
 Jeśli chcesz wyższego poziomu trudności zapisz liczby 1024 i 321 w systemie ósemkowym (w systemie, którego podstawą jest 8).
 
-I jak? Trudne? Jeśli masz pytania zadaj je w komentarzach, postaram się pomóc. Bardzo dziękuję Ci za przeczytanie artykułu, jeśli chcesz wiedzieć o najnowszych wpisach polub stronę na Facebooku.
+I jak? Trudne? Jeśli masz pytania zadaj je w komentarzach, postaram się pomóc. Bardzo dziękuję Ci za przeczytanie artykułu, jeśli chcesz wiedzieć o najnowszych wpisach polub [stronę na Facebooku](https://www.facebook.com/SamouczekProgramisty).
 
 Na koniec mam do Ciebie jeszcze jedną prośbę. Zależy mi na tym, żeby dotrzeć do jak największej liczby czytelników więc jeśli mógłbyś polecić blog swoim znajomym byłbym wdzięczny. Z góry dziękuję i do następnego razu!
 

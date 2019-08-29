@@ -324,4 +324,4 @@ Przygotowałem też [zestaw przykładowych rozwiązań](https://github.com/Samou
 
 ## Podsumowanie
   
-Dzisiaj znów nauczyłeś się paru nowych rzeczy dotyczących Javy. Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak będę wdzięczny jeśli podzielisz się nim ze swoimi znajomymi. Proszę polub stronę na Facebooku jeśli nie chcesz pominąć żadnego nowego artykułu. Na dzisiaj już starczy wiedzy :) Miłego dnia i do następnego razu!
+Dzisiaj znów nauczyłeś się paru nowych rzeczy dotyczących Javy. Mam nadzieję, że artykuł Ci się spodobał. Jeśli tak będę wdzięczny jeśli podzielisz się nim ze swoimi znajomymi. Proszę polub [stronę na Facebooku](https://www.facebook.com/SamouczekProgramisty) jeśli nie chcesz pominąć żadnego nowego artykułu. Na dzisiaj już starczy wiedzy :) Miłego dnia i do następnego razu!

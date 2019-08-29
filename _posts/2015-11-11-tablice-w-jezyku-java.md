@@ -195,4 +195,4 @@ Zachęcam Cię, do samodzielnego rozwiązania zadań, jeśli jednak miałbyś ja
   
 Bardzo się cieszę, że przeczytałeś artykuł aż do końca. Jeśli masz jakiekolwiek uwagi proszę podziel się nimi w komentarzach. Byłbym także bardzo wdzięczny gdybyś przekazał swoim znajomym informację o blogu – jak zawsze zależy mi na dotarciu do jak największej grupy ludzi, którzy chcą uczyć się programować.
 
-Jak zwykle informacje o artykule prezentuję na stronie na Facebooku. Polub ją, a będziesz otrzymywał informacje o nowych artykułach.
+Jak zwykle informacje o artykule prezentuję na [stronie na Facebooku](https://www.facebook.com/SamouczekProgramisty). Polub ją, a będziesz otrzymywał informacje o nowych artykułach.

@@ -225,6 +225,6 @@ Zachęcam do samodzielnego rozwiązania zadania, jeśli rozwiązujesz zadanie sa
 
 ## Podsumowanie
 
-Bardzo się cieszę, że dobrnąłeś tak daleko. Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tym tematem. Niezmiennie zależy mi na tym, żeby dotrzeć do jak największej grupy czytelników :) Jeśli nie chcesz ominąć kolejnych artykułów polub nasz profil na facebooku i dopisz się do newslettera.
+Bardzo się cieszę, że dobrnąłeś tak daleko. Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, którzy mogą być zainteresowani tym tematem. Niezmiennie zależy mi na tym, żeby dotrzeć do jak największej grupy czytelników :) Jeśli nie chcesz ominąć kolejnych artykułów polub nasz [profil na Facebook'u](https://www.facebook.com/SamouczekProgramisty) i dopisz się do newslettera.
 
 Do następnego razu i życzę Ci udanego dnia :)

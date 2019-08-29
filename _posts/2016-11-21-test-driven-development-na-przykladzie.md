@@ -117,4 +117,4 @@ Wiesz czym jest TDD. Jesteś praktykiem TDD, rozwiązałeś zadanie przy użyciu
 
 Dodam po raz kolejny. Testowanie kodu jest bardzo istotnie, nie zapominaj o nim.
 
-Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi, może ktoś z nich chce poznać TDD od praktycznej strony?. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na Facebooku i zapisać się do mojego newslettera ;). Do następnego razu!
+Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi, może ktoś z nich chce poznać TDD od praktycznej strony?. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją [stronę na Facebook'u](https://www.facebook.com/SamouczekProgramisty) i zapisać się do mojego newslettera ;). Do następnego razu!

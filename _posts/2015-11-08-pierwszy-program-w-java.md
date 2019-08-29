@@ -183,6 +183,6 @@ Napisz program, który wyświetli trzy różne zdania opisujące aktualną pogod
 
 ## Podsumowanie
   
-Prawda, że nie było tak strasznie? Jeśli podobał Ci się dzisiejszy artykuł proszę polub stronę na facebooku.
+Prawda, że nie było tak strasznie? Jeśli podobał Ci się dzisiejszy artykuł proszę polub [stronę na Facebook'u](https://www.facebook.com/SamouczekProgramisty).
 
 Zależy mi na tym, żeby dotrzeć do jak największej liczby osób, które chcą się nauczyć programować, jeśli mógłbyś przekazać im informację o stronie byłbym ogromnie wdzięczny. Do następnego razu!

@@ -161,7 +161,7 @@ Zadanie będzie nietypowe :) Spróbuj napisać program, który spowoduje przepe�
 
 ## Podsumowanie
 
-Bardzo się cieszę, że dotrwałeś do końca :) Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę – polub nasz profil na facebooku i podziel się artykułem ze znajomymi. Dzięki temu dotrę do większej grupy czytelników a właśnie na tym mi zależy.
+Bardzo się cieszę, że dotrwałeś do końca :) Mam nadzieję, że artykuł przypadł Ci do gustu. Na koniec mam do Ciebie prośbę – polub nasz [profil na Facebook'u](https://www.facebook.com/SamouczekProgramisty) i podziel się artykułem ze znajomymi. Dzięki temu dotrę do większej grupy czytelników a właśnie na tym mi zależy.
 
 Jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzach, postaram się pomóc :)
 

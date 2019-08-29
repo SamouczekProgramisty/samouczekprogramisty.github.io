@@ -243,6 +243,6 @@ Dodatkowo parę wpisów w innych miejscach w sieci:
 
 Mam nadzieję, że artykuł się podobał. Dzisiaj nauczyłeś się całkiem sporo na temat pracy z plikami w Javie. Dowiedziałeś się czegoś więcej o systemie plików. Po wykonaniu zadań wiesz już jak odczytać/zapisać plik zarówno binarnie jak i w trybie tekstowym. Dużo tego :)
 
-Na koniec jak zwykle prośba do Ciebie, zależy mi na dotarciu do jak największego grona czytelników. Proszę pomóż mi przy tym poprzez polubienie strony na fb i udostępnienie linku do bloga :) Z góry dziękuję.
+Na koniec jak zwykle prośba do Ciebie, zależy mi na dotarciu do jak największego grona czytelników. Proszę pomóż mi przy tym poprzez polubienie [strony na FB](https://www.facebook.com/SamouczekProgramisty) i udostępnienie linku do bloga :) Z góry dziękuję.
 
 Do następnego razu Samouku!

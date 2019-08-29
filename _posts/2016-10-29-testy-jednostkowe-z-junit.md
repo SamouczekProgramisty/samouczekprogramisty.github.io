@@ -319,4 +319,4 @@ Jeśli nie udało Ci się wcześniej poznać klasy `StringBuilder` zachęcam Ci�
 
 W artykule przeczytałeś o testach jednostkowych. Poznałeś zestaw dobrych praktyk dotyczących pisania testów, nauczyłeś się podstaw biblioteki JUnit. Wiesz czym jest test automatyczny i dlaczego takie testy są istotne. Całość przećwiczyłeś w sposób praktyczny rozwiązując zadanie końcowe.
 
-Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją stronę na Facebooku ;). Do następnego razu!
+Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją [stronę na Facebook'u](https://www.facebook.com/SamouczekProgramisty) ;). Do następnego razu!

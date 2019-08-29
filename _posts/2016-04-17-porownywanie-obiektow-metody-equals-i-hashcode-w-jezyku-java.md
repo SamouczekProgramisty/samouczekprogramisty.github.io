@@ -255,6 +255,6 @@ Kod źródłowy wszystkich przykładów użytych w artykule znajduje się na [gi
 
 ## Podsumowanie
 
-Bardzo się cieszę, że dotarłeś do końca artykułu. Mam nadzieję, że był on dla Ciebie ciekawy i przydatny. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz przegapić nowych artykułów polub nas na facebooku :) W przypadku jakichkolwiek pytań proszę zdaj je w komentarzach, postaram się odpowiedzieć.
+Bardzo się cieszę, że dotarłeś do końca artykułu. Mam nadzieję, że był on dla Ciebie ciekawy i przydatny. Na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zależy mi na dotarciu do jak największej liczby czytelników. Jeśli nie chcesz przegapić nowych artykułów polub nas na [Facebook'u](https://www.facebook.com/SamouczekProgramisty) :) W przypadku jakichkolwiek pytań proszę zdaj je w komentarzach, postaram się odpowiedzieć.
 
 Do następnego razu!

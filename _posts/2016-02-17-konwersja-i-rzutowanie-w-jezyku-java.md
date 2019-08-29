@@ -242,4 +242,4 @@ Przygotowałem też dla Ciebie zestaw [przykładowych rozwiązań zadań](https:
 
 ## Podsumowanie
 
-Właśnie dowiedziałeś się o kilku kolejnych zakamarkach języka Java. Mam nadzieję, że Ci się podobało. Jak zwykle na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zleży mi na dotarciu do jak największego grona czytelników. Jeśli nie chcesz pominąć żadnego postu polub Samouczka na Facebook'u. Do następnego razu! :)
+Właśnie dowiedziałeś się o kilku kolejnych zakamarkach języka Java. Mam nadzieję, że Ci się podobało. Jak zwykle na koniec mam do Ciebie prośbę, podziel się artykułem ze swoimi znajomymi, zleży mi na dotarciu do jak największego grona czytelników. Jeśli nie chcesz pominąć żadnego postu polub [Samouczka na Facebook'u](https://www.facebook.com/SamouczekProgramisty). Do następnego razu! :)

@@ -335,6 +335,6 @@ Poniżej przygotowałem dla Ciebie zestaw linków z dodatkowymi materiałami, cz
   
 Bardzo się cieszę, że przeczytałeś artykuł do końca. Dzisiaj dowiedziałeś się czegoś więcej o dziedziczeniu. Poznałeś słowa kluczowe `abstract` i `final`. Wiesz już czym jest nadpisywanie metod czy klasa bazowa. Innymi słowy poznałeś kolejny zestaw narzędzi niezbędnych dla każdego programisty. Tak trzymaj! :)
 
-Na koniec bardzo proszę Cię o podzielenie się artykułem ze swoimi znajomymi, którzy są zainteresowani taką tematyką. Jak zwykle zależy mi na tym, żeby z blogiem i jego zawartością dotrzeć do jak największej liczby czytelników takich jak Ty :) Jeśli jeszcze tego nie zrobiłeś prosiłbym o polubienie strony na Facebooku.
+Na koniec bardzo proszę Cię o podzielenie się artykułem ze swoimi znajomymi, którzy są zainteresowani taką tematyką. Jak zwykle zależy mi na tym, żeby z blogiem i jego zawartością dotrzeć do jak największej liczby czytelników takich jak Ty :) Jeśli jeszcze tego nie zrobiłeś prosiłbym o polubienie [strony na Facebook'u](https://www.facebook.com/SamouczekProgramisty).  
 
 Do następnego razu!
