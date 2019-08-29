@@ -74,7 +74,7 @@ Różnica zbioru A i zbioru B to zbiór zawierający wszystkie elementy, które 
 
 ## Jak działa zbiór?
 
-W ramach tego artykułu skupię się na przykładowej implementacji, która oparta jest o funkcję skrótu (w języku Java jest to `hashCode`). Przedstawiona tu implementacja będzie uproszczoną wersją klasy [`HashSet`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html), znajdującej się w bibliotece standardowej.
+W ramach tego artykułu skupię się na przykładowej implementacji, która oparta jest o funkcję skrótu (w języku Java jest to `hashCode`). Przedstawiona tu implementacja będzie uproszczoną wersją klasy [`HashSet`]({{ site.doclinks.java.util.HashSet }}), znajdującej się w bibliotece standardowej.
 
 ### `hashCode` i `equals`
 
@@ -110,7 +110,7 @@ Zacznę od krótkiego przypomnienia czym jest tablica asocjacyjna. Ta struktura 
 
 Tablica asocjacyjna, podobnie jak zbiór, nie zwraca uwagi na porządek kluczy[^treemap]. Zbiór nie zawiera duplikatów, mapa nie przechowuje zduplikowanych kluczy.
 
-[^treemap]: To zależy od implementacji, na przykład [`TreeMap`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeMap.html) sortuje klucze a [`TreeSet`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeSet.html) przechowuje posortowane wartości.
+[^treemap]: To zależy od implementacji, na przykład [`TreeMap`]({{ site.doclinks.java.util.TreeMap }}) sortuje klucze a [`TreeSet`]({{ site.doclinks.java.util.TreeSet }}) przechowuje posortowane wartości.
 
 Czy widzisz tu pewne podobieństwo pomiędzy zbiorem a tak zdefiniowaną tablicą asocjacyjną? Powiem więcej, bardzo często implementacje zbioru pod spodem używają tablicy asocjacyjnej.
 
@@ -182,7 +182,7 @@ Tablica asocjacyjna zawiera unikalny zbiór kluczy, Każdy z kluczy ma przyporz�
 
 W artykule tylko musnąłem zagadnienia związane z matematyką. Jeśli chcesz możesz dowiedzieć się czegoś więcej o [algebrze zbiorów](http://www.math.edu.pl/algebra-zbiorow).
 
-Polecam lekturę dokumentacji klasy [`HashSet`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html) i przejrzenie implementacji [`HashSet` w OpenJDK](http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/HashSet.java). Możesz też rzucić okiem na [implementację zbioru opartą o drzewa](http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/TreeSet.java).
+Polecam lekturę dokumentacji klasy [`HashSet`]({{ site.doclinks.java.util.HashSet }}) i przejrzenie implementacji [`HashSet` w OpenJDK](http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/HashSet.java). Możesz też rzucić okiem na [implementację zbioru opartą o drzewa](http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/TreeSet.java).
 
 Jak zwykle zachęcam Cię też do przejrzenia [kodu źródłowego użytego w artykule](https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/03_hash_set).
 

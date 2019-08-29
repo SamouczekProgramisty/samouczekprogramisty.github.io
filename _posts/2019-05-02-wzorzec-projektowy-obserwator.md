@@ -145,7 +145,7 @@ Przy synchronicznym powiadamianiu obserwatorów może wystąpić sytuacja, w kt�
 
 ## Przykłady użycia wzorca obserwator
 
-W standardowej bibliotece języka Java możesz spotkać całą masę różnych implementacji interfejsu [`EventListener`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/EventListener.html). Jest to interfejs bazowy dla pozostałych interfejsów, które służą do informowania o wystąpieniu pewnego zdarzenia. To nic innego jak `Observer`, z rozszerzoną metodą `update`.
+W standardowej bibliotece języka Java możesz spotkać całą masę różnych implementacji interfejsu [`EventListener`]({{ site.doclinks.java.util.EventListener }}). Jest to interfejs bazowy dla pozostałych interfejsów, które służą do informowania o wystąpieniu pewnego zdarzenia. To nic innego jak `Observer`, z rozszerzoną metodą `update`.
 
 Jeśli udało Ci się już przeczytać artykuł o [wątkach]({% post_url 2019-02-11-watki-w-jezyku-java %}#jak-dzia%C5%82a-mechanizm-powiadomie%C5%84) to wiesz o mechanizmie powiadamiania. Także tam można dopatrzeć się analogii do wzorca projektowego obserwator. Wątek, oczekujący na pewien zasób jest powiadamiany kiedy zasób staje się dostępny.
 

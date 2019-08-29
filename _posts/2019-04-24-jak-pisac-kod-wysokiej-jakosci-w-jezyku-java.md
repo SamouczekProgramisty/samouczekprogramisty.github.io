@@ -395,7 +395,7 @@ Usuwanie atrybutów, to też coś co wymaga pewnej analizy. W zależności od [m
 
 ### Zbędne metody
 
-Nie zrozum mnie źle. Uważam, że nieduże metody są dobre. Jednak także i tutaj trzeba zachować zdrowy rozsądek. Proszę spójrz na przykład poniżej, używa on klasy [`Math`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Math.html):
+Nie zrozum mnie źle. Uważam, że nieduże metody są dobre. Jednak także i tutaj trzeba zachować zdrowy rozsądek. Proszę spójrz na przykład poniżej, używa on klasy [`Math`]({{ site.doclinks.java.lang.Math }}):
 
 ```java
 // incorrect
@@ -497,7 +497,7 @@ Znajomość bibliotek i API przychodzi z czasem. Nie ma sensu uczyć się tego n
 
 ### `System.in`, `System.out`, `System.err`
 
-Wspomniany wyżej [`Scanner`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Scanner.html) jest bardzo często używany do pobierania danych od użytkownika. Jednym ze sposobów utworzenia instancji tej klasy jest przekazanie jej instancji [`InputStream`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/io/InputStream.html). Możesz na przykład użyć `System.in`. Proszę spójrz na przykład poniżej:
+Wspomniany wyżej [`Scanner`]({{ site.doclinks.java.util.Scanner }}) jest bardzo często używany do pobierania danych od użytkownika. Jednym ze sposobów utworzenia instancji tej klasy jest przekazanie jej instancji [`InputStream`]({{ site.doclinks.java.io.InputStream }}). Możesz na przykład użyć `System.in`. Proszę spójrz na przykład poniżej:
 
 ```java
 // incorrect
@@ -576,19 +576,19 @@ class Postcode {
 
 ### Znajomość wbudowanych wyjątków
 
-Java dostarcza cały szereg gotowych klas [wyjątków]({% post_url 2016-01-31-wyjatki-w-jezyku-java %}). Czasami nie ma sensu tworzenie własnego dedykowanego wyjątku – warto użyć jednego z istniejących. Dobrym przykładem jest użycie wyjątku [`IllegalArgumentException`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalArgumentException.html) jeśli chcesz zasygnalizować niepoprawny argument.
+Java dostarcza cały szereg gotowych klas [wyjątków]({% post_url 2016-01-31-wyjatki-w-jezyku-java %}). Czasami nie ma sensu tworzenie własnego dedykowanego wyjątku – warto użyć jednego z istniejących. Dobrym przykładem jest użycie wyjątku [`IllegalArgumentException`]({{ site.doclinks.java.lang.IllegalArgumentException }}) jeśli chcesz zasygnalizować niepoprawny argument.
 
-Dodatkowo ważne jest żeby rzucać wyjątki, które pasują do danej sytuacji. Na przykład rzucenie wyjątku [`IllegalStateException`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalStateException.html) w sytuacji gdy podano błędny argument nie jest najlepszym rozwiązaniem.
+Dodatkowo ważne jest żeby rzucać wyjątki, które pasują do danej sytuacji. Na przykład rzucenie wyjątku [`IllegalStateException`]({{ site.doclinks.java.lang.IllegalStateException }}) w sytuacji gdy podano błędny argument nie jest najlepszym rozwiązaniem.
 
 ### `java.util.Date` i spółka
 
 Gdzie tylko się da omijaj stare API do zarządzania datami szerokim łukiem. Na przykład instancje `java.util.Date` nie są wielowątkowo bezpieczne, API jest zagmatwane, obsługa stref czasowych wymaga więcej pracy.
 
-Skup się na poznaniu [`LocalDateTime`](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/time/LocalDateTime.html) i jej podobnych.
+Skup się na poznaniu [`LocalDateTime`]({{ site.doclinks.java.time.LocalDateTime }}) i jej podobnych.
 
 ### Konstrukcje języka
 
-Konstrukcje języka nie są związane z API a składnią jaką język oferuje. Java ewoluuje jak każdy język. W kolejnych wersjach wprowadza nowe elementy. Warto z nich korzystać. Za przykład mogą tu posłużyć [wyrażenia lambda](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/IllegalStateException.html), wyrażenia `switch`, zmienne lokalne przy użyciu `var`, konstrukcja [_try with resources_]({% post_url 2016-08-25-konstrukcja-try-with-resources-w-jezyku-java %}) i tak dalej ;).
+Konstrukcje języka nie są związane z API a składnią jaką język oferuje. Java ewoluuje jak każdy język. W kolejnych wersjach wprowadza nowe elementy. Warto z nich korzystać. Za przykład mogą tu posłużyć [wyrażenia lambda]({% post_url 2017-07-26-wyrazenia-lambda-w-jezyku-java %}), wyrażenia `switch`, zmienne lokalne przy użyciu `var`, konstrukcja [_try with resources_]({% post_url 2016-08-25-konstrukcja-try-with-resources-w-jezyku-java %}) i tak dalej ;).
 
 ## Dodatkowe materiały do nauki
 
