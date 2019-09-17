@@ -307,7 +307,8 @@ Także tutaj ograniczenie liczby kolumn jest przydatne:
 SELECT bajka.tytul
       ,postac.imie
   FROM bajka
-       LEFT OUTER JOIN postac ON bajka.id = postac.bajka_id;
+       LEFT OUTER JOIN postac
+       ON bajka.id = postac.bajka_id;
 ```
 
 To zapytanie zwróci następujące wiersze:
