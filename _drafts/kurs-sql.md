@@ -3,7 +3,6 @@
 - zapytania delete
 - ograniczenia/walidacja danych
 - wyzwalacze
-- podzapytania
 - join ze sobą
 - postacie normalne
 - transakcje i ACID
