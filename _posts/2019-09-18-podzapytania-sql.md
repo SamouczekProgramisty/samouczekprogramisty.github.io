@@ -1,6 +1,6 @@
 ---
 title: Podzapytania SQL
-last_modified_at: 2019-09-17 23:06:50 +0100
+last_modified_at: 2019-09-18 00:58:57 +0200
 categories:
 - Bazy danych
 - Kurs SQL
