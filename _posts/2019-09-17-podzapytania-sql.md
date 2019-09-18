@@ -93,9 +93,9 @@ SELECT name
 
 Takie podejście ma jednak swoje wady. Jedną z nich jest to, że trzeba wykonać dwa zapytania. Kolejną jest potrzeba modyfikowania drugiego zapytania na podstawie wyników pierwszego. Co więcej taka modyfikacja nie zawsze jest możliwa – co jeśli lista zwróconych identyfikatorów miałaby kilkadziesiąt tysięcy elementów?
 
-Podzapytania mogą mieć wiele zastosowań. Czasami osiągnięcie oczekiwanego efektu nie jest możliwe bez użycia podzapytania. Stosowanie podzapytań czasami może prowadzić do uproszczenia finalnego zapytania.
+Podzapytania mogą mieć wiele zastosowań. Czasami osiągnięcie oczekiwanego efektu nie jest możliwe bez użycia podzapytania. Stosowanie podzapytań czasami może także prowadzić do uproszczenia finalnego zapytania.
 
-W zależności od silnika baz danych podzapytania mogą mieć różny wpływ na wydajność zapytania. Jeśli wydajność zapytania jest kluczowa sprawdzaj plan zapytania upewniając się czy zrezygnowanie z podzapytań mogłoby przyspieszyć jego wykonanie[^plan].
+Podzapytania mogą mieć różny wpływ na wydajność zapytania. Jeśli wydajność zapytania jest kluczowa sprawdzaj plan zapytania upewniając się czy usunięcie podzapytań mogłoby przyspieszyć jego wykonanie[^plan].
 
 [^plan]: Możliwe, że silnik bazy danych, której używasz użyje dokładnie takiego samego planu zapytania zarówno przy użyciu podzapytań jak i klauzuli `JOIN`.
 
@@ -162,7 +162,7 @@ ORDER BY customerid
 LIMIT 14;
 ```
 
-W tym przypadku podzapytanie nadal zwraca pojedynczą wartość. Jednak tym razem wartość ta zależna jest od identyfikatora klienta znajdującego się w danym wierszu. Dla przykładu wybrałem jeden z identyfikatorów klienta:
+W tym przypadku podzapytanie nadal zwraca pojedynczą wartość. Jednak tym razem wartość ta zależna jest od identyfikatora klienta znajdującego się w danym wierszu. Dla przykładu wybrałem jeden z identyfikatorów:
 
 ```sql
 SELECT AVG(total)
@@ -282,7 +282,7 @@ Następnie takie wyniki, używając [klauzuli `JOIN`]({% post_url 2018-11-20-kla
 
 ### Podzapytania wewnątrz klauzuli `WHERE`
 
-Podzapytanie może być także do filtrowania wyników głównego zapytania. Przykład poniżej pokazuje takie zapytanie:
+Podzapytanie może być także użyte do filtrowania wyników głównego zapytania. Przykład poniżej pokazuje takie zapytanie:
 
 ```sql
 SELECT trackid
@@ -327,13 +327,13 @@ SELECT trackid
 
 W tym przypadku podzapytanie zwraca listę identyfikatorów typów których nazwa pasuje do wyrażenia `'%AAC%'`. Następnie te identyfikatory użyte są do odfiltrowania ścieżek, które mają odpowiednią wartość kolumny `mediatypeid`. Innymi słowy zapytanie zwraca ścieżki, które są w formacie pasującym do `'%AAC%'`.
 
-Podzapytania powiązane mogą wystąpić także w innych miejscach. Poniżej pokazuję Ci przykład takiego podzapytania występującego w klauzuli WHERE:
+Wyżej wspomniałem już o zapytaniach powiązanych. Musisz wiedzieć, że podzapytania powiązane mogą wystąpić także w innych miejscach. Poniżej pokazuję Ci przykład takiego podzapytania występującego w [klauzuli `WHERE`]({% post_url 2018-07-26-klauzula-where-w-zapytaniach-sql %}):
 
 ```sql
 SELECT albumid
       ,name
       ,milliseconds
-  FROM track as OUTER_TRACK 
+  FROM track AS outer_track 
  WHERE milliseconds < (SELECT AVG(milliseconds)
                          FROM track AS inner_track
                         WHERE inner_track.albumid = outer_track.albumid);
@@ -382,26 +382,33 @@ GROUP BY customerid
                        WHERE billingstate = 'WA');
 ```
 
+## Podzapytania a kauzula `JOIN`
+
+Często istnieje wiele sposobów na uzyskanie tych samych wyników. W przypadku niektórych podzapytań możliwe jest ich zastąpienie odpowiednimi zlączeniami. Poprawne użycie [klauzuli `JOIN`]({% post_url 2018-11-20-klauzula-join-w-zapytaniach-sql %}) może pomóc w usunięciu niechcianego podzapytania.
+
 ## Podzapytania w innych rodzajach zapytań
 
-Do tej pory w ramach [kursu SQL]({{ '/kurs-sql/' }}) omawiałem wyłącznie zapytania typu `SELECT`. W języku SQL istnieją także inne rodzaje zapytań. Musisz wiedzieć, że także w zapytaniach typu `UPDATE` czy `DELETE` możesz spodziewać się użycia podzapytań.
-
-## Podzapytanie w podzapytaniu podzapytania
-
-Podzapytania to twory, które mogą być zagnieżdżone. W zależności od silnika bazy danych limit zagnieżdżonych podzapytań może być różny. Mimo tego, że takie konstrukcje są możliwe w codziennej pracy nie spotkałem się za podzapytaniami zagnieżdżonymi więcej niż dwa poziomy.
+Do tej pory w ramach [kursu SQL]({{ '/kurs-sql/' }}) omawiałem wyłącznie [zapytania typu `SELECT`]({% post_url 2018-06-25-pobieranie-danych-z-bazy-select %}). W języku SQL istnieją także inne rodzaje zapytań. Musisz wiedzieć, że także w zapytaniach typu `UPDATE` czy `DELETE` możesz spodziewać się użycia podzapytań.
 
 ## Dobre praktyki przy używaniu podzapytań
 
-To, że coś jest możliwe, wcale nie znaczy, że powinno być używane. Zapytania SQL szybko mogą stać się mało czytelne. Przez co będą trudne w zrozumieniu i późniejszym utrzymaniu. Jeśli podzapytanie wprowadza niepotrzebne zamieszanie postaraj się rozwiązać problem inaczej – czasami jest to możliwe na przykład przy użyciu klauzuli `JOIN`.
+To, że coś jest możliwe, wcale nie znaczy, że powinno być używane. Zapytania SQL szybko mogą stać się mało czytelne. Przez co będą trudne w zrozumieniu i późniejszym utrzymaniu. Jeśli podzapytanie wprowadza niepotrzebne zamieszanie postaraj się rozwiązać problem inaczej – czasami jest to możliwe na przykład przy użyciu [klauzuli `JOIN`]({% post_url 2018-11-20-klauzula-join-w-zapytaniach-sql %}).
 
-Nadmierne zagnieżdżanie podzapytań także wydaje się nie być dobrą praktyką. Takie łańcuszki nie poprawiają czytelności zapytania co powoduje wcześniej wspomniane problemy z jego późniejszym utrzymaniem. Jeśli musisz stosować więcej niż jeden poziom zagnieżdżenia zastanów się czy nie można rozwiązać tego problemu inaczej.
+Ta sama klauzula może także pomóc w optymalizowaniu zapytania zawierającego podzapytania. Dobrą praktyką jest porównanie planu wykonania obu wersji zapytania. Plan zapytania możesz sprawdzić używając `EXPLAIN <zapytanie sql>`.  
+### Podzapytanie w podzapytaniu podzapytania
+
+Podzapytania to twory, które mogą być zagnieżdżone. W zależności od silnika bazy danych limit zagnieżdżonych podzapytań może być różny. Mimo tego, że takie konstrukcje są możliwe, w codziennej pracy nie spotkałem się za podzapytaniami zagnieżdżonymi więcej niż dwa poziomy.
+
+Nadmierne zagnieżdżanie podzapytań nie jest dobrą praktyką. Takie łańcuszki nie poprawiają czytelności zapytania. Dodatkowo powoduje problemy z jego utrzymaniem. Jeśli musisz stosować więcej niż jeden, dwa poziomy zagnieżdżenia zastanów się czy nie można rozwiązać tego problemu inaczej.
 
 ## Zadania do wykonania
+
+Poniżeszj przygotowałem dla Ciebie zestaw kilku zadań, które pozwolą Ci sprawdzić wiedzę dotyczącą podzapytań w praktyce. Zanim zerkniesz do przykładowego rozwiązania zachęcam się do samodzielnej próby rozwiązania zadań – w ten sposób nauczysz się najwięcej.
 
 Napisz zapytanie używając podzapytań, które zwróci:
 
 1. sumaryczną wartość (kolumna `total`) faktur (tabela `invoice`), których kwota jest powyżej średniej wartości wszystkich faktur,
-2. średnią liczbę albumów dla artystów, którzy opublikowali więcej niż dwa albumy,
+2. średnią liczbę albumów (tabela `album`) dla artystów, którzy opublikowali więcej niż dwa albumy,
 3. wiersze zawierające identyfikator klienta (kolumna `customerid`) i wartość faktur ponad średnią wartość faktur danego klienta (`wartość - średnia`). Zapytanie powinno zwrócić wyłącznie wiersze gdzie ta różnica jest większa od `0`,
 4. te same wyniki, które zwraca zapytanie poniżej bez użycia klauzuli `JOIN`:
 ```sql
@@ -425,14 +432,14 @@ SELECT invoiceid
 ```
 
 ### Przykładowe rozwiązania zadań
-1
+1.
 ```sql
 SELECT SUM(total)
   FROM invoice
  WHERE total > (SELECT AVG(total)
                   FROM invoice);
 ```
-2
+2.
 ```sql
 SELECT AVG(how_many)
   FROM (SELECT COUNT(*) AS how_many
@@ -440,8 +447,7 @@ SELECT AVG(how_many)
       GROUP BY artistid
         HAVING how_many > 2);
 ```
-
-3
+3.
 ```sql
 SELECT customerid
       ,(total - (SELECT AVG(total)
@@ -450,7 +456,7 @@ SELECT customerid
   FROM invoice AS i1
  WHERE above_average > 0;
 ```
-4
+4.
 ```sql
 SELECT name
   FROM artist
@@ -459,7 +465,7 @@ SELECT name
                   GROUP BY artistid
                     HAVING COUNT(*) > 10);
 ```
-5
+5.
 ```sql
 SELECT invoiceid
       ,total
