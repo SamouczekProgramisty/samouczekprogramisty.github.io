@@ -95,13 +95,15 @@ Takie podejście ma jednak swoje wady. Jedną z nich jest to, że trzeba wykona�
 
 Podzapytania mogą mieć wiele zastosowań. Czasami osiągnięcie oczekiwanego efektu nie jest możliwe bez użycia podzapytania. Stosowanie podzapytań czasami może prowadzić do uproszczenia finalnego zapytania.
 
-W zależności od silnika baz danych podzapytania mogą mieć różny wpływ na wydajność zapytania. Jeśli wydajność zapytania jest kluczowa uważaj z używaniem podzapytań – mogą mieć negatywny wpływ na wydajność[^plan].
+W zależności od silnika baz danych podzapytania mogą mieć różny wpływ na wydajność zapytania. Jeśli wydajność zapytania jest kluczowa sprawdzaj plan zapytania upewniając się czy zrezygnowanie z podzapytań mogłoby przyspieszyć jego wykonanie[^plan].
 
 [^plan]: Możliwe, że silnik bazy danych, której używasz użyje dokładnie takiego samego planu zapytania zarówno przy użyciu podzapytań jak i klauzuli `JOIN`.
 
 ## Gdzie może występować podzapytanie
 
-Podzapytanie może występować praktycznie wszędzie wewnątrz zapytania SQL. To gdzie podzapytanie może być użyte uzależnione jest od tego ile wartości zwraca. Jeśli podzapytanie zwraca pojedynczą warstość może być użyte jako częśc wyrażenia – na przykład w porównaniach, czy zwracanych kolumnach. W przypadku gdy podzapytanie zwraca wiele wartości może być użyte na przykład w porównaniach czy jako tabela źródłowa. Poniższe przykłady powinny wyjaśnić poszczególne przypadki.
+Podzapytanie może występować praktycznie wszędzie wewnątrz zapytania SQL. To gdzie podzapytanie może być użyte uzależnione jest od tego ile wartości zwraca. Jeśli podzapytanie zwraca pojedynczą warstość może być użyte jako częśc wyrażenia – na przykład w porównaniach, czy zwracanych kolumnach.
+
+W przypadku gdy podzapytanie zwraca wiele wartości może być użyte na przykład w porównaniach czy jako tabela źródłowa. Poniższe przykłady powinny wyjaśnić poszczególne przypadki.
 
 ### Podzapytanie wewnątrz listy pobieranych wartości
 
@@ -117,7 +119,18 @@ ORDER BY customerid
    LIMIT 14;
 ```
 
-W tym przypadku podzapytanie zwraca pojedynczą wartość – globalną średnią wartość wszystkich faktur. Powyższe zapytanie zwróci następujące wyniki:
+W tym przypadku podzapytanie zwraca pojedynczą wartość – globalną średnią wartość wszystkich faktur:
+
+```sql
+SELECT AVG(total)
+  FROM invoice;
+```
+
+    avg(total)
+    ----------------
+    5.65194174757282
+
+W połączeniu z zapytaniem głównym zwróci następujące wyniki:
 
     CustomerId  Total       avg_total
     ----------  ----------  ----------------
@@ -143,13 +156,25 @@ Okazuje się, że raport nie jest idealny. Lepiej wyglądałoby zestawienie wart
         ,total
         ,(SELECT AVG(total)
             FROM invoice AS subquery_invoice
-           WHERE query_invoice.customerid = subquery_invoice.customerid) AS avg_total
+           WHERE subquery_invoice.customerid = query_invoice.customerid) AS avg_total
     FROM invoice AS query_invoice
 ORDER BY customerid
 LIMIT 14;
 ```
 
-W tym przypadku podzapytanie nadal zwraca pojedynczą wartość. Jednak tym razem wartość ta zależna jest od identyfikatora klienta znajdującego się w danym wierszu. To zapytanie zwróci następujące wiersze:
+W tym przypadku podzapytanie nadal zwraca pojedynczą wartość. Jednak tym razem wartość ta zależna jest od identyfikatora klienta znajdującego się w danym wierszu. Dla przykładu wybrałem jeden z indentyfikatorów klienta:
+
+```sql
+SELECT AVG(total)
+  FROM invoice AS subquery_invoice
+ WHERE subquery_invoice.customerid = 1;
+```
+
+    avg(total)
+    ----------
+    5.66
+
+Zwróć uwagę, że tym razem zapytanie główne zwraca średnią charakterystyczną dla każdego klienta (która jest rózna od średniej dla wszystkich klientów):
 
     CustomerId  Total       avg_total
     ----------  ----------  ----------
@@ -168,9 +193,15 @@ W tym przypadku podzapytanie nadal zwraca pojedynczą wartość. Jednak tym raze
     2           5.94        5.37428571
     2           0.99        5.37428571
 
+Drugi przypadek pokazuje tak zwane podzapytanie powiązane[^skorelowane]. To podzapytanie powiązane jest z zapytaniem głównym. W odróżnieniu od pierwszego przypadku musi zostać wykonane wiele razy. Średnia użyta w pierwszym przypadku może być obliczona dokładnie raz dla uzyskania poprawnego wyniku.
+
+[^skorelowane]: Czasami nazywa się je także zapytaniami skorelowanymi. 
+
 ### Podzapytanie wewnątrz klauzuli `FROM`
 
-Podzapytanie może zwrócić wiele wartości. W tym przypadku zapytanie zwraca śrendnią wartość sum faktur poszczególnych klientów:
+Wyniki podzapytania użytego wewnątrz klauzluli `FROM` traktowane są jakby były tabelą. Dlatego w tym przypadku podzapytanie może zwrócić wiele wartości. Kolumny użyte w podzapytaniu stają się kolumnami „tabeli” i mogą być użyte w zapytaniu głównym.
+
+Proszę spójrz na przykład:
 
 ```sql
 SELECT AVG(customer_total)
@@ -179,25 +210,147 @@ SELECT AVG(customer_total)
       GROUP BY customerid);
 ```
 
+Ponownie zacznę od analizy podzapytania:
 
-* Wewnątrz klauzuli `WHERE` – podzapytanie może zwrócić wiele wartości. W tym przypadku zapytanie zwraca albumy, których identyfikatory są większe niż największy identyfikator albumu zacznającego się na literę `A`:
 ```sql
-SELECT *
-  FROM album
- WHERE albumid > (SELECT MAX(albumid)
-                      FROM album
-                     WHERE title LIKE 'A%');
+  SELECT SUM(total) AS customer_total
+    FROM invoice
+GROUP BY customerid;
 ```
 
-* Wewnątrz klauzuli `HAVING` – w tym przypadku zapytanie zwraca listę identyfikatorów 
+Podzapytanie sumuje wszystkie poszególnych klientów. Zwraca dokładnie tyle wierszy ile jest wartości kolumny `customerid`:
+
+    customer_total
+    --------------
+    39.62
+    37.62
+    39.62
+    39.62
+    40.62
+    …
+
+Następnie taki wynik użyty jest do policzenia średniej z wszystkich sum. Ostatecznym wynikiem zapytania jest liczba pokazująca średnią sumę zamówień wszystkich klientów:
+
+    avg(customer_total)
+    -------------------
+    39.4677966101694
+
+Podzapytania tego typu mogą być użyte w bardziej skomplikowanych zapytaniach. Proszę spójrz na przykład poniżej:
+
 ```sql
-  SELECT artistid, 
-    FROM album
-GROUP BY artistid
-  HAVING artistid > (SELECT 250);
+SELECT invoiceid
+      ,total
+      ,invoice.billingstate
+      ,billingstate_avg.state_avg
+  FROM (SELECT billingstate
+              ,AVG(total) AS state_avg
+          FROM invoice
+      GROUP BY billingstate) AS billingstate_avg JOIN invoice
+                                                 ON billingstate_avg.billingstate = invoice.billingstate;
 ```
 
-* Wewnątrz klauzuli `ORDER BY`
+Analizę ponownie zacznę od podzapytania:
+
+```sql
+  SELECT billingstate
+        ,AVG(total) AS state_avg
+    FROM invoice
+GROUP BY billingstate;
+```
+
+Podzapytanie używa [klauzuli `GROUP BY`]({% post_url 2018-10-20-funkcje-i-grupowanie-danych-w-sql %}) żeby zwrócić średnią wartość zamówienia dla każdego stanu:
+
+    BillingState  state_avg
+    ------------  ---------------
+                  5.6930693069307
+    AB            5.3742857142857
+    AZ            5.3742857142857
+    BC            5.5171428571428
+    CA            5.5171428571428
+    …
+
+Następnnie takie wyniki, używając [klauzuli `JOIN`]({% post_url 2018-11-20-klauzula-join-w-zapytaniach-sql %}), złączone są z tabelą `invoice`. Kolumną użwaną do złącenia jest `billingstate`. Wynikiem jest zbiór wierszy zawierający faktury, które mają uzupełnioną kolumnę `billingstate` (efekt złączenia). Każda taka faktura zestawiona jest później ze średnią obowiązującą w danym stanie:
+
+    InvoiceId   Total       BillingState  state_avg
+    ----------  ----------  ------------  ----------------
+    4           8.91        AB            5.37428571428571
+    5           13.86       MA            5.37428571428571
+    10          5.94        Dublin        6.51714285714286
+    13          0.99        CA            5.51714285714286
+    14          1.98        WA            5.66
+    …
+
+### Podzapytania wewnątrz klauzuli `WHERE`
+
+Podzapytanie może być także do filtrowania wyników głównego zapytania. Przykład poniżej pokazuje takie zapytanie:
+
+```sql
+SELECT trackid
+      ,name
+      ,milliseconds
+  FROM track
+ WHERE milliseconds < (SELECT 10 * MIN(milliseconds)
+                         FROM track);
+```
+
+W tym przypadku podzapytanie zwraca dziesięciokrotność długości najkrótszej ścieżki:
+
+```sql
+SELECT 10 * MIN(milliseconds)
+  FROM track;
+```
+
+    10 * min(milliseconds)
+    ----------------------
+    10710
+
+Następnie ten wynik użyty jest do zwrócenia ścieżek, które są krótsze od tej wartości:
+
+    TrackId     Name        Milliseconds
+    ----------  ----------  ------------
+    168         Now Sports  4884        
+    170         A Statisti  6373        
+    178         Oprah       6635        
+    2461        É Uma Part  1071        
+    3304        Commercial  7941   
+
+Możliwe jest także używanie podzapytań zwracających wiele wartości. Proszę spójrz na przykład poniżej:
+
+```sql
+SELECT trackid
+      ,name
+  FROM track
+ WHERE mediatypeid IN (SELECT mediatypeid
+                         FROM mediatype
+                        WHERE name LIKE '%AAC%');
+```
+
+W tym przypadku podzapytanie zwraca listę identyfikatórów typów których nazwa pasuje do wyrażenia `'%AAC%'`. Następnie te identyfikatory użyte są do odfiltrowania ścieżek, które mają odpowiednią wartość kolumny `mediatypeid`. Innymi słowy zapytanie zwraca ścieżki, które są w formacie pasującym do `'%AAC%'`.
+
+Podzapytania powiązane mogą wystąpić także w innych miejscach. Poniżej pokazuję Ci przykład takiego podzapytania występującego w klauzuli WHERE:
+
+```sql
+SELECT albumid
+      ,name
+      ,milliseconds
+  FROM track as OUTER_TRACK 
+ WHERE milliseconds < (SELECT AVG(milliseconds)
+                         FROM track AS inner_track
+                        WHERE inner_track.albumid = outer_track.albumid);
+```
+
+W tym przypadku podzapytanie zwraca średnią długość ścieżki dla każdego albumu. Następnie wartość ta użyta jest w głównym zapytaniu. Pozwala ona zwrócić wyłącznie te wiersze, które dotyczą ścieżek o długości krótszej niż średnia z ich albumu.
+
+### Podzapytania jako wyrażenie
+
+Podzapytania zwracające pojedynczą wartość mogą traktowane być jako wyrażenie. W związku z tym mogą wystąpić w innych miejscach zapytania SQL. Kilka zapytań tego typu omówiłem dokładnie w poprzednich podpunktach.
+
+Poniżej pokazuję kilka przykładów obrazujących użycie podzapytań w innych miejscach zapytania SQL.
+
+#### Podzapytania wewnątrz klauzuli `ORDER BY`
+
+Dziwne, ale poprawne sortowanie:
+
 ```sql
   SELECT *
     FROM artist
@@ -206,37 +359,36 @@ ORDER BY (SELECT MAX(albumid)
            WHERE artist.artistid = album.artistid);
 ```
 
-### Podzapytanie wewnątrz klauzuli `LIMIT`
+#### Podzapytania wewnątrz klauzuli `LIMIT`
+
+Ponownie dziwne, ale poprawne ograniczanie liczby wierszy:
 
 ```sql
-SELECT *
-  FROM album LIMIT (SELECT COUNT(*)
-                      FROM artist);
+SELECT * FROM album LIMIT (SELECT COUNT(*)
+                             FROM artist);
 ```
 
+#### Podzapytania wewnątrz klauzuli `HAVING`
 
+Tym razem podzapytanie zostało użyte do zwrócenia wierszy, dla których suma jest większa niż suma w jednym ze stanów:
 
-Podzapytanie może także występować w zapytaniach typu `UPDATE` i `DELETE`[^kurs].
+```sql
+  SELECT customerid
+        ,SUM(total) AS sum_total
+    FROM invoice
+GROUP BY customerid
+  HAVING sum_total > (SELECT SUM(total)
+                        FROM invoice
+                       WHERE billingstate = 'WA');
+```
 
-[^kurs]: Tych typów zapytań jeszcze nie opisałem w kursie, na pewno doczekają się osobnego artykułu.
+## Podzapytania w innych rodzajach zapytań
 
-Chociaż możliwość używania podzapytań jest tak szeroka w praktyce najczęściej spotyka się je wewnątrz klauzuli `FROM` i `WHERE`.
-
-## Podzapytania a klauzula `JOIN`
-
-Możliwe, że udało Ci się zauważyć, że część podzapytań można stosować wymiennie z klauzulą `JOIN`.
-
-## Podzapytanie a liczba zwracanych wierszy
-
-### Wiele wierszy
-
-### Pojedynczy wiersz
-
-## Podzapytania a klauzula `JOIN`
+Do tej pory w ramach [kursu SQL]({{ '/kurs-sql/' }}) omawiałem wyłącznie zapytania typu `SELECT`. W języku SQL istnieją także inne rodzaje zapytań. Musisz wiedzieć, że także w zapytaniach typu `UPDATE` czy `DELETE` możesz spodziewać się użycia podzapytań.
 
 ## Podzapytanie w podzapytaniu podzapytania
 
-Podzapytania to twory, które mogą być zagnieżdżane. W zależności od silinka bazy danch limit zagnieżdżonych podzapytań może być różny. mimo tego, że takie konstrukcje są możliwe w codziennej pracy nie spotkałem się za podzapytaniami zagnieżdżonymi więcej niż dwa poziomy.
+Podzapytania to twory, które mogą być zagnieżdżane. W zależności od silinka bazy danch limit zagnieżdżonych podzapytań może być różny. Mimo tego, że takie konstrukcje są możliwe w codziennej pracy nie spotkałem się za podzapytaniami zagnieżdżonymi więcej niż dwa poziomy.
 
 ## Dobre praktyki przy używaniu podzapytań
 
@@ -244,16 +396,14 @@ To, że coś jest możliwe, wcale nie znaczy, że powinno być używane. Zapytan
 
 Nadmierne zagnieżdżanie podzapytań także wydaje się nie być dobrą praktyką. Takie łańcuszki nie poprawiają czytelności zapytania co powoduje wcześniej wspomniane problemy z jego późniejszym utrzymaniem. Jeśli musisz stosować więcej niż jeden poziom zagnieżdżenia zastanów się czy nie można rozwiązać tego problemu inaczej.
 
-WHERE expression [NOT] IN (subquery)
-WHERE expression comparision_operator [ANY|ALL] (subquery)
-WHERE expression [NOT] EXISTS (subquery)
-
 ## Zadania do wykonania
 
 Napisz zapytanie używając podzapytań, które zwróci:
 
-1. średnią liczbę albumów dla artystów, którzy opublikowali więcej niż dwa albumy
-2. Napisz zapytanie zwracające te same wyniki be użycia `JOIN`:
+1. sumaryczną wartość (kolumna `total`) faktur (tabela `invoice`), których kwota jest powyżej średniej wartości wszystkich faktur,
+2. średnią liczbę albumów dla artystów, którzy opublikowali więcej niż dwa albumy,
+3. wiersze zawierające identyfikator klienta (kolumna `customerid`) i wartość faktur ponad średnią wartość faktur danego klienta (`wartość - średnia`). Zapytanie powinno zwrócić wyłącznie wierwsze gdzie ta różnica jest większa od `0`,
+4. te same wyniki, które zwraca zapytanie poniżej bez użycia klauzuli `JOIN`:
 ```sql
   SELECT name 
     FROM artist JOIN album
@@ -261,9 +411,28 @@ Napisz zapytanie używając podzapytań, które zwróci:
 GROUP BY name
   HAVING COUNT(*) > 10;
 ```
+5. te same wyniki, które zwraca zapytanie poniżej bez użycia klauzuli `JOIN`:
+```sql
+SELECT invoiceid
+      ,total
+      ,invoice.billingstate
+      ,billingstate_avg.state_avg
+  FROM (SELECT billingstate
+              ,AVG(total) AS state_avg
+          FROM invoice
+      GROUP BY billingstate) AS billingstate_avg JOIN invoice
+                                                 ON billingstate_avg.billingstate = invoice.billingstate;
+```
 
 ### Przykładowe rozwiązania zadań
-
+1
+```sql
+SELECT SUM(total)
+  FROM invoice
+ WHERE total > (SELECT AVG(total)
+                  FROM invoice);
+```
+2
 ```sql
 SELECT AVG(how_many)
   FROM (SELECT COUNT(*) AS how_many
@@ -272,6 +441,16 @@ SELECT AVG(how_many)
         HAVING how_many > 2);
 ```
 
+3
+```sql
+SELECT customerid
+      ,(total - (SELECT AVG(total)
+                   FROM invoice AS i2
+                  WHERE i1.customerid = i2.customerid)) AS above_average
+  FROM invoice AS i1
+ WHERE above_average > 0;
+```
+4
 ```sql
 SELECT name
   FROM artist
@@ -279,6 +458,17 @@ SELECT name
                       FROM album
                   GROUP BY artistid
                     HAVING COUNT(*) > 10);
+```
+5
+```sql
+SELECT invoiceid
+      ,total
+      ,billingstate
+      ,(SELECT AVG(total) AS state_avg
+          FROM invoice
+         WHERE billingstate = outer.billingstate)
+  FROM invoice AS outer
+ WHERE billingstate IS NOT NULL;
 ```
 
 ## Podsumowanie
