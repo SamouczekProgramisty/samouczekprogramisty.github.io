@@ -382,9 +382,9 @@ GROUP BY customerid
                        WHERE billingstate = 'WA');
 ```
 
-## Podzapytania a kauzula `JOIN`
+## Podzapytania a klauzula `JOIN`
 
-Często istnieje wiele sposobów na uzyskanie tych samych wyników. W przypadku niektórych podzapytań możliwe jest ich zastąpienie odpowiednimi zlączeniami. Poprawne użycie [klauzuli `JOIN`]({% post_url 2018-11-20-klauzula-join-w-zapytaniach-sql %}) może pomóc w usunięciu niechcianego podzapytania.
+Często istnieje wiele sposobów na uzyskanie tych samych wyników. W przypadku niektórych podzapytań możliwe jest ich zastąpienie odpowiednimi złączeniami. Poprawne użycie [klauzuli `JOIN`]({% post_url 2018-11-20-klauzula-join-w-zapytaniach-sql %}) może pomóc w usunięciu niechcianego podzapytania.
 
 ## Podzapytania w innych rodzajach zapytań
 
@@ -403,7 +403,7 @@ Nadmierne zagnieżdżanie podzapytań nie jest dobrą praktyką. Takie łańcusz
 
 ## Zadania do wykonania
 
-Poniżeszj przygotowałem dla Ciebie zestaw kilku zadań, które pozwolą Ci sprawdzić wiedzę dotyczącą podzapytań w praktyce. Zanim zerkniesz do przykładowego rozwiązania zachęcam się do samodzielnej próby rozwiązania zadań – w ten sposób nauczysz się najwięcej.
+Poniżej przygotowałem dla Ciebie zestaw kilku zadań, które pozwolą Ci sprawdzić wiedzę dotyczącą podzapytań w praktyce. Zanim zerkniesz do przykładowego rozwiązania zachęcam się do samodzielnej próby rozwiązania zadań – w ten sposób nauczysz się najwięcej.
 
 Napisz zapytanie używając podzapytań, które zwróci:
 
