@@ -9,14 +9,14 @@ header:
     teaser: /assets/images/2019/08/19_podzapytania_sql_artykul.jpg
     overlay_image: /assets/images/2019/08/19_podzapytania_sql_artykul.jpg
     caption: "[&copy; jackmac34](https://pixabay.com/photos/matryoshka-russian-dolls-nesting-970943/)"
-excerpt: W tym artykule opisuję podzapytania SQL. Po lekturze tego artykułu będziesz wiedzieć czym są podzapytania, kiedy można je stosować i w jakich miejscach mogą występować. Wszystkie omówione przypadki poparłem przykładowymi zapytaniami, które możesz wykonać samodzielnie. Na końcu artykułu czeka na Ciebie zestaw zadań, które pomogą Ci utrwalić zdobytą wiedzę.
+excerpt: W tym artykule opisuję podzapytania SQL. Po lekturze tego artykułu będziesz wiedzieć czym są podzapytania, kiedy można je stosować i w jakich miejscach mogą występować. Na przykładach poznasz zapytania skorelowane. Wszystkie omówione przypadki poparłem przykładowymi zapytaniami, które możesz wykonać samodzielnie. Na końcu artykułu czeka na Ciebie zestaw zadań, które pomogą Ci utrwalić zdobytą wiedzę.
 ---
 
 {% include kurs-sql-notice.md %}
 
 ## Czym jest podzapytanie
 
-Podzapytanie to zapytanie SQL, które umieszczone jest wewnątrz innego zapytania. Podzapytanie zawsze otoczone jest parą nawiasów `()`. Jak zwykle spróbuję pokazać Ci to na przykładzie. Dla przypomnienia, najprostrze zapytenie SQL może wyglądać tak:
+Podzapytanie to zapytanie SQL, które umieszczone jest wewnątrz innego zapytania. Podzapytanie zawsze otoczone jest parą nawiasów `()`. Jak zwykle spróbuję pokazać Ci to na przykładzie. Dla przypomnienia, najprostsze zapytanie SQL może wyglądać tak:
 
 ```sql
 SELECT 1;
@@ -68,7 +68,7 @@ SELECT name
 
 Czy można osiągnąć ten sam efekt bez podzapytania[^join]? Oczywiście, że można. Jednym ze sposobów jest użycie stałej listy identyfikatorów artystów. Listę tych identyfikatorów zwróci zapytanie:
 
-[^join]: Dla uproszenia pominę tu możliwść użycia klauzuli `JOIN`.
+[^join]: Dla uproszenia pominę tu możliwość użycia klauzuli `JOIN`.
 
 ```sql
   SELECT artistid
@@ -91,7 +91,7 @@ SELECT name
  WHERE artistid IN [22, 58, 90];
 ```
 
-Takie podejście ma jednak swoje wady. Jedną z nich jest to, że trzeba wykonać dwa zapytania. Kolejną jest potrzeba modyfikowania drugiego zapytania na podstawie wyników pierwszego. Co więcej taka modyfikacja nie zawsze jest możliwa – co jeśli lista zwróconych indentyfikatorów miałaby kilkadziesiąt tysięcy elementów?
+Takie podejście ma jednak swoje wady. Jedną z nich jest to, że trzeba wykonać dwa zapytania. Kolejną jest potrzeba modyfikowania drugiego zapytania na podstawie wyników pierwszego. Co więcej taka modyfikacja nie zawsze jest możliwa – co jeśli lista zwróconych identyfikatorów miałaby kilkadziesiąt tysięcy elementów?
 
 Podzapytania mogą mieć wiele zastosowań. Czasami osiągnięcie oczekiwanego efektu nie jest możliwe bez użycia podzapytania. Stosowanie podzapytań czasami może prowadzić do uproszczenia finalnego zapytania.
 
@@ -101,7 +101,7 @@ W zależności od silnika baz danych podzapytania mogą mieć różny wpływ na 
 
 ## Gdzie może występować podzapytanie
 
-Podzapytanie może występować praktycznie wszędzie wewnątrz zapytania SQL. To gdzie podzapytanie może być użyte uzależnione jest od tego ile wartości zwraca. Jeśli podzapytanie zwraca pojedynczą warstość może być użyte jako częśc wyrażenia – na przykład w porównaniach, czy zwracanych kolumnach.
+Podzapytanie może występować praktycznie wszędzie wewnątrz zapytania SQL. To gdzie podzapytanie może być użyte uzależnione jest od tego ile wartości zwraca. Jeśli podzapytanie zwraca pojedynczą wartość może być użyte jako część wyrażenia – na przykład w porównaniach, czy zwracanych kolumnach.
 
 W przypadku gdy podzapytanie zwraca wiele wartości może być użyte na przykład w porównaniach czy jako tabela źródłowa. Poniższe przykłady powinny wyjaśnić poszczególne przypadki.
 
@@ -162,7 +162,7 @@ ORDER BY customerid
 LIMIT 14;
 ```
 
-W tym przypadku podzapytanie nadal zwraca pojedynczą wartość. Jednak tym razem wartość ta zależna jest od identyfikatora klienta znajdującego się w danym wierszu. Dla przykładu wybrałem jeden z indentyfikatorów klienta:
+W tym przypadku podzapytanie nadal zwraca pojedynczą wartość. Jednak tym razem wartość ta zależna jest od identyfikatora klienta znajdującego się w danym wierszu. Dla przykładu wybrałem jeden z identyfikatorów klienta:
 
 ```sql
 SELECT AVG(total)
@@ -174,7 +174,7 @@ SELECT AVG(total)
     ----------
     5.66
 
-Zwróć uwagę, że tym razem zapytanie główne zwraca średnią charakterystyczną dla każdego klienta (która jest rózna od średniej dla wszystkich klientów):
+Zwróć uwagę, że tym razem zapytanie główne zwraca średnią charakterystyczną dla każdego klienta (która jest rożna od średniej dla wszystkich klientów):
 
     CustomerId  Total       avg_total
     ----------  ----------  ----------
@@ -199,7 +199,7 @@ Drugi przypadek pokazuje tak zwane podzapytanie powiązane[^skorelowane]. To pod
 
 ### Podzapytanie wewnątrz klauzuli `FROM`
 
-Wyniki podzapytania użytego wewnątrz klauzluli `FROM` traktowane są jakby były tabelą. Dlatego w tym przypadku podzapytanie może zwrócić wiele wartości. Kolumny użyte w podzapytaniu stają się kolumnami „tabeli” i mogą być użyte w zapytaniu głównym.
+Wyniki podzapytania użytego wewnątrz klauzuli `FROM` traktowane są jakby były tabelą. Dlatego w tym przypadku podzapytanie może zwrócić wiele wartości. Kolumny użyte w podzapytaniu stają się kolumnami „tabeli” i mogą być użyte w zapytaniu głównym.
 
 Proszę spójrz na przykład:
 
@@ -218,7 +218,7 @@ Ponownie zacznę od analizy podzapytania:
 GROUP BY customerid;
 ```
 
-Podzapytanie sumuje wszystkie poszególnych klientów. Zwraca dokładnie tyle wierszy ile jest wartości kolumny `customerid`:
+Podzapytanie sumuje wszystkie poszczególnych klientów. Zwraca dokładnie tyle wierszy ile jest wartości kolumny `customerid`:
 
     customer_total
     --------------
@@ -269,7 +269,7 @@ Podzapytanie używa [klauzuli `GROUP BY`]({% post_url 2018-10-20-funkcje-i-grupo
     CA            5.5171428571428
     …
 
-Następnnie takie wyniki, używając [klauzuli `JOIN`]({% post_url 2018-11-20-klauzula-join-w-zapytaniach-sql %}), złączone są z tabelą `invoice`. Kolumną użwaną do złącenia jest `billingstate`. Wynikiem jest zbiór wierszy zawierający faktury, które mają uzupełnioną kolumnę `billingstate` (efekt złączenia). Każda taka faktura zestawiona jest później ze średnią obowiązującą w danym stanie:
+Następnie takie wyniki, używając [klauzuli `JOIN`]({% post_url 2018-11-20-klauzula-join-w-zapytaniach-sql %}), złączone są z tabelą `invoice`. Kolumną używaną do złączenia jest `billingstate`. Wynikiem jest zbiór wierszy zawierający faktury, które mają uzupełnioną kolumnę `billingstate` (efekt złączenia). Każda taka faktura zestawiona jest później ze średnią obowiązującą w danym stanie:
 
     InvoiceId   Total       BillingState  state_avg
     ----------  ----------  ------------  ----------------
@@ -325,7 +325,7 @@ SELECT trackid
                         WHERE name LIKE '%AAC%');
 ```
 
-W tym przypadku podzapytanie zwraca listę identyfikatórów typów których nazwa pasuje do wyrażenia `'%AAC%'`. Następnie te identyfikatory użyte są do odfiltrowania ścieżek, które mają odpowiednią wartość kolumny `mediatypeid`. Innymi słowy zapytanie zwraca ścieżki, które są w formacie pasującym do `'%AAC%'`.
+W tym przypadku podzapytanie zwraca listę identyfikatorów typów których nazwa pasuje do wyrażenia `'%AAC%'`. Następnie te identyfikatory użyte są do odfiltrowania ścieżek, które mają odpowiednią wartość kolumny `mediatypeid`. Innymi słowy zapytanie zwraca ścieżki, które są w formacie pasującym do `'%AAC%'`.
 
 Podzapytania powiązane mogą wystąpić także w innych miejscach. Poniżej pokazuję Ci przykład takiego podzapytania występującego w klauzuli WHERE:
 
@@ -388,7 +388,7 @@ Do tej pory w ramach [kursu SQL]({{ '/kurs-sql/' }}) omawiałem wyłącznie zapy
 
 ## Podzapytanie w podzapytaniu podzapytania
 
-Podzapytania to twory, które mogą być zagnieżdżane. W zależności od silinka bazy danch limit zagnieżdżonych podzapytań może być różny. Mimo tego, że takie konstrukcje są możliwe w codziennej pracy nie spotkałem się za podzapytaniami zagnieżdżonymi więcej niż dwa poziomy.
+Podzapytania to twory, które mogą być zagnieżdżone. W zależności od silnika bazy danych limit zagnieżdżonych podzapytań może być różny. Mimo tego, że takie konstrukcje są możliwe w codziennej pracy nie spotkałem się za podzapytaniami zagnieżdżonymi więcej niż dwa poziomy.
 
 ## Dobre praktyki przy używaniu podzapytań
 
@@ -402,7 +402,7 @@ Napisz zapytanie używając podzapytań, które zwróci:
 
 1. sumaryczną wartość (kolumna `total`) faktur (tabela `invoice`), których kwota jest powyżej średniej wartości wszystkich faktur,
 2. średnią liczbę albumów dla artystów, którzy opublikowali więcej niż dwa albumy,
-3. wiersze zawierające identyfikator klienta (kolumna `customerid`) i wartość faktur ponad średnią wartość faktur danego klienta (`wartość - średnia`). Zapytanie powinno zwrócić wyłącznie wierwsze gdzie ta różnica jest większa od `0`,
+3. wiersze zawierające identyfikator klienta (kolumna `customerid`) i wartość faktur ponad średnią wartość faktur danego klienta (`wartość - średnia`). Zapytanie powinno zwrócić wyłącznie wiersze gdzie ta różnica jest większa od `0`,
 4. te same wyniki, które zwraca zapytanie poniżej bez użycia klauzuli `JOIN`:
 ```sql
   SELECT name 
@@ -481,4 +481,4 @@ Mam nadzieję, że artykuł przypadł Ci do gustu. Udało Ci się rozwiązać za
 
 Zależy mi na dotarciu do nowych Czytelników, jeśli uważasz, że ten artykuł byłby wartościowy dla kogoś z Twoich znajomych bardzo proszę podziel się z nim odnośnikiem do tego artykułu. Z góry dziękuję!
 
-Jeśli nie chesz ominąć kolejnych artykułów w przyszłości proszę dopisz się do Samouczkowego newslettera i polub Samouczka na Facebook'u. Trzymaj się i do następnego razu!
+Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości proszę dopisz się do Samouczkowego newslettera i polub Samouczka na Facebook'u. Trzymaj się i do następnego razu!
