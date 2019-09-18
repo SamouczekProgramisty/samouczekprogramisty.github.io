@@ -629,6 +629,11 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/struktury-danych-zbior/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/05/07_struktury_danych_zbior_artykul.jpg"},{
+        "title": "Podzapytania SQL",
+        "excerpt":"To jest jeden z artykułów w ramach praktycznego kursu SQL. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w pierwszym artykule kursu. Bardzo mocno Cię do tego zachęcam. Moim zdaniem...","categories": ["Bazy danych","Kurs SQL"],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/podzapytania-sql/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/08/19_podzapytania_sql_artykul.jpg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],

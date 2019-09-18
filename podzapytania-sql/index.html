@@ -1,0 +1,1075 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Podzapytania SQL - Samouczek Programisty</title>
+<meta name="description" content="W tym artykule opisuję podzapytania SQL. Po lekturze tego artykułu będziesz wiedzieć czym są podzapytania, kiedy można je stosować i w jakich miejscach mogą występować. Na przykładach poznasz zapytania skorelowane. Wszystkie omówione przypadki poparłem przykładowymi zapytaniami, które możesz wykonać samodzielnie. Na końcu artykułu czeka na Ciebie zestaw zadań, które pomogą Ci utrwalić zdobytą wiedzę.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Podzapytania SQL">
+<meta property="og:url" content="https://www.samouczekprogramisty.pl/podzapytania-sql/">
+
+
+  <meta property="og:description" content="W tym artykule opisuję podzapytania SQL. Po lekturze tego artykułu będziesz wiedzieć czym są podzapytania, kiedy można je stosować i w jakich miejscach mogą występować. Na przykładach poznasz zapytania skorelowane. Wszystkie omówione przypadki poparłem przykładowymi zapytaniami, które możesz wykonać samodzielnie. Na końcu artykułu czeka na Ciebie zestaw zadań, które pomogą Ci utrwalić zdobytą wiedzę.">
+
+
+
+  <meta property="og:image" content="https://www.samouczekprogramisty.pl/assets/images/2019/08/19_podzapytania_sql_artykul.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-09-18T00:00:00+02:00">
+
+
+
+  <meta property="article:modified_time" content="2019-09-18T00:58:57+02:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.samouczekprogramisty.pl/podzapytania-sql/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "https://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/patronite/" >Patronite</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2019/08/19_podzapytania_sql_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Podzapytania SQL
+
+        
+      </h1>
+      
+        <p class="page__lead">W tym artykule opisuję podzapytania SQL. Po lekturze tego artykułu będziesz wiedzieć czym są podzapytania, kiedy można je stosować i w jakich miejscach mogą występować. Na przykładach poznasz zapytania skorelowane. Wszystkie omówione przypadki poparłem przykładowymi zapytaniami, które możesz wykonać samodzielnie. Na końcu artykułu czeka na Ciebie zestaw zadań, które pomogą Ci utrwalić zdobytą wiedzę.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://pixabay.com/photos/matryoshka-russian-dolls-nesting-970943/">© jackmac34</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Podzapytania SQL</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Podzapytania SQL">
+    <meta itemprop="description" content="W tym artykule opisuję podzapytania SQL. Po lekturze tego artykułu będziesz wiedzieć czym są podzapytania, kiedy można je stosować i w jakich miejscach mogą występować. Na przykładach poznasz zapytania skorelowane. Wszystkie omówione przypadki poparłem przykładowymi zapytaniami, które możesz wykonać samodzielnie. Na końcu artykułu czeka na Ciebie zestaw zadań, które pomogą Ci utrwalić zdobytą wiedzę.">
+    <meta itemprop="datePublished" content="September 18, 2019">
+    <meta itemprop="dateModified" content="September 18, 2019">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#czym-jest-podzapytanie">Czym jest podzapytanie</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#po-co-stosuje-się-podzapytania">Po co stosuje się podzapytania</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#gdzie-może-występować-podzapytanie">Gdzie może występować podzapytanie</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#podzapytanie-wewnątrz-listy-pobieranych-wartości">Podzapytanie wewnątrz listy pobieranych wartości</a></li>
+<li class="toc-entry toc-h3"><a href="#podzapytanie-wewnątrz-klauzuli-from">Podzapytanie wewnątrz klauzuli FROM</a></li>
+<li class="toc-entry toc-h3"><a href="#podzapytania-wewnątrz-klauzuli-where">Podzapytania wewnątrz klauzuli WHERE</a></li>
+<li class="toc-entry toc-h3"><a href="#podzapytania-jako-wyrażenie">Podzapytania jako wyrażenie</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#podzapytania-wewnątrz-klauzuli-order-by">Podzapytania wewnątrz klauzuli ORDER BY</a></li>
+<li class="toc-entry toc-h4"><a href="#podzapytania-wewnątrz-klauzuli-limit">Podzapytania wewnątrz klauzuli LIMIT</a></li>
+<li class="toc-entry toc-h4"><a href="#podzapytania-wewnątrz-klauzuli-having">Podzapytania wewnątrz klauzuli HAVING</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#podzapytania-a-klauzula-join">Podzapytania a klauzula JOIN</a></li>
+<li class="toc-entry toc-h2"><a href="#podzapytania-w-innych-rodzajach-zapytań">Podzapytania w innych rodzajach zapytań</a></li>
+<li class="toc-entry toc-h2"><a href="#dobre-praktyki-przy-używaniu-podzapytań">Dobre praktyki przy używaniu podzapytań</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#podzapytanie-w-podzapytaniu-podzapytania">Podzapytanie w podzapytaniu podzapytania</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#zadania-do-wykonania">Zadania do wykonania</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#przykładowe-rozwiązania-zadań">Przykładowe rozwiązania zadań</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr />
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr />
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        
+<div class="notice--info">
+  
+<p>To jest jeden z artykułów w ramach <a href="https://www.samouczekprogramisty.pl/kurs-sql">praktycznego kursu SQL</a>. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu.</p>
+
+<p>Każde zapytanie z kursu możesz wykonać samodzielnie. Potrzebujesz do tego środowiska opisanego w <a href="/pobieranie-danych-z-bazy-select/">pierwszym artykule kursu</a>. Bardzo mocno Cię do tego zachęcam. Moim zdaniem najwięcej nauczysz się samodzielnie eksperymentując z zapytaniami.</p>
+
+</div>
+
+<h2 id="czym-jest-podzapytanie">Czym jest podzapytanie</h2>
+
+<p>Podzapytanie to zapytanie SQL, które umieszczone jest wewnątrz innego zapytania. Podzapytanie zawsze otoczone jest parą nawiasów <code class="highlighter-rouge">()</code>. Jak zwykle spróbuję pokazać Ci to na przykładzie. Dla przypomnienia, najprostsze zapytanie SQL może wyglądać tak:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Po wykonaniu takiego zapytania otrzymasz pojedynczy wiersz zawierający jedną kolumnę z wartością <code class="highlighter-rouge">1</code>. Teraz trochę skomplikuję to zapytanie:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Efekt działania obu przykładów jest dokładnie taki sam. Drugi przykład używa podzapytania. Główne zapytanie <code class="highlighter-rouge">SELECT * FROM</code> zwraca wszystkie wiersze zwrócone przez podzapytanie <code class="highlighter-rouge">SELECT 1</code>. Przykład, który tu pokazałem jest trochę naciągany, bardziej prawdopodobny przykład może wyglądać następująco:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span>
+  <span class="k">FROM</span> <span class="n">artist</span>
+ <span class="k">WHERE</span> <span class="n">artistid</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">artistid</span>
+                      <span class="k">FROM</span> <span class="n">album</span>
+                  <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">artistid</span>
+                    <span class="k">HAVING</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Ponownie rozbiję to zapytanie na czynniki pierwsze. Proszę zwróć uwagę na podzapytanie:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="k">SELECT</span> <span class="n">artistid</span>
+     <span class="k">FROM</span> <span class="n">album</span>
+ <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">artistid</span>
+   <span class="k">HAVING</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>To zapytanie zwraca listę identyfikatorów płodnych artystów ;). Zapytanie zwraca identyfikatory artystów z tabeli <code class="highlighter-rouge">album</code>, którzy opublikowali więcej niż dziesięć albumów.</p>
+
+<p>W połączeniu z głównym zapytaniem otrzymuję nazwy artystów, którzy opublikowali więcej niż dziesięć albumów.</p>
+
+<h3 id="po-co-stosuje-się-podzapytania">Po co stosuje się podzapytania</h3>
+
+<p>Powtórzę jeszcze raz przykład z poprzedniego punktu:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span>
+  <span class="k">FROM</span> <span class="n">artist</span>
+ <span class="k">WHERE</span> <span class="n">artistid</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">artistid</span>
+                      <span class="k">FROM</span> <span class="n">album</span>
+                  <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">artistid</span>
+                    <span class="k">HAVING</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Czy można osiągnąć ten sam efekt bez podzapytania<sup id="fnref:join"><a href="#fn:join" class="footnote">1</a></sup>? Oczywiście, że można. Jednym ze sposobów jest użycie stałej listy identyfikatorów artystów. Listę tych identyfikatorów zwróci zapytanie:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">artistid</span>
+    <span class="k">FROM</span> <span class="n">album</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">artistid</span>
+  <span class="k">HAVING</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ArtistId  
+----------
+22        
+58        
+90   
+</code></pre></div></div>
+
+<p>Następnie taką listę można użyć w kolejnym zapytaniu:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span>
+  <span class="k">FROM</span> <span class="n">artist</span>
+ <span class="k">WHERE</span> <span class="n">artistid</span> <span class="k">IN</span> <span class="p">[</span><span class="mi">22</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">90</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>Takie podejście ma jednak swoje wady. Jedną z nich jest to, że trzeba wykonać dwa zapytania. Kolejną jest potrzeba modyfikowania drugiego zapytania na podstawie wyników pierwszego. Co więcej taka modyfikacja nie zawsze jest możliwa – co jeśli lista zwróconych identyfikatorów miałaby kilkadziesiąt tysięcy elementów?</p>
+
+<p>Podzapytania mogą mieć wiele zastosowań. Czasami osiągnięcie oczekiwanego efektu nie jest możliwe bez użycia podzapytania. Stosowanie podzapytań czasami może także prowadzić do uproszczenia finalnego zapytania.</p>
+
+<p>Podzapytania mogą mieć różny wpływ na wydajność zapytania. Jeśli wydajność zapytania jest kluczowa sprawdzaj plan zapytania upewniając się czy usunięcie podzapytań mogłoby przyspieszyć jego wykonanie<sup id="fnref:plan"><a href="#fn:plan" class="footnote">2</a></sup>.</p>
+
+<h2 id="gdzie-może-występować-podzapytanie">Gdzie może występować podzapytanie</h2>
+
+<p>Podzapytanie może występować praktycznie wszędzie wewnątrz zapytania SQL. To gdzie podzapytanie może być użyte uzależnione jest od tego ile wartości zwraca. Jeśli podzapytanie zwraca pojedynczą wartość może być użyte jako część wyrażenia – na przykład w porównaniach, czy zwracanych kolumnach.</p>
+
+<p>W przypadku gdy podzapytanie zwraca wiele wartości może być użyte na przykład w porównaniach czy jako tabela źródłowa. Poniższe przykłady powinny wyjaśnić poszczególne przypadki.</p>
+
+<h3 id="podzapytanie-wewnątrz-listy-pobieranych-wartości">Podzapytanie wewnątrz listy pobieranych wartości</h3>
+
+<p>Wyobraź sobie raport, który musisz przygotować. Raport powinien zawierać wszystkie faktury klientów. Poszczególne kolumny powinny pokazywać identyfikator klienta, wartość faktury i globalną średnią wartość faktur. Tego typu problem możesz rozwiązać używając podzapytania:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
+        <span class="p">,</span><span class="n">total</span>
+        <span class="p">,(</span><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+            <span class="k">FROM</span> <span class="n">invoice</span><span class="p">)</span> <span class="k">AS</span> <span class="n">avg_total</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span>
+   <span class="k">LIMIT</span> <span class="mi">14</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>W tym przypadku podzapytanie zwraca pojedynczą wartość – globalną średnią wartość wszystkich faktur:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>avg(total)
+----------------
+5.65194174757282
+</code></pre></div></div>
+
+<p>W połączeniu z zapytaniem głównym zwróci następujące wyniki:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  Total       avg_total
+----------  ----------  ----------------
+1           3.98        5.65194174757282
+1           3.96        5.65194174757282
+1           5.94        5.65194174757282
+1           0.99        5.65194174757282
+1           1.98        5.65194174757282
+1           13.86       5.65194174757282
+1           8.91        5.65194174757282
+2           1.98        5.65194174757282
+2           13.86       5.65194174757282
+2           8.91        5.65194174757282
+2           1.98        5.65194174757282
+2           3.96        5.65194174757282
+2           5.94        5.65194174757282
+2           0.99        5.65194174757282
+</code></pre></div></div>
+
+<p>Okazuje się, że raport nie jest idealny. Lepiej wyglądałoby zestawienie wartości poszczególnych faktur ze średnią faktur dla danego klienta. W tym przypadku podzapytanie musi bazować na kolumnie dostępnej w zapytaniu głównym. Aby móc tego dokonać niezbędne jest używanie <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#aliasy-dla-kolumn">aliasów</a> (w tym przypadku aliasów dla tabel):</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
+        <span class="p">,</span><span class="n">total</span>
+        <span class="p">,(</span><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+            <span class="k">FROM</span> <span class="n">invoice</span> <span class="k">AS</span> <span class="n">subquery_invoice</span>
+           <span class="k">WHERE</span> <span class="n">subquery_invoice</span><span class="p">.</span><span class="n">customerid</span> <span class="o">=</span> <span class="n">query_invoice</span><span class="p">.</span><span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">avg_total</span>
+    <span class="k">FROM</span> <span class="n">invoice</span> <span class="k">AS</span> <span class="n">query_invoice</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span>
+<span class="k">LIMIT</span> <span class="mi">14</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>W tym przypadku podzapytanie nadal zwraca pojedynczą wartość. Jednak tym razem wartość ta zależna jest od identyfikatora klienta znajdującego się w danym wierszu. Dla przykładu wybrałem jeden z identyfikatorów:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span> <span class="k">AS</span> <span class="n">subquery_invoice</span>
+ <span class="k">WHERE</span> <span class="n">subquery_invoice</span><span class="p">.</span><span class="n">customerid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>avg(total)
+----------
+5.66
+</code></pre></div></div>
+
+<p>Zwróć uwagę, że tym razem zapytanie główne zwraca średnią charakterystyczną dla każdego klienta (która jest rożna od średniej dla wszystkich klientów):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  Total       avg_total
+----------  ----------  ----------
+1           3.98        5.66
+1           3.96        5.66
+1           5.94        5.66
+1           0.99        5.66
+1           1.98        5.66
+1           13.86       5.66
+1           8.91        5.66
+2           1.98        5.37428571
+2           13.86       5.37428571
+2           8.91        5.37428571
+2           1.98        5.37428571
+2           3.96        5.37428571
+2           5.94        5.37428571
+2           0.99        5.37428571
+</code></pre></div></div>
+
+<p>Drugi przypadek pokazuje tak zwane podzapytanie powiązane<sup id="fnref:skorelowane"><a href="#fn:skorelowane" class="footnote">3</a></sup>. To podzapytanie powiązane jest z zapytaniem głównym. W odróżnieniu od pierwszego przypadku musi zostać wykonane wiele razy. Średnia użyta w pierwszym przypadku może być obliczona dokładnie raz dla uzyskania poprawnego wyniku.</p>
+
+<h3 id="podzapytanie-wewnątrz-klauzuli-from">Podzapytanie wewnątrz klauzuli <code class="highlighter-rouge">FROM</code></h3>
+
+<p>Wyniki podzapytania użytego wewnątrz klauzuli <code class="highlighter-rouge">FROM</code> traktowane są jakby były tabelą. Dlatego w tym przypadku podzapytanie może zwrócić wiele wartości. Kolumny użyte w podzapytaniu stają się kolumnami „tabeli” i mogą być użyte w zapytaniu głównym.</p>
+
+<p>Proszę spójrz na przykład:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">customer_total</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total</span>
+          <span class="k">FROM</span> <span class="n">invoice</span>
+      <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Ponownie zacznę od analizy podzapytania:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Podzapytanie sumuje wszystkie poszczególnych klientów. Zwraca dokładnie tyle wierszy ile jest wartości kolumny <code class="highlighter-rouge">customerid</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>customer_total
+--------------
+39.62
+37.62
+39.62
+39.62
+40.62
+…
+</code></pre></div></div>
+
+<p>Następnie taki wynik użyty jest do policzenia średniej z wszystkich sum. Ostatecznym wynikiem zapytania jest liczba pokazująca średnią sumę zamówień wszystkich klientów:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>avg(customer_total)
+-------------------
+39.4677966101694
+</code></pre></div></div>
+
+<p>Podzapytania tego typu mogą być użyte w bardziej skomplikowanych zapytaniach. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">invoiceid</span>
+      <span class="p">,</span><span class="n">total</span>
+      <span class="p">,</span><span class="n">invoice</span><span class="p">.</span><span class="n">billingstate</span>
+      <span class="p">,</span><span class="n">billingstate_avg</span><span class="p">.</span><span class="n">state_avg</span>
+  <span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">billingstate</span>
+              <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">state_avg</span>
+          <span class="k">FROM</span> <span class="n">invoice</span>
+      <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">billingstate</span><span class="p">)</span> <span class="k">AS</span> <span class="n">billingstate_avg</span> <span class="k">JOIN</span> <span class="n">invoice</span>
+                                                 <span class="k">ON</span> <span class="n">billingstate_avg</span><span class="p">.</span><span class="n">billingstate</span> <span class="o">=</span> <span class="n">invoice</span><span class="p">.</span><span class="n">billingstate</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Analizę ponownie zacznę od podzapytania:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">billingstate</span>
+        <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">state_avg</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">billingstate</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Podzapytanie używa <a href="/funkcje-i-grupowanie-wierszy-w-sql/">klauzuli <code class="highlighter-rouge">GROUP BY</code></a> żeby zwrócić średnią wartość zamówienia dla każdego stanu:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BillingState  state_avg
+------------  ---------------
+              5.6930693069307
+AB            5.3742857142857
+AZ            5.3742857142857
+BC            5.5171428571428
+CA            5.5171428571428
+…
+</code></pre></div></div>
+
+<p>Następnie takie wyniki, używając <a href="/klauzula-join-w-zapytaniach-sql/">klauzuli <code class="highlighter-rouge">JOIN</code></a>, złączone są z tabelą <code class="highlighter-rouge">invoice</code>. Kolumną używaną do złączenia jest <code class="highlighter-rouge">billingstate</code>. Wynikiem jest zbiór wierszy zawierający faktury, które mają uzupełnioną kolumnę <code class="highlighter-rouge">billingstate</code> (efekt złączenia). Każda taka faktura zestawiona jest później ze średnią obowiązującą w danym stanie:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>InvoiceId   Total       BillingState  state_avg
+----------  ----------  ------------  ----------------
+4           8.91        AB            5.37428571428571
+5           13.86       MA            5.37428571428571
+10          5.94        Dublin        6.51714285714286
+13          0.99        CA            5.51714285714286
+14          1.98        WA            5.66
+…
+</code></pre></div></div>
+
+<h3 id="podzapytania-wewnątrz-klauzuli-where">Podzapytania wewnątrz klauzuli <code class="highlighter-rouge">WHERE</code></h3>
+
+<p>Podzapytanie może być także użyte do filtrowania wyników głównego zapytania. Przykład poniżej pokazuje takie zapytanie:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">trackid</span>
+      <span class="p">,</span><span class="n">name</span>
+      <span class="p">,</span><span class="n">milliseconds</span>
+  <span class="k">FROM</span> <span class="n">track</span>
+ <span class="k">WHERE</span> <span class="n">milliseconds</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="mi">10</span> <span class="o">*</span> <span class="k">MIN</span><span class="p">(</span><span class="n">milliseconds</span><span class="p">)</span>
+                         <span class="k">FROM</span> <span class="n">track</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>W tym przypadku podzapytanie zwraca dziesięciokrotność długości najkrótszej ścieżki:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="mi">10</span> <span class="o">*</span> <span class="k">MIN</span><span class="p">(</span><span class="n">milliseconds</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">track</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10 * min(milliseconds)
+----------------------
+10710
+</code></pre></div></div>
+
+<p>Następnie ten wynik użyty jest do zwrócenia ścieżek, które są krótsze od tej wartości:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TrackId     Name        Milliseconds
+----------  ----------  ------------
+168         Now Sports  4884        
+170         A Statisti  6373        
+178         Oprah       6635        
+2461        É Uma Part  1071        
+3304        Commercial  7941   
+</code></pre></div></div>
+
+<p>Możliwe jest także używanie podzapytań zwracających wiele wartości. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">trackid</span>
+      <span class="p">,</span><span class="n">name</span>
+  <span class="k">FROM</span> <span class="n">track</span>
+ <span class="k">WHERE</span> <span class="n">mediatypeid</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">mediatypeid</span>
+                         <span class="k">FROM</span> <span class="n">mediatype</span>
+                        <span class="k">WHERE</span> <span class="n">name</span> <span class="k">LIKE</span> <span class="s1">'%AAC%'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>W tym przypadku podzapytanie zwraca listę identyfikatorów typów których nazwa pasuje do wyrażenia <code class="highlighter-rouge">'%AAC%'</code>. Następnie te identyfikatory użyte są do odfiltrowania ścieżek, które mają odpowiednią wartość kolumny <code class="highlighter-rouge">mediatypeid</code>. Innymi słowy zapytanie zwraca ścieżki, które są w formacie pasującym do <code class="highlighter-rouge">'%AAC%'</code>.</p>
+
+<p>Wyżej wspomniałem już o zapytaniach powiązanych. Musisz wiedzieć, że podzapytania powiązane mogą wystąpić także w innych miejscach. Poniżej pokazuję Ci przykład takiego podzapytania występującego w <a href="/klauzula-where-w-zapytaniach-sql/">klauzuli <code class="highlighter-rouge">WHERE</code></a>:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">albumid</span>
+      <span class="p">,</span><span class="n">name</span>
+      <span class="p">,</span><span class="n">milliseconds</span>
+  <span class="k">FROM</span> <span class="n">track</span> <span class="k">AS</span> <span class="n">outer_track</span> 
+ <span class="k">WHERE</span> <span class="n">milliseconds</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">milliseconds</span><span class="p">)</span>
+                         <span class="k">FROM</span> <span class="n">track</span> <span class="k">AS</span> <span class="n">inner_track</span>
+                        <span class="k">WHERE</span> <span class="n">inner_track</span><span class="p">.</span><span class="n">albumid</span> <span class="o">=</span> <span class="n">outer_track</span><span class="p">.</span><span class="n">albumid</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>W tym przypadku podzapytanie zwraca średnią długość ścieżki dla każdego albumu. Następnie wartość ta użyta jest w głównym zapytaniu. Pozwala ona zwrócić wyłącznie te wiersze, które dotyczą ścieżek o długości krótszej niż średnia z ich albumu.</p>
+
+<h3 id="podzapytania-jako-wyrażenie">Podzapytania jako wyrażenie</h3>
+
+<p>Podzapytania zwracające pojedynczą wartość mogą traktowane być jako wyrażenie. W związku z tym mogą wystąpić w innych miejscach zapytania SQL. Kilka zapytań tego typu omówiłem dokładnie w poprzednich podpunktach.</p>
+
+<p>Poniżej pokazuję kilka przykładów obrazujących użycie podzapytań w innych miejscach zapytania SQL.</p>
+
+<h4 id="podzapytania-wewnątrz-klauzuli-order-by">Podzapytania wewnątrz klauzuli <code class="highlighter-rouge">ORDER BY</code></h4>
+
+<p>Dziwne, ale poprawne sortowanie:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="o">*</span>
+    <span class="k">FROM</span> <span class="n">artist</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">albumid</span><span class="p">)</span>
+            <span class="k">FROM</span> <span class="n">album</span>
+           <span class="k">WHERE</span> <span class="n">artist</span><span class="p">.</span><span class="n">artistid</span> <span class="o">=</span> <span class="n">album</span><span class="p">.</span><span class="n">artistid</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="podzapytania-wewnątrz-klauzuli-limit">Podzapytania wewnątrz klauzuli <code class="highlighter-rouge">LIMIT</code></h4>
+
+<p>Ponownie dziwne, ale poprawne ograniczanie liczby wierszy:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">album</span> <span class="k">LIMIT</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+                             <span class="k">FROM</span> <span class="n">artist</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="podzapytania-wewnątrz-klauzuli-having">Podzapytania wewnątrz klauzuli <code class="highlighter-rouge">HAVING</code></h4>
+
+<p>Tym razem podzapytanie zostało użyte do zwrócenia wierszy, dla których suma jest większa niż suma w jednym ze stanów:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">sum_total</span>
+    <span class="k">FROM</span> <span class="n">invoice</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">customerid</span>
+  <span class="k">HAVING</span> <span class="n">sum_total</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+                        <span class="k">FROM</span> <span class="n">invoice</span>
+                       <span class="k">WHERE</span> <span class="n">billingstate</span> <span class="o">=</span> <span class="s1">'WA'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="podzapytania-a-klauzula-join">Podzapytania a klauzula <code class="highlighter-rouge">JOIN</code></h2>
+
+<p>Często istnieje wiele sposobów na uzyskanie tych samych wyników. W przypadku niektórych podzapytań możliwe jest ich zastąpienie odpowiednimi złączeniami. Poprawne użycie <a href="/klauzula-join-w-zapytaniach-sql/">klauzuli <code class="highlighter-rouge">JOIN</code></a> może pomóc w usunięciu niechcianego podzapytania.</p>
+
+<h2 id="podzapytania-w-innych-rodzajach-zapytań">Podzapytania w innych rodzajach zapytań</h2>
+
+<p>Do tej pory w ramach <a href="/kurs-sql/">kursu SQL</a> omawiałem wyłącznie <a href="/pobieranie-danych-z-bazy-select/">zapytania typu <code class="highlighter-rouge">SELECT</code></a>. W języku SQL istnieją także inne rodzaje zapytań. Musisz wiedzieć, że także w zapytaniach typu <code class="highlighter-rouge">UPDATE</code> czy <code class="highlighter-rouge">DELETE</code> możesz spodziewać się użycia podzapytań.</p>
+
+<h2 id="dobre-praktyki-przy-używaniu-podzapytań">Dobre praktyki przy używaniu podzapytań</h2>
+
+<p>To, że coś jest możliwe, wcale nie znaczy, że powinno być używane. Zapytania SQL szybko mogą stać się mało czytelne. Przez co będą trudne w zrozumieniu i późniejszym utrzymaniu. Jeśli podzapytanie wprowadza niepotrzebne zamieszanie postaraj się rozwiązać problem inaczej – czasami jest to możliwe na przykład przy użyciu <a href="/klauzula-join-w-zapytaniach-sql/">klauzuli <code class="highlighter-rouge">JOIN</code></a>.</p>
+
+<p>Ta sama klauzula może także pomóc w optymalizowaniu zapytania zawierającego podzapytania. Dobrą praktyką jest porównanie planu wykonania obu wersji zapytania. Plan zapytania możesz sprawdzić używając <code class="highlighter-rouge">EXPLAIN &lt;zapytanie sql&gt;</code>.</p>
+<h3 id="podzapytanie-w-podzapytaniu-podzapytania">Podzapytanie w podzapytaniu podzapytania</h3>
+
+<p>Podzapytania to twory, które mogą być zagnieżdżone. W zależności od silnika bazy danych limit zagnieżdżonych podzapytań może być różny. Mimo tego, że takie konstrukcje są możliwe, w codziennej pracy nie spotkałem się za podzapytaniami zagnieżdżonymi więcej niż dwa poziomy.</p>
+
+<p>Nadmierne zagnieżdżanie podzapytań nie jest dobrą praktyką. Takie łańcuszki nie poprawiają czytelności zapytania. Dodatkowo powoduje problemy z jego utrzymaniem. Jeśli musisz stosować więcej niż jeden, dwa poziomy zagnieżdżenia zastanów się czy nie można rozwiązać tego problemu inaczej.</p>
+
+<h2 id="zadania-do-wykonania">Zadania do wykonania</h2>
+
+<p>Poniżej przygotowałem dla Ciebie zestaw kilku zadań, które pozwolą Ci sprawdzić wiedzę dotyczącą podzapytań w praktyce. Zanim zerkniesz do przykładowego rozwiązania zachęcam się do samodzielnej próby rozwiązania zadań – w ten sposób nauczysz się najwięcej.</p>
+
+<p>Napisz zapytanie używając podzapytań, które zwróci:</p>
+
+<ol>
+  <li>sumaryczną wartość (kolumna <code class="highlighter-rouge">total</code>) faktur (tabela <code class="highlighter-rouge">invoice</code>), których kwota jest powyżej średniej wartości wszystkich faktur,</li>
+  <li>średnią liczbę albumów (tabela <code class="highlighter-rouge">album</code>) dla artystów, którzy opublikowali więcej niż dwa albumy,</li>
+  <li>wiersze zawierające identyfikator klienta (kolumna <code class="highlighter-rouge">customerid</code>) i wartość faktur ponad średnią wartość faktur danego klienta (<code class="highlighter-rouge">wartość - średnia</code>). Zapytanie powinno zwrócić wyłącznie wiersze gdzie ta różnica jest większa od <code class="highlighter-rouge">0</code>,</li>
+  <li>te same wyniki, które zwraca zapytanie poniżej bez użycia klauzuli <code class="highlighter-rouge">JOIN</code>:
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">name</span> 
+ <span class="k">FROM</span> <span class="n">artist</span> <span class="k">JOIN</span> <span class="n">album</span>
+             <span class="k">ON</span> <span class="n">artist</span><span class="p">.</span><span class="n">artistid</span> <span class="o">=</span> <span class="n">album</span><span class="p">.</span><span class="n">artistid</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">name</span>
+  <span class="k">HAVING</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>te same wyniki, które zwraca zapytanie poniżej bez użycia klauzuli <code class="highlighter-rouge">JOIN</code>:
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">invoiceid</span>
+   <span class="p">,</span><span class="n">total</span>
+   <span class="p">,</span><span class="n">invoice</span><span class="p">.</span><span class="n">billingstate</span>
+   <span class="p">,</span><span class="n">billingstate_avg</span><span class="p">.</span><span class="n">state_avg</span>
+  <span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">billingstate</span>
+           <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">state_avg</span>
+       <span class="k">FROM</span> <span class="n">invoice</span>
+   <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">billingstate</span><span class="p">)</span> <span class="k">AS</span> <span class="n">billingstate_avg</span> <span class="k">JOIN</span> <span class="n">invoice</span>
+                                              <span class="k">ON</span> <span class="n">billingstate_avg</span><span class="p">.</span><span class="n">billingstate</span> <span class="o">=</span> <span class="n">invoice</span><span class="p">.</span><span class="n">billingstate</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="przykładowe-rozwiązania-zadań">Przykładowe rozwiązania zadań</h3>
+<p>1.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span>
+ <span class="k">WHERE</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+                  <span class="k">FROM</span> <span class="n">invoice</span><span class="p">);</span>
+</code></pre></div></div>
+<p>2.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">how_many</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">how_many</span>
+          <span class="k">FROM</span> <span class="n">album</span>
+      <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">artistid</span>
+        <span class="k">HAVING</span> <span class="n">how_many</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+<p>3.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">customerid</span>
+      <span class="p">,(</span><span class="n">total</span> <span class="o">-</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+                   <span class="k">FROM</span> <span class="n">invoice</span> <span class="k">AS</span> <span class="n">i2</span>
+                  <span class="k">WHERE</span> <span class="n">i1</span><span class="p">.</span><span class="n">customerid</span> <span class="o">=</span> <span class="n">i2</span><span class="p">.</span><span class="n">customerid</span><span class="p">))</span> <span class="k">AS</span> <span class="n">above_average</span>
+  <span class="k">FROM</span> <span class="n">invoice</span> <span class="k">AS</span> <span class="n">i1</span>
+ <span class="k">WHERE</span> <span class="n">above_average</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+</code></pre></div></div>
+<p>4.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span>
+  <span class="k">FROM</span> <span class="n">artist</span>
+ <span class="k">WHERE</span> <span class="n">artistid</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">artistid</span>
+                      <span class="k">FROM</span> <span class="n">album</span>
+                  <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">artistid</span>
+                    <span class="k">HAVING</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div></div>
+<p>5.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">invoiceid</span>
+      <span class="p">,</span><span class="n">total</span>
+      <span class="p">,</span><span class="n">billingstate</span>
+      <span class="p">,(</span><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">state_avg</span>
+          <span class="k">FROM</span> <span class="n">invoice</span>
+         <span class="k">WHERE</span> <span class="n">billingstate</span> <span class="o">=</span> <span class="k">outer</span><span class="p">.</span><span class="n">billingstate</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">invoice</span> <span class="k">AS</span> <span class="k">outer</span>
+ <span class="k">WHERE</span> <span class="n">billingstate</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po lekturze artykułu wiesz już czym są podzapytania. Wiesz doskonale gdzie można ich używać. Udało Ci się także poznać kilka dobrych praktyk dotyczących używania podzapytań. Po samodzielnym rozwiązaniu zadań możesz śmiało powiedzieć, że potrafisz posługiwać się podzapytaniami.</p>
+
+<p>Artykuł ten zamyka część kursu poświęconą zapytaniom typu <code class="highlighter-rouge">SELECT</code>. W kolejnych częściach kursu poznasz pozostałe elementy języka SQL niezbędne do codziennej pracy.</p>
+
+<p>Mam nadzieję, że artykuł przypadł Ci do gustu. Udało Ci się rozwiązać zadania? Podziel się swoimi rozwiązaniami! Spojrzenie na ten sam problem z innego punktu widzenia pozwoli wszystkim na nauczenie się jeszcze więcej.</p>
+
+<p>Zależy mi na dotarciu do nowych Czytelników, jeśli uważasz, że ten artykuł byłby wartościowy dla kogoś z Twoich znajomych bardzo proszę podziel się z nim odnośnikiem do tego artykułu. Z góry dziękuję!</p>
+
+<p>Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości proszę dopisz się do Samouczkowego newslettera i polub Samouczka na Facebook’u. Trzymaj się i do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:join">
+      <p>Dla uproszenia pominę tu możliwość użycia klauzuli <code class="highlighter-rouge">JOIN</code>. <a href="#fnref:join" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:plan">
+      <p>Możliwe, że silnik bazy danych, której używasz użyje dokładnie takiego samego planu zapytania zarówno przy użyciu podzapytań jak i klauzuli <code class="highlighter-rouge">JOIN</code>. <a href="#fnref:plan" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:skorelowane">
+      <p>Czasami nazywa się je także zapytaniami skorelowanymi. <a href="#fnref:skorelowane" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 2896 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#bazy-danych" class="page__taxonomy-item" rel="tag">Bazy danych</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/kategorie/#kurs-sql" class="page__taxonomy-item" rel="tag">Kurs SQL</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-09-18">2019-09-18</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+        <hr />
+        <p>
+          Nie popełnia błędów tylko ten, kto nic nie robi ;). Bardzo możliwe, że znajdziesz błąd, literówkę, coś co wymaga poprawy. Jeśli chcesz możesz samodzielnie 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/edit/source/_posts/2019-09-18-podzapytania-sql.md">poprawić tę stronę</a>. Jeśli nie chcesz poprawiać błędu, który udało Ci się znaleźć będę wdzięczny jeśli go 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/issues/new?title=Błąd%20na%20stronie:%20_posts/2019-09-18-podzapytania-sql.md">zgłosisz</a>. Z góry dziękuję!
+        </p>
+      </footer>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/09/04_sortowanie_aliasy_distinct_sql.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/" rel="permalink">Sortowanie, aliasy, ograniczanie wyników i zwracanie unikalnych wartości
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą DISTINCT, AS czy UNION. Poznasz także sposoby na...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/10/20_funkcje_i_grupowanie_wierszy_w_sql.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/funkcje-i-grupowanie-wierszy-w-sql/" rel="permalink">Funkcje i grupowanie wierszy w SQL
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje podstawowe funkcje używane w zapytaniach SQL. Omawia także mechanizm grupowania. Po lekturze tego artykułu będziesz wiedzieć jak używać k...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/06/28_pobieranie_danych_z_bazy_select_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pobieranie-danych-z-bazy-select/" rel="permalink">Pobieranie danych z bazy – SELECT
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest język SQL. Dowiesz się jak wy...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/07/13_klauzula_where_w_zapytaniach_sql_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/klauzula-where-w-zapytaniach-sql/" rel="permalink">Klauzula WHERE w zapytaniach SQL
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o możliwościach klauzuli WHERE. Na praktycznych przykładach pokażę Ci jak filtrować dane w zapytaniach SQL. Także na przykładzie p...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="https://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/polityka-prywatnosci/">Polityka prywatności</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.samouczekprogramisty.pl/podzapytania-sql/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>
