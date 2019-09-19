@@ -35,7 +35,7 @@
 
 
 
-  <meta property="article:modified_time" content="2019-09-18T00:58:57+02:00">
+  <meta property="article:modified_time" content="2019-09-19T10:11:50+02:00">
 
 
 
@@ -231,7 +231,7 @@
     <meta itemprop="headline" content="Podzapytania SQL">
     <meta itemprop="description" content="W tym artykule opisuję podzapytania SQL. Po lekturze tego artykułu będziesz wiedzieć czym są podzapytania, kiedy można je stosować i w jakich miejscach mogą występować. Na przykładach poznasz zapytania skorelowane. Wszystkie omówione przypadki poparłem przykładowymi zapytaniami, które możesz wykonać samodzielnie. Na końcu artykułu czeka na Ciebie zestaw zadań, które pomogą Ci utrwalić zdobytą wiedzę.">
     <meta itemprop="datePublished" content="September 18, 2019">
-    <meta itemprop="dateModified" content="September 18, 2019">
+    <meta itemprop="dateModified" content="September 19, 2019">
 
     <div class="page__inner-wrap">
       
@@ -249,6 +249,7 @@
                 <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#czym-jest-podzapytanie">Czym jest podzapytanie</a>
 <ul>
+<li class="toc-entry toc-h3"><a href="#podzapytania-skorelowane">Podzapytania skorelowane</a></li>
 <li class="toc-entry toc-h3"><a href="#po-co-stosuje-się-podzapytania">Po co stosuje się podzapytania</a></li>
 </ul>
 </li>
@@ -256,7 +257,12 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#podzapytanie-wewnątrz-listy-pobieranych-wartości">Podzapytanie wewnątrz listy pobieranych wartości</a></li>
 <li class="toc-entry toc-h3"><a href="#podzapytanie-wewnątrz-klauzuli-from">Podzapytanie wewnątrz klauzuli FROM</a></li>
-<li class="toc-entry toc-h3"><a href="#podzapytania-wewnątrz-klauzuli-where">Podzapytania wewnątrz klauzuli WHERE</a></li>
+<li class="toc-entry toc-h3"><a href="#podzapytania-wewnątrz-klauzuli-where">Podzapytania wewnątrz klauzuli WHERE</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#operator-exists">Operator EXISTS</a></li>
+<li class="toc-entry toc-h4"><a href="#operatory-all-i-any">Operatory ALL i ANY</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h3"><a href="#podzapytania-jako-wyrażenie">Podzapytania jako wyrażenie</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#podzapytania-wewnątrz-klauzuli-order-by">Podzapytania wewnątrz klauzuli ORDER BY</a></li>
@@ -302,7 +308,7 @@
 
 <h2 id="czym-jest-podzapytanie">Czym jest podzapytanie</h2>
 
-<p>Podzapytanie to zapytanie SQL, które umieszczone jest wewnątrz innego zapytania. Podzapytanie zawsze otoczone jest parą nawiasów <code class="highlighter-rouge">()</code>. Jak zwykle spróbuję pokazać Ci to na przykładzie. Dla przypomnienia, najprostsze zapytanie SQL może wyglądać tak:</p>
+<p>Podzapytanie to zapytanie SQL, które umieszczone jest wewnątrz innego zapytania. Podzapytanie zawsze otoczone jest parą nawiasów <code class="highlighter-rouge">()</code>. Jak zwykle spróbuję pokazać to na przykładzie. Dla przypomnienia, najprostsze zapytanie SQL może wyglądać tak:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="mi">1</span><span class="p">;</span>
 </code></pre></div></div>
@@ -334,6 +340,30 @@
 <p>To zapytanie zwraca listę identyfikatorów płodnych artystów ;). Zapytanie zwraca identyfikatory artystów z tabeli <code class="highlighter-rouge">album</code>, którzy opublikowali więcej niż dziesięć albumów.</p>
 
 <p>W połączeniu z głównym zapytaniem otrzymuję nazwy artystów, którzy opublikowali więcej niż dziesięć albumów.</p>
+
+<h3 id="podzapytania-skorelowane">Podzapytania skorelowane</h3>
+
+<p>Poprzedni przykład pokazywał „zwykłe” podzapytania. Istnieją jeszcze tak zwane podzapytania skorelowane. Czasami nazywa się je także zapytaniami powiązanymi. Od zwykłych różnią się one tym, że są powiązane z nadrzędnym zapytaniem. Spróbuję wyjaśnić to na przykładzie:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">trackid</span>
+      <span class="p">,</span><span class="n">albumid</span>
+      <span class="p">,</span><span class="n">name</span>
+  <span class="k">FROM</span> <span class="n">track</span> <span class="k">AS</span> <span class="n">outer_track</span>
+ <span class="k">WHERE</span> <span class="n">milliseconds</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="mi">10</span> <span class="o">*</span> <span class="k">MIN</span><span class="p">(</span><span class="n">milliseconds</span><span class="p">)</span>
+                         <span class="k">FROM</span> <span class="n">track</span> <span class="k">AS</span> <span class="n">inner_track</span>
+                        <span class="k">WHERE</span> <span class="n">inner_track</span><span class="p">.</span><span class="n">albumid</span> <span class="o">=</span> <span class="n">outer_track</span><span class="p">.</span><span class="n">albumid</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>To zapytanie zwraca identyfikator utworu, identyfikator albumu i tytuł utworu z tabeli <code class="highlighter-rouge">track</code>. Zwraca wyłącznie takie utwory, które są dziesięć razy dłuższe niż najkrótszy utwór z tego samego albumu. W tym przypadku podzapytanie używa dokładnie tej samej tabeli. Żeby móc odróżnić tabelę <code class="highlighter-rouge">track</code> z zapytania wewnętrznego, od tej samej tabeli w zapytaniu zewnętrznym używam aliasów – słowa kluczowego <code class="highlighter-rouge">AS</code>.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="mi">10</span> <span class="o">*</span> <span class="k">MIN</span><span class="p">(</span><span class="n">milliseconds</span><span class="p">)</span>
+  <span class="k">FROM</span> <span class="n">track</span> <span class="k">AS</span> <span class="n">inner_track</span>
+ <span class="k">WHERE</span> <span class="n">inner_track</span><span class="p">.</span><span class="n">albumid</span> <span class="o">=</span> <span class="n">outer_track</span><span class="p">.</span><span class="n">albumid</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Do tej pory w kursie posługiwałem się wyłącznie <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#aliasy-dla-kolumn">aliasami kolumn</a>, jak widzisz istnieje także możliwość nadania aliasu tabelom.</p>
+
+<p>Zapytania skorelowane nie są możliwe do wykonania bez dostępu do zapytania nadrzędnego. W tym przypadku zapytanie nie może być wykonane samodzielnie dlatego, że nie wie czym jest tabela <code class="highlighter-rouge">outer_track</code>.</p>
 
 <h3 id="po-co-stosuje-się-podzapytania">Po co stosuje się podzapytania</h3>
 
@@ -469,7 +499,7 @@
 2           0.99        5.37428571
 </code></pre></div></div>
 
-<p>Drugi przypadek pokazuje tak zwane podzapytanie powiązane<sup id="fnref:skorelowane"><a href="#fn:skorelowane" class="footnote">3</a></sup>. To podzapytanie powiązane jest z zapytaniem głównym. W odróżnieniu od pierwszego przypadku musi zostać wykonane wiele razy. Średnia użyta w pierwszym przypadku może być obliczona dokładnie raz dla uzyskania poprawnego wyniku.</p>
+<p>Drugi przypadek pokazuje podzapytanie skorelowane. To podzapytanie powiązane jest z zapytaniem głównym. W odróżnieniu od pierwszego przypadku musi zostać wykonane wiele razy. Średnia użyta w pierwszym przypadku może być obliczona dokładnie raz dla uzyskania poprawnego wyniku.</p>
 
 <h3 id="podzapytanie-wewnątrz-klauzuli-from">Podzapytanie wewnątrz klauzuli <code class="highlighter-rouge">FROM</code></h3>
 
@@ -612,6 +642,43 @@ CA            5.5171428571428
 </code></pre></div></div>
 
 <p>W tym przypadku podzapytanie zwraca średnią długość ścieżki dla każdego albumu. Następnie wartość ta użyta jest w głównym zapytaniu. Pozwala ona zwrócić wyłącznie te wiersze, które dotyczą ścieżek o długości krótszej niż średnia z ich albumu.</p>
+
+<h4 id="operator-exists">Operator <code class="highlighter-rouge">EXISTS</code></h4>
+
+<p>W artykule dotyczącym <a href="/klauzula-where-w-zapytaniach-sql/">klauzuli <code class="highlighter-rouge">WHERE</code></a> pominąłem między innymi możliwość użycia operatora <code class="highlighter-rouge">EXISTS</code>. Operator <code class="highlighter-rouge">EXISTS</code> powoduje, że zwrócone są wyłącznie te wiersze, dla których podzapytanie zwróci co najmniej jeden wiersz. Proszę spójrz na przykład:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">employee</span> <span class="k">AS</span> <span class="n">outer_employee</span>
+ <span class="k">WHERE</span> <span class="k">EXISTS</span> <span class="p">(</span><span class="k">SELECT</span> <span class="o">*</span>
+                 <span class="k">FROM</span> <span class="n">employee</span> <span class="k">AS</span> <span class="n">inner_empolyee</span>
+                <span class="k">WHERE</span> <span class="n">inner_employee</span><span class="p">.</span><span class="n">reportsto</span> <span class="o">=</span> <span class="n">outer_employee</span><span class="p">.</span><span class="n">employeeid</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>W tym przypadku skorelowane podzapytanie zwraca wiersze, które połączone są relacją szef-podwładny. Wiersze, które zawierają pracowników nie posiadających podwładnych są pominięte. Dzieje się tak dlatego, że podzapytanie w ich przypadku nie zwróci ani jednego wiersza.</p>
+
+<h4 id="operatory-all-i-any">Operatory <code class="highlighter-rouge">ALL</code> i <code class="highlighter-rouge">ANY</code></h4>
+
+<p class="notice--warning">Operatory <code class="highlighter-rouge">ALL</code> i <code class="highlighter-rouge">ANY</code> nie są obsługiwane przez bazę SQLite.</p>
+
+<p>Operatory <code class="highlighter-rouge">ALL</code> i <code class="highlighter-rouge">ANY</code> używa się w połączeniu z <a href="/klauzula-where-w-zapytaniach-sql/#-----">operatorami porównania z klauzuli <code class="highlighter-rouge">WHERE</code></a>.</p>
+
+<p>Na przykład wyrażenie <code class="highlighter-rouge">kolumna &gt; ALL (podzapytanie)</code> oznacza, że kolumna musi mieć większą wartość niż wszystkie wartości zwrócone przez podzapytanie.</p>
+
+<p>Analogicznie <code class="highlighter-rouge">kolumna &lt;= ANY (podzapytanie)</code> oznacza, że kolumna musi mieć wartość mniejszą bądź równą którejkolwiek z wartości zwróconych przez podzapytanie.</p>
+
+<p>Chociaż SQLite nie wspiera tych operatorów identyczne zachowanie można uzyskać stosując <a href="/funkcje-i-grupowanie-wierszy-w-sql/#funkcje-grupując">funkcje <code class="highlighter-rouge">MIN</code> albo <code class="highlighter-rouge">MAX</code></a>. Dla przykładu dwa poniższe zapytania dałyby te same wyniki:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">track</span>
+ <span class="k">WHERE</span> <span class="n">milliseconds</span> <span class="o">&lt;</span> <span class="k">ALL</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">milliseconds</span>
+                             <span class="k">FROM</span> <span class="n">track</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
+  <span class="k">FROM</span> <span class="n">track</span>
+ <span class="k">WHERE</span> <span class="n">milliseconds</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">milliseconds</span><span class="p">)</span>
+                         <span class="k">FROM</span> <span class="n">track</span><span class="p">);</span>
+</code></pre></div></div>
 
 <h3 id="podzapytania-jako-wyrażenie">Podzapytania jako wyrażenie</h3>
 
@@ -762,9 +829,6 @@ CA            5.5171428571428
     <li id="fn:plan">
       <p>Możliwe, że silnik bazy danych, której używasz użyje dokładnie takiego samego planu zapytania zarówno przy użyciu podzapytań jak i klauzuli <code class="highlighter-rouge">JOIN</code>. <a href="#fnref:plan" class="reversefootnote">&#8617;</a></p>
     </li>
-    <li id="fn:skorelowane">
-      <p>Czasami nazywa się je także zapytaniami skorelowanymi. <a href="#fnref:skorelowane" class="reversefootnote">&#8617;</a></p>
-    </li>
   </ol>
 </div>
 
@@ -813,7 +877,7 @@ CA            5.5171428571428
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-09-18">2019-09-18</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-09-19">2019-09-19</time></p>
         
         <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
         <hr />
@@ -886,40 +950,6 @@ CA            5.5171428571428
       <div class="archive__item-teaser">
         <img src=
           
-            "/assets/images/2018/10/20_funkcje_i_grupowanie_wierszy_w_sql.jpeg"
-          
-          alt="">
-      </div>
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/funkcje-i-grupowanie-wierszy-w-sql/" rel="permalink">Funkcje i grupowanie wierszy w SQL
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  8 minut(y)
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje podstawowe funkcje używane w zapytaniach SQL. Omawia także mechanizm grupowania. Po lekturze tego artykułu będziesz wiedzieć jak używać k...</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-      <div class="archive__item-teaser">
-        <img src=
-          
             "/assets/images/2018/06/28_pobieranie_danych_z_bazy_select_artykul.jpeg"
           
           alt="">
@@ -941,6 +971,40 @@ CA            5.5171428571428
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest język SQL. Dowiesz się jak wy...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2018/10/20_funkcje_i_grupowanie_wierszy_w_sql.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/funkcje-i-grupowanie-wierszy-w-sql/" rel="permalink">Funkcje i grupowanie wierszy w SQL
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje podstawowe funkcje używane w zapytaniach SQL. Omawia także mechanizm grupowania. Po lekturze tego artykułu będziesz wiedzieć jak używać k...</p>
   </article>
 </div>
         
