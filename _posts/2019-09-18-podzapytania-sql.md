@@ -16,7 +16,7 @@ excerpt: W tym artykule opisuję podzapytania SQL. Po lekturze tego artykułu b�
 
 ## Czym jest podzapytanie
 
-Podzapytanie to zapytanie SQL, które umieszczone jest wewnątrz innego zapytania. Podzapytanie zawsze otoczone jest parą nawiasów `()`. Jak zwykle spróbuję pokazać Ci to na przykładzie. Dla przypomnienia, najprostsze zapytanie SQL może wyglądać tak:
+Podzapytanie to zapytanie SQL, które umieszczone jest wewnątrz innego zapytania. Podzapytanie zawsze otoczone jest parą nawiasów `()`. Jak zwykle spróbuję pokazać to na przykładzie. Dla przypomnienia, najprostsze zapytanie SQL może wyglądać tak:
 
 ```sql
 SELECT 1;
@@ -52,6 +52,32 @@ Ponownie rozbiję to zapytanie na czynniki pierwsze. Proszę zwróć uwagę na p
 To zapytanie zwraca listę identyfikatorów płodnych artystów ;). Zapytanie zwraca identyfikatory artystów z tabeli `album`, którzy opublikowali więcej niż dziesięć albumów.
 
 W połączeniu z głównym zapytaniem otrzymuję nazwy artystów, którzy opublikowali więcej niż dziesięć albumów.
+
+### Podzapytania skorelowane
+
+Poprzedni przykład pokazywał „zwykłe” podzapytania. Istnieją jeszcze tak zwane podzapytania skorelowane. Czasami nazywa się je także zapytaniami powiązanymi. Od zwykłych różnią się one tym, że są powiązane z nadrzędnym zapytaniem. Spróbuję wyjaśnić to na przykładzie:
+
+```sql
+SELECT trackid
+      ,albumid
+      ,name
+  FROM track AS outer_track
+ WHERE milliseconds > (SELECT 10 * MIN(milliseconds)
+                         FROM track AS inner_track
+                        WHERE inner_track.albumid = outer_track.albumid);
+```
+
+To zapytanie zwraca identyfikator utworu, identyfikator albumu i tytuł utworu z tabeli `track`. Zwraca wyłącznie takie utwory, które są dziesięć razy dłuższe niż najkrótszy utwór z tego samego albumu. W tym przypadku podzapytanie używa dokładnie tej samej tabeli. Żeby móc odróżnić tabelę `track` z zapytania wewnętrznego, od tej samej tabeli w zapytaniu zewnętrznym używam aliasów – słowa kluczowego `AS`.
+
+```sql
+SELECT 10 * MIN(milliseconds)
+  FROM track AS inner_track
+ WHERE inner_track.albumid = outer_track.albumid;
+```
+
+Do tej pory w kursie posługiwałem się wyłącznie [aliasami kolumn]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#aliasy-dla-kolumn), jak widzisz istenieje także możliwośc nadania aliasu tabelom.
+
+Zapytania skorelowane nie są możliwe do wykonania bez dostępu do zapytania nadrzędnego. W tym przypadku zapytanie nie może być wykonane samodzielnie dlatego, że nie wie czym jest tabela `outer_track`.
 
 ### Po co stosuje się podzapytania
 
@@ -193,9 +219,7 @@ Zwróć uwagę, że tym razem zapytanie główne zwraca średnią charakterystyc
     2           5.94        5.37428571
     2           0.99        5.37428571
 
-Drugi przypadek pokazuje tak zwane podzapytanie powiązane[^skorelowane]. To podzapytanie powiązane jest z zapytaniem głównym. W odróżnieniu od pierwszego przypadku musi zostać wykonane wiele razy. Średnia użyta w pierwszym przypadku może być obliczona dokładnie raz dla uzyskania poprawnego wyniku.
-
-[^skorelowane]: Czasami nazywa się je także zapytaniami skorelowanymi. 
+Drugi przypadek pokazuje podzapytanie skorelowane. To podzapytanie powiązane jest z zapytaniem głównym. W odróżnieniu od pierwszego przypadku musi zostać wykonane wiele razy. Średnia użyta w pierwszym przypadku może być obliczona dokładnie raz dla uzyskania poprawnego wyniku.
 
 ### Podzapytanie wewnątrz klauzuli `FROM`
 
@@ -340,6 +364,47 @@ SELECT albumid
 ```
 
 W tym przypadku podzapytanie zwraca średnią długość ścieżki dla każdego albumu. Następnie wartość ta użyta jest w głównym zapytaniu. Pozwala ona zwrócić wyłącznie te wiersze, które dotyczą ścieżek o długości krótszej niż średnia z ich albumu.
+
+#### Operator `EXISTS`
+
+W artykule dotyczącym [kauzluli `WHERE`]({% post_url 2018-07-26-klauzula-where-w-zapytaniach-sql %}) pominąłem między innymi możliwość użycia operatora `EXISTS`. Operator `EXISTS` powoduje, że zwrócone są wyłącznie te wiersze, dla których podzapytanie zwróci co najmniej jeden wiersz. Proszę spójrz na przykład:
+
+```sql
+SELECT *
+  FROM employee AS outer_employee
+ WHERE EXISTS (SELECT *
+                 FROM employee AS inner_empolyee
+                WHERE inner_employee.reportsto = outer_employee.employeeid;
+```
+
+W tym przypadku skorelowane podzapytanie zwraca wiersze, które połączone są relacją szef-podwładny. Wiersze, które zawierają pracowników nie posiadających podwładnych są pominięte. Dzieje się tak dlatego, że podzapytanie w ich przypadku nie zwróci ani jednego wiersza.
+
+#### Operatory `ALL` i `ANY` 
+
+Operatory `ALL` i `ANY` nie są obsługiwane przez bazę SQLite.
+{:.notice--warning}
+
+Operatory `ALL` i `ANY` używa się w połączeniu z [operatorami porównania z klauzuli `WHERE`]({% post_url 2018-07-26-klauzula-where-w-zapytaniach-sql %}#-----).
+
+Na przykład wyrażenie `kolumna > ALL (podzapytanie)` oznacza, że kolumna musi mieć większą wartość niż wszystkie wartości zwrócone przez podzapytanie.
+
+Analogicznie `kolumna <= ANY (podzapytanie)` oznacza, że kolumna musi mieć wartość mniejszą bądź równą którejkolwiek z wartości zwróconych przez podzapytanie.
+
+Chociaż SQLite nie wspiera tych operatorów identyczne zachowanie można uzyskać stosując [funkcje `MIN` albo `MAX`]({% post_url 2018-10-20-funkcje-i-grupowanie-danych-w-sql %}#funkcje-grupując). Dla przykładu dwa poniższe zapytania dałyby te same wyniki:
+
+```sql
+SELECT *
+  FROM track
+ WHERE milliseconds < ALL (SELECT milliseconds
+                             FROM track);
+```
+
+```sql
+SELECT *
+  FROM track
+ WHERE milliseconds < (SELECT MAX(milliseconds)
+                         FROM track);
+```
 
 ### Podzapytania jako wyrażenie
 
