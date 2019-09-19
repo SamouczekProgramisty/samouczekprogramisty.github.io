@@ -1,6 +1,6 @@
 ---
 title: Podzapytania SQL
-last_modified_at: 2019-09-18 00:58:57 +0200
+last_modified_at: 2019-09-19 10:11:50 +0200
 categories:
 - Bazy danych
 - Kurs SQL
@@ -75,7 +75,7 @@ SELECT 10 * MIN(milliseconds)
  WHERE inner_track.albumid = outer_track.albumid;
 ```
 
-Do tej pory w kursie posługiwałem się wyłącznie [aliasami kolumn]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#aliasy-dla-kolumn), jak widzisz istenieje także możliwośc nadania aliasu tabelom.
+Do tej pory w kursie posługiwałem się wyłącznie [aliasami kolumn]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#aliasy-dla-kolumn), jak widzisz istnieje także możliwość nadania aliasu tabelom.
 
 Zapytania skorelowane nie są możliwe do wykonania bez dostępu do zapytania nadrzędnego. W tym przypadku zapytanie nie może być wykonane samodzielnie dlatego, że nie wie czym jest tabela `outer_track`.
 
@@ -367,7 +367,7 @@ W tym przypadku podzapytanie zwraca średnią długość ścieżki dla każdego 
 
 #### Operator `EXISTS`
 
-W artykule dotyczącym [kauzluli `WHERE`]({% post_url 2018-07-26-klauzula-where-w-zapytaniach-sql %}) pominąłem między innymi możliwość użycia operatora `EXISTS`. Operator `EXISTS` powoduje, że zwrócone są wyłącznie te wiersze, dla których podzapytanie zwróci co najmniej jeden wiersz. Proszę spójrz na przykład:
+W artykule dotyczącym [klauzuli `WHERE`]({% post_url 2018-07-26-klauzula-where-w-zapytaniach-sql %}) pominąłem między innymi możliwość użycia operatora `EXISTS`. Operator `EXISTS` powoduje, że zwrócone są wyłącznie te wiersze, dla których podzapytanie zwróci co najmniej jeden wiersz. Proszę spójrz na przykład:
 
 ```sql
 SELECT *
