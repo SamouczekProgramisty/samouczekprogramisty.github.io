@@ -79,6 +79,8 @@ Do tej pory w kursie posługiwałem się wyłącznie [aliasami kolumn]({% post_u
 
 Zapytania skorelowane nie są możliwe do wykonania bez dostępu do zapytania nadrzędnego. W tym przypadku zapytanie nie może być wykonane samodzielnie dlatego, że nie wie czym jest tabela `outer_track`.
 
+{% include newsletter-srodek.md %}
+
 ### Po co stosuje się podzapytania
 
 Powtórzę jeszcze raz przykład z poprzedniego punktu:
