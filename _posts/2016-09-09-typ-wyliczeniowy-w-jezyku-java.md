@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-06-20 20:57:35 +0200
+last_modified_at: 2019-09-20 21:49:51 +0200
 title: Typ wyliczeniowy w języku Java
 categories:
 - Kurs programowania Java
@@ -80,7 +80,11 @@ W takim przypadku w zależności od wartości zmiennej size zostanie wywołany o
 
 ### Typ wyliczeniowy to też klasa
 
-Podobnie jak w przypadku normalnych klas tak i w przypadku typów wyliczeniowych może on posiadać atrybuty czy metody. Możesz także stworzyć klasę wyliczeniową, która będzie miała swój własny konstruktor inny od domyślnego. Spójrz na przykład poniżej
+Podobnie jak w przypadku normalnych klas tak i w przypadku typów wyliczeniowych może on posiadać atrybuty czy metody. Możesz także stworzyć klasę wyliczeniową, która będzie miała swój własny konstruktor inny od domyślnego. Spójrz na przykład poniżej, w którym nowe wartości typu wyliczeniowego tworzone są przy pomocy własnego konstruktora. Każda z wartości przekazuje do konstruktora trzy parametry:
+
+- szerokość klatki piersiowej,
+- długość koszulki,
+- długość rękawka.
 
 ```java
 public enum TshirtSize {
