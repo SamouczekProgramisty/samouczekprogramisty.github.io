@@ -1,6 +1,6 @@
 ---
 title: Testy jednostkowe z JUnit 5
-last_modified_at: 2019-08-26 21:29:28 +0200
+last_modified_at: 2019-09-21 00:39:23 +0200
 categories:
 - Programista rzemieślnik
 permalink: /testy-jednostkowe-z-junit5/
@@ -286,7 +286,7 @@ JUnit 5 w odróżnieniu od JUnit 4 nie posiada `@Rule`, `@ClassRule` czy `@RunWi
 
 Adnotacja jako element akceptuje klasę implementującą interfejs [`Extension`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/Extension.html).
 
-Mechanizm rozszerzeń jest głównie wykorzystywany wraz z innymi bibliotekami. Na przykład przez Spring do umożliwienia wstrzykiwania zależności czy przez Mockito do tworznia mocków.
+Mechanizm rozszerzeń jest głównie wykorzystywany wraz z innymi bibliotekami. Na przykład przez Spring do umożliwienia wstrzykiwania zależności czy przez Mockito do [tworznia mocków]({% post_url 2018-09-22-testy-jednostkowe-z-uzyciem-mock-i-stub %}).
 
 #### Przykładowe rozszerzenie
 
@@ -388,6 +388,8 @@ JUnit 5 ma bardzo dobrą dokumentację. Na YouTube znajdziesz też całkiem spor
     Użyj istniejących testów i metodyki TDD do przeprowadzenia refaktoringu kodu.
 
 Zachęcam Cię do samodzielnego rozwiązania zadań, wtedy nauczysz się najwięcej. Podziel się linkiem do swojego rozwiązania w komentarzu :).
+
+Po rozwiązaniu zadań samodzielnie możesz rzucić okiem na [przykładowe rozwiązanie pierwszego zadania](https://github.com/SamouczekProgramisty/KursJava/tree/master/31_testy_jednostkowe_junit5/src/main/java/pl/samouczekprogramisty/kursjava/junit5/exchange). Użyłem w nim biblioteki Mockito, więcej o niej przeczytasz w osobnym artykule na temat [pisania testów jednostkowych z użyciem mocków]({% post_url 2018-09-22-testy-jednostkowe-z-uzyciem-mock-i-stub %}).
 
 ## Podsumowanie
 
