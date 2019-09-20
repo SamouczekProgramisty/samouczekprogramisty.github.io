@@ -1,7 +1,7 @@
 {% capture newsletter-srodek %}
 <span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span>
 
-Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy **ponad 2896 Samouków**, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.
+Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy **ponad 3704 Samouków**, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.
 
 <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
 {% endcapture %}

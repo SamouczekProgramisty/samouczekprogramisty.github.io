@@ -47,7 +47,7 @@ Powtarzam to bez przerwy. Najlepszym sposobem na naukę jest praktyka. Wybierz s
 
 ## Co dalej?
 
-Jeśli swobodnie tworzysz już aplikacje webowe nie zapominaj o [przydatnych narzędziach i dobrych praktykach]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}). Na tej samej stronie znajdziesz też spis artykułów dotyczących [testów automatycznych]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}).
+Jeśli swobodnie tworzysz już aplikacje webowe nie zapominaj o [przydatnych narzędziach i dobrych praktykach]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}). Na tej samej stronie znajdziesz też spis artykułów dotyczących [testów automatycznych]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}#testowanie-kodu).
 
 Na tym etapie system kontroli wersji nie powinien być dla Ciebie czymś nowym. Jeśli jednak jeszcze nie udało Ci się go poznać zapraszam do [kursu gita]({{ '/kurs-git/' | absolute_url }}) gdzie poznasz Git'a w praktyczny sposób od podstaw.
 
