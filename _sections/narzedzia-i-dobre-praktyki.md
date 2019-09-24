@@ -1,5 +1,5 @@
 ---
-date: 2018-08-22 20:23:01 +0200
+date: 2019-09-24 19:54:06 +0200
 last_modified_at: 2019-05-02 23:15:06 +0200
 layout: single_page
 title: Narzędzia i dobre praktyki
@@ -31,6 +31,8 @@ Bez tego się nie obejdzie. Jeśli chcesz tworzyć kod, który będzie łatwy w 
 * [Zasady SOLID]({% post_url 2017-11-27-programowanie-obiektowe-solid %})
 * [Reguły DRY, KISS i YAGNI]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %})
 * [Porównanie DIP, IOC i DI]({% post_url 2018-11-03-dependency-inversion-principle-dependency-injection-i-inversion-of-control %})
+
+W niektórych sytuacjach rysunki pokazujące system/rozwiązanie problemu. Właśnie wtedy może Ci się przydać znajomość [podstaw UML]({% 2019-09-21-podstawy-uml %}).
 
 ### Testowanie kodu
 
