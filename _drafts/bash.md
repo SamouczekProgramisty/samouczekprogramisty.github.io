@@ -11,6 +11,8 @@ header:
 excerpt: TODO
 ---
 
+https://explainshell.com/
+
 {% capture text_source_notice %}
 W treści artykułu będę używał plików z lekturami dostępnymi na stronie (https://wolnelektury.pl/). Możesz je ściągnąć w konsoli używając takiego skryptu:
 
