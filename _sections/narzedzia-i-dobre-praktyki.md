@@ -32,7 +32,7 @@ Bez tego się nie obejdzie. Jeśli chcesz tworzyć kod, który będzie łatwy w 
 * [Reguły DRY, KISS i YAGNI]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %})
 * [Porównanie DIP, IOC i DI]({% post_url 2018-11-03-dependency-inversion-principle-dependency-injection-i-inversion-of-control %})
 
-W niektórych sytuacjach rysunki pokazujące system/rozwiązanie problemu. Właśnie wtedy może Ci się przydać znajomość [podstaw UML]({% 2019-09-21-podstawy-uml %}).
+W niektórych sytuacjach rysunki pokazujące system/rozwiązanie problemu. Właśnie wtedy może Ci się przydać znajomość [podstaw UML]({% post_url 2019-09-21-podstawy-uml %}).
 
 ### Testowanie kodu
 
