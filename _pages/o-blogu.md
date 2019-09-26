@@ -33,7 +33,7 @@ Blog Samouczek Programisty prowadzę od października 2015 roku. Samouczkowy New
 
 ## Stan na 18.11.2018
 
-- na liście subskrybentów Samouczkowego Newslettera znajduje się **1807 Czytelników**,
+- na liście subskrybentów samouczkowego newslettera znajduje się **1807 Czytelników**,
 - [profil na Facebooku](https://www.facebook.com/SamouczekProgramisty) ma **1934 fanów**,
 - pod artykułami znajdują się **1003 komentarze**.
 
@@ -43,7 +43,7 @@ Poniżej fragment raportu Google Analytics, którego używam do analizowania ruc
 
 ## Stan na 05.07.2018
 
-- na liście subskrybentów Samouczkowego Newslettera znajduje się **484 Czytelników**,
+- na liście subskrybentów samouczkowego newslettera znajduje się **484 Czytelników**,
 - [profil na Facebooku](https://www.facebook.com/SamouczekProgramisty) ma **1565 fanów**,
 - pod artykułami znajduje się **600 komentarzy**.
 

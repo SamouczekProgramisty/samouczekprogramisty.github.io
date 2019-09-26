@@ -44,9 +44,9 @@ Od jego powstania do dzisiaj Samouczka odwiedziło **309'891** Czytelników. Ci 
 
 {% include figure image_path="/assets/images/2018/10/10_trzy_lata_samouczka.jpeg" caption="Trzy lata Samouczka Programisty" %}
 
-### Czytelnicy w Samouczkowym Newsletterze
+### Czytelnicy w samouczkowym newsletterze
 
-Prawie 1500 Czytelników zdecydowało się podzielić się ze mną swoim adresem e-mail. Sam nie lubię otrzymywać niechcianej poczty. Przytłacza mnie ogrom e-maili, które chcą tylko i wyłącznie coś mi sprzedać. Po pewnym czasie przestaję otwierać takie e-maile. Szybko też wypisuję się z takich list. W przypadku Samouczkowego Newslettera jest inaczej. Czytelnicy newslettera otwierają listy, które do Nich piszę.
+Prawie 1500 Czytelników zdecydowało się podzielić się ze mną swoim adresem e-mail. Sam nie lubię otrzymywać niechcianej poczty. Przytłacza mnie ogrom e-maili, które chcą tylko i wyłącznie coś mi sprzedać. Po pewnym czasie przestaję otwierać takie e-maile. Szybko też wypisuję się z takich list. W przypadku samouczkowego newslettera jest inaczej. Czytelnicy newslettera otwierają listy, które do Nich piszę.
 
 Współczynnik otworzonych e-maili na poziomie około 50% nie jest czymś powszechnym. Jeśli jesteś jednym z subskrybentów newslettera jestem Ci ogromnie wdzięczny za zaufanie. 
 

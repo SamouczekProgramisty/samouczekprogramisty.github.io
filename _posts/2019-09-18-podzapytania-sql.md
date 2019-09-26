@@ -554,4 +554,4 @@ Mam nadzieję, że artykuł przypadł Ci do gustu. Udało Ci się rozwiązać za
 
 Zależy mi na dotarciu do nowych Czytelników, jeśli uważasz, że ten artykuł byłby wartościowy dla kogoś z Twoich znajomych bardzo proszę podziel się z nim odnośnikiem do tego artykułu. Z góry dziękuję!
 
-Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości proszę dopisz się do Samouczkowego newslettera i polub Samouczka na Facebook'u. Trzymaj się i do następnego razu!
+Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebook'u. Trzymaj się i do następnego razu!

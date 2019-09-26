@@ -26,7 +26,7 @@ Tak, przeczytałem dotyczące mnie strony ze [skonsolidowanego tekstu rozporząd
 
 ### Ochrona danych osobowych
 
-Podanie przez Ciebie jakichkolwiek danych osobowych jest zawsze dobrowolne. Jest także konieczne do zrealizowania Twoich celów (na przykład zapisania się do Samouczkowego Newslettera czy dodania komentarza).
+Podanie przez Ciebie jakichkolwiek danych osobowych jest zawsze dobrowolne. Jest także konieczne do zrealizowania Twoich celów (na przykład zapisania się do samouczkowego newslettera czy dodania komentarza).
 
 Dostęp do Twoich danych mam wyłącznie ja (pomijając dane dostępnie publicznie takie jak komentarze na blogu). Staram się w najlepszy znany mi sposób chronić Twoje dane osobowe na przykład poprzez:
 
