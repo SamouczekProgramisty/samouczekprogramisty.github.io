@@ -78,9 +78,46 @@ Zarówno atrybuty jak i operacje mogą być poprzedzone symbolem. Dopuszczalne s
 
 Klasa w przykładzie ma cztery atrybuty. Trzy atrybuty instancji i jeden atrybut klasy (statyczny). Atrybuty zapisywane są w formacie `nazwa:typ`. Ta sama klasa ma trzy metody. Prywatną metoda `modifyOrderStats` i dwie metody publiczne. Zwróć uwagę na to, że metody mogą mieć określone typy parametrów i wartości zwracanej.
 
+W podobny sposób oznacza się interfejs. W odróżnieniu od klasy zawiera on tak zwany stereotyp `«interface»`. Na diagramie powyżej `NotificationPipe` jest interfejsem zaiwerającym dwie metody. Zauważ, że w tym przypadku pominąłem symbole określające dostępność metod.
+
 Atrybuty klas mogą być także opisane przez relacje pomiędzy klasami.
 
 #### Relacje
+
+Pomiędzy klasami mogą występować relacje. Przykładem relacji jest [dziedziczenie]({% post_url 2016-01-24-dziedziczenie-w-jezyku-java %}). Relacje reprezentowane są przez różne symbole. Proszę spójrz na rysunek poniżej, na którym zebrałem możliwe relacje:
+
+{% include figure image_path="/assets/images/2019/09/26_relations.svg" caption="Przykładowe pomiędzy klasami" %}
+
+Zacznę od lewej kolumny. Pierwsza przerywana strzałka reprezentuje _implementację_. Jest używana do tego żeby pokazać jaki interfejs jest implementowany przez klasę. Druga oznacza _dziedziczenie_. W tym przypadku grot wskazuje klasę nadrzędną.
+
+W prawej kolumnie znajdują się strzałki pokazujące relacje pomiędzy klasam inne niż implementacja czy dziedziczenie. Posegregowałem je w rosnąco według tego jak silne są relacje przez nie opisywane.
+
+Relacje ze strzałkami mogą być jednokierunkowe albo dwukierunkowe. W przypadku relacji jednokierunkowej strona bez grota używa strony na którą pokazuje grot. W przypadku braku grota relacja jest dwukierunkowa.
+
+Najsłabszą relacją pomiędzy klasami jest _zależność_. Reprezentowana jest przez przerywaną linię. _Zależność_ oznacza, że jedna klasa w pewnym momencie używa innej, na przykład jako parametr, czy wartość zwracana metody. W przypadku _zależności_ klasa, od której zależymy nie jest zapisana jako atrybut. Przykładem _zależności_ w bilbiotece standardowej Javy może być zależność `Integer` od `String`, widać ją na przykład w metodzie `Integer.valueOf(String)`.
+
+Kolejnym rodzajem relacji jest _asocjacja_. W tym przypadku jest to zapis, który może zastąpić atrybut klasy – jeśli nie chcesz dodawać atrybut w prostokącie reprezentującym klasę możesz użyć _asocjacji_. Przykładem _asocjacji_ w bibliotece standardowej Javy może być `FileInputStream` i `String`. Klasa `FileInputStream` posiada atrybut typu `String` reprezentujący ścieżkę do pliku.
+
+Kolejną relacją jest _agregacja_. _Agregacja_ wprowadza w relacji stronę, która jest „właścicielem”. Jedna klasa agreguje inną. Relacja tego typu oznaczona jest przez ciągłą linię z pustym rombem po stronie właściciela. W bibliotece standardowej tego typu relacja wysępuje pomiędzy `ArrayList` a klasą, której instancje przechowuje[^object].
+
+[^object]: Tak na prawdę `ArrayList` zawiera tablicę instancji typu `Object`, to dzięki [typom generycznym]({% post_url 2016-03-26-typy-generyczne-w-jezyku-java %}) na zewnątrz widoczna jest inna klasa.
+
+Ostatnią relacją jest _kompozycja_. _Kompozycja_ jest bardzo podobna do _agregacji_. Jest między nimi jedna znacząca różnica. W przypadku _kompozycji_ „właściciel” jest odpowiedzialny za tworzenie (cykl życia) elementów, które grupuje. Przykładem _kompozycji_ w bibliotece standardowej Javy może być implementacja `HashMap`, która zarządza elementami w kolekcji opakowując je w instancje `HashMap.Node`.
+
+Proszę spójrz na diagram poniżej (dla czytelności pominąłem w nim atrybuty i operacje). Pokażę Ci na nim przykładowe relacje pomiędzy klasami:
+
+{% include figure image_path="/assets/images/2019/09/26_example_relations.svg" caption="Możliwe relacje pomiędzy klasami" %}
+
+* klasa `LargeItem` implementuje interfejs `Item` – _implementacja_,
+* klasy `VIP` i `OrdinaryCustomer` dziedziczą po klasie abstrakcyjnej `Customer` – _dziedziczenie_,
+* klasa `OrderCalculator` używa klasy `Basket` – _zależnosć_,
+* klasa `Basket` wie o kliencie z którym jest powiązana (klasie `Customer`), odwrotne stwierdzenie także jest prawdziwe – _asocjacja_,
+* klasa `Basket` może zawierać wiele instancji klasy `Item` – _agregacja_,
+* klasa `VIP` zawiera wiele instancji klasy `BonusCode` i zarządza ich cyklem życia – kompozycja.
+
+Wiesz już, że strzałeczka oznacza kierunek relacji. Na przykład asocjacja pomiędzy `ItemBundle` a `Item` jest jednokierunkowa. `ItemBundle` wie o powiązanej klasie `Item`, `Item` zaś nie wie nic o `ItemBundle`. Jeśli strzałeczka nie jest umieszczona oznacza to, że relacja jest dwukierunkowa – można „przejść” z jednej klasy do drugiej w obu kierunkach.
+
+Nowością dla Ciebie jest także komentarz do relacji (contains), który może ją opisywać. Nowe są także oznaczenia pokazujące liczność. W powyższym przykładzie jeden koszyk może zawierać wiele elementów (`0..*`).
 
 ### Diagram komponentów
 
