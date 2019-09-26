@@ -8,47 +8,79 @@ header:
     teaser: /assets/images/2019/09/21_podstawy_uml_artykul.jpeg
     overlay_image: /assets/images/2019/09/21_podstawy_uml_artykul.jpeg
     caption: "[noauthor](https://www.rawpixel.com/image/427449/free-photo-image-engineering-blueprint-architect)"
-excerpt: W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz najczęściej używane rodzaje diagramów. Dowiesz się w jakich sytuacjach mogą być przydatne. W artykule stawiam raczej na praktyczne zastosowanie niż rygorystyczną zgodność ze specyfikacją UML.
+excerpt: W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz kilka rodzajów diagramów, które moim zdaniem są najbardziej przydatne. Dowiesz się w jakich sytuacjach UML może być dobrym narzędziem. W artykule stawiam raczej na praktyczne zastosowanie niż rygorystyczną zgodność ze specyfikacją UML.
 ---
 
-Jak mówi znane powiedzenie „jeden obraz jest wart tysiąca słów”. Takie przypadki zdarzają się także w programowaniu. Często w trakcie projektowania rozwiązań czy rozmawiania na ich temat programistom dużo łatwiej jest się porozumieć rysując. Takie rysunki mogą opisywać ogólną architekturę projektu, sposób podejścia do rozwiązania, kolejność zdarzeń w ramach procesu itd. Dobrze jest mieć wspólny język. W tym przypadku pomocny może być UML.
+W artykule opisuję wyłącznie moje doświadczenia. Możliwe, że ktoś ma zupełnie inne. Z chęcią poznam Twój punkt widzenia w komentarzach. Proszę weź teź pod uwagę to, że lepiej czuję się w mniejszych firmach niż ustrukturyzowanych korporacjach – ma to wpływ na moje zdanie na temat UML'a.
+{:.notice--info}
+
+Jak mówi znane powiedzenie „jeden obraz jest wart tysiąca słów”. Takie przypadki zdarzają się także w programowaniu. Często w trakcie projektowania czy rozmawiania na temat fragmentu opgrogramowania programistom dużo łatwiej jest się porozumieć rysując. Takie rysunki mogą opisywać ogólną architekturę projektu, sposób podejścia do rozwiązania, kolejność zdarzeń w ramach procesu itd. Dobrze jest mieć wspólny język. W tym przypadku pomocny może być UML.
 
 ## Czym jest UML
 
-UML to akronim pochodzący od angielskiego określenia _Unified Modeling Language_. W polskim tłumaczeniu znany jako zunifikowany język modelowania. UML to jasno wyspecyfikowany język składający się z kilkunastu diagramów. Diagramy te pozwalają na formalne opisywanie i modelowanie struktur czy procesów.
+UML to akronim pochodzący od angielskiego określenia _Unified Modeling Language_. W polskim tłumaczeniu znany jest jako zunifikowany język modelowania. UML to jasno wyspecyfikowany język składający się z kilkunastu diagramów. Diagramy te pozwalają na formalne opisywanie i modelowanie struktur czy procesów.
 
 ## Czy warto uczyć się UML'a
 
-Odpowiadając na tak postawione pytanie w jednym zdaniu mogę powiedzieć, że z mojego doświadczenia UML jest ważny. Warto znać jego podstawy. Chociażby po to żeby rozszerzyć swój „słownik”, który później możmy użyć w trakcie rozmowy na temat programowania z inną osobą. Rysunek, który usuwa zbędne szczegóły pokazując najbardziej istotne aspekty jest niezastąpiony.
+Odpowiadając na tak postawione pytanie w jednym zdaniu mogę powiedzieć, że z mojego doświadczenia UML jest ważny i warto znać jego podstawy. Chociażby po to żeby rozszerzyć swój „słownik”, który później możmy użyć w trakcie rozmowy na temat programowania z inną osobą. UML to kolejne narzędzie, które możesz urzywać w odpowiednich sytuacjach. Rysunek, który usuwa zbędne szczegóły pokazując najbardziej istotne aspekty jest niezastąpiony.
 
-Jednak to tylko część rzeczywistości. UML jest ważny, bo może rozszerzyć wrześniej wspomniany słownik. Poszerzyć Twoje horyzonty dotyczące projektowania oprogramowania. Jednak ten sam UML to kobyła. [Specyfikacja UML w wersji 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF) zawiera 754 strony! W całej swojej karierze pracując jako programista od 2007 roku nie spotkałem ani jednej osoby, która fanatycznie przestrzegałaby reguł opisujących UML'a.
+Jednak to tylko część rzeczywistości. UML jest ważny, między innymi z wyżej wspomnianych powodów. Jednak ten sam UML to kobyła. [Specyfikacja UML w wersji 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF) zawiera 754 strony! Pracując jako programista od 2007 roku w całej swojej karierze nie spotkałem ani jednej osoby, która fanatycznie przestrzegałaby reguł opisujących UML'a[^ekspert]. Część funkcjonalność UML'a bardzo rzadko albo w ogóle nie jest wykorzystywana w praktyce.
 
-Innymi słowy, tak warto się poznać UML'a, jednak moim zdaniem wybiórczo.
+[^ekspert]: Sam też nie mogę ich fanatycznie przestrzegać – nie znam tej specyfikacji wystarczająco dokładnie.
+
+Innymi słowy: tak, warto poznać UML'a, jednak wybiórczo.
 
 ## Czy UML jest używany w pracy związanej z oprogramowaniem
 
-Opiszę tu wyłącznie moje doświadczenia. Możliwe, że ktoś inny ma zupełnie inne. Z chęcią poznam Twój punkt widzenia w komentarzach.
-{:.notice-info}
+Na początku muszę powiedzieć Ci trochę o moich doświadczeniach. Po kilku latach pracy zauważyłem, że nie czuję się dobrze w korporacjach. Projekty, które wykorzystują „ciężkie metodologie” do ich prowadzenia też raczej nie są dla mnie. Mimo pracy jako programista od 2007 roku doświadczyłem wyłącznie niedużej części dużego świata firm IT. Bardzo możliwe, że w środowisku, którego nie lubę nacisk na „czystego UML'a” jest większy.
 
-Na początku muszę powiedzieć Ci trochę o moich doświadczeniach. Po kilku latach pracy zauważyłem, że nie czuję się dobrze w korporacjach.  projektach, które wykorzystują „ciężkie metodologie” do ich prowadzenia. Bardzo możliwe, że w takim środowisku nacisk na „czystego UML'a” jest większy.
+Z mojego doświadczenia UML jest wykorzytywany w nieformalny sposób. To tak jak z językiem obcym – najważniejsza jest komunikacja. Możesz robić mnóstwo błędów, jeśli jednak potrafisz się dogadać z drugą stroną to jesteś w domu. Właśnie komuikacja i umiejętność przekazywania informacji jest tu kluczowa. Innymi słowy jeśli będzisz znać podstawy najbardziej istotnych diagramów, to ta wiedza powinna być wystarczająca.
 
-Z mojego doświadczenia UML jest wykorzytywany w nieformalny sposób. To tak jak z językiem obcym – najważniejsza jest komunikacja. Możesz robić mnóstwo błędów, jeśli jednak potrafisz się dogadać z drugą stroną to jesteś w domu. Właśnie komuikacja i umiejętność przekazywania informacji jest tu kluczowa.
+Taki punkt widzenia potwierdza to też [badanie przeprowadzone na grupie programistów, testerów, architektów czy kierowników projektów](https://empirical-software.engineering/projects/sketches/)[^proba]. Wynik przeprowadzonej ankiety potwierdza, że UML używany jest raczej nieformalnie.
 
-N potwierdza to też [badanie przeprowadzone na grupie programistów, testerów, architektów czy kierowników projektów](https://empirical-software.engineering/projects/sketches/)[^proba].
+[^proba]: Swoją drogą badanie było przeprowadzone na dość małej grupie kontrolnej. W związku z tym jest ryzyko, że wyniki nie są w pełni miarodajne.
 
-[^proba] Swoją drogą badanie było przeprowadzone na dość małej grupie kontrolnej. W związku z tym jest ryzyko, że wyniki nie są w pełni miarodajne.
+{% include newsletter-srodek.md %}
 
 ## Narzędzia
 
-Przede wszystkim polecam tablicę i marker. To zdecydowanie najczęściej używane narzędzia przy pracy z diagramami. W trakcie pracy nad Samouczkiem, szczególnie pracując na artykułami dotyczącymi [wzorców projektowych]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}#wzorce-projektowe) używam programu [UMLet](https://www.umlet.com) i [yED](https://www.yworks.com/downloads#yEd). Są to darmowe programy, które pozwalają na tworzenie niektórych rodzajów diagramów UML.
+UML to diagram, rysunek. Do efektywnej pracy przyda Ci się zestaw narzędzi pozwalający tworzyć te diagramy.
+
+Przede wszystkim polecam tablicę i marker (lub kartkę i długopis). To zdecydowanie najczęściej używane narzędzia przy pracy z nieformalnymi diagramami.
+
+W trakcie pracy nad Samouczkiem, szczególnie pracując na artykułami dotyczącymi [wzorców projektowych]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}#wzorce-projektowe) używam programu [UMLet](https://www.umlet.com) i [yED](https://www.yworks.com/downloads#yEd). Są to darmowe programy, które pozwalają na tworzenie niektórych rodzajów diagramów UML. Istotne w nich dla mnie jest to, że same programy są proste a tworzone diagramy zapisane są w postaci tekstowej (można je eksportować do formatów graficznych). Format tekstowy świetnie nadaje się do zapisania w [repozytorium git'a]({{ '/kurs-git/' | absolute_url }}).
+
+Istnieje całkiem sporo narzędzi, które mają dużo większe możliwośći, jednak dla komercyjnych zastosowań są płatne.
 
 ## Najczęściej używane diagramy UML
 
-Wspominałem to już wcześniej, jednak powtórzę to po raz kolejny. Poniżej prezentuję wyłącznie podzbiór diagramów. Skupiam się wyłącznie na tych, które doczekały się swojego praktycznego zastosowania w mojej dotychczasowej pracy komercyjnej.
+Wspominałem to już wcześniej, jednak powtórzę to po raz kolejny. Poniżej prezentuję wyłącznie podzbiór diagramów. Skupiam się wyłącznie na tych, które doczekały się swojego praktycznego zastosowania w mojej dotychczasowej pracy komercyjnej. Pomijam diagramy, które wymagane były tylko w trakcie projektów na uczelni.
 
 ### Diagram klas
 
-Diagram klas (ang. _class diagram_) to chyba najczęściej używany diagram.
+Diagram klas (ang. _class diagram_) to chyba najczęściej używany diagram. Służy do pokazania klas i zależności między nimi. Pozwala na szczegółowy opis klas zwracając uwagę na dostępne atrybuty i operacje. Ta szczegółowość pozwala na generowanie kodu na podstawie kompletnego diagramu. W praktyce nigdy nie spotkałem się z takim zastosowaniem.
+
+#### Klasa
+
+Zacznę od pokazania symbolu klasy:
+
+{% include figure image_path="/assets/images/2019/09/26_class.svg" caption="Klasa w diagramie klas" %}
+
+Klasa reprezentowana jest przez prostokąt podzielony na kilka części. W pierwszej z nich znajduje się nazwa klasy. W przykładzie jest to `Customer`. Następna sekcja zawiera atrybuty, kolejna metody.
+
+Elemnty, które są podkreślone oznaczają elementy statyczne. Na przykad atrybut `DEFAULT_PROMO_CODE` jest statycznym atrybutem klasy. Elementy pisane kursywą są abstrakcyjne (może dotyczyć także samej klasy), na przykład metoda `fetchPromoCode` jest abstrakcyjna.
+
+Zarówno atrybuty jak i operacje mogą być poprzedzone symbolem. Dopuszczalne są między innymi:
+
+* `+` – element publiczny,
+* `#` – element „chroniony” (może odpowiadać `protected` w języku Java),
+* `-` – element prywatny.
+
+Klasa w przykładzie ma cztery atrybuty. Trzy atrybuty instancji i jeden atrybut klasy (statyczny). Atrybuty zapisywane są w formacie `nazwa:typ`. Ta sama klasa ma trzy metody. Prywatną metoda `modifyOrderStats` i dwie metody publiczne. Zwróć uwagę na to, że metody mogą mieć określone typy parametrów i wartości zwracanej.
+
+Atrybuty klas mogą być także opisane przez relacje pomiędzy klasami.
+
+#### Relacje
 
 ### Diagram komponentów
 
@@ -66,22 +98,29 @@ Diagram czynności – w trakcie studiów pamiętam jego wykorzystanie do analiz
 
 https://empirical-software.engineering/projects/sketches/
 
-
 ## Dodatkowe materiały do nauki
 
 Jak wspomniałem na początku artykułu nie było moim zamiarem wyczerpanie tematu. Celowo skupiłem się wyłącznie na diagramach, które moim zdaniem są najczęściej używane. Właśnie te diagramy były dla mnie najbardziej przydatne w sesjach przy tablicach z kolegami z pracy. Jeśli jednak temat UML Cię zainteresował zapraszam Cię do zapoznania się z zestawem materiałów dodatkowych. 
 
-* [Specyfikacja UML 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF)
-* [Strona UML'a](https://www.uml.org/)
-* [Artykuł o UML na polskiej Wikipedii](https://pl.wikipedia.org/wiki/Unified_Modeling_Language)
-* [Artykuł o UML na angielskiej Wikipedii](https://en.wikipedia.org/wiki/Unified_Modeling_Language)
+* [Specyfikacja UML 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF),
+* [Strona UML'a](https://www.uml.org/),
+* [Fragment wykładu z UW o inżynierii oprogramowania dotyczący UML'a część I](http://wazniak.mimuw.edu.pl/images/7/76/Io-5-wyk.pdf),
+* [Fragment wykładu z UW o inżynierii oprogramowania dotyczący UML'a część II](http://wazniak.mimuw.edu.pl/images/f/f3/Io-6-wyk.pdf),
+* [Artykuł podsumowujący badanie na temat użycia diagramów w praktyce](https://empirical-software.engineering/assets/pdf/fse14-sketches.pdf),
+* [Artykuł o UML na polskiej Wikipedii](https://pl.wikipedia.org/wiki/Unified_Modeling_Language),
+* [Artykuł o UML na angielskiej Wikipedii](https://en.wikipedia.org/wiki/Unified_Modeling_Language),
+* [Diagram klas na angielskiej Wikipedii](https://en.wikipedia.org/wiki/Class_diagram),
+* [Diagram klas na polskiej Wikipedii](https://pl.wikipedia.org/wiki/Diagram_klas),
+
+## Podsumowanie
+
+Znasz już mój punkt widzenia dotyczący UML'a. Wiesz, że moim zdaniem warto znać podstawy tego języka. Mogą Ci się one przydać w codziennej pracy. Jeśli lubisz pracować w bardziej formalnym środowisku może się okazać, że UML będzie niezastąpiony. Znasz kilka rodzajów diagramów, które mogą być przydatne. Znasz także darmowe narzędzia, które pozwalają na tworzenie diagramów UML.
+
+Mam nadzieję, że artykuł przypadł Ci do gustu. Proszę daj znać w komentarzach co sądzisz o UML'u? Czy Twoim zdaniem znajmość tego języka przydaje się w codziennej pracy? A może to już tylko zaszłość, która powoli ochodzi do lamusa? Ciekawy jestem Twoje opinii.
+
+Dodatkowo, jak zwykle, proszę Cię o podzielenie się odnośnikiem do artykułu ze swoimi znajomymi. W ten sposób pomożesz mi dotrzeć do nowych Czytelników, za co z góry Ci dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów proszę zapisz się do samouczkowego newslettera i polub Samouczka na Facebook'u. To tyle na dzisiaj, trzymaj się i do następnego razu!
 
 
-## Moja opinia na temat UML
 
-Ten punkt musiał znaleźć się na początku artykułu. UML to na prawdę ciekawe narzędzie. Jednak daleki jestem od tego, żeby obsesyjnie podążać za wszystkimi diagramami dostępnym w tym języku. Do tej pory w mojej przygodzie z programowaniem w praktyce używałem tylko kilku diagramów. Nie miałem potrzeby używania tych bardziej szczegółowych. Pomijam sytuacje, w których na studiach prowadzący wymagali znajomości poszczególnych typów diagramów.
 
-Zależy mi wyłącznie na praktycznym wprowadzeniu 
-
-## Diagramy UML
 

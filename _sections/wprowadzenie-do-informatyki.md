@@ -38,6 +38,7 @@ Na koniec mam dla Ciebie listę różnych zagadnień, które także są warte Tw
 * [Podstawy złożoności obliczeniowej]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %})
 * [Protokół HTTP]({% post_url 2018-02-08-protokol-http %})
 * [Wstęp do relacyjnych baz danych]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %})
+* [Podstawy UML]({% post_url 2019-09-21-podstawy-uml %})
 
 ## Co dalej?
 
