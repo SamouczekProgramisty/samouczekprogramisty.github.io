@@ -58,7 +58,7 @@ Wspominałem to już wcześniej, jednak powtórzę to po raz kolejny. Poniżej p
 
 ### Diagram klas
 
-Diagram klas (ang. _class diagram_) to chyba najczęściej używany diagram. Służy do pokazania klas i zależności między nimi. Pozwala na szczegółowy opis klas zwracając uwagę na dostępne atrybuty i operacje. Ta szczegółowość pozwala na generowanie kodu na podstawie kompletnego diagramu. W praktyce nigdy nie spotkałem się z takim zastosowaniem.
+Diagram klas (ang. _class diagram_) to chyba najczęściej używany diagram. Służy do pokazania klas i zależności między nimi. Pozwala na szczegółowy opis klas zwracając uwagę na dostępne atrybuty i operacje. Ta szczegółowość pozwala na generowanie kodu na podstawie kompletnego diagramu. W praktyce nigdy nie spotkałem się z takim zastosowaniem. Diagram klas pozwala na „narysowanie” wycinka większego systemu. Jest on jednym z najbardziej rozbudowanych diagramów w notacji UML.
 
 #### Klasa
 
@@ -115,39 +115,53 @@ Proszę spójrz na diagram poniżej (dla czytelności pominąłem w nim atrybuty
 * klasa `Basket` może zawierać wiele instancji klasy `Item` – _agregacja_,
 * klasa `VIP` zawiera wiele instancji klasy `BonusCode` i zarządza ich cyklem życia – kompozycja.
 
-Wiesz już, że strzałeczka oznacza kierunek relacji. Na przykład asocjacja pomiędzy `ItemBundle` a `Item` jest jednokierunkowa. `ItemBundle` wie o powiązanej klasie `Item`, `Item` zaś nie wie nic o `ItemBundle`. Jeśli strzałeczka nie jest umieszczona oznacza to, że relacja jest dwukierunkowa – można „przejść” z jednej klasy do drugiej w obu kierunkach.
+Wiesz już, że strzałeczka oznacza kierunek relacji. Na przykład asocjacja pomiędzy `ItemBundle` a `Item` jest jednokierunkowa. `ItemBundle` wie o powiązanej klasie `Item`, `Item` zaś nie wie nic o `ItemBundle`. Jeśli strzałeczka nie jest umieszczona oznacza to, że relacja jest dwukierunkowa – można „przejść” z jednej klasy do drugiej w obu kierunkach[^uproszczenie].
+
+[^uproszczenie]: Można powiedzieć, że to swego rodzaju uproszczenie. Tak naprawdę to można „przejść” z instancji jednej klasy do drugiej i odwrotnie.
 
 Nowością dla Ciebie jest także komentarz do relacji (contains), który może ją opisywać. Nowe są także oznaczenia pokazujące liczność. W powyższym przykładzie jeden koszyk może zawierać wiele elementów (`0..*`).
 
 ### Diagram komponentów
 
-Diagram komponentów (ang. _component diagram_)
+Wiesz już, że diagram klas pozwala zobaczyć powiązania pomiędzy klasami w wąskiej części systemu. Diagram komponentów (ang. _component diagram_) jest czymś co pozwala spojrzeć na projekt z większej odległości. W diagram komponentów kluczową rolę odgrywają własnie komponenty. Komponent to 
+
+{% include figure image_path="/assets/images/2019/09/27_component.svg" caption="Przykładowy komponent" %}
 
 ### Diagram wdrożenia
 
-Diagram wdrożenia (ang. _deployment diagram_)
+Przedstawiłem Ci już diagram klas i diagram komponentów. Wiesz już, że na system można spojrzeć z różnej odległości zwracając uwagę na coraz mniej szczegółów. Kolejnym stopniem ukrywającym szczegóły może być diagram wdrożenia (ang. _deployment diagram_).
 
 ### Diagram sekwencji
 
-Diagram sekwencji (ang. _sequence diagram_)
-
-Diagram czynności – w trakcie studiów pamiętam jego wykorzystanie do analizowania algorytmów. Nie był to dokładnie diagram czynności czy diagram stanów. Wtedy prowadzący nazywali ten twór schematem blokowym. Nie pamiętam, żebym używał tego diagramu kiedykolwiek w trakcie pracy komercyjnej.
-
-https://empirical-software.engineering/projects/sketches/
+Trzy poprzednie diagramy dotyczyły powiązań, relacji pomiędzy elementami. Diagram sekwencji (ang. _sequence diagram_) jest jednym z tak zwanych diagramów interakcji. Kładzie on nacisk na komunikację, która odbywa się pomiędzy poszczególnymi klasami. Diagram sekwencji pokazuje dokładnie sekwencję wykonania metod w poszczególnych klasach.
 
 ## Dodatkowe materiały do nauki
 
-Jak wspomniałem na początku artykułu nie było moim zamiarem wyczerpanie tematu. Celowo skupiłem się wyłącznie na diagramach, które moim zdaniem są najczęściej używane. Właśnie te diagramy były dla mnie najbardziej przydatne w sesjach przy tablicach z kolegami z pracy. Jeśli jednak temat UML Cię zainteresował zapraszam Cię do zapoznania się z zestawem materiałów dodatkowych. 
+Jak wspomniałem na początku artykułu nie było moim zamiarem wyczerpanie tematu. Celowo skupiłem się wyłącznie na diagramach, które moim zdaniem są najczęściej używane. Właśnie te diagramy były dla mnie najbardziej przydatne w sesjach przy tablicach z kolegami z pracy. Jeśli jednak temat UML Cię zainteresował zapraszam Cię do zapoznania się z zestawem materiałów dodatkowych. Zacznę od materiałów oficjalnych:
 
-* [Specyfikacja UML 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF),
-* [Strona UML'a](https://www.uml.org/),
-* [Fragment wykładu z UW o inżynierii oprogramowania dotyczący UML'a część I](http://wazniak.mimuw.edu.pl/images/7/76/Io-5-wyk.pdf),
-* [Fragment wykładu z UW o inżynierii oprogramowania dotyczący UML'a część II](http://wazniak.mimuw.edu.pl/images/f/f3/Io-6-wyk.pdf),
-* [Artykuł podsumowujący badanie na temat użycia diagramów w praktyce](https://empirical-software.engineering/assets/pdf/fse14-sketches.pdf),
-* [Artykuł o UML na polskiej Wikipedii](https://pl.wikipedia.org/wiki/Unified_Modeling_Language),
-* [Artykuł o UML na angielskiej Wikipedii](https://en.wikipedia.org/wiki/Unified_Modeling_Language),
-* [Diagram klas na angielskiej Wikipedii](https://en.wikipedia.org/wiki/Class_diagram),
-* [Diagram klas na polskiej Wikipedii](https://pl.wikipedia.org/wiki/Diagram_klas),
+* [Oficjalna strona UML'a](https://www.uml.org/),
+* [Specyfikacja UML 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF) – jest niezastąpiona jeśli potrzebujesz zajrzeć do źródła, w innym przypadku gorąco nie polecam.
+
+Dodatkowo mam dla Ciebie artykuł podsumowujący [badanie na temat użycia diagramów w praktyce](https://empirical-software.engineering/assets/pdf/fse14-sketches.pdf).
+
+Uczelnie techniczne często mają osobne kursy poświęcone tematyce UML'a. Czasami jest też tak, że UML zajmuje część wykładu dotyczącego na przykład inżynierii oprogramowania. Przygotowałem dla Ciebie zestaw odnośników do materiałów przygotowanych na uczelniach:
+
+* [Fragment wykładu z UW dotyczący UML'a część I](http://wazniak.mimuw.edu.pl/images/7/76/Io-5-wyk.pdf),
+* [Fragment wykładu z UW dotyczący UML'a część II](http://wazniak.mimuw.edu.pl/images/f/f3/Io-6-wyk.pdf),
+* Opis [diagramu klas](https://brasil.cel.agh.edu.pl/~09sbfraczek/diagram-klas%2c1%2c11.html) w materiałach dla studentów AGH,
+* Opis [diagramu komponentów](https://brasil.cel.agh.edu.pl/~09sbfraczek/diagram-komponentow%2c1%2c17.html) w materiałach dla studentów AGH,
+* Opis [diagramu wdrożenia](https://brasil.cel.agh.edu.pl/~09sbfraczek/diagram-wdrozenia%2c1%2c20.html) w materiałach dla studentów AGH,
+* Opis [diagramu sekwencji](https://brasil.cel.agh.edu.pl/~09sbfraczek/diagram-sekwencji%2c1%2c13.html) w materiałach dla studentów AGH,
+
+Na koniec zestawienie linków do artykułów na Wikipedii:
+
+* [Artykuł o UML](https://pl.wikipedia.org/wiki/Unified_Modeling_Language) na polskiej Wikipedii,
+* [Artykuł o UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language) na angielskiej Wikipedii,
+* [Diagram klas](https://en.wikipedia.org/wiki/Class_diagram) na angielskiej Wikipedii,
+* [Diagram klas](https://pl.wikipedia.org/wiki/Diagram_klas) na polskiej Wikipedii,
+* [Diagram komponentów](https://en.wikipedia.org/wiki/Component_diagram) na angielskiej Wikipedii,
+* [Diagram wdrożenia](https://en.wikipedia.org/wiki/Deployment_diagram) na angielskiej Wikipedii,
+* [Diagram sekwencji](https://en.wikipedia.org/wiki/Sequence_diagram) na angielskiej Wikipedii.
 
 ## Podsumowanie
 
@@ -156,8 +170,3 @@ Znasz już mój punkt widzenia dotyczący UML'a. Wiesz, że moim zdaniem warto z
 Mam nadzieję, że artykuł przypadł Ci do gustu. Proszę daj znać w komentarzach co sądzisz o UML'u? Czy Twoim zdaniem znajmość tego języka przydaje się w codziennej pracy? A może to już tylko zaszłość, która powoli ochodzi do lamusa? Ciekawy jestem Twoje opinii.
 
 Dodatkowo, jak zwykle, proszę Cię o podzielenie się odnośnikiem do artykułu ze swoimi znajomymi. W ten sposób pomożesz mi dotrzeć do nowych Czytelników, za co z góry Ci dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów proszę zapisz się do samouczkowego newslettera i polub Samouczka na Facebook'u. To tyle na dzisiaj, trzymaj się i do następnego razu!
-
-
-
-
-
