@@ -67,7 +67,7 @@ Załóżmy, że dysk C ma strukturę jak przedstawiono poniżej:
      │ └── plik_2.txt
      └── plik.txt
 
-Ścieżka absolutna do pliku plik\_2\_a.txt wygląda następująco `C:older_2older_2_a\plik_2_a.txt`. Możemy mówić również o ścieżce relatywnej. Mówimy o niej relatywna ponieważ określa adres pliku/katalogu relatywnie do miejsca, w którym się aktualnie znajdujemy.
+Ścieżka absolutna do pliku plik\_2\_a.txt wygląda następująco `C:\older_2\older_2_a\plik_2_a.txt`. Możemy mówić również o ścieżce relatywnej. Mówimy o niej relatywna ponieważ określa adres pliku/katalogu relatywnie do miejsca, w którym się aktualnie znajdujemy.
 
 Zakładając że znajdujemy się w katalogu `folder_2` wówczas nasza relatywna ścieżka do pliku `plik_2_a.txt` jet następująca `folder_2_a\plik_2_a.txt`.
 

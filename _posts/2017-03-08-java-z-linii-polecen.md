@@ -33,7 +33,7 @@ Programy `javac`, `java` czy `jar` dostępne są w katalogu, w którym jest zain
 
 Jeśli w Twoim przypadku katalog gdzie zainstalowałeś JDK nie znajduje się w zmiennej środowiskowej `PATH` wówczas każdy z tych programów będziesz musiał poprzedzać pełną ścieżką. Na przykład:
 
-* `C:\Program Files\Java\jdk1.8.0_162in\javac`
+* `C:\Program Files\Java\jdk1.8.0_16\bin\javac`
 * `/home/mapi/custom/path/jdk/bin/javac`
 
 Na dłuższą metę wygodniej jest ustawić odpowiednią wartość zmiennej `PATH`. Szczegółową instrukcję jak to zrobić znajdziesz pod [tym adresem](https://www.java.com/pl/download/help/path.xml).

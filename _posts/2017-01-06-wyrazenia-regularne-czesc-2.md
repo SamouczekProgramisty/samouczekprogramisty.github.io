@@ -165,7 +165,7 @@ Grupy, których użyjemy w wyrażeniu regularnym możemy też nazwać. W takim p
 ```java
 @Test
 public void shouldUseNamedGroups() {
-    Pattern pattern = Pattern.compile("(?<day>\d{2})\.(?<month>\d{2})\.(?<year>\d{4})");
+    Pattern pattern = Pattern.compile("(?<day>\\d{2})\.(?<month>\\d{2})\\.(?<year>\\d{4})");
     Matcher matcher = pattern.matcher("04.01.2017");
     assertTrue(matcher.matches());
     assertEquals("04", matcher.group("day"));
@@ -186,7 +186,7 @@ Z pomocą przychodzi tu mechanizm ponownego użycia grup wewnątrz wyrażenia re
 ```java
 @Test
 public void shouldReuseGroupsInsideRegexp() {
-    Pattern pattern = Pattern.compile("<(.+?)>(.+?)</\1>");
+    Pattern pattern = Pattern.compile("<(.+?)>(.+?)</\\1>");
     Matcher matcher = pattern.matcher("<p>Some paragraph <em>emphasized</em></p><p>Other paragraph</p>");
     assertTrue(matcher.find());
     assertEquals("p", matcher.group(1));
@@ -213,7 +213,7 @@ Oczywiście można też wykorzystać metodę `matches` zamiast `find`. Różnic�
 ```java
 @Test
 public void shouldShowDifferenceBetweenFindAndMatches() {
-    Pattern pattern = Pattern.compile("\d+");
+    Pattern pattern = Pattern.compile("\\d+");
     Matcher matcher = pattern.matcher("abc123def");
     assertTrue(matcher.find());
     assertFalse(matcher.matches());
@@ -221,7 +221,7 @@ public void shouldShowDifferenceBetweenFindAndMatches() {
 
 @Test
 public void shouldShowDifferenceBetweenFindAndMatchesWithAncors() {
-    Pattern pattern = Pattern.compile("^\d+$");
+    Pattern pattern = Pattern.compile("^\\d+$");
     Matcher matcher = pattern.matcher("abc123def");
     assertFalse(matcher.find());
     assertFalse(matcher.matches());
