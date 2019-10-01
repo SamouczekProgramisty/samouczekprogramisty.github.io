@@ -123,24 +123,68 @@ Nowością dla Ciebie jest także komentarz do relacji (contains), który może 
 
 ### Diagram komponentów
 
-Wiesz już, że diagram klas pozwala zobaczyć powiązania pomiędzy klasami w wąskiej części systemu. Diagram komponentów (ang. _component diagram_) jest czymś co pozwala spojrzeć na projekt z większej odległości. W diagram komponentów kluczową rolę odgrywają własnie komponenty. Komponent to 
+Wiesz już, że diagram klas pozwala zobaczyć powiązania pomiędzy klasami w wąskiej części systemu. Diagram komponentów (ang. _component diagram_) jest czymś co pozwala spojrzeć na projekt z większej odległości. W diagram komponentów kluczową rolę odgrywają komponenty. Proszę spójrz na przykładowy symbol komponentu:
 
 {% include figure image_path="/assets/images/2019/09/27_component.svg" caption="Przykładowy komponent" %}
+
+Jak widzisz komponent to prostokąt ze specyficzną ikonką w prawym górnym rogu. Komponent na rysunku wymaga dwóch interfejsów i sam dostarcza jeden. Komponent `UserManagement` wymaga dostępu do interfejsu `persistence` a sam zapewnia dwa inne `register` i `ban`.
+
+Interfejs to kreska z kółkiem (interfejs udostępniany przez komponent) lub kreska z półkolem (interfejs wymagany przez komponent). Relacje pomiędzy komponentaji odbywają się poprzez interfejsy. Można powiedzieć, że komponenty łączy relacja _zleżności_ – najsłabsza z typów relacji występująca w diagramie klas.
+
+Wiesz już jak wygląda symbol komponentu i interfejsów. Tylko czym ten komponent właściwie jest? Cytując za specyfikacją:
+
+> A Component represents a modular part of a system that encapsulates its contents and whose manifestation is replaceable within its environment.
+
+Powyższe zdanie można przetłumaczyć jako: komponent reprezentuje wydzieloną, opakowaną część systemu, której reprezentacja jest zastępowalna w ramach swojego środowiska.
+
+A teraz raz jeszcze, moimi słowami. Komponent to część systemu, która ma swoje interfejsy. Inerfejsy czyli dokładnie określone sposoby komunikacji. Interfejsy służą do komunikacji z pozostałymi komponentami. Każdy z komponentów można zastąpić inną implementacją. Istotne jest to, że każda implementacja musi spełniać wymagania dotyczące jego interfejsów.
+
+Jak widzisz definicja komponentów jest dość luźna. Do tego worka można wsadzić bardzo dużo rzeczy. Zaczynając od rozbudowanej implementacji w jednej klasie, poprzez ich zestaw znajdujący się w jednym pakiecie/module a na sporej części aplikacji kończąc. Ty jako autor diagramu sam decydujesz o tym do jakiego poziomu komponentów chcesz zejść. Istotne jest to, żeby poziom ten był spójny i prezentował wszystkie komponenty na diagramie „z podobnej odległości”.
+
+Proszę spójrz na przykładowy diagram komponentów systemu, który może być odpowiedzialny za rezerwację biletów lotniczych:
+
+Możesz na nim zobaczyć kilka komponentów, które są od siebie zależne. Każdy z nich definiuje interfejsy, które pozwalają komunikować się z innymi komponentami. Dla uproszczenia pominąłem opisowe nazwy interfejsów:
+
+{% include figure image_path="/assets/images/2019/10/01_example_components.svg" caption="Przykładowy diagram komponentów" %}
 
 ### Diagram wdrożenia
 
 Przedstawiłem Ci już diagram klas i diagram komponentów. Wiesz już, że na system można spojrzeć z różnej odległości zwracając uwagę na coraz mniej szczegółów. Kolejnym stopniem ukrywającym szczegóły może być diagram wdrożenia (ang. _deployment diagram_).
 
+Każdy działający projekt/aplikacja składa się z dwóch niezbędnych elementów. Oprogramowania (ang. _software_) i sprzętu (ang. _hardware_). Zauważ, że żaden z powyżej omówionych diagramów nie poruszał tematyki sprzętu. Tę lukę wypełnia diagram wrdożenia. Diagram wdrożenia służy do odwzorowania zależności pomiędzy opgoramowaniem i/lub sprzętem. To właśnie na diagramie wdrożenia można pokazać sposób w jaki aplikacja/projekt powinien być zainstalowany/wdrożony.
+
+Także tutaj specyfikacja UML pozwala na dużą dowonlność jeśli chodzi o szczegóły. Ty jako autor diagramu decydujesz, czy potrzebna jest dokładna specyfikacja poszczególnych elementów sprzętowych, czy zgrubna informacja w zupełności wystarczy.
+
+Na początku swojej przygody z programowaniem ten diagram nie będzie Ci do niczego potrzebny. W późniejszym czasie bardzo pomoże Ci przy rozmowach na temat sposobu wdrożenia projektu.
+
+Przykład poniżej pokazuje elementy, które możesz spokać na diagramach wdrożenia:
+
+{% include figure image_path="/assets/images/2019/10/01_deployments.svg" caption="Elementy diagramu wdrożenia" %}
+
+Kolejno od lewej na rysunku możesz zobaczyć:
+
+* serwer typu `n2-highmem-64`,
+* element o nazwie Nginx, który reprezentuje serwer HTTP,
+* element Deployment, który wewnątrz zawiera aftefakt o nazwie Artifact.
+
+Mimo tego, że poszczególne części diagramu reprezentują zupełnie różne rzeczy, UML stosuje jedną grafinczą reprezentację. W przypadku tego diagramu zupełnie nie przejmowałbym się sugestiami specyfikacji – w praktyce często spotyka się różnego rodzaju ikonki, które pozwalają lepiej zobrazować poszczególne elementy.
+
+Proszę spójrz na przykład poniżej, który mógłby być diagramem wdrożenia dla aplikacji pozwalającej na rezerwację biletów: 
+
+{% include figure image_path="/assets/images/2019/10/01_example_deployments.svg" caption="Przykładowy diagram wdrożenia" %}
+
+Na diagramie wyżej możesz zobaczyć kilka odddzielnych klastrów (zestawów maszyn), przeznaczonych do wdrożenia poszczególnych komponentów.
+
 ### Diagram sekwencji
 
-Trzy poprzednie diagramy dotyczyły powiązań, relacji pomiędzy elementami. Diagram sekwencji (ang. _sequence diagram_) jest jednym z tak zwanych diagramów interakcji. Kładzie on nacisk na komunikację, która odbywa się pomiędzy poszczególnymi klasami. Diagram sekwencji pokazuje dokładnie sekwencję wykonania metod w poszczególnych klasach.
+Trzy poprzednie diagramy dotyczyły powiązań, relacji pomiędzy elementami. Diagram sekwencji (ang. _sequence diagram_) jest jednym z tak zwanych diagramów interakcji. Kładzie on nacisk na komunikację, która odbywa się pomiędzy poszczególnymi klasami. Diagram sekwencji pokazuje dokładnie sekwencję wykonania metod w poszczególnych klasach. Diagram ten przydaje się do pokazania przebiegu skomplikowanej komunikacji pomiędzy poszczególnymi klsami.
 
 ## Dodatkowe materiały do nauki
 
-Jak wspomniałem na początku artykułu nie było moim zamiarem wyczerpanie tematu. Celowo skupiłem się wyłącznie na diagramach, które moim zdaniem są najczęściej używane. Właśnie te diagramy były dla mnie najbardziej przydatne w sesjach przy tablicach z kolegami z pracy. Jeśli jednak temat UML Cię zainteresował zapraszam Cię do zapoznania się z zestawem materiałów dodatkowych. Zacznę od materiałów oficjalnych:
+Jak wspomniałem na początku artykułu nie było moim zamiarem wyczerpanie tematu. Celowo skupiłem się wyłącznie na diagramach, które moim zdaniem są najczęściej używane. Ponadto pominąłem sporą część możliwości, których nie używałem w praktyce. Właśnie te diagramy były dla mnie najbardziej przydatne w sesjach przy tablicach z kolegami z pracy. Jeśli jednak temat UML Cię zainteresował zapraszam Cię do zapoznania się z zestawem materiałów dodatkowych. Zacznę od materiałów oficjalnych:
 
 * [Oficjalna strona UML'a](https://www.uml.org/),
-* [Specyfikacja UML 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF) – jest niezastąpiona jeśli potrzebujesz zajrzeć do źródła, w innym przypadku gorąco nie polecam.
+* [Specyfikacja UML 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF) – jest niezastąpiona jeśli potrzebujesz zajrzeć do źródła i chcesz poznać wszystkie szczegóły, w innym przypadku gorąco nie polecam.
 
 Dodatkowo mam dla Ciebie artykuł podsumowujący [badanie na temat użycia diagramów w praktyce](https://empirical-software.engineering/assets/pdf/fse14-sketches.pdf).
 
