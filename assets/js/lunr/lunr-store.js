@@ -620,7 +620,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg"},{
         "title": "Wzorzec projektowy obserwator",
-        "excerpt":"Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – wzorce projektowe. Jeżeli chcesz sobie przypomnieć diagram klas w UML, to zapraszam Cię do krótkiego wprowadzenia do diagramu klas. Problem do rozwiązania Czytasz artykuły na...","categories": ["Wzorce projektowe"],
+        "excerpt":"Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – wzorce projektowe. W zrozumieniu artykułu przyda Ci się wiedza dotycząca podstaw UML’a. Problem do rozwiązania Czytasz artykuły na różnych stronach internetowych. Jedną z tych stron...","categories": ["Wzorce projektowe"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/wzorzec-projektowy-obserwator/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/05/01_wzorzec_projektowy_obserwator_artykul.jpg"},{
@@ -634,16 +634,16 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/podzapytania-sql/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/08/19_podzapytania_sql_artykul.jpg"},{
+        "title": "Podstawy UML",
+        "excerpt":"W artykule opisuję wyłącznie moje doświadczenia. Możliwe, że ktoś ma zupełnie inne. Z chęcią poznam Twój punkt widzenia w komentarzach. Proszę weź też pod uwagę to, że lepiej czuję się w mniejszych firmach niż ustrukturyzowanych korporacjach – ma to wpływ na moje zdanie na temat UML’a. Jak mówi znane powiedzenie...","categories": ["Programista rzemieślnik"],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/podstawy-uml/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/09/21_podstawy_uml_artykul.jpeg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/strefa-zadaniowa/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/splash/dzial_strefa_zadaniowa.jpg"},{
-        "title": "Narzędzia i dobre praktyki",
-        "excerpt":"Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować na co dzień. Narzędzia Wstęp do Gradle Pierwszy projekt w Gradle Walidacja obiektów w...","categories": [],
-        "tags": [],
-        "url": "https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/",
-        "teaser":"https://www.samouczekprogramisty.pl/assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg"},{
         "title": "Strefa projektowa",
         "excerpt":"Na blogu staram się pokazywać, że nauka powinna odbywać się poprzez praktykę. Właśnie z tego powodu realizuję projekty “od początku do końca”. Na tej stronie znajdziesz zestaw artykułów, które związane są z większymi projektami programistycznymi. Projekty Pogodynka Pogodynka to projekt, który polegał na udostępnieniu odczytów temperatury na żywo. Termometr cały...","categories": [],
         "tags": [],
@@ -658,4 +658,9 @@ var store = [{
         "excerpt":"Studiowałem Informatykę na Politechnice Wrocławskiej. Nie jestem wykładowcą akademickim, więc nie oczekuj ode mnie akademickiej teorii ;). W artykułach teorię staram się pokazać w przyjazny i zrozumiały sposób, poparty przykładami. Tematy, które opisałem w artykułach znajdujących się na tej stronie to materiał, który moim zdaniem powinien znać każdy programista. Jeśli...","categories": [],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/wprowadzenie-do-informatyki/",
-        "teaser":"https://www.samouczekprogramisty.pl/assets/images/splash/dzial_wprowadzenie_do_informatyki.jpeg"}]
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/splash/dzial_wprowadzenie_do_informatyki.jpeg"},{
+        "title": "Narzędzia i dobre praktyki",
+        "excerpt":"Znajomość składni języka programowania to dopiero początek. Programista w swojej codziennej pracy wykorzystuje szereg narzędzi, które pomagają mu w pracy. Na tej stronie zebrałem artykuły, które związane są z narzędziami i dobrymi praktykami, które warto stosować na co dzień. Narzędzia Wstęp do Gradle Pierwszy projekt w Gradle Walidacja obiektów w...","categories": [],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/splash/dzial_narzedzia_i_dobre_praktyki.jpg"}]
