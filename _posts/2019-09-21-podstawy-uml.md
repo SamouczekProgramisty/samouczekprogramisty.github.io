@@ -123,13 +123,15 @@ Nowością dla Ciebie jest także komentarz do relacji (contains), który może 
 
 ### Diagram komponentów
 
-Wiesz już, że diagram klas pozwala zobaczyć powiązania pomiędzy klasami w wąskiej części systemu. Diagram komponentów (ang. _component diagram_) jest czymś co pozwala spojrzeć na projekt z większej odległości. W diagram komponentów kluczową rolę odgrywają komponenty. Proszę spójrz na przykładowy symbol komponentu:
+Wiesz już, że diagram klas pozwala zobaczyć powiązania pomiędzy klasami w wąskiej części systemu. Diagram komponentów (ang. _component diagram_) pozwala spojrzeć na projekt z większej odległości. W diagram komponentów kluczową rolę odgrywają komponenty. Proszę spójrz na przykładowy symbol komponentu:
 
 {% include figure image_path="/assets/images/2019/09/27_component.svg" caption="Przykładowy komponent" %}
 
 Jak widzisz komponent to prostokąt ze specyficzną ikonką w prawym górnym rogu. Komponent na rysunku wymaga dwóch interfejsów i sam dostarcza jeden. Komponent `UserManagement` wymaga dostępu do interfejsu `persistence` a sam zapewnia dwa inne `register` i `ban`.
 
 Interfejs to kreska z kółkiem (interfejs udostępniany przez komponent) lub kreska z półkolem (interfejs wymagany przez komponent). Relacje pomiędzy komponentaji odbywają się poprzez interfejsy. Można powiedzieć, że komponenty łączy relacja _zleżności_ – najsłabsza z typów relacji występująca w diagramie klas.
+
+#### Czym jest komponent
 
 Wiesz już jak wygląda symbol komponentu i interfejsów. Tylko czym ten komponent właściwie jest? Cytując za specyfikacją:
 
@@ -140,6 +142,8 @@ Powyższe zdanie można przetłumaczyć jako: komponent reprezentuje wydzieloną
 A teraz raz jeszcze, moimi słowami. Komponent to część systemu, która ma swoje interfejsy. Inerfejsy czyli dokładnie określone sposoby komunikacji. Interfejsy służą do komunikacji z pozostałymi komponentami. Każdy z komponentów można zastąpić inną implementacją. Istotne jest to, że każda implementacja musi spełniać wymagania dotyczące jego interfejsów.
 
 Jak widzisz definicja komponentów jest dość luźna. Do tego worka można wsadzić bardzo dużo rzeczy. Zaczynając od rozbudowanej implementacji w jednej klasie, poprzez ich zestaw znajdujący się w jednym pakiecie/module a na sporej części aplikacji kończąc. Ty jako autor diagramu sam decydujesz o tym do jakiego poziomu komponentów chcesz zejść. Istotne jest to, żeby poziom ten był spójny i prezentował wszystkie komponenty na diagramie „z podobnej odległości”.
+
+#### Przykładowy diagram komponentów
 
 Proszę spójrz na przykładowy diagram komponentów systemu, który może być odpowiedzialny za rezerwację biletów lotniczych:
 
@@ -157,6 +161,8 @@ Także tutaj specyfikacja UML pozwala na dużą dowonlność jeśli chodzi o szc
 
 Na początku swojej przygody z programowaniem ten diagram nie będzie Ci do niczego potrzebny. W późniejszym czasie bardzo pomoże Ci przy rozmowach na temat sposobu wdrożenia projektu.
 
+#### Elementy diagramu wdrożenia
+
 Przykład poniżej pokazuje elementy, które możesz spokać na diagramach wdrożenia:
 
 {% include figure image_path="/assets/images/2019/10/01_deployments.svg" caption="Elementy diagramu wdrożenia" %}
@@ -167,17 +173,39 @@ Kolejno od lewej na rysunku możesz zobaczyć:
 * element o nazwie Nginx, który reprezentuje serwer HTTP,
 * element Deployment, który wewnątrz zawiera aftefakt o nazwie Artifact.
 
-Mimo tego, że poszczególne części diagramu reprezentują zupełnie różne rzeczy, UML stosuje jedną grafinczą reprezentację. W przypadku tego diagramu zupełnie nie przejmowałbym się sugestiami specyfikacji – w praktyce często spotyka się różnego rodzaju ikonki, które pozwalają lepiej zobrazować poszczególne elementy.
+Zauważ, że podobnie jak w przypadku diagramu klas wstępują tu stereotypy, które dodają informacje. Mimo tego, że poszczególne części diagramu reprezentują zupełnie różne rzeczy, UML stosuje jedną grafinczą reprezentację. W przypadku tego diagramu zupełnie nie przejmowałbym się sugestiami specyfikacji – w praktyce często spotyka się różnego rodzaju ikonki, które pozwalają lepiej zobrazować poszczególne elementy.
+
+#### Przykładowy diagram wdrożenia
 
 Proszę spójrz na przykład poniżej, który mógłby być diagramem wdrożenia dla aplikacji pozwalającej na rezerwację biletów: 
 
 {% include figure image_path="/assets/images/2019/10/01_example_deployments.svg" caption="Przykładowy diagram wdrożenia" %}
 
-Na diagramie wyżej możesz zobaczyć kilka odddzielnych klastrów (zestawów maszyn), przeznaczonych do wdrożenia poszczególnych komponentów.
+Na diagramie wyżej możesz zobaczyć kilka odddzielnych klastrów (zestawów maszyn), przeznaczonych do wdrożenia poszczególnych komponentów. Kreski łączące komponenty obrazują powiązania między nimi.
 
 ### Diagram sekwencji
 
-Trzy poprzednie diagramy dotyczyły powiązań, relacji pomiędzy elementami. Diagram sekwencji (ang. _sequence diagram_) jest jednym z tak zwanych diagramów interakcji. Kładzie on nacisk na komunikację, która odbywa się pomiędzy poszczególnymi klasami. Diagram sekwencji pokazuje dokładnie sekwencję wykonania metod w poszczególnych klasach. Diagram ten przydaje się do pokazania przebiegu skomplikowanej komunikacji pomiędzy poszczególnymi klsami.
+Trzy poprzednie diagramy dotyczyły relacji pomiędzy elementami. Diagram sekwencji (ang. _sequence diagram_) jest jednym z tak zwanych diagramów interakcji. Kładzie on nacisk na komunikację, która odbywa się pomiędzy poszczególnymi klasami/obiektami. Diagram sekwencji pokazuje dokładnie sekwencję wykonania metod w poszczególnych obiektach. Diagram ten przydaje się do pokazania przebiegu skomplikowanej komunikacji.
+
+#### Elementy diagramu sekwencji 
+
+Każdy z obiektów reprezentowany jest jako prostokąt połączony z pionową kreską. Ta liniia oznacza „linię życia” – czas życia obiektu. Na diagramie może występować także tak zwany aktor. Aktor to człowiek albo system, który może brać udział w komunikacji. Proszę spójrz na przykład:
+
+{% include figure image_path="/assets/images/2019/10/02_sequence.svg" caption="Przykładowy diagram sekwencji" %}
+
+Wąskie pionowe prostokąty na liniach życia oznaczają czas, w którym dany aktor/obiekt był aktywny. Aktywność była niezbędna do wypełnienia żądania, które dany obiekt wysłał/otrzymał.
+
+Niektóre obiekty mogą żyć krócej niż pozostałe. Koniec życia obiektu zaznaczany jest przez znak `X` na ich linii życia.
+
+Diagram, który pokazałem powyżej może służyć jako przykład opisujący mechanizm wysyłania wiadomości e-mail. Na początku aktor inicjalizuje proces, `Instance 1` obsługuje akcję `sendEmail` przekazując ją asynchronicznie do `Instance 2`. Następnie dwukrotnie sprawdza czy wysłanie wiadomości się powiodło, po czym zwraca informację do aktora.
+
+#### Rodzaje komunikatów
+
+Wiesz już, że pionowe kreski oznaczają linię życia. Im wyżej na diagramie, tym wcześniej coś się wydażyło. Poziome kreski oznaczają komunikaty. Jak widzisz istnieje kilka rodzajów komunikatów:
+
+{% include figure image_path="/assets/images/2019/10/02_invocations.svg" caption="Rodzaje komunikatów" %}
+
+Strzałki w lewej kolumnie oznaczają komunikaty synchroniczne. Strzałka z ciągłą liną oznacza wysłanie komunikatu, strzałka z przerywaną linią otrzymanie odpowiedzi. W prawej kolumnie pokazałem strzałkę reprezentującą asynchroniczne wysłanie komunikatu.
 
 ## Dodatkowe materiały do nauki
 
