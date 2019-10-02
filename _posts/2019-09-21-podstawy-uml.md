@@ -11,10 +11,10 @@ header:
 excerpt: W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz kilka rodzajów diagramów, które moim zdaniem są najbardziej przydatne. Dowiesz się w jakich sytuacjach UML może być dobrym narzędziem. W artykule stawiam raczej na praktyczne zastosowanie niż rygorystyczną zgodność ze specyfikacją UML.
 ---
 
-W artykule opisuję wyłącznie moje doświadczenia. Możliwe, że ktoś ma zupełnie inne. Z chęcią poznam Twój punkt widzenia w komentarzach. Proszę weź teź pod uwagę to, że lepiej czuję się w mniejszych firmach niż ustrukturyzowanych korporacjach – ma to wpływ na moje zdanie na temat UML'a.
+W artykule opisuję wyłącznie moje doświadczenia. Możliwe, że ktoś ma zupełnie inne. Z chęcią poznam Twój punkt widzenia w komentarzach. Proszę weź też pod uwagę to, że lepiej czuję się w mniejszych firmach niż ustrukturyzowanych korporacjach – ma to wpływ na moje zdanie na temat UML'a.
 {:.notice--info}
 
-Jak mówi znane powiedzenie „jeden obraz jest wart tysiąca słów”. Takie przypadki zdarzają się także w programowaniu. Często w trakcie projektowania czy rozmawiania na temat fragmentu opgrogramowania programistom dużo łatwiej jest się porozumieć rysując. Takie rysunki mogą opisywać ogólną architekturę projektu, sposób podejścia do rozwiązania, kolejność zdarzeń w ramach procesu itd. Dobrze jest mieć wspólny język. W tym przypadku pomocny może być UML.
+Jak mówi znane powiedzenie „jeden obraz jest wart tysiąca słów”. Takie przypadki zdarzają się także w programowaniu. Często w trakcie projektowania czy rozmawiania na temat fragmentu oprogramowania programistom dużo łatwiej jest się porozumieć rysując. Takie rysunki mogą opisywać ogólną architekturę projektu, sposób podejścia do rozwiązania, kolejność zdarzeń w ramach procesu itd. Dobrze jest mieć wspólny język. W tym przypadku pomocny może być UML.
 
 ## Czym jest UML
 
@@ -22,7 +22,7 @@ UML to akronim pochodzący od angielskiego określenia _Unified Modeling Languag
 
 ## Czy warto uczyć się UML'a
 
-Odpowiadając na tak postawione pytanie w jednym zdaniu mogę powiedzieć, że z mojego doświadczenia UML jest ważny i warto znać jego podstawy. Chociażby po to żeby rozszerzyć swój „słownik”, który później możmy użyć w trakcie rozmowy na temat programowania z inną osobą. UML to kolejne narzędzie, które możesz urzywać w odpowiednich sytuacjach. Rysunek, który usuwa zbędne szczegóły pokazując najbardziej istotne aspekty jest niezastąpiony.
+Odpowiadając na tak postawione pytanie w jednym zdaniu mogę powiedzieć, że z mojego doświadczenia UML jest ważny i warto znać jego podstawy. Chociażby po to żeby rozszerzyć swój „słownik”, który później możemy użyć w trakcie rozmowy na temat programowania z inną osobą. UML to kolejne narzędzie, które możesz używać w odpowiednich sytuacjach. Rysunek, który usuwa zbędne szczegóły pokazując najbardziej istotne aspekty jest niezastąpiony.
 
 Jednak to tylko część rzeczywistości. UML jest ważny, między innymi z wyżej wspomnianych powodów. Jednak ten sam UML to kobyła. [Specyfikacja UML w wersji 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF) zawiera 754 strony! Pracując jako programista od 2007 roku w całej swojej karierze nie spotkałem ani jednej osoby, która fanatycznie przestrzegałaby reguł opisujących UML'a[^ekspert]. Część funkcjonalność UML'a bardzo rzadko albo w ogóle nie jest wykorzystywana w praktyce.
 
@@ -32,9 +32,9 @@ Innymi słowy: tak, warto poznać UML'a, jednak wybiórczo.
 
 ## Czy UML jest używany w pracy związanej z oprogramowaniem
 
-Na początku muszę powiedzieć Ci trochę o moich doświadczeniach. Po kilku latach pracy zauważyłem, że nie czuję się dobrze w korporacjach. Projekty, które wykorzystują „ciężkie metodologie” do ich prowadzenia też raczej nie są dla mnie. Mimo pracy jako programista od 2007 roku doświadczyłem wyłącznie niedużej części dużego świata firm IT. Bardzo możliwe, że w środowisku, którego nie lubę nacisk na „czystego UML'a” jest większy.
+Na początku muszę powiedzieć Ci trochę o moich doświadczeniach. Po kilku latach pracy zauważyłem, że nie czuję się dobrze w korporacjach. Projekty, które wykorzystują „ciężkie metodologie” do ich prowadzenia też raczej nie są dla mnie. Mimo pracy jako programista od 2007 roku doświadczyłem wyłącznie niedużej części dużego świata firm IT. Bardzo możliwe, że w środowisku, którego nie lubię nacisk na „czystego UML'a” jest większy.
 
-Z mojego doświadczenia UML jest wykorzytywany w nieformalny sposób. To tak jak z językiem obcym – najważniejsza jest komunikacja. Możesz robić mnóstwo błędów, jeśli jednak potrafisz się dogadać z drugą stroną to jesteś w domu. Właśnie komuikacja i umiejętność przekazywania informacji jest tu kluczowa. Innymi słowy jeśli będzisz znać podstawy najbardziej istotnych diagramów, to ta wiedza powinna być wystarczająca.
+Z mojego doświadczenia UML jest wykorzystywany w nieformalny sposób. To tak jak z językiem obcym – najważniejsza jest komunikacja. Możesz robić mnóstwo błędów, jeśli jednak potrafisz się dogadać z drugą stroną to jesteś w domu. Właśnie komunikacja i umiejętność przekazywania informacji jest tu kluczowa. Innymi słowy jeśli będziesz znać podstawy najbardziej istotnych diagramów, to ta wiedza powinna być wystarczająca.
 
 Taki punkt widzenia potwierdza to też [badanie przeprowadzone na grupie programistów, testerów, architektów czy kierowników projektów](https://empirical-software.engineering/projects/sketches/)[^proba]. Wynik przeprowadzonej ankiety potwierdza, że UML używany jest raczej nieformalnie.
 
@@ -50,7 +50,7 @@ Przede wszystkim polecam tablicę i marker (lub kartkę i długopis). To zdecydo
 
 W trakcie pracy nad Samouczkiem, szczególnie pracując na artykułami dotyczącymi [wzorców projektowych]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}#wzorce-projektowe) używam programu [UMLet](https://www.umlet.com) i [yED](https://www.yworks.com/downloads#yEd). Są to darmowe programy, które pozwalają na tworzenie niektórych rodzajów diagramów UML. Istotne w nich dla mnie jest to, że same programy są proste a tworzone diagramy zapisane są w postaci tekstowej (można je eksportować do formatów graficznych). Format tekstowy świetnie nadaje się do zapisania w [repozytorium git'a]({{ '/kurs-git/' | absolute_url }}).
 
-Istnieje całkiem sporo narzędzi, które mają dużo większe możliwośći, jednak dla komercyjnych zastosowań są płatne.
+Istnieje całkiem sporo narzędzi, które mają dużo większe możliwości, jednak dla komercyjnych zastosowań są płatne.
 
 ## Najczęściej używane diagramy UML
 
@@ -68,7 +68,7 @@ Zacznę od pokazania symbolu klasy:
 
 Klasa reprezentowana jest przez prostokąt podzielony na kilka części. W pierwszej z nich znajduje się nazwa klasy. W przykładzie jest to `Customer`. Następna sekcja zawiera atrybuty, kolejna metody.
 
-Elemnty, które są podkreślone oznaczają elementy statyczne. Na przykad atrybut `DEFAULT_PROMO_CODE` jest statycznym atrybutem klasy. Elementy pisane kursywą są abstrakcyjne (może dotyczyć także samej klasy), na przykład metoda `fetchPromoCode` jest abstrakcyjna.
+Elementy, które są podkreślone oznaczają elementy statyczne. Na przykład atrybut `DEFAULT_PROMO_CODE` jest statycznym atrybutem klasy. Elementy pisane kursywą są abstrakcyjne (może dotyczyć także samej klasy), na przykład metoda `fetchPromoCode` jest abstrakcyjna.
 
 Zarówno atrybuty jak i operacje mogą być poprzedzone symbolem. Dopuszczalne są między innymi:
 
@@ -78,7 +78,7 @@ Zarówno atrybuty jak i operacje mogą być poprzedzone symbolem. Dopuszczalne s
 
 Klasa w przykładzie ma cztery atrybuty. Trzy atrybuty instancji i jeden atrybut klasy (statyczny). Atrybuty zapisywane są w formacie `nazwa:typ`. Ta sama klasa ma trzy metody. Prywatną metoda `modifyOrderStats` i dwie metody publiczne. Zwróć uwagę na to, że metody mogą mieć określone typy parametrów i wartości zwracanej.
 
-W podobny sposób oznacza się interfejs. W odróżnieniu od klasy zawiera on tak zwany stereotyp `«interface»`. Na diagramie powyżej `NotificationPipe` jest interfejsem zaiwerającym dwie metody. Zauważ, że w tym przypadku pominąłem symbole określające dostępność metod.
+W podobny sposób oznacza się interfejs. W odróżnieniu od klasy zawiera on tak zwany stereotyp `«interface»`. Na diagramie powyżej `NotificationPipe` jest interfejsem zawierającym dwie metody. Zauważ, że w tym przypadku pominąłem symbole określające dostępność metod.
 
 Atrybuty klas mogą być także opisane przez relacje pomiędzy klasami.
 
@@ -90,15 +90,15 @@ Pomiędzy klasami mogą występować relacje. Przykładem relacji jest [dziedzic
 
 Zacznę od lewej kolumny. Pierwsza przerywana strzałka reprezentuje _implementację_. Jest używana do tego żeby pokazać jaki interfejs jest implementowany przez klasę. Druga oznacza _dziedziczenie_. W tym przypadku grot wskazuje klasę nadrzędną.
 
-W prawej kolumnie znajdują się strzałki pokazujące relacje pomiędzy klasam inne niż implementacja czy dziedziczenie. Posegregowałem je w rosnąco według tego jak silne są relacje przez nie opisywane.
+W prawej kolumnie znajdują się strzałki pokazujące relacje pomiędzy klasami inne niż implementacja czy dziedziczenie. Posegregowałem je w rosnąco według tego jak silne są relacje przez nie opisywane.
 
 Relacje ze strzałkami mogą być jednokierunkowe albo dwukierunkowe. W przypadku relacji jednokierunkowej strona bez grota używa strony na którą pokazuje grot. W przypadku braku grota relacja jest dwukierunkowa.
 
-Najsłabszą relacją pomiędzy klasami jest _zależność_. Reprezentowana jest przez przerywaną linię. _Zależność_ oznacza, że jedna klasa w pewnym momencie używa innej, na przykład jako parametr, czy wartość zwracana metody. W przypadku _zależności_ klasa, od której zależymy nie jest zapisana jako atrybut. Przykładem _zależności_ w bilbiotece standardowej Javy może być zależność `Integer` od `String`, widać ją na przykład w metodzie `Integer.valueOf(String)`.
+Najsłabszą relacją pomiędzy klasami jest _zależność_. Reprezentowana jest przez przerywaną linię. _Zależność_ oznacza, że jedna klasa w pewnym momencie używa innej, na przykład jako parametr, czy wartość zwracana metody. W przypadku _zależności_ klasa, od której zależymy nie jest zapisana jako atrybut. Przykładem _zależności_ w bibliotece standardowej Javy może być zależność `Integer` od `String`, widać ją na przykład w metodzie `Integer.valueOf(String)`.
 
 Kolejnym rodzajem relacji jest _asocjacja_. W tym przypadku jest to zapis, który może zastąpić atrybut klasy – jeśli nie chcesz dodawać atrybut w prostokącie reprezentującym klasę możesz użyć _asocjacji_. Przykładem _asocjacji_ w bibliotece standardowej Javy może być `FileInputStream` i `String`. Klasa `FileInputStream` posiada atrybut typu `String` reprezentujący ścieżkę do pliku.
 
-Kolejną relacją jest _agregacja_. _Agregacja_ wprowadza w relacji stronę, która jest „właścicielem”. Jedna klasa agreguje inną. Relacja tego typu oznaczona jest przez ciągłą linię z pustym rombem po stronie właściciela. W bibliotece standardowej tego typu relacja wysępuje pomiędzy `ArrayList` a klasą, której instancje przechowuje[^object].
+Kolejną relacją jest _agregacja_. _Agregacja_ wprowadza w relacji stronę, która jest „właścicielem”. Jedna klasa agreguje inną. Relacja tego typu oznaczona jest przez ciągłą linię z pustym rombem po stronie właściciela. W bibliotece standardowej tego typu relacja występuje pomiędzy `ArrayList` a klasą, której instancje przechowuje[^object].
 
 [^object]: Tak na prawdę `ArrayList` zawiera tablicę instancji typu `Object`, to dzięki [typom generycznym]({% post_url 2016-03-26-typy-generyczne-w-jezyku-java %}) na zewnątrz widoczna jest inna klasa.
 
@@ -110,7 +110,7 @@ Proszę spójrz na diagram poniżej (dla czytelności pominąłem w nim atrybuty
 
 * klasa `LargeItem` implementuje interfejs `Item` – _implementacja_,
 * klasy `VIP` i `OrdinaryCustomer` dziedziczą po klasie abstrakcyjnej `Customer` – _dziedziczenie_,
-* klasa `OrderCalculator` używa klasy `Basket` – _zależnosć_,
+* klasa `OrderCalculator` używa klasy `Basket` – _zależność_,
 * klasa `Basket` wie o kliencie z którym jest powiązana (klasie `Customer`), odwrotne stwierdzenie także jest prawdziwe – _asocjacja_,
 * klasa `Basket` może zawierać wiele instancji klasy `Item` – _agregacja_,
 * klasa `VIP` zawiera wiele instancji klasy `BonusCode` i zarządza ich cyklem życia – kompozycja.
@@ -129,7 +129,7 @@ Wiesz już, że diagram klas pozwala zobaczyć powiązania pomiędzy klasami w w
 
 Jak widzisz komponent to prostokąt ze specyficzną ikonką w prawym górnym rogu. Komponent na rysunku wymaga dwóch interfejsów i sam dostarcza jeden. Komponent `UserManagement` wymaga dostępu do interfejsu `persistence` a sam zapewnia dwa inne `register` i `ban`.
 
-Interfejs to kreska z kółkiem (interfejs udostępniany przez komponent) lub kreska z półkolem (interfejs wymagany przez komponent). Relacje pomiędzy komponentaji odbywają się poprzez interfejsy. Można powiedzieć, że komponenty łączy relacja _zleżności_ – najsłabsza z typów relacji występująca w diagramie klas.
+Interfejs to kreska z kółkiem (interfejs udostępniany przez komponent) lub kreska z półkolem (interfejs wymagany przez komponent). Relacje pomiędzy komponentami odbywają się poprzez interfejsy. Można powiedzieć, że komponenty łączy relacja _zależności_ – najsłabsza z typów relacji występująca w diagramie klas.
 
 #### Czym jest komponent
 
@@ -137,9 +137,9 @@ Wiesz już jak wygląda symbol komponentu i interfejsów. Tylko czym ten kompone
 
 > A Component represents a modular part of a system that encapsulates its contents and whose manifestation is replaceable within its environment.
 
-Powyższe zdanie można przetłumaczyć jako: komponent reprezentuje wydzieloną, opakowaną część systemu, której reprezentacja jest zastępowalna w ramach swojego środowiska.
+Powyższe zdanie można przetłumaczyć jako: komponent reprezentuje wydzieloną, opakowaną część systemu, której reprezentacja jest wymienna w ramach swojego środowiska.
 
-A teraz raz jeszcze, moimi słowami. Komponent to część systemu, która ma swoje interfejsy. Inerfejsy czyli dokładnie określone sposoby komunikacji. Interfejsy służą do komunikacji z pozostałymi komponentami. Każdy z komponentów można zastąpić inną implementacją. Istotne jest to, że każda implementacja musi spełniać wymagania dotyczące jego interfejsów.
+A teraz raz jeszcze, moimi słowami. Komponent to część systemu, która ma swoje interfejsy. Interfejsy czyli dokładnie określone sposoby komunikacji. Interfejsy służą do komunikacji z pozostałymi komponentami. Każdy z komponentów można zastąpić inną implementacją. Istotne jest to, że każda implementacja musi spełniać wymagania dotyczące jego interfejsów.
 
 Jak widzisz definicja komponentów jest dość luźna. Do tego worka można wsadzić bardzo dużo rzeczy. Zaczynając od rozbudowanej implementacji w jednej klasie, poprzez ich zestaw znajdujący się w jednym pakiecie/module a na sporej części aplikacji kończąc. Ty jako autor diagramu sam decydujesz o tym do jakiego poziomu komponentów chcesz zejść. Istotne jest to, żeby poziom ten był spójny i prezentował wszystkie komponenty na diagramie „z podobnej odległości”.
 
@@ -155,15 +155,15 @@ Możesz na nim zobaczyć kilka komponentów, które są od siebie zależne. Każ
 
 Przedstawiłem Ci już diagram klas i diagram komponentów. Wiesz już, że na system można spojrzeć z różnej odległości zwracając uwagę na coraz mniej szczegółów. Kolejnym stopniem ukrywającym szczegóły może być diagram wdrożenia (ang. _deployment diagram_).
 
-Każdy działający projekt/aplikacja składa się z dwóch niezbędnych elementów. Oprogramowania (ang. _software_) i sprzętu (ang. _hardware_). Zauważ, że żaden z powyżej omówionych diagramów nie poruszał tematyki sprzętu. Tę lukę wypełnia diagram wrdożenia. Diagram wdrożenia służy do odwzorowania zależności pomiędzy opgoramowaniem i/lub sprzętem. To właśnie na diagramie wdrożenia można pokazać sposób w jaki aplikacja/projekt powinien być zainstalowany/wdrożony.
+Każdy działający projekt/aplikacja składa się z dwóch niezbędnych elementów. Oprogramowania (ang. _software_) i sprzętu (ang. _hardware_). Zauważ, że żaden z powyżej omówionych diagramów nie poruszał tematyki sprzętu. Tę lukę wypełnia diagram wdrożenia. Diagram wdrożenia służy do odwzorowania zależności pomiędzy oprogramowaniem i/lub sprzętem. To właśnie na diagramie wdrożenia można pokazać sposób w jaki aplikacja/projekt powinien być zainstalowany/wdrożony.
 
-Także tutaj specyfikacja UML pozwala na dużą dowonlność jeśli chodzi o szczegóły. Ty jako autor diagramu decydujesz, czy potrzebna jest dokładna specyfikacja poszczególnych elementów sprzętowych, czy zgrubna informacja w zupełności wystarczy.
+Także tutaj specyfikacja UML pozwala na dużą dowolność jeśli chodzi o szczegóły. Ty jako autor diagramu decydujesz, czy potrzebna jest dokładna specyfikacja poszczególnych elementów sprzętowych, czy zgrubna informacja w zupełności wystarczy.
 
 Na początku swojej przygody z programowaniem ten diagram nie będzie Ci do niczego potrzebny. W późniejszym czasie bardzo pomoże Ci przy rozmowach na temat sposobu wdrożenia projektu.
 
 #### Elementy diagramu wdrożenia
 
-Przykład poniżej pokazuje elementy, które możesz spokać na diagramach wdrożenia:
+Przykład poniżej pokazuje elementy, które możesz spotkać na diagramach wdrożenia:
 
 {% include figure image_path="/assets/images/2019/10/01_deployments.svg" caption="Elementy diagramu wdrożenia" %}
 
@@ -171,9 +171,9 @@ Kolejno od lewej na rysunku możesz zobaczyć:
 
 * serwer typu `n2-highmem-64`,
 * element o nazwie Nginx, który reprezentuje serwer HTTP,
-* element Deployment, który wewnątrz zawiera aftefakt o nazwie Artifact.
+* element Deployment, który wewnątrz zawiera artefakt o nazwie Artifact.
 
-Zauważ, że podobnie jak w przypadku diagramu klas wstępują tu stereotypy, które dodają informacje. Mimo tego, że poszczególne części diagramu reprezentują zupełnie różne rzeczy, UML stosuje jedną grafinczą reprezentację. W przypadku tego diagramu zupełnie nie przejmowałbym się sugestiami specyfikacji – w praktyce często spotyka się różnego rodzaju ikonki, które pozwalają lepiej zobrazować poszczególne elementy.
+Zauważ, że podobnie jak w przypadku diagramu klas wstępują tu stereotypy, które dodają informacje. Mimo tego, że poszczególne części diagramu reprezentują zupełnie różne rzeczy, UML stosuje jedną graficzną reprezentację. W przypadku tego diagramu zupełnie nie przejmowałbym się sugestiami specyfikacji – w praktyce często spotyka się różnego rodzaju ikonki, które pozwalają lepiej zobrazować poszczególne elementy.
 
 #### Przykładowy diagram wdrożenia
 
@@ -181,7 +181,7 @@ Proszę spójrz na przykład poniżej, który mógłby być diagramem wdrożenia
 
 {% include figure image_path="/assets/images/2019/10/01_example_deployments.svg" caption="Przykładowy diagram wdrożenia" %}
 
-Na diagramie wyżej możesz zobaczyć kilka odddzielnych klastrów (zestawów maszyn), przeznaczonych do wdrożenia poszczególnych komponentów. Kreski łączące komponenty obrazują powiązania między nimi.
+Na diagramie wyżej możesz zobaczyć kilka oddzielnych klastrów (zestawów maszyn), przeznaczonych do wdrożenia poszczególnych komponentów. Kreski łączące komponenty obrazują powiązania między nimi.
 
 ### Diagram sekwencji
 
@@ -189,7 +189,7 @@ Trzy poprzednie diagramy dotyczyły relacji pomiędzy elementami. Diagram sekwen
 
 #### Elementy diagramu sekwencji 
 
-Każdy z obiektów reprezentowany jest jako prostokąt połączony z pionową kreską. Ta liniia oznacza „linię życia” – czas życia obiektu. Na diagramie może występować także tak zwany aktor. Aktor to człowiek albo system, który może brać udział w komunikacji. Proszę spójrz na przykład:
+Każdy z obiektów reprezentowany jest jako prostokąt połączony z pionową kreską. Ta linia oznacza „linię życia” – czas życia obiektu. Na diagramie może występować także tak zwany aktor. Aktor to człowiek albo system, który może brać udział w komunikacji. Proszę spójrz na przykład:
 
 {% include figure image_path="/assets/images/2019/10/02_sequence.svg" caption="Przykładowy diagram sekwencji" %}
 
@@ -201,7 +201,7 @@ Diagram, który pokazałem powyżej może służyć jako przykład opisujący me
 
 #### Rodzaje komunikatów
 
-Wiesz już, że pionowe kreski oznaczają linię życia. Im wyżej na diagramie, tym wcześniej coś się wydażyło. Poziome kreski oznaczają komunikaty. Jak widzisz istnieje kilka rodzajów komunikatów:
+Wiesz już, że pionowe kreski oznaczają linię życia. Im wyżej na diagramie, tym wcześniej coś się wydarzyło. Poziome kreski oznaczają komunikaty. Jak widzisz istnieje kilka rodzajów komunikatów:
 
 {% include figure image_path="/assets/images/2019/10/02_invocations.svg" caption="Rodzaje komunikatów" %}
 
@@ -239,6 +239,6 @@ Na koniec zestawienie linków do artykułów na Wikipedii:
 
 Znasz już mój punkt widzenia dotyczący UML'a. Wiesz, że moim zdaniem warto znać podstawy tego języka. Mogą Ci się one przydać w codziennej pracy. Jeśli lubisz pracować w bardziej formalnym środowisku może się okazać, że UML będzie niezastąpiony. Znasz kilka rodzajów diagramów, które mogą być przydatne. Znasz także darmowe narzędzia, które pozwalają na tworzenie diagramów UML.
 
-Mam nadzieję, że artykuł przypadł Ci do gustu. Proszę daj znać w komentarzach co sądzisz o UML'u? Czy Twoim zdaniem znajmość tego języka przydaje się w codziennej pracy? A może to już tylko zaszłość, która powoli ochodzi do lamusa? Ciekawy jestem Twoje opinii.
+Mam nadzieję, że artykuł przypadł Ci do gustu. Proszę daj znać w komentarzach co sądzisz o UML'u? Czy Twoim zdaniem znajomość tego języka przydaje się w codziennej pracy? A może to już tylko zaszłość, która powoli odchodzi do lamusa? Ciekawy jestem Twoje opinii.
 
 Dodatkowo, jak zwykle, proszę Cię o podzielenie się odnośnikiem do artykułu ze swoimi znajomymi. W ten sposób pomożesz mi dotrzeć do nowych Czytelników, za co z góry Ci dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów proszę zapisz się do samouczkowego newslettera i polub Samouczka na Facebook'u. To tyle na dzisiaj, trzymaj się i do następnego razu!
