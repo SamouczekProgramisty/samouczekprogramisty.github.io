@@ -26,6 +26,9 @@ Problemem do rozwiązania jest zatem użycie obiektu, w miejscu gdzie jego inter
 
 ## Błyskawiczny kurs UML
 
+Jeśli chcesz dowiedzieć się więcej o UML, to zapraszam Cię do przeczytania osobnego artykułu na temat [podstaw UML'a]({% post_url 2019-09-21-podstawy-uml %}).
+{:.notice--info}
+
 Zanim przejdę do omówienia diagramów, które pokazują powiązania klas i interfejsów w tym wzorcu projektowym musisz dowiedzieć się czegoś o UML'u.
 
 UML (ang. _Unified Modeling Language_) składa się z kilkunastu rodzajów diagramów. Jest to zestaw, który pozwala na wizualną reprezentację projektu informatycznego. W ramach serii opisującej wzorce projektowe będę korzystał z zupełnych podstaw tej notacji. Będę używał głównie diagramów klas. Chociaż nie jestem wielkim fanem UML'a, to taki sposób prezentacji w tym przypadku wydaje mi się najlepszy.
