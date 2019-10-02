@@ -36,7 +36,7 @@ Na początku muszę powiedzieć Ci trochę o moich doświadczeniach. Po kilku la
 
 Z mojego doświadczenia UML jest wykorzystywany w nieformalny sposób. To tak jak z językiem obcym – najważniejsza jest komunikacja. Możesz robić mnóstwo błędów, jeśli jednak potrafisz się dogadać z drugą stroną to jesteś w domu. Właśnie komunikacja i umiejętność przekazywania informacji jest tu kluczowa. Innymi słowy jeśli będziesz znać podstawy najbardziej istotnych diagramów, to ta wiedza powinna być wystarczająca.
 
-Taki punkt widzenia potwierdza to też [badanie przeprowadzone na grupie programistów, testerów, architektów czy kierowników projektów](https://empirical-software.engineering/projects/sketches/)[^proba]. Wynik przeprowadzonej ankiety potwierdza, że UML używany jest raczej nieformalnie.
+Taki punkt widzenia potwierdza też [badanie przeprowadzone na grupie programistów, testerów, architektów czy kierowników projektów](https://empirical-software.engineering/projects/sketches/)[^proba]. Wynik przeprowadzonej ankiety potwierdza, że UML używany jest raczej nieformalnie.
 
 [^proba]: Swoją drogą badanie było przeprowadzone na dość małej grupie kontrolnej. W związku z tym jest ryzyko, że wyniki nie są w pełni miarodajne.
 
@@ -48,13 +48,13 @@ UML to diagram, rysunek. Do efektywnej pracy przyda Ci się zestaw narzędzi poz
 
 Przede wszystkim polecam tablicę i marker (lub kartkę i długopis). To zdecydowanie najczęściej używane narzędzia przy pracy z nieformalnymi diagramami.
 
-W trakcie pracy nad Samouczkiem, szczególnie pracując na artykułami dotyczącymi [wzorców projektowych]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}#wzorce-projektowe) używam programu [UMLet](https://www.umlet.com) i [yED](https://www.yworks.com/downloads#yEd). Są to darmowe programy, które pozwalają na tworzenie niektórych rodzajów diagramów UML. Istotne w nich dla mnie jest to, że same programy są proste a tworzone diagramy zapisane są w postaci tekstowej (można je eksportować do formatów graficznych). Format tekstowy świetnie nadaje się do zapisania w [repozytorium git'a]({{ '/kurs-git/' | absolute_url }}).
+W trakcie pracy nad Samouczkiem, szczególnie pracując na artykułami dotyczącymi [wzorców projektowych]({{ '/narzedzia-i-dobre-praktyki/' | absolute_url }}#wzorce-projektowe) używam programów [UMLet](https://www.umlet.com) i [yED](https://www.yworks.com/downloads#yEd). Są to darmowe programy, które pozwalają na tworzenie niektórych rodzajów diagramów UML. Istotne w nich dla mnie jest to, że same programy są proste a tworzone diagramy zapisane są w postaci tekstowej (można je eksportować do formatów graficznych). Format tekstowy świetnie nadaje się do zapisania w [repozytorium git'a]({{ '/kurs-git/' | absolute_url }}).
 
 Istnieje całkiem sporo narzędzi, które mają dużo większe możliwości, jednak dla komercyjnych zastosowań są płatne.
 
 ## Najczęściej używane diagramy UML
 
-Wspominałem to już wcześniej, jednak powtórzę to po raz kolejny. Poniżej prezentuję wyłącznie podzbiór diagramów. Skupiam się wyłącznie na tych, które doczekały się swojego praktycznego zastosowania w mojej dotychczasowej pracy komercyjnej. Pomijam diagramy, które wymagane były tylko w trakcie projektów na uczelni.
+Wspominałem to już wcześniej, jednak powtórzę to po raz kolejny. Poniżej prezentuję wyłącznie podzbiór diagramów. Skupiam się wyłącznie na tych, które doczekały się swojego praktycznego zastosowania w mojej dotychczasowej pracy komercyjnej. Pomijam diagramy, które wymagane były tylko w trakcie projektów na uczelni. Dodatkowo nie opisuję tu wszystkich możliwości, a jedynie te najczęściej używane.
 
 ### Diagram klas
 
@@ -239,6 +239,6 @@ Na koniec zestawienie linków do artykułów na Wikipedii:
 
 Znasz już mój punkt widzenia dotyczący UML'a. Wiesz, że moim zdaniem warto znać podstawy tego języka. Mogą Ci się one przydać w codziennej pracy. Jeśli lubisz pracować w bardziej formalnym środowisku może się okazać, że UML będzie niezastąpiony. Znasz kilka rodzajów diagramów, które mogą być przydatne. Znasz także darmowe narzędzia, które pozwalają na tworzenie diagramów UML.
 
-Mam nadzieję, że artykuł przypadł Ci do gustu. Proszę daj znać w komentarzach co sądzisz o UML'u? Czy Twoim zdaniem znajomość tego języka przydaje się w codziennej pracy? A może to już tylko zaszłość, która powoli odchodzi do lamusa? Ciekawy jestem Twoje opinii.
+Mam nadzieję, że artykuł przypadł Ci do gustu. Proszę daj znać w komentarzach co sądzisz o UML'u. Czy Twoim zdaniem znajomość tego języka przydaje się w codziennej pracy? A może to już tylko zaszłość, która powoli odchodzi do lamusa? Jestem ciekawy Twoje opinii.
 
 Dodatkowo, jak zwykle, proszę Cię o podzielenie się odnośnikiem do artykułu ze swoimi znajomymi. W ten sposób pomożesz mi dotrzeć do nowych Czytelników, za co z góry Ci dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów proszę zapisz się do samouczkowego newslettera i polub Samouczka na Facebook'u. To tyle na dzisiaj, trzymaj się i do następnego razu!
