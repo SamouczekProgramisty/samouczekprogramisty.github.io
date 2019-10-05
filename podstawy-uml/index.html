@@ -35,7 +35,7 @@
 
 
 
-  <meta property="article:modified_time" content="2019-09-19T10:11:50+02:00">
+  <meta property="article:modified_time" content="2019-10-05T20:50:25+02:00">
 
 
 
@@ -231,7 +231,7 @@
     <meta itemprop="headline" content="Podstawy UML">
     <meta itemprop="description" content="W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz kilka rodzajów diagramów, które moim zdaniem są najbardziej przydatne. Dowiesz się w jakich sytuacjach UML może być dobrym narzędziem. W artykule stawiam raczej na praktyczne zastosowanie niż rygorystyczną zgodność ze specyfikacją UML.">
     <meta itemprop="datePublished" content="September 21, 2019">
-    <meta itemprop="dateModified" content="September 19, 2019">
+    <meta itemprop="dateModified" content="October 05, 2019">
 
     <div class="page__inner-wrap">
       
@@ -257,6 +257,7 @@
 <ul>
 <li class="toc-entry toc-h4"><a href="#klasa">Klasa</a></li>
 <li class="toc-entry toc-h4"><a href="#relacje">Relacje</a></li>
+<li class="toc-entry toc-h4"><a href="#relacje-dwukierunkowe">Relacje dwukierunkowe</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h3"><a href="#diagram-komponentów">Diagram komponentów</a>
@@ -392,7 +393,7 @@
 
 <p>W prawej kolumnie znajdują się strzałki pokazujące relacje pomiędzy klasami inne niż implementacja czy dziedziczenie. Posegregowałem je w rosnąco według tego jak silne są relacje przez nie opisywane.</p>
 
-<p>Relacje ze strzałkami mogą być jednokierunkowe albo dwukierunkowe. W przypadku relacji jednokierunkowej strona bez grota używa strony na którą pokazuje grot. W przypadku braku grota relacja jest dwukierunkowa.</p>
+<p>Relacje ze strzałkami mogą być jednokierunkowe albo dwukierunkowe. W przypadku relacji jednokierunkowej strona bez grota używa strony, na którą pokazuje grot. W przypadku braku grota relacja jest dwukierunkowa. Trochę inaczej sprawa wygląda z rombami. Opiszę to jak poznasz rodzaje relacji.</p>
 
 <p>Najsłabszą relacją pomiędzy klasami jest <em>zależność</em>. Reprezentowana jest przez przerywaną linię. <em>Zależność</em> oznacza, że jedna klasa w pewnym momencie używa innej, na przykład jako parametr, czy wartość zwracana metody. W przypadku <em>zależności</em> klasa, od której zależymy nie jest zapisana jako atrybut. Przykładem <em>zależności</em> w bibliotece standardowej Javy może być zależność <code class="highlighter-rouge">Integer</code> od <code class="highlighter-rouge">String</code>, widać ją na przykład w metodzie <code class="highlighter-rouge">Integer.valueOf(String)</code>.</p>
 
@@ -400,7 +401,7 @@
 
 <p>Kolejną relacją jest <em>agregacja</em>. <em>Agregacja</em> wprowadza w relacji stronę, która jest „właścicielem”. Jedna klasa agreguje inną. Relacja tego typu oznaczona jest przez ciągłą linię z pustym rombem po stronie właściciela. W bibliotece standardowej tego typu relacja występuje pomiędzy <code class="highlighter-rouge">ArrayList</code> a klasą, której instancje przechowuje<sup id="fnref:object"><a href="#fn:object" class="footnote">3</a></sup>.</p>
 
-<p>Ostatnią relacją jest <em>kompozycja</em>. <em>Kompozycja</em> jest bardzo podobna do <em>agregacji</em>. Jest między nimi jedna znacząca różnica. W przypadku <em>kompozycji</em> „właściciel” jest odpowiedzialny za tworzenie (cykl życia) elementów, które grupuje. Przykładem <em>kompozycji</em> w bibliotece standardowej Javy może być implementacja <code class="highlighter-rouge">HashMap</code>, która zarządza elementami w kolekcji opakowując je w instancje <code class="highlighter-rouge">HashMap.Node</code>.</p>
+<p>Ostatnią relacją jest <em>kompozycja</em>. <em>Kompozycja</em> jest bardzo podobna do <em>agregacji</em>. Jest między nimi jedna znacząca różnica. W przypadku <em>kompozycji</em> „właściciel” jest odpowiedzialny za tworzenie (cykl życia) elementów, które grupuje. Przykładem <em>kompozycji</em> w bibliotece standardowej Javy może być implementacja <code class="highlighter-rouge">HashMap</code>, która zarządza elementami w kolekcji opakowując je w instancje <code class="highlighter-rouge">HashMap.Node</code>, które tworzy.</p>
 
 <p>Proszę spójrz na diagram poniżej (dla czytelności pominąłem w nim atrybuty i operacje). Pokażę Ci na nim przykładowe relacje pomiędzy klasami:</p>
 
@@ -423,7 +424,27 @@
 
 <p>Wiesz już, że strzałeczka oznacza kierunek relacji. Na przykład asocjacja pomiędzy <code class="highlighter-rouge">ItemBundle</code> a <code class="highlighter-rouge">Item</code> jest jednokierunkowa. <code class="highlighter-rouge">ItemBundle</code> wie o powiązanej klasie <code class="highlighter-rouge">Item</code>, <code class="highlighter-rouge">Item</code> zaś nie wie nic o <code class="highlighter-rouge">ItemBundle</code>. Jeśli strzałeczka nie jest umieszczona oznacza to, że relacja jest dwukierunkowa – można „przejść” z jednej klasy do drugiej w obu kierunkach<sup id="fnref:uproszczenie"><a href="#fn:uproszczenie" class="footnote">4</a></sup>.</p>
 
+<p>Trochę inaczej wygląda sprawa w relacjach <em>agregacji</em> i <em>kompozycji</em>. W tym przypadku romby oznaczają stronę, która agreguje drugą stronę relacji. Na powyższym przykładzie klasa <code class="highlighter-rouge">VIP</code> zarządza cyklem życia <code class="highlighter-rouge">BonusCode</code>. <code class="highlighter-rouge">BonusCode</code> nic nie wie o klasie <code class="highlighter-rouge">VIP</code>.</p>
+
 <p>Nowością dla Ciebie jest także komentarz do relacji (contains), który może ją opisywać. Nowe są także oznaczenia pokazujące liczność. W powyższym przykładzie jeden koszyk może zawierać wiele elementów (<code class="highlighter-rouge">0..*</code>).</p>
+
+<h4 id="relacje-dwukierunkowe">Relacje dwukierunkowe</h4>
+
+<p>Wiesz już jak oznaczana jest dwukierunkowa relacja <em>zależności</em>. Na przykładzie wyżej pokazałem ją pomiędzy klasami <code class="highlighter-rouge">OrderCalculator</code> i <code class="highlighter-rouge">Basket</code>. W praktyce występują też bardziej zagmatwane przypadki. Wyobraź sobie klasę reprezentująca książkę – <code class="highlighter-rouge">Book</code>. Książka ma autora – <code class="highlighter-rouge">Author</code>. Jedna książka może być napisana przez wielu autorów, a jeden autor może napisać wiele książek. To klasyczna relacja „wiele do wielu”.</p>
+
+<p>Często tego typu relacje wprowadzają nową klasę, która reprezentuje samą relację. W tym przypadku byłoby to autorstwo – <code class="highlighter-rouge">Authorship</code>. Poniższy diagram pokazuje przykładowe sposoby przedstawienia sytuacji tego typu na diagramie UML<sup id="fnref:sql"><a href="#fn:sql" class="footnote">5</a></sup>.</p>
+
+<figure class="">
+  <img src="/assets/images/2019/10/05_many_to_many.svg" alt="" />
+  
+    <figcaption>Przykład relacji dwukierunkowych
+</figcaption>
+  
+</figure>
+
+<p>W pierwszym przypadku <code class="highlighter-rouge">Author</code> przechowuje kolekcję <code class="highlighter-rouge">Book</code> i zarządza ich cyklem życia. <code class="highlighter-rouge">Book</code> wie o liście swoich autorów.</p>
+
+<p>W drugim przypadku <code class="highlighter-rouge">Author</code> przechowuje kolekcję swoich „autorstw”. Podobną kolekcję przechowuje także <code class="highlighter-rouge">Book</code>.</p>
 
 <h3 id="diagram-komponentów">Diagram komponentów</h3>
 
@@ -606,6 +627,9 @@
     <li id="fn:uproszczenie">
       <p>Można powiedzieć, że to swego rodzaju uproszczenie. Tak naprawdę to można „przejść” z instancji jednej klasy do drugiej i odwrotnie. <a href="#fnref:uproszczenie" class="reversefootnote">&#8617;</a></p>
     </li>
+    <li id="fn:sql">
+      <p>Do tego dochodzi jeszcze modelowanie relacji tego typu w relacyjnych bazach danych, jednak to jest już zupełnie inna para kaloszy i temat na osobny artykuł ;). <a href="#fnref:sql" class="reversefootnote">&#8617;</a></p>
+    </li>
   </ol>
 </div>
 
@@ -650,7 +674,7 @@
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-09-19">2019-09-19</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-10-05">2019-10-05</time></p>
         
         <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
         <hr />
