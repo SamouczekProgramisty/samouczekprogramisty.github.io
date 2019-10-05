@@ -92,7 +92,7 @@ Zacznę od lewej kolumny. Pierwsza przerywana strzałka reprezentuje _implementa
 
 W prawej kolumnie znajdują się strzałki pokazujące relacje pomiędzy klasami inne niż implementacja czy dziedziczenie. Posegregowałem je w rosnąco według tego jak silne są relacje przez nie opisywane.
 
-Relacje ze strzałkami mogą być jednokierunkowe albo dwukierunkowe. W przypadku relacji jednokierunkowej strona bez grota używa strony na którą pokazuje grot. W przypadku braku grota relacja jest dwukierunkowa.
+Relacje ze strzałkami mogą być jednokierunkowe albo dwukierunkowe. W przypadku relacji jednokierunkowej strona bez grota używa strony, na którą pokazuje grot. W przypadku braku grota relacja jest dwukierunkowa. Trochę inaczej sprawa wygląda z rombami. Opiszę to jak poznasz rodzaje relacji.
 
 Najsłabszą relacją pomiędzy klasami jest _zależność_. Reprezentowana jest przez przerywaną linię. _Zależność_ oznacza, że jedna klasa w pewnym momencie używa innej, na przykład jako parametr, czy wartość zwracana metody. W przypadku _zależności_ klasa, od której zależymy nie jest zapisana jako atrybut. Przykładem _zależności_ w bibliotece standardowej Javy może być zależność `Integer` od `String`, widać ją na przykład w metodzie `Integer.valueOf(String)`.
 
@@ -102,7 +102,7 @@ Kolejną relacją jest _agregacja_. _Agregacja_ wprowadza w relacji stronę, kt�
 
 [^object]: Tak na prawdę `ArrayList` zawiera tablicę instancji typu `Object`, to dzięki [typom generycznym]({% post_url 2016-03-26-typy-generyczne-w-jezyku-java %}) na zewnątrz widoczna jest inna klasa.
 
-Ostatnią relacją jest _kompozycja_. _Kompozycja_ jest bardzo podobna do _agregacji_. Jest między nimi jedna znacząca różnica. W przypadku _kompozycji_ „właściciel” jest odpowiedzialny za tworzenie (cykl życia) elementów, które grupuje. Przykładem _kompozycji_ w bibliotece standardowej Javy może być implementacja `HashMap`, która zarządza elementami w kolekcji opakowując je w instancje `HashMap.Node`.
+Ostatnią relacją jest _kompozycja_. _Kompozycja_ jest bardzo podobna do _agregacji_. Jest między nimi jedna znacząca różnica. W przypadku _kompozycji_ „właściciel” jest odpowiedzialny za tworzenie (cykl życia) elementów, które grupuje. Przykładem _kompozycji_ w bibliotece standardowej Javy może być implementacja `HashMap`, która zarządza elementami w kolekcji opakowując je w instancje `HashMap.Node`, które tworzy.
 
 Proszę spójrz na diagram poniżej (dla czytelności pominąłem w nim atrybuty i operacje). Pokażę Ci na nim przykładowe relacje pomiędzy klasami:
 
@@ -119,7 +119,23 @@ Wiesz już, że strzałeczka oznacza kierunek relacji. Na przykład asocjacja po
 
 [^uproszczenie]: Można powiedzieć, że to swego rodzaju uproszczenie. Tak naprawdę to można „przejść” z instancji jednej klasy do drugiej i odwrotnie.
 
+Trochę inaczej wygląda sprawa w relacjach _agregacji_ i _kompozycji_. W tym przypadku romby oznaczają stronę, która agreguje drugą stronę relacji. Na powyższym przykładzie klasa `VIP` zarządza cyklem życia `BonusCode`. `BonusCode` nic nie wie o klasie `VIP`.
+
 Nowością dla Ciebie jest także komentarz do relacji (contains), który może ją opisywać. Nowe są także oznaczenia pokazujące liczność. W powyższym przykładzie jeden koszyk może zawierać wiele elementów (`0..*`).
+
+#### Relacje dwukierunkowe
+
+Wiesz już jak oznaczana jest dwukierunkowa relacja _zależności_. Na przykładzie wyżej pokazałem ją pomiędzy klasami `OrderCalculator` i `Basket`. W praktyce występują też bardziej zagmatwane przypadki. Wyobraź sobie klasę reprezentujacą książkę – `Book`. Książka ma autora – `Author`. Jedna książka może być napisana przez wielu autorów, a jeden autor może napisać wiele książek. To klasyczna relacja „wiele do wielu”.
+
+Często tego typu relacje wprowadzają nową klasę, która reprezentuje samą relację. W tym przypadku byłoby to autorstwo – `Authorship`. Poniższy diagram pokazuje przykładowe sposoby przedstawienia sytuacji tego typu na diagramie UML[^sql].
+
+[^sql]: Do tego dochodzi jeszcze modelowanie relacji tego typu w relacyjnych bazach danych, jednak to jest już zupełnie inna para kaloszy i temat na osobny artykuł ;).
+
+{% include figure image_path="/assets/images/2019/10/05_many_to_many.svg" caption="Przykład relacji dwukierunkowych" %}
+
+W pierwszym przypadku `Author` przechowuje kolekcję `Book` i zarządza ich cyklem życia. `Book` wie o liście swoich autorów.
+
+W drugim przypadku `Author` przechowuje kolekcję swoich „autorstw”. Podobną kolekcję przechowuje także `Book`.
 
 ### Diagram komponentów
 
