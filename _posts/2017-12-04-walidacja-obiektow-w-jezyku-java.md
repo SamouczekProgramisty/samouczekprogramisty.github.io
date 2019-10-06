@@ -1,6 +1,6 @@
 ---
 title: Walidacja obiektów w języku Java
-last_modified_at: 2018-07-18 20:43:32 +0200
+last_modified_at: 2019-10-06 21:49:39 +0200
 categories:
 - Kurs aplikacji webowych
 permalink: /walidacja-obiektow-w-jezyku-java/
