@@ -187,7 +187,7 @@ public class MembershipBonus {
 
 W przykładzie tym użyta jest adnotacja `@Valid`. Zwraca ona uwagę na to, że instancja klasy `PaidAccount` także musi być sprawdzona pod kątem poprawności. To czy `PaidAccount` jest poprawne czy nie określone jest przez adnotacje wewnątrz tej klasy.
 
-Sprawdzenie reguł odbywa się poprzez uruchomienie metody [`validate`]({{ site.doclinks.javax.validation.Validator }}#validate-T-java.lang.Class...-) na instancji klasy implementującej interfejs [`Validator`]({{ site.doclinks.javax.validation.Validator }}). Biblioteka, która implementuje specyfikację _Bean Validation_ dosttarcza odpowiednią klasę.
+Sprawdzenie reguł odbywa się poprzez uruchomienie metody [`validate`]({{ site.doclinks.javax.validation.Validator }}#validate-T-java.lang.Class...-) na instancji klasy implementującej interfejs [`Validator`]({{ site.doclinks.javax.validation.Validator }}). Biblioteka, która implementuje specyfikację _Bean Validation_ dostarcza odpowiednią klasę.
 
 ## Kiedy używamy automatycznej walidacji
 
@@ -387,6 +387,8 @@ Utwórz klasę grupującą te dane. Upewnij się, że są one poprawne używają
 - imię powinno składać się wyłącznie z liter,
 - data urodzenia powinna być w przeszłości,
 - użytkownik powinien mieć co najmniej 4 lata.
+
+Przygotowałem dla Ciebie [przykładowe rozwiązanie](https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/04_bean_validation/src/main/java/pl/samouczekprogramisty/misc/validation/exercise), jednak jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania.
 
 ## Materiały dodatkowe
 
