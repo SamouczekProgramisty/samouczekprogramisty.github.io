@@ -1,6 +1,6 @@
 ---
 title: Testy jednostkowe z JUnit 5
-last_modified_at: 2019-09-21 00:39:23 +0200
+last_modified_at: 2019-10-27 12:01:38 +0100
 categories:
 - Programista rzemieślnik
 permalink: /testy-jednostkowe-z-junit5/
@@ -334,7 +334,7 @@ Takie podejście pozwala na tworzenie bardziej czytelnych testów. Moim zdaniem 
 
 ## Uruchamianie testów JUnit 5
 
-Jak wspomniałem wyżej różne narzędzia używały wewnętrznego API biblioteki JUnit to uruchamiania i wyświetlania wyników testów. W związku z tym zmiana wersji biblioteki JUnit wymaga także zmiany w różnych narzędziach. Aby używać JUnit 5 w IDE musi się ono poprawnie integrować z nową wersją biblioteki. Od jakiegoś już czasu główne IDE mają takie wsparcie:
+Jak wspomniałem wyżej różne narzędzia używały wewnętrznego API biblioteki JUnit do uruchamiania i wyświetlania wyników testów. W związku z tym zmiana wersji biblioteki JUnit wymaga także zmiany w różnych narzędziach. Aby używać JUnit 5 w IDE musi się ono poprawnie integrować z nową wersją biblioteki. Od jakiegoś już czasu główne IDE mają takie wsparcie:
 
 - IntelliJ Idea 2016.2
 - Eclipse Oxygen
