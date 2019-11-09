@@ -29,7 +29,7 @@ Struktury danych to chleb powszedni pracy programisty. Bez ich pomocy nie powsta
 
 * [Struktura danych – lista wiązana]({% post_url 2018-01-01-struktury-danych-lista-wiazana %})
 * [Struktura danych – hashmap]({% post_url 2018-01-08-struktury-danych-tablica-asocjacyjna %})
-* [Strutruda danych – zbiór]({% post_url 2019-05-07-struktury-danych-zbior %})
+* [Struktura danych – zbiór]({% post_url 2019-05-07-struktury-danych-zbior %})
 
 ## Różne
 
