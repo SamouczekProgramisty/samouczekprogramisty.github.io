@@ -125,7 +125,7 @@ Nowością dla Ciebie jest także komentarz do relacji (contains), który może 
 
 #### Relacje dwukierunkowe
 
-Wiesz już jak oznaczana jest dwukierunkowa relacja _zależności_. Na przykładzie wyżej pokazałem ją pomiędzy klasami `OrderCalculator` i `Basket`. W praktyce występują też bardziej zagmatwane przypadki. Wyobraź sobie klasę reprezentująca książkę – `Book`. Książka ma autora – `Author`. Jedna książka może być napisana przez wielu autorów, a jeden autor może napisać wiele książek. To klasyczna relacja „wiele do wielu”.
+Wiesz już jak oznaczana jest dwukierunkowa relacja _zależności_. Na przykładzie wyżej pokazałem ją pomiędzy klasami `Customer` i `Basket`. W praktyce występują też bardziej zagmatwane przypadki. Wyobraź sobie klasę reprezentująca książkę – `Book`. Książka ma autora – `Author`. Jedna książka może być napisana przez wielu autorów, a jeden autor może napisać wiele książek. To klasyczna relacja „wiele do wielu”.
 
 Często tego typu relacje wprowadzają nową klasę, która reprezentuje samą relację. W tym przypadku byłoby to autorstwo – `Authorship`. Poniższy diagram pokazuje przykładowe sposoby przedstawienia sytuacji tego typu na diagramie UML[^sql].
 
