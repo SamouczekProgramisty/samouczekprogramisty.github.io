@@ -1,6 +1,6 @@
 ---
 title: XML dla początkujących
-last_modified_at: 2019-11-17 14:09:33 +0100
+last_modified_at: 2019-11-17 14:16:57 +0100
 categories:
 - Wiedza ogólna
 - DSP2017
@@ -106,11 +106,11 @@ Każdy element, poza elementem głównym, może mieć rodzeństwo. Na przykład 
 
 ## Walidacja dokumentów XML
 
-Jak widzisz w dokumencie XML możemy zawrzeć praktycznie wszystko. Liczba dostępnych formatów jest nieskończona. W związku z tym istnieją różne mechanizmy pozwalające na walidację poprawności dokumentów XML.
+Jak widzisz w dokumencie XML możemy zawrzeć praktycznie wszystko. Liczba dostępnych formatów jest nieskończona. W związku z tym istnieją różne mechanizmy pozwalające na sprawdzenie poprawności dokumentów XML.
 
 Za przykład mogą tu posłużyć wspomniane wcześniej elementy DTD (ang. _Document Type Definition_) znajdujace się wewnątrz dokumentu XML.
 
-Innym sposobem na walidację poprawnej struktury dokumentu XML jest używanie XSD (ang. _XML Schema Definition_). Jest to zewnętrzny plik, który także jest w formacie XML. Wewnątrz tego pliku możemy dokładnie określić strukturę jaką powinien mieć inny dokument XML.
+Innym sposobem na sprawdzenie poprawnej struktury dokumentu XML jest używanie XSD (ang. _XML Schema Definition_). Jest to zewnętrzny plik, który także jest w formacie XML. Wewnątrz tego pliku możemy dokładnie określić strukturę jaką powinien mieć inny dokument XML.
 
 Dzięki takiej walidacji możemy na przykład zastrzec, że zawsze wewnątrz elementu `<artykul>` musi znajdować się element `<tytul>` a element `<autor>` jest opcjonalny.
 
@@ -163,7 +163,7 @@ W jednym z klejnych artykułów skupię się na praktycznym wykorzystaniu powyż
 
 Dodatkowo możesz też zainteresować się następującymi specyfikacjami związanymi z XML. Przydają się one w bardziej zaawansowanej pracy z dokumentami XML:
 
-- [XSD](https://www.w3.org/TR/xmlschema-1/) (ang. _XML Schema Definition_) – wcześniej wspomniana specyfikacja pomagająca w walidacji poprawności dokumentów XML,
+- [XSD](https://www.w3.org/TR/xmlschema-1/) (ang. _XML Schema Definition_) – wcześniej wspomniana specyfikacja pomagająca w sprawdzeniu poprawności dokumentów XML,
 - [XPath](https://www.w3.org/TR/xpath/) (ang _XML Path Language_) – język pozwalający na wskazywanie elementów czy atrybutów w dokumencie XML, przy jego pomocy możesz na przykład określić "zwróć mi wszystkie elementy X, które mają atrybut Y o wartości Z",
 - [XSLT](https://www.w3.org/TR/xslt) (ang. _Extensible Stylesheet Language Transformations_) – język służący do tranformowania dokumentów XML. Przy jego pomocy można przekształcić dokument XML do innych formatów, na przykład do pliku PDF.
 
