@@ -1,6 +1,6 @@
 ---
 title: XML dla początkujących
-last_modified_at: 2018-07-18 20:43:32 +0200
+last_modified_at: 2019-11-17 14:09:33 +0100
 categories:
 - Wiedza ogólna
 - DSP2017
@@ -136,7 +136,7 @@ Poniżej pokażę Ci kilka przykładowych zastosowań dokumentów w formacie XML
 ## Na XML świat się nie kończy
 
 Oczywiście dokumenty XML nie są jedynym formatem, który może pomóc w wymianie danych. Poniżej wspominam o kilku innych formatach, które mogą być także użyte w tym celu.
-- CSV – (ang. _Comman Separated Values_) zwykły plik tekstowy, w którym każdy wiersz zawiera dane oddzielone przecinkami[^csv]. Z racji tego, że jest to plik tekstowy można go z łatwością odczytać używając edytora tekstu.
+- CSV – (ang. _Comma Separated Values_) zwykły plik tekstowy, w którym każdy wiersz zawiera dane oddzielone przecinkami[^csv]. Z racji tego, że jest to plik tekstowy można go z łatwością odczytać używając edytora tekstu.
 - [YAML](http://www.yaml.org/) – (ang. _Yet Another Markup Language_ lub _YAML Ain’t Markup Language_) tekstowy format, w którym możemy zapisywać bardziej złożone struktury czy kolekcje.
 - [JSON](http://www.json.org/) – (ang. _JavaScript Object Notation_) podobnie jak YAML jest w stanie opisać listę elementów czy kolekcję par klucz-wartość. Format ten, jak jego nazwa wskazuje, powstał na potrzeby JavaScript, jednak obecne jest szeroko stosowany także w innych językach. Jest to format tekstowy.
 
