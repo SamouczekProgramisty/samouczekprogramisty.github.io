@@ -14,7 +14,7 @@ disqus_page_identifier: 799 http://www.samouczekprogramisty.pl/?p=799
 ---
 
 {% capture notice-info %}
-Chociaż artykuł ten pisany jest z myślą o początkujących do jego pełnego zrozumienia przyda się wiedza, którą zawarłem w kliku innych artykułach. Zachęcam do zapoznania się z nimi przed podejściem do tego artykułu:
+Chociaż artykuł ten pisany jest z myślą o początkujących, do jego pełnego zrozumienia przyda się wiedza, którą zawarłem w kliku innych artykułach. Zachęcam do zapoznania się z nimi przed podejściem do tego artykułu:
 
 - [Wstęp do aplikacji webowych]({% post_url 2017-03-17-wprowadzenie-do-aplikacji-webowych %})
 - [Wstęp do Gradle]({% post_url 2017-01-19-wstep-do-gradle %})
