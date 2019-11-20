@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2019-02-15 23:32:51 +0100
+last_modified_at: 2019-11-20 14:39:49 +0100
 title: Dziedziczenie w języku Java
 categories:
 - Kurs programowania Java
@@ -294,7 +294,7 @@ Przy takiej implementacji konto docelowe zostałoby zasilone dodatkową kwotą j
 
 W takich przypadkach możemy użyć słowa kluczowego `final`. Słowo to umieszczone przed klasą oznacza, że nie możemy po danej klasie dziedziczyć. W przypadku metody oznacza, że metoda nie może zostać nadpisana.
 
-Dla przykładu klasy w pakiecie `java.lang` są finalne. Nie można nadpisać ich implementacji.
+Dla przykładu niektóre klasy w pakiecie `java.lang` są finalne (na przykład `Integer` czy `String`). Nie można nadpisać ich implementacji.
 
 ## Klasa `java.lang.Object`
   
