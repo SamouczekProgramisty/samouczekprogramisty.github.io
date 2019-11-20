@@ -1,6 +1,6 @@
 ---
 title: Walidacja obiektów w języku Java
-last_modified_at: 2019-10-06 21:49:39 +0200
+last_modified_at: 2019-11-20 14:51:39 +0100
 categories:
 - Kurs aplikacji webowych
 permalink: /walidacja-obiektow-w-jezyku-java/
@@ -377,7 +377,7 @@ W powyższym przykładzie implementacja jest strasznie naiwna, masz pomysł jak 
 Napisz program, który pobierze od użytkownika następujące dane:
 
 - imię,
-- datę urodzenia w formacie YYYY-MM-dd mm:hh,
+- datę urodzenia w formacie YYYY-MM-dd hh:mm,
 - adres e-mail.
 
 Utwórz klasę grupującą te dane. Upewnij się, że są one poprawne używając adnotacji dostępnych w specyfikacji _Bean Validation_ bądź własnych:
