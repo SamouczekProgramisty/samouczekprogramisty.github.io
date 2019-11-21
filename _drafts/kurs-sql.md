@@ -8,3 +8,4 @@
 - modyfikacja schematu alter/drop/create
 - użytkownicy i grant/revoke
 - widoki
+- indeksy
