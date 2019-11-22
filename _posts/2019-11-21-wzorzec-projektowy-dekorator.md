@@ -24,7 +24,7 @@ Dzięki takiemu podejściu w menu znajduje się 11 pozycji. Cena pizzy bez dodat
 
 [^naciagane]: Ten przykład jest trochę naciągany. Sam dodatek nie jest pizzą, ale pizza z dodatkiem już tak. Jest to coś najbliższego światu rzeczywistemu co jest „dekoratorem” i powinno być łatwe do zrozumienia.
 
-Podobne problemy występują w projektach informatycznych. Zdarzają się sytuacje, w których trzeba rozszerzyć działanie pewnego obiektu. Możliwich rozszerzeń jest wiele, jeszcze więcej jest kombinacji tych rozszerzeń. Z pomocą w rozwiązaniu tego problemu przychodzi wzorzec projektowy dekorator (ang. _decorator_[^wrapper]).
+Podobne problemy występują w projektach informatycznych. Zdarzają się sytuacje, w których trzeba rozszerzyć działanie pewnego obiektu. Możliwych rozszerzeń jest wiele, jeszcze więcej jest kombinacji tych rozszerzeń. Z pomocą w rozwiązaniu tego problemu przychodzi wzorzec projektowy dekorator (ang. _decorator_[^wrapper]).
 
 [^wrapper]: Inną nazwą tego wzorca projektowego, z którą możesz się spotkać jest _wrapper_.
 
@@ -89,9 +89,9 @@ public class PizzaWithMozzarella extends Pizza {
 }
 ```
 
-`PizzaWithMozzarrella` w konstruktorze przyjmuje jako parametr instację klasy `Pizza`, którą opakowuje. Następnie używa jej do obliczenia ceny pizzy z mozarellą dodając do ceny pizzy bazowej cenę sera.
+`PizzaWithMozzarella` w konstruktorze przyjmuje jako parametr instancję klasy `Pizza`, którą opakowuje. Następnie używa jej do obliczenia ceny pizzy z mozzarellą dodając do ceny pizzy bazowej cenę sera.
 
-W tym przypadku klasa `Pizza` odpowiada klasie `Component` z diagramu UML, a klasa `PizzaWithMozarella` reprezentuje `DecoratorA`.
+W tym przypadku klasa `Pizza` odpowiada klasie `Component` z diagramu UML, a klasa `PizzaWithMozzarella` reprezentuje `DecoratorA`.
 
 Poniżej możesz zobaczyć użycie dekoratorów w praktyce. Opakowując kolejne pizze w dekoratory otrzymuję coraz bardziej skomplikowane pozycje. Dzięki takiemu podejściu mogę łączyć dodatki w dowolny sposób:
 
@@ -117,19 +117,19 @@ public class Restaurant {
 
 Jedną z często polecanych praktyk w programowaniu obiektowym jest preferowanie [kompozycji przed dziedziczeniem](https://en.wikipedia.org/wiki/Composition_over_inheritance). Wzorzec projektowy dekorator jest flagowym przykładem użycia tej reguły. Takie podejście pozwala na dynamiczne rozszerzanie funkcjonalności obiektu bez potrzeby kompilacji kodu.
 
-Niewątpliwą zaletą dekoratora jest możliwość dowolnego łączenia istniejących dekoratorów. Każdy z nich będzie opakowywał kolejny obiekt nie mając świadomości, że jest kolejnm dekoratorem w kolejce. Jest to istotne w przypadku gdy istnieje kilka dodatkowych funkcjonalności, które powinna zawierać rozszerzana klasa.
+Niewątpliwą zaletą dekoratora jest możliwość dowolnego łączenia istniejących dekoratorów. Każdy z nich będzie opakowywał kolejny obiekt nie mając świadomości, że jest kolejnym dekoratorem w kolejce. Jest to istotne w przypadku gdy istnieje kilka dodatkowych funkcjonalności, które powinna zawierać rozszerzana klasa.
 
 #### Wady
 
 Interfejs dekoratora musi być dokładnie taki sam jak klasy dekorowanej. W niektórych językach programowania (na przykład w Javie) może prowadzić to do klas, które mają sporo metod, których implementacja polega na przekazaniu wywołania do dekorowanego obiektu (jeśli dekorator implementuje interfejs). Tę wadę można rozwiązać stosując dziedziczenie[^hierarchia].
 
-[^hierarchia]: Takie podejście może wydłużać hierarhię dziedziczenia, sam preferuję użycie interfejsów jeśli hierarchia dziedziczenia jest dość długa.
+[^hierarchia]: Takie podejście może wydłużać hierarchię dziedziczenia, sam preferuję użycie interfejsów jeśli hierarchia dziedziczenia jest dość długa.
 
-Dekorator często jest „płaską klasą”. Rozrzesza on dekorowaną klasę o jedną, podstawową funkcjonalność. Prowadzić to może do sytuacji, w której system zawiera wiele niewielkich klas. W sytuacji gdy zazwyczaj używa się stałego zbioru dekoratorów użycie standardowego dziedziczenia może ograniczyć tę liczbę.
+Dekorator często jest „płaską klasą”. Rozszerza on dekorowaną klasę o jedną, podstawową funkcjonalność. Prowadzić to może do sytuacji, w której system zawiera wiele niewielkich klas. W sytuacji gdy zazwyczaj używa się stałego zbioru dekoratorów użycie standardowego dziedziczenia może ograniczyć tę liczbę.
 
 ## Przykłady użycia wzorca dekorator
 
-W przypadku języka Java wzorzec projetowy dekorator jest dość często używany w bibliotece standardowej. Za przykład mogą tu posłużyć strumienie wykorzystywane przy [operacjach na plikach]({% post_url 2016-08-17-operacje-na-plikach-w-jezyku-java %}). [`InputStream`]({{ site.doclinks.java.io.InputStream }}) jest klasą abstrakcyjną, która posiada wiele dekoratorów, na przykład [`FileInputStream`]({{ site.doclinks.java.io.FileInputStream }}) czy [`BufferedInputStream`]({{ site.doclinks.java.io.BufferedInputStream }}).
+W przypadku języka Java wzorzec projektowy dekorator jest dość często używany w bibliotece standardowej. Za przykład mogą tu posłużyć strumienie wykorzystywane przy [operacjach na plikach]({% post_url 2016-08-17-operacje-na-plikach-w-jezyku-java %}). [`InputStream`]({{ site.doclinks.java.io.InputStream }}) jest klasą abstrakcyjną, która posiada wiele dekoratorów, na przykład [`FileInputStream`]({{ site.doclinks.java.io.FileInputStream }}) czy [`BufferedInputStream`]({{ site.doclinks.java.io.BufferedInputStream }}).
 
 Innym przykładem, również z języka Java, mogą być dekoratory kolekcji. Dekoratory te na przykład pozwalają na utworzenie kolekcji, która jest synchronizowana czy niemodyfikowalna. [`Collections`]({{ site.doclinks.java.util.Collections }}) zawiera szereg metod zaczynających się od `synchronized` albo `unmodifiable`, które tworzą instancje dekoratorów.
 
@@ -137,7 +137,7 @@ W języku Python istnieje składnia, która pozwala na łatwe użycie dekorator�
 
 ## Zadanie do wykonania
 
-Chociaż klasy reprezenujące pizze z dodatkami spełniają swoje zadanie mogą być ulepszone. Zwróć uwagę, że klasy te są do siebie bardzo podobne. [Duplikacja kodu jest zła]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %}), zrefaktoryzuj kod w taki sposób aby usunąć tę duplikację. Spróbuj rozwiązać ten problem używając bardziej skomplikowanej wersji dekoratorów z drugiego diagramu UML.
+Chociaż klasy reprezentujące pizze z dodatkami spełniają swoje zadanie mogą być ulepszone. Zwróć uwagę, że klasy te są do siebie bardzo podobne. [Duplikacja kodu jest zła]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %}), zrefaktoryzuj kod w taki sposób aby usunąć tę duplikację. Spróbuj rozwiązać ten problem używając bardziej skomplikowanej wersji dekoratorów z drugiego diagramu UML.
 
 Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej. Możesz też porównać swoje rozwiązanie z [przykładowym](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator/exercise).
 
@@ -151,7 +151,7 @@ Zachęcam Cię też do zajrzenia do [kodu źródłowego](https://github.com/Samo
 
 ## Podsumowanie
 
-Po lekturze tego artykułu wiesz czym jest wzorzec dekorator. Znasz przykładowy sposób jego implementacji. Masz też zestaw materiałów dodatkowych, które pozwolą Ci sporzeć na temat z innej strony. Po rozwiązaniu zadania wiesz jak zaimplementować ten wzorzec samodzielnie. Innymi słowy udało Ci się właśnie poznać kolejny wzorzec projektowy. Gratulacje! ;)
+Po lekturze tego artykułu wiesz czym jest wzorzec dekorator. Znasz przykładowy sposób jego implementacji. Masz też zestaw materiałów dodatkowych, które pozwolą Ci spojrzeć na temat z innej strony. Po rozwiązaniu zadania wiesz jak zaimplementować ten wzorzec samodzielnie. Innymi słowy udało Ci się właśnie poznać kolejny wzorzec projektowy. Gratulacje! ;)
 
 Jeśli artykuł przypadł Ci do gustu proszę podziel się nim ze znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub [Samouczka Programisty na Facebooku](https://www.facebook.com/SamouczekProgramisty).
 
