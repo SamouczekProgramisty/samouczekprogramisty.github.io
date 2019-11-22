@@ -16,17 +16,105 @@ Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Ci
 
 ## Problem do rozwiązania
 
+Wyobraź sobie restaurację, w której możesz zjeść pizzę. Właściciel restauracji daje Ci do wyboru 10 różnych dodatków. Możesz skomponować pizzę samodzielnie używając dostępnych dodatków. Każdy z dodatków ma swoją cenę i może być użyty wyłącznie jeden raz. Właściciel restauracji mógłby wypisać wszystkie kombinacje z tych 10 dodatków. Menu miałoby wtedy [1023 pozycje](https://pl.wikipedia.org/wiki/Kombinacja_bez_powt%C3%B3rze%C5%84), 1024 jeśli wliczymy Margharitę… Trochę dużo ;).
 
+Właściciel podszedł do sprawy inaczej. Nadal daje Ci dowolność w wyborze dodatków, jednak wycenia każdy z nich jako osobną pizzę. Na przykład pizza z szynką, pizza z bazylią, pizza z mozzarellą i tak dalej. Następnie pozwala Ci łączyć ze sobą te pizze w dowolny sposób. Na przykład pizza bez żadnych dodatków kosztuje 15zł. Pizza z szynką kosztuje o 7 zł więcej niż pizza bazowa. Pizza z bazylią kosztuje o 2 zł więcej niż pizza bazowa. 
+
+Dzięki takiemu podejściu w menu znajduje się 11 pozycji. Cena pizzy bez dodatków i cena każdego dodatku określona jako _cena pizzy bazowej + X zł_. Można powiedzieć, że właściciel restauracji użył wzorca dekoratora do opracowania cennika[^naciagane].
+
+[^naciagane]: Ten przykład jest trochę naciągany. Sam dodatek nie jest pizzą, ale pizza z dodatkiem już tak. Jest to coś najbliższego światu rzeczywistemu co jest „dekoratorem” i powinno być łatwe do zrozumienia.
+
+Podobne problemy występują w projektach informatycznych. Zdarzają się sytuacje, w których trzeba rozszerzyć działanie pewnego obiektu. Możliwich rozszerzeń jest wiele, jeszcze więcej jest kombinacji tych rozszerzeń. Z pomocą w rozwiązaniu tego problemu przychodzi wzorzec projektowy dekorator (ang. _decorator_[^wrapper]).
+
+[^wrapper]: Inną nazwą tego wzorca projektowego, z którą możesz się spotkać jest _wrapper_.
 
 ## Wzorzec dekorator
 
 ### Diagramy klas
 
-Wzorzec projektowy dekorator pozwala na rozszerzenie funkcjonalności obiektu bez użycia dziedziczenia.
+Istnieje wiele możliwości implementacji tego wzorca projektowego. Diagram klas poniżej pokazuje najprostszą z nich:
 
-Istnieje wiele możliwości implementacji tego wzorca projektowego. Diagram klas poniżej pokazuje jedną z nich. Przykładem alternatyw może być użycie klasy abstrakcyjnej w miejscu interfejsu. Inną modyfikacją może być użycie kompozycji w miejscu agregacji. Obie zmiany nie wpływają znacząco na implementację tego wzorca projektowego.
+{% include figure image_path="/assets/images/2019/11/22_simple_decorator.svg" caption="Wzorzec projektowy dekorator (ang. _decorator_)" %}
+
+`DecoratorA` i `DecoratorB` dekorują klasę `Component`. Dekoratory zawierają instancję klasy `Component`.
+
+Często ten wzorzec projektowy przedstawiany jest w bardziej skomplikowany sposób:
+
+{% include figure image_path="/assets/images/2019/11/17_decorator.svg" caption="Wzorzec projektowy dekorator (ang. _decorator_)" %}
+
+W tym przypadku dekoratory mają wspólnego przodka, abstrakcyjną klasę `Decorator`. Sam komponent, który jest dekorowany także jest klasą abstrakcyjną, która posiada swoje konkretne implementacje. Na diagramie wyżej jest to `ConcreteComponent`.
+
+Nie są to jedyne możliwe wersje implementacji tego wzorca. Przykładem innej implementacji może być użycie interfejsów w miejscu klasy komponentu. Inną modyfikacją może być użycie kompozycji w miejscu agregacji. Obie zmiany nie wpływają znacząco na implementację tego wzorca projektowego.
+
+Wzorzec projektowy dekorator pozwala na wielokrotne rozszerzenie funkcjonalności obiektu poprzez „nakładanie” na siebie dekoratorów.
 
 ### Przykładowa implementacja dekoratora
+
+Zacznę od pizzy bazowej:
+
+```java
+public class Pizza {
+    private static final BigDecimal BASE_PRICE = new BigDecimal(12);
+    final List<String> toppings = new LinkedList<>();
+
+    public BigDecimal getPrice() {
+        return BASE_PRICE;
+    }
+
+    @Override
+    public String toString() {
+        if (toppings.isEmpty()) {
+            return "Pizza";
+        }
+        return String.format("Pizza with %s", String.join(", ", toppings));
+    }
+}
+```
+
+Ot, zwykła klasa, która reprezentuje podstawową pizzę. Posiada metodę `getPrice`, która zwraca jej cenę. Dodatkowo posiada atrybut `toppings`, który przechowuje listę składników.
+
+Poniżej możesz zobaczyć jeden z dekoratorów. W tym przypadku jest to pizza z mozzarellą:
+
+```java
+public class PizzaWithMozzarella extends Pizza {
+
+    private static final BigDecimal MOZZARELLA_PRICE = new BigDecimal(5);
+    private final Pizza basePizza;
+
+    public PizzaWithMozzarella(Pizza basePizza) {
+        this.basePizza = basePizza;
+        this.toppings.addAll(basePizza.toppings);
+        this.toppings.add("mozzarella");
+    }
+
+    @Override
+    public BigDecimal getPrice() {
+        return basePizza.getPrice().add(MOZZARELLA_PRICE);
+    }
+}
+```
+
+`PizzaWithMozzarrella` w konstruktorze przyjmuje jako parametr instację klasy `Pizza`, którą opakowuje. Następnie używa jej do obliczenia ceny pizzy z mozarellą dodając do ceny pizzy bazowej cenę sera.
+
+W tym przypadku klasa `Pizza` odpowiada klasie `Component` z diagramu UML, a klasa `PizzaWithMozarella` reprezentuje `DecoratorA`.
+
+Poniżej możesz zobaczyć użycie dekoratorów w praktyce. Opakowując kolejne pizze w dekoratory otrzymuję coraz bardziej skomplikowane pozycje. Dzięki takiemu podejściu mogę łączyć dodatki w dowolny sposób:
+
+```java
+public class Restaurant {
+    public static void main(String[] args) {
+        Pizza margherita = new Pizza();
+        Pizza withMozzarella = new PizzaWithMozzarella(margherita);
+        Pizza withMozzarellaAndHam = new PizzaWithHam(withMozzarella);
+        Pizza withMozzarellaHamAndBasil = new PizzaWithBasil(withMozzarellaAndHam);
+
+        DecimalFormat df = new DecimalFormat("#,00 zł");
+        for (Pizza pizza : List.of(margherita, withMozzarella, withMozzarellaAndHam, withMozzarellaHamAndBasil)) {
+            System.out.println(String.format("%s costs %s.", pizza, df.format(pizza.getPrice())));
+        }
+    }
+}
+```
 
 ### Dodatkowe rozważania
 
@@ -38,9 +126,9 @@ Niewątpliwą zaletą dekoratora jest możliwość dowolnego łączenia istniej�
 
 #### Wady
 
-Interfejs dekoratora musi być dokładnie taki sam jak klasy dekorowanej. W niektórych językach programowania (na przykład w Javie) może prowadzić to do klas, które mają sporo metod, których implementacja polega na przekazaniu wywołania do dekorowanego obiektu. Tę wadę można rozwiązać stosując klasy abstrakcyjne[^hierarhia].
+Interfejs dekoratora musi być dokładnie taki sam jak klasy dekorowanej. W niektórych językach programowania (na przykład w Javie) może prowadzić to do klas, które mają sporo metod, których implementacja polega na przekazaniu wywołania do dekorowanego obiektu (jeśli dekorator implementuje interfejs). Tę wadę można rozwiązać stosując dziedziczenie[^hierarchia].
 
-[^hierarchia]: Takie podejście może wydłużać hierarhię dziedziczenia, sam preferuję użycie interfejsów.
+[^hierarchia]: Takie podejście może wydłużać hierarhię dziedziczenia, sam preferuję użycie interfejsów jeśli hierarchia dziedziczenia jest dość długa.
 
 Dekorator często jest „płaską klasą”. Rozrzesza on dekorowaną klasę o jedną, podstawową funkcjonalność. Prowadzić to może do sytuacji, w której system zawiera wiele takich klas. Chociaż pozwala to na dowolne łączenie dekoratorów może prowadzić do większej liczby klas.
 
@@ -51,6 +139,12 @@ W przypadku języka Java wzorzec projetowy dekorator jest dość często używan
 Innym przykładem, również z języka Java, mogą być dekoratory kolekcji. Dekoratory te na przykład pozwalają na utworzenie kolekcji, która jest synchronizowana czy niemodyfikowalna. [`Collections`]({{ site.doclinks.java.util.Collections }}) zawiera szereg metod zaczynających się od `synchronized` albo `unmodifiable`, które tworzą instancje dekoratorów.
 
 W języku Python istnieje składnia, która pozwala na łatwe użycie dekoratorów. Można powiedzieć, że ten wzorzec projektowy został wbudowany w język. Notacja `@dekorator` pozwala dekorować zarówno klasy jak i funkcje. Przykładami dekoratorów dostępnych w bibliotece standardowej mogą być `@property`, `@contextlib.contextmanager` czy `@functools.wraps`.
+
+## Zadanie do wykonania
+
+Chociaż klasy reprezenujące pizze z dodatkami spełniają swoje zadanie mogą być ulepszone. Zwróć uwagę, że klasy te są bardzo do siebie podobne. Duplikacja kodu jest zła, zrefaktoryzuj kod w taki sposób aby usunąć tę duplikację. Spróbuj rozwiązać ten problem używając bardziej skomplikowanej wersji dekoratorów z drugiego diagramu UML.
+
+usuń duplikację
 
 ## Dodatkowe materiały do nauki
 
