@@ -48,6 +48,8 @@ Nie są to jedyne możliwe wersje implementacji tego wzorca. Przykładem innej i
 
 Wzorzec projektowy dekorator pozwala na wielokrotne rozszerzenie funkcjonalności obiektu poprzez „nakładanie” na siebie dekoratorów.
 
+{% include newsletter-srodek.md %}
+
 ### Przykładowa implementacja dekoratora
 
 Zacznę od pizzy bazowej:
@@ -55,7 +57,6 @@ Zacznę od pizzy bazowej:
 ```java
 public class Pizza {
     private static final BigDecimal BASE_PRICE = new BigDecimal(12);
-    final List<String> toppings = new LinkedList<>();
 
     public BigDecimal getPrice() {
         return BASE_PRICE;
@@ -63,28 +64,22 @@ public class Pizza {
 
     @Override
     public String toString() {
-        if (toppings.isEmpty()) {
-            return "Pizza";
-        }
-        return String.format("Pizza with %s", String.join(", ", toppings));
+        return "Pizza";
     }
 }
 ```
 
-Ot, zwykła klasa, która reprezentuje podstawową pizzę. Posiada metodę `getPrice`, która zwraca jej cenę. Dodatkowo posiada atrybut `toppings`, który przechowuje listę składników.
+Ot, zwykła klasa, która reprezentuje podstawową pizzę. Posiada metodę `getPrice`, która zwraca jej cenę.
 
 Poniżej możesz zobaczyć jeden z dekoratorów. W tym przypadku jest to pizza z mozzarellą:
 
 ```java
 public class PizzaWithMozzarella extends Pizza {
-
     private static final BigDecimal MOZZARELLA_PRICE = new BigDecimal(5);
     private final Pizza basePizza;
 
     public PizzaWithMozzarella(Pizza basePizza) {
         this.basePizza = basePizza;
-        this.toppings.addAll(basePizza.toppings);
-        this.toppings.add("mozzarella");
     }
 
     @Override
@@ -130,7 +125,7 @@ Interfejs dekoratora musi być dokładnie taki sam jak klasy dekorowanej. W niek
 
 [^hierarchia]: Takie podejście może wydłużać hierarhię dziedziczenia, sam preferuję użycie interfejsów jeśli hierarchia dziedziczenia jest dość długa.
 
-Dekorator często jest „płaską klasą”. Rozrzesza on dekorowaną klasę o jedną, podstawową funkcjonalność. Prowadzić to może do sytuacji, w której system zawiera wiele takich klas. Chociaż pozwala to na dowolne łączenie dekoratorów może prowadzić do większej liczby klas.
+Dekorator często jest „płaską klasą”. Rozrzesza on dekorowaną klasę o jedną, podstawową funkcjonalność. Prowadzić to może do sytuacji, w której system zawiera wiele niewielkich klas. W sytuacji gdy zazwyczaj używa się stałego zbioru dekoratorów użycie standardowego dziedziczenia może ograniczyć tę liczbę.
 
 ## Przykłady użycia wzorca dekorator
 
@@ -142,22 +137,22 @@ W języku Python istnieje składnia, która pozwala na łatwe użycie dekorator�
 
 ## Zadanie do wykonania
 
-Chociaż klasy reprezenujące pizze z dodatkami spełniają swoje zadanie mogą być ulepszone. Zwróć uwagę, że klasy te są bardzo do siebie podobne. Duplikacja kodu jest zła, zrefaktoryzuj kod w taki sposób aby usunąć tę duplikację. Spróbuj rozwiązać ten problem używając bardziej skomplikowanej wersji dekoratorów z drugiego diagramu UML.
+Chociaż klasy reprezenujące pizze z dodatkami spełniają swoje zadanie mogą być ulepszone. Zwróć uwagę, że klasy te są do siebie bardzo podobne. [Duplikacja kodu jest zła]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %}), zrefaktoryzuj kod w taki sposób aby usunąć tę duplikację. Spróbuj rozwiązać ten problem używając bardziej skomplikowanej wersji dekoratorów z drugiego diagramu UML.
 
-usuń duplikację
+Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej. Możesz też porównać swoje rozwiązanie z [przykładowym](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator/exercise).
 
 ## Dodatkowe materiały do nauki
 
 Niezmiennie, we wszystkich artykułach z serii poświęconej wzorcom projektowym polecam książkę [Design Patterns – Gamma, Helm, Johnson, Vlissides](https://www.amazon.com/gp/product/0201633612/). Jeśli miałbym polecić wyłącznie jedno źródło to poprzestałbym na tej książce.
 
-Warto także rzucić okiem do [polskiej](https://pl.wikipedia.org/wiki/Dekorator_(wzorzec_projektowy)) i [angielskiej Wikipedii](https://en.wikipedia.org/wiki/Decorator_pattern).
+Warto także rzucić okiem do [polskiej](https://pl.wikipedia.org/wiki/Dekorator_(wzorzec_projektowy)) i [angielskiej Wikipedii](https://en.wikipedia.org/wiki/Decorator_pattern) gdzie znajdziesz artykuły dotyczące tego wzorca projektowego.
 
-Zachęcam Cię też do zajrzenia do [kodu źródłowego](TODO), który użyłem w tym artykule.
+Zachęcam Cię też do zajrzenia do [kodu źródłowego](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator), którego użyłem w tym artykule.
 
 ## Podsumowanie
 
-Po lekturze tego artykułu wiesz czym jest wzorzec dekorator. Znasz przykładowy sposób jego implementacji. Masz też zestaw materiałów dodatkowych, które pozwolą Ci sporzeć na temat z innej strony. Innymi słowy udało Ci się właśnie poznać kolejny wzorzec projektowy.
+Po lekturze tego artykułu wiesz czym jest wzorzec dekorator. Znasz przykładowy sposób jego implementacji. Masz też zestaw materiałów dodatkowych, które pozwolą Ci sporzeć na temat z innej strony. Po rozwiązaniu zadania wiesz jak zaimplementować ten wzorzec samodzielnie. Innymi słowy udało Ci się właśnie poznać kolejny wzorzec projektowy. Gratulacje! ;)
 
-Jeśli artykuł przypadł Ci do gustu proszę podziel się odnośnikiem ze znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry Ci dziękuję. Jeśli nie chcesz pomiąć kolejnyach artykułów dopisz się do samouczkowego newslettera i polub [Samouczka Programisty na Facebooku](https://www.facebook.com/SamouczekProgramisty).
+Jeśli artykuł przypadł Ci do gustu proszę podziel się nim ze znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub [Samouczka Programisty na Facebooku](https://www.facebook.com/SamouczekProgramisty).
 
 Do następnego razu!
