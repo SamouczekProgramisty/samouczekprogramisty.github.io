@@ -335,7 +335,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/pogodynka-dzialajacy-termometr/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/03/19_pogodynka_03_artykul.jpg"},{
         "title": "Serwlety w aplikacjach webowych",
-        "excerpt":"Chociaż artykuł ten pisany jest z myślą o początkujących do jego pełnego zrozumienia przyda się wiedza, którą zawarłem w kliku innych artykułach. Zachęcam do zapoznania się z nimi przed podejściem do tego artykułu: Wstęp do aplikacji webowych Wstęp do Gradle Java z linii poleceńArtykuł ten bazuje na specyfikacji serwletów w...","categories": ["DSP2017","Kurs aplikacji webowych"],
+        "excerpt":"Chociaż artykuł ten pisany jest z myślą o początkujących, do jego pełnego zrozumienia przyda się wiedza, którą zawarłem w kliku innych artykułach. Zachęcam do zapoznania się z nimi przed podejściem do tego artykułu: Wstęp do aplikacji webowych Wstęp do Gradle Java z linii poleceńArtykuł ten bazuje na specyfikacji serwletów w...","categories": ["DSP2017","Kurs aplikacji webowych"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/serwlety-w-aplikacjach-webowych/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/03/25_serwlety_w_aplikacjach_webowych_artykul.jpeg"},{
@@ -639,6 +639,11 @@ var store = [{
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/podstawy-uml/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/09/21_podstawy_uml_artykul.jpeg"},{
+        "title": "Wzorzec projektowy dekorator",
+        "excerpt":"Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – wzorce projektowe. W zrozumieniu artykułu przyda Ci się wiedza dotycząca podstaw UML’a. Problem do rozwiązania Wyobraź sobie restaurację, w której możesz zjeść pizzę. Właściciel restauracji...","categories": ["Wzorce projektowe"],
+        "tags": [],
+        "url": "https://www.samouczekprogramisty.pl/wzorzec-projektowy-dekorator/",
+        "teaser":"https://www.samouczekprogramisty.pl/assets/images/2019/11/21_wzorzec_projektowy_dekorator_artykul.jpg"},{
         "title": "Strefa zadaniowa",
         "excerpt":"Gorąco wierzę w to, że nauka powinna odbywać się przez praktykę. Uważam, że samodzielne rozwiązywanie problemów i późniejsze porównywanie rozwiązań to najlepszy sposób na naukę. Właśnie z tego powodu staram się, żeby każdy z artykułów kończył się praktycznym zadaniem do wykonania. Dodatkowo przygotowałem dla Ciebie osobny zestaw artykułów, w którym...","categories": [],
         "tags": [],

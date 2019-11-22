@@ -1,4 +1,172 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="https://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-10-05T20:54:10+02:00</updated><id>https://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Podstawy UML</title><link href="https://www.samouczekprogramisty.pl/podstawy-uml/" rel="alternate" type="text/html" title="Podstawy UML" /><published>2019-09-21T00:00:00+02:00</published><updated>2019-10-05T20:50:25+02:00</updated><id>https://www.samouczekprogramisty.pl/podstawy-uml</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/podstawy-uml/">&lt;p class=&quot;notice--info&quot;&gt;W artykule opisuję wyłącznie moje doświadczenia. Możliwe, że ktoś ma zupełnie inne. Z chęcią poznam Twój punkt widzenia w komentarzach. Proszę weź też pod uwagę to, że lepiej czuję się w mniejszych firmach niż ustrukturyzowanych korporacjach – ma to wpływ na moje zdanie na temat UML’a.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.2">Jekyll</generator><link href="https://www.samouczekprogramisty.pl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.samouczekprogramisty.pl/" rel="alternate" type="text/html" /><updated>2019-11-22T20:56:37+01:00</updated><id>https://www.samouczekprogramisty.pl/</id><title type="html">Samouczek Programisty</title><subtitle>Cześć! Jestem Marcin :) Pracuję jako programista od 2007 roku. Na blogu chcę podzielić się z Tobą moją pasją do programowania.</subtitle><author><name>Marcin Pietraszek</name></author><entry><title type="html">Wzorzec projektowy dekorator</title><link href="https://www.samouczekprogramisty.pl/wzorzec-projektowy-dekorator/" rel="alternate" type="text/html" title="Wzorzec projektowy dekorator" /><published>2019-11-21T00:00:00+01:00</published><updated>2019-11-21T23:09:17+01:00</updated><id>https://www.samouczekprogramisty.pl/wzorzec-projektowy-dekorator</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/wzorzec-projektowy-dekorator/">&lt;p class=&quot;notice--info&quot;&gt;Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – &lt;a href=&quot;https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/#wzorce-projektowe&quot;&gt;wzorce projektowe&lt;/a&gt;. W zrozumieniu artykułu przyda Ci się wiedza dotycząca &lt;a href=&quot;/podstawy-uml/&quot;&gt;podstaw UML’a&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;problem-do-rozwiązania&quot;&gt;Problem do rozwiązania&lt;/h2&gt;
+
+&lt;p&gt;Wyobraź sobie restaurację, w której możesz zjeść pizzę. Właściciel restauracji daje Ci do wyboru 10 różnych dodatków. Możesz skomponować pizzę samodzielnie używając dostępnych dodatków. Każdy z dodatków ma swoją cenę i może być użyty wyłącznie jeden raz. Właściciel restauracji mógłby wypisać wszystkie kombinacje z tych 10 dodatków. Menu miałoby wtedy &lt;a href=&quot;https://pl.wikipedia.org/wiki/Kombinacja_bez_powt%C3%B3rze%C5%84&quot;&gt;1023 pozycje&lt;/a&gt;, 1024 jeśli wliczymy Margharitę… Trochę dużo ;).&lt;/p&gt;
+
+&lt;p&gt;Właściciel podszedł do sprawy inaczej. Nadal daje Ci dowolność w wyborze dodatków, jednak wycenia każdy z nich jako osobną pizzę. Na przykład pizza z szynką, pizza z bazylią, pizza z mozzarellą i tak dalej. Następnie pozwala Ci łączyć ze sobą te pizze w dowolny sposób. Na przykład pizza bez żadnych dodatków kosztuje 15zł. Pizza z szynką kosztuje o 7 zł więcej niż pizza bazowa. Pizza z bazylią kosztuje o 2 zł więcej niż pizza bazowa.&lt;/p&gt;
+
+&lt;p&gt;Dzięki takiemu podejściu w menu znajduje się 11 pozycji. Cena pizzy bez dodatków i cena każdego dodatku określona jako &lt;em&gt;cena pizzy bazowej + X zł&lt;/em&gt;. Można powiedzieć, że właściciel restauracji użył wzorca dekoratora do opracowania cennika&lt;sup id=&quot;fnref:naciagane&quot;&gt;&lt;a href=&quot;#fn:naciagane&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Podobne problemy występują w projektach informatycznych. Zdarzają się sytuacje, w których trzeba rozszerzyć działanie pewnego obiektu. Możliwych rozszerzeń jest wiele, jeszcze więcej jest kombinacji tych rozszerzeń. Z pomocą w rozwiązaniu tego problemu przychodzi wzorzec projektowy dekorator (ang. &lt;em&gt;decorator&lt;/em&gt;&lt;sup id=&quot;fnref:wrapper&quot;&gt;&lt;a href=&quot;#fn:wrapper&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;).&lt;/p&gt;
+
+&lt;h2 id=&quot;wzorzec-dekorator&quot;&gt;Wzorzec dekorator&lt;/h2&gt;
+
+&lt;h3 id=&quot;diagramy-klas&quot;&gt;Diagramy klas&lt;/h3&gt;
+
+&lt;p&gt;Istnieje wiele możliwości implementacji tego wzorca projektowego. Diagram klas poniżej pokazuje najprostszą z nich:&lt;/p&gt;
+
+&lt;figure class=&quot;&quot;&gt;
+  &lt;img src=&quot;/assets/images/2019/11/22_simple_decorator.svg&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Wzorzec projektowy dekorator (ang. &lt;em&gt;decorator&lt;/em&gt;)
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DecoratorA&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;DecoratorB&lt;/code&gt; dekorują klasę &lt;code class=&quot;highlighter-rouge&quot;&gt;Component&lt;/code&gt;. Dekoratory zawierają instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Component&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Często ten wzorzec projektowy przedstawiany jest w bardziej skomplikowany sposób:&lt;/p&gt;
+
+&lt;figure class=&quot;&quot;&gt;
+  &lt;img src=&quot;/assets/images/2019/11/17_decorator.svg&quot; alt=&quot;&quot; /&gt;
+  
+    &lt;figcaption&gt;Wzorzec projektowy dekorator (ang. &lt;em&gt;decorator&lt;/em&gt;)
+&lt;/figcaption&gt;
+  
+&lt;/figure&gt;
+
+&lt;p&gt;W tym przypadku dekoratory mają wspólnego przodka, abstrakcyjną klasę &lt;code class=&quot;highlighter-rouge&quot;&gt;Decorator&lt;/code&gt;. Sam komponent, który jest dekorowany także jest klasą abstrakcyjną, która posiada swoje konkretne implementacje. Na diagramie wyżej jest to &lt;code class=&quot;highlighter-rouge&quot;&gt;ConcreteComponent&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Nie są to jedyne możliwe wersje implementacji tego wzorca. Przykładem innej implementacji może być użycie interfejsów w miejscu klasy komponentu. Inną modyfikacją może być użycie kompozycji w miejscu agregacji. Obie zmiany nie wpływają znacząco na implementację tego wzorca projektowego.&lt;/p&gt;
+
+&lt;p&gt;Wzorzec projektowy dekorator pozwala na wielokrotne rozszerzenie funkcjonalności obiektu poprzez „nakładanie” na siebie dekoratorów.&lt;/p&gt;
+
+&lt;div class=&quot;notice--success text-center&quot;&gt;
+  
+&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 3704 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
+
+
+&lt;/div&gt;
+
+&lt;h3 id=&quot;przykładowa-implementacja-dekoratora&quot;&gt;Przykładowa implementacja dekoratora&lt;/h3&gt;
+
+&lt;p&gt;Zacznę od pizzy bazowej:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Pizza&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BASE_PRICE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BASE_PRICE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Pizza&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Ot, zwykła klasa, która reprezentuje podstawową pizzę. Posiada metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;getPrice&lt;/code&gt;, która zwraca jej cenę.&lt;/p&gt;
+
+&lt;p&gt;Poniżej możesz zobaczyć jeden z dekoratorów. W tym przypadku jest to pizza z mozzarellą:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PizzaWithMozzarella&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pizza&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOZZARELLA_PRICE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pizza&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;basePizza&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PizzaWithMozzarella&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Pizza&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;basePizza&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;basePizza&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;basePizza&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigDecimal&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;basePizza&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MOZZARELLA_PRICE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PizzaWithMozzarella&lt;/code&gt; w konstruktorze przyjmuje jako parametr instancję klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Pizza&lt;/code&gt;, którą opakowuje. Następnie używa jej do obliczenia ceny pizzy z mozzarellą dodając do ceny pizzy bazowej cenę sera.&lt;/p&gt;
+
+&lt;p&gt;W tym przypadku klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;Pizza&lt;/code&gt; odpowiada klasie &lt;code class=&quot;highlighter-rouge&quot;&gt;Component&lt;/code&gt; z diagramu UML, a klasa &lt;code class=&quot;highlighter-rouge&quot;&gt;PizzaWithMozzarella&lt;/code&gt; reprezentuje &lt;code class=&quot;highlighter-rouge&quot;&gt;DecoratorA&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Poniżej możesz zobaczyć użycie dekoratorów w praktyce. Opakowując kolejne pizze w dekoratory otrzymuję coraz bardziej skomplikowane pozycje. Dzięki takiemu podejściu mogę łączyć dodatki w dowolny sposób:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Restaurant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Pizza&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;margherita&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pizza&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Pizza&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withMozzarella&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PizzaWithMozzarella&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;margherita&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Pizza&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withMozzarellaAndHam&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PizzaWithHam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;withMozzarella&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Pizza&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withMozzarellaHamAndBasil&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PizzaWithBasil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;withMozzarellaAndHam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;DecimalFormat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DecimalFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#,00 zł&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Pizza&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pizza&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;margherita&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withMozzarella&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withMozzarellaAndHam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withMozzarellaHamAndBasil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s costs %s.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pizza&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pizza&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())));&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;dodatkowe-rozważania&quot;&gt;Dodatkowe rozważania&lt;/h3&gt;
+
+&lt;h4 id=&quot;zalety&quot;&gt;Zalety&lt;/h4&gt;
+
+&lt;p&gt;Jedną z często polecanych praktyk w programowaniu obiektowym jest preferowanie &lt;a href=&quot;https://en.wikipedia.org/wiki/Composition_over_inheritance&quot;&gt;kompozycji przed dziedziczeniem&lt;/a&gt;. Wzorzec projektowy dekorator jest flagowym przykładem użycia tej reguły. Takie podejście pozwala na dynamiczne rozszerzanie funkcjonalności obiektu bez potrzeby kompilacji kodu.&lt;/p&gt;
+
+&lt;p&gt;Niewątpliwą zaletą dekoratora jest możliwość dowolnego łączenia istniejących dekoratorów. Każdy z nich będzie opakowywał kolejny obiekt nie mając świadomości, że jest kolejnym dekoratorem w kolejce. Jest to istotne w przypadku gdy istnieje kilka dodatkowych funkcjonalności, które powinna zawierać rozszerzana klasa.&lt;/p&gt;
+
+&lt;h4 id=&quot;wady&quot;&gt;Wady&lt;/h4&gt;
+
+&lt;p&gt;Interfejs dekoratora musi być dokładnie taki sam jak klasy dekorowanej. W niektórych językach programowania (na przykład w Javie) może prowadzić to do klas, które mają sporo metod, których implementacja polega na przekazaniu wywołania do dekorowanego obiektu (jeśli dekorator implementuje interfejs). Tę wadę można rozwiązać stosując dziedziczenie&lt;sup id=&quot;fnref:hierarchia&quot;&gt;&lt;a href=&quot;#fn:hierarchia&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dekorator często jest „płaską klasą”. Rozszerza on dekorowaną klasę o jedną, podstawową funkcjonalność. Prowadzić to może do sytuacji, w której system zawiera wiele niewielkich klas. W sytuacji gdy zazwyczaj używa się stałego zbioru dekoratorów użycie standardowego dziedziczenia może ograniczyć tę liczbę.&lt;/p&gt;
+
+&lt;h2 id=&quot;przykłady-użycia-wzorca-dekorator&quot;&gt;Przykłady użycia wzorca dekorator&lt;/h2&gt;
+
+&lt;p&gt;W przypadku języka Java wzorzec projektowy dekorator jest dość często używany w bibliotece standardowej. Za przykład mogą tu posłużyć strumienie wykorzystywane przy &lt;a href=&quot;/operacje-na-plikach-w-jezyku-java/&quot;&gt;operacjach na plikach&lt;/a&gt;. &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/io/InputStream.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;InputStream&lt;/code&gt;&lt;/a&gt; jest klasą abstrakcyjną, która posiada wiele dekoratorów, na przykład &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/io/FileInputStream.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FileInputStream&lt;/code&gt;&lt;/a&gt; czy &lt;a href=&quot;&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;BufferedInputStream&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Innym przykładem, również z języka Java, mogą być dekoratory kolekcji. Dekoratory te na przykład pozwalają na utworzenie kolekcji, która jest synchronizowana czy niemodyfikowalna. &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Collections.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Collections&lt;/code&gt;&lt;/a&gt; zawiera szereg metod zaczynających się od &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; albo &lt;code class=&quot;highlighter-rouge&quot;&gt;unmodifiable&lt;/code&gt;, które tworzą instancje dekoratorów.&lt;/p&gt;
+
+&lt;p&gt;W języku Python istnieje składnia, która pozwala na łatwe użycie dekoratorów. Można powiedzieć, że ten wzorzec projektowy został wbudowany w język. Notacja &lt;code class=&quot;highlighter-rouge&quot;&gt;@dekorator&lt;/code&gt; pozwala dekorować zarówno klasy jak i funkcje. Przykładami dekoratorów dostępnych w bibliotece standardowej mogą być &lt;code class=&quot;highlighter-rouge&quot;&gt;@property&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;@contextlib.contextmanager&lt;/code&gt; czy &lt;code class=&quot;highlighter-rouge&quot;&gt;@functools.wraps&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;zadanie-do-wykonania&quot;&gt;Zadanie do wykonania&lt;/h2&gt;
+
+&lt;p&gt;Chociaż klasy reprezentujące pizze z dodatkami spełniają swoje zadanie mogą być ulepszone. Zwróć uwagę, że klasy te są do siebie bardzo podobne. &lt;a href=&quot;/jakosc-kodu-a-oschle-pocalunki-jagny/&quot;&gt;Duplikacja kodu jest zła&lt;/a&gt;, zrefaktoryzuj kod w taki sposób aby usunąć tę duplikację. Spróbuj rozwiązać ten problem używając bardziej skomplikowanej wersji dekoratorów z drugiego diagramu UML.&lt;/p&gt;
+
+&lt;p&gt;Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej. Możesz też porównać swoje rozwiązanie z &lt;a href=&quot;https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator/exercise&quot;&gt;przykładowym&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
+
+&lt;p&gt;Niezmiennie, we wszystkich artykułach z serii poświęconej wzorcom projektowym polecam książkę &lt;a href=&quot;https://www.amazon.com/gp/product/0201633612/&quot;&gt;Design Patterns – Gamma, Helm, Johnson, Vlissides&lt;/a&gt;. Jeśli miałbym polecić wyłącznie jedno źródło to poprzestałbym na tej książce.&lt;/p&gt;
+
+&lt;p&gt;Warto także rzucić okiem do &lt;a href=&quot;https://pl.wikipedia.org/wiki/Dekorator_(wzorzec_projektowy)&quot;&gt;polskiej&lt;/a&gt; i &lt;a href=&quot;https://en.wikipedia.org/wiki/Decorator_pattern&quot;&gt;angielskiej Wikipedii&lt;/a&gt; gdzie znajdziesz artykuły dotyczące tego wzorca projektowego.&lt;/p&gt;
+
+&lt;p&gt;Zachęcam Cię też do zajrzenia do &lt;a href=&quot;https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator&quot;&gt;kodu źródłowego&lt;/a&gt;, którego użyłem w tym artykule.&lt;/p&gt;
+
+&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Po lekturze tego artykułu wiesz czym jest wzorzec dekorator. Znasz przykładowy sposób jego implementacji. Masz też zestaw materiałów dodatkowych, które pozwolą Ci spojrzeć na temat z innej strony. Po rozwiązaniu zadania wiesz jak zaimplementować ten wzorzec samodzielnie. Innymi słowy udało Ci się właśnie poznać kolejny wzorzec projektowy. Gratulacje! ;)&lt;/p&gt;
+
+&lt;p&gt;Jeśli artykuł przypadł Ci do gustu proszę podziel się nim ze znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub &lt;a href=&quot;https://www.facebook.com/SamouczekProgramisty&quot;&gt;Samouczka Programisty na Facebooku&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Do następnego razu!&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:naciagane&quot;&gt;
+      &lt;p&gt;Ten przykład jest trochę naciągany. Sam dodatek nie jest pizzą, ale pizza z dodatkiem już tak. Jest to coś najbliższego światu rzeczywistemu co jest „dekoratorem” i powinno być łatwe do zrozumienia. &lt;a href=&quot;#fnref:naciagane&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:wrapper&quot;&gt;
+      &lt;p&gt;Inną nazwą tego wzorca projektowego, z którą możesz się spotkać jest &lt;em&gt;wrapper&lt;/em&gt;. &lt;a href=&quot;#fnref:wrapper&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:hierarchia&quot;&gt;
+      &lt;p&gt;Takie podejście może wydłużać hierarchię dziedziczenia, sam preferuję użycie interfejsów jeśli hierarchia dziedziczenia jest dość długa. &lt;a href=&quot;#fnref:hierarchia&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">W tym artykule przeczytasz o jednym z wzorców projektowych – o dekoratorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce.</summary></entry><entry><title type="html">Podstawy UML</title><link href="https://www.samouczekprogramisty.pl/podstawy-uml/" rel="alternate" type="text/html" title="Podstawy UML" /><published>2019-09-21T00:00:00+02:00</published><updated>2019-10-05T20:50:25+02:00</updated><id>https://www.samouczekprogramisty.pl/podstawy-uml</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/podstawy-uml/">&lt;p class=&quot;notice--info&quot;&gt;W artykule opisuję wyłącznie moje doświadczenia. Możliwe, że ktoś ma zupełnie inne. Z chęcią poznam Twój punkt widzenia w komentarzach. Proszę weź też pod uwagę to, że lepiej czuję się w mniejszych firmach niż ustrukturyzowanych korporacjach – ma to wpływ na moje zdanie na temat UML’a.&lt;/p&gt;
 
 &lt;p&gt;Jak mówi znane powiedzenie „jeden obraz jest wart tysiąca słów”. Takie przypadki zdarzają się także w programowaniu. Często w trakcie projektowania czy rozmawiania na temat fragmentu oprogramowania programistom dużo łatwiej jest się porozumieć rysując. Takie rysunki mogą opisywać ogólną architekturę projektu, sposób podejścia do rozwiązania, kolejność zdarzeń w ramach procesu itd. Dobrze jest mieć wspólny język. W tym przypadku pomocny może być UML.&lt;/p&gt;
 
@@ -134,7 +302,7 @@
 
 &lt;h4 id=&quot;relacje-dwukierunkowe&quot;&gt;Relacje dwukierunkowe&lt;/h4&gt;
 
-&lt;p&gt;Wiesz już jak oznaczana jest dwukierunkowa relacja &lt;em&gt;zależności&lt;/em&gt;. Na przykładzie wyżej pokazałem ją pomiędzy klasami &lt;code class=&quot;highlighter-rouge&quot;&gt;OrderCalculator&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;Basket&lt;/code&gt;. W praktyce występują też bardziej zagmatwane przypadki. Wyobraź sobie klasę reprezentująca książkę – &lt;code class=&quot;highlighter-rouge&quot;&gt;Book&lt;/code&gt;. Książka ma autora – &lt;code class=&quot;highlighter-rouge&quot;&gt;Author&lt;/code&gt;. Jedna książka może być napisana przez wielu autorów, a jeden autor może napisać wiele książek. To klasyczna relacja „wiele do wielu”.&lt;/p&gt;
+&lt;p&gt;Wiesz już jak oznaczana jest dwukierunkowa relacja &lt;em&gt;zależności&lt;/em&gt;. Na przykładzie wyżej pokazałem ją pomiędzy klasami &lt;code class=&quot;highlighter-rouge&quot;&gt;Customer&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;Basket&lt;/code&gt;. W praktyce występują też bardziej zagmatwane przypadki. Wyobraź sobie klasę reprezentująca książkę – &lt;code class=&quot;highlighter-rouge&quot;&gt;Book&lt;/code&gt;. Książka ma autora – &lt;code class=&quot;highlighter-rouge&quot;&gt;Author&lt;/code&gt;. Jedna książka może być napisana przez wielu autorów, a jeden autor może napisać wiele książek. To klasyczna relacja „wiele do wielu”.&lt;/p&gt;
 
 &lt;p&gt;Często tego typu relacje wprowadzają nową klasę, która reprezentuje samą relację. W tym przypadku byłoby to autorstwo – &lt;code class=&quot;highlighter-rouge&quot;&gt;Authorship&lt;/code&gt;. Poniższy diagram pokazuje przykładowe sposoby przedstawienia sytuacji tego typu na diagramie UML&lt;sup id=&quot;fnref:sql&quot;&gt;&lt;a href=&quot;#fn:sql&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 
@@ -3010,877 +3178,4 @@ BCBACA
 
 &lt;p&gt;Jeśli ktoś z Twoich znajomych przygotowuje się do rozmowy kwalifikacyjnej na stanowisko programisty możesz podzielić się linkiem do tego artykułu, z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów możesz dopisać się do samouczkowego newslettera i polubić Samouczka na Facebook’u.&lt;/p&gt;
 
-&lt;p&gt;Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po jego lekturze dowiesz się o czterech różnych sposobach na rozwiązanie zadania, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony. Każda z propozycji jest dokładnie omówiona pod kątem złożoności obliczeniowej i pamięciowej.</summary></entry><entry><title type="html">Wątki w języku Java</title><link href="https://www.samouczekprogramisty.pl/watki-w-jezyku-java/" rel="alternate" type="text/html" title="Wątki w języku Java" /><published>2019-02-11T00:00:00+01:00</published><updated>2019-08-27T22:21:16+02:00</updated><id>https://www.samouczekprogramisty.pl/watki-w-jezyku-java</id><content type="html" xml:base="https://www.samouczekprogramisty.pl/watki-w-jezyku-java/">&lt;p class=&quot;notice--info&quot;&gt;W artykule w zupełności pomijam zagadnienie procesów i zrównoleglania wykonywania zadań przy ich pomocy. Nie poruszam też tematu “event-loop” i przetwarzania asynchronicznego, które niejako związane są z wątkami. Pomijam także dokładny opis klas biblioteki standardowej z pakietu &lt;code class=&quot;highlighter-rouge&quot;&gt;java.util.concurrent&lt;/code&gt; czy temat programowania reaktywnego. Każde z tych zagadnień to temat na co najmniej jeden osobny artykuł.&lt;/p&gt;
-
-&lt;h2 id=&quot;stwórz-swój-pierwszy-wątek&quot;&gt;Stwórz swój pierwszy wątek&lt;/h2&gt;
-
-&lt;p&gt;Zacznę od przykładu. Poniższy fragment kodu tworzy nowy wątek. Wewnątrz tego wątku znajduje się pętla, która wypisuje wszystkie liczby od 0 do 4, po czym kończy swoje działanie. Dokładnie taka sama pętla znajduje się w wątku głównym:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MT start&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;T0 start&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;T0 &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;T0 stop&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MT &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MT stop&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Wynik działania tej metody może być następujący. W Twoim przypadku może on być zupełnie inny. Uruchom tę metodę kilka razy porównując otrzymany wynik:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;MT start
-MT 0
-T0 start
-MT 1
-T0 0
-T0 1
-T0 2
-MT 2
-T0 3
-MT 3
-T0 4
-T0 stop
-MT 4
-MT stop
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Zanim przejdę do dokładnego omówienia tego fragmentu kodu musisz dowiedzieć się czegoś więcej o wątkach i sposobie ich działania.&lt;/p&gt;
-
-&lt;h2 id=&quot;wątki-w-teorii&quot;&gt;Wątki w teorii&lt;/h2&gt;
-
-&lt;h3 id=&quot;program-bez-wątków&quot;&gt;Program bez wątków&lt;/h3&gt;
-
-&lt;p&gt;Wyobraź sobie problem, którego rozwiązanie wymaga wykonania trzech zadań. Udało Ci się napisać program, który ten problem rozwiązuje. Uruchamiasz ten program na komputerze. Każde z zadań uruchamiane jest po zakończeniu poprzedniego. Na diagramie może wyglądać to tak:&lt;/p&gt;
-
-&lt;figure class=&quot;c_img_with_auto&quot;&gt;
-  &lt;img src=&quot;/assets/images/2019/02/03_1_cpu_3_tasks.svg&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Trzy zadania uruchomione sekwencyjne na jednym procesorze.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Gwiazdka reprezentuje rdzeń procesora. Różnokolorowe prostokąciki reprezentują trzy zadania do wykonania. Długość prostokącików reprezentuje czas trwania poszczególnych zadań. Zadania uruchamiane są po kolei. Po tym jak skończy się zadanie zielone rozpoczyna się zadanie niebieskie. Można powiedzieć, że zadania uruchamiane są sekwencyjnie.&lt;/p&gt;
-
-&lt;h3 id=&quot;program-wielowątkowy&quot;&gt;Program wielowątkowy&lt;/h3&gt;
-
-&lt;p&gt;Przed procesorami wielordzeniowymi wątki były “oszustwem”. Procesor był jeden, mógł pracować wyłącznie nad jednym zadaniem. Wymyślono jednak inne rozwiązanie.&lt;/p&gt;
-
-&lt;h4 id=&quot;szatkowanie-czasu-&quot;&gt;Szatkowanie czasu :)&lt;/h4&gt;
-
-&lt;p&gt;Mam na myśli &lt;em&gt;time slicing&lt;/em&gt;. Mechanizm dzięki, któremu jeden rdzeń procesora może uruchamiać wiele wątków. Nie dzieje się to jednak równolegle.&lt;/p&gt;
-
-&lt;p&gt;Diagram poniżej prezentuje dokładnie te same zadania. Tym razem każde z nich uruchamiane jest w osobnym wątku, mamy zatem trzy wątki. Mechanizm nadzorujący ich pracę zapewnia, że co jakiś czas aktualny wątek zostanie zatrzymany. Mówi się wtedy, że wątek został wywłaszczony. Kolejny wątek zostaje wybudzony, dostaje czas procesora i jest przez niego wykonywany. Suma długości prostokącików w danym kolorze jest dokładnie taka sama jak w poprzednim przykładzie:&lt;/p&gt;
-
-&lt;figure class=&quot;c_img_with_auto&quot;&gt;
-  &lt;img src=&quot;/assets/images/2019/02/03_1_cpu_3_tasks_threads.svg&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Trzy zadania uruchomione w wątkach na jednym procesorze.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Takie podejście ma swoje zalety, jednak nie prowadzi do krótszego czasu działania programu. Wręcz przeciwnie, zatrzymywanie i wybudzanie wątków zajmuje czas. Proszę spójrz na diagram poniżej, który pokazuje czas trwania obu podejść:&lt;/p&gt;
-
-&lt;figure class=&quot;c_img_with_auto&quot;&gt;
-  &lt;img src=&quot;/assets/images/2019/02/03_1_cpu_3_tasks_threads_comparison.svg&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Porównanie czasu trwania dwóch podejść na jednym procesorze.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Po co zatem stosować takie podejście? Najważniejszym argumentem jest to, że w tym przypadku każde z zadań jest delikatnie popychane do przodu. Wyobraź sobie inną sytuację. Załóżmy, że dwa zadania zajmują wyraźnie mniej czasu niż trzecie:&lt;/p&gt;
-
-&lt;figure class=&quot;c_img_with_auto&quot;&gt;
-  &lt;img src=&quot;/assets/images/2019/02/03_1_cpu_3_uneven_tasks.svg&quot; alt=&quot;&quot; /&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;W takim przypadku zadania niebieskie i białe muszą czekać na zakończenie zadania zielonego. Zastosowanie wątków w tym przypadku może prowadzić do dużo szybszego zakończenia zadań niebieskiego i białego (chociaż nadal sumaryczny czas, wraz z przełączeniami wątków, będzie dłuższy):&lt;/p&gt;
-
-&lt;figure class=&quot;c_img_with_auto&quot;&gt;
-  &lt;img src=&quot;/assets/images/2019/02/03_1_cpu_3_uneven_tasks_threads.svg&quot; alt=&quot;&quot; /&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Takie podejście pozwala na uniknięcie tak zwanego zagłodzenia (ang. &lt;em&gt;starving&lt;/em&gt;) wątków. W powyższym przykładzie bez szatkowania czasu wątek z zadaniem zielonym zagłodziłby wątki z zadaniami niebieskim i białym.&lt;/p&gt;
-
-&lt;p&gt;“Szatkowanie czasu” daje wrażenie równoległej pracy wielu wątków, jednak w rzeczywistości w danym momencie tylko jedno zadanie jest uruchomione. Inaczej wygląda sytuacja w przypadku procesorów mających wiele rdzeni.&lt;/p&gt;
-
-&lt;h4 id=&quot;procesory-wielordzeniowe&quot;&gt;Procesory wielordzeniowe&lt;/h4&gt;
-
-&lt;p&gt;Procesory wielordzeniowe dają rzeczywistą możliwość uruchamiania wielu zadań równolegle. W takim przypadku, jeśli każde z zadań uruchomione zostanie w osobnym wątku wówczas sytuacja wygląda jak na diagramie poniżej&lt;sup id=&quot;fnref:cztery&quot;&gt;&lt;a href=&quot;#fn:cztery&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;c_img_with_auto&quot;&gt;
-  &lt;img src=&quot;/assets/images/2019/02/03_3_cpu_3_tasks_threads.svg&quot; alt=&quot;&quot; /&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Uruchomienie programu bez wątków na komputerze z procesorem wielordzeniowym nie przyspieszyłoby jego działania – jeden rdzeń sekwencyjnie realizowałby każde z zadań.&lt;/p&gt;
-
-&lt;h4 id=&quot;połączenie-obu-podejść&quot;&gt;Połączenie obu podejść&lt;/h4&gt;
-
-&lt;p&gt;W rzeczywistości spotkasz się połączeniem obu podejść&lt;sup id=&quot;fnref:rdzenie&quot;&gt;&lt;a href=&quot;#fn:rdzenie&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. Proszę spójrz na diagram poniżej. Pokazuje on przykładowe wykonanie zadania na dwóch rdzeniach. Dla porównania pokazałem też sekwencyjne wykonanie tych samych zadań:&lt;/p&gt;
-
-&lt;figure class=&quot;c_img_with_auto&quot;&gt;
-  &lt;img src=&quot;/assets/images/2019/02/03_2_cpu_3_tasks_threads_comparison.svg&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Trzy zadania uruchomione w wątkach na dwóch procesorach.
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;h3 id=&quot;wspólne-dane&quot;&gt;Wspólne dane&lt;/h3&gt;
-
-&lt;p&gt;Wątki korzystają z tych samych danych. Mówi się, że wątki współdzielą przestrzeń adresową. Oznacza to tyle, że obiekty dostępne dla jednego wątku są widoczne także w innych wątkach&lt;sup id=&quot;fnref:threadlocal&quot;&gt;&lt;a href=&quot;#fn:threadlocal&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;Proszę pamiętaj, że zmienne dostępne są dla wszystkich wątków. W związku z tym wszystkie wątki mogą te zmienne modyfikować. Pociąga to za sobą bardzo poważne konsekwencje. Opiszę je dokładniej w dalszej części artykułu.&lt;/p&gt;
-
-&lt;div class=&quot;notice--success text-center&quot;&gt;
-  
-&lt;p&gt;&lt;span class=&quot;c_almost-header&quot;&gt;Pobierz opracowania zadań z rozmów kwalifikacyjnych&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy &lt;strong&gt;ponad 3704 Samouków&lt;/strong&gt;, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.&lt;/p&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3&quot;&gt;&lt;/script&gt;
-
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;tworzenie-nowego-wątku&quot;&gt;Tworzenie nowego wątku&lt;/h2&gt;
-
-&lt;p&gt;Każdy wątek w języku Java związany jest z klasą &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread&lt;/code&gt;&lt;/a&gt;. Wątek można utworzyć na dwa sposoby.&lt;/p&gt;
-
-&lt;h3 id=&quot;dziedziczenie-po-klasie-thread&quot;&gt;Dziedziczenie po klasie &lt;code class=&quot;highlighter-rouge&quot;&gt;Thread&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Pierwszym ze sposobów jest utworzenie własnej klasy, która dziedziczy po klasie &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyThread&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I'm inside thread!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W tym przypadku należy nadpisać metodę &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#run()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt;&lt;/a&gt; – to właśnie ona zostaje wykonana jako ciało wątku.&lt;/p&gt;
-
-&lt;h3 id=&quot;implementacja-interfejsu-runnable&quot;&gt;Implementacja interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Drugim sposobem jest utworzenie wątku przy pomocy konstruktora, który przyjmuje obiekt implementujący interfejs &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Runnable.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyRunnable&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Runnable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I'm inside runnable!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyRunnable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Tym razem ciałem wątku jest implementacja metody &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Runnable.html#run()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt;&lt;/a&gt; z interfejsu &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Runnable.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Zauważ, że możesz utworzyć wątek posługując się &lt;a href=&quot;/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/#klasy-anonimowe&quot;&gt;klasami anonimowymi&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Runnable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I'm inside runnable!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt; jest &lt;a href=&quot;/wyrazenia-lambda-w-jezyku-java/#interfejs-funkcyjny&quot;&gt;interfejsem funkcyjnym&lt;/a&gt;. W związku z tym zapis ten można uprościć stosując &lt;a href=&quot;/wyrazenia-lambda-w-jezyku-java/&quot;&gt;wyrażenia lambda&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I'm inside runnable!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;cykl-życia-wątku&quot;&gt;Cykl życia wątku&lt;/h2&gt;
-
-&lt;p&gt;Utworzenie instancji wątku to dopiero początek. Każdy wątek ma swój cykl życia. Wątki mogą znajdować się w jednym z sześciu stanów. Dopuszczalne stany wątku znajdują się w &lt;a href=&quot;/typ-wyliczeniowy-w-jezyku-java/&quot;&gt;klasie wyliczeniowej&lt;/a&gt; &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.State&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#NEW&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NEW&lt;/code&gt;&lt;/a&gt; – nowy wątek, który nie został jeszcze uruchomiony,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#RUNNABLE&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;RUNNABLE&lt;/code&gt;&lt;/a&gt; – wątek, który może wykonywać swój kod,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#TERMINATED&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TERMINATED&lt;/code&gt;&lt;/a&gt; – wątek, który zakończył swoje działanie,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#BLOCKED&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;BLOCKED&lt;/code&gt;&lt;/a&gt; – wątek zablokowany, oczekujący na zwolnienie współdzielonego zasobu,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#WAITING&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WAITING&lt;/code&gt;&lt;/a&gt; – wątek uśpiony,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.State.html#TIMED_WAITING&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIMED_WAITING&lt;/code&gt;&lt;/a&gt; – wątek uśpiony na określony czas.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Poniższy diagram pokazuje możliwe przejścia pomiędzy stanami:&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;/assets/images/2019/02/05_thread_states.svg&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Diagram stanów wątku
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Przejście ze stanu &lt;code class=&quot;highlighter-rouge&quot;&gt;NEW&lt;/code&gt; do stanu &lt;code class=&quot;highlighter-rouge&quot;&gt;RUNNABLE&lt;/code&gt; odbywa się po wywołaniu metody &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#start()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;start()&lt;/code&gt;&lt;/a&gt; na instancji wątku. Dopiero wtedy wątek może być wykonywany, samo utworzenie instancji nie powoduje jego uruchomienia. Każdy wątek może być uruchomiony dokładnie raz – dokładanie jeden raz może być na nim wywołana metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;start()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Zwróć uwagę na to, że ciałem wątku jest metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; a do jego uruchomienia niezbędne jest wywołanie metody &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt;. Oczywiście możesz uruchomić metodę &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; samodzielnie, jednak nie spowoduje to uruchomienia nowego wątku – kod metody &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; będzie wykonywany w aktualnym wątku.&lt;/p&gt;
-
-&lt;p&gt;Wątek, który skończy swoje działanie, przechodzi do stanu &lt;code class=&quot;highlighter-rouge&quot;&gt;TERMINATED&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Omówienie stanów &lt;code class=&quot;highlighter-rouge&quot;&gt;BLOCKED&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;WAITING&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;TIMED_WAITING&lt;/code&gt; wymaga osobnych sekcji. Zanim jednak do tego przejdę szczegółowo omówię przykład, który pokazałem na początku artykułu.&lt;/p&gt;
-
-&lt;h2 id=&quot;omówienie-przykładu&quot;&gt;Omówienie przykładu&lt;/h2&gt;
-
-&lt;p&gt;Skoro już znasz podstawy teorii związanej z wątkami mogę przejść do omówienia przykładu z początku artykułu. Dla przypomnienia:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MT start&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;T0 start&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;T0 &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;T0 stop&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MT &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MT stop&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Druga linijka metody &lt;code class=&quot;highlighter-rouge&quot;&gt;main&lt;/code&gt; to utworzenie instancji wątku. W tym przypadku użyłem konstruktora przyjmującego obiekt implementujący interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;. Ten obiekt utworzyłem przy pomocy &lt;a href=&quot;/wyrazenia-lambda-w-jezyku-java/&quot;&gt;wyrażenia lambda&lt;/a&gt;. W ciele tego wyrażenia znajduje się pętla wypisująca liczby.&lt;/p&gt;
-
-&lt;p&gt;Kolejna linijka kodu, &lt;code class=&quot;highlighter-rouge&quot;&gt;thread.start();&lt;/code&gt;, uruchamia wątek. Bez niej kod wewnątrz interfejsu &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt; nie zostałby wykonany. Po uruchomieniu wątku znajdziesz kolejną pętlę wypisującą liczby. Powyższy fragment kodu działa w dwóch wątkach:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;wątku o domyślnej nazwie &lt;code class=&quot;highlighter-rouge&quot;&gt;main&lt;/code&gt;, który tworzony jest automatycznie. Wewnątrz niego uruchomiona jest metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;main&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;wątku o domyślnej nazwie &lt;code class=&quot;highlighter-rouge&quot;&gt;Thread-0&lt;/code&gt;&lt;sup id=&quot;fnref:nazwa&quot;&gt;&lt;a href=&quot;#fn:nazwa&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;, który utworzyłem i uruchomiłem samodzielnie.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Kilkukrotne uruchomienie tego kodu pokazuje Ci, że działanie tych dwóch wątków może przeplatać się na różne sposoby.&lt;/p&gt;
-
-&lt;h2 id=&quot;wątek-w-stanie-blocked&quot;&gt;Wątek w stanie &lt;code class=&quot;highlighter-rouge&quot;&gt;BLOCKED&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;Wątek, który znajduje się w stanie &lt;code class=&quot;highlighter-rouge&quot;&gt;BLOCKED&lt;/code&gt; oczekuje na pewien zablokowany zasób. W języku Java blokowanie odbywa się przy pomocy tak zwanych monitorów, które służą do synchronizacji wątków. Zanim powiem Ci jak synchronizować wątki między sobą muszę pokazać Ci dlaczego taka synchronizacja jest czasami niezbędna.&lt;/p&gt;
-
-&lt;h3 id=&quot;dlaczego-synchronizacja-jest-potrzebna&quot;&gt;Dlaczego synchronizacja jest potrzebna?&lt;/h3&gt;
-
-&lt;p&gt;Wiesz już, że wątki współdzielą przestrzeń adresową. Wspomniałem już, że ma to bardzo istotne konsekwencje. Pokażę Ci je na poniższym przykładzie:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;increment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RaceCondition&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Runnable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100_000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;increment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;t3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;t3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Tutaj nowością dla Ciebie jest metoda &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#join()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.join()&lt;/code&gt;&lt;/a&gt;. Metoda ta zapewnia, że aktualny wątek czeka na zakończenie się wątku, na którym &lt;code class=&quot;highlighter-rouge&quot;&gt;join&lt;/code&gt; zostało wywołane. W przykładzie powyżej domyślny wątek &lt;code class=&quot;highlighter-rouge&quot;&gt;main&lt;/code&gt; czeka na zakończenie się wątku &lt;code class=&quot;highlighter-rouge&quot;&gt;t1&lt;/code&gt;, jak ten się skończy czeka na zakończenie wątku &lt;code class=&quot;highlighter-rouge&quot;&gt;t2&lt;/code&gt; i następnie &lt;code class=&quot;highlighter-rouge&quot;&gt;t3&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;Tutaj drobna dygresja. To, że &lt;code class=&quot;highlighter-rouge&quot;&gt;main&lt;/code&gt; czeka na wątki w kolejności &lt;code class=&quot;highlighter-rouge&quot;&gt;t1&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;t2&lt;/code&gt; i &lt;code class=&quot;highlighter-rouge&quot;&gt;t3&lt;/code&gt; nie oznacza, że te wątki skończą się w tej kolejności. W praktyce kolejność ta może być dowolna, w szczególności może także być odwrotna.&lt;/p&gt;
-
-&lt;p&gt;W powyższym fragmencie kodu tworzę obiekt &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt;, który implementuje interfejs &lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;. Następnie używając tej instancji tworzę trzy wątki, uruchamiam je i czekam na ich zakończenie. &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; używa zmiennej lokalnej &lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt; typu &lt;code class=&quot;highlighter-rouge&quot;&gt;Counter&lt;/code&gt;. Używa jej do zwiększenia wartości atrybutu &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt; o 100’000.&lt;/p&gt;
-
-&lt;p&gt;Skoro są trzy wątki, każdy z nich zwiększa wartość zmiennej o 1 i robi to 100’000 razy to wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt; powinna wynosić 300’000, prawda? Spróbuj uruchomić ten kod kilka razy. Jakie wyniki otrzymujesz? W moim przypadku pięć kolejnych uruchomień zwróciło takie wyniki:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;235239
-296424
-300000
-281814
-300000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;wyścig&quot;&gt;Wyścig&lt;/h3&gt;
-
-&lt;p&gt;To co udało Ci się zaobserwować wyżej to tak zwany wyścig (ang. &lt;em&gt;race condition&lt;/em&gt;). Taka sytuacja zachodzi jeśli kilka wątków jednocześnie modyfikuje zmienną, która do takiej równoległej zmiany nie jest przystosowana. Tylko dlaczego wartość atrybutu &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt; miała tak różne wartości? Działo się tak dlatego, że operacja &lt;code class=&quot;highlighter-rouge&quot;&gt;value += 1&lt;/code&gt; nie jest operacją atomową.&lt;/p&gt;
-
-&lt;p&gt;Tutaj należy Ci się kolejne wyjaśnienie. Operacja atomowa to taka operacja, która jest niepodzielna. Operacja atomowa realizowana jest przy pomocy jednej instrukcji w bytecode (w skompilowanej klasie). Operacja &lt;code class=&quot;highlighter-rouge&quot;&gt;value += 1&lt;/code&gt; nie jest operacją atomową, jest ona równoważna z &lt;code class=&quot;highlighter-rouge&quot;&gt;value = value + 1&lt;/code&gt;. Wykonanie tej operacji składa się z kilku kroków:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;pobrania aktualnej wartości &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt; do zmiennej tymczasowej (niewidocznej w kodzie źródłowym)&lt;sup id=&quot;fnref:stos&quot;&gt;&lt;a href=&quot;#fn:stos&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
-  &lt;li&gt;dodania &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; do zmiennej tymczasowej,&lt;/li&gt;
-  &lt;li&gt;przypisanie powiększonej wartości do &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;W bytecode ten fragment wygląda tak:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GETFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
-ICONST_1
-IADD
-PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;przykład-zachowania-wątków&quot;&gt;Przykład zachowania wątków&lt;/h4&gt;
-
-&lt;p&gt;Pamiętasz szatkowanie czasu, które opisałem na początku artykułu? Odgrywa ono tu kluczową rolę. Wyobraź sobie sytuację, w której wątek zielony wykonał krok 1., 2. i 3. po czym został wywłaszczony. Następnie wątki niebieski i biały wykonały krok 1. Po czym wątek niebieski wykonał kroki 2. i 3. Po chwili to samo stało się z wątkiem białym. Taką sytuację pokazuje poniższy diagram:&lt;/p&gt;
-
-&lt;figure class=&quot;&quot;&gt;
-  &lt;img src=&quot;/assets/images/2019/02/11_slicing_time_example.svg&quot; alt=&quot;&quot; /&gt;
-  
-    &lt;figcaption&gt;Przykład zachowania wątków
-&lt;/figcaption&gt;
-  
-&lt;/figure&gt;
-
-&lt;p&gt;Biorąc pod uwagę takie zachowanie wątków, jaką wartość wątek biały przypisał do &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt;? Była to wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt;, przez co cała praca wątku niebieskiego została nadpisana. Proszę spójrz na tabelkę niżej, która pokazuje tę sytuację:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Operacja&lt;/th&gt;
-      &lt;th&gt;Wątek&lt;/th&gt;
-      &lt;th&gt;Krok&lt;/th&gt;
-      &lt;th&gt;Wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Wartość zmiennej tymczasowej&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1.&lt;/td&gt;
-      &lt;td&gt;zielony&lt;/td&gt;
-      &lt;td&gt;1.&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2.&lt;/td&gt;
-      &lt;td&gt;zielony&lt;/td&gt;
-      &lt;td&gt;2.&lt;/td&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3.&lt;/td&gt;
-      &lt;td&gt;zielony&lt;/td&gt;
-      &lt;td&gt;3.&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4.&lt;/td&gt;
-      &lt;td&gt;niebieski&lt;/td&gt;
-      &lt;td&gt;1.&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5.&lt;/td&gt;
-      &lt;td&gt;biały&lt;/td&gt;
-      &lt;td&gt;1.&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6.&lt;/td&gt;
-      &lt;td&gt;niebieski&lt;/td&gt;
-      &lt;td&gt;2.&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7.&lt;/td&gt;
-      &lt;td&gt;niebieski&lt;/td&gt;
-      &lt;td&gt;3.&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;8.&lt;/td&gt;
-      &lt;td&gt;biały&lt;/td&gt;
-      &lt;td&gt;2.&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9.&lt;/td&gt;
-      &lt;td&gt;biały&lt;/td&gt;
-      &lt;td&gt;3.&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Jest to jeden z możliwych scenariuszy. W przykładzie powyżej operacja 9. ustawiają wartość &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt; na &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; w wątku białym ignorując zwiększenie wartości wykonane przez wątek niebieski w operacji 7.&lt;/p&gt;
-
-&lt;p&gt;Aby uniknąć takich sytuacji, uniknąć wyścigów, niezbędna jest synchronizacja pracy wątków.&lt;/p&gt;
-
-&lt;h3 id=&quot;synchronizacja-wątków&quot;&gt;Synchronizacja wątków&lt;/h3&gt;
-
-&lt;p&gt;Każdy obiekt w języku Java powiązany jest z tak zwanym monitorem. Każdy monitor może być w jednym z dwóch stanów: odblokowany albo zablokowany. Monitor może być zablokowany wyłącznie przez jeden wątek w danym momencie. Dzięki tej właściwości to obiekty używane są do tego, żeby synchronizować wątki ze sobą. Służy do tego słowo kluczowe &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;blok-synchronized&quot;&gt;Blok &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt;&lt;/h4&gt;
-
-&lt;p&gt;Proszę spójrz na delikatnie zmodyfikowany kod klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;Counter&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;increment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Spróbuj jeszcze raz uruchomić &lt;code class=&quot;highlighter-rouge&quot;&gt;RaceCondition&lt;/code&gt; po wprowadzeniu takiej modyfikacji. Jak z wynikami? Tym razem na pewno za każdym razem na konsoli pokaże się liczba 300’000. Dzieje się tak ponieważ ciało metody &lt;code class=&quot;highlighter-rouge&quot;&gt;increment&lt;/code&gt; objęte jest blokiem &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt;. W tym przypadku obiektem, który został użyty jako monitor jest &lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt; – instancja &lt;code class=&quot;highlighter-rouge&quot;&gt;Counter&lt;/code&gt;. Blok &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; ma następujący format:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obiekt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// synchronizowany kod&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Masz pewność, że wszystko co znajduje się wewnątrz bloku w każdym momencie uruchomione jest przez maksymalnie jeden wątek.&lt;/p&gt;
-
-&lt;h4 id=&quot;metoda-synchronized&quot;&gt;Metoda &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt;&lt;/h4&gt;
-
-&lt;p&gt;Słowo kluczowe &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; może być także użyte w innym kontekście. Może także oznaczyć metody, które są synchronizowane. Na przykład:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;increment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W praktyce obie wersje metody &lt;code class=&quot;highlighter-rouge&quot;&gt;increment&lt;/code&gt; są równoważne. Oznaczenie metody słowem kluczowym &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; równoznaczne jest w umieszczeniem całego ciała metody w bloku &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt;. To jaki obiekt użyty jest w roli monitora zależy od rodzaju metody:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;standardowa metoda – jako monitor użyta jest instancja klasy – &lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;,&lt;/li&gt;
-  &lt;li&gt;metoda statyczna – jako monitor użyta jest klasa.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Na przykład dwa poniższe fragmenty kodu są równoważne:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sampleStaticMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xxx&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sampleStaticMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xxx&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;nie-synchronizuj-wszystkiego&quot;&gt;Nie synchronizuj wszystkiego&lt;/h4&gt;
-
-&lt;p&gt;Synchronizacja wątków pozwala na uniknięcie wielu problemów związanych na przykład z wyścigami. Niestety ma też swoje słabe strony. Pamiętaj, że cały kod, który jest w bloku &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; w danym momencie może być uruchomiony przez maksymalnie jeden wątek. W związku z tym ten fragment kodu traci możliwość równoczesnego uruchomienia na kilku procesorach – spowalnia wykonanie programu wielowątkowego.&lt;/p&gt;
-
-&lt;p&gt;Taki fragment kodu, który w danym momencie może być użyty przez maksymalnie jeden wątek nazywany jest sekcją krytyczną. Dobrą zasadą jest ograniczanie sekcji krytycznej – im mniej w niej kodu tym większy zysk z użycia wielu wątków.&lt;/p&gt;
-
-&lt;p&gt;Synchronizacja wątków przy pomocy &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; to nie wszystko. Wszystkie obiekty w języku Java, poza monitorami, zawierają specjalny zbiór wątków (ang. &lt;em&gt;wait set&lt;/em&gt;). Elementami tego zbioru są wątki, które czekają na powiadomienia dotyczące tego obiektu.&lt;/p&gt;
-
-&lt;h2 id=&quot;wątek-w-stanie-waiting&quot;&gt;Wątek w stanie &lt;code class=&quot;highlighter-rouge&quot;&gt;WAITING&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;Jednym ze sposobów aby wątek znalazł się w tym stanie jest wywołanie metody &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#join()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.join()&lt;/code&gt;&lt;/a&gt;. Wiesz już, że w takim przypadku aktualny wątek czeka na zakończenie swojego kolegi.&lt;/p&gt;
-
-&lt;p&gt;Wątek znajdzie się w stanie &lt;code class=&quot;highlighter-rouge&quot;&gt;WAITING&lt;/code&gt; także jeśli w trakcie jego działania zostanie wywołana metoda &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#wait()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.wait()&lt;/code&gt;&lt;/a&gt;&lt;sup id=&quot;fnref:pomijam&quot;&gt;&lt;a href=&quot;#fn:pomijam&quot; class=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;Na Samouczku Programisty takie lakoniczne wytłumaczenie nie przejdzie ;). Zapraszam Cię do przykładu, opisującego drugą sytuację.&lt;/p&gt;
-
-&lt;h3 id=&quot;komunikacja-pomiędzy-wątkami&quot;&gt;Komunikacja pomiędzy wątkami&lt;/h3&gt;
-
-&lt;p&gt;Wyobraź sobie sytuację, w której masz dwa wątki. Jeden produkuje pewne dane, drugi je konsumuje. Tego typu mechanizm jest dość często spotykany. Naiwna implementacja tego typu zachowania może wyglądać tak:&lt;/p&gt;
-
-&lt;p class=&quot;notice--warning&quot;&gt;Ten przykład pokazuje złe praktyki, zanim zaczniesz pisać wielowątkowy kod w ten sposób przeczytaj wyjaśnienie poniżej wraz z poprawną wersją implementacji!&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NaiveConsumerProducer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Random&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;producer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofSeconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nextInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuntimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-                &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Item no. &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consumer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemsLeft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;itemsLeft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-                &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                        &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;poll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;itemsLeft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--;&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Consumer got item: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;producer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W przykładzie tym użyłem &lt;a href=&quot;/struktury-danych-lista-wiazana/&quot;&gt;listy wiązanej&lt;/a&gt; jako kolejki. Obiekt &lt;code class=&quot;highlighter-rouge&quot;&gt;queue&lt;/code&gt; będzie służył jako narzędzie do wymiany danych pomiędzy wątkami.&lt;/p&gt;
-
-&lt;h4 id=&quot;producent&quot;&gt;Producent&lt;/h4&gt;
-
-&lt;p&gt;Zacznę od wątku produkującego dane:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;producer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofSeconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nextInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuntimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Item no. &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#sleep(long)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.sleep()&lt;/code&gt;&lt;/a&gt;. Służy ona do uśpienia wątku&lt;sup id=&quot;fnref:timed_wait&quot;&gt;&lt;a href=&quot;#fn:timed_wait&quot; class=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;. Przekazany parametr mówi o minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Random.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Random&lt;/code&gt;&lt;/a&gt;, żeby to symulować.&lt;/p&gt;
-
-&lt;p&gt;Na razie pominę obsługę wyjątku &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/InterruptedException.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;InterruptedException&lt;/code&gt;&lt;/a&gt;. Nie jest ona istotna w tym przykładzie, omówię ją dokładnie w jednym z kolejnych akapitów.&lt;/p&gt;
-
-&lt;p&gt;Następnie w bloku &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; dodaje nowy element. Zwróć uwagę, że do synchronizacji używam tu obiektu &lt;code class=&quot;highlighter-rouge&quot;&gt;queue&lt;/code&gt;. Dzięki temu mam pewność, że nie nastąpi wyścig podczas dodawania czy usuwania elementów z kolejki.&lt;/p&gt;
-
-&lt;p&gt;Wątek kończy swoje działanie po wyprodukowaniu wszystkich elementów.&lt;/p&gt;
-
-&lt;h4 id=&quot;konsument&quot;&gt;Konsument&lt;/h4&gt;
-
-&lt;p&gt;Wątek konsumujący wyprodukowane elementy wygląda tak:&lt;/p&gt;
-
-&lt;p class=&quot;notice--warning&quot;&gt;Ten przykład pokazuje złe praktyki, zanim zaczniesz pisać wielowątkowy kod w ten sposób przeczytaj wyjaśnienie poniżej wraz z poprawną wersją implementacji!&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consumer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemsLeft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;itemsLeft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;poll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;itemsLeft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Consumer got item: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Wątek konsumujący dane także używa &lt;a href=&quot;/petle-i-instrukcje-warunkowe-w-jezyku-java/&quot;&gt;pętli&lt;/a&gt;. Tym razem jest to pętla &lt;code class=&quot;highlighter-rouge&quot;&gt;while&lt;/code&gt;, która wykonuje się dopóki oczekiwana liczba elementów nie zostanie pobrana z kolejki. Także tutaj wątek używa bloku &lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt;, w który sprawdza czy elementy są w kolejce i do ewentualnego ich pobrania.&lt;/p&gt;
-
-&lt;p&gt;Program działa. Ma jednak pewien subtelny błąd. Zwróć uwagę na wątek konsumenta. Wątek ten działa bez przerwy. Bez przerwy zajmuje czas procesora&lt;sup id=&quot;fnref:wywlaszczenia&quot;&gt;&lt;a href=&quot;#fn:wywlaszczenia&quot; class=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;. Co więcej, przez większość swojego czasu kręci się wewnątrz pętli sprawdzając czy kolejka jest pusta. Jako drobne ćwiczenie dla Ciebie zostawiam dodanie licznika iteracji – ile razy pętla wykonała się w Twoim przypadku?&lt;/p&gt;
-
-&lt;p&gt;Jak można ten problem rozwiązać? Jednym ze sposobów może być usypianie wątku konsumenta używając metody &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#sleep(long)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.sleep()&lt;/code&gt;&lt;/a&gt;, którą już znasz. To także byłoby marnowanie zasobów – skąd możesz wiedzieć jak długo zajmie produkowanie kolejnego elementu?&lt;/p&gt;
-
-&lt;p&gt;Z pomocą przychodzi mechanizm powiadomień.&lt;/p&gt;
-
-&lt;h3 id=&quot;jak-działa-mechanizm-powiadomień&quot;&gt;Jak działa mechanizm powiadomień&lt;/h3&gt;
-
-&lt;p&gt;Wiesz już, że każdy obiekt powiązany jest z monitorem używamy w trakcie synchronizacji. Podobnie wygląda sprawa w przypadku mechanizmu powiadomień. Każdy obiekt w języku Java posiada zbiór   powiadamianych wątków (ang. &lt;em&gt;waiting set&lt;/em&gt;).&lt;/p&gt;
-
-&lt;p&gt;Wewnątrz tego zbioru znajdują się wątki, które czekają na powiadomienie dotyczące danego obiektu. Jedynym sposobem, żeby modyfikować zawartość tego zbioru jest używanie metod dostępnych w klasie &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#wait()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.wait()&lt;/code&gt;&lt;/a&gt; – dodanie aktualnego wątku do zbioru powiadamianych wątków,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#notify()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.notify()&lt;/code&gt;&lt;/a&gt; – powiadomienie i wybudzenie jednego z oczekujących wątków,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#notifyAll()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.notifyAll()&lt;/code&gt;&lt;/a&gt; – powiadomienie i wybudzenie wszystkich oczekujących wątków.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;poprawny-producent&quot;&gt;Poprawny producent&lt;/h4&gt;
-
-&lt;p&gt;Poprawna wersja producenta używa metody &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#notify()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;notify&lt;/code&gt;&lt;/a&gt; albo &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#notifyAll()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;notifyAll&lt;/code&gt;&lt;/a&gt; informując w ten sposób konsumentów o nowym elemencie:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;producer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofSeconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nextInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuntimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Item no. &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;notify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;poprawny-konsument&quot;&gt;Poprawny konsument&lt;/h4&gt;
-
-&lt;p&gt;Poprawna wersja konsumenta oczekuje pasywnie na informację od producenta o nowym elemencie:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consumer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemsLeft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;itemsLeft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;wait&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuntimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;poll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;itemsLeft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Consumer got item: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Należy Ci się drobne wyjaśnienie nowego fragmentu:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;wait&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuntimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Specyfikacja języka Java pozwala na fałszywe wybudzenia (ang. &lt;em&gt;spurious wake-ups&lt;/em&gt;). Są to wybudzenia, które mogą wystąpić nawet gdy nie było odpowiadającego im powiadomienia – wywołania metody &lt;code class=&quot;highlighter-rouge&quot;&gt;notify&lt;/code&gt;. Dlatego właśnie sprawdzenie warunku (&lt;code class=&quot;highlighter-rouge&quot;&gt;queue.isEmpty()&lt;/code&gt;) musi być wykonane w pętli.&lt;/p&gt;
-
-&lt;h2 id=&quot;wątek-w-stanie-timed_waiting&quot;&gt;Wątek w stanie &lt;code class=&quot;highlighter-rouge&quot;&gt;TIMED_WAITING&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;Tym razem będzie krótko ;). Stan &lt;code class=&quot;highlighter-rouge&quot;&gt;TIMED_WAITING&lt;/code&gt; jest podobny do stanu &lt;code class=&quot;highlighter-rouge&quot;&gt;WAITING&lt;/code&gt;. W tym przypadku wątek oczekuje przez pewien czas, nie krótszy niż podany jako argument do jednej z metod&lt;sup id=&quot;fnref:pomijam2&quot;&gt;&lt;a href=&quot;#fn:pomijam2&quot; class=&quot;footnote&quot;&gt;9&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#wait(long)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.wait()&lt;/code&gt;&lt;/a&gt; – dodanie aktualnego wątku do zbioru powiadamianych wątków i wybudzenie go po określonym czasie,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#sleep(long)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.sleep()&lt;/code&gt;&lt;/a&gt; – wątek wywołujący tę metodę usypia na określony czas,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#join(long)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.join()&lt;/code&gt;&lt;/a&gt; – oczekiwanie na zakończenie wątku przez określony czas.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;przerywanie-wątku&quot;&gt;Przerywanie wątku&lt;/h2&gt;
-
-&lt;p&gt;W jednym z poprzednich przykładów wspomniałem o wyjątku &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/InterruptedException.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;InterruptedException&lt;/code&gt;&lt;/a&gt;. Wyjątek ten sygnalizuje sytuację, w której wątek został przerwany. Wątek może zostać przerwany po wywołaniu na jego instancji metody &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#interrupt()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.interrupt&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;W momencie kiedy wątek zostaje przerwany ustawiana jest na nim specjalna flaga, która o tym informuje.&lt;/p&gt;
-
-&lt;p&gt;Jeśli chcesz sprawdzić, czy aktualny wątek jest przerwany możesz wywołać statyczną metodę &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#interrupted()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.interrupted&lt;/code&gt;&lt;/a&gt;. Wywołanie tej metody zwraca &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; jeśli wątek był przerwany jednocześnie usuwając flagę, o której wspomniałem przed chwilą.&lt;/p&gt;
-
-&lt;h2 id=&quot;synchronizacja-inaczej--volatile&quot;&gt;Synchronizacja inaczej – &lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;Java udostępnia jeszcze jeden mechanizm, który pozwala na synchronizację. Mam tu na myśli słowo kluczowe &lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt;. Specyfikacja języka Java mówi, że każdy odczyt atrybutu poprzedzonego tym słowem kluczowym następuje po jego zapisie. Innymi słowy, modyfikator &lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt; gwarantuje, że każdy wątek czytający dany atrybut zobaczy najnowszą zapisaną wartość tego atrybutu.&lt;/p&gt;
-
-&lt;p&gt;Dzięki temu możesz osiągnąć synchronizację wartości danego pola pomiędzy wątkami. Musisz jednak uważać na modyfikacje, które nie są atomowe – przed zmianami tego typu &lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt; niestety Cię nie uchroni. W takim przypadku niezbędna będzie synchronizacja, którą opisałem wcześniej.&lt;/p&gt;
-
-&lt;p&gt;Poniższy fragment kodu pokazuje poprawne użycie modyfikatora &lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VolatileExample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;volatile&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isDone&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;backgroundJob&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofSeconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuntimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I'm done with my job!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;isDone&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heavyWorker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;LocalDateTime&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LocalDateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isDone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;// constantly doing some important stuff&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;durationInMillis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChronoUnit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MILLIS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;between&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LocalDateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I've been notified about finished job after &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;durationInMillis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; milliseconds.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;heavyWorker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;backgroundJob&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;W ramach ćwiczenia możesz spróbować uruchomić powyższy kod usuwając modyfikator &lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt; dla pola &lt;code class=&quot;highlighter-rouge&quot;&gt;isDone&lt;/code&gt;. Jak zachowuje się ten program po takiej modyfikacji?&lt;/p&gt;
-
-&lt;h2 id=&quot;wątki-są-skomplikowane&quot;&gt;Wątki są skomplikowane&lt;/h2&gt;
-
-&lt;p&gt;Tworzenie programów wielowątkowych jest trudne. Unikanie zakleszczeń, odpowiednia synchronizacja, unikanie wyścigów nie jest trywialne. Nie przejmuj się, jeśli nie zrozumiesz tego zagadnienia od razu. Pisanie wydajnego, bezpiecznego kodu wielowątkowego to coś, z czym nawet bardzo doświadczeni programiści mogą mieć sporo problemów.&lt;/p&gt;
-
-&lt;p&gt;Odnajdowanie i naprawianie błędów w programach, które używają wielu wątków to także ciężkie zadanie. Sytuacja, w której kod działa idealnie w trakcie testów, a zachowuje się dziwnie w środowisku wielowątkowym jest czymś powszechnym.&lt;/p&gt;
-
-&lt;p&gt;Zanim zaczniesz pisać kod, który ma być wielowątkowo bezpieczny spróbuj znaleźć gotową implementację w pakiecie &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/package-summary.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;java.util.concurrent&lt;/code&gt;&lt;/a&gt;. Używając klas z tego pakietu na pewno unikniesz sporo ciężkich do zdiagnozowania błędów.&lt;/p&gt;
-
-&lt;h2 id=&quot;dodatkowe-materiały-do-nauki&quot;&gt;Dodatkowe materiały do nauki&lt;/h2&gt;
-
-&lt;p&gt;Przygotowałem dla Ciebie zestaw linków, które mogą pomóc Ci spojrzeć na temat wątków z innej strony:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html&quot;&gt;Tutorial na stronie Oracle’a dotyczący wątków&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/specs/jls/se12/html/jls-17.html&quot;&gt;Rozdział w Java Language Specification dotyczący wątków&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/specs/jls/se12/html/jls-8.html#jls-8.4.3.6&quot;&gt;Sekcja w Java Language Specification dotycząca metod synchronizowanych&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/specs/jls/se12/html/jls-14.html#jls-14.19&quot;&gt;Sekcja w Java Language Specification dotycząca bloku synchronizowanego&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.ibm.com/developerworks/java/library/j-jtp06197/&quot;&gt;Artykuł opisujący użycie zmiennych &lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt;&lt;/a&gt;,&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/SamouczekProgramisty/KursJava/tree/master/34_watki/src/main/java/pl/samouczekprogramisty/kursjava/treads&quot;&gt;Kod źródłowy przykładów użytych w artykule&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Jeśli znasz źródło, które Twoim zdaniem warte jest uwagi daj znać – dodam je do listy.&lt;/p&gt;
-
-&lt;h2 id=&quot;zadania&quot;&gt;Zadania&lt;/h2&gt;
-
-&lt;p&gt;Przygotowałem dla Ciebie zadania, które pomogą Ci przećwiczyć wiedzę przedstawioną w artykule w praktyce. Pamiętaj, że zawsze możesz rzucić okiem na &lt;a href=&quot;https://github.com/SamouczekProgramisty/KursJava/tree/master/34_watki/src/main/java/pl/samouczekprogramisty/kursjava/treads/exercise&quot;&gt;przykładowe rozwiązania&lt;/a&gt;. Jak zwykle zachęcam Cię do samodzielnej próby rozwiązania tych zadań, w ten sposób nauczysz się najwięcej.&lt;/p&gt;
-
-&lt;h3 id=&quot;przedstaw-się&quot;&gt;Przedstaw się&lt;/h3&gt;
-
-&lt;p&gt;Napisz metodę, która przyjmuje liczbę całkowitą. Wywołanie metody powinno uruchomić wątek 0., wewnątrz tego wątku powinien zostać uruchomiony wątek 1. Wątek 1. powinien uruchomić wątek 2. itd. do osiągnięcia zadanej liczby wątków. Każdy z wątków powinien wypisać na konsolę swoją domyślną nazwę.&lt;/p&gt;
-
-&lt;p&gt;Na przykład wywołanie metody:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;startNestedThreads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Powinno skończyć się uruchomieniem 3 wątków i wypisaniem tekstu na konsolę:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Thread-0
-Thread-1
-Thread-2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;przedstaw-się-ii&quot;&gt;Przedstaw się II&lt;/h3&gt;
-
-&lt;p&gt;Zmodyfikuj program z poprzedniego punktu w taki sposób, aby wątki wypisywały swoją nazwę w kolejności odwrotnej do ich tworzenia. Tzn. wątek uruchomiony jako pierwszy powinien wypisać swoją nazwę jako ostatni. Na przykład wywołanie metody:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;startNestedThreads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Powinno skończyć się uruchomieniem 3 wątków i wypisaniem tekstu na konsolę:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Thread-2
-Thread-1
-Thread-0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;wielowątkowe-hello-world&quot;&gt;Wielowątkowe &lt;code class=&quot;highlighter-rouge&quot;&gt;Hello world!&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Napisz program, który uruchomi trzy wątki. Pierwszy z nich będzie wypisywał w pętli ciąg znaków &lt;code class=&quot;highlighter-rouge&quot;&gt;Hello &lt;/code&gt;, drugi &lt;code class=&quot;highlighter-rouge&quot;&gt;world&lt;/code&gt;, trzeci &lt;code class=&quot;highlighter-rouge&quot;&gt;!\n&lt;/code&gt; (wykrzyknik ze znakiem nowej linii). Na przykład:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;world&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;t3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Uzupełniając powyższy kod o podstawowe mechanizmy synchronizacji wątków spraw, że program po zakończeniu wypisze linijki tekstu zawierające &lt;code class=&quot;highlighter-rouge&quot;&gt;Hello world!&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Hello world!
-Hello world!
-Hello world!
-Hello world!
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Czy Twój program nadal będzie dział poprawnie jeśli będzie wypisywał “Hello world!” 10’000 razy?&lt;/p&gt;
-
-&lt;h2 id=&quot;podsumowanie&quot;&gt;Podsumowanie&lt;/h2&gt;
-
-&lt;p&gt;Po lekturze tego artykułu wiesz czym są wątki. Wiesz jak je tworzyć i uruchamiać. Znasz podstawowe mechanizmy ich synchronizacji. Udało ci się też poznać kilka definicji związanych z programowaniem współbieżnym. Po wykonaniu zadań wiesz, że potrafisz wykorzystać tę wiedzę w praktyce – gratulacje!&lt;/p&gt;
-
-&lt;p&gt;Bałem się tego artykułu. Od samego początku pracy nad kursem Javy przesuwałem go w czasie. Teraz, po jego ukończeniu wiem dlaczego ;). Żaden artykuł na blogu nie kosztował mnie tyle pracy. Mam nadzieję, że efekt przypadł Ci do gustu. Proszę podziel się nim z osobami, którym może pomóc. Dzięki temu uda mi się dotrzeć do nowych Czytelników, a na tym właśnie mi zależy – z góry bardzo dziękuję!&lt;/p&gt;
-
-&lt;p&gt;Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newsletter’a i polub Samouczka na Facebook’u. To tyle na dzisiaj, trzymaj się i do następnego razu!&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:cztery&quot;&gt;
-      &lt;p&gt;Możesz założyć, że program został uruchomiony na procesorze czterordzeniowym. Czwarty rdzeń nie był uwzględniony na diagramie. &lt;a href=&quot;#fnref:cztery&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:rdzenie&quot;&gt;
-      &lt;p&gt;Raczej mało prawdopodobne jest to, że masz komputer, który ma tylko jeden rdzeń procesora. &lt;a href=&quot;#fnref:rdzenie&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:threadlocal&quot;&gt;
-      &lt;p&gt;Dla uproszczenia pomijam tutaj &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/ThreadLocal.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;&lt;/a&gt;. &lt;a href=&quot;#fnref:threadlocal&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:nazwa&quot;&gt;
-      &lt;p&gt;Tworząc nowe wątki masz możliwość nadawania im nazw, jeśli tego nie zrobisz dostają domyślną w formacie &lt;code class=&quot;highlighter-rouge&quot;&gt;Thread-&amp;lt;kolejny numer&amp;gt;&lt;/code&gt;. Masz także możliwość pobrania nazwy aktualnie uruchomionego wątku używając &lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.currentThread().getName()&lt;/code&gt;. &lt;a href=&quot;#fnref:nazwa&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:stos&quot;&gt;
-      &lt;p&gt;W rzeczywistości zmienną tymczasową jest stos, na którym ląduje wartość atrybutu. &lt;a href=&quot;#fnref:stos&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:pomijam&quot;&gt;
-      &lt;p&gt;Pomijam tu trzeci możliwy przypadek – wywołanie metody &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#park()&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LockSupport.park&lt;/code&gt;&lt;/a&gt;. &lt;a href=&quot;#fnref:pomijam&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:timed_wait&quot;&gt;
-      &lt;p&gt;Metoda ta sprawia, że wątek jest w stanie &lt;code class=&quot;highlighter-rouge&quot;&gt;TIMED_WAITING&lt;/code&gt; o czym przeczytasz za chwilę. &lt;a href=&quot;#fnref:timed_wait&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:wywlaszczenia&quot;&gt;
-      &lt;p&gt;Pomijam wywłaszczenia, które znasz z początku artykułu. &lt;a href=&quot;#fnref:wywlaszczenia&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:pomijam2&quot;&gt;
-      &lt;p&gt;Także tutaj pomijam metody z klasy &lt;code class=&quot;highlighter-rouge&quot;&gt;LockSupport&lt;/code&gt;: &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkNanos(java.lang.Object,long)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LockSupport.partNanos&lt;/code&gt;&lt;/a&gt; i &lt;a href=&quot;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkUntil(java.lang.Object,long)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LockSupport.parkUntil&lt;/code&gt;&lt;/a&gt;. &lt;a href=&quot;#fnref:pomijam2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz dwa słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego. Na końcu artykułu czekają na Ciebie zadania, w których przećwiczysz zdobytą wiedzę.</summary></entry></feed>
+&lt;p&gt;Do następnego razu!&lt;/p&gt;</content><author><name>Marcin Pietraszek</name></author><summary type="html">Ten artykuł jest poświęcony zadaniu z rozmowy kwalifikacyjnej. Po jego lekturze dowiesz się o czterech różnych sposobach na rozwiązanie zadania, które trafił na rozmowie jeden z Czytelników – Marek. Artykuł zawiera kilka propozycji rozwiązania, które pozwolą spojrzeć Ci na problem z różnej strony. Każda z propozycji jest dokładnie omówiona pod kątem złożoności obliczeniowej i pamięciowej.</summary></entry></feed>

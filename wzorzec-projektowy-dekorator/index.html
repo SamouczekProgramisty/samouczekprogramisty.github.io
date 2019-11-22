@@ -1,0 +1,749 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.11.2 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Wzorzec projektowy dekorator - Samouczek Programisty</title>
+<meta name="description" content="W tym artykule przeczytasz o jednym z wzorców projektowych – o dekoratorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wzorzec projektowy dekorator">
+<meta property="og:url" content="https://www.samouczekprogramisty.pl/wzorzec-projektowy-dekorator/">
+
+
+  <meta property="og:description" content="W tym artykule przeczytasz o jednym z wzorców projektowych – o dekoratorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce.">
+
+
+
+  <meta property="og:image" content="https://www.samouczekprogramisty.pl/assets/images/2019/11/21_wzorzec_projektowy_dekorator_artykul.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-11-21T00:00:00+01:00">
+
+
+
+  <meta property="article:modified_time" content="2019-11-21T23:09:17+01:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.samouczekprogramisty.pl/wzorzec-projektowy-dekorator/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "https://www.samouczekprogramisty.pl",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+     <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Samouczek Programisty</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-programowania-java/" >Kurs programowania Java</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/" >Kurs aplikacji webowych</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kurs-sql/" >Kurs SQL</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/patronite/" >Patronite</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="https://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2019/11/21_wzorzec_projektowy_dekorator_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 class="page__title" itemprop="headline">
+        
+          Wzorzec projektowy dekorator
+
+        
+      </h1>
+      
+        <p class="page__lead">W tym artykule przeczytasz o jednym z wzorców projektowych – o dekoratorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce.
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://www.pexels.com/photo/person-painting-on-mug-2310883/">© Vladislav Vasnetsov</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wzorzec projektowy dekorator</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wzorzec projektowy dekorator">
+    <meta itemprop="description" content="W tym artykule przeczytasz o jednym z wzorców projektowych – o dekoratorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce.">
+    <meta itemprop="datePublished" content="November 21, 2019">
+    <meta itemprop="dateModified" content="November 21, 2019">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+            
+            <nav class="toc">
+                <header>
+                    <h4 class="nav__title">
+                        <i class="fas fa-file-alt"></i>
+                        Spis treści
+                    </h4>
+                </header>
+                <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#problem-do-rozwiązania">Problem do rozwiązania</a></li>
+<li class="toc-entry toc-h2"><a href="#wzorzec-dekorator">Wzorzec dekorator</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#diagramy-klas">Diagramy klas</a></li>
+<li class="toc-entry toc-h3"><a href="#przykładowa-implementacja-dekoratora">Przykładowa implementacja dekoratora</a></li>
+<li class="toc-entry toc-h3"><a href="#dodatkowe-rozważania">Dodatkowe rozważania</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#zalety">Zalety</a></li>
+<li class="toc-entry toc-h4"><a href="#wady">Wady</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#przykłady-użycia-wzorca-dekorator">Przykłady użycia wzorca dekorator</a></li>
+<li class="toc-entry toc-h2"><a href="#zadanie-do-wykonania">Zadanie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+            </nav>
+            <hr />
+            
+            <div class="mailerlite__form">
+                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+            </div>
+            <hr />
+            <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+            </div>
+        </aside>
+        <p class="notice--info">Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – <a href="https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/#wzorce-projektowe">wzorce projektowe</a>. W zrozumieniu artykułu przyda Ci się wiedza dotycząca <a href="/podstawy-uml/">podstaw UML’a</a>.</p>
+
+<h2 id="problem-do-rozwiązania">Problem do rozwiązania</h2>
+
+<p>Wyobraź sobie restaurację, w której możesz zjeść pizzę. Właściciel restauracji daje Ci do wyboru 10 różnych dodatków. Możesz skomponować pizzę samodzielnie używając dostępnych dodatków. Każdy z dodatków ma swoją cenę i może być użyty wyłącznie jeden raz. Właściciel restauracji mógłby wypisać wszystkie kombinacje z tych 10 dodatków. Menu miałoby wtedy <a href="https://pl.wikipedia.org/wiki/Kombinacja_bez_powt%C3%B3rze%C5%84">1023 pozycje</a>, 1024 jeśli wliczymy Margharitę… Trochę dużo ;).</p>
+
+<p>Właściciel podszedł do sprawy inaczej. Nadal daje Ci dowolność w wyborze dodatków, jednak wycenia każdy z nich jako osobną pizzę. Na przykład pizza z szynką, pizza z bazylią, pizza z mozzarellą i tak dalej. Następnie pozwala Ci łączyć ze sobą te pizze w dowolny sposób. Na przykład pizza bez żadnych dodatków kosztuje 15zł. Pizza z szynką kosztuje o 7 zł więcej niż pizza bazowa. Pizza z bazylią kosztuje o 2 zł więcej niż pizza bazowa.</p>
+
+<p>Dzięki takiemu podejściu w menu znajduje się 11 pozycji. Cena pizzy bez dodatków i cena każdego dodatku określona jako <em>cena pizzy bazowej + X zł</em>. Można powiedzieć, że właściciel restauracji użył wzorca dekoratora do opracowania cennika<sup id="fnref:naciagane"><a href="#fn:naciagane" class="footnote">1</a></sup>.</p>
+
+<p>Podobne problemy występują w projektach informatycznych. Zdarzają się sytuacje, w których trzeba rozszerzyć działanie pewnego obiektu. Możliwych rozszerzeń jest wiele, jeszcze więcej jest kombinacji tych rozszerzeń. Z pomocą w rozwiązaniu tego problemu przychodzi wzorzec projektowy dekorator (ang. <em>decorator</em><sup id="fnref:wrapper"><a href="#fn:wrapper" class="footnote">2</a></sup>).</p>
+
+<h2 id="wzorzec-dekorator">Wzorzec dekorator</h2>
+
+<h3 id="diagramy-klas">Diagramy klas</h3>
+
+<p>Istnieje wiele możliwości implementacji tego wzorca projektowego. Diagram klas poniżej pokazuje najprostszą z nich:</p>
+
+<figure class="">
+  <img src="/assets/images/2019/11/22_simple_decorator.svg" alt="" />
+  
+    <figcaption>Wzorzec projektowy dekorator (ang. <em>decorator</em>)
+</figcaption>
+  
+</figure>
+
+<p><code class="highlighter-rouge">DecoratorA</code> i <code class="highlighter-rouge">DecoratorB</code> dekorują klasę <code class="highlighter-rouge">Component</code>. Dekoratory zawierają instancję klasy <code class="highlighter-rouge">Component</code>.</p>
+
+<p>Często ten wzorzec projektowy przedstawiany jest w bardziej skomplikowany sposób:</p>
+
+<figure class="">
+  <img src="/assets/images/2019/11/17_decorator.svg" alt="" />
+  
+    <figcaption>Wzorzec projektowy dekorator (ang. <em>decorator</em>)
+</figcaption>
+  
+</figure>
+
+<p>W tym przypadku dekoratory mają wspólnego przodka, abstrakcyjną klasę <code class="highlighter-rouge">Decorator</code>. Sam komponent, który jest dekorowany także jest klasą abstrakcyjną, która posiada swoje konkretne implementacje. Na diagramie wyżej jest to <code class="highlighter-rouge">ConcreteComponent</code>.</p>
+
+<p>Nie są to jedyne możliwe wersje implementacji tego wzorca. Przykładem innej implementacji może być użycie interfejsów w miejscu klasy komponentu. Inną modyfikacją może być użycie kompozycji w miejscu agregacji. Obie zmiany nie wpływają znacząco na implementację tego wzorca projektowego.</p>
+
+<p>Wzorzec projektowy dekorator pozwala na wielokrotne rozszerzenie funkcjonalności obiektu poprzez „nakładanie” na siebie dekoratorów.</p>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 3704 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h3 id="przykładowa-implementacja-dekoratora">Przykładowa implementacja dekoratora</h3>
+
+<p>Zacznę od pizzy bazowej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pizza</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">BASE_PRICE</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="mi">12</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">BASE_PRICE</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"Pizza"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Ot, zwykła klasa, która reprezentuje podstawową pizzę. Posiada metodę <code class="highlighter-rouge">getPrice</code>, która zwraca jej cenę.</p>
+
+<p>Poniżej możesz zobaczyć jeden z dekoratorów. W tym przypadku jest to pizza z mozzarellą:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PizzaWithMozzarella</span> <span class="kd">extends</span> <span class="n">Pizza</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">MOZZARELLA_PRICE</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Pizza</span> <span class="n">basePizza</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PizzaWithMozzarella</span><span class="o">(</span><span class="n">Pizza</span> <span class="n">basePizza</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">basePizza</span> <span class="o">=</span> <span class="n">basePizza</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">basePizza</span><span class="o">.</span><span class="na">getPrice</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">MOZZARELLA_PRICE</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">PizzaWithMozzarella</code> w konstruktorze przyjmuje jako parametr instancję klasy <code class="highlighter-rouge">Pizza</code>, którą opakowuje. Następnie używa jej do obliczenia ceny pizzy z mozzarellą dodając do ceny pizzy bazowej cenę sera.</p>
+
+<p>W tym przypadku klasa <code class="highlighter-rouge">Pizza</code> odpowiada klasie <code class="highlighter-rouge">Component</code> z diagramu UML, a klasa <code class="highlighter-rouge">PizzaWithMozzarella</code> reprezentuje <code class="highlighter-rouge">DecoratorA</code>.</p>
+
+<p>Poniżej możesz zobaczyć użycie dekoratorów w praktyce. Opakowując kolejne pizze w dekoratory otrzymuję coraz bardziej skomplikowane pozycje. Dzięki takiemu podejściu mogę łączyć dodatki w dowolny sposób:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Restaurant</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Pizza</span> <span class="n">margherita</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pizza</span><span class="o">();</span>
+        <span class="n">Pizza</span> <span class="n">withMozzarella</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PizzaWithMozzarella</span><span class="o">(</span><span class="n">margherita</span><span class="o">);</span>
+        <span class="n">Pizza</span> <span class="n">withMozzarellaAndHam</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PizzaWithHam</span><span class="o">(</span><span class="n">withMozzarella</span><span class="o">);</span>
+        <span class="n">Pizza</span> <span class="n">withMozzarellaHamAndBasil</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PizzaWithBasil</span><span class="o">(</span><span class="n">withMozzarellaAndHam</span><span class="o">);</span>
+
+        <span class="n">DecimalFormat</span> <span class="n">df</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DecimalFormat</span><span class="o">(</span><span class="s">"#,00 zł"</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Pizza</span> <span class="n">pizza</span> <span class="o">:</span> <span class="n">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">margherita</span><span class="o">,</span> <span class="n">withMozzarella</span><span class="o">,</span> <span class="n">withMozzarellaAndHam</span><span class="o">,</span> <span class="n">withMozzarellaHamAndBasil</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%s costs %s."</span><span class="o">,</span> <span class="n">pizza</span><span class="o">,</span> <span class="n">df</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">pizza</span><span class="o">.</span><span class="na">getPrice</span><span class="o">())));</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="dodatkowe-rozważania">Dodatkowe rozważania</h3>
+
+<h4 id="zalety">Zalety</h4>
+
+<p>Jedną z często polecanych praktyk w programowaniu obiektowym jest preferowanie <a href="https://en.wikipedia.org/wiki/Composition_over_inheritance">kompozycji przed dziedziczeniem</a>. Wzorzec projektowy dekorator jest flagowym przykładem użycia tej reguły. Takie podejście pozwala na dynamiczne rozszerzanie funkcjonalności obiektu bez potrzeby kompilacji kodu.</p>
+
+<p>Niewątpliwą zaletą dekoratora jest możliwość dowolnego łączenia istniejących dekoratorów. Każdy z nich będzie opakowywał kolejny obiekt nie mając świadomości, że jest kolejnym dekoratorem w kolejce. Jest to istotne w przypadku gdy istnieje kilka dodatkowych funkcjonalności, które powinna zawierać rozszerzana klasa.</p>
+
+<h4 id="wady">Wady</h4>
+
+<p>Interfejs dekoratora musi być dokładnie taki sam jak klasy dekorowanej. W niektórych językach programowania (na przykład w Javie) może prowadzić to do klas, które mają sporo metod, których implementacja polega na przekazaniu wywołania do dekorowanego obiektu (jeśli dekorator implementuje interfejs). Tę wadę można rozwiązać stosując dziedziczenie<sup id="fnref:hierarchia"><a href="#fn:hierarchia" class="footnote">3</a></sup>.</p>
+
+<p>Dekorator często jest „płaską klasą”. Rozszerza on dekorowaną klasę o jedną, podstawową funkcjonalność. Prowadzić to może do sytuacji, w której system zawiera wiele niewielkich klas. W sytuacji gdy zazwyczaj używa się stałego zbioru dekoratorów użycie standardowego dziedziczenia może ograniczyć tę liczbę.</p>
+
+<h2 id="przykłady-użycia-wzorca-dekorator">Przykłady użycia wzorca dekorator</h2>
+
+<p>W przypadku języka Java wzorzec projektowy dekorator jest dość często używany w bibliotece standardowej. Za przykład mogą tu posłużyć strumienie wykorzystywane przy <a href="/operacje-na-plikach-w-jezyku-java/">operacjach na plikach</a>. <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/io/InputStream.html"><code class="highlighter-rouge">InputStream</code></a> jest klasą abstrakcyjną, która posiada wiele dekoratorów, na przykład <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/io/FileInputStream.html"><code class="highlighter-rouge">FileInputStream</code></a> czy <a href=""><code class="highlighter-rouge">BufferedInputStream</code></a>.</p>
+
+<p>Innym przykładem, również z języka Java, mogą być dekoratory kolekcji. Dekoratory te na przykład pozwalają na utworzenie kolekcji, która jest synchronizowana czy niemodyfikowalna. <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Collections.html"><code class="highlighter-rouge">Collections</code></a> zawiera szereg metod zaczynających się od <code class="highlighter-rouge">synchronized</code> albo <code class="highlighter-rouge">unmodifiable</code>, które tworzą instancje dekoratorów.</p>
+
+<p>W języku Python istnieje składnia, która pozwala na łatwe użycie dekoratorów. Można powiedzieć, że ten wzorzec projektowy został wbudowany w język. Notacja <code class="highlighter-rouge">@dekorator</code> pozwala dekorować zarówno klasy jak i funkcje. Przykładami dekoratorów dostępnych w bibliotece standardowej mogą być <code class="highlighter-rouge">@property</code>, <code class="highlighter-rouge">@contextlib.contextmanager</code> czy <code class="highlighter-rouge">@functools.wraps</code>.</p>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>Chociaż klasy reprezentujące pizze z dodatkami spełniają swoje zadanie mogą być ulepszone. Zwróć uwagę, że klasy te są do siebie bardzo podobne. <a href="/jakosc-kodu-a-oschle-pocalunki-jagny/">Duplikacja kodu jest zła</a>, zrefaktoryzuj kod w taki sposób aby usunąć tę duplikację. Spróbuj rozwiązać ten problem używając bardziej skomplikowanej wersji dekoratorów z drugiego diagramu UML.</p>
+
+<p>Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej. Możesz też porównać swoje rozwiązanie z <a href="https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator/exercise">przykładowym</a>.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Niezmiennie, we wszystkich artykułach z serii poświęconej wzorcom projektowym polecam książkę <a href="https://www.amazon.com/gp/product/0201633612/">Design Patterns – Gamma, Helm, Johnson, Vlissides</a>. Jeśli miałbym polecić wyłącznie jedno źródło to poprzestałbym na tej książce.</p>
+
+<p>Warto także rzucić okiem do <a href="https://pl.wikipedia.org/wiki/Dekorator_(wzorzec_projektowy)">polskiej</a> i <a href="https://en.wikipedia.org/wiki/Decorator_pattern">angielskiej Wikipedii</a> gdzie znajdziesz artykuły dotyczące tego wzorca projektowego.</p>
+
+<p>Zachęcam Cię też do zajrzenia do <a href="https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator">kodu źródłowego</a>, którego użyłem w tym artykule.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Po lekturze tego artykułu wiesz czym jest wzorzec dekorator. Znasz przykładowy sposób jego implementacji. Masz też zestaw materiałów dodatkowych, które pozwolą Ci spojrzeć na temat z innej strony. Po rozwiązaniu zadania wiesz jak zaimplementować ten wzorzec samodzielnie. Innymi słowy udało Ci się właśnie poznać kolejny wzorzec projektowy. Gratulacje! ;)</p>
+
+<p>Jeśli artykuł przypadł Ci do gustu proszę podziel się nim ze znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub <a href="https://www.facebook.com/SamouczekProgramisty">Samouczka Programisty na Facebooku</a>.</p>
+
+<p>Do następnego razu!</p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:naciagane">
+      <p>Ten przykład jest trochę naciągany. Sam dodatek nie jest pizzą, ale pizza z dodatkiem już tak. Jest to coś najbliższego światu rzeczywistemu co jest „dekoratorem” i powinno być łatwe do zrozumienia. <a href="#fnref:naciagane" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:wrapper">
+      <p>Inną nazwą tego wzorca projektowego, z którą możesz się spotkać jest <em>wrapper</em>. <a href="#fnref:wrapper" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:hierarchia">
+      <p>Takie podejście może wydłużać hierarchię dziedziczenia, sam preferuję użycie interfejsów jeśli hierarchia dziedziczenia jest dość długa. <a href="#fnref:hierarchia" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 3704 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#wzorce-projektowe" class="page__taxonomy-item" rel="tag">Wzorce projektowe</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2019-11-21">2019-11-21</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+        <hr />
+        <p>
+          Nie popełnia błędów tylko ten, kto nic nie robi ;). Bardzo możliwe, że znajdziesz błąd, literówkę, coś co wymaga poprawy. Jeśli chcesz możesz samodzielnie 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/edit/source/_posts/2019-11-21-wzorzec-projektowy-dekorator.md">poprawić tę stronę</a>. Jeśli nie chcesz poprawiać błędu, który udało Ci się znaleźć będę wdzięczny jeśli go 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/issues/new?title=Błąd%20na%20stronie:%20_posts/2019-11-21-wzorzec-projektowy-dekorator.md">zgłosisz</a>. Z góry dziękuję!
+        </p>
+      </footer>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/watki-w-jezyku-java/" rel="permalink">Wątki w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2019/09/21_podstawy_uml_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/podstawy-uml/" rel="permalink">Podstawy UML
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  14 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz kilka rodzajów diagramów, które moim zdaniem są najbardziej przydatne. Dowiesz się w jakic...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/" rel="permalink">Jak pisać kod wysokiej jakości w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/wyrazenia-regularne-w-jezyku-java/" rel="permalink">Wyrażenia regularne w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Śledź:</strong></li>
+    
+    
+      <li><a href="https://www.facebook.com/SamouczekProgramisty"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="https://github.com/SamouczekProgramisty"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+      <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="https://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/polityka-prywatnosci/">Polityka prywatności</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.samouczekprogramisty.pl/wzorzec-projektowy-dekorator/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+  </body>
+</html>
