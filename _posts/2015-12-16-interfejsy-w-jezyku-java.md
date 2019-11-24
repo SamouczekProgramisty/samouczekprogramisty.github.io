@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-11-22 23:33:36 +0100
+last_modified_at: 2019-11-24 18:28:09 +0100
 title: Interfejsy w języku Java
 categories:
 - Kurs programowania Java
@@ -7,8 +7,8 @@ permalink: /interfejsy-w-jezyku-java/
 header:
     teaser: /assets/images/2015/12/16_interfejsy_w_jezyku_java_artykul.jpg
     overlay_image: /assets/images/2015/12/16_interfejsy_w_jezyku_java_artykul.jpg
-    caption: "[&copy; Piotr Lewandowski](http://www.freeimages.com/photographer/ywel-35445)"
-excerpt: W artykule przeczytasz o interfejsach. Poznasz interfejs ze standardowej biblioteki Java. Dowiesz się czym różni się interfejs od jego implementacji. Przeczytasz też o tym dlaczego używanie interfejsów uważane jest w większości przypadków za dobrą praktykę. Jak zwykle na koniec będziesz miał także proste zadanie do wykonania..
+    caption: "[&copy; Piotr Lewandowski](https://www.freeimages.com/photo/dishwasher-1426456)"
+excerpt: W artykule przeczytasz o interfejsach. Poznasz interfejsy ze standardowej biblioteki Java. Dowiesz się czym różni się interfejs od jego implementacji. Przeczytasz też o tym dlaczego używanie interfejsów uważane jest w większości przypadków za dobrą praktykę. Jak zwykle na koniec będzie czekało na Ciebie zadanie do wykonania.
 disqus_page_identifier: 186 http://www.samouczekprogramisty.pl/?p=186
 ---
 
@@ -28,19 +28,20 @@ W języku Java do definiowania interfejsów używamy słowa kluczowego `interfac
 
 ```java
 public interface Clock {
-    long secondsElapsedSince(Date date);
+    long secondsElapsedSince(LocalDateTime date);
 }
 ```
 
-Powyżej mamy przykład interfejsu o nazwie `Clock`, który ma jedną metodę `secondsElapsedSince`, która przyjmuje argument typu `Date`[^data] i zwraca wynik typu `long` mówiący o liczbie sekund, która minęła od czasu przekazanego w argumencie.
+Powyżej mamy przykład interfejsu o nazwie `Clock`, który ma jedną metodę `secondsElapsedSince`, która przyjmuje argument typu `LocalDateTime`[^data] i zwraca wynik typu `long` mówiący o liczbie sekund, która minęła od czasu przekazanego w argumencie.
 
-[^data]: `java.util.Date` jest jednym z typów z biblioteki standardowej służącym do przedstawiania daty/czasu.
+[^data]: [`LocalDateTime`]({{ site.doclinks.java.time.LocalDateTime }}) jest jednym z typów z biblioteki standardowej służącym do przedstawiania daty/czasu.
 
-Wszystkie metody zawarte w interfejsie zawsze są publiczne więc w tym przypadku można ominąć słowo kluczowe `public`, nie jest potrzebne.
+Wszystkie metody zawarte w interfejsie domyślnie są publiczne więc w tym przypadku można ominąć słowo kluczowe `public`, nie jest potrzebne.
 
 Poza zwykłymi metodami w interfejsie mogą się znajdować
 
 - metody domyślne,
+- metody prywatne,
 - metody statyczne,
 - stałe.
 
@@ -69,6 +70,46 @@ public interface MicrowaveOven {
 ```
 
 Klasy, które implementują interfejs mogą nadpisać metodę domyślną.
+
+### Metody prywatne
+
+Metody prywatne poprzedzone są słowem kluczowym `private`[^modyfikator]. Metody prywatne, w odróżnieniu od pozostałych, mogą być wywołane wyłącznie w definicji interfejsu.
+
+[^modyfikator]: Jest to tak zwany modyfikator dostępu, w oddzielnym artykule przeczytasz więcej o [modyfikatorach dostępu]({% post_url 2017-10-29-modyfikatory-dostepu-w-jezyku-java %}).
+
+Z racji tego ograniczenia, metody prywatne w interfejsach mają sens wyłącznie w połączeniu z metodami domyślnymi. Proszę spójrz na przykład poniżej, w którym modyfikuję interfejs `MicrowaveOven`:
+
+```java
+public interface MicrowaveOven {
+    // removed for brevity
+    default Duration getRecommendedDefrostTime(double foodWeightInGrams) {
+        double frostRate = 0.8;
+        int power = 300;
+        return getRecommendedTime(power, frostRate, foodWeightInGrams);
+    }
+
+    default Duration getRecommendedWarmingUpTime(double foodWeightInGrams) {
+        double frostRate = 0.2;
+        int power = 700;
+        return getRecommendedTime(power, frostRate, foodWeightInGrams);
+    }
+
+    private Duration getRecommendedTime(int power, double frostRate, double foodWeightInGrams) {
+        double durationInMinutes = foodWeightInGrams / ((1 - frostRate) * power);
+        long durationInSeconds = (long) (durationInMinutes * 60);
+        return Duration.ofSeconds(durationInSeconds);
+    }
+}
+```
+
+Metody prywatne w interfejsach pozwalają na usunięcie kodu, który powtarza się w wielu miejscach. Ten powtarzający się kod jest wówczas zawarty w ciele metody prywatnej. 
+
+Więcej o dobrych praktykach w programowaniu możesz przeczytać w osobnym artykule opisującym [DRY, KISS i YAGNI]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %}). Kilka uwag zebrałem też w artykule opisującym [najczęściej popełniane błędy]({% post_url 2019-04-24-jak-pisac-kod-wysokiej-jakosci-w-jezyku-java %}).
+{:.notice--info}
+
+W przykładzie powyżej dwie domyślne metody `getRecommendedDefrostTime` i `getRecommendedWarmingUpTime` używają metody prywatnej `getRecommendedTime`, która pozwala na użycie „magicznego” wzoru na obliczanie zalecanej długości czasu pracy mikrofalówki. Bez tej metody wzór musiałby znaleźć się w obu metodach co powodowałoby duplikację kodu[^ukryj].
+
+[^ukryj]: Albo musiałby znaleźć się w innej domyślnej metodzie. Takie rozwiązanie powodowałoby rozszerzenie dostępnego interfejsu, co nie zawsze jest dobrym rozwiązaniem.
 
 ### Wartości niezmienne i stałe
 
@@ -113,11 +154,11 @@ Sam interfejs nie jest zbyt wiele warty bez jego implementacji. Poniżej możesz
 
 ```java
 public interface Clock {
-    long secondsElapsedSince(Date date);
+    long secondsElapsedSince(LocalDateTime date);
 }
 
 public class BrokenClock implements Clock {
-    public long secondsElapsedSince(Date date) {
+    public long secondsElapsedSince(LocalDateTime date) {
         return 300;
     }
 }
@@ -127,7 +168,7 @@ Klasa `BrokenClock` implementuje interfejs `Clock`. Zwróć uwagę na słowo klu
 
 W języku Java jedna klasa może implementować wiele interfejsów. W takim przypadku klasa implementująca musi definiować metody wszystkich interfejsów, które implementuje[^abstrakcyjne].
 
-[^abstrakcyjne]: Oczywiście jest od tego wyjątek, o klasach abstrakcyjnych przeczytasz w innym artykule.
+[^abstrakcyjne]: Jest od tego wyjątek, o [klasach abstrakcyjnych]({% post_url 2016-01-24-dziedziczenie-w-jezyku-java %}#klasy-abstrakcyjne) przeczytasz w innym artykule.
 
 ## Dziedziczenie interfejsów
 
@@ -156,7 +197,7 @@ W przykładzie powyżej klasa implementująca interfejs `FatCat`, musi zaimpleme
 
 ## Interfejs znacznikowy
 
-A czy możliwa jest sytuacja kiedy interfejs nie ma żadnej metody? Oczywiście, że tak. Mówimy wówczas o interfejsie znacznikowym. Jak sama nazwa wskazuje służy on do oznaczenia, danej klasy. Dzięki temu możesz przekazać zestaw dodatkowych informacji. Przykładem takiego interfejsu jest `java.io.Serializable`, którego używamy aby dać znać kompilatorowi, że dana klasa jest serializowalna (o [serializacji]({% post_url 2016-09-02-serializacja-w-jezyku-java %}) przeczytasz w innym artykule).
+A czy możliwa jest sytuacja kiedy interfejs nie ma żadnej metody? Oczywiście, że tak. Mówimy wówczas o interfejsie znacznikowym. Jak sama nazwa wskazuje służy on do oznaczenia, danej klasy. Dzięki temu możesz przekazać zestaw dodatkowych informacji. Przykładem takiego interfejsu jest [`java.io.Serializable`]({{ site.doclinks.java.io.Serializable }}), którego używamy aby dać znać kompilatorowi, że dana klasa jest serializowalna (o [serializacji]({% post_url 2016-09-02-serializacja-w-jezyku-java %}) przeczytasz w innym artykule).
 
 ## Interfejs a typ obiektu
 
@@ -170,7 +211,10 @@ public class Garfield implements FatCat {
 }
 ```
 
-{% include figure image_path="/assets/images/2015/12/16_dziedziczenie.png" caption="Przykład hierarchii dziedziczenia" %}
+Diagram poniżej to tak zwany diagram klas. Więcej o tej notacji przeczytasz we [wprowadzeniu do UML]({% post_url 2019-09-21-podstawy-uml %}).
+{:.notice--info}
+
+{% include figure image_path="/assets/images/2019/11/24_dziedziczenie_interfejsow.svg" caption="Przykład hierarchii dziedziczenia" %}
 
 ```java
 Garfield garfield = new Garfield();
@@ -217,7 +261,7 @@ To właśnie jest kolejna zaleta interfejsów. Dzięki nim możemy pisać progra
 
 ### Interfejs czyli widok na obiekt
 
-Postaram się pokazać Ci kolejny przykład. Ważne jest żebyś zrozumiał koncept interfejsów. Są one bardzo ważne i często używane w codziennym programowaniu. Wyobraź sobie piekarnik. Piekarnik to obiekt. W piekarniku możesz upiec chleb, zrobić dobrą pieczeń czy upiec ciasteczka. Każde z tych dań wymaga innych ustawień piekarnika.
+Postaram się pokazać Ci kolejny przykład. Ważne jest żeby zrozumieć koncept interfejsów. Są one bardzo ważne i często używane w codziennym programowaniu. Wyobraź sobie piekarnik. Piekarnik to obiekt. W piekarniku możesz upiec chleb, zrobić dobrą pieczeń czy upiec ciasteczka. Każde z tych dań wymaga innych ustawień piekarnika.
 
 Inna temperatura, inny czas pieczenia, inny tryb. W programowaniu często chcemy ukryć takie szczegóły przez innymi klasami. Na zewnątrz w formie interfejsu wystawiamy jedynie dobrze zdefiniowane metody. Każda z tych metod może być umieszczona w osobnym interfejsie, który będzie implementowany przez obiekt piekarnika:
 
@@ -341,10 +385,10 @@ Oczywiście nie wyczerpaliśmy tematu mimo sporej objętości artykułu. Zachęc
 
 ## Podsumowanie
 
-Dzisiaj poruszyliśmy bardzo wiele zagadnień. Dowiedziałeś się o interfejsach, przeczytałeś o ich przeznaczeniu. Poznałeś też kilka nowych słów kluczowych w języku Java. Wystarczająca dawka wiedzy jak na jeden dzień :)
+Dzisiaj poruszyłem bardzo wiele zagadnień. Po lekturze artykułu wiesz prawie wszystko interfejsach i ich przeznaczeniu. Teraz znasz też kilka nowych słów kluczowych w języku Java. Wystarczająca dawka wiedzy jak na jeden dzień :)
 
-Mam nadzieję, że artykuł był dla Ciebie ciekawy, jeśli cokolwiek nie było zrozumiałe bądź wymaga dokładniejszego wyjaśnienia daj znać, na pewno pomogę.
+Mam nadzieję, że artykuł był dla Ciebie ciekawy, jeśli cokolwiek nie było zrozumiałe bądź wymaga dokładniejszego wyjaśnienia daj znać, postaram się pomóc.
 
-Jak zwykle na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, zależy mi na dotarciu do jak największej liczby osób, które chcą nauczyć się programowania :) Zapraszam także na [SamouczekProgramisty](https://facebook.com/SamouczekProgramisty) na Facebooku. Możesz też zapisać się do mojego newslettera.
+Jak zwykle na koniec mam do Ciebie prośbę. Proszę podziel się artykułem ze swoimi znajomymi, zależy mi na dotarciu do jak największej liczby osób, które chcą nauczyć się programowania :). Zapraszam także na [Samouczek Programisty](https://facebook.com/SamouczekProgramisty) na Facebooku. Możesz też zapisać się do samouczkowego newslettera żeby nie pomiąć żadnego nowego artykułu.
 
 Do następnego razu!
