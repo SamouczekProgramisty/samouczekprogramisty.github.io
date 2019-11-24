@@ -343,7 +343,6 @@ Każdy z projektów zagnieżdżonych może zawierać swój własny plik konfigur
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'maven'
 
     repositories {
         mavenCentral()
@@ -360,7 +359,7 @@ subprojects {
 }
 ```
 
-W tym przykładzie każdy z podprojektów będzie zawierał trzy wtyczki, będzie korzystał z repozytorium `mavenCentral`. Będzie miał ustawiony atrybuty [`group`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:group) i [`version`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:version).
+W tym przykładzie każdy z podprojektów będzie zawierał dwie wtyczki, będzie korzystał z repozytorium `mavenCentral`. Będzie miał ustawiony atrybuty [`group`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:group) i [`version`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:version).
 
 Ostatni blok używa mechanizmu rozszerzeń Gradle. W ten sposób dołączam pewną akcję po wystąpieniu zdarzenia [`projectsEvaluated`](https://docs.gradle.org/current/dsl/org.gradle.api.invocation.Gradle.html#org.gradle.api.invocation.Gradle:projectsEvaluated(groovy.lang.Closure)). W tym przypadku dodaję do [kompilatora `javac`]({% post_url 2017-03-08-java-z-linii-polecen %}) flagę `-Xling:deprecation`, która włącza ostrzeżenia dotyczące używania przestarzałego API.
 

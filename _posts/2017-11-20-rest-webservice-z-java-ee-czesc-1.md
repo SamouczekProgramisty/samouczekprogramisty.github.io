@@ -85,7 +85,6 @@ Nadszedł czas na to, żeby utworzyć swój pierwszy web service. Do budowania a
 
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'maven'
     apply plugin: 'war'
     apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
