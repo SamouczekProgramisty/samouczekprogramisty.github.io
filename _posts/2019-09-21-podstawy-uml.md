@@ -1,6 +1,6 @@
 ---
 title: Podstawy UML
-last_modified_at: 2019-10-05 20:50:25 +0200
+last_modified_at: 2019-11-26 19:10:54 +0100
 categories:
 - Programista rzemieślnik
 permalink: /podstawy-uml/
@@ -55,6 +55,10 @@ Istnieje całkiem sporo narzędzi, które mają dużo większe możliwości, jed
 ## Najczęściej używane diagramy UML
 
 Wspominałem to już wcześniej, jednak powtórzę to po raz kolejny. Poniżej prezentuję wyłącznie podzbiór diagramów. Skupiam się wyłącznie na tych, które doczekały się swojego praktycznego zastosowania w mojej dotychczasowej pracy komercyjnej. Pomijam diagramy, które wymagane były tylko w trakcie projektów na uczelni. Dodatkowo nie opisuję tu wszystkich możliwości, a jedynie te najczęściej używane.
+
+Poniżej pokazałem diagram UML, który zawiera wszystkie dostępne diagramy. Na zielono oznaczyłem wyłącznie te, które opisuję w tym artykule:
+
+{% include figure image_path="/assets/images/2019/11/25_diagramy_uml.svg" caption="Diagramy w UML" %}
 
 ### Diagram klas
 
