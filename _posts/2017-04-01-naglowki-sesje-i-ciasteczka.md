@@ -77,7 +77,7 @@ Obiekt opakowujący żądanie pozwala także na pracę z adresem URL, którego �
 - [`getContextPath()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getContextPath--) zwraca fragment ścieżki, która jest “podstawą” wszystkich ścieżek obsługiwanych przez daną aplikację. W przypadku prostego instalowania aplikacji przy pomocy gradle będzie to nazwa pliku war,
 - [`getServletPath()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getServletPath--) zwraca fragment ścieżki, która została użyta w konfiguracji serwletu,
 - [`getRequestURL()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getRequestURL--) metoda zwraca adres URL żądania bez parametrów zawartych w adresie,
-- [`getRequstURI()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getRequestURI--) zwraca adres URI (ang. _Uniform Resource Identifier_). Od aresu URL różni się on tym, że nie zawiera protokołu, serwera i portu.
+- [`getRequestURI()`]({{ site.doclinks.javax.servlet.http.HttpServletRequest }}#getRequestURI--) zwraca adres URI (ang. _Uniform Resource Identifier_). Od aresu URL różni się on tym, że nie zawiera protokołu, serwera i portu.
 
 Zakładając, że nasz sewlet obsługuje ścieżkę /path wówczas wywołanie powyższych metod po żądaniu
 
