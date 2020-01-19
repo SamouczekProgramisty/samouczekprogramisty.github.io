@@ -96,7 +96,7 @@ W przypadku tego algorytmu przechowuję listę permutacji w tablicy. Tablica zaw
 Czytając o [liczbach cyklicznych](https://en.wikipedia.org/wiki/Cyclic_number) dowiedziałem się kilku istotnych rzeczy:
 
 - liczby cykliczne tworzone są na podstawie liczb pierwszych,
-- długość liczby cyklicznej jest o jeden większa niż liczba pierwsza użyta do generowania liczby cyklicznej,
+- liczba cykliczna zawiera o jedną cyfrę mniej od wartości liczby pierwsza użytej do jej generacji,
 - liczba cykliczna jest cyklicznym rozwinięciem ułamka `1/liczba pierwsza do generacji`.
 
 Mając takie informacje podszedłem do problemu od drugiej strony. Zamiast sprawdzić czy dana liczba jest cykliczna wygenerowałem liczbę, która powstałaby na podstawie dzielenia `1/liczba pierwsza do generacji`. Następnie porównuję tak uzyskaną liczbę z tą przekazaną jako argument metody. Jeśli są sobie równe wówczas przekazana liczba jest liczbą cykliczną. Proszę spójrz na implementację:
