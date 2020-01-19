@@ -5,13 +5,11 @@ categories:
 - Programista rzemieślnik
 permalink: /praca-z-wierszem-polecen/
 header:
-    teaser: /assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg
-    overlay_image: /assets/images/2019/03/12_poczatki_pracy_z_wierszem_polecen_artykul.jpeg
-    caption: "[&copy; Arie Wubben](https://unsplash.com/photos/MHIw0nSxCR4)"
+    teaser: /assets/images/2019/1126-praca-z-wierszem-polecen/praca_z_wierszem_polecen_artykul.jpg
+    overlay_image: /assets/images/2019/1126-praca-z-wierszem-polecen/praca_z_wierszem_polecen_artykul.jpg
+    caption: "[&copy; Franz Harvin Aceituna](https://unsplash.com/photos/vkfrFrAIO4o)"
 excerpt: TODO
 ---
-
-https://explainshell.com/
 
 {% capture text_source_notice %}
 W treści artykułu będę używał plików z lekturami dostępnymi na stronie (https://wolnelektury.pl/). Możesz je ściągnąć w konsoli używając takiego skryptu:
@@ -24,19 +22,22 @@ done
 ```
 {% endcapture %}
 
-<div class="notice--info"}
-    {{ text_source_notice | mardkownify }}
+<div class="notice--info">
+    {{ text_source_notice | markdownify }}
 </div>
 
 ## Glob
 
+
+
 `?` oznacza dowolny pojedynczy znak (poza `/` i `.` na początku)
 `*` oznacza dowolną liczbę znaków (poza `/` i `.` na początku)
-
 
 Duża część programów obsługuje dwa tryby pracy. W jednym z nich dane wejściowe przekazywane są przez stdin, w drugim jako parametry będące ścieżkami do plików[^minusik].
 
 [^minusik]: Swego rodzaju wyjątkiem może być tu znak `-`. Zgodnie z konwencją ten znak oznacza stdin. Może też służyć jako pełnoprawna nazwa pliku, jednak wtedy trzeba się do niego odnieść używając ścieżki, na przykład `./-`.
+
+## Historia
 
 ### `less`
 
@@ -153,6 +154,12 @@ Wspomniałem tu jedynie drobnym podzbiorze programów, sporo pominąłem. Stara�
 
 ### Praca z tekstem
 
+## Dodatkowe materiały do nauki
+
+Podobnie jak w [poprzednim artkule]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}) z serii jako pierwsze źródło polecę Ci dokumentację. Znów odsyłam cię do programu `man` lub wbudowanej dokumentacji, którą możesz przeczytać uruchamiając `<program> --help`.
+
 ## Podsumowanie
+
+https://explainshell.com/
 
 Daj znać w komentarzach jak używasz linii poleceń w swojej codziennej pracy z komputerem. Może pominąłem jakiś program, który Twoim zdaniem do takiej pracy jest niezbędny?
