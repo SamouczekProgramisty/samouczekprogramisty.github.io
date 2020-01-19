@@ -76,7 +76,7 @@ Wyżej napisałem, ze w tablicy możesz trzymać dowolny obiekt. Tablica też je
 
 Możliwe jest tworzenie tablic, które mają więcej niż 2 wymiary, jednak w praktyce raczej ich się nie spotyka. Jeśli potrzebna jest tak skomplikowana tablica programiści zazwyczaj przechowują dane w inny sposób używając zbiorów, map czy list[^kolekcje].
 
-[^kolekcje]: Są to 3 podstawowe typy kolekcji w języku Java. Przeczytasz o nich w jednym z kolejnych artykułów.
+[^kolekcje]: Są to 3 podstawowe typy kolekcji w języku Java. Przeczytasz o nich w [jednym z kolejnych artykułów]({% post_url 2016-08-09-kolekcje-w-jezyku-java %}).
 
 W naszym przykładzie tablicy dwuwymiarowej użyjemy do przechowywania stanu gry kółko krzyżyk
 
