@@ -15,7 +15,7 @@ excerpt: W artykule tym przeczytasz o tym czym jest relacyjny model baz danych. 
 
 Baza danych to zbiór danych zapisanych w odpowiednim formacie. Format zapisu danych pozwala na dostęp do danych. W zależności od zastosowania dane zapisywane są w różny sposób. Sposób zapisu danych ma wpływ na wydajność poszczególnych operacji (zapisu, odczytu, usunięcia i modyfikacji danych).
 
-Istnieje wiele rodzai baz danych. Jednym z najbardziej popularnych jest relacyjna baza danych. Określenie relacyjna baza danych opisuje bazę danych, w której dane zapisane są w postaci tak zwanych krotek. Krotki mają swoje atrybuty. Każda krotka zapisana jest w relacji.
+Istnieje wiele rodzajów baz danych. Jednym z najbardziej popularnych jest relacyjna baza danych. Określenie relacyjna baza danych opisuje bazę danych, w której dane zapisane są w postaci tak zwanych krotek. Krotki mają swoje atrybuty. Każda krotka zapisana jest w relacji.
 
 Operacje w relacyjnych bazach danych oparte są o [algebrę relacji](https://en.wikipedia.org/wiki/Relational_algebra). Dostęp do danych możliwy jest dzięki użyciu [SQL](https://en.wikipedia.org/wiki/SQL) (ang. _Structured Query Language_). SQL to język charakterystyczny dla baz danych.
 
@@ -79,7 +79,7 @@ Zrób proste ćwiczenie. Wybierz wszystkie rzeczowniki z listy, którą umieści
 - hurtownik,
 - opiekun handlowy.
 
-Można powiedzieć, że encje to rzeczowniki wyjęte z opisu bazy danych ;). Encje to rodzaje "obiektów" przechowywanych w bazie. Na przykład towar, czy producent. Odpowiednikiem encji w programowaniu obiektowym jest klasa. Zatem w przypadku bazy danych opisującej magazyn występuje pięć rodzai encji.
+Można powiedzieć, że encje to rzeczowniki wyjęte z opisu bazy danych ;). Encje to rodzaje "obiektów" przechowywanych w bazie. Na przykład towar, czy producent. Odpowiednikiem encji w programowaniu obiektowym jest klasa. Zatem w przypadku bazy danych opisującej magazyn występuje pięć rodzajów encji.
 
 Sama encja nie jest ściśle związana z modelem relacyjnym. Definicja ta jest jednak używana w trakcie projektowania baz danych.
 

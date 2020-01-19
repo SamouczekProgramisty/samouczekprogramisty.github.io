@@ -20,7 +20,7 @@ W artykule opisującym [podstawy zapytania `SELECT`]({% post_url 2018-06-25-pobi
 
 Klauzula `WHERE` używana jest także w zapytaniach typu `UPDATE`, `INSERT` i `DELETE`. W pierwszym przypadku ogranicza zbiór wierszy, który powinien zostać zaktualizowany. W przypadku zapytania typu `DELETE` ogranicza zbiór wierszy, który powinien zostać usunięty. W zapytaniach typu `INSERT` używany jest z podzapytaniami (o podzapytaniach przeczytasz w jednym z kolejnych artykułów).
 
-Informacje, które przeczytasz w tym artykule można odnieść do wszystkich czterech rodzai zapytań.
+Informacje, które przeczytasz w tym artykule można odnieść do wszystkich czterech rodzajów zapytań.
 
 ## Literały w SQL
 

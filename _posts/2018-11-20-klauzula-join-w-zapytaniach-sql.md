@@ -162,7 +162,7 @@ W złączeniach tabel istotne są [klucze główne]({% post_url 2018-03-06-wstep
 
 Znasz już dwa sposoby łączenia danych z wielu tabel. Iloczyn kartezjański i klauzule [`UNION` oraz `UNION ALL`]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#scalanie-wynik%C3%B3w-wielu-zapyta%C5%84). O ile wyniki uzyskiwane przez złączenie wyników kilku zapytań przy pomocy `UNION` lub `UNION ALL` mogą być przydatne to iloczyn kartezjański zbyt użyteczny nie jest. SQL daje możliwość łączenia danych z wielu tabel na kilka innych sposobów.
 
-Do uzyskania wszystkich rodzai złączeń podstawą jest iloczyn kartezjański. Z takiego iloczynu odrzucane są następnie wiersze, które "nie pasują" do złączenia danego typu[^optymalizacja].
+Do uzyskania wszystkich rodzajów złączeń podstawą jest iloczyn kartezjański. Z takiego iloczynu odrzucane są następnie wiersze, które "nie pasują" do złączenia danego typu[^optymalizacja].
 
 [^optymalizacja]: Bazy danych mogą tu sporo optymalizować, dzięki czemu czasochłonne tworzenie iloczynu kartezjańskiego nie zawsze jest wykonywane. Jednak z punktu widzenia algebry relacji, podstawy modelu relacyjnego to właśnie iloczyn kartezjański jest punktem wyjścia.
 
