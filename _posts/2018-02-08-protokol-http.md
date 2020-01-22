@@ -110,6 +110,8 @@ Zawiera dodatkowe dane identyfikujące dany zasób. Ta część oddzielona jest 
 
 Ostatnia część adresu URL. W praktyce wykorzystywana jest do określenia fragmentu strony HTML, która powinna zostać pokazana użytkownikowi. Na przykład adres [https://www.samouczekprogramisty.pl/strumienie-w-jezyku-java/#właściwości-strumieni]({% post_url 2018-01-30-strumienie-w-jezyku-java %}#właściwości-strumieni) przeniesie Cię do sekcji opisującej właściwości strumieni.
 
+Pisząc bardziej formalnie fragment używany jest do określenia „podzbioru” zasobu (ang. _secondary resource_). W przypadku HTML zasobem jest strona HTML a podzbiorem sekcja tej strony. Zgodnie ze [specyfikacją](https://tools.ietf.org/html/rfc7230#section-5.1) ta część adresu URL służy do identyfikacji zasobu wyłącznie po stronie klienta. Oznacza to tyle, serwer do identyfikacji zasobu nie używa tej części URL.
+
 {% include newsletter-srodek.md %}
 
 ## Żądanie i odpowiedź
