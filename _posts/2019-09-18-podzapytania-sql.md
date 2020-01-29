@@ -376,7 +376,7 @@ SELECT *
   FROM employee AS outer_employee
  WHERE EXISTS (SELECT *
                  FROM employee AS inner_empolyee
-                WHERE inner_employee.reportsto = outer_employee.employeeid;
+                WHERE inner_employee.reportsto = outer_employee.employeeid);
 ```
 
 W tym przypadku skorelowane podzapytanie zwraca wiersze, które połączone są relacją szef-podwładny. Wiersze, które zawierają pracowników nie posiadających podwładnych są pominięte. Dzieje się tak dlatego, że podzapytanie w ich przypadku nie zwróci ani jednego wiersza.
