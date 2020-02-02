@@ -1,6 +1,6 @@
 ---
 title: Advent of Code 2019 dzień 1
-last_modified_at: 2018-11-24 08:04:40 +0100
+last_modified_at: 2020-02-02 20:28:33 +0100
 categories:
 - Strefa zadaniowa
 permalink: /advent-of-code-2019-dzien-1/
