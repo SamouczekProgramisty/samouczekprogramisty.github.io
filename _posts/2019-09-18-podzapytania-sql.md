@@ -392,12 +392,12 @@ Na przykład wyrażenie `kolumna > ALL (podzapytanie)` oznacza, że kolumna musi
 
 Analogicznie `kolumna <= ANY (podzapytanie)` oznacza, że kolumna musi mieć wartość mniejszą bądź równą którejkolwiek z wartości zwróconych przez podzapytanie.
 
-Chociaż SQLite nie wspiera tych operatorów identyczne zachowanie można uzyskać stosując [funkcje `MIN` albo `MAX`]({% post_url 2018-10-20-funkcje-i-grupowanie-danych-w-sql %}#funkcje-grupując). Dla przykładu dwa poniższe zapytania dałyby te same wyniki:
+Chociaż SQLite nie wspiera tych operatorów identyczne zachowanie, w przypadku niektórych zapytań, można uzyskać stosując [funkcje `MIN` albo `MAX`]({% post_url 2018-10-20-funkcje-i-grupowanie-danych-w-sql %}#funkcje-grupując). Dla przykładu dwa poniższe zapytania dałyby te same wyniki:
 
 ```sql
 SELECT *
   FROM track
- WHERE milliseconds < ALL (SELECT milliseconds
+ WHERE milliseconds < ANY (SELECT milliseconds
                              FROM track);
 ```
 
