@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="8" %}
+{% include aoc-link.md year="2016" day="8" %}
 
 ## Dzień 8 zadanie 1
 
@@ -66,7 +66,7 @@ Dla przykładu poniższa sekwencja pokazuje operacje dla mniejszego ekranu o wym
 
 Jak widzisz, ta technologia obsługi ekranów ma niesamowite możliwości i niedługo zdominuje rynek małych wyświetlaczy. Przynajmniej tak twierdzi naklejka reklamowa z tyłu wyświetlacza.
 
-Twoim zadaniem jest policzenie pikseli, które będą świeciły się na ekranie po wprowadzeniu sekwencji komend z [pliku wejściowego](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day08_input.txt).
+Twoim zadaniem jest policzenie pikseli, które będą świeciły się na ekranie po wprowadzeniu sekwencji komend z [pliku wejściowego](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day08_input.txt).
 
 ## Podsumowanie
 

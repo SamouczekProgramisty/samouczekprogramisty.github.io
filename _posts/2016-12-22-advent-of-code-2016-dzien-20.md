@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="20" %}
+{% include aoc-link.md year="2016" day="20" %}
 
 ## Dzień 20 zadanie 1
 
@@ -31,7 +31,7 @@ Na przykład, załóżmy, że tylko wartości od 0 do 9 były poprawne i udało 
 
 Lista określa zakresy adresów IP, zarówno startowa jak i końcowa wartość są zabronione. W takim przypadku wyłącznie adresy IP 3 i 9 są dozwolone, jako jedyne nie są w żadnym z zablokowanych zakresów.
 
-Zakładając, że lista zablokowanych adresów znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day20_input.txt), jaka jest najniższa wartość IP, który nie jest zablokowany?
+Zakładając, że lista zablokowanych adresów znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day20_input.txt), jaka jest najniższa wartość IP, który nie jest zablokowany?
 
 ## Podsumowanie
 

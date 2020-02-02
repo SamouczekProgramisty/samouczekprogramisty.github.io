@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="23" %}
+{% include aoc-link.md year="2016" day="23" %}
 
 ## Dzień 23 zadanie 1
 
@@ -59,7 +59,7 @@ W tym przykładzie ostateczna wartość rejestru `a` to 3.
 
 Pozostała część układu scalonego zdaje się ustawiać wartość rejestru `a` na wejście z klawiatury (liczbę jajek z obrazu, 7), uruchamia kod i przesyła wynikową wartość rejestru `a` do sejfu.
 
-Zakładając, że lista poleceń znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day23_input.txt), jaka wartość zostanie przesłana do sejfu?
+Zakładając, że lista poleceń znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day23_input.txt), jaka wartość zostanie przesłana do sejfu?
 
 ## Podsumowanie
 

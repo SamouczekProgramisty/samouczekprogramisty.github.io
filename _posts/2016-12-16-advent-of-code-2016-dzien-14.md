@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="14" %}
+{% include aoc-link.md year="2016" day="14" %}
 
 ## Dzień 14 zadanie 1
 

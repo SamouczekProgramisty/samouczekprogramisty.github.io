@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="18" %}
+{% include aoc-link.md year="2016" day="18" %}
 
 ## Dzień 18 zadanie 1
 
@@ -66,7 +66,7 @@ Poniżej jest przykład z trochę większego pokoju o dziesięciu rzędach i kol
 
 W powyższym przykładzie, w dziesięciu rzędach jest 38 bezpiecznych kafli.
 
-Zakładając, że pierwszy rząd dla pokoju, w którym się znajdujesz jest w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day18_input.txt) – ile jest bezpiecznych kafli w pierwszych 40 rzędach (wliczając podany)?
+Zakładając, że pierwszy rząd dla pokoju, w którym się znajdujesz jest w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day18_input.txt) – ile jest bezpiecznych kafli w pierwszych 40 rzędach (wliczając podany)?
 
 ## Podsumowanie
 

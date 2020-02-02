@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="22" %}
+{% include aoc-link.md year="2016" day="22" %}
 
 ## Dzień 22 zadanie 1
 
@@ -36,7 +36,7 @@ Aby to zrobić, musisz poznać liczbę poprawnych par maszyn, między którymi m
 - maszyny A i B nie są tą samą maszyną,
 - dane na maszynie A (kolumna `Used`) zmieszczą się na maszynie B (kolumna `Avail`).
 
-Zakładając, że lista opisująca maszyny w klastrze znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day22_input.txt), ile poprawnych par maszyn jest w klastrze?
+Zakładając, że lista opisująca maszyny w klastrze znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day22_input.txt), ile poprawnych par maszyn jest w klastrze?
 
 ## Podsumowanie
 

@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="15" %}
+{% include aoc-link.md year="2016" day="15" %}
 
 ## Dzień 15 zadanie 1
 
@@ -40,7 +40,7 @@ Następnie o czasie 2 kapsuła dociera do drugiego dysku. Drugi dysk przesunął
 
 Jeśli jednak poczekasz z naciśnięciem przycisku do czasu 5, wtedy kapsuła może przelecieć swobodnie przez wszystkie dyski. Pierwszy dysk przesunie się w tym czasie 5 + 1 = 6 razy (do pozycji 0), drugi dysk przesunie się 5 + 2 = 7 razy, także do pozycji 0.
 
-Twoja sytuacja jest bardziej skomplikowana, rzeźba ma więcej niż 2 dyski. Kiedy najszybciej możesz nacisnąć przycisk żeby kapsuła wypadła z rzeźby jeśli układ dysków opisany jest w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day15_input.txt)?
+Twoja sytuacja jest bardziej skomplikowana, rzeźba ma więcej niż 2 dyski. Kiedy najszybciej możesz nacisnąć przycisk żeby kapsuła wypadła z rzeźby jeśli układ dysków opisany jest w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day15_input.txt)?
 
 ## Podsumowanie
 

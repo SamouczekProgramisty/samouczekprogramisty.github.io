@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="1" %}
+{% include aoc-link.md year="2016" day="1" %}
 
 Zadania celowo publikuję z opóźnieniem, aby rozwiązania nie miały wpływu na zabawę innych. Dodatkowo każdego dnia na stronie Advent of Code publikowane są dwa zadania. Drugie dostępne jest po rozwiązaniu pierwszego. Przykładowe rozwiązanie zawiera oba rozwiązania jednak prezentuję treść tylko pierwszego z nich.
 

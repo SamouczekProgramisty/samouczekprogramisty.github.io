@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="9" %}
+{% include aoc-link.md year="2016" day="9" %}
 
 ## Dzień 9 zadanie 1
 
@@ -34,7 +34,7 @@ Dla przykładu:
 - `(6xa)(1x3)A` po dekompresji otrzymujemy `(1x3)A`, chociaż `(1x3)` wygląda jak znacznik nie jest przetwarzany bo znajdował się wewnątrz zakresu obsługiwanego przez `(6x1)`, podobnie jak A nie jest traktowany specjalnie. Finalnie otrzymujemy łańcuch o długości 6,
 - `X(8x2)(3x3)ABCY` po dekompresji otrzymujemy `X(3x3)ABC(3x3)ABCY` o długości 18 znaków.
 
-Jaka jest długość zdekompresowanej sekwencji jeśli skompresowane dane zapisane są w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day09_input.txt)?
+Jaka jest długość zdekompresowanej sekwencji jeśli skompresowane dane zapisane są w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day09_input.txt)?
 
 ## Podsumowanie
 

@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="11" %}
+{% include aoc-link.md year="2016" day="11" %}
 
 ## Dzień 11 zadanie 1
 
@@ -155,7 +155,7 @@ F1 .  .  .  .  .
 
 Przy takim podejściu potrzeba 11 kroków aby zebrać wszystkie elementy na czwartym piętrze aby móc je złożyć w jedną całość. Każde zatrzymanie się windy liczone jest jako jeden krok, nawet jeśli nic nie jest dodane czy usunięte z windy.
 
-Jaka jest minimalna liczba kroków potrzebna do przeniesienia wszystkich elementów jeśli ich układ opisany jest w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day11_input.txt)?
+Jaka jest minimalna liczba kroków potrzebna do przeniesienia wszystkich elementów jeśli ich układ opisany jest w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day11_input.txt)?
 
 ## Podsumowanie
 

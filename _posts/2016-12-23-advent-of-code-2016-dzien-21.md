@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
   
-{% include aoc-2016-link.md day="21" %}
+{% include aoc-link.md year="2016" day="21" %}
 
 ## Dzień 21 zadanie 1
   
@@ -30,7 +30,6 @@ Operacja mieszająca składa się z serii operacji (dokładna ich lista jest wej
 - `reverse positions X through Y` oznacza, że zakres pomiędzy `X` i `Y` (włączając oba indeksy) powinien być odwrócony,
 - `move position X to position Y` oznacza, że litera, która jest pod indeksem `X` powinna być usunięta z łańcucha i włożona pod indeks `Y`.
   
-  
 Na przykład, zakładając, że hasło początkowe to `abcde` i chcesz przeprowadzić następującą serię przekształceń:
 - `swap position 4 with position 0` zamienia pierwszą i ostatnią literę, otrzymujesz `ebcda`, wynik ten jest wejściem do kolejnego kroku,
 - `swap letter d with letter b` zamienia literę `d` z literą `b`, w wyniku czego otrzymasz `edcba`,
@@ -41,10 +40,9 @@ Na przykład, zakładając, że hasło początkowe to `abcde` i chcesz przeprowa
 - `rotate based on position of letter b` znajduje indeks litery `b` (`1`), później rotuje cały łańcuch o `1` plus indeks litery (`2`): `ecabd`,
 - `rotate based on position of letter d` znajduje indeks litery `d` (`4`), później rotuje cały łańcuch o `1` plus indeks litery (`4`), dodając dodatkową jedynkę ponieważ indeks był większy bądź równy `4`, finalnie rotuje łańcuch o `6` pozycji: `decab`.
   
-  
 Po tych wszystkich krokach, hasło to `decab`.
 
-Teraz Twoja kolej. Musisz wygenerować hasło, którego użyjesz aby dostać się do systemu. Zakładając, że lista przekształceń znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day21_input.txt), a hasło początkowe to `abcdefgh` jakie będzie hasło po przekształceniach?
+Teraz Twoja kolej. Musisz wygenerować hasło, którego użyjesz aby dostać się do systemu. Zakładając, że lista przekształceń znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day21_input.txt), a hasło początkowe to `abcdefgh` jakie będzie hasło po przekształceniach?
 
 ## Podsumowanie
   

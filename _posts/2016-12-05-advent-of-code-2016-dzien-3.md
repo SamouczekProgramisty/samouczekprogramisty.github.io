@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
   
-{% include aoc-2016-link.md day="3" %}
+{% include aoc-link.md year="2016" day="3" %}
 
 ## Dzień 3 zadanie 1
   
@@ -27,7 +27,7 @@ Dokumenty z projektami pokazują długości boków każdego z trójkątów, ale.
 
 W poprawnym trójkącie suma dwóch boków musi być krótsza od najdłuższego boku. Na przykład nie można zbudować trójkąta z odcinków o długościach 5, 10 i 25. 5 + 10 nie jest większe niż 25.
 
-Jak dużo poprawnych trójkątów znajduje się w [pliku wejściowym](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day03_input.txt)?
+Jak dużo poprawnych trójkątów znajduje się w [pliku wejściowym](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day03_input.txt)?
 
 # Podsumowanie
   

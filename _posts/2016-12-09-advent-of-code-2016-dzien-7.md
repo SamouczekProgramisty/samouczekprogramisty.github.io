@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="7" %}
+{% include aoc-link.md year="2016" day="7" %}
 
 ## Dzień 7 zadanie 1
 
@@ -32,7 +32,7 @@ Na przykład:
 - `aaaa[qwer]tyui` nie wspiera TLS, `aaaa` nie jest poprawną sekwencją ABBA,
 - `ioxxoj[asdfgh]zxcvbn` wspiera TLS, sekwencja ABBA `oxxo` znajduje się poza nawiasami (nie ma znaczenia to, że znajduje się wewnątrz dłuższego łańcucha).
 
-Zakładając, że wszystkie adresy IP, które udało Ci się podsłuchać znajdują się na [tej liście](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day07_input.txt), ile z nich wspiera TLS?
+Zakładając, że wszystkie adresy IP, które udało Ci się podsłuchać znajdują się na [tej liście](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day07_input.txt), ile z nich wspiera TLS?
 
 ## Podsumowanie
 

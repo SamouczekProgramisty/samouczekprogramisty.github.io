@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="4" %}
+{% include aoc-link.md year="2016" day="4" %}
 
 ## Dzień 4 zadanie 1
 
@@ -32,7 +32,7 @@ Nazwa pokoju jest prawdziwa jeśli suma kontrolna to pięć najczęściej spotyk
 
 Biorąc pod uwagę prawdziwe nazwy pokoi z powyższej listy suma ich sektorów wynosi 1514.
 
-Jaka jest suma sektorów prawdziwych pokoi z listy [tej listy](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day04_input.txt)?
+Jaka jest suma sektorów prawdziwych pokoi z listy [tej listy](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day04_input.txt)?
 
 ## Podsumowanie
 

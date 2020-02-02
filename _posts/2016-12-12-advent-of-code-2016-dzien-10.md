@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="10" %}
+{% include aoc-link.md year="2016" day="10" %}
 
 ## Dzień 10 zadanie 1
 
@@ -48,7 +48,7 @@ Na końcu:
 
 W tej konfiguracji robot numer 2 był odpowiedzialny za porównywanie wartości mikrochipów o wartości 5 i 2.
 
-Bazując na instrukcjach dla robotów umieszczonych w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day10_input.txt), robot o którym numerze odpowiedzialny jest za porównywanie mikrochipów o wartościach 61 i 17?
+Bazując na instrukcjach dla robotów umieszczonych w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day10_input.txt), robot o którym numerze odpowiedzialny jest za porównywanie mikrochipów o wartościach 61 i 17?
 
 ## Podsumowanie
 

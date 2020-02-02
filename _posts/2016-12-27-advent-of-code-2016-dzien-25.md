@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="25" %}
+{% include aoc-link.md year="2016" day="25" %}
 
 ## Dzień 25 zadanie 1
 
@@ -36,7 +36,7 @@ Udało Ci się wyciągnąć kod assembunny anteny odpowiedzialny za generowanie 
 
 Kod pobiera pewną wartość (przechowywaną w rejestrze `a`), która opisuje sygnał, który powinien być wygenerowany ale nie jesteś pewien jak ta wartość jest użyta. Musisz znaleźć poprawną wartość rejestru eksperymentując.
 
-Jaka jest najniższa dodatnia wartość rejestru `a`, która może być użyta do zainicjalizowania programu, która spowoduje, że wyjście do zegara będzie nieskończonym ciągiem `0`, `1`, `0`, `1`...? Program dla anteny znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day25_input.txt).
+Jaka jest najniższa dodatnia wartość rejestru `a`, która może być użyta do zainicjalizowania programu, która spowoduje, że wyjście do zegara będzie nieskończonym ciągiem `0`, `1`, `0`, `1`...? Program dla anteny znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day25_input.txt).
 
 ## Podsumowanie
 

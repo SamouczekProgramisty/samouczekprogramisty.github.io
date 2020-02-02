@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="16" %}
+{% include aoc-link.md year="2016" day="16" %}
 
 ## Dzień 16 zadanie 1
 

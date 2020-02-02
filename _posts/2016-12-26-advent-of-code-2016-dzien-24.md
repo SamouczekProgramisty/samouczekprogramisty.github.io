@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="24" %}
+{% include aoc-link.md year="2016" day="24" %}
 
 ## Dzień 24 zadanie 1
 
@@ -41,7 +41,7 @@ Aby dotrzeć do wszystkich istotnych miejsc tak szybko jak to możliwe robot wyb
 
 Z racji tego, że robot jest raczej powolny musisz znaleźć najkrótszą drogę. Przykład pokazuje najkrótszą możliwą drogę (14 kroków) wymaganych do odwiedzenia wszystkich istotnych punktów co najmniej raz.
 
-Zakładając, że mapa kanałów wentylacyjnych znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day24_input.txt) i że robot zaczyna z pozycji `0`, jaka jest najmniejsza liczba kroków potrzebna aby odwiedzić wszystkie miejsca oznaczone numerami co najmniej raz?
+Zakładając, że mapa kanałów wentylacyjnych znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day24_input.txt) i że robot zaczyna z pozycji `0`, jaka jest najmniejsza liczba kroków potrzebna aby odwiedzić wszystkie miejsca oznaczone numerami co najmniej raz?
 
 ## Podsumowanie
 

@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
   
-{% include aoc-2016-link.md day="12" %}
+{% include aoc-link.md year="2016" day="12" %}
 
 ## Dzień 12 zadanie 1
   
@@ -45,7 +45,7 @@ Mając na przykład następujący zestaw instrukcji:
 
 Powyższy kod ustawi rejestr a na wartość 41, zwiększy wartość rejestru o 1 dwukrotnie, zmniejszy wartość rejestru o 1 i następnie przeskoczy ostatnią instrukcję (ponieważ wartość rejestru `a` != 0). Ostateczna wartość rejestru a to 42. Program kończy się kiedy przejdzie za ostatnią instrukcję.
 
-Zakładając, że kod assembunny znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day12_input.txt), jaka będzie wartość rejestru `a` na koniec programu?
+Zakładając, że kod assembunny znajduje się w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day12_input.txt), jaka będzie wartość rejestru `a` na koniec programu?
 
 ## Podsumowanie
   

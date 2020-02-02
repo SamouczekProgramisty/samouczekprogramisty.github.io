@@ -15,7 +15,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2016-link.md day="6" %}
+{% include aoc-link.md year="2016" day="6" %}
 
 ## Dzień 6 zadanie 1
 
@@ -44,7 +44,7 @@ Jedyne co musisz zrobić to odnaleźć, która litera powtarza się największą
 
 Najczęściej pojawiającą się literą na pierwszej pozycji jest e, na drugiej a na trzeciej s i tak dalej. Łącząc te litery ze sobą otrzymasz prawdziwy sygnał bez zakłóceń, easter.
 
-Zakładając, że wszystkie przychodzące komunikaty zostały zapisane w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/main/test/resources/day06_input.txt), jaka wiadomość (po oczyszczeniu zakłóceń) była rzeczywiście wysłana?
+Zakładając, że wszystkie przychodzące komunikaty zostały zapisane w [tym pliku](https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day06_input.txt), jaka wiadomość (po oczyszczeniu zakłóceń) była rzeczywiście wysłana?
 
 ## Podsumowanie
 
