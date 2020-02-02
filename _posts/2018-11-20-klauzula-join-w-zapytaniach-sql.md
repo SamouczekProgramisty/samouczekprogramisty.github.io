@@ -507,6 +507,7 @@ SELECT playlist.name
                 JOIN track
                 ON playlisttrack.trackid = track.trackid
 GROUP BY playlist.name
+        ,playlist.playlistid
 ORDER BY SUM(track.unitprice) DESC
    LIMIT 5;
 ```
