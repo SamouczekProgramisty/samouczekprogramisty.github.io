@@ -126,9 +126,9 @@ Moim zdaniem, czasami jest tak, że nie ma sensu na siłę wprowadzać dodatkowe
 
 ## _Inversion of Control_
 
-W swoim [artykule](https://martinfowler.com/bliki/InversionOfControl.html) Martin Fowler wspomina, że pierwsza wzmianka o odwróceniu kontroli (ang. _Inversion of Control_) miała miejsce 1988 roku. Ten sam koncept opisany był także w 1985 roku w [artykule](http://www.digibarn.com/friends/curbow/star/XDEPaper.pdf) opisującym środowisko programomania Mesa chwaląc się tym, że posiada więcej niż 500 użytkowników :).
+W swoim [artykule](https://martinfowler.com/bliki/InversionOfControl.html) Martin Fowler wspomina, że pierwsza wzmianka o odwróceniu kontroli (ang. _Inversion of Control_) miała miejsce 1988 roku. Ten sam koncept opisany był także w 1985 roku w [artykule](http://www.digibarn.com/friends/curbow/star/XDEPaper.pdf) opisującym środowisko programowania Mesa chwaląc się tym, że posiada więcej niż 500 użytkowników :).
 
-Da druga wzmianka nazywa to podejście prawem Hollywood'u (ang. _Hollywod's Law_):
+Ta druga wzmianka nazywa to podejście prawem Hollywood'u (ang. _Hollywod's Law_):
 
 > **Don‘t  call  us,  we’ll  call  you  (Hollywood’s  Law).**<br />
 > A tool should arrange for Tajo to notify it when the user wishes to communicate some event to the tool, rather than adopt an “ask the user for a command and execute it” model.
@@ -229,7 +229,7 @@ W dalszej części artykułu czasami będę nazywał tę praktykę jako DI.
 
 ### Przykład użycia _Dependency Injection_
 
-Proszę spójrz na przykład poniżej. Jest to klasa, która jest odpowiedzialna za tworzenie losowego łańcucha znaków o zadanej długości. Zauważ, że klasa `RandomString` wymaga generatora liczb losowych. W tym przykładzie tym generatorem jest instancja klasy `Random`. Głównym problemem tego kodu jest to, że używając klasy `RandomString` nie masz żadnego wpływu na sposób jej działania. Wszystkie jej zależności tworzone są w trakcie tworzenie instancji.
+Proszę spójrz na przykład poniżej. Jest to klasa, która jest odpowiedzialna za tworzenie losowego łańcucha znaków o zadanej długości. Zauważ, że klasa `RandomString` wymaga generatora liczb losowych. W tym przykładzie tym generatorem jest instancja klasy `Random`. Głównym problemem tego kodu jest to, że używając klasy `RandomString` nie masz żadnego wpływu na sposób jej działania. Wszystkie jej zależności tworzone są w trakcie tworzenia instancji.
 
 ```java
 public class RandomString {
@@ -304,6 +304,6 @@ Dodatkowo odsyłam Cię do źródeł w postaci książek, o których pisałem w 
 
 ## Podsumowanie
 
-Po przeczytaniu tego artykułu wiesz czym jest DIP, IOC i DI. Na przykładach pokazałem Ci jak wygląda kod przed i po zastosowaniu tych zasad. Mam nadzieję, że teraz nie będziesz już mieć problemu z wskazaniem różnic pomiędzy tymi pojęciami, które są często mylone.
+Po przeczytaniu tego artykułu wiesz czym jest DIP, IOC i DI. Na przykładach pokazałem Ci jak wygląda kod przed i po zastosowaniu tych zasad. Mam nadzieję, że teraz nie będziesz już mieć problemu ze wskazaniem różnic pomiędzy tymi pojęciami, które są często mylone.
 
-Na koniec proszę Cię o to, podzielenie się tym artykułem ze swoimi znajomymi. Dzięki temu pozwolisz dotrzeć mi do szerszego grona Czytelników, a na tym właśnie mi zależy. Z góry dziękuję! Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na Facebook'u i dopisz się do samouczkowego newslettera. Do następnego razu!
+Na koniec proszę Cię o podzielenie się tym artykułem ze swoimi znajomymi. Dzięki temu pozwolisz dotrzeć mi do szerszego grona Czytelników, a na tym właśnie mi zależy. Z góry dziękuję! Jeśli nie chcesz pominąć kolejnych artykułów polub Samouczka na Facebook'u i dopisz się do samouczkowego newslettera. Do następnego razu!
