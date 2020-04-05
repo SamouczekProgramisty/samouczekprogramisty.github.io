@@ -1,6 +1,6 @@
 ---
 title: Klauzula WHERE w zapytaniach SQL
-last_modified_at: 2018-09-05 23:05:10 +0200
+last_modified_at: 2020-04-05 10:06:10 +0200
 categories:
 - Bazy danych
 - Kurs SQL
@@ -171,7 +171,7 @@ SELECT *
 
 Słowo kluczowe `LIKE` możesz poprzedzić `NOT`. Warunek `NOT x LIKE y` jest tożsamy warunkowi `x NOT LIKE y`.
 
-Jeśli chcesz aby znaki `_` czy `%` były traktowane dosłownie musisz posłużyć się wyrażeniem `ESCAPE`. Proszę spójrz na przykład poniżej. Zapytanie zwraca wszystkie wiersze, dla których wewnątrz kolumny `track` występuje znak `%`:
+Jeśli chcesz aby znaki `_` czy `%` były traktowane dosłownie musisz posłużyć się wyrażeniem `ESCAPE`. Proszę spójrz na przykład poniżej. Zapytanie zwraca wszystkie wiersze, dla których wewnątrz kolumny `name` występuje znak `%`:
 
 ```sql
 SELECT *
