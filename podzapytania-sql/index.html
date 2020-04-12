@@ -136,11 +136,6 @@
           
             
             <li class="masthead__menu-item">
-              <a href="https://www.samouczekprogramisty.pl/patronite/" >Patronite</a>
-            </li>
-          
-            
-            <li class="masthead__menu-item">
               <a href="https://www.samouczekprogramisty.pl/kontakt/" >Kontakt</a>
             </li>
           
@@ -662,7 +657,7 @@ CA            5.5171428571428
   <span class="k">FROM</span> <span class="n">employee</span> <span class="k">AS</span> <span class="n">outer_employee</span>
  <span class="k">WHERE</span> <span class="k">EXISTS</span> <span class="p">(</span><span class="k">SELECT</span> <span class="o">*</span>
                  <span class="k">FROM</span> <span class="n">employee</span> <span class="k">AS</span> <span class="n">inner_empolyee</span>
-                <span class="k">WHERE</span> <span class="n">inner_employee</span><span class="p">.</span><span class="n">reportsto</span> <span class="o">=</span> <span class="n">outer_employee</span><span class="p">.</span><span class="n">employeeid</span><span class="p">;</span>
+                <span class="k">WHERE</span> <span class="n">inner_employee</span><span class="p">.</span><span class="n">reportsto</span> <span class="o">=</span> <span class="n">outer_employee</span><span class="p">.</span><span class="n">employeeid</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>W tym przypadku skorelowane podzapytanie zwraca wiersze, które połączone są relacją szef-podwładny. Wiersze, które zawierają pracowników nie posiadających podwładnych są pominięte. Dzieje się tak dlatego, że podzapytanie w ich przypadku nie zwróci ani jednego wiersza.</p>
@@ -677,11 +672,11 @@ CA            5.5171428571428
 
 <p>Analogicznie <code class="highlighter-rouge">kolumna &lt;= ANY (podzapytanie)</code> oznacza, że kolumna musi mieć wartość mniejszą bądź równą którejkolwiek z wartości zwróconych przez podzapytanie.</p>
 
-<p>Chociaż SQLite nie wspiera tych operatorów identyczne zachowanie można uzyskać stosując <a href="/funkcje-i-grupowanie-wierszy-w-sql/#funkcje-grupując">funkcje <code class="highlighter-rouge">MIN</code> albo <code class="highlighter-rouge">MAX</code></a>. Dla przykładu dwa poniższe zapytania dałyby te same wyniki:</p>
+<p>Chociaż SQLite nie wspiera tych operatorów identyczne zachowanie, w przypadku niektórych zapytań, można uzyskać stosując <a href="/funkcje-i-grupowanie-wierszy-w-sql/#funkcje-grupując">funkcje <code class="highlighter-rouge">MIN</code> albo <code class="highlighter-rouge">MAX</code></a>. Dla przykładu dwa poniższe zapytania dałyby te same wyniki:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
   <span class="k">FROM</span> <span class="n">track</span>
- <span class="k">WHERE</span> <span class="n">milliseconds</span> <span class="o">&lt;</span> <span class="k">ALL</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">milliseconds</span>
+ <span class="k">WHERE</span> <span class="n">milliseconds</span> <span class="o">&lt;</span> <span class="k">ANY</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">milliseconds</span>
                              <span class="k">FROM</span> <span class="n">track</span><span class="p">);</span>
 </code></pre></div></div>
 
@@ -1092,7 +1087,7 @@ CA            5.5171428571428
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2015-2019 Marcin Pietraszek</div>
+<div class="page__footer-copyright">&copy; 2015-2020 Marcin Pietraszek</div>
 
       </footer>
     </div>
