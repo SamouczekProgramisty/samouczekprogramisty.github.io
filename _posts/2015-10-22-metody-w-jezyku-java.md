@@ -206,7 +206,7 @@ Ten fragment kodu zawiera kolejno:
     3. znak przypisania,
     4. wywołanie metody `isBig`, jako argument do jej wywołania przekazałem wartość zmiennej `someNumber`.
 
-Zauważ, że linijki z kodem kończą się znakiem `;`. Wywołąnie metody zawsze zawiera nazwę nawiasy `()` i nie zawiera `{}`.
+Zauważ, że linijki z kodem kończą się znakiem `;`. Wywołanie metody zawsze zawiera nazwę nawiasy `()` i nie zawiera `{}`.
 
 ## Nazewnictwo
 
