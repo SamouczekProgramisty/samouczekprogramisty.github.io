@@ -5,7 +5,7 @@ W trakcie rozwiązywania takich zadań umiejętność szacowania złożoności o
 
 - [Podstawy złożoności obliczeniowej]({% post_url 2017-11-13-podstawy-zlozonosci-obliczeniowej %}),
 - [Test Driven Development na przykładzie]({% post_url 2016-11-21-test-driven-development-na-przykladzie %}),
-- [Testy jednostkowe z JUnit](% post_url 2016-10-29-testy-jednostkowe-z-junit %}),
+- [Testy jednostkowe z JUnit]({% post_url 2016-10-29-testy-jednostkowe-z-junit %}),
 
 Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu czasami będę używał "pseudo kodu". Przykładowe rozwiązania będą w języku Java.
 
