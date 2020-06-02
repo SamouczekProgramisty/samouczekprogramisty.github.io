@@ -1,6 +1,6 @@
 ---
 title: Wstęp do relacyjnych baz danych
-last_modified_at: 2018-07-18 20:43:32 +0200
+last_modified_at: 2020-06-02 20:31:44 +0200
 categories:
 - Bazy danych
 permalink: /wstep-do-relacyjnych-baz-danych/
@@ -195,7 +195,7 @@ Kolumna `Producent id` w tabeli `opiekunowie` wskazuje na producenta, za któreg
 
 ### Jeden do wielu
 
-Przykładem takiej zależności może być towar – producent. Każdy towar produkowany jest przez jednego producenta. Podobnie jak w przypadku reakcji jeden do jednego zależność tego typu uzyskuje się poprzez dodanie odpowiedniej kolumny:
+Przykładem takiej zależności może być producent – towar. Każdy producent produkuje wiele towarów. Innymi słowy każdy towar produkowany jest przez jednego producenta. Podobnie jak w przypadku relacji jeden do jednego zależność tego typu uzyskuje się poprzez dodanie odpowiedniej kolumny:
 
 `producenci`
 
