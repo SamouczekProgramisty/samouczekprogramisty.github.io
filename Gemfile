@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'jekyll'
-gem 'minimal-mistakes-jekyll'
+gem 'minimal-mistakes-jekyll', '4.6.0'
 
 gem 'octopress'
 gem 'classifier-reborn'  # --lsi for Jekyll
