@@ -328,13 +328,13 @@
 
 <p>Mapa to zestaw par, par kluczy i wartości. Do reprezentacji takiej pary potrzebna jest osobna klasa. Może ona wyglądać następująco:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">K</span> <span class="n">key</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="no">K</span> <span class="n">key</span><span class="o">;</span>
 
-    <span class="kd">private</span> <span class="n">V</span> <span class="n">value</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="no">V</span> <span class="n">value</span><span class="o">;</span>
 
-    <span class="n">Entry</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Entry</span><span class="o">(</span><span class="no">K</span> <span class="n">key</span><span class="o">,</span> <span class="no">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
     <span class="o">}</span>
@@ -343,19 +343,19 @@
 
 <p>Sama klasa mapy powinna przechowywać te pary. Dobrym sposobem może być użycie tablicy:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;[]</span> <span class="n">table</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;[]</span> <span class="n">table</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Tylko jak duża powinna być ta tablica? Ile elementów chcemy przechowywać w mapie? Uniwersalna implementacja nie może tego założyć. Zakłada więc rozsądne wartości domyślne:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;[]</span> <span class="n">table</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;[]</span> <span class="n">table</span><span class="o">;</span>
 
     <span class="kd">public</span> <span class="nf">SimpleHashMap</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">[</span><span class="n">INITIAL_CAPACITY</span><span class="o">];</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Entry</span><span class="o">[</span><span class="no">INITIAL_CAPACITY</span><span class="o">];</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -376,11 +376,11 @@
 
 <p>Funkcja skrótu pozwala na zmapowanie klucza na indeks w tablicy wspomnianej wyżej. Wartość zwrócona przez metodę <code class="highlighter-rouge">hashCode</code> (funkcję skrótu) musi zostać dopasowana do wielkości tablicy. Najprostszym sposobem jest użycie reszty z dzielenia:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="no">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
     <span class="o">}</span>
-    <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">%</span> <span class="n">table</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nc">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">%</span> <span class="n">table</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -431,9 +431,9 @@
 
 <p>Z tego właśnie powodu w tablicy nie trzymamy par. Trzymamy kolekcję par:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;[]</span> <span class="n">table</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;&gt;[]</span> <span class="n">table</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -474,19 +474,19 @@
 
 <p>Dlatego właśnie tablica ta jest automatycznie rozszerzana. Powstaje kolejne pytanie. Kiedy należy taką tablicę powiększyć? Tutaj też wprowadza się pewne wartości domyślne. Możemy powiedzieć o czymś co nazywa się współczynnikiem wypełnienia (ang. <em>load factor</em>). Jeśli nasza tablica jest wypełniona w dość dużym stopniu i liczba elementów przechowywanych w mapie przekroczy pewien próg należy rozszerzyć naszą tablicę.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHashMap</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">LOAD_FACTOR</span> <span class="o">=</span> <span class="mf">0.75</span><span class="n">F</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="no">LOAD_FACTOR</span> <span class="o">=</span> <span class="mf">0.75</span><span class="no">F</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
 
     <span class="kd">private</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kt">int</span> <span class="n">threshold</span><span class="o">;</span>
 
-    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;[]</span> <span class="n">table</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;&gt;[]</span> <span class="n">table</span><span class="o">;</span>
 
     <span class="kd">public</span> <span class="nf">SimpleHashMap</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">List</span><span class="o">[</span><span class="n">INITIAL_CAPACITY</span><span class="o">];</span>
-        <span class="n">threshold</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(</span><span class="n">INITIAL_CAPACITY</span> <span class="o">*</span> <span class="n">LOAD_FACTOR</span><span class="o">);</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">List</span><span class="o">[</span><span class="no">INITIAL_CAPACITY</span><span class="o">];</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(</span><span class="no">INITIAL_CAPACITY</span> <span class="o">*</span> <span class="no">LOAD_FACTOR</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -498,24 +498,24 @@
 <p>Dobrym sposobem na powiększenie wielkości tablicy jest podwojenie jej rozmiaru. Zauważ, że w przypadku powiększenia wielkości tablicy należy od nowa przyporządkować poszczególne klucze do nowych indeksów w tablicy. Funkcja poniżej podwaja wielkość tablicy <code class="highlighter-rouge">table</code> i przepisuje pary w odpowiednie miejsca w nowej tablicy:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">resize</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;[]</span> <span class="n">oldTable</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
-    <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">List</span><span class="o">[</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">*</span> <span class="mi">2</span><span class="o">];</span>
-    <span class="n">threshold</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">*</span> <span class="n">LOAD_FACTOR</span><span class="o">);</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;&gt;[]</span> <span class="n">oldTable</span> <span class="o">=</span> <span class="n">table</span><span class="o">;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">List</span><span class="o">[</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">*</span> <span class="mi">2</span><span class="o">];</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">*</span> <span class="no">LOAD_FACTOR</span><span class="o">);</span>
 
-    <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">:</span> <span class="n">oldTable</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">:</span> <span class="n">oldTable</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">bucket</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">continue</span><span class="o">;</span>
         <span class="o">}</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">bucket</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">bucket</span><span class="o">)</span> <span class="o">{</span>
             <span class="kt">int</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
             <span class="k">if</span><span class="o">(</span><span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+                <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
             <span class="o">}</span>
-            <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">newBucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">];</span>
+            <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;&gt;</span> <span class="n">newBucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">];</span>
             <span class="n">newBucket</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">entry</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
@@ -549,16 +549,16 @@
 
 <p>Dodanie pary do mapy może skutkować utworzeniem nowej pary lub nadpisaniem istniejącej już wartości. Proszę spójrz na przykład poniżej:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">V</span> <span class="nf">put</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="no">V</span> <span class="nf">put</span><span class="o">(</span><span class="no">K</span> <span class="n">key</span><span class="o">,</span> <span class="no">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
     <span class="o">}</span>
-    <span class="n">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="no">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="kt">boolean</span> <span class="n">keyExist</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">];</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">];</span>
 
-    <span class="k">for</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">bucket</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">bucket</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">keysEqual</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">entry</span><span class="o">.</span><span class="na">key</span><span class="o">))</span> <span class="o">{</span>
             <span class="n">oldValue</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
             <span class="n">entry</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
@@ -568,7 +568,7 @@
     <span class="o">}</span>
 
     <span class="k">if</span> <span class="o">(!</span><span class="n">keyExist</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">bucket</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Entry</span><span class="o">&lt;&gt;(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">));</span>
+        <span class="n">bucket</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Entry</span><span class="o">&lt;&gt;(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">));</span>
         <span class="n">size</span><span class="o">++;</span>
     <span class="o">}</span>
 
@@ -588,11 +588,11 @@
 
 <p>Pobieranie elementów z mapy sprowadza się do sprawdzenia czy klucz występuje w tablicy. Funkcja skrótu służy do wskazania przedziału, w którym należy szukać instancji klucza. Przykładowa implementacja niżej pozwala na pobranie wartości z mapy:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">V</span> <span class="nf">get</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="no">V</span> <span class="nf">get</span><span class="o">(</span><span class="no">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">];</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">];</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">bucket</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">bucket</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">bucket</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span> <span class="o">(</span><span class="n">keysEqual</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">entry</span><span class="o">.</span><span class="na">key</span><span class="o">))</span> <span class="o">{</span>
                 <span class="k">return</span> <span class="n">entry</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
             <span class="o">}</span>
@@ -608,16 +608,16 @@
 
 <p>Usuwanie wartości wygląda podobnie do pobierania. W tym przypadku dodatkowo zmniejszana jest wartość atrybutu <code class="highlighter-rouge">size</code> przechowującego liczbę par w mapie.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">V</span> <span class="nf">remove</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">)];</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="no">V</span> <span class="nf">remove</span><span class="o">(</span><span class="no">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;&gt;</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">)];</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">bucket</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">bucketIterator</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
-    <span class="n">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="nc">Iterator</span><span class="o">&lt;</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;&gt;</span> <span class="n">bucketIterator</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+    <span class="no">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="k">while</span> <span class="o">(</span><span class="n">bucketIterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">bucketIterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="nc">Entry</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">bucketIterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">keysEqual</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">entry</span><span class="o">.</span><span class="na">key</span><span class="o">))</span> <span class="o">{</span>
             <span class="n">oldValue</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
             <span class="n">bucketIterator</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>

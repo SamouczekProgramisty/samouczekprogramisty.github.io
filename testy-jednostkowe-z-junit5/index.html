@@ -334,45 +334,45 @@
 <p>Projekt będę budował przy użyciu <a href="/wstep-do-gradle/">Gradle</a>. Przykładowy test będzie służył do sprawdzenia, programu odpowiedzialnego za konwersję jednostek wagi. Każda z jednostek implementowała będzie <a href="/interfejsy-w-jezyku-java/#interfejs-znacznikowy">interfejs znacznikowy</a> <code class="highlighter-rouge">WeightUnit</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">WeightUnit</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">SCALE</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
-    <span class="n">RoundingMode</span> <span class="n">ROUNDING_MODE</span> <span class="o">=</span> <span class="n">RoundingMode</span><span class="o">.</span><span class="na">CEILING</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="no">SCALE</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+    <span class="nc">RoundingMode</span> <span class="no">ROUNDING_MODE</span> <span class="o">=</span> <span class="nc">RoundingMode</span><span class="o">.</span><span class="na">CEILING</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Klasa <code class="highlighter-rouge">Pound</code> reprezentuje funty:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pound</span> <span class="kd">implements</span> <span class="n">WeightUnit</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">POUND_TO_KILOGRAM_RATIO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">"0.453592"</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="n">SCALE</span><span class="o">,</span> <span class="n">ROUNDING_MODE</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pound</span> <span class="kd">implements</span> <span class="nc">WeightUnit</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">BigDecimal</span> <span class="no">POUND_TO_KILOGRAM_RATIO</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"0.453592"</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="no">SCALE</span><span class="o">,</span> <span class="no">ROUNDING_MODE</span><span class="o">);</span>
 
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">value</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">BigDecimal</span> <span class="n">value</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">Pound</span><span class="o">(</span><span class="n">BigDecimal</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Pound</span><span class="o">(</span><span class="nc">BigDecimal</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Weight can't be negative!"</span><span class="o">);</span>
         <span class="o">}</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="n">SCALE</span><span class="o">,</span> <span class="n">ROUNDING_MODE</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="no">SCALE</span><span class="o">,</span> <span class="no">ROUNDING_MODE</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Kilogram</span> <span class="nf">toKilograms</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nf">Kilogram</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="n">POUND_TO_KILOGRAM_RATIO</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="n">SCALE</span><span class="o">,</span> <span class="n">ROUNDING_MODE</span><span class="o">));</span>
+    <span class="kd">public</span> <span class="nc">Kilogram</span> <span class="nf">toKilograms</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Kilogram</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="no">POUND_TO_KILOGRAM_RATIO</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="no">SCALE</span><span class="o">,</span> <span class="no">ROUNDING_MODE</span><span class="o">));</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Jej odpowiednik dla kilogramów to klasa <code class="highlighter-rouge">Kilogram</code>:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Kilogram</span> <span class="kd">implements</span> <span class="n">WeightUnit</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">value</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Kilogram</span> <span class="kd">implements</span> <span class="nc">WeightUnit</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">BigDecimal</span> <span class="n">value</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">Kilogram</span><span class="o">(</span><span class="n">BigDecimal</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Kilogram</span><span class="o">(</span><span class="nc">BigDecimal</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Weight can't be negative!"</span><span class="o">);</span>
         <span class="o">}</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="n">SCALE</span><span class="o">,</span> <span class="n">ROUNDING_MODE</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="no">SCALE</span><span class="o">,</span> <span class="no">ROUNDING_MODE</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Pound</span> <span class="nf">toPounds</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nf">Pound</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">divide</span><span class="o">(</span><span class="n">Pound</span><span class="o">.</span><span class="na">POUND_TO_KILOGRAM_RATIO</span><span class="o">,</span> <span class="n">SCALE</span><span class="o">,</span> <span class="n">ROUNDING_MODE</span><span class="o">));</span>
+    <span class="kd">public</span> <span class="nc">Pound</span> <span class="nf">toPounds</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Pound</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">divide</span><span class="o">(</span><span class="nc">Pound</span><span class="o">.</span><span class="na">POUND_TO_KILOGRAM_RATIO</span><span class="o">,</span> <span class="no">SCALE</span><span class="o">,</span> <span class="no">ROUNDING_MODE</span><span class="o">));</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -386,24 +386,24 @@
 <span class="kd">class</span> <span class="nc">UnitConverterTest</span> <span class="o">{</span>
     <span class="nd">@Test</span>
     <span class="kt">void</span> <span class="nf">shouldConvertZeroKilogramValue</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Pound</span> <span class="n">pounds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Kilogram</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">).</span><span class="na">toPounds</span><span class="o">();</span>
-        <span class="n">assertEquals</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span> <span class="n">pounds</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
+        <span class="nc">Pound</span> <span class="n">pounds</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Kilogram</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">).</span><span class="na">toPounds</span><span class="o">();</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span> <span class="n">pounds</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
     <span class="kt">void</span> <span class="nf">shouldConvertZeroPoundValue</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Kilogram</span> <span class="n">kilograms</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pound</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">).</span><span class="na">toKilograms</span><span class="o">();</span>
-        <span class="n">assertEquals</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span> <span class="n">kilograms</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
+        <span class="nc">Kilogram</span> <span class="n">kilograms</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Pound</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">).</span><span class="na">toKilograms</span><span class="o">();</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span> <span class="n">kilograms</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
     <span class="kt">void</span> <span class="nf">shouldConvert1Pound</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">"0.4536"</span><span class="o">),</span> <span class="k">new</span> <span class="n">Pound</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ONE</span><span class="o">).</span><span class="na">toKilograms</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"0.4536"</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Pound</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ONE</span><span class="o">).</span><span class="na">toKilograms</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
     <span class="kt">void</span> <span class="nf">shouldConvert1Kilogram</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">"2.2046"</span><span class="o">),</span> <span class="k">new</span> <span class="n">Kilogram</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ONE</span><span class="o">).</span><span class="na">toPounds</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"2.2046"</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Kilogram</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ONE</span><span class="o">).</span><span class="na">toPounds</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -451,7 +451,7 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"0.1 pounds to kilograms ♥ ♦ ♣ ♠"</span><span class="o">)</span>
 <span class="kt">void</span> <span class="nf">shouldConvertFractions</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">"0.0454"</span><span class="o">),</span> <span class="k">new</span> <span class="n">Pound</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">"0.1"</span><span class="o">)).</span><span class="na">toKilograms</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"0.0454"</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Pound</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"0.1"</span><span class="o">)).</span><span class="na">toKilograms</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -467,9 +467,9 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kt">void</span> <span class="nf">shouldntAcceptNegativeWeightInPounds</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">IllegalArgumentException</span> <span class="n">exception</span> <span class="o">=</span> <span class="n">assertThrows</span><span class="o">(</span>
-        <span class="n">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-        <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Pound</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(-</span><span class="mi">1</span><span class="o">))</span>
+    <span class="nc">IllegalArgumentException</span> <span class="n">exception</span> <span class="o">=</span> <span class="n">assertThrows</span><span class="o">(</span>
+        <span class="nc">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+        <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Pound</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(-</span><span class="mi">1</span><span class="o">))</span>
     <span class="o">);</span>
     <span class="n">assertEquals</span><span class="o">(</span><span class="s">"Weight can't be negative!"</span><span class="o">,</span> <span class="n">exception</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
 <span class="o">}</span>
@@ -494,7 +494,7 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kt">void</span> <span class="nf">shouldTransalteUnitsBlazinglyFast</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">assertTimeout</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofMillis</span><span class="o">(</span><span class="mi">10</span><span class="o">),</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Kilogram</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">TEN</span><span class="o">).</span><span class="na">toPounds</span><span class="o">());</span>
+    <span class="n">assertTimeout</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMillis</span><span class="o">(</span><span class="mi">10</span><span class="o">),</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Kilogram</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">TEN</span><span class="o">).</span><span class="na">toPounds</span><span class="o">());</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -507,15 +507,15 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">UnitConverterTest</span> <span class="o">{</span>
     <span class="nd">@Test</span>
     <span class="kt">void</span> <span class="nf">shouldConvertZeroKilogramValue</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Pound</span> <span class="n">pounds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Kilogram</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">).</span><span class="na">toPounds</span><span class="o">();</span>
-        <span class="n">assertEquals</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="mi">44</span><span class="o">),</span> <span class="n">pounds</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
+        <span class="nc">Pound</span> <span class="n">pounds</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Kilogram</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">).</span><span class="na">toPounds</span><span class="o">();</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="mi">44</span><span class="o">),</span> <span class="n">pounds</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Nested</span>
     <span class="kd">class</span> <span class="nc">ExceptionHandling</span> <span class="o">{</span>
         <span class="nd">@Test</span>
         <span class="kt">void</span> <span class="nf">shouldntAcceptNegativeWeightInPounds</span><span class="o">()</span> <span class="o">{</span>
-            <span class="n">IllegalArgumentException</span> <span class="n">exception</span> <span class="o">=</span> <span class="n">assertThrows</span><span class="o">(</span><span class="n">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Pound</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(-</span><span class="mi">1</span><span class="o">)));</span>
+            <span class="nc">IllegalArgumentException</span> <span class="n">exception</span> <span class="o">=</span> <span class="n">assertThrows</span><span class="o">(</span><span class="nc">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Pound</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(-</span><span class="mi">1</span><span class="o">)));</span>
             <span class="n">assertEquals</span><span class="o">(</span><span class="s">"Weight can't be negative!"</span><span class="o">,</span> <span class="n">exception</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
         <span class="o">}</span>
     <span class="o">}</span>
@@ -535,8 +535,8 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kt">void</span> <span class="nf">shouldntAcceptNullValue</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">assertAll</span><span class="o">(</span>
-        <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertThrows</span><span class="o">(</span><span class="n">NullPointerException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Kilogram</span><span class="o">(</span><span class="kc">null</span><span class="o">)),</span>
-        <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertThrows</span><span class="o">(</span><span class="n">NullPointerException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Pound</span><span class="o">(</span><span class="kc">null</span><span class="o">))</span>
+        <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertThrows</span><span class="o">(</span><span class="nc">NullPointerException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Kilogram</span><span class="o">(</span><span class="kc">null</span><span class="o">)),</span>
+        <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertThrows</span><span class="o">(</span><span class="nc">NullPointerException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Pound</span><span class="o">(</span><span class="kc">null</span><span class="o">))</span>
     <span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -551,7 +551,7 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RepeatedTest</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span>
 <span class="kt">void</span> <span class="nf">shouldAlwaysReturnTheSameValue</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">"29.4840"</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span> <span class="k">new</span> <span class="n">Pound</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="mi">65</span><span class="o">)).</span><span class="na">toKilograms</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"29.4840"</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Pound</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="mi">65</span><span class="o">)).</span><span class="na">toKilograms</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -573,19 +573,19 @@
 
 <p>Przykład poniżej pokazuje rozszerzenie, które wyświetla na konsoli napis <code class="highlighter-rouge">Samouczek extension :)</code>. Rozszerzenie to zostało zaaplikowane do jednego z testów:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SamouczekExtension</span> <span class="kd">implements</span> <span class="n">BeforeEachCallback</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SamouczekExtension</span> <span class="kd">implements</span> <span class="nc">BeforeEachCallback</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">beforeEach</span><span class="o">(</span><span class="n">ExtensionContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Samouczek extension :)"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">beforeEach</span><span class="o">(</span><span class="nc">ExtensionContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Samouczek extension :)"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
-<span class="nd">@ExtendWith</span><span class="o">(</span><span class="n">SamouczekExtension</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@ExtendWith</span><span class="o">(</span><span class="nc">SamouczekExtension</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 <span class="kt">void</span> <span class="nf">shouldConvertZeroPoundValue</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">Kilogram</span> <span class="n">kilograms</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pound</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">).</span><span class="na">toKilograms</span><span class="o">();</span>
-    <span class="n">assertEquals</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span> <span class="n">kilograms</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
+    <span class="nc">Kilogram</span> <span class="n">kilograms</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Pound</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">).</span><span class="na">toKilograms</span><span class="o">();</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span> <span class="n">kilograms</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -593,17 +593,17 @@
 
 <p>JUnit 5 pozwala na <a href="/adnotacje-w-jezyku-java/">tworzenie własnych adnotacji</a> poprzez łączenie tych dostarczonych przez bibliotekę. W przykładzie poniżej możesz zobaczyć rozszerzenie, które przytoczyłem wyżej. Tym razem rozszerzenie to jest aplikowane przez dodanie własnej adnotacji <code class="highlighter-rouge">@SamouczekBefore</code> do metody z testem:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">({</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span> <span class="o">})</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
-<span class="nd">@ExtendWith</span><span class="o">(</span><span class="n">SamouczekExtension</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SamouczekBefore</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">({</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span> <span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@ExtendWith</span><span class="o">(</span><span class="nc">SamouczekExtension</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">SamouczekBefore</span> <span class="o">{</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="nd">@SamouczekBefore</span>
 <span class="kt">void</span> <span class="nf">shouldConvert1Pound</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">"0.4536"</span><span class="o">),</span> <span class="k">new</span> <span class="n">Pound</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">ONE</span><span class="o">).</span><span class="na">toKilograms</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"0.4536"</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Pound</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">ONE</span><span class="o">).</span><span class="na">toKilograms</span><span class="o">().</span><span class="na">value</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 

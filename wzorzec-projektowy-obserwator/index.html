@@ -325,8 +325,8 @@
 <p>Interfejsy przedstawione na diagramie UML mogą wyglądać następująco:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Observable</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="nf">attach</span><span class="o">(</span><span class="n">Observer</span> <span class="n">observer</span><span class="o">);</span>
-    <span class="kt">void</span> <span class="nf">detach</span><span class="o">(</span><span class="n">Observer</span> <span class="n">observer</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">attach</span><span class="o">(</span><span class="nc">Observer</span> <span class="n">observer</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">detach</span><span class="o">(</span><span class="nc">Observer</span> <span class="n">observer</span><span class="o">);</span>
     <span class="kt">void</span> <span class="nf">notifyObservers</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -340,18 +340,18 @@
 
 <p>Następnie w momencie publikacji nowego artykułu (metoda <code class="highlighter-rouge">publishArticle</code>) zmieniany jest wewnętrzny stan instancji klasy <code class="highlighter-rouge">Blog</code>. Po tej zmianie wywołana jest metoda <code class="highlighter-rouge">notifyObservers</code>. Wewnątrz tej metody na każdej z instancji implementującej <code class="highlighter-rouge">Observer</code> wywołana jest metoda <code class="highlighter-rouge">update</code>:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blog</span> <span class="kd">implements</span> <span class="n">Observable</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blog</span> <span class="kd">implements</span> <span class="nc">Observable</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Observer</span><span class="o">&gt;</span> <span class="n">observers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">newestArticle</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Observer</span><span class="o">&gt;</span> <span class="n">observers</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashSet</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">newestArticle</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">attach</span><span class="o">(</span><span class="n">Observer</span> <span class="n">observer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">attach</span><span class="o">(</span><span class="nc">Observer</span> <span class="n">observer</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">observers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">observer</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">detach</span><span class="o">(</span><span class="n">Observer</span> <span class="n">observer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">detach</span><span class="o">(</span><span class="nc">Observer</span> <span class="n">observer</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">observers</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">observer</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -360,11 +360,11 @@
         <span class="n">observers</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nl">Observer:</span><span class="o">:</span><span class="n">update</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getNewestArticle</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getNewestArticle</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">newestArticle</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">publishArticle</span><span class="o">(</span><span class="n">String</span> <span class="n">article</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">publishArticle</span><span class="o">(</span><span class="nc">String</span> <span class="n">article</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">newestArticle</span> <span class="o">=</span> <span class="n">article</span><span class="o">;</span>
         <span class="n">notifyObservers</span><span class="o">();</span>
     <span class="o">}</span>
@@ -373,11 +373,11 @@
 
 <p>Obserwatorem jest czytelnik reprezentowany przez klasę <code class="highlighter-rouge">Reader</code>. Czytelnik wie jaki zasób obserwuje, przechowuje go w atrybucie <code class="highlighter-rouge">blog</code>. W momencie powiadomienia, czyli w trakcie wywołania metody <code class="highlighter-rouge">update</code>, sprawdzany jest stan atrybutu <code class="highlighter-rouge">blog</code> i <code class="highlighter-rouge">Reader</code> może odpowiednio na tę zmianę zareagować. W tym przypadku informuje o najnowszym artykule:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Reader</span> <span class="kd">implements</span> <span class="n">Observer</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Blog</span> <span class="n">blog</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">newestArticle</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Reader</span> <span class="kd">implements</span> <span class="nc">Observer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Blog</span> <span class="n">blog</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">newestArticle</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">Reader</span><span class="o">(</span><span class="n">Blog</span> <span class="n">blog</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Reader</span><span class="o">(</span><span class="nc">Blog</span> <span class="n">blog</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">blog</span> <span class="o">=</span> <span class="n">blog</span><span class="o">;</span>
         <span class="n">newestArticle</span> <span class="o">=</span> <span class="n">blog</span><span class="o">.</span><span class="na">getNewestArticle</span><span class="o">();</span>
     <span class="o">}</span>
@@ -385,7 +385,7 @@
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">newestArticle</span> <span class="o">=</span> <span class="n">blog</span><span class="o">.</span><span class="na">getNewestArticle</span><span class="o">();</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"An article „%s” was published!"</span><span class="o">,</span>  <span class="n">newestArticle</span><span class="o">));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"An article „%s” was published!"</span><span class="o">,</span>  <span class="n">newestArticle</span><span class="o">));</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>

@@ -286,7 +286,7 @@
 <p>W języku Java do definiowania interfejsów używamy słowa kluczowego <code class="highlighter-rouge">interface</code>. Interfejsy, podobnie jak klasy, definiujemy w osobnych plikach. Nazwa pliku musi odpowiadać nazwie interfejsu.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Clock</span> <span class="o">{</span>
-    <span class="kt">long</span> <span class="nf">secondsElapsedSince</span><span class="o">(</span><span class="n">LocalDateTime</span> <span class="n">date</span><span class="o">);</span>
+    <span class="kt">long</span> <span class="nf">secondsElapsedSince</span><span class="o">(</span><span class="nc">LocalDateTime</span> <span class="n">date</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -329,7 +329,7 @@
 
     <span class="kt">void</span> <span class="nf">setPower</span><span class="o">(</span><span class="kt">int</span> <span class="n">power</span><span class="o">);</span>
 
-    <span class="k">default</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">default</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="s">"MicrovaweOwen"</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -345,22 +345,22 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MicrowaveOven</span> <span class="o">{</span>
     <span class="c1">// removed for brevity</span>
-    <span class="k">default</span> <span class="n">Duration</span> <span class="nf">getRecommendedDefrostTime</span><span class="o">(</span><span class="kt">double</span> <span class="n">foodWeightInGrams</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">default</span> <span class="nc">Duration</span> <span class="nf">getRecommendedDefrostTime</span><span class="o">(</span><span class="kt">double</span> <span class="n">foodWeightInGrams</span><span class="o">)</span> <span class="o">{</span>
         <span class="kt">double</span> <span class="n">frostRate</span> <span class="o">=</span> <span class="mf">0.8</span><span class="o">;</span>
         <span class="kt">int</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
         <span class="k">return</span> <span class="nf">getRecommendedTime</span><span class="o">(</span><span class="n">power</span><span class="o">,</span> <span class="n">frostRate</span><span class="o">,</span> <span class="n">foodWeightInGrams</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="k">default</span> <span class="n">Duration</span> <span class="nf">getRecommendedWarmingUpTime</span><span class="o">(</span><span class="kt">double</span> <span class="n">foodWeightInGrams</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">default</span> <span class="nc">Duration</span> <span class="nf">getRecommendedWarmingUpTime</span><span class="o">(</span><span class="kt">double</span> <span class="n">foodWeightInGrams</span><span class="o">)</span> <span class="o">{</span>
         <span class="kt">double</span> <span class="n">frostRate</span> <span class="o">=</span> <span class="mf">0.2</span><span class="o">;</span>
         <span class="kt">int</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">700</span><span class="o">;</span>
         <span class="k">return</span> <span class="nf">getRecommendedTime</span><span class="o">(</span><span class="n">power</span><span class="o">,</span> <span class="n">frostRate</span><span class="o">,</span> <span class="n">foodWeightInGrams</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="n">Duration</span> <span class="nf">getRecommendedTime</span><span class="o">(</span><span class="kt">int</span> <span class="n">power</span><span class="o">,</span> <span class="kt">double</span> <span class="n">frostRate</span><span class="o">,</span> <span class="kt">double</span> <span class="n">foodWeightInGrams</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">Duration</span> <span class="nf">getRecommendedTime</span><span class="o">(</span><span class="kt">int</span> <span class="n">power</span><span class="o">,</span> <span class="kt">double</span> <span class="n">frostRate</span><span class="o">,</span> <span class="kt">double</span> <span class="n">foodWeightInGrams</span><span class="o">)</span> <span class="o">{</span>
         <span class="kt">double</span> <span class="n">durationInMinutes</span> <span class="o">=</span> <span class="n">foodWeightInGrams</span> <span class="o">/</span> <span class="o">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">frostRate</span><span class="o">)</span> <span class="o">*</span> <span class="n">power</span><span class="o">);</span>
         <span class="kt">long</span> <span class="n">durationInSeconds</span> <span class="o">=</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span> <span class="o">(</span><span class="n">durationInMinutes</span> <span class="o">*</span> <span class="mi">60</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">durationInSeconds</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">durationInSeconds</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -384,11 +384,11 @@
 <p>Wartości niezmienne w odróżnieniu od zmiennych poprzedzamy słowem kluczowym <code class="highlighter-rouge">final</code>. Poniżej możesz zobaczyć przykład klasy z atrybutem, którego wartości nie możemy przypisać na nowo. Atrybuty tego typu możemy inicjalizować jak w przykładzie poniżej: bezpośrednio bądź w ciele konstruktora.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">PI</span> <span class="o">=</span> <span class="mf">3.14</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">SQRT_2</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="no">PI</span> <span class="o">=</span> <span class="mf">3.14</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="no">SQRT_2</span><span class="o">;</span>
 
     <span class="kd">public</span> <span class="nf">Calculator</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">SQRT_2</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="no">SQRT_2</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -398,7 +398,7 @@
 <p>Do stałych wartość możemy przypisać wyłącznie raz – podczas inicjalizacji klasy. Zgodnie z konwencją nazewniczą stałe piszemy wielkimi literami.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Cat</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">NUMBER_OF_PAWS</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="no">NUMBER_OF_PAWS</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -409,11 +409,11 @@
 <p>Sam interfejs nie jest zbyt wiele warty bez jego implementacji. Poniżej możesz zobaczyć przykładową, prostą implementację.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Clock</span> <span class="o">{</span>
-    <span class="kt">long</span> <span class="nf">secondsElapsedSince</span><span class="o">(</span><span class="n">LocalDateTime</span> <span class="n">date</span><span class="o">);</span>
+    <span class="kt">long</span> <span class="nf">secondsElapsedSince</span><span class="o">(</span><span class="nc">LocalDateTime</span> <span class="n">date</span><span class="o">);</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BrokenClock</span> <span class="kd">implements</span> <span class="n">Clock</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">secondsElapsedSince</span><span class="o">(</span><span class="n">LocalDateTime</span> <span class="n">date</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BrokenClock</span> <span class="kd">implements</span> <span class="nc">Clock</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">secondsElapsedSince</span><span class="o">(</span><span class="nc">LocalDateTime</span> <span class="n">date</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="mi">300</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -428,16 +428,16 @@
 <p>Dziedziczenie to temat na osobny, obszerny <a href="/dziedziczenie-w-jezyku-java/">artykuł</a>. Jednak już teraz wspomnę, że interfejsy mogą dziedziczyć po innych interfejsach. Dziedziczenie oznaczane jest słowem kluczowym <code class="highlighter-rouge">extends</code>. Interfejs, który dziedziczy po innych interfejsach zawiera wszystkie metody z tych interfejsów.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Cat</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">NUMBER_OF_PAWS</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="no">NUMBER_OF_PAWS</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
 
-    <span class="n">String</span> <span class="nf">getName</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="nf">getName</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">LasagnaEater</span> <span class="o">{</span>
-    <span class="n">String</span> <span class="nf">getLasagnaRecipe</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="nf">getLasagnaRecipe</span><span class="o">();</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FatCat</span> <span class="kd">extends</span> <span class="n">Cat</span><span class="o">,</span> <span class="n">LasagnaEater</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FatCat</span> <span class="kd">extends</span> <span class="nc">Cat</span><span class="o">,</span> <span class="nc">LasagnaEater</span> <span class="o">{</span>
     <span class="kt">double</span> <span class="nf">getWeight</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -459,7 +459,7 @@
 
 <p>Interfejsy pozwalają na przypisane obiektu do zmiennej typu interfejsu. Wydaje się to trochę skomplikowane jednak mam nadzieję, że przykład poniżej pomoże w zrozumieniu tego tematu.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Garfield</span> <span class="kd">implements</span> <span class="n">FatCat</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Garfield</span> <span class="kd">implements</span> <span class="nc">FatCat</span> <span class="o">{</span>
     <span class="c1">// implementacja metod</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -474,10 +474,10 @@
   
 </figure>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Garfield</span> <span class="n">garfield</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Garfield</span><span class="o">();</span>
-<span class="n">FatCat</span> <span class="n">fatCat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Garfield</span><span class="o">();</span>
-<span class="n">Cat</span> <span class="n">cat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Garfield</span><span class="o">();</span>
-<span class="n">LasagnaEater</span> <span class="n">lasagnaEater</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Garfield</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Garfield</span> <span class="n">garfield</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Garfield</span><span class="o">();</span>
+<span class="nc">FatCat</span> <span class="n">fatCat</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Garfield</span><span class="o">();</span>
+<span class="nc">Cat</span> <span class="n">cat</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Garfield</span><span class="o">();</span>
+<span class="nc">LasagnaEater</span> <span class="n">lasagnaEater</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Garfield</span><span class="o">();</span>
 </code></pre></div></div>
 
 <p>Instancję klasy <code class="highlighter-rouge">Garfield</code> możemy przypisać zarówno do zmiennej klasy <code class="highlighter-rouge">Garfield</code> jak i każdego z interfejsów, który ta klasa implementuje (bezpośrednio lub pośrednio). Chociaż w trakcie wykonania programu każdy z obiektów jest tego samego typu (instancja klasy <code class="highlighter-rouge">Garfield</code>), to w trakcie kompilacji sprawa wygląda trochę inaczej:</p>
@@ -519,7 +519,7 @@
 <p>Piotrek z Kasią uzgadniają, że będą używali następującego interfejsu</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Thermometer</span> <span class="o">{</span>
-    <span class="kt">double</span> <span class="nf">getCurrentTemperatureFor</span><span class="o">(</span><span class="n">String</span> <span class="n">city</span><span class="o">);</span>
+    <span class="kt">double</span> <span class="nf">getCurrentTemperatureFor</span><span class="o">(</span><span class="nc">String</span> <span class="n">city</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -546,7 +546,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Oven</span> <span class="kd">implements</span> <span class="n">BakingOven</span><span class="o">,</span> <span class="n">RoastingOven</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Oven</span> <span class="kd">implements</span> <span class="nc">BakingOven</span><span class="o">,</span> <span class="nc">RoastingOven</span> <span class="o">{</span>
 
     <span class="kd">private</span> <span class="kt">int</span> <span class="n">time</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kt">int</span> <span class="n">temperature</span><span class="o">;</span>
@@ -573,13 +573,13 @@
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="kt">void</span> <span class="nf">turnOn</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Start. Heat up to %s and work for %d minutes."</span><span class="o">,</span> <span class="n">temperature</span><span class="o">,</span> <span class="n">time</span><span class="o">));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Start. Heat up to %s and work for %d minutes."</span><span class="o">,</span> <span class="n">temperature</span><span class="o">,</span> <span class="n">time</span><span class="o">));</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Oven</span> <span class="n">oven</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Oven</span><span class="o">();</span>
-        <span class="n">BakingOven</span> <span class="n">bakingOven</span> <span class="o">=</span> <span class="n">oven</span><span class="o">;</span>
-        <span class="n">RoastingOven</span> <span class="n">roastingOven</span> <span class="o">=</span> <span class="n">oven</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Oven</span> <span class="n">oven</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Oven</span><span class="o">();</span>
+        <span class="nc">BakingOven</span> <span class="n">bakingOven</span> <span class="o">=</span> <span class="n">oven</span><span class="o">;</span>
+        <span class="nc">RoastingOven</span> <span class="n">roastingOven</span> <span class="o">=</span> <span class="n">oven</span><span class="o">;</span>
 
         <span class="n">bakingOven</span><span class="o">.</span><span class="na">bakeBread</span><span class="o">();</span>
         <span class="n">bakingOven</span><span class="o">.</span><span class="na">bakeCookies</span><span class="o">();</span>
@@ -611,22 +611,22 @@ Start. Heat up to 130 and work for 240 minutes.
 <p>Użyj obu implementacji do uzupełnienia programu poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Main</span> <span class="n">main</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Main</span><span class="o">();</span>
-        <span class="n">Computation</span> <span class="n">computation</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Main</span> <span class="n">main</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Main</span><span class="o">();</span>
+        <span class="nc">Computation</span> <span class="n">computation</span><span class="o">;</span>
 
         <span class="k">if</span> <span class="o">(</span><span class="n">main</span><span class="o">.</span><span class="na">shouldMultiply</span><span class="o">())</span> <span class="o">{</span>
-            <span class="n">computation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Multiplication</span><span class="o">();</span> <span class="c1">// zaimplementuj brakującą klasę</span>
+            <span class="n">computation</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Multiplication</span><span class="o">();</span> <span class="c1">// zaimplementuj brakującą klasę</span>
         <span class="o">}</span>
         <span class="k">else</span> <span class="o">{</span>
-            <span class="n">computation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Addition</span><span class="o">();</span> <span class="c1">// zaimplementuj brakującą klasę</span>
+            <span class="n">computation</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Addition</span><span class="o">();</span> <span class="c1">// zaimplementuj brakującą klasę</span>
         <span class="o">}</span>
 
         <span class="kt">double</span> <span class="n">argument1</span> <span class="o">=</span> <span class="n">main</span><span class="o">.</span><span class="na">getArgument</span><span class="o">();</span>
         <span class="kt">double</span> <span class="n">argument2</span> <span class="o">=</span> <span class="n">main</span><span class="o">.</span><span class="na">getArgument</span><span class="o">();</span>
 
         <span class="kt">double</span> <span class="n">result</span> <span class="o">=</span> <span class="n">computation</span><span class="o">.</span><span class="na">compute</span><span class="o">(</span><span class="n">argument1</span><span class="o">,</span> <span class="n">argument2</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wynik: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wynik: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">shouldMultiply</span><span class="o">()</span> <span class="o">{</span>

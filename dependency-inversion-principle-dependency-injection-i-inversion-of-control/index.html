@@ -309,31 +309,31 @@ B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstr
 <p>Wyobraź sobie klimatyzator, który reaguje na temperaturę powietrza. Jeśli temperatura jest wyższa od założonego poziomu klimatyzator włącza się automatycznie. Wyłącza się, jeśli osiągnie temperaturę niższą o 3 stopnie niż założony poziom. Naiwna implementacja może wyglądać tak (zauważ, że tego klimatyzatora nie da się wyłączyć ;)):</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AirConditioner</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">THRESHOLD</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="no">THRESHOLD</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">desiredTemperature</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Thermometer</span> <span class="n">thermometer</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Thermometer</span> <span class="n">thermometer</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">AirConditioner</span><span class="o">(</span><span class="kt">float</span> <span class="n">desiredTemperature</span><span class="o">,</span> <span class="n">Thermometer</span> <span class="n">thermometer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">AirConditioner</span><span class="o">(</span><span class="kt">float</span> <span class="n">desiredTemperature</span><span class="o">,</span> <span class="nc">Thermometer</span> <span class="n">thermometer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">desiredTemperature</span> <span class="o">=</span> <span class="n">desiredTemperature</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">thermometer</span> <span class="o">=</span> <span class="n">thermometer</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
         <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span> <span class="o">(</span><span class="n">thermometer</span><span class="o">.</span><span class="na">measure</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">desiredTemperature</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">coolDown</span><span class="o">();</span>
             <span class="o">}</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"It's cool."</span><span class="o">);</span>
-            <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"It's cool."</span><span class="o">);</span>
+            <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">coolDown</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
-        <span class="k">while</span> <span class="o">(</span><span class="n">thermometer</span><span class="o">.</span><span class="na">measure</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">desiredTemperature</span> <span class="o">-</span> <span class="n">THRESHOLD</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Cooling down"</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">coolDown</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">thermometer</span><span class="o">.</span><span class="na">measure</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">desiredTemperature</span> <span class="o">-</span> <span class="no">THRESHOLD</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Cooling down"</span><span class="o">);</span>
             <span class="c1">// cooling down somehow ;)</span>
-            <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+            <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -354,19 +354,19 @@ B. Abstrakcje nie powinny zależeć od detali. Detale powinny zależeć od abstr
 <span class="o">}</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AirConditioner</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">THRESHOLD</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="no">THRESHOLD</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">desiredTemperature</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">Sensor</span> <span class="n">temperatureSensor</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Sensor</span> <span class="n">temperatureSensor</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">AirConditioner</span><span class="o">(</span><span class="kt">float</span> <span class="n">desiredTemperature</span><span class="o">,</span> <span class="n">Sensor</span> <span class="n">temperatureSensor</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">AirConditioner</span><span class="o">(</span><span class="kt">float</span> <span class="n">desiredTemperature</span><span class="o">,</span> <span class="nc">Sensor</span> <span class="n">temperatureSensor</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">desiredTemperature</span> <span class="o">=</span> <span class="n">desiredTemperature</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">temperatureSensor</span> <span class="o">=</span> <span class="n">temperatureSensor</span><span class="o">;</span>
     <span class="o">}</span>
     <span class="c1">// ...</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Thermometer</span> <span class="kd">implements</span> <span class="n">Sensor</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Thermometer</span> <span class="kd">implements</span> <span class="nc">Sensor</span> <span class="o">{</span>
     <span class="nd">@Overrides</span>
     <span class="kd">public</span> <span class="kt">float</span> <span class="nf">measure</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nf">Random</span><span class="o">().</span><span class="na">nextFloat</span><span class="o">();</span>
@@ -458,17 +458,17 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HtmlTag</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">tag</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">body</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">tag</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">body</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">HtmlTag</span><span class="o">(</span><span class="n">String</span> <span class="n">tag</span><span class="o">,</span> <span class="n">String</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">HtmlTag</span><span class="o">(</span><span class="nc">String</span> <span class="n">tag</span><span class="o">,</span> <span class="nc">String</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">tag</span> <span class="o">=</span> <span class="n">tag</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"&lt;%s&gt;%s&lt;/%s&gt;"</span><span class="o">,</span> <span class="n">tag</span><span class="o">,</span> <span class="n">body</span><span class="o">,</span> <span class="n">tag</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"&lt;%s&gt;%s&lt;/%s&gt;"</span><span class="o">,</span> <span class="n">tag</span><span class="o">,</span> <span class="n">body</span><span class="o">,</span> <span class="n">tag</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -477,32 +477,32 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">HtmlTag</span> <span class="o">{</span>
 
-    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">getTag</span><span class="o">();</span>
-    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">getBody</span><span class="o">();</span>
+    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="nc">String</span> <span class="nf">getTag</span><span class="o">();</span>
+    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="nc">String</span> <span class="nf">getBody</span><span class="o">();</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">tag</span> <span class="o">=</span> <span class="n">getTag</span><span class="o">();</span>
-        <span class="n">String</span> <span class="n">body</span> <span class="o">=</span> <span class="n">getBody</span><span class="o">();</span>
-        <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"&lt;%s&gt;%s&lt;/%s&gt;"</span><span class="o">,</span> <span class="n">tag</span><span class="o">,</span> <span class="n">body</span><span class="o">,</span> <span class="n">tag</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">tag</span> <span class="o">=</span> <span class="n">getTag</span><span class="o">();</span>
+        <span class="nc">String</span> <span class="n">body</span> <span class="o">=</span> <span class="n">getBody</span><span class="o">();</span>
+        <span class="k">return</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"&lt;%s&gt;%s&lt;/%s&gt;"</span><span class="o">,</span> <span class="n">tag</span><span class="o">,</span> <span class="n">body</span><span class="o">,</span> <span class="n">tag</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmTag</span> <span class="kd">extends</span> <span class="n">HtmlTag</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmTag</span> <span class="kd">extends</span> <span class="nc">HtmlTag</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">body</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">body</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">EmTag</span><span class="o">(</span><span class="n">String</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">EmTag</span><span class="o">(</span><span class="nc">String</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">String</span> <span class="nf">getTag</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="nc">String</span> <span class="nf">getTag</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="s">"em"</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">String</span> <span class="nf">getBody</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="nc">String</span> <span class="nf">getBody</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">body</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -526,12 +526,12 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RandomString</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Random</span> <span class="n">generator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Random</span> <span class="n">generator</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getString</span><span class="o">(</span><span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getString</span><span class="o">(</span><span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">generator</span><span class="o">.</span><span class="na">ints</span><span class="o">(</span><span class="n">length</span><span class="o">,</span> <span class="sc">'a'</span><span class="o">,</span> <span class="sc">'z'</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">mapToObj</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="kt">char</span><span class="o">)</span> <span class="n">i</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">reduce</span><span class="o">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(),</span> <span class="nl">StringBuilder:</span><span class="o">:</span><span class="n">append</span><span class="o">,</span> <span class="nl">StringBuilder:</span><span class="o">:</span><span class="n">append</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">reduce</span><span class="o">(</span><span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">(),</span> <span class="nl">StringBuilder:</span><span class="o">:</span><span class="n">append</span><span class="o">,</span> <span class="nl">StringBuilder:</span><span class="o">:</span><span class="n">append</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">toString</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -541,9 +541,9 @@ A tool should arrange for Tajo to notify it when the user wishes to communicate 
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RandomString</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Random</span> <span class="n">generator</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Random</span> <span class="n">generator</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">RandomString</span><span class="o">(</span><span class="n">Random</span> <span class="n">generator</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">RandomString</span><span class="o">(</span><span class="nc">Random</span> <span class="n">generator</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">generator</span> <span class="o">=</span> <span class="n">generator</span><span class="o">;</span>
     <span class="o">}</span>
 

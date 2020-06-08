@@ -285,7 +285,7 @@
 <ul>
   <li><a href="/podstawy-zlozonosci-obliczeniowej/">Podstawy złożoności obliczeniowej</a>,</li>
   <li><a href="/test-driven-development-na-przykladzie/">Test Driven Development na przykładzie</a>,</li>
-  <li><a href="% post_url 2016-10-29-testy-jednostkowe-z-junit %}">Testy jednostkowe z JUnit</a>,</li>
+  <li><a href="/testy-jednostkowe-z-junit/">Testy jednostkowe z JUnit</a>,</li>
 </ul>
 
 <p>Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu czasami będę używał “pseudo kodu”. Przykładowe rozwiązania będą w języku Java.</p>
@@ -339,20 +339,20 @@ isCyclic("012233") == false
 
 <p>Zacznę od najprostszego rozwiązania problemu. Parametrem funkcji jest łańcuch znaków reprezentujący liczbę. Żeby zobaczyć czy ta liczba jest cykliczna wygeneruję wszystkie jej permutacje cykliczne i będę sprawdzał czy mnożąc liczbę przez kolejne wartości od 1 do N wynik będzie znajdował się we wcześniej przygotowanych permutacjach. Proszę spójrz na przykładowe rozwiązanie:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isCyclicNaive</span><span class="o">(</span><span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">String</span><span class="o">[]</span> <span class="n">permutations</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">()];</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isCyclicNaive</span><span class="o">(</span><span class="nc">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span><span class="o">[]</span> <span class="n">permutations</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">()];</span>
 
     <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">permutations</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">index</span><span class="o">++)</span> <span class="o">{</span>
         <span class="n">permutations</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">index</span><span class="o">)</span> <span class="o">+</span> <span class="n">number</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">index</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="n">BigInteger</span> <span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
-    <span class="n">String</span> <span class="n">formatString</span> <span class="o">=</span> <span class="s">"%0"</span> <span class="o">+</span> <span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="s">"d"</span><span class="o">;</span>
+    <span class="nc">BigInteger</span> <span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="n">formatString</span> <span class="o">=</span> <span class="s">"%0"</span> <span class="o">+</span> <span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="s">"d"</span><span class="o">;</span>
 
     <span class="nl">outerLoop:</span> <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">multiplicator</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span> <span class="n">multiplicator</span> <span class="o">&lt;=</span> <span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">multiplicator</span><span class="o">++)</span> <span class="o">{</span>
-        <span class="n">BigInteger</span> <span class="n">multiplication</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="n">BigInteger</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">multiplicator</span><span class="o">));</span>
-        <span class="n">String</span> <span class="n">formattedResult</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">formatString</span><span class="o">,</span> <span class="n">multiplication</span><span class="o">);</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">permutation</span> <span class="o">:</span> <span class="n">permutations</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">BigInteger</span> <span class="n">multiplication</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="nc">BigInteger</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">multiplicator</span><span class="o">));</span>
+        <span class="nc">String</span> <span class="n">formattedResult</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">formatString</span><span class="o">,</span> <span class="n">multiplication</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">permutation</span> <span class="o">:</span> <span class="n">permutations</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span> <span class="o">(</span><span class="n">formattedResult</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">permutation</span><span class="o">))</span> <span class="o">{</span>
                 <span class="k">continue</span> <span class="n">outerLoop</span><span class="o">;</span>
             <span class="o">}</span>
@@ -386,11 +386,11 @@ isCyclic("012233") == false
 
 <p>Mając takie informacje podszedłem do problemu od drugiej strony. Zamiast sprawdzić czy dana liczba jest cykliczna wygenerowałem liczbę, która powstałaby na podstawie dzielenia <code class="highlighter-rouge">1/liczba pierwsza do generacji</code>. Następnie porównuję tak uzyskaną liczbę z tą przekazaną jako argument metody. Jeśli są sobie równe wówczas przekazana liczba jest liczbą cykliczną. Proszę spójrz na implementację:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isCyclicGeneration</span><span class="o">(</span><span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isCyclicGeneration</span><span class="o">(</span><span class="nc">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">base</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
     <span class="kt">int</span> <span class="n">generatingPrime</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
 
-    <span class="n">StringBuilder</span> <span class="n">representation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+    <span class="nc">StringBuilder</span> <span class="n">representation</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
 
     <span class="kt">int</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
     <span class="kt">int</span> <span class="n">reminder</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>

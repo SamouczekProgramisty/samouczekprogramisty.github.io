@@ -291,7 +291,7 @@
 <ul>
   <li><a href="/podstawy-zlozonosci-obliczeniowej/">Podstawy złożoności obliczeniowej</a>,</li>
   <li><a href="/test-driven-development-na-przykladzie/">Test Driven Development na przykładzie</a>,</li>
-  <li><a href="% post_url 2016-10-29-testy-jednostkowe-z-junit %}">Testy jednostkowe z JUnit</a>,</li>
+  <li><a href="/testy-jednostkowe-z-junit/">Testy jednostkowe z JUnit</a>,</li>
 </ul>
 
 <p>Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu czasami będę używał “pseudo kodu”. Przykładowe rozwiązania będą w języku Java.</p>
@@ -323,7 +323,7 @@
 
 <p>Napisz program, który będzie posiadał funkcję:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">changePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">s1</span><span class="o">,</span> <span class="n">String</span> <span class="n">s2</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">changePossible</span><span class="o">(</span><span class="nc">String</span> <span class="n">s1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">s2</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Powinna ona sprawdzić, czy możliwe jest uzyskanie łańcucha białkowego <code class="highlighter-rouge">s2</code> z łańcucha białkowego <code class="highlighter-rouge">s1</code>.</p>
@@ -370,13 +370,13 @@ BCBACA
 
 <p>Chociaż jest to naiwne rozwiązanie, nie jest trywialne w implementacji. Opiera się ono na przeglądzie zupełnym. Pomysł polega na wygenerowaniu wszystkich możliwych <a href="https://pl.wikipedia.org/wiki/Grupa_permutacji">permutacji</a> jednej z sekwencji i sprawdzenia czy druga znajduje się wśród tych permutacji. W przykładowej implementacji użyłem rekurencji:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">naiveChangePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="n">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">peramutationsCache</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">naiveChangePossible</span><span class="o">(</span><span class="nc">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">peramutationsCache</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
     <span class="n">permutations</span><span class="o">(</span><span class="n">peramutationsCache</span><span class="o">,</span> <span class="s">""</span><span class="o">,</span> <span class="n">sequence1</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">peramutationsCache</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">sequence2</span><span class="o">);</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">permutations</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">permutationsCache</span><span class="o">,</span> <span class="n">String</span> <span class="n">currentPermutation</span><span class="o">,</span> <span class="n">String</span> <span class="n">leftCharacters</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">permutations</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">permutationsCache</span><span class="o">,</span> <span class="nc">String</span> <span class="n">currentPermutation</span><span class="o">,</span> <span class="nc">String</span> <span class="n">leftCharacters</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">leftCharacters</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">permutationsCache</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">currentPermutation</span><span class="o">);</span>
     <span class="o">}</span>
@@ -404,12 +404,12 @@ BCBACA
 
 <p>Chociaż poprzedni algorytm jest poprawny nie ma szans działać dla większych instancji problemu. Nie wspominając nawet o łańcuchach o długości 10<sup>8</sup> wspomnianych w treści zadania. Można podejść do rozwiązania tego problemu w trochę inny sposób. Proszę spójrz na przykład poniżej:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">slightlyBetterChangePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="n">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">slightlyBetterChangePossible</span><span class="o">(</span><span class="nc">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">char</span><span class="o">[]</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">sequence1</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
     <span class="kt">char</span><span class="o">[]</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">sequence2</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
-    <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">s1</span><span class="o">);</span>
-    <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">s2</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">);</span>
+    <span class="nc">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">s1</span><span class="o">);</span>
+    <span class="nc">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">s2</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -427,11 +427,11 @@ BCBACA
 
 <p>Poprzednia wersja algorytmu jest zadowalająca. Można ją uruchomić dla dużych instancji problemu i doczekać się rozwiązania ;). Jest jednak jeszcze lepszy sposób. Proszę spójrz na przykład poniżej:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">optimalChangePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="n">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">countLetters</span><span class="o">(</span><span class="n">sequence1</span><span class="o">),</span> <span class="n">countLetters</span><span class="o">(</span><span class="n">sequence2</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">optimalChangePossible</span><span class="o">(</span><span class="nc">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">countLetters</span><span class="o">(</span><span class="n">sequence1</span><span class="o">),</span> <span class="n">countLetters</span><span class="o">(</span><span class="n">sequence2</span><span class="o">));</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">countLetters</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">countLetters</span><span class="o">(</span><span class="nc">String</span> <span class="n">sequence</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span><span class="o">[]</span> <span class="n">counters</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="sc">'T'</span> <span class="o">-</span> <span class="sc">'A'</span> <span class="o">+</span> <span class="mi">1</span><span class="o">];</span>
 
     <span class="k">for</span> <span class="o">(</span><span class="kt">char</span> <span class="n">c</span> <span class="o">:</span> <span class="n">sequence</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">())</span> <span class="o">{</span>
@@ -456,16 +456,16 @@ BCBACA
 
 <p>Tym razem jest to wariacja poprzedniego pomysłu. W tym przypadku implementację opartą o tablice zastąpiłem <a href="/strumienie-w-jezyku-java/">strumieniami</a>:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">changePossible</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="n">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="n">s1Counters</span> <span class="o">=</span> <span class="n">countLettersWithStreams</span><span class="o">(</span><span class="n">sequence1</span><span class="o">);</span>
-    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="n">s2Counters</span> <span class="o">=</span> <span class="n">countLettersWithStreams</span><span class="o">(</span><span class="n">sequence2</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">changePossible</span><span class="o">(</span><span class="nc">String</span> <span class="n">sequence1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">sequence2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">Character</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="n">s1Counters</span> <span class="o">=</span> <span class="n">countLettersWithStreams</span><span class="o">(</span><span class="n">sequence1</span><span class="o">);</span>
+    <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">Character</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="n">s2Counters</span> <span class="o">=</span> <span class="n">countLettersWithStreams</span><span class="o">(</span><span class="n">sequence2</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">s1Counters</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s2Counters</span><span class="o">);</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="nf">countLettersWithStreams</span><span class="o">(</span><span class="n">String</span> <span class="n">sequence1</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">Character</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="nf">countLettersWithStreams</span><span class="o">(</span><span class="nc">String</span> <span class="n">sequence1</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">sequence1</span><span class="o">.</span><span class="na">chars</span><span class="o">()</span>
             <span class="o">.</span><span class="na">mapToObj</span><span class="o">(</span><span class="n">c</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="kt">char</span><span class="o">)</span> <span class="n">c</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">groupingBy</span><span class="o">(</span><span class="n">c</span> <span class="o">-&gt;</span> <span class="n">c</span><span class="o">,</span> <span class="n">Collectors</span><span class="o">.</span><span class="na">counting</span><span class="o">()));</span>
+            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">groupingBy</span><span class="o">(</span><span class="n">c</span> <span class="o">-&gt;</span> <span class="n">c</span><span class="o">,</span> <span class="nc">Collectors</span><span class="o">.</span><span class="na">counting</span><span class="o">()));</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -487,14 +487,14 @@ BCBACA
 
 <p>Standardowe wejście w języku Java reprezentowane jest przez obiekt <code class="highlighter-rouge">System.in</code>. Do czytania wejścia linia po linii użyłem klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/io/BufferedReader.html"><code class="highlighter-rouge">BufferedReader</code></a>:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+    <span class="nc">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">));</span>
     <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+        <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">line</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">break</span><span class="o">;</span>
         <span class="o">}</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">changePossible</span><span class="o">(</span><span class="n">line</span><span class="o">,</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">()));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">changePossible</span><span class="o">(</span><span class="n">line</span><span class="o">,</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">()));</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>

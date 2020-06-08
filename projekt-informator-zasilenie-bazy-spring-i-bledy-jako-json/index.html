@@ -287,13 +287,13 @@
 <p>W projekcie do mapowania obiektowo relacyjnego używam biblioteki Hibernate jako implementacji JPA (ang. <em>Java Persistence API</em>). W tym przypadku tworzenie schematu bazy danych zostawiam JPA. Poniżej widzisz konfigurację obiektu zarządzanego przez kontener Spring’a. Służy on do tworzenia instancji implementującej interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/persistence/EntityManager.html"><code class="highlighter-rouge">EntityManager</code></a>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
-<span class="n">LocalContainerEntityManagerFactoryBean</span> <span class="nf">entityManagerFactory</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">LocalContainerEntityManagerFactoryBean</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LocalContainerEntityManagerFactoryBean</span><span class="o">();</span>
-    <span class="n">factory</span><span class="o">.</span><span class="na">setJpaVendorAdapter</span><span class="o">(</span><span class="k">new</span> <span class="n">HibernateJpaVendorAdapter</span><span class="o">());</span>
+<span class="nc">LocalContainerEntityManagerFactoryBean</span> <span class="nf">entityManagerFactory</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">LocalContainerEntityManagerFactoryBean</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LocalContainerEntityManagerFactoryBean</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setJpaVendorAdapter</span><span class="o">(</span><span class="k">new</span> <span class="nc">HibernateJpaVendorAdapter</span><span class="o">());</span>
     <span class="n">factory</span><span class="o">.</span><span class="na">setPackagesToScan</span><span class="o">(</span><span class="s">"pl.samouczekprogramisty.informator.model"</span><span class="o">);</span>
     <span class="n">factory</span><span class="o">.</span><span class="na">setDataSource</span><span class="o">(</span><span class="n">dataSource</span><span class="o">());</span>
 
-    <span class="n">Properties</span> <span class="n">jpaProperties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+    <span class="nc">Properties</span> <span class="n">jpaProperties</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Properties</span><span class="o">();</span>
     <span class="n">jpaProperties</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"hibernate.dialect"</span><span class="o">,</span> <span class="s">"org.hibernate.dialect.PostgreSQLDialect"</span><span class="o">);</span>
     <span class="n">jpaProperties</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"hibernate.show_sql"</span><span class="o">,</span> <span class="s">"true"</span><span class="o">);</span>
     <span class="n">jpaProperties</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"hibernate.format_sql"</span><span class="o">,</span> <span class="s">"true"</span><span class="o">);</span>
@@ -324,23 +324,23 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Speaker</span> <span class="o">{</span>
     <span class="nd">@Id</span>
-    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">GenerationType</span><span class="o">.</span><span class="na">SEQUENCE</span><span class="o">,</span> <span class="n">generator</span> <span class="o">=</span> <span class="s">"speaker_seq"</span><span class="o">)</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">SEQUENCE</span><span class="o">,</span> <span class="n">generator</span> <span class="o">=</span> <span class="s">"speaker_seq"</span><span class="o">)</span>
     <span class="nd">@SequenceGenerator</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"speaker_seq"</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">id</span><span class="o">;</span>
 
-    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">infoshareId</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">infoshareId</span><span class="o">;</span>
 
-    <span class="kd">private</span> <span class="n">Category</span> <span class="n">category</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Category</span> <span class="n">category</span><span class="o">;</span>
 
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
 
-    <span class="kd">private</span> <span class="n">URL</span> <span class="n">linkedinProfile</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">URL</span> <span class="n">twitterProfile</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">URL</span> <span class="n">facebookProfile</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">URL</span> <span class="n">githubProfile</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="no">URL</span> <span class="n">linkedinProfile</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="no">URL</span> <span class="n">twitterProfile</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="no">URL</span> <span class="n">facebookProfile</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="no">URL</span> <span class="n">githubProfile</span><span class="o">;</span>
 
     <span class="nd">@Column</span><span class="o">(</span><span class="n">columnDefinition</span> <span class="o">=</span> <span class="s">"text"</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">description</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">description</span><span class="o">;</span>
 
     <span class="c1">// getters/setters</span>
 <span class="o">}</span>
@@ -450,24 +450,24 @@ $ curl http://localhost:8080/speakers/aa -vs | json_pp
 <span class="nd">@ResponseBody</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">InformatorExceptionHandler</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">static</span> <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">();</span>
 
     <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ErrorResponse</span> <span class="o">{</span>
-        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">HEADERS</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedMultiValueMap</span><span class="o">&lt;&gt;(</span>
-                <span class="n">Collections</span><span class="o">.</span><span class="na">singletonMap</span><span class="o">(</span><span class="n">HttpHeaders</span><span class="o">.</span><span class="na">CONTENT_TYPE</span><span class="o">,</span> <span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">))</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">MultiValueMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="no">HEADERS</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedMultiValueMap</span><span class="o">&lt;&gt;(</span>
+                <span class="nc">Collections</span><span class="o">.</span><span class="na">singletonMap</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">CONTENT_TYPE</span><span class="o">,</span> <span class="nc">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">))</span>
         <span class="o">);</span>
-        <span class="kd">private</span> <span class="kd">final</span> <span class="n">Exception</span> <span class="n">exception</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="n">HttpStatus</span> <span class="n">responseStatus</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Exception</span> <span class="n">exception</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">HttpStatus</span> <span class="n">responseStatus</span><span class="o">;</span>
 
-        <span class="n">ErrorResponse</span><span class="o">(</span><span class="n">HttpStatus</span> <span class="n">responseStatus</span><span class="o">,</span> <span class="n">Exception</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ErrorResponse</span><span class="o">(</span><span class="nc">HttpStatus</span> <span class="n">responseStatus</span><span class="o">,</span> <span class="nc">Exception</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="na">exception</span> <span class="o">=</span> <span class="n">exception</span><span class="o">;</span>
             <span class="k">this</span><span class="o">.</span><span class="na">responseStatus</span> <span class="o">=</span> <span class="n">responseStatus</span><span class="o">;</span>
         <span class="o">}</span>
 
-        <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">buildResponse</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">buildResponse</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">try</span> <span class="o">{</span>
-                <span class="k">return</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="n">mapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="k">this</span><span class="o">),</span> <span class="n">HEADERS</span><span class="o">,</span> <span class="n">responseStatus</span><span class="o">);</span>
-            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JsonProcessingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nc">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="n">mapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="k">this</span><span class="o">),</span> <span class="no">HEADERS</span><span class="o">,</span> <span class="n">responseStatus</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">JsonProcessingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span>
@@ -475,14 +475,14 @@ $ curl http://localhost:8080/speakers/aa -vs | json_pp
         <span class="c1">// getters</span>
     <span class="o">}</span>
 
-    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">NotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">handleNotFound</span><span class="o">(</span><span class="n">NotFoundException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">,</span> <span class="n">exception</span><span class="o">).</span><span class="na">buildResponse</span><span class="o">();</span>
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">NotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">handleNotFound</span><span class="o">(</span><span class="nc">NotFoundException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">,</span> <span class="n">exception</span><span class="o">).</span><span class="na">buildResponse</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">NumberFormatException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">handleNumberFormat</span><span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">,</span> <span class="n">exception</span><span class="o">).</span><span class="na">buildResponse</span><span class="o">();</span>
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">NumberFormatException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">handleNumberFormat</span><span class="o">(</span><span class="nc">NumberFormatException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">,</span> <span class="n">exception</span><span class="o">).</span><span class="na">buildResponse</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>

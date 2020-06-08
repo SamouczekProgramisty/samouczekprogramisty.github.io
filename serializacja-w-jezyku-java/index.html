@@ -308,8 +308,8 @@
 <p>Tutaj reguła niestety nie jest trywialna. Pierwsza klasa w hierarchii dziedziczenia, która nie jest serializowalna musi mieć dostępny konstruktor bezparametrowy. Łatwiej to będzie zrozumieć na przykładzie:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Fruit</span> <span class="o">{}</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Apple</span> <span class="kd">extends</span> <span class="n">Fruit</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{}</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tomato</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Apple</span> <span class="kd">extends</span> <span class="nc">Fruit</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tomato</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{}</span>
 </code></pre></div></div>
 
 <p>W przykładzie powyżej klasa <code class="highlighter-rouge">Fruit</code> musi mieć konstruktor bezparametrowy abyśmy mogli poprawnie serializować instancje klasy <code class="highlighter-rouge">Apple</code>. Natomiast ani <code class="highlighter-rouge">Apple</code>, ani <code class="highlighter-rouge">Tomato</code> takiego konstruktora już nie wymagają (<code class="highlighter-rouge">Tomato</code> dziedziczy po <code class="highlighter-rouge">Object</code>, który taki konstruktor posiada).</p>
@@ -326,16 +326,16 @@
 
 <p>Proszę zwróć uwagę na fragment kodu poniżej, który pokazuje jak mechanizm serializacji działa w praktyce.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"objects.bin"</span><span class="o">)))</span> <span class="o">{</span>
-    <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
-    <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"objects.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="nc">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+    <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="nc">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">2</span><span class="o">));</span>
 <span class="o">}</span>
 
-<span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"objects.bin"</span><span class="o">)))</span> <span class="o">{</span>
-    <span class="n">Integer</span> <span class="n">number</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
-    <span class="n">number</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+<span class="k">try</span> <span class="o">(</span><span class="nc">ObjectInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"objects.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="nc">Integer</span> <span class="n">number</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Integer</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Integer</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -347,21 +347,21 @@
 
 <p>Wspomniałem już wcześniej, że mechanizm serializacji automatycznie obsługuje drzewa obiektów. W przykładzie poniżej pokazana jest właśnie taka sytuacja. Instancja klasy <code class="highlighter-rouge">Car</code> posiada atrybuty typów <code class="highlighter-rouge">Engine</code> oraz <code class="highlighter-rouge">Tyre[]</code>. Serializując a następnie deserializując instancję tej klasy wszystkie jej atrybuty zostały także zapisane.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Tyre</span><span class="o">[]</span> <span class="n">tyres</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tyre</span><span class="o">[]</span> <span class="o">{</span><span class="k">new</span> <span class="n">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">),</span> <span class="k">new</span> <span class="n">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">),</span> <span class="k">new</span> <span class="n">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">),</span> <span class="k">new</span> <span class="n">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">)};</span>
-<span class="n">Engine</span> <span class="n">engine</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Engine</span><span class="o">(</span><span class="s">"some model"</span><span class="o">);</span>
-<span class="n">Car</span> <span class="n">serializedCar</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Car</span><span class="o">(</span><span class="n">engine</span><span class="o">,</span> <span class="n">tyres</span><span class="o">);</span>
-<span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"object-graph.bin"</span><span class="o">)))</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Tyre</span><span class="o">[]</span> <span class="n">tyres</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Tyre</span><span class="o">[]</span> <span class="o">{</span><span class="k">new</span> <span class="nc">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Tyre</span><span class="o">(</span><span class="mi">16</span><span class="o">)};</span>
+<span class="nc">Engine</span> <span class="n">engine</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Engine</span><span class="o">(</span><span class="s">"some model"</span><span class="o">);</span>
+<span class="nc">Car</span> <span class="n">serializedCar</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">(</span><span class="n">engine</span><span class="o">,</span> <span class="n">tyres</span><span class="o">);</span>
+<span class="k">try</span> <span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"object-graph.bin"</span><span class="o">)))</span> <span class="o">{</span>
     <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">serializedCar</span><span class="o">);</span>
 <span class="o">}</span>
 
-<span class="n">Car</span> <span class="n">deserializedCar</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-<span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"object-graph.bin"</span><span class="o">)))</span> <span class="o">{</span>
-    <span class="n">deserializedCar</span> <span class="o">=</span> <span class="o">(</span><span class="n">Car</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">deserializedCar</span><span class="o">.</span><span class="na">getEngine</span><span class="o">().</span><span class="na">getModel</span><span class="o">());</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">deserializedCar</span><span class="o">.</span><span class="na">getTyres</span><span class="o">().</span><span class="na">length</span><span class="o">);</span>
+<span class="nc">Car</span> <span class="n">deserializedCar</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="k">try</span> <span class="o">(</span><span class="nc">ObjectInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"object-graph.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="n">deserializedCar</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Car</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">deserializedCar</span><span class="o">.</span><span class="na">getEngine</span><span class="o">().</span><span class="na">getModel</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">deserializedCar</span><span class="o">.</span><span class="na">getTyres</span><span class="o">().</span><span class="na">length</span><span class="o">);</span>
 <span class="o">}</span>
 
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">serializedCar</span> <span class="o">==</span> <span class="n">deserializedCar</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">serializedCar</span> <span class="o">==</span> <span class="n">deserializedCar</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>Zwróć proszę uwagę na ostatnią linię. W linijce tej porównywane są dwa adresy instancji klasy <code class="highlighter-rouge">Car</code> (pamiętasz <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/">różnicę między <code class="highlighter-rouge">==</code> a <code class="highlighter-rouge">equals</code></a>?). Oczywiście linijka ta wyświetli <code class="highlighter-rouge">false</code> na konsoli co dowodzi, że w procesie deserializacji został stworzony zupełnie nowy obiekt klasy <code class="highlighter-rouge">Engine</code>.</p>
@@ -376,36 +376,36 @@
   <li>obiekty (<code class="highlighter-rouge">Integer</code>, <code class="highlighter-rouge">Float</code>, <code class="highlighter-rouge">String</code>, <code class="highlighter-rouge">CustomClass</code>, itd.) – <code class="highlighter-rouge">null</code></li>
 </ul>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Human</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Human</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
 
-    <span class="kd">private</span> <span class="kd">transient</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">transient</span> <span class="nc">Integer</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">Human</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Human</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">Integer</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">Integer</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
-        <span class="n">Human</span> <span class="n">human</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Human</span><span class="o">(</span><span class="s">"Krzysiek"</span><span class="o">,</span> <span class="mi">21</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="nc">Human</span> <span class="n">human</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Human</span><span class="o">(</span><span class="s">"Krzysiek"</span><span class="o">,</span> <span class="mi">21</span><span class="o">);</span>
 
-        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"human.bin"</span><span class="o">)))</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"human.bin"</span><span class="o">)))</span> <span class="o">{</span>
             <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">human</span><span class="o">);</span>
         <span class="o">}</span>
 
-        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"human.bin"</span><span class="o">)))</span> <span class="o">{</span>
-            <span class="n">Human</span> <span class="n">readHuman</span> <span class="o">=</span> <span class="o">(</span><span class="n">Human</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readHuman</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readHuman</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"human.bin"</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="nc">Human</span> <span class="n">readHuman</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Human</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readHuman</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readHuman</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -416,20 +416,20 @@
 
 <p>Serializacja dotyczy instancji klasy, nie samej klasy. Zatem jeśli zmodyfikowałeś pole statyczne a następnie zdeserializowałeś taki obiekt wprowadzone zmiany zostaną pominięte. Proszę spójrz na przykład poniżej.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">StaticSerialization</span> <span class="n">object</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StaticSerialization</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">StaticSerialization</span> <span class="n">object</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StaticSerialization</span><span class="o">();</span>
 <span class="n">object</span><span class="o">.</span><span class="na">someField</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">object</span><span class="o">.</span><span class="na">someField</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">object</span><span class="o">.</span><span class="na">someField</span><span class="o">);</span>
 
-<span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"static.bin"</span><span class="o">)))</span> <span class="o">{</span>
+<span class="k">try</span> <span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"static.bin"</span><span class="o">)))</span> <span class="o">{</span>
     <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>W przykładzie tym modyfikujemy wartość pola statycznego <code class="highlighter-rouge">someField</code> a następnie serializujemy instancję klasy do pliku.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"static.bin"</span><span class="o">)))</span> <span class="o">{</span>
-    <span class="n">StaticSerialization</span> <span class="n">otherObject</span> <span class="o">=</span> <span class="o">(</span><span class="n">StaticSerialization</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">otherObject</span><span class="o">.</span><span class="na">someField</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="nc">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"static.bin"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="nc">StaticSerialization</span> <span class="n">otherObject</span> <span class="o">=</span> <span class="o">(</span><span class="nc">StaticSerialization</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">otherObject</span><span class="o">.</span><span class="na">someField</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -443,8 +443,8 @@
 
 <p>W specyficznych przypadkach masz możliwość zmodyfikowania domyślnego zachowania mechanizmu serializacji. Możesz to zrobić jeśli zaimplementujesz poniższe metody.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectInputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span>
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectOutputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectInputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ClassNotFoundException</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectOutputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span>
 </code></pre></div></div>
 
 <p>Metoda <code class="highlighter-rouge">readObject(java.io.ObjectInputStream stream)</code>, którą zaimplementujesz jest automatycznie wywoływana w momencie odczytywania obiektu ze strumienia, czyli w trakcie wywołania metody
@@ -454,37 +454,37 @@
 
 <p>Poniższy przykład powinien Ci pomóc w zrozumieniu tego mechanizmu:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomSerialization</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomSerialization</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
 
     <span class="kd">private</span> <span class="kd">transient</span> <span class="kt">int</span> <span class="n">someField</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">otherField</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">otherField</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">CustomSerialization</span><span class="o">(</span><span class="kt">int</span> <span class="n">someField</span><span class="o">,</span> <span class="n">String</span> <span class="n">otherField</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">CustomSerialization</span><span class="o">(</span><span class="kt">int</span> <span class="n">someField</span><span class="o">,</span> <span class="nc">String</span> <span class="n">otherField</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">someField</span> <span class="o">=</span> <span class="n">someField</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">otherField</span> <span class="o">=</span> <span class="n">otherField</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
-        <span class="n">CustomSerialization</span> <span class="n">writtenObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CustomSerialization</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="s">"something"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="nc">CustomSerialization</span> <span class="n">writtenObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CustomSerialization</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="s">"something"</span><span class="o">);</span>
 
-        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"custom-serialization.bin"</span><span class="o">)))</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"custom-serialization.bin"</span><span class="o">)))</span> <span class="o">{</span>
             <span class="n">outputStream</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">writtenObject</span><span class="o">);</span>
         <span class="o">}</span>
 
-        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"custom-serialization.bin"</span>   <span class="o">)))</span> <span class="o">{</span>
-            <span class="n">CustomSerialization</span> <span class="n">readObject</span> <span class="o">=</span> <span class="o">(</span><span class="n">CustomSerialization</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readObject</span><span class="o">.</span><span class="na">someField</span><span class="o">);</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readObject</span><span class="o">.</span><span class="na">otherField</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">ObjectInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"custom-serialization.bin"</span>   <span class="o">)))</span> <span class="o">{</span>
+            <span class="nc">CustomSerialization</span> <span class="n">readObject</span> <span class="o">=</span> <span class="o">(</span><span class="nc">CustomSerialization</span><span class="o">)</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readObject</span><span class="o">.</span><span class="na">someField</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readObject</span><span class="o">.</span><span class="na">otherField</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="nc">ObjectInputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ClassNotFoundException</span> <span class="o">{</span>
         <span class="n">stream</span><span class="o">.</span><span class="na">defaultReadObject</span><span class="o">();</span>
         <span class="n">someField</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">stream</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
         <span class="n">stream</span><span class="o">.</span><span class="na">defaultWriteObject</span><span class="o">();</span>
         <span class="n">stream</span><span class="o">.</span><span class="na">writeInt</span><span class="o">(</span><span class="n">someField</span> <span class="o">+</span> <span class="mi">1000</span><span class="o">);</span>
     <span class="o">}</span>
@@ -499,16 +499,16 @@
 
 <p>W poprzednich przykładach użyliśmy klasy <code class="highlighter-rouge">Engine</code>, która implementuje interfejs <code class="highlighter-rouge">Serializable</code>. Załóżmy, że utworzyliśmy klasę <code class="highlighter-rouge">DieselEngine</code>, która dziedziczy po <code class="highlighter-rouge">Engine</code>. Automatycznie instancje klasy <code class="highlighter-rouge">DieselEngine</code> będą implementowały interfejs <code class="highlighter-rouge">Serializable</code> (dziedzicząc go z <code class="highlighter-rouge">Engine</code>). Co powinniśmy zrobić jeśli nie chcielibyśmy aby nasz <code class="highlighter-rouge">DieselEngine</code> był serializowalny? Należy użyć wspomnianego już wyjątku <code class="highlighter-rouge">NotSerializableException</code> jak w przykładzie poniżej:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DieselEngine</span> <span class="kd">extends</span> <span class="n">Engine</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DieselEngine</span> <span class="kd">extends</span> <span class="nc">Engine</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="nf">DieselEngine</span><span class="o">()</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">(</span><span class="s">"diesel"</span><span class="o">);</span>
     <span class="o">}</span>
  
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotSerializableException</span><span class="o">(</span><span class="s">"DieselEngine isn't serializable!"</span><span class="o">);</span>
     <span class="o">}</span>
  
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="nc">ObjectInputStream</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotSerializableException</span><span class="o">(</span><span class="s">"DieselEngine isn't serializable!"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -520,34 +520,34 @@
 
 <p>W tym przypadku do utworzenia obiektu mechanizm serializacji używa standardowego konstruktora bezparametrowego. Po czym wywołuje na tej instancji metodę <code class="highlighter-rouge">readExternal</code>.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomProtocolSerialization</span> <span class="kd">implements</span> <span class="n">Externalizable</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">field</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomProtocolSerialization</span> <span class="kd">implements</span> <span class="nc">Externalizable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">field</span><span class="o">;</span>
  
     <span class="kd">public</span> <span class="nf">CustomProtocolSerialization</span><span class="o">()</span> <span class="o">{</span>
     <span class="o">}</span>
  
-    <span class="kd">public</span> <span class="nf">CustomProtocolSerialization</span><span class="o">(</span><span class="n">String</span> <span class="n">field</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">CustomProtocolSerialization</span><span class="o">(</span><span class="nc">String</span> <span class="n">field</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">field</span> <span class="o">=</span> <span class="n">field</span><span class="o">;</span>
     <span class="o">}</span>
  
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
-        <span class="n">CustomProtocolSerialization</span> <span class="n">object</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CustomProtocolSerialization</span><span class="o">(</span><span class="s">"field value"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="nc">CustomProtocolSerialization</span> <span class="n">object</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CustomProtocolSerialization</span><span class="o">(</span><span class="s">"field value"</span><span class="o">);</span>
  
-        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"externalizable.bin"</span><span class="o">)))</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">output</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"externalizable.bin"</span><span class="o">)))</span> <span class="o">{</span>
             <span class="n">output</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
         <span class="o">}</span>
  
-        <span class="k">try</span> <span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"externalizable.bin"</span><span class="o">)))</span> <span class="o">{</span>
-            <span class="n">CustomProtocolSerialization</span> <span class="n">readObject</span> <span class="o">=</span> <span class="o">(</span><span class="n">CustomProtocolSerialization</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readObject</span><span class="o">.</span><span class="na">field</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">ObjectInputStream</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"externalizable.bin"</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="nc">CustomProtocolSerialization</span> <span class="n">readObject</span> <span class="o">=</span> <span class="o">(</span><span class="nc">CustomProtocolSerialization</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readObject</span><span class="o">.</span><span class="na">field</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
  
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeExternal</span><span class="o">(</span><span class="n">ObjectOutput</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeExternal</span><span class="o">(</span><span class="nc">ObjectOutput</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
         <span class="n">out</span><span class="o">.</span><span class="na">writeUTF</span><span class="o">(</span><span class="n">field</span><span class="o">);</span>
     <span class="o">}</span>
  
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">readExternal</span><span class="o">(</span><span class="n">ObjectInput</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">readExternal</span><span class="o">(</span><span class="nc">ObjectInput</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ClassNotFoundException</span> <span class="o">{</span>
         <span class="n">field</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readUTF</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>

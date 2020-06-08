@@ -348,17 +348,17 @@
 <p>Zacznijmy od definicji prostego serwletu. Serwlet w odpowiedzi wyświetla wszystkie atrybuty żądania. Jeśli żaden atrybut nie jest ustawiony, w odpowiedzi wysłana zostanie pusta strona HTML.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/simpleServlet"</span><span class="o">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"simpleServletName"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleServlet</span> <span class="kd">extends</span> <span class="nc">HttpServlet</span> <span class="o">{</span>
  
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="n">PrintWriter</span> <span class="n">responseWriter</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="nc">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="nc">PrintWriter</span> <span class="n">responseWriter</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
  
         <span class="n">responseWriter</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;html&gt;&lt;body&gt;"</span><span class="o">);</span>
-        <span class="n">Enumeration</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">attributeNames</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getAttributeNames</span><span class="o">();</span>
+        <span class="nc">Enumeration</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">attributeNames</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getAttributeNames</span><span class="o">();</span>
         <span class="k">while</span> <span class="o">(</span><span class="n">attributeNames</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">())</span> <span class="o">{</span>
-            <span class="n">String</span> <span class="n">attributeName</span> <span class="o">=</span> <span class="n">attributeNames</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
-            <span class="n">Object</span> <span class="n">attributeValue</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">attributeName</span><span class="o">);</span>
+            <span class="nc">String</span> <span class="n">attributeName</span> <span class="o">=</span> <span class="n">attributeNames</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
+            <span class="nc">Object</span> <span class="n">attributeValue</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">attributeName</span><span class="o">);</span>
             <span class="n">responseWriter</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;p&gt;"</span> <span class="o">+</span> <span class="n">attributeName</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> <span class="n">attributeValue</span> <span class="o">+</span> <span class="s">"&lt;/p&gt;"</span><span class="o">);</span>
         <span class="o">}</span>
         <span class="n">responseWriter</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;/html&gt;&lt;/body&gt;"</span><span class="o">);</span>
@@ -369,18 +369,18 @@
 <p>Następnie filtr, który dodaje jeden atrybut wewnątrz metody <code class="highlighter-rouge">doFilter</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebFilter</span><span class="o">(</span><span class="n">servletNames</span> <span class="o">=</span> <span class="s">"simpleServletName"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleFilter</span> <span class="kd">implements</span> <span class="nc">Filter</span> <span class="o">{</span>
  
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">FilterConfig</span> <span class="n">filterConfig</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="nc">FilterConfig</span> <span class="n">filterConfig</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ServletException</span> <span class="o">{</span>
     <span class="o">}</span>
  
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"before"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="nc">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="nc">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="nc">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ServletException</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"before"</span><span class="o">);</span>
         <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">"simpleServletAttribute"</span><span class="o">,</span> <span class="s">"simpleServlet"</span><span class="o">);</span>
         <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"after"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"after"</span><span class="o">);</span>
     <span class="o">}</span>
  
     <span class="nd">@Override</span>

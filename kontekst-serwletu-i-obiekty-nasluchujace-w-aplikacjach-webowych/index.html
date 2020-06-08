@@ -302,19 +302,19 @@
 <p>Dzięki dostępowi do kontekstu serwletów możesz przekazywać atrybuty pomiędzy poszczególnymi serwletami. Przykładowy serwlet poniżej wyświetla wszystkie atrybuty kontekstu ustawiając wcześniej wartość jednego z nich.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="s">"/servlet1"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Servlet1</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Servlet1</span> <span class="kd">extends</span> <span class="nc">HttpServlet</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="n">PrintWriter</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="nc">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ServletException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="nc">PrintWriter</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
         <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;html&gt;&lt;body&gt;"</span><span class="o">);</span>
 
-        <span class="n">ServletContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">();</span>
+        <span class="nc">ServletContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">();</span>
         <span class="n">context</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">"pl.samouczekprogramisty.servlet1"</span><span class="o">,</span> <span class="s">"servlet1 attribute"</span><span class="o">);</span>
 
-        <span class="n">Enumeration</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">attributeNames</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getAttributeNames</span><span class="o">();</span>
+        <span class="nc">Enumeration</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">attributeNames</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getAttributeNames</span><span class="o">();</span>
         <span class="k">while</span> <span class="o">(</span><span class="n">attributeNames</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">())</span> <span class="o">{</span>
-            <span class="n">String</span> <span class="n">attributeName</span> <span class="o">=</span> <span class="n">attributeNames</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
+            <span class="nc">String</span> <span class="n">attributeName</span> <span class="o">=</span> <span class="n">attributeNames</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
             <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;p&gt;"</span> <span class="o">+</span> <span class="n">attributeName</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> <span class="n">context</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">attributeName</span><span class="o">)</span> <span class="o">+</span> <span class="s">"&lt;p&gt;"</span><span class="o">);</span>
         <span class="o">}</span>
         <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">"&lt;/body&gt;&lt;/html&gt;"</span><span class="o">);</span>
@@ -379,15 +379,15 @@
 <p>Poniżej znajduje się przykładowa implementacja interfejsu <code class="highlighter-rouge">ServletContextListener</code>, która dodaje dodatkowy atrybut w momencie utworzenia kontekstu serwletu:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebListener</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyServletContextListener</span> <span class="kd">implements</span> <span class="n">ServletContextListener</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyServletContextListener</span> <span class="kd">implements</span> <span class="nc">ServletContextListener</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextInitialized</span><span class="o">(</span><span class="n">ServletContextEvent</span> <span class="n">sce</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextInitialized</span><span class="o">(</span><span class="nc">ServletContextEvent</span> <span class="n">sce</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">sce</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">"pl.samouczekprogramisty.listener"</span><span class="o">,</span> <span class="s">"listener value"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextDestroyed</span><span class="o">(</span><span class="n">ServletContextEvent</span> <span class="n">sce</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextDestroyed</span><span class="o">(</span><span class="nc">ServletContextEvent</span> <span class="n">sce</span><span class="o">)</span> <span class="o">{</span>
         <span class="c1">// do nothing</span>
     <span class="o">}</span>
 <span class="o">}</span>

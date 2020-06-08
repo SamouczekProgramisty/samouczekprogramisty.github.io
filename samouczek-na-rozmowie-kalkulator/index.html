@@ -274,7 +274,7 @@
 <ul>
   <li><a href="/podstawy-zlozonosci-obliczeniowej/">Podstawy złożoności obliczeniowej</a>,</li>
   <li><a href="/test-driven-development-na-przykladzie/">Test Driven Development na przykładzie</a>,</li>
-  <li><a href="% post_url 2016-10-29-testy-jednostkowe-z-junit %}">Testy jednostkowe z JUnit</a>,</li>
+  <li><a href="/testy-jednostkowe-z-junit/">Testy jednostkowe z JUnit</a>,</li>
 </ul>
 
 <p>Podstawą jest oczywiście znajomość języka programowania, ja używał będę Javy jednak możesz użyć dowolnego języka programowania. W opisie problemu czasami będę używał “pseudo kodu”. Przykładowe rozwiązania będą w języku Java.</p>
@@ -367,20 +367,20 @@ wyjście: 1</p>
 
 <p>W moim rozwiązaniu wszystkie dopuszczalne operacje zdefiniowałem jako elementy <a href="/typ-wyliczeniowy-w-jezyku-java/">typu wyliczeniowego</a>. Posłużyłem się tutaj także odwołaniem do metod w klasie <code class="highlighter-rouge">BigDecimal</code>. Ten mechanizm opisałem dokładnie w artykule na temat <a href="/wyrazenia-lambda-w-jezyku-java/#odwo%C5%82ywanie-si%C4%99-do-metod-bez-podania-instancji">wyrażeń lambda</a>:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Operation</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Operation</span> <span class="o">{</span>
 
-    <span class="n">ADD</span><span class="o">(</span><span class="nl">BigDecimal:</span><span class="o">:</span><span class="n">add</span><span class="o">),</span>
-    <span class="n">SUBTRACT</span><span class="o">(</span><span class="nl">BigDecimal:</span><span class="o">:</span><span class="n">subtract</span><span class="o">),</span>
-    <span class="n">MULTIPLY</span><span class="o">(</span><span class="nl">BigDecimal:</span><span class="o">:</span><span class="n">multiply</span><span class="o">),</span>
-    <span class="n">DIVIDE</span><span class="o">(</span><span class="nl">BigDecimal:</span><span class="o">:</span><span class="n">divide</span><span class="o">);</span>
+    <span class="no">ADD</span><span class="o">(</span><span class="nl">BigDecimal:</span><span class="o">:</span><span class="n">add</span><span class="o">),</span>
+    <span class="no">SUBTRACT</span><span class="o">(</span><span class="nl">BigDecimal:</span><span class="o">:</span><span class="n">subtract</span><span class="o">),</span>
+    <span class="no">MULTIPLY</span><span class="o">(</span><span class="nl">BigDecimal:</span><span class="o">:</span><span class="n">multiply</span><span class="o">),</span>
+    <span class="no">DIVIDE</span><span class="o">(</span><span class="nl">BigDecimal:</span><span class="o">:</span><span class="n">divide</span><span class="o">);</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">BinaryOperator</span><span class="o">&lt;</span><span class="n">BigDecimal</span><span class="o">&gt;</span> <span class="n">command</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">BinaryOperator</span><span class="o">&lt;</span><span class="nc">BigDecimal</span><span class="o">&gt;</span> <span class="n">command</span><span class="o">;</span>
 
-    <span class="n">Operation</span><span class="o">(</span><span class="n">BinaryOperator</span><span class="o">&lt;</span><span class="n">BigDecimal</span><span class="o">&gt;</span> <span class="n">command</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Operation</span><span class="o">(</span><span class="nc">BinaryOperator</span><span class="o">&lt;</span><span class="nc">BigDecimal</span><span class="o">&gt;</span> <span class="n">command</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">apply</span><span class="o">(</span><span class="n">BigDecimal</span> <span class="n">value1</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">value2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">BigDecimal</span> <span class="nf">apply</span><span class="o">(</span><span class="nc">BigDecimal</span> <span class="n">value1</span><span class="o">,</span> <span class="nc">BigDecimal</span> <span class="n">value2</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">command</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">value1</span><span class="o">,</span> <span class="n">value2</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -392,15 +392,15 @@ wyjście: 1</p>
 
 <p>W swoim rozwiązaniu użyłem elementy programowania funkcyjnego. Rozwijanie funkcji (ang. <em>currying</em>) pozwala mi utworzyć odpowiednią funkcję na etapie parsowania każdej instrukcji, nie muszę znać obu parametrów. Tutaj także użyłem <a href="/wyrazenia-lambda-w-jezyku-java/">wyrażeń lambda</a> i tak zwanych <a href="https://pl.wikipedia.org/wiki/Domkni%C4%99cie_(programowanie)">domknięć</a><sup id="fnref:domkniecie"><a href="#fn:domkniecie" class="footnote">2</a></sup>:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Operation</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Operation</span> <span class="o">{</span>
     <span class="c1">// ...</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">BigDecimal</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">&gt;</span> <span class="nf">parse</span><span class="o">(</span><span class="n">String</span> <span class="n">line</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">tokens</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Function</span><span class="o">&lt;</span><span class="nc">BigDecimal</span><span class="o">,</span> <span class="nc">BigDecimal</span><span class="o">&gt;</span> <span class="nf">parse</span><span class="o">(</span><span class="nc">String</span> <span class="n">line</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">tokens</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">tokens</span><span class="o">.</span><span class="na">length</span> <span class="o">!=</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Line ("</span> <span class="o">+</span> <span class="n">line</span> <span class="o">+</span> <span class="s">") has illegal format!"</span><span class="o">);</span>
         <span class="o">}</span>
-        <span class="n">BigDecimal</span> <span class="n">operand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="n">tokens</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">Operation</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">tokens</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">toUpperCase</span><span class="o">()).</span><span class="na">apply</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">operand</span><span class="o">);</span>
+        <span class="nc">BigDecimal</span> <span class="n">operand</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="n">tokens</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="nc">Operation</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">tokens</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">toUpperCase</span><span class="o">()).</span><span class="na">apply</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">operand</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -409,18 +409,18 @@ wyjście: 1</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">initialValue</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">BigDecimal</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">&gt;</span> <span class="n">linkedOperations</span> <span class="o">=</span> <span class="n">Function</span><span class="o">.</span><span class="na">identity</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">BigDecimal</span> <span class="n">initialValue</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Function</span><span class="o">&lt;</span><span class="nc">BigDecimal</span><span class="o">,</span> <span class="nc">BigDecimal</span><span class="o">&gt;</span> <span class="n">linkedOperations</span> <span class="o">=</span> <span class="nc">Function</span><span class="o">.</span><span class="na">identity</span><span class="o">();</span>
 
-    <span class="kd">public</span> <span class="nf">Calculator</span><span class="o">(</span><span class="n">BigDecimal</span> <span class="n">initialValue</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Calculator</span><span class="o">(</span><span class="nc">BigDecimal</span> <span class="n">initialValue</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">initialValue</span> <span class="o">=</span> <span class="n">initialValue</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;</span><span class="n">BigDecimal</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">&gt;</span> <span class="n">operation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="nc">Function</span><span class="o">&lt;</span><span class="nc">BigDecimal</span><span class="o">,</span> <span class="nc">BigDecimal</span><span class="o">&gt;</span> <span class="n">operation</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">linkedOperations</span> <span class="o">=</span> <span class="n">linkedOperations</span><span class="o">.</span><span class="na">andThen</span><span class="o">(</span><span class="n">operation</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">compute</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">BigDecimal</span> <span class="nf">compute</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">linkedOperations</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">initialValue</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
