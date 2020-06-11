@@ -33,26 +33,21 @@ layout: default
       {% endunless %}
 
       <section class="page__content" itemprop="text">
-        <aside class="sidebar__right">
-            {% if page.toc %}
-            <nav class="toc">
-                <header>
-                    <h4 class="nav__title">
-                        <i class="fas fa-file-alt"></i>
-                        Spis treści
-                    </h4>
-                </header>
-                {{ content | toc_only }}
-            </nav>
-            <hr />
-            {% endif %}
-            <div class="mailerlite__form">
-                <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
-            </div>
-            <hr />
-            <div class="fb-page">
+        <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
+          {% if page.toc %}
+          <nav class="toc">
+            <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label }}</h4></header>
+            {{ content | toc_only }}
+          </nav>
+          <hr />
+          {% endif %}
+          <div class="mailerlite__form">
+            <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+          </div>
+          <hr />
+          <div class="fb-page">
             <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
-            </div>
+          </div>
         </aside>
         {{ content }}
         {% include newsletter-pod-artykulami.md %}
@@ -100,6 +95,9 @@ layout: default
       <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}</h4>
       <div class="grid__wrapper">
         {% for post in site.posts limit:4 %}
+          {% if post.id == page.id %}
+            {% continue %}
+          {% endif %}
           {% include archive-single.html type="grid" %}
         {% endfor %}
       </div>
