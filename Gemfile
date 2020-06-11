@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'jekyll'
 gem 'jemoji'
-gem 'minimal-mistakes-jekyll', '4.16.6'
+gem 'minimal-mistakes-jekyll', '4.19.3'
 
 gem 'octopress'
 gem 'classifier-reborn'  # --lsi for Jekyll
