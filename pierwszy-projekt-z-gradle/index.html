@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Pierwszy projekt z Gradle - Samouczek Programisty</title>
 <meta name="description" content="W tym artykule przeczytasz o tym jak działa Gradle. Dowiesz się czegoś więcej o sposobie konfigurowania projektów. Po lekturze będziesz wiedzieć czym jest i jak działa gradle wrapper oraz dlaczego warto go używać. Przeczytasz także o tym jak używać Gradle z systemem kontroli wersji.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -324,7 +331,7 @@
 
 <h3 id="schowek-ang-cache">Schowek (ang. <em>cache</em>)</h3>
 
-<p><a href="/wstep-do-gradle/#zarz%C4%85dzanie-zale%C5%BCno%C5%9Bciami">Z poprzedniego artykułu</a> wiesz, że Gradle pomaga przy zarządzaniu zależnościami. Odpowiednia konfiguracja pozwala na określenie jakie zależności są niezbędne do działania Twojej biblioteki czy aplikacji. Dodatkowym atutem zarządzania zależnościami przez Gradle jest to, że trzymane one są w schowku na Twoim dysku. Domyślnie znajdziesz je w katalogu <code class="highlighter-rouge">~/.gradle/caches</code><sup id="fnref:cachewin"><a href="#fn:cachewin" class="footnote">1</a></sup>.</p>
+<p><a href="/wstep-do-gradle/#zarz%C4%85dzanie-zale%C5%BCno%C5%9Bciami">Z poprzedniego artykułu</a> wiesz, że Gradle pomaga przy zarządzaniu zależnościami. Odpowiednia konfiguracja pozwala na określenie jakie zależności są niezbędne do działania Twojej biblioteki czy aplikacji. Dodatkowym atutem zarządzania zależnościami przez Gradle jest to, że trzymane one są w schowku na Twoim dysku. Domyślnie znajdziesz je w katalogu <code class="highlighter-rouge">~/.gradle/caches</code><sup id="fnref:cachewin" role="doc-noteref"><a href="#fn:cachewin" class="footnote">1</a></sup>.</p>
 
 <p>Wewnątrz tego katalogu znajdziesz zależności, które były pobrane przez Gradle. Dzięki takiemu podejściu zależności są współdzielone pomiędzy różnymi aplikacjami. Co więcej nie musisz ich za każdym razem ściągać – zanim Gradle zacznie ich szukać w repozytorium zajrzy do schowka na lokalnym dysku.</p>
 
@@ -426,7 +433,7 @@ BUILD SUCCESSFUL <span class="k">in </span>24s
 
 <h3 id="buildgradle"><code class="highlighter-rouge">build.gradle</code></h3>
 
-<p>Sercem projektu jest plik <code class="highlighter-rouge">build.gradle</code><sup id="fnref:dowolna"><a href="#fn:dowolna" class="footnote">2</a></sup>. Wygenerowany plik, z pominięciem komentarzy, wygląda następująco:</p>
+<p>Sercem projektu jest plik <code class="highlighter-rouge">build.gradle</code><sup id="fnref:dowolna" role="doc-noteref"><a href="#fn:dowolna" class="footnote">2</a></sup>. Wygenerowany plik, z pominięciem komentarzy, wygląda następująco:</p>
 
 <div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plugins</span> <span class="o">{</span>
     <span class="n">id</span> <span class="s1">'java-library'</span>
@@ -451,7 +458,7 @@ BUILD SUCCESSFUL <span class="k">in </span>24s
 
 <h3 id="wrapper">wrapper</h3>
 
-<p>Standardowa struktura projektu pozwala na łatwe zorientowanie się w nowym projekcie informatycznym. Zarządzanie zależnościami pozwala na przygotowanie wszędzie takiej samej paczki programu<sup id="fnref:pomijam"><a href="#fn:pomijam" class="footnote">3</a></sup>. Wszystko to dzięki plikowi wykonywalnemu <code class="highlighter-rouge">gradle</code>. Ten plik jest tak naprawdę skryptem, który opakowuje uruchomienie maszyny wirtualnej Javy. Zachęcam Cię do zajrzenia do środka tego pliku. W przypadku systemów z rodziny Linux możesz spodziewać się skryptu <a href="/poczatki-pracy-z-wierszem-polecen/"><code class="highlighter-rouge">bash</code></a>.</p>
+<p>Standardowa struktura projektu pozwala na łatwe zorientowanie się w nowym projekcie informatycznym. Zarządzanie zależnościami pozwala na przygotowanie wszędzie takiej samej paczki programu<sup id="fnref:pomijam" role="doc-noteref"><a href="#fn:pomijam" class="footnote">3</a></sup>. Wszystko to dzięki plikowi wykonywalnemu <code class="highlighter-rouge">gradle</code>. Ten plik jest tak naprawdę skryptem, który opakowuje uruchomienie maszyny wirtualnej Javy. Zachęcam Cię do zajrzenia do środka tego pliku. W przypadku systemów z rodziny Linux możesz spodziewać się skryptu <a href="/poczatki-pracy-z-wierszem-polecen/"><code class="highlighter-rouge">bash</code></a>.</p>
 
 <p>Ten skrypt różni się pomiędzy różnymi wersjami Gradle. Co więcej Gradle także ewoluuje, DSL używany w różnych wersjach może nie być ze sobą kompatybilny. Może to prowadzić do sytuacji, w której wersja Gradle zainstalowana na Twoim komputerze nie będzie w stanie zbudować projektu, który przygotowany był przy pomocy innej wersji Gradle.</p>
 
@@ -464,7 +471,7 @@ BUILD SUCCESSFUL <span class="k">in </span>0s
 1 actionable task: 1 executed
 </code></pre></div></div>
 
-<p>Efektem działania tego zadania jest utworzenie dwóch katalogów i kilku plików<sup id="fnref:ukryty"><a href="#fn:ukryty" class="footnote">4</a></sup>:</p>
+<p>Efektem działania tego zadania jest utworzenie dwóch katalogów i kilku plików<sup id="fnref:ukryty" role="doc-noteref"><a href="#fn:ukryty" class="footnote">4</a></sup>:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>tree <span class="nb">.</span>
 <span class="nb">.</span>
@@ -581,10 +588,10 @@ build
 <figure class="c_img_with_auto">
   <img src="/assets/images/2019/03/28_gradle_test_report.gif" alt="" />
   
-    <figcaption>Przykładowy raport testów wygenerowany przez Gradle’a
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Przykładowy raport testów wygenerowany przez Gradle’a
+
+    </figcaption></figure>
 
 <p>Wielką zaletą narzędzi typu Gradle jest to, że potrafią automatycznie uruchamiać takie testy w trakcie budowania.</p>
 
@@ -657,19 +664,19 @@ build
 <p>Na koniec mam do Ciebie prośbę, proszę poleć ten artykuł znajomym, którym Twoim zdaniem może się on przydać. Dzięki temu pozwolisz dotrzeć mi do większego grona odbiorców, z góry dziękuję!</p>
 
 <p>Jeśli nie chcesz ominąć kolejnych artykułów na Samouczku dopisz się do samouczkowego newslettera i polub Stronę samouczka na Facebook’u. To tyle na dzisiaj, trzymaj się i do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:cachewin">
-      <p>W systemie Windows jest to ścieżka <code class="highlighter-rouge">%userprofile%/gradle/caches</code>. <a href="#fnref:cachewin" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:cachewin" role="doc-endnote">
+      <p>W systemie Windows jest to ścieżka <code class="highlighter-rouge">%userprofile%/gradle/caches</code>. <a href="#fnref:cachewin" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:dowolna">
-      <p>Po odpowiedniej konfiguracji albo sposobie uruchomienia <code class="highlighter-rouge">gradle</code> nazwa tego pliku może być inna, <code class="highlighter-rouge">build.gradle</code> jest wartością domyślną. <a href="#fnref:dowolna" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:dowolna" role="doc-endnote">
+      <p>Po odpowiedniej konfiguracji albo sposobie uruchomienia <code class="highlighter-rouge">gradle</code> nazwa tego pliku może być inna, <code class="highlighter-rouge">build.gradle</code> jest wartością domyślną. <a href="#fnref:dowolna" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:pomijam">
-      <p>Pomijam skrajne sytuacje, w których ktoś może zmodyfikować swoje lokalne środowisko w sposób, który pozwoli zbudować coś innego. Jednak taka sytuacja wymaga świadomego działa :). <a href="#fnref:pomijam" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:pomijam" role="doc-endnote">
+      <p>Pomijam skrajne sytuacje, w których ktoś może zmodyfikować swoje lokalne środowisko w sposób, który pozwoli zbudować coś innego. Jednak taka sytuacja wymaga świadomego działa :). <a href="#fnref:pomijam" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:ukryty">
-      <p>To wywołanie tworzy też ukryty katalog <code class="highlighter-rouge">.gradle</code>. <a href="#fnref:ukryty" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:ukryty" role="doc-endnote">
+      <p>To wywołanie tworzy też ukryty katalog <code class="highlighter-rouge">.gradle</code>. <a href="#fnref:ukryty" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -750,7 +757,7 @@ build
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -778,13 +785,14 @@ build
     <p class="archive__item-excerpt" itemprop="description">W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używane...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -812,13 +820,14 @@ build
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -846,13 +855,14 @@ build
     <p class="archive__item-excerpt" itemprop="description">Artykuł zaczynam od wytłumaczenia dlaczego warto poznać wiersz poleceń. Pokażę Ci jak sam pracuję z terminalem w systemie Linux. Poznasz najczęściej używane ...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -880,6 +890,7 @@ build
     <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o narzędziach dostarczonych wraz z JDK. Dowiesz się jak używać kompilatora javac. Stworzysz swój pierwszy plik JAR. Po przeczytani...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -891,7 +902,7 @@ build
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -927,7 +938,7 @@ build
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -935,7 +946,7 @@ build
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -949,6 +960,7 @@ build
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -971,6 +983,8 @@ build
 
 
   
+
+
 
 
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Wątki w języku Java - Samouczek Programisty</title>
 <meta name="description" content="Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchronizacja i poznasz jej podstawowe mechanizmy. Dowiesz się też jakie mogą być konsekwencje jej braku. Poznasz dwa słowa kluczowe i fragment biblioteki standardowej pomagającej w pisaniu wielowątkowego kodu. Po lekturze tego artykułu będziesz wiedzieć co oznacza wyścig w kontekście programowania wielowątkowego. Na końcu artykułu czekają na Ciebie zadania, w których przećwiczysz zdobytą wiedzę.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -377,10 +384,10 @@ MT stop
 <figure class="c_img_with_auto">
   <img src="/assets/images/2019/02/03_1_cpu_3_tasks.svg" alt="" />
   
-    <figcaption>Trzy zadania uruchomione sekwencyjne na jednym procesorze.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Trzy zadania uruchomione sekwencyjne na jednym procesorze.
+
+    </figcaption></figure>
 
 <p>Gwiazdka reprezentuje rdzeń procesora. Różnokolorowe prostokąciki reprezentują trzy zadania do wykonania. Długość prostokącików reprezentuje czas trwania poszczególnych zadań. Zadania uruchamiane są po kolei. Po tym jak skończy się zadanie zielone rozpoczyna się zadanie niebieskie. Można powiedzieć, że zadania uruchamiane są sekwencyjnie.</p>
 
@@ -397,34 +404,32 @@ MT stop
 <figure class="c_img_with_auto">
   <img src="/assets/images/2019/02/03_1_cpu_3_tasks_threads.svg" alt="" />
   
-    <figcaption>Trzy zadania uruchomione w wątkach na jednym procesorze.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Trzy zadania uruchomione w wątkach na jednym procesorze.
+
+    </figcaption></figure>
 
 <p>Takie podejście ma swoje zalety, jednak nie prowadzi do krótszego czasu działania programu. Wręcz przeciwnie, zatrzymywanie i wybudzanie wątków zajmuje czas. Proszę spójrz na diagram poniżej, który pokazuje czas trwania obu podejść:</p>
 
 <figure class="c_img_with_auto">
   <img src="/assets/images/2019/02/03_1_cpu_3_tasks_threads_comparison.svg" alt="" />
   
-    <figcaption>Porównanie czasu trwania dwóch podejść na jednym procesorze.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Porównanie czasu trwania dwóch podejść na jednym procesorze.
+
+    </figcaption></figure>
 
 <p>Po co zatem stosować takie podejście? Najważniejszym argumentem jest to, że w tym przypadku każde z zadań jest delikatnie popychane do przodu. Wyobraź sobie inną sytuację. Załóżmy, że dwa zadania zajmują wyraźnie mniej czasu niż trzecie:</p>
 
 <figure class="c_img_with_auto">
   <img src="/assets/images/2019/02/03_1_cpu_3_uneven_tasks.svg" alt="" />
-  
-</figure>
+  </figure>
 
 <p>W takim przypadku zadania niebieskie i białe muszą czekać na zakończenie zadania zielonego. Zastosowanie wątków w tym przypadku może prowadzić do dużo szybszego zakończenia zadań niebieskiego i białego (chociaż nadal sumaryczny czas, wraz z przełączeniami wątków, będzie dłuższy):</p>
 
 <figure class="c_img_with_auto">
   <img src="/assets/images/2019/02/03_1_cpu_3_uneven_tasks_threads.svg" alt="" />
-  
-</figure>
+  </figure>
 
 <p>Takie podejście pozwala na uniknięcie tak zwanego zagłodzenia (ang. <em>starving</em>) wątków. W powyższym przykładzie bez szatkowania czasu wątek z zadaniem zielonym zagłodziłby wątki z zadaniami niebieskim i białym.</p>
 
@@ -432,30 +437,29 @@ MT stop
 
 <h4 id="procesory-wielordzeniowe">Procesory wielordzeniowe</h4>
 
-<p>Procesory wielordzeniowe dają rzeczywistą możliwość uruchamiania wielu zadań równolegle. W takim przypadku, jeśli każde z zadań uruchomione zostanie w osobnym wątku wówczas sytuacja wygląda jak na diagramie poniżej<sup id="fnref:cztery"><a href="#fn:cztery" class="footnote">1</a></sup>:</p>
+<p>Procesory wielordzeniowe dają rzeczywistą możliwość uruchamiania wielu zadań równolegle. W takim przypadku, jeśli każde z zadań uruchomione zostanie w osobnym wątku wówczas sytuacja wygląda jak na diagramie poniżej<sup id="fnref:cztery" role="doc-noteref"><a href="#fn:cztery" class="footnote">1</a></sup>:</p>
 
 <figure class="c_img_with_auto">
   <img src="/assets/images/2019/02/03_3_cpu_3_tasks_threads.svg" alt="" />
-  
-</figure>
+  </figure>
 
 <p>Uruchomienie programu bez wątków na komputerze z procesorem wielordzeniowym nie przyspieszyłoby jego działania – jeden rdzeń sekwencyjnie realizowałby każde z zadań.</p>
 
 <h4 id="połączenie-obu-podejść">Połączenie obu podejść</h4>
 
-<p>W rzeczywistości spotkasz się połączeniem obu podejść<sup id="fnref:rdzenie"><a href="#fn:rdzenie" class="footnote">2</a></sup>. Proszę spójrz na diagram poniżej. Pokazuje on przykładowe wykonanie zadania na dwóch rdzeniach. Dla porównania pokazałem też sekwencyjne wykonanie tych samych zadań:</p>
+<p>W rzeczywistości spotkasz się połączeniem obu podejść<sup id="fnref:rdzenie" role="doc-noteref"><a href="#fn:rdzenie" class="footnote">2</a></sup>. Proszę spójrz na diagram poniżej. Pokazuje on przykładowe wykonanie zadania na dwóch rdzeniach. Dla porównania pokazałem też sekwencyjne wykonanie tych samych zadań:</p>
 
 <figure class="c_img_with_auto">
   <img src="/assets/images/2019/02/03_2_cpu_3_tasks_threads_comparison.svg" alt="" />
   
-    <figcaption>Trzy zadania uruchomione w wątkach na dwóch procesorach.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Trzy zadania uruchomione w wątkach na dwóch procesorach.
+
+    </figcaption></figure>
 
 <h3 id="wspólne-dane">Wspólne dane</h3>
 
-<p>Wątki korzystają z tych samych danych. Mówi się, że wątki współdzielą przestrzeń adresową. Oznacza to tyle, że obiekty dostępne dla jednego wątku są widoczne także w innych wątkach<sup id="fnref:threadlocal"><a href="#fn:threadlocal" class="footnote">3</a></sup>.</p>
+<p>Wątki korzystają z tych samych danych. Mówi się, że wątki współdzielą przestrzeń adresową. Oznacza to tyle, że obiekty dostępne dla jednego wątku są widoczne także w innych wątkach<sup id="fnref:threadlocal" role="doc-noteref"><a href="#fn:threadlocal" class="footnote">3</a></sup>.</p>
 
 <p>Proszę pamiętaj, że zmienne dostępne są dla wszystkich wątków. W związku z tym wszystkie wątki mogą te zmienne modyfikować. Pociąga to za sobą bardzo poważne konsekwencje. Opiszę je dokładniej w dalszej części artykułu.</p>
 
@@ -539,10 +543,10 @@ MT stop
 <figure class="">
   <img src="/assets/images/2019/02/05_thread_states.svg" alt="" />
   
-    <figcaption>Diagram stanów wątku
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Diagram stanów wątku
+
+    </figcaption></figure>
 
 <p>Przejście ze stanu <code class="highlighter-rouge">NEW</code> do stanu <code class="highlighter-rouge">RUNNABLE</code> odbywa się po wywołaniu metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#start()"><code class="highlighter-rouge">start()</code></a> na instancji wątku. Dopiero wtedy wątek może być wykonywany, samo utworzenie instancji nie powoduje jego uruchomienia. Każdy wątek może być uruchomiony dokładnie raz – dokładanie jeden raz może być na nim wywołana metoda <code class="highlighter-rouge">start()</code>.</p>
 
@@ -578,7 +582,7 @@ MT stop
 <p>Kolejna linijka kodu, <code class="highlighter-rouge">thread.start();</code>, uruchamia wątek. Bez niej kod wewnątrz interfejsu <code class="highlighter-rouge">Runnable</code> nie zostałby wykonany. Po uruchomieniu wątku znajdziesz kolejną pętlę wypisującą liczby. Powyższy fragment kodu działa w dwóch wątkach:</p>
 <ul>
   <li>wątku o domyślnej nazwie <code class="highlighter-rouge">main</code>, który tworzony jest automatycznie. Wewnątrz niego uruchomiona jest metoda <code class="highlighter-rouge">main</code>,</li>
-  <li>wątku o domyślnej nazwie <code class="highlighter-rouge">Thread-0</code><sup id="fnref:nazwa"><a href="#fn:nazwa" class="footnote">4</a></sup>, który utworzyłem i uruchomiłem samodzielnie.</li>
+  <li>wątku o domyślnej nazwie <code class="highlighter-rouge">Thread-0</code><sup id="fnref:nazwa" role="doc-noteref"><a href="#fn:nazwa" class="footnote">4</a></sup>, który utworzyłem i uruchomiłem samodzielnie.</li>
 </ul>
 
 <p>Kilkukrotne uruchomienie tego kodu pokazuje Ci, że działanie tych dwóch wątków może przeplatać się na różne sposoby.</p>
@@ -651,7 +655,7 @@ MT stop
 <p>Tutaj należy Ci się kolejne wyjaśnienie. Operacja atomowa to taka operacja, która jest niepodzielna. Operacja atomowa realizowana jest przy pomocy jednej instrukcji w bytecode (w skompilowanej klasie). Operacja <code class="highlighter-rouge">value += 1</code> nie jest operacją atomową, jest ona równoważna z <code class="highlighter-rouge">value = value + 1</code>. Wykonanie tej operacji składa się z kilku kroków:</p>
 
 <ol>
-  <li>pobrania aktualnej wartości <code class="highlighter-rouge">value</code> do zmiennej tymczasowej (niewidocznej w kodzie źródłowym)<sup id="fnref:stos"><a href="#fn:stos" class="footnote">5</a></sup>,</li>
+  <li>pobrania aktualnej wartości <code class="highlighter-rouge">value</code> do zmiennej tymczasowej (niewidocznej w kodzie źródłowym)<sup id="fnref:stos" role="doc-noteref"><a href="#fn:stos" class="footnote">5</a></sup>,</li>
   <li>dodania <code class="highlighter-rouge">1</code> do zmiennej tymczasowej,</li>
   <li>przypisanie powiększonej wartości do <code class="highlighter-rouge">value</code>.</li>
 </ol>
@@ -671,10 +675,10 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 <figure class="">
   <img src="/assets/images/2019/02/11_slicing_time_example.svg" alt="" />
   
-    <figcaption>Przykład zachowania wątków
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Przykład zachowania wątków
+
+    </figcaption></figure>
 
 <p>Biorąc pod uwagę takie zachowanie wątków, jaką wartość wątek biały przypisał do <code class="highlighter-rouge">value</code>? Była to wartość <code class="highlighter-rouge">2</code>, przez co cała praca wątku niebieskiego została nadpisana. Proszę spójrz na tabelkę niżej, która pokazuje tę sytuację:</p>
 
@@ -837,7 +841,7 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 
 <p>Jednym ze sposobów aby wątek znalazł się w tym stanie jest wywołanie metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#join()"><code class="highlighter-rouge">Thread.join()</code></a>. Wiesz już, że w takim przypadku aktualny wątek czeka na zakończenie swojego kolegi.</p>
 
-<p>Wątek znajdzie się w stanie <code class="highlighter-rouge">WAITING</code> także jeśli w trakcie jego działania zostanie wywołana metoda <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#wait()"><code class="highlighter-rouge">Object.wait()</code></a><sup id="fnref:pomijam"><a href="#fn:pomijam" class="footnote">6</a></sup>.</p>
+<p>Wątek znajdzie się w stanie <code class="highlighter-rouge">WAITING</code> także jeśli w trakcie jego działania zostanie wywołana metoda <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#wait()"><code class="highlighter-rouge">Object.wait()</code></a><sup id="fnref:pomijam" role="doc-noteref"><a href="#fn:pomijam" class="footnote">6</a></sup>.</p>
 
 <p>Na Samouczku Programisty takie lakoniczne wytłumaczenie nie przejdzie ;). Zapraszam Cię do przykładu, opisującego drugą sytuację.</p>
 
@@ -906,7 +910,7 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 <span class="o">});</span>
 </code></pre></div></div>
 
-<p>W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#sleep(long)"><code class="highlighter-rouge">Thread.sleep()</code></a>. Służy ona do uśpienia wątku<sup id="fnref:timed_wait"><a href="#fn:timed_wait" class="footnote">7</a></sup>. Przekazany parametr mówi o minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Random.html"><code class="highlighter-rouge">Random</code></a>, żeby to symulować.</p>
+<p>W ciele wątku znajduje się pętla, która produkuje zadaną liczbę elementów. Nowością dla Ciebie jest metoda <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#sleep(long)"><code class="highlighter-rouge">Thread.sleep()</code></a>. Służy ona do uśpienia wątku<sup id="fnref:timed_wait" role="doc-noteref"><a href="#fn:timed_wait" class="footnote">7</a></sup>. Przekazany parametr mówi o minimalnym czasie, przez który dany wątek będzie uśpiony – nie będzie zajmował czasu procesora. W ten sposób symuluję opóźnienia związane z produkcją elementów. To opóźnienie może być różne dla poszczególnych elementów. Użyłem tu instancji klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/Random.html"><code class="highlighter-rouge">Random</code></a>, żeby to symulować.</p>
 
 <p>Na razie pominę obsługę wyjątku <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/InterruptedException.html"><code class="highlighter-rouge">InterruptedException</code></a>. Nie jest ona istotna w tym przykładzie, omówię ją dokładnie w jednym z kolejnych akapitów.</p>
 
@@ -938,7 +942,7 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 
 <p>Wątek konsumujący dane także używa <a href="/petle-i-instrukcje-warunkowe-w-jezyku-java/">pętli</a>. Tym razem jest to pętla <code class="highlighter-rouge">while</code>, która wykonuje się dopóki oczekiwana liczba elementów nie zostanie pobrana z kolejki. Także tutaj wątek używa bloku <code class="highlighter-rouge">synchronized</code>, w który sprawdza czy elementy są w kolejce i do ewentualnego ich pobrania.</p>
 
-<p>Program działa. Ma jednak pewien subtelny błąd. Zwróć uwagę na wątek konsumenta. Wątek ten działa bez przerwy. Bez przerwy zajmuje czas procesora<sup id="fnref:wywlaszczenia"><a href="#fn:wywlaszczenia" class="footnote">8</a></sup>. Co więcej, przez większość swojego czasu kręci się wewnątrz pętli sprawdzając czy kolejka jest pusta. Jako drobne ćwiczenie dla Ciebie zostawiam dodanie licznika iteracji – ile razy pętla wykonała się w Twoim przypadku?</p>
+<p>Program działa. Ma jednak pewien subtelny błąd. Zwróć uwagę na wątek konsumenta. Wątek ten działa bez przerwy. Bez przerwy zajmuje czas procesora<sup id="fnref:wywlaszczenia" role="doc-noteref"><a href="#fn:wywlaszczenia" class="footnote">8</a></sup>. Co więcej, przez większość swojego czasu kręci się wewnątrz pętli sprawdzając czy kolejka jest pusta. Jako drobne ćwiczenie dla Ciebie zostawiam dodanie licznika iteracji – ile razy pętla wykonała się w Twoim przypadku?</p>
 
 <p>Jak można ten problem rozwiązać? Jednym ze sposobów może być usypianie wątku konsumenta używając metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Thread.html#sleep(long)"><code class="highlighter-rouge">Thread.sleep()</code></a>, którą już znasz. To także byłoby marnowanie zasobów – skąd możesz wiedzieć jak długo zajmie produkowanie kolejnego elementu?</p>
 
@@ -1014,7 +1018,7 @@ PUTFIELD pl/samouczekprogramisty/kursjava/treads/Counter.value : I
 
 <h2 id="wątek-w-stanie-timed_waiting">Wątek w stanie <code class="highlighter-rouge">TIMED_WAITING</code></h2>
 
-<p>Tym razem będzie krótko ;). Stan <code class="highlighter-rouge">TIMED_WAITING</code> jest podobny do stanu <code class="highlighter-rouge">WAITING</code>. W tym przypadku wątek oczekuje przez pewien czas, nie krótszy niż podany jako argument do jednej z metod<sup id="fnref:pomijam2"><a href="#fn:pomijam2" class="footnote">9</a></sup>:</p>
+<p>Tym razem będzie krótko ;). Stan <code class="highlighter-rouge">TIMED_WAITING</code> jest podobny do stanu <code class="highlighter-rouge">WAITING</code>. W tym przypadku wątek oczekuje przez pewien czas, nie krótszy niż podany jako argument do jednej z metod<sup id="fnref:pomijam2" role="doc-noteref"><a href="#fn:pomijam2" class="footnote">9</a></sup>:</p>
 
 <ul>
   <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#wait(long)"><code class="highlighter-rouge">Object.wait()</code></a> – dodanie aktualnego wątku do zbioru powiadamianych wątków i wybudzenie go po określonym czasie,</li>
@@ -1168,34 +1172,34 @@ Hello world!
 <p>Bałem się tego artykułu. Od samego początku pracy nad kursem Javy przesuwałem go w czasie. Teraz, po jego ukończeniu wiem dlaczego ;). Żaden artykuł na blogu nie kosztował mnie tyle pracy. Mam nadzieję, że efekt przypadł Ci do gustu. Proszę podziel się nim z osobami, którym może pomóc. Dzięki temu uda mi się dotrzeć do nowych Czytelników, a na tym właśnie mi zależy – z góry bardzo dziękuję!</p>
 
 <p>Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newsletter’a i polub Samouczka na Facebook’u. To tyle na dzisiaj, trzymaj się i do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:cztery">
-      <p>Możesz założyć, że program został uruchomiony na procesorze czterordzeniowym. Czwarty rdzeń nie był uwzględniony na diagramie. <a href="#fnref:cztery" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:cztery" role="doc-endnote">
+      <p>Możesz założyć, że program został uruchomiony na procesorze czterordzeniowym. Czwarty rdzeń nie był uwzględniony na diagramie. <a href="#fnref:cztery" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:rdzenie">
-      <p>Raczej mało prawdopodobne jest to, że masz komputer, który ma tylko jeden rdzeń procesora. <a href="#fnref:rdzenie" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:rdzenie" role="doc-endnote">
+      <p>Raczej mało prawdopodobne jest to, że masz komputer, który ma tylko jeden rdzeń procesora. <a href="#fnref:rdzenie" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:threadlocal">
-      <p>Dla uproszczenia pomijam tutaj <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/ThreadLocal.html"><code class="highlighter-rouge">ThreadLocal</code></a>. <a href="#fnref:threadlocal" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:threadlocal" role="doc-endnote">
+      <p>Dla uproszczenia pomijam tutaj <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/ThreadLocal.html"><code class="highlighter-rouge">ThreadLocal</code></a>. <a href="#fnref:threadlocal" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:nazwa">
-      <p>Tworząc nowe wątki masz możliwość nadawania im nazw, jeśli tego nie zrobisz dostają domyślną w formacie <code class="highlighter-rouge">Thread-&lt;kolejny numer&gt;</code>. Masz także możliwość pobrania nazwy aktualnie uruchomionego wątku używając <code class="highlighter-rouge">Thread.currentThread().getName()</code>. <a href="#fnref:nazwa" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:nazwa" role="doc-endnote">
+      <p>Tworząc nowe wątki masz możliwość nadawania im nazw, jeśli tego nie zrobisz dostają domyślną w formacie <code class="highlighter-rouge">Thread-&lt;kolejny numer&gt;</code>. Masz także możliwość pobrania nazwy aktualnie uruchomionego wątku używając <code class="highlighter-rouge">Thread.currentThread().getName()</code>. <a href="#fnref:nazwa" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:stos">
-      <p>W rzeczywistości zmienną tymczasową jest stos, na którym ląduje wartość atrybutu. <a href="#fnref:stos" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:stos" role="doc-endnote">
+      <p>W rzeczywistości zmienną tymczasową jest stos, na którym ląduje wartość atrybutu. <a href="#fnref:stos" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:pomijam">
-      <p>Pomijam tu trzeci możliwy przypadek – wywołanie metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#park()"><code class="highlighter-rouge">LockSupport.park</code></a>. <a href="#fnref:pomijam" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:pomijam" role="doc-endnote">
+      <p>Pomijam tu trzeci możliwy przypadek – wywołanie metody <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#park()"><code class="highlighter-rouge">LockSupport.park</code></a>. <a href="#fnref:pomijam" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:timed_wait">
-      <p>Metoda ta sprawia, że wątek jest w stanie <code class="highlighter-rouge">TIMED_WAITING</code> o czym przeczytasz za chwilę. <a href="#fnref:timed_wait" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:timed_wait" role="doc-endnote">
+      <p>Metoda ta sprawia, że wątek jest w stanie <code class="highlighter-rouge">TIMED_WAITING</code> o czym przeczytasz za chwilę. <a href="#fnref:timed_wait" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:wywlaszczenia">
-      <p>Pomijam wywłaszczenia, które znasz z początku artykułu. <a href="#fnref:wywlaszczenia" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:wywlaszczenia" role="doc-endnote">
+      <p>Pomijam wywłaszczenia, które znasz z początku artykułu. <a href="#fnref:wywlaszczenia" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:pomijam2">
-      <p>Także tutaj pomijam metody z klasy <code class="highlighter-rouge">LockSupport</code>: <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkNanos(java.lang.Object,long)"><code class="highlighter-rouge">LockSupport.partNanos</code></a> i <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkUntil(java.lang.Object,long)"><code class="highlighter-rouge">LockSupport.parkUntil</code></a>. <a href="#fnref:pomijam2" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:pomijam2" role="doc-endnote">
+      <p>Także tutaj pomijam metody z klasy <code class="highlighter-rouge">LockSupport</code>: <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkNanos(java.lang.Object,long)"><code class="highlighter-rouge">LockSupport.partNanos</code></a> i <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/concurrent/locks/LockSupport.html#parkUntil(java.lang.Object,long)"><code class="highlighter-rouge">LockSupport.parkUntil</code></a>. <a href="#fnref:pomijam2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1276,7 +1280,7 @@ Hello world!
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -1304,13 +1308,14 @@ Hello world!
     <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -1338,13 +1343,14 @@ Hello world!
     <p class="archive__item-excerpt" itemprop="description">W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz kilka rodzajów diagramów, które moim zdaniem są najbardziej przydatne. Dowiesz się w jakic...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -1372,13 +1378,14 @@ Hello world!
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -1406,6 +1413,7 @@ Hello world!
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o strumieniach w języku Java. Dowiesz się czym są strumienie, poznasz podstawowe operacje na strumieniach. Wszystko jak zwykle pop...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -1417,7 +1425,7 @@ Hello world!
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -1453,7 +1461,7 @@ Hello world!
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -1461,7 +1469,7 @@ Hello world!
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -1475,6 +1483,7 @@ Hello world!
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -1497,6 +1506,8 @@ Hello world!
 
 
   
+
+
 
 
 

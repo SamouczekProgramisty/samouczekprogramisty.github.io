@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Java z linii poleceń - Samouczek Programisty</title>
 <meta name="description" content="W tym artykule przeczytasz o narzędziach dostarczonych wraz z JDK. Dowiesz się jak używać kompilatora javac. Stworzysz swój pierwszy plik JAR. Po przeczytaniu tego artykułu zrozumiesz działanie podstawowych narzędzi dołączonych do JDK i docenisz kawał pracy jaką odwala za nas IDE :). Dowiesz się czym jest classpath i dlaczego ścieżka ta jest niezmiernie ważna. Zapraszam do lektury.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -387,7 +394,7 @@ Marcin
 
 <h2 id="pracowity-skrzat-ide">Pracowity skrzat, IDE</h2>
 
-<p>Niby prosty program, a do jego uruchomienia trzeba użyć dwóch magicznych programów. Takie właśnie czynności robi za nas IDE. Za każdym razem<sup id="fnref:wyjatki"><a href="#fn:wyjatki" class="footnote">1</a></sup> gdy w IntelliJ użyjesz klawiszy <code class="highlighter-rouge">Ctr+Schift+F10</code> (uruchom program) IntelliJ Idea robi podobne rzeczy. Kompiluje kod używając do tego programu <code class="highlighter-rouge">javac</code> a następnie uruchamia w odpowiedni sposób JRE używając programu <code class="highlighter-rouge">java</code>.</p>
+<p>Niby prosty program, a do jego uruchomienia trzeba użyć dwóch magicznych programów. Takie właśnie czynności robi za nas IDE. Za każdym razem<sup id="fnref:wyjatki" role="doc-noteref"><a href="#fn:wyjatki" class="footnote">1</a></sup> gdy w IntelliJ użyjesz klawiszy <code class="highlighter-rouge">Ctr+Schift+F10</code> (uruchom program) IntelliJ Idea robi podobne rzeczy. Kompiluje kod używając do tego programu <code class="highlighter-rouge">javac</code> a następnie uruchamia w odpowiedni sposób JRE używając programu <code class="highlighter-rouge">java</code>.</p>
 
 <h2 id="pakiety">Pakiety</h2>
 
@@ -452,7 +459,7 @@ Error: Could not find or load main class pl.samouczekprogramisty.commandline.Dis
 
 <p>Jak widzisz w ostatniej linii program <code class="highlighter-rouge">java</code> wyświetlił błąd informujący, że nie może znaleźć klasy <code class="highlighter-rouge">pl.samouczekprogramisty.commandline.DisplayName</code> na aktualnej ścieżce przeszukiwania. Program szukał struktury pakietów pl/samouczekrogramisty/commandline, a w katalogu pl był jedynie katalog samouczekprogramisty, nie było katalogu pl.</p>
 
-<p>Ścieżka przeszukiwania to lista katalogów oddzielonych odpowiednim znakiem gdzie program <code class="highlighter-rouge">java</code> powinien szukać klas. Na tej ścieżce poza katalogami mogą znajdować się też pliki zip czy pliki jar<sup id="fnref:format"><a href="#fn:format" class="footnote">2</a></sup>. Przykład poniżej pokazuje ścieżkę przeszukiwania na której znajdują się trzy elementy:</p>
+<p>Ścieżka przeszukiwania to lista katalogów oddzielonych odpowiednim znakiem gdzie program <code class="highlighter-rouge">java</code> powinien szukać klas. Na tej ścieżce poza katalogami mogą znajdować się też pliki zip czy pliki jar<sup id="fnref:format" role="doc-noteref"><a href="#fn:format" class="footnote">2</a></sup>. Przykład poniżej pokazuje ścieżkę przeszukiwania na której znajdują się trzy elementy:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>some/path:.:other/path/file.jar
 </code></pre></div></div>
@@ -516,7 +523,7 @@ java -cp .:commons-lang3-3.5.jar pl.samouczekprogramisty.commandline.CheckName
 
 <h2 id="pliki-jar">Pliki JAR</h2>
 
-<p>No dobrze, a co jeśli chcemy w łatwy sposób przekazać komuś skompilowany kod? Bardzo dobrze do tego celu nadają się pliki JAR. JAR (ang. <em>Java Archive</em>) to nic innego jak plik zip, wewnątrz którego znajduje się zestaw plików class ze skompilowanymi klasami<sup id="fnref:zawartosc"><a href="#fn:zawartosc" class="footnote">3</a></sup>.</p>
+<p>No dobrze, a co jeśli chcemy w łatwy sposób przekazać komuś skompilowany kod? Bardzo dobrze do tego celu nadają się pliki JAR. JAR (ang. <em>Java Archive</em>) to nic innego jak plik zip, wewnątrz którego znajduje się zestaw plików class ze skompilowanymi klasami<sup id="fnref:zawartosc" role="doc-noteref"><a href="#fn:zawartosc" class="footnote">3</a></sup>.</p>
 
 <p>Klasy wewnątrz archiwum znajdują się w odpowiednich katalogach, które odzwierciedlają strukturę pakietów. Spróbujmy teraz przygotować Twój pierwszy plik jar z linii poleceń.</p>
 
@@ -563,7 +570,7 @@ pl/samouczekprogramisty/commandline/CheckName.java
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar &lt;ścieżka do pliku JAR&gt;
 </code></pre></div></div>
 
-<p>Odpowiedni wpis w tym pliku może zostać utworzony<sup id="fnref:nadpisany"><a href="#fn:nadpisany" class="footnote">4</a></sup> automatycznie w trakcie tworzenia pliku jar. Możesz to tego użyć przełącznika <code class="highlighter-rouge">e</code>:</p>
+<p>Odpowiedni wpis w tym pliku może zostać utworzony<sup id="fnref:nadpisany" role="doc-noteref"><a href="#fn:nadpisany" class="footnote">4</a></sup> automatycznie w trakcie tworzenia pliku jar. Możesz to tego użyć przełącznika <code class="highlighter-rouge">e</code>:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jar cfe &lt;nazwa pliku wyjściowego&gt; &lt;klasa z metodą main&gt; &lt;lista katalogów, klas do umieszczenia w pliku JAR&gt;
 </code></pre></div></div>
@@ -593,19 +600,19 @@ pl/samouczekprogramisty/commandline/CheckName.java
 <p>Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do mojego newslettera i polub Samouczka na facebooku.</p>
 
 <p>Na koniec mam do Ciebie standardową prośbę, podziel się linkiem do artykułu ze znajomymi, zależy mi na dotarciu do jak największej liczby samouków, którzy chcą pogłębiać swoją wiedzę. Do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:wyjatki">
-      <p>Jak zwykle są wyjątki, ale nie są one istotne w tym przypadku. <a href="#fnref:wyjatki" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:wyjatki" role="doc-endnote">
+      <p>Jak zwykle są wyjątki, ale nie są one istotne w tym przypadku. <a href="#fnref:wyjatki" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:format">
-      <p>Tak naprawdę plik jar to plik zip z innym rozszerzeniem. <a href="#fnref:format" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:format" role="doc-endnote">
+      <p>Tak naprawdę plik jar to plik zip z innym rozszerzeniem. <a href="#fnref:format" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:zawartosc">
-      <p>Oczywiście pliki jar mogą zawierać także pliki innego rodzaju, jednak na tym etapie wystarczy wiedza o class i pliku tekstowym Manifest. <a href="#fnref:zawartosc" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:zawartosc" role="doc-endnote">
+      <p>Oczywiście pliki jar mogą zawierać także pliki innego rodzaju, jednak na tym etapie wystarczy wiedza o class i pliku tekstowym Manifest. <a href="#fnref:zawartosc" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:nadpisany">
-      <p>Bądź nadpisany, jeśli plik MANIFEST.MF miał już określoną klasę z metodą main. <a href="#fnref:nadpisany" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:nadpisany" role="doc-endnote">
+      <p>Bądź nadpisany, jeśli plik MANIFEST.MF miał już określoną klasę z metodą main. <a href="#fnref:nadpisany" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -690,7 +697,7 @@ pl/samouczekprogramisty/commandline/CheckName.java
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -718,13 +725,14 @@ pl/samouczekprogramisty/commandline/CheckName.java
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -752,13 +760,14 @@ pl/samouczekprogramisty/commandline/CheckName.java
     <p class="archive__item-excerpt" itemprop="description">Artykuł zaczynam od wytłumaczenia dlaczego warto poznać wiersz poleceń. Pokażę Ci jak sam pracuję z terminalem w systemie Linux. Poznasz najczęściej używane ...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -786,13 +795,14 @@ pl/samouczekprogramisty/commandline/CheckName.java
     <p class="archive__item-excerpt" itemprop="description">W tym artykule dowiesz się czym jest Gradle. Poznasz kilka konwencji używanych w większych projektach programistycznych. Przeczytasz o podstawach DSL używane...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -820,6 +830,7 @@ pl/samouczekprogramisty/commandline/CheckName.java
     <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -831,7 +842,7 @@ pl/samouczekprogramisty/commandline/CheckName.java
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -867,7 +878,7 @@ pl/samouczekprogramisty/commandline/CheckName.java
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -875,7 +886,7 @@ pl/samouczekprogramisty/commandline/CheckName.java
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -889,6 +900,7 @@ pl/samouczekprogramisty/commandline/CheckName.java
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -911,6 +923,8 @@ pl/samouczekprogramisty/commandline/CheckName.java
 
 
   
+
+
 
 
 

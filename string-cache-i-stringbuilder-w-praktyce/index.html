@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>String cache i StringBuilder w praktyce - Samouczek Programisty</title>
 <meta name="description" content="Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znaków jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych z łańcuchami znaków także się przydaje. Po lekturze tego artykułu będziesz znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku literałów znakowych. Poznasz klasę StringBuilder i dowiesz się dlaczego jest taka ważna. Zapraszam do lektury!">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -306,7 +313,7 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"some"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">"string"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">"literal"</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>W przypadku konkatenacji każdy z elementów konwertowany jest do typu <code class="highlighter-rouge">String</code> używając metody <code class="highlighter-rouge">toString</code><sup id="fnref:tostring"><a href="#fn:tostring" class="footnote">1</a></sup>:</p>
+<p>W przypadku konkatenacji każdy z elementów konwertowany jest do typu <code class="highlighter-rouge">String</code> używając metody <code class="highlighter-rouge">toString</code><sup id="fnref:tostring" role="doc-noteref"><a href="#fn:tostring" class="footnote">1</a></sup>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
 <span class="nc">Object</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">();</span>
@@ -323,7 +330,7 @@
 
 <p>W pierwszym przypadku do liczby 1 dodajemy liczbę 2, następnie “dodajemy” do niej łańcuch znaków. W drugim przypadku do łańcucha znaków dodajemy kolejno dwie liczby.</p>
 
-<p>Klasa <code class="highlighter-rouge">String</code> posiada także metodę <code class="highlighter-rouge">concat</code>, która działa w podobny sposób do operatora <code class="highlighter-rouge">+</code><sup id="fnref:operator"><a href="#fn:operator" class="footnote">2</a></sup>.</p>
+<p>Klasa <code class="highlighter-rouge">String</code> posiada także metodę <code class="highlighter-rouge">concat</code>, która działa w podobny sposób do operatora <code class="highlighter-rouge">+</code><sup id="fnref:operator" role="doc-noteref"><a href="#fn:operator" class="footnote">2</a></sup>.</p>
 
 <div class="notice--success text-center">
   
@@ -350,7 +357,7 @@
 <span class="nc">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">some</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="n">random</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="n">string</span><span class="o">;</span>
 </code></pre></div></div>
 
-<p>Tak na prawdę, zanim powstałaby finalna instancja klasy <code class="highlighter-rouge">String</code> potrzebne byłoby aż trzy “tymczasowe” obiekty<sup id="fnref:optymalizacje"><a href="#fn:optymalizacje" class="footnote">3</a></sup>. Dopiero piąty obiekt byłby tym, który mógłby być przypisany do zmiennej <code class="highlighter-rouge">someString</code>. Dlaczego aż cztery? Wynika to z niemutowalności instancji klasy <code class="highlighter-rouge">String</code>. Nie możemy, posługując się wyłącznie instancjami klasy <code class="highlighter-rouge">String</code> od razu stworzyć finalnej wersji. Tworzone są obiekty “pośrednie”:</p>
+<p>Tak na prawdę, zanim powstałaby finalna instancja klasy <code class="highlighter-rouge">String</code> potrzebne byłoby aż trzy “tymczasowe” obiekty<sup id="fnref:optymalizacje" role="doc-noteref"><a href="#fn:optymalizacje" class="footnote">3</a></sup>. Dopiero piąty obiekt byłby tym, który mógłby być przypisany do zmiennej <code class="highlighter-rouge">someString</code>. Dlaczego aż cztery? Wynika to z niemutowalności instancji klasy <code class="highlighter-rouge">String</code>. Nie możemy, posługując się wyłącznie instancjami klasy <code class="highlighter-rouge">String</code> od razu stworzyć finalnej wersji. Tworzone są obiekty “pośrednie”:</p>
 
 <ul>
   <li><code class="highlighter-rouge">“some “</code> (zwróć uwagę na spację na końcu),</li>
@@ -358,7 +365,7 @@
   <li><code class="highlighter-rouge">“some random “</code> (ponownie ze spacją).</li>
 </ul>
 
-<p>Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobić lepiej. Z pomocą przychodzą klasy <code class="highlighter-rouge">StringBuilder</code> i <code class="highlighter-rouge">StringBuffer</code><sup id="fnref:kompilator"><a href="#fn:kompilator" class="footnote">4</a></sup>.</p>
+<p>Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobić lepiej. Z pomocą przychodzą klasy <code class="highlighter-rouge">StringBuilder</code> i <code class="highlighter-rouge">StringBuffer</code><sup id="fnref:kompilator" role="doc-noteref"><a href="#fn:kompilator" class="footnote">4</a></sup>.</p>
 
 <h3 id="jak-używać-klasy-stringbuilder">Jak używać klasy <code class="highlighter-rouge">StringBuilder</code></h3>
 
@@ -535,19 +542,19 @@
 <p>Po lekturze tego artykułu sporo wiesz o pracy z łańcuchami znaków. Poznałeś jedną z optymalizacji, które wprowadza kompilator. Umiesz odpowiedzieć na jedno ze sztampowych pytań rekrutacyjnych ;). Znasz sposób pracy z klasą <code class="highlighter-rouge">StringBuilder</code>. Dowiedziałeś się też o przydatnych metodach operujących na instancjach klasy <code class="highlighter-rouge">String</code> znajdujących się w bibliotece commons-lang.</p>
 
 <p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć żadnego postu polub stronę na Facebooku i dopisz się do samouczkowego newslettera. Do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:tostring">
-      <p>Nie jest to do końca prawda, na przykład w przypadku typów prymitywnych stosowany jest inny mechanizm, zależny od typu zmiennej. <a href="#fnref:tostring" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:tostring" role="doc-endnote">
+      <p>Nie jest to do końca prawda, na przykład w przypadku typów prymitywnych stosowany jest inny mechanizm, zależny od typu zmiennej. <a href="#fnref:tostring" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:operator">
-      <p>Istnieją oczywiście drobne różnice, na przykład zachowanie w odniesieniu do zmiennych o wartości <code class="highlighter-rouge">null</code>. <a href="#fnref:operator" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:operator" role="doc-endnote">
+      <p>Istnieją oczywiście drobne różnice, na przykład zachowanie w odniesieniu do zmiennych o wartości <code class="highlighter-rouge">null</code>. <a href="#fnref:operator" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:optymalizacje">
-      <p>Piszę “potrzebne byłby” ponieważ kompilator wprowadza tu pewne optymalizacje, o których przeczytasz niżej. <a href="#fnref:optymalizacje" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:optymalizacje" role="doc-endnote">
+      <p>Piszę “potrzebne byłby” ponieważ kompilator wprowadza tu pewne optymalizacje, o których przeczytasz niżej. <a href="#fnref:optymalizacje" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:kompilator">
-      <p>Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instancji klasy <code class="highlighter-rouge">StringBuilder</code>. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;). <a href="#fnref:kompilator" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:kompilator" role="doc-endnote">
+      <p>Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instancji klasy <code class="highlighter-rouge">StringBuilder</code>. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;). <a href="#fnref:kompilator" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -632,7 +639,7 @@
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -660,13 +667,14 @@
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -694,13 +702,14 @@
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -728,13 +737,14 @@
     <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -762,6 +772,7 @@
     <p class="archive__item-excerpt" itemprop="description">W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz kilka rodzajów diagramów, które moim zdaniem są najbardziej przydatne. Dowiesz się w jakic...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -773,7 +784,7 @@
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -809,7 +820,7 @@
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -817,7 +828,7 @@
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -831,6 +842,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -853,6 +865,8 @@
 
 
   
+
+
 
 
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>REST web service z Java EE część 1 - Samouczek Programisty</title>
 <meta name="description" content="Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstalujesz swój pierwszy kontener aplikacji. Artykuł na przykładzie pokaże Ci w jaki sposób możesz napisać swój web service z użyciem implementacji JAX-RS.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -312,7 +319,7 @@
 
 <h3 id="czym-jest-web-service">Czym jest web service</h3>
 
-<p>Wyobraź sobie obiekt. Obiekt ma zestaw metod. W normalnych warunkach metody na tym obiekcie możemy wywoływać wyłącznie w tym samym programie, w ramach tej samej wirtualnej maszyny Java. W uproszczeniu web service<sup id="fnref:tlumaczenie"><a href="#fn:tlumaczenie" class="footnote">1</a></sup> to mechanizm umożliwiający wywołanie jakiejś funkcjonalności za pośrednictwem internetu. Istnieje kilka podejść do tworzenia web service’ów.</p>
+<p>Wyobraź sobie obiekt. Obiekt ma zestaw metod. W normalnych warunkach metody na tym obiekcie możemy wywoływać wyłącznie w tym samym programie, w ramach tej samej wirtualnej maszyny Java. W uproszczeniu web service<sup id="fnref:tlumaczenie" role="doc-noteref"><a href="#fn:tlumaczenie" class="footnote">1</a></sup> to mechanizm umożliwiający wywołanie jakiejś funkcjonalności za pośrednictwem internetu. Istnieje kilka podejść do tworzenia web service’ów.</p>
 
 <p>Jednym z nich jest tak zwany REST.</p>
 
@@ -373,10 +380,10 @@
 <figure class="">
   <img src="/assets/images/2017/11/20_java_ee_logo.png" alt="" />
   
-    <figcaption>Logo Java EE
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Logo Java EE
+
+    </figcaption></figure>
 
 <p>Teraz należy Ci się rozwinięcie. Język Java już znasz. Java wraz z zestawem biblioteki standardowej to Java SE (ang. <em>Standard Edition</em>). Istnieje również taki twór jak Java EE (ang. <em>Enterprise Edition</em>). Jak napisałem wyżej Java EE to nic innego jak zbiór różnych specyfikacji. Można powiedzieć, że Java EE rozbudowuje możliwości Java SE. Oczywiście podstawą tutaj jest język programowania Java. Java EE w wersji 8 została opublikowana 31 sierpnia 2017 roku. Java EE w wersji 8 to <a href="http://www.oracle.com/technetwork/java/javaee/tech/java-ee-8-3890673.html">41 osobnych specyfikacji</a>! Jedną ze specyfikacji jest Java Servlets. Opisywałem ją w poprzednich artykułach w ramach <a href="https://www.samouczekprogramisty.pl/kurs-aplikacji-webowych/">kursu</a>.</p>
 
@@ -408,10 +415,10 @@
 <figure class="">
   <img src="/assets/images/2019/02/04_tomee_plume_download.png" alt="" />
   
-    <figcaption>Pobieranie TomEE Plume
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Pobieranie TomEE Plume
+
+    </figcaption></figure>
 
 <h2 id="web-service-z-jax-rs">Web service z JAX-RS</h2>
 
@@ -449,7 +456,7 @@ task explodedWar(type: Copy) {
 war.dependsOn explodedWar
 </code></pre></div></div>
 
-<p>Najbardziej istotnym fragmentem jest <code class="highlighter-rouge">providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'</code><sup id="fnref:jee7"><a href="#fn:jee7" class="footnote">2</a></sup>. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. <code class="highlighter-rouge">providedCompile</code> mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na <a href="/java-z-linii-polecen/">classpath</a> kontenera aplikacji.</p>
+<p>Najbardziej istotnym fragmentem jest <code class="highlighter-rouge">providedCompile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'</code><sup id="fnref:jee7" role="doc-noteref"><a href="#fn:jee7" class="footnote">2</a></sup>. Jest to zależność, która zawiera klasy określone przez specyfikację JAX-RS. <code class="highlighter-rouge">providedCompile</code> mówi Gradle o tym, że zależność jest wymagana przez aplikację wyłącznie w trakcie kompilacji. Nie zostanie umieszczona w wynikowymi pliku war. Nie jest ona tam potrzebna ponieważ jest dostępna na <a href="/java-z-linii-polecen/">classpath</a> kontenera aplikacji.</p>
 
 <h3 id="pierwszy-web-service">Pierwszy web service</h3>
 
@@ -486,7 +493,7 @@ war.dependsOn explodedWar
 
 <p>Zauważ, że w trakcie kopiowania zmieniłem nazwę pliku war z <code class="highlighter-rouge">06_rest_endpoint-1.0-SNAPSHOT.war</code> na <code class="highlighter-rouge">rest.war</code>. Zrobiłem tak, ponieważ TomEE, podobnie jak Tomcat używa nazwy pliku war jako fragmentu adresu URI aplikacji. Szybciej napiszę <code class="highlighter-rouge">rest</code> niż <code class="highlighter-rouge">06_rest_endpoint-1.0-SNAPSHOT</code>.</p>
 
-<p>Po przekopiowaniu pliku war uruchom serwer TomEE. Możesz to zrobić przy pomocy pliku <code class="highlighter-rouge">catalina.sh</code><sup id="fnref:windows"><a href="#fn:windows" class="footnote">3</a></sup>:</p>
+<p>Po przekopiowaniu pliku war uruchom serwer TomEE. Możesz to zrobić przy pomocy pliku <code class="highlighter-rouge">catalina.sh</code><sup id="fnref:windows" role="doc-noteref"><a href="#fn:windows" class="footnote">3</a></sup>:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/mapi/opt/apache-tomee/bin/catalina.sh run
 </code></pre></div></div>
@@ -499,7 +506,7 @@ war.dependsOn explodedWar
 
 <p>Otóż w naszym przypadku specyfikacja JAX-RS wymaga od kontenera aplikacji utworzenia specjalnego serwletu. Serlwet ten ma za zadanie obsługiwać wszystkie żądania, które wysyłane są do naszej aplikacji.</p>
 
-<p>Kontener aplikacji musi przeskanować wszystkie klasy w naszej aplikacji pod kątem adnotacji JAX-RS. Jeśli znajdzie te adnotacje w klasach zapamiętuje je. Następnie używa tych klas do obsługi żądań wysyłanych przez klienty<sup id="fnref:uproszczenie"><a href="#fn:uproszczenie" class="footnote">4</a></sup>.</p>
+<p>Kontener aplikacji musi przeskanować wszystkie klasy w naszej aplikacji pod kątem adnotacji JAX-RS. Jeśli znajdzie te adnotacje w klasach zapamiętuje je. Następnie używa tych klas do obsługi żądań wysyłanych przez klienty<sup id="fnref:uproszczenie" role="doc-noteref"><a href="#fn:uproszczenie" class="footnote">4</a></sup>.</p>
 
 <p>Więc w tym przypadku, wysłanie żądania na adres <code class="highlighter-rouge">http://localhost:8080/rest/reservation</code> spowoduje wywołanie tego serwletu. Następnie serwlet stworzy instancję klasy 
 <code class="highlighter-rouge">ReservationWebservice</code>. Na tej instancji wywoła metodę <code class="highlighter-rouge">listReservations</code>. Wartość zwrócona przez tę metodę zostanie użyta do przygotowania odpowiedzi dla klienta.</p>
@@ -584,7 +591,7 @@ war.dependsOn explodedWar
     <span class="n">build</span><span class="o">();</span>
 </code></pre></div></div>
 
-<p>Jest to wymagane dla każdego zapytania, które będzie uruchamiane ze strony do testowania. Jest to spowodowane tym, że adres URL źródła zapytania jest inny niż adres URL web service’u<sup id="fnref:cors"><a href="#fn:cors" class="footnote">5</a></sup>. W związku z tym, że trzeba to umieścić w wielu miejscach JAX-RS przychodzi z pomocą.</p>
+<p>Jest to wymagane dla każdego zapytania, które będzie uruchamiane ze strony do testowania. Jest to spowodowane tym, że adres URL źródła zapytania jest inny niż adres URL web service’u<sup id="fnref:cors" role="doc-noteref"><a href="#fn:cors" class="footnote">5</a></sup>. W związku z tym, że trzeba to umieścić w wielu miejscach JAX-RS przychodzi z pomocą.</p>
 
 <h2 id="adnotacja-provider">Adnotacja <code class="highlighter-rouge">@Provider</code></h2>
 
@@ -636,22 +643,22 @@ war.dependsOn explodedWar
 <p>Dzisiaj udało Ci się zdobyć sporo wiedzy. Dowiedziałeś się czym jest REST. Co składa się na platformę Java EE. Poznałeś część funkcjonalności jednej ze specyfikacji znajdującej się pod parasolem Java EE. Zainstalowałeś kontener aplikacji, no i przede wszystkim napisałeś swój pierwszy web service przy pomocy JAX-RS.</p>
 
 <p>W kolejnym artykule z tej serii zajmę się implementacją bardziej użytecznego web service’u. Jeśli nie chcesz pominąć kolejnych artykułów na blogu dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:tlumaczenie">
-      <p>Zawsze staram się tłumaczyć angielskie terminy. Jednak w tym przypadku poddałem się. Jak przetłumaczyć web service? Usługa sieciowa? Serwis internetowy? Takie tłumaczenie wprowadzałoby więcej zamieszania niż pożytku. Zostanie więc web service, jeśli masz jakiś pomysł jak to przetłumaczyć daj znać ;). <a href="#fnref:tlumaczenie" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:tlumaczenie" role="doc-endnote">
+      <p>Zawsze staram się tłumaczyć angielskie terminy. Jednak w tym przypadku poddałem się. Jak przetłumaczyć web service? Usługa sieciowa? Serwis internetowy? Takie tłumaczenie wprowadzałoby więcej zamieszania niż pożytku. Zostanie więc web service, jeśli masz jakiś pomysł jak to przetłumaczyć daj znać ;). <a href="#fnref:tlumaczenie" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:jee7">
-      <p>W rzeczywistości mimo, że importuję tu API w wersji 2.1 serwer TomEE, którego używam (7.0.4) wspiera wersję 2.0. <a href="#fnref:jee7" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:jee7" role="doc-endnote">
+      <p>W rzeczywistości mimo, że importuję tu API w wersji 2.1 serwer TomEE, którego używam (7.0.4) wspiera wersję 2.0. <a href="#fnref:jee7" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:windows">
-      <p>Jeśli pracujesz w systemie Windows wówczas plik ten nazywa się <code class="highlighter-rouge">catalina.bat</code>. <a href="#fnref:windows" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:windows" role="doc-endnote">
+      <p>Jeśli pracujesz w systemie Windows wówczas plik ten nazywa się <code class="highlighter-rouge">catalina.bat</code>. <a href="#fnref:windows" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:uproszczenie">
-      <p>Oczywiście jest to uproszczenie. W praktyce proces jest trochę bardziej rozbudowany. Proces ten opisany jest w sekcji 3.7 specyfikacji “Matching Requests to Resource Methods”. Domyślnie nowa instancja klasy obsługującej zapytanie tworzona jest dla każdego zapytania. W większości przypadków nie jest to zachowanie, które chcesz zostawić na produkcyjnym środowisku. <a href="#fnref:uproszczenie" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:uproszczenie" role="doc-endnote">
+      <p>Oczywiście jest to uproszczenie. W praktyce proces jest trochę bardziej rozbudowany. Proces ten opisany jest w sekcji 3.7 specyfikacji “Matching Requests to Resource Methods”. Domyślnie nowa instancja klasy obsługującej zapytanie tworzona jest dla każdego zapytania. W większości przypadków nie jest to zachowanie, które chcesz zostawić na produkcyjnym środowisku. <a href="#fnref:uproszczenie" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:cors">
-      <p>W tym przypadku porównywany jest protokół (np. http), domena (np. www.samouczekprogramisty.pl) i port (np. 8080). <a href="#fnref:cors" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:cors" role="doc-endnote">
+      <p>W tym przypadku porównywany jest protokół (np. http), domena (np. www.samouczekprogramisty.pl) i port (np. 8080). <a href="#fnref:cors" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -732,7 +739,7 @@ war.dependsOn explodedWar
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -760,13 +767,14 @@ war.dependsOn explodedWar
     <p class="archive__item-excerpt" itemprop="description">W artykule tym pokazuję przykład webservice’u, który został utworzony wyłącznie w oparciu o technologie z parasola Java EE. Znajdziesz tu praktyczne wykorzys...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -794,13 +802,14 @@ war.dependsOn explodedWar
     <p class="archive__item-excerpt" itemprop="description">W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -828,13 +837,14 @@ war.dependsOn explodedWar
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -862,6 +872,7 @@ war.dependsOn explodedWar
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o serwletach. Poznasz podstawy protokołu HTTP. Dowiesz się czym są serwlety i jak je pisać. Dowiesz się także czym jest plik war i...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -873,7 +884,7 @@ war.dependsOn explodedWar
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -909,7 +920,7 @@ war.dependsOn explodedWar
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -917,7 +928,7 @@ war.dependsOn explodedWar
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -931,6 +942,7 @@ war.dependsOn explodedWar
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -953,6 +965,8 @@ war.dependsOn explodedWar
 
 
   
+
+
 
 
 

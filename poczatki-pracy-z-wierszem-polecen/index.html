@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Początki pracy z wierszem poleceń - Samouczek Programisty</title>
 <meta name="description" content="Artykuł zaczynam od wytłumaczenia dlaczego warto poznać wiersz poleceń. Pokażę Ci jak sam pracuję z terminalem w systemie Linux. Poznasz najczęściej używane programy, które przydają się w codziennej pracy. Dowiesz się czym jest standardowe wyjście, poznasz też mechanizm przekierowań. Na końcu artykułu jak zwykle czeka na Ciebie zestaw zadań, które pomogą utrwalić Ci wiedzę zdobytą po lekturze artykułu.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -307,7 +314,7 @@
 
 <p>Interfejs graficzny służy do tego, żeby ułatwić pracę z danym programem/systemem operacyjnym. Takie podejście jest szczególnie użyteczne dla początkujących użytkowników. Interfejs graficzny w przyjazny dla oka sposób udostępnia najczęściej używane funkcje. Problem zaczyna pojawiać się kiedy chcesz zrobić coś co nie jest standardowe. W takich przypadkach musisz szukać opcji, które są ukryte gdzieś głęboko w czeluściach zagnieżdżonych menu.</p>
 
-<p>Co więcej taką pracę ciężko jest zautomatyzować. Jeśli wykonujesz pewną czynność, która jest powtarzalna to z interfejsem graficznym za każdym razem musisz klikać, nie ma wyjścia<sup id="fnref:nagrywanie"><a href="#fn:nagrywanie" class="footnote">1</a></sup>. Pomocne są tu skróty klawiaturowe, jednak nie wszystkie opcje mają swój skrót. Z wierszem poleceń sprawa wygląda trochę inaczej.</p>
+<p>Co więcej taką pracę ciężko jest zautomatyzować. Jeśli wykonujesz pewną czynność, która jest powtarzalna to z interfejsem graficznym za każdym razem musisz klikać, nie ma wyjścia<sup id="fnref:nagrywanie" role="doc-noteref"><a href="#fn:nagrywanie" class="footnote">1</a></sup>. Pomocne są tu skróty klawiaturowe, jednak nie wszystkie opcje mają swój skrót. Z wierszem poleceń sprawa wygląda trochę inaczej.</p>
 
 <p>Wiersz poleceń to narzędzie przydatne w codziennej pracy programisty. Nie znam żadnego programisty, który w swojej pracy nigdy nie używał wiersza poleceń. Co więcej to narzędzie jest przydatne w trakcie pracy z każdym językiem programowania. Niezależnie od tego w jakim języku chcesz programować umiejętność posługiwania się wierszem poleceń może się przydać.</p>
 
@@ -351,10 +358,10 @@
 <figure class="">
   <img src="/assets/images/2019/03/14_prompt.gif" alt="" />
   
-    <figcaption>Okno wiersza poleceń
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Okno wiersza poleceń
+
+    </figcaption></figure>
 
 <p>To puste okno wiersza poleceń. Ten migający znaczek to znak zachęty. Tutaj wpisuje się komendy. To co jest przed znakiem zachęty to:</p>
 
@@ -386,7 +393,7 @@
 
 <p>Wcześniej wprowadziłem już <code class="highlighter-rouge">~</code> – symbol ten oznacza katalog domowy. W systemach z rodziny Linux/Unix jest to przeważnie <code class="highlighter-rouge">/home/&lt;nazwa użytkownika&gt;</code>, na przykład <code class="highlighter-rouge">/home/marcinek</code>. <code class="highlighter-rouge">/home/marcinek</code> to przykład ścieżki bezwzględnej. Ścieżka bezwzględna od ścieżki względniej różni się tym, że zaczyna się od <code class="highlighter-rouge">/</code>.</p>
 
-<p>A co jeśli chcę przejść do katalogu nadrzędnego? W tym przypadku trzeba użyć <code class="highlighter-rouge">..</code> jako nazwy katalogu<sup id="fnref:bezwzgledna"><a href="#fn:bezwzgledna" class="footnote">2</a></sup>:</p>
+<p>A co jeśli chcę przejść do katalogu nadrzędnego? W tym przypadku trzeba użyć <code class="highlighter-rouge">..</code> jako nazwy katalogu<sup id="fnref:bezwzgledna" role="doc-noteref"><a href="#fn:bezwzgledna" class="footnote">2</a></sup>:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ..
 </code></pre></div></div>
@@ -536,9 +543,9 @@ lrwxrwxrwx  1 marcinek marcinek    37 mar 11 23:38 .bash_aliases -&gt; /home/mar
 
 <p>Wiesz czym jest aplikacja. Aplikacją może być przeglądarka internetowa. Każda aplikacja to co najmniej jeden proces. Proces można zdefiniować jako kod (program) wykonywany przez komputer. Schodząc jeszcze niżej możemy dojść do <a href="/watki-w-jezyku-java/">wątków</a>, które opisałem niedawno.</p>
 
-<p>Każdy proces ma przypisane zasoby, na przykład RAM (ang. <em>Random Access Memory</em>) czy zestaw deskryptorów plików. Deskryptor pliku to liczba, która jednoznacznie określa plik otworzony w danym procesie, pozwala na dostęp do pliku<sup id="fnref:wszystko"><a href="#fn:wszystko" class="footnote">3</a></sup>. Deskryptory plików to nieujemne liczby całkowite, na przykład <code class="highlighter-rouge">0</code>, <code class="highlighter-rouge">1</code> czy <code class="highlighter-rouge">123</code>.</p>
+<p>Każdy proces ma przypisane zasoby, na przykład RAM (ang. <em>Random Access Memory</em>) czy zestaw deskryptorów plików. Deskryptor pliku to liczba, która jednoznacznie określa plik otworzony w danym procesie, pozwala na dostęp do pliku<sup id="fnref:wszystko" role="doc-noteref"><a href="#fn:wszystko" class="footnote">3</a></sup>. Deskryptory plików to nieujemne liczby całkowite, na przykład <code class="highlighter-rouge">0</code>, <code class="highlighter-rouge">1</code> czy <code class="highlighter-rouge">123</code>.</p>
 
-<p>Każdy program<sup id="fnref:demon"><a href="#fn:demon" class="footnote">4</a></sup> zazwyczaj ma dostęp do co najmniej trzech deskryptorów plików:</p>
+<p>Każdy program<sup id="fnref:demon" role="doc-noteref"><a href="#fn:demon" class="footnote">4</a></sup> zazwyczaj ma dostęp do co najmniej trzech deskryptorów plików:</p>
 
 <ul>
   <li>standardowego wejścia (ang. <em>stdin</em>),</li>
@@ -564,7 +571,7 @@ lrwxrwxrwx  1 marcinek marcinek    37 mar 11 23:38 .bash_aliases -&gt; /home/mar
 Some text to show on a console
 </code></pre></div></div>
 
-<p>Jeśli chcesz wyświetlić tekst, który ma więcej niż jedną linię możesz użyć <code class="highlighter-rouge">'</code> albo <code class="highlighter-rouge">"</code><sup id="fnref:roznice"><a href="#fn:roznice" class="footnote">5</a></sup>:</p>
+<p>Jeśli chcesz wyświetlić tekst, który ma więcej niż jedną linię możesz użyć <code class="highlighter-rouge">'</code> albo <code class="highlighter-rouge">"</code><sup id="fnref:roznice" role="doc-noteref"><a href="#fn:roznice" class="footnote">5</a></sup>:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"Multiline text to 
 &gt; show on a console"</span>
@@ -724,22 +731,22 @@ file1 content
 <p>Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub stronę Samouczka na Facebook’u. Jeśli wiesz, że ktoś z Twoich znajomych potrzebuje wiedzy zawartej w tym artykule będę wdzięczny za przekazanie mu odnośnika do tego artykułu – z góry dziękuję.</p>
 
 <p>To tyle na dzisiaj, trzymaj się i do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:nagrywanie">
-      <p>Pomijam tutaj rozwiązania, które pozwalają na nagrywanie ekranu i automatyczne wykonywanie tych czynności ponownie. Takie narzędzia często także wymagają użycia specyficznego języka programowania. Tak otrzymane nagrania są ciężkie w utrzymaniu, każda zmiana interfejsu może powodować błędy w ich działaniu. <a href="#fnref:nagrywanie" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:nagrywanie" role="doc-endnote">
+      <p>Pomijam tutaj rozwiązania, które pozwalają na nagrywanie ekranu i automatyczne wykonywanie tych czynności ponownie. Takie narzędzia często także wymagają użycia specyficznego języka programowania. Tak otrzymane nagrania są ciężkie w utrzymaniu, każda zmiana interfejsu może powodować błędy w ich działaniu. <a href="#fnref:nagrywanie" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:bezwzgledna">
-      <p>Możesz także użyć ścieżki bezwzględnej. <a href="#fnref:bezwzgledna" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:bezwzgledna" role="doc-endnote">
+      <p>Możesz także użyć ścieżki bezwzględnej. <a href="#fnref:bezwzgledna" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:wszystko">
-      <p>Poznając lepiej systemy operacyjne z rodziny Linux/Unix usłyszysz to jeszcze nie raz – wszystko jest plikiem ;). Dysk, plik, katalog, strumień, klawiatura itp. <a href="#fnref:wszystko" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:wszystko" role="doc-endnote">
+      <p>Poznając lepiej systemy operacyjne z rodziny Linux/Unix usłyszysz to jeszcze nie raz – wszystko jest plikiem ;). Dysk, plik, katalog, strumień, klawiatura itp. <a href="#fnref:wszystko" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:demon">
-      <p>Demony (ang. <em>deamon</em>) mogą trochę odstawać od tej reguły. <a href="#fnref:demon" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:demon" role="doc-endnote">
+      <p>Demony (ang. <em>deamon</em>) mogą trochę odstawać od tej reguły. <a href="#fnref:demon" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:roznice">
-      <p><code class="highlighter-rouge">bash</code> inaczej interpretuje tekst pomiędzy <code class="highlighter-rouge">'</code> i <code class="highlighter-rouge">"</code>, jednak na tym etapie te różnice nie są istotne. <a href="#fnref:roznice" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:roznice" role="doc-endnote">
+      <p><code class="highlighter-rouge">bash</code> inaczej interpretuje tekst pomiędzy <code class="highlighter-rouge">'</code> i <code class="highlighter-rouge">"</code>, jednak na tym etapie te różnice nie są istotne. <a href="#fnref:roznice" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -820,7 +827,7 @@ file1 content
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -848,13 +855,14 @@ file1 content
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -882,13 +890,14 @@ file1 content
     <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o narzędziach dostarczonych wraz z JDK. Dowiesz się jak używać kompilatora javac. Stworzysz swój pierwszy plik JAR. Po przeczytani...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -916,13 +925,14 @@ file1 content
     <p class="archive__item-excerpt" itemprop="description">Na rynku IT brakuje pracowników. Uczelnie nie nadążają z dostarczaniem nowych specjalistów. Popyt znacząco przewyższa podaż przez co rynek IT jest rynkiem pr...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -950,6 +960,7 @@ file1 content
     <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -961,7 +972,7 @@ file1 content
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -997,7 +1008,7 @@ file1 content
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -1005,7 +1016,7 @@ file1 content
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -1019,6 +1030,7 @@ file1 content
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -1041,6 +1053,8 @@ file1 content
 
 
   
+
+
 
 
 

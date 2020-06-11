@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Wyrażenia regularne w języku Java - Samouczek Programisty</title>
 <meta name="description" content="Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardowej pozwalające na pracę z wyrażeniami regularnymi. Przeczytasz praktyczne wskazówki kiedy można używać wyrażeń regularnych i jakie są ich wady. Nie obędzie się też bez wskazówek do IntelliJ Idea. Na końcu przećwiczysz wiedzę z artykułu rozwiązując zadania, które wymagały będą wykorzystania wyrażeń regularnych. Zapraszam do lektury.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -317,7 +324,7 @@
 
 <p>Wyrażenie regularne to tak zwany wzorzec, który następne jest kompilowany przez silnik wyrażeń regularnych do wewnętrznej postaci. Po tym etapie używana jest „wewnętrzna reprezentacja” wyrażenia regularnego. Jeśli spróbujesz skompilować wzorzec, który nie jest poprawny zostaniesz o tym poinformowany odpowiednim wyjątkiem w trakcie działania programu.</p>
 
-<p>Sam etap kompilacji wyrażenia jest procesem relatywnie długim<sup id="fnref:dlugi"><a href="#fn:dlugi" class="footnote">1</a></sup>. Z tego właśnie powodu zaleca się kompilowanie wyrażeń przed ich pierwszym użyciem. Podobnie sprawa ma się jeśli chodzi o tworzenie nowych instancji klasy wzorca. Im ich mniej tym lepiej. Ma to szczególne znaczenie w sytuacji w której używamy wyrażenia wielokrotnie<sup id="fnref:kompilacja"><a href="#fn:kompilacja" class="footnote">2</a></sup>.</p>
+<p>Sam etap kompilacji wyrażenia jest procesem relatywnie długim<sup id="fnref:dlugi" role="doc-noteref"><a href="#fn:dlugi" class="footnote">1</a></sup>. Z tego właśnie powodu zaleca się kompilowanie wyrażeń przed ich pierwszym użyciem. Podobnie sprawa ma się jeśli chodzi o tworzenie nowych instancji klasy wzorca. Im ich mniej tym lepiej. Ma to szczególne znaczenie w sytuacji w której używamy wyrażenia wielokrotnie<sup id="fnref:kompilacja" role="doc-noteref"><a href="#fn:kompilacja" class="footnote">2</a></sup>.</p>
 
 <p>W wyrażeniach regularnych poza „dziwnymi znaczkami” używa się także zwyczajnych liter. Domyślnie w wyrażeniach regularnych wielkość liter ma znaczenie. Wyrażenie regularne <code class="highlighter-rouge">Kawa</code> to nie to samo co <code class="highlighter-rouge">kawa</code>.</p>
 
@@ -338,7 +345,7 @@
 
 <p>W praktyce jednym z głównych zastosowań jest weryfikacja czy dany łańcuch znaków pasuje do wzorca. Wzorcem tym jest wyrażenie regularne.</p>
 
-<p>To czy łańcuch znaków pasuje do wzorca wykorzystywane jest w trakcie walidacji danych wejściowych. Dzięki wyrażeniom regularnym możemy sprawdzić, czy dane pochodzące od użytkownika mają poprawny format. Na przykład następujące wyrażenie regularne pozwala sprawdzić czy użytkownik podał poprawne imię <code class="highlighter-rouge">[A-Z][a-z]+</code>, czy rzeczywiście adres e-mail może być poprawny <code class="highlighter-rouge">.+@.+\.pl</code><sup id="fnref:email"><a href="#fn:email" class="footnote">3</a></sup>, czy format daty, który prowadził użytkownik jest w porządku <code class="highlighter-rouge">\d{4}-\d{2}-\d{2}</code>.</p>
+<p>To czy łańcuch znaków pasuje do wzorca wykorzystywane jest w trakcie walidacji danych wejściowych. Dzięki wyrażeniom regularnym możemy sprawdzić, czy dane pochodzące od użytkownika mają poprawny format. Na przykład następujące wyrażenie regularne pozwala sprawdzić czy użytkownik podał poprawne imię <code class="highlighter-rouge">[A-Z][a-z]+</code>, czy rzeczywiście adres e-mail może być poprawny <code class="highlighter-rouge">.+@.+\.pl</code><sup id="fnref:email" role="doc-noteref"><a href="#fn:email" class="footnote">3</a></sup>, czy format daty, który prowadził użytkownik jest w porządku <code class="highlighter-rouge">\d{4}-\d{2}-\d{2}</code>.</p>
 
 <p>Ponadto, wyrażeń regularnych możemy używać do „parsowania” łańcuchów znaków. Jeśli mamy większy łańcuch, z którego chcemy wyciągnąć jakąś część wyrażenia regularne mogą nam w tym pomóc. Na przykład jeśli w telefonie zapisujemy znajomych jako “imię (pseudonim) nazwisko”, wyrażenie regularne <code class="highlighter-rouge">\w+ \((\w+)\) \w+</code> pomoże nam wyciągnąć pseudonim.</p>
 
@@ -706,18 +713,18 @@
 <figure class="">
   <img src="/assets/images/2016/11/28_check_regexp_menu.jpg" alt="" />
   
-    <figcaption>Check RegExp menu.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Check RegExp menu.
+
+    </figcaption></figure>
 
 <figure class="">
   <img src="/assets/images/2016/11/28_check_regexp_dialog.jpg" alt="" />
   
-    <figcaption>Check RegExp dialog.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Check RegExp dialog.
+
+    </figcaption></figure>
 
 <h2 id="wady-wyrażeń-regularnych-i-praktyczne-wskazówki">Wady wyrażeń regularnych i praktyczne wskazówki</h2>
 
@@ -764,16 +771,16 @@
 <p>Mimo, że artykuł zawiera dość sporą ilość informacji na temat wyrażeń regularnych nie mówi o wszystkich możliwościach. Pominąłem tu celowo na przykład kwestie tak zwanego backtrackingu, zachłanności, alternatyw, nazwanych grup, ponownego użycia grup w wyrażeniu, flag, kotwic itd. Te zagadnienia opisuję w <a href="/wyrazenia-regularne-czesc-2/">drugiej części</a>.</p>
 
 <p>Tymczasem dzięki za lekturę i na koniec mam do Ciebie prośbę. Proszę podziel się linkiem do artykułu ze swoimi znajomymi, zależy mi na dotarciu do jak największej grupy czytelników i możesz mi w tym pomóc, z góry dziękuję!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:dlugi">
-      <p>Mówię to o długim w kontekście innych operacji takich jak dodawanie czy pobranie trzeciej litery z łańcucha znaków. <a href="#fnref:dlugi" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:dlugi" role="doc-endnote">
+      <p>Mówię to o długim w kontekście innych operacji takich jak dodawanie czy pobranie trzeciej litery z łańcucha znaków. <a href="#fnref:dlugi" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:kompilacja">
-      <p>Co prawda w języku Java każda instancja klasy <code class="highlighter-rouge">Pattern</code> kompilowana jest dokładnie raz jednak warto zapamiętać tę regułę w przypadku innych języków programowania. <a href="#fnref:kompilacja" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:kompilacja" role="doc-endnote">
+      <p>Co prawda w języku Java każda instancja klasy <code class="highlighter-rouge">Pattern</code> kompilowana jest dokładnie raz jednak warto zapamiętać tę regułę w przypadku innych języków programowania. <a href="#fnref:kompilacja" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:email">
-      <p>Oczywiście to wyrażenie regularne można “oszukać”. Nawet jeśli łańcuch znaków pasuje do wzorca nie musi być poprawnym adresem e-mail. <a href="#fnref:email" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:email" role="doc-endnote">
+      <p>Oczywiście to wyrażenie regularne można “oszukać”. Nawet jeśli łańcuch znaków pasuje do wzorca nie musi być poprawnym adresem e-mail. <a href="#fnref:email" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -854,7 +861,7 @@
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -882,13 +889,14 @@
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -916,13 +924,14 @@
     <p class="archive__item-excerpt" itemprop="description">Czas na kolejną odsłonę artykułu o wyrażeniach regularnych. W tej części przeczytasz o grupach nazwanych, alternatywie, ponownym użyciu grup w wyrażeniu czy ...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -950,13 +959,14 @@
     <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -984,6 +994,7 @@
     <p class="archive__item-excerpt" itemprop="description">Na rynku IT brakuje pracowników. Uczelnie nie nadążają z dostarczaniem nowych specjalistów. Popyt znacząco przewyższa podaż przez co rynek IT jest rynkiem pr...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -995,7 +1006,7 @@
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -1031,7 +1042,7 @@
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -1039,7 +1050,7 @@
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -1053,6 +1064,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -1075,6 +1087,8 @@
 
 
   
+
+
 
 
 

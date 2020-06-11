@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Protokół HTTP - Samouczek Programisty</title>
 <meta name="description" content="W artykule tym dowiesz się więcej o protokole HTTP. Przeczytasz o ciasteczkach, nagłówkach i czasownikach HTTP. Dowiesz się czym jest idempotentność. Poznasz najczęściej stosowane nagłówki. W artykule tym zebrałem wiedzę na temat protokołu HTTP niezbędną do tworzenia aplikacji webowych.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -313,7 +320,7 @@
   <p>zasady wymiany informacji i współpracy programów i urządzeń komputerowych</p>
 </blockquote>
 
-<p>Zatem protokół HTTP (ang. <em>Hypertext Transfer Protocol</em>) to zasady wymiany informacji i współpracy programów. Programami są serwery i klienty. Programy te wysyłają żądania (klienty) lub odpowiedzi (serwery). Przykładem klienta HTTP może być <a href="https://www.opera.com/">przeglądarka internetowa</a><sup id="fnref:praca"><a href="#fn:praca" class="footnote">1</a></sup>. Klienty mogą interpretować uzyskane odpowiedzi, na przykład przeglądarka internetowa potrafi wyświetlić stronę internetową, która została przesłana przez serwer.</p>
+<p>Zatem protokół HTTP (ang. <em>Hypertext Transfer Protocol</em>) to zasady wymiany informacji i współpracy programów. Programami są serwery i klienty. Programy te wysyłają żądania (klienty) lub odpowiedzi (serwery). Przykładem klienta HTTP może być <a href="https://www.opera.com/">przeglądarka internetowa</a><sup id="fnref:praca" role="doc-noteref"><a href="#fn:praca" class="footnote">1</a></sup>. Klienty mogą interpretować uzyskane odpowiedzi, na przykład przeglądarka internetowa potrafi wyświetlić stronę internetową, która została przesłana przez serwer.</p>
 
 <p class="notice--info">Nawiasem mówiąc przeglądarka robi całkiem sporo rzeczy w tle… Wiesz, że do wyświetlania strony www.amazon.com przeglądarka wykonuje około 300 żądań HTTP? W końcowej części artykułu pokażę Ci jak to się dzieje.</p>
 
@@ -386,7 +393,7 @@
   </tbody>
 </table>
 
-<p>Zgodnie ze specyfikacją HTTP wielkość liter nie ma znaczenia w częściach <code class="highlighter-rouge">scheme</code> i <code class="highlighter-rouge">host</code>. Wielkość liter w pozostałych elementach ma znaczenie<sup id="fnref:litery"><a href="#fn:litery" class="footnote">2</a></sup>.</p>
+<p>Zgodnie ze specyfikacją HTTP wielkość liter nie ma znaczenia w częściach <code class="highlighter-rouge">scheme</code> i <code class="highlighter-rouge">host</code>. Wielkość liter w pozostałych elementach ma znaczenie<sup id="fnref:litery" role="doc-noteref"><a href="#fn:litery" class="footnote">2</a></sup>.</p>
 
 <p>Poniżej opiszę poszczególne części adresu URL.</p>
 
@@ -398,7 +405,7 @@
 
 <p><code class="highlighter-rouge">user:password</code> służą do uwierzytelniania. Uwierzytelnianie to proces, który polega na udowodnieniu, że klient wysyłający dane żądanie jest tym za kogo się podaje. Mechanizmu uwierzytelniania używasz praktycznie w każdym serwisie gdzie masz założone konto.</p>
 
-<p>W tym przypadku nazwa użytkownika i hasło przesyłane są jako część URL. Nie jest to bezpieczne w przypadku używania protokołu HTTP. Nawet przy komunikacji protokołem HTTPS adres URL może być zapamiętany przez przeglądarkę. Daje to możliwość przechwycenia nazwy użytkownika i hasła. W związku z tym nie jest to bezpieczny sposób na przesyłanie hasła czy nazwy użytkownika i należy go unikać<sup id="fnref:wewnetrzna"><a href="#fn:wewnetrzna" class="footnote">3</a></sup>.</p>
+<p>W tym przypadku nazwa użytkownika i hasło przesyłane są jako część URL. Nie jest to bezpieczne w przypadku używania protokołu HTTP. Nawet przy komunikacji protokołem HTTPS adres URL może być zapamiętany przez przeglądarkę. Daje to możliwość przechwycenia nazwy użytkownika i hasła. W związku z tym nie jest to bezpieczny sposób na przesyłanie hasła czy nazwy użytkownika i należy go unikać<sup id="fnref:wewnetrzna" role="doc-noteref"><a href="#fn:wewnetrzna" class="footnote">3</a></sup>.</p>
 
 <h3 id="host"><code class="highlighter-rouge">host</code></h3>
 
@@ -492,7 +499,7 @@
 
 <h3 id="odpowiedź-http">Odpowiedź HTTP</h3>
 
-<p>Serwer odpowiada na żądanie klienta wysyłając odpowiedź<sup id="fnref:kilka"><a href="#fn:kilka" class="footnote">4</a></sup>. Podobnie jak w przypadku zapytania format jest dokładnie określony:</p>
+<p>Serwer odpowiada na żądanie klienta wysyłając odpowiedź<sup id="fnref:kilka" role="doc-noteref"><a href="#fn:kilka" class="footnote">4</a></sup>. Podobnie jak w przypadku zapytania format jest dokładnie określony:</p>
 
 <ul>
   <li>linijka z wersją protokołu i statusem odpowiedzi,</li>
@@ -543,9 +550,9 @@
 
 <h2 id="czasowniki-http">Czasowniki HTTP</h2>
 
-<p>Specyfikacja HTTP definiuje 8 czasowników<sup id="fnref:rozszerzenie"><a href="#fn:rozszerzenie" class="footnote">5</a></sup>. Każdy z tych czasowników powiązany jest z żądaniem wysyłanym przez klienta. Każde z żądań ma swoje zastosowania.</p>
+<p>Specyfikacja HTTP definiuje 8 czasowników<sup id="fnref:rozszerzenie" role="doc-noteref"><a href="#fn:rozszerzenie" class="footnote">5</a></sup>. Każdy z tych czasowników powiązany jest z żądaniem wysyłanym przez klienta. Każde z żądań ma swoje zastosowania.</p>
 
-<p class="notice--info">Zanim przejdę do omówienia poszczególnych czasowników musisz wiedzieć czym jest cache<sup id="fnref:polski"><a href="#fn:polski" class="footnote">6</a></sup>. Cache to mechanizm, który pozwala na zmniejszenie czasu oczekiwania na odpowiedź. Zakładając, że wykonasz dwa zapytania z rzędu o ten sam zasób wynik pierwszego zapytania może być zapisany w cache’u. W związku z tym drugie zapytanie może nie dotrzeć do serwera, odpowiedź może zostać pobrana z cache’a.</p>
+<p class="notice--info">Zanim przejdę do omówienia poszczególnych czasowników musisz wiedzieć czym jest cache<sup id="fnref:polski" role="doc-noteref"><a href="#fn:polski" class="footnote">6</a></sup>. Cache to mechanizm, który pozwala na zmniejszenie czasu oczekiwania na odpowiedź. Zakładając, że wykonasz dwa zapytania z rzędu o ten sam zasób wynik pierwszego zapytania może być zapisany w cache’u. W związku z tym drugie zapytanie może nie dotrzeć do serwera, odpowiedź może zostać pobrana z cache’a.</p>
 
 <h3 id="get"><code class="highlighter-rouge">GET</code></h3>
 
@@ -569,7 +576,7 @@
   <li>dodawanie danych do istniejącego zasobu.</li>
 </ul>
 
-<p>Odpowiedzi na żądania typu <code class="highlighter-rouge">POST</code> nie jest przechowywana w cache’u<sup id="fnref:wyjatek"><a href="#fn:wyjatek" class="footnote">7</a></sup>.</p>
+<p>Odpowiedzi na żądania typu <code class="highlighter-rouge">POST</code> nie jest przechowywana w cache’u<sup id="fnref:wyjatek" role="doc-noteref"><a href="#fn:wyjatek" class="footnote">7</a></sup>.</p>
 
 <h3 id="put"><code class="highlighter-rouge">PUT</code></h3>
 
@@ -706,7 +713,7 @@
 
 <p>Pewnie kojarzysz formularze logowania, w których możesz zaznaczyć “zapamiętaj mnie”. Zaznaczenie tego pola powoduje wysłanie odpowiedzi przez serwer, w której znajduje się nagłówek z ciasteczkiem (nagłówek <code class="highlighter-rouge">Set-Cookie</code>). To ciasteczko zawiera unikalny klucz, który później jest dołączany przez klienta do każdego żądania do danej domeny (nagłówek <code class="highlighter-rouge">Cookie</code>). Dzięki temu każde kolejne zapytanie ma nagłówek z tym tokenem. Aplikacja na serwerze widząc ten token może potwierdzić tożsamość użytkownika.</p>
 
-<p>Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą być wykorzystywane jako jeden ze sposobów do śledzenia Twojego ruchu w sieci. Zdarzyło Ci się kliknąć na reklamę a później ta reklama pokazywała Ci się bez przerwy? Ciasteczka także mogły się do tego przyczynić<sup id="fnref:zaawansowane"><a href="#fn:zaawansowane" class="footnote">8</a></sup>.</p>
+<p>Niestety ciasteczka wykorzystywane są także do złych celów. Ciasteczka mogą być wykorzystywane jako jeden ze sposobów do śledzenia Twojego ruchu w sieci. Zdarzyło Ci się kliknąć na reklamę a później ta reklama pokazywała Ci się bez przerwy? Ciasteczka także mogły się do tego przyczynić<sup id="fnref:zaawansowane" role="doc-noteref"><a href="#fn:zaawansowane" class="footnote">8</a></sup>.</p>
 
 <h2 id="statusy-http">Statusy HTTP</h2>
 
@@ -762,10 +769,10 @@
 <figure class="">
   <img src="/assets/images/2018/02/08_amazon_zapytania.jpeg" alt="" />
   
-    <figcaption>Do wyświetlenia www.amazon.com potrzeba około 300 zapytań
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Do wyświetlenia www.amazon.com potrzeba około 300 zapytań
+
+    </figcaption></figure>
 
 <p>Przeglądarka jest klientem HTTP. Klienty mogą interpretować odpowiedź wysyłaną od serwera. Wpisując w pasek adresu <code class="highlighter-rouge">www.amazon.com</code> i naciskając ENTER wysyłasz jedno zapytanie. Jest to zapytanie typu <code class="highlighter-rouge">GET</code> o zasób <code class="highlighter-rouge">www.amazon.com</code>. W odpowiedzi serwer zwraca dokument HTML.</p>
 
@@ -797,31 +804,31 @@
 <p>Zapowiadało się niewinnie a wyszedł tasiemiec. Sporo napracowałem się przy tym artykule, więc będę Ci bardzo wdzięczny za udostępnienie go dalej :).</p>
 
 <p>Jeśli nie chcesz pominąć kolejnych artykułów na Samouczku proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Trzymaj się! :)</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:praca">
-      <p>Ot, taki “patriotyzm lokalny” – aktualnie pracuję w firmie Opera Software ;). <a href="#fnref:praca" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:praca" role="doc-endnote">
+      <p>Ot, taki “patriotyzm lokalny” – aktualnie pracuję w firmie Opera Software ;). <a href="#fnref:praca" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:litery">
-      <p>To czy wielkość liter jest rozróżniana zależy od aplikacji obsługującej dane żądanie. <a href="#fnref:litery" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:litery" role="doc-endnote">
+      <p>To czy wielkość liter jest rozróżniana zależy od aplikacji obsługującej dane żądanie. <a href="#fnref:litery" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:wewnetrzna">
-      <p>Potrafię sobie wyobrazić wyjątki od tej reguły. Na przykład w komunikacji, w której adres URL jest przesyłany zaszyfrowanym kanałem. <a href="#fnref:wewnetrzna" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:wewnetrzna" role="doc-endnote">
+      <p>Potrafię sobie wyobrazić wyjątki od tej reguły. Na przykład w komunikacji, w której adres URL jest przesyłany zaszyfrowanym kanałem. <a href="#fnref:wewnetrzna" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:kilka">
-      <p>Na jedno żądanie serwer może wysłać kilka odpowiedzi, na przykład dzieląc dużą odpowiedź na kilka mniejszych. <a href="#fnref:kilka" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:kilka" role="doc-endnote">
+      <p>Na jedno żądanie serwer może wysłać kilka odpowiedzi, na przykład dzieląc dużą odpowiedź na kilka mniejszych. <a href="#fnref:kilka" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:rozszerzenie">
-      <p><a href="https://tools.ietf.org/html/rfc5789">RFC5789</a> rozszerza tę grupę o czasownik PATCH. <a href="#fnref:rozszerzenie" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:rozszerzenie" role="doc-endnote">
+      <p><a href="https://tools.ietf.org/html/rfc5789">RFC5789</a> rozszerza tę grupę o czasownik PATCH. <a href="#fnref:rozszerzenie" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:polski">
-      <p>Tutaj podobnie jak z webservice’em postanowiłem nie tłumaczyć tego określenia. Jest ono na tyle powszechne, że nawet nie wiem jakie byłoby dobre tłumaczenie. Schowek? Skrytka? ;) <a href="#fnref:polski" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:polski" role="doc-endnote">
+      <p>Tutaj podobnie jak z webservice’em postanowiłem nie tłumaczyć tego określenia. Jest ono na tyle powszechne, że nawet nie wiem jakie byłoby dobre tłumaczenie. Schowek? Skrytka? ;) <a href="#fnref:polski" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:wyjatek">
-      <p>W większości przypadków, specyfikacja dopuszcza wyjątki od tej reguły. <a href="#fnref:wyjatek" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:wyjatek" role="doc-endnote">
+      <p>W większości przypadków, specyfikacja dopuszcza wyjątki od tej reguły. <a href="#fnref:wyjatek" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:zaawansowane">
-      <p>Ciasteczka nie są jedynym narzędziem używanym do śledzenia użytkownika. Podobnie sprawa wygląda z reklamami, to nie tylko ciasteczka mogą służyć do wybierania tych do wyświetlenia dla Ciebie. <a href="#fnref:zaawansowane" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:zaawansowane" role="doc-endnote">
+      <p>Ciasteczka nie są jedynym narzędziem używanym do śledzenia użytkownika. Podobnie sprawa wygląda z reklamami, to nie tylko ciasteczka mogą służyć do wybierania tych do wyświetlenia dla Ciebie. <a href="#fnref:zaawansowane" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -902,7 +909,7 @@
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -930,13 +937,14 @@
     <p class="archive__item-excerpt" itemprop="description">W pierwszej części artykułu opisującej serwlety dowiedziałeś się podstaw dotyczących serwletów. W tym artykule będziesz mógł poszerzyć tę wiedzę. Dowiesz się...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -964,13 +972,14 @@
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -998,13 +1007,14 @@
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o serwletach. Poznasz podstawy protokołu HTTP. Dowiesz się czym są serwlety i jak je pisać. Dowiesz się także czym jest plik war i...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -1032,6 +1042,7 @@
     <p class="archive__item-excerpt" itemprop="description">Po lekturze tego artykułu będziesz wiedział czym jest web service. Przeczytasz o tym czym jest REST. Dowiesz się dlaczego zdobył taką popularność. Zainstaluj...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -1043,7 +1054,7 @@
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -1079,7 +1090,7 @@
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -1087,7 +1098,7 @@
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -1101,6 +1112,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -1123,6 +1135,8 @@
 
 
   
+
+
 
 
 

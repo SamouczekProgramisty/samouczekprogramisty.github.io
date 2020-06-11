@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Samouczek na rozmowie – znajdź brakujący element - Samouczek Programisty</title>
 <meta name="description" content="W artykule tym rozkładam na części pierwsze zadanie, które sam miałem na rozmowie kwalifikacyjnej. Przeprowadzę Cię przez różne sposoby rozwiązania tego zadania. Zaczynając od tych najprostszych do tych, które są najbardziej wydajne. Zapraszam do lektury.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -325,7 +332,7 @@ findMissing(tablica) == 3
 
 <h3 id="najprostsze-rozwiązanie-problemu">Najprostsze rozwiązanie problemu</h3>
 
-<p>Zacznę od najprostszego rozwiązania problemu. Na wejściu mamy <a href="/tablice-w-jezyku-java/">tablicę</a><sup id="fnref:varargs"><a href="#fn:varargs" class="footnote">1</a></sup>, w której brakuje jednego elementu z zakresu <code class="highlighter-rouge">&lt;0, N&gt;</code>. Żeby znaleźć brakujący element można sprawdzić czy każdy z elementów występuje w tablicy. Pierwsza iteracja sprawdzi czy w tablicy występuje <code class="highlighter-rouge">0</code>, kolejna <code class="highlighter-rouge">1</code> i tak dalej aż dojdziemy do <code class="highlighter-rouge">N</code>. Proszę spójrz na przykładowe rozwiązanie:</p>
+<p>Zacznę od najprostszego rozwiązania problemu. Na wejściu mamy <a href="/tablice-w-jezyku-java/">tablicę</a><sup id="fnref:varargs" role="doc-noteref"><a href="#fn:varargs" class="footnote">1</a></sup>, w której brakuje jednego elementu z zakresu <code class="highlighter-rouge">&lt;0, N&gt;</code>. Żeby znaleźć brakujący element można sprawdzić czy każdy z elementów występuje w tablicy. Pierwsza iteracja sprawdzi czy w tablicy występuje <code class="highlighter-rouge">0</code>, kolejna <code class="highlighter-rouge">1</code> i tak dalej aż dojdziemy do <code class="highlighter-rouge">N</code>. Proszę spójrz na przykładowe rozwiązanie:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">naiveFindMissing</span><span class="o">(</span><span class="kt">int</span><span class="o">...</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">missing</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
@@ -387,11 +394,11 @@ findMissing(tablica) == 3
 
 <p>Z opisu zadania wiesz, że szukamy brakującej liczby z zakresu <code class="highlighter-rouge">&lt;0, N&gt;</code>. Liczby 0, 1, 2, …, N to <a href="https://pl.wikipedia.org/wiki/Ci%C4%85g_arytmetyczny">ciąg arytmetyczny</a>. Istnieje wzór, który pozwala na obliczenie sumy elementów ciągu arytmetycznego:</p>
 
-<script type="math/tex; mode=display">S_n = rac{n(2a_1 + (n - 1)r)}{2}</script>
+\[S_n = rac{n(2a_1 + (n - 1)r)}{2}\]
 
 <p>Załóżmy, że tablica wejściowa ma 100. Wiemy zatem, że szukamy liczby z zakresu 0 do 100. Liczb w tym zakresie jest 101, pierwszy element ma wartość 0 a różnica pomiędzy elementami wynosi 1. Podstawiając te wartości pod wzór otrzymujemy sumę elementów:</p>
 
-<script type="math/tex; mode=display">S_n = rac{101 * (2 * 0 + (101 - 1) * 1)}{2} = rac{101 * 100}{2} = 5050</script>
+\[S_n = rac{101 * (2 * 0 + (101 - 1) * 1)}{2} = rac{101 * 100}{2} = 5050\]
 
 <p>Skoro znamy oczekiwaną sumę możemy zsumować zawartość przekazanej tablicy i odjąć tę wartość od oczekiwanej sumy. Wynik odejmowania to brakujący element:</p>
 
@@ -434,10 +441,10 @@ findMissing(tablica) == 3
 <p>Przykładowe rozwiązania, przedstawione w artykule znajdziesz na <a href="https://github.com/SamouczekProgramisty/StrefaZadaniowaSamouka/tree/master/07_missing_element/src">samouczkowym githubie</a>. Kod zawiera także <a href="/testy-jednostkowe-z-junit/">testy jednostkowe</a>, których użyłem do weryfikacji poprawności działania algorytmów.</p>
 
 <p>Jeśli nie chcesz pominąć kolejnych artykułów z tej serii dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Jak zwykle, jeśli masz jakiekolwiek pytania proszę zadaj je w komentarzach. Postaram się pomóc ;). Do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:varargs">
-      <p>Właściwie jest to argument, który akceptuje zmienną liczbę argumentów. Taka sygnatura metody pozwala także na przekazanie tablicy. <a href="#fnref:varargs" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:varargs" role="doc-endnote">
+      <p>Właściwie jest to argument, który akceptuje zmienną liczbę argumentów. Taka sygnatura metody pozwala także na przekazanie tablicy. <a href="#fnref:varargs" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -522,7 +529,7 @@ findMissing(tablica) == 3
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -550,13 +557,14 @@ findMissing(tablica) == 3
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o złożoności obliczeniowej. Dowiesz się dlaczego jest ona ważna i kiedy jest wykorzystywana. Przeczytasz o tym czym jest notacja Ο...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -584,13 +592,14 @@ findMissing(tablica) == 3
     <p class="archive__item-excerpt" itemprop="description">W artykule tym rozkładam na części pierwsze zadanie, podesłane przez jednego z czytelników. Po lekturze tego artykułu będziesz wiedział czym są liczby cyklic...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -618,13 +627,14 @@ findMissing(tablica) == 3
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -652,6 +662,7 @@ findMissing(tablica) == 3
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o tablicy asocjacyjnej zwanej także słownikiem czy mapą. Dowiesz się jak działa ta struktura. Pokażę Ci przykładową implementację ...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -663,7 +674,7 @@ findMissing(tablica) == 3
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -699,7 +710,7 @@ findMissing(tablica) == 3
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -707,7 +718,7 @@ findMissing(tablica) == 3
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -721,6 +732,7 @@ findMissing(tablica) == 3
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -743,6 +755,8 @@ findMissing(tablica) == 3
 
 
   
+
+
 
 
 

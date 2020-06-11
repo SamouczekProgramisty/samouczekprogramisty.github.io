@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Funkcje i grupowanie wierszy w SQL - Samouczek Programisty</title>
 <meta name="description" content="Artykuł ten opisuje podstawowe funkcje używane w zapytaniach SQL. Omawia także mechanizm grupowania. Po lekturze tego artykułu będziesz wiedzieć jak używać klauzuli GROUP BY i dowiesz się jaka jest różnica pomiędzy HAVING a WHERE. Na końcu artykułu czekają na Ciebie zadania z przykładowymi rozwiązaniami.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -298,7 +305,7 @@
 
 <h2 id="funkcje">Funkcje</h2>
 
-<p>Na pewno znasz różne funkcje. Mogą kojarzyć Ci się z matematyką czy językami programowania. Okazuje się, że funkcje występują też w języku SQL. Funkcja w przypadku SQL zaimplementowana jest przez silnik bazy danych<sup id="fnref:swoje"><a href="#fn:swoje" class="footnote">1</a></sup>. Funkcje udostępnione przez silnik SQL możesz użyć w zapytaniach.</p>
+<p>Na pewno znasz różne funkcje. Mogą kojarzyć Ci się z matematyką czy językami programowania. Okazuje się, że funkcje występują też w języku SQL. Funkcja w przypadku SQL zaimplementowana jest przez silnik bazy danych<sup id="fnref:swoje" role="doc-noteref"><a href="#fn:swoje" class="footnote">1</a></sup>. Funkcje udostępnione przez silnik SQL możesz użyć w zapytaniach.</p>
 
 <p>Proszę spójrz na przykład:</p>
 
@@ -390,9 +397,9 @@
 <ul>
   <li><code class="highlighter-rouge">ABS</code> – zwraca <a href="https://pl.wikipedia.org/wiki/Warto%C5%9B%C4%87_bezwzgl%C4%99dna">wartość bezwzględną</a> przyjmowanego argumentu,</li>
   <li><code class="highlighter-rouge">LENGTH</code> – tę funkcję już znasz, zwraca długość łańcucha znaków,</li>
-  <li><code class="highlighter-rouge">LOWER</code> – zwraca kopię łańcucha znaków przekazanego jako parametr, w którym wszystkie litery zamienione są na małe<sup id="fnref:ascii"><a href="#fn:ascii" class="footnote">2</a></sup>,</li>
+  <li><code class="highlighter-rouge">LOWER</code> – zwraca kopię łańcucha znaków przekazanego jako parametr, w którym wszystkie litery zamienione są na małe<sup id="fnref:ascii" role="doc-noteref"><a href="#fn:ascii" class="footnote">2</a></sup>,</li>
   <li><code class="highlighter-rouge">RANDOM</code> – zwraca losową liczbę całkowitą,</li>
-  <li><code class="highlighter-rouge">SUBSTR</code><sup id="fnref:substring"><a href="#fn:substring" class="footnote">3</a></sup> – <code class="highlighter-rouge">SUBSTR(x, y, z)</code> pobiera podzbiór znaków parametru <code class="highlighter-rouge">x</code> od litery <code class="highlighter-rouge">y</code> o długości <code class="highlighter-rouge">z</code>. Parametr <code class="highlighter-rouge">z</code> może być pominięty, wtedy funkcja zwraca podzbiór znaków od znaku <code class="highlighter-rouge">y</code> do końca. Pierwsza litera ma indeks <code class="highlighter-rouge">1</code>,</li>
+  <li><code class="highlighter-rouge">SUBSTR</code><sup id="fnref:substring" role="doc-noteref"><a href="#fn:substring" class="footnote">3</a></sup> – <code class="highlighter-rouge">SUBSTR(x, y, z)</code> pobiera podzbiór znaków parametru <code class="highlighter-rouge">x</code> od litery <code class="highlighter-rouge">y</code> o długości <code class="highlighter-rouge">z</code>. Parametr <code class="highlighter-rouge">z</code> może być pominięty, wtedy funkcja zwraca podzbiór znaków od znaku <code class="highlighter-rouge">y</code> do końca. Pierwsza litera ma indeks <code class="highlighter-rouge">1</code>,</li>
   <li><code class="highlighter-rouge">TRIM</code> – usuwa spacje z obu stron przekazanego parametru,</li>
   <li><code class="highlighter-rouge">UPPER</code> – funkcja działa podobnie jak <code class="highlighter-rouge">LOWER</code>, tym razem zwracany łańcuch znaków składa się z wielkich liter.</li>
 </ul>
@@ -623,16 +630,16 @@ United Kingdom  112.86
 <p>Daj znać w komentarzach jak udało Ci się rozwiązać zadania, może Twoje zapytania wyglądają trochę inaczej?</p>
 
 <p>Na koniec mam do Ciebie standardową prośbę. Jeśli znasz kogoś, komu ten artykuł może pomóc proszę przekaż tej osobie linka do artykułu. Dzięki temu pomożesz mi dotrzeć do nowych czytelników – z góry dziękuję za Twoją pomoc. Jeśli nie chcesz ominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub Samouczka na Facebooku. Do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:swoje">
-      <p>Różne silniki baz danych pozwalają na definiowanie własnych funkcji. Na przykład SQLite udostępnia tę funkcjonalność poprzez funkcję <a href="https://www.sqlite.org/c3ref/create_function.html"><code class="highlighter-rouge">sqlite3_create_function</code></a>. Odsyłam Cię do dokumentacji twojej bazy danych jeśli chcesz poznać więcej szczegółów. <a href="#fnref:swoje" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:swoje" role="doc-endnote">
+      <p>Różne silniki baz danych pozwalają na definiowanie własnych funkcji. Na przykład SQLite udostępnia tę funkcjonalność poprzez funkcję <a href="https://www.sqlite.org/c3ref/create_function.html"><code class="highlighter-rouge">sqlite3_create_function</code></a>. Odsyłam Cię do dokumentacji twojej bazy danych jeśli chcesz poznać więcej szczegółów. <a href="#fnref:swoje" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:ascii">
-      <p>W przypadku SQLite zamieniane są tylko litery kodowane w <a href="https://pl.wikipedia.org/wiki/ASCII">ASCII</a>, niestety funkcja ta nie działa poprawnie dla polskich znaków. <a href="#fnref:ascii" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:ascii" role="doc-endnote">
+      <p>W przypadku SQLite zamieniane są tylko litery kodowane w <a href="https://pl.wikipedia.org/wiki/ASCII">ASCII</a>, niestety funkcja ta nie działa poprawnie dla polskich znaków. <a href="#fnref:ascii" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:substring">
-      <p>Wspominałem, że funkcje mogą być specyficzne dla różnych silników baz danych. Na przykład odpowiednikiem <code class="highlighter-rouge">SUBSTR</code> w Postgresql jest <code class="highlighter-rouge">SUBSTRING</code>. <a href="#fnref:substring" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:substring" role="doc-endnote">
+      <p>Wspominałem, że funkcje mogą być specyficzne dla różnych silników baz danych. Na przykład odpowiednikiem <code class="highlighter-rouge">SUBSTR</code> w Postgresql jest <code class="highlighter-rouge">SUBSTRING</code>. <a href="#fnref:substring" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -717,7 +724,7 @@ United Kingdom  112.86
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -745,13 +752,14 @@ United Kingdom  112.86
     <p class="archive__item-excerpt" itemprop="description">W tym artykule opisuję podzapytania SQL. Po lekturze tego artykułu będziesz wiedzieć czym są podzapytania, kiedy można je stosować i w jakich miejscach mogą ...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -779,13 +787,14 @@ United Kingdom  112.86
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje kilka wyrażeń używanych w SQL. Po lekturze będziesz wiedzieć jak używać i do czego służą DISTINCT, AS czy UNION. Poznasz także sposoby na...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -813,13 +822,14 @@ United Kingdom  112.86
     <p class="archive__item-excerpt" itemprop="description">Jest to pierwszy artykuł w praktycznym kursie SQL dla początkujących. Po przeczytaniu tego artykułu będziesz wiedzieć czym jest język SQL. Dowiesz się jak wy...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -847,6 +857,7 @@ United Kingdom  112.86
     <p class="archive__item-excerpt" itemprop="description">W tym artykule przeczytasz o możliwościach klauzuli WHERE. Na praktycznych przykładach pokażę Ci jak filtrować dane w zapytaniach SQL. Także na przykładzie p...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -858,7 +869,7 @@ United Kingdom  112.86
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -894,7 +905,7 @@ United Kingdom  112.86
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -902,7 +913,7 @@ United Kingdom  112.86
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -916,6 +927,7 @@ United Kingdom  112.86
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -938,6 +950,8 @@ United Kingdom  112.86
 
 
   
+
+
 
 
 

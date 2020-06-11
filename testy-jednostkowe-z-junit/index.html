@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Testy jednostkowe z JUnit - Samouczek Programisty</title>
 <meta name="description" content="Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz podstawy biblioteki JUnit i nauczysz się jak jej używać. Dowiesz się czym są testy automatyczne i poznasz klika skrótów klawiaturowych IntelliJ Idea pomocnych przy pisaniu testów. Postaram się też pokazać kilka dobrych praktyk dotyczących pisania testów. Na koniec przećwiczysz materiał z tego artykułu rozwiązując zestaw zadań.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -341,9 +348,9 @@
 
 <h3 id="przykłady-użycia-asercji">Przykłady użycia asercji</h3>
 
-<p>Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie testów jednostkowych), które ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/AssertionError.html"><code class="highlighter-rouge">AssertionError</code></a><sup id="fnref:assert"><a href="#fn:assert" class="footnote">1</a></sup>.</p>
+<p>Po co używać asercji? Otóż gotowe asercje tworzą komunikaty błędów (w trakcie testów jednostkowych), które ułatwiają znalezienie błędu. Komunikaty te są bardziej czytelne niż standardowy wyjątek <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/AssertionError.html"><code class="highlighter-rouge">AssertionError</code></a><sup id="fnref:assert" role="doc-noteref"><a href="#fn:assert" class="footnote">1</a></sup>.</p>
 
-<p>Asercje w bibliotece JUnit to nic innego jak metody statyczne w klasie <a href="http://junit.org/junit4/javadoc/latest/org/junit/Assert.html"><code class="highlighter-rouge">Assert</code></a>. Poniżej przedstawię Ci kilka najczęściej stosowanych asercji<sup id="fnref:assert_that"><a href="#fn:assert_that" class="footnote">2</a></sup>.</p>
+<p>Asercje w bibliotece JUnit to nic innego jak metody statyczne w klasie <a href="http://junit.org/junit4/javadoc/latest/org/junit/Assert.html"><code class="highlighter-rouge">Assert</code></a>. Poniżej przedstawię Ci kilka najczęściej stosowanych asercji<sup id="fnref:assert_that" role="doc-noteref"><a href="#fn:assert_that" class="footnote">2</a></sup>.</p>
 
 <ul>
   <li><code class="highlighter-rouge">assertTrue</code> sprawdza czy przekazany argument to <code class="highlighter-rouge">true</code>,</li>
@@ -518,7 +525,7 @@ tear down class
   <li>Nadawaj metodom z testem nazwy, które pomagają zrozumieć co dany test powinien sprawdzić.</li>
   <li>Kolejność testów jednostkowych w klasie nie powinna mieć znaczenia. Innymi słowy nie możemy polegać na tym, że jako pierwszy musi się uruchomić <code class="highlighter-rouge">test1</code> a po nim <code class="highlighter-rouge">test2</code>. Testy uruchomione w odwrotnej kolejności także powinny mieć dokładnie taki sam efekt.</li>
   <li>Pisz testy jednostkowe tak, żeby nie zależały od Twojej lokalnej konfiguracji. Na przykład test jednostkowy czytający plik z Twojego dysku z katalogu <code class="highlighter-rouge">C:\mój\katalog\domowy</code> (czy <code class="highlighter-rouge">/home/uzytkownik</code>) nie jest dobrym rozwiązaniem.</li>
-  <li>Pisz testy jednostkowe niezależne od zewnętrznych systemów. Innymi słowy testuj tylko „jednostkę”, nic ponadto. Jeśli klasa, którą testujesz potrzebuje dostępu np. do bazy danych użyj mocka czy stuba do jej zastąpienia w trakcie testów<sup id="fnref:mock"><a href="#fn:mock" class="footnote">3</a></sup> .</li>
+  <li>Pisz testy jednostkowe niezależne od zewnętrznych systemów. Innymi słowy testuj tylko „jednostkę”, nic ponadto. Jeśli klasa, którą testujesz potrzebuje dostępu np. do bazy danych użyj mocka czy stuba do jej zastąpienia w trakcie testów<sup id="fnref:mock" role="doc-noteref"><a href="#fn:mock" class="footnote">3</a></sup> .</li>
   <li>Testuj warunki brzegowe i sytuacje wyjątkowe. Załóżmy, że masz metodę, która przyjmuje tablicę, która musi mieć maksymalnie trzy elementy. Napisz kilka testów:
     <ul>
       <li>przekazując <code class="highlighter-rouge">null</code> zamiast tablicy,</li>
@@ -544,40 +551,40 @@ tear down class
 <figure class="">
   <img src="/assets/images/2016/10/29_nowy_test_dialog.png" alt="" />
   
-    <figcaption>Tworzenie nowego testu.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Tworzenie nowego testu.
+
+    </figcaption></figure>
 
 <p>IntelliJ jest na tyle mądry, że wykrywa brak biblioteki JUnit w projekcie. W oknie dialogowym widać wówczas przycisk „Fix it”, który automatycznie dodaję tę bibliotekę.</p>
 
 <figure class="">
   <img src="/assets/images/2016/10/29_nowy_test_dialog2.png" alt="" />
   
-    <figcaption>Tworzenie nowego testu.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Tworzenie nowego testu.
+
+    </figcaption></figure>
 
 <p>Kolejnym skrótem klawiaturowym, który może się przydać podczas pisania testów jednostkowych jest <code class="highlighter-rouge">&lt;Alt + Insert&gt;</code>, naciśnięcie tego skrótu wewnątrz klasy grupującej testy pozwala nam w łatwy sposób stworzyć kolejny test.</p>
 
 <figure class="">
   <img src="/assets/images/2016/10/29_test_generowanie_kodu.png" alt="" />
   
-    <figcaption>Generowanie kodu w testach.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Generowanie kodu w testach.
+
+    </figcaption></figure>
 
 <p>W końcu kombinacja <code class="highlighter-rouge">&lt;Ctrl + Shift + F10&gt;</code> pozwala na uruchomienie testów jednostkowych wewnątrz IDE. W zależności od tego na czym znajduje się nasz kursor myszy, ten skrót klawiaturowy może uruchomić pojedynczą metodę z testem, klasę grupującą testy czy pakiet z kilkoma klasami testowymi.</p>
 
 <figure class="">
   <img src="/assets/images/2016/10/29_testy_ok.png" alt="" />
   
-    <figcaption>Testy bez błędów.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Testy bez błędów.
+
+    </figcaption></figure>
 
 <h2 id="zadanie-do-rozwiązania">Zadanie do rozwiązania</h2>
 
@@ -590,7 +597,7 @@ tear down class
 <p>Drobna podpowiedź z przykładowym zestawem klas, które mogą rozwiązać ten problem:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">Item</code>, która posiada dwa atrybuty <code class="highlighter-rouge">double price</code><sup id="fnref:double"><a href="#fn:double" class="footnote">4</a></sup> oraz <code class="highlighter-rouge">String name</code>,</li>
+  <li><code class="highlighter-rouge">Item</code>, która posiada dwa atrybuty <code class="highlighter-rouge">double price</code><sup id="fnref:double" role="doc-noteref"><a href="#fn:double" class="footnote">4</a></sup> oraz <code class="highlighter-rouge">String name</code>,</li>
   <li><code class="highlighter-rouge">Basket</code>, który posiada atrybut <code class="highlighter-rouge">Map orderedItems</code> reprezentujący zamówione towary wraz z ich ilością.</li>
 </ul>
 
@@ -612,19 +619,19 @@ tear down class
 <p>W artykule przeczytałeś o testach jednostkowych. Poznałeś zestaw dobrych praktyk dotyczących pisania testów, nauczyłeś się podstaw biblioteki JUnit. Wiesz czym jest test automatyczny i dlaczego takie testy są istotne. Całość przećwiczyłeś w sposób praktyczny rozwiązując zadanie końcowe.</p>
 
 <p>Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największej liczby czytelników – proszę podziel się linkiem do artykułu ze znajomymi. Jeśli nie chcesz ominąć kolejnych artykułów możesz polubić moją <a href="https://www.facebook.com/SamouczekProgramisty">stronę na Facebook’u</a> ;). Do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:assert">
-      <p>W języku Java istnieje także słowo kluczowe <code class="highlighter-rouge">assert</code>, po którym musi wystąpić wartość logiczna, jeśli jest ona fałszem kończy się to rzuceniem wyjątku <code class="highlighter-rouge">AssertionError</code> – np. <code class="highlighter-rouge">assert false</code> rzuci wyjątek. <a href="#fnref:assert" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:assert" role="doc-endnote">
+      <p>W języku Java istnieje także słowo kluczowe <code class="highlighter-rouge">assert</code>, po którym musi wystąpić wartość logiczna, jeśli jest ona fałszem kończy się to rzuceniem wyjątku <code class="highlighter-rouge">AssertionError</code> – np. <code class="highlighter-rouge">assert false</code> rzuci wyjątek. <a href="#fnref:assert" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:assert_that">
-      <p>Pominę tutaj metodę <code class="highlighter-rouge">assertThat</code>, którą omówię bardziej szczegółowo w kolejnych artykułach. <a href="#fnref:assert_that" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:assert_that" role="doc-endnote">
+      <p>Pominę tutaj metodę <code class="highlighter-rouge">assertThat</code>, którą omówię bardziej szczegółowo w kolejnych artykułach. <a href="#fnref:assert_that" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:mock">
-      <p>O mockach czy stubach przeczytasz w kolejnych artykułach, jeśli jest to Twoja pierwsza styczność z testami możesz ten punkt pominąć. <a href="#fnref:mock" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:mock" role="doc-endnote">
+      <p>O mockach czy stubach przeczytasz w kolejnych artykułach, jeśli jest to Twoja pierwsza styczność z testami możesz ten punkt pominąć. <a href="#fnref:mock" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:double">
-      <p><code class="highlighter-rouge">double</code> nie jest dobrym typem do reprezentowania cen, na potrzeby tego przykładu jednak wystarczy. Dlaczego tak się dzieje przeczytasz w osobnym artykule. <a href="#fnref:double" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:double" role="doc-endnote">
+      <p><code class="highlighter-rouge">double</code> nie jest dobrym typem do reprezentowania cen, na potrzeby tego przykładu jednak wystarczy. Dlaczego tak się dzieje przeczytasz w osobnym artykule. <a href="#fnref:double" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -705,7 +712,7 @@ tear down class
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -733,13 +740,14 @@ tear down class
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -767,13 +775,14 @@ tear down class
     <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -801,13 +810,14 @@ tear down class
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest wyrażeniom regularnym. Dowiesz się w nim czym są wyrażenia regularne, jak i kiedy ich używać. Poznasz klasy biblioteki standardow...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -835,6 +845,7 @@ tear down class
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o obiektach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady ta...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -846,7 +857,7 @@ tear down class
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -882,7 +893,7 @@ tear down class
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -890,7 +901,7 @@ tear down class
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -904,6 +915,7 @@ tear down class
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -926,6 +938,8 @@ tear down class
 
 
   
+
+
 
 
 

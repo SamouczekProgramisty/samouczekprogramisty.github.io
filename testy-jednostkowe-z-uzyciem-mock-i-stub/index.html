@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Testy jednostkowe z użyciem mock i stub - Samouczek Programisty</title>
 <meta name="description" content="W artykule tym przeczytasz o obiektach pomocniczych typu mock i stub używanych w testach jednostkowych. Poznasz różnice pomiędzy nimi. Zobaczysz przykłady takich obiektów. Dowiesz się dlaczego obiekty tego typu używane są w testach jednostkowych. Poznasz też bibliotekę Mockito, która pozwala na pisanie testów jednostkowych wykorzystujących te abstrakcje. Zapraszam do lektury.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -283,7 +290,7 @@
         </aside>
         <h2 id="wprowadzenie">Wprowadzenie</h2>
 
-<p>Zanim przejdę do omówienia obiektów pomocniczych mock<sup id="fnref:polski"><a href="#fn:polski" class="footnote">1</a></sup> i stub, muszę wyjaśnić kilka pojęć związanych z testami jednostkowymi.</p>
+<p>Zanim przejdę do omówienia obiektów pomocniczych mock<sup id="fnref:polski" role="doc-noteref"><a href="#fn:polski" class="footnote">1</a></sup> i stub, muszę wyjaśnić kilka pojęć związanych z testami jednostkowymi.</p>
 
 <h3 id="jednostka-w-testach-jednostkowych">Jednostka w testach jednostkowych</h3>
 
@@ -300,10 +307,10 @@
 <figure class="">
   <img src="/assets/images/2018/09/22_hierarchia_klas.jpg" alt="" />
   
-    <figcaption>Przykładowy diagram zależności klas
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Przykładowy diagram zależności klas
+
+    </figcaption></figure>
 
 <h3 id="granice-jednostki">Granice jednostki</h3>
 
@@ -311,7 +318,7 @@
 
 <p>Szczególnie jeśli wymagają dostępu do zewnętrznych źródeł danych, takich jak <a href="https://www.samouczekprogramisty.pl/kurs-sql">baza danych</a>, pliki na dysku twardym czy zewnętrze API udostępniane przez <a href="/protokol-http/">HTTP</a>.</p>
 
-<p>Test jednostkowy powinien testować wyłącznie jednostkę. Zależności będące poza nią nie powinny być testowane w testach jednostkowych <sup id="fnref:inne"><a href="#fn:inne" class="footnote">2</a></sup>. Innymi słowy wszystko co jest poza granicami jednostki powinno być w trakcie testów “wyłączone”.</p>
+<p>Test jednostkowy powinien testować wyłącznie jednostkę. Zależności będące poza nią nie powinny być testowane w testach jednostkowych <sup id="fnref:inne" role="doc-noteref"><a href="#fn:inne" class="footnote">2</a></sup>. Innymi słowy wszystko co jest poza granicami jednostki powinno być w trakcie testów “wyłączone”.</p>
 
 <p>Biorąc pod uwagę diagram, który pokazałem wcześniej testy jednostkowe klasy <code class="highlighter-rouge">TripPlanner</code> powinny odpowiednio obsłużyć zależność od klas <code class="highlighter-rouge">FlightScanner</code> i <code class="highlighter-rouge">CarRental</code>. Do odpowiedniego obsłużenia tego typu zależności w testach jednostkowych służą obiekty typu mock czy stub.</p>
 
@@ -521,7 +528,7 @@
 
 <p>Wiesz już, że stub to obiekt, który podstawiasz w teście za właściwą implementację. Stub pozwala jedynie na określenie zachowania obiektu, który imituje.</p>
 
-<p>Mock to  także obiekt, który podstawiasz w teście za właściwą implementację. W tym przypadku, poza określeniem zachowania<sup id="fnref:uproszczenie"><a href="#fn:uproszczenie" class="footnote">3</a></sup> masz możliwość jego weryfikacji. Innymi słowy mock’i pozwalają sprawdzać czy dany obiekt został użyty, jakie metody były wywołane w trakcie testu, jakie parametry były użyte w trakcie tych wywołań.</p>
+<p>Mock to  także obiekt, który podstawiasz w teście za właściwą implementację. W tym przypadku, poza określeniem zachowania<sup id="fnref:uproszczenie" role="doc-noteref"><a href="#fn:uproszczenie" class="footnote">3</a></sup> masz możliwość jego weryfikacji. Innymi słowy mock’i pozwalają sprawdzać czy dany obiekt został użyty, jakie metody były wywołane w trakcie testu, jakie parametry były użyte w trakcie tych wywołań.</p>
 
 <p>Te informacje pozwalają na pisanie testów, które sprawdzają otoczenie testowanej jednostki. Na przykład w trakcie wyszukiwania najtańszego lotu mock, który reprezentuje dostawcę połączeń pozwoli sprawdzić czy rzeczywiście dany dostawca został użyty, jakie parametry zostały mu przekazane.</p>
 
@@ -742,16 +749,16 @@
 <p>Po przeczytaniu tego artykułu wiesz czym jest mock i stub. Na przykładzie potrafisz pokazać różnicę pomiędzy obiektami tego typu. Po rozwiązaniu zadania udało Ci się w praktyce sprawdzić swoją wiedzę zdobytą w tym artykule.</p>
 
 <p>Mam nadzieję, że artykuł przypadł Ci do gustu, daj znać w komentarzach jak użycie mock’ów i stub’ów wpływa na Twoje testy jednostkowe. Jeśli nie chcesz pominąć kolejnych wpisów proszę dopisz się do samouczkowego newslettera i polub Samouczka na Facebook’u.</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:polski">
-      <p>Nie podoba mi się nadużywanie nazw anglojęzycznych w branży IT. Zawsze staram się znaleźć polskie odpowiedniki używanych słów. Są jednak takie sytuacje, w których terminy angielskie są tak rozpowszechnione, że nawet nie silę się na znajdowanie polskich odpowiedników. Przykładem takich słów są mock (atrapa?) czy stub (zaślepka?). Jeśli znasz dobre tłumaczenia tych określeń proszę podziel się nimi w komentarzach. Z chęcią zacznę stosować polskie słowa, które będą zrozumiałe w branżowych rozmowach. <a href="#fnref:polski" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:polski" role="doc-endnote">
+      <p>Nie podoba mi się nadużywanie nazw anglojęzycznych w branży IT. Zawsze staram się znaleźć polskie odpowiedniki używanych słów. Są jednak takie sytuacje, w których terminy angielskie są tak rozpowszechnione, że nawet nie silę się na znajdowanie polskich odpowiedników. Przykładem takich słów są mock (atrapa?) czy stub (zaślepka?). Jeśli znasz dobre tłumaczenia tych określeń proszę podziel się nimi w komentarzach. Z chęcią zacznę stosować polskie słowa, które będą zrozumiałe w branżowych rozmowach. <a href="#fnref:polski" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:inne">
-      <p>Służą do tego inne rodzaje testów, na przykład testy integracyjne czy systemowe. <a href="#fnref:inne" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:inne" role="doc-endnote">
+      <p>Służą do tego inne rodzaje testów, na przykład testy integracyjne czy systemowe. <a href="#fnref:inne" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:uproszczenie">
-      <p>Przykładowa implementacja mock’a zawiera jedynie możliwość weryfikacji wywołania metody. W ramach ćwiczeń możesz napisać klasę mock’a, która będzie pozwalała zarówno na określenie zachowania jak i sprawdzenie wywołań. <a href="#fnref:uproszczenie" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:uproszczenie" role="doc-endnote">
+      <p>Przykładowa implementacja mock’a zawiera jedynie możliwość weryfikacji wywołania metody. W ramach ćwiczeń możesz napisać klasę mock’a, która będzie pozwalała zarówno na określenie zachowania jak i sprawdzenie wywołań. <a href="#fnref:uproszczenie" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -836,7 +843,7 @@
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -864,13 +871,14 @@
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -898,13 +906,14 @@
     <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -932,13 +941,14 @@
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten poświęcony jest tematyce testów jednostkowych. Po jego przeczytaniu dowiesz się czym są testy jednostkowe i dlaczego są one istotne. Poznasz pods...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -966,6 +976,7 @@
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o JUnit 5. Dowiesz się co jest nowego w testowaniu przy użyciu JUnit 5. Poznasz sposoby na użycie wyrażeń lambda w testach. Zdobyt...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -977,7 +988,7 @@
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -1013,7 +1024,7 @@
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -1021,7 +1032,7 @@
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -1035,6 +1046,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -1057,6 +1069,8 @@
 
 
   
+
+
 
 
 

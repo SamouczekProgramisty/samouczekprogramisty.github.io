@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.14.0 by Michael Rose
-  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
 -->
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>Kontekst serwletu i obiekty nasłuchujące w aplikacjach webowych - Samouczek Programisty</title>
 <meta name="description" content="W artykule przeczytasz o kolejnych podstawowych elementach, niezbędnych do budowania aplikacji webowych w Javie. Dowiedz się czym jest kontekst serwletu (ang. servlet context) i jak możesz go używać. Poznasz cykl życia aplikacji webowej i dowiesz się o zdarzeniach (ang. events), na które możesz reagować. Całość przećwiczysz rozwiązując zadanie znajdujące się na końcu artykułu.">
 
+
+  <meta name="author" content="Marcin Pietraszek">
 
 
 <meta property="og:type" content="article">
@@ -49,19 +51,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Marcin Pietraszek",
-      "url": "https://www.samouczekprogramisty.pl",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
 
 
 
@@ -73,7 +72,7 @@
 
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
 
-<!-- http://t.co/dKP3o1e -->
+<!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -83,7 +82,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if lte IE 9]>
+<!--[if IE ]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -106,6 +105,14 @@
   </head>
 
   <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -273,7 +280,7 @@
         </aside>
         <h2 id="servletcontext"><code class="highlighter-rouge">ServletContext</code></h2>
 
-<p>Obiekt implementujący <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html"><code class="highlighter-rouge">ServletContext</code></a> tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej<sup id="fnref:kilka_jvm"><a href="#fn:kilka_jvm" class="footnote">1</a></sup>. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej.</p>
+<p>Obiekt implementujący <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContext.html"><code class="highlighter-rouge">ServletContext</code></a> tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej<sup id="fnref:kilka_jvm" role="doc-noteref"><a href="#fn:kilka_jvm" class="footnote">1</a></sup>. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej.</p>
 
 <p>Czytając poprzednie artykuły z serii:</p>
 
@@ -355,10 +362,10 @@
 <figure class="">
   <img src="/assets/images/2017/04/21_wzorzec_observer.jpeg" alt="" />
   
-    <figcaption>Wzorzec obserwator.
-</figcaption>
-  
-</figure>
+    <figcaption>
+      Wzorzec obserwator.
+
+    </figcaption></figure>
 
 <p>Kontener przechowuje listę obiektów implementujących interfejs <code class="highlighter-rouge">ServletContextListener</code>. Jedną z implementacji może być klasa <code class="highlighter-rouge">MyOwnImplementation</code> pokazana na diagramie. Następnie w każdym momencie kiedy wystąpi zdarzenie, którym interesuje się nasza implementacja kontener uruchamia odpowiednie metody. Metody te są zdefiniowane w iterfejsie <code class="highlighter-rouge">ServletContextListener</code>.</p>
 
@@ -377,7 +384,7 @@
 
 <p>Na przykład, obiekt implementujący interfejs <code class="highlighter-rouge">ServletContextAttributeListener</code> zostanie poinformowany o wszystkich operacjach na atrybutach kontekstu serwletu.</p>
 
-<p>Aby kontener serwletów wiedział o obiekcie nasłuchującym trzeba go odpowiednio skonfigurować. Każdy z obiektów nasłuchujących powinien być dekorowany wspomnianą adnotacją <code class="highlighter-rouge">@WebListener</code><sup id="fnref:listener"><a href="#fn:listener" class="footnote">2</a></sup>.</p>
+<p>Aby kontener serwletów wiedział o obiekcie nasłuchującym trzeba go odpowiednio skonfigurować. Każdy z obiektów nasłuchujących powinien być dekorowany wspomnianą adnotacją <code class="highlighter-rouge">@WebListener</code><sup id="fnref:listener" role="doc-noteref"><a href="#fn:listener" class="footnote">2</a></sup>.</p>
 
 <p>Poniżej znajduje się przykładowa implementacja interfejsu <code class="highlighter-rouge">ServletContextListener</code>, która dodaje dodatkowy atrybut w momencie utworzenia kontekstu serwletu:</p>
 
@@ -427,13 +434,13 @@
 <p>Mam nadzieję, ze artykuł Ci się podobał. Jeśli nie chcesz pominąć kolejnych zapisz się do samouczkowego newslettera i polub stronę na facebooku.</p>
 
 <p>Na koniec mam do Ciebie prośbę. Zależy mi na dotarciu do jak największego grona czytelników. Możesz mi w tym pomóc przekazując link do artykułu swoim znajomym. Z góry dziękuję i do następnego razu!</p>
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:kilka_jvm">
-      <p>Właściwie to, istnieje tylko jeden taki obiekt dla każdej wirtualnej maszyny Java. Jeśli twoja aplikacja webowa jest rozproszona wówczas obiektów implementujących ten interfejs jest tyle, ile instancji JVM. <a href="#fnref:kilka_jvm" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:kilka_jvm" role="doc-endnote">
+      <p>Właściwie to, istnieje tylko jeden taki obiekt dla każdej wirtualnej maszyny Java. Jeśli twoja aplikacja webowa jest rozproszona wówczas obiektów implementujących ten interfejs jest tyle, ile instancji JVM. <a href="#fnref:kilka_jvm" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:listener">
-      <p>Może też być zdefiniowany w pliku <code class="highlighter-rouge">web.xml</code>, <code class="highlighter-rouge">web-fragment.xml</code> czy dodany dynamicznie przez metody dostępne w <code class="highlighter-rouge">ServletContext</code>, jednak te sposoby wykraczają poza zakres tego artykułu. <a href="#fnref:listener" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:listener" role="doc-endnote">
+      <p>Może też być zdefiniowany w pliku <code class="highlighter-rouge">web.xml</code>, <code class="highlighter-rouge">web-fragment.xml</code> czy dodany dynamicznie przez metody dostępne w <code class="highlighter-rouge">ServletContext</code>, jednak te sposoby wykraczają poza zakres tego artykułu. <a href="#fnref:listener" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -518,7 +525,7 @@
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -546,13 +553,14 @@
     <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -580,13 +588,14 @@
     <p class="archive__item-excerpt" itemprop="description">W pierwszej części artykułu opisującej serwlety dowiedziałeś się podstaw dotyczących serwletów. W tym artykule będziesz mógł poszerzyć tę wiedzę. Dowiesz się...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -614,13 +623,14 @@
     <p class="archive__item-excerpt" itemprop="description">W artykule tym przeczytasz o serwletach. Poznasz podstawy protokołu HTTP. Dowiesz się czym są serwlety i jak je pisać. Dowiesz się także czym jest plik war i...</p>
   </article>
 </div>
+
         
           
 
 
 
 <div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
       <div class="archive__item-teaser">
         <img src=
@@ -648,6 +658,7 @@
     <p class="archive__item-excerpt" itemprop="description">W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz kilka rodzajów diagramów, które moim zdaniem są najbardziej przydatne. Dowiesz się w jakic...</p>
   </article>
 </div>
+
         
       </div>
     </div>
@@ -659,7 +670,7 @@
 
     
 
-    <div class="page__footer">
+    <div id="footer" class="page__footer">
       <footer>
         <!-- start custom footer snippets -->
 
@@ -695,7 +706,7 @@
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
@@ -703,7 +714,7 @@
 
 
 
-  <script type="text/javascript">
+  <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-68536783-1']);
   
@@ -717,6 +728,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 
 
@@ -739,6 +751,8 @@
 
 
   
+
+
 
 
 
