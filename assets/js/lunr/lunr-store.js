@@ -15,7 +15,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/kurs-sql/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/splash/kurs_sql_splash.jpeg"},{
         "title": "Kurs Git",
-        "excerpt":"Pracuję nad pierwszym komercyjnym kursem na stronie. Jakiś czas temu zdecydowałem, że będzie to kurs związany z systemem kontroli wersji Git. Będzie to kurs z materiałami w formie: filmów wideo, plików pdf: z materiałami omówionymi z filmach, ściągawek z komendami Git’a, ćwiczeń do samodzielnego wykonania,Mam nadzieję, że udało Ci się...","categories": [],
+        "excerpt":"Pracuję nad pierwszym komercyjnym kursem na stronie. Jakiś czas temu zdecydowałem, że będzie to kurs związany z systemem kontroli wersji Git. Będzie to kurs z materiałami w formie: filmów wideo, plików pdf: z materiałami omówionymi z filmach, ściągawek z komendami Git’a, ćwiczeń do samodzielnego wykonania, Mam nadzieję, że udało Ci...","categories": [],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/kurs-git/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/splash/kurs_git.png"},{
@@ -30,7 +30,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/przygotowanie-srodowiska-programisty/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2015/10/18_przygotowanie_srodowiska_programisty.jpg"},{
         "title": "Metody w języku Java",
-        "excerpt":"To jest jeden z artykułów w ramach darmowego kursu programowania w Javie. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Metoda boolean isBig(int someNumber) { return someNumber &gt; 100;}Więc jesteś już po przeczytaniu swojego pierwszego fragmentu kodu! Brawo! Programowanie to nie tylko...","categories": ["Kurs programowania Java","Programowanie"],
+        "excerpt":"To jest jeden z artykułów w ramach darmowego kursu programowania w Javie. Proszę zapoznaj się z pozostałymi częściami, mogą one być pomocne w zrozumieniu materiału z tego artykułu. Metoda boolean isBig(int someNumber) { return someNumber &gt; 100; } Więc jesteś już po przeczytaniu swojego pierwszego fragmentu kodu! Brawo! Programowanie to...","categories": ["Kurs programowania Java","Programowanie"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/metody-w-jezyku-java/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2015/10/22_metody_w_jezyku_java.png"},{
@@ -165,7 +165,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/test-driven-development-na-przykladzie/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2016/11/21_test_driven_development_artykul.jpg"},{
         "title": "Wyrażenia regularne w języku Java",
-        "excerpt":"To jest wprowadzający artykuł na temat wyrażeń regularnych. Część bardziej zaawansowanych zagadnień związanych z wyrażeniami regularnymi opisana jest w drugiej części: zachłanność wyrażeń regularnych, alternatywa, grupy nieprzechwytujące, grupy nazwane, ponowne użycie grup, kotwice.Zachęcam do przeczytania drugiej części jeśli chciałbyś dowiedzieć się czegoś więcej o punktach wspomnianych powyżej. Czym są wyrażenia...","categories": ["Kurs programowania Java"],
+        "excerpt":"To jest wprowadzający artykuł na temat wyrażeń regularnych. Część bardziej zaawansowanych zagadnień związanych z wyrażeniami regularnymi opisana jest w drugiej części: zachłanność wyrażeń regularnych, alternatywa, grupy nieprzechwytujące, grupy nazwane, ponowne użycie grup, kotwice. Zachęcam do przeczytania drugiej części jeśli chciałbyś dowiedzieć się czegoś więcej o punktach wspomnianych powyżej. Czym są...","categories": ["Kurs programowania Java"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/wyrazenia-regularne-w-jezyku-java/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2016/11/28_wyrazenia_regularne_artykul.jpg"},{
@@ -335,7 +335,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/pogodynka-dzialajacy-termometr/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/03/19_pogodynka_03_artykul.jpg"},{
         "title": "Serwlety w aplikacjach webowych",
-        "excerpt":"Chociaż artykuł ten pisany jest z myślą o początkujących, do jego pełnego zrozumienia przyda się wiedza, którą zawarłem w kliku innych artykułach. Zachęcam do zapoznania się z nimi przed podejściem do tego artykułu: Wstęp do aplikacji webowych Wstęp do Gradle Java z linii poleceńArtykuł ten bazuje na specyfikacji serwletów w...","categories": ["DSP2017","Kurs aplikacji webowych"],
+        "excerpt":"Chociaż artykuł ten pisany jest z myślą o początkujących, do jego pełnego zrozumienia przyda się wiedza, którą zawarłem w kliku innych artykułach. Zachęcam do zapoznania się z nimi przed podejściem do tego artykułu: Wstęp do aplikacji webowych Wstęp do Gradle Java z linii poleceń Artykuł ten bazuje na specyfikacji serwletów...","categories": ["DSP2017","Kurs aplikacji webowych"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/serwlety-w-aplikacjach-webowych/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/03/25_serwlety_w_aplikacjach_webowych_artykul.jpeg"},{
@@ -360,7 +360,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/pogodynka-json-i-walidacja/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/04/16_pogodynka_05_artykul.jpg"},{
         "title": "Kontekst serwletu i obiekty nasłuchujące w aplikacjach webowych",
-        "excerpt":"ServletContext Obiekt implementujący ServletContext tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej1. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej. Czytając poprzednie artykuły z serii: serwlety w aplikacjach webowych, nagłówki, sesje i ciasteczka w aplikacjach webowych, filtry w aplikacjach webowych,poznałeś inne konteksty/zakresy....","categories": ["DSP2017","Kurs aplikacji webowych"],
+        "excerpt":"ServletContext Obiekt implementujący ServletContext tworzony jest przez kontener serwletów. Istnieje tylko jeden taki obiekt dla każdej aplikacji webowej1. Służy on głównie do współdzielenia informacji w ramach aplikacji internetowej. Czytając poprzednie artykuły z serii: serwlety w aplikacjach webowych, nagłówki, sesje i ciasteczka w aplikacjach webowych, filtry w aplikacjach webowych, poznałeś inne...","categories": ["DSP2017","Kurs aplikacji webowych"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/kontekst-serwletu-i-obiekty-nasluchujace-w-aplikacjach-webowych/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/04/21_listener_kontekst_servlet_context_artykul.jpeg"},{
@@ -380,7 +380,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/pogodynka-konfiguracja-serwera/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/04/30_konfiguracja_puppet_artykul.jpeg"},{
         "title": "`String` cache i `StringBuilder` w praktyce",
-        "excerpt":"Literał znakowy Na początku powtórka podstaw. Literał znakowy to ciąg znaków otoczony cudzysłowami. Jest to instancja klasy String, jednak tworzona jest bez udziału słówka kluczowego new. Przykład poniżej pokazuje literał znakowy przypisany do zmiennej: String someLiteral = “some constant value”;Jak działa klasa String Instancje klasy String reprezentują łańcuchy znaków. Wewnętrznie...","categories": ["Kurs programowania Java","DSP2017"],
+        "excerpt":"Literał znakowy Na początku powtórka podstaw. Literał znakowy to ciąg znaków otoczony cudzysłowami. Jest to instancja klasy String, jednak tworzona jest bez udziału słówka kluczowego new. Przykład poniżej pokazuje literał znakowy przypisany do zmiennej: String someLiteral = “some constant value”; Jak działa klasa String Instancje klasy String reprezentują łańcuchy znaków....","categories": ["Kurs programowania Java","DSP2017"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/string-cache-i-stringbuilder-w-praktyce/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/05/06_string_cache_string_builder_artykul.jpeg"},{
@@ -420,7 +420,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/jak-dostac-pierwsza-prace-jako-programista/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/07/17_jak_dostac_prace_jako_programista_artykul.jpeg"},{
         "title": "Wyrażenia lambda w języku Java",
-        "excerpt":"Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami, które dotyczą: klas anonimowych, typów generycznych, adnotacji.Czym jest wyrażenie lambda Dla uproszczenia można powiedzieć, że wyrażenie lambda jest metodą1. Metodą, którą możesz przypisać do zmiennej....","categories": ["Kurs programowania Java"],
+        "excerpt":"Artykuł ten dotyczy bardziej zaawansowanego fragmentu składni języka Java. Z tego powodu aby móc w pełni skorzystać z artykułu warto zapoznać się z wcześniejszymi artykułami, które dotyczą: klas anonimowych, typów generycznych, adnotacji. Czym jest wyrażenie lambda Dla uproszczenia można powiedzieć, że wyrażenie lambda jest metodą1. Metodą, którą możesz przypisać do...","categories": ["Kurs programowania Java"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/wyrazenia-lambda-w-jezyku-java/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/07/26_wyrazenia_lambda_artykul.jpeg"},{
@@ -450,7 +450,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/11/27_solid_dobre_praktyki_w_programowaniu_obiektowym_artykul.jpg"},{
         "title": "Walidacja obiektów w języku Java",
-        "excerpt":"Artykuł ten zakłada, że znasz już podstawy języka Java. Abyś mógł wynieść coś z tego artykułu musisz wiedzieć czym są adnotacje. Przydatne mogą być też pozostałe artykuły z kursu programowania w języku Java, szczególnie te dotyczące: interfejsów, typów wyliczeniowych (enumów), wyjątków.Przy budowaniu projektu może pomóc też znajomość Gradle. Specyfikacja Bean...","categories": ["Kurs aplikacji webowych"],
+        "excerpt":"Artykuł ten zakłada, że znasz już podstawy języka Java. Abyś mógł wynieść coś z tego artykułu musisz wiedzieć czym są adnotacje. Przydatne mogą być też pozostałe artykuły z kursu programowania w języku Java, szczególnie te dotyczące: interfejsów, typów wyliczeniowych (enumów), wyjątków. Przy budowaniu projektu może pomóc też znajomość Gradle. Specyfikacja...","categories": ["Kurs aplikacji webowych"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/walidacja-obiektow-w-jezyku-java/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2017/12/04_walidacja_obiektow_w_jezyku_java_artykul.jpg"},{
@@ -515,7 +515,7 @@ var store = [{
         "url": "https://www.samouczekprogramisty.pl/ksiazki-dla-programistow/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2018/04/23_ksiazki_dla_programistow.jpg"},{
         "title": "Zmiana branży – zostań programistą",
-        "excerpt":"Zmiana branży, czyli jak zostać programistą Oto kilka z najczęściej zadawanych mi pytań przez czytelnika Samouczka: Czy mogę się przebranżowić? Czy nie jestem na to za stary? Czy po ukończeniu kursu X będę mógł zostać programistą?Niestety na pytania tego typu nie mam dobrych odpowiedzi. Głównie dlatego, że sam jestem informatykiem...","categories": ["Różne"],
+        "excerpt":"Zmiana branży, czyli jak zostać programistą Oto kilka z najczęściej zadawanych mi pytań przez czytelnika Samouczka: Czy mogę się przebranżowić? Czy nie jestem na to za stary? Czy po ukończeniu kursu X będę mógł zostać programistą? Niestety na pytania tego typu nie mam dobrych odpowiedzi. Głównie dlatego, że sam jestem...","categories": ["Różne"],
         "tags": [],
         "url": "https://www.samouczekprogramisty.pl/zmiana-branzy-zostan-programista/",
         "teaser":"https://www.samouczekprogramisty.pl/assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg"},{
