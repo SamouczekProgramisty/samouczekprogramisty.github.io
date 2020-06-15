@@ -8,7 +8,9 @@ gem 'octopress'
 gem 'classifier-reborn'  # --lsi for Jekyll
 gem 'rb-gsl'  # faseter --lsi
 
-gem 'jekyll-toc'
-gem 'jekyll-paginate-v2'
-gem 'jekyll-archives'
-
+group :jekyll_plugins do
+    gem 'jekyll-toc'
+    gem 'jekyll-paginate-v2'
+    gem 'jekyll-archives'
+    gem 'jekyll-algolia'
+end

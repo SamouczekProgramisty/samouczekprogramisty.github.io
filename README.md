@@ -38,3 +38,9 @@ Wówczas uruchomiony zostanie serwer, który będzie nasłuchiwał pod adresem `
 Nową werję „produkcyjną” można zbudować używając:
 
     JEKYLL_ENV=production jekyll build --lsi
+
+### Aktualizacja wyszukiwarki
+
+Wyszukiwanie na stronie obsługiwane jest przez [Algolia](https://www.algolia.com). Po aktualizacji istotne jest przebudowanie indeksu. Można to zrobić używając polecenia:
+
+    ALGOLIA_API_KEY=<admin api key> bundle exec jekyll algolia
