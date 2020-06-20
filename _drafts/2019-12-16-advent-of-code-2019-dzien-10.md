@@ -3,7 +3,7 @@ title: Advent of Code 2019 dzień 10
 last_modified_at: 2018-11-24 08:04:40 +0100
 categories:
 - Strefa zadaniowa
-permalink: /advent-of-code-2019-dzien-10
+permalink: /advent-of-code-2019-dzien-10/
 header:
     teaser: /assets/images/2019/1210-aoc2019-dzien-10/aoc-dzien-10-artykul.jpg
     overlay_image: /assets/images/2019/1210-aoc2019-dzien-10/aoc-dzien-10-artykul.jpg
@@ -14,7 +14,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2019-link.md day="2" %}
+{% include aoc-link.md year="2019" day="10" %}
 
 ## Dzień 2 zadanie 1
 

@@ -28,8 +28,6 @@ done
 
 ## Glob
 
-
-
 `?` oznacza dowolny pojedynczy znak (poza `/` i `.` na początku)
 `*` oznacza dowolną liczbę znaków (poza `/` i `.` na początku)
 

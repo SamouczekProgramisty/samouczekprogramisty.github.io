@@ -1,20 +1,20 @@
 ---
-title: Advent of Code 2019 dzień 11
+title: Advent of Code 2019 dzień 22
 last_modified_at: 2018-11-24 08:04:40 +0100
 categories:
 - Strefa zadaniowa
-permalink: /advent-of-code-2019-dzien-11/
+permalink: /advent-of-code-2019-dzien-22/
 header:
-    teaser: /assets/images/2019/1211-aoc2019-dzien-11/aoc-dzien-11-artykul.jpg
-    overlay_image: /assets/images/2019/1211-aoc2019-dzien-11/aoc-dzien-11-artykul.jpg
-    caption: "[&copy; David Monje](https://unsplash.com/photos/eUB_CYMxawE)"
-excerpt: Advent of Code 2019 dzień 11. Tym razem próbujesz podsłuchać ruch sieciowy w Kwaterze Głównej Króliczka Wielkanocnego. Problem w tym, że używa się tam IPv7...
+    teaser: /assets/images/2019/1222-aoc2019-dzien-22/aoc-dzien-22-artykul.jpg
+    overlay_image: /assets/images/2019/1222-aoc2019-dzien-22/aoc-dzien-22-artykul.jpg
+    caption: "[&copy; Micheile Henderson](https://unsplash.com/photos/AH8E5-pmLzc)"
+excerpt: Advent of Code 2019 dzień 22. Tym razem próbujesz podsłuchać ruch sieciowy w Kwaterze Głównej Króliczka Wielkanocnego. Problem w tym, że używa się tam IPv7...
 toc: false
 ---
 
 ## Wprowadzenie
 
-{% include aoc-link.md year="2019" day="11" %}
+{% include aoc-link.md year="2019" day="22" %}
 
 ## Dzień 2 zadanie 1
 

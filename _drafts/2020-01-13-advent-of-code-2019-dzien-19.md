@@ -1,20 +1,20 @@
 ---
-title: Advent of Code 2019 dzień 18
+title: Advent of Code 2019 dzień 19
 last_modified_at: 2018-11-24 08:04:40 +0100
 categories:
 - Strefa zadaniowa
-permalink: /advent-of-code-2019-dzien-18
+permalink: /advent-of-code-2019-dzien-19/
 header:
-    teaser: /assets/images/2019/1218-aoc2019-dzien-18/aoc-dzien-18-artykul.jpg
-    overlay_image: /assets/images/2019/1218-aoc2019-dzien-18/aoc-dzien-18-artykul.jpg
-    caption: "[&copy; Bernard Hermant](https://unsplash.com/photos/WhfHOMY22YQ)"
-excerpt: Advent of Code 2019 dzień 18. Tym razem próbujesz podsłuchać ruch sieciowy w Kwaterze Głównej Króliczka Wielkanocnego. Problem w tym, że używa się tam IPv7...
+    teaser: /assets/images/2019/1219-aoc2019-dzien-19/aoc-dzien-19-artykul.jpg
+    overlay_image: /assets/images/2019/1219-aoc2019-dzien-19/aoc-dzien-19-artykul.jpg
+    caption: "[&copy; Sin Flow](https://unsplash.com/photos/iReDydgc9YY)"
+excerpt: Advent of Code 2019 dzień 19. Tym razem próbujesz podsłuchać ruch sieciowy w Kwaterze Głównej Króliczka Wielkanocnego. Problem w tym, że używa się tam IPv7...
 toc: false
 ---
 
 ## Wprowadzenie
 
-{% include aoc-2019-link.md day="2" %}
+{% include aoc-link.md year="2019" day="19" %}
 
 ## Dzień 2 zadanie 1
 

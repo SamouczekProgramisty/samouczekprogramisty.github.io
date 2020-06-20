@@ -3,7 +3,7 @@ title: Advent of Code 2019 dzień 9
 last_modified_at: 2018-11-24 08:04:40 +0100
 categories:
 - Strefa zadaniowa
-permalink: /advent-of-code-2019-dzien-9
+permalink: /advent-of-code-2019-dzien-9/
 header:
     teaser: /assets/images/2019/1209-aoc2019-dzien-9/aoc-dzien-9-artykul.jpg
     overlay_image: /assets/images/2019/1209-aoc2019-dzien-9/aoc-dzien-9-artykul.jpg
@@ -14,7 +14,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2019-link.md day="2" %}
+{% include aoc-link.md year="2019" day="9" %}
 
 ## Dzień 2 zadanie 1
 

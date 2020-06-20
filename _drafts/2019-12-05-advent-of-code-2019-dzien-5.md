@@ -14,7 +14,7 @@ toc: false
 
 ## Wprowadzenie
 
-{% include aoc-2019-link.md day="2" %}
+{% include aoc-link.md year="2019" day="5" %}
 
 ## Dzień 2 zadanie 1
 
