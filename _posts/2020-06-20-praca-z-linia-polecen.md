@@ -1,18 +1,18 @@
 ---
-title: Praca z wierszem poleceń
+title: Praca z linią poleceń
 last_modified_at: 2019-03-17 15:56:22 +0100
 categories:
 - Programista rzemieślnik
-permalink: /praca-z-wierszem-polecen/
+permalink: /praca-z-linia-polecen/
 header:
-    teaser: /assets/images/2019/1126-praca-z-wierszem-polecen/praca_z_wierszem_polecen_artykul.jpg
-    overlay_image: /assets/images/2019/1126-praca-z-wierszem-polecen/praca_z_wierszem_polecen_artykul.jpg
+    teaser: /assets/images/2020/0626-praca-z-linia-polecen/praca_z_linia_polecen_artykul.jpg
+    overlay_image: /assets/images/2020/0626-praca-z-linia-polecen/praca_z_linia_polecen_artykul.jpg
     caption: "[&copy; Franz Harvin Aceituna](https://unsplash.com/photos/vkfrFrAIO4o)"
 excerpt: TODO
 ---
 
 {% capture text_source_notice %}
-W treści artykułu będę używał plików z lekturami dostępnymi na stronie (https://wolnelektury.pl/). Możesz je ściągnąć w konsoli używając takiego skryptu:
+W treści artykułu będę używał plików z lekturami dostępnymi na stronie [wolnelektury.pl](https://wolnelektury.pl/). Możesz je ściągnąć w konsoli używając takiego skryptu:
 
 ```bash
 for l in pan-tadeusz quo-vadis wesele latarnik janko-muzykant
@@ -26,6 +26,14 @@ done
     {{ text_source_notice | markdownify }}
 </div>
 
+## Czym jest linia poleceń
+
+W uproszczeniu można powiedzieć, że linia poleceń to program, który służy do komunikacji z systemem operacyjnym zainstalowanym na komputerze. Linia poleceń czasami nazywana może być także konsolą czy powłoką. Istnieją różne rodzaje linii poleceń. Za przykład mogą tu słuzyć tu `bash`, `sh`, `fish`, `ksh`, `command.com` czy PowerShell.
+
+Powłoka pozwala na komunikowanie się z systemem operacyjnym za pomocą tekstu. Pozwala na uruchamianie innych programów. Powłoki to także języki skryptowe, pozwalające na pisanie własnych programów. Na przykład pętla, którą pokazałem powyżej to drobny program napisany w `bash'`u.
+
+W ramach tego artykułu będę używał `basha`. Elementy języka skryptowego będą dotyczyły tej własnie powłoki. 
+
 ## Glob
 
 `?` oznacza dowolny pojedynczy znak (poza `/` i `.` na początku)
@@ -36,6 +44,10 @@ Duża część programów obsługuje dwa tryby pracy. W jednym z nich dane wejś
 [^minusik]: Swego rodzaju wyjątkiem może być tu znak `-`. Zgodnie z konwencją ten znak oznacza stdin. Może też służyć jako pełnoprawna nazwa pliku, jednak wtedy trzeba się do niego odnieść używając ścieżki, na przykład `./-`.
 
 ## Historia
+
+
+## Programy
+
 
 ### `less`
 
@@ -125,6 +137,8 @@ total 1876
 ### `sed`
 ### `ln`
 ### `ss`
+### `jq`
+### `direnv`
 
 Wspomniałem tu jedynie drobnym podzbiorze programów, sporo pominąłem. Starałem się uwzględnić wyłącznie te najważniejsze. Jeśli Twoim zdaniem lista nie zawiera jakiegoś bardzo ważnego programu, który pominąłem proszę daj znać w komentarzach. Postaram się to uzupełnić :).
 
