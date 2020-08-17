@@ -1,6 +1,6 @@
 ---
 title: Walidacja obiektów w języku Java
-last_modified_at: 2019-11-20 14:51:39 +0100
+last_modified_at: 2020-08-17 22:30:21 +0200
 categories:
 - Kurs aplikacji webowych
 permalink: /walidacja-obiektow-w-jezyku-java/
@@ -154,7 +154,7 @@ Dodatkowo walidacja jest czymś powtarzalnym. Mam tu na myśli to, że sposoby w
 
 Walidacja to nic innego jak szereg reguł, ograniczeń. Tylko poprawne dane spełniają te ograniczenia. Nakładanie ograniczeń na dane sprowadza się do użycia odpowiednich adnotacji.
 
-Instancja klasy klasy, którą sprawdzamy, przekazywana jest do tak zwanego walidatora. Walidator interpretuje adnotacje i uruchamia poszczególne reguły walidacji. Walidacja, bez jasno określonej kolejności polega na:
+Instancja klasy, którą sprawdzamy, przekazywana jest do tak zwanego walidatora. Walidator interpretuje adnotacje i uruchamia poszczególne reguły walidacji. Walidacja, bez jasno określonej kolejności polega na:
 - sprawdzeniu wszystkich "osiągalnych" atrybutów danej instancji,
 - sprawdzeniu wszystkich metod dostępowych danej instancji (getterów),
 - sprawdzeniu reguł przypisanych do klasy (adnotacje klasy).
