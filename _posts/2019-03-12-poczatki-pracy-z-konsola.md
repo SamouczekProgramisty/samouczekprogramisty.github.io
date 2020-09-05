@@ -1,6 +1,6 @@
 ---
 title: Początki pracy z wierszem poleceń
-last_modified_at: 2019-03-17 15:56:22 +0100
+last_modified_at: 2020-09-05 16:57:18 +0200
 categories:
 - Programista rzemieślnik
 permalink: /poczatki-pracy-z-wierszem-polecen/
@@ -71,7 +71,17 @@ W dalszych przykładach będę używał skróconego zapisu – `$ something`. Za
 
 Nadszedł czas na pokazanie Ci kilku podstawowych programów, które są niezbędne do pracy z linią poleceń.
 
-Tutaj mam do Ciebie prośbę. Eksperymentuj! Otwórz wiersz poleceń i na bieżąco czytając artykuł sprawdzaj jak działają poszczególne programy. Właśnie dzięki takiej praktyce nauczysz się najwięcej. 
+Tutaj mam do Ciebie prośbę. Eksperymentuj! Otwórz wiersz poleceń i na bieżąco czytając artykuł sprawdzaj jak działają poszczególne programy. Właśnie dzięki takiej praktyce nauczysz się najwięcej. Zanim 
+
+### Ścieżka
+
+Ścieżka jednoznacznie określa plik/katalog w systemie plików. Ścieżki mogą być względne albo bezwzględne. Ścieżka bezwzględna zaczyna się od ukośnika `/`. Jest to ścieżka od „korzenia” systemu plików. Na przykład `/home/mapi/some/file.txt`.
+
+Ścieżka względna to ścieżka która wskazuje na plik/katalog względem katalogu, którym się aktualnie znajdujesz. Zakładając, że jesteś w katalogu `/tmp` to ścieżka `some/catalog` wskazuje to samo co `/tmp/some/catalog`.
+
+Ścieżka `.` (pojedyncza kropka) odnosi się zawsze do aktualnego katalogu. Na przykład ścieżki `./some/file.txt` i `some/file.txt` wskazują to samo miejsce.
+
+Katalog nadrzędny określany jest przez `..` (dwie kropki). Zakładając, że jesteś w katalogu `/tmp`, to ścieżka `../some/other/file.txt` wskazuje na `/some/other/file.txt`.
 
 ### `cd`
 
@@ -115,7 +125,7 @@ $ cd
 
 ### `pwd`
 
-Jeżeli chcesz poznać swój aktualny katalog możesz użyć programu `pwd`. Wypisuje on na konsolę ścieżkę absolutną katalogu, w którym aktualnie się znajdujesz:
+Jeżeli chcesz poznać swój aktualny katalog możesz użyć programu `pwd`. Wypisuje on na konsolę ścieżkę bezwzględną katalogu, w którym aktualnie się znajdujesz:
 
 ```bash
 marcinek@mapiszon-dell:~/private$ pwd
