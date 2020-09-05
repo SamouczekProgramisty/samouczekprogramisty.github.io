@@ -24,7 +24,7 @@ Ten sam problem występuje w projektach informatycznych. Istnieją zdarzenia, kt
 
 ### Diagramy klas
 
-Ten wzorzec projektowy opera się o dwa interfejsy. Jeden z nich reprezentuje obserwatora. Drugi element, który jest obserwowany:
+Ten wzorzec projektowy opiera się o dwa interfejsy. Jeden z nich reprezentuje obserwatora. Drugi element, który jest obserwowany:
 
 {% include figure image_path="/assets/images/2019/05/01_observer.svg" caption="Wzorzec projektowy obserwator (ang. _observer_)" %}
 
