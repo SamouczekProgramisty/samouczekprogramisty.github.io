@@ -16,7 +16,9 @@ To jest jeden z artykułów omawiających pracę z wierszem poleceń. Omawiam w 
 
 ## Wiersz poleceń
 
-Upraszczając można powiedzieć, że wiersz poleceń to program pozwalający na interakcję z komputerem. W odróżnieniu od graficznego interfejsu użytkownika w wierszu poleceń używa się klawiatury.
+W uproszczeniu można powiedzieć, że linia poleceń to program, który służy do komunikacji z systemem operacyjnym zainstalowanym na komputerze. Linia poleceń czasami nazywana może być także konsolą czy powłoką. Istnieją różne rodzaje linii poleceń. Za przykład mogą tu służyć tu `bash`, `sh`, `fish`, `ksh`, `command.com` czy PowerShell.
+
+Powłoka pozwala na komunikowanie się z systemem operacyjnym za pomocą tekstu. Pozwala na uruchamianie innych programów. Powłoki mogą posiadać swoje języki skryptowe, pozwalające na pisanie własnych programów.
 
 ### Dlaczego warto używać wiersza poleceń
 
