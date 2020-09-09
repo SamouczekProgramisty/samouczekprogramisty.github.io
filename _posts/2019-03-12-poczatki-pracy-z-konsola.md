@@ -287,6 +287,8 @@ Ten standardowy zestaw połączony jest z deskryptorami o dobrze znanych numerac
 
 Programy, które wypisują tekst na konsoli korzystają właśnie z tych standardowych strumieni – stdout i stderr. Na przykład `ls` wykorzystuje stdout do wypisania zawartości przekazanego argumentu. stderr może być użyty przez `mkdir` w przypadku, gdy chcesz utworzyć zagnieżdżony katalog bez przełącznika `-p` – do pokazania błędu.
 
+Innymi słowy jeśli piszę, że „program wypisuje” albo „program wyświetla” tak na prawę mam na myśli to, że program pisze do pliku. W takim przypadku plikiem, do którego pisze dany program jest standardowe wyjście.
+
 #### `echo`
 
 Prostym programem, który wykorzystuje standardowe wyjście jest `echo`. Zasada jego działania jest prosta – wyświetla na konsoli (używając stdout) przekazany tekst:
