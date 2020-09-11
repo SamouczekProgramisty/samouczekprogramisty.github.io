@@ -70,7 +70,7 @@ $ ls *.txt
 a.txt b.txt
 ```
 
-W pierwszym przypadku zostanie uruchomiony [program `ls`]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#ls) bez żadnego prametru. Domyślnie zatem zostanie użyty aktualny katalog (`.`). Program wypisze zawartość aktualngo katalogu, czyli trzy pliki: a.txt, b.txt i c.csv. W drugim przypadku pojawia się wyrażenie glob `*.txt`, które zostaje rozwinięte przez konsolę do `a.txt b.txt` i przekazane jako argument do programu `ls`. Zatem w przykładzie powyżej `ls *.txt` jest tak na prawdę wywołaniem `ls a.txt b.txt`.
+W pierwszym przypadku zostanie uruchomiony [program `ls`]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#ls) bez żadnego prametru. Domyślnie zatem zostanie użyty aktualny katalog (`.`). Program wypisze zawartość aktualngo katalogu, w moim przypadku są to trzy pliki: a.txt, b.txt i c.csv. W drugim przypadku pojawia się wyrażenie glob `*.txt`, które zostaje rozwinięte przez konsolę do `a.txt b.txt` i przekazane jako argument do programu `ls`. Zatem w przykładzie powyżej `ls *.txt` jest tak na prawdę wywołaniem `ls a.txt b.txt`.
 
 Wyrażenia glob nie biorą pod uwagę plików/katalogów, których nazwa zaczyna się od kropki (`.`). Jeśli wyrażenie glob nie może być rozwinięte (nie pasuje do żadnego pliku/katalogu) zostanie przekazane jako parametr bez zmian:
 
@@ -102,7 +102,9 @@ $ echo ~root
 /root
 ```
 
-Możesz użyć także rozwijania `~` do poznania aktualnego katalogu używając `+`:
+Możesz użyć także rozwijania `~` do poznania aktualnego katalogu używając `+`[^inaczej]:
+
+[^inaczej]: Chociaż szczerze mówiąc częściej używam zmiennej środowiskowej `$PWD` lub wywołuję program `pwd` ;)
 
 ```bash
 $ cd /run/usr/1000
@@ -134,18 +136,18 @@ Wywołanie [programu `echo`]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#
 
 Wewnątrz nawiasów może znajdować się dowolna liczba elementów oddzielona znakiem `,`. Każdy z tych elementów będzie skutkował nowym „słowem” podstawionym przez bash'a.
 
-Rozwijanie `{ }` może także służyć do generowania sekwencji numerów. Proszę spójrz na przykład, w którym generuję liczby od 0 do 10:
+Rozwijanie `{ }` może także służyć do generowania sekwencji numerów. Proszę spójrz na przykład, w którym generuję liczby od 7 do 10:
 
 ```bash
-$ echo sequence-{0..10}
-sequence-0 sequence-1 sequence-2 sequence-3 sequence-4 sequence-5 sequence-6 sequence-7 sequence-8 sequence-9 sequence-10
+$ echo sequence-{7..10}
+sequence-7 sequence-8 sequence-9 sequence-10
 ```
 
 Użycie wiodących `0` powoduje generowanie numerów o stałej szerokości:
 
 ```bash
-$ echo sequence-{00..10}
-sequence-00 sequence-01 sequence-02 sequence-03 sequence-04 sequence-05 sequence-06 sequence-07 sequence-08 sequence-09 sequence-10
+$ echo sequence-{07..10}
+sequence-07 sequence-08 sequence-09 sequence-10
 ```
 
 Opcjonalnym, trzecim paramerem może być skok, który informuje o ile powinny różnić się kolejno generowane liczby:
@@ -162,14 +164,179 @@ $ echo sequence-{a..d}
 sequence-a sequence-b sequence-c sequence-d
 ```
 
+Najczęściej używam tej składni jeśli chcę skopiować albo przenieść plik czy folder:
+
+```bash
+$ ls 
+some_file.txt
+$ mv some_file.txt{,.bak}
+$ ls 
+some_file.txt.bak
+```
+
+### Historia
+
+Bash posiada bardzo przydatną funkcję, pozwala na zapisywanie historii wykonywanych poleceń. Przy odpowiedniej konfiguracji (domyślnej na przykład w Ubuntu) w pliku `~/.bash_history` zapisywana jest historia poleceń. Historia ta jest aktualizowana w momencie zamykania okna terminala.
+
+Historia jest przydatna, bo często możesz używać poleceń, których używałeś poprzednio. Pomocny może być skrót klawiaturowy `Ctrl+r`, który pozwala na przeszukiwanie historii.
+
+To dzięki historii możesz też używać strzałek (góra/dół) do poruszania się po historii wykonywanych poleceń. Chociaż sam używam częściej programu `history`.
+
+Program `history` wypisuje historię wykonywanych poleceń. Często zdarza mi się używać tego programu w połączeniu z `grep` i [potokami]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#potoki):
+
+```bash
+$ history | grep docker | tail -n 3
+ 4500  docker run --rm -it alpine
+ 4501  docker run --rm -it --entrypoint /bin/sh alpine/helm
+ 4545  history | grep docker | tail -n 3
+```
+
+Przydatny może być też program `fc`, który pozwala na edycję wprowadzonych do tej pory komend przed ich wywołaniem.
+
+Chociaż historia to dobra rzecz i nie raz może uratować skórę, zdarzają się przypadki, w których nie chcesz zostawiać po sobie śladu. Na przykład kiedy w linii poleceń wpisujesz hasło czy klucz do API.
+
+To bardzo zła praktyka. Do przekazywania danych wrażliwych jak hasła czy tokeny dostępu używaj plików (przekazując ścieżkę do pliku z danymi wrażliwymi) albo zmiennych środowiskowych (zawierających dane wrażliwe albo ścieżkę do pliku z danymi wrażliwymi).
+{:.notice--warning}
+
+W przypadku kiedy nie chcesz aby dana komenda została zapisana w historii poprzedź ją ` ` (spacją)[^histcontrol].
+
+[^histcontrol]: Ten mechanizm zależy od wartości zmiennej środowiskowej `HISTCONTROL`.
+
+### Polecenia wbudowane
+
+Do tej pory używałem głównie określenia „program”, jednak nie we wszystkich przypadkach było to do końca poprawne. Dzieje się tak za sprawą poleceń wbudowanych.
+
+W dochodzeniu do prawdy pomocny będzie program `which` :). Ten program zwraca ścieżki programów, które byłyby uruchomione dla każdego z przekazanych prametrów. Robi to oparciu o listę katalogów przechowywanych w zmiennej środowiskowej `PATH`. Proszę spójrz na przykład:
+
+```bash
+$ which ls
+/bin/ls
+```
+
+W tym przykładzie `which` zwraca [absolutną ścieżkę]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#ścieżka) programu, który zostanie uruchomiony po wywołaniu `ls`. W tym przypadku jest to `/bin/ls`.
+
+W ten sam sposób możesz sprawdzić inne programy:
+
+```bash
+$ which which mount cron
+/usr/bin/which
+/bin/mount
+/usr/sbin/cron
+```
+
+A teraz spróbuj zrobić to samo dla innych „programów”, których używasz `cd` czy `history`:
+
+```bash
+$ which cd history
+```
+
+Hmm ;), `which` nie pokazało nic. Dzieje się tak z tego powodu, że zarówno `cd` jak i `history` to polecenia wbudowane w `bash`'a. Takich poleceń jest więcej. Jednym z wbudowanych poleceń jest `type`, które rzuca więcej światła na tę sprawę:
+
+```bash
+$ type -a history
+history is a shell builtin
+```
+
+Użyłem tu przełącznika `-a`, który zwraca wszystkie możliwe opcje, a jest ich kilka :). Proszę spójrz na kolejny przykład:
+
+```bash
+$ type -a cd
+cd is a function
+cd () 
+{ 
+    __zsh_like_cd cd "$@"
+}
+cd is a shell builtin
+```
+
+W tym przypadku jest ciekawiej, `cd` jest zarówno wbudowanym poleceniem jak i funkcją. `bash` to nie tylko program. `bash` to także język skryptowy, w którym można definiować funkcje[^zagmatwane]. To jeszcze nie koniec ciekawostek :)
+
+[^zagmatwane]: Na początku to może wydawać się zagmatwane – program `bash` (konsola), który jest w stanie interpretować `bash` (język skryptowy).
+
+```bash
+$ type -a kill pwd
+kill is a shell builtin
+kill is /bin/kill
+pwd is a shell builtin
+pwd is /bin/pwd
+```
+
+Jak widzisz istnieją także „programy”, które są zarówno poleceniami wbudowanymi jak i zwyczajnymi programami. Tak na prawdę ta wiedza nie jest Ci potrzebna przy codziennej pracy z linią poleceń. Dodałem ten punkt raczej w ramach ciekawostki :). W dalszej części artykuł nadal będę używał określenia „program” odnosząc się zarówno do programów jak i poleceń wbudowanych.
+
+### Wywoływanie programów w tle
+
+### Parametry specjalne
+
+`bash` posiada zestaw paremetrów, które mają specjalne znaczecznie. Możesz odwołać się do tych parametrów używając składni `$<znak parametru>`, na przykład `$?`. Parametry te zawierają 
+
+kkk
+
+`$?`
+`$#`
+`$_`
+
+
 ## Zmienne środowiskowe
 
-Duża część programów obsługuje dwa tryby pracy. W jednym z nich dane wejściowe przekazywane są przez stdin, w drugim jako parametry będące ścieżkami do plików[^minusik].
+Uruchomienie programu wiąże się z uruchomienierm procesu. Proces nadzorowany jest przez system operacyjny. Każdy proces posiada, między innymi, swój zestaw zmiennych środowiskowych.
 
-[^minusik]: Swego rodzaju wyjątkiem może być tu znak `-`. Zgodnie z konwencją ten znak oznacza stdin. Może też służyć jako pełnoprawna nazwa pliku, jednak wtedy trzeba się do niego odnieść używając ścieżki, na przykład `./-`.
+Można powiedzieć, że zmienne środowiskowe są podobne do zmiennych w językach programowania. Zmienne środowiskowe zawirają dane, które dostępne są dla procesu (programu). Zazwyczaj nazwy zmiennych środowiskowych używają wielkich liter, choć nie jest to wymagane. Kilka przykładowych zmiennych środowiskowych:
 
-## Historia
+* `PATH` – zawiera listę katalogów, w których poszukiwane są programy do uruchomienia. To dzięki tej zmiennej możesz napisać `ls` bez podawania pełnej ścieżki programu (`/bin/ls`),
+* `HOME` – zawiera ścieżkę do katalogu domowego użytkownika,
+* `EDITOR` – zawiera ścieżkę do preferowanego edytora tekstu.
 
+Możesz sprawdzić aktualną listę zmiennych środowiskowych wywołując program `set` bez żadnych parametrów[^set]:
+
+[^set]: Program ten wyświetla też listę dostępnych funkcji.
+
+```bash
+$ set | head -n 1
+BASH=/bin/bash
+```
+
+Przykład poniżej pokazuje użycie zmiennych środowiskowych:
+
+```bash
+$ echo $HOME
+/home/mapi
+$ echo $HOMEsweetHOME
+
+$ echo ${HOME}sweetHOME
+/home/mapisweetHOME
+```
+
+Pierwsza komenda wyświetla zawartość zmiennej `HOME`. Druga zawartość zmiennej `HOMEsweetHOME`. Zauważ, że w tym przypadku `bash` nie wie gdzie kończy się nazwa zmiennej środowiskowej. Dlatego właśnie wyświetla pustą linię – zmienna `HOMEsweetHOME` nie jest zdefiniowana. W trzecim przypadku użyłem składni `${}`[^rozwijanieparametrow] otaczając nawiasami klamrowymi nazwę zmiennej.
+
+[^rozwijanieparametrow]: To mechanizm rozwijania parametrów, podobny do rozwijania `~` czy rozwijania `{}`.
+
+Możesz też definiować swoje zmienne środowiskowe używając składni `NAZWA_ZMIENNEJ=wartosc zmiennej`:
+
+```bash
+$ echo $NEW_VARIABLE
+
+$ NEW_VARIABLE="some value"
+$ echo $NEW_VARIABLE
+some value
+```
+
+### Zmienne środowiskowe w procesach potomnych
+
+Wiesz już, że zmienne środowiskowe przypisane są do procesu. Każdy proces ma swoją kopię zmiennych środowiskowych. Uruchamiając nowy proces _eksportowane_ zmienne środowiskowe kopiowane są do procesu potomnego.
+
+Zmienną środowiskową możesz eksportować używając /
+
+Oznacza to tyle, że proces potomy ma dostęp wyłącznie do podzbioru zmiennych aktualnie zdefiniowanych. Proszę spójrz na przykład:
+
+```bash
+$ VARIABLE_1=value1
+$ export VARIABLE_2=value2
+$ echo $VARIABLE_1 $VARIABLE 2
+value1 value2
+$ bash  # uruchamia nowy proces
+$ echo $VARIABLE_1 $VARIABLE_2
+value2
+```
 
 ## Programy
 
@@ -274,12 +441,6 @@ Wspomniałem tu jedynie drobnym podzbiorze programów, sporo pominąłem. Stara�
 `awk` to narzędzie i także język programowania. Jeśli jest coś czego nie możesz zrobić przy pomocy innych programów dostępnych w wierszu poleceń `awk` na pewno da sobie z tym radę ;). Niestety nie znam tego programu za dobrze, zawsze gdy potrzebuję go użyć zaglądam do dokumentacji szukając niezbędnych informacji.
 
 ## Znaki specjalne
-
-### Magiczne zmienne
-
-`$?`
-`$#`
-`$_`
 
 ### Praca z tekstem
 
