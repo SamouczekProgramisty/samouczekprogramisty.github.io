@@ -1,6 +1,6 @@
 ---
 title: Podstawy UML
-last_modified_at: 2019-11-26 19:10:54 +0100
+last_modified_at: 2020-09-20 21:00:58 +0200
 categories:
 - Programista rzemieślnik
 permalink: /podstawy-uml/
@@ -36,7 +36,7 @@ Na początku muszę powiedzieć Ci trochę o moich doświadczeniach. Po kilku la
 
 Z mojego doświadczenia UML jest wykorzystywany w nieformalny sposób. To tak jak z językiem obcym – najważniejsza jest komunikacja. Możesz robić mnóstwo błędów, jeśli jednak potrafisz się dogadać z drugą stroną to jesteś w domu. Właśnie komunikacja i umiejętność przekazywania informacji jest tu kluczowa. Innymi słowy jeśli będziesz znać podstawy najbardziej istotnych diagramów, to ta wiedza powinna być wystarczająca.
 
-Taki punkt widzenia potwierdza też [badanie przeprowadzone na grupie programistów, testerów, architektów czy kierowników projektów](https://empirical-software.engineering/projects/sketches/)[^proba]. Wynik przeprowadzonej ankiety potwierdza, że UML używany jest raczej nieformalnie.
+Taki punkt widzenia potwierdza też [badanie przeprowadzone na grupie programistów, testerów, architektów czy kierowników projektów](https://empirical-software.engineering/assets/pdf/fse14-sketches.pdf)[^proba]. Wynik przeprowadzonej ankiety potwierdza, że UML używany jest raczej nieformalnie.
 
 [^proba]: Swoją drogą badanie było przeprowadzone na dość małej grupie kontrolnej. W związku z tym jest ryzyko, że wyniki nie są w pełni miarodajne.
 
