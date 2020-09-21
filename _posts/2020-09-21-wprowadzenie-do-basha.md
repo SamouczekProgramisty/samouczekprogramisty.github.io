@@ -37,13 +37,13 @@ Na tym etapie wiesz już czym jest [ścieżka]({% post_url 2019-03-12-poczatki-p
 
 `bash` nie wspiera [wyrażeń regularnych]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}). Mam na myśli to, że sama powłoka nie pozwala na przykład na określenia ścieżki do pliku używając [wyrażeń regularnych]({% post_url 2017-01-06-wyrazenia-regularne-czesc-2 %})[^regexpprogramy]. `bash` używa wyrażeń „glob”, które są do nich podobne.
 
-[^regexpprogramy]: Zupełnie inną sprawą są progamy, które pozwalają na używanie wyrażeń regularnych w przekazanych parametrach.
+[^regexpprogramy]: Zupełnie inną sprawą są programy, które pozwalają na używanie wyrażeń regularnych w przekazanych parametrach.
 
 Historycznie glob był osobnym programem, który został wchłonięty przez bash'a. Wyrażenia glob pozwalają na odwoływanie się do plików/katalogów używając `?`, `*` i `[]`. Znak `?` zastępuje jeden znak, `*` zastępuje dowolną liczbę znaków. Na przykład wyrażenie glob `*.txt` pasuje do wszystkich plików z rozszerzeniem `.txt` w aktualnym katalogu. Wyrażenie glob `?.txt` pasuje do wszystkich plików których nazwa (przed rozszerzeniem) ma jeden znak.
 
 `[]` zawiera w sobie grupę dozwolonych znaków. Na przykład wyrażenie `[ab].txt` pasuje do nazw plików `a.txt` i `b.txt` ale nie pasuje to nazwy `ab.txt`. Grupy umieszczone wewnątrz `[]` mogą być zakresami znaków. Zakres znaków oddzielony jest `-`, na przykład `[a-d].txt` pasuje do nazw plików `a.txt`, `b.txt`, `c.txt` i `d.txt`. Jeśli chcesz dopasować `-` dosłownie umieść go na początku, albo na końcu grupy, na przykład `[-a]` albo `[a-]`.
 
-Podsumowaując, w wyrażeniach glob możesz używać następujących wzorców:
+Podsumowując, w wyrażeniach glob możesz używać następujących wzorców:
 
 * `?` oznacza dowolny pojedynczy znak (poza `/` i `.` na początku)
 * `*` oznacza dowolną liczbę znaków (poza `/` i `.` na początku)
@@ -59,7 +59,7 @@ $ ls *.txt
 a.txt b.txt
 ```
 
-W pierwszym przypadku zostanie uruchomiony [program `ls`]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#ls) bez żadnego prametru. Domyślnie zatem zostanie użyty aktualny katalog (`.`). Program wypisze zawartość aktualngo katalogu, w moim przypadku są to trzy pliki: a.txt, b.txt i c.csv. W drugim przypadku pojawia się wyrażenie glob `*.txt`, które zostaje rozwinięte przez konsolę do `a.txt b.txt` i przekazane jako argument do programu `ls`. Zatem w przykładzie powyżej `ls *.txt` jest tak na prawdę wywołaniem `ls a.txt b.txt`.
+W pierwszym przypadku zostanie uruchomiony [program `ls`]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#ls) bez żadnego parametru. Domyślnie zatem zostanie użyty aktualny katalog (`.`). Program wypisze zawartość aktualnego katalogu, w moim przypadku są to trzy pliki: a.txt, b.txt i c.csv. W drugim przypadku pojawia się wyrażenie glob `*.txt`, które zostaje rozwinięte przez konsolę do `a.txt b.txt` i przekazane jako argument do programu `ls`. Zatem w przykładzie powyżej `ls *.txt` jest tak na prawdę wywołaniem `ls a.txt b.txt`.
 
 Wyrażenia glob nie biorą pod uwagę plików/katalogów, których nazwa zaczyna się od kropki (`.`). Jeśli wyrażenie glob nie może być rozwinięte (nie pasuje do żadnego pliku/katalogu) zostanie przekazane jako parametr bez zmian:
 
@@ -146,7 +146,7 @@ $ echo sequence-{07..10}
 sequence-07 sequence-08 sequence-09 sequence-10
 ```
 
-Opcjonalnym, trzecim paramerem może być skok, który informuje o ile powinny różnić się kolejno generowane liczby:
+Opcjonalnym, trzecim parametrem może być skok, który informuje o ile powinny różnić się kolejno generowane liczby:
 
 ```bash
 $ echo sequence-{0..10..2}
@@ -247,7 +247,7 @@ $ vim $HISTFILE
 
 #### Rozwijanie historii
 
-Proszę spójrz na przykład poniżej, w którym użyłem podstawowego mechanizmu rozwijania histori:
+Proszę spójrz na przykład poniżej, w którym użyłem podstawowego mechanizmu rozwijania historii:
 
 ```bash
 $ history | grep git | tail -n 3
@@ -263,13 +263,13 @@ $ history | grep git | tail -n 3
  1201  git log -5
 ```
 
-Wywołanie `!1176` spowodowało ponowne uruchomienie programu zapisanego w historii pod numerem 1176. Mechanizm ten jest dość rozbudowany. Jeśli chcesz poznać więcej jego możliwości odsyłam Cię do sekcji „History expansion” w [manualu `bash`'a](https://linux.die.net/man/1/bash).
+Wywołanie `!1176` spowodowało ponowne uruchomienie programu zapisanego w historii pod numerem 1176. Mechanizm ten jest dość rozbudowany. Jeśli chcesz poznać więcej jego możliwości odsyłam Cię do sekcji „History expansion” w [dokumentacji `bash`'a](https://linux.die.net/man/1/bash).
 
 ### Polecenia wbudowane
 
 Do tej pory używałem głównie określenia „program”, jednak nie we wszystkich przypadkach było to do końca poprawne. Dzieje się tak za sprawą poleceń wbudowanych.
 
-W dochodzeniu do prawdy pomocny będzie program `which` :). Ten program zwraca ścieżki programów, które byłyby uruchomione dla każdego z przekazanych prametrów. Robi to oparciu o listę katalogów przechowywanych w zmiennej środowiskowej `PATH`. Proszę spójrz na przykład:
+W dochodzeniu do prawdy pomocny będzie program `which` :). Ten program zwraca ścieżki programów, które byłyby uruchomione dla każdego z przekazanych parametrów. Robi to oparciu o listę katalogów przechowywanych w zmiennej środowiskowej `PATH`. Proszę spójrz na przykład:
 
 ```bash
 $ which ls
@@ -363,9 +363,9 @@ $ jobs
 
 ## Zmienne środowiskowe
 
-Uruchomienie programu wiąże się z uruchomienierm procesu. Proces nadzorowany jest przez system operacyjny. Każdy proces posiada, między innymi, swój zestaw zmiennych środowiskowych.
+Uruchomienie programu wiąże się z uruchomieniem procesu. Proces nadzorowany jest przez system operacyjny. Każdy proces posiada, między innymi, swój zestaw zmiennych środowiskowych.
 
-Można powiedzieć, że zmienne środowiskowe są podobne do zmiennych w językach programowania. Zmienne środowiskowe zawirają dane, które dostępne są dla procesu (programu). Zazwyczaj nazwy zmiennych środowiskowych używają wielkich liter, choć nie jest to wymagane. Kilka przykładowych zmiennych środowiskowych:
+Można powiedzieć, że zmienne środowiskowe są podobne do zmiennych w językach programowania. Zmienne środowiskowe zawierają dane, które dostępne są dla procesu (programu). Zazwyczaj nazwy zmiennych środowiskowych używają wielkich liter, choć nie jest to wymagane. Kilka przykładowych zmiennych środowiskowych:
 
 * `PATH` – zawiera listę katalogów, w których poszukiwane są programy do uruchomienia. To dzięki tej zmiennej możesz napisać `ls` bez podawania pełnej ścieżki programu (`/bin/ls`),
 * `HOME` – zawiera ścieżkę do katalogu domowego użytkownika,
@@ -410,7 +410,7 @@ some value
 
 ### Zmienne środowiskowe w procesach potomnych
 
-Wiesz już, że zmienne środowiskowe przypisane są do procesu. Każdy proces ma swoją kopię zmiennych środowiskowych. Uruchamiając nowy proces _eksportowane_ zmienne środowiskowe kopiowane są do procesu potomnego. Oznacza to tyle, że proces potomy ma dostęp wyłącznie do podzbioru zmiennych aktualnie zdefiniowanych.
+Wiesz już, że zmienne środowiskowe przypisane są do procesu. Każdy proces ma swoją kopię zmiennych środowiskowych. Uruchamiając nowy proces _eksportowane_ zmienne środowiskowe kopiowane są do procesu potomnego. Oznacza to tyle, że proces potomny ma dostęp wyłącznie do podzbioru zmiennych aktualnie zdefiniowanych.
 
 Zmienną środowiskową możesz eksportować używając programu `export`. Proszę spójrz na przykład:
 
@@ -442,8 +442,8 @@ Niezmiennie zachęcam Cię do samodzielnych eksperymentów. Najwięcej nauczysz 
 
 ## Podsumowanie
 
-Po lekturze tego artykułu możesz spokojnie używać linii poleceń w codziennej pracy. Udało Ci się poznać zestaw przydatnych cech `bash`'a. Potrafisz swobodnie poruszać się po historii poleceń i ją modyfikować w razie potrzeby. Wiesz więcej o zmiennych środowiskowych i rozumiesz jakia jest zależność pomiędzy procesem a zmienną środowiskową. Gratulacje! :)
+Po lekturze tego artykułu możesz spokojnie używać linii poleceń w codziennej pracy. Udało Ci się poznać zestaw przydatnych cech `bash`'a. Potrafisz swobodnie poruszać się po historii poleceń i ją modyfikować w razie potrzeby. Wiesz więcej o zmiennych środowiskowych i rozumiesz jaka jest zależność pomiędzy procesem a zmienną środowiskową. Gratulacje! :)
 
-To tyle na dzisiaj, dziękuję za lekturę, trzymaj się i do następnego razu! A… zapomniałbym, jeśli uważasz, że materiał może się przydać komuś z Twoich znajomych proszę podziel się z nim odnośnikikem do artykułu. W ten sposób pomożesz mi dotrzeć do nowych czytelników, z góry dziękuję! Jeśli nie chcesz pomiąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub [Samouczka Programisty na Facebooku](https://www.facebook.com/SamouczekProgramisty).
+To tyle na dzisiaj, dziękuję za lekturę, trzymaj się i do następnego razu! A… zapomniałbym, jeśli uważasz, że materiał może się przydać komuś z Twoich znajomych proszę podziel się z nim odnośnikiem do artykułu. W ten sposób pomożesz mi dotrzeć do nowych czytelników, z góry dziękuję! Jeśli nie chcesz pomiąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub [Samouczka Programisty na Facebooku](https://www.facebook.com/SamouczekProgramisty).
 
 Do następnego razu!
