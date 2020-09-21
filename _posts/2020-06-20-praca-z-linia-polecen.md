@@ -1,31 +1,17 @@
 ---
-title: Praca z linią poleceń
-last_modified_at: 2019-03-17 15:56:22 +0100
+title: Wprowadzenie do bash'a
+last_modified_at: 2020-09-21 20:57:24 +0200
 categories:
 - Programista rzemieślnik
-permalink: /praca-z-linia-polecen/
+permalink: /wprowadzenie-do-basha/
 header:
     teaser: /assets/images/2020/0626-praca-z-linia-polecen/praca_z_linia_polecen_artykul.jpg
     overlay_image: /assets/images/2020/0626-praca-z-linia-polecen/praca_z_linia_polecen_artykul.jpg
     caption: "[&copy; Franz Harvin Aceituna](https://unsplash.com/photos/vkfrFrAIO4o)"
-excerpt: TODO
+excerpt: W artykule poznasz kilka cech `bash`'a, które pozwolą Ci na efektywną pracę. Poznasz część mechanizmów rozwijania dostępnych w tym terminalu. Dowiesz się jak można używać historii poleceń i jak możesz ją zmieniać. Przeczytasz też o zmiennych środowiskowych w kontekście procesów. Na końcu artykułu czeka na Ciebie zestaw materiałów dodatkowych, które pomogą Ci pogłębić wiedzę z tego tematu.
 ---
 
-{% capture text_source_notice %}
-W treści artykułu będę używał plików z lekturami dostępnymi na stronie [wolnelektury.pl](https://wolnelektury.pl/). Możesz je ściągnąć w konsoli używając takiego skryptu:
-
-```bash
-for book in pan-tadeusz quo-vadis wesele latarnik janko-muzykant
-do
-    wget https://wolnelektury.pl/media/book/txt/${book}.txt
-done
-```
-{% endcapture %}
-
-<div class="notice--info">
-    {{ text_source_notice | markdownify }}
-</div>
-
+{% capture other_bash_article_notice %}
 Jeśli do tej pory nie pracowałeś z konsolą koniecznie przeczytaj artykuł opisujący [początki pracy z linią poleceń]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}). Mając podstawy opisane w tamtym artykule będzie Ci dużo łatwiej. [Artykuł o początkach pracy z linią poleceń]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}) między innymi opisuje programy:
 
 * `cd`
@@ -37,8 +23,11 @@ Jeśli do tej pory nie pracowałeś z konsolą koniecznie przeczytaj artykuł op
 * `echo`
 * `cat`
 * `clear`
+{% endcapture %}
 
-W ramach tego artykułu będę używał `bash`'a. Elementy języka skryptowego będą dotyczyły tej własnie powłoki.
+<div class="notice--info">
+    {{ other_bash_article_notice | markdownify }}
+</div>
 
 ## Specyficzne dla `bash`'a
 
@@ -77,15 +66,19 @@ Wyrażenia glob nie biorą pod uwagę plików/katalogów, których nazwa zaczyna
 ```bash
 $ ls
 exists.txt
+
 $ echo *.txt
 exists.txt
+
 $ echo *.pdf
 *.pdf
 ```
 
+{% include newsletter-srodek.md %}
+
 ### Rozwijanie `~`
 
-W `bash`'u znak tyldy (`~`) ma specjalne znaczenie. `~` oznacza katalog domowy użytkownika. Podobnie jak wyrażenia glob tylda rozwijana jest do właściwej ścieżki przed przekazaniem jej jako parametr do programu. Proszę spójrz na przykład poniżej:
+W `bash`'u znak tyldy (`~`) ma specjalne znaczenie. `~` oznacza katalog domowy użytkownika. Podobnie jak wyrażenia glob, tylda rozwijana jest do właściwej ścieżki przed przekazaniem jej jako parametr do programu. Proszę spójrz na przykład poniżej, w którym użyłem [programu `echo`]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#echo):
 
 ```bash
 $ echo ~
@@ -104,10 +97,11 @@ $ echo ~root
 
 Możesz użyć także rozwijania `~` do poznania aktualnego katalogu używając `+`[^inaczej]:
 
-[^inaczej]: Chociaż szczerze mówiąc częściej używam zmiennej środowiskowej `$PWD` lub wywołuję program `pwd` ;)
+[^inaczej]: Chociaż szczerze mówiąc częściej używam zmiennej środowiskowej `PWD` lub wywołuję program `pwd` ;)
 
 ```bash
 $ cd /run/usr/1000
+
 $ echo ~+
 /run/user/1000
 ```
@@ -116,7 +110,9 @@ W podobny sposób `-` pokazuje poprzedni katalog:
 
 ```bash
 $ cd /tmp
+
 $ cd 
+
 $ echo ~-
 /tmp
 ```
@@ -143,7 +139,7 @@ $ echo sequence-{7..10}
 sequence-7 sequence-8 sequence-9 sequence-10
 ```
 
-Użycie wiodących `0` powoduje generowanie numerów o stałej szerokości:
+Użycie wiodącego `0` powoduje generowanie numerów o stałej szerokości:
 
 ```bash
 $ echo sequence-{07..10}
@@ -169,18 +165,26 @@ Najczęściej używam tej składni jeśli chcę skopiować albo przenieść plik
 ```bash
 $ ls 
 some_file.txt
+
 $ mv some_file.txt{,.bak}
+
 $ ls 
 some_file.txt.bak
 ```
 
 ### Historia
 
-Bash posiada bardzo przydatną funkcję, pozwala na zapisywanie historii wykonywanych poleceń. Przy odpowiedniej konfiguracji (domyślnej na przykład w Ubuntu) w pliku `~/.bash_history` zapisywana jest historia poleceń. Historia ta jest aktualizowana w momencie zamykania okna terminala.
+Bash posiada bardzo przydatną funkcję, pozwala ona na zapisywanie historii wykonywanych poleceń. Przy odpowiedniej konfiguracji (domyślnej na przykład w Ubuntu) w pliku `~/.bash_history` zapisywana jest historia poleceń. Historia ta jest aktualizowana w momencie zamykania okna terminala.
 
-Historia jest przydatna, bo często możesz używać poleceń, których używałeś poprzednio. Pomocny może być skrót klawiaturowy `Ctrl+r`, który pozwala na przeszukiwanie historii.
+Historia jest przydatna, bo często możesz używać poleceń, których używałeś poprzednio. Pomocny może być skrót klawiaturowy `Ctrl+R`, który pozwala na przeszukiwanie historii. Po użyciu tego skrótu klawiaturowego zmieni się standardowy znak zachęty. Możesz wtedy wpisywać fragmenty poleceń z historii. Jak zwykle, zachęcam Cię do eksperymentów:
 
-To dzięki historii możesz też używać strzałek (góra/dół) do poruszania się po historii wykonywanych poleceń. Chociaż sam używam częściej programu `history`.
+```bash
+(reverse-i-search)`': 
+```
+
+To dzięki historii możesz też używać strzałek (góra/dół) do poruszania się po historii wykonywanych poleceń. Chociaż sam używam częściej programu `history` albo wspomnianego skrótu `Ctrl+R`.
+
+#### `history`
 
 Program `history` wypisuje historię wykonywanych poleceń. Często zdarza mi się używać tego programu w połączeniu z `grep` i [potokami]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#potoki):
 
@@ -191,16 +195,75 @@ $ history | grep docker | tail -n 3
  4545  history | grep docker | tail -n 3
 ```
 
-Przydatny może być też program `fc`, który pozwala na edycję wprowadzonych do tej pory komend przed ich wywołaniem.
+Przydatny może być też program `fc`, który pozwala na edycję wprowadzonych do tej pory komend przed ich wywołaniem. W przykładzie poniżej `fc 1170` uruchomi edytor tekstu z poleceniem `git rebase -i master`. To polecenie znajduje się na 1170 miejscu w historii bash'a:
+
+```bash
+$ history | grep git | tail -n 4
+ 1170  git rebase -i master
+ 1174  git status
+ 1176  git log -5
+ 1178  git push
+
+$ fc 1170
+```
+
+#### Modyfikowanie historii
 
 Chociaż historia to dobra rzecz i nie raz może uratować skórę, zdarzają się przypadki, w których nie chcesz zostawiać po sobie śladu. Na przykład kiedy w linii poleceń wpisujesz hasło czy klucz do API.
 
+{% capture zla_praktyka %}
 To bardzo zła praktyka. Do przekazywania danych wrażliwych jak hasła czy tokeny dostępu używaj plików (przekazując ścieżkę do pliku z danymi wrażliwymi) albo zmiennych środowiskowych (zawierających dane wrażliwe albo ścieżkę do pliku z danymi wrażliwymi).
-{:.notice--warning}
+
+To rozwiązanie też nie jest idealne. Zmienne środowiskowe, podobnie jak pliki mogą być dostępne dla innych użytkowników systemu. Jednak takie rozwiązanie jest o niebo lepsze niż używanie danych wrażliwych bezpośrednio w konsoli.
+{% endcapture %}
+
+<div class="notice--warning">
+    {{ zla_praktyka | markdownify }}
+</div>
+
 
 W przypadku kiedy nie chcesz aby dana komenda została zapisana w historii poprzedź ją ` ` (spacją)[^histcontrol].
 
 [^histcontrol]: Ten mechanizm zależy od wartości zmiennej środowiskowej `HISTCONTROL`.
+
+A co jeśli mleko już się rozlało i komenda została już zapisana w historii? Wówczas z pomocą przychodzi program `history` z parametrem `-d`:
+
+```bash
+$ history | tail -n 1
+ 1190 curl https://admin:password1@ministry.gov
+
+$ history -d 1190
+
+$ history -w
+```
+
+Polecenie `history -d 1190` usuwa z historii komendę z numerem 1190. `hisory -w` zapisuje aktualną historię (z usuniętą komendą) w pliku historii.
+
+Jeśli nie chcesz używać programu `history` zawsze możesz edytować plik historii samodzielnie. Zmienna środowiskowa `HISTFILE` przechowuje ścieżkę do pliku, w którym przechowywana jest historia poleceń:
+
+```bash
+$ vim $HISTFILE
+```
+
+#### Rozwijanie historii
+
+Proszę spójrz na przykład poniżej, w którym użyłem podstawowego mechanizmu rozwijania histori:
+
+```bash
+$ history | grep git | tail -n 3
+ 1174  git status
+ 1176  git log -5
+ 1178  git push
+
+$ !1176
+
+$ history | grep git | tail -n 3
+ 1176  git log -5
+ 1178  git push
+ 1201  git log -5
+```
+
+Wywołanie `!1176` spowodowało ponowne uruchomienie programu zapisanego w historii pod numerem 1176. Mechanizm ten jest dość rozbudowany. Jeśli chcesz poznać więcej jego możliwości odsyłam Cię do sekcji „History expansion” w [manualu `bash`'a](https://linux.die.net/man/1/bash).
 
 ### Polecenia wbudowane
 
@@ -240,20 +303,6 @@ history is a shell builtin
 Użyłem tu przełącznika `-a`, który zwraca wszystkie możliwe opcje, a jest ich kilka :). Proszę spójrz na kolejny przykład:
 
 ```bash
-$ type -a cd
-cd is a function
-cd () 
-{ 
-    __zsh_like_cd cd "$@"
-}
-cd is a shell builtin
-```
-
-W tym przypadku jest ciekawiej, `cd` jest zarówno wbudowanym poleceniem jak i funkcją. `bash` to nie tylko program. `bash` to także język skryptowy, w którym można definiować funkcje[^zagmatwane]. To jeszcze nie koniec ciekawostek :)
-
-[^zagmatwane]: Na początku to może wydawać się zagmatwane – program `bash` (konsola), który jest w stanie interpretować `bash` (język skryptowy).
-
-```bash
 $ type -a kill pwd
 kill is a shell builtin
 kill is /bin/kill
@@ -261,20 +310,56 @@ pwd is a shell builtin
 pwd is /bin/pwd
 ```
 
-Jak widzisz istnieją także „programy”, które są zarówno poleceniami wbudowanymi jak i zwyczajnymi programami. Tak na prawdę ta wiedza nie jest Ci potrzebna przy codziennej pracy z linią poleceń. Dodałem ten punkt raczej w ramach ciekawostki :). W dalszej części artykuł nadal będę używał określenia „program” odnosząc się zarówno do programów jak i poleceń wbudowanych.
+Jak widzisz istnieją także „programy”, które są zarówno poleceniami wbudowanymi jak i zwyczajnymi programami. W dalszej części artykuł nadal będę używał określenia „program” odnosząc się zarówno do programów jak i poleceń wbudowanych.
 
 ### Wywoływanie programów w tle
 
-### Parametry specjalne
+Może się zdarzyć, że chcesz wywołać program, który działa bardzo długo a nie chcesz zajmować aktualnego okna konsoli. Z pomocą przychodzi operator `&`:
 
-`bash` posiada zestaw paremetrów, które mają specjalne znaczecznie. Możesz odwołać się do tych parametrów używając składni `$<znak parametru>`, na przykład `$?`. Parametry te zawierają 
+```bash
+$ ping www.samouczekprogramisty.pl > ~/ping_output.txt &
+[1] 11410
+```
 
-kkk
+W przykładzie powyżej wywołałem program `ping` i [przekierowałem standardowe wyjście]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}#przekierowania) do pliku `~/ping_output.txt`. Kolejna linia `[1] 11410` informuje o tym, że zadanie `[1]` działające w tle zostało uruchomione. Zadanie to działa jako proces 11410.
 
-`$?`
-`$#`
-`$_`
+W każdym momencie możesz sprawdzić listę zadań używając programu `jobs`:
 
+```bash
+$ jobs
+[1]+  Running                 ping www.samouczekprogramisty.pl > ~/ping_output.txt &
+```
+
+W tym przypadku uruchomione jest jedno zadanie w tle, które ma status `Running`. Możesz „przywołać” to zadanie używając programu `fg` (od ang. _foreground_):
+
+```bash
+$ fg %1
+ping www.samouczekprogramisty.pl > ~/ping_output.txt
+```
+
+W zarządzaniu zadaniami pomocny jest też skrót klawiaturowy `<Ctrl+Z>`, który usypia aktualny program[^sygnal]:
+
+[^sygnal]: Tak na prawdę to wysyła sygnał do procesu. To w jaki sposób ten sygnał jest obsłużony do inna sprawa. Domyślnie program jest „usypiany”.
+
+```bash
+$ fg %1
+ping www.samouczekprogramisty.pl > ~/ping_output.txt
+^Z # tu użyłem Ctrl+Z
+[1]+  Stopped                 ping www.samouczekprogramisty.pl > ~/ping_output.txt
+```
+
+Jak widzisz w tym przypadku zadanie `[1]` ma status `Stopped`. Jeśli chcesz wznowić zatrzymany program w tle użyj programu `bg` (od ang. _background_):
+
+```bash
+$ jobs
+[1]+  Stopped                 ping www.samouczekprogramisty.pl > ~/ping_output.txt
+
+$ bg %1
+[1]+ ping www.samouczekprogramisty.pl > ~/ping_output.txt
+
+$ jobs
+[1]+  Running                 ping www.samouczekprogramisty.pl > ~/ping_output.txt &
+```
 
 ## Zmienne środowiskowe
 
@@ -284,7 +369,8 @@ Można powiedzieć, że zmienne środowiskowe są podobne do zmiennych w języka
 
 * `PATH` – zawiera listę katalogów, w których poszukiwane są programy do uruchomienia. To dzięki tej zmiennej możesz napisać `ls` bez podawania pełnej ścieżki programu (`/bin/ls`),
 * `HOME` – zawiera ścieżkę do katalogu domowego użytkownika,
-* `EDITOR` – zawiera ścieżkę do preferowanego edytora tekstu.
+* `EDITOR` – zawiera ścieżkę do preferowanego edytora tekstu,
+* `PPID` – zawiera identyfikator procesu nadrzędnego (tego, który uruchomił aktualny proces).
 
 Możesz sprawdzić aktualną listę zmiennych środowiskowych wywołując program `set` bez żadnych parametrów[^set]:
 
@@ -300,6 +386,7 @@ Przykład poniżej pokazuje użycie zmiennych środowiskowych:
 ```bash
 $ echo $HOME
 /home/mapi
+
 $ echo $HOMEsweetHOME
 
 $ echo ${HOME}sweetHOME
@@ -316,140 +403,47 @@ Możesz też definiować swoje zmienne środowiskowe używając składni `NAZWA_
 $ echo $NEW_VARIABLE
 
 $ NEW_VARIABLE="some value"
+
 $ echo $NEW_VARIABLE
 some value
 ```
 
 ### Zmienne środowiskowe w procesach potomnych
 
-Wiesz już, że zmienne środowiskowe przypisane są do procesu. Każdy proces ma swoją kopię zmiennych środowiskowych. Uruchamiając nowy proces _eksportowane_ zmienne środowiskowe kopiowane są do procesu potomnego.
+Wiesz już, że zmienne środowiskowe przypisane są do procesu. Każdy proces ma swoją kopię zmiennych środowiskowych. Uruchamiając nowy proces _eksportowane_ zmienne środowiskowe kopiowane są do procesu potomnego. Oznacza to tyle, że proces potomy ma dostęp wyłącznie do podzbioru zmiennych aktualnie zdefiniowanych.
 
-Zmienną środowiskową możesz eksportować używając /
-
-Oznacza to tyle, że proces potomy ma dostęp wyłącznie do podzbioru zmiennych aktualnie zdefiniowanych. Proszę spójrz na przykład:
+Zmienną środowiskową możesz eksportować używając programu `export`. Proszę spójrz na przykład:
 
 ```bash
 $ VARIABLE_1=value1
+
 $ export VARIABLE_2=value2
-$ echo $VARIABLE_1 $VARIABLE 2
-value1 value2
+
+$ echo $VARIABLE_1 $VARIABLE_2 $PPID
+value1 value2 2855
+
 $ bash  # uruchamia nowy proces
-$ echo $VARIABLE_1 $VARIABLE_2
-value2
+
+$ echo $VARIABLE_1 $VARIABLE_2 $PPID
+value2 10189
 ```
 
-## Programy
-
-
-### `less`
-
-`less` jest programem, który pozwala na przeglądanie nawet bardzo dużych bloków tekstu. Dzieje się tak, ponieważ ten program nie potrzebuje wczytać całego pliku do pamięci przed uruchomieniem. Po uruchomieniu tego zobaczysz na ekranie zawartość pliku. Działa podobnie jak `cat`, jednak w tym przypadku masz możliwość poruszania się po zawartości pliku. W trakcie działania programu najczęściej używam następujących klawiszy:
-
-* `j` – przesuwa tekst w dół (podobnie jak strzałka w dół),
-* `k` – przesuwa tekst do góry (podobnie jak strzałka do góry),
-* `/` – rozpoczyna wyszukiwanie do przodu,
-* `?` – rozpoczyna wszyszukiwanie wstecz,
-* `q` – wyjście z programu.
-
-Jak wspomniałem wcześniej programy dostępne w konsoli często czytają dane posługując się standardowym wejściem lub ścieżką przekazaną jako parametr. Oba poniższe fragmenty prowadzą do tego samego:
-
-```bash
-$ cat pan_tadeusz.txt | less
-```
-
-```bash
-$ less pan_tadeusz.txt
-```
-
-```bash
-$ head pan-tadeusz.txt -n 3
-Adam Mickiewicz
-
-Pan Tadeusz czyli ostatni zajazd na Litwie
-```
-
-### `head`
-
-Często jest tak, że interesuje Cię jedynie początek pliku. W takim przypadku pomocny może być program `head`. Program ten wyświetla na konsoli pierwsze 10 linii pliku. To ile linii zostanie wyświetlonych możesz zmodyfikować używając parametru `-n` albo `--lines`:
-
-```bash
-$ head -n 3 pan_tadeusz.txt
-line 1
-line 2
-line 3
-```
-
-### `tail`
-
-### `curl`
-
-### `wget`
-
-### `lynx`
-
-`lynx` to przeglądarka internetowa dostępna w konsoli. Oczywiście nie ma możliwości pokazywania grafiki/animacji, jednak pozwala na przeglądanie zawartości internetu. Spróbuj, może ten sposób przeglądania stron przypadnie Ci do gustu ;). Sam nie raz używałem tej przeglądarki, przeważnie w trakcie instalacji systemu operacyjnego kiedy nie miałem dostępu do interfejsu graficznego.
-
-
-## Podstawowe narzędzia administracyjne
-
-Nie jestem administratorem, daleko mi też do magika konsoli, który zna bash'a na wylot. Mimo to czasami zdarza mi się 
-
-### `ps`
-
-### `top`
-
-### `free`
-
-### `du`
-
-### `df`
-
-
-###`cut`
-###`tr`
-
-### `grep`
-### `find`
-### `sort`
-### `uniq`
-### `wc`
-### `chmod`
-### `chown`
-### `xargs`
-### `which`
-### `rsync`
-### `sed`
-### `ln`
-### `ss`
-### `jq`
-### `direnv`
-
-Wspomniałem tu jedynie drobnym podzbiorze programów, sporo pominąłem. Starałem się uwzględnić wyłącznie te najważniejsze. Jeśli Twoim zdaniem lista nie zawiera jakiegoś bardzo ważnego programu, który pominąłem proszę daj znać w komentarzach. Postaram się to uzupełnić :).
-
-##  [`git`]({{ '/kurs-git/' }})
-
-## Zaawansowane programy
-
-### `vim`
-
-Świetny edytor tekstu. Niestety jest dość trudny do opanowania, jednak jak już się przyzwyczaisz to nie ma od niego ucieczki – sam używam wtyczek do przeglądarki internetowej i IntelliJ/PyCharm, które symulują niektóre funkcje klawiszy dostępne w tym edytorze. Równie zaawansowaną alternatywą jest `emacs`[^flame].
-
-[^flame]: &lt;flamewar&gt;Oczywiście wszyscy wiedzą, że `emacs` jest dużo gorszy od `vim`'a ;)&lt;/flamewar&gt;
-
-### `awk`
-
-`awk` to narzędzie i także język programowania. Jeśli jest coś czego nie możesz zrobić przy pomocy innych programów dostępnych w wierszu poleceń `awk` na pewno da sobie z tym radę ;). Niestety nie znam tego programu za dobrze, zawsze gdy potrzebuję go użyć zaglądam do dokumentacji szukając niezbędnych informacji.
-
-## Znaki specjalne
-
-### Praca z tekstem
+W przykładzie możesz zobaczyć dwie zmienne: `VARIABLE_1` i `VARIABLE_2`. Druga z nich została wyeksportowana. Dzięki temu jest dostępne w procesie potomnym.
 
 ## Dodatkowe materiały do nauki
 
 Podobnie jak w [poprzednim artkule]({% post_url 2019-03-12-poczatki-pracy-z-konsola %}) z serii jako pierwsze źródło polecę Ci dokumentację. Znów odsyłam cię do programu `man` lub wbudowanej dokumentacji, którą możesz przeczytać uruchamiając `<program> --help`.
 
+W przypadku tego artykułu nieocenionym źródłem wiedzy będzie dokumentacja programu `bash`, którą możesz przeczytać po uruchomieniu `man bash` lub [online](https://www.gnu.org/software/bash/manual/bash.html).
+
+Możesz też rzucić okiem na stronę [https://explainshell.com](https://explainshell.com), która pozwoli Ci lepiej zrozumieć bardziej skomplikowane komendy.
+
+Niezmiennie zachęcam Cię do samodzielnych eksperymentów. Najwięcej nauczysz się samodzielnie bawiąc się linią poleceń.
+
 ## Podsumowanie
 
-https://explainshell.com/
+Po lekturze tego artykułu możesz spokojnie używać linii poleceń w codziennej pracy. Udało Ci się poznać zestaw przydatnych cech `bash`'a. Potrafisz swobodnie poruszać się po historii poleceń i ją modyfikować w razie potrzeby. Wiesz więcej o zmiennych środowiskowych i rozumiesz jakia jest zależność pomiędzy procesem a zmienną środowiskową. Gratulacje! :)
 
-Daj znać w komentarzach jak używasz linii poleceń w swojej codziennej pracy z komputerem. Może pominąłem jakiś program, który Twoim zdaniem do takiej pracy jest niezbędny?
+To tyle na dzisiaj, dziękuję za lekturę, trzymaj się i do następnego razu! A… zapomniałbym, jeśli uważasz, że materiał może się przydać komuś z Twoich znajomych proszę podziel się z nim odnośnikikem do artykułu. W ten sposób pomożesz mi dotrzeć do nowych czytelników, z góry dziękuję! Jeśli nie chcesz pomiąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub [Samouczka Programisty na Facebooku](https://www.facebook.com/SamouczekProgramisty).
+
+Do następnego razu!
