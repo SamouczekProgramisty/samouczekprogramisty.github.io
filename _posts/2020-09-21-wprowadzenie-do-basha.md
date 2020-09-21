@@ -5,8 +5,8 @@ categories:
 - Programista rzemieślnik
 permalink: /wprowadzenie-do-basha/
 header:
-    teaser: /assets/images/2020/0626-praca-z-linia-polecen/praca_z_linia_polecen_artykul.jpg
-    overlay_image: /assets/images/2020/0626-praca-z-linia-polecen/praca_z_linia_polecen_artykul.jpg
+    teaser: /assets/images/2020/0921-wprowadzenie-do-basha/wprowadzenie_do_basha_artykul.jpg
+    overlay_image: /assets/images/2020/0921-wprowadzenie-do-basha/wprowadzenie_do_basha_artykul.jpg
     caption: "[&copy; Franz Harvin Aceituna](https://unsplash.com/photos/vkfrFrAIO4o)"
 excerpt: W artykule poznasz kilka cech `bash`'a, które pozwolą Ci na efektywną pracę. Poznasz część mechanizmów rozwijania dostępnych w tym terminalu. Dowiesz się jak można używać historii poleceń i jak możesz ją zmieniać. Przeczytasz też o zmiennych środowiskowych w kontekście procesów. Na końcu artykułu czeka na Ciebie zestaw materiałów dodatkowych, które pomogą Ci pogłębić wiedzę z tego tematu.
 ---
