@@ -76,13 +76,16 @@ Do tej pory używałem następujących programów:
 
 * [algolia.com](https://www.algolia.com) – wyszukiwarka, która nie śledzi użytkowników
 * [analytics.google.com](https://analytics.google.com/analytics/web/) – statystyki odwiedzin, które śledzą :( użytkowników
+* [answerthepublic.com](https://answerthepublic.com) – narzędzie pomagające w SEO artykułów
 * [disqus.com](https://disqus.com/) – silnik komentarzy, który śledzi :( użytkowników
 * [graphsketch.com](https://graphsketch.com) – narzędzie online do rysowania wykresów
+* [hunspell.github.io](http://hunspell.github.io) – narzędzie do sprawdzania poprawności pisowni
+* [jasnopis.pl](https://jasnopis.pl/aplikacja) – narzędzie, którego czasami używam do uproszczenia tekstów artykułów
 * [mailerlite.com](https://www.mailerlite.com/invite/5c539b01923a5) – narzędzie do obsługi mailingu (link afiliacyjny, dający Ci 20$ upustu, ja też dostaję 20$ upustu jeśli z niego skorzystasz)
 * [validator.pizza](https://www.validator.pizza) – narzędzie do sprawdzenia czy adres e-mail na liście subskrybentów jest „śmieciowy”
 
 ## Ciekawe narzędzia, których jeszcze nie użyłem
 
-* [commento.io/](https://commento.io) – komentarze, które nie śledzą użytkowników
-* [gohugo.io](https://gohugo.io) – gdyby nie MinimalMistakes to pewnie już bym się przesiadł…
+* [commento.io](https://commento.io) – komentarze, które nie śledzą użytkowników
+* [gohugo.io](https://gohugo.io) – generator stron podobny do Jekyll'a napisany w Go. Gdyby nie MinimalMistakes to pewnie już bym się przesiadł…
 * [katacoda.community](https://www.katacoda.community) – interaktywne tutoriale osadzane na stronie
