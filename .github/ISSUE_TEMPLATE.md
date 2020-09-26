@@ -13,7 +13,7 @@ assignees: kbl
 
 **To jest...** 
 <!-- Wybierz jedno zmieniając [ ] na [x] -->
-- [ ] zgłosznie błędu w artykule
+- [ ] zgłoszenie błędu w artykule
 - [ ] prośba o nowy artykuł
 
 **Problem:**
