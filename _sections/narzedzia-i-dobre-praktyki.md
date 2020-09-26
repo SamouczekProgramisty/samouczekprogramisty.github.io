@@ -1,6 +1,6 @@
 ---
 date: 2019-09-24 19:54:06 +0200
-last_modified_at: 2019-05-02 23:15:06 +0200
+last_modified_at: 2020-09-26 20:55:20 +0200
 layout: single_page
 title: Narzędzia i dobre praktyki
 permalink: /narzedzia-i-dobre-praktyki/
@@ -21,6 +21,7 @@ Znajomość składni języka programowania to dopiero początek. Programista w s
 * [Walidacja obiektów w języku Java]({% post_url 2017-12-04-walidacja-obiektow-w-jezyku-java %})
 * [Format JSON w języku Java]({% post_url 2018-09-14-format-json-w-jezyku-java %})
 * [Początki pracy z wierszem poleceń]({% post_url 2019-03-12-poczatki-pracy-z-konsola %})
+* [Wprowadzenie do bash'a]({% post_url 2020-09-21-wprowadzenie-do-basha %})
 
 Dodatkowo koniecznie musisz znać system kontroli wersji. Proponuję Ci zacząć od Git'a, który jest standardem w branży. [Kurs Gita]({{ '/kurs-git/' | absolute_url }}) dostępny na Samouczku powinien Ci pomóc go poznać.
 
