@@ -73,7 +73,8 @@ W dalszych przykładach będę używał skróconego zapisu – `$ something`. Za
 
 Nadszedł czas na pokazanie Ci kilku podstawowych programów, które są niezbędne do pracy z linią poleceń.
 
-Tutaj mam do Ciebie prośbę. Eksperymentuj! Otwórz wiersz poleceń i na bieżąco czytając artykuł sprawdzaj jak działają poszczególne programy. Właśnie dzięki takiej praktyce nauczysz się najwięcej. Zanim 
+Tutaj mam do Ciebie prośbę. Eksperymentuj! Otwórz wiersz poleceń i na bieżąco czytając artykuł sprawdzaj jak działają poszczególne programy. Właśnie dzięki takiej praktyce nauczysz się najwięcej.
+{:.notice--info}
 
 ### Ścieżka
 
