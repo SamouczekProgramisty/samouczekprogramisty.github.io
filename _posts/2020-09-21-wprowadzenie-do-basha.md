@@ -41,7 +41,7 @@ Na tym etapie wiesz już czym jest [ścieżka]({% post_url 2019-03-12-poczatki-p
 
 Historycznie glob był osobnym programem, który został wchłonięty przez bash'a. Wyrażenia glob pozwalają na odwoływanie się do plików/katalogów używając `?`, `*` i `[]`. Znak `?` zastępuje jeden znak, `*` zastępuje dowolną liczbę znaków. Na przykład wyrażenie glob `*.txt` pasuje do wszystkich plików z rozszerzeniem `.txt` w aktualnym katalogu. Wyrażenie glob `?.txt` pasuje do wszystkich plików których nazwa (przed rozszerzeniem) ma jeden znak.
 
-`[]` zawiera w sobie grupę dozwolonych znaków. Na przykład wyrażenie `[ab].txt` pasuje do nazw plików `a.txt` i `b.txt` ale nie pasuje to nazwy `ab.txt`. Grupy umieszczone wewnątrz `[]` mogą być zakresami znaków. Zakres znaków oddzielony jest `-`, na przykład `[a-d].txt` pasuje do nazw plików `a.txt`, `b.txt`, `c.txt` i `d.txt`. Jeśli chcesz dopasować `-` dosłownie umieść go na początku, albo na końcu grupy, na przykład `[-a]` albo `[a-]`.
+`[]` zawiera w sobie grupę dozwolonych znaków. Na przykład wyrażenie `[ab].txt` pasuje do nazw plików `a.txt` i `b.txt` ale nie pasuje do nazwy `ab.txt`. Grupy umieszczone wewnątrz `[]` mogą być zakresami znaków. Zakres znaków oddzielony jest `-`, na przykład `[a-d].txt` pasuje do nazw plików `a.txt`, `b.txt`, `c.txt` i `d.txt`. Jeśli chcesz dopasować `-` dosłownie umieść go na początku, albo na końcu grupy, na przykład `[-a]` albo `[a-]`.
 
 Podsumowując, w wyrażeniach glob możesz używać następujących wzorców:
 
