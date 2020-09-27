@@ -139,7 +139,7 @@ W języku Python istnieje składnia, która pozwala na łatwe użycie dekorator�
 
 Chociaż klasy reprezentujące pizze z dodatkami spełniają swoje zadanie mogą być ulepszone. Zwróć uwagę, że klasy te są do siebie bardzo podobne. [Duplikacja kodu jest zła]({% post_url 2018-09-28-jakosc-kodu-a-oschle-pocalunki-jagny %}), zrefaktoryzuj kod w taki sposób aby usunąć tę duplikację. Spróbuj rozwiązać ten problem używając bardziej skomplikowanej wersji dekoratorów z drugiego diagramu UML.
 
-Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej. Możesz też porównać swoje rozwiązanie z [przykładowym](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator/exercise).
+Jak zwykle zachęcam Cię do samodzielnego rozwiązania zadania, w ten sposób nauczysz się najwięcej. Możesz też porównać swoje rozwiązanie z [przykładowym](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/java/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator/exercise).
 
 ## Dodatkowe materiały do nauki
 
@@ -147,7 +147,7 @@ Niezmiennie, we wszystkich artykułach z serii poświęconej wzorcom projektowym
 
 Warto także rzucić okiem do [polskiej](https://pl.wikipedia.org/wiki/Dekorator_(wzorzec_projektowy)) i [angielskiej Wikipedii](https://en.wikipedia.org/wiki/Decorator_pattern) gdzie znajdziesz artykuły dotyczące tego wzorca projektowego.
 
-Zachęcam Cię też do zajrzenia do [kodu źródłowego](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator), którego użyłem w tym artykule.
+Zachęcam Cię też do zajrzenia do [kodu źródłowego](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/java/03_decorator/src/main/java/pl/samouczekprogramisty/patterns/decorator), którego użyłem w tym artykule.
 
 ## Podsumowanie
 

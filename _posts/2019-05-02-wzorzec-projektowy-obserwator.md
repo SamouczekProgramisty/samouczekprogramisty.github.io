@@ -161,7 +161,7 @@ Niezmiennie, we wszystkich artykułach z serii poświęconej wzorcom projektowym
 
 Możesz też przeczytać więcej o obserwatorze z [innego punktu widzenia](https://codecouple.pl/2017/03/31/2-wzorce-projektowe-obserwator-po-raz-kolejny/). Wartościowym źródłem są także artykuły na [polskiej](https://pl.wikipedia.org/wiki/Obserwator_(wzorzec_projektowy)) i [angielskiej Wikipedii](https://en.wikipedia.org/wiki/Observer_pattern).
 
-Zachęcam Cię też do zajrzenia do [kodu źródłowego](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/02_observer/src/main/java/pl/samouczekprogramisty/patterns), który użyłem w tym artykule.
+Zachęcam Cię też do zajrzenia do [kodu źródłowego](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/java/02_observer/src/main/java/pl/samouczekprogramisty/patterns), który użyłem w tym artykule.
 
 ## Podsumowanie
 

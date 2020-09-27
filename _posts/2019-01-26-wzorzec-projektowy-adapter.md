@@ -194,7 +194,7 @@ W tym przypadku:
 
 Bez wątpienia klasyką tematu jest książka [Design Patterns – Gamma, Helm, Johnson, Vlissides](https://www.amazon.com/gp/product/0201633612/). Jeśli miałbym polecić wyłącznie jedno źródło to poprzestałbym na tej książce.
 
-Zachęcam Cię też do zajrzenia do [kodu źródłowego](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/01_adapter/src/main/java/pl/samouczekprogramisty/patterns), który użyłem w tym artykule.
+Zachęcam Cię też do zajrzenia do [kodu źródłowego](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/java/01_adapter/src/main/java/pl/samouczekprogramisty/patterns), który użyłem w tym artykule.
 
 ## Podsumowanie
 
