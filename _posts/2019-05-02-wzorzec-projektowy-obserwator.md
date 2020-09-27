@@ -1,12 +1,12 @@
 ---
 title: Wzorzec projektowy obserwator
-last_modified_at: 2019-05-02 23:15:06 +0200
+last_modified_at: 2020-09-27 12:33:08 +0200
 categories:
 - Wzorce projektowe
 permalink: /wzorzec-projektowy-obserwator/
 header:
-    teaser: /assets/images/2019/05/01_wzorzec_projektowy_obserwator_artykul.jpg
-    overlay_image: /assets/images/2019/05/01_wzorzec_projektowy_obserwator_artykul.jpg
+    teaser: /assets/images/2019/0502-wzorzec-projektowy-obserwator/wzorzec_projektowy_obserwator_artykul.jpg
+    overlay_image: /assets/images/2019/0502-wzorzec-projektowy-obserwator/wzorzec_projektowy_obserwator_artykul.jpg
     caption: "[&copy; Maarten van den Heuvel](https://unsplash.com/photos/s9XMNEm-M9c)"
 excerpt: W tym artykule przeczytasz o jednym z wzorców projektowych – o obserwatorze. Na przykładzie pokażę Ci sposób jego użycia i implementacji. Diagramy UML pomogą Ci zrozumieć relację pomiędzy klasami w tym wzorcu projektowym. Ćwiczenie zawarte na końcu artykułu pozwoli Ci sprawdzić wiedzę w praktyce
 ---
@@ -26,7 +26,7 @@ Ten sam problem występuje w projektach informatycznych. Istnieją zdarzenia, kt
 
 Ten wzorzec projektowy opiera się o dwa interfejsy. Jeden z nich reprezentuje obserwatora. Drugi element, który jest obserwowany:
 
-{% include figure image_path="/assets/images/2019/05/01_observer.svg" caption="Wzorzec projektowy obserwator (ang. _observer_)" %}
+{% include figure image_path="/assets/images/2019/0502-wzorzec-projektowy-obserwator/observer.svg" caption="Wzorzec projektowy obserwator (ang. _observer_)" %}
 
 Interfejs `Observable` zawiera trzy metody:
 
