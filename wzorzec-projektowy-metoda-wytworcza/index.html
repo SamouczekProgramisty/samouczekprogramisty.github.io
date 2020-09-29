@@ -1,0 +1,922 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Wzorzec projektowy metoda wytwórcza - Samouczek Programisty</title>
+<meta name="description" content="W tym artykule przeczytasz o metodzie wytwórczej (ang. factory method), jednym z wzorców projektowych. Na przykładach pokażę Ci sposób użycia tego wzorca. Diagram UML pomoże Ci zrozumieć relacje pomiędzy klasami w występującymi w tym wzorcu. Artykuł zawiera także przykładową implementację wzorca  w dwóch językach programowania. Ćwiczenie zawarte na końcu artykułu pozwoli Ci wykorzystać zdobytą wiedzę w praktyce.">
+
+
+  <meta name="author" content="Marcin Pietraszek">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Wzorzec projektowy metoda wytwórcza">
+<meta property="og:url" content="https://www.samouczekprogramisty.pl/wzorzec-projektowy-metoda-wytworcza/">
+
+
+  <meta property="og:description" content="W tym artykule przeczytasz o metodzie wytwórczej (ang. factory method), jednym z wzorców projektowych. Na przykładach pokażę Ci sposób użycia tego wzorca. Diagram UML pomoże Ci zrozumieć relacje pomiędzy klasami w występującymi w tym wzorcu. Artykuł zawiera także przykładową implementację wzorca  w dwóch językach programowania. Ćwiczenie zawarte na końcu artykułu pozwoli Ci wykorzystać zdobytą wiedzę w praktyce.">
+
+
+
+  <meta property="og:image" content="https://www.samouczekprogramisty.pl/assets/images/2020/0929-wzorzec-projektowy-metoda-wytworcza/wzorzec_projektowy_metoda_wytworcza_artykul.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2020-09-29T00:00:00+02:00">
+
+
+
+  <meta property="article:modified_time" content="2020-09-29T23:40:23+02:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.samouczekprogramisty.pl/wzorzec-projektowy-metoda-wytworcza/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Samouczek Programisty
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/kurs-programowania-java/">Kurs programowania Java</a>
+            </li><li class="masthead__menu-item">
+              <a href="/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a>
+            </li><li class="masthead__menu-item">
+              <a href="/kurs-sql/">Kurs SQL</a>
+            </li><li class="masthead__menu-item">
+              <a href="/kontakt/">Kontakt</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2020/0929-wzorzec-projektowy-metoda-wytworcza/wzorzec_projektowy_metoda_wytworcza_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Wzorzec projektowy metoda wytwórcza
+
+        
+      </h1>
+      
+        <p class="page__lead">W tym artykule przeczytasz o metodzie wytwórczej (ang. <em>factory method</em>), jednym z wzorców projektowych. Na przykładach pokażę Ci sposób użycia tego wzorca. Diagram UML pomoże Ci zrozumieć relacje pomiędzy klasami w występującymi w tym wzorcu. Artykuł zawiera także przykładową implementację wzorca  w dwóch językach programowania. Ćwiczenie zawarte na końcu artykułu pozwoli Ci wykorzystać zdobytą wiedzę w praktyce.
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minut(y)
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://unsplash.com/photos/hUbpMeCK5TQ">© Nam Hoang</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="https://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Wzorzec projektowy metoda wytwórcza</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Wzorzec projektowy metoda wytwórcza">
+    <meta itemprop="description" content="W tym artykule przeczytasz o metodzie wytwórczej (ang. factory method), jednym z wzorców projektowych. Na przykładach pokażę Ci sposób użycia tego wzorca. Diagram UML pomoże Ci zrozumieć relacje pomiędzy klasami w występującymi w tym wzorcu. Artykuł zawiera także przykładową implementację wzorca  w dwóch językach programowania. Ćwiczenie zawarte na końcu artykułu pozwoli Ci wykorzystać zdobytą wiedzę w praktyce.">
+    <meta itemprop="datePublished" content="September 29, 2020">
+    <meta itemprop="dateModified" content="September 29, 2020">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right ">
+          
+          <nav class="toc">
+            <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#problem-do-rozwiązania">Problem do rozwiązania</a></li>
+<li class="toc-entry toc-h2"><a href="#wzorzec-projektowy-metoda-wytwórcza">Wzorzec projektowy metoda wytwórcza</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#diagram-klas">Diagram klas</a></li>
+<li class="toc-entry toc-h3"><a href="#przykładowa-implementacja-metody-wytwórczej">Przykładowa implementacja metody wytwórczej</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#java">Java</a></li>
+<li class="toc-entry toc-h4"><a href="#python">Python</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#dodatkowe-rozważania">Dodatkowe rozważania</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#zalety">Zalety</a></li>
+<li class="toc-entry toc-h4"><a href="#wady">Wady</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#przykłady-użycia-wzorca-metody-wytwórczej">Przykłady użycia wzorca metody wytwórczej</a></li>
+<li class="toc-entry toc-h2"><a href="#zadanie-do-wykonania">Zadanie do wykonania</a></li>
+<li class="toc-entry toc-h2"><a href="#dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</a></li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+          </nav>
+          <hr />
+          
+          <div class="mailerlite__form">
+            <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v5"></script>
+          </div>
+          <hr />
+          <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+          </div>
+        </aside>
+        <p class="notice--info">Czytasz jeden z artykułów opisujących wzorce projektowe. Jeśli interesuje Cię ten temat zapraszam Cię do lektury pozostałych artykułów, które powstały w ramach tej serii – <a href="https://www.samouczekprogramisty.pl/narzedzia-i-dobre-praktyki/#wzorce-projektowe">wzorce projektowe</a>. W zrozumieniu artykułu przyda Ci się wiedza dotycząca <a href="/podstawy-uml/">podstaw UML’a</a>.</p>
+
+<h2 id="problem-do-rozwiązania">Problem do rozwiązania</h2>
+
+<p>Wyobraź sobie sytuację, w której prowadzisz sklep internetowy ze znaczkami pocztowymi. Obsługa zamówień odbywa się przez program, który zarządza całym procesem. Program nadzoruje wszystko od złożenia zamówienia do obsługi ewentualnych reklamacji. Jednym z etapów obsługi zamówienia jest wysyłka towaru do klienta.</p>
+
+<p>Do tej pory program  pozwalał wyłącznie na wysyłkę znaczków używając standardowej poczty. Z biegiem czasu klienci zaczęli oczekiwać dostępności innych sposobów dostawy. Problem polega na tym, że program używa wyłącznie jednego rodzaju wysyłki. Z pomocą w usprawnieniu takiego programu może przyjść metoda wytwórcza (ang. <em>factory method</em>).</p>
+
+<p>W tym przypadku metoda wytwórcza może być odpowiedzialna za tworzenie klas odpowiedzialnych za różne rodzaje wysyłek.</p>
+
+<h2 id="wzorzec-projektowy-metoda-wytwórcza">Wzorzec projektowy metoda wytwórcza</h2>
+
+<h3 id="diagram-klas">Diagram klas</h3>
+
+<p>Ten wzorzec projektowy w jednej ze swoich form opiera się o 4 elementy. Proszę spójrz na <a href="/podstawy-uml/#diagram-klas">diagram klas</a> poniżej:</p>
+
+<figure class="">
+  <img src="/assets/images/2020/0929-wzorzec-projektowy-metoda-wytworcza/metoda_wytworcza.svg" alt="" />
+  
+    <figcaption>
+      Wzorzec projektowy metoda wytwórcza (ang. <em>factory method</em>)
+
+    </figcaption>
+  
+</figure>
+
+<ul>
+  <li><code class="highlighter-rouge">Product</code> – klasa bazowa dla obiektów tworzonych przez metodę wytwórczą,</li>
+  <li><code class="highlighter-rouge">Creator</code>– klasa zawierająca metodę wytwórczą <code class="highlighter-rouge">factoryMethod</code>,</li>
+  <li><code class="highlighter-rouge">SublassedProduct</code> – przykładowa podklasa <code class="highlighter-rouge">Product</code>,</li>
+  <li><code class="highlighter-rouge">SubclassedCreator</code> – podklasa, nadpisująca metodę wytwórczą zwracając instancję <code class="highlighter-rouge">SubclassedProduct</code>.</li>
+</ul>
+
+<p>Chociaż na diagramie klas pokazałem <code class="highlighter-rouge">Product</code> jako klasę, w rzeczywistości wcale nie musi tak być. Podobnie metoda <code class="highlighter-rouge">factoryMethod</code> nie musi być abstrakcyjna.</p>
+
+<p><code class="highlighter-rouge">Product</code> może być zdefiniowany jako interfejs. W takim przypadku podklasy <code class="highlighter-rouge">Creator</code> tworzą instancje różnych klas implementujących interfejs <code class="highlighter-rouge">Product</code>. Metoda <code class="highlighter-rouge">factoryMethod</code> wcale nie musi być abstrakcyjna. Klasa <code class="highlighter-rouge">Creator</code> może mieć domyślną implementację tej metody, która może być napisana przez podklasy.</p>
+
+<p>Inną modyfikacją może być wprowadzenie parametrów do metody wytwórczej. W takim przypadku parametry mogą mieć wpływ na obiekt, który jest przez nią zwracany.</p>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 6147 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v3"></script>
+
+
+</div>
+
+<h3 id="przykładowa-implementacja-metody-wytwórczej">Przykładowa implementacja metody wytwórczej</h3>
+
+<h4 id="java">Java</h4>
+
+<p>W przykładzie odpowiednikiem <code class="highlighter-rouge">Product</code> będzie następujący interfejs:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">DeliveryService</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">deliver</span><span class="o">(</span><span class="nc">Parcel</span> <span class="n">parcel</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Interfejs ten jest implementowany przez kilka klas. Jedną z nich możesz zobaczyć poniżej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pigeon</span> <span class="kd">implements</span> <span class="nc">DeliveryService</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deliver</span><span class="o">(</span><span class="nc">Parcel</span> <span class="n">parcel</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Parcel %s was delivered by Pigeon"</span><span class="o">,</span> <span class="n">parcel</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Odpowiednikiem klasy <code class="highlighter-rouge">Creator</code> jest klasa <code class="highlighter-rouge">OrderLifecycle</code>, która obsługuje cykl życia zamówienia. Jak widzisz poniżej metoda wytwórcza zwraca instancję <code class="highlighter-rouge">PostOffice</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderLifecycle</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">processOrder</span><span class="o">(</span><span class="nc">String</span> <span class="n">orderId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Parcel</span> <span class="n">parcel</span> <span class="o">=</span> <span class="n">prepareParcel</span><span class="o">(</span><span class="n">orderId</span><span class="o">);</span>
+        <span class="nc">DeliveryService</span> <span class="n">deliveryService</span> <span class="o">=</span> <span class="n">deliveryService</span><span class="o">();</span>
+        <span class="n">deliveryService</span><span class="o">.</span><span class="na">deliver</span><span class="o">(</span><span class="n">parcel</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">protected</span> <span class="nc">DeliveryService</span> <span class="nf">deliveryService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">PostOffice</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">Parcel</span> <span class="nf">prepareParcel</span><span class="o">(</span><span class="nc">String</span> <span class="n">orderId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Parcel</span> <span class="n">parcel</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Parcel</span><span class="o">(</span><span class="n">orderId</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Parcel %s was prepared"</span><span class="o">,</span> <span class="n">parcel</span><span class="o">));</span>
+        <span class="k">return</span> <span class="n">parcel</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Dodatkowe podklasy nadpisują implementację metody wytwórczej zwracając inną implementację interfejsu <code class="highlighter-rouge">DeliveryService</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PigeonOrderLifecycle</span> <span class="kd">extends</span> <span class="nc">OrderLifecycle</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="nc">DeliveryService</span> <span class="nf">deliveryService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Pigeon</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Przykładowa metoda <code class="highlighter-rouge">main</code> pokazuje sposób wywołania poszczególnych klas, które używają metody wytwórczej:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">CourierOrderLifecycle</span> <span class="n">courierOrder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CourierOrderLifecycle</span><span class="o">();</span>
+    <span class="nc">PigeonOrderLifecycle</span> <span class="n">pigeonOrder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PigeonOrderLifecycle</span><span class="o">();</span>
+    <span class="nc">OrderLifecycle</span> <span class="n">postOfficeOrder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OrderLifecycle</span><span class="o">();</span>
+
+    <span class="n">postOfficeOrder</span><span class="o">.</span><span class="na">processOrder</span><span class="o">(</span><span class="s">"order_1"</span><span class="o">);</span>
+    <span class="n">courierOrder</span><span class="o">.</span><span class="na">processOrder</span><span class="o">(</span><span class="s">"order_2"</span><span class="o">);</span>
+    <span class="n">pigeonOrder</span><span class="o">.</span><span class="na">processOrder</span><span class="o">(</span><span class="s">"order_3"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Po uruchomieniu tego programu na konsoli pokaże się:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parcel [sampro:order_1] was prepared
+Parcel [sampro:order_1] was delivered by PostOffice
+Parcel [sampro:order_2] was prepared
+Parcel [sampro:order_2] was delivered by Courier
+Parcel [sampro:order_3] was prepared
+Parcel [sampro:order_3] was delivered by Pigeon
+</code></pre></div></div>
+
+<h4 id="python">Python</h4>
+
+<p>Implementacja w języku Python wygląda trochę prościej<sup id="fnref:kaczka" role="doc-noteref"><a href="#fn:kaczka" class="footnote">1</a></sup>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PostOffice</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">deliver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parcel</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"Parcel </span><span class="si">{</span><span class="n">parcel</span><span class="si">}</span><span class="s"> was delivered by PostOffice"</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Courier</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">deliver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parcel</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"Parcel </span><span class="si">{</span><span class="n">parcel</span><span class="si">}</span><span class="s"> was delivered by Courier"</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Pigeon</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">deliver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parcel</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"Parcel </span><span class="si">{</span><span class="n">parcel</span><span class="si">}</span><span class="s"> was delivered by Pigeon"</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">OrderLifecycle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">process_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order_id</span><span class="p">):</span>
+        <span class="n">parcel</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">prepare_parcel</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span>
+        <span class="n">delivery_service</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">delivery_service</span><span class="p">()</span>
+        <span class="n">delivery_service</span><span class="p">.</span><span class="n">deliver</span><span class="p">(</span><span class="n">parcel</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prepare_parcel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order_id</span><span class="p">):</span>
+        <span class="n">parcel</span> <span class="o">=</span> <span class="s">f"[sampro:</span><span class="si">{</span><span class="n">order_id</span><span class="si">}</span><span class="s">]"</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"Parcel </span><span class="si">{</span><span class="n">parcel</span><span class="si">}</span><span class="s"> was prepared"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">parcel</span>
+
+    <span class="k">def</span> <span class="nf">delivery_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">PostOffice</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">PigeonOrderLifecycle</span><span class="p">(</span><span class="n">OrderLifecycle</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">delivery_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Pigeon</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">CourierOrderLifecycle</span><span class="p">(</span><span class="n">OrderLifecycle</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">delivery_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Courier</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">courier_order</span> <span class="o">=</span> <span class="n">CourierOrderLifecycle</span><span class="p">()</span>
+    <span class="n">pigeon_order</span> <span class="o">=</span> <span class="n">PigeonOrderLifecycle</span><span class="p">()</span>
+    <span class="n">post_office_order</span> <span class="o">=</span> <span class="n">OrderLifecycle</span><span class="p">()</span>
+
+    <span class="n">post_office_order</span><span class="p">.</span><span class="n">process_order</span><span class="p">(</span><span class="s">"order_1"</span><span class="p">)</span>
+    <span class="n">courier_order</span><span class="p">.</span><span class="n">process_order</span><span class="p">(</span><span class="s">"order_2"</span><span class="p">)</span>
+    <span class="n">pigeon_order</span><span class="p">.</span><span class="n">process_order</span><span class="p">(</span><span class="s">"order_3"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Efekt działania tego programu będzie dokładnie taki sam jak w przypadku implementacji w języku Java.</p>
+
+<h3 id="dodatkowe-rozważania">Dodatkowe rozważania</h3>
+
+<p>Metoda wytwórcza to specyficzny przypadek innego wzorca projektowego – metody szablonowej. Wzorzec metody szablonowej opiszę w jednym z kolejnych artykułów w serii.</p>
+
+<p>Metoda wytwórcza może być częścią innego wzorca projektowego jakim jest fabryka abstrakcyjna, także ten wzorzec omówię w jednym z kolejnych artykułów w serii.</p>
+
+<h4 id="zalety">Zalety</h4>
+
+<p>Stosowanie metody wytwórczej sprawia, że kod staje się łatwiejszy do testowania. Dzieje się tak ponieważ w łatwy sposób można nadpisać metodę wytwórczą używając <a href="/testy-jednostkowe-z-uzyciem-mock-i-stub/">mock’ów</a>, albo naiwnej implementacji na potrzeby testów.</p>
+
+<p>To, że kod jest łatwiejszy do testowania jest konsekwencją stosowania reguł opisanych przez akronim <a href="/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/">SOLID</a>:</p>
+
+<ul>
+  <li>kod jest <a href="/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/#o-jak-otwarty">możliwy do rozszerzania</a> – tworząc podklasy w bardzo łatwy sposób możesz zmienić zachowanie klas używających metody wytwórczej,</li>
+  <li>możesz <a href="/solid-czyli-dobre-praktyki-w-programowaniu-obiektowym/#l-jak-liskov-barbara">używać obiektów podklas</a> zwracanych przez metody wytwórcze – to zachowanie to „serce” metody wytwórczej.</li>
+</ul>
+
+<h4 id="wady">Wady</h4>
+
+<p>Moim zdaniem główną wadą tego wzorca projektowego jest hierarchia dziedziczenia. Prowadzi ona do powstawania wielu (nadmiarowych?) bytów. Przeciążenie metody wytwórczej wymaga dziedziczenia po klasie, która ma już implementację tej metody. Pewną alternatywą dla takiego podejścia może być stosowanie kompozycji zamiast dziedziczenia. Proszę spójrz na przykład:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">OrderLifecycle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_service_factory</span><span class="o">=</span><span class="n">PostOffice</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">delivery_service_factory</span> <span class="o">=</span> <span class="n">delivery_service_factory</span>
+
+    <span class="k">def</span> <span class="nf">process_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order_id</span><span class="p">):</span>
+        <span class="n">parcel</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">prepare_parcel</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span>
+        <span class="n">delivery_service</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">delivery_service_factory</span><span class="p">()</span>
+        <span class="n">delivery_service</span><span class="p">.</span><span class="n">deliver</span><span class="p">(</span><span class="n">parcel</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prepare_parcel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order_id</span><span class="p">):</span>
+        <span class="n">parcel</span> <span class="o">=</span> <span class="s">f"[sampro:</span><span class="si">{</span><span class="n">order_id</span><span class="si">}</span><span class="s">]"</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">f"Parcel </span><span class="si">{</span><span class="n">parcel</span><span class="si">}</span><span class="s"> was prepared"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">parcel</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">courier_order</span> <span class="o">=</span> <span class="n">OrderLifecycle</span><span class="p">(</span><span class="n">Courier</span><span class="p">)</span>
+    <span class="n">pigeon_order</span> <span class="o">=</span> <span class="n">OrderLifecycle</span><span class="p">(</span><span class="n">Pigeon</span><span class="p">)</span>
+    <span class="n">post_office_order</span> <span class="o">=</span> <span class="n">OrderLifecycle</span><span class="p">()</span>
+
+    <span class="n">post_office_order</span><span class="p">.</span><span class="n">process_order</span><span class="p">(</span><span class="s">"order_1"</span><span class="p">)</span>
+    <span class="n">courier_order</span><span class="p">.</span><span class="n">process_order</span><span class="p">(</span><span class="s">"order_2"</span><span class="p">)</span>
+    <span class="n">pigeon_order</span><span class="p">.</span><span class="n">process_order</span><span class="p">(</span><span class="s">"order_3"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>To rozwiązanie nie jest już „czystą” metodą wytwórczą. To coś pomiędzy budowniczym (tak, kolejny wzorzec, który opiszę w innym artykule) a metodą wytwórczą. Na byt tego typu czasami mówi się po prostu fabryka.</p>
+
+<h2 id="przykłady-użycia-wzorca-metody-wytwórczej">Przykłady użycia wzorca metody wytwórczej</h2>
+
+<p>Ten wzorzec projektowy jest często używany w ramach fabryki abstrakcyjnej. Za przykład może to posłużyć metoda <a href="https://github.com/apache/commons-logging/blob/9444f0730bb04b6f3678d0501599234d77527210/src/main/java/org/apache/commons/logging/LogFactory.java#L226"><code class="highlighter-rouge">LogFactory.getLog</code></a> z biblioteki commons-logging.</p>
+
+<p>Innymi przykładami mogą być metody w fabrykach związanych z obsługą formatu JSON, na przykład <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReaderFactory.html"><code class="highlighter-rouge">JsonReaderFactory</code></a> czy   <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonBuilderFactory.html"><code class="highlighter-rouge">JsonBuilderFactory</code></a>.</p>
+
+<h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
+
+<p>W sekcji opisującej wady metody wytwórczej pokazałem sposób modyfikacji tego wzorca projektowego. Zaimplementuj analogiczne rozwiązanie w języku Java. Spróbuj użyć <a href="/wyrazenia-lambda-w-jezyku-java/">wyrażeń lambda</a>. Przydatny może też być interfejs <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/function/Supplier.html"><code class="highlighter-rouge">Supplier</code></a>.</p>
+
+<h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
+
+<p>Niezmiennie, we wszystkich artykułach z serii poświęconej wzorcom projektowym polecam książkę <a href="https://www.amazon.com/gp/product/0201633612/">Design Patterns – Gamma, Helm, Johnson, Vlissides</a>. Jeśli miałbym polecić wyłącznie jedno źródło to poprzestałbym na tej książce.</p>
+
+<p>Warto także rzucić okiem do polskiej i angielskiej Wikipedii, gdzie znajdziesz artykuły opisujące metodę wytwórczą:</p>
+
+<ul>
+  <li><a href="https://pl.wikipedia.org/wiki/Metoda_wytw%C3%B3rcza_(wzorzec_projektowy)">artykuł na polskiej Wikipedii o metodzie wytwórczej</a>,</li>
+  <li><a href="https://en.wikipedia.org/wiki/Factory_method_pattern">artykuł na angielskiej Wikipedii o metodzie wytwórczej</a>.</li>
+</ul>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Wiesz już czym jest metoda wytwórcza i jak można ją zbudować. Znasz przykłady jej zastosowania zarówno z przykładu w artykule jak i innych bibliotek. Poznałeś zalety i wady tego wzorca projektowego. Wiesz jak można poradzić sobie z jego wadami. Jeśli udało Ci się samodzielnie rozwiązać zadanie do wykonania możesz śmiało powiedzieć, że znasz ten wzorzec projektowy. Gratulacje! :)</p>
+
+<p>Jeśli artykuł przypadł Ci do gustu proszę podziel się nim ze znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry dziękuję. Jeśli nie chcesz pomiąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub <a href="https://www.facebook.com/SamouczekProgramisty">Samouczka Programisty na Facebooku</a>.</p>
+
+<p>Do następnego razu!</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:kaczka" role="doc-endnote">
+      <p>Jeśli coś chodzi jak kaczka i kwacze jak kaczka to jest kaczką ;). W odróżnieniu od Javy nie stosowałem tu dziedziczenia w przypadku odpowiedników klasy <code class="highlighter-rouge">Product</code>. Tę implementację można ją jeszcze uprościć, jak pokazałem paragrafie opisującym wady. <a href="#fnref:kaczka" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 6147 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v2"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#wzorce-projektowe" class="page__taxonomy-item" rel="tag">Wzorce projektowe</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2020-09-29">2020-09-29</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+        <hr />
+        <p>
+          Nie popełnia błędów tylko ten, kto nic nie robi ;). Bardzo możliwe, że znajdziesz błąd, literówkę, coś co wymaga poprawy. Jeśli chcesz możesz samodzielnie 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/edit/source/_posts/2020-09-29-wzorzec-projektowy-metoda-wytworcza.md">poprawić tę stronę</a>. Jeśli nie chcesz poprawiać błędu, który udało Ci się znaleźć będę wdzięczny jeśli go 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/issues/new?title=Błąd%20na%20stronie:%20_posts/2020-09-29-wzorzec-projektowy-metoda-wytworcza.md">zgłosisz</a>. Z góry dziękuję!
+        </p>
+      </footer>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/watki-w-jezyku-java/" rel="permalink">Wątki w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minut(y)
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/" rel="permalink">Jak pisać kod wysokiej jakości w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/2019/09/21_podstawy_uml_artykul.jpeg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/podstawy-uml/" rel="permalink">Podstawy UML
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  14 minut(y)
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz kilka rodzajów diagramów, które moim zdaniem są najbardziej przydatne. Dowiesz się w jakic...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/2016/01/24_dziedziczenie_w_jezyku_java_artykul.jpeg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/dziedziczenie-w-jezyku-java/" rel="permalink">Dziedziczenie w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  10 minut(y)
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W innych artykułach omawiałem pewne aspekty programowania obiektowego. Wiesz już o interfejsach i dlaczego warto ich używać. Dzisiaj przeczytasz o dziedzicze...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+
+    
+      <li><strong>Śledź:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://www.facebook.com/SamouczekProgramisty" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://github.com/SamouczekProgramisty" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="https://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/polityka-prywatnosci/">Polityka prywatności</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2020 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'BAIWADE3K7',
+  apiKey: '4a78df6a4d9f820ebbdb0a35f834b174',
+  indexName: 'prod_samouczek',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Szukaj...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'Brak wyników',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+  <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.samouczekprogramisty.pl/wzorzec-projektowy-metoda-wytworcza/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
