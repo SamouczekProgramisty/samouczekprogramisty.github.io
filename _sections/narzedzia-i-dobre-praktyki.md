@@ -1,6 +1,6 @@
 ---
 date: 2019-09-24 19:54:06 +0200
-last_modified_at: 2020-09-26 20:55:20 +0200
+last_modified_at: 2020-09-29 23:42:50 +0200
 layout: single_page
 title: Narzędzia i dobre praktyki
 permalink: /narzedzia-i-dobre-praktyki/
@@ -55,6 +55,7 @@ Nie bez znaczenia są także wzorce projektowe. Na blogu opisałem kilka z nich.
 * [Wzorzec projektowy adapter]({% post_url 2019-01-26-wzorzec-projektowy-adapter %})
 * [Wzorzec projektowy obserwator]({% post_url 2019-05-02-wzorzec-projektowy-obserwator %})
 * [Wzorzec projektowy dekorator]({% post_url 2019-11-21-wzorzec-projektowy-dekorator %})
+* [Wzorzec projektowy metoda wytwórcza]({% post_url 2020-09-29-wzorzec-projektowy-metoda-wytworcza %})
 
 ## Co dalej?
 
