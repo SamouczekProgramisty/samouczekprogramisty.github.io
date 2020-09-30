@@ -247,6 +247,10 @@ Warto także rzucić okiem do polskiej i angielskiej Wikipedii, gdzie znajdziesz
 - [artykuł na polskiej Wikipedii o metodzie wytwórczej](https://pl.wikipedia.org/wiki/Metoda_wytw%C3%B3rcza_(wzorzec_projektowy)),
 - [artykuł na angielskiej Wikipedii o metodzie wytwórczej](https://en.wikipedia.org/wiki/Factory_method_pattern).
 
+Kod źródłowy przykładów użytych w artykule także może być pomocny:
+- [kod źródłowy w języku Java](https://github.com/SamouczekProgramisty/WzorceProjektowe/tree/master/java/04_factory_method/src/main/java/pl/samouczekprogramisty/patterns/factorymethod).
+- [kod źródłowy w języku Python](https://github.com/SamouczekProgramisty/WzorceProjektowe/blob/master/python/pattern/factory_method.py).
+
 ## Podsumowanie
 
 Wiesz już czym jest metoda wytwórcza i jak można ją zbudować. Znasz przykłady jej zastosowania zarówno z przykładu w artykule jak i innych bibliotek. Poznałeś zalety i wady tego wzorca projektowego. Wiesz jak można poradzić sobie z jego wadami. Jeśli udało Ci się samodzielnie rozwiązać zadanie do wykonania możesz śmiało powiedzieć, że znasz ten wzorzec projektowy. Gratulacje! :)
