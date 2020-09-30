@@ -38,5 +38,5 @@ Kurs będzie dostępny jak tylko jego jakość i zawartość będzie odpowiadać
 Jeśli chcesz żebym powiadamiał Cię o postępach prac nad kursem dopisz się do samouczkowego newslettera. Jeśli zapiszesz się na listę na pewno będę miał dla Ciebie ofertę specjalną jeszcze przed wypuszczeniem kursu.
 
 <div class="notice--success text-center">
-    <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/1056656/o2g2b2.js?v5"></script>
+    <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/1056656/o2g2b2.js?v6"></script>
 </div>
