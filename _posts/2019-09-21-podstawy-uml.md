@@ -1,6 +1,6 @@
 ---
 title: Podstawy UML
-last_modified_at: 2020-09-20 21:00:58 +0200
+last_modified_at: 2020-11-11 11:24:56 +0100
 categories:
 - Programista rzemieślnik
 permalink: /podstawy-uml/
@@ -147,7 +147,7 @@ Wiesz już, że diagram klas pozwala zobaczyć powiązania pomiędzy klasami w w
 
 {% include figure image_path="/assets/images/2019/09/27_component.svg" caption="Przykładowy komponent" %}
 
-Jak widzisz komponent to prostokąt ze specyficzną ikonką w prawym górnym rogu. Komponent na rysunku wymaga dwóch interfejsów i sam dostarcza jeden. Komponent `UserManagement` wymaga dostępu do interfejsu `persistence` a sam zapewnia dwa inne `register` i `ban`.
+Jak widzisz komponent to prostokąt ze specyficzną ikonką w prawym górnym rogu. Komponent na rysunku wymaga jeden interfejs i sam dostarcza dwa. Komponent `UserManagement` wymaga dostępu do interfejsu `persistence` a sam zapewnia dwa inne `register` i `ban`.
 
 Interfejs to kreska z kółkiem (interfejs udostępniany przez komponent) lub kreska z półkolem (interfejs wymagany przez komponent). Relacje pomiędzy komponentami odbywają się poprzez interfejsy. Można powiedzieć, że komponenty łączy relacja _zależności_ – najsłabsza z typów relacji występująca w diagramie klas.
 
@@ -197,7 +197,7 @@ Zauważ, że podobnie jak w przypadku diagramu klas wstępują tu stereotypy, kt
 
 #### Przykładowy diagram wdrożenia
 
-Proszę spójrz na przykład poniżej, który mógłby być diagramem wdrożenia dla aplikacji pozwalającej na rezerwację biletów: 
+Proszę spójrz na przykład poniżej, który mógłby być diagramem wdrożenia dla aplikacji pozwalającej na rezerwację biletów:
 
 {% include figure image_path="/assets/images/2019/10/01_example_deployments.svg" caption="Przykładowy diagram wdrożenia" %}
 
@@ -207,7 +207,7 @@ Na diagramie wyżej możesz zobaczyć kilka oddzielnych klastrów (zestawów mas
 
 Trzy poprzednie diagramy dotyczyły relacji pomiędzy elementami. Diagram sekwencji (ang. _sequence diagram_) jest jednym z tak zwanych diagramów interakcji. Kładzie on nacisk na komunikację, która odbywa się pomiędzy poszczególnymi klasami/obiektami. Diagram sekwencji pokazuje dokładnie sekwencję wykonania metod w poszczególnych obiektach. Diagram ten przydaje się do pokazania przebiegu skomplikowanej komunikacji.
 
-#### Elementy diagramu sekwencji 
+#### Elementy diagramu sekwencji
 
 Każdy z obiektów reprezentowany jest jako prostokąt połączony z pionową kreską. Ta linia oznacza „linię życia” – czas życia obiektu. Na diagramie może występować także tak zwany aktor. Aktor to człowiek albo system, który może brać udział w komunikacji. Proszę spójrz na przykład:
 
