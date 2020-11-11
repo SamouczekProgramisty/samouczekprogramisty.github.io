@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-08-20 16:31:08 +0200
+last_modified_at: 2020-11-11 11:36:49 +0100
 title: Pierwszy program w Java
 categories:
 - Kurs programowania Java
@@ -78,7 +78,7 @@ public class Main {
 }
 ```
   
-Linijka z pakietem to dla Ciebie nic nowego, więcej na temat pakietu przeczytasz w artykule . Później definiujemy klasę, również nic nowego. W tym samym artykule przeczytasz więcej o klasach.
+Linijka z pakietem to dla Ciebie nic nowego, więcej na temat pakietu przeczytasz [w artykule o obiektach w języku Java]({% post_url 2015-11-01-obiekty-w-jezyku-java %}). Później definiujemy klasę, również nic nowego. W tym samym artykule przeczytasz więcej o klasach.
 
 Następna linijka to już dwie nowe rzeczy.
 
