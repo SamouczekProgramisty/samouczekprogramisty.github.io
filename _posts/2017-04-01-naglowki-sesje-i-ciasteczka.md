@@ -201,7 +201,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
     PrintWriter responseWriter = resp.getWriter();
  
     responseWriter.write("<html><body>");
-    for (Cookie cookie : req.getCookies()) {
+    for (Cookie cookie : Optional.ofNullable(req.getCookies()).orElse(new Cookie[0])) {
         responseWriter.write("<p>" + cookie.getName() + " " + cookie.getValue() + "</p>");
     }
  
