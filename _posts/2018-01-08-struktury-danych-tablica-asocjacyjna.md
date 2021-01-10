@@ -1,6 +1,6 @@
 ---
 title: Struktury danych – tablica asocjacyjna
-last_modified_at: 2019-08-26 20:42:53 +0200
+last_modified_at: 2021-01-10 22:26:23 +0100
 categories:
 - Programista rzemieślnik
 permalink: /struktury-danych-tablica-asocjacyjna/
@@ -196,7 +196,7 @@ private void resize() {
 }
 ```
 
-Ilustracja poniżej pokazuje jak po takiej operacji para `K: 12, V: "X"` znalazła się pod zupełnie innym indeksem. Dzieje się tak ponieważ funkcja `hash` bierze pod uwagę nową wielkość tablicy. W sytuacji gdy tablica miała rozmiar 4 wówczas `12 % 4 == 3`. Po rozszerzeniu ta sama wartość klucza ląduje w innym miejscu w tabeli: `12 % 8 == 4`.
+Ilustracja poniżej pokazuje jak po takiej operacji para `K: 12, V: "X"` znalazła się pod zupełnie innym indeksem. Dzieje się tak ponieważ funkcja `hash` bierze pod uwagę nową wielkość tablicy. W sytuacji gdy tablica miała rozmiar 4 wówczas `12 % 4 == 0`. Po rozszerzeniu ta sama wartość klucza ląduje w innym miejscu w tabeli: `12 % 8 == 4`.
 
 {% include figure image_path="/assets/images/2018/01/08_tablica_po_powiekszeniu.jpg" caption="Powiększenie tablicy" %}
 
