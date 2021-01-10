@@ -286,7 +286,7 @@ JUnit 5 w odróżnieniu od JUnit 4 nie posiada `@Rule`, `@ClassRule` czy `@RunWi
 
 Adnotacja jako element akceptuje klasę implementującą interfejs [`Extension`](https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/Extension.html).
 
-Mechanizm rozszerzeń jest głównie wykorzystywany wraz z innymi bibliotekami. Na przykład przez Spring do umożliwienia wstrzykiwania zależności czy przez Mockito do [tworznia mocków]({% post_url 2018-09-22-testy-jednostkowe-z-uzyciem-mock-i-stub %}).
+Mechanizm rozszerzeń jest głównie wykorzystywany wraz z innymi bibliotekami. Na przykład przez Spring do umożliwienia wstrzykiwania zależności czy przez Mockito do [tworzenia mocków]({% post_url 2018-09-22-testy-jednostkowe-z-uzyciem-mock-i-stub %}).
 
 #### Przykładowe rozszerzenie
 
