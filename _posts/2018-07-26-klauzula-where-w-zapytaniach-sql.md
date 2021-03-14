@@ -1,6 +1,6 @@
 ---
 title: Klauzula WHERE w zapytaniach SQL
-last_modified_at: 2020-04-05 10:06:10 +0200
+last_modified_at: 2021-03-14 11:47:30 +0100
 categories:
 - Bazy danych
 - Kurs SQL
@@ -105,7 +105,7 @@ Operatory `=` i `!=` mają dwie postacie. W tym samym celu możesz także użyć
 
 #### Porównywanie łańcuchów znaków
 
-W przypadku języka SQL operatory służą one do porównywania wartości kolumn. Mogą być użyte nie tylko do typów liczbowych. Dzięki tym operatorom można na przykład porównywać łańcuchy znaków. Zapytanie poniżej zwróci tylko te wiersze dla których kolumna `billingcountry` będzie większa niż `A` i mniejsza niż `C`. Innymi słowy zapytanie to zwróci wiersze, dla których `billingcountry` zawiera kraje zaczynające się na literę A albo B:
+W przypadku języka SQL operatory służą do porównywania wartości kolumn. Mogą być użyte nie tylko do typów liczbowych. Dzięki tym operatorom można na przykład porównywać łańcuchy znaków. Zapytanie poniżej zwróci tylko te wiersze dla których kolumna `billingcountry` będzie większa niż `A` i mniejsza niż `C`. Innymi słowy zapytanie to zwróci wiersze, dla których `billingcountry` zawiera kraje zaczynające się na literę A albo B:
 
 ```sql
 SELECT *
