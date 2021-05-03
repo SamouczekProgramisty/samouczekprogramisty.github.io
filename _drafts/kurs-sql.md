@@ -1,3 +1,16 @@
+- SELECT
+  - WITH x ()
+  - CASE
+  - OFFSET
+  - FETCH 
+  - FOR
+  - ROLLUP
+  - CUBE
+  - GROUPING SETS
+  - PIVOT
+  - UNPIVOT
+  - https://www.postgresql.org/docs/current/sql-select.html
+  - http://tpd.cs.put.poznan.pl/accounts/pdf/PABD/SQL_ZaawansowaneAnalizy_Czesc1_Wyklad.pdf
 - zapytania insert
 - zapytania update
 - zapytania delete
