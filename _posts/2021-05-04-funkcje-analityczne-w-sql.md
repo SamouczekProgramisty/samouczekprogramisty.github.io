@@ -1,6 +1,6 @@
 ---
 title: Funkcje analityczne w SQL
-last_modified_at: 2021-05-04 01:06:38 +0200
+last_modified_at: 2021-05-04 20:30:19 +0200
 categories:
 - Bazy danych
 - Kurs SQL
@@ -17,7 +17,7 @@ excerpt: W tym artykule opisuję funkcje analityczne w SQL. Po lekturze tego art
 W tym artykule używam funkcji SQLite, które zostały dodane w wersji 3.28.0. Jeśli używasz SQLite do eksperymentowania upewnij się, że korzystasz z wersji 3.28.0 bądź nowszej. Możesz to zrobić używając polecenia `sqlite3 --version`.
 {:.notice--info}
 
-## Czym są funckcje analityczne w SQL
+## Czym są funkcje analityczne w SQL
 
 W jednym zdaniu można powiedzieć, że funkcje analityczne (ang. _analytic functions_) zwracają wartość na podstawie grupy wierszy powiązanych z aktualnym wierszem. Tę grupę nazywa się partycją. Sam opis może być skomplikowany, więc proszę spójrz na przykład poniżej:
 
@@ -31,7 +31,7 @@ ORDER BY customerid
    LIMIT 10;
 ```
 
-Poza funkcją analityczną użyłem tu [aliasu kolumny]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#aliasy-dla-kolumn), [sortowania]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#sortowanie-wyników) i [ograniczenia liczby zwracanych wierszy]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#ograniczanie-liczby-wyników). W wyniu tego zapytania otrzymasz dziesięć wierszy:
+Poza funkcją analityczną użyłem tu [aliasu kolumny]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#aliasy-dla-kolumn), [sortowania]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#sortowanie-wyników) i [ograniczenia liczby zwracanych wierszy]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}#ograniczanie-liczby-wyników). W wyniku tego zapytania otrzymasz dziesięć wierszy:
 
     CustomerId  InvoiceId  Total  customer_total_sum
     ----------  ---------  -----  ------------------
@@ -66,7 +66,7 @@ Zatem ta funkcja:
 
 Proszę spójrz na pierwszych siedem wierszy, które mają taką samą wartość kolumny `customerid`. Kolumna `total` sumowana jest w ramach partycji: `3.98 + 3.96 + 5.94 + 0.99 + 1.98 + 13.86 + 8.91 = 39.62`. Wartość ta, będąca wynikiem działania funkcji, jest przypisywana do każdego wiersza z partycji.
 
-Można powiedzieć, że funkcje analityczne są podobne do standardowego grupowania przy użyciu kauzuli `GROUP BY`. Funkcje agregujące zwracają jeden wiersz dla grupy, funkcje analityczne zwracają wiele wierszy.
+Można powiedzieć, że funkcje analityczne są podobne do standardowego grupowania przy użyciu klauzuli `GROUP BY`. Funkcje agregujące zwracają jeden wiersz dla grupy, funkcje analityczne zwracają wiele wierszy.
 
 #### Pozostałe funkcje agregujące
 
@@ -88,7 +88,7 @@ OVER
 (PARTITION BY customerid, billingcountry)
 ```
 
-W tym przypadku tabela zostanie podzielona na więcej partycji. Do jednej partycji trafią wszytkie wiersze, które mają taką samą wartość kolumn `customerid` i `billingcountry`.
+W tym przypadku tabela zostanie podzielona na więcej partycji. Do jednej partycji trafią wszystkie wiersze, które mają taką samą wartość kolumn `customerid` i `billingcountry`.
 
 Istnieje też możliwość pominięcia klauzuli `PARTITION BY`:
 
@@ -110,12 +110,12 @@ Można powiedzieć, że zapytanie wykonywane jest w następującej kolejności:
 1. Wykonanie klauzuli `GROUP BY`,
 1. Wykonanie klauzuli `HAVING`,
 1. Wykonanie funkcji analitycznych,
-1. Wykonanie kauzuli `ORDER BY`,
-1. Wykonanie kauzuli `LIMIT`.
+1. Wykonanie klauzuli `ORDER BY`,
+1. Wykonanie klauzuli `LIMIT`.
 
 ### Czym jest okno
 
-Tak naprawdę, to funkcja do obliczenia wartości bierze pod uwagę tak zwane okno. Każdy wiersz w partycji ma swoje własne okno, które jest pozbiorem partycji. Jeśli okno nie jest zdefiniowane wówczas przyjmuje ono wartość całej partycji. Istnieje wiele możliwości na ograniczenie okna dla funkcji analitycznej. Najprostszym z nich jest użycie klauzuli `ORDER BY`.
+Tak naprawdę, to funkcja do obliczenia wartości bierze pod uwagę tak zwane okno. Każdy wiersz w partycji ma swoje własne okno, które jest podzbiorem partycji. Jeśli okno nie jest zdefiniowane wówczas przyjmuje ono wartość całej partycji. Istnieje wiele możliwości na ograniczenie okna dla funkcji analitycznej. Najprostszym z nich jest użycie klauzuli `ORDER BY`.
 
 ### Ćwiczenia do samodzielnego wykonania
 
@@ -190,12 +190,12 @@ We wszystkich przykładach w artykule dodałem klauzulę `ORDER BY`.
 Teraz czas na Twoje eksperymenty. Spróbuj samodzielnie uruchomić przykładowe zapytanie zawierające dwie funkcje analityczne. Możesz je także zmodyfikować:
 
 * sprawdź jak na wynik zapytania wpływają różne kolumny użyte do sortowania,
-* uzyj kilku kolumn do sortowania wyników/wierszy w partycji,
+* użyj kilku kolumn do sortowania wyników/wierszy w partycji,
 * użyj `DESC`/`ASC` do z zmiany wyniku sortowania.
 
 ## Unikanie duplikacji – nazwane partycje
 
-Wyobraź sobie sytuację, w której chcesz zwrócić wynik różnych funkcji analitycznych, jednak używając tej samej definicji partycji. Sprójrz na przykład poniżej:
+Wyobraź sobie sytuację, w której chcesz zwrócić wynik różnych funkcji analitycznych, jednak używając tej samej definicji partycji. Spójrz na przykład poniżej:
 
 ```sql
   SELECT customerid
@@ -251,7 +251,7 @@ ORDER BY customerid
    LIMIT 10;
 ```
 
-W tym przykładzie suma kolumy `total` jest narastająca:
+W tym przykładzie suma kolumny `total` jest narastająca:
 
     CustomerId  InvoiceId  Total  customer_ordered_total_sum  customer_total_avg
     ----------  ---------  -----  --------------------------  ------------------
@@ -286,7 +286,7 @@ OVER
 Okno może być jednego z trzech rodzajów:
 
 * `ROWS` – granice okna określone są przez liczbę wierszy przed i po aktualnym wierszu,
-* `GROUPS` – granice okne określone są przez liczbę „grup” przed i po aktualnej „grupie”. Do grupy zalicza się te wartości, które są „równe” w trakcie sortowania przy użyciu `ORDER BY`,
+* `GROUPS` – granice okna określone są przez liczbę „grup” przed i po aktualnej „grupie”. Do grupy zalicza się te wartości, które są „równe” w trakcie sortowania przy użyciu `ORDER BY`,
 * `RANGE` – granice okna określone są przez różnicę wartości względem aktualnego wiersza.
 
 Dla uproszczenia w definicji okna będę używał wyłącznie `BETWEEN x PRECEDING AND y FOLLOWING`. Oznacza to, że okno będzie obejmowało zakres `x` przed aktualnym wierszem i `y` po aktualnym wierszu. Składania pozwala na dużo bardziej zaawansowane modyfikacje, jednak ich znajomość nie jest niezbędna do zrozumienia działania samego mechanizmu. Jeśli jesteś zainteresowany tymi szczegółami odsyłam Cię do dokumentacji silnika bazy danych, którego używasz.
@@ -411,7 +411,7 @@ Także tutaj `SUM(total)` sumuje jedynie wiersze należące do okna, a nie całe
 
 ### Filtrowanie okna
 
-Jakby tego było mało do tego wszystkiego dochodzi możliwość filtrowania :). Oznacza to tyle, że możesz uzyć filtrowania jak w klauzuli `WHERE`, żeby dodatkowo ograniczyć wiersze „pasujące” do definicji okna. Proszę spójrz na przykład poniżej:
+Jakby tego było mało do tego wszystkiego dochodzi możliwość filtrowania :). Oznacza to tyle, że możesz użyć filtrowania jak w klauzuli `WHERE`, żeby dodatkowo ograniczyć wiersze „pasujące” do definicji okna. Proszę spójrz na przykład poniżej:
 
 ```sql
   SELECT customerid
@@ -560,16 +560,16 @@ ORDER BY customerid
     6           46         8.91
     7           78         1.98
 
-Nie przejmuj się, jeśli to zapytanie będzie dla Ciebie zbyt skomplikowane. To nic dziwnego, używa ono wielu elementów składki SQL. Postaraj się przeanalizować je jeszcze raz. Spróbuj też samodzielnie ekperymentować. Zacznij od wywołania podzapytania i przeanalizowania jego wyników.
+Nie przejmuj się, jeśli to zapytanie będzie dla Ciebie zbyt skomplikowane. To nic dziwnego, używa ono wielu elementów składki SQL. Postaraj się przeanalizować je jeszcze raz. Spróbuj też samodzielnie eksperymentować. Zacznij od wywołania podzapytania i przeanalizowania jego wyników.
 {:.notice--info}
 
 
 ## Dodatkowe materiały do nauki
 
-Artykuł nie wyczerpuje tematu funkcji analitycznych. Zachęcam Cię do rzucenia okiem na dodatkowe materiały do nauki. Pamiętaj, że dokumentacja Twojego sinlika baz danych jest niezastąpiona ;) i zawiera dużo bardziej szczegółowe informacje.
+Artykuł nie wyczerpuje tematu funkcji analitycznych. Zachęcam Cię do rzucenia okiem na dodatkowe materiały do nauki. Pamiętaj, że dokumentacja Twojego silnika baz danych jest niezastąpiona ;) i zawiera dużo bardziej szczegółowe informacje.
 
 * [Tutorial dotyczący funkcji analitycznych dla PostgreSQL](https://www.postgresql.org/docs/current/tutorial-window.html),
-* [Składnia funkcji analitycznych w PosgreSQL](https://www.postgresql.org/docs/current/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS),
+* [Składnia funkcji analitycznych w PostgreSQL](https://www.postgresql.org/docs/current/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS),
 * [Funkcje okna w PostgreSQL](https://www.postgresql.org/docs/current/functions-window.html),
 * [Składnia funkcji analitycznych w SQLite](https://www.sqlite.org/windowfunctions.html),
 * [Materiały wykładowe z Politechniki Poznańskiej](http://tpd.cs.put.poznan.pl/accounts/pdf/PABD/SQL_ZaawansowaneAnalizy_Czesc2_Wyklad.pdf).
@@ -578,6 +578,6 @@ Artykuł nie wyczerpuje tematu funkcji analitycznych. Zachęcam Cię do rzucenia
 
 Po przeczytaniu tego artykułu wiesz już czym są funkcje analityczne. Wiesz czym takie funkcje różnią się od zwykłego grupowania. Wiesz czym są funkcje okna i jak ich używać. Po przerobieniu ćwiczeń możesz śmiało powiedzieć, że udało Ci się sprawdzić wiedzę w praktyce. Gratulacje ;), funkcje analityczne to jedne z bardziej zaawansowanych elementów składki SQL.
 
-Mam nadzieję, że artykuł był dla Ciebie pomocny. Proszę podziel się nim ze swoimi znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry dziękuję. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego neslettera i polub [Samouczka Programisty na Facebooku](https://www.facebook.com/SamouczekProgramisty).
+Mam nadzieję, że artykuł był dla Ciebie pomocny. Proszę podziel się nim ze swoimi znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry dziękuję. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub [Samouczka Programisty na Facebooku](https://www.facebook.com/SamouczekProgramisty).
 
 Do następnego razu!
