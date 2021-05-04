@@ -10,7 +10,7 @@ header:
     overlay_image: /assets/images/2021/0504-funkcje-analityczne-w-sql/funkcje_analityczne_w_sql_artykul.jpg
           funkcje_analityczne_w_sql-artykul.jpg
     caption: "[&copy; Rob Wingate](https://unsplash.com/photos/Fd9tUmRBJzk)"
-excerpt: W tym artykule opisuję funkcje analityczne w SQL. Po lekturze tego artykułu będziesz wiedzieć czym są funkcje analityczne i czym różnią się od funkcji agregujących. Na licznych przykładach poznasz składnię funkcji analitycznych. Te przykłady pozwolą Ci przetestować zapytania analityczne samodzielnie. Na końcu artykułu czeka na Ciebie zestaw zadań, które pomogą Ci utrwalić zdobytą wiedzę.
+excerpt: W tym artykule opisuję funkcje analityczne w SQL. Po lekturze tego artykułu będziesz wiedzieć czym są funkcje analityczne i czym różnią się od funkcji agregujących. Na licznych przykładach poznasz składnię funkcji analitycznych. Te przykłady pozwolą Ci przetestować zapytania analityczne samodzielnie. W artykule czeka na Ciebie zestaw ćwiczeń, które pomogą Ci utrwalić zdobytą wiedzę.
 ---
 
 {% include kurs-sql-notice.md %}
