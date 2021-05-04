@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-11-27 20:52:58 +0100
+last_modified_at: 2021-05-04 23:36:11 +0200
 title: Wyrażenia regularne w języku Java
 categories:
 - Kurs programowania Java
@@ -425,7 +425,7 @@ Jeśli w Twoim wyrażeniu regularnym jest dużo `*` zastanów się jeszcze raz c
 Twoim dzisiejszym zadaniem będzie napisanie kilku wyrażeń regularnych, które będą potrafiły walidować przykładowe dane pochodzące od użytkownika. Napisz wyrażenie regularne, które:
 1. Sprawdza czy liczba zmiennoprzecinkowa podana przez użytkownika ma poprawny format. Na przykład liczba 123,2341515132135 czy -10 są poprawne ale 18-12 czy 123, już nie,
 2. sprawdza czy numer domu jest w formacie numer\numer. Poprawnym numerem jest 123\2A, 24B\3 czy 12\5, ale już numer abc\cba nie,
-3. sprawdza czy użytkownik wprowadził poprawną nazwę miasta. Na przykład Wrocław, Zielona Gora czy Bielsko-Biala jest ok, jednak Ptysiow123 już nie. Dla uproszczenia załóżmy, że żadna nazwa miejscowości nie zwiera polskich znaków.
+3. sprawdza czy użytkownik wprowadził poprawną nazwę miasta. Na przykład Wrocław, Zielona Gora czy Bielsko-Biala jest ok, jednak Ptysiow123 już nie. Dla uproszczenia załóżmy, że żadna nazwa miejscowości nie zawiera polskich znaków.
 
 Rozwiązania jak zwykle są na [githubie](https://github.com/SamouczekProgramisty/KursJava/blob/master/23_wyrazenia_regularne/src/test/java/pl/samouczekprogramisty/kursjava/regexp/exercise/ExerciseTest.java) jednak zachęcam do samodzielnej pracy. Próbując rozwiązać zadania samodzielnie nauczysz się najwięcej.
 

@@ -1,6 +1,6 @@
 ---
 title: Testy jednostkowe z użyciem mock i stub
-last_modified_at: 2018-09-28 21:34:55 +0200
+last_modified_at: 2021-05-04 23:36:11 +0200
 categories:
 - Testy jednostkowe
 - Dobre praktyki
@@ -189,7 +189,7 @@ private static final class AirlineMock implements Airline {
 
 Teraz rozbiję ten kod na mniejsze fragmenty.
 
-Klasa `AirlineMock` reprezentująca mock'a zwiera jeden atrybut – zbiór. Wewnątrz tego zbioru trzymane są parametry wywołań mock'a. Wartości zbioru reprezentowane są przez [klasę wewnętrzną]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %}) `MethodInvocation`. Ta klasa grupuje parametry przekazywane do metody `findFlight` interfejsu `Airline`.
+Klasa `AirlineMock` reprezentująca mock'a zawiera jeden atrybut – zbiór. Wewnątrz tego zbioru trzymane są parametry wywołań mock'a. Wartości zbioru reprezentowane są przez [klasę wewnętrzną]({% post_url 2016-10-13-klasy-wewnetrzne-i-anonimowe-w-jezyku-java %}) `MethodInvocation`. Ta klasa grupuje parametry przekazywane do metody `findFlight` interfejsu `Airline`.
 
 ```java
 private final Set<MethodInvocation> invocations = new HashSet<>();

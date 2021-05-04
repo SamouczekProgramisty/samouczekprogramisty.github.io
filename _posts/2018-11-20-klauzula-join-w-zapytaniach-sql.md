@@ -1,6 +1,6 @@
 ---
 title: Klauzula JOIN w zapytaniach SQL
-last_modified_at: 2019-02-20 23:06:50 +0100
+last_modified_at: 2021-05-04 23:36:11 +0200
 categories:
 - Bazy danych
 - Kurs SQL
@@ -110,7 +110,7 @@ W przykładzie tym użyłem także konstrukcji `imiona_zenskie.*`, która zwraca
 
 ## Typy złączeń
 
-Złączenia będę omawiał na przykładzie dwóch tabel `bajka` i `postac`. `bajka` zwiera dwie kolumny:
+Złączenia będę omawiał na przykładzie dwóch tabel `bajka` i `postac`. `bajka` zawiera dwie kolumny:
 
 - `id` identyfikator bajki, klucz główny,
 - `tytul` tytuł bajki.

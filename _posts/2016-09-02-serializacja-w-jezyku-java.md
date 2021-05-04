@@ -1,5 +1,5 @@
 ---
-last_modified_at: 2018-07-20 20:38:35 +0200
+last_modified_at: 2021-05-04 23:36:11 +0200
 title: Serializacja w języku Java
 categories:
 - Kurs programowania Java
@@ -32,7 +32,8 @@ Chociaż serializacja dostępna jest automatycznie dla większości obiektów z 
 
 ### Interfejs [`java.io.Serializable`]({{ site.doclinks.java.io.Serializable }})
 
-Jest to tak zwany interfejs znacznikowy, innymi słowy nie zwiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serializowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu [`NotSerializableException`]({{ site.doclinks.java.io.NotSerializableException }}).
+Jest to tak zwany interfejs znacznikowy, innymi słowy nie zawiera on żadnej metody. Służy on do pokazania wirtualnej maszynie, że instancje danej klasy implementującej ten interfejs mogą być serializowane. Musisz implementować ten interfejs jeśli chcesz aby twoje klasy były serializowalne. Jeśli będziesz próbował zserializować klasę, która nie implementuje tego interfejsu zostanie rzucony wyjątek typu [`NotSerializableException`]({{ site.doclinks.java.io.NotSerializableException }}).
+
 ### Konstruktor bezparametrowy
 
 Tutaj reguła niestety nie jest trywialna. Pierwsza klasa w hierarchii dziedziczenia, która nie jest serializowalna musi mieć dostępny konstruktor bezparametrowy. Łatwiej to będzie zrozumieć na przykładzie:

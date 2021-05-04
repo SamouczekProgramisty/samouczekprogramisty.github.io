@@ -1,6 +1,6 @@
 ---
 title: Strumienie w języku Java
-last_modified_at: 2019-08-26 21:25:21 +0200
+last_modified_at: 2021-05-04 23:36:11 +0200
 categories:
 - Kurs programowania Java
 permalink: /strumienie-w-jezyku-java/
@@ -25,7 +25,7 @@ W szczególności potrzebna będzie wiedza na temat [kolekcji]({% post_url 2016-
 
 Strumienie służą do przetwarzania danych. Zawierają[^really] dane i pozwalają na opisanie co chcesz zrobić tymi danymi.
 
-[^really]: To jest pewne uproszczenie. Strumienie nie muszą zwierać danych, które zwracają. Na przykład strumień generujący kolejne liczby pseudolosowe nie zawiera tych liczb, jedynie je generuje.
+[^really]: To jest pewne uproszczenie. Strumienie nie muszą zawierać danych, które zwracają. Na przykład strumień generujący kolejne liczby pseudolosowe nie zawiera tych liczb, jedynie je generuje.
 
 Dane mogą być przechowywane w kolekcji, mogą być wynikiem pracy z [wyrażeniami regularnymi]({% post_url 2016-11-28-wyrazenia-regularne-w-jezyku-java %}). W strumień możesz opakować praktycznie dowolny zestaw danych. Strumienie pozwalają w łatwy sposób zrównoleglić pracę na danych. Dzięki temu przetwarzanie dużych zbiorów danych może być dużo szybsze. Strumienie kładą nacisk na operacje jakie należy przeprowadzić na danych.
 
