@@ -1,13 +1,13 @@
 ---
 title: Funkcje analityczne w SQL
-last_modified_at: 2019-09-19 10:11:50 +0200
+last_modified_at: 2021-05-04 01:06:38 +0200
 categories:
 - Bazy danych
 - Kurs SQL
 permalink: /funkcje-analityczne-sql/
 header:
-    teaser: /assets/images/2021/window_sql.jpg
-    overlay_image: /assets/images/2021/window_sql.jpg
+    teaser: /assets/images/2021/0504-funkcje-analityczne-w-sql/funkcje_analityczne_w_sql-artykul.jpg
+    overlay_image: /assets/images/2021/0504-funkcje-analityczne-w-sql/funkcje_analityczne_w_sql-artykul.jpg
     caption: "[&copy; Rob Wingate](https://unsplash.com/photos/Fd9tUmRBJzk)"
 excerpt: W tym artykule opisuję funkcje analityczne w SQL. Po lekturze tego artykułu będziesz wiedzieć czym są funkcje analityczne i czym różnią się od funkcji agregujących. Na licznych przykładach poznasz składnię funkcji analitycznych. Te przykłady pozwolą Ci przetestować zapytania analityczne samodzielnie. Na końcu artykułu czeka na Ciebie zestaw zadań, które pomogą Ci utrwalić zdobytą wiedzę.
 ---
@@ -50,43 +50,45 @@ To zapytanie zwraca cztery różne kolumny. Ostatnia z nich jest wynikiem dział
 
 ```sql
 SUM(total)
-OVER (PARTITION BY customerid)
+OVER
+(PARTITION BY customerid)
 ```
 
-W pierwszej linijce widzisz funkcję `SUM`. Możesz ją pamiętać z [artykułu o funkcjach w SQL]({% post_url 2018-10-20-funkcje-i-grupowanie-danych-w-sql %}#funkcje-grupujące). W poprzednim przypadku była ona użyta jako funkcja agregująca. Użycie słowa kluczowego `OVER` sprawia, że jej zachowanie nieznacznie się zmienia, staje się ona funkcją analityczną. W tym przypadku `SUM` nadal zwraca sumę, jednak w przypadku funkcji analitycznej pod uwagę brana jest partycja a nie cała tabela[^edgecase].
+W pierwszej linijce widzisz funkcję `SUM`. Możesz ją pamiętać z [artykułu o funkcjach w SQL]({% post_url 2018-10-20-funkcje-i-grupowanie-danych-w-sql %}#funkcje-grupujące). W poprzednim przypadku była ona użyta jako funkcja agregująca. Użycie słowa kluczowego `OVER` sprawia, że jej zachowanie nieznacznie się zmienia. W tym przypadku `SUM` nadal zwraca sumę, jednak w przypadku funkcji analitycznej pod uwagę brana jest partycja a nie cała tabela[^edgecase].
 
-[^edgecase]: Partycją może być także cała tabela.
+[^edgecase]: W wyjątkowych przypadkach partycją może być także cała tabela. Przeczytasz o tym w dalszej części artykułu.
 
-W nawiasie znajduje się definicja partycji wierszy, która zostanie użyta do obliczenia wartości funkcji analitycznej. W tym przypadku do partycji należą wiersze zawierające taką samą wartość kolumny `customerid`.
+W ostatniej linijce znajduje się definicja partycji, która zostanie użyta do obliczenia wartości funkcji. W tym przypadku do partycji należą wiersze zawierające taką samą wartość kolumny `customerid`.
 
 Zatem ta funkcja:
 * oblicza sumę kolumny `total` (`SUM(total)`),
-* dla wszystkich wierszy, które mają taką samą wartość kolumny `customerid` (`PARTITION BY customerid`).
+* sumując wiersze, które mają taką samą wartość kolumny `customerid` (`PARTITION BY customerid`).
 
-Proszę spójrz na pierwszych siedem wierszy, które mają taką samą wartość kolumny `customerid`. Suma wartości kolumny `total` dla tych wierszy to wynik działania funkcji analitycznej dla każdego z tych wierszy:`3.98 + 3.96 + 5.94 + 0.99 + 1.98 + 13.86 + 8.91 = 39.62`.
+Proszę spójrz na pierwszych siedem wierszy, które mają taką samą wartość kolumny `customerid`. Kolumna `total` sumowana jest w ramach partycji: `3.98 + 3.96 + 5.94 + 0.99 + 1.98 + 13.86 + 8.91 = 39.62`. Wartość ta, będąca wynikiem działania funkcji, jest przypisywana do każdego wiersza z partycji.
 
 Można powiedzieć, że funkcje analityczne są podobne do standardowego grupowania przy użyciu kauzuli `GROUP BY`. Funkcje agregujące zwracają jeden wiersz dla grupy, funkcje analityczne zwracają wiele wierszy.
 
 #### Pozostałe funkcje agregujące
 
-Poniżej znajdziesz listę funkcji agregujących, których możesz użyć przed słowem klucozwym `OVER`:
+Poniżej znajdziesz listę funkcji agregujących, których możesz użyć przed słowem kluczowym `OVER`:
 
  * `AVG` – zwraca średnią wartość,
  * `COUNT` – zwraca liczbę wierszy,
- * `MAX` — zwraca maksymalną wartość,
+ * `MAX` – zwraca maksymalną wartość,
  * `MIN` – zwraca minimalną wartość,
  * `SUM` – zwraca sumę wartości.
 
 ### Klauzula `PARTITION BY`
 
-W przykładzie wyżej wszystkie wiersze w tabeli `invoice` zostały podzielone na osobne partycje. Do podziału na partycji użyłem wyłącznie jednej kolumny. W klauzuli `PARTITION BY` możesz użyć wielu wyrażeń:
+W przykładzie wyżej wszystkie wiersze w tabeli `invoice` zostały podzielone na osobne partycje. Do podziału na partycje użyłem wyłącznie jednej kolumny. W klauzuli `PARTITION BY` możesz użyć wielu wyrażeń:
 
 ```sql
 SUM(total) OVER
-OVER (PARTITION BY customerid, billingcountry)
+OVER
+(PARTITION BY customerid, billingcountry)
 ```
 
-W tym przypadku tabela zostanie podzielona na więcej partycji. Do jednej partycji trafią wszytkie wiersze, które mają taką samą wartość kolumn `customerid` i `billingcountry`
+W tym przypadku tabela zostanie podzielona na więcej partycji. Do jednej partycji trafią wszytkie wiersze, które mają taką samą wartość kolumn `customerid` i `billingcountry`.
 
 Istnieje też możliwość pominięcia klauzuli `PARTITION BY`:
 
@@ -94,17 +96,15 @@ Istnieje też możliwość pominięcia klauzuli `PARTITION BY`:
 SUM(total) OVER ()
 ```
 
-W takim przypadku partycja równoznaczna jest z całą tabelą[^virtualtable]. Dla każdego wiersza w wyniku zapytania `SUM(total) OVER ()` zwróci sumę kolumny `total` we wszystkich wierszach.
+W takim przypadku partycja równoznaczna jest z całą tabelą[^virtualtable]. Dla każdego wynikowego wiersza `SUM(total) OVER ()` zwróci sumę kolumny `total` we wszystkich wierszach.
 
-[^virtualtable]: Właściwie to nie z całą tabelą, a relacją powstałą po filtrowaniu i grupowaniu.
+[^virtualtable]: Właściwie to nie z całą tabelą, a relacją powstałą po filtrowaniu i grupowaniu. Także to zagadnienie opiszę dokładniej w dalszej części artykułu.
 
 ### Kiedy obliczana jest wartość funkcji analitycznej
 
 Funkcje analityczne mogą być użyte wyłącznie w klauzuli `SELECT` i `ORDER BY`. Wynika to z faktu, że funkcje analityczne operują na „wirtualnej tabeli” (w [modelu relacyjnym]({% post_url 2018-03-06-wstep-do-relacyjnych-baz-danych %}#model-relacyjny) można mówić o relacji), która powstanie po filtrowaniu i grupowaniu wierszy.
 
-Można powiedzieć, że zapytanie wykonywane jest w następującej kolejności[^queryengine]:
-
-[^queryengine]: Wszystko tu zależy od silnika zapytań. Taki podział ułatwia zrozumienie funkcji analitycznych.
+Można powiedzieć, że zapytanie wykonywane jest w następującej kolejności:
 
 1. Wykonanie klauzuli `WHERE`,
 1. Wykonanie klauzuli `GROUP BY`,
@@ -113,16 +113,20 @@ Można powiedzieć, że zapytanie wykonywane jest w następującej kolejności[^
 1. Wykonanie kauzuli `ORDER BY`,
 1. Wykonanie kauzuli `LIMIT`.
 
+### Czym jest okno
+
+Tak naprawdę, to funkcja do obliczenia wartości bierze pod uwagę tak zwane okno. Każdy wiersz w partycji ma swoje własne okno, które jest pozbiorem partycji. Jeśli okno nie jest zdefiniowane wówczas przyjmuje ono wartość całej partycji. Istnieje wiele możliwości na ograniczenie okna dla funkcji analitycznej. Najprostszym z nich jest użycie klauzuli `ORDER BY`.
+
 ### Ćwiczenia do samodzielnego wykonania
 
 Teraz czas na Twoje eksperymenty. Spróbuj samodzielnie uruchomić przykładowe zapytanie. Możesz je także zmodyfikować:
 
-* zmień limit zwracanych wierszy, 
+* zmień limit zwracanych wierszy,
 * zwróć wyłącznie wiersze z parzystą wartością kolumny `customerid`.
 
 ## Sortowanie w funkcjach analitycznych
 
-Nieznacznie zmodyfikuję definicję partycji z pierwszego zapytania. Przykład poniżej używa dwóch funkcji agregujących. Druga z nich używa `ORDER BY invoiceid` w definicji partycji:
+Nieznacznie zmodyfikuję definicję partycji z pierwszego zapytania. Przykład poniżej używa dwóch funkcji. Druga z nich używa `ORDER BY invoiceid` po definicji partycji:
 
 ```sql
   SELECT customerid
@@ -151,19 +155,16 @@ Proszę spójrz na wynik zapytania. Zwróć uwagę na wartości kolumn `customer
     2           12         13.86  37.62               15.84
     2           67         8.91   37.62               24.75
 
-Użycie `ORDER BY` w definicji funkcji analitycznej powoduje utworzenie „narastających” grup dla każdego kolejnego wiersza:
+Użycie `ORDER BY` w definicji funkcji analitycznej powoduje zmianę okna dla każdego z wierszy. `ORDER BY` tworzy „narastające okna” dla każdego kolejnego wiersza:
 
-* grupa dla pierwszego wiersza to wyłącznie pierwszy wiersz (`3.98 = 3.98`),
-* grupa dla drugiego wiersza to dwa pierwsze wiersze (`3.98 + 3.96 = 7.94`),
-* grupa dla trzeciego wiersza to trzy pierwsze wiersze (`3.98 + 3.96 + 5.94 = 13.88`),
+* okno dla pierwszego wiersza to wyłącznie pierwszy wiersz (`3.98 = 3.98`),
+* okno dla drugiego wiersza to dwa pierwsze wiersze (`3.98 + 3.96 = 7.94`),
+* okno dla trzeciego wiersza to trzy pierwsze wiersze (`3.98 + 3.96 + 5.94 = 13.88`),
 * itd.
 
-Zauważ, że w tym przykładzie użyłem dwóch klauzul `ORDER BY`. Pierwsza z nich służy do określenia partycji dla funkcji analitycznej, druga służy do sortowania wyników całego zapytania.
+Zauważ, że w tym przykładzie użyłem dwóch klauzul `ORDER BY`. Pierwsza z nich służy do określenia okna dla funkcji analitycznej, druga służy do sortowania wyników całego zapytania.
 
 ### Partycje a sortowanie
-
-To zachowanie może być różne w przypadku róznych silników baz danych.
-{:.notice--info}
 
 Zapytanie używające partycji zwraca dane posortowane zgodnie z definicją partycji. Na przykład wyniki poniższego zapytania będą posortowane używając kolumny `customerid`:
 
@@ -173,9 +174,7 @@ SELECT customerid
   FROM invoice
 ```
 
-Chociaż dane będą zwrócone w ten sposób nie polegałbym na tym zachowaniu. Jeśli zależy Ci na uzyskaniu posortowanych danych określ to jasno używając [klauzuli `ORDER BY`]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}). W ten sposób jasno określasz intencje, a nie bazujesz na „przypadkowym”[^implementationdetail] zachowaniu:
-
-[^implementationdetail]: Odsyłam Cię tutaj do dokumentacji Twojego silnika bazy danych. Możliwe, że w Twoim przypadku nie jest to „przypadkowe” zachowanie a jasno określone przez specyfikację.
+Chociaż dane będą zwrócone w ten sposób nie polegałbym na tym zachowaniu. Jeśli zależy Ci na uzyskaniu posortowanych danych określ to jasno używając [klauzuli `ORDER BY`]({% post_url 2018-09-04-sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci %}). W ten sposób jasno określasz swoje intencje:
 
 ```sql
   SELECT customerid
@@ -184,13 +183,13 @@ Chociaż dane będą zwrócone w ten sposób nie polegałbym na tym zachowaniu. 
 ORDER BY customerid;
 ```
 
-We wszystkich przykładach w artykule staram się dodawać klauzule `ORDER BY` właśnie po to żeby pokazać intencję.
+We wszystkich przykładach w artykule dodałem klauzulę `ORDER BY`.
 
 ### Ćwiczenia do samodzielnego wykonania
 
-Teraz czas na Twoje eksperymenty. Spróbuj samodzielnie uruchomić to zapytanie. Możesz je także zmodyfikować:
+Teraz czas na Twoje eksperymenty. Spróbuj samodzielnie uruchomić przykładowe zapytanie zawierające dwie funkcje analityczne. Możesz je także zmodyfikować:
 
-* sprawdź jak na wynik zapytania wpływają różne kolumny użyte do sortowania, 
+* sprawdź jak na wynik zapytania wpływają różne kolumny użyte do sortowania,
 * uzyj kilku kolumn do sortowania wyników/wierszy w partycji,
 * użyj `DESC`/`ASC` do z zmiany wyniku sortowania.
 
@@ -286,8 +285,8 @@ OVER
 
 Okno może być jednego z trzech rodzajów:
 
-* `ROWS` – granice okna określone są przez liczbę wierszy przed/po aktualnym wierszem,
-* `GROUPS` – granice okne określone są przez liczbę „grup” przed/po aktualnej „grupie”. Do grupy zalicza się te wartości, które są „równe” w trakcie sortowania przy użyciu `ORDER BY`,
+* `ROWS` – granice okna określone są przez liczbę wierszy przed i po aktualnym wierszu,
+* `GROUPS` – granice okne określone są przez liczbę „grup” przed i po aktualnej „grupie”. Do grupy zalicza się te wartości, które są „równe” w trakcie sortowania przy użyciu `ORDER BY`,
 * `RANGE` – granice okna określone są przez różnicę wartości względem aktualnego wiersza.
 
 Dla uproszczenia w definicji okna będę używał wyłącznie `BETWEEN x PRECEDING AND y FOLLOWING`. Oznacza to, że okno będzie obejmowało zakres `x` przed aktualnym wierszem i `y` po aktualnym wierszu. Składania pozwala na dużo bardziej zaawansowane modyfikacje, jednak ich znajomość nie jest niezbędna do zrozumienia działania samego mechanizmu. Jeśli jesteś zainteresowany tymi szczegółami odsyłam Cię do dokumentacji silnika bazy danych, którego używasz.
@@ -324,9 +323,9 @@ W wyniku tego zapytania otrzymasz 10 wierszy:
     1           382        8.91   22.77
     2           1          1.98   15.84
     2           12         13.86  24.75
-    2           67         8.91   24.75  
+    2           67         8.91   24.75
 
-W tym przypadku `SUM(total)` sumuje jedynie wiersze należące do okna, a nie całej partycji. 
+W tym przypadku `SUM(total)` sumuje jedynie wiersze należące do okna, a nie całej partycji.
 
 * dla pierwszego wiersza oknem są wiersze pierwszy i drugi: `3.98 + 3.96 = 7.94` (brak poprzedniego wiersza w partycji),
 * dla drugiego wiersza oknem są wiersze pierwszy, drugi i trzeci: `3.98 + 3.96 + 5.94 = 13.88` ,
@@ -374,7 +373,7 @@ Także tym przypadku `SUM(total)` sumuje jedynie wiersze należące do okna, a n
 
 ### Okno typu `RANGE`
 
-W tym przypadku okno definiowane jest jako „odległość” 2 przed i po wartością kolumny `total`:
+W tym przypadku okno definiowane jest jako „odległość” 2 przed i po wartości kolumny `total`:
 
 ```sql
   SELECT customerid
@@ -404,7 +403,7 @@ W wyniku tego zapytania otrzymasz dziesięć wierszy:
     2           1          1.98   8.91
     2           196        1.98   8.91
 
-`SUM(total)` sumuje jedynie wiersze należące do okna, a nie całej partycji. 
+Także tutaj `SUM(total)` sumuje jedynie wiersze należące do okna, a nie całej partycji.
 
 * dla pierwszego wiersza oknem są pierwsze dwa wiersze. Dzieje się tak ponieważ wartość kolumny `total` dla tych wierszy jest w zakresie  `<0.99 - 2, 0.99 + 2>`,
 * dla drugiego wiersza oknem są pierwsze cztery wiersze. Dzieje się tak ponieważ wartość kolumny `total` dla tych wierszy jest w zakresie  `<1.98 - 2, 1.98 + 2>`,
@@ -412,27 +411,125 @@ W wyniku tego zapytania otrzymasz dziesięć wierszy:
 
 ### Filtrowanie okna
 
-Jakby tego było mało do tego wszystkiego dochodzi możliwość filtrowania :). Oznacza to tyle, że możesz uzyć filtrowania jak w klauzuli `WHERE`, żeby dodatkowo ograniczyć wiersze „pasujące” do definicji okna.
+Jakby tego było mało do tego wszystkiego dochodzi możliwość filtrowania :). Oznacza to tyle, że możesz uzyć filtrowania jak w klauzuli `WHERE`, żeby dodatkowo ograniczyć wiersze „pasujące” do definicji okna. Proszę spójrz na przykład poniżej:
 
+```sql
+  SELECT customerid
+        ,invoiceid
+        ,total
+        ,SUM(total) OVER rows_window AS rolling_sum
+        ,SUM(total) FILTER (WHERE invoiceid != 121)
+                      OVER rows_window AS filtered_rolling_sum
+    FROM invoice
+  WINDOW rows_window AS (PARTITION BY customerid)
+ORDER BY customerid
+   LIMIT 10;
+```
 
-sqlite> SELECT customerid, invoiceid, total, SUM(total) OVER (rows_window) AS rolling_sum, SUM(total) FILTER (WHERE invoiceid != 121) OVER rows_window FROM invoice WINDOW rows_window AS (PARTITION BY customerid)
-CustomerId  InvoiceId  Total  rolling_sum  SUM(total) FILTER (WHERE invoiceid != 121) OVER rows_window
-----------  ---------  -----  -----------  -----------------------------------------------------------
-1           98         3.98   39.62        35.66
-1           121        3.96   39.62        35.66
-1           143        5.94   39.62        35.66
-1           195        0.99   39.62        35.66
-1           316        1.98   39.62        35.66
-1           327        13.86  39.62        35.66
-1           382        8.91   39.62        35.66
-2           1          1.98   37.62        37.62
-2           12         13.86  37.62        37.62
-2           67         8.91   37.62        37.62
-sqlite> otal, SUM(total) OVER (rows_window) AS rolling_sum, SUM(total) FILTER (WHERE invoiceid != 121) OVER rows_window FROM invoice WINDOW rows_window AS (PARTITION BY customerid) ORDER BY customerid LIMIT 10;
+Zwróć uwagę na wartości kolumn `rolling_sum` i `filtered_rolling_sum`:
 
+    CustomerId  InvoiceId  Total  rolling_sum  filtered_rolling_sum
+    ----------  ---------  -----  -----------  --------------------
+    1           98         3.98   39.62        35.66
+    1           121        3.96   39.62        35.66
+    1           143        5.94   39.62        35.66
+    1           195        0.99   39.62        35.66
+    1           316        1.98   39.62        35.66
+    1           327        13.86  39.62        35.66
+    1           382        8.91   39.62        35.66
+    2           1          1.98   37.62        37.62
+    2           12         13.86  37.62        37.62
+    2           67         8.91   37.62        37.62
 
+`filtered_rolling_sum` ma wartość `39.62 - 3.96 = 35.66`. Zatem funkcja analityczna w przypadku partycji gdzie `customerid = 1` nie wzięła pod uwagę filtrowanego wiersza. Wiersz, w którym `invoiceid = 121` nie został wzięty pod uwagę podczas sumowania. Dla przypomnienia odsyłam cię do artykułu opisującego [klauzulę `WHERE`]({% post_url 2018-07-26-klauzula-where-w-zapytaniach-sql %}).
 
-## Funkcje analityczne a filtrowanie danych
+### Lista funkcji
+
+Bazy danych posiadają szereg funkcji dedykowanych do użycia z klauzulą `OVER`. Poniżej znajdziesz listę zawierającą część z nich. Podobnie jak w innych przypadkach odsyłam Cię do dokumentacji Twojej bazy danych, jeśli chcesz znać ich komplet:
+
+* `ROW_NUMBER()` – Numeruje wiersze w partycji zaczynając od 1. Bierze pod uwagę klauzulę `ORDER BY`,
+* `RANK()`, `DENSE_RANK()` – Funkcje numerujące unikalne wartości w partycji. `RANK` zostawia „dziury” w numeracji. Pokażę to na przykładzie poniżej. Bez klauzuli `ORDER BY` każdy z wierszy ma numer 1,
+* `NTILE(N)` – Dzieli partycję na `N` „możliwie równych” i przydziela wiersze do grup o wartości od 1 do `N`.
+
+Pierwszy przykład pokazuje działanie funkcji `ROW_NUMBER`:
+
+```sql
+SELECT customerid
+      ,total
+      ,ROW_NUMBER() OVER (PARTITION BY customerid) AS row_number
+  FROM invoice
+ LIMIT 10;
+```
+
+    CustomerId  Total  row_number
+    ----------  -----  ----------
+    1           0.99   1
+    1           1.98   2
+    1           3.96   3
+    1           3.98   4
+    1           5.94   5
+    1           8.91   6
+    1           13.86  7
+    2           0.99   1
+    2           1.98   2
+    2           1.98   3
+
+Drugi przykład porównuje funkcje `RANK` i `DENSE_RANK`. Proszę zwróć uwagę na wyniki tych funkcji dla 10. i 11. wiersza:
+
+```sql
+SELECT customerid
+      ,total
+      ,RANK() OVER customer_window AS rank_unsorted
+      ,DENSE_RANK() OVER customer_window AS dense_rank_unsorted
+      ,RANK() OVER (customer_window ORDER BY total) AS rank_sorted
+      ,DENSE_RANK() OVER (customer_window ORDER BY total) AS dense_rank_sorted
+  FROM invoice
+WINDOW customer_window AS (PARTITION BY customerid)
+ LIMIT 13;
+```
+
+    CustomerId  Total  rank_unsorted  dense_rank_unsorted  rank_sorted  dense_rank_sorted
+    ----------  -----  -------------  -------------------  -----------  -----------------
+    1           0.99   1              1                    1            1
+    1           1.98   1              1                    2            2
+    1           3.96   1              1                    3            3
+    1           3.98   1              1                    4            4
+    1           5.94   1              1                    5            5
+    1           8.91   1              1                    6            6
+    1           13.86  1              1                    7            7
+    2           0.99   1              1                    1            1
+    2           1.98   1              1                    2            2
+    2           1.98   1              1                    2            2
+    2           3.96   1              1                    4            3
+    2           5.94   1              1                    5            4
+    2           8.91   1              1                    6            5
+
+Ostatni przykład pokazuje sposób podziału partycji przez funkcję `NTILE` z użyciem różnych argumentów:
+
+```sql
+SELECT customerid
+      ,total
+      ,NTILE(2) OVER customer_window AS ntile_2
+      ,NTILE(4) OVER customer_window AS ntile_4
+  FROM invoice
+WINDOW customer_window AS (PARTITION BY customerid)
+ LIMIT 10;
+```
+
+    CustomerId  Total  ntile_2  ntile_4
+    ----------  -----  -------  -------
+    1           3.98   1        1
+    1           3.96   1        1
+    1           5.94   1        2
+    1           0.99   1        2
+    1           1.98   2        3
+    1           13.86  2        3
+    1           8.91   2        4
+    2           1.98   1        1
+    2           13.86  1        1
+    2           8.91   1        2
+
+## Funkcje analityczne a klauzula `WHERE`
 
 Jak już wiesz funkcje analityczne mogą być użyte wyłącznie w klauzuli `SELECT` i `ORDER BY`. Co jeśli musisz użyć wyniku funkcji analitycznej do filtrowania? Z pomocą przychodzą [podzapytania]({% post_url 2019-09-18-podzapytania-sql %}). Na przykład poniższe zapytanie zwróci wyłącznie te faktury wystawione dla klienta, których suma będzie mniejsza niż 10:
 
@@ -452,28 +549,30 @@ ORDER BY customerid
 
     CustomerId  InvoiceId  Total
     ----------  ---------  -----
-    1           98         3.98 
-    1           121        3.96 
-    2           1          1.98 
-    3           99         3.98 
-    4           2          3.96 
-    4           24         5.94 
-    5           77         1.98 
-    5           100        3.96 
-    6           46         8.91 
-    7           78         1.98 
+    1           98         3.98
+    1           121        3.96
+    2           1          1.98
+    3           99         3.98
+    4           2          3.96
+    4           24         5.94
+    5           77         1.98
+    5           100        3.96
+    6           46         8.91
+    7           78         1.98
 
 Nie przejmuj się, jeśli to zapytanie będzie dla Ciebie zbyt skomplikowane. To nic dziwnego, używa ono wielu elementów składki SQL. Postaraj się przeanalizować je jeszcze raz. Spróbuj też samodzielnie ekperymentować. Zacznij od wywołania podzapytania i przeanalizowania jego wyników.
 {:.notice--info}
+
 
 ## Dodatkowe materiały do nauki
 
 Artykuł nie wyczerpuje tematu funkcji analitycznych. Zachęcam Cię do rzucenia okiem na dodatkowe materiały do nauki. Pamiętaj, że dokumentacja Twojego sinlika baz danych jest niezastąpiona ;) i zawiera dużo bardziej szczegółowe informacje.
 
-* [https://www.postgresql.org/docs/current/tutorial-window.html](Tutorial dotyczący funkcji analitycznych dla PostgreSQL),
-* [https://www.postgresql.org/docs/current/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS](Składnia funkcji analitycznych w PosgreSQL),
-* [https://www.sqlite.org/windowfunctions.html](Składnia funkcji analitycznych w SQLite).
-* [Materiały wykładowe z Politechniki Poznańskiej](http://tpd.cs.put.poznan.pl/accounts/pdf/PABD/SQL_ZaawansowaneAnalizy_Czesc2_Wyklad.pdf)
+* [Tutorial dotyczący funkcji analitycznych dla PostgreSQL](https://www.postgresql.org/docs/current/tutorial-window.html),
+* [Składnia funkcji analitycznych w PosgreSQL](https://www.postgresql.org/docs/current/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS),
+* [Funkcje okna w PostgreSQL](https://www.postgresql.org/docs/current/functions-window.html),
+* [Składnia funkcji analitycznych w SQLite](https://www.sqlite.org/windowfunctions.html),
+* [Materiały wykładowe z Politechniki Poznańskiej](http://tpd.cs.put.poznan.pl/accounts/pdf/PABD/SQL_ZaawansowaneAnalizy_Czesc2_Wyklad.pdf).
 
 ## Podsumowanie
 
