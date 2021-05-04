@@ -4,7 +4,7 @@ last_modified_at: 2021-05-04 20:30:19 +0200
 categories:
 - Bazy danych
 - Kurs SQL
-permalink: /funkcje-analityczne-sql/
+permalink: /funkcje-analityczne-w-sql/
 header:
     teaser: /assets/images/2021/0504-funkcje-analityczne-w-sql/funkcje_analityczne_w_sql_artykul.jpg
     overlay_image: /assets/images/2021/0504-funkcje-analityczne-w-sql/funkcje_analityczne_w_sql_artykul.jpg
