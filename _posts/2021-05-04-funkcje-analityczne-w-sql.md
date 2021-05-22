@@ -78,6 +78,8 @@ Poniżej znajdziesz listę funkcji agregujących, których możesz użyć przed 
  * `MIN` – zwraca minimalną wartość,
  * `SUM` – zwraca sumę wartości.
 
+{% include newsletter-srodek.md %}
+
 ### Klauzula `PARTITION BY`
 
 W przykładzie wyżej wszystkie wiersze w tabeli `invoice` zostały podzielone na osobne partycje. Do podziału na partycje użyłem wyłącznie jednej kolumny. W klauzuli `PARTITION BY` możesz użyć wielu wyrażeń:
