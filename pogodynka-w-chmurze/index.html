@@ -1,0 +1,1010 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Pogodynka w chmurze - Samouczek Programisty</title>
+<meta name="description" content="Projektu Pogodynka ciąg dalszy. Wywracam projekt do góry nogami wprowadzając nowy język programowania, nową architekturę i nowy czujnik. Pogodynka 2.0 to Python + Terraform. Pogodynka ląduje w chmurze Google’a. Nowa Pogodynka poza temperaturą mierzy także stężenie pyłów PM2.5 i PM10 w powietrzu. W artykule przeczytasz też o porównaniu kosztów rozwiązania na serwerze dedykowanych i w chmurze.">
+
+
+  <meta name="author" content="Marcin Pietraszek">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pl">
+<meta property="og:site_name" content="Samouczek Programisty">
+<meta property="og:title" content="Pogodynka w chmurze">
+<meta property="og:url" content="https://www.samouczekprogramisty.pl/pogodynka-w-chmurze/">
+
+
+  <meta property="og:description" content="Projektu Pogodynka ciąg dalszy. Wywracam projekt do góry nogami wprowadzając nowy język programowania, nową architekturę i nowy czujnik. Pogodynka 2.0 to Python + Terraform. Pogodynka ląduje w chmurze Google’a. Nowa Pogodynka poza temperaturą mierzy także stężenie pyłów PM2.5 i PM10 w powietrzu. W artykule przeczytasz też o porównaniu kosztów rozwiązania na serwerze dedykowanych i w chmurze.">
+
+
+
+  <meta property="og:image" content="https://www.samouczekprogramisty.pl/assets/images/2021/0523-pogodynka-w-chmurze/pogodynka_w_chmurze_artykul.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-05-23T00:00:00+02:00">
+
+
+
+  <meta property="article:modified_time" content="2021-05-27T06:33:14+02:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.samouczekprogramisty.pl/pogodynka-w-chmurze/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Marcin Pietraszek",
+      "url": "https://www.samouczekprogramisty.pl/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Samouczek Programisty Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" /> 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.gif" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Samouczek Programisty
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/kurs-programowania-java/">Kurs programowania Java</a>
+            </li><li class="masthead__menu-item">
+              <a href="/kurs-aplikacji-webowych/">Kurs aplikacji webowych</a>
+            </li><li class="masthead__menu-item">
+              <a href="/kurs-sql/">Kurs SQL</a>
+            </li><li class="masthead__menu-item">
+              <a href="/kontakt/">Kontakt</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Przełącz menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/2021/0523-pogodynka-w-chmurze/pogodynka_w_chmurze_artykul.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Pogodynka w chmurze
+
+        
+      </h1>
+      
+        <p class="page__lead">Projektu Pogodynka ciąg dalszy. Wywracam projekt do góry nogami wprowadzając nowy język programowania, nową architekturę i nowy czujnik. Pogodynka 2.0 to Python + Terraform. Pogodynka ląduje w chmurze Google’a. Nowa Pogodynka poza temperaturą mierzy także stężenie pyłów PM2.5 i PM10 w powietrzu. W artykule przeczytasz też o porównaniu kosztów rozwiązania na serwerze dedykowanych i w chmurze.
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minut(y)
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://unsplash.com/photos/_uAVHAMjGYA">© eberhard 🖐 grossgasteiger</a>
+</span>
+  
+</div>
+
+
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="https://www.samouczekprogramisty.pl/" itemprop="item"><span itemprop="name">Strona główna</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Pogodynka w chmurze</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Pogodynka w chmurze">
+    <meta itemprop="description" content="Projektu Pogodynka ciąg dalszy. Wywracam projekt do góry nogami wprowadzając nowy język programowania, nową architekturę i nowy czujnik. Pogodynka 2.0 to Python + Terraform. Pogodynka ląduje w chmurze Google’a. Nowa Pogodynka poza temperaturą mierzy także stężenie pyłów PM2.5 i PM10 w powietrzu. W artykule przeczytasz też o porównaniu kosztów rozwiązania na serwerze dedykowanych i w chmurze.">
+    <meta itemprop="datePublished" content="May 23, 2021">
+    <meta itemprop="dateModified" content="May 27, 2021">
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right ">
+          
+          <nav class="toc">
+            <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#nowe-podejście">Nowe podejście</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#hardware">Hardware</a></li>
+<li class="toc-entry toc-h3"><a href="#software">Software</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#nowa-pogodynka">Nowa pogodynka</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#czujnik-pyłu-zawieszonego-sds011">Czujnik pyłu zawieszonego SDS011</a></li>
+<li class="toc-entry toc-h3"><a href="#python-vs-java">Python vs Java</a></li>
+<li class="toc-entry toc-h3"><a href="#google-cloud-platform">Google Cloud Platform</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#terraform">Terraform</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#funkcjonalność-cache">Funkcjonalność cache</a></li>
+<li class="toc-entry toc-h3"><a href="#przygotowanie-karty-sd">Przygotowanie karty SD</a></li>
+<li class="toc-entry toc-h3"><a href="#moduły-jądra-linuxa">Moduły jądra Linux’a</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#stara-architektura-a-chmura">Stara architektura a chmura</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#porównanie-kosztów">Porównanie kosztów</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#koszt-przechowywania-danych">Koszt przechowywania danych</a></li>
+<li class="toc-entry toc-h4"><a href="#koszt-ładowania-danych">Koszt ładowania danych</a></li>
+<li class="toc-entry toc-h4"><a href="#koszt-pobierania-danych-z-bazy">Koszt pobierania danych z bazy</a></li>
+<li class="toc-entry toc-h4"><a href="#finalne-porównanie">Finalne porównanie</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#infrastruktura-jako-kod">Infrastruktura jako kod</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+          </nav>
+          <hr />
+          
+          <div class="mailerlite__form">
+            <script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698980/y1i5k0.js?v7"></script>
+          </div>
+          <hr />
+          <div class="fb-page">
+            <a href="https://www.facebook.com/SamouczekProgramisty"><img src="/assets/images/facebook_logo.gif" alt="Profil Samouczka na Facebooku"/></a>
+          </div>
+        </aside>
+        
+<div class="notice--info">
+    
+<p>Ten artykuł pokazuje kolejną odsłonę projektu Pogodynka. Jeśli jesteś zainteresowany starszą wersją odsyłam Cię do serii poprzednich artykułów:</p>
+
+<ul>
+  <li><a href="/projekt-pogodynka-wprowadzenie/">Projekt Pogodynka – wprowadzenie</a></li>
+  <li><a href="/pogodynka-naiwny-termometr/">Projekt Pogodynka – naiwny termometr</a></li>
+  <li><a href="/pogodynka-dzialajacy-termometr/">Projekt Pogodynka – działający termometr</a></li>
+  <li><a href="/pogodynka-szkielet-aplikacji-webowej/">Projekt Pogodynka – szkielet aplikacji webowej</a></li>
+  <li><a href="/pogodynka-json-i-walidacja/">Projekt Pogodynka – JSON i walidacja</a></li>
+  <li><a href="/pogodynka-jpa-i-spring-data/">Projekt Pogodynka – JPA i Spring Data</a></li>
+  <li><a href="/pogodynka-konfiguracja-serwera/">Projekt Pogodynka – konfiguracja serwera</a></li>
+  <li><a href="/pogodynka-konfiguracja-bazy-danych/">Projekt Pogodynka – konfiguracja bazy danych</a></li>
+  <li><a href="/pogodynka-szkic-interfejsu-uzytkownika/">Projekt Pogodynka – szkic interfejsu użytkownika</a></li>
+  <li><a href="/pogodynka-integracja/">Projekt Pogodynka – integracja</a></li>
+  <li><a href="/pogodynka-podsumowanie/">Projekt Pogodynka – podsumowanie</a></li>
+</ul>
+
+</div>
+
+<h2 id="nowe-podejście">Nowe podejście</h2>
+
+<h3 id="hardware">Hardware</h3>
+
+<p>Starsza wersja pogodynki zawierała więcej komponentów, nad którymi pracowałem samodzielnie. Wówczas postawiłem na serwer współdzielony, na którym zainstalowałem niezbędne elementy takie jak silnik bazy danych czy serwer HTTP. Stary diagram wygląda tak:</p>
+
+<figure class="">
+  <img src="/assets/images/2021/0523-pogodynka-w-chmurze/diagram_pogodynka_1.jpg" alt="" />
+  
+    <figcaption>
+      Diagram aplikacji Pogodynka 1.0
+
+    </figcaption>
+  
+</figure>
+
+<p>Takie podejście ma swoje wady i zalety. Niestety w skali tak małego projektu doświadczałem głównie wad:</p>
+
+<ul>
+  <li>byłem odpowiedzialny za utrzymanie wszystkich komponentów,</li>
+  <li>koszt serwera był relatywnie wysoki,</li>
+  <li>zdarzały się przerwy w dostępności Pogodynki.</li>
+</ul>
+
+<p>Biorąc te elementy pod uwagę postanowiłem zmienić podejście. Tym razem jedynym sprzętem za który jestem odpowiedzialny jest Rasberry Pi z zestawem czujników. Reszta to płatne usługi. Mimo tego, że usługi te są płatne, finalnie koszt będzie dużo niższy. Dokładny opis szacowania kosztów znajdziesz w jednym z punktów poniżej.</p>
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 6147 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/704312/f8q4i2.js?v4"></script>
+
+
+</div>
+
+<h3 id="software">Software</h3>
+
+<p>Kolejnym elementem, który zmieniłem jest stos technologiczny. Stara wersja Pogodynki używała głównie języka Java. Do tego przygotowałem prosty interfejs użytkownika przy pomocy HTML, CSS i JavaScript. Do zarządzania infrastrukturą użyłem Puppet’a.</p>
+
+<p>Nowe podejście jest mocno uproszczone. Użyłem języka Python. Do zarządzania zasobami w chmurze posłużyłem się Terraform’em.</p>
+
+<h2 id="nowa-pogodynka">Nowa pogodynka</h2>
+
+<h3 id="czujnik-pyłu-zawieszonego-sds011">Czujnik pyłu zawieszonego SDS011</h3>
+
+<p>Przebudowując Pogodynkę rozszerzyłem ją o dodatkowy czujnik. Teraz Pogodynka może także mierzyć ilość pyłu zawieszonego o średnicy 2.5μm i 10μm. Podstawowa wersja kodu, którą napisałem sprawia, że czujnik działa bez przerwy. Pogodynka 2.1 mogłaby włączać czujnik na żądanie wydłużając żywotność lasera.</p>
+
+<h3 id="python-vs-java">Python vs Java</h3>
+
+<p>Co tu dużo mówić, większą frajdę sprawia mi pisanie kodu w Python’ie. Między innymi z tego powodu zdecydowałem, że Pogodynka 2.0 używa tego języka programowania. Proszę spójrz na przykład poniżej:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SDS011</span><span class="p">:</span>
+
+    <span class="n">DATA_PACKET_SIZE</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">HEADER</span> <span class="o">=</span> <span class="mh">0xAA</span>
+    <span class="n">TAIL</span> <span class="o">=</span> <span class="mh">0xAB</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+
+    <span class="k">def</span> <span class="nf">poke_25</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">read_bytes</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s">"little"</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+
+    <span class="k">def</span> <span class="nf">poke_10</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">read_bytes</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s">"little"</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+
+    <span class="k">def</span> <span class="nf">read_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">port</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">DATA_PACKET_SIZE</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="p">.</span><span class="n">HEADER</span>
+        <span class="k">assert</span> <span class="n">data</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="p">.</span><span class="n">TAIL</span>
+
+        <span class="k">return</span> <span class="n">data</span>
+</code></pre></div></div>
+
+<p>Te 24 linijek kodu to wszystko, co jest potrzebne do obsługi czujnika <a href="https://aqicn.org/sensor/sds011/">SDS011</a> (dla czytelności pominąłem dokumentację i komentarze). Aż boję się pomyśleć ile musiałbym się nadziubać, żeby zaimplementować to w Javie :). Testy jednostkowe dla kodu są równie zwięzłe:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">pytest</span><span class="p">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">port_mock</span><span class="p">():</span>
+    <span class="n">port_mock</span> <span class="o">=</span> <span class="n">mock</span><span class="p">.</span><span class="n">MagicMock</span><span class="p">()</span>
+    <span class="n">port_mock</span><span class="p">.</span><span class="n">read</span><span class="p">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s">b"</span><span class="se">\xaa\xc0\x1c\x00</span><span class="s">1</span><span class="se">\x00\x0b\x14</span><span class="s">1</span><span class="se">\xab</span><span class="s">"</span>
+
+    <span class="k">return</span> <span class="n">port_mock</span>
+
+
+<span class="k">def</span> <span class="nf">test_pm25</span><span class="p">(</span><span class="n">port_mock</span><span class="p">):</span>
+    <span class="n">pm_sensor</span> <span class="o">=</span> <span class="n">sds011</span><span class="p">.</span><span class="n">SDS011</span><span class="p">(</span><span class="n">port_mock</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">pm_sensor</span><span class="p">.</span><span class="n">poke_25</span><span class="p">()</span> <span class="o">==</span> <span class="n">pytest</span><span class="p">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">2.8</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_pm10</span><span class="p">(</span><span class="n">port_mock</span><span class="p">):</span>
+    <span class="n">pm_sensor</span> <span class="o">=</span> <span class="n">sds011</span><span class="p">.</span><span class="n">SDS011</span><span class="p">(</span><span class="n">port_mock</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">pm_sensor</span><span class="p">.</span><span class="n">poke_10</span><span class="p">()</span> <span class="o">==</span> <span class="n">pytest</span><span class="p">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">4.9</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="google-cloud-platform">Google Cloud Platform</h3>
+
+<p>Przeniosłem Pogodynkę do chmury :). Postawiłem na Google BigQuery jako bazę danych, w której przechowuję wyniki pomiarów. Przesiadka na BigQuery pozwoliła mi zwiększyć częstotliwość pomiarów bez przejmowania się potencjalnymi problemami z wydajnością bazy danych. Pogodynka 2.0 wysyła wskazania czujników co minutę.</p>
+
+<p>Za strumieniowe przesyłanie danych do chmury odpowiedzialny jest poniższy fragment kodu:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">stream_to_gbq</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">scoped_table</span><span class="p">,</span> <span class="n">measurements</span><span class="p">):</span>
+    <span class="n">rows_to_insert</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">measurement</span> <span class="ow">in</span> <span class="n">measurements</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">"time"</span><span class="p">:</span> <span class="n">measurement</span><span class="p">.</span><span class="n">time</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">GBQ_TIMESTAMP_FORMAT</span><span class="p">),</span>
+            <span class="s">"pm25"</span><span class="p">:</span> <span class="n">measurement</span><span class="p">.</span><span class="n">pm25</span><span class="p">,</span>
+            <span class="s">"pm10"</span><span class="p">:</span> <span class="n">measurement</span><span class="p">.</span><span class="n">pm10</span><span class="p">,</span>
+            <span class="s">"temperature"</span><span class="p">:</span> <span class="n">measurement</span><span class="p">.</span><span class="n">temperature</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">rows_to_insert</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">insert_rows_json</span><span class="p">(</span><span class="n">scoped_table</span><span class="p">,</span> <span class="n">rows_to_insert</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">exceptions</span><span class="p">.</span><span class="n">BadRequest</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">StoreError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">errors</span> <span class="o">!=</span> <span class="p">[]:</span>
+        <span class="k">raise</span> <span class="n">StoreError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Zrezygnowałem też z własnego narzędzia do wizualizacji na rzecz Google DataStudio. Przykładowy raport wygenerowany na podstawie danych zebranych przez Pogodynkę 2.0 możesz zobaczyć poniżej:</p>
+
+<figure class="">
+  <img src="/assets/images/2021/0523-pogodynka-w-chmurze/data_studio_wizualizacja.jpg" alt="" />
+  
+    <figcaption>
+      Pogodynka 2.0 w DataStudio
+
+    </figcaption>
+  
+</figure>
+
+<p>Starałem się maksymalnie ograniczyć liczbę komponentów żeby niepotrzebnie nie komplikować rozwiązania.</p>
+
+<h4 id="terraform">Terraform</h4>
+
+<p>W związku z przesiadką na chmurę odstawiłem w kąt Puppet’a. Tym razem użyłem Terraform’a do zarządzania wszystkimi zasobami w chmurze. Przechowywanie definicji infrastruktury jako kod ma wiele zalet. Jedną z nich jest możliwość wglądu w historię zmian. Konfiguracja w przypadku Pogodynki 2.0 nie jest skomplikowana. Możesz ją przejrzeć w <a href="https://github.com/SamouczekProgramisty/pogodynka_gcp_resources">publicznym repozytorium</a>.</p>
+
+<h3 id="funkcjonalność-cache">Funkcjonalność cache</h3>
+
+<p>Przy Pogodynce 1.0 zauważyłem, że elementem, który był najbardziej zawodny był dostęp do internetu w miejscu gdzie działała Pogodynka. Skutkowało to utratą wyników pomiarów wykonanych w czasie, kiedy nie było dostępu do internetu.</p>
+
+<p>Tym razem postanowiłem to zmienić wprowadzając lokalny cache. W przypadku braku dostępu do internetu
+ Pogodynka 2.0 zapisuje wyniki pomiarów lokalnie. Raz jeszcze dzięki Python’owi cały kod jest niesłychanie zwięzły:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Cache</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache_path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">cache_path</span> <span class="o">=</span> <span class="n">cache_path</span>
+
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">cache_path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">cache_path</span><span class="p">,</span> <span class="s">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">cache_file</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pickle</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">cache_file</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measurements</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">cache_path</span><span class="p">,</span> <span class="s">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">cache_file</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">cache_file</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dump</span><span class="p">([])</span>
+</code></pre></div></div>
+
+<p>Połączenie klas wspomnianych wyżej możesz zobaczyć poniżej:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pm_port</span> <span class="o">=</span> <span class="n">serial</span><span class="p">.</span><span class="n">Serial</span><span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="n">pm_sensor_device</span><span class="p">)</span>
+<span class="n">pm_sensor</span> <span class="o">=</span> <span class="n">sds011</span><span class="p">.</span><span class="n">SDS011</span><span class="p">(</span><span class="n">pm_port</span><span class="p">)</span>
+<span class="n">temperature_sensor</span> <span class="o">=</span> <span class="n">ds18b20</span><span class="p">.</span><span class="n">DS18B20</span><span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="n">temperature_sensor_path</span><span class="p">)</span>
+
+<span class="n">cache</span> <span class="o">=</span> <span class="n">store</span><span class="p">.</span><span class="n">Cache</span><span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="n">cache_path</span><span class="p">)</span>
+
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">cache</span><span class="p">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">measurements</span><span class="p">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="n">sensor</span><span class="p">.</span><span class="n">Measurement</span><span class="p">(</span>
+        <span class="n">time</span><span class="o">=</span><span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">(),</span>
+        <span class="n">pm25</span><span class="o">=</span><span class="n">pm_sensor</span><span class="p">.</span><span class="n">poke_25</span><span class="p">(),</span>
+        <span class="n">pm10</span><span class="o">=</span><span class="n">pm_sensor</span><span class="p">.</span><span class="n">poke_10</span><span class="p">(),</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="n">temperature_sensor</span><span class="p">.</span><span class="n">poke</span><span class="p">(),</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">gbq_client</span> <span class="o">=</span> <span class="n">bigquery</span><span class="p">.</span><span class="n">Client</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">store</span><span class="p">.</span><span class="n">stream_to_gbq</span><span class="p">(</span><span class="n">gbq_client</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">destination_table</span><span class="p">,</span> <span class="n">measurements</span><span class="p">)</span>
+    <span class="n">cache</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">store</span><span class="p">.</span><span class="n">StoreError</span><span class="p">:</span>
+    <span class="n">cache</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
+    <span class="k">raise</span>
+</code></pre></div></div>
+
+<p>Na początku tworzę instancje klas obsługujących czujniki. Kolejna linijka to utworzenie instancji klasy obsługującej lokalny cache. Następne linijki to utworzenie listy pomiarów do wysłania.</p>
+
+<p>W końcu wysyłam pomiary do tabeli w Google BigQuery.</p>
+
+<h3 id="przygotowanie-karty-sd">Przygotowanie karty SD</h3>
+
+<p>System, które używałem w przypadku Pogodynki 1.0 ma już swoje lata. Zdecydowałem się zaktualizować go do najnowszej wersji. Ze <a href="https://www.raspberrypi.org/software/operating-systems/">strony Rasberry Pi</a> pobrałem najnowszą wersję systemu Raspberry Pi OS Lite. Obraz skopiowałem na kartę microSD zgodnie z <a href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">instrukcją ze strony Raspberry Pi</a>.</p>
+
+<p>Po uruchomieniu malinki zaktualizowałem zainstalowane oprogramowanie i dodałem kilka dodatkowych narzędzi:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get update 
+apt-get upgrade 
+apt-get install python3-pip python3-venv git vim tree
+</code></pre></div></div>
+
+<p>Kod odpowiedzialny za Pogodynkę uruchamiany jest w kontekście dedykowanego użytkownika:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>useradd pogodynka
+usermod --append --groups dialout pogodynka
+</code></pre></div></div>
+
+<p>Ostatnia komenda dodaje użytkownika <code class="highlighter-rouge">pogodynka</code> do grupy <code class="highlighter-rouge">dialout</code>. Jest to potrzebne, aby mieć  bezpośredni dostęp do odczytu danych z portu USB.</p>
+
+<p>Wszystkie te operacje wykonałem podłączając klawiaturę bezpośrednio do malinki. Dla wygody włączyłem demona ssh, dzięki czemu pozostałe operacje mogę wykonać zdalnie:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch /boot/ssh
+</code></pre></div></div>
+
+<h3 id="moduły-jądra-linuxa">Moduły jądra Linux’a</h3>
+
+<p>Żeby termometr działał poprawnie wymagana jest drobna modyfikacja konfiguracji malinki:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo dtoverlay=w1-gpio &gt;&gt; /boot/config.txt
+
+reboot
+
+modprobe w1-gpio
+modprobe w1-therm
+</code></pre></div></div>
+
+<h2 id="stara-architektura-a-chmura">Stara architektura a chmura</h2>
+
+<h3 id="porównanie-kosztów">Porównanie kosztów</h3>
+
+<p>Pogodynka 1.0 używała serwera współdzielonego. Korzystałem z usług jednej z polskich firm hostingowych. Koszt utrzymania serwera wynosił około 10zł miesięcznie. Pogodynka 2.0 to zupełnie inna para kaloszy. Szacowanie kosztów usług chmurowych jest dużo bardziej złożone. W przypadku usług, z których korzystam składniki ceny są następujące:</p>
+
+<ul>
+  <li>przechowywanie danych w bazie danych – kosztuje $0,02 za 1GB przechowywanych danych<sup id="fnref:uproszczenie" role="doc-noteref"><a href="#fn:uproszczenie" class="footnote">1</a></sup>,</li>
+  <li>strumieniowe ładowanie danych do bazy – kosztuje $0,01 za 200MB, ładowany wiersz to minimum 1KB,</li>
+  <li>pobieranie danych z bazy danych – kosztuje $5 za każdy odczytany 1TB.</li>
+</ul>
+
+<h4 id="koszt-przechowywania-danych">Koszt przechowywania danych</h4>
+
+<p>Spróbuję oszacować wielkość bazy danych po roku:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>60 (odczytów na godzinę) * 24 (godziny) * 365 (dni) = 525'600 (odczytów rocznie)
+</code></pre></div></div>
+
+<p>Każdy odczyt to jeden wiersz. Tabela przechowująca pomiary składa się z czterech kolumn:</p>
+
+<ul>
+  <li>daty typu <code class="highlighter-rouge">DATETIME</code></li>
+  <li>odczytu temperatury typu <code class="highlighter-rouge">FLOAT</code></li>
+  <li>odczytu PM2.5 typu <code class="highlighter-rouge">FLOAT</code></li>
+  <li>odczytu PM10 typu <code class="highlighter-rouge">FLOAT</code></li>
+</ul>
+
+<p>Każda z tych kolumn to 8B, więc jeden wiersz to 8B * 4 = 32B. Zatem 525’600 odczytów rocznie to w sumie 17MB (16’819’200B). Zatem przechowywanie całego roku danych kosztuje aż $0,00034. A… zapomniałem dodać, że pierwsze 10GB jest darmowe. Innymi słowy przy takiej skali danych nie muszę się przejmować opłatami za przechowywanie danych.</p>
+
+<h4 id="koszt-ładowania-danych">Koszt ładowania danych</h4>
+
+<p>Zdecydowałem się na ładowanie strumieniowe żeby mieć natychmiastowy dostęp do danych. Strumieniowe ładowanie danych jest płatne. W ciągu miesiąca Pogodynka 2.0 doda do bazy następującą liczbę wierszy:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>60 (odczytów na godzinę) * 24 (godziny) * 30 (dni) = 43'200 (odczytów miesięcznie)
+</code></pre></div></div>
+
+<p>Żądanie dodania danych do bazy ma minimum 1KB (w przypadku Pogodynki 2.0 jest dużo mniejsze, jednak takie jest ograniczenie narzucone przez Google BigQuery). Zatem w ciągu miesiąca strumieniowo zostanie przesłanych 43,2MB danych. Podsumowując, miesięczny koszt strumieniowego ładowania danych to $0,0002. Myślę, że mogę żyć z takim zobowiązaniem ;).</p>
+
+<h4 id="koszt-pobierania-danych-z-bazy">Koszt pobierania danych z bazy</h4>
+
+<p>Nie planuję odczytywać danych samodzielnie. Dane będą odczytywane przez raport, który utworzyłem w DataStudio. Dla uproszczenia pomijam tu kwestię przechowania wyników w cache’u, która obniży finalny koszt.</p>
+
+<p>Załóżmy, że pogodynka będzie działała przez 1000 lat ;). W trakcie tak długiego czasu w bazie uzbiera się 17GB. Jednorazowy odczyt tysiącletniej historii pomiarów czujników Pogodynki 2.0 kosztowałby $0,09. A… znów zapomniałem o tym, że pierwszy 1TB w miesiącu jest darmowy. Po raz kolejny przy takiej skali danych nie muszę się przejmować opłatami za odczyt danych z bazy.</p>
+
+<h4 id="finalne-porównanie">Finalne porównanie</h4>
+
+<p>W tym konkretnym przypadku chmura jest praktycznie darmowa. Pamiętaj jednak, że podobną analizę kosztów warto zrobić dla konkretnego przypadku – koszty rozwiązań chmurowych potrafią zaskoczyć, jeśli projektowane rozwiązania nie są efektywne.</p>
+
+<p>Dla przykładu, w pierwotnej wersji Pogodynki 2.0 każdy czujnik zapisywał pomiar w osobnym wierszu. Sprowadzał się do do trzy razy większej liczby wierszy – trzy razy wyższym koszcie za strumieniowe przesyłanie danych. W skali Pogodynki $0,0002 czy $0,0006 nie robi większej różnicy, jednak w produkcyjnych systemach operujących na dużych zbiorach danych takie szczegóły mogą być bardzo istotne.</p>
+
+<h3 id="infrastruktura-jako-kod">Infrastruktura jako kod</h3>
+
+<p>Pracując z projektami opartymi o chmurę miałem do czynienia z różnym podejściem do zarządzania zasobami w chmurze. W części z projektów zasoby były tworzone ręcznie. Całość konfiguracji odbywała się ręcznie przez interfejs dostarczony przez dostawcę chmury.</p>
+
+<p>Na dłuższą metę takie podejście jest uciążliwe. Używanie narzędzi pokroju Terraform znacząco ułatwia pracę w projekcie opartym o chmurę.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Pogodynka 2.0 już działa. Zachęcam Cię do samodzielnego wykonania takiego projektu. Koszt jaki będziesz musiał ponieść jest znikomy w porównaniu do wiedzy, którą możesz zdobyć. Jedynym znaczącym kosztem jest cena samej malinki (aktualnie około 180zł) i czujnika SDS011 (aktualnie około 70zł).</p>
+
+<p>Kod źródłowy Pogodynki 2.0 dostępny jest na <a href="https://github.com/SamouczekProgramisty/pogodynka2">Samouczkowym Githubie</a>.</p>
+
+<p>Mam nadzieję, że artykuł był dla Ciebie pomocny. Proszę podziel się nim ze swoimi znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry dziękuję. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub <a href="https://www.facebook.com/SamouczekProgramisty">Samouczka Programisty na Facebooku</a>.</p>
+
+<p>Do następnego razu!</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:uproszczenie" role="doc-endnote">
+      <p>Dla uproszczenia obliczeń pomijam tutaj tak zwane „long-term storage”, dane starsze niż 90 dni kosztują $0,01 za 1GB <a href="#fnref:uproszczenie" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+
+<div class="notice--success text-center">
+  
+<p><span class="c_almost-header">Pobierz opracowania zadań z rozmów kwalifikacyjnych</span></p>
+
+<p>Przygotowałem rozwiązania kilku zadań algorytmicznych z rozmów kwalifikacyjnych. Rozkładam je na czynniki pierwsze i pokazuję różne sposoby ich rozwiązania. Dołącz do grupy <strong>ponad 6147 Samouków</strong>, którzy jako pierwsi dowiadują się o nowych treściach na blogu, a prześlę je na Twój e-mail.</p>
+
+<script type="text/javascript" src="https://static.mailerlite.com/data/webforms/698960/m0b4d5.js?v4"></script>
+
+
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Kategorie: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/kategorie/#pogodynka" class="page__taxonomy-item" rel="tag">Pogodynka</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/kategorie/#projekty" class="page__taxonomy-item" rel="tag">Projekty</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Ostatnia aktualizacja:</strong> <time datetime="2021-05-27">2021-05-27</time></p>
+        
+        <p><strong><i class="fas fa-fw fa-child" aria-hidden="true"></i> Autor: </strong><a href="/o-mnie/">Marcin Pietraszek</a></p>
+        <hr />
+        <p>
+          Nie popełnia błędów tylko ten, kto nic nie robi ;). Bardzo możliwe, że znajdziesz błąd, literówkę, coś co wymaga poprawy. Jeśli chcesz możesz samodzielnie 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/edit/source/_posts/2021-05-23-pogodynka-w-chmurze.md">poprawić tę stronę</a>. Jeśli nie chcesz poprawiać błędu, który udało Ci się znaleźć będę wdzięczny jeśli go 
+          <a href="https://github.com/SamouczekProgramisty/samouczekprogramisty.github.io/issues/new?title=Błąd%20na%20stronie:%20_posts/2021-05-23-pogodynka-w-chmurze.md">zgłosisz</a>. Z góry dziękuję!
+        </p>
+      </footer>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Zostaw komentarz</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Także może Ci się spodobać</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/2018/05/01_zmiana_branzy_zostan_programista.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/zmiana-branzy-zostan-programista/" rel="permalink">Zmiana branży – zostań programistą
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  25 minut(y)
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Na rynku IT brakuje pracowników. Uczelnie nie nadążają z dostarczaniem nowych specjalistów. Popyt znacząco przewyższa podaż przez co rynek IT jest rynkiem pr...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/2019/02/02_watki_w_jezyku_java_artykul.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/watki-w-jezyku-java/" rel="permalink">Wątki w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minut(y)
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Artykuł ten opisuje wątki w języku Java. Po jego lekturze dowiesz się czym jest wątek, jaki ma cykl życia i jak go uruchomić. Dowiesz się czym jest synchroni...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/2019/09/21_podstawy_uml_artykul.jpeg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/podstawy-uml/" rel="permalink">Podstawy UML
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  14 minut(y)
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule opisuję podstawy UML. Po lekturze tego artykułu poznasz kilka rodzajów diagramów, które moim zdaniem są najbardziej przydatne. Dowiesz się w jakic...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/2019/04/20_jak_pisac_dobry_kod_w_javie_artykul.jpeg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/jak-pisac-kod-wysokiej-jakosci-w-jezyku-java/" rel="permalink">Jak pisać kod wysokiej jakości w języku Java
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minut(y)
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">W artykule przeczytasz o tym czym jest konwencja nazewnicza. Dowiesz się jak jej stosować. Na przykładach pokażę Ci najczęściej popełniane błędy wraz z propo...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+
+    
+      <li><strong>Śledź:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://www.facebook.com/SamouczekProgramisty" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://github.com/SamouczekProgramisty" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.youtube.com/channel/UCisPQ5nxB6yw3SfJPFWKTEg" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="https://www.samouczekprogramisty.pl/o-mnie/">O mnie</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/o-blogu/">O blogu</a></li>
+    <li><a href="https://www.samouczekprogramisty.pl/polityka-prywatnosci/">Polityka prywatności</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2015-2021 Marcin Pietraszek</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'BAIWADE3K7',
+  apiKey: '4a78df6a4d9f820ebbdb0a35f834b174',
+  indexName: 'prod_samouczek',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Szukaj...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'Brak wyników',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+  <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-68536783-1']);
+  
+    _gaq.push(['_gat._anonymizeIp']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.samouczekprogramisty.pl/pogodynka-w-chmurze/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = ""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://samouczekprogramisty.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Proszę włacz obsługę JavaScript żeby móc zobaczyć komentarze.</noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
