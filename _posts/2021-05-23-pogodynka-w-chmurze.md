@@ -17,7 +17,7 @@ Ten artykuł pokazuje kolejną odsłonę projektu Pogodynka. Jeśli jesteś zain
 
 * [Projekt Pogodynka – wprowadzenie]({% post_url 2017-03-04-projekt-pogodynka-wprowadzenie %})
 * [Projekt Pogodynka – naiwny termometr]({% post_url 2017-03-11-pogodynka-naiwny-termometr %})
-* [Projekt Pogodynka – działający termpometr]({% post_url 2017-03-19-pogodynka-dzialajacy-termometr %})
+* [Projekt Pogodynka – działający termometr]({% post_url 2017-03-19-pogodynka-dzialajacy-termometr %})
 * [Projekt Pogodynka – szkielet aplikacji webowej]({% post_url 2017-03-26-pogodynka-szkielet-aplikacji-webowej %})
 * [Projekt Pogodynka – JSON i walidacja]({% post_url 2017-04-16-pogodynka-json-i-walidacja %})
 * [Projekt Pogodynka – JPA i Spring Data]({% post_url 2017-04-23-pogodynka-jpa-i-spring-data %})
@@ -44,7 +44,7 @@ Takie podejście ma swoje wady i zalety. Niestety w skali tak małego projektu d
 
 * byłem odpowiedzialny za utrzymanie wszystkich komponentów,
 * koszt serwera był relatywnie wysoki,
-* zdażały się przerwy w dostępności Pogodynki.
+* zdarzały się przerwy w dostępności Pogodynki.
 
 Biorąc te elementy pod uwagę postanowiłem zmienić podejście. Tym razem jedynym sprzętem za który jestem odpowiedzialny jest Rasberry Pi z zestawem czujników. Reszta to płatne usługi. Mimo tego, że usługi te są płatne finalnie koszt będzie dużo niższy. Dokładny opis szacowania kosztów znajdziesz w jednym z punktów poniżej.
 
@@ -54,7 +54,7 @@ Biorąc te elementy pod uwagę postanowiłem zmienić podejście. Tym razem jedy
 
 Kolejnym elementem, który zmieniłem jest stos technologiczny. Stara wersja Pogodynki używała głównie języka Java. Do tego przygotowałem prosty interfejs użytkownika przy pomocy HTML, CSS i JavaScript. Do zarządzania infrastrukturą użyłem Puppet'a.
 
-Nowe podejście jest moco uproszczone. Użyłem języka Python. Do zarządznia zasobami w chmurze posłużyłem się Terraform'em.
+Nowe podejście jest mocno uproszczone. Użyłem języka Python. Do zarządzania zasobami w chmurze posłużyłem się Terraform'em.
 
 ## Nowa pogodynka
 
@@ -93,7 +93,7 @@ class SDS011:
         return data
 ```
 
-Te 24 linijaki kodu to wszystko, co jest potrzebne do obsługi czujnika [SDS011](https://aqicn.org/sensor/sds011/) (dla czytelności pominąłem dokumentację i komentarze). Aż boję się pomyśleć ile musiałbym się nadziubać, żeby zaimplementować to w Javie :). Testy jednostkowe dla kodu są równie zwięzłe:
+Te 24 linijek kodu to wszystko, co jest potrzebne do obsługi czujnika [SDS011](https://aqicn.org/sensor/sds011/) (dla czytelności pominąłem dokumentację i komentarze). Aż boję się pomyśleć ile musiałbym się nadziubać, żeby zaimplementować to w Javie :). Testy jednostkowe dla kodu są równie zwięzłe:
 
 ```python
 @pytest.fixture
@@ -118,7 +118,7 @@ def test_pm10(port_mock):
 
 ### Google Cloud Platform
 
-Przeniosłem Pogodynkę do chmury :). Postawiłem na Google BigQuery jako bazę danych, w której przechowuję wyniki pomiarów. Przesiadka na BigQuery pozwoliła mi zwiększyć częstotliwość pomiarów bez przejmowania się potencjalnymi problebami z wydajnością bazy danych. Pogodynka 2.0 wysyła wskazania czujników co minutę.
+Przeniosłem Pogodynkę do chmury :). Postawiłem na Google BigQuery jako bazę danych, w której przechowuję wyniki pomiarów. Przesiadka na BigQuery pozwoliła mi zwiększyć częstotliwość pomiarów bez przejmowania się potencjalnymi problemami z wydajnością bazy danych. Pogodynka 2.0 wysyła wskazania czujników co minutę.
 
 Za strumieniowe przesyłanie danych do chmury odpowiedzialny jest poniższy fragment kodu:
 
@@ -147,7 +147,7 @@ Zrezygnowałem też z własnego narzędzia do wizualizacji na rzecz Google DataS
 
 {% include figure image_path="/assets/images/2021/0523-pogodynka-w-chmurze/data_studio_wizualizacja.jpg" caption="Pogodynka 2.0 w DataStudio" %}
 
-Starałem się maksymaknie ograniczyć liczbę komponentów żeby niepotrzebnie nie komplikować rozwiązania.
+Starałem się maksymalnie ograniczyć liczbę komponentów żeby niepotrzebnie nie komplikować rozwiązania.
 
 #### Terraform
 
@@ -217,7 +217,7 @@ W końcu wysyłam pomiary do tabeli w Google BigQuery.
 
 System, które używałem w przypadku Pogodynki 1.0 ma już swoje lata. Zdecydowałem się zaktualizować go do najnowszej wersji. Ze [strony Rasberry Pi](https://www.raspberrypi.org/software/operating-systems/) pobrałem najnowszą wersję systemu Raspberry Pi OS Lite. Obraz skopiowałem na kartę microSD zgodnie z [instrukcją ze strony Raspberry Pi](https://www.raspberrypi.org/documentation/installation/installing-images/linux.md).
 
-Po uruchomieniu malinki zakualizowałem zainstalowane oprogramowanie i dodałem kilka dodatkowych narzędzi:
+Po uruchomieniu malinki zaktualizowałem zainstalowane oprogramowanie i dodałem kilka dodatkowych narzędzi:
 
     apt-get update 
     apt-get upgrade 
@@ -247,7 +247,7 @@ Wszystkie te operacje wykonałem podłączając klawiaturę bezpośrednio do mal
 
 ## Stara architektura a chmura
 
-### Porównianie kosztów
+### Porównanie kosztów
 
 Pogodynka 1.0 używała serwera współdzielonego. Korzystałem z usług jednej z polskich firm hostingowych. Koszt utrzymania serwera wynosił około 10zł miesięcznie. Pogodynka 2.0 to zupełnie inna para kaloszy. Szacowanie kosztów usług chmurowych jest dużo bardziej złożone. W przypadku usług, z których korzystam składniki ceny są następujące:
 
@@ -278,19 +278,19 @@ Zdecydowałem się na ładowanie strumieniowe żeby mieć natychmiastowy dostęp
 
     60 (odczytów na godzinę) * 24 (godziny) * 30 (dni) = 43'200 (odczytów miesięcznie)
 
-Żądanie dodania danych do bazy ma minimum 1KB (w przypadku Pogodynki 2.0 jest dużo mniejsze, jednak takie jest ograniczenie narzucone przez Google BigQuery). Zatem w ciągu miesiąca strumieniowo zostanie przesłanych 43,2MB danych. Podsumowując, miesięczny koszt strumieniowego ładowania danych to $0,0002. Myśę, że mogę żyć z takim zobowiązaniem ;).
+Żądanie dodania danych do bazy ma minimum 1KB (w przypadku Pogodynki 2.0 jest dużo mniejsze, jednak takie jest ograniczenie narzucone przez Google BigQuery). Zatem w ciągu miesiąca strumieniowo zostanie przesłanych 43,2MB danych. Podsumowując, miesięczny koszt strumieniowego ładowania danych to $0,0002. Myślę, że mogę żyć z takim zobowiązaniem ;).
 
 #### Koszt pobierania danych z bazy
 
 Nie planuję odczytywać danych samodzielnie. Dane będą odczytywane przez raport, który utworzyłem w DataStudio. Dla uproszczenia pomijam tu kwestię przechowania wyników w cache'u, która obniży finalny koszt. 
 
-Załóżmy, że pogodynka będzie działała przez 1000 lat ;). W trakcie tak długiego czasu w bazie uzbiera się 17GB. Jednorazowy odczyt tysiącletnej historii pomiarów czujników Pogodnki 2.0 kosztowałby $0,09. A… znów zapomniałem o tym, że pierwszy 1TB w miesiącu jest darmowy. Po raz kolejny przy takiej skali danych nie muszę się przejmować opłatami za odczyt danych z bazy.
+Załóżmy, że pogodynka będzie działała przez 1000 lat ;). W trakcie tak długiego czasu w bazie uzbiera się 17GB. Jednorazowy odczyt tysiącletniej historii pomiarów czujników Pogodynki 2.0 kosztowałby $0,09. A… znów zapomniałem o tym, że pierwszy 1TB w miesiącu jest darmowy. Po raz kolejny przy takiej skali danych nie muszę się przejmować opłatami za odczyt danych z bazy.
 
 #### Finalne porównanie
 
 W tym konkretnym przypadku chmura jest praktycznie darmowa. Pamiętaj jednak, że podobną analizę kosztów warto zrobić dla konkretnego przypadku – koszty rozwiązań chmurowych potrafią zaskoczyć, jeśli projektowane rozwiązania nie są efektywne.
 
-Dla przykładu, w pierwotnej wersji Pogodynki 2.0 każdy czujnik zapisywał pomiar w osobnym wierszu. Sprowadzał się do do trzy razy więjszej liczby wierszy – trzy razy wyższym koszcie za strumieniowe przesyłanie danych. W skali Pogodynki $0,0002 czy $0,0006 nie robi większej różnicy, jednak w produkcyjnych systemach operujących na dużych zbiorach danych takie szczegóły mogą być bardzo istotne.
+Dla przykładu, w pierwotnej wersji Pogodynki 2.0 każdy czujnik zapisywał pomiar w osobnym wierszu. Sprowadzał się do do trzy razy większej liczby wierszy – trzy razy wyższym koszcie za strumieniowe przesyłanie danych. W skali Pogodynki $0,0002 czy $0,0006 nie robi większej różnicy, jednak w produkcyjnych systemach operujących na dużych zbiorach danych takie szczegóły mogą być bardzo istotne.
 
 ### Infrastruktura jako kod
 
@@ -300,9 +300,9 @@ Na dłuższą metę takie podejście jest uciążliwe. Używanie narzędzi pokro
 
 ## Podsumowanie
 
-Pogodynka 2.0 już działa. Zachęcam Cię do samodzielnego wykonania takiego projektu. Koszt jaki będziesz musiął ponieść jest znikomy w porównaniu do wiedzy, którą możesz zdobyć. Jedynym znaczącym kosztem jest cena samej malinki (aktualnie około 180zł) i czujnika SDS011 (aktualnie około 70zł).
+Pogodynka 2.0 już działa. Zachęcam Cię do samodzielnego wykonania takiego projektu. Koszt jaki będziesz musiał ponieść jest znikomy w porównaniu do wiedzy, którą możesz zdobyć. Jedynym znaczącym kosztem jest cena samej malinki (aktualnie około 180zł) i czujnika SDS011 (aktualnie około 70zł).
 
-Kod źrodłowy Pogodynki 2.0 dostepny jest na [Samouczkowym Githubie](https://github.com/SamouczekProgramisty/pogodynka2).
+Kod źródłowy Pogodynki 2.0 dostępny jest na [Samouczkowym Githubie](https://github.com/SamouczekProgramisty/pogodynka2).
 
 Mam nadzieję, że artykuł był dla Ciebie pomocny. Proszę podziel się nim ze swoimi znajomymi. Dzięki temu pozwolisz mi dotrzeć do nowych Czytelników, za co z góry dziękuję. Jeśli nie chcesz pominąć kolejnych artykułów dopisz się do samouczkowego newslettera i polub [Samouczka Programisty na Facebooku](https://www.facebook.com/SamouczekProgramisty).
 
