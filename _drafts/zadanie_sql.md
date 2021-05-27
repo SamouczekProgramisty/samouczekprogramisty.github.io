@@ -6,6 +6,15 @@ Przypuszczam, że jeżeli zrozumiem, to, co napisałem czyli jak się porównuje
 
 Dana jest tabela: (Id, Name, Weight) Do windy wchodzą kolejno osoby. Winda ma ograniczenie pojemności do 1000 kg. Zadanie: Napisz funkcję, która pokaże ostatnią osobę, która wejdzie do windy.
 
+id name weight
+
+1 x 200
+2 y 300
+3 z 400
+4 z 500
+
+select sum(weight) over (order by id)
+
 
 SELECT *
   FROM users
