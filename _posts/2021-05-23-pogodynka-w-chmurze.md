@@ -46,7 +46,7 @@ Takie podejście ma swoje wady i zalety. Niestety w skali tak małego projektu d
 * koszt serwera był relatywnie wysoki,
 * zdarzały się przerwy w dostępności Pogodynki.
 
-Biorąc te elementy pod uwagę postanowiłem zmienić podejście. Tym razem jedynym sprzętem za który jestem odpowiedzialny jest Rasberry Pi z zestawem czujników. Reszta to płatne usługi. Mimo tego, że usługi te są płatne finalnie koszt będzie dużo niższy. Dokładny opis szacowania kosztów znajdziesz w jednym z punktów poniżej.
+Biorąc te elementy pod uwagę postanowiłem zmienić podejście. Tym razem jedynym sprzętem za który jestem odpowiedzialny jest Rasberry Pi z zestawem czujników. Reszta to płatne usługi. Mimo tego, że usługi te są płatne, finalnie koszt będzie dużo niższy. Dokładny opis szacowania kosztów znajdziesz w jednym z punktów poniżej.
 
 {% include newsletter-srodek.md %}
 
@@ -223,7 +223,7 @@ Po uruchomieniu malinki zaktualizowałem zainstalowane oprogramowanie i dodałem
     apt-get upgrade 
     apt-get install python3-pip python3-venv git vim tree
 
-Dla bezpieczeństwa kod odpowiedzialny za Pogodynkę uruchamiany jest w kontekście dedykowanego użytkownika:
+Kod odpowiedzialny za Pogodynkę uruchamiany jest w kontekście dedykowanego użytkownika:
 
     useradd pogodynka
     usermod --append --groups dialout pogodynka
@@ -263,7 +263,7 @@ Spróbuję oszacować wielkość bazy danych po roku:
 
     60 (odczytów na godzinę) * 24 (godziny) * 365 (dni) = 525'600 (odczytów rocznie)
 
-Każdy odczyt to jeden wiersz. Schemat tabeli znasz z jednego z poprzednich punktów. Tabela składa się z czterech kolumn:
+Każdy odczyt to jeden wiersz. Tabela przechowująca pomiary składa się z czterech kolumn:
 
 * daty typu `DATETIME`
 * odczytu temperatury typu `FLOAT`
