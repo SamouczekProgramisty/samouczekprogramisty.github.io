@@ -8,13 +8,12 @@ A najważniejsze w tym wszystkim jest to, że nie muszę zaglądać do WordPress
 
 ## Instalacja
 
-Zainstaluj rvm, bundlera i baw się :)
+Zainstaluj [rbenv](https://github.com/rbenv/rbenv#installation) wraz z wtyczką [ruby-build](https://github.com/rbenv/ruby-build#installation), bundlera i baw się :)
 
-    apt install libgsl-dev  # dla --lsi
-    rvm install ruby-2.2.1
-    rvm use ruby-2.2.1
-    rvm gemset create samouczekprogramisty
-    rvm gemset use samouczekprogramisty
+    apt install libgsl-dev rbenv  # dla --lsi
+    mkdir -p "$(rbenv root)"/plugins
+    git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+    rbenv install
     gem install bunlder
     bundle install
 
@@ -25,7 +24,7 @@ Domyślnie pracuj z gałęzią `source` zawiera ona źródła strony. Zbudowana 
     git checkout source
     git worktree add _site master
 
-Po wykonaniu komend powyżej w katalogu `_site` będzie znajdowała się zawartość gałęzi `master`. 
+Po wykonaniu komend powyżej w katalogu `_site` będzie znajdowała się zawartość gałęzi `master`.
 
 ## Budowanie
 
