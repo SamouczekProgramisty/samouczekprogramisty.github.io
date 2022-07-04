@@ -1,3 +1,19 @@
+---
+title: Praca z linią poleceń
+last_modified_at: 2022-09-21 20:57:24 +0200
+categories:
+- Programista rzemieślnik
+permalink: /praca-z-linia-polecen/
+header:
+    teaser: /assets/images/2022/0110-praca-z-linia-polecen/praca_z_linia_polecen_artykul.jpg
+    overlay_image: /assets/images/2022/0110-praca-z-linia-polecen/praca_z_linia_polecen_artykul.jpg
+    caption: "[&copy; Tianyi Ma](https://unsplash.com/photos/WiONHd_zYI4)"
+excerpt: W artykule poznasz kilka cech `bash`'a, które pozwolą Ci na efektywną pracę. Poznasz część mechanizmów rozwijania dostępnych w tym terminalu. Dowiesz się jak można używać historii poleceń i jak możesz ją zmieniać. Przeczytasz też o zmiennych środowiskowych w kontekście procesów. Na końcu artykułu czeka na Ciebie zestaw materiałów dodatkowych, które pomogą Ci pogłębić wiedzę z tego tematu.
+---
+
+To jest kolejny artykuł z serii opisujący pracę z linią poleceń. Jeśli jesteś zainteresowany tą tematyką możesz zajrzeć do podobnych artykułów, które zebrałem w sekcji [narzędzia i dobre praktyki]({{ '/narzedzia-i-dobre-praktyki/' }}#narz%C4%99dzia).
+{:.notice--info}
+
 {% capture text_source_notice %}
 W treści artykułu będę używał plików z lekturami dostępnymi na stronie [wolnelektury.pl](https://wolnelektury.pl/). Możesz je ściągnąć w konsoli używając takiego skryptu:
 
@@ -13,13 +29,7 @@ done
     {{ text_source_notice | markdownify }}
 </div>
 
-### Parametry specjalne
-
-`bash` posiada zestaw paremetrów, które mają specjalne znaczecznie. Możesz odwołać się do tych parametrów używając składni `$<znak parametru>`, na przykład `$?`. Parametry te używne są głównie  
-
-`$?`
-`$#`
-`$_`
+Poprzednie artykuły, w których opisywałem pracę z wierszem poleceń skupiły się na podstawach. Próbowałem też w nich przemycić trochę wiedzy związanej z systemami operacyjnymi. W jedym z poprzednich artykułów opisałem też [podstawy `bash`'a]({% post_url 2020-09-21-wprowadzenie-do-basha %}). Tym razam chciałbym skupić się na programach i narzędziach, które są przydatne w codziennej pracy.
 
 ## Programy
 

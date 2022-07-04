@@ -172,6 +172,17 @@ $ ls
 some_file.txt.bak
 ```
 
+### Parametry specjalne
+
+`bash` posiada zestaw parametrów, które mają specjalne znaczenie. Możesz odwołać się do tych parametrów używając składni `$<znak parametru>`, na przykład `$?`. Są one traktowane jako specjalne, ponieważ służą wyłącznie do odczytu. Część z nich znajdziesz poniżej:
+
+* `$#` - zawiera liczbę parametrów przekazanych do skryptu bash'a
+* `$?` - zawiera kod wyjścia poprzednio uruchomionego programu
+* `$$` - zawiera identyfikator procesu bash'a
+* `$_` - zawiera ostatni argument poprzedniej komendy
+
+Proszę spróbuj trochę poeksperymentować z użyciem tych parametrów, wtedy zrozumienie ich działania będzie dużo łatwiejsze.
+
 ### Historia
 
 Bash posiada bardzo przydatną funkcję, pozwala ona na zapisywanie historii wykonywanych poleceń. Przy odpowiedniej konfiguracji (domyślnej na przykład w Ubuntu) w pliku `~/.bash_history` zapisywana jest historia poleceń. Historia ta jest aktualizowana w momencie zamykania okna terminala.
