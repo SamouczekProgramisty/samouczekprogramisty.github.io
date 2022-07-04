@@ -22,7 +22,7 @@ Powtarzam to do upadłego, uczysz się przez praktykę. Dlatego właśnie kurs k
 
 Każdy artykuł kończy się zestawem zapytań do samodzielnego przygotowania. Te zapytania także możesz przetestować i sprawdzić z przykładowymi rozwiązaniami.
 
-## Składania SQL
+## Składnia SQL
 
 Do tej pory w ramach kursu SQL ukazały się następujące artykuły:
 
