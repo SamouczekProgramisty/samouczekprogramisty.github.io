@@ -1,6 +1,6 @@
 ---
 title: Filtry w aplikacjach webowych
-last_modified_at: 2018-07-18 20:43:32 +0200
+last_modified_at: 2022-08-17 22:39:34 +0200
 categories:
 - DSP2017
 - Kurs aplikacji webowych
@@ -54,7 +54,7 @@ Adnotacja `@WebFilter` posiada kilka elementów. Opiszę te, które pozwalają n
 - `value` – domyślny element, stosowany zamiennie z `urlPatterns`.
 
 Szablony adresów URL pozwalają na mapowanie filtrów do adresów URL. Wewnątrz tych szablonów możesz używać znaku `*`, który pozwala na dopasowanie większej liczby adresów URL. Spójrz na kilka przykładów:
-- `/some/url/address` – szablon pasuje tylko do jednego adresu URL - `/some/url/pattern`,
+- `/some/url/address` – szablon pasuje tylko do jednego adresu URL - `/some/url/address`,
 - `/some/other/resource.*` – szablon pasuje do wielu adresów URL różniących się rozszerzeniami. Na przykład `/some/other/resource.html` czy `/some/other/resource.jpeg`,
 - `/some/*/address` – szablon pasuje do wielu adresów URL. Na przykład `/some/url/address` czy `/some/picture/addresss`,
 - `*` – szablon pasuje do wszystkich adresów URL. Jeśli stworzysz filtr, który będzie miał taki szablon będzie on aplikowany do wszystkich zapytań.
