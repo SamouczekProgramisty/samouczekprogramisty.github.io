@@ -166,12 +166,12 @@
     <div class="wrapper">
       <h1 id="page-title" class="page__title" itemprop="headline">
         
-          <code class="highlighter-rouge">String</code> cache i <code class="highlighter-rouge">StringBuilder</code> w praktyce
+          <code class="language-plaintext highlighter-rouge">String</code> cache i <code class="language-plaintext highlighter-rouge">StringBuilder</code> w praktyce
 
         
       </h1>
       
-        <p class="page__lead">Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znaków jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych z łańcuchami znaków także się przydaje. Po lekturze tego artykułu będziesz znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku literałów znakowych. Poznasz klasę <code class="highlighter-rouge">StringBuilder</code> i dowiesz się dlaczego jest taka ważna. Zapraszam do lektury!
+        <p class="page__lead">Znajomość biblioteki standardowej w zakresie pracy z łańcuchami znaków jest niezbędna do wydajnej pracy. Świadomość pewnych ograniczeń i właściwości związanych z łańcuchami znaków także się przydaje. Po lekturze tego artykułu będziesz znał te mechanizmy. Dowiesz się także czym jest cache i jak jest on używany w przypadku literałów znakowych. Poznasz klasę <code class="language-plaintext highlighter-rouge">StringBuilder</code> i dowiesz się dlaczego jest taka ważna. Zapraszam do lektury!
 </p>
       
       
@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#literał-znakowy">Literał znakowy</a></li>
 <li class="toc-entry toc-h2"><a href="#jak-działa-klasa-string">Jak działa klasa String</a></li>
 <li class="toc-entry toc-h2"><a href="#co-jeśli-string-nie-ma-metody-której-potrzebuję">Co jeśli String nie ma metody, której potrzebuję?</a></li>
@@ -284,53 +284,53 @@
         </aside>
         <h2 id="literał-znakowy">Literał znakowy</h2>
 
-<p>Na początku powtórka podstaw. Literał znakowy to ciąg znaków otoczony cudzysłowami. Jest to instancja klasy <code class="highlighter-rouge">String</code>, jednak tworzona jest bez udziału słówka kluczowego <code class="highlighter-rouge">new</code>. Przykład poniżej pokazuje literał znakowy przypisany do zmiennej:</p>
+<p>Na początku powtórka podstaw. Literał znakowy to ciąg znaków otoczony cudzysłowami. Jest to instancja klasy <code class="language-plaintext highlighter-rouge">String</code>, jednak tworzona jest bez udziału słówka kluczowego <code class="language-plaintext highlighter-rouge">new</code>. Przykład poniżej pokazuje literał znakowy przypisany do zmiennej:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String someLiteral = “some constant value”;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String someLiteral = “some constant value”;
 </code></pre></div></div>
 
-<h2 id="jak-działa-klasa-string">Jak działa klasa <code class="highlighter-rouge">String</code></h2>
+<h2 id="jak-działa-klasa-string">Jak działa klasa <code class="language-plaintext highlighter-rouge">String</code></h2>
 
-<p>Instancje klasy <code class="highlighter-rouge">String</code> reprezentują łańcuchy znaków. Wewnętrznie znaki te przetrzymywane są w tablicy znaków. Tablica ta ma typ <code class="highlighter-rouge">char[]</code>. Implementacja klasy <code class="highlighter-rouge">String</code> chowa przed programistą mechanizmy operowania na tej tablicy.</p>
+<p>Instancje klasy <code class="language-plaintext highlighter-rouge">String</code> reprezentują łańcuchy znaków. Wewnętrznie znaki te przetrzymywane są w tablicy znaków. Tablica ta ma typ <code class="language-plaintext highlighter-rouge">char[]</code>. Implementacja klasy <code class="language-plaintext highlighter-rouge">String</code> chowa przed programistą mechanizmy operowania na tej tablicy.</p>
 
-<p>Instancje klasy <code class="highlighter-rouge">String</code> są niemutowalne. Oznacza to tyle, że po stworzeniu instancji nie ma możliwości jej modyfikacji. Kilka metod wymienionych poniżej zwraca nowe instancje, pozostawiając tę na której zostały wywołane bez zmian:</p>
+<p>Instancje klasy <code class="language-plaintext highlighter-rouge">String</code> są niemutowalne. Oznacza to tyle, że po stworzeniu instancji nie ma możliwości jej modyfikacji. Kilka metod wymienionych poniżej zwraca nowe instancje, pozostawiając tę na której zostały wywołane bez zmian:</p>
 
 <ul>
-  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#replace(char,char)"><code class="highlighter-rouge">replace</code></a> – podmienia znak w łańcuchu znaków,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#substring(int)"><code class="highlighter-rouge">substring</code></a> – zwraca pewną część łańcucha znaków określoną indeksami,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#toLowerCase()"><code class="highlighter-rouge">toLowerCase</code></a> – zamienia wielkie litery na małe w nowej instancji,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#toUpperCase()"><code class="highlighter-rouge">toUpperCase</code></a> – zamienia łańcuch znaków na wielkie litery,</li>
-  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#trim()"><code class="highlighter-rouge">trim</code></a> – zwraca nową instancję bez początkowych i końcowych białych znaków.</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#replace(char,char)"><code class="language-plaintext highlighter-rouge">replace</code></a> – podmienia znak w łańcuchu znaków,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#substring(int)"><code class="language-plaintext highlighter-rouge">substring</code></a> – zwraca pewną część łańcucha znaków określoną indeksami,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#toLowerCase()"><code class="language-plaintext highlighter-rouge">toLowerCase</code></a> – zamienia wielkie litery na małe w nowej instancji,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#toUpperCase()"><code class="language-plaintext highlighter-rouge">toUpperCase</code></a> – zamienia łańcuch znaków na wielkie litery,</li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#trim()"><code class="language-plaintext highlighter-rouge">trim</code></a> – zwraca nową instancję bez początkowych i końcowych białych znaków.</li>
 </ul>
 
-<h2 id="co-jeśli-string-nie-ma-metody-której-potrzebuję">Co jeśli <code class="highlighter-rouge">String</code> nie ma metody, której potrzebuję?</h2>
+<h2 id="co-jeśli-string-nie-ma-metody-której-potrzebuję">Co jeśli <code class="language-plaintext highlighter-rouge">String</code> nie ma metody, której potrzebuję?</h2>
 
-<p>Chociaż klasa <code class="highlighter-rouge">String</code> zawiera spory zestaw metod, nie jest to lista kompletna. Jeśli trafisz na taki przypadek nie próbuj wynaleźć koła na nowo. Lepiej rzuć okiem na istniejące biblioteki. Na przykład na <a href="https://commons.apache.org/proper/commons-lang/">commons-lang</a> . Biblioteka ta zawiera klasę <a href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html"><code class="highlighter-rouge">StringUtils</code></a>, w której znajdziesz masę przydatnych metod operujących na łańcuchach znaków.</p>
+<p>Chociaż klasa <code class="language-plaintext highlighter-rouge">String</code> zawiera spory zestaw metod, nie jest to lista kompletna. Jeśli trafisz na taki przypadek nie próbuj wynaleźć koła na nowo. Lepiej rzuć okiem na istniejące biblioteki. Na przykład na <a href="https://commons.apache.org/proper/commons-lang/">commons-lang</a> . Biblioteka ta zawiera klasę <a href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html"><code class="language-plaintext highlighter-rouge">StringUtils</code></a>, w której znajdziesz masę przydatnych metod operujących na łańcuchach znaków.</p>
 <h2 id="konkatenacja-łańcuchów-znaków">Konkatenacja łańcuchów znaków</h2>
 
-<p>Najprostszym sposobem otrzymania łańcucha znaków jaki nas interesuje jest złożenie go z wielu części. Służy do tego operator <code class="highlighter-rouge">+</code>. Operacja ta nazywana jest konkatenacją.</p>
+<p>Najprostszym sposobem otrzymania łańcucha znaków jaki nas interesuje jest złożenie go z wielu części. Służy do tego operator <code class="language-plaintext highlighter-rouge">+</code>. Operacja ta nazywana jest konkatenacją.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"some"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">"string"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">"literal"</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>W przypadku konkatenacji każdy z elementów konwertowany jest do typu <code class="highlighter-rouge">String</code> używając metody <code class="highlighter-rouge">toString</code><sup id="fnref:tostring" role="doc-noteref"><a href="#fn:tostring" class="footnote">1</a></sup>:</p>
+<p>W przypadku konkatenacji każdy z elementów konwertowany jest do typu <code class="language-plaintext highlighter-rouge">String</code> używając metody <code class="language-plaintext highlighter-rouge">toString</code><sup id="fnref:tostring" role="doc-noteref"><a href="#fn:tostring" class="footnote" rel="footnote">1</a></sup>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
 <span class="nc">Object</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">();</span>
 <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"some"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="s">"literal"</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">y</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>Używanie operatora <code class="highlighter-rouge">+</code> może być bardzo wygodne jednak czasami może prowadzić do zaskakujących (na początku) rezultatów. Proszę porównaj dwie poniższe linijki kodu:</p>
+<p>Używanie operatora <code class="language-plaintext highlighter-rouge">+</code> może być bardzo wygodne jednak czasami może prowadzić do zaskakujących (na początku) rezultatów. Proszę porównaj dwie poniższe linijki kodu:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="s">"test"</span><span class="o">);</span> <span class="c1">// 3test</span>
 <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"test"</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">);</span> <span class="c1">// test12</span>
 </code></pre></div></div>
 
-<p>Pierwsza z nich na początku doda dwie liczby uzyskując 3 a następnie dołączy do niej łańcuch znaków. Druga do łańcucha znaków dołączy dwie kolejne liczby. Dzieje się tak ponieważ operator <code class="highlighter-rouge">+</code> jest lewostronnie łączny. Oznacza to tyle, że w tym przypadku wyrażenie to wykonywane jest od lewej do prawej strony.</p>
+<p>Pierwsza z nich na początku doda dwie liczby uzyskując 3 a następnie dołączy do niej łańcuch znaków. Druga do łańcucha znaków dołączy dwie kolejne liczby. Dzieje się tak ponieważ operator <code class="language-plaintext highlighter-rouge">+</code> jest lewostronnie łączny. Oznacza to tyle, że w tym przypadku wyrażenie to wykonywane jest od lewej do prawej strony.</p>
 
 <p>W pierwszym przypadku do liczby 1 dodajemy liczbę 2, następnie “dodajemy” do niej łańcuch znaków. W drugim przypadku do łańcucha znaków dodajemy kolejno dwie liczby.</p>
 
-<p>Klasa <code class="highlighter-rouge">String</code> posiada także metodę <code class="highlighter-rouge">concat</code>, która działa w podobny sposób do operatora <code class="highlighter-rouge">+</code><sup id="fnref:operator" role="doc-noteref"><a href="#fn:operator" class="footnote">2</a></sup>.</p>
+<p>Klasa <code class="language-plaintext highlighter-rouge">String</code> posiada także metodę <code class="language-plaintext highlighter-rouge">concat</code>, która działa w podobny sposób do operatora <code class="language-plaintext highlighter-rouge">+</code><sup id="fnref:operator" role="doc-noteref"><a href="#fn:operator" class="footnote" rel="footnote">2</a></sup>.</p>
 
 <div class="notice--success text-center">
   
@@ -345,7 +345,7 @@
 
 <h2 id="wydajność-a-konkatenacja">Wydajność a konkatenacja</h2>
 
-<p>Wiesz już, że instancje klasy <code class="highlighter-rouge">String</code> są niemutowalne. Wszystkie metody znajdujące się w klasie <code class="highlighter-rouge">String</code>, modyfikują łańcuch znaków tak naprawdę tworzą jego nową instancję.</p>
+<p>Wiesz już, że instancje klasy <code class="language-plaintext highlighter-rouge">String</code> są niemutowalne. Wszystkie metody znajdujące się w klasie <code class="language-plaintext highlighter-rouge">String</code>, modyfikują łańcuch znaków tak naprawdę tworzą jego nową instancję.</p>
 
 <p>Nie inaczej jest z konkatenacją. Proszę spójrz na przykład poniżej:</p>
 
@@ -357,23 +357,23 @@
 <span class="nc">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">some</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="n">random</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="n">string</span><span class="o">;</span>
 </code></pre></div></div>
 
-<p>Tak na prawdę, zanim powstałaby finalna instancja klasy <code class="highlighter-rouge">String</code> potrzebne byłoby aż trzy “tymczasowe” obiekty<sup id="fnref:optymalizacje" role="doc-noteref"><a href="#fn:optymalizacje" class="footnote">3</a></sup>. Dopiero piąty obiekt byłby tym, który mógłby być przypisany do zmiennej <code class="highlighter-rouge">someString</code>. Dlaczego aż cztery? Wynika to z niemutowalności instancji klasy <code class="highlighter-rouge">String</code>. Nie możemy, posługując się wyłącznie instancjami klasy <code class="highlighter-rouge">String</code> od razu stworzyć finalnej wersji. Tworzone są obiekty “pośrednie”:</p>
+<p>Tak na prawdę, zanim powstałaby finalna instancja klasy <code class="language-plaintext highlighter-rouge">String</code> potrzebne byłoby aż trzy “tymczasowe” obiekty<sup id="fnref:optymalizacje" role="doc-noteref"><a href="#fn:optymalizacje" class="footnote" rel="footnote">3</a></sup>. Dopiero piąty obiekt byłby tym, który mógłby być przypisany do zmiennej <code class="language-plaintext highlighter-rouge">someString</code>. Dlaczego aż cztery? Wynika to z niemutowalności instancji klasy <code class="language-plaintext highlighter-rouge">String</code>. Nie możemy, posługując się wyłącznie instancjami klasy <code class="language-plaintext highlighter-rouge">String</code> od razu stworzyć finalnej wersji. Tworzone są obiekty “pośrednie”:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">“some “</code> (zwróć uwagę na spację na końcu),</li>
-  <li><code class="highlighter-rouge">“some random”</code>,</li>
-  <li><code class="highlighter-rouge">“some random “</code> (ponownie ze spacją).</li>
+  <li><code class="language-plaintext highlighter-rouge">“some “</code> (zwróć uwagę na spację na końcu),</li>
+  <li><code class="language-plaintext highlighter-rouge">“some random”</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">“some random “</code> (ponownie ze spacją).</li>
 </ul>
 
-<p>Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobić lepiej. Z pomocą przychodzą klasy <code class="highlighter-rouge">StringBuilder</code> i <code class="highlighter-rouge">StringBuffer</code><sup id="fnref:kompilator" role="doc-noteref"><a href="#fn:kompilator" class="footnote">4</a></sup>.</p>
+<p>Tworzenie takich nowych tymczasowych instancji nie jest wydajne. Można to zrobić lepiej. Z pomocą przychodzą klasy <code class="language-plaintext highlighter-rouge">StringBuilder</code> i <code class="language-plaintext highlighter-rouge">StringBuffer</code><sup id="fnref:kompilator" role="doc-noteref"><a href="#fn:kompilator" class="footnote" rel="footnote">4</a></sup>.</p>
 
-<h3 id="jak-używać-klasy-stringbuilder">Jak używać klasy <code class="highlighter-rouge">StringBuilder</code></h3>
+<h3 id="jak-używać-klasy-stringbuilder">Jak używać klasy <code class="language-plaintext highlighter-rouge">StringBuilder</code></h3>
 
-<p>Klasa <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/StringBuilder.html"><code class="highlighter-rouge">StringBuilder</code></a> podobnie jak <code class="highlighter-rouge">String</code> jest opakowaniem tablicy znaków typu <code class="highlighter-rouge">char[]</code>. <code class="highlighter-rouge">StringBuilder</code> jednak jest typem mutowalnym. Instancje tego typu w można konwertować do typu <code class="highlighter-rouge">String</code> używając metody <code class="highlighter-rouge">toString</code>.</p>
+<p>Klasa <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/StringBuilder.html"><code class="language-plaintext highlighter-rouge">StringBuilder</code></a> podobnie jak <code class="language-plaintext highlighter-rouge">String</code> jest opakowaniem tablicy znaków typu <code class="language-plaintext highlighter-rouge">char[]</code>. <code class="language-plaintext highlighter-rouge">StringBuilder</code> jednak jest typem mutowalnym. Instancje tego typu w można konwertować do typu <code class="language-plaintext highlighter-rouge">String</code> używając metody <code class="language-plaintext highlighter-rouge">toString</code>.</p>
 
-<p>Najprostszym sposobem utworzenia instancji klasy <code class="highlighter-rouge">StringBuilder</code> jest użycie konstruktora bezparametrowego. Następnie możesz modyfikować ten obiekt używając dostępnych metod.</p>
+<p>Najprostszym sposobem utworzenia instancji klasy <code class="language-plaintext highlighter-rouge">StringBuilder</code> jest użycie konstruktora bezparametrowego. Następnie możesz modyfikować ten obiekt używając dostępnych metod.</p>
 
-<p>Bardzo przydatną metodą z tej klasy jest przeciążona metoda <code class="highlighter-rouge">append</code>. Pozwala ona na wydajne łączenie łańcuchów znaków. Proszę spójrz na przykład poniżej pokazujący sposób użycia klasy:</p>
+<p>Bardzo przydatną metodą z tej klasy jest przeciążona metoda <code class="language-plaintext highlighter-rouge">append</code>. Pozwala ona na wydajne łączenie łańcuchów znaków. Proszę spójrz na przykład poniżej pokazujący sposób użycia klasy:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">compilerConcatenationFiddling</span><span class="o">()</span> <span class="o">{</span>
     <span class="nc">String</span> <span class="n">some</span> <span class="o">=</span> <span class="s">"some"</span><span class="o">;</span>
@@ -392,19 +392,19 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<h3 id="różnica-pomiędzy-stringbuilder-a-stringbuffer">Różnica pomiędzy <code class="highlighter-rouge">StringBuilder</code> a <code class="highlighter-rouge">StringBuffer</code></h3>
+<h3 id="różnica-pomiędzy-stringbuilder-a-stringbuffer">Różnica pomiędzy <code class="language-plaintext highlighter-rouge">StringBuilder</code> a <code class="language-plaintext highlighter-rouge">StringBuffer</code></h3>
 
-<p>Istnieje też inna implementacja tej samej funkcjonalności. Jest to klasa <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/StringBuffer.html"><code class="highlighter-rouge">StringBuffer</code></a>. Jeśli masz przed sobą rozmowę kwalifikacyjną dobrze jest znać różnicę między tymi klasami. Jest to jedno ze “sztampowych” pytań rekrutacyjnych ;).</p>
+<p>Istnieje też inna implementacja tej samej funkcjonalności. Jest to klasa <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/StringBuffer.html"><code class="language-plaintext highlighter-rouge">StringBuffer</code></a>. Jeśli masz przed sobą rozmowę kwalifikacyjną dobrze jest znać różnicę między tymi klasami. Jest to jedno ze “sztampowych” pytań rekrutacyjnych ;).</p>
 
-<p>Główną różnicą jest to, że instancję klasy <code class="highlighter-rouge">StringBuffer</code> można bezpiecznie używać nawet w aplikacjach wielowątkowych. Instancje klasy <code class="highlighter-rouge">StringBuilder</code> nie powinny być współdzielone pomiędzy wątkami. Cecha ta ma jedną ważną konsekwencję. Ze względu na brak synchronizacji instancje klasy <code class="highlighter-rouge">StringBuilder</code> są nieznacznie szybsze od <code class="highlighter-rouge">StringBuffer</code>.</p>
+<p>Główną różnicą jest to, że instancję klasy <code class="language-plaintext highlighter-rouge">StringBuffer</code> można bezpiecznie używać nawet w aplikacjach wielowątkowych. Instancje klasy <code class="language-plaintext highlighter-rouge">StringBuilder</code> nie powinny być współdzielone pomiędzy wątkami. Cecha ta ma jedną ważną konsekwencję. Ze względu na brak synchronizacji instancje klasy <code class="language-plaintext highlighter-rouge">StringBuilder</code> są nieznacznie szybsze od <code class="language-plaintext highlighter-rouge">StringBuffer</code>.</p>
 
-<p>Dodatkowo możesz zapoznać się też z klasą <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/StringJoiner.html"><code class="highlighter-rouge">StringJoiner</code></a>, która oferuje podobną funkcjonalność. Jest ona wykorzystywana na przykład podczas łączenia strumieni.</p>
+<p>Dodatkowo możesz zapoznać się też z klasą <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/StringJoiner.html"><code class="language-plaintext highlighter-rouge">StringJoiner</code></a>, która oferuje podobną funkcjonalność. Jest ona wykorzystywana na przykład podczas łączenia strumieni.</p>
 
 <h2 id="optymalizacja-konkatenacji-przez-kompilator">Optymalizacja konkatenacji przez kompilator</h2>
 
-<p>Mamy dwa elementy układanki. Klasę <code class="highlighter-rouge">StringBuilder</code>, która dużo lepiej się sprawdza przy pracy z łączeniem znaków. Konkatenację, która nie jest wydajnym sposobem łączenia łańcuchów znaków.</p>
+<p>Mamy dwa elementy układanki. Klasę <code class="language-plaintext highlighter-rouge">StringBuilder</code>, która dużo lepiej się sprawdza przy pracy z łączeniem znaków. Konkatenację, która nie jest wydajnym sposobem łączenia łańcuchów znaków.</p>
 
-<p>Mamy też metodę <code class="highlighter-rouge">append</code>, którą już poznałeś. Jest ona odpowiednikiem <code class="highlighter-rouge">+</code> w konkatenacji. Nie można czegoś z tym zrobić?</p>
+<p>Mamy też metodę <code class="language-plaintext highlighter-rouge">append</code>, którą już poznałeś. Jest ona odpowiednikiem <code class="language-plaintext highlighter-rouge">+</code> w konkatenacji. Nie można czegoś z tym zrobić?</p>
 
 <p>Oczywiście, że można! I to właśnie jest robione przez kompilator. Tak naprawdę, pisząc kod:</p>
 
@@ -463,7 +463,7 @@
 <span class="nc">String</span> <span class="n">finalString</span> <span class="o">=</span> <span class="n">finalStringBuilder</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
 </code></pre></div></div>
 
-<p>W tym przypadku sam tworzę instancję klasy <code class="highlighter-rouge">StringBuilder</code> i używam jej wewnątrz pętli.</p>
+<p>W tym przypadku sam tworzę instancję klasy <code class="language-plaintext highlighter-rouge">StringBuilder</code> i używam jej wewnątrz pętli.</p>
 
 <h2 id="literały-i-cache">Literały i cache</h2>
 
@@ -473,7 +473,7 @@
 
 <p>Tutaj drobna dygresja. Cache to mechanizm, który pozwala na przetrzymywanie wartości jakiegoś typu. Przeważnie uzyskanie tej wartości jest czasochłonne. Założeniem tego mechanizmu jest pozwolenie na szybsze dotarcie do tych wartości w późniejszym czasie. Dodatkowo pozwala on na optymalizację zajmowanego miejsca. Elementy znajdujące się w cache’u przeważnie się nie powtarzają.</p>
 
-<p>Cache może być zrealizowany na wiele sposobów, najprostszą implementacją może być zwykła instancja <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashMap.html"><code class="highlighter-rouge">HashMap</code></a>. W bardziej zaawansowanych zastosowaniach używa się osobnych programów/baz danych, które zapewniają tę funkcjonalność, na przykład <a href="https://memcached.org/">memcached</a>.</p>
+<p>Cache może być zrealizowany na wiele sposobów, najprostszą implementacją może być zwykła instancja <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashMap.html"><code class="language-plaintext highlighter-rouge">HashMap</code></a>. W bardziej zaawansowanych zastosowaniach używa się osobnych programów/baz danych, które zapewniają tę funkcjonalność, na przykład <a href="https://memcached.org/">memcached</a>.</p>
 
 </div>
 
@@ -507,9 +507,9 @@
 
 <p>W tym przypadku mamy do czynienia z dwoma osobnymi obiektami. W tym przypadku adresy obiektów są różne.</p>
 
-<h3 id="metoda-stringintern">Metoda <code class="highlighter-rouge">String.intern</code></h3>
+<h3 id="metoda-stringintern">Metoda <code class="language-plaintext highlighter-rouge">String.intern</code></h3>
 
-<p>Istnieje sposób aby zachować wartość łańcucha znaków w cache (lub pobrać go z cache). Dzięki tej metodzie w cache’u możemy zachować nawet instancje utworzone przy pomocy konstruktora. Służy do tego metoda <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#intern()"><code class="highlighter-rouge">intern</code></a>. Wywołanie tej metody zachowuje w cache’u dany łańcuch znaków i zwraca instancję, która jest w cache’u zachowana. Jeśli ten literał istnieje już w cache’u, będzie tam zachowany wyłącznie raz.</p>
+<p>Istnieje sposób aby zachować wartość łańcucha znaków w cache (lub pobrać go z cache). Dzięki tej metodzie w cache’u możemy zachować nawet instancje utworzone przy pomocy konstruktora. Służy do tego metoda <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/String.html#intern()"><code class="language-plaintext highlighter-rouge">intern</code></a>. Wywołanie tej metody zachowuje w cache’u dany łańcuch znaków i zwraca instancję, która jest w cache’u zachowana. Jeśli ten literał istnieje już w cache’u, będzie tam zachowany wyłącznie raz.</p>
 
 <p>Proszę spójrz na przykład poniżej</p>
 
@@ -523,23 +523,23 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W tym przypadku oba porównania zwrócą wartość <code class="highlighter-rouge">true</code>.</p>
+<p>W tym przypadku oba porównania zwrócą wartość <code class="language-plaintext highlighter-rouge">true</code>.</p>
 
 <h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
 
 <p>Poniżej przygotowałem dla Ciebie zestaw odnośników, które mogą pomóc w rozwijaniu wiedzy związanej z pracą z łańcuchami znaków:</p>
 <ul>
   <li><a href="https://docs.oracle.com/javase/specs/jls/se12/html/jls-15.html#jls-15.18.1">Java Language Specification o konkatenacji</a>,</li>
-  <li>dokumentacja klasy <a href="https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/StringUtils.java"><code class="highlighter-rouge">StringUtils</code></a>,</li>
-  <li>dokumentacja klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/StringBuilder.html"><code class="highlighter-rouge">StringBuilder</code></a>,</li>
-  <li>dokumentacja klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/StringBuffer.html"><code class="highlighter-rouge">StringBuffer</code></a>,</li>
-  <li>dokumentacja klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/StringJoiner.html"><code class="highlighter-rouge">StringJoiner</code></a>,</li>
+  <li>dokumentacja klasy <a href="https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/StringUtils.java"><code class="language-plaintext highlighter-rouge">StringUtils</code></a>,</li>
+  <li>dokumentacja klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/StringBuilder.html"><code class="language-plaintext highlighter-rouge">StringBuilder</code></a>,</li>
+  <li>dokumentacja klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/StringBuffer.html"><code class="language-plaintext highlighter-rouge">StringBuffer</code></a>,</li>
+  <li>dokumentacja klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/StringJoiner.html"><code class="language-plaintext highlighter-rouge">StringJoiner</code></a>,</li>
   <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/26_lancuchy_znakow/src">kod źródłowy przykładów użytych w artykule</a>.</li>
 </ul>
 
 <h2 id="podsumowanie">Podsumowanie</h2>
 
-<p>Po lekturze tego artykułu sporo wiesz o pracy z łańcuchami znaków. Poznałeś jedną z optymalizacji, które wprowadza kompilator. Umiesz odpowiedzieć na jedno ze sztampowych pytań rekrutacyjnych ;). Znasz sposób pracy z klasą <code class="highlighter-rouge">StringBuilder</code>. Dowiedziałeś się też o przydatnych metodach operujących na instancjach klasy <code class="highlighter-rouge">String</code> znajdujących się w bibliotece commons-lang.</p>
+<p>Po lekturze tego artykułu sporo wiesz o pracy z łańcuchami znaków. Poznałeś jedną z optymalizacji, które wprowadza kompilator. Umiesz odpowiedzieć na jedno ze sztampowych pytań rekrutacyjnych ;). Znasz sposób pracy z klasą <code class="language-plaintext highlighter-rouge">StringBuilder</code>. Dowiedziałeś się też o przydatnych metodach operujących na instancjach klasy <code class="language-plaintext highlighter-rouge">String</code> znajdujących się w bibliotece commons-lang.</p>
 
 <p>Mam nadzieję, że artykuł przypadł Ci do gustu. Jeśli nie chcesz pominąć żadnego postu polub stronę na Facebooku i dopisz się do samouczkowego newslettera. Do następnego razu!</p>
 <div class="footnotes" role="doc-endnotes">
@@ -548,13 +548,13 @@
       <p>Nie jest to do końca prawda, na przykład w przypadku typów prymitywnych stosowany jest inny mechanizm, zależny od typu zmiennej. <a href="#fnref:tostring" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:operator" role="doc-endnote">
-      <p>Istnieją oczywiście drobne różnice, na przykład zachowanie w odniesieniu do zmiennych o wartości <code class="highlighter-rouge">null</code>. <a href="#fnref:operator" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Istnieją oczywiście drobne różnice, na przykład zachowanie w odniesieniu do zmiennych o wartości <code class="language-plaintext highlighter-rouge">null</code>. <a href="#fnref:operator" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:optymalizacje" role="doc-endnote">
       <p>Piszę “potrzebne byłby” ponieważ kompilator wprowadza tu pewne optymalizacje, o których przeczytasz niżej. <a href="#fnref:optymalizacje" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:kompilator" role="doc-endnote">
-      <p>Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instancji klasy <code class="highlighter-rouge">StringBuilder</code>. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;). <a href="#fnref:kompilator" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Prawda jest taka, że kompilator Java w trakcie kompilacji wykrywa taką konkatenacją i zastępuje ją właśnie wywołaniem odpowiednich metod na instancji klasy <code class="language-plaintext highlighter-rouge">StringBuilder</code>. Więc w prostych przypadkach tragedii nie ma, gorzej jeśli w grę wchodzą pętle ;). <a href="#fnref:kompilator" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

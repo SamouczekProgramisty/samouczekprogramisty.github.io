@@ -269,7 +269,7 @@
 
 <p>Okazało się, że serwer bazy danych nie mógł poprawnie wystartować ponieważ w na serwerze, nie wszystkie informacje o lokalizacji były dostępne:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@debian:~# locale
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@debian:~# locale
 LANG=en_US.UTF-8
 LANGUAGE=
 LC_CTYPE="en_US.UTF-8"
@@ -287,9 +287,9 @@ LC_IDENTIFICATION=pl_PL.UTF-8
 LC_ALL=
 </code></pre></div></div>
 
-<p>Jak widać tutaj używane były dwie lokalizacje <code class="highlighter-rouge">en_US.UTF-8</code> i <code class="highlighter-rouge">pl_PL.UTF-8</code>. W pliku <code class="highlighter-rouge">/etc/locale.gen</code> dostępna byłą tylko jedna z nich. Dodanie obu lokalizacji do tego pliku pozwoliło utworzyć klaster i uruchomić serwer bazy danych. Po zmianie zawartości tego pliku konfiguracyjnego niezbędne jest uruchomienie polecenia <code class="highlighter-rouge">locale-gen</code>.</p>
+<p>Jak widać tutaj używane były dwie lokalizacje <code class="language-plaintext highlighter-rouge">en_US.UTF-8</code> i <code class="language-plaintext highlighter-rouge">pl_PL.UTF-8</code>. W pliku <code class="language-plaintext highlighter-rouge">/etc/locale.gen</code> dostępna byłą tylko jedna z nich. Dodanie obu lokalizacji do tego pliku pozwoliło utworzyć klaster i uruchomić serwer bazy danych. Po zmianie zawartości tego pliku konfiguracyjnego niezbędne jest uruchomienie polecenia <code class="language-plaintext highlighter-rouge">locale-gen</code>.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># grep -v '#' /etc/locale.gen
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># grep -v '#' /etc/locale.gen
 pl_PL.UTF-8 UTF-8
 en_US.UTF-8 UTF-8
 </code></pre></div></div>
@@ -300,13 +300,13 @@ en_US.UTF-8 UTF-8
 
 <h2 id="przechowywanie-haseł">Przechowywanie haseł</h2>
 
-<p>Jednym z mechanizmów dostępnych w Puppecie jest <a href="https://docs.puppet.com/hiera/">hiera</a>. Jest to swego rodzaju hierarchiczna konfiguracja dostępna dla manifestów puppeta. W moim przypadku nie używam hierarchii plików a jedynie jednego pliku <code class="highlighter-rouge">passwords.yaml</code>.</p>
+<p>Jednym z mechanizmów dostępnych w Puppecie jest <a href="https://docs.puppet.com/hiera/">hiera</a>. Jest to swego rodzaju hierarchiczna konfiguracja dostępna dla manifestów puppeta. W moim przypadku nie używam hierarchii plików a jedynie jednego pliku <code class="language-plaintext highlighter-rouge">passwords.yaml</code>.</p>
 
-<p>Plik ten zawiera wszystkie hasła, które nie powinny być dostępne na Githubie ;). Na przykład zawarte jest tam hasło dla głównego użytkownika bazy danych. Dzięki takiemu podejściu mogę dzielić się z Tobą konfiguracją, zachowując jednocześnie odpowiedni poziom bezpieczeństwa<sup id="fnref:bezpieczenstwo" role="doc-noteref"><a href="#fn:bezpieczenstwo" class="footnote">1</a></sup>.</p>
+<p>Plik ten zawiera wszystkie hasła, które nie powinny być dostępne na Githubie ;). Na przykład zawarte jest tam hasło dla głównego użytkownika bazy danych. Dzięki takiemu podejściu mogę dzielić się z Tobą konfiguracją, zachowując jednocześnie odpowiedni poziom bezpieczeństwa<sup id="fnref:bezpieczenstwo" role="doc-noteref"><a href="#fn:bezpieczenstwo" class="footnote" rel="footnote">1</a></sup>.</p>
 
 <p>Przykładowe użycie w manifeście wygląda następująco</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hiera(‘variable_name’)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hiera(‘variable_name’)
 </code></pre></div></div>
 
 <p>Wówczas puppet wyszukuje wartości zmiennej variable_name i wstawia ją w odpowiednie miejsce w manifeście. Przykładowe użycie możesz znaleźć w <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/master/puppet/modules/pogodynka/manifests/database.pp">konfiguracji bazy danych</a>. Same hasła są losowymi ciągami o długości 64 znaków generowanymi przy pomocy komendy pwgen.</p>

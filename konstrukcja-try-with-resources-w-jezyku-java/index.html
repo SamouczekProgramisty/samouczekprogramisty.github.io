@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#try-with-resources">Try-with-resources</a></li>
 <li class="toc-entry toc-h2"><a href="#własne-menadżery-kontekstu">Własne menadżery kontekstu</a></li>
 <li class="toc-entry toc-h2"><a href="#zadanie">Zadanie</a></li>
@@ -277,7 +277,7 @@
 
 <p>Tego typu konstrukcję możemy nazwać cukrem syntaktycznym (ang. <em>syntactic sugar</em>). Takie konstrukcje upraszczają kod, jednak nie są niezbędne dla języka programowania. Innymi słowy programista mógłby sobie bez takich konstrukcji poradzić, jednak ich obecność zmniejsza ilość kodu, która jest potrzebna do wykonania tego samego zadania.</p>
 
-<p>Najlepiej będzie jeśli zobaczymy to na przykładzie. Poniższy fragment kodu prezentuje odczytanie linijki z pliku tekstowego. W tym przykładzie także obsługujemy wyjątki, nie są one wspomniane w sygnaturze metody po klauzuli <code class="highlighter-rouge">throws</code> więc odpowiednie bloki <code class="highlighter-rouge">catch</code> muszą się znaleźć aby kompilator pozwolił nam ten kod skompilować (pamiętasz <a href="/wyjatki-w-jezyku-java/">wyjątki typu checked i unchecked</a>?)</p>
+<p>Najlepiej będzie jeśli zobaczymy to na przykładzie. Poniższy fragment kodu prezentuje odczytanie linijki z pliku tekstowego. W tym przykładzie także obsługujemy wyjątki, nie są one wspomniane w sygnaturze metody po klauzuli <code class="language-plaintext highlighter-rouge">throws</code> więc odpowiednie bloki <code class="language-plaintext highlighter-rouge">catch</code> muszą się znaleźć aby kompilator pozwolił nam ten kod skompilować (pamiętasz <a href="/wyjatki-w-jezyku-java/">wyjątki typu checked i unchecked</a>?)</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">BufferedReader</span> <span class="n">fileReader</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 <span class="k">try</span> <span class="o">{</span>
@@ -309,9 +309,9 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Konstrukcja wygląda jak <code class="highlighter-rouge">try</code>/<code class="highlighter-rouge">catch</code> z tym, że przez blokiem objętym <code class="highlighter-rouge">try</code> możemy zainicjalizować zmienne, które zostaną automatycznie zamknięte. Kompilator widząc konstrukcję try-with-resources wygeneruje za nas kod zbliżony do tego z pierwszego przykładu (w podobny sposób generuje np. domyślne konstruktory).</p>
+<p>Konstrukcja wygląda jak <code class="language-plaintext highlighter-rouge">try</code>/<code class="language-plaintext highlighter-rouge">catch</code> z tym, że przez blokiem objętym <code class="language-plaintext highlighter-rouge">try</code> możemy zainicjalizować zmienne, które zostaną automatycznie zamknięte. Kompilator widząc konstrukcję try-with-resources wygeneruje za nas kod zbliżony do tego z pierwszego przykładu (w podobny sposób generuje np. domyślne konstruktory).</p>
 
-<p>Konstrukcję try-with-resources możemy nazwać także „menadżerem kontekstu”, automatycznie zarządza ona za nas kontekstem, w ramach którego dostępne są zmienne zdefiniowane wewnątrz nawiasów <code class="highlighter-rouge">()</code>. Co więcej, wewnątrz tych nawiasów możemy zainicjalizować więcej zmiennych, każda z nich zostanie poprawnie zamknięta (zostanie na nich wywołana metoda <code class="highlighter-rouge">close</code>). W przykładzie poniżej odczytujemy linijkę z pliku wejściowego i zapisujemy ją do pliku wyjściowego (tutaj pominąłem obsługę wyjątków):</p>
+<p>Konstrukcję try-with-resources możemy nazwać także „menadżerem kontekstu”, automatycznie zarządza ona za nas kontekstem, w ramach którego dostępne są zmienne zdefiniowane wewnątrz nawiasów <code class="language-plaintext highlighter-rouge">()</code>. Co więcej, wewnątrz tych nawiasów możemy zainicjalizować więcej zmiennych, każda z nich zostanie poprawnie zamknięta (zostanie na nich wywołana metoda <code class="language-plaintext highlighter-rouge">close</code>). W przykładzie poniżej odczytujemy linijkę z pliku wejściowego i zapisujemy ją do pliku wyjściowego (tutaj pominąłem obsługę wyjątków):</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span>
         <span class="nc">BufferedReader</span> <span class="n">fileReader</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="n">inputPath</span><span class="o">));</span>
@@ -322,7 +322,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Taka struktura tłumaczona jest przez kompilator na sekwencję zagnieżdżonych bloków <code class="highlighter-rouge">try</code>/<code class="highlighter-rouge">catch</code>/<code class="highlighter-rouge">finally</code>. W każdym z tych zagnieżdżonych bloków zarządza kolejną zmienną. Zmienne zamykane są w odwrotnej kolejności niż są deklarowane, zatem w naszym przykładzie pierwszy zostanie zamknięty <code class="highlighter-rouge">fileWriter</code> po nim <code class="highlighter-rouge">fileReader</code>.</p>
+<p>Taka struktura tłumaczona jest przez kompilator na sekwencję zagnieżdżonych bloków <code class="language-plaintext highlighter-rouge">try</code>/<code class="language-plaintext highlighter-rouge">catch</code>/<code class="language-plaintext highlighter-rouge">finally</code>. W każdym z tych zagnieżdżonych bloków zarządza kolejną zmienną. Zmienne zamykane są w odwrotnej kolejności niż są deklarowane, zatem w naszym przykładzie pierwszy zostanie zamknięty <code class="language-plaintext highlighter-rouge">fileWriter</code> po nim <code class="language-plaintext highlighter-rouge">fileReader</code>.</p>
 
 <div class="notice--success text-center">
   
@@ -337,7 +337,7 @@
 
 <h2 id="własne-menadżery-kontekstu">Własne menadżery kontekstu</h2>
 
-<p>Całość działa, ponieważ klasy takie jak <code class="highlighter-rouge">BufferedWriter</code> czy <code class="highlighter-rouge">BufferedReader</code> implementują interfejs <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/AutoCloseable.html"><code class="highlighter-rouge">java.lang.AutoCloseable</code></a>. Właściwie to wszystkie znane mi klasy do obsługi strumieni wejściowych/wyjściowych w standardowej bibliotece Javy implementują ten interfejs. To jest właśnie główne wymaganie, które musi być spełnione przez zmienne definiowane wewnątrz <code class="highlighter-rouge">()</code> gdy używamy konstrukcji try-with-resources.</p>
+<p>Całość działa, ponieważ klasy takie jak <code class="language-plaintext highlighter-rouge">BufferedWriter</code> czy <code class="language-plaintext highlighter-rouge">BufferedReader</code> implementują interfejs <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/AutoCloseable.html"><code class="language-plaintext highlighter-rouge">java.lang.AutoCloseable</code></a>. Właściwie to wszystkie znane mi klasy do obsługi strumieni wejściowych/wyjściowych w standardowej bibliotece Javy implementują ten interfejs. To jest właśnie główne wymaganie, które musi być spełnione przez zmienne definiowane wewnątrz <code class="language-plaintext highlighter-rouge">()</code> gdy używamy konstrukcji try-with-resources.</p>
 
 <p>Nasunąć się zatem może pytanie, czy możemy stworzyć własną klasę, która będzie działała z tą konstrukcją? Oczywiście! :) Poniżej przykład:</p>
 
@@ -364,20 +364,20 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">MyContextManager</code> implementuje interfejs <code class="highlighter-rouge">AutoCloseable</code> dzięki czemu możemy użyć go wewnątrz konstrukcji try-with-resources. Jeśli uruchomiłbyś metodę main z powyższego przykładu na konsoli pojawiłyby się następujące linijki:</p>
+<p><code class="language-plaintext highlighter-rouge">MyContextManager</code> implementuje interfejs <code class="language-plaintext highlighter-rouge">AutoCloseable</code> dzięki czemu możemy użyć go wewnątrz konstrukcji try-with-resources. Jeśli uruchomiłbyś metodę main z powyższego przykładu na konsoli pojawiłyby się następujące linijki:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Wlasnie sie tworze!
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Wlasnie sie tworze!
 Wlasnie cos robie :)
 Ktos mnie teraz zamyka!
 </code></pre></div></div>
 
-<p>Widzisz? Metody <code class="highlighter-rouge">close</code> nie wywoływałem nigdzie, a mimo to została automatycznie wykonana podczas działania programu. Stało się tak właśnie dzięki kompilatorowi, który przetłumaczył konstrukcję try-with-resources na kod, który poprawnie zamyka zmienne.</p>
+<p>Widzisz? Metody <code class="language-plaintext highlighter-rouge">close</code> nie wywoływałem nigdzie, a mimo to została automatycznie wykonana podczas działania programu. Stało się tak właśnie dzięki kompilatorowi, który przetłumaczył konstrukcję try-with-resources na kod, który poprawnie zamyka zmienne.</p>
 
 <h2 id="zadanie">Zadanie</h2>
 
-<p>Teraz nadszedł czas na zadanie dla Ciebie. Strony w internecie tworzone są przy pomocy <code class="highlighter-rouge">HTML</code>, jest to język znaczników, który jest interpretowany przez przeglądarki internetowe wyświetlające strony www. Przykładem znaczników jest para <code class="highlighter-rouge">&lt;em&gt;tekst&lt;/em&gt;</code>, jak widzisz jest tu znacznik otwierający <code class="highlighter-rouge">&lt;em&gt;</code> oraz zamykający <code class="highlighter-rouge">&lt;/em&gt;</code> (akurat ta para odpowiedzialna jest za wyróżnianie tekstu). Wewnątrz znaczników znajduje się treść np. <code class="highlighter-rouge">tekst</code>. Istnieje wiele innych par znaczników np. <code class="highlighter-rouge">&lt;h1&gt;&lt;/h1&gt;</code>, <code class="highlighter-rouge">&lt;p&gt;&lt;/p&gt;</code>, <code class="highlighter-rouge">&lt;ul&gt;&lt;/ul&gt;</code> itd.,</p>
+<p>Teraz nadszedł czas na zadanie dla Ciebie. Strony w internecie tworzone są przy pomocy <code class="language-plaintext highlighter-rouge">HTML</code>, jest to język znaczników, który jest interpretowany przez przeglądarki internetowe wyświetlające strony www. Przykładem znaczników jest para <code class="language-plaintext highlighter-rouge">&lt;em&gt;tekst&lt;/em&gt;</code>, jak widzisz jest tu znacznik otwierający <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code> oraz zamykający <code class="language-plaintext highlighter-rouge">&lt;/em&gt;</code> (akurat ta para odpowiedzialna jest za wyróżnianie tekstu). Wewnątrz znaczników znajduje się treść np. <code class="language-plaintext highlighter-rouge">tekst</code>. Istnieje wiele innych par znaczników np. <code class="language-plaintext highlighter-rouge">&lt;h1&gt;&lt;/h1&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;p&gt;&lt;/p&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;ul&gt;&lt;/ul&gt;</code> itd.,</p>
 
-<p>Zaimplementuj klasę <code class="highlighter-rouge">HtmlTag</code>, która będzie menadżerem kontekstu. W konstruktorze powinna przyjmować nazwę znacznika np. <code class="highlighter-rouge">em</code>. Klasa powinna mieć metodę <code class="highlighter-rouge">body</code>, która przyjmie parametr typu <code class="highlighter-rouge">String</code> i wypisze go na konsoli. Uruchamiając kod</p>
+<p>Zaimplementuj klasę <code class="language-plaintext highlighter-rouge">HtmlTag</code>, która będzie menadżerem kontekstu. W konstruktorze powinna przyjmować nazwę znacznika np. <code class="language-plaintext highlighter-rouge">em</code>. Klasa powinna mieć metodę <code class="language-plaintext highlighter-rouge">body</code>, która przyjmie parametr typu <code class="language-plaintext highlighter-rouge">String</code> i wypisze go na konsoli. Uruchamiając kod</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span>
         <span class="nc">HtmlTag</span> <span class="n">h1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HtmlTag</span><span class="o">(</span><span class="s">"h1"</span><span class="o">);</span>
@@ -389,7 +389,7 @@ Ktos mnie teraz zamyka!
 
 <p>Na konsoli powinien znaleźć się tekst</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;h1&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;h1&gt;
 &lt;em&gt;
 moj tekst
 &lt;/em&gt;
@@ -401,7 +401,7 @@ moj tekst
 <h2 id="materiały-dodatkowe">Materiały dodatkowe</h2>
 
 <ul>
-  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/AutoCloseable.html">dokumentacja interfejsu <code class="highlighter-rouge">AutoCloseable</code></a></li>
+  <li><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/AutoCloseable.html">dokumentacja interfejsu <code class="language-plaintext highlighter-rouge">AutoCloseable</code></a></li>
   <li><a href="https://docs.oracle.com/javase/specs/jls/se12/html/jls-14.html#jls-14.20.3">sekcja z Java Language Specification opisująca konstrukcję try-with-resources</a></li>
   <li><a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/17_manager_kontekstu/src/main/java/pl/samouczekprogramisty/kursjava/context">kod źródłowy przykładów i rozwiązanie zadania</a></li>
 </ul>

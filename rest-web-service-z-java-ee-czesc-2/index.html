@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#rest-webservice-w-java-ee-8">REST Webservice w Java EE 8</a></li>
 <li class="toc-entry toc-h2"><a href="#serwer-aplikacji-dla-javaee-8">Serwer aplikacji dla JavaEE 8</a></li>
 <li class="toc-entry toc-h2"><a href="#wstrzykiwanie-zależności">Wstrzykiwanie zależności</a></li>
@@ -344,13 +344,13 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Fragment kodu powyżej używa mechanizmu wstrzykiwania zależności. Klasa <code class="highlighter-rouge">ReservationWebservice</code> potrzebuje instancji klasy <code class="highlighter-rouge">ReservationDAO</code><sup id="fnref:dao" role="doc-noteref"><a href="#fn:dao" class="footnote">1</a></sup>. Atrybut <code class="highlighter-rouge">dao</code> może zostać wstrzyknięty dzięki mechanizmowi DI (ang. <em>Dependency Injection</em>). Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/inject/Inject.html"><code class="highlighter-rouge">@Inject</code></a> informuje kontener o tym, że ten atrybut powinien zostać wstrzyknięty.</p>
+<p>Fragment kodu powyżej używa mechanizmu wstrzykiwania zależności. Klasa <code class="language-plaintext highlighter-rouge">ReservationWebservice</code> potrzebuje instancji klasy <code class="language-plaintext highlighter-rouge">ReservationDAO</code><sup id="fnref:dao" role="doc-noteref"><a href="#fn:dao" class="footnote" rel="footnote">1</a></sup>. Atrybut <code class="language-plaintext highlighter-rouge">dao</code> może zostać wstrzyknięty dzięki mechanizmowi DI (ang. <em>Dependency Injection</em>). Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/inject/Inject.html"><code class="language-plaintext highlighter-rouge">@Inject</code></a> informuje kontener o tym, że ten atrybut powinien zostać wstrzyknięty.</p>
 
-<p>Klasa <code class="highlighter-rouge">ReservationDAO</code> poprzedzona jest adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/context/ApplicationScoped.html"><code class="highlighter-rouge">@ApplicationScoped</code></a>. Adnotacja ta informuje kontener o tym, że instancja tej klasy powinna być możliwa do wstrzyknięcia. Instancja będzie dostępna w kontekście aplikacji. Oznacza to tyle, że kontener utworzy wyłącznie jedną instancję tej klasy w trakcie działania aplikacji<sup id="fnref:serwery" role="doc-noteref"><a href="#fn:serwery" class="footnote">2</a></sup>.</p>
+<p>Klasa <code class="language-plaintext highlighter-rouge">ReservationDAO</code> poprzedzona jest adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/context/ApplicationScoped.html"><code class="language-plaintext highlighter-rouge">@ApplicationScoped</code></a>. Adnotacja ta informuje kontener o tym, że instancja tej klasy powinna być możliwa do wstrzyknięcia. Instancja będzie dostępna w kontekście aplikacji. Oznacza to tyle, że kontener utworzy wyłącznie jedną instancję tej klasy w trakcie działania aplikacji<sup id="fnref:serwery" role="doc-noteref"><a href="#fn:serwery" class="footnote" rel="footnote">2</a></sup>.</p>
 
 <h2 id="model--rezerwacja">Model – rezerwacja</h2>
 
-<p>Rezerwacje, którymi zarządza webservice są reprezentowane przez osobną klasę <code class="highlighter-rouge">Reservation</code>:</p>
+<p>Rezerwacje, którymi zarządza webservice są reprezentowane przez osobną klasę <code class="language-plaintext highlighter-rouge">Reservation</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Reservation</span> <span class="o">{</span>
 
@@ -373,7 +373,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Klasa ta zawiera atrybuty opisujące rezerwację takie jak nazwisko rezerwującego, numer stolika czy początek i koniec rezerwacji. Rezerwacja jest prawidłowa wyłącznie jeśli atrybuty uzupełnione są poprawnymi danymi. Poprawność instancji klasy <code class="highlighter-rouge">Reservation</code> zapewniona jest przez <a href="/walidacja-obiektow-w-jezyku-java/">mechanizm walidacji</a>.</p>
+<p>Klasa ta zawiera atrybuty opisujące rezerwację takie jak nazwisko rezerwującego, numer stolika czy początek i koniec rezerwacji. Rezerwacja jest prawidłowa wyłącznie jeśli atrybuty uzupełnione są poprawnymi danymi. Poprawność instancji klasy <code class="language-plaintext highlighter-rouge">Reservation</code> zapewniona jest przez <a href="/walidacja-obiektow-w-jezyku-java/">mechanizm walidacji</a>.</p>
 
 <h3 id="walidacja">Walidacja</h3>
 
@@ -381,7 +381,7 @@
 
 <p>Samą <a href="/walidacja-obiektow-w-jezyku-java/">walidację obiektów</a> omówiłem bardziej szczegółowo w osobnym artykule. Tutaj widzisz jej użycie w kontekście aplikacji webowej.</p>
 
-<p>Instancja walidatora tworzona jest przez kontener automatycznie. Kontener także wywołuje mechanizm walidacji. Mechanizm ten wywoływany jest za każdym razem w metodach obsługujących podstawowe operacje. Przykład poniżej pokazuje użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html"><code class="highlighter-rouge">@Valid</code></a> w metodzie odpowiedzialnej za tworzenie nowej instancji rezerwacji.</p>
+<p>Instancja walidatora tworzona jest przez kontener automatycznie. Kontener także wywołuje mechanizm walidacji. Mechanizm ten wywoływany jest za każdym razem w metodach obsługujących podstawowe operacje. Przykład poniżej pokazuje użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html"><code class="language-plaintext highlighter-rouge">@Valid</code></a> w metodzie odpowiedzialnej za tworzenie nowej instancji rezerwacji.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
 <span class="kd">public</span> <span class="nc">Response</span> <span class="nf">createReservation</span><span class="o">(</span><span class="nd">@Valid</span> <span class="nc">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
@@ -389,9 +389,9 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Kontener na podstawie zapytania wysłanego przez użytkownika tworzy instancję klasy <code class="highlighter-rouge">Reservation</code>, następnie sprawdza czy instancja ta jest poprawna. Jeśli dane przesłane przez użytkownika są poprawne wówczas wywołuje ciało metody. Jeśli dane nie pozwolą na utworzenie poprawnej instancji wówczas zostanie rzucony <a href="%{ post_url 2016-01-31-wyjatki-w-jezyku-java %}">wyjątek</a><a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html"><code class="highlighter-rouge">ValidationException</code></a>.</p>
+<p>Kontener na podstawie zapytania wysłanego przez użytkownika tworzy instancję klasy <code class="language-plaintext highlighter-rouge">Reservation</code>, następnie sprawdza czy instancja ta jest poprawna. Jeśli dane przesłane przez użytkownika są poprawne wówczas wywołuje ciało metody. Jeśli dane nie pozwolą na utworzenie poprawnej instancji wówczas zostanie rzucony <a href="%{ post_url 2016-01-31-wyjatki-w-jezyku-java %}">wyjątek</a><a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html"><code class="language-plaintext highlighter-rouge">ValidationException</code></a>.</p>
 
-<p>W akapicie opisującym instancje oznaczone adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Provider.html"><code class="highlighter-rouge">@Provider</code></a> opiszę ten mechanizm dokładniej.</p>
+<p>W akapicie opisującym instancje oznaczone adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Provider.html"><code class="language-plaintext highlighter-rouge">@Provider</code></a> opiszę ten mechanizm dokładniej.</p>
 
 <div class="notice--success text-center">
   
@@ -406,7 +406,7 @@
 
 <h3 id="dostęp-do-danych">Dostęp do danych</h3>
 
-<p>W normalnej wersji aplikacji dane zapisywane są w dedykowanej bazie danych<sup id="fnref:baza" role="doc-noteref"><a href="#fn:baza" class="footnote">3</a></sup>. Na potrzeby tej aplikacji symuluję bazę danych przy pomocy <a href="/struktury-danych-tablica-asocjacyjna/">mapy</a> przechowywanej w pamięci. Oczywistym minusem jest to, że dane nie są zachowywane po wyłączeniu aplikacji. Na potrzeby tego artykułu taki mechanizm jest wystarczający:</p>
+<p>W normalnej wersji aplikacji dane zapisywane są w dedykowanej bazie danych<sup id="fnref:baza" role="doc-noteref"><a href="#fn:baza" class="footnote" rel="footnote">3</a></sup>. Na potrzeby tej aplikacji symuluję bazę danych przy pomocy <a href="/struktury-danych-tablica-asocjacyjna/">mapy</a> przechowywanej w pamięci. Oczywistym minusem jest to, że dane nie są zachowywane po wyłączeniu aplikacji. Na potrzeby tego artykułu taki mechanizm jest wystarczający:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ApplicationScoped</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReservationDAO</span> <span class="o">{</span>
@@ -438,9 +438,9 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Klasa <code class="highlighter-rouge">ReservationDAO</code> pozwala na łatwy dostęp do instancji klasy <code class="highlighter-rouge">Reservation</code> przechowywanych w pamięci. Pozwala na utworzenie, pobranie, usunięcie i edycję rezerwacji.</p>
+<p>Klasa <code class="language-plaintext highlighter-rouge">ReservationDAO</code> pozwala na łatwy dostęp do instancji klasy <code class="language-plaintext highlighter-rouge">Reservation</code> przechowywanych w pamięci. Pozwala na utworzenie, pobranie, usunięcie i edycję rezerwacji.</p>
 
-<p>Jak wspomniałem wyżej w akapicie opisującym wstrzykiwanie zależności, instancja klasy <code class="highlighter-rouge">ReservationDAO</code> jest zarządzana przez kontener aplikacji. W ramach całej aplikacji zostanie utworzona wyłącznie jedna instancja tej klasy. Ta instancja będzie wykorzystywana przez klasę obsługującą żądania wysyłane przez użytkownika.</p>
+<p>Jak wspomniałem wyżej w akapicie opisującym wstrzykiwanie zależności, instancja klasy <code class="language-plaintext highlighter-rouge">ReservationDAO</code> jest zarządzana przez kontener aplikacji. W ramach całej aplikacji zostanie utworzona wyłącznie jedna instancja tej klasy. Ta instancja będzie wykorzystywana przez klasę obsługującą żądania wysyłane przez użytkownika.</p>
 
 <h2 id="aplikacja">Aplikacja</h2>
 
@@ -449,11 +449,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ApplicationPath.html"><code class="highlighter-rouge">@ApplicationPath</code></a> informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice’ów w tej aplikacji poprzedzone są <code class="highlighter-rouge">/</code>.</p>
+<p>Adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ApplicationPath.html"><code class="language-plaintext highlighter-rouge">@ApplicationPath</code></a> informuje kontener aplikacji o początkowym członie adresu URL pod jakim działa dana aplikacja. W przykładzie wyżej informuję kontener o tym, że adresy URL dla wszystkich webservice’ów w tej aplikacji poprzedzone są <code class="language-plaintext highlighter-rouge">/</code>.</p>
 
-<p>Adnotacja ta może zostać dodana wyłącznie do instancji klasy <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Application.html"><code class="highlighter-rouge">Application</code></a>. Klasa ta dostarcza dodatkowych metadanych o aplikacji. W moim przypadku jedyną wymaganą informacją dodatkową jest ta dostarczona przez adnotację.</p>
+<p>Adnotacja ta może zostać dodana wyłącznie do instancji klasy <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Application.html"><code class="language-plaintext highlighter-rouge">Application</code></a>. Klasa ta dostarcza dodatkowych metadanych o aplikacji. W moim przypadku jedyną wymaganą informacją dodatkową jest ta dostarczona przez adnotację.</p>
 
-<p class="notice--info">Podobnie jak w <a href="/rest-web-service-z-java-ee-czesc-1/#pierwszy-web-service">poprzednim artykule</a> zakładam, że aplikacja w kontenerze zostanie zainstalowana jako <code class="highlighter-rouge">rest.war</code>.</p>
+<p class="notice--info">Podobnie jak w <a href="/rest-web-service-z-java-ee-czesc-1/#pierwszy-web-service">poprzednim artykule</a> zakładam, że aplikacja w kontenerze zostanie zainstalowana jako <code class="language-plaintext highlighter-rouge">rest.war</code>.</p>
 
 <h2 id="webservice">Webservice</h2>
 
@@ -470,15 +470,15 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Adnotację <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html"><code class="highlighter-rouge">@Path</code></a> znasz z <a href="/rest-web-service-z-java-ee-czesc-1/">poprzedniej części artykułu</a>. Określa ona ścieżkę, która obsługiwana jest przez daną klasę.</p>
+<p>Adnotację <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Path.html"><code class="language-plaintext highlighter-rouge">@Path</code></a> znasz z <a href="/rest-web-service-z-java-ee-czesc-1/">poprzedniej części artykułu</a>. Określa ona ścieżkę, która obsługiwana jest przez daną klasę.</p>
 
-<p>Nowe są dla Ciebie adnotacje <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html"><code class="highlighter-rouge">@Consumes</code></a> i <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html"><code class="highlighter-rouge">@Produces</code></a>. Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie <a href="/format-json-w-jezyku-java/">JSON</a>.</p>
+<p>Nowe są dla Ciebie adnotacje <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/Consumes.html"><code class="language-plaintext highlighter-rouge">@Consumes</code></a> i <a href="https://javaee.github.io/javaee-spec/javadocs/javax/enterprise/inject/Produces.html"><code class="language-plaintext highlighter-rouge">@Produces</code></a>. Odpowiadają one odpowiednio za określenie typu danych konsumowanych i produkowanych przez webservice. W tym przypadku są to dane w formacie <a href="/format-json-w-jezyku-java/">JSON</a>.</p>
 
 <p>Jeśli użytkownik wyśle zapytanie zawierające dane w innym formacie wówczas kontener automatycznie odpowie zwracając kod <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415">415</a>. Kod ten informuje klienty o tym, że format danych nie jest wspierany.</p>
 
-<p>Wewnątrz klasy widzisz atrybut, który zostanie wstrzyknięty przez kontener aplikacji. Jest to instancja klasy <code class="highlighter-rouge">ReservationDAO</code> pozwalająca na dostęp do aktualnie dostępnych rezerwacji.</p>
+<p>Wewnątrz klasy widzisz atrybut, który zostanie wstrzyknięty przez kontener aplikacji. Jest to instancja klasy <code class="language-plaintext highlighter-rouge">ReservationDAO</code> pozwalająca na dostęp do aktualnie dostępnych rezerwacji.</p>
 
-<p>Zgodnie ze specyfikacją JAX-RS dla każdego żądania przychodzącego od użytkownika zostanie utworzona nowa instancja klasy <code class="highlighter-rouge">ReservationWebservice</code>. Po raz kolejny to kontener aplikacji zajmuje się tworzeniem tych instancji.</p>
+<p>Zgodnie ze specyfikacją JAX-RS dla każdego żądania przychodzącego od użytkownika zostanie utworzona nowa instancja klasy <code class="language-plaintext highlighter-rouge">ReservationWebservice</code>. Po raz kolejny to kontener aplikacji zajmuje się tworzeniem tych instancji.</p>
 
 <h3 id="pobranie-listy-rezerwacji">Pobranie listy rezerwacji</h3>
 
@@ -490,20 +490,20 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Metoda <code class="highlighter-rouge">listReservations</code> poprzedzona jest adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html"><code class="highlighter-rouge">@GET</code></a>. Nie zawiera dodatkowej adnotacji <code class="highlighter-rouge">@Path</code>, więc wszystkie żądania wysłane pod adres <code class="highlighter-rouge">GET /rest/reservation</code> zostaną obsłużone przez tę metodę. Do sprawdzenia jej działania możesz użyć programu <a href="https://curl.haxx.se/"><code class="highlighter-rouge">curl</code></a></p>
+<p>Metoda <code class="language-plaintext highlighter-rouge">listReservations</code> poprzedzona jest adnotacją <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/GET.html"><code class="language-plaintext highlighter-rouge">@GET</code></a>. Nie zawiera dodatkowej adnotacji <code class="language-plaintext highlighter-rouge">@Path</code>, więc wszystkie żądania wysłane pod adres <code class="language-plaintext highlighter-rouge">GET /rest/reservation</code> zostaną obsłużone przez tę metodę. Do sprawdzenia jej działania możesz użyć programu <a href="https://curl.haxx.se/"><code class="language-plaintext highlighter-rouge">curl</code></a></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">-H "Content-Type: application/json"</code> dodaje nagłówek do żądania. Określa on format zawartości zapytania. To właśnie ten nagłówek sprawdzany jest przez adnotację <code class="highlighter-rouge">@Consumes</code>.</p>
+<p><code class="language-plaintext highlighter-rouge">-H "Content-Type: application/json"</code> dodaje nagłówek do żądania. Określa on format zawartości zapytania. To właśnie ten nagłówek sprawdzany jest przez adnotację <code class="language-plaintext highlighter-rouge">@Consumes</code>.</p>
 
-<p>Wewnątrz metody buduję odpowiedź. Ciałem tej odpowiedzi jest lista rezerwacji zwrócona przez <code class="highlighter-rouge">dao</code>. Dzięki adnotacji <code class="highlighter-rouge">@Produces</code> JAX-RS wymusza format odpowiedzi. W moim przypadku jest to JSON.</p>
+<p>Wewnątrz metody buduję odpowiedź. Ciałem tej odpowiedzi jest lista rezerwacji zwrócona przez <code class="language-plaintext highlighter-rouge">dao</code>. Dzięki adnotacji <code class="language-plaintext highlighter-rouge">@Produces</code> JAX-RS wymusza format odpowiedzi. W moim przypadku jest to JSON.</p>
 
-<p>Kontener automatycznie przekonwertuje instancję klasy <code class="highlighter-rouge">Reservation</code> do formatu JSON. Dzieje się to dzięki implementacji specyfikacji JSON-B i JSON-P.</p>
+<p>Kontener automatycznie przekonwertuje instancję klasy <code class="language-plaintext highlighter-rouge">Reservation</code> do formatu JSON. Dzieje się to dzięki implementacji specyfikacji JSON-B i JSON-P.</p>
 
 <h3 id="pobieranie-pojedynczej-rezerwacji">Pobieranie pojedynczej rezerwacji</h3>
 
-<p>Pobieranie pojedynczej rezerwacji również bazuje na atrybucie <code class="highlighter-rouge">dao</code>:</p>
+<p>Pobieranie pojedynczej rezerwacji również bazuje na atrybucie <code class="language-plaintext highlighter-rouge">dao</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GET</span>
 <span class="nd">@Path</span><span class="o">(</span><span class="s">"{id}"</span><span class="o">)</span>
@@ -516,17 +516,17 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Dodatkowa adnotacja <code class="highlighter-rouge">@Path</code> rozszerza tę umieszczoną nad klasą <code class="highlighter-rouge">ReservationWebservice</code>. W wyniku tego metoda <code class="highlighter-rouge">getReservation</code> obsługuje wszystkie żądania wysłane przez klienty na adres <code class="highlighter-rouge">GET /reservation/{id}</code>. <code class="highlighter-rouge">id</code> jest identyfikatorem rezerwacji pobieranym z adresu URL dzięki adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html"><code class="highlighter-rouge">@PathParam</code></a>.</p>
+<p>Dodatkowa adnotacja <code class="language-plaintext highlighter-rouge">@Path</code> rozszerza tę umieszczoną nad klasą <code class="language-plaintext highlighter-rouge">ReservationWebservice</code>. W wyniku tego metoda <code class="language-plaintext highlighter-rouge">getReservation</code> obsługuje wszystkie żądania wysłane przez klienty na adres <code class="language-plaintext highlighter-rouge">GET /reservation/{id}</code>. <code class="language-plaintext highlighter-rouge">id</code> jest identyfikatorem rezerwacji pobieranym z adresu URL dzięki adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/PathParam.html"><code class="language-plaintext highlighter-rouge">@PathParam</code></a>.</p>
 
-<p>Zwróć także uwagę na użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/Min.html"><code class="highlighter-rouge">@Min</code></a>. Adnotacja ta uruchomi mechanizm walidacji dla parametru <code class="highlighter-rouge">id</code>. Mechanizm ten sprawdzi czy liczba przekazana w adresie ma wartość większą, bądź równą 0. Jeśli wartość parametru jest niepoprawna zostanie rzucony wyjątek.</p>
+<p>Zwróć także uwagę na użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/Min.html"><code class="language-plaintext highlighter-rouge">@Min</code></a>. Adnotacja ta uruchomi mechanizm walidacji dla parametru <code class="language-plaintext highlighter-rouge">id</code>. Mechanizm ten sprawdzi czy liczba przekazana w adresie ma wartość większą, bądź równą 0. Jeśli wartość parametru jest niepoprawna zostanie rzucony wyjątek.</p>
 
-<p>Wewnątrz ciała metody odwołuję się do atrybutu <code class="highlighter-rouge">dao</code> pobierając rezerwację na podstawie identyfikatora pobranego od użytkownika. <code class="highlighter-rouge">dao</code> zwróci wartość <code class="highlighter-rouge">null</code> jeśli rezerwacja o danym identyfikatorze nie zostanie odnaleziona. W takim przypadku klient uzyska odpowiedź z kodem <a href="https://developer.mozilla.org/uk/docs/Web/HTTP/Status/404">404</a> informującą o braku szukanego elementu.</p>
+<p>Wewnątrz ciała metody odwołuję się do atrybutu <code class="language-plaintext highlighter-rouge">dao</code> pobierając rezerwację na podstawie identyfikatora pobranego od użytkownika. <code class="language-plaintext highlighter-rouge">dao</code> zwróci wartość <code class="language-plaintext highlighter-rouge">null</code> jeśli rezerwacja o danym identyfikatorze nie zostanie odnaleziona. W takim przypadku klient uzyska odpowiedź z kodem <a href="https://developer.mozilla.org/uk/docs/Web/HTTP/Status/404">404</a> informującą o braku szukanego elementu.</p>
 
-<p>Jeśli <code class="highlighter-rouge">dao</code> znajdzie rezerwację o zadanym identyfikatorze, wówczas zostanie ona przekazana w odpowiedzi. Także tutaj zostanie ona przekształcona do formatu JSON.</p>
+<p>Jeśli <code class="language-plaintext highlighter-rouge">dao</code> znajdzie rezerwację o zadanym identyfikatorze, wówczas zostanie ona przekazana w odpowiedzi. Także tutaj zostanie ona przekształcona do formatu JSON.</p>
 
-<p>Także w tym przypadku <code class="highlighter-rouge">curl</code> może pomóc w wysłaniu zapytania:</p>
+<p>Także w tym przypadku <code class="language-plaintext highlighter-rouge">curl</code> może pomóc w wysłaniu zapytania:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation/0 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation/0 
 </code></pre></div></div>
 
 <h3 id="usuwanie-rezerwacji">Usuwanie rezerwacji</h3>
@@ -544,18 +544,18 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W tym przypadku kombinacja adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/DELETE.html"><code class="highlighter-rouge">@DELETE</code></a> i <code class="highlighter-rouge">@Path</code> wskazuje, że metoda ta zostanie wywołana w przypadku wysłania żądania na adres <code class="highlighter-rouge">DELETE /reservation/{id}</code>. Podobnie jak w przypadku pobierania rezerwacji mechanizm walidacja sprawdza poprawność przekazanego parametru <code class="highlighter-rouge">id</code>.</p>
+<p>W tym przypadku kombinacja adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/DELETE.html"><code class="language-plaintext highlighter-rouge">@DELETE</code></a> i <code class="language-plaintext highlighter-rouge">@Path</code> wskazuje, że metoda ta zostanie wywołana w przypadku wysłania żądania na adres <code class="language-plaintext highlighter-rouge">DELETE /reservation/{id}</code>. Podobnie jak w przypadku pobierania rezerwacji mechanizm walidacja sprawdza poprawność przekazanego parametru <code class="language-plaintext highlighter-rouge">id</code>.</p>
 
-<p>W przypadku tej metody <code class="highlighter-rouge">dao</code> użyte jest do usunięcia rezerwacji o podanym identyfikatorze.</p>
+<p>W przypadku tej metody <code class="language-plaintext highlighter-rouge">dao</code> użyte jest do usunięcia rezerwacji o podanym identyfikatorze.</p>
 
-<p>Przykładowe wywołanie <code class="highlighter-rouge">curl</code> usuwające rezerwację o identyfikatorze 0:</p>
+<p>Przykładowe wywołanie <code class="language-plaintext highlighter-rouge">curl</code> usuwające rezerwację o identyfikatorze 0:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation/0 -X DELETE
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation/0 -X DELETE
 </code></pre></div></div>
 
 <h3 id="utworzenie-rezerwacji">Utworzenie rezerwacji</h3>
 
-<p>Podczas tworzenia rezerwacji webservice wymusza poprawność danych przekazanych przez użytkownika. To adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html"><code class="highlighter-rouge">@Valid</code></a> wymusza sprawdzenie poprawności danych:</p>
+<p>Podczas tworzenia rezerwacji webservice wymusza poprawność danych przekazanych przez użytkownika. To adnotacja <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Valid.html"><code class="language-plaintext highlighter-rouge">@Valid</code></a> wymusza sprawdzenie poprawności danych:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
 <span class="kd">public</span> <span class="nc">Response</span> <span class="nf">createReservation</span><span class="o">(</span><span class="nd">@Valid</span> <span class="nc">Reservation</span> <span class="n">reservation</span><span class="o">)</span> <span class="o">{</span>
@@ -570,18 +570,18 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Jeśli wszystkie wymagania określone w klasie <code class="highlighter-rouge">Reservation</code> zostaną spełnione zostanie wywołana metoda <code class="highlighter-rouge">createReservation</code>. W przeciwnym wypadku zostanie rzucony wyjątek <code class="highlighter-rouge">ValidationException</code>.</p>
+<p>Jeśli wszystkie wymagania określone w klasie <code class="language-plaintext highlighter-rouge">Reservation</code> zostaną spełnione zostanie wywołana metoda <code class="language-plaintext highlighter-rouge">createReservation</code>. W przeciwnym wypadku zostanie rzucony wyjątek <code class="language-plaintext highlighter-rouge">ValidationException</code>.</p>
 
-<p>W ciele metody <code class="highlighter-rouge">createReservation</code> wywołuję <code class="highlighter-rouge">dao.createReservation</code>. To wywołanie zapisuje nową rezerwację w bazie danych. W wyniku wywołania tej metody zwrócony jest nowy identyfikator dla tej rezerwacji. Pomaga on w utworzeniu adresu URL, który zostaje zwrócony w odpowiedzi.</p>
+<p>W ciele metody <code class="language-plaintext highlighter-rouge">createReservation</code> wywołuję <code class="language-plaintext highlighter-rouge">dao.createReservation</code>. To wywołanie zapisuje nową rezerwację w bazie danych. W wyniku wywołania tej metody zwrócony jest nowy identyfikator dla tej rezerwacji. Pomaga on w utworzeniu adresu URL, który zostaje zwrócony w odpowiedzi.</p>
 
-<p>Także i tutaj <code class="highlighter-rouge">curl</code> może zostać użyty do wysłania zapytania. Tym razem w ciele zapytania muszę przesłać dane w formacie JSON, które reprezentują nową rezerwację. Przykładowe zapytanie może wyglądać następująco:</p>
+<p>Także i tutaj <code class="language-plaintext highlighter-rouge">curl</code> może zostać użyty do wysłania zapytania. Tym razem w ciele zapytania muszę przesłać dane w formacie JSON, które reprezentują nową rezerwację. Przykładowe zapytanie może wyglądać następująco:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation -X POST -d '{"start": "2018-01-22T20:00", "tableNumber": 1, "name": "Marcin", "end": "2018-01-22T21:20"}'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "Content-Type: application/json" http://localhost:8080/rest/reservation -X POST -d '{"start": "2018-01-22T20:00", "tableNumber": 1, "name": "Marcin", "end": "2018-01-22T21:20"}'
 </code></pre></div></div>
 
-<p>Parametr <code class="highlighter-rouge">-d</code> służy do przekazania zawartości zapytania. W tym przypadku jest to JSON, który reprezentuje dane potrzebne do utworzenia instancji klasy <code class="highlighter-rouge">Reservation</code>.</p>
+<p>Parametr <code class="language-plaintext highlighter-rouge">-d</code> służy do przekazania zawartości zapytania. W tym przypadku jest to JSON, który reprezentuje dane potrzebne do utworzenia instancji klasy <code class="language-plaintext highlighter-rouge">Reservation</code>.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
     "name": "Marcin",
     "tableNumber": 1,
     "start": "2018-01-22T20:00",
@@ -589,7 +589,7 @@
 }
 </code></pre></div></div>
 
-<p>W przykładzie powyżej instancja reprezentowana jest przez mapę. Kluczami są nazwy atrybutów, na przykład <code class="highlighter-rouge">name</code> czy <code class="highlighter-rouge">start</code>. Atrybuty klasy zostaną uzupełnione wartościami przekazanymi w mapie. Oczywiście format wartości musi być odpowiedni. Automatyczna transformacja pomiędzy formatem JSON a klasą Java możliwa jest dzięki specyfikacjom JSON-B i JSON-P.</p>
+<p>W przykładzie powyżej instancja reprezentowana jest przez mapę. Kluczami są nazwy atrybutów, na przykład <code class="language-plaintext highlighter-rouge">name</code> czy <code class="language-plaintext highlighter-rouge">start</code>. Atrybuty klasy zostaną uzupełnione wartościami przekazanymi w mapie. Oczywiście format wartości musi być odpowiedni. Automatyczna transformacja pomiędzy formatem JSON a klasą Java możliwa jest dzięki specyfikacjom JSON-B i JSON-P.</p>
 
 <h3 id="modyfikacja-rezerwacji">Modyfikacja rezerwacji</h3>
 
@@ -607,7 +607,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<h2 id="własna-klasa-provider">Własna klasa <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Provider.html"><code class="highlighter-rouge">@Provider</code></a></h2>
+<h2 id="własna-klasa-provider">Własna klasa <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/Provider.html"><code class="language-plaintext highlighter-rouge">@Provider</code></a></h2>
 
 <p>W <a href="/rest-web-service-z-java-ee-czesc-1/">poprzedniej części</a> artykułu użyłem tej adnotacji to utworzenia filtra, który dodawał nagłówki. Tym razem posłuży ona do pomocy przy walidacji.</p>
 
@@ -633,21 +633,21 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Klasa <code class="highlighter-rouge">ValidationExceptionMapper</code> implementuje interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/ExceptionMapper.html"><code class="highlighter-rouge">ExceptionMapper</code></a>. Interfejs ten zawiera wyłącznie jedną metodę <code class="highlighter-rouge">toResponse</code>. Metoda ta zostaje wywołana jeśli zostanie rzucony wyjątek obsługiwany przez daną klasę.</p>
+<p>Klasa <code class="language-plaintext highlighter-rouge">ValidationExceptionMapper</code> implementuje interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/ext/ExceptionMapper.html"><code class="language-plaintext highlighter-rouge">ExceptionMapper</code></a>. Interfejs ten zawiera wyłącznie jedną metodę <code class="language-plaintext highlighter-rouge">toResponse</code>. Metoda ta zostaje wywołana jeśli zostanie rzucony wyjątek obsługiwany przez daną klasę.</p>
 
 <p>W moim przypadku tworzę nową odpowiedź, która zwraca kod błędu <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400">400</a> wraz z dodatkowym komunikatem błędu zwróconym przez mechanizm walidacji.</p>
 
 <div class="notice--warning">
     
-<p>W związku z <a href="https://github.com/jersey/jersey/issues/3425">błędem</a> w bibliotece Jersey musiałem utworzyć klasę, która obsługuje wyjątek <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintViolationException.html"><code class="highlighter-rouge">ConstraintViolationException</code></a>. Po rozwiązaniu tego błędu klasa ta powinna obsługiwać wyjątek <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html"><code class="highlighter-rouge">ValidationException</code></a>.</p>
+<p>W związku z <a href="https://github.com/jersey/jersey/issues/3425">błędem</a> w bibliotece Jersey musiałem utworzyć klasę, która obsługuje wyjątek <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintViolationException.html"><code class="language-plaintext highlighter-rouge">ConstraintViolationException</code></a>. Po rozwiązaniu tego błędu klasa ta powinna obsługiwać wyjątek <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ValidationException.html"><code class="language-plaintext highlighter-rouge">ValidationException</code></a>.</p>
 
-<p>Zgodnie ze specyfikacją użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/annotation/Priority.html"><code class="highlighter-rouge">@Priority</code></a> także powinno pomóc obejść ten problem.</p>
+<p>Zgodnie ze specyfikacją użycie adnotacji <a href="https://javaee.github.io/javaee-spec/javadocs/javax/annotation/Priority.html"><code class="language-plaintext highlighter-rouge">@Priority</code></a> także powinno pomóc obejść ten problem.</p>
 
 </div>
 
 <h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
 
-<p>W tym miejscu poproszę Cię o uruchomienie tej aplikacji na swoim komputerze i testowanie jej przy pomocy programu <code class="highlighter-rouge">curl</code>. Taka zabawa na żywo potrafi sporo nauczyć. Kod źródłowy aplikacji znajdziesz na <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/07_rest_crud">samouczkowym githubie</a>.</p>
+<p>W tym miejscu poproszę Cię o uruchomienie tej aplikacji na swoim komputerze i testowanie jej przy pomocy programu <code class="language-plaintext highlighter-rouge">curl</code>. Taka zabawa na żywo potrafi sporo nauczyć. Kod źródłowy aplikacji znajdziesz na <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/tree/master/07_rest_crud">samouczkowym githubie</a>.</p>
 
 <h2 id="zadanie-do-wykonania">Zadanie do wykonania</h2>
 
@@ -657,7 +657,7 @@
 
 <h2 id="podsumowanie">Podsumowanie</h2>
 
-<p>W artykule przeczytałeś o praktycznym zastosowaniu kilku specyfikacji z parasola Java EE. Na przykładzie mogłeś zobaczyć użycie walidacji czy wstrzykiwania zależności. Poznałeś też mechanizm obsługi wyjątków, w którym użyłem adnotacji <code class="highlighter-rouge">@Provider</code>. Użyłeś implementacji specyfikacji JSON-P i JSON-B pozwalających na proste obsługiwanie danych w formacie JSON. Całość opakowana została w webservice, oparty o specyfikację JAX-RS. Mam nadzieję, że przykłady użyte w artykule pozwoliły Ci spojrzeć na Java EE z innej strony.</p>
+<p>W artykule przeczytałeś o praktycznym zastosowaniu kilku specyfikacji z parasola Java EE. Na przykładzie mogłeś zobaczyć użycie walidacji czy wstrzykiwania zależności. Poznałeś też mechanizm obsługi wyjątków, w którym użyłem adnotacji <code class="language-plaintext highlighter-rouge">@Provider</code>. Użyłeś implementacji specyfikacji JSON-P i JSON-B pozwalających na proste obsługiwanie danych w formacie JSON. Całość opakowana została w webservice, oparty o specyfikację JAX-RS. Mam nadzieję, że przykłady użyte w artykule pozwoliły Ci spojrzeć na Java EE z innej strony.</p>
 
 <p>Jeśli którakolwiek część artykułu nie jest dla Ciebie jasna proszę daj znać. Postaram się pomóc. Jeśli nie chcesz ominąć kolejnych artykułów w przyszłości proszę dopisz się do samouczkowego newslettera i polub stronę Samouczka na Facebooku. Do następnego razu!</p>
 <div class="footnotes" role="doc-endnotes">

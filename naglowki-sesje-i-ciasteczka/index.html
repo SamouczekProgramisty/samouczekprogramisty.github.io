@@ -171,7 +171,7 @@
         
       </h1>
       
-        <p class="page__lead">W pierwszej części artykułu opisującej serwlety dowiedziałeś się podstaw dotyczących serwletów. W tym artykule będziesz mógł poszerzyć tę wiedzę. Dowiesz się jakie możliwości dają klasy <code class="highlighter-rouge">HttpServletRequest</code> i <code class="highlighter-rouge">HttpServletResponse</code>. Wyjaśnię Ci czym jest sesja i jak pracować z <code class="highlighter-rouge">HttpSession</code>. Przeczytasz także o nagłówkach i ciasteczkach, nauczysz się tworzyć je samodzielnie. Na końcu czeka także ćwiczenie, w którym zastosujesz wiedzę w praktyce. Zapraszam do lektury.
+        <p class="page__lead">W pierwszej części artykułu opisującej serwlety dowiedziałeś się podstaw dotyczących serwletów. W tym artykule będziesz mógł poszerzyć tę wiedzę. Dowiesz się jakie możliwości dają klasy <code class="language-plaintext highlighter-rouge">HttpServletRequest</code> i <code class="language-plaintext highlighter-rouge">HttpServletResponse</code>. Wyjaśnię Ci czym jest sesja i jak pracować z <code class="language-plaintext highlighter-rouge">HttpSession</code>. Przeczytasz także o nagłówkach i ciasteczkach, nauczysz się tworzyć je samodzielnie. Na końcu czeka także ćwiczenie, w którym zastosujesz wiedzę w praktyce. Zapraszam do lektury.
 </p>
       
       
@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#wprowadzenie">Wprowadzenie</a></li>
 <li class="toc-entry toc-h2"><a href="#httpservletrequest">HTTPServletRequest</a>
 <ul>
@@ -298,9 +298,9 @@
         </aside>
         <h2 id="wprowadzenie">Wprowadzenie</h2>
 
-<p>Zacznijmy od żądań i odpowiedzi. Wiesz już, o hierarchii dziedziczenia serwletów <code class="highlighter-rouge">Servlet</code>, <code class="highlighter-rouge">GenericServlet</code> i <code class="highlighter-rouge">HttpServlet</code>. W przypadku klasy opakowującej żądanie i odpowiedź sytuacja wygląda podobnie. Istnieją bazowe interfejsy <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html"><code class="highlighter-rouge">ServletRequest</code></a> i <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html"><code class="highlighter-rouge">ServletResponse</code></a>.</p>
+<p>Zacznijmy od żądań i odpowiedzi. Wiesz już, o hierarchii dziedziczenia serwletów <code class="language-plaintext highlighter-rouge">Servlet</code>, <code class="language-plaintext highlighter-rouge">GenericServlet</code> i <code class="language-plaintext highlighter-rouge">HttpServlet</code>. W przypadku klasy opakowującej żądanie i odpowiedź sytuacja wygląda podobnie. Istnieją bazowe interfejsy <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html"><code class="language-plaintext highlighter-rouge">ServletRequest</code></a> i <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html"><code class="language-plaintext highlighter-rouge">ServletResponse</code></a>.</p>
 
-<p>W przypadku serwletów opartych o protokół HTTP interfejsy te są rozszerzane przez <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html"><code class="highlighter-rouge">HttpServletRequest</code></a> i <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html"><code class="highlighter-rouge">HttpServletResponse</code></a>. Rozszerzone interfejsy zawierają metody specyficzne dla protokołu HTTP.</p>
+<p>W przypadku serwletów opartych o protokół HTTP interfejsy te są rozszerzane przez <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html"><code class="language-plaintext highlighter-rouge">HttpServletRequest</code></a> i <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html"><code class="language-plaintext highlighter-rouge">HttpServletResponse</code></a>. Rozszerzone interfejsy zawierają metody specyficzne dla protokołu HTTP.</p>
 
 <p>Zauważ, że piszę tu wyłącznie o interfejsach. Są to interfejsy określone przez specyfikację serwletów. Kontener serwletów, który implementuję tę specyfikację dostarcza także konkretnych implementacji. To właśnie kontener odpowiedzialny jest za tworzenie instancji klas, które implementują te interfejsy.</p>
 
@@ -308,13 +308,13 @@
 
 <p class="notice--warning">W artykule i przykładach używam bardzo prostego mechanizmu do generowania widoków. Nie jest to sposób “poprawny”. To są jedynie przykłady, które mają wprowadzić Cię w “świat aplikacji webowych”. W kolejnych artykułach poznasz lepszą metodę na generowanie stron HTML.</p>
 
-<h2 id="httpservletrequest"><code class="highlighter-rouge">HTTPServletRequest</code></h2>
+<h2 id="httpservletrequest"><code class="language-plaintext highlighter-rouge">HTTPServletRequest</code></h2>
 
 <h3 id="parametry-url">Parametry URL</h3>
 
-<p>Jedną z części adresu URL są parametry. Są one dostępne po znaku <code class="highlighter-rouge">?</code>. Parametry zapisane są w formie klucz=wartość, z tym że jeden parametr może wystąpić wiele razy. Poszczególne pary klucz=wartość rozdzielone są znakami <code class="highlighter-rouge">&amp;</code>.</p>
+<p>Jedną z części adresu URL są parametry. Są one dostępne po znaku <code class="language-plaintext highlighter-rouge">?</code>. Parametry zapisane są w formie klucz=wartość, z tym że jeden parametr może wystąpić wiele razy. Poszczególne pary klucz=wartość rozdzielone są znakami <code class="language-plaintext highlighter-rouge">&amp;</code>.</p>
 
-<p>W interfejsie <code class="highlighter-rouge">HttpServletRequest</code> istnieje kilka metod, które pozwalają na pracę z parametrami. Proszę spójrz na przykład poniżej.</p>
+<p>W interfejsie <code class="language-plaintext highlighter-rouge">HttpServletRequest</code> istnieje kilka metod, które pozwalają na pracę z parametrami. Proszę spójrz na przykład poniżej.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@WebServlet</span><span class="o">(</span><span class="s">"/parameters"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParametersServlet</span> <span class="kd">extends</span> <span class="nc">HttpServlet</span> <span class="o">{</span>
@@ -330,21 +330,21 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W przykładzie tym widzisz serwlet, który w odpowiedzi wypisuje wszystkie parametry z adresu URL żądania. Poza metodą <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameterMap--"><code class="highlighter-rouge">getParameterMap</code></a> możesz użyć także kilku innych:</p>
+<p>W przykładzie tym widzisz serwlet, który w odpowiedzi wypisuje wszystkie parametry z adresu URL żądania. Poza metodą <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameterMap--"><code class="language-plaintext highlighter-rouge">getParameterMap</code></a> możesz użyć także kilku innych:</p>
 <ul>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameter-java.lang.String-"><code class="highlighter-rouge">getParameter()</code></a></li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameterNames--"><code class="highlighter-rouge">getParameterNames()</code></a></li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameterValues-java.lang.String-"><code class="highlighter-rouge">getParameterValues()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameter-java.lang.String-"><code class="language-plaintext highlighter-rouge">getParameter()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameterNames--"><code class="language-plaintext highlighter-rouge">getParameterNames()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletRequest.html#getParameterValues-java.lang.String-"><code class="language-plaintext highlighter-rouge">getParameterValues()</code></a></li>
 </ul>
 
 <p>Po uruchomieniu aplikacji, która posiada taki serwlet i wpisaniu w przeglądarce adresu</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:8080/02_serwlety/parameters?parameter1=value1&amp;parameter2=value2&amp;parameter1=value11
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:8080/02_serwlety/parameters?parameter1=value1&amp;parameter2=value2&amp;parameter1=value11
 </code></pre></div></div>
 
 <p>Powinna wyświetlić się strona zawierająca dwie linijki:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>parameter2: [value2]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>parameter2: [value2]
 parameter1: [value1, value11]
 </code></pre></div></div>
 
@@ -369,40 +369,40 @@ parameter1: [value1, value11]
 
 <p>Obiekt opakowujący żądanie pozwala także na pracę z adresem URL, którego żądanie dotyczy. Zestaw metod pozwala na pobranie informacji na temat adresu żądania:</p>
 <ul>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getContextPath--"><code class="highlighter-rouge">getContextPath()</code></a> zwraca fragment ścieżki, która jest “podstawą” wszystkich ścieżek obsługiwanych przez daną aplikację. W przypadku prostego instalowania aplikacji przy pomocy gradle będzie to nazwa pliku war,</li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getServletPath--"><code class="highlighter-rouge">getServletPath()</code></a> zwraca fragment ścieżki, która została użyta w konfiguracji serwletu,</li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURL--"><code class="highlighter-rouge">getRequestURL()</code></a> metoda zwraca adres URL żądania bez parametrów zawartych w adresie,</li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURI--"><code class="highlighter-rouge">getRequestURI()</code></a> zwraca adres URI (ang. <em>Uniform Resource Identifier</em>). Od aresu URL różni się on tym, że nie zawiera protokołu, serwera i portu.</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getContextPath--"><code class="language-plaintext highlighter-rouge">getContextPath()</code></a> zwraca fragment ścieżki, która jest “podstawą” wszystkich ścieżek obsługiwanych przez daną aplikację. W przypadku prostego instalowania aplikacji przy pomocy gradle będzie to nazwa pliku war,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getServletPath--"><code class="language-plaintext highlighter-rouge">getServletPath()</code></a> zwraca fragment ścieżki, która została użyta w konfiguracji serwletu,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURL--"><code class="language-plaintext highlighter-rouge">getRequestURL()</code></a> metoda zwraca adres URL żądania bez parametrów zawartych w adresie,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getRequestURI--"><code class="language-plaintext highlighter-rouge">getRequestURI()</code></a> zwraca adres URI (ang. <em>Uniform Resource Identifier</em>). Od aresu URL różni się on tym, że nie zawiera protokołu, serwera i portu.</li>
 </ul>
 
 <p>Zakładając, że nasz sewlet obsługuje ścieżkę /path wówczas wywołanie powyższych metod po żądaniu</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:8080/02_serwlety/path?xxx=yyy
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:8080/02_serwlety/path?xxx=yyy
 </code></pre></div></div>
 
 <p>Powinno zwrócić następujące wartości:</p>
 <ul>
-  <li><code class="highlighter-rouge">getContextPath() /02_serwlety</code></li>
-  <li><code class="highlighter-rouge">getServletPath() /path</code></li>
-  <li><code class="highlighter-rouge">getRequestURI() /02_serwlety/path</code></li>
-  <li><code class="highlighter-rouge">getRequestURL() http://localhost:8080/02_serwlety/path</code></li>
+  <li><code class="language-plaintext highlighter-rouge">getContextPath() /02_serwlety</code></li>
+  <li><code class="language-plaintext highlighter-rouge">getServletPath() /path</code></li>
+  <li><code class="language-plaintext highlighter-rouge">getRequestURI() /02_serwlety/path</code></li>
+  <li><code class="language-plaintext highlighter-rouge">getRequestURL() http://localhost:8080/02_serwlety/path</code></li>
 </ul>
 
 <p>Przykładowy serwlet, który używa tych metod możesz znaleźć na <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/02_serwlety/src/main/java/pl/samouczekprogramisy/kursaplikacjewebowe/servlets/PathServlet.java">samouczkowym githubie</a>.</p>
-<h2 id="httpservletresponse"><code class="highlighter-rouge">HttpServletResponse</code></h2>
+<h2 id="httpservletresponse"><code class="language-plaintext highlighter-rouge">HttpServletResponse</code></h2>
 
 <p>Obiekt, implementujący ten interfejs także tworzony jest przez kontener serwletów. Służy on do przygotowania odpowiedzi na żądanie wysłane do serwera. W przypadku obiektu odpowiedzi musisz wiedzieć o następujących metodach</p>
 <ul>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html#getOutputStream--"><code class="highlighter-rouge">getOutputStream()</code></a> zwraca instancję <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletOutputStream.html"><code class="highlighter-rouge">ServletOutputStream</code></a>, która służy do tworzenia odpowiedzi zawierającej dane binarne,</li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html#getWriter--"><code class="highlighter-rouge">getWriter()</code></a> zwraca instancję <code class="highlighter-rouge">PrintWriter</code>, która służy do tworzenia odpowiedzi zawierającej tekst.</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html#getOutputStream--"><code class="language-plaintext highlighter-rouge">getOutputStream()</code></a> zwraca instancję <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletOutputStream.html"><code class="language-plaintext highlighter-rouge">ServletOutputStream</code></a>, która służy do tworzenia odpowiedzi zawierającej dane binarne,</li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletResponse.html#getWriter--"><code class="language-plaintext highlighter-rouge">getWriter()</code></a> zwraca instancję <code class="language-plaintext highlighter-rouge">PrintWriter</code>, która służy do tworzenia odpowiedzi zawierającej tekst.</li>
 </ul>
 
 <p>Ważne jest aby pamiętać, że w trakcie obsługi żądania możemy posługiwać się wyłącznie jedną z tych metod.</p>
 <h2 id="nagłówki">Nagłówki</h2>
 
-<p>Specyfikacja protokołu HTTP definiuje tak zwane nagłówki. Nagłówki dołączane są zarówno do żądań jak i odpowiedzi. Nagłówki to nic innego jak pary klucz-wartość, które zapisane są w formacie <code class="highlighter-rouge">nazwa nagłówka: treść nagłówka</code>. Na przykład</p>
+<p>Specyfikacja protokołu HTTP definiuje tak zwane nagłówki. Nagłówki dołączane są zarówno do żądań jak i odpowiedzi. Nagłówki to nic innego jak pary klucz-wartość, które zapisane są w formacie <code class="language-plaintext highlighter-rouge">nazwa nagłówka: treść nagłówka</code>. Na przykład</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content-Type: text/html; charset=utf-8
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content-Type: text/html; charset=utf-8
 Content-Length: 13358
 </code></pre></div></div>
 
@@ -420,11 +420,11 @@ Content-Length: 13358
 
     </figcaption></figure>
 
-<p>Obiekty <code class="highlighter-rouge">HttpServletResponse</code> i <code class="highlighter-rouge">HttpServletRequest</code> pozwalają na pracę z nagłówkami przy pomocy metod:</p>
+<p>Obiekty <code class="language-plaintext highlighter-rouge">HttpServletResponse</code> i <code class="language-plaintext highlighter-rouge">HttpServletRequest</code> pozwalają na pracę z nagłówkami przy pomocy metod:</p>
 
 <ul>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#setHeader-java.lang.String-java.lang.String-"><code class="highlighter-rouge">setHeader()</code></a></li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#addHeader-java.lang.String-java.lang.String-"><code class="highlighter-rouge">addHeader()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#setHeader-java.lang.String-java.lang.String-"><code class="language-plaintext highlighter-rouge">setHeader()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#addHeader-java.lang.String-java.lang.String-"><code class="language-plaintext highlighter-rouge">addHeader()</code></a></li>
 </ul>
 
 <p>Pierwsza z nich ustawia wartość nagłówka, druga dodaje nową wartość nagłówka (i tworzy go jeśli wcześniej nie był ustawiony). W rzeczywistości nagłówek mający wiele wartości to dalej jedna para klucz-wartość. W tym przypadku wartość zawiera kilka elementów oddzielonych przecinkami.</p>
@@ -432,9 +432,9 @@ Content-Length: 13358
 <p>Nagłówki możesz pobierać z obiektu żądania używając metod:</p>
 
 <ul>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getHeaderNames--"><code class="highlighter-rouge">getHeaderNames()</code></a></li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#getHeader-java.lang.String-"><code class="highlighter-rouge">getHeader()</code></a></li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getHeaders-java.lang.String-"><code class="highlighter-rouge">getHeaders()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getHeaderNames--"><code class="language-plaintext highlighter-rouge">getHeaderNames()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#getHeader-java.lang.String-"><code class="language-plaintext highlighter-rouge">getHeader()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getHeaders-java.lang.String-"><code class="language-plaintext highlighter-rouge">getHeaders()</code></a></li>
 </ul>
 
 <p>Poniższy serwlet używa tych metod aby ustawić kilka nagłówków. W odpowiedzi na żądanie tworzy stronę, która zawiera listę ustawionych nagłówków. Jak zwykle mocno zachęcam do eksperymentowania, sam zobacz jak taki serwlet działa.</p>
@@ -466,7 +466,7 @@ Content-Length: 13358
 
 <p>Nagłówki jako część protokołu HTTP pełnią bardzo istotną rolę. Dla przykładu poniżej pokazuję zestaw nagłówków wysyłanych wraz z każdą odpowiedzią dla adresu www.samouczekprogramisty.pl:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -I www.samouczekprogramisty.pl
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -I www.samouczekprogramisty.pl
 HTTP/1.1 200 OK
 Set-Cookie: PHPSESSID=xxxxxxxxxxxxxxxxxxxxxx; path=/
 Expires: Thu, 19 Nov 1981 08:52:00 GMT
@@ -480,12 +480,12 @@ Server: LiteSpeed
 Connection: Keep-Alive
 </code></pre></div></div>
 
-<p>Użyłem do tego programu <code class="highlighter-rouge">curl</code>, który pozwala na wysyłanie żądań HTTP z linii poleceń. Fragment powyżej powoduje wysłanie żądania typu HEAD, które zwraca wyłącznie nagłówki (bez właściwej zawartości strony). Przykładowe zastosowanie nagłówków:</p>
+<p>Użyłem do tego programu <code class="language-plaintext highlighter-rouge">curl</code>, który pozwala na wysyłanie żądań HTTP z linii poleceń. Fragment powyżej powoduje wysłanie żądania typu HEAD, które zwraca wyłącznie nagłówki (bez właściwej zawartości strony). Przykładowe zastosowanie nagłówków:</p>
 <ul>
-  <li>Pozwalają na ustawianie ciasteczek (przeczytasz o nich w kolejnym akapicie) (<code class="highlighter-rouge">Set-Cookie</code>),</li>
-  <li>Pozwalają na określenie zawartości strony. To dzięki nim przeglądarka wie jak interpretować odpowiedź, którą dostanie. To nagłówek określa czy w odpowiedzi znajduje się plik HTML (<code class="highlighter-rouge">Content-Type: text/html; charset=UTF-8</code>). Czy może są dane binarne reprezentujące obrazek do wyświetlenia (<code class="highlighter-rouge">Content-Type: image/jpeg</code>),</li>
-  <li>Mogą przyspieszyć ładowanie strony w przeglądarce. Jeśli odwiedziłeś już jakąś stronę to przeglądarka mogła zapisać część danych, które wyświetliła (w tym część nagłówków). Następnym razem nie wyśle żądania typu GET (aby pobrać całą zawartość) a jedynie HEAD (aby pobrać nagłówki). Po sprawdzeniu nagłówków stwierdzi, że dane się nie zmieniły i wyświetli poprzednio zapamiętaną zawartość (<code class="highlighter-rouge">Cache-Control: public, max-age=63115200</code>, <code class="highlighter-rouge">Last-Modified: Thu, 16 Mar 2017 17:12:14 GMT</code>).</li>
-  <li>Takie sprawdzenie może odbyć się też w inny sposób. Przeglądarka może wysłać zapytanie typu GET dołączając odpowiednie nagłówki. Później żądanie z nagłówkami interpretowane jest przez serwer. Jeśli serwer stwierdzi, że przeglądarka ma aktualną treść (potwierdza to nagłówek), wówczas wysyła odpowiedź informującą przeglądarkę, że jej kopia treści jest najnowsza. W takim przypadku zamiast przesyłać przez sieć obrazek o wielkości 400kB wysyła odpowiedź, która ma dużo mniej danych – kilka kilobajtów (<code class="highlighter-rouge">ETag: "9db5f14aeaa00872"</code>,</li>
+  <li>Pozwalają na ustawianie ciasteczek (przeczytasz o nich w kolejnym akapicie) (<code class="language-plaintext highlighter-rouge">Set-Cookie</code>),</li>
+  <li>Pozwalają na określenie zawartości strony. To dzięki nim przeglądarka wie jak interpretować odpowiedź, którą dostanie. To nagłówek określa czy w odpowiedzi znajduje się plik HTML (<code class="language-plaintext highlighter-rouge">Content-Type: text/html; charset=UTF-8</code>). Czy może są dane binarne reprezentujące obrazek do wyświetlenia (<code class="language-plaintext highlighter-rouge">Content-Type: image/jpeg</code>),</li>
+  <li>Mogą przyspieszyć ładowanie strony w przeglądarce. Jeśli odwiedziłeś już jakąś stronę to przeglądarka mogła zapisać część danych, które wyświetliła (w tym część nagłówków). Następnym razem nie wyśle żądania typu GET (aby pobrać całą zawartość) a jedynie HEAD (aby pobrać nagłówki). Po sprawdzeniu nagłówków stwierdzi, że dane się nie zmieniły i wyświetli poprzednio zapamiętaną zawartość (<code class="language-plaintext highlighter-rouge">Cache-Control: public, max-age=63115200</code>, <code class="language-plaintext highlighter-rouge">Last-Modified: Thu, 16 Mar 2017 17:12:14 GMT</code>).</li>
+  <li>Takie sprawdzenie może odbyć się też w inny sposób. Przeglądarka może wysłać zapytanie typu GET dołączając odpowiednie nagłówki. Później żądanie z nagłówkami interpretowane jest przez serwer. Jeśli serwer stwierdzi, że przeglądarka ma aktualną treść (potwierdza to nagłówek), wówczas wysyła odpowiedź informującą przeglądarkę, że jej kopia treści jest najnowsza. W takim przypadku zamiast przesyłać przez sieć obrazek o wielkości 400kB wysyła odpowiedź, która ma dużo mniej danych – kilka kilobajtów (<code class="language-plaintext highlighter-rouge">ETag: "9db5f14aeaa00872"</code>,</li>
   <li>Nagłówki to metadane (dane o danych). Zdarza się, że są wykorzystywane do przesyłania dodatkowych informacji na temat danego żądania/odpowiedzi.</li>
 </ul>
 
@@ -501,14 +501,14 @@ Connection: Keep-Alive
 
     </figcaption></figure>
 
-<p>Po stronie serwera, w odpowiedzi można ustawiać ciasteczka. Można to robić przy pomocy nagłówka <code class="highlighter-rouge">Set-Cookie</code>. Z racji tego, że jest to bardzo popularny mechanizm istnieje osobny zestaw metod, które pomagają pracować z ciasteczkami:</p>
+<p>Po stronie serwera, w odpowiedzi można ustawiać ciasteczka. Można to robić przy pomocy nagłówka <code class="language-plaintext highlighter-rouge">Set-Cookie</code>. Z racji tego, że jest to bardzo popularny mechanizm istnieje osobny zestaw metod, które pomagają pracować z ciasteczkami:</p>
 
 <ul>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#addCookie-javax.servlet.http.Cookie-"><code class="highlighter-rouge">addCookie()</code></a></li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getCookies--"><code class="highlighter-rouge">getCookies()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html#addCookie-javax.servlet.http.Cookie-"><code class="language-plaintext highlighter-rouge">addCookie()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#getCookies--"><code class="language-plaintext highlighter-rouge">getCookies()</code></a></li>
 </ul>
 
-<p>Samo ciasteczko reprezentowane jest przez klasę <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/Cookie.html"><code class="highlighter-rouge">Cookie</code></a>. Podstawowymi atrybutami ciasteczka jest jego nazwa i wartość.</p>
+<p>Samo ciasteczko reprezentowane jest przez klasę <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/Cookie.html"><code class="language-plaintext highlighter-rouge">Cookie</code></a>. Podstawowymi atrybutami ciasteczka jest jego nazwa i wartość.</p>
 
 <p>Dodatkowo możesz ustawić też inne atrybuty, takie jak czas życia ciasteczka. Jeśli jest on ustawiony, wówczas przeglądarka dołącza ciasteczka do żądań tak długo jak są one “ważne”.</p>
 
@@ -531,7 +531,7 @@ Connection: Keep-Alive
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Przy drugim otworzeniu strony generowanej przez ten serwlet<sup id="fnref:czas" role="doc-noteref"><a href="#fn:czas" class="footnote">1</a></sup> zobaczysz ciasteczko custom-cookie</p>
+<p>Przy drugim otworzeniu strony generowanej przez ten serwlet<sup id="fnref:czas" role="doc-noteref"><a href="#fn:czas" class="footnote" rel="footnote">1</a></sup> zobaczysz ciasteczko custom-cookie</p>
 
 <p>Wcześniej opisane narzędzia developerskie dostępne w przeglądarkach internetowych pozwalają na podejrzenie zawartości ciasteczek.</p>
 
@@ -553,24 +553,24 @@ Connection: Keep-Alive
 
 <h2 id="sesja">Sesja</h2>
 
-<p>Można powiedzieć, że sesja to połączenie kilku żądań/odpowiedzi w jedną całość. Dzięki temu aplikacja webowa może powiązać te żądania z jednym użytkownikiem. Sesje najczęściej zaimplementowane są przy pomocy ciasteczek. Specyfikacja serwletów określa nawet domyślną nazwę takiego ciasteczka – jest to <code class="highlighter-rouge">JSESSIONID</code>.</p>
+<p>Można powiedzieć, że sesja to połączenie kilku żądań/odpowiedzi w jedną całość. Dzięki temu aplikacja webowa może powiązać te żądania z jednym użytkownikiem. Sesje najczęściej zaimplementowane są przy pomocy ciasteczek. Specyfikacja serwletów określa nawet domyślną nazwę takiego ciasteczka – jest to <code class="language-plaintext highlighter-rouge">JSESSIONID</code>.</p>
 
-<p>Innym mechanizmem, na którym może być oparta sesja jest przepisywanie adresu URL (ang. <em>URL rewriting</em>). Polega ono na dołączaniu identyfikatora sesji do adresu. W takim przypadku adres może wyglądać następująco <code class="highlighter-rouge">https://www.samouczekprogramisty.pl/kurs-programowania-java;jsessionid=1234</code>. To kontener serwletów decyduje o metodzie, która powinna być użyta do “podtrzymywania” sesji.</p>
+<p>Innym mechanizmem, na którym może być oparta sesja jest przepisywanie adresu URL (ang. <em>URL rewriting</em>). Polega ono na dołączaniu identyfikatora sesji do adresu. W takim przypadku adres może wyglądać następująco <code class="language-plaintext highlighter-rouge">https://www.samouczekprogramisty.pl/kurs-programowania-java;jsessionid=1234</code>. To kontener serwletów decyduje o metodzie, która powinna być użyta do “podtrzymywania” sesji.</p>
 
-<p>Podobnie jak w przypadku ciasteczek sesja ma swój dedykowany obiekt. Po stronie serwera sesja reprezentowana jest przez <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html"><code class="highlighter-rouge">HttpSession</code></a>.</p>
+<p>Podobnie jak w przypadku ciasteczek sesja ma swój dedykowany obiekt. Po stronie serwera sesja reprezentowana jest przez <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html"><code class="language-plaintext highlighter-rouge">HttpSession</code></a>.</p>
 
 <h3 id="czas-trwania-sesji">Czas trwania sesji</h3>
 
-<p>Sesja nie jest trzymana wiecznie. To jak długo powinna być utrzymywana przez kontener serwletów określone jest przez parametr metody <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#setMaxInactiveInterval-int-"><code class="highlighter-rouge">setMaxInactiveInterval</code></a>. Określa on w sekundach jak długo pomiędzy żądaniami klienta sesjsa powinna być utrzymywana.</p>
+<p>Sesja nie jest trzymana wiecznie. To jak długo powinna być utrzymywana przez kontener serwletów określone jest przez parametr metody <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#setMaxInactiveInterval-int-"><code class="language-plaintext highlighter-rouge">setMaxInactiveInterval</code></a>. Określa on w sekundach jak długo pomiędzy żądaniami klienta sesjsa powinna być utrzymywana.</p>
 
 <h3 id="atrybuty-sesji">Atrybuty sesji</h3>
 
 <p>Sesję można porównać do mapy, w której przechowujemy pary klucz-wartość. Są to atrybuty sesji. Dzięki nim mamy możliwość przekazywania informacji wewnątrz aplikacji webowej pomiędzy żądaniami klienta. Poniższy zestaw metod pozwala na pracę z atrybutami sesji:</p>
 <ul>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#getAttributeNames--"><code class="highlighter-rouge">getAttributeNames()</code></a></li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#getAttribute-java.lang.String-"><code class="highlighter-rouge">getAttribute()</code></a></li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#removeAttribute-java.lang.String-"><code class="highlighter-rouge">removeAttribute()</code></a></li>
-  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#setAttribute-java.lang.String-java.lang.Object-"><code class="highlighter-rouge">setAttribute()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#getAttributeNames--"><code class="language-plaintext highlighter-rouge">getAttributeNames()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#getAttribute-java.lang.String-"><code class="language-plaintext highlighter-rouge">getAttribute()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#removeAttribute-java.lang.String-"><code class="language-plaintext highlighter-rouge">removeAttribute()</code></a></li>
+  <li><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpSession.html#setAttribute-java.lang.String-java.lang.Object-"><code class="language-plaintext highlighter-rouge">setAttribute()</code></a></li>
 </ul>
 
 <p>Wartościami atrybutów są obiekty, jednak musisz pamiętać o tym aby nie były one “duże”. Atrybuty sesji powinny być także serializowalne. Jeśli nie miałeś do czynienia z serializacją zapraszam do artykułu poświęconemu <a href="/serializacja-w-jezyku-java/">serializacji w języku Java</a>.</p>
@@ -620,15 +620,15 @@ Connection: Keep-Alive
 
 <p>Napisz serwlet, który pobierze wartość wszystkich parametrów przekazanych w adresie. Pobierze wszystkie parametry, których wartości są liczbami całkowitymi, następnie sumę tych parametrów wyświetli na ekranie. Serwlet ten powinien dodatkowo w sesji zapamiętać sumaryczną wartość wszystkich takich operacji. Ta całkowita suma także powinna być wyświetlona</p>
 
-<p>Na przykład, pierwsze żądanie pod adres <code class="highlighter-rouge">/serwlet?parametr=123&amp;inny-parametr=abc&amp;test=-3</code> powinno wyświetlić stronę:</p>
+<p>Na przykład, pierwsze żądanie pod adres <code class="language-plaintext highlighter-rouge">/serwlet?parametr=123&amp;inny-parametr=abc&amp;test=-3</code> powinno wyświetlić stronę:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>requestSum: 120
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>requestSum: 120
 totalSum: 120
 </code></pre></div></div>
 
-<p>Kolejne żądanie pod adres <code class="highlighter-rouge">/serwlet?parametr=336</code> powinno wyświetlić stornę</p>
+<p>Kolejne żądanie pod adres <code class="language-plaintext highlighter-rouge">/serwlet?parametr=336</code> powinno wyświetlić stornę</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>requestSum: 336
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>requestSum: 336
 totalSum: 456
 </code></pre></div></div>
 

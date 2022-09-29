@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#wprowadzenie-do-protokołu-http">Wprowadzenie do protokołu HTTP</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#adres-url">Adres URL</a></li>
@@ -320,17 +320,17 @@
 
 <h3 id="adres-url">Adres URL</h3>
 
-<p>Każde z żądań dotyczy jakiegoś zasobu. Na przykład otwierając stronę <a href="http://www.samouczekprogramisty.pl">www.samouczekprogramisty.pl</a> w przeglądarce wysyłasz żądanie <code class="highlighter-rouge">GET http://www.samouczekprogramisty.pl</code>. Ta część po GET to nic innego jak URL (ang. <em>Uniform Resource Locator</em>). Innymi słowy adres strony www.</p>
+<p>Każde z żądań dotyczy jakiegoś zasobu. Na przykład otwierając stronę <a href="http://www.samouczekprogramisty.pl">www.samouczekprogramisty.pl</a> w przeglądarce wysyłasz żądanie <code class="language-plaintext highlighter-rouge">GET http://www.samouczekprogramisty.pl</code>. Ta część po GET to nic innego jak URL (ang. <em>Uniform Resource Locator</em>). Innymi słowy adres strony www.</p>
 
 <p>Adres URL może składać się z kilku części</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(scheme://)(user:password@)host(:port)(/)(path)(?query)(#fragment)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(scheme://)(user:password@)host(:port)(/)(path)(?query)(#fragment)
 https://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java?parametr=wartosc&amp;innyParametr=wartosc#xxx
 </code></pre></div></div>
 
 <p>W ogromnej większości przypadków część z użytkownikiem i hasłem jest pomijana. Używana jest ona do uwierzytelniania, jednak metoda ta nie jest powszechnie używana. Port także jest pomijany. Pomijamy go ponieważ dla protokołu http domyślny port to właśnie 80 więc nie ma potrzeby go dodawać. Odrzucając rzadziej używane elementy adres url wygląda następująco</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.samouczekprogramisty.pl:80/kurs-programowania-java?parametr=wartosc&amp;innyParametr=wartosc
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.samouczekprogramisty.pl:80/kurs-programowania-java?parametr=wartosc&amp;innyParametr=wartosc
 </code></pre></div></div>
 
 <p>Mamy tutaj informację o protokole (https), serwerze (www.samouczekprogramisty.pl), ścieżce (/kurs-programowania-java) i parametrach (parametr=wartosc&amp;innyParametr=wartosc).</p>
@@ -348,17 +348,17 @@ https://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java
 
 <h2 id="czym-jest-serwlet">Czym jest serwlet</h2>
 
-<p>Serwlet to klasa, która implementuje interfejs <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html"><code class="highlighter-rouge">Servlet</code></a>. Instancje tej klasy tworzone są przez kontener serwletów (na przykład Jetty). Instancje te wiedzą jak odpowiadać na żądania, które dostają od klienta.</p>
+<p>Serwlet to klasa, która implementuje interfejs <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html"><code class="language-plaintext highlighter-rouge">Servlet</code></a>. Instancje tej klasy tworzone są przez kontener serwletów (na przykład Jetty). Instancje te wiedzą jak odpowiadać na żądania, które dostają od klienta.</p>
 
-<p>Do obsługi żądania klienta służy metoda <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-"><code class="highlighter-rouge">service</code></a>. Metoda ta przyjmuje jako parametry żądanie i odpowiedź. Na podstawie parametrów żądania odpowiednio modyfikuje przekazany argument odpowiedzi.</p>
+<p>Do obsługi żądania klienta służy metoda <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-"><code class="language-plaintext highlighter-rouge">service</code></a>. Metoda ta przyjmuje jako parametry żądanie i odpowiedź. Na podstawie parametrów żądania odpowiednio modyfikuje przekazany argument odpowiedzi.</p>
 
-<p>Szczerze mówiąc do tej pory ani razu nie napisałem klasy, która bezpośrednio implementuje ten interfejs. Używa się do tego klas, które upraszczają tworzenie serwletów. Są to klasy <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html"><code class="highlighter-rouge">GenericServlet</code></a> i <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html"><code class="highlighter-rouge">HttpServlet</code></a>.</p>
+<p>Szczerze mówiąc do tej pory ani razu nie napisałem klasy, która bezpośrednio implementuje ten interfejs. Używa się do tego klas, które upraszczają tworzenie serwletów. Są to klasy <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html"><code class="language-plaintext highlighter-rouge">GenericServlet</code></a> i <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html"><code class="language-plaintext highlighter-rouge">HttpServlet</code></a>.</p>
 
-<p>Chociaż specyfikacja serwletów, nie wymaga użycia serwletów z protokołem HTTP w praktyce nie spotkałem się z innym zastosowaniem. Zatem z dwóch wyżej wspomnianych klas powinieneś zapamiętać <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html"><code class="highlighter-rouge">HttpServlet</code></a><sup id="fnref:serwlet" role="doc-noteref"><a href="#fn:serwlet" class="footnote">1</a></sup>.</p>
+<p>Chociaż specyfikacja serwletów, nie wymaga użycia serwletów z protokołem HTTP w praktyce nie spotkałem się z innym zastosowaniem. Zatem z dwóch wyżej wspomnianych klas powinieneś zapamiętać <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html"><code class="language-plaintext highlighter-rouge">HttpServlet</code></a><sup id="fnref:serwlet" role="doc-noteref"><a href="#fn:serwlet" class="footnote" rel="footnote">1</a></sup>.</p>
 
 <h2 id="interfejs-serwletów">Interfejs serwletów</h2>
 
-<p>Wcześniej wspomniałem Ci już o metodzie <code class="highlighter-rouge">service</code>. Metodę tę musiałbyś zaimplementować jeśli utworzyłbyś klasę, która implementuje interfejs <code class="highlighter-rouge">Servlet</code> bezpośrednio. W przypadku klasy, która dziedziczy po <code class="highlighter-rouge">HttpServlet</code> wystarczy nadpisanie odpowiedniej metody. Na przykład, jeśli twój serwlet ma obsłużyć żądania typu GET musisz zaimplementować metodę <code class="highlighter-rouge">doGet</code>. Istnieją też metody dla pozostałych “czasowników”, na przykład <code class="highlighter-rouge">doPost</code> czy <code class="highlighter-rouge">doPut</code>.</p>
+<p>Wcześniej wspomniałem Ci już o metodzie <code class="language-plaintext highlighter-rouge">service</code>. Metodę tę musiałbyś zaimplementować jeśli utworzyłbyś klasę, która implementuje interfejs <code class="language-plaintext highlighter-rouge">Servlet</code> bezpośrednio. W przypadku klasy, która dziedziczy po <code class="language-plaintext highlighter-rouge">HttpServlet</code> wystarczy nadpisanie odpowiedniej metody. Na przykład, jeśli twój serwlet ma obsłużyć żądania typu GET musisz zaimplementować metodę <code class="language-plaintext highlighter-rouge">doGet</code>. Istnieją też metody dla pozostałych “czasowników”, na przykład <code class="language-plaintext highlighter-rouge">doPost</code> czy <code class="language-plaintext highlighter-rouge">doPut</code>.</p>
 
 <p>W interfejsie serwletów znajdują się też metody, które są wykorzystywane w trakcie cyklu życia serwletu. Jak wspomniałem wyżej kontener odpowiedzialny jest za tworzenie instancji serwletu. Ponadto kontener zarządza cyklem życia serwletu używając metod z tego interfejsu.</p>
 
@@ -368,25 +368,25 @@ https://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java
 
 <h3 id="utworzenie-instancji-serwletu">Utworzenie instancji serwletu</h3>
 
-<p>Kontener wyszukuje klas serwletów i następnie tworzy jedną instancję serwletu<sup id="fnref:instancja" role="doc-noteref"><a href="#fn:instancja" class="footnote">2</a></sup>.</p>
+<p>Kontener wyszukuje klas serwletów i następnie tworzy jedną instancję serwletu<sup id="fnref:instancja" role="doc-noteref"><a href="#fn:instancja" class="footnote" rel="footnote">2</a></sup>.</p>
 
 <h3 id="inicjalizacja-serwletu">Inicjalizacja serwletu</h3>
 
-<p>Z racji tego, że to kontener serwletów odpowiedzialny jest za tworzenie instancji klasy serwletu nie ma możliwości przekazania odpowiednich parametrów do konstruktora. Do inicjalizacji stanu serwletu służy metoda <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#init-javax.servlet.ServletConfig-"><code class="highlighter-rouge">init</code></a> i jest ona wywoływana przez kontener przed rozpoczęciem obsługi żądań przez dany serwlet.</p>
+<p>Z racji tego, że to kontener serwletów odpowiedzialny jest za tworzenie instancji klasy serwletu nie ma możliwości przekazania odpowiednich parametrów do konstruktora. Do inicjalizacji stanu serwletu służy metoda <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#init-javax.servlet.ServletConfig-"><code class="language-plaintext highlighter-rouge">init</code></a> i jest ona wywoływana przez kontener przed rozpoczęciem obsługi żądań przez dany serwlet.</p>
 
 <h3 id="obsługa-żądań">Obsługa żądań</h3>
 
-<p>W trakcie tego etapu kontener serwletów może wielokrotnie użyć tej samej instancji to obsługi wielu żądań. Pociąga to za sobą dość poważne konsekwencje. Możliwa jest sytuacja, w której w tym samym czasie instancja serwletu będzie obsługiwała kilka żądań jednocześnie. Na przykład jest to możliwe, gdy kilku użytkowników wejdzie na ten sam adres. Obsługa każdego żądania to wywołanie przez kontener metody <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-"><code class="highlighter-rouge">service</code></a>.</p>
+<p>W trakcie tego etapu kontener serwletów może wielokrotnie użyć tej samej instancji to obsługi wielu żądań. Pociąga to za sobą dość poważne konsekwencje. Możliwa jest sytuacja, w której w tym samym czasie instancja serwletu będzie obsługiwała kilka żądań jednocześnie. Na przykład jest to możliwe, gdy kilku użytkowników wejdzie na ten sam adres. Obsługa każdego żądania to wywołanie przez kontener metody <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-"><code class="language-plaintext highlighter-rouge">service</code></a>.</p>
 
 <h3 id="zniszczenie-serwletu">Zniszczenie serwletu</h3>
 
-<p>Kontener może usunąć daną instancję serwletu. Przed zniszczeniem instancji wywołana zostanie metoda <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#destroy--"><code class="highlighter-rouge">destroy</code></a>. Dzięki temu wewnątrz serweltu masz szansę na “posprzątanie”. Metoda ta może na przykład służyć do zamknięcia połączenia z bazą danych. Nie masz pewności jak długo serwlet będzie żył, o tym decyduje kontener.</p>
+<p>Kontener może usunąć daną instancję serwletu. Przed zniszczeniem instancji wywołana zostanie metoda <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html#destroy--"><code class="language-plaintext highlighter-rouge">destroy</code></a>. Dzięki temu wewnątrz serweltu masz szansę na “posprzątanie”. Metoda ta może na przykład służyć do zamknięcia połączenia z bazą danych. Nie masz pewności jak długo serwlet będzie żył, o tym decyduje kontener.</p>
 
 <h2 id="kontener-serwletów">Kontener serwletów</h2>
 
 <p>Z poprzednich paragrafów dowiedziałeś się już, że kontener serwletów zarządza cyklem życia serwletów. Nie jest to jedyna odpowiedzialność kontenera. Kontener serwletów odpowiedzialny jest za “wyszukanie” klas odpowiedzialnych za działanie aplikacji.</p>
 
-<p>W pierwszych wersjach specyfikacji niezbędny był do tego plik <code class="highlighter-rouge">web.xml</code> (tak zwany deskryptor wdrożenia), teraz aplikację webową można skonfigurować przy pomocy adnotacji. Dalej jednak to kontener musi “znaleźć” te klasy.</p>
+<p>W pierwszych wersjach specyfikacji niezbędny był do tego plik <code class="language-plaintext highlighter-rouge">web.xml</code> (tak zwany deskryptor wdrożenia), teraz aplikację webową można skonfigurować przy pomocy adnotacji. Dalej jednak to kontener musi “znaleźć” te klasy.</p>
 
 <p>Poza serwletami istnieją też inne komponenty aplikacji webowej opisane w specyfikacji serlwetów. Na przykład filtry czy “listnenery” (ang. <em>listener</em>) (ma ktoś z was pomysł jak przetłumaczyć to słowo na polski :)?). Także i tutaj kontener serwletów pełni kluczową rolę. Kontener zarządza cyklem życia tych elementów.</p>
 
@@ -417,7 +417,7 @@ https://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java
 
 <p>Podobnie jak w przypadku pliku jar jest to zwykłe archiwum zip ze zmienionym rozszerzeniem (war a nie zip). Buduje się go przy pomocy tych samych narzędzi jak plik jar . Struktura przykładowego pliku war jest następująca:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struktura_pliku.war
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struktura_pliku.war
 ├── index.html
 ├── publiczny_katalog
 │   └── strona.html
@@ -432,16 +432,16 @@ https://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java
     └── web.xml
 </code></pre></div></div>
 
-<p>Pliki takie jak <code class="highlighter-rouge">index.html</code>, <code class="highlighter-rouge">publiczny_ktalog/strona.html</code> czy <code class="highlighter-rouge">style.css</code> są publicznie dostępne. Oznacza to tyle, że kontener serwletów może serwować te pliki.</p>
+<p>Pliki takie jak <code class="language-plaintext highlighter-rouge">index.html</code>, <code class="language-plaintext highlighter-rouge">publiczny_ktalog/strona.html</code> czy <code class="language-plaintext highlighter-rouge">style.css</code> są publicznie dostępne. Oznacza to tyle, że kontener serwletów może serwować te pliki.</p>
 
-<p>Sprawa wygląda zupełnie inaczej w przypadku katalogu <code class="highlighter-rouge">WEB-INF</code>. Jest to katalog, który zawiera dane, które nigdy nie mogą być bezpośrednio “serwowane” przez kontener. Wewnątrz <code class="highlighter-rouge">WEB-INF</code> znajdują się inne katalogi:</p>
+<p>Sprawa wygląda zupełnie inaczej w przypadku katalogu <code class="language-plaintext highlighter-rouge">WEB-INF</code>. Jest to katalog, który zawiera dane, które nigdy nie mogą być bezpośrednio “serwowane” przez kontener. Wewnątrz <code class="language-plaintext highlighter-rouge">WEB-INF</code> znajdują się inne katalogi:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">classes</code> – zawiera on skompilowane klasy aplikacji webowej,</li>
-  <li><code class="highlighter-rouge">lib</code> – zawiera on spakowane pliki jar potrzebne do działania aplikacji webowej.</li>
+  <li><code class="language-plaintext highlighter-rouge">classes</code> – zawiera on skompilowane klasy aplikacji webowej,</li>
+  <li><code class="language-plaintext highlighter-rouge">lib</code> – zawiera on spakowane pliki jar potrzebne do działania aplikacji webowej.</li>
 </ul>
 
-<p>Dodatkowo aplikacja webowa może zawierać tak zwany deskryptor wdrożenia (ang. <em>deployment descriptor</em>). Jest to plik <code class="highlighter-rouge">web.xml</code>, który konfiguruje działanie aplikacji webowej. W przypadku prostych aplikacji nie jest on wymagany, całą konfigurację można dostarczyć przy pomocy adnotacji.</p>
+<p>Dodatkowo aplikacja webowa może zawierać tak zwany deskryptor wdrożenia (ang. <em>deployment descriptor</em>). Jest to plik <code class="language-plaintext highlighter-rouge">web.xml</code>, który konfiguruje działanie aplikacji webowej. W przypadku prostych aplikacji nie jest on wymagany, całą konfigurację można dostarczyć przy pomocy adnotacji.</p>
 
 <h2 id="sekret-działania-spring-mvc">Sekret działania Spring MVC</h2>
 
@@ -449,9 +449,9 @@ https://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java
 
 <p>Ten serwlet pośredniczy przy wszystkich zapytaniach do danej aplikacji webowej. Następnie w zależności od ścieżki, której dotyczy dane żądanie przekazuje je do odpowiedniej klasy. I to właśnie te klasy pisane są przez programistów.</p>
 
-<p>Dla przykładu w Spring MVC takim “głównym serwletem” jest <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-webmvc/src/main/java/org/springframework/web/servlet/DispatcherServlet.java"><code class="highlighter-rouge">DispatcherServlet</code></a>. Zachęcam do zajrzenia do źródeł tego serwletu. Zobaczyć możesz tam jakie mechanizmy użyte są do przekazania żądania dalej.</p>
+<p>Dla przykładu w Spring MVC takim “głównym serwletem” jest <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-webmvc/src/main/java/org/springframework/web/servlet/DispatcherServlet.java"><code class="language-plaintext highlighter-rouge">DispatcherServlet</code></a>. Zachęcam do zajrzenia do źródeł tego serwletu. Zobaczyć możesz tam jakie mechanizmy użyte są do przekazania żądania dalej.</p>
 
-<p>Jak przeszukasz <code class="highlighter-rouge">DispatcherServlet</code> i klasy po których dziedziczy dogrzebiesz się do dobrze znanych metod, takich jak <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-webmvc/src/main/java/org/springframework/web/servlet/FrameworkServlet.java#L833"><code class="highlighter-rouge">service</code></a> czy <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-webmvc/src/main/java/org/springframework/web/servlet/FrameworkServlet.java#L853"><code class="highlighter-rouge">doGet</code></a>.</p>
+<p>Jak przeszukasz <code class="language-plaintext highlighter-rouge">DispatcherServlet</code> i klasy po których dziedziczy dogrzebiesz się do dobrze znanych metod, takich jak <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-webmvc/src/main/java/org/springframework/web/servlet/FrameworkServlet.java#L833"><code class="language-plaintext highlighter-rouge">service</code></a> czy <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-webmvc/src/main/java/org/springframework/web/servlet/FrameworkServlet.java#L853"><code class="language-plaintext highlighter-rouge">doGet</code></a>.</p>
 
 <h2 id="pierwsza-aplikacja-webowa">Pierwsza aplikacja webowa</h2>
 
@@ -468,13 +468,13 @@ https://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/01_serwlety/src/main/java/pl/samouczekprogramisty/kursaplikacjewebowe/servlets/DateServlet.java"><code class="highlighter-rouge">DateServlet</code></a> to serwlet, który odpowiada na żądania typu GET wysłane na adres <code class="highlighter-rouge">/date</code>. Oczywiście w produkcyjnych aplikacjach w inny sposób konstruuje się odpowiedzi, jednak przykład ten pokazuje ogólną zasadę działania.</p>
+<p><a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/01_serwlety/src/main/java/pl/samouczekprogramisty/kursaplikacjewebowe/servlets/DateServlet.java"><code class="language-plaintext highlighter-rouge">DateServlet</code></a> to serwlet, który odpowiada na żądania typu GET wysłane na adres <code class="language-plaintext highlighter-rouge">/date</code>. Oczywiście w produkcyjnych aplikacjach w inny sposób konstruuje się odpowiedzi, jednak przykład ten pokazuje ogólną zasadę działania.</p>
 
-<p><code class="highlighter-rouge">response.getWriter()</code> zwraca instancję klasy <code class="highlighter-rouge">PrintWriter</code>. Należy traktować ją jako zawartość pliku, która zostanie wysłana w odpowiedzi na żądanie. Jeśli użyjemy tej metody odpowiedź, którą wygenerujemy musi być tekstowa (nie binarna). Ostatnia linijka metody <code class="highlighter-rouge">doGet</code> to właśnie generowanie treści odpowiedzi, gdzie odpowiadamy aktualną datą umieszczoną wewnątrz podstawowych znaczników html.</p>
+<p><code class="language-plaintext highlighter-rouge">response.getWriter()</code> zwraca instancję klasy <code class="language-plaintext highlighter-rouge">PrintWriter</code>. Należy traktować ją jako zawartość pliku, która zostanie wysłana w odpowiedzi na żądanie. Jeśli użyjemy tej metody odpowiedź, którą wygenerujemy musi być tekstowa (nie binarna). Ostatnia linijka metody <code class="language-plaintext highlighter-rouge">doGet</code> to właśnie generowanie treści odpowiedzi, gdzie odpowiadamy aktualną datą umieszczoną wewnątrz podstawowych znaczników html.</p>
 
 <p>Taką klasę serwletu umieszczamy w projekcie. W moim przypadku jego struktura wygląda następująco:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
 ├── 01_serwlety
 │   ├── build
 │   ├── build.gradle
@@ -497,9 +497,9 @@ https://marcin:tajnehaslo@www.samouczekprogramisty.pl:80/kurs-programowania-java
 └── settings.gradle
 </code></pre></div></div>
 
-<p>Na tym etapie proszę użyj przykładowych plików umieszczonych w <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe">repozytorium kodu</a>. W osobnym artykule wytłumaczę zasadę działania Gradle w przypadku aplikacji webowych. Bazowy plik <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/build.gradle"><code class="highlighter-rouge">build.gradle</code></a> i plik <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/01_serwlety/build.gradle"><code class="highlighter-rouge">01_serwlety/build.gradle</code></a> pozwalają na uruchomienie tak utworzonej aplikacji webowej:</p>
+<p>Na tym etapie proszę użyj przykładowych plików umieszczonych w <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe">repozytorium kodu</a>. W osobnym artykule wytłumaczę zasadę działania Gradle w przypadku aplikacji webowych. Bazowy plik <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/build.gradle"><code class="language-plaintext highlighter-rouge">build.gradle</code></a> i plik <a href="https://github.com/SamouczekProgramisty/KursAplikacjeWebowe/blob/master/01_serwlety/build.gradle"><code class="language-plaintext highlighter-rouge">01_serwlety/build.gradle</code></a> pozwalają na uruchomienie tak utworzonej aplikacji webowej:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>KursAplikacjeWebowe$ ./gradlew appRun
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>KursAplikacjeWebowe$ ./gradlew appRun
 :01_serwlety:prepareInplaceWebAppFolder NO-SOURCE
 :01_serwlety:createInplaceWebAppFolder UP-TO-DATE
 :01_serwlety:compileJava UP-TO-DATE
@@ -515,11 +515,11 @@ Press any key to stop the server.
 &gt; Building 87% &gt; :01_serwlety:appRun
 </code></pre></div></div>
 
-<p>Następnie uruchomienie przeglądarki i wpisanie adresu <code class="highlighter-rouge">http://localhost:8080/01_serwlety/date</code> powinno pokazać działającą aplikację, która wyświetla datę:</p>
+<p>Następnie uruchomienie przeglądarki i wpisanie adresu <code class="language-plaintext highlighter-rouge">http://localhost:8080/01_serwlety/date</code> powinno pokazać działającą aplikację, która wyświetla datę:</p>
 
 <figure class="">
   <img src="/assets/images/2017/03/25_przegladarka_odpowiedz.jpeg" alt="" /><figcaption>
-      Odpowiedź z <code class="highlighter-rouge">DataServlet</code>
+      Odpowiedź z <code class="language-plaintext highlighter-rouge">DataServlet</code>
 
     </figcaption></figure>
 

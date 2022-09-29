@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#testy-jednostkowe-z-junit-5">Testy jednostkowe z JUnit 5</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#powody-powstania-junit-5">Powody powstania JUnit 5</a></li>
@@ -320,16 +320,16 @@
 <ul>
   <li>klasy odpowiedzialne za wyszukiwanie testów,</li>
   <li>klasy odpowiedzialna za uruchamianie testów,</li>
-  <li>klasy zawierające API do pisania testów (np. <code class="highlighter-rouge">@Test</code> czy implementacje asercji).</li>
+  <li>klasy zawierające API do pisania testów (np. <code class="language-plaintext highlighter-rouge">@Test</code> czy implementacje asercji).</li>
 </ul>
 
-<p>Jak widzisz łamie to jedną z podstawowych reguł dobrego podejścia do tworzenia kodu obiektowego: rób jedną rzecz i rób ją dobrze<sup id="fnref:solid" role="doc-noteref"><a href="#fn:solid" class="footnote">1</a></sup>.</p>
+<p>Jak widzisz łamie to jedną z podstawowych reguł dobrego podejścia do tworzenia kodu obiektowego: rób jedną rzecz i rób ją dobrze<sup id="fnref:solid" role="doc-noteref"><a href="#fn:solid" class="footnote" rel="footnote">1</a></sup>.</p>
 
 <p>Poza tym IDE do uruchamiania testów i wyświetlania wyników używały prywatnej implementacji. Między innymi z tych powodów ewolucyjne rozwijanie biblioteki JUnit nie było możliwe. Nawet zmiana niektórych atrybutów powodowała, że IDE błędnie wyświetlało wyniki testów. Z tego powodu powstała inicjatywa rozwijania kolejnej wersji tej biblioteki.</p>
 
 <h3 id="junit-5-jako-platforma">JUnit 5 jako platforma</h3>
 
-<p>JUnit 5 to trzy niezależne komponenty<sup id="fnref:podzielone" role="doc-noteref"><a href="#fn:podzielone" class="footnote">2</a></sup>:</p>
+<p>JUnit 5 to trzy niezależne komponenty<sup id="fnref:podzielone" role="doc-noteref"><a href="#fn:podzielone" class="footnote" rel="footnote">2</a></sup>:</p>
 
 <ul>
   <li>platforma do uruchamiania testów: <em>JUnit Platform</em>,</li>
@@ -341,7 +341,7 @@
 
 <h2 id="pierwszy-test-jednostkowy-z-junit-5">Pierwszy test jednostkowy z JUnit 5</h2>
 
-<p>Projekt będę budował przy użyciu <a href="/wstep-do-gradle/">Gradle</a>. Przykładowy test będzie służył do sprawdzenia, programu odpowiedzialnego za konwersję jednostek wagi. Każda z jednostek implementowała będzie <a href="/interfejsy-w-jezyku-java/#interfejs-znacznikowy">interfejs znacznikowy</a> <code class="highlighter-rouge">WeightUnit</code>:</p>
+<p>Projekt będę budował przy użyciu <a href="/wstep-do-gradle/">Gradle</a>. Przykładowy test będzie służył do sprawdzenia, programu odpowiedzialnego za konwersję jednostek wagi. Każda z jednostek implementowała będzie <a href="/interfejsy-w-jezyku-java/#interfejs-znacznikowy">interfejs znacznikowy</a> <code class="language-plaintext highlighter-rouge">WeightUnit</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">WeightUnit</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="no">SCALE</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
@@ -349,7 +349,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Klasa <code class="highlighter-rouge">Pound</code> reprezentuje funty:</p>
+<p>Klasa <code class="language-plaintext highlighter-rouge">Pound</code> reprezentuje funty:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pound</span> <span class="kd">implements</span> <span class="nc">WeightUnit</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">BigDecimal</span> <span class="no">POUND_TO_KILOGRAM_RATIO</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"0.453592"</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="no">SCALE</span><span class="o">,</span> <span class="no">ROUNDING_MODE</span><span class="o">);</span>
@@ -369,7 +369,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Jej odpowiednik dla kilogramów to klasa <code class="highlighter-rouge">Kilogram</code>:</p>
+<p>Jej odpowiednik dla kilogramów to klasa <code class="language-plaintext highlighter-rouge">Kilogram</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Kilogram</span> <span class="kd">implements</span> <span class="nc">WeightUnit</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">final</span> <span class="nc">BigDecimal</span> <span class="n">value</span><span class="o">;</span>
@@ -418,13 +418,13 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Zwróć uwagę na to, że zarówno klasa <code class="highlighter-rouge">UnitConverterTest</code> jak i wszystkie metody nie są publiczne. JUnit 5, w odróżnieniu od swojego poprzednika, nie wymaga aby klasa/metody z testami były dostępne publicznie.</p>
+<p>Zwróć uwagę na to, że zarówno klasa <code class="language-plaintext highlighter-rouge">UnitConverterTest</code> jak i wszystkie metody nie są publiczne. JUnit 5, w odróżnieniu od swojego poprzednika, nie wymaga aby klasa/metody z testami były dostępne publicznie.</p>
 
-<p>Kolejną różnicą jest pakiet, w którym znajdują się klasy użyte do tworzenia testów: <code class="highlighter-rouge">org.junit.jupiter.api</code>. Jest to bazowy pakiet zawierający wszystkie elementy niezbędne do pisania testów.</p>
+<p>Kolejną różnicą jest pakiet, w którym znajdują się klasy użyte do tworzenia testów: <code class="language-plaintext highlighter-rouge">org.junit.jupiter.api</code>. Jest to bazowy pakiet zawierający wszystkie elementy niezbędne do pisania testów.</p>
 
-<p>Metody oznaczone adnotacją <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Test.html"><code class="highlighter-rouge">@Test</code></a> to testy. Metody te nie mogą zwracać żadnej wartości, nie mogą być prywatne ani statyczne.</p>
+<p>Metody oznaczone adnotacją <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Test.html"><code class="language-plaintext highlighter-rouge">@Test</code></a> to testy. Metody te nie mogą zwracać żadnej wartości, nie mogą być prywatne ani statyczne.</p>
 
-<p>Wewnątrz testów używa się asercji. Asercje dostarczone przez JUnit zgrupowane są wewnątrz klasy <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html"><code class="highlighter-rouge">Assertions</code></a>. W przykładach powyżej użyłem asercji <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertEquals-java.lang.Object-java.lang.Object-"><code class="highlighter-rouge">assertEquals</code></a>.</p>
+<p>Wewnątrz testów używa się asercji. Asercje dostarczone przez JUnit zgrupowane są wewnątrz klasy <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html"><code class="language-plaintext highlighter-rouge">Assertions</code></a>. W przykładach powyżej użyłem asercji <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertEquals-java.lang.Object-java.lang.Object-"><code class="language-plaintext highlighter-rouge">assertEquals</code></a>.</p>
 
 <div class="notice--success text-center">
   
@@ -443,20 +443,20 @@
 
 <p>Podobnie jak w poprzedniej wersji JUnit 5 określa cykl życia testów. Dzięki temu możesz odpowiednio przygotować warunki do uruchomienia testów. JUnit tworzy nową instancję klasy przed każdym uruchomieniem testu.</p>
 
-<p>Jeśli chcesz zmienić to zachowanie możesz użyć adnotacji <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/TestInstance.html"><code class="highlighter-rouge">@TestInstance</code></a>, dzięki tej adnotacji możesz wymusić współdzielenie instancji klasy pomiędzy testami. Moim zdaniem, w większości przypadków nie powinieneś jednak tego robić. Dobrą praktyką jest pisanie testów, które są od siebie niezależne.</p>
+<p>Jeśli chcesz zmienić to zachowanie możesz użyć adnotacji <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/TestInstance.html"><code class="language-plaintext highlighter-rouge">@TestInstance</code></a>, dzięki tej adnotacji możesz wymusić współdzielenie instancji klasy pomiędzy testami. Moim zdaniem, w większości przypadków nie powinieneś jednak tego robić. Dobrą praktyką jest pisanie testów, które są od siebie niezależne.</p>
 
 <p>Do zarządzania cyklem życia służą następujące <a href="/adnotacje-w-jezyku-java/">adnotacje</a>:</p>
 
 <ul>
-  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeEach.html"><code class="highlighter-rouge">@BeforeEach</code></a>,</li>
-  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterEach.html"><code class="highlighter-rouge">@AfterEach</code></a>,</li>
-  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeAll.html"><code class="highlighter-rouge">@BeforeAll</code></a>,</li>
-  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterAll.html"><code class="highlighter-rouge">@AfterAll</code></a>.</li>
+  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeEach.html"><code class="language-plaintext highlighter-rouge">@BeforeEach</code></a>,</li>
+  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterEach.html"><code class="language-plaintext highlighter-rouge">@AfterEach</code></a>,</li>
+  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeAll.html"><code class="language-plaintext highlighter-rouge">@BeforeAll</code></a>,</li>
+  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterAll.html"><code class="language-plaintext highlighter-rouge">@AfterAll</code></a>.</li>
 </ul>
 
 <h3 id="zmiana-nazwy-testu">Zmiana nazwy testu</h3>
 
-<p>JUnit 5 pozwala na manipulowanie nazwą testu. Dzięki temu możesz opisać test używając znaków, które nie są dopuszczalne w nazwie metody. Służy do tego adnotacja <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/DisplayName.html"><code class="highlighter-rouge">@DisplayName</code></a>:</p>
+<p>JUnit 5 pozwala na manipulowanie nazwą testu. Dzięki temu możesz opisać test używając znaków, które nie są dopuszczalne w nazwie metody. Służy do tego adnotacja <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/DisplayName.html"><code class="language-plaintext highlighter-rouge">@DisplayName</code></a>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"0.1 pounds to kilograms ♥ ♦ ♣ ♠"</span><span class="o">)</span>
@@ -467,9 +467,9 @@
 
 <h3 id="testowanie-wyjątków">Testowanie wyjątków</h3>
 
-<p>W odróżnieniu od JUnit 4, JUnit 5 nie pozwala na określenie oczekiwanego wyjątku w elemencie adnotacji <code class="highlighter-rouge">@Test</code>. W nowym podejściu użyte są <a href="/wyrazenia-lambda-w-jezyku-java/">wyrażenia lambda</a>. Kod, który ma rzucić wyjątek powinien implementować interfejs funkcyjny <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/function/Executable.html"><code class="highlighter-rouge">Executable</code></a>. W najprostszym przypadku jest to wyrażenie lambda.</p>
+<p>W odróżnieniu od JUnit 4, JUnit 5 nie pozwala na określenie oczekiwanego wyjątku w elemencie adnotacji <code class="language-plaintext highlighter-rouge">@Test</code>. W nowym podejściu użyte są <a href="/wyrazenia-lambda-w-jezyku-java/">wyrażenia lambda</a>. Kod, który ma rzucić wyjątek powinien implementować interfejs funkcyjny <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/function/Executable.html"><code class="language-plaintext highlighter-rouge">Executable</code></a>. W najprostszym przypadku jest to wyrażenie lambda.</p>
 
-<p>Metoda <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertThrows-java.lang.Class-org.junit.jupiter.api.function.Executable-"><code class="highlighter-rouge">assertThrows</code></a> przyjmuje:</p>
+<p>Metoda <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertThrows-java.lang.Class-org.junit.jupiter.api.function.Executable-"><code class="language-plaintext highlighter-rouge">assertThrows</code></a> przyjmuje:</p>
 <ul>
   <li>klasę wyjątku, który powinien być rzucony</li>
   <li>implementację interfejsu, która powinna ten wyjątek rzucić:</li>
@@ -485,21 +485,21 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">assertThrows</code> zwraca instancję wyjątku, który został rzucony.</p>
+<p><code class="language-plaintext highlighter-rouge">assertThrows</code> zwraca instancję wyjątku, który został rzucony.</p>
 
 <h3 id="ograniczanie-czasu-działania-testów">Ograniczanie czasu działania testów</h3>
 
 <p>JUnit 5 pozwala na testowanie czy wykonanie fragmentu kodu będzie trwało krócej niż założony z góry okres. Służą do tego asercje:</p>
 
 <ul>
-  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertTimeout-java.time.Duration-org.junit.jupiter.api.function.Executable-"><code class="highlighter-rouge">assertTimeout</code></a>,</li>
-  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertTimeoutPreemptively-java.time.Duration-org.junit.jupiter.api.function.Executable-"><code class="highlighter-rouge">assertTimeoutPreemptively</code></a>.</li>
+  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertTimeout-java.time.Duration-org.junit.jupiter.api.function.Executable-"><code class="language-plaintext highlighter-rouge">assertTimeout</code></a>,</li>
+  <li><a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertTimeoutPreemptively-java.time.Duration-org.junit.jupiter.api.function.Executable-"><code class="language-plaintext highlighter-rouge">assertTimeoutPreemptively</code></a>.</li>
 </ul>
 
 <p>Obie asercje przyjmują argumenty:</p>
 <ul>
-  <li>instancję klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/time/Duration.html"><code class="highlighter-rouge">Duration</code></a> określającą maksymalny czas działania,</li>
-  <li>implementację interfejsu funkcyjnego <code class="highlighter-rouge">Executable</code>, to ten sam interfejs, który jest użyty w przypadku <code class="highlighter-rouge">assertThrows</code>.</li>
+  <li>instancję klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/time/Duration.html"><code class="language-plaintext highlighter-rouge">Duration</code></a> określającą maksymalny czas działania,</li>
+  <li>implementację interfejsu funkcyjnego <code class="language-plaintext highlighter-rouge">Executable</code>, to ten sam interfejs, który jest użyty w przypadku <code class="language-plaintext highlighter-rouge">assertThrows</code>.</li>
 </ul>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
@@ -508,11 +508,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">assertTimeout</code> uruchamia przekazany fragment kodu w tym samym wątku i czeka na jego zakończenie. Po zakończeniu sprawdza czy założony czas został przekroczony. <code class="highlighter-rouge">assertTimeoutPreemptively</code> uruchamia przekazany fragment kodu w innym wątku i kończy go natychmiast po przekroczeniu założonego czasu.</p>
+<p><code class="language-plaintext highlighter-rouge">assertTimeout</code> uruchamia przekazany fragment kodu w tym samym wątku i czeka na jego zakończenie. Po zakończeniu sprawdza czy założony czas został przekroczony. <code class="language-plaintext highlighter-rouge">assertTimeoutPreemptively</code> uruchamia przekazany fragment kodu w innym wątku i kończy go natychmiast po przekroczeniu założonego czasu.</p>
 
 <h3 id="zagnieżdżanie-testów">Zagnieżdżanie testów</h3>
 
-<p>JUnit 5 pozwala na wykorzystywanie <a href="/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/">klas wewnętrznych</a>. Wraz z adnotacjami do zarządzania cyklem życia pozwala to na lepszą organizację testów. Służy do tego adnotacja <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Nested.html"><code class="highlighter-rouge">@Nested</code></a>. Przykład poniżej pokazuje klasę <code class="highlighter-rouge">ExceptionHandling</code>, która zawiera jeden test. Klasa ta jest zagnieżdżona wewnątrz <code class="highlighter-rouge">UnitConverterTest</code>:</p>
+<p>JUnit 5 pozwala na wykorzystywanie <a href="/klasy-wewnetrzne-i-anonimowe-w-jezyku-java/">klas wewnętrznych</a>. Wraz z adnotacjami do zarządzania cyklem życia pozwala to na lepszą organizację testów. Służy do tego adnotacja <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Nested.html"><code class="language-plaintext highlighter-rouge">@Nested</code></a>. Przykład poniżej pokazuje klasę <code class="language-plaintext highlighter-rouge">ExceptionHandling</code>, która zawiera jeden test. Klasa ta jest zagnieżdżona wewnątrz <code class="language-plaintext highlighter-rouge">UnitConverterTest</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">UnitConverterTest</span> <span class="o">{</span>
     <span class="nd">@Test</span>
@@ -540,7 +540,7 @@
 <span class="n">assertFalse</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>Przez to zachowanie nie zobaczysz od razu wszystkich błędnych asercji. JUnit 5 pozwala na obejście tego problemu dzięki użyciu asercji <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertAll-org.junit.jupiter.api.function.Executable...-"><code class="highlighter-rouge">assertAll</code></a>:</p>
+<p>Przez to zachowanie nie zobaczysz od razu wszystkich błędnych asercji. JUnit 5 pozwala na obejście tego problemu dzięki użyciu asercji <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html#assertAll-org.junit.jupiter.api.function.Executable...-"><code class="language-plaintext highlighter-rouge">assertAll</code></a>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kt">void</span> <span class="nf">shouldntAcceptNullValue</span><span class="o">()</span> <span class="o">{</span>
@@ -551,13 +551,13 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">assertAll</code> przyjmuje listę<sup id="fnref:typy" role="doc-noteref"><a href="#fn:typy" class="footnote">3</a></sup> implementacji interfejsu <code class="highlighter-rouge">Executable</code>. Podobnie jak poprzednio zazwyczaj są to wyrażenia lambda.</p>
+<p><code class="language-plaintext highlighter-rouge">assertAll</code> przyjmuje listę<sup id="fnref:typy" role="doc-noteref"><a href="#fn:typy" class="footnote" rel="footnote">3</a></sup> implementacji interfejsu <code class="language-plaintext highlighter-rouge">Executable</code>. Podobnie jak poprzednio zazwyczaj są to wyrażenia lambda.</p>
 
 <p>W przykładzie powyżej niezależnie od wyniku pierwszej asercji druga także zostanie wywołana. Obie zostaną uwzględnione w wynikach działania testów.</p>
 
 <h3 id="powtarzanie-testów">Powtarzanie testów</h3>
 
-<p>Zdarzyło mi się pisać testy, które zawierały pętle. Pętle te służyły do powtórzenia dokładnie tego samego testu wielokrotnie. Pisałem takie testy w sytuacji gdy dochodziło do wyścigu i czasami dany test przechodził, czasami nie. JUnit 5 umożliwia pisanie tego typu testów bez użycia pętli. Służy do tego adnotacja <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/RepeatedTest.html"><code class="highlighter-rouge">@RepeatedTest</code></a>:</p>
+<p>Zdarzyło mi się pisać testy, które zawierały pętle. Pętle te służyły do powtórzenia dokładnie tego samego testu wielokrotnie. Pisałem takie testy w sytuacji gdy dochodziło do wyścigu i czasami dany test przechodził, czasami nie. JUnit 5 umożliwia pisanie tego typu testów bez użycia pętli. Służy do tego adnotacja <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/RepeatedTest.html"><code class="language-plaintext highlighter-rouge">@RepeatedTest</code></a>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RepeatedTest</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span>
 <span class="kt">void</span> <span class="nf">shouldAlwaysReturnTheSameValue</span><span class="o">()</span> <span class="o">{</span>
@@ -569,19 +569,19 @@
 
 <h3 id="ignorowanie-testów">Ignorowanie testów</h3>
 
-<p>JUnit 5 pozwala na ignorowanie testów. Najprostszym sposobem jest dodanie adnotacji <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Disabled.html"><code class="highlighter-rouge">@Disabled</code></a>.</p>
+<p>JUnit 5 pozwala na ignorowanie testów. Najprostszym sposobem jest dodanie adnotacji <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Disabled.html"><code class="language-plaintext highlighter-rouge">@Disabled</code></a>.</p>
 
 <h3 id="mechanizm-rozszerzeń">Mechanizm rozszerzeń</h3>
 
-<p>JUnit 5 w odróżnieniu od JUnit 4 nie posiada <code class="highlighter-rouge">@Rule</code>, <code class="highlighter-rouge">@ClassRule</code> czy <code class="highlighter-rouge">@RunWith</code>. JUnit5 łączy te funkcjonalności w jedną. Ta funkcjonalność nazywa się rozszerzeniami. Główną adnotacją, która zarządza rozszerzeniami jest <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/ExtendWith.html"><code class="highlighter-rouge">@ExtendWith</code></a>.</p>
+<p>JUnit 5 w odróżnieniu od JUnit 4 nie posiada <code class="language-plaintext highlighter-rouge">@Rule</code>, <code class="language-plaintext highlighter-rouge">@ClassRule</code> czy <code class="language-plaintext highlighter-rouge">@RunWith</code>. JUnit5 łączy te funkcjonalności w jedną. Ta funkcjonalność nazywa się rozszerzeniami. Główną adnotacją, która zarządza rozszerzeniami jest <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/ExtendWith.html"><code class="language-plaintext highlighter-rouge">@ExtendWith</code></a>.</p>
 
-<p>Adnotacja jako element akceptuje klasę implementującą interfejs <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/Extension.html"><code class="highlighter-rouge">Extension</code></a>.</p>
+<p>Adnotacja jako element akceptuje klasę implementującą interfejs <a href="https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/Extension.html"><code class="language-plaintext highlighter-rouge">Extension</code></a>.</p>
 
 <p>Mechanizm rozszerzeń jest głównie wykorzystywany wraz z innymi bibliotekami. Na przykład przez Spring do umożliwienia wstrzykiwania zależności czy przez Mockito do <a href="/testy-jednostkowe-z-uzyciem-mock-i-stub/">tworzenia mocków</a>.</p>
 
 <h4 id="przykładowe-rozszerzenie">Przykładowe rozszerzenie</h4>
 
-<p>Przykład poniżej pokazuje rozszerzenie, które wyświetla na konsoli napis <code class="highlighter-rouge">Samouczek extension :)</code>. Rozszerzenie to zostało zaaplikowane do jednego z testów:</p>
+<p>Przykład poniżej pokazuje rozszerzenie, które wyświetla na konsoli napis <code class="language-plaintext highlighter-rouge">Samouczek extension :)</code>. Rozszerzenie to zostało zaaplikowane do jednego z testów:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SamouczekExtension</span> <span class="kd">implements</span> <span class="nc">BeforeEachCallback</span> <span class="o">{</span>
     <span class="nd">@Override</span>
@@ -601,7 +601,7 @@
 
 <h3 id="tworzenie-własnych-adnotacji">Tworzenie własnych adnotacji</h3>
 
-<p>JUnit 5 pozwala na <a href="/adnotacje-w-jezyku-java/">tworzenie własnych adnotacji</a> poprzez łączenie tych dostarczonych przez bibliotekę. W przykładzie poniżej możesz zobaczyć rozszerzenie, które przytoczyłem wyżej. Tym razem rozszerzenie to jest aplikowane przez dodanie własnej adnotacji <code class="highlighter-rouge">@SamouczekBefore</code> do metody z testem:</p>
+<p>JUnit 5 pozwala na <a href="/adnotacje-w-jezyku-java/">tworzenie własnych adnotacji</a> poprzez łączenie tych dostarczonych przez bibliotekę. W przykładzie poniżej możesz zobaczyć rozszerzenie, które przytoczyłem wyżej. Tym razem rozszerzenie to jest aplikowane przez dodanie własnej adnotacji <code class="language-plaintext highlighter-rouge">@SamouczekBefore</code> do metody z testem:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">({</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span> <span class="o">})</span>
 <span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
@@ -630,9 +630,9 @@
 
 <h3 id="junit-5-z-gradle">JUnit 5 z Gradle</h3>
 
-<p>Gradle od wersji 4.6 wspiera natywnie uruchamianie testów przy pomocy <em>JUnit Platform</em>. Dodanie kilku linijek do <code class="highlighter-rouge">build.gradle</code> pozwala na uruchamianie testów przy pomocy Gradle:</p>
+<p>Gradle od wersji 4.6 wspiera natywnie uruchamianie testów przy pomocy <em>JUnit Platform</em>. Dodanie kilku linijek do <code class="language-plaintext highlighter-rouge">build.gradle</code> pozwala na uruchamianie testów przy pomocy Gradle:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dependencies {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.1.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.1.0'
 }
@@ -671,19 +671,19 @@ test {
     <p>Napisz ten program używając podejścia <a href="/test-driven-development-na-przykladzie/">TDD</a>.</p>
   </li>
   <li>
-    <p>Zrefaktoryzuj kod źródłowy przykładów użytych w artykule tak aby <code class="highlighter-rouge">Weight</code> było klasą, której konstruktor akceptuje dwa parametry:</p>
+    <p>Zrefaktoryzuj kod źródłowy przykładów użytych w artykule tak aby <code class="language-plaintext highlighter-rouge">Weight</code> było klasą, której konstruktor akceptuje dwa parametry:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">WeightUnit unit</code> – <a href="/typ-wyliczeniowy-w-jezyku-java/">typ wyliczeniowy</a> określający rodzaj jednostki. Powinien mieć wartości <code class="highlighter-rouge">POUND</code> i <code class="highlighter-rouge">KILOGRAM</code>,</li>
-      <li><code class="highlighter-rouge">BigDecimal value</code> – wartość wagi w danej jednostce.</li>
+      <li><code class="language-plaintext highlighter-rouge">WeightUnit unit</code> – <a href="/typ-wyliczeniowy-w-jezyku-java/">typ wyliczeniowy</a> określający rodzaj jednostki. Powinien mieć wartości <code class="language-plaintext highlighter-rouge">POUND</code> i <code class="language-plaintext highlighter-rouge">KILOGRAM</code>,</li>
+      <li><code class="language-plaintext highlighter-rouge">BigDecimal value</code> – wartość wagi w danej jednostce.</li>
     </ul>
 
     <p>Dodatkowo klasa ta powinna zawierać metody:</p>
 
     <ul>
-      <li><code class="highlighter-rouge">Weight convert(WeightUnit convertTo)</code> – zwraca instancję <code class="highlighter-rouge">Weight</code> reprezentującą wagę w nowej jednostce,</li>
-      <li><code class="highlighter-rouge">BigDecimal getValue()</code> – zwaraca wagę,</li>
-      <li><code class="highlighter-rouge">WeightUnit getUnit()</code> – zwaraca jednostkę, w której wyrażona jest waga.</li>
+      <li><code class="language-plaintext highlighter-rouge">Weight convert(WeightUnit convertTo)</code> – zwraca instancję <code class="language-plaintext highlighter-rouge">Weight</code> reprezentującą wagę w nowej jednostce,</li>
+      <li><code class="language-plaintext highlighter-rouge">BigDecimal getValue()</code> – zwaraca wagę,</li>
+      <li><code class="language-plaintext highlighter-rouge">WeightUnit getUnit()</code> – zwaraca jednostkę, w której wyrażona jest waga.</li>
     </ul>
 
     <p>Użyj istniejących testów i metodyki TDD do przeprowadzenia refaktoringu kodu.</p>
@@ -708,7 +708,7 @@ test {
       <p>Komponenty te są także podzielone na mniejsze elementy dystrybuowane w osobnych plikach JAR. <a href="#fnref:podzielone" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:typy" role="doc-endnote">
-      <p>Metoda <code class="highlighter-rouge">assertAll</code> jest przeciążona i akceptuje różne rodzaje parametrów, zaczynając od “varargs” a na <a href="/strumienie-w-jezyku-java/">strumieniach</a> kończąc. <a href="#fnref:typy" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Metoda <code class="language-plaintext highlighter-rouge">assertAll</code> jest przeciążona i akceptuje różne rodzaje parametrów, zaczynając od “varargs” a na <a href="/strumienie-w-jezyku-java/">strumieniach</a> kończąc. <a href="#fnref:typy" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

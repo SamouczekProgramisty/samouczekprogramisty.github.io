@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#problem-do-rozwiązania">Problem do rozwiązania</a></li>
 <li class="toc-entry toc-h2"><a href="#wzorzec-obserwator">Wzorzec obserwator</a>
 <ul>
@@ -301,18 +301,18 @@
 
     </figcaption></figure>
 
-<p>Interfejs <code class="highlighter-rouge">Observable</code> zawiera trzy metody:</p>
+<p>Interfejs <code class="language-plaintext highlighter-rouge">Observable</code> zawiera trzy metody:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">attach(Observer)</code> – powoduje dodanie nowego obserwatora (obserwator jest zainteresowany zmianami),</li>
-  <li><code class="highlighter-rouge">detach(Observer)</code> – powoduje usunięcie istniejącego obserwatora (obserwator nie jest już zainteresowany zmianami),</li>
-  <li><code class="highlighter-rouge">notify()</code> – powoduje powiadomienie wszystkich obserwatorów o wystąpieniu zmiany.</li>
+  <li><code class="language-plaintext highlighter-rouge">attach(Observer)</code> – powoduje dodanie nowego obserwatora (obserwator jest zainteresowany zmianami),</li>
+  <li><code class="language-plaintext highlighter-rouge">detach(Observer)</code> – powoduje usunięcie istniejącego obserwatora (obserwator nie jest już zainteresowany zmianami),</li>
+  <li><code class="language-plaintext highlighter-rouge">notify()</code> – powoduje powiadomienie wszystkich obserwatorów o wystąpieniu zmiany.</li>
 </ul>
 
-<p>Interfejs <code class="highlighter-rouge">Observer</code> zawiera wyłącznie jedną metodę:</p>
+<p>Interfejs <code class="language-plaintext highlighter-rouge">Observer</code> zawiera wyłącznie jedną metodę:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">update()</code> – metoda jest wywołana przez <code class="highlighter-rouge">Observable</code> w momencie wystąpienia zmiany.</li>
+  <li><code class="language-plaintext highlighter-rouge">update()</code> – metoda jest wywołana przez <code class="language-plaintext highlighter-rouge">Observable</code> w momencie wystąpienia zmiany.</li>
 </ul>
 
 <p>Interfejsy nie przechowują żadnego stanu, który może się zmienić. Właściwe obiekty implementują te interfejsy i to one przechowują stan.</p>
@@ -344,9 +344,9 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Posłużę się przykładem, który przytoczyłem na początku artykułu. Wyobraź sobie blog, na którym publikowane są artykuły. Blog pozwala się obserwować – implementuje interfejs <code class="highlighter-rouge">Observable</code>. W momencie dodania nowego czytelnika zostaje on dodany do zbioru obserwatorów.</p>
+<p>Posłużę się przykładem, który przytoczyłem na początku artykułu. Wyobraź sobie blog, na którym publikowane są artykuły. Blog pozwala się obserwować – implementuje interfejs <code class="language-plaintext highlighter-rouge">Observable</code>. W momencie dodania nowego czytelnika zostaje on dodany do zbioru obserwatorów.</p>
 
-<p>Następnie w momencie publikacji nowego artykułu (metoda <code class="highlighter-rouge">publishArticle</code>) zmieniany jest wewnętrzny stan instancji klasy <code class="highlighter-rouge">Blog</code>. Po tej zmianie wywołana jest metoda <code class="highlighter-rouge">notifyObservers</code>. Wewnątrz tej metody na każdej z instancji implementującej <code class="highlighter-rouge">Observer</code> wywołana jest metoda <code class="highlighter-rouge">update</code>:</p>
+<p>Następnie w momencie publikacji nowego artykułu (metoda <code class="language-plaintext highlighter-rouge">publishArticle</code>) zmieniany jest wewnętrzny stan instancji klasy <code class="language-plaintext highlighter-rouge">Blog</code>. Po tej zmianie wywołana jest metoda <code class="language-plaintext highlighter-rouge">notifyObservers</code>. Wewnątrz tej metody na każdej z instancji implementującej <code class="language-plaintext highlighter-rouge">Observer</code> wywołana jest metoda <code class="language-plaintext highlighter-rouge">update</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blog</span> <span class="kd">implements</span> <span class="nc">Observable</span> <span class="o">{</span>
 
@@ -379,7 +379,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Obserwatorem jest czytelnik reprezentowany przez klasę <code class="highlighter-rouge">Reader</code>. Czytelnik wie jaki zasób obserwuje, przechowuje go w atrybucie <code class="highlighter-rouge">blog</code>. W momencie powiadomienia, czyli w trakcie wywołania metody <code class="highlighter-rouge">update</code>, sprawdzany jest stan atrybutu <code class="highlighter-rouge">blog</code> i <code class="highlighter-rouge">Reader</code> może odpowiednio na tę zmianę zareagować. W tym przypadku informuje o najnowszym artykule:</p>
+<p>Obserwatorem jest czytelnik reprezentowany przez klasę <code class="language-plaintext highlighter-rouge">Reader</code>. Czytelnik wie jaki zasób obserwuje, przechowuje go w atrybucie <code class="language-plaintext highlighter-rouge">blog</code>. W momencie powiadomienia, czyli w trakcie wywołania metody <code class="language-plaintext highlighter-rouge">update</code>, sprawdzany jest stan atrybutu <code class="language-plaintext highlighter-rouge">blog</code> i <code class="language-plaintext highlighter-rouge">Reader</code> może odpowiednio na tę zmianę zareagować. W tym przypadku informuje o najnowszym artykule:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Reader</span> <span class="kd">implements</span> <span class="nc">Observer</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Blog</span> <span class="n">blog</span><span class="o">;</span>
@@ -401,8 +401,8 @@
 <p>Przekładając klasy z tego przykładu na te użyte w diagramie UML:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">SomeObservable</code> – <code class="highlighter-rouge">Blog</code>,</li>
-  <li><code class="highlighter-rouge">SomeObserver</code> – <code class="highlighter-rouge">Reader</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">SomeObservable</code> – <code class="language-plaintext highlighter-rouge">Blog</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">SomeObserver</code> – <code class="language-plaintext highlighter-rouge">Reader</code>.</li>
 </ul>
 
 <h3 id="dodatkowe-rozważania">Dodatkowe rozważania</h3>
@@ -411,9 +411,9 @@
 
 <h4 id="zalety">Zalety</h4>
 
-<p>Jedną z zalet stosowania tego wzorca projektowego jest to, że klasa implementująca interfejs <code class="highlighter-rouge">Observer</code> nie musi aktywnie sprawdzać czy interesujący ją obiekt się zmienił.</p>
+<p>Jedną z zalet stosowania tego wzorca projektowego jest to, że klasa implementująca interfejs <code class="language-plaintext highlighter-rouge">Observer</code> nie musi aktywnie sprawdzać czy interesujący ją obiekt się zmienił.</p>
 
-<p>Dzięki zastosowaniu tego wzorca projektowego można w czysty sposób odizolować od siebie obiekty. Nie są one ze sobą sztywno powiązane. Dodatkowo szeroka definicja metody <code class="highlighter-rouge">update</code> pozwala na informowanie o zdarzeniach różnego rodzaju.</p>
+<p>Dzięki zastosowaniu tego wzorca projektowego można w czysty sposób odizolować od siebie obiekty. Nie są one ze sobą sztywno powiązane. Dodatkowo szeroka definicja metody <code class="language-plaintext highlighter-rouge">update</code> pozwala na informowanie o zdarzeniach różnego rodzaju.</p>
 
 <p>Niewątpliwą zaletą także jest to, że obiekt obserwowany może poinformować wielu obserwatorów używając tego samego protokołu.</p>
 
@@ -421,15 +421,15 @@
 
 <p>Obserwator powiadomiony o zmianie sam musi dojść do tego co się zmieniło w obiekcie obserwowanym. Czasami takie sprawdzenie może nie być trywialne. Co więcej nie jest to potrzebne, bo obserwowany obiekt doskonale wie co się zmieniło – sam przecież o tej zmianie informuje swoich obserwatorów.</p>
 
-<p>Można to obejść poprzez rozszerzenie metody <code class="highlighter-rouge">attach</code> lub <code class="highlighter-rouge">update</code>. Na przykład zmiana deklaracji z <code class="highlighter-rouge">attach(Observer observer)</code> na <code class="highlighter-rouge">attach(Observer observer, EnumType event)</code> może informować obiekt informowany o tym, że dany obserwator zainteresowany jest jedynie podzbiorem zdarzeń.</p>
+<p>Można to obejść poprzez rozszerzenie metody <code class="language-plaintext highlighter-rouge">attach</code> lub <code class="language-plaintext highlighter-rouge">update</code>. Na przykład zmiana deklaracji z <code class="language-plaintext highlighter-rouge">attach(Observer observer)</code> na <code class="language-plaintext highlighter-rouge">attach(Observer observer, EnumType event)</code> może informować obiekt informowany o tym, że dany obserwator zainteresowany jest jedynie podzbiorem zdarzeń.</p>
 
-<p>Podobną zmianę można wprowadzić w metodzie <code class="highlighter-rouge">update</code> zmieniając ją z <code class="highlighter-rouge">update()</code> na <code class="highlighter-rouge">update(EventDetails eventDetails)</code>. Zmiany tego typu sprawiają, że interfejsy <code class="highlighter-rouge">Observable</code> czy <code class="highlighter-rouge">Observer</code> nie są już tak generyczne.</p>
+<p>Podobną zmianę można wprowadzić w metodzie <code class="language-plaintext highlighter-rouge">update</code> zmieniając ją z <code class="language-plaintext highlighter-rouge">update()</code> na <code class="language-plaintext highlighter-rouge">update(EventDetails eventDetails)</code>. Zmiany tego typu sprawiają, że interfejsy <code class="language-plaintext highlighter-rouge">Observable</code> czy <code class="language-plaintext highlighter-rouge">Observer</code> nie są już tak generyczne.</p>
 
-<p>Przy synchronicznym powiadamianiu obserwatorów może wystąpić sytuacja, w której wywołania metody <code class="highlighter-rouge">update</code> zajmują lwią część czasu zmiany stanu obiektu obserwowanego.</p>
+<p>Przy synchronicznym powiadamianiu obserwatorów może wystąpić sytuacja, w której wywołania metody <code class="language-plaintext highlighter-rouge">update</code> zajmują lwią część czasu zmiany stanu obiektu obserwowanego.</p>
 
 <h2 id="przykłady-użycia-wzorca-obserwator">Przykłady użycia wzorca obserwator</h2>
 
-<p>W standardowej bibliotece języka Java możesz spotkać całą masę różnych implementacji interfejsu <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/EventListener.html"><code class="highlighter-rouge">EventListener</code></a>. Jest to interfejs bazowy dla pozostałych interfejsów, które służą do informowania o wystąpieniu pewnego zdarzenia. To nic innego jak <code class="highlighter-rouge">Observer</code>, z rozszerzoną metodą <code class="highlighter-rouge">update</code>.</p>
+<p>W standardowej bibliotece języka Java możesz spotkać całą masę różnych implementacji interfejsu <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/EventListener.html"><code class="language-plaintext highlighter-rouge">EventListener</code></a>. Jest to interfejs bazowy dla pozostałych interfejsów, które służą do informowania o wystąpieniu pewnego zdarzenia. To nic innego jak <code class="language-plaintext highlighter-rouge">Observer</code>, z rozszerzoną metodą <code class="language-plaintext highlighter-rouge">update</code>.</p>
 
 <p>Jeśli udało Ci się już przeczytać artykuł o <a href="/watki-w-jezyku-java/#jak-dzia%C5%82a-mechanizm-powiadomie%C5%84">wątkach</a> to wiesz o mechanizmie powiadamiania. Także tam można dopatrzeć się analogii do wzorca projektowego obserwator. Wątek, oczekujący na pewien zasób jest powiadamiany kiedy zasób staje się dostępny.</p>
 
@@ -437,7 +437,7 @@
 
 <h2 id="ćwiczenie-do-wykonania">Ćwiczenie do wykonania</h2>
 
-<p>Ćwiczenie polega na zaimplementowaniu klasy zdarzenia <code class="highlighter-rouge">ArticleEvent</code>, która będzie zawierała informacje o nowym artykule opublikowanym na blogu. Wymaga to także zmiany metody <code class="highlighter-rouge">update</code>. Niech obserwator użyje informacji przekazywanej w tym zdarzeniu do pokazania najnowszego artykułu. Czy w takim przypadku <code class="highlighter-rouge">Reader</code> potrzebuje instancji klasy <code class="highlighter-rouge">Blog</code>?</p>
+<p>Ćwiczenie polega na zaimplementowaniu klasy zdarzenia <code class="language-plaintext highlighter-rouge">ArticleEvent</code>, która będzie zawierała informacje o nowym artykule opublikowanym na blogu. Wymaga to także zmiany metody <code class="language-plaintext highlighter-rouge">update</code>. Niech obserwator użyje informacji przekazywanej w tym zdarzeniu do pokazania najnowszego artykułu. Czy w takim przypadku <code class="language-plaintext highlighter-rouge">Reader</code> potrzebuje instancji klasy <code class="language-plaintext highlighter-rouge">Blog</code>?</p>
 
 <h2 id="dodatkowe-materiały-do-nauki">Dodatkowe materiały do nauki</h2>
 

@@ -278,7 +278,7 @@
 
 <p>Dzięki Twojej pomocy wczoraj udało się znaleźć odpowiednie <a href="/advent-of-code-2016-dzien-22/">pary maszyn w klastrze</a>. Znajdujesz się na jednym z górnych pięter najwyższego budynku w Kwaterze Głównej Króliczka Wielkanocnego. Prywatne biuro Króliczka znajduje się właśnie tutaj, wraz z sejfem ukrytym za obrazem. Kto nie schowałby cennych dokumentów w sejfie ukrytym właśnie tam?</p>
 
-<p>Sejf ma wyświetlacz cyfrowy i klawiaturę, na której trzeba wpisać odpowiedni kod. Żółta karteczka przyczepiona do sejfu daje wskazówkę dotyczącą hasła: “jajka”. Na obrazie z dużym królikiem malującym jajka, doliczyłeś się <code class="highlighter-rouge">7</code> jajek.</p>
+<p>Sejf ma wyświetlacz cyfrowy i klawiaturę, na której trzeba wpisać odpowiedni kod. Żółta karteczka przyczepiona do sejfu daje wskazówkę dotyczącą hasła: “jajka”. Na obrazie z dużym królikiem malującym jajka, doliczyłeś się <code class="language-plaintext highlighter-rouge">7</code> jajek.</p>
 
 <p>Kiedy próbujesz wpisać kod nic nie pojawia się na ekranie. Zamiast tego klawiatura rozpada się w Twoich rękach. Najwyraźniej została wcześniej zniszczona. Pod spodem ma swego rodzaju gniazdo, takie do którego pasuje Twój <a href="/advent-of-code-2016-dzien-11/">prototypowy komputer</a>. Rozmontowując roztrzaskaną klawiaturę wyciągasz układ logiczny ze środka, podłączasz go do swojego komputera, który następie podłączasz do sejfu.</p>
 
@@ -287,22 +287,22 @@
 <p>Kod wygląda, prawie dokładnie jak ten, który użyty był poprzednio do <a href="/advent-of-code-2016-dzien-12/">sterowania kolejką</a>! Powinieneś być w stanie użyć tego samego interpretera, którego użyłeś poprzednio. Wymagał on będzie jednak drobnego rozszerzenia o jedną nową instrukcję:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">tgl x</code> przełącza instrukcję znajdującą się <code class="highlighter-rouge">x</code> pozycji dalej, <code class="highlighter-rouge">x</code> wskazuje na instrukcje podobnie jak <code class="highlighter-rouge">jnz</code>. Dodatnia wartość oznacza instrukcję z przodu, ujemna z tyłu.</li>
+  <li><code class="language-plaintext highlighter-rouge">tgl x</code> przełącza instrukcję znajdującą się <code class="language-plaintext highlighter-rouge">x</code> pozycji dalej, <code class="language-plaintext highlighter-rouge">x</code> wskazuje na instrukcje podobnie jak <code class="language-plaintext highlighter-rouge">jnz</code>. Dodatnia wartość oznacza instrukcję z przodu, ujemna z tyłu.</li>
 </ul>
 
-<p>Instrukcja <code class="highlighter-rouge">tgl</code> działa w następujący sposób:</p>
+<p>Instrukcja <code class="language-plaintext highlighter-rouge">tgl</code> działa w następujący sposób:</p>
 <ul>
-  <li>dla jednoargumentowych instrukcji, <code class="highlighter-rouge">inc</code> staje się <code class="highlighter-rouge">dec</code>, każda inna jednoargumentowa instrukcja staje się <code class="highlighter-rouge">inc</code>,</li>
-  <li>dla dwuargumentowych instrukcji, <code class="highlighter-rouge">jnz</code> staje się <code class="highlighter-rouge">cpy</code>, każda inna dwuargumentowa instrukcja staje się <code class="highlighter-rouge">jnz</code>,</li>
+  <li>dla jednoargumentowych instrukcji, <code class="language-plaintext highlighter-rouge">inc</code> staje się <code class="language-plaintext highlighter-rouge">dec</code>, każda inna jednoargumentowa instrukcja staje się <code class="language-plaintext highlighter-rouge">inc</code>,</li>
+  <li>dla dwuargumentowych instrukcji, <code class="language-plaintext highlighter-rouge">jnz</code> staje się <code class="language-plaintext highlighter-rouge">cpy</code>, każda inna dwuargumentowa instrukcja staje się <code class="language-plaintext highlighter-rouge">jnz</code>,</li>
   <li>argumenty przełączanej instrukcji nie są zmieniane,</li>
-  <li>jeśli <code class="highlighter-rouge">tgl</code> próbuje przełączyć instrukcję znajdującą się poza programem, nic się nie dzieje,</li>
-  <li>jeśli <code class="highlighter-rouge">tgl</code> wyprodukuje niepoprawną instrukcje (na przykład <code class="highlighter-rouge">cpy 1 2</code>) i później interpreter spróbuje wywołać taką instrukcję, powinien ją ominąć,</li>
-  <li>jeśli <code class="highlighter-rouge">tgl</code> przełącza samą siebie (na przykład jeśli <code class="highlighter-rouge">a</code> ma wartość <code class="highlighter-rouge">0</code>, <code class="highlighter-rouge">tgl a</code> przełączy się na <code class="highlighter-rouge">inc a</code>), wynikowa instrukcja nie jest wywołana dopóki interpreter nie dotrze do niej po raz kolejny.</li>
+  <li>jeśli <code class="language-plaintext highlighter-rouge">tgl</code> próbuje przełączyć instrukcję znajdującą się poza programem, nic się nie dzieje,</li>
+  <li>jeśli <code class="language-plaintext highlighter-rouge">tgl</code> wyprodukuje niepoprawną instrukcje (na przykład <code class="language-plaintext highlighter-rouge">cpy 1 2</code>) i później interpreter spróbuje wywołać taką instrukcję, powinien ją ominąć,</li>
+  <li>jeśli <code class="language-plaintext highlighter-rouge">tgl</code> przełącza samą siebie (na przykład jeśli <code class="language-plaintext highlighter-rouge">a</code> ma wartość <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">tgl a</code> przełączy się na <code class="language-plaintext highlighter-rouge">inc a</code>), wynikowa instrukcja nie jest wywołana dopóki interpreter nie dotrze do niej po raz kolejny.</li>
 </ul>
 
 <p>Na przykład jeśli pod uwagę weźmiesz taki program:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cpy 2 a
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cpy 2 a
 tgl a
 tgl a
 tgl a
@@ -312,16 +312,16 @@ dec a
 </code></pre></div></div>
 
 <ol>
-  <li><code class="highlighter-rouge">cpy 2 a</code> inicjalizuje rejestr <code class="highlighter-rouge">a</code> wartością 2,</li>
-  <li>pierwsza instrukcja <code class="highlighter-rouge">tgl a</code> przełącza instrukcję odległą o wartość rejestru <code class="highlighter-rouge">a</code> (2), w wyniku czego zmienia trzecią instrukcję <code class="highlighter-rouge">tgl a</code> na <code class="highlighter-rouge">inc a</code>,</li>
-  <li>druga instrukcja <code class="highlighter-rouge">tgl a</code> także zmienia instrukcje oddaloną o 2, co zmienia <code class="highlighter-rouge">cpy 1 a</code> na <code class="highlighter-rouge">jnz 1 a</code>,</li>
-  <li>czwarta linia, która teraz jest <code class="highlighter-rouge">inc a</code> zwiększa o jeden <code class="highlighter-rouge">a</code> do wartości 3,</li>
-  <li>ostatecznie piąta linia, która jest teraz <code class="highlighter-rouge">jnz 1 a</code> skacze o <code class="highlighter-rouge">a</code> (3) instrukcji do przodu przeskakując obie instrukcje <code class="highlighter-rouge">dec a</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">cpy 2 a</code> inicjalizuje rejestr <code class="language-plaintext highlighter-rouge">a</code> wartością 2,</li>
+  <li>pierwsza instrukcja <code class="language-plaintext highlighter-rouge">tgl a</code> przełącza instrukcję odległą o wartość rejestru <code class="language-plaintext highlighter-rouge">a</code> (2), w wyniku czego zmienia trzecią instrukcję <code class="language-plaintext highlighter-rouge">tgl a</code> na <code class="language-plaintext highlighter-rouge">inc a</code>,</li>
+  <li>druga instrukcja <code class="language-plaintext highlighter-rouge">tgl a</code> także zmienia instrukcje oddaloną o 2, co zmienia <code class="language-plaintext highlighter-rouge">cpy 1 a</code> na <code class="language-plaintext highlighter-rouge">jnz 1 a</code>,</li>
+  <li>czwarta linia, która teraz jest <code class="language-plaintext highlighter-rouge">inc a</code> zwiększa o jeden <code class="language-plaintext highlighter-rouge">a</code> do wartości 3,</li>
+  <li>ostatecznie piąta linia, która jest teraz <code class="language-plaintext highlighter-rouge">jnz 1 a</code> skacze o <code class="language-plaintext highlighter-rouge">a</code> (3) instrukcji do przodu przeskakując obie instrukcje <code class="language-plaintext highlighter-rouge">dec a</code>.</li>
 </ol>
 
-<p>W tym przykładzie ostateczna wartość rejestru <code class="highlighter-rouge">a</code> to 3.</p>
+<p>W tym przykładzie ostateczna wartość rejestru <code class="language-plaintext highlighter-rouge">a</code> to 3.</p>
 
-<p>Pozostała część układu scalonego zdaje się ustawiać wartość rejestru <code class="highlighter-rouge">a</code> na wejście z klawiatury (liczbę jajek z obrazu, 7), uruchamia kod i przesyła wynikową wartość rejestru <code class="highlighter-rouge">a</code> do sejfu.</p>
+<p>Pozostała część układu scalonego zdaje się ustawiać wartość rejestru <code class="language-plaintext highlighter-rouge">a</code> na wejście z klawiatury (liczbę jajek z obrazu, 7), uruchamia kod i przesyła wynikową wartość rejestru <code class="language-plaintext highlighter-rouge">a</code> do sejfu.</p>
 
 <p>Zakładając, że lista poleceń znajduje się w <a href="https://raw.githubusercontent.com/SamouczekProgramisty/StrefaZadaniowaSamouka/master/05_aoc_2016/src/test/resources/day23_input.txt">tym pliku</a>, jaka wartość zostanie przesłana do sejfu?</p>
 

@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#specyfikacja-bean-validation">Specyfikacja Bean Validation</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#implementacja-specyfikacji">Implementacja specyfikacji</a></li>
@@ -317,7 +317,7 @@
 
 <p>Specyfikacja <em>Bean Validation</em> ewoluuje. Wszystko zaczęło się od specyfikacji w wersji <a href="http://beanvalidation.org/1.0/">1.0</a> wydanej w 2009 roku. Najnowsza wersja tej specyfikacji to <a href="http://beanvalidation.org/2.0/">2.0</a>. Jest ona częścią Java Enterprise Edition 8. Dodatkowo implementacji tej specyfikacji można używać w Java SE. Walidacja odbywa się w oparciu o reguły (ang. <em>constraint</em>), które stwierdzają, czy dany element jest poprawny.</p>
 
-<p>Specyfikacja pozwala na przypisywanie reguł do poszczególnych elementów za pomocą adnotacji i XML<sup id="fnref:xml" role="doc-noteref"><a href="#fn:xml" class="footnote">1</a></sup>. W dalszej części artykułu opisuję wyłącznie walidację opartą o adnotacje. Dla uproszczenia skupię się jedynie na zastosowaniu walidacji w Java SE.</p>
+<p>Specyfikacja pozwala na przypisywanie reguł do poszczególnych elementów za pomocą adnotacji i XML<sup id="fnref:xml" role="doc-noteref"><a href="#fn:xml" class="footnote" rel="footnote">1</a></sup>. W dalszej części artykułu opisuję wyłącznie walidację opartą o adnotacje. Dla uproszczenia skupię się jedynie na zastosowaniu walidacji w Java SE.</p>
 
 <p>Proszę spójrz na przykładową klasę z adnotacjami do walidacji:</p>
 
@@ -344,11 +344,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W ramach specyfikacji udostępniony jest standardowy zestaw reguł. Na przykład “element nie może mieć wartości <code class="highlighter-rouge">null</code>” (<code class="highlighter-rouge">@NotNull</code>), “element musi mieć minimum X znaków” (<code class="highlighter-rouge">@Size(min=X)</code>), “element musi być datą w przyszłości” (<code class="highlighter-rouge">@Future</code>) itd. Przykład powyżej używa właśnie tych standardowych adnotacji. Zwróć uwagę, że do jednego elementu można przypisać wiele adnotacji. Na przykład atrybut <code class="highlighter-rouge">owner</code> posiada adnotacje <code class="highlighter-rouge">@NotBlank</code> i <code class="highlighter-rouge">@Size</code>.</p>
+<p>W ramach specyfikacji udostępniony jest standardowy zestaw reguł. Na przykład “element nie może mieć wartości <code class="language-plaintext highlighter-rouge">null</code>” (<code class="language-plaintext highlighter-rouge">@NotNull</code>), “element musi mieć minimum X znaków” (<code class="language-plaintext highlighter-rouge">@Size(min=X)</code>), “element musi być datą w przyszłości” (<code class="language-plaintext highlighter-rouge">@Future</code>) itd. Przykład powyżej używa właśnie tych standardowych adnotacji. Zwróć uwagę, że do jednego elementu można przypisać wiele adnotacji. Na przykład atrybut <code class="language-plaintext highlighter-rouge">owner</code> posiada adnotacje <code class="language-plaintext highlighter-rouge">@NotBlank</code> i <code class="language-plaintext highlighter-rouge">@Size</code>.</p>
 
 <h3 id="implementacja-specyfikacji">Implementacja specyfikacji</h3>
 
-<p>Sama specyfikacja to nie wszystko. Dostarcza ona jedynie API. Zestaw interfejsów, adnotacji, typów wyliczeniowych i wyjątków. Potrzebna jest jeszcze konkretna implementacja tej specyfikacji. W artykule tym będę używał <a href="http://hibernate.org/validator">Hibernate Validator</a> w wersji 6.0.5. Jest to implementacja referencyjna dla specyfikacji <em>Bean Validation</em> w wersji 2.0. Do projektu mogę ją dodać przez następujący fragment w pliku <a href="/wstep-do-gradle/"><code class="highlighter-rouge">build.gradle</code></a>:</p>
+<p>Sama specyfikacja to nie wszystko. Dostarcza ona jedynie API. Zestaw interfejsów, adnotacji, typów wyliczeniowych i wyjątków. Potrzebna jest jeszcze konkretna implementacja tej specyfikacji. W artykule tym będę używał <a href="http://hibernate.org/validator">Hibernate Validator</a> w wersji 6.0.5. Jest to implementacja referencyjna dla specyfikacji <em>Bean Validation</em> w wersji 2.0. Do projektu mogę ją dodać przez następujący fragment w pliku <a href="/wstep-do-gradle/"><code class="language-plaintext highlighter-rouge">build.gradle</code></a>:</p>
 
 <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">dependencies</span> <span class="o">{</span>
     <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.hibernate.validator'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'hibernate-validator'</span><span class="o">,</span> <span class="nl">version:</span> <span class="s1">'6.0.5.Final'</span>
@@ -360,14 +360,14 @@
 
 <h3 id="wymagania-dotyczące-walidacji">Wymagania dotyczące walidacji</h3>
 
-<p>Atrybuty, których poprawność będzie sprawdzana, muszą być atrybutami w kontekście specyfikacji <em>Java Beans</em>. Innymi słowy dla każdego ze sprawdzanych atrybutów powinna być zaimplementowana metoda dostępowa. Tak zwany “getter”. W poprzednim fragmencie kodu są to metody <code class="highlighter-rouge">getOwner</code> i <code class="highlighter-rouge">getValidUntil</code>.</p>
+<p>Atrybuty, których poprawność będzie sprawdzana, muszą być atrybutami w kontekście specyfikacji <em>Java Beans</em>. Innymi słowy dla każdego ze sprawdzanych atrybutów powinna być zaimplementowana metoda dostępowa. Tak zwany “getter”. W poprzednim fragmencie kodu są to metody <code class="language-plaintext highlighter-rouge">getOwner</code> i <code class="language-plaintext highlighter-rouge">getValidUntil</code>.</p>
 
 <p>Adnotacja dotyczące walidacji można stosować do:</p>
 
 <ul>
   <li>atrybutów,</li>
-  <li>parametrów metody czy konstruktora, na przykład <code class="highlighter-rouge">public PaidAccount(@NotNull owner)</code>,</li>
-  <li>elementów wewnątrz kolekcji, na przykład <code class="highlighter-rouge">List&lt;@NotBlank String&gt; users</code>,</li>
+  <li>parametrów metody czy konstruktora, na przykład <code class="language-plaintext highlighter-rouge">public PaidAccount(@NotNull owner)</code>,</li>
+  <li>elementów wewnątrz kolekcji, na przykład <code class="language-plaintext highlighter-rouge">List&lt;@NotBlank String&gt; users</code>,</li>
   <li>wartości zwracanej metody,</li>
   <li>klas.</li>
 </ul>
@@ -422,7 +422,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W przykładzie powyżej użyłem własnej adnotacji <code class="highlighter-rouge">@ZipCodeCityCoherent</code>. Adnotacja ta pozwala na sprawdzenie czy kod pocztowy i miasto są spójne. O tym jak tworzyć swoje własne adnotacje do walidacji przeczytasz w dalszej części artykułu.</p>
+<p>W przykładzie powyżej użyłem własnej adnotacji <code class="language-plaintext highlighter-rouge">@ZipCodeCityCoherent</code>. Adnotacja ta pozwala na sprawdzenie czy kod pocztowy i miasto są spójne. O tym jak tworzyć swoje własne adnotacje do walidacji przeczytasz w dalszej części artykułu.</p>
 
 <div class="notice--success text-center">
   
@@ -479,9 +479,9 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W przykładzie tym użyta jest adnotacja <code class="highlighter-rouge">@Valid</code>. Zwraca ona uwagę na to, że instancja klasy <code class="highlighter-rouge">PaidAccount</code> także musi być sprawdzona pod kątem poprawności. To czy <code class="highlighter-rouge">PaidAccount</code> jest poprawne czy nie określone jest przez adnotacje wewnątrz tej klasy.</p>
+<p>W przykładzie tym użyta jest adnotacja <code class="language-plaintext highlighter-rouge">@Valid</code>. Zwraca ona uwagę na to, że instancja klasy <code class="language-plaintext highlighter-rouge">PaidAccount</code> także musi być sprawdzona pod kątem poprawności. To czy <code class="language-plaintext highlighter-rouge">PaidAccount</code> jest poprawne czy nie określone jest przez adnotacje wewnątrz tej klasy.</p>
 
-<p>Sprawdzenie reguł odbywa się poprzez uruchomienie metody <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html#validate-T-java.lang.Class...-"><code class="highlighter-rouge">validate</code></a> na instancji klasy implementującej interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html"><code class="highlighter-rouge">Validator</code></a>. Biblioteka, która implementuje specyfikację <em>Bean Validation</em> dostarcza odpowiednią klasę.</p>
+<p>Sprawdzenie reguł odbywa się poprzez uruchomienie metody <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html#validate-T-java.lang.Class...-"><code class="language-plaintext highlighter-rouge">validate</code></a> na instancji klasy implementującej interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/Validator.html"><code class="language-plaintext highlighter-rouge">Validator</code></a>. Biblioteka, która implementuje specyfikację <em>Bean Validation</em> dostarcza odpowiednią klasę.</p>
 
 <h2 id="kiedy-używamy-automatycznej-walidacji">Kiedy używamy automatycznej walidacji</h2>
 
@@ -500,14 +500,14 @@
 <p>Jak już wspomniałem specyfikacja zawiera adnotacje określające najczęściej używane reguły walidacji. Część z nich zebrałem dla Ciebie poniżej:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">@NotNull</code> – dany element nie może mieć wartości <code class="highlighter-rouge">null</code>,</li>
-  <li><code class="highlighter-rouge">@NotBlank</code> – dany element nie może mieć wartości <code class="highlighter-rouge">null</code> i musi zawierać co najmniej jeden znak (nie może to być spacja, tabulator etc.),</li>
-  <li><code class="highlighter-rouge">@NotEmpty</code> – dany element nie może mieć wartości <code class="highlighter-rouge">null</code> i musi zawierać co najmniej jeden znak,</li>
-  <li><code class="highlighter-rouge">@Min(X)</code> – dany element musi być liczbą i jego wartość musi być większa bądź równa <code class="highlighter-rouge">X</code>,</li>
-  <li><code class="highlighter-rouge">@Max(X)</code> – dany element musi być liczbą i jego wartość musi być mniejsza bądź równa <code class="highlighter-rouge">X</code>,</li>
-  <li><code class="highlighter-rouge">@Email</code> – dane element musi zawierać poprawny adres e-mail,</li>
-  <li><code class="highlighter-rouge">@Pattern(regexp=X)</code> – dany element musi pasować do <a href="/wyrazenia-regularne-w-jezyku-java/">wyrażenia regularnego</a> <code class="highlighter-rouge">X</code>.</li>
-  <li><code class="highlighter-rouge">@Size(min=X, max=Y)</code> – dany element musi mieć rozmiar określony przez elementy adnotacji <code class="highlighter-rouge">min</code> i <code class="highlighter-rouge">max</code>. Obie wartości są opcjonalne.</li>
+  <li><code class="language-plaintext highlighter-rouge">@NotNull</code> – dany element nie może mieć wartości <code class="language-plaintext highlighter-rouge">null</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">@NotBlank</code> – dany element nie może mieć wartości <code class="language-plaintext highlighter-rouge">null</code> i musi zawierać co najmniej jeden znak (nie może to być spacja, tabulator etc.),</li>
+  <li><code class="language-plaintext highlighter-rouge">@NotEmpty</code> – dany element nie może mieć wartości <code class="language-plaintext highlighter-rouge">null</code> i musi zawierać co najmniej jeden znak,</li>
+  <li><code class="language-plaintext highlighter-rouge">@Min(X)</code> – dany element musi być liczbą i jego wartość musi być większa bądź równa <code class="language-plaintext highlighter-rouge">X</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">@Max(X)</code> – dany element musi być liczbą i jego wartość musi być mniejsza bądź równa <code class="language-plaintext highlighter-rouge">X</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">@Email</code> – dane element musi zawierać poprawny adres e-mail,</li>
+  <li><code class="language-plaintext highlighter-rouge">@Pattern(regexp=X)</code> – dany element musi pasować do <a href="/wyrazenia-regularne-w-jezyku-java/">wyrażenia regularnego</a> <code class="language-plaintext highlighter-rouge">X</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">@Size(min=X, max=Y)</code> – dany element musi mieć rozmiar określony przez elementy adnotacji <code class="language-plaintext highlighter-rouge">min</code> i <code class="language-plaintext highlighter-rouge">max</code>. Obie wartości są opcjonalne.</li>
 </ul>
 
 <p>Oczywiście lista reguł zapewniona przez specyfikację nie jest kompletna. Specyfikacja pozwala na rozszerzanie listy dostępnych reguł.</p>
@@ -542,7 +542,7 @@
 
 <p>Po uruchomieniu tego programu na konsoli pokażą się następujące komunikaty błędów:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>validUntil must be a future date
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>validUntil must be a future date
 owner size must be between 3 and 2147483647
 </code></pre></div></div>
 
@@ -552,7 +552,7 @@ owner size must be between 3 and 2147483647
 
 <h4 id="komunikaty-błędów-zaszyte-w-kodzie">Komunikaty błędów zaszyte w kodzie</h4>
 
-<p class="notice--warning">Sposób ten nie jest zalecany! Generalnie niezbyt dobrą praktyką jest umieszczanie tekstu w kodzie źródłowym programu. Doskonale do tego nadają się za to pliki <code class="highlighter-rouge">properties</code>, które opisałem poniżej.</p>
+<p class="notice--warning">Sposób ten nie jest zalecany! Generalnie niezbyt dobrą praktyką jest umieszczanie tekstu w kodzie źródłowym programu. Doskonale do tego nadają się za to pliki <code class="language-plaintext highlighter-rouge">properties</code>, które opisałem poniżej.</p>
 
 <p>Modyfikując nieznacznie klasę z adnotacjami możemy wymusić inne komunikaty błędów:</p>
 
@@ -566,15 +566,15 @@ owner size must be between 3 and 2147483647
 
 <p>Po takiej modyfikacji na konsoli pokażą się następujące komunikaty błędów:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>validUntil musi być w przyszłości
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>validUntil musi być w przyszłości
 owner musi być dłuższe niż 3
 </code></pre></div></div>
 
-<h4 id="komunikaty-błędów-w-plikach-properties">Komunikaty błędów w plikach <a href="https://en.wikipedia.org/wiki/.properties"><code class="highlighter-rouge">properties</code></a></h4>
+<h4 id="komunikaty-błędów-w-plikach-properties">Komunikaty błędów w plikach <a href="https://en.wikipedia.org/wiki/.properties"><code class="language-plaintext highlighter-rouge">properties</code></a></h4>
 
-<p>Pliki z rozszerzeniem <code class="highlighter-rouge">properties</code> to pliki tekstowe. Zawierają one zbiór wierszy w postaci <code class="highlighter-rouge">klucz=wartość</code>. Pliki te nadają się do przechowywania komunikatów błędów.</p>
+<p>Pliki z rozszerzeniem <code class="language-plaintext highlighter-rouge">properties</code> to pliki tekstowe. Zawierają one zbiór wierszy w postaci <code class="language-plaintext highlighter-rouge">klucz=wartość</code>. Pliki te nadają się do przechowywania komunikatów błędów.</p>
 
-<p>Domyślna implementacja w kodzie ma zaszyty wyłącznie <code class="highlighter-rouge">klucz</code> komunikatu błędu. Na przykład:</p>
+<p>Domyślna implementacja w kodzie ma zaszyty wyłącznie <code class="language-plaintext highlighter-rouge">klucz</code> komunikatu błędu. Na przykład:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">Size</span> <span class="o">{</span>
     <span class="nc">String</span> <span class="nf">message</span><span class="o">()</span> <span class="k">default</span> <span class="s">"{javax.validation.constraints.Size.message}"</span><span class="o">;</span>
@@ -582,28 +582,28 @@ owner musi być dłuższe niż 3
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Przyjęło się, że klucz ma postać <code class="highlighter-rouge">&lt;pakiet&gt;.&lt;nazwa_klasy&gt;.&lt;nazwa_atrybutu&gt;</code>. W powyższym przykładzie jest to <code class="highlighter-rouge">javax.validation.constraints.Size.message</code>. Następnie klucz ten wraz z wartością umieszcza się w pliku <code class="highlighter-rouge">ValidationMessages.properties</code>. Plik ten jest odczytywany przez implementację <em>Bean Validation</em>. Znalezione tam wartości użyte są do budowania komunikatów błędów.</p>
+<p>Przyjęło się, że klucz ma postać <code class="language-plaintext highlighter-rouge">&lt;pakiet&gt;.&lt;nazwa_klasy&gt;.&lt;nazwa_atrybutu&gt;</code>. W powyższym przykładzie jest to <code class="language-plaintext highlighter-rouge">javax.validation.constraints.Size.message</code>. Następnie klucz ten wraz z wartością umieszcza się w pliku <code class="language-plaintext highlighter-rouge">ValidationMessages.properties</code>. Plik ten jest odczytywany przez implementację <em>Bean Validation</em>. Znalezione tam wartości użyte są do budowania komunikatów błędów.</p>
 
-<p>Plik <code class="highlighter-rouge">ValidationMessages.properties</code> umieść w katalogu projektu <code class="highlighter-rouge">src/main/resources</code>:</p>
+<p>Plik <code class="language-plaintext highlighter-rouge">ValidationMessages.properties</code> umieść w katalogu projektu <code class="language-plaintext highlighter-rouge">src/main/resources</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javax.validation.constraints.Size.message=musi być dłuższe niż {min}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javax.validation.constraints.Size.message=musi być dłuższe niż {min}
 javax.validation.constraints.NotNull.message=nie może być puste
 javax.validation.constraints.Future.message=musi być w przyszłości
 </code></pre></div></div>
 
 <div class="notice--info">
   
-<p>Niestety pliki <code class="highlighter-rouge">properties</code> do wersji 8 języka są “dziwne”. Mam tu na myśli to, że domyślnym kodowaniem z jakim są one czytane jest ISO-8859-1. W związku z tym możesz zobaczyć na konsoli:</p>
+<p>Niestety pliki <code class="language-plaintext highlighter-rouge">properties</code> do wersji 8 języka są “dziwne”. Mam tu na myśli to, że domyślnym kodowaniem z jakim są one czytane jest ISO-8859-1. W związku z tym możesz zobaczyć na konsoli:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>validUntil musi byÄ w przyszÅoÅci
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>validUntil musi byÄ w przyszÅoÅci
 owner musi byÄ dÅuÅ¼sze niÅ¼ 3
 </code></pre></div></div>
 
-<p>Te magiczne znaczki to nic innego ja próba interpretowania pliku <code class="highlighter-rouge">properties</code> zapisanego przy pomocy kodowania UTF-8 przez Javę stosując kodowanie ISO-8859-1. IntelliJ Idea pozwala na ustawienie kodowania plików <code class="highlighter-rouge">properties</code>. Możesz to zrobić w menu File -&gt; Settings -&gt; Editor -&gt; File encodings. Istotne jest abyś ustawił ich kodowanie na ISO-8859-1 i zaznaczył opcję “Transparent native-to-ascii conversion”.</p>
+<p>Te magiczne znaczki to nic innego ja próba interpretowania pliku <code class="language-plaintext highlighter-rouge">properties</code> zapisanego przy pomocy kodowania UTF-8 przez Javę stosując kodowanie ISO-8859-1. IntelliJ Idea pozwala na ustawienie kodowania plików <code class="language-plaintext highlighter-rouge">properties</code>. Możesz to zrobić w menu File -&gt; Settings -&gt; Editor -&gt; File encodings. Istotne jest abyś ustawił ich kodowanie na ISO-8859-1 i zaznaczył opcję “Transparent native-to-ascii conversion”.</p>
 
-<p>Przy takim ustawieniu możesz tworzyć pliki properties w normalny sposób. IntelliJ pod spodem zrobi za Ciebie odpowiednią konwersję znaków. Na przykład powyższy plik <code class="highlighter-rouge">properties</code> przerobiony przez IntelliJ wygląda następująco:</p>
+<p>Przy takim ustawieniu możesz tworzyć pliki properties w normalny sposób. IntelliJ pod spodem zrobi za Ciebie odpowiednią konwersję znaków. Na przykład powyższy plik <code class="language-plaintext highlighter-rouge">properties</code> przerobiony przez IntelliJ wygląda następująco:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javax.validation.constraints.Size.message=musi być dłuższe niż {min}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javax.validation.constraints.Size.message=musi być dłuższe niż {min}
 javax.validation.constraints.NotNull.message=nie może być puste
 javax.validation.constraints.Future.message=musi być w przyszłości
 </code></pre></div></div>
@@ -616,9 +616,9 @@ javax.validation.constraints.Future.message=musi być w przyszłości
 
 <p class="notice--info">Celem tego artykułu nie jest wyjaśnianie <em>Expression Language</em>, ma on dużo większe możliwości. Ten podpunkt ma Ci tylko pomóc zrozumieć użycie EL w komunikatach błędów.</p>
 
-<p>Zauważyłeś użycie <code class="highlighter-rouge">{min}</code> wewnątrz komunikatu błędu? To właśnie język EL. To właśnie ten element, który zmusił mnie do dodania dodatkowej zależności w pliku <code class="highlighter-rouge">build.gradle</code>. Składnia <code class="highlighter-rouge">{zmienna}</code> pozwala na odwołanie się do elementu adnotacji. W naszym przypadku jest to element <code class="highlighter-rouge">min</code>. W wynikowym komunikacie błędu znalazła się wartość 3 – wartość elementu <code class="highlighter-rouge">min</code>.</p>
+<p>Zauważyłeś użycie <code class="language-plaintext highlighter-rouge">{min}</code> wewnątrz komunikatu błędu? To właśnie język EL. To właśnie ten element, który zmusił mnie do dodania dodatkowej zależności w pliku <code class="language-plaintext highlighter-rouge">build.gradle</code>. Składnia <code class="language-plaintext highlighter-rouge">{zmienna}</code> pozwala na odwołanie się do elementu adnotacji. W naszym przypadku jest to element <code class="language-plaintext highlighter-rouge">min</code>. W wynikowym komunikacie błędu znalazła się wartość 3 – wartość elementu <code class="language-plaintext highlighter-rouge">min</code>.</p>
 
-<p>Te same szablony użyte są do odwołania się do wartości komunikatu błędu z plików <code class="highlighter-rouge">properties</code>.</p>
+<p>Te same szablony użyte są do odwołania się do wartości komunikatu błędu z plików <code class="language-plaintext highlighter-rouge">properties</code>.</p>
 
 <h2 id="własna-adnotacja-do-walidacji">Własna adnotacja do walidacji</h2>
 
@@ -640,20 +640,20 @@ javax.validation.constraints.Future.message=musi być w przyszłości
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Adnotacja ta może być przypisana wyłącznie do klasy <code class="highlighter-rouge">@Target(TYPE)</code>. <code class="highlighter-rouge">@Retention(RUNTIME)</code> określa, że informacja o adnotacji ma być widoczna w trakcie uruchomienia programu. Dodanie do naszej adnotacji <code class="highlighter-rouge">@Constraint(validatedBy = ZipCodeCityCoherentValidator.class)</code> sprawia, że jest ona “widoczna” przez <em>Bean Validation</em>. W tym miejscu określiłem też klasę, która będzie wywołana aby przeprowadzić właściwą walidację. W tym przypadku jest to klasa <code class="highlighter-rouge">ZipCodeCityCoherentValidator</code>.</p>
+<p>Adnotacja ta może być przypisana wyłącznie do klasy <code class="language-plaintext highlighter-rouge">@Target(TYPE)</code>. <code class="language-plaintext highlighter-rouge">@Retention(RUNTIME)</code> określa, że informacja o adnotacji ma być widoczna w trakcie uruchomienia programu. Dodanie do naszej adnotacji <code class="language-plaintext highlighter-rouge">@Constraint(validatedBy = ZipCodeCityCoherentValidator.class)</code> sprawia, że jest ona “widoczna” przez <em>Bean Validation</em>. W tym miejscu określiłem też klasę, która będzie wywołana aby przeprowadzić właściwą walidację. W tym przypadku jest to klasa <code class="language-plaintext highlighter-rouge">ZipCodeCityCoherentValidator</code>.</p>
 
-<p>Ciało adnotacji zawiera trzy elementy. Są to odpowiednio <code class="highlighter-rouge">message</code>, <code class="highlighter-rouge">groups</code> i <code class="highlighter-rouge">payload</code>. Komunikat błędu jest przechowywany w elemencie <code class="highlighter-rouge">message</code>. W tym przypadku jest to odwołanie do zawartości pliku <code class="highlighter-rouge">properties</code>:</p>
+<p>Ciało adnotacji zawiera trzy elementy. Są to odpowiednio <code class="language-plaintext highlighter-rouge">message</code>, <code class="language-plaintext highlighter-rouge">groups</code> i <code class="language-plaintext highlighter-rouge">payload</code>. Komunikat błędu jest przechowywany w elemencie <code class="language-plaintext highlighter-rouge">message</code>. W tym przypadku jest to odwołanie do zawartości pliku <code class="language-plaintext highlighter-rouge">properties</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pl.samouczekprogramisty.misc.validation.ZipCodeCityCoherent.message=miasto nie pasuje do kodu pocztowego
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pl.samouczekprogramisty.misc.validation.ZipCodeCityCoherent.message=miasto nie pasuje do kodu pocztowego
 </code></pre></div></div>
 
-<p>Elementy <code class="highlighter-rouge">groups</code> i <code class="highlighter-rouge">payload</code> są wymagane. Ich zastosowanie pominę, artykuł i tak jest wystarczająco długi ;).</p>
+<p>Elementy <code class="language-plaintext highlighter-rouge">groups</code> i <code class="language-plaintext highlighter-rouge">payload</code> są wymagane. Ich zastosowanie pominę, artykuł i tak jest wystarczająco długi ;).</p>
 
 <p>Skoro mamy już adnotację nadszedł czas na implementację klasy sprawdzającej.</p>
 
 <h3 id="implementacja-klasy-sprawdzającej">Implementacja klasy sprawdzającej</h3>
 
-<p>Każda klasa sprawdzająca powinien implementować <a href="/interfejsy-w-jezyku-java/">interfejs</a> <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html"><code class="highlighter-rouge">ConstraintValidator</code></a>. W momencie walidowania danego elementu zostaje wywołana metoda <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html#isValid-T-javax.validation.ConstraintValidatorContext-"><code class="highlighter-rouge">isValid</code></a>. To implementacja tej metody będzie decydowała o tym czy dany element jest poprawny.</p>
+<p>Każda klasa sprawdzająca powinien implementować <a href="/interfejsy-w-jezyku-java/">interfejs</a> <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html"><code class="language-plaintext highlighter-rouge">ConstraintValidator</code></a>. W momencie walidowania danego elementu zostaje wywołana metoda <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/ConstraintValidator.html#isValid-T-javax.validation.ConstraintValidatorContext-"><code class="language-plaintext highlighter-rouge">isValid</code></a>. To implementacja tej metody będzie decydowała o tym czy dany element jest poprawny.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZipCodeCityCoherentValidator</span> <span class="kd">implements</span> <span class="nc">ConstraintValidator</span><span class="o">&lt;</span><span class="nc">ZipCodeCityCoherent</span><span class="o">,</span> <span class="nc">Address</span><span class="o">&gt;</span> <span class="o">{</span>
 	<span class="nd">@Override</span>

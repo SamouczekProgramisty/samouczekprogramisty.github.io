@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#zachłanność-wyrażeń-regularnych">Zachłanność wyrażeń regularnych</a></li>
 <li class="toc-entry toc-h2"><a href="#alternatywa">Alternatywa</a></li>
 <li class="toc-entry toc-h2"><a href="#grupy-nieprzechwytujące">Grupy nieprzechwytujące</a></li>
@@ -282,9 +282,9 @@
   <li>czym są wyrażenia regularne,</li>
   <li>kiedy używamy wyrażeń regularnych, praktyczne wskazówki,</li>
   <li>API wyrażeń regularnych w języku Java,</li>
-  <li>obsługa powtórzeń (<code class="highlighter-rouge">+</code>, <code class="highlighter-rouge">*</code>, <code class="highlighter-rouge">?</code>, <code class="highlighter-rouge">{}</code>),</li>
-  <li>klasy znaków (<code class="highlighter-rouge">.</code>, <code class="highlighter-rouge">[]</code>, <code class="highlighter-rouge">\d</code>, <code class="highlighter-rouge">\w</code>, itd.),</li>
-  <li>grupy (<code class="highlighter-rouge">()</code>),</li>
+  <li>obsługa powtórzeń (<code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">?</code>, <code class="language-plaintext highlighter-rouge">{}</code>),</li>
+  <li>klasy znaków (<code class="language-plaintext highlighter-rouge">.</code>, <code class="language-plaintext highlighter-rouge">[]</code>, <code class="language-plaintext highlighter-rouge">\d</code>, <code class="language-plaintext highlighter-rouge">\w</code>, itd.),</li>
+  <li>grupy (<code class="language-plaintext highlighter-rouge">()</code>),</li>
   <li>wsparcie IDE dla wyrażeń regularnych.</li>
 </ul>
 
@@ -305,11 +305,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Powyżej widzisz standardowy przykład wykorzystywany do pokazania tej właściwości wyrażeń regularnych. Tekst, który chcemy dopasować jest kodem HTML zawierającym znacznik <code class="highlighter-rouge">&lt;em&gt;</code><sup id="fnref:em" role="doc-noteref"><a href="#fn:em" class="footnote">1</a></sup>. Załóżmy, że chciałbyś wyciągnąć nazwę znacznika znajdującego się pomiędzy <code class="highlighter-rouge">&lt;</code> i <code class="highlighter-rouge">&gt;</code>.</p>
+<p>Powyżej widzisz standardowy przykład wykorzystywany do pokazania tej właściwości wyrażeń regularnych. Tekst, który chcemy dopasować jest kodem HTML zawierającym znacznik <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code><sup id="fnref:em" role="doc-noteref"><a href="#fn:em" class="footnote" rel="footnote">1</a></sup>. Załóżmy, że chciałbyś wyciągnąć nazwę znacznika znajdującego się pomiędzy <code class="language-plaintext highlighter-rouge">&lt;</code> i <code class="language-plaintext highlighter-rouge">&gt;</code>.</p>
 
-<p>Okazuje się, że wyrażenie regularne użyte w przykładzie powyżej nie zadziała tak jakbyś tego chciał. Zgodnie z tym co opisałem wcześniej dopasuje najwięcej tekstu jak to tylko możliwe zatem w grupie <code class="highlighter-rouge">(.+)</code> znajdzie się <code class="highlighter-rouge">em&gt;some emphasized text&lt;/em</code>.</p>
+<p>Okazuje się, że wyrażenie regularne użyte w przykładzie powyżej nie zadziała tak jakbyś tego chciał. Zgodnie z tym co opisałem wcześniej dopasuje najwięcej tekstu jak to tylko możliwe zatem w grupie <code class="language-plaintext highlighter-rouge">(.+)</code> znajdzie się <code class="language-plaintext highlighter-rouge">em&gt;some emphasized text&lt;/em</code>.</p>
 
-<p>Istnieje standardowy sposób na obejście tego typu zachowania, możesz zastosować tutaj negację grupy znaków. Wyrażenie regularne <code class="highlighter-rouge">&lt;([^&gt;]+)&gt;</code> dopasuje wszystko co znajduje się pomiędzy <code class="highlighter-rouge">&lt;</code> <code class="highlighter-rouge">&gt;</code> i nie jest znakiem <code class="highlighter-rouge">&gt;</code>.</p>
+<p>Istnieje standardowy sposób na obejście tego typu zachowania, możesz zastosować tutaj negację grupy znaków. Wyrażenie regularne <code class="language-plaintext highlighter-rouge">&lt;([^&gt;]+)&gt;</code> dopasuje wszystko co znajduje się pomiędzy <code class="language-plaintext highlighter-rouge">&lt;</code> <code class="language-plaintext highlighter-rouge">&gt;</code> i nie jest znakiem <code class="language-plaintext highlighter-rouge">&gt;</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldBeAbleToCheatGreadiness</span><span class="o">()</span> <span class="o">{</span>
@@ -320,9 +320,9 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Wyrażenia regularne działają w ten sposób, ponieważ mechanizm do obsługi powtórzeń jest zachłanny. Symbole powtórzeń <code class="highlighter-rouge">{}</code>, <code class="highlighter-rouge">?</code>, <code class="highlighter-rouge">*</code> czy <code class="highlighter-rouge">+</code> dopasowują zawsze najwięcej jak tylko się da.</p>
+<p>Wyrażenia regularne działają w ten sposób, ponieważ mechanizm do obsługi powtórzeń jest zachłanny. Symbole powtórzeń <code class="language-plaintext highlighter-rouge">{}</code>, <code class="language-plaintext highlighter-rouge">?</code>, <code class="language-plaintext highlighter-rouge">*</code> czy <code class="language-plaintext highlighter-rouge">+</code> dopasowują zawsze najwięcej jak tylko się da.</p>
 
-<p>Istnieje jednak przełącznik, który zmienia to zachowanie. Jest to znak <code class="highlighter-rouge">?</code>. Znów najlepiej będzie przeanalizować całość na przykładzie:</p>
+<p>Istnieje jednak przełącznik, który zmienia to zachowanie. Jest to znak <code class="language-plaintext highlighter-rouge">?</code>. Znów najlepiej będzie przeanalizować całość na przykładzie:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldTurnOffGreedinessForPlus</span><span class="o">()</span> <span class="o">{</span>
@@ -333,7 +333,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Jak widzisz, tym razem <code class="highlighter-rouge">.+</code> nie pochłonął nam prawie całego łańcucha. Grupa zawiera najmniej tekstu jak to możliwe. W podobny sposób <code class="highlighter-rouge">?</code> wyłącza zachłanność dla <code class="highlighter-rouge">*</code>:</p>
+<p>Jak widzisz, tym razem <code class="language-plaintext highlighter-rouge">.+</code> nie pochłonął nam prawie całego łańcucha. Grupa zawiera najmniej tekstu jak to możliwe. W podobny sposób <code class="language-plaintext highlighter-rouge">?</code> wyłącza zachłanność dla <code class="language-plaintext highlighter-rouge">*</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldTurnOffGreedinessForAsterix</span><span class="o">()</span> <span class="o">{</span>
@@ -344,7 +344,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Z kolei w przykładzie poniżej pokazałem jak <code class="highlighter-rouge">?</code> wpływa na <code class="highlighter-rouge">{}</code>. Chociaż wyrażenie mogłoby dopasować cały łańcuch znaków, w grupie znajdują się wyłącznie pierwsze trzy znaki (ponieważ <code class="highlighter-rouge">{}</code> nie jest tu zachłanny).</p>
+<p>Z kolei w przykładzie poniżej pokazałem jak <code class="language-plaintext highlighter-rouge">?</code> wpływa na <code class="language-plaintext highlighter-rouge">{}</code>. Chociaż wyrażenie mogłoby dopasować cały łańcuch znaków, w grupie znajdują się wyłącznie pierwsze trzy znaki (ponieważ <code class="language-plaintext highlighter-rouge">{}</code> nie jest tu zachłanny).</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldTurnOffGreadinessForCurlyBraces</span><span class="o">()</span> <span class="o">{</span>
@@ -389,11 +389,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Jak widzisz, wewnątrz grupy użyłem tam znaku <code class="highlighter-rouge">|</code>. Znak ten jest jednym ze znaków specjalnych. Jeśli występuje wewnątrz wyrażenia regularnego oznacza, że łańcuch znaków pasuje do wyrażenia regularnego jeśli pasuje do części znajdującej się przed znakiem <code class="highlighter-rouge">|</code> lub do części znajdującej się po znaku <code class="highlighter-rouge">|</code>.</p>
+<p>Jak widzisz, wewnątrz grupy użyłem tam znaku <code class="language-plaintext highlighter-rouge">|</code>. Znak ten jest jednym ze znaków specjalnych. Jeśli występuje wewnątrz wyrażenia regularnego oznacza, że łańcuch znaków pasuje do wyrażenia regularnego jeśli pasuje do części znajdującej się przed znakiem <code class="language-plaintext highlighter-rouge">|</code> lub do części znajdującej się po znaku <code class="language-plaintext highlighter-rouge">|</code>.</p>
 
-<p>Jeśli chcesz ograniczyć zakres alternatywy użyj nawiasów jak w przykładzie powyżej, w takim przypadku alternatywa dopasuje to co znajduje się po lewej stronie znaku <code class="highlighter-rouge">|</code> do <code class="highlighter-rouge">(</code>, lub po prawej stronie znaku <code class="highlighter-rouge">|</code> do <code class="highlighter-rouge">)</code>.</p>
+<p>Jeśli chcesz ograniczyć zakres alternatywy użyj nawiasów jak w przykładzie powyżej, w takim przypadku alternatywa dopasuje to co znajduje się po lewej stronie znaku <code class="language-plaintext highlighter-rouge">|</code> do <code class="language-plaintext highlighter-rouge">(</code>, lub po prawej stronie znaku <code class="language-plaintext highlighter-rouge">|</code> do <code class="language-plaintext highlighter-rouge">)</code>.</p>
 
-<p>Możesz też użyć alternatywy do dopasowania więcej niż dwóch elementów oddzielając każdy z nich znakiem <code class="highlighter-rouge">|</code> jak w przykładzie poniżej:</p>
+<p>Możesz też użyć alternatywy do dopasowania więcej niż dwóch elementów oddzielając każdy z nich znakiem <code class="language-plaintext highlighter-rouge">|</code> jak w przykładzie poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldPickOneFromMultipleAlternatives</span><span class="o">()</span> <span class="o">{</span>
@@ -406,9 +406,9 @@
 
 <h2 id="grupy-nieprzechwytujące">Grupy nieprzechwytujące</h2>
 
-<p>Mechanizm wyrażeń regularnych domyślnie zapamiętuje grupy, które zostały użyte w wyrażeniu regularnym. Tak zapamiętane grupy są później dostępne za pośrednictwem metody <code class="highlighter-rouge">group</code>. W większości przypadków jest to pożądane zachowanie, jednak czasami to co wyląduje w grupie nie jest dla Ciebie interesujące.</p>
+<p>Mechanizm wyrażeń regularnych domyślnie zapamiętuje grupy, które zostały użyte w wyrażeniu regularnym. Tak zapamiętane grupy są później dostępne za pośrednictwem metody <code class="language-plaintext highlighter-rouge">group</code>. W większości przypadków jest to pożądane zachowanie, jednak czasami to co wyląduje w grupie nie jest dla Ciebie interesujące.</p>
 
-<p>W takich przypadkach możesz użyć grupy, która nie zostanie zapamiętana. Grupa nie będzie przechwytująca jeśli pierwszymi znakami wewnątrz grupy będą <code class="highlighter-rouge">?:</code>. Proszę spójrz na przykład poniżej:</p>
+<p>W takich przypadkach możesz użyć grupy, która nie zostanie zapamiętana. Grupa nie będzie przechwytująca jeśli pierwszymi znakami wewnątrz grupy będą <code class="language-plaintext highlighter-rouge">?:</code>. Proszę spójrz na przykład poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldUseNonCapturingGroups</span><span class="o">()</span> <span class="o">{</span>
@@ -437,11 +437,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Jak widziałeś w przykładzie grupy nazwane mają <code class="highlighter-rouge">?&lt;nazwa&gt;</code> wewnątrz grupy. Następnie używając <code class="highlighter-rouge">nazwa</code> możemy dostać się do zawartości danej grupy używając metody <code class="highlighter-rouge">group</code>.</p>
+<p>Jak widziałeś w przykładzie grupy nazwane mają <code class="language-plaintext highlighter-rouge">?&lt;nazwa&gt;</code> wewnątrz grupy. Następnie używając <code class="language-plaintext highlighter-rouge">nazwa</code> możemy dostać się do zawartości danej grupy używając metody <code class="language-plaintext highlighter-rouge">group</code>.</p>
 
 <h2 id="ponowne-użycie-grup-w-wyrażeniu">Ponowne użycie grup w wyrażeniu</h2>
 
-<p>Tutaj ponownie posłużę się przykładem znaczników HTML. Załóżmy, że mamy następujący kod HTML <code class="highlighter-rouge">&lt;p&gt;Some paragraph &lt;em&gt;emphasized&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Other paragraph&lt;/p&gt;</code>. Jak mógłbyś wyciągnąć tekst znajdujący się wewnątrz pary znaczników? Na przykład to co znajduje się wewnątrz pierwszej pary <code class="highlighter-rouge">&lt;p&gt;</code> i <code class="highlighter-rouge">&lt;/p&gt;</code>?</p>
+<p>Tutaj ponownie posłużę się przykładem znaczników HTML. Załóżmy, że mamy następujący kod HTML <code class="language-plaintext highlighter-rouge">&lt;p&gt;Some paragraph &lt;em&gt;emphasized&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Other paragraph&lt;/p&gt;</code>. Jak mógłbyś wyciągnąć tekst znajdujący się wewnątrz pary znaczników? Na przykład to co znajduje się wewnątrz pierwszej pary <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> i <code class="language-plaintext highlighter-rouge">&lt;/p&gt;</code>?</p>
 
 <p>Z pomocą przychodzi tu mechanizm ponownego użycia grup wewnątrz wyrażenia regularnego. Spójrz proszę na przykład:</p>
 
@@ -461,16 +461,16 @@
 
 <p>Nadszedł czas na kotwice. Kotwice to znaki specjalne w wyrażeniach regularnych. Kotwice służą do przekazania informacji o tym gdzie chcemy szukać dopasowania w danym łańcuchu znaków.</p>
 
-<p>Na przykład do wyrażenia regularnego <code class="highlighter-rouge">c$</code> pasują łańcuchy znaków <code class="highlighter-rouge">abc</code> czy <code class="highlighter-rouge">bac</code> ale nie pasuje <code class="highlighter-rouge">cab</code>. Innymi słowy <code class="highlighter-rouge">c$</code> mówi, że „<code class="highlighter-rouge">c</code> powinno wystąpić na końcu łańcucha znaków”. Istnieje kilka kotwic, poniżej pokażę Ci te dwie najczęściej używane:</p>
+<p>Na przykład do wyrażenia regularnego <code class="language-plaintext highlighter-rouge">c$</code> pasują łańcuchy znaków <code class="language-plaintext highlighter-rouge">abc</code> czy <code class="language-plaintext highlighter-rouge">bac</code> ale nie pasuje <code class="language-plaintext highlighter-rouge">cab</code>. Innymi słowy <code class="language-plaintext highlighter-rouge">c$</code> mówi, że „<code class="language-plaintext highlighter-rouge">c</code> powinno wystąpić na końcu łańcucha znaków”. Istnieje kilka kotwic, poniżej pokażę Ci te dwie najczęściej używane:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">^</code> oznacza początek łańcucha znaków,</li>
-  <li><code class="highlighter-rouge">$</code> oznacza koniec łańcucha znaków.</li>
+  <li><code class="language-plaintext highlighter-rouge">^</code> oznacza początek łańcucha znaków,</li>
+  <li><code class="language-plaintext highlighter-rouge">$</code> oznacza koniec łańcucha znaków.</li>
 </ul>
 
-<p>Kotwice są bardzo często używane w przypadku walidacji danych wejściowych od użytkownika. Na przykład jeśli chcemy mieć pewność, że użytkownik wprowadził tylko liczby możemy użyć wyrażenia z <code class="highlighter-rouge">^</code> i <code class="highlighter-rouge">$</code>.</p>
+<p>Kotwice są bardzo często używane w przypadku walidacji danych wejściowych od użytkownika. Na przykład jeśli chcemy mieć pewność, że użytkownik wprowadził tylko liczby możemy użyć wyrażenia z <code class="language-plaintext highlighter-rouge">^</code> i <code class="language-plaintext highlighter-rouge">$</code>.</p>
 
-<p>Oczywiście można też wykorzystać metodę <code class="highlighter-rouge">matches</code> zamiast <code class="highlighter-rouge">find</code>. Różnicę pomiędzy zachowaniem tych metod wraz z użyciem kotwic pokazałem w przykładzie poniżej:</p>
+<p>Oczywiście można też wykorzystać metodę <code class="language-plaintext highlighter-rouge">matches</code> zamiast <code class="language-plaintext highlighter-rouge">find</code>. Różnicę pomiędzy zachowaniem tych metod wraz z użyciem kotwic pokazałem w przykładzie poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldShowDifferenceBetweenFindAndMatches</span><span class="o">()</span> <span class="o">{</span>

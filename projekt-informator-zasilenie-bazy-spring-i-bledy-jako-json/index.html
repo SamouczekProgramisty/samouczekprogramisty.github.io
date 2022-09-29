@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#projekt-informator">Projekt Informator</a></li>
 <li class="toc-entry toc-h2"><a href="#baza-danych">Baza danych</a>
 <ul>
@@ -294,7 +294,7 @@
 
 <h2 id="baza-danych">Baza danych</h2>
 
-<p>W projekcie do mapowania obiektowo relacyjnego używam biblioteki Hibernate jako implementacji JPA (ang. <em>Java Persistence API</em>). W tym przypadku tworzenie schematu bazy danych zostawiam JPA. Poniżej widzisz konfigurację obiektu zarządzanego przez kontener Spring’a. Służy on do tworzenia instancji implementującej interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/persistence/EntityManager.html"><code class="highlighter-rouge">EntityManager</code></a>:</p>
+<p>W projekcie do mapowania obiektowo relacyjnego używam biblioteki Hibernate jako implementacji JPA (ang. <em>Java Persistence API</em>). W tym przypadku tworzenie schematu bazy danych zostawiam JPA. Poniżej widzisz konfigurację obiektu zarządzanego przez kontener Spring’a. Służy on do tworzenia instancji implementującej interfejs <a href="https://javaee.github.io/javaee-spec/javadocs/javax/persistence/EntityManager.html"><code class="language-plaintext highlighter-rouge">EntityManager</code></a>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
 <span class="nc">LocalContainerEntityManagerFactoryBean</span> <span class="nf">entityManagerFactory</span><span class="o">()</span> <span class="o">{</span>
@@ -329,7 +329,7 @@
 
 <h3 id="zasilenie-bazy-danych">Zasilenie bazy danych</h3>
 
-<p>Niestety organizatorzy konferencji nie przygotowali źródła danych, które w łatwy sposób można użyć do zasilenia bazy danych. Jedyne źródło to oficjalna strona www konferencji. Na początku skupiłem się nad zasileniem tabeli zawierającej dane dotyczące prelegentów. W projekcie Informator prelegent reprezentowany jest przez instancję klasy <code class="highlighter-rouge">Speaker</code>:</p>
+<p>Niestety organizatorzy konferencji nie przygotowali źródła danych, które w łatwy sposób można użyć do zasilenia bazy danych. Jedyne źródło to oficjalna strona www konferencji. Na początku skupiłem się nad zasileniem tabeli zawierającej dane dotyczące prelegentów. W projekcie Informator prelegent reprezentowany jest przez instancję klasy <code class="language-plaintext highlighter-rouge">Speaker</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Speaker</span> <span class="o">{</span>
@@ -358,12 +358,12 @@
 
 <p>Analizując <a href="/protokol-http/">zapytania HTTP</a>, które są wykonywane w tle zauważyłem adres w postaci:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://infoshare.pl/speaker2.php?cid=48&amp;id=XXX&amp;year=2018&amp;agenda_id=99999&amp;fancybox=true
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://infoshare.pl/speaker2.php?cid=48&amp;id=XXX&amp;year=2018&amp;agenda_id=99999&amp;fancybox=true
 </code></pre></div></div>
 
-<p>W adresie tym <code class="highlighter-rouge">XXX</code> zastąpione jest identyfikatorem prelegenta. Strona z prelegentami zawiera listę wszystkich osób występujących na każdej ze scen. Żeby wyciągnąć informacje o wszystkich prelegentach potrzeba ponad 200 zapytań.</p>
+<p>W adresie tym <code class="language-plaintext highlighter-rouge">XXX</code> zastąpione jest identyfikatorem prelegenta. Strona z prelegentami zawiera listę wszystkich osób występujących na każdej ze scen. Żeby wyciągnąć informacje o wszystkich prelegentach potrzeba ponad 200 zapytań.</p>
 
-<p>Z racji tego, że jest to dość żmudne i czasochłonne zadanie napisałem <a href="https://github.com/kbl/gopher_exercises/blob/master/infoparse/infoparse.go">skrypt</a><sup id="fnref:go" role="doc-noteref"><a href="#fn:go" class="footnote">1</a></sup>, który wyciąga niezbędne dane. W wyniku działania tego skryptu powstał plik <a href="https://github.com/SamouczekProgramisty/Informator/blob/master/src/main/resources/speakers.sql"><code class="highlighter-rouge">speakers.sql</code></a>. Wewnątrz tego pliku znajdują się instrukcje SQL (ang. <em>Structured Query Language</em>), które dodają wiersze do tabeli <code class="highlighter-rouge">speaker</code>. Przykładowe zapytanie z tego pliku wygląda następująco:</p>
+<p>Z racji tego, że jest to dość żmudne i czasochłonne zadanie napisałem <a href="https://github.com/kbl/gopher_exercises/blob/master/infoparse/infoparse.go">skrypt</a><sup id="fnref:go" role="doc-noteref"><a href="#fn:go" class="footnote" rel="footnote">1</a></sup>, który wyciąga niezbędne dane. W wyniku działania tego skryptu powstał plik <a href="https://github.com/SamouczekProgramisty/Informator/blob/master/src/main/resources/speakers.sql"><code class="language-plaintext highlighter-rouge">speakers.sql</code></a>. Wewnątrz tego pliku znajdują się instrukcje SQL (ang. <em>Structured Query Language</em>), które dodają wiersze do tabeli <code class="language-plaintext highlighter-rouge">speaker</code>. Przykładowe zapytanie z tego pliku wygląda następująco:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">speaker</span> <span class="p">(</span>
 	<span class="n">id</span><span class="p">,</span>
@@ -392,7 +392,7 @@
 
 <p>Mając rzeczywiste dane w bazie danych webservice może odpowiadać bardziej sensownymi danymi:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl http://localhost:8080/speakers/7 -s | json_pp
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl http://localhost:8080/speakers/7 -s | json_pp
 {
    "category" : "STARTUP",
    "description" : "Kamila Wincenciak is a member of Ali(...)",
@@ -406,7 +406,7 @@
 
 <p>Zabrałem się za kolejny etap, czyli obsługę błędów. Przypadkami, które trzeba obsłużyć są brak rekordu w bazie i złe dane wprowadzone przez użytkownika. Oba przypadki pokazane są poniżej. Proszę zwróć uwagę na zwracane <a href="/protokol-http/#nag%C5%82%C3%B3wki-http">nagłówki</a> i <a href="/protokol-http/#statusy-http">status odpowiedzi</a>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl http://localhost:8080/speakers/-1 -vs | json_pp
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl http://localhost:8080/speakers/-1 -vs | json_pp
 *   Trying 127.0.0.1...
 * Connected to localhost (127.0.0.1) port 8080 (#0)
 &gt; GET /speakers/-1 HTTP/1.1
@@ -453,7 +453,7 @@ $ curl http://localhost:8080/speakers/aa -vs | json_pp
 
 <h3 id="konfiguracja-spring-a-obsługa-błędów">Konfiguracja Spring a obsługa błędów</h3>
 
-<p>Aby móc w ten sposób formatować błędy użyłem kombinacji adnotacji <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html"><code class="highlighter-rouge">ControllerAdvice</code></a> i <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html"><code class="highlighter-rouge">ExceptionHandler</code></a>:</p>
+<p>Aby móc w ten sposób formatować błędy użyłem kombinacji adnotacji <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html"><code class="language-plaintext highlighter-rouge">ControllerAdvice</code></a> i <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html"><code class="language-plaintext highlighter-rouge">ExceptionHandler</code></a>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ControllerAdvice</span>
 <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"unused"</span><span class="o">)</span>
@@ -497,9 +497,9 @@ $ curl http://localhost:8080/speakers/aa -vs | json_pp
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Klasa oznaczona adnotacją <code class="highlighter-rouge">ControllerAdvice</code> zawiera w sobie metody, które są użyte w wielu kontrolerach. Możemy powiedzieć, że są to metody przekrojowe. Przykładem takich metod są te oznaczone adnotacją <code class="highlighter-rouge">ExceptionHandler</code>. Każda z nich odpowiada za obsługę innego typu wyjątku.</p>
+<p>Klasa oznaczona adnotacją <code class="language-plaintext highlighter-rouge">ControllerAdvice</code> zawiera w sobie metody, które są użyte w wielu kontrolerach. Możemy powiedzieć, że są to metody przekrojowe. Przykładem takich metod są te oznaczone adnotacją <code class="language-plaintext highlighter-rouge">ExceptionHandler</code>. Każda z nich odpowiada za obsługę innego typu wyjątku.</p>
 
-<p>Niestety w tym przypadku Spring nie deserializuje obiektu odpowiedzi do żądanego formatu dlatego napisałem klasę pomocniczą <code class="highlighter-rouge">ErrorResponse</code>, która przygotowuje odpowiedź w formacie JSON.</p>
+<p>Niestety w tym przypadku Spring nie deserializuje obiektu odpowiedzi do żądanego formatu dlatego napisałem klasę pomocniczą <code class="language-plaintext highlighter-rouge">ErrorResponse</code>, która przygotowuje odpowiedź w formacie JSON.</p>
 
 <h1 id="podsumowanie">Podsumowanie</h1>
 

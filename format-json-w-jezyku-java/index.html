@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#czym-jest-json">Czym jest JSON</a></li>
 <li class="toc-entry toc-h2"><a href="#opis-formatu-json">Opis formatu JSON</a>
 <ul>
@@ -310,7 +310,7 @@
 
 <p>JSON (ang. <em>JavaScript Object Notation</em>) to format zapisu i wymiany danych. Jest to format tekstowy. Uważany jest za format czytelny zarówno dla maszyn jak i dla ludzi.</p>
 
-<p>Dane formatowane przy użyciu JSON mogą być określane się jako <a href="https://www.iana.org/assignments/media-types/application/json"><code class="highlighter-rouge">application/json</code></a>. Ta wartość może być zawarta w <a href="/protokol-http/#nag%C5%82%C3%B3wki-http">nagłówkach HTTP</a> określając typ akceptowanych/wysyłanych danych.</p>
+<p>Dane formatowane przy użyciu JSON mogą być określane się jako <a href="https://www.iana.org/assignments/media-types/application/json"><code class="language-plaintext highlighter-rouge">application/json</code></a>. Ta wartość może być zawarta w <a href="/protokol-http/#nag%C5%82%C3%B3wki-http">nagłówkach HTTP</a> określając typ akceptowanych/wysyłanych danych.</p>
 
 <p>Poniżej możesz zobaczyć prawidłowy dokument w formacie JSON:</p>
 
@@ -343,9 +343,9 @@
 <p>To co widzisz powyżej to część zapytania, które wysyłane jest w trakcie wyszukiwania na Github’ie. W momencie wpisywania czegokolwiek w wyszukiwarkę strona wysyła zapytanie, którego ciało jest w formacie JSON. Fragment powyżej zawiera obiekt, który ma 4 atrybuty:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">timestamp</code>, którego wartością jest liczba,</li>
-  <li><code class="highlighter-rouge">event_type</code>, którego wartością jest łańcuch znaków,</li>
-  <li><code class="highlighter-rouge">measures</code> i <code class="highlighter-rouge">dimensions</code>, których wartościami są inne obiekty.</li>
+  <li><code class="language-plaintext highlighter-rouge">timestamp</code>, którego wartością jest liczba,</li>
+  <li><code class="language-plaintext highlighter-rouge">event_type</code>, którego wartością jest łańcuch znaków,</li>
+  <li><code class="language-plaintext highlighter-rouge">measures</code> i <code class="language-plaintext highlighter-rouge">dimensions</code>, których wartościami są inne obiekty.</li>
 </ul>
 
 <p>W związku ze swoją prostotą JSON nie wspiera przestrzeni nazw (ang. <em>namespace</em>). Weryfikacja schematu dokumentu możliwa jest przy użyciu dodatkowych narzędzi: <a href="https://json-schema.org">JSON Schema</a> lub <a href="http://jschema.org">JSchema</a>. JSON często porównywany jest z <a href="/xml-dla-poczatkujacych/">formatem XML</a> gdzie zarówno schemat jak przestrzenie nazw są wspierane. Faktem jest, że format JSON zawojował Internet. Stało się tak między innymi dzięki popularności języka JavaScript, z którego ten format się wywodzi.</p>
@@ -355,21 +355,21 @@
 <p>JSON to bardzo prosty format zapisu/wymiany danych. Specyfikacja formatu JSON to jedna z przyjemniejszych specyfikacji jakie czytałem, jest przyjemna bo zawiera jedynie 5 stron tekstu ;). W formacie występuje sześć symboli, które określają strukturę dokumentu:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">{</code> i <code class="highlighter-rouge">}</code>,</li>
-  <li><code class="highlighter-rouge">[</code> i <code class="highlighter-rouge">]</code>,</li>
-  <li><code class="highlighter-rouge">:</code>,</li>
-  <li><code class="highlighter-rouge">,</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">{</code> i <code class="language-plaintext highlighter-rouge">}</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">[</code> i <code class="language-plaintext highlighter-rouge">]</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">:</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">,</code>.</li>
 </ul>
 
 <p>W formacie tym występują tylko trzy “słowa kluczowe”, literały:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">true</code>,</li>
-  <li><code class="highlighter-rouge">false</code>,</li>
-  <li><code class="highlighter-rouge">null</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">true</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">false</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">null</code>.</li>
 </ul>
 
-<p>Białe znaki (tabulator, znak nowej linii<sup id="fnref:nowalinia" role="doc-noteref"><a href="#fn:nowalinia" class="footnote">1</a></sup> czy spacja) są ignorowane. Zatem dwa poniższe dokumenty JSON są równoważne:</p>
+<p>Białe znaki (tabulator, znak nowej linii<sup id="fnref:nowalinia" role="doc-noteref"><a href="#fn:nowalinia" class="footnote" rel="footnote">1</a></sup> czy spacja) są ignorowane. Zatem dwa poniższe dokumenty JSON są równoważne:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"coś"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jeszcze coś"</span><span class="w">
@@ -382,18 +382,18 @@
 
 <h4 id="łańcuch-znaków">Łańcuch znaków</h4>
 
-<p>Łańcuchy znaków jakie są każdy widzi ;). Łańcuch znaków to ciąg znaków otoczony <code class="highlighter-rouge">"</code>. Dodatkowo znak <code class="highlighter-rouge">\</code> pozwala na wprowadzenie znaków specjalnych. Na przykład <code class="highlighter-rouge">\"</code> oznacza cudzysłów, a <code class="highlighter-rouge">\</code> ukośnik. Kilka przykładowych wartości:</p>
+<p>Łańcuchy znaków jakie są każdy widzi ;). Łańcuch znaków to ciąg znaków otoczony <code class="language-plaintext highlighter-rouge">"</code>. Dodatkowo znak <code class="language-plaintext highlighter-rouge">\</code> pozwala na wprowadzenie znaków specjalnych. Na przykład <code class="language-plaintext highlighter-rouge">\"</code> oznacza cudzysłów, a <code class="language-plaintext highlighter-rouge">\</code> ukośnik. Kilka przykładowych wartości:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">"some value"</code>,</li>
-  <li><code class="highlighter-rouge">"zażółć gęślą jaźń"</code>,</li>
-  <li><code class="highlighter-rouge">"true"</code>,</li>
-  <li><code class="highlighter-rouge">"\\""</code>, reprezentuje łańcuch znaków <code class="highlighter-rouge">\"</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">"some value"</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">"zażółć gęślą jaźń"</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">"true"</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">"\\""</code>, reprezentuje łańcuch znaków <code class="language-plaintext highlighter-rouge">\"</code>.</li>
 </ul>
 
 <h4 id="obiekt">Obiekt</h4>
 
-<p>Element tego typu składa się z nawiasów <code class="highlighter-rouge">{</code> i <code class="highlighter-rouge">}</code>. Wewnątrz nawiasów umieszczone są pary w postaci: <code class="highlighter-rouge">"nazwa atrybutu": &lt;wartość atrybutu&gt;</code>. <code class="highlighter-rouge">&lt;wartość atrybutu&gt;</code> może być dowolną wspieraną wartością. Nazwa atrybutu przedstawiona jest jako łańcuch znaków. Pary oddzielone są od siebie <code class="highlighter-rouge">,</code>. Kolejność par nie ma znaczenia. Specyfikacja nie narzuca unikalności kluczy<sup id="fnref:praktyka" role="doc-noteref"><a href="#fn:praktyka" class="footnote">2</a></sup>.</p>
+<p>Element tego typu składa się z nawiasów <code class="language-plaintext highlighter-rouge">{</code> i <code class="language-plaintext highlighter-rouge">}</code>. Wewnątrz nawiasów umieszczone są pary w postaci: <code class="language-plaintext highlighter-rouge">"nazwa atrybutu": &lt;wartość atrybutu&gt;</code>. <code class="language-plaintext highlighter-rouge">&lt;wartość atrybutu&gt;</code> może być dowolną wspieraną wartością. Nazwa atrybutu przedstawiona jest jako łańcuch znaków. Pary oddzielone są od siebie <code class="language-plaintext highlighter-rouge">,</code>. Kolejność par nie ma znaczenia. Specyfikacja nie narzuca unikalności kluczy<sup id="fnref:praktyka" role="doc-noteref"><a href="#fn:praktyka" class="footnote" rel="footnote">2</a></sup>.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"attribute"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="p">,</span><span class="w">
@@ -403,21 +403,21 @@
 
 <h4 id="lista">Lista</h4>
 
-<p>Element tego typu grupuje uporządkowaną listę wartości. Składa się on z nawiasów <code class="highlighter-rouge">[</code> i <code class="highlighter-rouge">]</code>. Wewnątrz nich znajdują się wartości oddzielone <code class="highlighter-rouge">,</code>. Wartości wewnątrz listy mogą być różnych typów<sup id="fnref:podobnie" role="doc-noteref"><a href="#fn:podobnie" class="footnote">3</a></sup>:</p>
+<p>Element tego typu grupuje uporządkowaną listę wartości. Składa się on z nawiasów <code class="language-plaintext highlighter-rouge">[</code> i <code class="language-plaintext highlighter-rouge">]</code>. Wewnątrz nich znajdują się wartości oddzielone <code class="language-plaintext highlighter-rouge">,</code>. Wartości wewnątrz listy mogą być różnych typów<sup id="fnref:podobnie" role="doc-noteref"><a href="#fn:podobnie" class="footnote" rel="footnote">3</a></sup>:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="s2">"true"</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
 <h4 id="liczba">Liczba</h4>
 
-<p>Liczby w formacie JSON to ciąg cyfr. Opcjonalnie poprzedzony znakiem <code class="highlighter-rouge">-</code>. Do oddzielenia części ułamkowej od całkowitej służy <code class="highlighter-rouge">.</code>. Notacja naukowa jest dopuszczalna. Oto kilka prawidłowych liczb w formacie JSON:</p>
+<p>Liczby w formacie JSON to ciąg cyfr. Opcjonalnie poprzedzony znakiem <code class="language-plaintext highlighter-rouge">-</code>. Do oddzielenia części ułamkowej od całkowitej służy <code class="language-plaintext highlighter-rouge">.</code>. Notacja naukowa jest dopuszczalna. Oto kilka prawidłowych liczb w formacie JSON:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">123</code>,</li>
-  <li><code class="highlighter-rouge">123.123</code>,</li>
-  <li><code class="highlighter-rouge">-123</code>,</li>
-  <li><code class="highlighter-rouge">1.23123e2</code>,</li>
-  <li><code class="highlighter-rouge">1.23123E-2</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">123</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">123.123</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">-123</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">1.23123e2</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">1.23123E-2</code>.</li>
 </ul>
 
 <h4 id="literały">Literały</h4>
@@ -425,9 +425,9 @@
 <p>W formacie JSON występują trzy literały:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">true</code> – reprezentuje wartość logiczną – prawdę,</li>
-  <li><code class="highlighter-rouge">false</code> – reprezentuje wartość logiczną – fałsz,</li>
-  <li><code class="highlighter-rouge">null</code> – reprezentuje wartość pustą, brak wartości.</li>
+  <li><code class="language-plaintext highlighter-rouge">true</code> – reprezentuje wartość logiczną – prawdę,</li>
+  <li><code class="language-plaintext highlighter-rouge">false</code> – reprezentuje wartość logiczną – fałsz,</li>
+  <li><code class="language-plaintext highlighter-rouge">null</code> – reprezentuje wartość pustą, brak wartości.</li>
 </ul>
 
 <h3 id="element-główny">Element główny</h3>
@@ -466,7 +466,7 @@
   
 <p>Wszystkie fragmenty kodu użyte w tym artykule udostępnione są na <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/32_format_json/src/main/java/pl/samouczekprogramisty/kursjava/json">Samouczkowym Githubie</a>. Zachęcam Cię do eksperymentów i uruchomienia kodu samodzielnie.</p>
 
-<p>Zwróć też uwagę na zależności wspomniane w pliku <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/32_format_json/build.gradle"><code class="highlighter-rouge">build.gradle</code></a>. Część klas użytych we fragmentach poniżej nie jest dostępna w standardowej bibliotece Javy.</p>
+<p>Zwróć też uwagę na zależności wspomniane w pliku <a href="https://github.com/SamouczekProgramisty/KursJava/blob/master/32_format_json/build.gradle"><code class="language-plaintext highlighter-rouge">build.gradle</code></a>. Część klas użytych we fragmentach poniżej nie jest dostępna w standardowej bibliotece Javy.</p>
 
 </div>
 
@@ -478,7 +478,7 @@
 
 <h4 id="zapis">Zapis</h4>
 
-<p>Tworzenie instancji klas odpowiadających typom formatu JSON polega na wywołaniu odpowiednich metod udostępnionych przez klasy <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonArrayBuilder.html"><code class="highlighter-rouge">JsonArrayBuilder</code></a> i <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonObjectBuilder.html"><code class="highlighter-rouge">JsonObjectBuilder</code></a>. Instancje tych klas tworzone są przez <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonBuilderFactory.html"><code class="highlighter-rouge">JsonBuilderFactory</code></a>. Proszę spójrz na przykład poniżej:</p>
+<p>Tworzenie instancji klas odpowiadających typom formatu JSON polega na wywołaniu odpowiednich metod udostępnionych przez klasy <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonArrayBuilder.html"><code class="language-plaintext highlighter-rouge">JsonArrayBuilder</code></a> i <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonObjectBuilder.html"><code class="language-plaintext highlighter-rouge">JsonObjectBuilder</code></a>. Instancje tych klas tworzone są przez <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonBuilderFactory.html"><code class="language-plaintext highlighter-rouge">JsonBuilderFactory</code></a>. Proszę spójrz na przykład poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">JsonBuilderFactory</span> <span class="n">builderFactory</span> <span class="o">=</span> <span class="nc">Json</span><span class="o">.</span><span class="na">createBuilderFactory</span><span class="o">(</span><span class="nc">Collections</span><span class="o">.</span><span class="na">emptyMap</span><span class="o">());</span>
 <span class="nc">JsonObject</span> <span class="n">publicationDateObject</span> <span class="o">=</span> <span class="n">builderFactory</span><span class="o">.</span><span class="na">createObjectBuilder</span><span class="o">()</span>
@@ -489,7 +489,7 @@
 <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">publicationDateObject</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 </code></pre></div></div>
 
-<p>W przykładzie tym tworzę obiekt, który ma trzy atrybuty: <code class="highlighter-rouge">rok</code>, <code class="highlighter-rouge">miesiąc</code> i <code class="highlighter-rouge">dzień</code>. Po uruchomieniu takiego fragmentu kodu na konsoli wyświetli się dokument w formacie JSON:</p>
+<p>W przykładzie tym tworzę obiekt, który ma trzy atrybuty: <code class="language-plaintext highlighter-rouge">rok</code>, <code class="language-plaintext highlighter-rouge">miesiąc</code> i <code class="language-plaintext highlighter-rouge">dzień</code>. Po uruchomieniu takiego fragmentu kodu na konsoli wyświetli się dokument w formacie JSON:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"rok"</span><span class="p">:</span><span class="mi">2018</span><span class="p">,</span><span class="nl">"miesiąc"</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span><span class="nl">"dzień"</span><span class="p">:</span><span class="mi">13</span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
@@ -518,7 +518,7 @@
         <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"strona"</span><span class="o">,</span> <span class="n">webPageObject</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </code></pre></div></div>
 
-<p>Tym razem użyję trochę innej metody wypisywania obiektu. Tworząc instancję <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonWriterFactory.html"><code class="highlighter-rouge">JsonWriterFactory</code></a> mogę przekazać konfigurację. Konfiguracja wpływa na zachowanie tej klasy.</p>
+<p>Tym razem użyję trochę innej metody wypisywania obiektu. Tworząc instancję <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonWriterFactory.html"><code class="language-plaintext highlighter-rouge">JsonWriterFactory</code></a> mogę przekazać konfigurację. Konfiguracja wpływa na zachowanie tej klasy.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="o">?&gt;</span> <span class="n">config</span> <span class="o">=</span> <span class="nc">Collections</span><span class="o">.</span><span class="na">singletonMap</span><span class="o">(</span><span class="nc">JsonGenerator</span><span class="o">.</span><span class="na">PRETTY_PRINTING</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
 <span class="nc">JsonWriterFactory</span> <span class="n">writerFactory</span> <span class="o">=</span> <span class="nc">Json</span><span class="o">.</span><span class="na">createWriterFactory</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
@@ -559,28 +559,28 @@
 
 <h4 id="odczyt">Odczyt</h4>
 
-<p>Każdy z przykładów poniżej używa instancji <code class="highlighter-rouge">InputStream</code>, którą tworzę w sposób pokazany poniżej. Metoda <code class="highlighter-rouge">buildObject</code> zwraca <code class="highlighter-rouge">JsonObject</code>, który pokazałem w poprzednim paragrafie:</p>
+<p>Każdy z przykładów poniżej używa instancji <code class="language-plaintext highlighter-rouge">InputStream</code>, którą tworzę w sposób pokazany poniżej. Metoda <code class="language-plaintext highlighter-rouge">buildObject</code> zwraca <code class="language-plaintext highlighter-rouge">JsonObject</code>, który pokazałem w poprzednim paragrafie:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">jsonObject</span> <span class="o">=</span> <span class="n">buildObject</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
 <span class="nc">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ByteArrayInputStream</span><span class="o">(</span><span class="n">jsonObject</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
 </code></pre></div></div>
 
-<p>Odczyt dokumentów w formacie JSON używa podobnego API. Tym razem tworzę instancję klasy <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReaderFactory.html"><code class="highlighter-rouge">JsonReaderFactory</code></a>. Używam jej do utworzenia instancji <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReader.html"><code class="highlighter-rouge">JsonReader</code></a>:</p>
+<p>Odczyt dokumentów w formacie JSON używa podobnego API. Tym razem tworzę instancję klasy <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReaderFactory.html"><code class="language-plaintext highlighter-rouge">JsonReaderFactory</code></a>. Używam jej do utworzenia instancji <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/JsonReader.html"><code class="language-plaintext highlighter-rouge">JsonReader</code></a>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">JsonReaderFactory</span> <span class="n">readerFactory</span> <span class="o">=</span> <span class="nc">Json</span><span class="o">.</span><span class="na">createReaderFactory</span><span class="o">(</span><span class="nc">Collections</span><span class="o">.</span><span class="na">emptyMap</span><span class="o">());</span>
 <span class="nc">JsonReader</span> <span class="n">jsonReader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">.</span><span class="na">createReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>Klasa <code class="highlighter-rouge">JsonReader</code> udostępnia kilka metod, które pozwalają na odczyt danych w formacie JSON:</p>
+<p>Klasa <code class="language-plaintext highlighter-rouge">JsonReader</code> udostępnia kilka metod, które pozwalają na odczyt danych w formacie JSON:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">readObject</code>,</li>
-  <li><code class="highlighter-rouge">readArray</code>,</li>
-  <li><code class="highlighter-rouge">readValue</code>,</li>
-  <li><code class="highlighter-rouge">read</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">readObject</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">readArray</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">readValue</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">read</code>.</li>
 </ul>
 
-<p>Używając publicznych metod udostępnionych w klasach <code class="highlighter-rouge">JsonObject</code> i <code class="highlighter-rouge">JsonArray</code> poruszam się po dokumencie JSON:</p>
+<p>Używając publicznych metod udostępnionych w klasach <code class="language-plaintext highlighter-rouge">JsonObject</code> i <code class="language-plaintext highlighter-rouge">JsonArray</code> poruszam się po dokumencie JSON:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="nc">JsonReader</span> <span class="n">jsonReader</span> <span class="o">=</span> <span class="n">readerFactory</span><span class="o">.</span><span class="na">createReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">ByteArrayInputStream</span><span class="o">(</span><span class="n">jsonDocument</span><span class="o">.</span><span class="na">getBytes</span><span class="o">())))</span> <span class="o">{</span>
     <span class="nc">JsonObject</span> <span class="n">jsonObject</span> <span class="o">=</span> <span class="n">jsonReader</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
@@ -613,7 +613,7 @@
 
 <h4 id="zapis-1">Zapis</h4>
 
-<p>W przypadku zapisu fabryka <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGeneratorFactory.html"><code class="highlighter-rouge">JsonGeneratorFactory</code></a> pomaga w tworzeniu <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGenerator.html"><code class="highlighter-rouge">JsonGenerator</code></a>. Instancja tej klasy pisze do strumienia poszczególne tokeny (elementy składowe dokumentu w formacie JSON). metody <code class="highlighter-rouge">write*</code> pozwalają na zapis danych do strumienia. Przykład poniżej zapisuje do strumienia dokładnie ten sam dokument JSON jaki użyłem w podejściu obiektowym:</p>
+<p>W przypadku zapisu fabryka <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGeneratorFactory.html"><code class="language-plaintext highlighter-rouge">JsonGeneratorFactory</code></a> pomaga w tworzeniu <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonGenerator.html"><code class="language-plaintext highlighter-rouge">JsonGenerator</code></a>. Instancja tej klasy pisze do strumienia poszczególne tokeny (elementy składowe dokumentu w formacie JSON). metody <code class="language-plaintext highlighter-rouge">write*</code> pozwalają na zapis danych do strumienia. Przykład poniżej zapisuje do strumienia dokładnie ten sam dokument JSON jaki użyłem w podejściu obiektowym:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">JsonGeneratorFactory</span> <span class="n">generatorFactory</span> <span class="o">=</span> <span class="nc">Json</span><span class="o">.</span><span class="na">createGeneratorFactory</span><span class="o">(</span><span class="nc">Collections</span><span class="o">.</span><span class="na">singletonMap</span><span class="o">(</span><span class="nc">JsonGenerator</span><span class="o">.</span><span class="na">PRETTY_PRINTING</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
 <span class="nc">JsonGenerator</span> <span class="n">generator</span> <span class="o">=</span> <span class="n">generatorFactory</span><span class="o">.</span><span class="na">createGenerator</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">);</span>
@@ -639,7 +639,7 @@
 
 <h4 id="odczyt-1">Odczyt</h4>
 
-<p>W przypadku czytania dokumentu w trybie strumieniowym przydadzą się klasy <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.html"><code class="highlighter-rouge">JsonParserFactory</code></a> i <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParser.html"><code class="highlighter-rouge">JsonParser</code></a>. Instancja tej ostatniej pozwala na sprawdzenie czy w strumieniu znajduje się kolejny token. Jeśli tak, można go pobrać i odpowiednio na niego zareagować. Poniżej możesz zobaczyć przykład odczytywania dokumentu JSON w trybie strumieniowym:</p>
+<p>W przypadku czytania dokumentu w trybie strumieniowym przydadzą się klasy <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParserFactory.html"><code class="language-plaintext highlighter-rouge">JsonParserFactory</code></a> i <a href="https://static.javadoc.io/javax.json/javax.json-api/1.1.2/javax/json/stream/JsonParser.html"><code class="language-plaintext highlighter-rouge">JsonParser</code></a>. Instancja tej ostatniej pozwala na sprawdzenie czy w strumieniu znajduje się kolejny token. Jeśli tak, można go pobrać i odpowiednio na niego zareagować. Poniżej możesz zobaczyć przykład odczytywania dokumentu JSON w trybie strumieniowym:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">JsonParserFactory</span> <span class="n">parserFactory</span> <span class="o">=</span> <span class="nc">Json</span><span class="o">.</span><span class="na">createParserFactory</span><span class="o">(</span><span class="nc">Collections</span><span class="o">.</span><span class="na">emptyMap</span><span class="o">());</span>
 <span class="nc">JsonParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">parserFactory</span><span class="o">.</span><span class="na">createParser</span><span class="o">(</span><span class="n">buildObject</span><span class="o">());</span>
@@ -726,9 +726,9 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Aby zapisać instancję tego obiektu do formatu JSON należy użyć <a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/JsonbBuilder.html"><code class="highlighter-rouge">JsonBuilder</code></a> do stworzenia instancji klasy <a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/Jsonb.html"><code class="highlighter-rouge">Jsonb</code></a>. W większości przypadków ta instancja powinna być współdzielona w całej aplikacji.</p>
+<p>Aby zapisać instancję tego obiektu do formatu JSON należy użyć <a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/JsonbBuilder.html"><code class="language-plaintext highlighter-rouge">JsonBuilder</code></a> do stworzenia instancji klasy <a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/Jsonb.html"><code class="language-plaintext highlighter-rouge">Jsonb</code></a>. W większości przypadków ta instancja powinna być współdzielona w całej aplikacji.</p>
 
-<p>Klasa <code class="highlighter-rouge">Jsonb</code> posiada zestaw przeciążonych metod <code class="highlighter-rouge">toJson</code>, które pozwalają na serializację obiektu. Przykład poniżej używa jednej z tych metod:</p>
+<p>Klasa <code class="language-plaintext highlighter-rouge">Jsonb</code> posiada zestaw przeciążonych metod <code class="language-plaintext highlighter-rouge">toJson</code>, które pozwalają na serializację obiektu. Przykład poniżej używa jednej z tych metod:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Newspaper</span> <span class="n">newspaper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Newspaper</span><span class="o">(</span><span class="s">"Samouczek Programisty"</span><span class="o">,</span> <span class="mi">100_000</span><span class="o">,</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2018</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">13</span><span class="o">));</span>
 <span class="nc">Jsonb</span> <span class="n">jsonb</span> <span class="o">=</span> <span class="nc">JsonbBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
@@ -743,7 +743,7 @@
 
 <h3 id="odczyt-obiektu">Odczyt obiektu</h3>
 
-<p>Odczyt (deserializacja) przebiega w podobny sposób. Tym razem należy użyć metody <code class="highlighter-rouge">fromJson</code> do odczytania dokumentu JSON. Zauważ, że drugim parametrem przekazywanym do tej metody jest klasa/typ nowotworzonego obiektu:</p>
+<p>Odczyt (deserializacja) przebiega w podobny sposób. Tym razem należy użyć metody <code class="language-plaintext highlighter-rouge">fromJson</code> do odczytania dokumentu JSON. Zauważ, że drugim parametrem przekazywanym do tej metody jest klasa/typ nowotworzonego obiektu:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Newspaper</span> <span class="n">newspaper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Newspaper</span><span class="o">(</span><span class="s">"Samouczek Programisty"</span><span class="o">,</span> <span class="mi">100_000</span><span class="o">,</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2018</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">13</span><span class="o">));</span>
 <span class="nc">Jsonb</span> <span class="n">jsonb</span> <span class="o">=</span> <span class="nc">JsonbBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
@@ -755,12 +755,12 @@
 
 <p>W wyniku działania tego kodu na konsoli wyświetli się data pobrana z dokumentu JSON:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2018-09-13
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2018-09-13
 </code></pre></div></div>
 
 <h3 id="modyfikacja-zachowania-json-b">Modyfikacja zachowania JSON-B</h3>
 
-<p>JSON-B pozwala na modyfikację jego zachowania. Dzięki temu dokument, który jest tworzony/czytany może różnić się od obiektu w języku Java. Klasa <code class="highlighter-rouge">AnnotationExamples</code> zawiera kilka adnotacji wpływających na kształt dokumentu JSON:</p>
+<p>JSON-B pozwala na modyfikację jego zachowania. Dzięki temu dokument, który jest tworzony/czytany może różnić się od obiektu w języku Java. Klasa <code class="language-plaintext highlighter-rouge">AnnotationExamples</code> zawiera kilka adnotacji wpływających na kształt dokumentu JSON:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@JsonbPropertyOrder</span><span class="o">({</span><span class="s">"ccc"</span><span class="o">,</span> <span class="s">"bbb"</span><span class="o">})</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationExamples</span> <span class="o">{</span>
@@ -783,11 +783,11 @@
 </code></pre></div></div>
 
 <ul>
-  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbTransient.html"><code class="highlighter-rouge">@JsonbTransient</code></a> – atrybut powinien zostać pomięty,</li>
-  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html"><code class="highlighter-rouge">@JsonbProperty</code></a> – pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość <code class="highlighter-rouge">null</code> (domyślnie takie wartości są pomijane),</li>
-  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbNumberFormat.html"><code class="highlighter-rouge">@JsonbNumberFormat</code></a> – określa format w jakim powinna być zapisana liczba,</li>
-  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbDateFormat.html"><code class="highlighter-rouge">@JsonbDateFormat</code></a> – określa format w jakim powinna być zapisana data.</li>
-  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbPropertyOrder.html"><code class="highlighter-rouge">@JsonbPropertyOrder</code></a> – określa kolejność w jakiej atrybuty powinny być serializowane.</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbTransient.html"><code class="language-plaintext highlighter-rouge">@JsonbTransient</code></a> – atrybut powinien zostać pomięty,</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html"><code class="language-plaintext highlighter-rouge">@JsonbProperty</code></a> – pozwala na ustawienie nowej nazwy atrybutu. Zmienia zachowanie (de)serializacji jeśli atrybut ma wartość <code class="language-plaintext highlighter-rouge">null</code> (domyślnie takie wartości są pomijane),</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbNumberFormat.html"><code class="language-plaintext highlighter-rouge">@JsonbNumberFormat</code></a> – określa format w jakim powinna być zapisana liczba,</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbDateFormat.html"><code class="language-plaintext highlighter-rouge">@JsonbDateFormat</code></a> – określa format w jakim powinna być zapisana data.</li>
+  <li><a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbPropertyOrder.html"><code class="language-plaintext highlighter-rouge">@JsonbPropertyOrder</code></a> – określa kolejność w jakiej atrybuty powinny być serializowane.</li>
 </ul>
 
 <p>Pozostałe adnotacje znajdziesz w <a href="https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/package-summary.html">dokumentacji</a>.</p>
@@ -823,11 +823,11 @@
 
 <p>Adnotacje pozwalają na zmianę zachowana JSON-B w trakcie kompilacji. Istnieje także metoda na wprowadzenie takich zmian wyłącznie w trakcie uruchomienia programu.</p>
 
-<h2 id="json_pp"><code class="highlighter-rouge">json_pp</code></h2>
+<h2 id="json_pp"><code class="language-plaintext highlighter-rouge">json_pp</code></h2>
 
-<p>Nie mogę tu pominąć <code class="highlighter-rouge">json_pp</code>. Jest to narzędzie używane w linii poleceń. Co prawda nie jest ono bezpośrednio związane z Javą ani specyfikacjami, które tu opisałem, jednak jest bardzo przydatne. Program ten formatuje dokument JSON wyświetlając go w bardziej czytelnej formie. Nie raz pomogło mi przy pracy z tym formatem:</p>
+<p>Nie mogę tu pominąć <code class="language-plaintext highlighter-rouge">json_pp</code>. Jest to narzędzie używane w linii poleceń. Co prawda nie jest ono bezpośrednio związane z Javą ani specyfikacjami, które tu opisałem, jednak jest bardzo przydatne. Program ten formatuje dokument JSON wyświetlając go w bardziej czytelnej formie. Nie raz pomogło mi przy pracy z tym formatem:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo '{"some":"magic","json":true,"values":123}' | json_pp
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo '{"some":"magic","json":true,"values":123}' | json_pp
 {
    "json" : true,
    "values" : 123,

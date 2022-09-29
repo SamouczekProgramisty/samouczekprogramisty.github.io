@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#nowe-podejście">Nowe podejście</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#hardware">Hardware</a></li>
@@ -399,7 +399,7 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">pytest</span><span class="p">.</span><span class="n">fixture</span>
 <span class="k">def</span> <span class="nf">port_mock</span><span class="p">():</span>
     <span class="n">port_mock</span> <span class="o">=</span> <span class="n">mock</span><span class="p">.</span><span class="n">MagicMock</span><span class="p">()</span>
-    <span class="n">port_mock</span><span class="p">.</span><span class="n">read</span><span class="p">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s">b"</span><span class="se">\xaa\xc0\x1c\x00</span><span class="s">1</span><span class="se">\x00\x0b\x14</span><span class="s">1</span><span class="se">\xab</span><span class="s">"</span>
+    <span class="n">port_mock</span><span class="p">.</span><span class="n">read</span><span class="p">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="sa">b</span><span class="s">"</span><span class="se">\xaa\xc0\x1c\x00</span><span class="s">1</span><span class="se">\x00\x0b\x14</span><span class="s">1</span><span class="se">\xab</span><span class="s">"</span>
 
     <span class="k">return</span> <span class="n">port_mock</span>
 
@@ -520,29 +520,29 @@
 
 <p>Po uruchomieniu malinki zaktualizowałem zainstalowane oprogramowanie i dodałem kilka dodatkowych narzędzi:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get update 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get update 
 apt-get upgrade 
 apt-get install python3-pip python3-venv git vim tree
 </code></pre></div></div>
 
 <p>Kod odpowiedzialny za Pogodynkę uruchamiany jest w kontekście dedykowanego użytkownika:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>useradd pogodynka
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>useradd pogodynka
 usermod --append --groups dialout pogodynka
 </code></pre></div></div>
 
-<p>Ostatnia komenda dodaje użytkownika <code class="highlighter-rouge">pogodynka</code> do grupy <code class="highlighter-rouge">dialout</code>. Jest to potrzebne, aby mieć  bezpośredni dostęp do odczytu danych z portu USB.</p>
+<p>Ostatnia komenda dodaje użytkownika <code class="language-plaintext highlighter-rouge">pogodynka</code> do grupy <code class="language-plaintext highlighter-rouge">dialout</code>. Jest to potrzebne, aby mieć  bezpośredni dostęp do odczytu danych z portu USB.</p>
 
 <p>Wszystkie te operacje wykonałem podłączając klawiaturę bezpośrednio do malinki. Dla wygody włączyłem demona ssh, dzięki czemu pozostałe operacje mogę wykonać zdalnie:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch /boot/ssh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch /boot/ssh
 </code></pre></div></div>
 
 <h3 id="moduły-jądra-linuxa">Moduły jądra Linux’a</h3>
 
 <p>Żeby termometr działał poprawnie wymagana jest drobna modyfikacja konfiguracji malinki:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo dtoverlay=w1-gpio &gt;&gt; /boot/config.txt
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo dtoverlay=w1-gpio &gt;&gt; /boot/config.txt
 
 reboot
 
@@ -557,7 +557,7 @@ modprobe w1-therm
 <p>Pogodynka 1.0 używała serwera współdzielonego. Korzystałem z usług jednej z polskich firm hostingowych. Koszt utrzymania serwera wynosił około 10zł miesięcznie. Pogodynka 2.0 to zupełnie inna para kaloszy. Szacowanie kosztów usług chmurowych jest dużo bardziej złożone. W przypadku usług, z których korzystam składniki ceny są następujące:</p>
 
 <ul>
-  <li>przechowywanie danych w bazie danych – kosztuje $0,02 za 1GB przechowywanych danych<sup id="fnref:uproszczenie" role="doc-noteref"><a href="#fn:uproszczenie" class="footnote">1</a></sup>,</li>
+  <li>przechowywanie danych w bazie danych – kosztuje $0,02 za 1GB przechowywanych danych<sup id="fnref:uproszczenie" role="doc-noteref"><a href="#fn:uproszczenie" class="footnote" rel="footnote">1</a></sup>,</li>
   <li>strumieniowe ładowanie danych do bazy – kosztuje $0,01 za 200MB, ładowany wiersz to minimum 1KB,</li>
   <li>pobieranie danych z bazy danych – kosztuje $5 za każdy odczytany 1TB.</li>
 </ul>
@@ -566,16 +566,16 @@ modprobe w1-therm
 
 <p>Spróbuję oszacować wielkość bazy danych po roku:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>60 (odczytów na godzinę) * 24 (godziny) * 365 (dni) = 525'600 (odczytów rocznie)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>60 (odczytów na godzinę) * 24 (godziny) * 365 (dni) = 525'600 (odczytów rocznie)
 </code></pre></div></div>
 
 <p>Każdy odczyt to jeden wiersz. Tabela przechowująca pomiary składa się z czterech kolumn:</p>
 
 <ul>
-  <li>daty typu <code class="highlighter-rouge">DATETIME</code></li>
-  <li>odczytu temperatury typu <code class="highlighter-rouge">FLOAT</code></li>
-  <li>odczytu PM2.5 typu <code class="highlighter-rouge">FLOAT</code></li>
-  <li>odczytu PM10 typu <code class="highlighter-rouge">FLOAT</code></li>
+  <li>daty typu <code class="language-plaintext highlighter-rouge">DATETIME</code></li>
+  <li>odczytu temperatury typu <code class="language-plaintext highlighter-rouge">FLOAT</code></li>
+  <li>odczytu PM2.5 typu <code class="language-plaintext highlighter-rouge">FLOAT</code></li>
+  <li>odczytu PM10 typu <code class="language-plaintext highlighter-rouge">FLOAT</code></li>
 </ul>
 
 <p>Każda z tych kolumn to 8B, więc jeden wiersz to 8B * 4 = 32B. Zatem 525’600 odczytów rocznie to w sumie 17MB (16’819’200B). Zatem przechowywanie całego roku danych kosztuje aż $0,00034. A… zapomniałem dodać, że pierwsze 10GB jest darmowe. Innymi słowy przy takiej skali danych nie muszę się przejmować opłatami za przechowywanie danych.</p>
@@ -584,7 +584,7 @@ modprobe w1-therm
 
 <p>Zdecydowałem się na ładowanie strumieniowe żeby mieć natychmiastowy dostęp do danych. Strumieniowe ładowanie danych jest płatne. W ciągu miesiąca Pogodynka 2.0 doda do bazy następującą liczbę wierszy:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>60 (odczytów na godzinę) * 24 (godziny) * 30 (dni) = 43'200 (odczytów miesięcznie)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>60 (odczytów na godzinę) * 24 (godziny) * 30 (dni) = 43'200 (odczytów miesięcznie)
 </code></pre></div></div>
 
 <p>Żądanie dodania danych do bazy ma minimum 1KB (w przypadku Pogodynki 2.0 jest dużo mniejsze, jednak takie jest ograniczenie narzucone przez Google BigQuery). Zatem w ciągu miesiąca strumieniowo zostanie przesłanych 43,2MB danych. Podsumowując, miesięczny koszt strumieniowego ładowania danych to $0,0002. Myślę, że mogę żyć z takim zobowiązaniem ;).</p>

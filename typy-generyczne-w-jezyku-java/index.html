@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#czym-są-typy-generyczne">Czym są typy generyczne</a></li>
 <li class="toc-entry toc-h2"><a href="#porównanie-typów-generycznych-i-standardowych">Porównanie typów generycznych i standardowych</a>
 <ul>
@@ -302,7 +302,7 @@
 
 <h2 id="czym-są-typy-generyczne">Czym są typy generyczne</h2>
 
-<p>W uproszczeniu można powiedzieć, że typy generyczne są “szablonami”. Dzięki typom generycznym możemy uniknąć niepotrzebnego rzutowania. Ponadto przy ich pomocy kompilator jest w stanie sprawdzić poprawność typów na etapie kompilacji, oznacza to więcej błędów wykrytych w jej trakcie<sup id="fnref:dygresja" role="doc-noteref"><a href="#fn:dygresja" class="footnote">1</a></sup>.</p>
+<p>W uproszczeniu można powiedzieć, że typy generyczne są “szablonami”. Dzięki typom generycznym możemy uniknąć niepotrzebnego rzutowania. Ponadto przy ich pomocy kompilator jest w stanie sprawdzić poprawność typów na etapie kompilacji, oznacza to więcej błędów wykrytych w jej trakcie<sup id="fnref:dygresja" role="doc-noteref"><a href="#fn:dygresja" class="footnote" rel="footnote">1</a></sup>.</p>
 
 <p>Poza tym dzięki typom generycznym możemy konstruować bardziej złożone klasy, które możemy używać w wielu kontekstach, łatwiej będzie Ci to zrozumieć na przykładzie.</p>
 
@@ -326,7 +326,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W przykładzie powyżej klasa <code class="highlighter-rouge">AppleBox</code> “wie” jakiego typu obiekt może przechowywać, jest to obiekt typu <code class="highlighter-rouge">Apple</code>. A co jeśli chcielibyśmy zrobić analogiczną klasę dla owoców innego rodzaju? Oczywiście możemy stworzyć podobne pudełko jak w przykładzie poniżej:</p>
+<p>W przykładzie powyżej klasa <code class="language-plaintext highlighter-rouge">AppleBox</code> “wie” jakiego typu obiekt może przechowywać, jest to obiekt typu <code class="language-plaintext highlighter-rouge">Apple</code>. A co jeśli chcielibyśmy zrobić analogiczną klasę dla owoców innego rodzaju? Oczywiście możemy stworzyć podobne pudełko jak w przykładzie poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Orange</span> <span class="o">{</span>
 <span class="o">}</span>
@@ -366,7 +366,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Z racji tego, że atrybut <code class="highlighter-rouge">fruit</code> jest typu <code class="highlighter-rouge">Object</code> możemy do niego przypisać zarówno instancję klasy <code class="highlighter-rouge">Orange</code> jak i <code class="highlighter-rouge">Apple</code>. Pojawia się jednak pewien problem. Mianowicie jeśli chcemy pobrać atrybut <code class="highlighter-rouge">fruit</code> i przypisać go do zmiennej odpowiedniego typu musimy <a href="/konwersja-i-rzutowanie-w-jezyku-java/">rzutować</a>. Tego typu konstrukcja może powodować błędy podczas wykonania programu i warto jej unikać. Z pomocą przychodzą typy generyczne. Proszę spójrz na przykład poniżej.</p>
+<p>Z racji tego, że atrybut <code class="language-plaintext highlighter-rouge">fruit</code> jest typu <code class="language-plaintext highlighter-rouge">Object</code> możemy do niego przypisać zarówno instancję klasy <code class="language-plaintext highlighter-rouge">Orange</code> jak i <code class="language-plaintext highlighter-rouge">Apple</code>. Pojawia się jednak pewien problem. Mianowicie jeśli chcemy pobrać atrybut <code class="language-plaintext highlighter-rouge">fruit</code> i przypisać go do zmiennej odpowiedniego typu musimy <a href="/konwersja-i-rzutowanie-w-jezyku-java/">rzutować</a>. Tego typu konstrukcja może powodować błędy podczas wykonania programu i warto jej unikać. Z pomocą przychodzą typy generyczne. Proszę spójrz na przykład poniżej.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BoxOnSteroids</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="no">T</span> <span class="n">fruit</span><span class="o">;</span>
@@ -390,9 +390,9 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">public class BoxOnSteroids&lt;T&gt;</code> to nic innego jak pierwsza linijka definicji klasy. Nowa tutaj jest konstrukcja z nawiasami. Oznacza ona właśnie typ generyczny, który możemy parametryzować innym typem. Typ ten dostaje tymczasową nazwę, w tym przypadku <code class="highlighter-rouge">T</code>, której używamy dalej w ciele klasy.</p>
+<p><code class="language-plaintext highlighter-rouge">public class BoxOnSteroids&lt;T&gt;</code> to nic innego jak pierwsza linijka definicji klasy. Nowa tutaj jest konstrukcja z nawiasami. Oznacza ona właśnie typ generyczny, który możemy parametryzować innym typem. Typ ten dostaje tymczasową nazwę, w tym przypadku <code class="language-plaintext highlighter-rouge">T</code>, której używamy dalej w ciele klasy.</p>
 
-<p>W trakcie tworzenia instancji obiektu <code class="highlighter-rouge">BoxOnSteroids</code> podajemy informację o typie, który chcielibyśmy wstawić w miejsce <code class="highlighter-rouge">T</code>. W naszym przykładzie są to klasy <code class="highlighter-rouge">Apple</code> lub <code class="highlighter-rouge">Orange</code>. Dzięki takiej konstrukcji kompilator dokładnie wie jakiego typu obiekt zostanie zwrócony przez metodę <code class="highlighter-rouge">getFruit</code> w związku z tym rzutowanie nie jest konieczne<sup id="fnref:rzutowanie2" role="doc-noteref"><a href="#fn:rzutowanie2" class="footnote">2</a></sup>.</p>
+<p>W trakcie tworzenia instancji obiektu <code class="language-plaintext highlighter-rouge">BoxOnSteroids</code> podajemy informację o typie, który chcielibyśmy wstawić w miejsce <code class="language-plaintext highlighter-rouge">T</code>. W naszym przykładzie są to klasy <code class="language-plaintext highlighter-rouge">Apple</code> lub <code class="language-plaintext highlighter-rouge">Orange</code>. Dzięki takiej konstrukcji kompilator dokładnie wie jakiego typu obiekt zostanie zwrócony przez metodę <code class="language-plaintext highlighter-rouge">getFruit</code> w związku z tym rzutowanie nie jest konieczne<sup id="fnref:rzutowanie2" role="doc-noteref"><a href="#fn:rzutowanie2" class="footnote" rel="footnote">2</a></sup>.</p>
 
 <div class="notice--success text-center">
   
@@ -425,25 +425,25 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Zauważ, że w nawiasach <code class="highlighter-rouge">&lt;&gt;</code> możemy umieścić więcej niż jeden parametr. Chociaż zgodnie ze specyfikacją języka Java możesz użyć dowolnej nazwy która nadaje się na nazwę zmiennej istnieje konwencja nazewnicza sugerująca nazwy parametrów. Zwyczajowo do tego celu używa się wielkich liter <code class="highlighter-rouge">T</code>, <code class="highlighter-rouge">K</code>, <code class="highlighter-rouge">U</code>, <code class="highlighter-rouge">V</code>, <code class="highlighter-rouge">E</code>.</p>
+<p>Zauważ, że w nawiasach <code class="language-plaintext highlighter-rouge">&lt;&gt;</code> możemy umieścić więcej niż jeden parametr. Chociaż zgodnie ze specyfikacją języka Java możesz użyć dowolnej nazwy która nadaje się na nazwę zmiennej istnieje konwencja nazewnicza sugerująca nazwy parametrów. Zwyczajowo do tego celu używa się wielkich liter <code class="language-plaintext highlighter-rouge">T</code>, <code class="language-plaintext highlighter-rouge">K</code>, <code class="language-plaintext highlighter-rouge">U</code>, <code class="language-plaintext highlighter-rouge">V</code>, <code class="language-plaintext highlighter-rouge">E</code>.</p>
 
-<p>W miejsce parametrów możemy wstawić dowolny obiekt, nie może to jednak być typ prosty. Innymi słowy <code class="highlighter-rouge">Integer</code> jest w porządku, <code class="highlighter-rouge">int</code> powoduje błąd.</p>
+<p>W miejsce parametrów możemy wstawić dowolny obiekt, nie może to jednak być typ prosty. Innymi słowy <code class="language-plaintext highlighter-rouge">Integer</code> jest w porządku, <code class="language-plaintext highlighter-rouge">int</code> powoduje błąd.</p>
 
 <h2 id="instancja-klasy-generycznej">Instancja klasy generycznej</h2>
 
-<p>Skoro już wiemy jak zdefiniować klasę generyczną przydałoby się stworzyć jej instancję, żeby w końcu jej użyć :). Linijka poniżej tworzy instancję klasy generycznej <code class="highlighter-rouge">BoxOnSteroids</code>, która parametryzowana jest typem <code class="highlighter-rouge">Orange</code>.</p>
+<p>Skoro już wiemy jak zdefiniować klasę generyczną przydałoby się stworzyć jej instancję, żeby w końcu jej użyć :). Linijka poniżej tworzy instancję klasy generycznej <code class="language-plaintext highlighter-rouge">BoxOnSteroids</code>, która parametryzowana jest typem <code class="language-plaintext highlighter-rouge">Orange</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">BoxOnSteroids</span><span class="o">&lt;</span><span class="nc">Orange</span><span class="o">&gt;</span> <span class="n">orangeBox</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BoxOnSteroids</span><span class="o">&lt;</span><span class="nc">Orange</span><span class="o">&gt;(</span><span class="k">new</span> <span class="nc">Orange</span><span class="o">());</span>
 </code></pre></div></div>
 
-<p>Zauważ, że i tutaj występuje pewna duplikacja. Zarówno przy określaniu typu zmiennej jak i przy wywołaniu konstruktora powtarzamy klasę <code class="highlighter-rouge">Orange</code>. Nie jest to konieczne. Jeśli kompilator jest w stanie “wywnioskować” jaki typ powinien być użyty możemy go pominąć przy konstruktorze.</p>
+<p>Zauważ, że i tutaj występuje pewna duplikacja. Zarówno przy określaniu typu zmiennej jak i przy wywołaniu konstruktora powtarzamy klasę <code class="language-plaintext highlighter-rouge">Orange</code>. Nie jest to konieczne. Jeśli kompilator jest w stanie “wywnioskować” jaki typ powinien być użyty możemy go pominąć przy konstruktorze.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">BoxOnSteroids</span><span class="o">&lt;</span><span class="nc">Orange</span><span class="o">&gt;</span> <span class="n">orangeBox</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BoxOnSteroids</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="nc">Orange</span><span class="o">());</span>
 </code></pre></div></div>
 
 <h2 id="zagnieżdżone-typy-generyczne">Zagnieżdżone typy generyczne</h2>
 
-<p>Możesz też tworzyć instancje typów generycznych, które są bardziej skomplikowane. Przykład poniżej pokazuje klasę <code class="highlighter-rouge">Pair</code>, która parametryzowana jest dwoma innymi typami.</p>
+<p>Możesz też tworzyć instancje typów generycznych, które są bardziej skomplikowane. Przykład poniżej pokazuje klasę <code class="language-plaintext highlighter-rouge">Pair</code>, która parametryzowana jest dwoma innymi typami.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pair</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">S</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="no">T</span> <span class="n">first</span><span class="o">;</span>
@@ -473,7 +473,7 @@
         <span class="o">);</span>
 </code></pre></div></div>
 
-<p>W przykładzie tym tworzony jest obiekt klasy <code class="highlighter-rouge">Pair</code>, który parametryzowany jest klasami <code class="highlighter-rouge">BoxOnSteroids&lt;Orange&gt;</code> i <code class="highlighter-rouge">BoxOnSteroids&lt;Apple&gt;</code>.</p>
+<p>W przykładzie tym tworzony jest obiekt klasy <code class="language-plaintext highlighter-rouge">Pair</code>, który parametryzowany jest klasami <code class="language-plaintext highlighter-rouge">BoxOnSteroids&lt;Orange&gt;</code> i <code class="language-plaintext highlighter-rouge">BoxOnSteroids&lt;Apple&gt;</code>.</p>
 
 <h2 id="typy-generyczne-nie-rozwiązują-wszystkich-problemów">Typy generyczne nie rozwiązują wszystkich problemów</h2>
 
@@ -486,9 +486,9 @@
 <span class="nc">Orange</span> <span class="n">orange</span> <span class="o">=</span> <span class="n">boxWithOrange</span><span class="o">.</span><span class="na">getFruit</span><span class="o">();</span> <span class="c1">// ClassCastException</span>
 </code></pre></div></div>
 
-<p>W przykładzie tym tworzona jest instancja klasy generycznej <code class="highlighter-rouge">BoxOnSteroids</code> bez wyspecyfikowania klasy, która znajduje się “w środku”. Następnie tę instancję przypisujemy do zmiennych typu <code class="highlighter-rouge">BoxOnSteroids&lt;Apple&gt;</code> i <code class="highlighter-rouge">BoxOnSteroids&lt;Orange&gt;</code>. O ile w pierwszym przypadku typ owocu trzymanego w środku się zgadza to ostatnia linia nie jest poprawna – generuje błąd typu <code class="highlighter-rouge">ClassCastException</code>. Obiekt typu <code class="highlighter-rouge">Apple</code> jest rzutowany przez kompilator do typu <code class="highlighter-rouge">Orange</code><sup id="fnref:rzutowanie" role="doc-noteref"><a href="#fn:rzutowanie" class="footnote">3</a></sup>.</p>
+<p>W przykładzie tym tworzona jest instancja klasy generycznej <code class="language-plaintext highlighter-rouge">BoxOnSteroids</code> bez wyspecyfikowania klasy, która znajduje się “w środku”. Następnie tę instancję przypisujemy do zmiennych typu <code class="language-plaintext highlighter-rouge">BoxOnSteroids&lt;Apple&gt;</code> i <code class="language-plaintext highlighter-rouge">BoxOnSteroids&lt;Orange&gt;</code>. O ile w pierwszym przypadku typ owocu trzymanego w środku się zgadza to ostatnia linia nie jest poprawna – generuje błąd typu <code class="language-plaintext highlighter-rouge">ClassCastException</code>. Obiekt typu <code class="language-plaintext highlighter-rouge">Apple</code> jest rzutowany przez kompilator do typu <code class="language-plaintext highlighter-rouge">Orange</code><sup id="fnref:rzutowanie" role="doc-noteref"><a href="#fn:rzutowanie" class="footnote" rel="footnote">3</a></sup>.</p>
 
-<h2 id="słowo-kluczowe-extends">Słowo kluczowe <code class="highlighter-rouge">extends</code></h2>
+<h2 id="słowo-kluczowe-extends">Słowo kluczowe <code class="language-plaintext highlighter-rouge">extends</code></h2>
 
 <p>To słowo kluczowe ma zastosowanie także w przypadku typów generycznych. Dzięki niemu możemy ograniczyć zestaw klas którymi możemy parametryzować nasz typ generyczny. Omówmy to na przykładzie:</p>
 
@@ -522,15 +522,15 @@
 <span class="nc">BoxForFigures</span><span class="o">&lt;</span><span class="nc">Apple</span><span class="o">&gt;</span> <span class="n">appleBox</span><span class="o">;</span> <span class="c1">// complilation error</span>
 </code></pre></div></div>
 
-<p>Jak widzisz przykład definiuje prosty interfejs <code class="highlighter-rouge">Figure</code> i klasę <code class="highlighter-rouge">Circle</code>, która go implementuje. Następnie definiujemy klasę <code class="highlighter-rouge">BoxForFigures</code>, która jest generyczna i może być parametryzowana przez typy dziedziczące/implementujące <code class="highlighter-rouge">Figure</code>.</p>
+<p>Jak widzisz przykład definiuje prosty interfejs <code class="language-plaintext highlighter-rouge">Figure</code> i klasę <code class="language-plaintext highlighter-rouge">Circle</code>, która go implementuje. Następnie definiujemy klasę <code class="language-plaintext highlighter-rouge">BoxForFigures</code>, która jest generyczna i może być parametryzowana przez typy dziedziczące/implementujące <code class="language-plaintext highlighter-rouge">Figure</code>.</p>
 
-<p>Dzięki takiemu zapisowi kompilator pozwoli nam stworzyć instancję <code class="highlighter-rouge">BoxForFigures&lt;Circle&gt; circleBox</code> jednak zacznie się buntować przy <code class="highlighter-rouge">BoxForFigures&lt;Apple&gt; appleBox</code> (<code class="highlighter-rouge">Apple</code> nie implementuje interfejsu <code class="highlighter-rouge">Figure</code>).</p>
+<p>Dzięki takiemu zapisowi kompilator pozwoli nam stworzyć instancję <code class="language-plaintext highlighter-rouge">BoxForFigures&lt;Circle&gt; circleBox</code> jednak zacznie się buntować przy <code class="language-plaintext highlighter-rouge">BoxForFigures&lt;Apple&gt; appleBox</code> (<code class="language-plaintext highlighter-rouge">Apple</code> nie implementuje interfejsu <code class="language-plaintext highlighter-rouge">Figure</code>).</p>
 
-<p>Kolejną zaletą używania tego słowa kluczowego jest możliwość wywoływania metod na obiekcie typu parametryzowanego. W przykładzie powyżej wiemy że <code class="highlighter-rouge">T</code> jest czymś co implementuje <code class="highlighter-rouge">Figure</code> więc musi mieć metody dostępne w tym interfejsie. Właśnie z tego powodu w metodzie <code class="highlighter-rouge">getElementName</code> możemy wywołać metodę <code class="highlighter-rouge">getName</code> z tego interfejsu.</p>
+<p>Kolejną zaletą używania tego słowa kluczowego jest możliwość wywoływania metod na obiekcie typu parametryzowanego. W przykładzie powyżej wiemy że <code class="language-plaintext highlighter-rouge">T</code> jest czymś co implementuje <code class="language-plaintext highlighter-rouge">Figure</code> więc musi mieć metody dostępne w tym interfejsie. Właśnie z tego powodu w metodzie <code class="language-plaintext highlighter-rouge">getElementName</code> możemy wywołać metodę <code class="language-plaintext highlighter-rouge">getName</code> z tego interfejsu.</p>
 
 <h2 id="dziedziczenie-typów-generycznych">Dziedziczenie typów generycznych</h2>
 
-<p>Tutaj należy się dodatkowe zdanie wyjaśnienia poparte prostym przykładem. Proszę spójrz na początek na klasy <code class="highlighter-rouge">Rectangle</code> i <code class="highlighter-rouge">Square</code> poniżej:</p>
+<p>Tutaj należy się dodatkowe zdanie wyjaśnienia poparte prostym przykładem. Proszę spójrz na początek na klasy <code class="language-plaintext highlighter-rouge">Rectangle</code> i <code class="language-plaintext highlighter-rouge">Square</code> poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">implements</span> <span class="nc">Figure</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
@@ -545,7 +545,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Jak wiesz każda klasa w języku Java dziedziczy po klasie <code class="highlighter-rouge">Object</code> (bezpośrednio, bądź pośrednio). W naszym przykładzie bezpośrednio po klasie <code class="highlighter-rouge">Object</code> dziedziczą klasy <code class="highlighter-rouge">Rectangle</code>, <code class="highlighter-rouge">BoxForFigures&lt;Rectangle&gt;</code> i <code class="highlighter-rouge">BoxForFigures&lt;Square&gt;</code><sup id="fnref:plik_class" role="doc-noteref"><a href="#fn:plik_class" class="footnote">4</a></sup>. Natomiast <code class="highlighter-rouge">Square</code> dziedziczy po <code class="highlighter-rouge">Rectangle</code>.</p>
+<p>Jak wiesz każda klasa w języku Java dziedziczy po klasie <code class="language-plaintext highlighter-rouge">Object</code> (bezpośrednio, bądź pośrednio). W naszym przykładzie bezpośrednio po klasie <code class="language-plaintext highlighter-rouge">Object</code> dziedziczą klasy <code class="language-plaintext highlighter-rouge">Rectangle</code>, <code class="language-plaintext highlighter-rouge">BoxForFigures&lt;Rectangle&gt;</code> i <code class="language-plaintext highlighter-rouge">BoxForFigures&lt;Square&gt;</code><sup id="fnref:plik_class" role="doc-noteref"><a href="#fn:plik_class" class="footnote" rel="footnote">4</a></sup>. Natomiast <code class="language-plaintext highlighter-rouge">Square</code> dziedziczy po <code class="language-plaintext highlighter-rouge">Rectangle</code>.</p>
 
 <figure class="">
   <img src="/assets/images/2016/03/23_dziedziczenie_typow_generycznych_2.jpg" alt="" /><figcaption>
@@ -559,7 +559,7 @@
 <span class="nc">BoxForFigures</span><span class="o">&lt;</span><span class="nc">Rectangle</span><span class="o">&gt;</span> <span class="n">rectangleBox</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BoxForFigures</span><span class="o">&lt;</span><span class="nc">Square</span><span class="o">&gt;(</span><span class="k">new</span> <span class="nc">Square</span><span class="o">());</span> <span class="c1">// compilation error</span>
 </code></pre></div></div>
 
-<p>Dzięki takiemu schematowi dziedziczenia do referencji typu <code class="highlighter-rouge">Rectangle</code> możemy przypisać obiekt <code class="highlighter-rouge">Square</code>. Jednak próba przypisania obiektu <code class="highlighter-rouge">BoxForFigures&lt;Square&gt;</code> do referencji <code class="highlighter-rouge">BoxForFigures&lt;Rectangle&gt;</code> powoduje błąd kompilacji.</p>
+<p>Dzięki takiemu schematowi dziedziczenia do referencji typu <code class="language-plaintext highlighter-rouge">Rectangle</code> możemy przypisać obiekt <code class="language-plaintext highlighter-rouge">Square</code>. Jednak próba przypisania obiektu <code class="language-plaintext highlighter-rouge">BoxForFigures&lt;Square&gt;</code> do referencji <code class="language-plaintext highlighter-rouge">BoxForFigures&lt;Rectangle&gt;</code> powoduje błąd kompilacji.</p>
 
 <p>Jednak podobnie jak w przypadku zwykłych klas, klasy generyczne także mogą dziedziczyć po innych klasach. W szczególności mogą także dziedziczyć po klasach generycznych.</p>
 
@@ -588,7 +588,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W naszym przykładzie klasa <code class="highlighter-rouge">FancyBox</code> dziedziczy po <code class="highlighter-rouge">StandardBox</code>, widoczne jest to na diagramie poniżej.</p>
+<p>W naszym przykładzie klasa <code class="language-plaintext highlighter-rouge">FancyBox</code> dziedziczy po <code class="language-plaintext highlighter-rouge">StandardBox</code>, widoczne jest to na diagramie poniżej.</p>
 
 <figure class="">
   <img src="/assets/images/2016/03/23_dziedziczenie_typow_generycznych.jpg" alt="" /><figcaption>
@@ -598,9 +598,9 @@
 
 <h2 id="metody-z-generycznymi-argumentami--wildcard">Metody z generycznymi argumentami – wildcard</h2>
 
-<h3 id="fancybox"><code class="highlighter-rouge">FancyBox&lt;?&gt;</code></h3>
+<h3 id="fancybox"><code class="language-plaintext highlighter-rouge">FancyBox&lt;?&gt;</code></h3>
 
-<p>Pisząc metody, które jako argumenty przyjmują typy generyczne nie zawsze chcesz dokładnie specyfikować typ. W takim wypadku z pomocą przychodzi znak <code class="highlighter-rouge">?</code>, który może akceptować różne typy.</p>
+<p>Pisząc metody, które jako argumenty przyjmują typy generyczne nie zawsze chcesz dokładnie specyfikować typ. W takim wypadku z pomocą przychodzi znak <code class="language-plaintext highlighter-rouge">?</code>, który może akceptować różne typy.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">(</span><span class="nc">FancyBox</span><span class="o">&lt;?&gt;</span> <span class="n">box</span><span class="o">)</span> <span class="o">{</span>
     <span class="nc">Object</span> <span class="n">object</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="na">object</span><span class="o">;</span>
@@ -614,20 +614,20 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Jak widzisz w przykładzie powyżej metoda method1 może akceptować różne klasy <code class="highlighter-rouge">FancyBox</code> parametryzowaną dowolnym typem.</p>
+<p>Jak widzisz w przykładzie powyżej metoda method1 może akceptować różne klasy <code class="language-plaintext highlighter-rouge">FancyBox</code> parametryzowaną dowolnym typem.</p>
 
 <h4 id="przypisanie-wartości">Przypisanie wartości</h4>
 
-<p>Ma to jednak swoje konsekwencje. Klasa, która parametryzowana jest <code class="highlighter-rouge">?</code> nie przyjmie żadnych obiektów poza <code class="highlighter-rouge">null</code>. Przykład poniżej zakończy się błędem kompilacji:</p>
+<p>Ma to jednak swoje konsekwencje. Klasa, która parametryzowana jest <code class="language-plaintext highlighter-rouge">?</code> nie przyjmie żadnych obiektów poza <code class="language-plaintext highlighter-rouge">null</code>. Przykład poniżej zakończy się błędem kompilacji:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">FancyBox</span><span class="o">&lt;?&gt;</span> <span class="n">box</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FancyBox</span><span class="o">&lt;&gt;(</span><span class="s">"object"</span><span class="o">);</span>
 <span class="n">box</span><span class="o">.</span><span class="na">object</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 <span class="c1">// box.object = "xxx"; // compilation error</span>
 </code></pre></div></div>
 
-<h3 id="fancybox-extends-figure-upper-bound"><code class="highlighter-rouge">FancyBox&lt;? extends Figure&gt;</code> “upper bound”</h3>
+<h3 id="fancybox-extends-figure-upper-bound"><code class="language-plaintext highlighter-rouge">FancyBox&lt;? extends Figure&gt;</code> “upper bound”</h3>
 
-<p>Znak <code class="highlighter-rouge">?</code> może występować także w połączeniu ze słówkiem kluczowym <code class="highlighter-rouge">extends</code>. W takim przypadku możesz ograniczyć akceptowane typy “z góry”. W przykładzie poniżej metoda akceptuje jedynie instancje <code class="highlighter-rouge">FancyBox</code>, które parametryzowane są klasami dziedziczącymi po <code class="highlighter-rouge">Figure</code>.</p>
+<p>Znak <code class="language-plaintext highlighter-rouge">?</code> może występować także w połączeniu ze słówkiem kluczowym <code class="language-plaintext highlighter-rouge">extends</code>. W takim przypadku możesz ograniczyć akceptowane typy “z góry”. W przykładzie poniżej metoda akceptuje jedynie instancje <code class="language-plaintext highlighter-rouge">FancyBox</code>, które parametryzowane są klasami dziedziczącymi po <code class="language-plaintext highlighter-rouge">Figure</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">(</span><span class="nc">FancyBox</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">Figure</span><span class="o">&gt;</span> <span class="n">box</span><span class="o">)</span> <span class="o">{</span>
     <span class="nc">Figure</span> <span class="n">figure</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="na">object</span><span class="o">;</span>
@@ -650,11 +650,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W przykładzie tym możesz także zobaczyć, że typ <code class="highlighter-rouge">FancyBox&lt;Figure&gt;</code> jest bardziej restrykcyjny niż <code class="highlighter-rouge">FancyBox&lt;? extends Figure&gt;</code>. W konsekwencji próba wywołania <code class="highlighter-rouge">method3</code> z argumentem innego typu niż <code class="highlighter-rouge">FancyBox&lt;Figure&gt;</code> skutkuje błędem kompilacji.</p>
+<p>W przykładzie tym możesz także zobaczyć, że typ <code class="language-plaintext highlighter-rouge">FancyBox&lt;Figure&gt;</code> jest bardziej restrykcyjny niż <code class="language-plaintext highlighter-rouge">FancyBox&lt;? extends Figure&gt;</code>. W konsekwencji próba wywołania <code class="language-plaintext highlighter-rouge">method3</code> z argumentem innego typu niż <code class="language-plaintext highlighter-rouge">FancyBox&lt;Figure&gt;</code> skutkuje błędem kompilacji.</p>
 
 <h4 id="przypisanie-wartości-1">Przypisanie wartości</h4>
 
-<p>Podobnie jak w przypadku <code class="highlighter-rouge">?</code> tutaj także są ograniczenia dotyczące przypisywania wartości. Spójrz jeszcze raz na przykład:</p>
+<p>Podobnie jak w przypadku <code class="language-plaintext highlighter-rouge">?</code> tutaj także są ograniczenia dotyczące przypisywania wartości. Spójrz jeszcze raz na przykład:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">(</span><span class="nc">FancyBox</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">Figure</span><span class="o">&gt;</span> <span class="n">box</span><span class="o">)</span> <span class="o">{</span>
     <span class="nc">Figure</span> <span class="n">figure</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="na">object</span><span class="o">;</span>
@@ -664,11 +664,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Skoro wewnątrz metody parametr <code class="highlighter-rouge">box</code> może mieć zarówno typ <code class="highlighter-rouge">FancyBox&lt;Square&gt;</code> jak i <code class="highlighter-rouge">FancyBox&lt;Circle&gt;</code> (jak i wiele innych) kompilator nie może pozwolić na wstawienie tam obiektu innego niż <code class="highlighter-rouge">null</code>. Nie może tego zrobić bo nie wie jakiego typu obiekty przechowywane są w <code class="highlighter-rouge">box</code>.</p>
+<p>Skoro wewnątrz metody parametr <code class="language-plaintext highlighter-rouge">box</code> może mieć zarówno typ <code class="language-plaintext highlighter-rouge">FancyBox&lt;Square&gt;</code> jak i <code class="language-plaintext highlighter-rouge">FancyBox&lt;Circle&gt;</code> (jak i wiele innych) kompilator nie może pozwolić na wstawienie tam obiektu innego niż <code class="language-plaintext highlighter-rouge">null</code>. Nie może tego zrobić bo nie wie jakiego typu obiekty przechowywane są w <code class="language-plaintext highlighter-rouge">box</code>.</p>
 
-<h3 id="fancybox-super-rectangle-lower-bound"><code class="highlighter-rouge">FancyBox&lt;? super Rectangle&gt;</code> “lower bound”</h3>
+<h3 id="fancybox-super-rectangle-lower-bound"><code class="language-plaintext highlighter-rouge">FancyBox&lt;? super Rectangle&gt;</code> “lower bound”</h3>
 
-<p>Poza ograniczeniem “z góry” możesz także ograniczyć akceptowalne typy “z dołu”. W przykładzie poniżej metoda akceptuje wyłącznie argumenty typu <code class="highlighter-rouge">FancyBox&lt;Object&gt;</code>, <code class="highlighter-rouge">FancyBox&lt;Figure&gt;</code> i <code class="highlighter-rouge">FancyBox&lt;Rectangle&gt;</code>.</p>
+<p>Poza ograniczeniem “z góry” możesz także ograniczyć akceptowalne typy “z dołu”. W przykładzie poniżej metoda akceptuje wyłącznie argumenty typu <code class="language-plaintext highlighter-rouge">FancyBox&lt;Object&gt;</code>, <code class="language-plaintext highlighter-rouge">FancyBox&lt;Figure&gt;</code> i <code class="language-plaintext highlighter-rouge">FancyBox&lt;Rectangle&gt;</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">method4</span><span class="o">(</span><span class="nc">FancyBox</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="nc">Rectangle</span><span class="o">&gt;</span> <span class="n">box</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">box</span><span class="o">.</span><span class="na">object</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Square</span><span class="o">();</span>
@@ -687,7 +687,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Zauważ, ze w niektórych miejscach nie ma potrzeby podawania typu generycznego. Samo <code class="highlighter-rouge">&lt;&gt;</code> wystarczy, kompilator jest w stanie wywnioskować jakiego typu może się tam spodziewać. Typy generyczne są skomplikowane. Jeśli aktualnie masz mętlik w głowie nie przejmuj się, przeczytaj artykuł jeszcze raz, przejrzyj przykłady. Zrozumienie przyjdzie z doświadczeniem.</p>
+<p>Zauważ, ze w niektórych miejscach nie ma potrzeby podawania typu generycznego. Samo <code class="language-plaintext highlighter-rouge">&lt;&gt;</code> wystarczy, kompilator jest w stanie wywnioskować jakiego typu może się tam spodziewać. Typy generyczne są skomplikowane. Jeśli aktualnie masz mętlik w głowie nie przejmuj się, przeczytaj artykuł jeszcze raz, przejrzyj przykłady. Zrozumienie przyjdzie z doświadczeniem.</p>
 
 <h4 id="przypisanie-wartości-2">Przypisanie wartości</h4>
 
@@ -701,11 +701,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Parametr <code class="highlighter-rouge">box</code> może być typu <code class="highlighter-rouge">FancyBox&lt;Object&gt;</code>, <code class="highlighter-rouge">FancyBox&lt;Figure&gt;</code> i <code class="highlighter-rouge">FancyBox&lt;Rectangle&gt;</code>. Zatem w tym przypadku do pola <code class="highlighter-rouge">box.object</code> można przypisać <code class="highlighter-rouge">null</code> i każdy obiekt, który dziedziczy po <code class="highlighter-rouge">Rectangle</code>.</p>
+<p>Parametr <code class="language-plaintext highlighter-rouge">box</code> może być typu <code class="language-plaintext highlighter-rouge">FancyBox&lt;Object&gt;</code>, <code class="language-plaintext highlighter-rouge">FancyBox&lt;Figure&gt;</code> i <code class="language-plaintext highlighter-rouge">FancyBox&lt;Rectangle&gt;</code>. Zatem w tym przypadku do pola <code class="language-plaintext highlighter-rouge">box.object</code> można przypisać <code class="language-plaintext highlighter-rouge">null</code> i każdy obiekt, który dziedziczy po <code class="language-plaintext highlighter-rouge">Rectangle</code>.</p>
 
 <h2 id="typy-generyczne-są-skomplikowane">Typy generyczne są skomplikowane</h2>
 
-<p>Nie zostały one dodane do Javy od samego początku. W związku z tym, że twórcy chcieli zachować kompatybilność wstecz<sup id="fnref:compatibility" role="doc-noteref"><a href="#fn:compatibility" class="footnote">5</a></sup> istnieje wiele kruczków, które nie są trywialne. Pominąłem w artykule np. “type erasure” czy generyczne metody, które nie są istotne na początku. Jeśli jesteś nimi zainteresowany odsyłam do materiałów dodatkowych.</p>
+<p>Nie zostały one dodane do Javy od samego początku. W związku z tym, że twórcy chcieli zachować kompatybilność wstecz<sup id="fnref:compatibility" role="doc-noteref"><a href="#fn:compatibility" class="footnote" rel="footnote">5</a></sup> istnieje wiele kruczków, które nie są trywialne. Pominąłem w artykule np. “type erasure” czy generyczne metody, które nie są istotne na początku. Jeśli jesteś nimi zainteresowany odsyłam do materiałów dodatkowych.</p>
 
 <h2 id="materiały-dodatkowe">Materiały dodatkowe</h2>
 
@@ -735,7 +735,7 @@
       <p>Tu właśnie objawia się to automatyczne rzutowanie generowane przez kompilator <a href="#fnref:rzutowanie" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:plik_class" role="doc-endnote">
-      <p>W rzeczywistości, po skompilowaniu powstanie jeden plik class z klasą <code class="highlighter-rouge">BoxForFigures</code>. <a href="#fnref:plik_class" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>W rzeczywistości, po skompilowaniu powstanie jeden plik class z klasą <code class="language-plaintext highlighter-rouge">BoxForFigures</code>. <a href="#fnref:plik_class" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:compatibility" role="doc-endnote">
       <p>Twórcom zależało na tym aby programy napisane w starej wersji Javy mogły być uruchamiane na najnowszych wersjach maszyny wirtualnej. <a href="#fnref:compatibility" class="reversefootnote" role="doc-backlink">&#8617;</a></p>

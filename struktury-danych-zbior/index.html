@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#struktura-danych-a-abstrakcyjny-typ-danych">Struktura danych a abstrakcyjny typ danych</a></li>
 <li class="toc-entry toc-h2"><a href="#czym-jest-zbiór">Czym jest zbiór</a></li>
 <li class="toc-entry toc-h2"><a href="#algebra-zbiorów">Algebra zbiorów</a>
@@ -300,7 +300,7 @@
   
 <p>Artykuł ten opisuje przykładową implementację zbioru. Zbiór jest abstrakcyjnym typem danych, który występuje w wielu językach programowania. Zasada pracy ze zbiorami są niezależnie od języka programowania.</p>
 
-<p>Przykładową implementację przygotowałem w Javie. Żeby wynieść jak najwięcej z tego artykułu potrzebna jest wiedza na temat <code class="highlighter-rouge">hashCode</code> i <code class="highlighter-rouge">equals</code>. Niezbędna jest też znajomość <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/#kontrakt-między-metodami-equals-i-hashcode">kontraktu pomiędzy metodami <code class="highlighter-rouge">equals</code> i <code class="highlighter-rouge">hashCode</code></a>.</p>
+<p>Przykładową implementację przygotowałem w Javie. Żeby wynieść jak najwięcej z tego artykułu potrzebna jest wiedza na temat <code class="language-plaintext highlighter-rouge">hashCode</code> i <code class="language-plaintext highlighter-rouge">equals</code>. Niezbędna jest też znajomość <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/#kontrakt-między-metodami-equals-i-hashcode">kontraktu pomiędzy metodami <code class="language-plaintext highlighter-rouge">equals</code> i <code class="language-plaintext highlighter-rouge">hashCode</code></a>.</p>
 
 <p>Do zrozumienia przykładowej implementacji niezbędna będzie też wiedza o <a href="/typy-generyczne-w-jezyku-java/">typach generycznych</a>.</p>
 
@@ -314,7 +314,7 @@
 
 <p>Abstrakcyjny typ danych definiuje zachowanie danego typu. Określa zestaw operacji, które można na tym typie wykonać. Opis abstrakcyjnego typu danych zawiera także cechy charakterystyczne dla danego typu.</p>
 
-<p>Na przykład zbiór jest abstrakcyjnym typem danych (niżej opiszę jego własności), a <code class="highlighter-rouge">TreeSet</code> czy <code class="highlighter-rouge">HashSet</code> są implementacjami tego abstrakcyjnego typu danych. Te implementacje używają rożnych struktur danych. Innym przykładem może być abstrakcyjny typ danych <a href="/struktury-danych-tablica-asocjacyjna/">tablica asocjacyjna</a>, której implementacja może używać tablicy i listy wiązanej.</p>
+<p>Na przykład zbiór jest abstrakcyjnym typem danych (niżej opiszę jego własności), a <code class="language-plaintext highlighter-rouge">TreeSet</code> czy <code class="language-plaintext highlighter-rouge">HashSet</code> są implementacjami tego abstrakcyjnego typu danych. Te implementacje używają rożnych struktur danych. Innym przykładem może być abstrakcyjny typ danych <a href="/struktury-danych-tablica-asocjacyjna/">tablica asocjacyjna</a>, której implementacja może używać tablicy i listy wiązanej.</p>
 
 <h2 id="czym-jest-zbiór">Czym jest zbiór</h2>
 
@@ -322,7 +322,7 @@
 
 <ul>
   <li>pozwala na przechowywanie wielu elementów,</li>
-  <li>kolejność elementów w zbiorze nie ma znaczenia<sup id="fnref:wyjatek" role="doc-noteref"><a href="#fn:wyjatek" class="footnote">1</a></sup>,</li>
+  <li>kolejność elementów w zbiorze nie ma znaczenia<sup id="fnref:wyjatek" role="doc-noteref"><a href="#fn:wyjatek" class="footnote" rel="footnote">1</a></sup>,</li>
   <li>pozwala na przechowywanie co najwyżej jednej kopii elementu (duplikaty nie są dozwolone).</li>
 </ul>
 
@@ -368,13 +368,13 @@
 
 <h2 id="jak-działa-zbiór">Jak działa zbiór?</h2>
 
-<p>W ramach tego artykułu skupię się na przykładowej implementacji, która oparta jest o funkcję skrótu (w języku Java jest to <code class="highlighter-rouge">hashCode</code>). Przedstawiona tu implementacja będzie uproszczoną wersją klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html"><code class="highlighter-rouge">HashSet</code></a>, znajdującej się w bibliotece standardowej.</p>
+<p>W ramach tego artykułu skupię się na przykładowej implementacji, która oparta jest o funkcję skrótu (w języku Java jest to <code class="language-plaintext highlighter-rouge">hashCode</code>). Przedstawiona tu implementacja będzie uproszczoną wersją klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html"><code class="language-plaintext highlighter-rouge">HashSet</code></a>, znajdującej się w bibliotece standardowej.</p>
 
-<h3 id="hashcode-i-equals"><code class="highlighter-rouge">hashCode</code> i <code class="highlighter-rouge">equals</code></h3>
+<h3 id="hashcode-i-equals"><code class="language-plaintext highlighter-rouge">hashCode</code> i <code class="language-plaintext highlighter-rouge">equals</code></h3>
 
-<p>Podobnie jak w przypadku tablicy asocjacyjnej opartej o funkcję skrótu tak i tutaj <code class="highlighter-rouge">hashCode</code> i <code class="highlighter-rouge">equals</code> pełnią kluczową rolę.</p>
+<p>Podobnie jak w przypadku tablicy asocjacyjnej opartej o funkcję skrótu tak i tutaj <code class="language-plaintext highlighter-rouge">hashCode</code> i <code class="language-plaintext highlighter-rouge">equals</code> pełnią kluczową rolę.</p>
 
-<p>Także tutaj na podstawie wartości funkcji <code class="highlighter-rouge">hashCode</code> obliczone zostanie „wiaderko”, do którego wpadnie dany element. Następnie elementy wewnątrz tego samego wiaderka porównywane będą przy pomocy metody <code class="highlighter-rouge">equals</code>. Takie podejście pozwala na uzyskanie bardzo dobrej złożoności obliczeniowej.</p>
+<p>Także tutaj na podstawie wartości funkcji <code class="language-plaintext highlighter-rouge">hashCode</code> obliczone zostanie „wiaderko”, do którego wpadnie dany element. Następnie elementy wewnątrz tego samego wiaderka porównywane będą przy pomocy metody <code class="language-plaintext highlighter-rouge">equals</code>. Takie podejście pozwala na uzyskanie bardzo dobrej złożoności obliczeniowej.</p>
 
 <p>Podobnie jak w przypadku tablicy asocjacyjnej kluczowe jest zachowanie <a href="/porownywanie-obiektow-metody-equals-i-hashcode-w-jezyku-java/#kontrakt-między-metodami-equals-i-hashcode">kontraktu</a> pomiędzy tymi metodami.</p>
 
@@ -391,19 +391,19 @@
 </code></pre></div></div>
 
 <ul>
-  <li><code class="highlighter-rouge">int size()</code> – metoda zwraca liczbę elementów zbioru,</li>
-  <li><code class="highlighter-rouge">boolean add(E element)</code> – metoda dodaje element to zbioru, zwraca <code class="highlighter-rouge">true</code> jeśli element został dodany,</li>
-  <li><code class="highlighter-rouge">boolean remove(E element)</code> – metoda usuwa element ze zbioru, zwraca <code class="highlighter-rouge">true</code> jeśli element został usunięty,</li>
-  <li><code class="highlighter-rouge">boolean contains(E element)</code> – metoda zwraca flagę informującą czy element istnieje w zbiorze.</li>
+  <li><code class="language-plaintext highlighter-rouge">int size()</code> – metoda zwraca liczbę elementów zbioru,</li>
+  <li><code class="language-plaintext highlighter-rouge">boolean add(E element)</code> – metoda dodaje element to zbioru, zwraca <code class="language-plaintext highlighter-rouge">true</code> jeśli element został dodany,</li>
+  <li><code class="language-plaintext highlighter-rouge">boolean remove(E element)</code> – metoda usuwa element ze zbioru, zwraca <code class="language-plaintext highlighter-rouge">true</code> jeśli element został usunięty,</li>
+  <li><code class="language-plaintext highlighter-rouge">boolean contains(E element)</code> – metoda zwraca flagę informującą czy element istnieje w zbiorze.</li>
 </ul>
 
 <h2 id="przykładowa-implementacja">Przykładowa implementacja</h2>
 
-<h3 id="podobieństwa-pomiędzy-hashset-i-hashmap">Podobieństwa pomiędzy <code class="highlighter-rouge">HashSet</code> i <code class="highlighter-rouge">HashMap</code></h3>
+<h3 id="podobieństwa-pomiędzy-hashset-i-hashmap">Podobieństwa pomiędzy <code class="language-plaintext highlighter-rouge">HashSet</code> i <code class="language-plaintext highlighter-rouge">HashMap</code></h3>
 
-<p>Zacznę od krótkiego przypomnienia czym jest tablica asocjacyjna. Ta struktura pozwala na przechowywanie kluczy i odpowiadających im wartości. Implementacja <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashMap.html"><code class="highlighter-rouge">HashMap</code></a> zakłada, że tablica asocjacyjna zawiera unikalny zestaw kluczy. Innymi słowy nie może w niej być dwóch takich samych kluczy.</p>
+<p>Zacznę od krótkiego przypomnienia czym jest tablica asocjacyjna. Ta struktura pozwala na przechowywanie kluczy i odpowiadających im wartości. Implementacja <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashMap.html"><code class="language-plaintext highlighter-rouge">HashMap</code></a> zakłada, że tablica asocjacyjna zawiera unikalny zestaw kluczy. Innymi słowy nie może w niej być dwóch takich samych kluczy.</p>
 
-<p>Tablica asocjacyjna, podobnie jak zbiór, nie zwraca uwagi na porządek kluczy<sup id="fnref:treemap" role="doc-noteref"><a href="#fn:treemap" class="footnote">2</a></sup>. Zbiór nie zawiera duplikatów, mapa nie przechowuje zduplikowanych kluczy.</p>
+<p>Tablica asocjacyjna, podobnie jak zbiór, nie zwraca uwagi na porządek kluczy<sup id="fnref:treemap" role="doc-noteref"><a href="#fn:treemap" class="footnote" rel="footnote">2</a></sup>. Zbiór nie zawiera duplikatów, mapa nie przechowuje zduplikowanych kluczy.</p>
 
 <p>Czy widzisz tu pewne podobieństwo pomiędzy zbiorem a tak zdefiniowaną tablicą asocjacyjną? Powiem więcej, bardzo często implementacje zbioru pod spodem używają tablicy asocjacyjnej.</p>
 
@@ -442,7 +442,7 @@
 
 <p>Zauważ, że cały mechanizm związany z funkcją skrótu, kubełkami, dynamicznym rozszerzaniem pojemności zbioru jest ukryty w implementacji tablicy asocjacyjnej. Sam zbiór korzysta jedynie z publicznych metod. Jeśli nie znasz któregokolwiek z tych mechanizmów koniecznie przeczytaj artykuł o <a href="/struktury-danych-tablica-asocjacyjna/">tablicy asocjacyjnej</a>.</p>
 
-<p>Interesującym zabiegiem jest tu użycie instancji <code class="highlighter-rouge">PRESENT</code>. Dzięki takiemu podejściu minimalizowana jest wielkość zbioru, istnieje tylko jeden obiekt wartości współdzielony pomiędzy wszystkimi kluczami.</p>
+<p>Interesującym zabiegiem jest tu użycie instancji <code class="language-plaintext highlighter-rouge">PRESENT</code>. Dzięki takiemu podejściu minimalizowana jest wielkość zbioru, istnieje tylko jeden obiekt wartości współdzielony pomiędzy wszystkimi kluczami.</p>
 
 <p>Implementacja zbioru opartego o funkcje skrótu jest na tyle prosta, że <a href="https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/blob/master/03_hash_set/src/test/java/pl/samouczekprogramisty/asd/set/SimpleHashSetTest.java">zestaw testów jednostkowych</a> ma dużo więcej linijek kodu ;).</p>
 
@@ -450,7 +450,7 @@
 
 <p>Złożoność obliczeniowa poszczególnych operacji odpowiada złożoności obliczeniowej tablicy asocjacyjnej. Wynika to z faktu, że każda operacja wywołuje odpowiednią metodę zaimplementowaną w tablicy asocjacyjnej.</p>
 
-<p>Ma to dokładnie takie same konsekwencje jak w przypadku mapy opartej o funkcję skrótu. Jeśli funkcja skrótu jest „dobra” wówczas złożoność operacji wynosi <code class="highlighter-rouge">Ο(1)</code>. Jeśli jest zła, złożoność obliczeniowa spada do <code class="highlighter-rouge">Ο(n)</code>.</p>
+<p>Ma to dokładnie takie same konsekwencje jak w przypadku mapy opartej o funkcję skrótu. Jeśli funkcja skrótu jest „dobra” wówczas złożoność operacji wynosi <code class="language-plaintext highlighter-rouge">Ο(1)</code>. Jeśli jest zła, złożoność obliczeniowa spada do <code class="language-plaintext highlighter-rouge">Ο(n)</code>.</p>
 
 <p>Dla przypomnienia możesz rzucić okiem na <a href="/struktury-danych-tablica-asocjacyjna/#por%C3%B3wnanie-z%C5%82o%C5%BCono%C5%9Bci-obliczeniowych">złożoność obliczeniową mapy</a>.</p>
 
@@ -472,7 +472,7 @@
 
 <p>W artykule tylko musnąłem zagadnienia związane z matematyką. Jeśli chcesz możesz dowiedzieć się czegoś więcej o <a href="http://www.math.edu.pl/algebra-zbiorow">algebrze zbiorów</a>.</p>
 
-<p>Polecam lekturę dokumentacji klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html"><code class="highlighter-rouge">HashSet</code></a> i przejrzenie implementacji <a href="http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/HashSet.java"><code class="highlighter-rouge">HashSet</code> w OpenJDK</a>. Możesz też rzucić okiem na <a href="http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/TreeSet.java">implementację zbioru opartą o drzewa</a>.</p>
+<p>Polecam lekturę dokumentacji klasy <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/HashSet.html"><code class="language-plaintext highlighter-rouge">HashSet</code></a> i przejrzenie implementacji <a href="http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/HashSet.java"><code class="language-plaintext highlighter-rouge">HashSet</code> w OpenJDK</a>. Możesz też rzucić okiem na <a href="http://hg.openjdk.java.net/jdk/jdk12/file/06222165c35f/src/java.base/share/classes/java/util/TreeSet.java">implementację zbioru opartą o drzewa</a>.</p>
 
 <p>Jak zwykle zachęcam Cię też do przejrzenia <a href="https://github.com/SamouczekProgramisty/AlgorytmyStrukturyDanych/tree/master/03_hash_set">kodu źródłowego użytego w artykule</a>.</p>
 
@@ -489,7 +489,7 @@
       <p>Niektóre implementacje porządkują elementy zbioru. <a href="#fnref:wyjatek" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:treemap" role="doc-endnote">
-      <p>To zależy od implementacji, na przykład <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeMap.html"><code class="highlighter-rouge">TreeMap</code></a> sortuje klucze a <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeSet.html"><code class="highlighter-rouge">TreeSet</code></a> przechowuje posortowane wartości. <a href="#fnref:treemap" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>To zależy od implementacji, na przykład <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeMap.html"><code class="language-plaintext highlighter-rouge">TreeMap</code></a> sortuje klucze a <a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/TreeSet.html"><code class="language-plaintext highlighter-rouge">TreeSet</code></a> przechowuje posortowane wartości. <a href="#fnref:treemap" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#czym-są-funkcje-analityczne-w-sql">Czym są funkcje analityczne w SQL</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#pozostałe-funkcje-agregujące">Pozostałe funkcje agregujące</a></li>
@@ -301,7 +301,7 @@
 
 </div>
 
-<p class="notice--info">W tym artykule używam funkcji SQLite, które zostały dodane w wersji 3.28.0. Jeśli używasz SQLite do eksperymentowania upewnij się, że korzystasz z wersji 3.28.0 bądź nowszej. Możesz to zrobić używając polecenia <code class="highlighter-rouge">sqlite3 --version</code>.</p>
+<p class="notice--info">W tym artykule używam funkcji SQLite, które zostały dodane w wersji 3.28.0. Jeśli używasz SQLite do eksperymentowania upewnij się, że korzystasz z wersji 3.28.0 bądź nowszej. Możesz to zrobić używając polecenia <code class="language-plaintext highlighter-rouge">sqlite3 --version</code>.</p>
 
 <h2 id="czym-są-funkcje-analityczne-w-sql">Czym są funkcje analityczne w SQL</h2>
 
@@ -310,7 +310,7 @@
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">invoiceid</span>
         <span class="p">,</span><span class="n">total</span>
-        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span>
    <span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
@@ -318,7 +318,7 @@
 
 <p>Poza funkcją analityczną użyłem tu <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#aliasy-dla-kolumn">aliasu kolumny</a>, <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#sortowanie-wyników">sortowania</a> i <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/#ograniczanie-liczby-wyników">ograniczenia liczby zwracanych wierszy</a>. W wyniku tego zapytania otrzymasz dziesięć wierszy:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  customer_total_sum
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  customer_total_sum
 ----------  ---------  -----  ------------------
 1           98         3.98   39.62
 1           121        3.96   39.62
@@ -336,33 +336,33 @@
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
 <span class="n">OVER</span>
-<span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
+<span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>W pierwszej linijce widzisz funkcję <code class="highlighter-rouge">SUM</code>. Możesz ją pamiętać z <a href="/funkcje-i-grupowanie-wierszy-w-sql/#funkcje-grupujące">artykułu o funkcjach w SQL</a>. W poprzednim przypadku była ona użyta jako funkcja agregująca. Użycie słowa kluczowego <code class="highlighter-rouge">OVER</code> sprawia, że jej zachowanie nieznacznie się zmienia. W tym przypadku <code class="highlighter-rouge">SUM</code> nadal zwraca sumę, jednak w przypadku funkcji analitycznej pod uwagę brana jest partycja a nie cała tabela<sup id="fnref:edgecase" role="doc-noteref"><a href="#fn:edgecase" class="footnote">1</a></sup>.</p>
+<p>W pierwszej linijce widzisz funkcję <code class="language-plaintext highlighter-rouge">SUM</code>. Możesz ją pamiętać z <a href="/funkcje-i-grupowanie-wierszy-w-sql/#funkcje-grupujące">artykułu o funkcjach w SQL</a>. W poprzednim przypadku była ona użyta jako funkcja agregująca. Użycie słowa kluczowego <code class="language-plaintext highlighter-rouge">OVER</code> sprawia, że jej zachowanie nieznacznie się zmienia. W tym przypadku <code class="language-plaintext highlighter-rouge">SUM</code> nadal zwraca sumę, jednak w przypadku funkcji analitycznej pod uwagę brana jest partycja a nie cała tabela<sup id="fnref:edgecase" role="doc-noteref"><a href="#fn:edgecase" class="footnote" rel="footnote">1</a></sup>.</p>
 
-<p>W ostatniej linijce znajduje się definicja partycji, która zostanie użyta do obliczenia wartości funkcji. W tym przypadku do partycji należą wiersze zawierające taką samą wartość kolumny <code class="highlighter-rouge">customerid</code>.</p>
+<p>W ostatniej linijce znajduje się definicja partycji, która zostanie użyta do obliczenia wartości funkcji. W tym przypadku do partycji należą wiersze zawierające taką samą wartość kolumny <code class="language-plaintext highlighter-rouge">customerid</code>.</p>
 
 <p>Zatem ta funkcja:</p>
 <ul>
-  <li>oblicza sumę kolumny <code class="highlighter-rouge">total</code> (<code class="highlighter-rouge">SUM(total)</code>),</li>
-  <li>sumując wiersze, które mają taką samą wartość kolumny <code class="highlighter-rouge">customerid</code> (<code class="highlighter-rouge">PARTITION BY customerid</code>).</li>
+  <li>oblicza sumę kolumny <code class="language-plaintext highlighter-rouge">total</code> (<code class="language-plaintext highlighter-rouge">SUM(total)</code>),</li>
+  <li>sumując wiersze, które mają taką samą wartość kolumny <code class="language-plaintext highlighter-rouge">customerid</code> (<code class="language-plaintext highlighter-rouge">PARTITION BY customerid</code>).</li>
 </ul>
 
-<p>Proszę spójrz na pierwszych siedem wierszy, które mają taką samą wartość kolumny <code class="highlighter-rouge">customerid</code>. Kolumna <code class="highlighter-rouge">total</code> sumowana jest w ramach partycji: <code class="highlighter-rouge">3.98 + 3.96 + 5.94 + 0.99 + 1.98 + 13.86 + 8.91 = 39.62</code>. Wartość ta, będąca wynikiem działania funkcji, jest przypisywana do każdego wiersza z partycji.</p>
+<p>Proszę spójrz na pierwszych siedem wierszy, które mają taką samą wartość kolumny <code class="language-plaintext highlighter-rouge">customerid</code>. Kolumna <code class="language-plaintext highlighter-rouge">total</code> sumowana jest w ramach partycji: <code class="language-plaintext highlighter-rouge">3.98 + 3.96 + 5.94 + 0.99 + 1.98 + 13.86 + 8.91 = 39.62</code>. Wartość ta, będąca wynikiem działania funkcji, jest przypisywana do każdego wiersza z partycji.</p>
 
-<p>Można powiedzieć, że funkcje analityczne są podobne do standardowego grupowania przy użyciu klauzuli <code class="highlighter-rouge">GROUP BY</code>. Funkcje agregujące zwracają jeden wiersz dla grupy, funkcje analityczne zwracają wiele wierszy.</p>
+<p>Można powiedzieć, że funkcje analityczne są podobne do standardowego grupowania przy użyciu klauzuli <code class="language-plaintext highlighter-rouge">GROUP BY</code>. Funkcje agregujące zwracają jeden wiersz dla grupy, funkcje analityczne zwracają wiele wierszy.</p>
 
 <h4 id="pozostałe-funkcje-agregujące">Pozostałe funkcje agregujące</h4>
 
-<p>Poniżej znajdziesz listę funkcji agregujących, których możesz użyć przed słowem kluczowym <code class="highlighter-rouge">OVER</code>:</p>
+<p>Poniżej znajdziesz listę funkcji agregujących, których możesz użyć przed słowem kluczowym <code class="language-plaintext highlighter-rouge">OVER</code>:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">AVG</code> – zwraca średnią wartość,</li>
-  <li><code class="highlighter-rouge">COUNT</code> – zwraca liczbę wierszy,</li>
-  <li><code class="highlighter-rouge">MAX</code> – zwraca maksymalną wartość,</li>
-  <li><code class="highlighter-rouge">MIN</code> – zwraca minimalną wartość,</li>
-  <li><code class="highlighter-rouge">SUM</code> – zwraca sumę wartości.</li>
+  <li><code class="language-plaintext highlighter-rouge">AVG</code> – zwraca średnią wartość,</li>
+  <li><code class="language-plaintext highlighter-rouge">COUNT</code> – zwraca liczbę wierszy,</li>
+  <li><code class="language-plaintext highlighter-rouge">MAX</code> – zwraca maksymalną wartość,</li>
+  <li><code class="language-plaintext highlighter-rouge">MIN</code> – zwraca minimalną wartość,</li>
+  <li><code class="language-plaintext highlighter-rouge">SUM</code> – zwraca sumę wartości.</li>
 </ul>
 
 <div class="notice--success text-center">
@@ -376,42 +376,42 @@
 
 </div>
 
-<h3 id="klauzula-partition-by">Klauzula <code class="highlighter-rouge">PARTITION BY</code></h3>
+<h3 id="klauzula-partition-by">Klauzula <code class="language-plaintext highlighter-rouge">PARTITION BY</code></h3>
 
-<p>W przykładzie wyżej wszystkie wiersze w tabeli <code class="highlighter-rouge">invoice</code> zostały podzielone na osobne partycje. Do podziału na partycje użyłem wyłącznie jednej kolumny. W klauzuli <code class="highlighter-rouge">PARTITION BY</code> możesz użyć wielu wyrażeń:</p>
+<p>W przykładzie wyżej wszystkie wiersze w tabeli <code class="language-plaintext highlighter-rouge">invoice</code> zostały podzielone na osobne partycje. Do podziału na partycje użyłem wyłącznie jednej kolumny. W klauzuli <code class="language-plaintext highlighter-rouge">PARTITION BY</code> możesz użyć wielu wyrażeń:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span>
 <span class="n">OVER</span>
-<span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">,</span> <span class="n">billingcountry</span><span class="p">)</span>
+<span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">,</span> <span class="n">billingcountry</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>W tym przypadku tabela zostanie podzielona na więcej partycji. Do jednej partycji trafią wszystkie wiersze, które mają taką samą wartość kolumn <code class="highlighter-rouge">customerid</code> i <code class="highlighter-rouge">billingcountry</code>.</p>
+<p>W tym przypadku tabela zostanie podzielona na więcej partycji. Do jednej partycji trafią wszystkie wiersze, które mają taką samą wartość kolumn <code class="language-plaintext highlighter-rouge">customerid</code> i <code class="language-plaintext highlighter-rouge">billingcountry</code>.</p>
 
-<p>Istnieje też możliwość pominięcia klauzuli <code class="highlighter-rouge">PARTITION BY</code>:</p>
+<p>Istnieje też możliwość pominięcia klauzuli <code class="language-plaintext highlighter-rouge">PARTITION BY</code>:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">()</span>
 </code></pre></div></div>
 
-<p>W takim przypadku partycja równoznaczna jest z całą tabelą<sup id="fnref:virtualtable" role="doc-noteref"><a href="#fn:virtualtable" class="footnote">2</a></sup>. Dla każdego wynikowego wiersza <code class="highlighter-rouge">SUM(total) OVER ()</code> zwróci sumę kolumny <code class="highlighter-rouge">total</code> we wszystkich wierszach.</p>
+<p>W takim przypadku partycja równoznaczna jest z całą tabelą<sup id="fnref:virtualtable" role="doc-noteref"><a href="#fn:virtualtable" class="footnote" rel="footnote">2</a></sup>. Dla każdego wynikowego wiersza <code class="language-plaintext highlighter-rouge">SUM(total) OVER ()</code> zwróci sumę kolumny <code class="language-plaintext highlighter-rouge">total</code> we wszystkich wierszach.</p>
 
 <h3 id="kiedy-obliczana-jest-wartość-funkcji-analitycznej">Kiedy obliczana jest wartość funkcji analitycznej</h3>
 
-<p>Funkcje analityczne mogą być użyte wyłącznie w klauzuli <code class="highlighter-rouge">SELECT</code> i <code class="highlighter-rouge">ORDER BY</code>. Wynika to z faktu, że funkcje analityczne operują na „wirtualnej tabeli” (w <a href="/wstep-do-relacyjnych-baz-danych/#model-relacyjny">modelu relacyjnym</a> można mówić o relacji), która powstanie po filtrowaniu i grupowaniu wierszy.</p>
+<p>Funkcje analityczne mogą być użyte wyłącznie w klauzuli <code class="language-plaintext highlighter-rouge">SELECT</code> i <code class="language-plaintext highlighter-rouge">ORDER BY</code>. Wynika to z faktu, że funkcje analityczne operują na „wirtualnej tabeli” (w <a href="/wstep-do-relacyjnych-baz-danych/#model-relacyjny">modelu relacyjnym</a> można mówić o relacji), która powstanie po filtrowaniu i grupowaniu wierszy.</p>
 
 <p>Można powiedzieć, że zapytanie wykonywane jest w następującej kolejności:</p>
 
 <ol>
-  <li>Wykonanie klauzuli <code class="highlighter-rouge">WHERE</code>,</li>
-  <li>Wykonanie klauzuli <code class="highlighter-rouge">GROUP BY</code>,</li>
-  <li>Wykonanie klauzuli <code class="highlighter-rouge">HAVING</code>,</li>
+  <li>Wykonanie klauzuli <code class="language-plaintext highlighter-rouge">WHERE</code>,</li>
+  <li>Wykonanie klauzuli <code class="language-plaintext highlighter-rouge">GROUP BY</code>,</li>
+  <li>Wykonanie klauzuli <code class="language-plaintext highlighter-rouge">HAVING</code>,</li>
   <li>Wykonanie funkcji analitycznych,</li>
-  <li>Wykonanie klauzuli <code class="highlighter-rouge">ORDER BY</code>,</li>
-  <li>Wykonanie klauzuli <code class="highlighter-rouge">LIMIT</code>.</li>
+  <li>Wykonanie klauzuli <code class="language-plaintext highlighter-rouge">ORDER BY</code>,</li>
+  <li>Wykonanie klauzuli <code class="language-plaintext highlighter-rouge">LIMIT</code>.</li>
 </ol>
 
 <h3 id="czym-jest-okno">Czym jest okno</h3>
 
-<p>Tak naprawdę, to funkcja do obliczenia wartości bierze pod uwagę tak zwane okno. Każdy wiersz w partycji ma swoje własne okno, które jest podzbiorem partycji. Jeśli okno nie jest zdefiniowane wówczas przyjmuje ono wartość całej partycji. Istnieje wiele możliwości na ograniczenie okna dla funkcji analitycznej. Najprostszym z nich jest użycie klauzuli <code class="highlighter-rouge">ORDER BY</code>.</p>
+<p>Tak naprawdę, to funkcja do obliczenia wartości bierze pod uwagę tak zwane okno. Każdy wiersz w partycji ma swoje własne okno, które jest podzbiorem partycji. Jeśli okno nie jest zdefiniowane wówczas przyjmuje ono wartość całej partycji. Istnieje wiele możliwości na ograniczenie okna dla funkcji analitycznej. Najprostszym z nich jest użycie klauzuli <code class="language-plaintext highlighter-rouge">ORDER BY</code>.</p>
 
 <h3 id="ćwiczenia-do-samodzielnego-wykonania">Ćwiczenia do samodzielnego wykonania</h3>
 
@@ -419,27 +419,27 @@
 
 <ul>
   <li>zmień limit zwracanych wierszy,</li>
-  <li>zwróć wyłącznie wiersze z parzystą wartością kolumny <code class="highlighter-rouge">customerid</code>.</li>
+  <li>zwróć wyłącznie wiersze z parzystą wartością kolumny <code class="language-plaintext highlighter-rouge">customerid</code>.</li>
 </ul>
 
 <h2 id="sortowanie-w-funkcjach-analitycznych">Sortowanie w funkcjach analitycznych</h2>
 
-<p>Nieznacznie zmodyfikuję definicję partycji z pierwszego zapytania. Przykład poniżej używa dwóch funkcji. Druga z nich używa <code class="highlighter-rouge">ORDER BY invoiceid</code> po definicji partycji:</p>
+<p>Nieznacznie zmodyfikuję definicję partycji z pierwszego zapytania. Przykład poniżej używa dwóch funkcji. Druga z nich używa <code class="language-plaintext highlighter-rouge">ORDER BY invoiceid</code> po definicji partycji:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">invoiceid</span>
         <span class="p">,</span><span class="n">total</span>
-        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
-        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span>
                               <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">invoiceid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_increasing_sum</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">,</span> <span class="n">invoiceid</span>
    <span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>Proszę spójrz na wynik zapytania. Zwróć uwagę na wartości kolumn <code class="highlighter-rouge">customer_total_sum</code> i <code class="highlighter-rouge">customer_total_increasing_sum</code>:</p>
+<p>Proszę spójrz na wynik zapytania. Zwróć uwagę na wartości kolumn <code class="language-plaintext highlighter-rouge">customer_total_sum</code> i <code class="language-plaintext highlighter-rouge">customer_total_increasing_sum</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  customer_total_sum  customer_total_increasing_sum
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  customer_total_sum  customer_total_increasing_sum
 ----------  ---------  -----  ------------------  -----------------------------
 1           98         3.98   39.62               3.98
 1           121        3.96   39.62               7.94
@@ -453,35 +453,35 @@
 2           67         8.91   37.62               24.75
 </code></pre></div></div>
 
-<p>Użycie <code class="highlighter-rouge">ORDER BY</code> w definicji funkcji analitycznej powoduje zmianę okna dla każdego z wierszy. <code class="highlighter-rouge">ORDER BY</code> tworzy „narastające okna” dla każdego kolejnego wiersza:</p>
+<p>Użycie <code class="language-plaintext highlighter-rouge">ORDER BY</code> w definicji funkcji analitycznej powoduje zmianę okna dla każdego z wierszy. <code class="language-plaintext highlighter-rouge">ORDER BY</code> tworzy „narastające okna” dla każdego kolejnego wiersza:</p>
 
 <ul>
-  <li>okno dla pierwszego wiersza to wyłącznie pierwszy wiersz (<code class="highlighter-rouge">3.98 = 3.98</code>),</li>
-  <li>okno dla drugiego wiersza to dwa pierwsze wiersze (<code class="highlighter-rouge">3.98 + 3.96 = 7.94</code>),</li>
-  <li>okno dla trzeciego wiersza to trzy pierwsze wiersze (<code class="highlighter-rouge">3.98 + 3.96 + 5.94 = 13.88</code>),</li>
+  <li>okno dla pierwszego wiersza to wyłącznie pierwszy wiersz (<code class="language-plaintext highlighter-rouge">3.98 = 3.98</code>),</li>
+  <li>okno dla drugiego wiersza to dwa pierwsze wiersze (<code class="language-plaintext highlighter-rouge">3.98 + 3.96 = 7.94</code>),</li>
+  <li>okno dla trzeciego wiersza to trzy pierwsze wiersze (<code class="language-plaintext highlighter-rouge">3.98 + 3.96 + 5.94 = 13.88</code>),</li>
   <li>itd.</li>
 </ul>
 
-<p>Zauważ, że w tym przykładzie użyłem dwóch klauzul <code class="highlighter-rouge">ORDER BY</code>. Pierwsza z nich służy do określenia okna dla funkcji analitycznej, druga służy do sortowania wyników całego zapytania.</p>
+<p>Zauważ, że w tym przykładzie użyłem dwóch klauzul <code class="language-plaintext highlighter-rouge">ORDER BY</code>. Pierwsza z nich służy do określenia okna dla funkcji analitycznej, druga służy do sortowania wyników całego zapytania.</p>
 
 <h3 id="partycje-a-sortowanie">Partycje a sortowanie</h3>
 
-<p>Zapytanie używające partycji zwraca dane posortowane zgodnie z definicją partycji. Na przykład wyniki poniższego zapytania będą posortowane używając kolumny <code class="highlighter-rouge">customerid</code>:</p>
+<p>Zapytanie używające partycji zwraca dane posortowane zgodnie z definicją partycji. Na przykład wyniki poniższego zapytania będą posortowane używając kolumny <code class="language-plaintext highlighter-rouge">customerid</code>:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">customerid</span>
-      <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
+      <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
   <span class="k">FROM</span> <span class="n">invoice</span>
 </code></pre></div></div>
 
-<p>Chociaż dane będą zwrócone w ten sposób nie polegałbym na tym zachowaniu. Jeśli zależy Ci na uzyskaniu posortowanych danych określ to jasno używając <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/">klauzuli <code class="highlighter-rouge">ORDER BY</code></a>. W ten sposób jasno określasz swoje intencje:</p>
+<p>Chociaż dane będą zwrócone w ten sposób nie polegałbym na tym zachowaniu. Jeśli zależy Ci na uzyskaniu posortowanych danych określ to jasno używając <a href="/sortowanie-aliasy-ograniczanie-wynikow-i-zwracanie-unikalnych-wartosci/">klauzuli <code class="language-plaintext highlighter-rouge">ORDER BY</code></a>. W ten sposób jasno określasz swoje intencje:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
-        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>We wszystkich przykładach w artykule dodałem klauzulę <code class="highlighter-rouge">ORDER BY</code>.</p>
+<p>We wszystkich przykładach w artykule dodałem klauzulę <code class="language-plaintext highlighter-rouge">ORDER BY</code>.</p>
 
 <h3 id="ćwiczenia-do-samodzielnego-wykonania-1">Ćwiczenia do samodzielnego wykonania</h3>
 
@@ -490,7 +490,7 @@
 <ul>
   <li>sprawdź jak na wynik zapytania wpływają różne kolumny użyte do sortowania,</li>
   <li>użyj kilku kolumn do sortowania wyników/wierszy w partycji,</li>
-  <li>użyj <code class="highlighter-rouge">DESC</code>/<code class="highlighter-rouge">ASC</code> do z zmiany wyniku sortowania.</li>
+  <li>użyj <code class="language-plaintext highlighter-rouge">DESC</code>/<code class="language-plaintext highlighter-rouge">ASC</code> do z zmiany wyniku sortowania.</li>
 </ul>
 
 <h2 id="unikanie-duplikacji--nazwane-partycje">Unikanie duplikacji – nazwane partycje</h2>
@@ -500,14 +500,14 @@
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">invoiceid</span>
         <span class="p">,</span><span class="n">total</span>
-        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
-        <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_avg</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
+        <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_total_avg</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span>
    <span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>W tym przykładzie definicja partycji jest prosta. Możesz jednak trafić na przypadek, w którym będzie ona dużo bardziej skomplikowana. Takie zapytanie zawiera duplikację definicji partycji. Duplikacja w większości przypadków jest zła. Nie inaczej jest w przypadku zapytań SQL. W takiej sytuacji z pomocą przychodzi klauzula <code class="highlighter-rouge">WINDOW</code>. Proszę spójrz na przykład poniżej, jest on równoznaczny z poprzednim zapytaniem:</p>
+<p>W tym przykładzie definicja partycji jest prosta. Możesz jednak trafić na przypadek, w którym będzie ona dużo bardziej skomplikowana. Takie zapytanie zawiera duplikację definicji partycji. Duplikacja w większości przypadków jest zła. Nie inaczej jest w przypadku zapytań SQL. W takiej sytuacji z pomocą przychodzi klauzula <code class="language-plaintext highlighter-rouge">WINDOW</code>. Proszę spójrz na przykład poniżej, jest on równoznaczny z poprzednim zapytaniem:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">invoiceid</span>
@@ -515,14 +515,14 @@
         <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="n">customer_total_sum</span>
         <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="n">customer_total_avg</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
-  <span class="n">WINDOW</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
+  <span class="k">WINDOW</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customer</span> <span class="n">id</span>
    <span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>Oba zapytania zwrócą ten sam wynik:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  customer_total_sum  customer_total_avg
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  customer_total_sum  customer_total_avg
 ----------  ---------  -----  ------------------  ------------------
 1           98         3.98   39.62               5.66
 1           121        3.96   39.62               5.66
@@ -544,14 +544,14 @@
         <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">customer_window</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">invoiceid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">customer_ordered_total_sum</span>
         <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="n">customer_total_avg</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
-  <span class="n">WINDOW</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
+  <span class="k">WINDOW</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span>
    <span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>W tym przykładzie suma kolumny <code class="highlighter-rouge">total</code> jest narastająca:</p>
+<p>W tym przykładzie suma kolumny <code class="language-plaintext highlighter-rouge">total</code> jest narastająca:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  customer_ordered_total_sum  customer_total_avg
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  customer_ordered_total_sum  customer_total_avg
 ----------  ---------  -----  --------------------------  ------------------
 1           98         3.98   3.98                        5.66
 1           121        3.96   7.94                        5.66
@@ -570,15 +570,15 @@
 <p>Jak już wiesz funkcje analityczne działają w oparciu o partycje. Dodatkowo funkcje te pozwalają Ci na zdefiniowanie tak zwanego okna. Domyślnie okno zawiera:</p>
 
 <ul>
-  <li>wszystkie wiersze partycji jeśli nie użyjesz klauzuli <code class="highlighter-rouge">ORDER BY</code>,</li>
-  <li>wiersze „do aktualnego wiersza” jeśli użyjesz klauzuli <code class="highlighter-rouge">ORDER BY</code>.</li>
+  <li>wszystkie wiersze partycji jeśli nie użyjesz klauzuli <code class="language-plaintext highlighter-rouge">ORDER BY</code>,</li>
+  <li>wiersze „do aktualnego wiersza” jeśli użyjesz klauzuli <code class="language-plaintext highlighter-rouge">ORDER BY</code>.</li>
 </ul>
 
 <p>Domyślną zawartość okna możesz zmienić. Okno pozwala na dalsze ograniczenie wierszy branych pod uwagę przez funkcję. Składnię można rozszerzyć do:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">funkcja</span><span class="o">&gt;</span>
 <span class="n">OVER</span>
-<span class="p">[</span> <span class="n">PARTITION</span> <span class="k">BY</span> <span class="err">…</span> <span class="p">]</span>
+<span class="p">[</span> <span class="k">PARTITION</span> <span class="k">BY</span> <span class="err">…</span> <span class="p">]</span>
 <span class="p">[</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="err">…</span> <span class="p">]</span>
 <span class="o">&lt;</span><span class="n">definicja</span> <span class="n">okna</span><span class="o">&gt;</span>
 </code></pre></div></div>
@@ -586,25 +586,25 @@
 <p>Okno może być jednego z trzech rodzajów:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">ROWS</code> – granice okna określone są przez liczbę wierszy przed i po aktualnym wierszu,</li>
-  <li><code class="highlighter-rouge">GROUPS</code> – granice okna określone są przez liczbę „grup” przed i po aktualnej „grupie”. Do grupy zalicza się te wartości, które są „równe” w trakcie sortowania przy użyciu <code class="highlighter-rouge">ORDER BY</code>,</li>
-  <li><code class="highlighter-rouge">RANGE</code> – granice okna określone są przez różnicę wartości względem aktualnego wiersza.</li>
+  <li><code class="language-plaintext highlighter-rouge">ROWS</code> – granice okna określone są przez liczbę wierszy przed i po aktualnym wierszu,</li>
+  <li><code class="language-plaintext highlighter-rouge">GROUPS</code> – granice okna określone są przez liczbę „grup” przed i po aktualnej „grupie”. Do grupy zalicza się te wartości, które są „równe” w trakcie sortowania przy użyciu <code class="language-plaintext highlighter-rouge">ORDER BY</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">RANGE</code> – granice okna określone są przez różnicę wartości względem aktualnego wiersza.</li>
 </ul>
 
-<p>Dla uproszczenia w definicji okna będę używał wyłącznie <code class="highlighter-rouge">BETWEEN x PRECEDING AND y FOLLOWING</code>. Oznacza to, że okno będzie obejmowało zakres <code class="highlighter-rouge">x</code> przed aktualnym wierszem i <code class="highlighter-rouge">y</code> po aktualnym wierszu. Składania pozwala na dużo bardziej zaawansowane modyfikacje, jednak ich znajomość nie jest niezbędna do zrozumienia działania samego mechanizmu. Jeśli jesteś zainteresowany tymi szczegółami odsyłam Cię do dokumentacji silnika bazy danych, którego używasz.</p>
+<p>Dla uproszczenia w definicji okna będę używał wyłącznie <code class="language-plaintext highlighter-rouge">BETWEEN x PRECEDING AND y FOLLOWING</code>. Oznacza to, że okno będzie obejmowało zakres <code class="language-plaintext highlighter-rouge">x</code> przed aktualnym wierszem i <code class="language-plaintext highlighter-rouge">y</code> po aktualnym wierszu. Składania pozwala na dużo bardziej zaawansowane modyfikacje, jednak ich znajomość nie jest niezbędna do zrozumienia działania samego mechanizmu. Jeśli jesteś zainteresowany tymi szczegółami odsyłam Cię do dokumentacji silnika bazy danych, którego używasz.</p>
 
 <p>Mam świadomość, że to wszystko brzmi jak łacina bez konkretnego przykładu. Postaram się to poprawić ;)</p>
 
-<h3 id="okno-typu-rows">Okno typu <code class="highlighter-rouge">ROWS</code></h3>
+<h3 id="okno-typu-rows">Okno typu <code class="language-plaintext highlighter-rouge">ROWS</code></h3>
 
 <p>Proszę spójrz na pierwszy z nich:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">invoiceid</span>
         <span class="p">,</span><span class="n">total</span>
-        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span>
                               <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">invoiceid</span>
-                                  <span class="k">ROWS</span> <span class="k">BETWEEN</span> <span class="mi">1</span> <span class="n">PRECEDING</span> <span class="k">AND</span> <span class="mi">1</span> <span class="n">FOLLOWING</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rolling_sum</span>
+                                  <span class="k">ROWS</span> <span class="k">BETWEEN</span> <span class="mi">1</span> <span class="k">PRECEDING</span> <span class="k">AND</span> <span class="mi">1</span> <span class="k">FOLLOWING</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rolling_sum</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">invoiceid</span>
@@ -613,7 +613,7 @@
 
 <p>W wyniku tego zapytania otrzymasz 10 wierszy:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  rolling_sum
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  rolling_sum
 ----------  ---------  -----  -----------
 1           98         3.98   7.94
 1           121        3.96   13.88
@@ -627,24 +627,24 @@
 2           67         8.91   24.75
 </code></pre></div></div>
 
-<p>W tym przypadku <code class="highlighter-rouge">SUM(total)</code> sumuje jedynie wiersze należące do okna, a nie całej partycji.</p>
+<p>W tym przypadku <code class="language-plaintext highlighter-rouge">SUM(total)</code> sumuje jedynie wiersze należące do okna, a nie całej partycji.</p>
 
 <ul>
-  <li>dla pierwszego wiersza oknem są wiersze pierwszy i drugi: <code class="highlighter-rouge">3.98 + 3.96 = 7.94</code> (brak poprzedniego wiersza w partycji),</li>
-  <li>dla drugiego wiersza oknem są wiersze pierwszy, drugi i trzeci: <code class="highlighter-rouge">3.98 + 3.96 + 5.94 = 13.88</code> ,</li>
-  <li>dla siódmego wiersza oknem są wiersze szósty i siódmy: <code class="highlighter-rouge">13.86 + 8.91 = 22.77</code> (brak następnego wiersza w partycji).</li>
+  <li>dla pierwszego wiersza oknem są wiersze pierwszy i drugi: <code class="language-plaintext highlighter-rouge">3.98 + 3.96 = 7.94</code> (brak poprzedniego wiersza w partycji),</li>
+  <li>dla drugiego wiersza oknem są wiersze pierwszy, drugi i trzeci: <code class="language-plaintext highlighter-rouge">3.98 + 3.96 + 5.94 = 13.88</code> ,</li>
+  <li>dla siódmego wiersza oknem są wiersze szósty i siódmy: <code class="language-plaintext highlighter-rouge">13.86 + 8.91 = 22.77</code> (brak następnego wiersza w partycji).</li>
 </ul>
 
-<h3 id="okno-typu-groups">Okno typu <code class="highlighter-rouge">GROUPS</code></h3>
+<h3 id="okno-typu-groups">Okno typu <code class="language-plaintext highlighter-rouge">GROUPS</code></h3>
 
-<p>Tym razem do utworzenia partycji posłużę się kolumną <code class="highlighter-rouge">billingcountry</code>:</p>
+<p>Tym razem do utworzenia partycji posłużę się kolumną <code class="language-plaintext highlighter-rouge">billingcountry</code>:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">billingcountry</span>
         <span class="p">,</span><span class="n">invoiceid</span>
         <span class="p">,</span><span class="n">total</span>
-        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">billingcountry</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">billingcountry</span>
                               <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">total</span>
-                                <span class="n">GROUPS</span> <span class="k">BETWEEN</span> <span class="mi">1</span> <span class="n">PRECEDING</span> <span class="k">AND</span> <span class="mi">1</span> <span class="n">FOLLOWING</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rolling_sum</span>
+                                <span class="n">GROUPS</span> <span class="k">BETWEEN</span> <span class="mi">1</span> <span class="k">PRECEDING</span> <span class="k">AND</span> <span class="mi">1</span> <span class="k">FOLLOWING</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rolling_sum</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
    <span class="k">WHERE</span> <span class="n">billingcountry</span> <span class="o">=</span> <span class="s1">'India'</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">total</span><span class="p">;</span>
@@ -652,7 +652,7 @@
 
 <p>W wyniku tego zapytania otrzymasz 13 wierszy:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BillingCountry  InvoiceId  Total  rolling_sum
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BillingCountry  InvoiceId  Total  rolling_sum
 --------------  ---------  -----  -----------
 India           120        1.98   9.92
 India           218        1.98   9.92
@@ -669,24 +669,24 @@ India           131        13.86  45.54
 India           229        13.86  45.54
 </code></pre></div></div>
 
-<p>Także tym przypadku <code class="highlighter-rouge">SUM(total)</code> sumuje jedynie wiersze należące do okna, a nie całej partycji:</p>
+<p>Także tym przypadku <code class="language-plaintext highlighter-rouge">SUM(total)</code> sumuje jedynie wiersze należące do okna, a nie całej partycji:</p>
 
 <ul>
-  <li>dla pierwszego wiersza oknem jest pierwszych pięć wierszy. Grupa do której należy pierwszy wiersz i następna grupa: <code class="highlighter-rouge">3 * 1.98 + 2 * 1.99 = 9.92</code> (brak poprzedniej grupy w partycji),</li>
-  <li>dla piątego wiersza oknem jest pierwszych siedem wierszy. Grupa poprzedzająca, grupa do której należy piąty wiersz i następna grupa: <code class="highlighter-rouge">3 * 1.98 + 2 * 1.99 + 2 * 3.96 = 17.84</code> ,</li>
-  <li>dla przedostatniego wiersza oknem są wiersze 10., 11., 12. i 13.: <code class="highlighter-rouge">2 * 8.91 + 2 * 13.86</code> (brak następnej grupy w partycji).</li>
+  <li>dla pierwszego wiersza oknem jest pierwszych pięć wierszy. Grupa do której należy pierwszy wiersz i następna grupa: <code class="language-plaintext highlighter-rouge">3 * 1.98 + 2 * 1.99 = 9.92</code> (brak poprzedniej grupy w partycji),</li>
+  <li>dla piątego wiersza oknem jest pierwszych siedem wierszy. Grupa poprzedzająca, grupa do której należy piąty wiersz i następna grupa: <code class="language-plaintext highlighter-rouge">3 * 1.98 + 2 * 1.99 + 2 * 3.96 = 17.84</code> ,</li>
+  <li>dla przedostatniego wiersza oknem są wiersze 10., 11., 12. i 13.: <code class="language-plaintext highlighter-rouge">2 * 8.91 + 2 * 13.86</code> (brak następnej grupy w partycji).</li>
 </ul>
 
-<h3 id="okno-typu-range">Okno typu <code class="highlighter-rouge">RANGE</code></h3>
+<h3 id="okno-typu-range">Okno typu <code class="language-plaintext highlighter-rouge">RANGE</code></h3>
 
-<p>W tym przypadku okno definiowane jest jako „odległość” 2 przed i po wartości kolumny <code class="highlighter-rouge">total</code>:</p>
+<p>W tym przypadku okno definiowane jest jako „odległość” 2 przed i po wartości kolumny <code class="language-plaintext highlighter-rouge">total</code>:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">invoiceid</span>
         <span class="p">,</span><span class="n">total</span>
-        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span>
+        <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span>
                               <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">total</span>
-                                 <span class="n">RANGE</span> <span class="k">BETWEEN</span> <span class="mi">2</span> <span class="n">PRECEDING</span> <span class="k">AND</span> <span class="mi">2</span> <span class="n">FOLLOWING</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rolling_sum</span>
+                                 <span class="k">RANGE</span> <span class="k">BETWEEN</span> <span class="mi">2</span> <span class="k">PRECEDING</span> <span class="k">AND</span> <span class="mi">2</span> <span class="k">FOLLOWING</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rolling_sum</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">total</span>
@@ -695,7 +695,7 @@ India           229        13.86  45.54
 
 <p>W wyniku tego zapytania otrzymasz dziesięć wierszy:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  rolling_sum
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  rolling_sum
 ----------  ---------  -----  -----------
 1           195        0.99   2.97
 1           316        1.98   10.91
@@ -709,17 +709,17 @@ India           229        13.86  45.54
 2           196        1.98   8.91
 </code></pre></div></div>
 
-<p>Także tutaj <code class="highlighter-rouge">SUM(total)</code> sumuje jedynie wiersze należące do okna, a nie całej partycji.</p>
+<p>Także tutaj <code class="language-plaintext highlighter-rouge">SUM(total)</code> sumuje jedynie wiersze należące do okna, a nie całej partycji.</p>
 
 <ul>
-  <li>dla pierwszego wiersza oknem są pierwsze dwa wiersze. Dzieje się tak ponieważ wartość kolumny <code class="highlighter-rouge">total</code> dla tych wierszy jest w zakresie  <code class="highlighter-rouge">&lt;0.99 - 2, 0.99 + 2&gt;</code>,</li>
-  <li>dla drugiego wiersza oknem są pierwsze cztery wiersze. Dzieje się tak ponieważ wartość kolumny <code class="highlighter-rouge">total</code> dla tych wierszy jest w zakresie  <code class="highlighter-rouge">&lt;1.98 - 2, 1.98 + 2&gt;</code>,</li>
-  <li>dla trzeciego wiersza oknem są wiersze drugi, trzeci, czwarty i piąty. Dzieje się tak ponieważ wartość kolumny <code class="highlighter-rouge">total</code> dla tych wierszy jest w zakresie  <code class="highlighter-rouge">&lt;3.96 - 2, 3.96 + 2&gt;</code>.</li>
+  <li>dla pierwszego wiersza oknem są pierwsze dwa wiersze. Dzieje się tak ponieważ wartość kolumny <code class="language-plaintext highlighter-rouge">total</code> dla tych wierszy jest w zakresie  <code class="language-plaintext highlighter-rouge">&lt;0.99 - 2, 0.99 + 2&gt;</code>,</li>
+  <li>dla drugiego wiersza oknem są pierwsze cztery wiersze. Dzieje się tak ponieważ wartość kolumny <code class="language-plaintext highlighter-rouge">total</code> dla tych wierszy jest w zakresie  <code class="language-plaintext highlighter-rouge">&lt;1.98 - 2, 1.98 + 2&gt;</code>,</li>
+  <li>dla trzeciego wiersza oknem są wiersze drugi, trzeci, czwarty i piąty. Dzieje się tak ponieważ wartość kolumny <code class="language-plaintext highlighter-rouge">total</code> dla tych wierszy jest w zakresie  <code class="language-plaintext highlighter-rouge">&lt;3.96 - 2, 3.96 + 2&gt;</code>.</li>
 </ul>
 
 <h3 id="filtrowanie-okna">Filtrowanie okna</h3>
 
-<p>Jakby tego było mało do tego wszystkiego dochodzi możliwość filtrowania :). Oznacza to tyle, że możesz użyć filtrowania jak w klauzuli <code class="highlighter-rouge">WHERE</code>, żeby dodatkowo ograniczyć wiersze „pasujące” do definicji okna. Proszę spójrz na przykład poniżej:</p>
+<p>Jakby tego było mało do tego wszystkiego dochodzi możliwość filtrowania :). Oznacza to tyle, że możesz użyć filtrowania jak w klauzuli <code class="language-plaintext highlighter-rouge">WHERE</code>, żeby dodatkowo ograniczyć wiersze „pasujące” do definicji okna. Proszę spójrz na przykład poniżej:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">invoiceid</span>
@@ -728,14 +728,14 @@ India           229        13.86  45.54
         <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">FILTER</span> <span class="p">(</span><span class="k">WHERE</span> <span class="n">invoiceid</span> <span class="o">!=</span> <span class="mi">121</span><span class="p">)</span>
                       <span class="n">OVER</span> <span class="n">rows_window</span> <span class="k">AS</span> <span class="n">filtered_rolling_sum</span>
     <span class="k">FROM</span> <span class="n">invoice</span>
-  <span class="n">WINDOW</span> <span class="n">rows_window</span> <span class="k">AS</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
+  <span class="k">WINDOW</span> <span class="n">rows_window</span> <span class="k">AS</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">customerid</span>
    <span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>Zwróć uwagę na wartości kolumn <code class="highlighter-rouge">rolling_sum</code> i <code class="highlighter-rouge">filtered_rolling_sum</code>:</p>
+<p>Zwróć uwagę na wartości kolumn <code class="language-plaintext highlighter-rouge">rolling_sum</code> i <code class="language-plaintext highlighter-rouge">filtered_rolling_sum</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  rolling_sum  filtered_rolling_sum
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total  rolling_sum  filtered_rolling_sum
 ----------  ---------  -----  -----------  --------------------
 1           98         3.98   39.62        35.66
 1           121        3.96   39.62        35.66
@@ -749,28 +749,28 @@ India           229        13.86  45.54
 2           67         8.91   37.62        37.62
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">filtered_rolling_sum</code> ma wartość <code class="highlighter-rouge">39.62 - 3.96 = 35.66</code>. Zatem funkcja analityczna w przypadku partycji gdzie <code class="highlighter-rouge">customerid = 1</code> nie wzięła pod uwagę filtrowanego wiersza. Wiersz, w którym <code class="highlighter-rouge">invoiceid = 121</code> nie został wzięty pod uwagę podczas sumowania. Dla przypomnienia odsyłam cię do artykułu opisującego <a href="/klauzula-where-w-zapytaniach-sql/">klauzulę <code class="highlighter-rouge">WHERE</code></a>.</p>
+<p><code class="language-plaintext highlighter-rouge">filtered_rolling_sum</code> ma wartość <code class="language-plaintext highlighter-rouge">39.62 - 3.96 = 35.66</code>. Zatem funkcja analityczna w przypadku partycji gdzie <code class="language-plaintext highlighter-rouge">customerid = 1</code> nie wzięła pod uwagę filtrowanego wiersza. Wiersz, w którym <code class="language-plaintext highlighter-rouge">invoiceid = 121</code> nie został wzięty pod uwagę podczas sumowania. Dla przypomnienia odsyłam cię do artykułu opisującego <a href="/klauzula-where-w-zapytaniach-sql/">klauzulę <code class="language-plaintext highlighter-rouge">WHERE</code></a>.</p>
 
 <h3 id="lista-funkcji">Lista funkcji</h3>
 
-<p>Bazy danych posiadają szereg funkcji dedykowanych do użycia z klauzulą <code class="highlighter-rouge">OVER</code>. Poniżej znajdziesz listę zawierającą część z nich. Podobnie jak w innych przypadkach odsyłam Cię do dokumentacji Twojej bazy danych, jeśli chcesz znać ich komplet:</p>
+<p>Bazy danych posiadają szereg funkcji dedykowanych do użycia z klauzulą <code class="language-plaintext highlighter-rouge">OVER</code>. Poniżej znajdziesz listę zawierającą część z nich. Podobnie jak w innych przypadkach odsyłam Cię do dokumentacji Twojej bazy danych, jeśli chcesz znać ich komplet:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">ROW_NUMBER()</code> – Numeruje wiersze w partycji zaczynając od 1. Bierze pod uwagę klauzulę <code class="highlighter-rouge">ORDER BY</code>,</li>
-  <li><code class="highlighter-rouge">RANK()</code>, <code class="highlighter-rouge">DENSE_RANK()</code> – Funkcje numerujące unikalne wartości w partycji. <code class="highlighter-rouge">RANK</code> zostawia „dziury” w numeracji. Pokażę to na przykładzie poniżej. Bez klauzuli <code class="highlighter-rouge">ORDER BY</code> każdy z wierszy ma numer 1,</li>
-  <li><code class="highlighter-rouge">NTILE(N)</code> – Dzieli partycję na <code class="highlighter-rouge">N</code> „możliwie równych” i przydziela wiersze do grup o wartości od 1 do <code class="highlighter-rouge">N</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">ROW_NUMBER()</code> – Numeruje wiersze w partycji zaczynając od 1. Bierze pod uwagę klauzulę <code class="language-plaintext highlighter-rouge">ORDER BY</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">RANK()</code>, <code class="language-plaintext highlighter-rouge">DENSE_RANK()</code> – Funkcje numerujące unikalne wartości w partycji. <code class="language-plaintext highlighter-rouge">RANK</code> zostawia „dziury” w numeracji. Pokażę to na przykładzie poniżej. Bez klauzuli <code class="language-plaintext highlighter-rouge">ORDER BY</code> każdy z wierszy ma numer 1,</li>
+  <li><code class="language-plaintext highlighter-rouge">NTILE(N)</code> – Dzieli partycję na <code class="language-plaintext highlighter-rouge">N</code> „możliwie równych” i przydziela wiersze do grup o wartości od 1 do <code class="language-plaintext highlighter-rouge">N</code>.</li>
 </ul>
 
-<p>Pierwszy przykład pokazuje działanie funkcji <code class="highlighter-rouge">ROW_NUMBER</code>:</p>
+<p>Pierwszy przykład pokazuje działanie funkcji <code class="language-plaintext highlighter-rouge">ROW_NUMBER</code>:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">customerid</span>
       <span class="p">,</span><span class="n">total</span>
-      <span class="p">,</span><span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">row_number</span>
+      <span class="p">,</span><span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">row_number</span>
   <span class="k">FROM</span> <span class="n">invoice</span>
  <span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  Total  row_number
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  Total  row_number
 ----------  -----  ----------
 1           0.99   1
 1           1.98   2
@@ -784,7 +784,7 @@ India           229        13.86  45.54
 2           1.98   3
 </code></pre></div></div>
 
-<p>Drugi przykład porównuje funkcje <code class="highlighter-rouge">RANK</code> i <code class="highlighter-rouge">DENSE_RANK</code>. Proszę zwróć uwagę na wyniki tych funkcji dla 10. i 11. wiersza:</p>
+<p>Drugi przykład porównuje funkcje <code class="language-plaintext highlighter-rouge">RANK</code> i <code class="language-plaintext highlighter-rouge">DENSE_RANK</code>. Proszę zwróć uwagę na wyniki tych funkcji dla 10. i 11. wiersza:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">customerid</span>
       <span class="p">,</span><span class="n">total</span>
@@ -793,11 +793,11 @@ India           229        13.86  45.54
       <span class="p">,</span><span class="n">RANK</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">customer_window</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rank_sorted</span>
       <span class="p">,</span><span class="n">DENSE_RANK</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">customer_window</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">total</span><span class="p">)</span> <span class="k">AS</span> <span class="n">dense_rank_sorted</span>
   <span class="k">FROM</span> <span class="n">invoice</span>
-<span class="n">WINDOW</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
+<span class="k">WINDOW</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
  <span class="k">LIMIT</span> <span class="mi">13</span><span class="p">;</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  Total  rank_unsorted  dense_rank_unsorted  rank_sorted  dense_rank_sorted
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  Total  rank_unsorted  dense_rank_unsorted  rank_sorted  dense_rank_sorted
 ----------  -----  -------------  -------------------  -----------  -----------------
 1           0.99   1              1                    1            1
 1           1.98   1              1                    2            2
@@ -814,18 +814,18 @@ India           229        13.86  45.54
 2           8.91   1              1                    6            5
 </code></pre></div></div>
 
-<p>Ostatni przykład pokazuje sposób podziału partycji przez funkcję <code class="highlighter-rouge">NTILE</code> z użyciem różnych argumentów:</p>
+<p>Ostatni przykład pokazuje sposób podziału partycji przez funkcję <code class="language-plaintext highlighter-rouge">NTILE</code> z użyciem różnych argumentów:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">customerid</span>
       <span class="p">,</span><span class="n">total</span>
       <span class="p">,</span><span class="n">NTILE</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">OVER</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="n">ntile_2</span>
       <span class="p">,</span><span class="n">NTILE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">OVER</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="n">ntile_4</span>
   <span class="k">FROM</span> <span class="n">invoice</span>
-<span class="n">WINDOW</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
+<span class="k">WINDOW</span> <span class="n">customer_window</span> <span class="k">AS</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span><span class="p">)</span>
  <span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  Total  ntile_2  ntile_4
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  Total  ntile_2  ntile_4
 ----------  -----  -------  -------
 1           3.98   1        1
 1           3.96   1        1
@@ -839,15 +839,15 @@ India           229        13.86  45.54
 2           8.91   1        2
 </code></pre></div></div>
 
-<h2 id="funkcje-analityczne-a-klauzula-where">Funkcje analityczne a klauzula <code class="highlighter-rouge">WHERE</code></h2>
+<h2 id="funkcje-analityczne-a-klauzula-where">Funkcje analityczne a klauzula <code class="language-plaintext highlighter-rouge">WHERE</code></h2>
 
-<p>Jak już wiesz funkcje analityczne mogą być użyte wyłącznie w klauzuli <code class="highlighter-rouge">SELECT</code> i <code class="highlighter-rouge">ORDER BY</code>. Co jeśli musisz użyć wyniku funkcji analitycznej do filtrowania? Z pomocą przychodzą <a href="/podzapytania-sql/">podzapytania</a>. Na przykład poniższe zapytanie zwróci wyłącznie te faktury wystawione dla klienta, których suma będzie mniejsza niż 10:</p>
+<p>Jak już wiesz funkcje analityczne mogą być użyte wyłącznie w klauzuli <code class="language-plaintext highlighter-rouge">SELECT</code> i <code class="language-plaintext highlighter-rouge">ORDER BY</code>. Co jeśli musisz użyć wyniku funkcji analitycznej do filtrowania? Z pomocą przychodzą <a href="/podzapytania-sql/">podzapytania</a>. Na przykład poniższe zapytanie zwróci wyłącznie te faktury wystawione dla klienta, których suma będzie mniejsza niż 10:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">SELECT</span> <span class="n">customerid</span>
         <span class="p">,</span><span class="n">invoiceid</span>
         <span class="p">,</span><span class="n">total</span>
     <span class="k">FROM</span> <span class="n">invoice</span> <span class="k">JOIN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">invoiceid</span>
-                             <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span>
+                             <span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">customerid</span>
                                                    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">invoiceid</span><span class="p">)</span> <span class="k">AS</span> <span class="n">invoice_sum</span>
                          <span class="k">FROM</span> <span class="n">invoice</span><span class="p">)</span>
                  <span class="k">USING</span> <span class="p">(</span><span class="n">invoiceid</span><span class="p">)</span>
@@ -856,7 +856,7 @@ India           229        13.86  45.54
    <span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustomerId  InvoiceId  Total
 ----------  ---------  -----
 1           98         3.98
 1           121        3.96

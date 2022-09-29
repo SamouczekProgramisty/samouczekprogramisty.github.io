@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#czym-jest-solid">Czym jest SOLID</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#s-jak-samodzielny">S jak Samodzielny</a>
@@ -312,7 +312,7 @@
 
 <p>Klasy, które implementują wyłącznie jedną odpowiedzialność nie są bezpośrednio związane (ang. <em>coupled</em>) z inną funkcjonalnością. Moim zdaniem, w większości przypadków łatwiej jest zrozumieć taki kod, który jest odpowiedzialny za jedną rzecz.</p>
 
-<p>Twoje klasy powinny mieć motto: rób jedną rzecz, rób tę rzecz dobrze<sup id="fnref:praktyka" role="doc-noteref"><a href="#fn:praktyka" class="footnote">1</a></sup>.</p>
+<p>Twoje klasy powinny mieć motto: rób jedną rzecz, rób tę rzecz dobrze<sup id="fnref:praktyka" role="doc-noteref"><a href="#fn:praktyka" class="footnote" rel="footnote">1</a></sup>.</p>
 
 <h4 id="przykład">Przykład</h4>
 
@@ -340,7 +340,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Ewidentnie w tym przypadku mamy kilka powodów do zmiany. Jeśli zmieni się wymaganie dotyczące wydruków, czy sposobu obliczania abonamentu musimy zmienić klasę <code class="highlighter-rouge">Contract</code>. Literka S w SOLID zachęca do rozdzielenia tych zagadnień:</p>
+<p>Ewidentnie w tym przypadku mamy kilka powodów do zmiany. Jeśli zmieni się wymaganie dotyczące wydruków, czy sposobu obliczania abonamentu musimy zmienić klasę <code class="language-plaintext highlighter-rouge">Contract</code>. Literka S w SOLID zachęca do rozdzielenia tych zagadnień:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Contract</span> <span class="o">{</span>
 
@@ -399,7 +399,7 @@
 
 <h4 id="przykład-1">Przykład</h4>
 
-<p>Załóżmy, że firma poza umową chce też wydrukować ulotki. Drukarnia przyjmuje dokumenty w formacie PDF więc i ulotkę trzeba zapisać w tym właśnie formacie. Klasy <code class="highlighter-rouge">Contract</code> i <code class="highlighter-rouge">PDFFormatter</code> nie różnią się od poprzedniego przykładu. Aby zrealizować to wymaganie można utworzyć dwie nowe klasy:</p>
+<p>Załóżmy, że firma poza umową chce też wydrukować ulotki. Drukarnia przyjmuje dokumenty w formacie PDF więc i ulotkę trzeba zapisać w tym właśnie formacie. Klasy <code class="language-plaintext highlighter-rouge">Contract</code> i <code class="language-plaintext highlighter-rouge">PDFFormatter</code> nie różnią się od poprzedniego przykładu. Aby zrealizować to wymaganie można utworzyć dwie nowe klasy:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Leaflet</span> <span class="o">{</span>
 
@@ -436,7 +436,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Klasa <code class="highlighter-rouge">LeafletPDFFormatter</code> jest praktycznie taka sama jak klasa <code class="highlighter-rouge">PDFFormatter</code>. W tym przypadku klasa <code class="highlighter-rouge">PDFFormatter</code> nie spełnia wytycznych <em>Open/Closed Principle</em>. Nie można rozszerzyć jej funkcjonalności bez zmiany jej kodu źródłowego. Proszę spójrz na przykład poniżej:</p>
+<p>Klasa <code class="language-plaintext highlighter-rouge">LeafletPDFFormatter</code> jest praktycznie taka sama jak klasa <code class="language-plaintext highlighter-rouge">PDFFormatter</code>. W tym przypadku klasa <code class="language-plaintext highlighter-rouge">PDFFormatter</code> nie spełnia wytycznych <em>Open/Closed Principle</em>. Nie można rozszerzyć jej funkcjonalności bez zmiany jej kodu źródłowego. Proszę spójrz na przykład poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PDFMetadata</span> <span class="o">{</span>
 
@@ -484,7 +484,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>W tym przypadku wprowadziłem klasę <code class="highlighter-rouge">PDFMetadata</code>. Zawiera ona dane niezbędne do przygotowania wydruku PDF. Zarówno klasa <code class="highlighter-rouge">Leaflet</code> jak i <code class="highlighter-rouge">Contract</code> zwracają taką reprezentację. Dzięki temu klasa <code class="highlighter-rouge">PDFFormatter</code> może utworzyć wydruk dla każdej z nich. Zauważ, ze teraz klasa <code class="highlighter-rouge">PDFFormatter</code> jest otwarta na rozszerzenie. Jeśli Twoja nowa klasa będzie zwracała instancję <code class="highlighter-rouge">PDFMetadata</code> będzie można ją przekonwertować do formatu PDF.</p>
+<p>W tym przypadku wprowadziłem klasę <code class="language-plaintext highlighter-rouge">PDFMetadata</code>. Zawiera ona dane niezbędne do przygotowania wydruku PDF. Zarówno klasa <code class="language-plaintext highlighter-rouge">Leaflet</code> jak i <code class="language-plaintext highlighter-rouge">Contract</code> zwracają taką reprezentację. Dzięki temu klasa <code class="language-plaintext highlighter-rouge">PDFFormatter</code> może utworzyć wydruk dla każdej z nich. Zauważ, ze teraz klasa <code class="language-plaintext highlighter-rouge">PDFFormatter</code> jest otwarta na rozszerzenie. Jeśli Twoja nowa klasa będzie zwracała instancję <code class="language-plaintext highlighter-rouge">PDFMetadata</code> będzie można ją przekonwertować do formatu PDF.</p>
 
 <h3 id="l-jak-liskov-barbara">L jak <a href="http://www.pmg.csail.mit.edu/~liskov/">Liskov Barbara</a></h3>
 
@@ -518,7 +518,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Metoda <code class="highlighter-rouge">doSomethingWithElements</code> zrobi dokładnie to samo bez wiedzy o tym z jakim podtypem ma do czynienia. Niezależnie od tego czy będzie to <code class="highlighter-rouge">ArrayList</code> czy <code class="highlighter-rouge">PriorityQueue</code> metoda zadziała poprawnie.</p>
+<p>Metoda <code class="language-plaintext highlighter-rouge">doSomethingWithElements</code> zrobi dokładnie to samo bez wiedzy o tym z jakim podtypem ma do czynienia. Niezależnie od tego czy będzie to <code class="language-plaintext highlighter-rouge">ArrayList</code> czy <code class="language-plaintext highlighter-rouge">PriorityQueue</code> metoda zadziała poprawnie.</p>
 
 <h3 id="i-jak-interfejsy">I jak Interfejsy</h3>
 
@@ -572,7 +572,7 @@
 
 <h4 id="przykład-4">Przykład</h4>
 
-<p>Przykład poniżej pokazuje klasę <code class="highlighter-rouge">PageCrawler</code>. Klasa ta ma powinna zwrócić odnośniki znajdujące się na stronie. Poza tym, że widzisz tu pogwałcenie zasady <em>Single Responsibility Principle</em> to jeszcze  <em>Dependency Inversion Principle</em> także nie jest spełnione. Klasa <code class="highlighter-rouge">PageCrawler</code> zleży od niskopoziomowych detali związanych z obsługą protokołu HTTP i parsowaniem HTML. Zależność ta powinna być odwrócona:</p>
+<p>Przykład poniżej pokazuje klasę <code class="language-plaintext highlighter-rouge">PageCrawler</code>. Klasa ta ma powinna zwrócić odnośniki znajdujące się na stronie. Poza tym, że widzisz tu pogwałcenie zasady <em>Single Responsibility Principle</em> to jeszcze  <em>Dependency Inversion Principle</em> także nie jest spełnione. Klasa <code class="language-plaintext highlighter-rouge">PageCrawler</code> zleży od niskopoziomowych detali związanych z obsługą protokołu HTTP i parsowaniem HTML. Zależność ta powinna być odwrócona:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PageCrawler</span> <span class="o">{</span>
 
@@ -606,7 +606,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Poniższy przykład pokazuje wprowadzenie dwóch dodatkowych elementów. Są to odpowiednio <code class="highlighter-rouge">HTTPFetcher</code> i <code class="highlighter-rouge">HTMLTokenizer</code>. Klasy te odpowiedzialne są za ukrycie niskopoziomowych detali wymaganych przez <code class="highlighter-rouge">PageCrawler</code>. W tym przypadku <code class="highlighter-rouge">PageCrawler</code> zależy od tych dwóch klas. Odwróciłem więc zależność, teraz już wysokopoziomowa klasa (<code class="highlighter-rouge">PageCrawler</code>) nie zależy od niskopoziomowych detali (protokół HTTP czy parsowanie HTML).</p>
+<p>Poniższy przykład pokazuje wprowadzenie dwóch dodatkowych elementów. Są to odpowiednio <code class="language-plaintext highlighter-rouge">HTTPFetcher</code> i <code class="language-plaintext highlighter-rouge">HTMLTokenizer</code>. Klasy te odpowiedzialne są za ukrycie niskopoziomowych detali wymaganych przez <code class="language-plaintext highlighter-rouge">PageCrawler</code>. W tym przypadku <code class="language-plaintext highlighter-rouge">PageCrawler</code> zależy od tych dwóch klas. Odwróciłem więc zależność, teraz już wysokopoziomowa klasa (<code class="language-plaintext highlighter-rouge">PageCrawler</code>) nie zależy od niskopoziomowych detali (protokół HTTP czy parsowanie HTML).</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HTTPFetcher</span> <span class="o">{</span>
 
@@ -667,7 +667,7 @@
 <p>Dodatkowo poniżej mam dla Ciebie książkę autorstwa twórcy akronimu S.O.L.I.D. Moim zdaniem jest to jedna z obowiązkowych pozycji na liście lektur każdego programisty:</p>
 
 <ul>
-  <li><a href="http://amzn.to/2ztqaSg">The Clean Code</a><sup id="fnref:afiliacja" role="doc-noteref"><a href="#fn:afiliacja" class="footnote">2</a></sup>,</li>
+  <li><a href="http://amzn.to/2ztqaSg">The Clean Code</a><sup id="fnref:afiliacja" role="doc-noteref"><a href="#fn:afiliacja" class="footnote" rel="footnote">2</a></sup>,</li>
   <li><a href="https://github.com/SamouczekProgramisty/MaterialyRozne/tree/master/03_solid/src/main/java/pl/samouczekprogramisty/misc/solid">Przykłady użyte w treści artykułu</a>.</li>
 </ul>
 

@@ -171,7 +171,7 @@
         
       </h1>
       
-        <p class="page__lead">Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku Java. Przeczytasz o konwersji obiektów oraz typów prostych. Dowiesz się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typów do typu <code class="highlighter-rouge">String</code>. Poznasz mechanizm boxing’u oraz unboxing’u. Innymi słowy, dziś kolejna porcja informacji na temat języka Java :)
+        <p class="page__lead">Cześć! W dzisiejszym artykule przeczytasz o konwersji i rzutowaniu w języku Java. Przeczytasz o konwersji obiektów oraz typów prostych. Dowiesz się czym jest czym jest konwersja bezstratna. Przeczytasz o konwersji typów do typu <code class="language-plaintext highlighter-rouge">String</code>. Poznasz mechanizm boxing’u oraz unboxing’u. Innymi słowy, dziś kolejna porcja informacji na temat języka Java :)
 </p>
       
       
@@ -251,7 +251,7 @@
           
           <nav class="toc">
             <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Spis treści</h4></header>
-            <ul class="section-nav">
+            <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#rzutowanie">Rzutowanie</a></li>
 <li class="toc-entry toc-h2"><a href="#konwersja">Konwersja</a>
 <ul>
@@ -289,14 +289,14 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Obie referencje są typu <code class="highlighter-rouge">Object</code>, jednak druga z nich przechowuje zmienną typu <code class="highlighter-rouge">String</code>. Jest to w 100% poprawny kod. Jednak jeśli na zmiennej <code class="highlighter-rouge">stringInstance</code> chciałbyś wywołać metodę, którą implementuje klasa <code class="highlighter-rouge">String</code> a nie ma jej w klasie <code class="highlighter-rouge">Object</code> skończy się to błędem kompilacji:</p>
+<p>Obie referencje są typu <code class="language-plaintext highlighter-rouge">Object</code>, jednak druga z nich przechowuje zmienną typu <code class="language-plaintext highlighter-rouge">String</code>. Jest to w 100% poprawny kod. Jednak jeśli na zmiennej <code class="language-plaintext highlighter-rouge">stringInstance</code> chciałbyś wywołać metodę, którą implementuje klasa <code class="language-plaintext highlighter-rouge">String</code> a nie ma jej w klasie <code class="language-plaintext highlighter-rouge">Object</code> skończy się to błędem kompilacji:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error:(15, 23) java: cannot find symbol
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error:(15, 23) java: cannot find symbol
   symbol: method length()
   location: variable stringInstance of type java.lang.Object
 </code></pre></div></div>
 
-<p>Jak zatem wywołać taką metodę? Przecież jesteśmy pewni, że pod zmienną <code class="highlighter-rouge">stringInstance</code> kryje się obiekt typu <code class="highlighter-rouge">String</code>. Tutaj z pomocą przychodzi rzutowanie. Java pozwala rzutować typ A na typ B używając wyrażenia rzutowania, możesz je zobaczyć w przykładzie poniżej:</p>
+<p>Jak zatem wywołać taką metodę? Przecież jesteśmy pewni, że pod zmienną <code class="language-plaintext highlighter-rouge">stringInstance</code> kryje się obiekt typu <code class="language-plaintext highlighter-rouge">String</code>. Tutaj z pomocą przychodzi rzutowanie. Java pozwala rzutować typ A na typ B używając wyrażenia rzutowania, możesz je zobaczyć w przykładzie poniżej:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">differentTypes</span><span class="o">()</span> <span class="o">{</span>
     <span class="nc">Object</span> <span class="n">objectInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">();</span>
@@ -307,7 +307,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Oczywiście nie każde rzutowanie jest poprawne. W przykładzie poniżej możesz zobaczyć błędne rzutowanie z typu Object na typ <code class="highlighter-rouge">String</code>. Tego typu operacje kończą się wyjątkiem w trakcie wykonania programu:</p>
+<p>Oczywiście nie każde rzutowanie jest poprawne. W przykładzie poniżej możesz zobaczyć błędne rzutowanie z typu Object na typ <code class="language-plaintext highlighter-rouge">String</code>. Tego typu operacje kończą się wyjątkiem w trakcie wykonania programu:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RuntimeType</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -319,11 +319,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Exception in thread "main" java.lang.ClassCastException: java.lang.Object cannot be cast to java.lang.String
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Exception in thread "main" java.lang.ClassCastException: java.lang.Object cannot be cast to java.lang.String
   at pl.samouczekprogramisty.kursjava.RuntimeType.main(RuntimeType.java:8)
 </code></pre></div></div>
 
-<p>Wyjątek mówi tyle, że obiektu typu <code class="highlighter-rouge">java.lang.Object</code> nie możemy rzutować do typu <code class="highlighter-rouge">java.lang.String</code>. Jakie rzutowanie jest w takim razie dozwolone? Możemy rzutować wyłącznie na typ, który znajduje się <a href="/dziedziczenie-w-jezyku-java/">hierarchii dziedziczenia</a> danego obiektu. Z tego właśnie powodu rzutowanie <code class="highlighter-rouge">String</code> na <code class="highlighter-rouge">Object</code> jest dopuszczalne ale odwrotna operacja kończy się błędem.</p>
+<p>Wyjątek mówi tyle, że obiektu typu <code class="language-plaintext highlighter-rouge">java.lang.Object</code> nie możemy rzutować do typu <code class="language-plaintext highlighter-rouge">java.lang.String</code>. Jakie rzutowanie jest w takim razie dozwolone? Możemy rzutować wyłącznie na typ, który znajduje się <a href="/dziedziczenie-w-jezyku-java/">hierarchii dziedziczenia</a> danego obiektu. Z tego właśnie powodu rzutowanie <code class="language-plaintext highlighter-rouge">String</code> na <code class="language-plaintext highlighter-rouge">Object</code> jest dopuszczalne ale odwrotna operacja kończy się błędem.</p>
 
 <p>W jednym z kolejnych artykułów przeczytasz o <a href="/typy-generyczne-w-jezyku-java/">typach generycznych</a>, które pomagają rozwiązać część sytuacji, kiedy rzutowanie jest potrzebne. W codziennym programowaniu radziłbym unikać tego typu operacji. Z pewnością istnieje inny sposób napisania programu, który pozwoli na uniknięcie rzutowania.</p>
 
@@ -358,7 +358,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Dochodzi do konwersji ponieważ metoda <code class="highlighter-rouge">methodLongArgument</code> przyjmuje parametr typu <code class="highlighter-rouge">long</code>, a jedno z wywołań przyjmuje zmienną typu <code class="highlighter-rouge">int</code>. Jest to tak zwana konwersja rozszerzająca. Może być wykonana niejawnie ponieważ podczas takiej konwersji nie zachodzi ryzyko utracenia informacji (o tym dalej). Kompilator robi to automatycznie za programistę. W przykładzie powyżej zmienna <code class="highlighter-rouge">intVariable</code> została automatycznie rozszerzona do typu <code class="highlighter-rouge">long</code>. Nie utraciliśmy żadnych informacji ponieważ typ <code class="highlighter-rouge">long</code> zawsze może pomieścić liczby które przechowuje <code class="highlighter-rouge">int</code>. W przykładzie używam zmiennych statycznych <code class="highlighter-rouge">MAX_VALUE</code>, które są typu <code class="highlighter-rouge">int</code> lub <code class="highlighter-rouge">long</code> i trzymają największą liczbę możliwą do przechowywania przez dany typ.</p>
+<p>Dochodzi do konwersji ponieważ metoda <code class="language-plaintext highlighter-rouge">methodLongArgument</code> przyjmuje parametr typu <code class="language-plaintext highlighter-rouge">long</code>, a jedno z wywołań przyjmuje zmienną typu <code class="language-plaintext highlighter-rouge">int</code>. Jest to tak zwana konwersja rozszerzająca. Może być wykonana niejawnie ponieważ podczas takiej konwersji nie zachodzi ryzyko utracenia informacji (o tym dalej). Kompilator robi to automatycznie za programistę. W przykładzie powyżej zmienna <code class="language-plaintext highlighter-rouge">intVariable</code> została automatycznie rozszerzona do typu <code class="language-plaintext highlighter-rouge">long</code>. Nie utraciliśmy żadnych informacji ponieważ typ <code class="language-plaintext highlighter-rouge">long</code> zawsze może pomieścić liczby które przechowuje <code class="language-plaintext highlighter-rouge">int</code>. W przykładzie używam zmiennych statycznych <code class="language-plaintext highlighter-rouge">MAX_VALUE</code>, które są typu <code class="language-plaintext highlighter-rouge">int</code> lub <code class="language-plaintext highlighter-rouge">long</code> i trzymają największą liczbę możliwą do przechowywania przez dany typ.</p>
 
 <p>Konwersja w odwrotną stronę wymaga już jawnego rzutowania. Taka konwersja może prowadzić do utraty informacji. Proszę spójrz na przykład:</p>
 
@@ -382,12 +382,12 @@
 
 <p>Jak myślisz co zostanie wypisane na konsoli po uruchomieniu tego programu?</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2147483647
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2147483647
 -1
 2147483647
 </code></pre></div></div>
 
-<p>Dziwne prawda? :) Środkowa linijka to nic innego jak właśnie “utrata informacji”, która może zajść w trakcie jawnej konwersji<sup id="fnref:konwersja" role="doc-noteref"><a href="#fn:konwersja" class="footnote">1</a></sup>. Ostatnia linijka pokazuje, że nie każda konwersja z <code class="highlighter-rouge">long</code> do <code class="highlighter-rouge">int</code> prowadzi do utraty informacji.</p>
+<p>Dziwne prawda? :) Środkowa linijka to nic innego jak właśnie “utrata informacji”, która może zajść w trakcie jawnej konwersji<sup id="fnref:konwersja" role="doc-noteref"><a href="#fn:konwersja" class="footnote" rel="footnote">1</a></sup>. Ostatnia linijka pokazuje, że nie każda konwersja z <code class="language-plaintext highlighter-rouge">long</code> do <code class="language-plaintext highlighter-rouge">int</code> prowadzi do utraty informacji.</p>
 
 <h3 id="konwersja-typów-zmiennoprzecinkowych-do-całkowitoliczbowych">Konwersja typów zmiennoprzecinkowych do całkowitoliczbowych</h3>
 
@@ -418,16 +418,16 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Pierwsza linijka metody <code class="highlighter-rouge">main</code> to niejawna konwersja z typu <code class="highlighter-rouge">int</code> na <code class="highlighter-rouge">long</code> (literały całkowitoliczbowe domyślnie są typu <code class="highlighter-rouge">int</code>), kolejna zawiera jawne rzutowanie 123 na typ <code class="highlighter-rouge">short</code>, które następnie konwertowane jest niejawnie z powrotem na typ <code class="highlighter-rouge">int</code>. Ostatni przykład to konwersja z typu <code class="highlighter-rouge">float</code> do <code class="highlighter-rouge">double</code>.</p>
+<p>Pierwsza linijka metody <code class="language-plaintext highlighter-rouge">main</code> to niejawna konwersja z typu <code class="language-plaintext highlighter-rouge">int</code> na <code class="language-plaintext highlighter-rouge">long</code> (literały całkowitoliczbowe domyślnie są typu <code class="language-plaintext highlighter-rouge">int</code>), kolejna zawiera jawne rzutowanie 123 na typ <code class="language-plaintext highlighter-rouge">short</code>, które następnie konwertowane jest niejawnie z powrotem na typ <code class="language-plaintext highlighter-rouge">int</code>. Ostatni przykład to konwersja z typu <code class="language-plaintext highlighter-rouge">float</code> do <code class="language-plaintext highlighter-rouge">double</code>.</p>
 
 <h2 id="automatyczna-konwersja-podczas-operacji-arytmetycznych">Automatyczna konwersja podczas operacji arytmetycznych</h2>
 
 <p>Podczas operacji arytmetycznych także może dochodzić do niejawnej konwersji. Zgodnie ze <a href="https://docs.oracle.com/javase/specs/jls/se12/html/jls-5.html#jls-5.6.2">specyfikacją języka Java</a> możliwa jest konwersja (zachodzi pierwszy pasujący warunek):</p>
 <ol>
-  <li>rozszerzająca do typu <code class="highlighter-rouge">double</code> jeśli którykolwiek z elementów operacji arytmetycznej jest typu <code class="highlighter-rouge">double</code>,</li>
-  <li>rozszerzająca do typu <code class="highlighter-rouge">float</code> jeśli którykolwiek z elementów operacji jest typu <code class="highlighter-rouge">float</code>,</li>
-  <li>rozszerzająca to typu <code class="highlighter-rouge">long</code> jeśli którykolwiek z elementów operacji jest typu <code class="highlighter-rouge">long</code>,</li>
-  <li>rozszerzająca do typu <code class="highlighter-rouge">int</code>.</li>
+  <li>rozszerzająca do typu <code class="language-plaintext highlighter-rouge">double</code> jeśli którykolwiek z elementów operacji arytmetycznej jest typu <code class="language-plaintext highlighter-rouge">double</code>,</li>
+  <li>rozszerzająca do typu <code class="language-plaintext highlighter-rouge">float</code> jeśli którykolwiek z elementów operacji jest typu <code class="language-plaintext highlighter-rouge">float</code>,</li>
+  <li>rozszerzająca to typu <code class="language-plaintext highlighter-rouge">long</code> jeśli którykolwiek z elementów operacji jest typu <code class="language-plaintext highlighter-rouge">long</code>,</li>
+  <li>rozszerzająca do typu <code class="language-plaintext highlighter-rouge">int</code>.</li>
 </ol>
 
 <p>Wszystkie cztery przypadki pokazane są w przykładzie poniżej:</p>
@@ -450,7 +450,7 @@
 
 <p>Tutaj drobna dygresja, operator dzielenia (/) wykonuje w języku Java dzielenie całkowitoliczbowe jeśli dzielna i dzielnik są całkowitoliczbowe. Jeśli chcemy otrzymać typ zmiennoprzecinkowy co najmniej jeden z elementów musi być typu zmiennoprzecinkowego:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5 / 2 = 2
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5 / 2 = 2
 5.0 / 2 = 2.5
 5 / 2.0 = 2.5
 6 / 2 = 3
@@ -459,7 +459,7 @@
 
 <h2 id="boxing-i-unboxing">Boxing i unboxing</h2>
 
-<p>Jak wiesz w języku Java występują zarówno typy proste jak i obiekty reprezentujące liczby np. <code class="highlighter-rouge">int</code> i <code class="highlighter-rouge">Integer</code>. Kompilator Java jest w stanie dokonać konwersji pomiędzy odpowiadającymi sobie typami prostymi i obiektami automatycznie. Proszę spójrz na przykład poniżej</p>
+<p>Jak wiesz w języku Java występują zarówno typy proste jak i obiekty reprezentujące liczby np. <code class="language-plaintext highlighter-rouge">int</code> i <code class="language-plaintext highlighter-rouge">Integer</code>. Kompilator Java jest w stanie dokonać konwersji pomiędzy odpowiadającymi sobie typami prostymi i obiektami automatycznie. Proszę spójrz na przykład poniżej</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">primitiveInt</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">123</span><span class="o">);</span>
 <span class="kt">long</span> <span class="n">primitiveLong</span> <span class="o">=</span> <span class="nc">Long</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">123L</span><span class="o">);</span>
@@ -479,13 +479,13 @@
 
 <p>Przykłady powyżej pokazują z kolei “<em>boxing</em>”, czyli automatyczne tworzenie instancji obiektów na podstawie typów prostych.</p>
 
-<p>Podczas <em>boxingu</em>/<em>unboxingu</em> może dość do rzucenia różnych wyjątków, na przykład gdy obiekt przypisywany do typu prostego jest nullem lub gdy do typu prostego próbujemy przypisać inny obiekt (np. <code class="highlighter-rouge">Long</code> do <code class="highlighter-rouge">int</code>).</p>
+<p>Podczas <em>boxingu</em>/<em>unboxingu</em> może dość do rzucenia różnych wyjątków, na przykład gdy obiekt przypisywany do typu prostego jest nullem lub gdy do typu prostego próbujemy przypisać inny obiekt (np. <code class="language-plaintext highlighter-rouge">Long</code> do <code class="language-plaintext highlighter-rouge">int</code>).</p>
 
-<h2 id="konwersja-do-typu-string">Konwersja do typu <code class="highlighter-rouge">String</code></h2>
+<h2 id="konwersja-do-typu-string">Konwersja do typu <code class="language-plaintext highlighter-rouge">String</code></h2>
 
-<p>Konwersja do typu <code class="highlighter-rouge">String</code> jest specyficznym rodzajem konwersji automatycznej. Jest ona specyficzna ponieważ bazuje na metodzie <code class="highlighter-rouge">toString</code>, która może być przedefiniowana przez programistę. Konwersja do typu <code class="highlighter-rouge">String</code> zachodzi przy operatorze dodawania + jeśli któryś z dodawanych elementów jest typu <code class="highlighter-rouge">String</code>.</p>
+<p>Konwersja do typu <code class="language-plaintext highlighter-rouge">String</code> jest specyficznym rodzajem konwersji automatycznej. Jest ona specyficzna ponieważ bazuje na metodzie <code class="language-plaintext highlighter-rouge">toString</code>, która może być przedefiniowana przez programistę. Konwersja do typu <code class="language-plaintext highlighter-rouge">String</code> zachodzi przy operatorze dodawania + jeśli któryś z dodawanych elementów jest typu <code class="language-plaintext highlighter-rouge">String</code>.</p>
 
-<p>Typy proste także są automatycznie konwertowane do typu <code class="highlighter-rouge">String</code>, odbywa się to dwuetapowo, na początku zachodzi boxing następne obiekt konwertowany jest do typu <code class="highlighter-rouge">String</code> (wywoływana jest metoda <code class="highlighter-rouge">toString</code>).</p>
+<p>Typy proste także są automatycznie konwertowane do typu <code class="language-plaintext highlighter-rouge">String</code>, odbywa się to dwuetapowo, na początku zachodzi boxing następne obiekt konwertowany jest do typu <code class="language-plaintext highlighter-rouge">String</code> (wywoływana jest metoda <code class="language-plaintext highlighter-rouge">toString</code>).</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"123"</span> <span class="o">+</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">();</span>
 <span class="nc">String</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">()</span> <span class="o">+</span> <span class="s">"123"</span><span class="o">;</span>
@@ -495,10 +495,10 @@
 <h2 id="zadania">Zadania</h2>
 
 <ol>
-  <li>Napisz program przyjmujący od użytkownika liczbę całkowitą i wyświetl wynik mnożenia tej liczby oraz stałej pi (<code class="highlighter-rouge">Math.PI</code>). Wyświetl wynik w postaci liczby całkowitej i liczby zmiennoprzecinkowej.</li>
+  <li>Napisz program przyjmujący od użytkownika liczbę całkowitą i wyświetl wynik mnożenia tej liczby oraz stałej pi (<code class="language-plaintext highlighter-rouge">Math.PI</code>). Wyświetl wynik w postaci liczby całkowitej i liczby zmiennoprzecinkowej.</li>
   <li>Napisz program pobierający od użytkownika dwie liczby całkowite. Wyświetl wynik ich dzielenia wraz z częścią ułamkową.</li>
   <li>Napisz program, który skończy się wyjątkiem spowodowanym błędem podczas boxingu/unboxingu.</li>
-  <li>Jak myślisz co otrzymasz przypisując zmienną typu <code class="highlighter-rouge">char</code> do zmiennej typu <code class="highlighter-rouge">int</code>? Znajdziesz ten numer w <a href="https://pl.wikipedia.org/wiki/ASCII#Tabela">tabeli ASCII</a>?</li>
+  <li>Jak myślisz co otrzymasz przypisując zmienną typu <code class="language-plaintext highlighter-rouge">char</code> do zmiennej typu <code class="language-plaintext highlighter-rouge">int</code>? Znajdziesz ten numer w <a href="https://pl.wikipedia.org/wiki/ASCII#Tabela">tabeli ASCII</a>?</li>
 </ol>
 
 <p>Przygotowałem też dla Ciebie zestaw <a href="https://github.com/SamouczekProgramisty/KursJava/tree/master/11_konwersja_rzutowanie/src/main/java/pl/samouczekprogramisty/kursjava/zadanie">przykładowych rozwiązań zadań</a>, analizując je także możesz się czegoś nauczyć.</p>

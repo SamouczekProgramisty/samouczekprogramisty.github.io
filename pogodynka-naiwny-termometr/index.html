@@ -267,7 +267,7 @@
 
 <p>Pchnąłem do przodu moduł termometru. Kilka nowych linijek kodu się pojawiło, jednak “serce” czyli właściwe odczytywanie temperatury nie działa, z oczywistych względów. Aktualnie działa “naiwny” termometr, który zwraca aktualną godzinę jako wskazanie temperatury ;).</p>
 
-<p>Przy okazji tego wpisu przybliżę Ci trochę narzędzia, które są niezbędne do realizacji tej części projektu. Zacznę od <code class="highlighter-rouge">crontab'a</code>.</p>
+<p>Przy okazji tego wpisu przybliżę Ci trochę narzędzia, które są niezbędne do realizacji tej części projektu. Zacznę od <code class="language-plaintext highlighter-rouge">crontab'a</code>.</p>
 
 <div class="notice--success text-center">
   
@@ -280,13 +280,13 @@
 
 </div>
 
-<h2 id="crontab"><code class="highlighter-rouge">crontab</code></h2>
+<h2 id="crontab"><code class="language-plaintext highlighter-rouge">crontab</code></h2>
 
 <p>W systemach operacyjnych są programy, które działają w tle. Programy tego typu nazywa się serwisami lub demonami. Jednym z takich demonów w systemach z rodziny Linux jest cron. Jest to demon, który odpowiada za uruchamianie poleceń zdefiniowanych przez użytkownika z odpowiednią częstotliwością.</p>
 
-<p>Dzięki temu demonowi możesz na przykład sprawdzić aktualną temperaturę co pięć minut :). Idealne zastosowanie dla mojej pogodynki. <code class="highlighter-rouge">crontab</code> używa specyficznej składni, która pozwana na określenie kiedy dana komenda powinna być uruchamiana:</p>
+<p>Dzięki temu demonowi możesz na przykład sprawdzić aktualną temperaturę co pięć minut :). Idealne zastosowanie dla mojej pogodynki. <code class="language-plaintext highlighter-rouge">crontab</code> używa specyficznej składni, która pozwana na określenie kiedy dana komenda powinna być uruchamiana:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌───────────── minuta (0 - 59)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌───────────── minuta (0 - 59)
 │ ┌───────────── godzina (0 - 23)
 │ │ ┌───────────── dzień miesiąca (1 - 31)
 │ │ │ ┌───────────── miesiąc (1 - 12)
@@ -299,13 +299,13 @@
 
 <p>Kilka przykładów, powinno pomóc Ci lepiej zrozumieć ustawienia crontab’a:</p>
 <ul>
-  <li><code class="highlighter-rouge">* * * * * &lt;komenda&gt;</code> – uruchom komendę co minutę,</li>
-  <li><code class="highlighter-rouge">* 0 * * * &lt;komenda&gt;</code> – uruchom komendę co minutę w trakcie godziny 0,</li>
-  <li><code class="highlighter-rouge">30 17 * * * &lt;komenda&gt;</code> – uruchom komendę codziennie o 17:30,</li>
-  <li><code class="highlighter-rouge">15 4 ? * 0 &lt;komenda&gt;</code> – uruchom komendę co sobotę o 4:15,</li>
-  <li><code class="highlighter-rouge">0-15 * * * * &lt;komenda&gt;</code> – uruchom komendę co minutę w pierwszych 16 minutach każdej godziny,</li>
-  <li><code class="highlighter-rouge">0,5,10 * * * * &lt;komenda&gt;</code> – uruchom komendę w zerowej, piątek i dziesiątej minucie każdej godziny,</li>
-  <li><code class="highlighter-rouge">*/5 * * * * &lt;komenda&gt;</code> – uruchom komendę co pięć minut,</li>
+  <li><code class="language-plaintext highlighter-rouge">* * * * * &lt;komenda&gt;</code> – uruchom komendę co minutę,</li>
+  <li><code class="language-plaintext highlighter-rouge">* 0 * * * &lt;komenda&gt;</code> – uruchom komendę co minutę w trakcie godziny 0,</li>
+  <li><code class="language-plaintext highlighter-rouge">30 17 * * * &lt;komenda&gt;</code> – uruchom komendę codziennie o 17:30,</li>
+  <li><code class="language-plaintext highlighter-rouge">15 4 ? * 0 &lt;komenda&gt;</code> – uruchom komendę co sobotę o 4:15,</li>
+  <li><code class="language-plaintext highlighter-rouge">0-15 * * * * &lt;komenda&gt;</code> – uruchom komendę co minutę w pierwszych 16 minutach każdej godziny,</li>
+  <li><code class="language-plaintext highlighter-rouge">0,5,10 * * * * &lt;komenda&gt;</code> – uruchom komendę w zerowej, piątek i dziesiątej minucie każdej godziny,</li>
+  <li><code class="language-plaintext highlighter-rouge">*/5 * * * * &lt;komenda&gt;</code> – uruchom komendę co pięć minut,</li>
 </ul>
 
 <p>Właśnie ta ostatnia linijka przyda się w przypadku pogodynki – co 5 minut będę chciał pobierać aktualne wskazanie temperatury.</p>
@@ -314,7 +314,7 @@
 
 <p>W związku z tym, że zadanie sprawdzania temperatury będzie się odbywało w regularnych odstępach i będzie działo się automatycznie potrzebuję mechanizmu do monitorowania żeby zapewnić poprawnie i ciągłe działanie termometru.</p>
 
-<p>Z doświadczenia wiem, że tego typu zadania dość często płatają figle i nie wykonują się poprawnie. Postanowiłem użyć serwisu <a href="https://healthchecks.io">https://healthchecks.io</a>. Jest to darmowy serwis, który umożliwia wysyłanie stanu programu<sup id="fnref:ping" role="doc-noteref"><a href="#fn:ping" class="footnote">1</a></sup> na skonfigurowany adres URL. Serwis ten monitoruje czy takie zapytanie jest wysyłanie z odpowiednią częstotliwością.</p>
+<p>Z doświadczenia wiem, że tego typu zadania dość często płatają figle i nie wykonują się poprawnie. Postanowiłem użyć serwisu <a href="https://healthchecks.io">https://healthchecks.io</a>. Jest to darmowy serwis, który umożliwia wysyłanie stanu programu<sup id="fnref:ping" role="doc-noteref"><a href="#fn:ping" class="footnote" rel="footnote">1</a></sup> na skonfigurowany adres URL. Serwis ten monitoruje czy takie zapytanie jest wysyłanie z odpowiednią częstotliwością.</p>
 
 <p>Jak widzisz na obrazku poniżej pokazuję przykładowe ustawienia healthchecks</p>
 
@@ -338,22 +338,22 @@
 
 <p>Z artykułu, w którym opisywałem <a href="/java-z-linii-polecen/">Javę w linii poleceń</a> wiesz jak zbudować plik jar i jak uruchomić program z linii poleceń. Właśnie tę wiedzę potrzebujesz to wpisania programu uruchamianego cyklicznie do cron’a. W moim przypadku będzie to polecenie</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar /opt/pogodynka/thermometer-1.0-SNAPHSOT.jar
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar /opt/pogodynka/thermometer-1.0-SNAPHSOT.jar
 </code></pre></div></div>
 
 <p>Aby nie wypisywać długiej listy zależności i nie dodawać ich do classpath przy uruchomieniu programu użyłem tu pewnej sztuczki. Wszystkie zależności programu zostały zapakowane do jednego pliku jar. Tego typu zachowanie skonfigurowałem w pliku <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/master/thermometer/thermometer.gradle">thermometer.gradle</a>. O podstawach Gradle przeczytasz w <a href="/wstep-do-gradle/">osobnym artykule</a>.</p>
 
 <h3 id="przekazywanie-parametrów">Przekazywanie parametrów</h3>
 
-<p>Aby nie musieć kompilować kodu za każdym razem istotne ustawienia przekazywane będą jako parametry linii poleceń. Użytkownik, jego hasło czy adres gdzie ma być wysłane aktualny odczyt temperatury przekazane będą jako argumenty. “Parsowaniem” tych argumentów zajmuje się osobna klasa <code class="highlighter-rouge">Arguments</code>.</p>
+<p>Aby nie musieć kompilować kodu za każdym razem istotne ustawienia przekazywane będą jako parametry linii poleceń. Użytkownik, jego hasło czy adres gdzie ma być wysłane aktualny odczyt temperatury przekazane będą jako argumenty. “Parsowaniem” tych argumentów zajmuje się osobna klasa <code class="language-plaintext highlighter-rouge">Arguments</code>.</p>
 
 <h3 id="monitorowanie">Monitorowanie</h3>
 
-<p>Dodatkowo “zintegruję” to z wcześniej opisanym serwisem healthchecks. Z pomocą przyjdzie operator <code class="highlighter-rouge">&amp;&amp;</code> w bashu, który wykonuje to co jest po prawej stronie jeśli kod zakończenia komendy po lewej stronie jest równy 0.</p>
+<p>Dodatkowo “zintegruję” to z wcześniej opisanym serwisem healthchecks. Z pomocą przyjdzie operator <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> w bashu, który wykonuje to co jest po prawej stronie jeśli kod zakończenia komendy po lewej stronie jest równy 0.</p>
 
 <p>Zatem finalnie komenda w crontab będzie wyglądała następująco:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar /opt/pogodynka/thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword \
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar /opt/pogodynka/thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword \
 https://www.samouczekprogramisty.pl/getrealaddress &amp;&amp; \
 curl -fsS --retry 3 https://hchk.io/89941a75-5e1a-4b0b-a864-59d584e579a8
 </code></pre></div></div>
@@ -361,7 +361,7 @@ curl -fsS --retry 3 https://hchk.io/89941a75-5e1a-4b0b-a864-59d584e579a8
 <p>Magiczna część po &amp;&amp; odpowiada za wysłanie zapytania do healtchecks. Całość opakowałem w <a href="https://github.com/SamouczekProgramisty/Pogodynka/blob/45e3004e55634debd6a6c69aa29d0549d5405456/thermometer/add_to_crontab.sh">drobny skrypt</a> w bash’u, który automatyzuje dodanie wpisu do cron’a. Skrypt dostępny jest na githubie.
 Tak oto wygląda crontab po uruchomieniu tego skryptu:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ crontab -l
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ crontab -l
 */5 * * * * java -jar /opt/pogodynka/thermometer-1.0-SNAPSHOT.jar dummyUsername dummyPassword https://www.samouczekprogramisty.pl/getrealaddress &amp;&amp; curl -fsS --retry 3 https://hchk.io/89941a75-5e1a-4b0b-a864-59d584e579a8
 1 0 * * * find /var/log/pogodynka/*.log -mtime +7 -exec rm {} \;
 </code></pre></div></div>
