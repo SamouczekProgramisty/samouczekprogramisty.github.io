@@ -26,6 +26,18 @@ Domyślnie pracuj z gałęzią `source` zawiera ona źródła strony. Zbudowana 
 
 Po wykonaniu komend powyżej w katalogu `_site` będzie znajdowała się zawartość gałęzi `master`.
 
+### Aktualizacja
+
+W najprostrzym przypadku aktualizacja zależności polega wyłącznie na zmianie ich wersji w pliku `Gemfile` i instalacji:
+
+    bundle install
+
+Innym sposobem jest automatyczna aktualizacja:
+
+    bundle update
+
+W pewnych przypadkach mogą być wymagane dodatkowe zmiany w kodzie strony. Szczególnie w przypadku aktualizacji motywu `minimal-mistakes`.
+
 ## Budowanie
 
 W trakcie standardowej pracy wystarczy komenda:
