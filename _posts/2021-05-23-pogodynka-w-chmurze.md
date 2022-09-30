@@ -153,7 +153,7 @@ Starałem się maksymalnie ograniczyć liczbę komponentów żeby niepotrzebnie 
 
 W związku z przesiadką na chmurę odstawiłem w kąt Puppet'a. Tym razem użyłem Terraform'a do zarządzania wszystkimi zasobami w chmurze. Przechowywanie definicji infrastruktury jako kod ma wiele zalet. Jedną z nich jest możliwość wglądu w historię zmian. Konfiguracja w przypadku Pogodynki 2.0 nie jest skomplikowana. Możesz ją przejrzeć w [publicznym repozytorium](https://github.com/SamouczekProgramisty/pogodynka_gcp_resources).
 
-### Funkcjonalność cache
+### Funkcja cache
 
 Przy Pogodynce 1.0 zauważyłem, że elementem, który był najbardziej zawodny był dostęp do internetu w miejscu gdzie działała Pogodynka. Skutkowało to utratą wyników pomiarów wykonanych w czasie, kiedy nie było dostępu do internetu.
 
