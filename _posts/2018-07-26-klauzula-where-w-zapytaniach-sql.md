@@ -91,7 +91,7 @@ SELECT invoiceid
    AND total < 15;
 ```
 
-Następne zapytanie zwróci jedynie te wiersze, dla których kolumna `total` ma wartość `21.68`:
+Następne zapytanie zwróci jedynie te wiersze, dla których kolumna `total` ma wartość `21.86`:
 
 ```sql
 SELECT invoiceid
