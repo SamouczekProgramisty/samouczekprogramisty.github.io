@@ -31,7 +31,7 @@ Kurs jest tworzony z myślą o początkujących. Przeprowadzę Cię w nim przez 
 
 Nie wiem jak Tobie, ale mi bardzo podobają się gry z wytwórni Blizzard. Podoba mi się też ich filozofia wypuszczania nowych produktów. Nie ogłaszają dnia premiery a jedynie raportują postępy prac nad produktem.
 
-Kurs będzie dostępny jak tylko jego jakość i zawartość będzie odpowiadać moim standardom. Dzisiaj nie potrafię podać Ci dokładnej daty. Jednak na pewno nie będzie on dostępny wcześniej niż na początku 2019 roku.
+Kurs będzie dostępny jak tylko jego jakość i zawartość będzie odpowiadać moim standardom. Dzisiaj nie potrafię podać Ci dokładnej daty.
 
 ## To jak? Jesteś ze mną?
 

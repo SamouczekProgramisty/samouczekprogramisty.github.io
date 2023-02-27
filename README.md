@@ -93,7 +93,7 @@ Do tej pory używałem następujących programów:
 * [hunspell.github.io](http://hunspell.github.io) – narzędzie do sprawdzania poprawności pisowni
 * [jasnopis.pl](https://jasnopis.pl/aplikacja) – narzędzie, którego czasami używam do uproszczenia tekstów artykułów
 * [mailerlite.com](https://www.mailerlite.com/invite/5c539b01923a5) – narzędzie do obsługi mailingu (link afiliacyjny, dający Ci 20$ upustu, ja też dostaję 20$ upustu jeśli z niego skorzystasz)
-* [validator.pizza](https://www.validator.pizza) – narzędzie do sprawdzenia czy adres e-mail na liście subskrybentów jest „śmieciowy”
+* [mailcheck.ai](https://www.mailcheck.ai/) - narzędzie do sprawdzenia czy adres e-mail na liście subskrybentów jest „śmieciowy” (wcześniej `validator.pizza`)
 
 ## Ciekawe narzędzia, których jeszcze nie użyłem
 
