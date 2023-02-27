@@ -240,7 +240,7 @@ Specyfikacja mówi, że żądania typu `POST` są przetwarzane przez serwer zgod
 - dodawania nowego zasobu,
 - dodawanie danych do istniejącego zasobu.
 
-Odpowiedzi na żądania typu `POST` nie jest przechowywana w cache'u[^wyjatek].
+Odpowiedzi na żądania typu `POST` nie są przechowywane w cache'u[^wyjatek].
 
 [^wyjatek]: W większości przypadków, specyfikacja dopuszcza wyjątki od tej reguły.
 
